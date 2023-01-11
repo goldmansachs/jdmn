@@ -29,7 +29,7 @@ public class SignavioStringLibStub implements SignavioStringLib {
     }
 
     @Override
-    public String concat(List<String> texts) {
+    public String concat(List<?> texts) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

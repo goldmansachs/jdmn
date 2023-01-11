@@ -77,7 +77,7 @@ public class SignavioDateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME> implements S
     }
 
     @Override
-    public DATE dayAddDateTime(DATE_TIME dateTime, NUMBER daysToAdd) {
+    public DATE_TIME dayAddDateTime(DATE_TIME dateTime, NUMBER daysToAdd) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

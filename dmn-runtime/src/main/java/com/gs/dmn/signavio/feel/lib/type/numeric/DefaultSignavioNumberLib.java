@@ -12,17 +12,25 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import static com.gs.dmn.feel.lib.type.numeric.DefaultNumericType.MATH_CONTEXT;
 
-public class DefaultSignavioNumberLib extends DefaultNumericLib implements SignavioNumberLib<BigDecimal> {
+public class DefaultSignavioNumberLib implements SignavioNumberLib<BigDecimal> {
+    @Override
+    public BigDecimal number(String literal) {
+        if (literal == null) {
+            return null;
+        }
+
+        return new BigDecimal(literal, MATH_CONTEXT);
+    }
+
     @Override
     public BigDecimal number(String text, BigDecimal defaultValue) {
         if (text == null || defaultValue ==  null) {
@@ -38,7 +46,16 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
     }
 
     @Override
-    public BigDecimal count(List list) {
+    public BigDecimal abs(BigDecimal number) {
+        if (number == null) {
+            return null;
+        }
+
+        return number.abs();
+    }
+
+    @Override
+    public BigDecimal count(List<?> list) {
         if (list == null) {
             return null;
         }
@@ -57,16 +74,28 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
 
     @Override
     public BigDecimal ceiling(BigDecimal number) {
-        return this.ceiling(number, valueOf(0));
+        if (number == null) {
+            return null;
+        }
+
+        return number.setScale(0, RoundingMode.CEILING);
     }
 
     @Override
     public BigDecimal floor(BigDecimal number) {
-        return this.floor(number, valueOf(0));
+        if (number == null) {
+            return null;
+        }
+
+        return number.setScale(0, RoundingMode.FLOOR);
     }
 
     @Override
     public BigDecimal integer(BigDecimal number) {
+        if (number == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(number.intValue());
     }
 
@@ -76,11 +105,15 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
             return null;
         }
 
-        return dividend.remainder(divisor);
+        return dividend.remainder(divisor, MATH_CONTEXT);
     }
 
     @Override
     public BigDecimal power(BigDecimal base, BigDecimal exponent) {
+        if (base == null || exponent == null) {
+            return null;
+        }
+
         return BigDecimal.valueOf(Math.pow(base.doubleValue(), exponent.intValue()));
     }
 
@@ -91,6 +124,20 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
         }
 
         return number.divide(BigDecimal.valueOf(100), MATH_CONTEXT);
+    }
+
+    @Override
+    public BigDecimal product(List<?> numbers) {
+        if (numbers == null || numbers.isEmpty()) {
+            return null;
+        }
+
+        BigDecimal result = BigDecimal.valueOf(1);
+        for (Object e : numbers) {
+            BigDecimal number = (BigDecimal) e;
+            result = result.multiply(number);
+        }
+        return result;
     }
 
     @Override
@@ -112,12 +159,81 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
     }
 
     @Override
-    public BigDecimal avg(List<?> list) {
-        return this.mean(list);
+    public BigDecimal sum(List<?> list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        BigDecimal result = BigDecimal.valueOf(0);
+        for (Object e : list) {
+            BigDecimal number = (BigDecimal) e;
+            result = result.add(number);
+        }
+        return result;
     }
 
     @Override
-    public Object signavioMode(List numbers) {
+    public BigDecimal avg(List<?> numbers) {
+        if (numbers == null) {
+            return null;
+        }
+
+        return this.sum(numbers).divide(BigDecimal.valueOf(numbers.size()), MATH_CONTEXT);
+    }
+
+    @Override
+    public BigDecimal max(List<?> list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        BigDecimal result = (BigDecimal) list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            BigDecimal x = (BigDecimal) list.get(i);
+            if (result.compareTo(x) < 0) {
+                result = x;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public BigDecimal median(List<?> list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        Collections.sort((List<BigDecimal>)list);
+        BigDecimal median;
+        int size = list.size();
+        if (size % 2 == 0) {
+            BigDecimal first = (BigDecimal) list.get(size / 2);
+            BigDecimal second = (BigDecimal) list.get(size / 2 - 1);
+            median = first.add(second).divide(BigDecimal.valueOf(2), MATH_CONTEXT);
+        } else {
+            median = (BigDecimal) list.get(size / 2);
+        }
+        return median;
+    }
+
+    @Override
+    public BigDecimal min(List<?> list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        BigDecimal result = (BigDecimal) list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            BigDecimal x = (BigDecimal) list.get(i);
+            if (result.compareTo(x) > 0) {
+                result = x;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public BigDecimal mode(List<?> numbers) {
         Map<Object, Integer> map = new LinkedHashMap<>();
         for (Object n : numbers) {
             if (n == null) {
@@ -141,7 +257,7 @@ public class DefaultSignavioNumberLib extends DefaultNumericLib implements Signa
                 resultCounter = counter;
             }
         }
-        return resultKey;
+        return (BigDecimal) resultKey;
     }
 
     @Override

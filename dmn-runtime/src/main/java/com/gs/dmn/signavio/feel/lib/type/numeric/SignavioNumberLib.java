@@ -39,7 +39,7 @@ public interface SignavioNumberLib<NUMBER> {
 
     NUMBER power(NUMBER base, NUMBER exponent);
 
-    NUMBER product(List<?> factors);
+    NUMBER product(List<?> numbers);
 
     NUMBER roundDown(NUMBER number, NUMBER digits);
 
@@ -47,7 +47,7 @@ public interface SignavioNumberLib<NUMBER> {
 
     NUMBER sum(List<?> numbers);
 
-    NUMBER avg(List<?> list);
+    NUMBER avg(List<?> numbers);
 
     NUMBER max(List<?> numbers);
 
@@ -55,7 +55,7 @@ public interface SignavioNumberLib<NUMBER> {
 
     NUMBER min(List<?> numbers);
 
-    Object signavioMode(List<?> numbers);
+    NUMBER mode(List<?> numbers);
 
     NUMBER valueOf(long number);
 

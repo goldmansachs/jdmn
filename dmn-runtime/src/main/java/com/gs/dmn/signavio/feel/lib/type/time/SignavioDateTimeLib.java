@@ -30,7 +30,7 @@ public interface SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> {
     Long monthDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);
 
     DATE dayAdd(DATE date, NUMBER daysToAdd);
-    DATE dayAddDateTime(DATE_TIME dateTime, NUMBER daysToAdd);
+    DATE_TIME dayAddDateTime(DATE_TIME dateTime, NUMBER daysToAdd);
 
     Long dayDiff(DATE date1, DATE date2);
     Long dayDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);

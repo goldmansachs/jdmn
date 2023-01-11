@@ -262,7 +262,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Avg([number1, number2, number3]):NUMERIC
     //    Returns the average of the values of the given list.
     //    Example: Avg([3,5]) returns 4.
-    NUMBER avg(List<?> list);
+    NUMBER avg(List<?> numbers);
 
     //    Max([number1, number2, number3]):NUMERIC
     //    Returns the maximum value of the given list.
@@ -293,7 +293,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Concat([text1, text2, text3]):TEXT
     //    Returns the concatenation of the given list of text values.
     //    Example: Concat(["Hello ", "World", "!"]) returns "Hello World!".
-    String concat(List<String> texts);
+    String concat(List<?> texts);
 
     //    IsAlpha(text):BOOLEAN
     //    Determines whether the text contains only alphabetic characters (A-Z, a-z). Umlauts and

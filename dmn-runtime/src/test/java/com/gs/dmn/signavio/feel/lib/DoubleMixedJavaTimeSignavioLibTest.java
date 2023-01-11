@@ -46,8 +46,8 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
         assertNull(getLib().dayAdd((ZonedDateTime) null, makeNumber("360")));
         assertNull(getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), null));
 
-        assertEqualsDateTime("2015-12-25", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("1")));
-        assertEqualsDateTime("2016-12-18", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("360")));
+        assertEqualsDateTime("2015-12-25T12:15:00.001+01:00", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("1")));
+        assertEqualsDateTime("2016-12-18T12:15:00.001+01:00", getLib().dayAdd(makeDateAndTime("2015-12-24T12:15:00.001+01:00"), makeNumber("360")));
         assertEqualsDateTime("2015-12-25", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("1")));
         assertEqualsDateTime("2016-12-18", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("360")));
         assertEqualsDateTime("2015-12-23", getLib().dayAdd(makeDate("2015-12-24"), makeNumber("-1")));

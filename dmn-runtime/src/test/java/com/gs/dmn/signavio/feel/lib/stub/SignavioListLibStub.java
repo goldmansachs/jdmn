@@ -20,7 +20,7 @@ import java.util.List;
 
 public class SignavioListLibStub implements SignavioListLib<BigDecimal> {
     @Override
-    public <T> List<T> append(List<T> list, T... items) {
+    public <T> List<T> append(List<T> list, T item) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

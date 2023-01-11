@@ -20,24 +20,18 @@ import java.util.List;
 
 public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
     @Override
-    public <T> List<T> append(List<T> list, T... items) {
+    public <T> List<T> append(List<T> list, T item) {
         List<T> result = new ArrayList<>();
         if (list != null) {
             result.addAll(list);
         }
-        if (items != null) {
-            for (T item : items) {
-                result.add(item);
-            }
-        } else {
-            result.add(null);
-        }
+        result.add(item);
         return result;
     }
 
     @Override
-    public List appendAll(List list1, List list2) {
-        List result = new ArrayList();
+    public <T> List<T> appendAll(List<T> list1, List<T> list2) {
+        List<T> result = new ArrayList<>();
         if (list1 != null) {
             result.addAll(list1);
         }
@@ -48,12 +42,12 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
     }
 
     @Override
-    public List remove(List list, Object element) {
+    public <T> List<T> remove(List<T> list, T element) {
         if (list == null || list.isEmpty()) {
-            return new ArrayList();
+            return new ArrayList<>();
         }
-        List result = new ArrayList();
-        for(Object obj: list) {
+        List<T> result = new ArrayList<>();
+        for(T obj: list) {
             if (element == null) {
                 if (element != obj) {
                     result.add(obj);
@@ -69,17 +63,17 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
     }
 
     @Override
-    public List removeAll(List list1, List list2) {
+    public <T> List<T> removeAll(List<T> list1, List<T> list2) {
         if (list1 == null || list2 == null) {
-            return new ArrayList();
+            return new ArrayList<>();
         }
-        List result = new ArrayList(list1);
+        List<T> result = new ArrayList<>(list1);
         result.removeAll(list2);
         return result;
     }
 
     @Override
-    public Boolean notContainsAny(List list1, List list2) {
+    public Boolean notContainsAny(List<?> list1, List<?> list2) {
         if (list1 == null || list2 == null) {
             return null;
         }
@@ -92,7 +86,7 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
     }
 
     @Override
-    public Boolean containsOnly(List list1, List list2) {
+    public Boolean containsOnly(List<?> list1, List<?> list2) {
         if (list1 == null || list2 == null) {
             return null;
         }
@@ -106,7 +100,7 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
     }
 
     @Override
-    public Boolean areElementsOf(List list1, List list2) {
+    public Boolean areElementsOf(List<?> list1, List<?> list2) {
         if (list1 == null || list2 == null) {
             return null;
         }
@@ -119,13 +113,13 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
     }
 
     @Override
-    public Boolean elementOf(List list1, List list2) {
+    public Boolean elementOf(List<?> list1, List<?> list2) {
         return areElementsOf(list1, list2);
     }
 
     @Override
-    public List<?> zip(List attributes, List values) {
-        List result = new ArrayList<>();
+    public List<?> zip(List<?> attributes, List<?> values) {
+        List<Context> result = new ArrayList<>();
         if (attributes == null || values == null) {
             return result;
         }
@@ -141,7 +135,7 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
             for (int j = 0; j < attributes.size(); j++) {
                 Object key = attributes.get(j);
                 Object value = values.get(j);
-                List list = (List) value;
+                List<?> list = (List<?>) value;
                 if (i < list.size()) {
                     context.add(key, list.get(i));
                 } else {
@@ -153,11 +147,11 @@ public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
         return result;
     }
 
-    private int cardinal(List values) {
+    private int cardinal(List<?> values) {
         int card = 0;
         for (Object value : values) {
             if (value instanceof List) {
-                List list = (List) value;
+                List<?> list = (List<?>) value;
                 if (card < list.size()) {
                     card = list.size();
                 }

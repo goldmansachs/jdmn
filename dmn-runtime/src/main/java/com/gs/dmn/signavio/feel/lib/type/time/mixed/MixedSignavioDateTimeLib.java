@@ -156,8 +156,8 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
         return date.plusDays(daysToAdd.intValue());
     }
     @Override
-    public LocalDate dayAddDateTime(ZonedDateTime dateTime, Number daysToAdd) {
-        return dateTime.plusDays(daysToAdd.intValue()).toLocalDate();
+    public ZonedDateTime dayAddDateTime(ZonedDateTime dateTime, Number daysToAdd) {
+        return dateTime.plusDays(daysToAdd.intValue());
     }
 
     @Override

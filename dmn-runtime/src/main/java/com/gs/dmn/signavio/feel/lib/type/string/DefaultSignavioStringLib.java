@@ -45,18 +45,17 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
     }
 
     @Override
-    public String concat(List<String> texts) {
+    public String concat(List<?> texts) {
         if (texts == null || texts.isEmpty()) {
             return null;
         }
 
         StringBuilder result = new StringBuilder();
-        for(String text: texts) {
-            if (text == null) {
+        for (Object o: texts) {
+            if (o instanceof String) {
+                result.append(o);
+            } else {
                 return null;
-            }
-            if (text != null) {
-                result.append(text);
             }
         }
         return result.toString();

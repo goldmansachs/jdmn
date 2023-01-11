@@ -19,7 +19,7 @@ public interface SignavioStringLib {
 
     String stringAdd(String first, String second);
 
-    String concat(List<String> texts);
+    String concat(List<?> texts);
 
     String mid(String text, Number start, Number numChar);
 

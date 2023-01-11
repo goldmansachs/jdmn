@@ -215,11 +215,11 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER product(List<?> factors) {
+    public NUMBER product(List<?> numbers) {
         try {
-            return this.numberLib.product(factors);
+            return this.numberLib.product(numbers);
         } catch (Exception e) {
-            String message = String.format("product(%s)", factors);
+            String message = String.format("product(%s)", numbers);
             logError(message, e);
             return null;
         }
@@ -747,11 +747,11 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     //
 
     @Override
-    public NUMBER avg(List<?> list) {
+    public NUMBER avg(List<?> numbers) {
         try {
-            return this.numberLib.avg(list);
+            return this.numberLib.avg(numbers);
         } catch (Exception e) {
-            String message = String.format("avg(%s)", list);
+            String message = String.format("avg(%s)", numbers);
             logError(message, e);
             return null;
         }
@@ -793,7 +793,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     @Override
     public NUMBER mode(List<?> numbers) {
         try {
-            return (NUMBER) this.numberLib.signavioMode(numbers);
+            return this.numberLib.mode(numbers);
         } catch (Exception e) {
             String message = String.format("mode(%s)", numbers);
             logError(message, e);
@@ -827,7 +827,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public String concat(List<String> texts) {
+    public String concat(List<?> texts) {
         try {
             return this.stringLib.concat(texts);
         } catch (Exception e) {

@@ -120,7 +120,7 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
         }
     }
 
-    public LocalDate dayAdd(ZonedDateTime dateTime, Double daysToAdd) {
+    public ZonedDateTime dayAdd(ZonedDateTime dateTime, Double daysToAdd) {
         try {
             return this.dateTimeLib.dayAddDateTime(dateTime, daysToAdd);
         } catch (Exception e) {

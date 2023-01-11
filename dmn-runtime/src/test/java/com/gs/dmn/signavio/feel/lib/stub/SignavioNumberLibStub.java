@@ -74,7 +74,7 @@ public class SignavioNumberLibStub<NUMBER> implements SignavioNumberLib<NUMBER> 
     }
 
     @Override
-    public NUMBER product(List<?> factors) {
+    public NUMBER product(List<?> numbers) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -94,7 +94,7 @@ public class SignavioNumberLibStub<NUMBER> implements SignavioNumberLib<NUMBER> 
     }
 
     @Override
-    public NUMBER avg(List<?> list) {
+    public NUMBER avg(List<?> numbers) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -114,7 +114,7 @@ public class SignavioNumberLibStub<NUMBER> implements SignavioNumberLib<NUMBER> 
     }
 
     @Override
-    public Object signavioMode(List<?> numbers) {
+    public NUMBER mode(List<?> numbers) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

@@ -12,15 +12,23 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.numeric.DoubleNumericLib;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DoubleSignavioNumberLib extends DoubleNumericLib implements SignavioNumberLib<Double> {
+public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
+    @Override
+    public Double number(String literal) {
+        if (literal == null) {
+            return null;
+        }
+
+        return Double.parseDouble(literal);
+    }
+
     @Override
     public Double number(String text, Double defaultValue) {
         if (text == null || defaultValue ==  null) {
@@ -33,6 +41,15 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
         } catch (Exception e) {
         }
         return number != null ? number : defaultValue;
+    }
+
+    @Override
+    public Double abs(Double number) {
+        if (number == null) {
+            return null;
+        }
+
+        return Math.abs(number);
     }
 
     @Override
@@ -55,16 +72,28 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
 
     @Override
     public Double ceiling(Double number) {
-        return this.ceiling(number, valueOf(0));
+        if (number == null) {
+            return null;
+        }
+
+        return BigDecimal.valueOf(number).setScale(0, RoundingMode.CEILING).doubleValue();
     }
 
     @Override
     public Double floor(Double number) {
-        return this.floor(number, valueOf(0));
+        if (number == null) {
+            return null;
+        }
+
+        return BigDecimal.valueOf(number).setScale(0, RoundingMode.FLOOR).doubleValue();
     }
 
     @Override
     public Double integer(Double number) {
+        if (number == null) {
+            return null;
+        }
+
         return Double.valueOf(number.intValue());
     }
 
@@ -79,6 +108,10 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
 
     @Override
     public Double power(Double base, Double exponent) {
+        if (base == null || exponent == null) {
+            return null;
+        }
+
         return Math.pow(base, exponent.intValue());
     }
 
@@ -89,6 +122,20 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
         }
 
         return number / 100;
+    }
+
+    @Override
+    public Double product(List<?> numbers) {
+        if (numbers == null || numbers.isEmpty()) {
+            return null;
+        }
+
+        Double result = 1.0;
+        for (Object e : numbers) {
+            Double number = (Double) e;
+            result = result * number;
+        }
+        return result;
     }
 
     @Override
@@ -110,12 +157,81 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
     }
 
     @Override
-    public Double avg(List<?> list) {
-        return this.mean(list);
+    public Double sum(List<?> list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        Double result = Double.valueOf(0);
+        for (Object e : list) {
+            Double number = (Double) e;
+            result = result + number;
+        }
+        return result;
     }
 
     @Override
-    public Object signavioMode(List numbers) {
+    public Double avg(List<?> numbers) {
+        if (numbers == null) {
+            return null;
+        }
+
+        return this.sum(numbers) / numbers.size();
+    }
+
+    @Override
+    public Double max(List<?> list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        Double result = (Double) list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            Double x = (Double) list.get(i);
+            if (result.compareTo(x) < 0) {
+                result = x;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Double median(List<?> list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        Collections.sort((List<Double>)list);
+        Double median;
+        int size = list.size();
+        if (size % 2 == 0) {
+            Double first = (Double) list.get(size / 2);
+            Double second = (Double) list.get(size / 2 - 1);
+            median = (first + second) / 2;
+        } else {
+            median = (Double) list.get(size / 2);
+        }
+        return median;
+    }
+
+    @Override
+    public Double min(List<?> list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        Double result = (Double) list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            Double x = (Double) list.get(i);
+            if (result.compareTo(x) > 0) {
+                result = x;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Double mode(List<?> numbers) {
         Map<Object, Integer> map = new LinkedHashMap<>();
         for (Object n : numbers) {
             if (n == null) {
@@ -139,7 +255,7 @@ public class DoubleSignavioNumberLib extends DoubleNumericLib implements Signavi
                 resultCounter = counter;
             }
         }
-        return resultKey;
+        return (Double) resultKey;
     }
 
     @Override
