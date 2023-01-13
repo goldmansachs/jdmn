@@ -63,7 +63,7 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
         testFunctionInvocation("day(" + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), number)", false);
         testFunctionInvocation("dayAdd(null, null)", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), FormalParameter(days_to_add, number, false, false), date)", false);
         testFunctionInvocation("dayAdd(" + date + ", " + number + ")", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), FormalParameter(days_to_add, number, false, false), date)", false);
-        testFunctionInvocation("dayAdd(" + dateTime + ", " + number + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), FormalParameter(days_to_add, number, false, false), date)", false);
+        testFunctionInvocation("dayAdd(" + dateTime + ", " + number + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), FormalParameter(days_to_add, number, false, false), date and time)", false);
         testFunctionInvocation("dayDiff(null, null)", "BuiltinFunctionType(FormalParameter(datetime1, date, false, false), FormalParameter(datetime2, date, false, false), number)", false);
         testFunctionInvocation("dayDiff(" + date + ", " + date + ")", "BuiltinFunctionType(FormalParameter(datetime1, date, false, false), FormalParameter(datetime2, date, false, false), number)", false);
         testFunctionInvocation("dayDiff(" + dateTime + ", " + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime1, date and time, false, false), FormalParameter(datetime2, date and time, false, false), number)", false);
@@ -89,7 +89,7 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
         testFunctionInvocation("month(" + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), number)", false);
         testFunctionInvocation("monthAdd(null, null)", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), FormalParameter(months_to_add, number, false, false), date)", false);
         testFunctionInvocation("monthAdd(" + date + ", " + number + ")", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), FormalParameter(months_to_add, number, false, false), date)", false);
-        testFunctionInvocation("monthAdd(" + dateTime + ", " + number + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), FormalParameter(months_to_add, number, false, false), date)", false);
+        testFunctionInvocation("monthAdd(" + dateTime + ", " + number + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), FormalParameter(months_to_add, number, false, false), date and time)", false);
         testFunctionInvocation("monthDiff(null, null)", "BuiltinFunctionType(FormalParameter(datetime1, date, false, false), FormalParameter(datetime2, date, false, false), number)", false);
         testFunctionInvocation("monthDiff(" + date + ", " + date + ")", "BuiltinFunctionType(FormalParameter(datetime1, date, false, false), FormalParameter(datetime2, date, false, false), number)", false);
         testFunctionInvocation("monthDiff(" + dateTime + ", " + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime1, date and time, false, false), FormalParameter(datetime2, date and time, false, false), number)", false);
@@ -101,8 +101,8 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
         testFunctionInvocation("year(null)", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), number)", false);
         testFunctionInvocation("year(" + date + ")", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), number)", false);
         testFunctionInvocation("year(" + dateTime + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), number)", false);
-        testFunctionInvocation("yearAdd(null, null)", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), FormalParameter(years_to_add, number, false, false), date and time)", false);
-        testFunctionInvocation("yearAdd(" + date + ", " + number + ")", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), FormalParameter(years_to_add, number, false, false), date and time)", false);
+        testFunctionInvocation("yearAdd(null, null)", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), FormalParameter(years_to_add, number, false, false), date)", false);
+        testFunctionInvocation("yearAdd(" + date + ", " + number + ")", "BuiltinFunctionType(FormalParameter(datetime, date, false, false), FormalParameter(years_to_add, number, false, false), date)", false);
         testFunctionInvocation("yearAdd(" + dateTime + ", " + number + ")", "BuiltinFunctionType(FormalParameter(datetime, date and time, false, false), FormalParameter(years_to_add, number, false, false), date and time)", false);
         testFunctionInvocation("yearDiff(null, null)", "BuiltinFunctionType(FormalParameter(datetime1, date, false, false), FormalParameter(datetime2, date, false, false), number)", false);
         testFunctionInvocation("yearDiff(" + date + ", " + date + ")", "BuiltinFunctionType(FormalParameter(datetime1, date, false, false), FormalParameter(datetime2, date, false, false), number)", false);
