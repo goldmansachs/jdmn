@@ -131,16 +131,6 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
         }
     }
 
-    public BigDecimal dayDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.dayDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("dayDiff(%s, %s)", dateTime1, dateTime2);
-            logError(message, e);
-            return null;
-        }
-    }
-
     public BigDecimal hour(ZonedDateTime dateTime) {
         try {
             return valueOf(this.dateTimeLib.hourDateTime(dateTime));
@@ -151,31 +141,11 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
         }
     }
 
-    public BigDecimal hourDiff(ZonedDateTime time1, ZonedDateTime time2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.hourDiffDateTime(time1, time2));
-        } catch (Exception e) {
-            String message = String.format("hourDiff(%s, %s)", time1, time2);
-            logError(message, e);
-            return null;
-        }
-    }
-
     public BigDecimal minute(ZonedDateTime dateTime) {
         try {
             return valueOf(this.dateTimeLib.minuteDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("minute(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal minutesDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.minutesDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("minutesDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
             return null;
         }
@@ -196,16 +166,6 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
             return this.dateTimeLib.monthAddDateTime(dateTime, monthsToAdd);
         } catch (Exception e) {
             String message = String.format("monthAdd(%s, %s)", dateTime, monthsToAdd);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal monthDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.monthDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("monthDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
             return null;
         }
@@ -236,16 +196,6 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
             return this.dateTimeLib.yearAddDateTime(dateTime, yearsToAdd);
         } catch (Exception e) {
             String message = String.format("yearAdd(%s, %s)", dateTime, yearsToAdd);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal yearDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.yearDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
             return null;
         }

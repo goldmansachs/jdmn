@@ -130,16 +130,6 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
         }
     }
 
-    public Double dayDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return Double.valueOf(this.dateTimeLib.dayDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("dayDiff(%s, %s)", dateTime1, dateTime2);
-            logError(message, e);
-            return null;
-        }
-    }
-
     public Double hour(ZonedDateTime dateTime) {
         try {
             return valueOf(this.dateTimeLib.hourDateTime(dateTime));
@@ -150,31 +140,11 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
         }
     }
 
-    public Double hourDiff(ZonedDateTime time1, ZonedDateTime time2) {
-        try {
-            return valueOf(this.dateTimeLib.hourDiffDateTime(time1, time2));
-        } catch (Exception e) {
-            String message = String.format("hourDiff(%s, %s)", time1, time2);
-            logError(message, e);
-            return null;
-        }
-    }
-
     public Double minute(ZonedDateTime dateTime) {
         try {
             return valueOf(this.dateTimeLib.minuteDateTime(dateTime));
         } catch (Exception e) {
             String message = String.format("minute(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public Double minutesDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return valueOf(this.dateTimeLib.minutesDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("minutesDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
             return null;
         }
@@ -195,16 +165,6 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
             return this.dateTimeLib.monthAddDateTime(dateTime, monthsToAdd);
         } catch (Exception e) {
             String message = String.format("monthAdd(%s, %s)", dateTime, monthsToAdd);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public Double monthDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return valueOf(this.dateTimeLib.monthDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("monthDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
             return null;
         }
@@ -235,16 +195,6 @@ public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, Loca
             return this.dateTimeLib.yearAddDateTime(dateTime, yearsToAdd);
         } catch (Exception e) {
             String message = String.format("yearAdd(%s, %s)", dateTime, yearsToAdd);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public Double yearDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return valueOf(this.dateTimeLib.yearDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
             logError(message, e);
             return null;
         }

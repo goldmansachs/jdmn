@@ -42,12 +42,7 @@ public class SignavioDateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME> implements S
     }
 
     @Override
-    public Long yearDiff(DATE date1, DATE date2) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public Long yearDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2) {
+    public Long yearDiff(Object date1, Object date2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -62,12 +57,7 @@ public class SignavioDateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME> implements S
     }
 
     @Override
-    public Long monthDiff(DATE date1, DATE date2) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public Long monthDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2) {
+    public Long monthDiff(Object date1, Object date2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -82,32 +72,17 @@ public class SignavioDateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME> implements S
     }
 
     @Override
-    public Long dayDiff(DATE date1, DATE date2) {
+    public Long dayDiff(Object date1, Object date2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Long dayDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2) {
+    public Long hourDiff(Object time1, Object time2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Long hourDiff(TIME time1, TIME time2) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public Long hourDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public Long minutesDiff(TIME time1, TIME time2) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public Long minutesDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2) {
+    public Long minutesDiff(Object time1, Object time2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

@@ -14,22 +14,25 @@ package com.gs.dmn.signavio.feel;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.EnvironmentEntry;
-import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import org.junit.Test;
 
 import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
-public class SignavioFEELProcessorTest extends AbstractSignavioFEELProcessorTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public class MixedSignavioFEELProcessorTest extends AbstractSignavioFEELProcessorTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> makeDialect() {
-        return new SignavioDMNDialectDefinition();
+    protected DMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration, TestLab> makeDialect() {
+        return new MixedJavaTimeSignavioDMNDialectDefinition();
     }
 
     @Test
@@ -58,20 +61,20 @@ public class SignavioFEELProcessorTest extends AbstractSignavioFEELProcessorTest
         doExpressionTest(entries, "", "date(\"2011-01-03\") instance of date",
                 "InstanceOfExpression(DateTimeLiteral(date, \"2011-01-03\"), NamedTypeExpression(date))",
                 "boolean",
-                "date(\"2011-01-03\") instanceof javax.xml.datatype.XMLGregorianCalendar",
-                this.lib.date("2011-01-03") instanceof javax.xml.datatype.XMLGregorianCalendar,
+                "date(\"2011-01-03\") instanceof java.time.LocalDate",
+                this.lib.date("2011-01-03") instanceof java.time.LocalDate,
                 true);
         doExpressionTest(entries, "", "time(\"12:00:00Z\") instance of time",
                 "InstanceOfExpression(DateTimeLiteral(time, \"12:00:00Z\"), NamedTypeExpression(time))",
                 "boolean",
-                "time(\"12:00:00Z\") instanceof javax.xml.datatype.XMLGregorianCalendar",
-                this.lib.time("12:00:00Z") instanceof javax.xml.datatype.XMLGregorianCalendar,
+                "time(\"12:00:00Z\") instanceof java.time.OffsetTime",
+                this.lib.time("12:00:00Z") instanceof java.time.OffsetTime,
                 true);
         doExpressionTest(entries, "", "date and time(\"2016-03-01T12:00:00Z\") instance of date and time",
                 "InstanceOfExpression(DateTimeLiteral(date and time, \"2016-03-01T12:00:00Z\"), NamedTypeExpression(date and time))",
                 "boolean",
-                "dateAndTime(\"2016-03-01T12:00:00Z\") instanceof javax.xml.datatype.XMLGregorianCalendar",
-                this.lib.dateAndTime("2016-03-01T12:00:00Z") instanceof javax.xml.datatype.XMLGregorianCalendar,
+                "dateAndTime(\"2016-03-01T12:00:00Z\") instanceof java.time.ZonedDateTime",
+                this.lib.dateAndTime("2016-03-01T12:00:00Z") instanceof java.time.ZonedDateTime,
                 true);
         doExpressionTest(entries, "", "duration(\"P1Y1M\") instance of years and months duration",
                 "InstanceOfExpression(DateTimeLiteral(duration, \"P1Y1M\"), NamedTypeExpression(years and months duration))",
@@ -92,4 +95,26 @@ public class SignavioFEELProcessorTest extends AbstractSignavioFEELProcessorTest
                 null,
                 null);
     }
+
+    @Test
+    public void testFunctionInvocation() {
+        super.testFunctionInvocation();
+
+        LocalDate date = this.lib.date("2018-08-02");
+        ZonedDateTime dateTime = this.lib.dateAndTime("2019-10-05T20:00:00");
+
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("date", com.gs.dmn.feel.analysis.semantics.type.DateType.DATE, date),
+                new EnvironmentEntry("dateTime", DATE_AND_TIME, dateTime)
+        );
+
+        // diff functions
+        doExpressionTest(entries, "", "yearDiff(date, dateTime)",
+                "FunctionInvocation(Name(yearDiff) -> PositionalParameters(Name(date), Name(dateTime)))",
+                "number",
+                "yearDiff(date, dateTime)",
+                this.lib.yearDiff(date, dateTime),
+                this.lib.number("1"));
+    }
+
 }

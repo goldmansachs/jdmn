@@ -129,14 +129,9 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     }
 
     @Override
-    public Long yearDiff(XMLGregorianCalendar date1, XMLGregorianCalendar date2) {
-        Period period = periodBetween(date1, date2);
+    public Long yearDiff(Object date1, Object date2) {
+        Period period = periodBetween((XMLGregorianCalendar) date1, (XMLGregorianCalendar) date2);
         return (long) period.getYears();
-    }
-
-    @Override
-    public Long yearDiffDateTime(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        return yearDiff(dateTime1, dateTime2);
     }
 
     @Override
@@ -153,14 +148,9 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     }
 
     @Override
-    public Long monthDiff(XMLGregorianCalendar date1, XMLGregorianCalendar date2) {
-        Period period = periodBetween(date1, date2);
+    public Long monthDiff(Object date1, Object date2) {
+        Period period = periodBetween((XMLGregorianCalendar) date1, (XMLGregorianCalendar) date2);
         return period.toTotalMonths();
-    }
-
-    @Override
-    public Long monthDiffDateTime(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        return monthDiff(dateTime1, dateTime2);
     }
 
     @Override
@@ -177,14 +167,9 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     }
 
     @Override
-    public Long dayDiff(XMLGregorianCalendar date1, XMLGregorianCalendar date2) {
-        java.time.Duration duration = durationBetween(date1, date2);
+    public Long dayDiff(Object date1, Object date2) {
+        java.time.Duration duration = durationBetween((XMLGregorianCalendar) date1, (XMLGregorianCalendar) date2);
         return duration == null ? null : duration.getSeconds() / (60 * 60 * 24);
-    }
-
-    @Override
-    public Long dayDiffDateTime(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        return dayDiff(dateTime1, dateTime2);
     }
 
     @Override
@@ -207,25 +192,15 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     }
 
     @Override
-    public Long hourDiff(XMLGregorianCalendar time1, XMLGregorianCalendar time2) {
-        Duration duration = durationBetween(time1, time2);
+    public Long hourDiff(Object time1, Object time2) {
+        Duration duration = durationBetween((XMLGregorianCalendar) time1, (XMLGregorianCalendar) time2);
         return duration == null ? null : duration.getSeconds() / (60 * 60);
     }
 
     @Override
-    public Long hourDiffDateTime(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        return hourDiff(dateTime1, dateTime2);
-    }
-
-    @Override
-    public Long minutesDiff(XMLGregorianCalendar time1, XMLGregorianCalendar time2) {
-        Duration duration = durationBetween(time1, time2);
+    public Long minutesDiff(Object time1, Object time2) {
+        Duration duration = durationBetween((XMLGregorianCalendar) time1, (XMLGregorianCalendar) time2);
         return duration == null ? null : duration.getSeconds() / 60;
-    }
-
-    @Override
-    public Long minutesDiffDateTime(XMLGregorianCalendar dateTime1, XMLGregorianCalendar dateTime2) {
-        return minutesDiff(dateTime1, dateTime2);
     }
 
     @Override

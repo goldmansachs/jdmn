@@ -317,7 +317,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER dayDiff(DATE date1, DATE date2) {
+    public NUMBER dayDiff(Object date1, Object date2) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.dayDiff(date1, date2));
         } catch (Exception e) {
@@ -398,7 +398,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER hourDiff(TIME time1, TIME time2) {
+    public NUMBER hourDiff(Object time1, Object time2) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.hourDiff(time1, time2));
         } catch (Exception e) {
@@ -420,7 +420,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER minutesDiff(TIME time1, TIME time2) {
+    public NUMBER minutesDiff(Object time1, Object time2) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.minutesDiff(time1, time2));
         } catch (Exception e) {
@@ -453,7 +453,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER monthDiff(DATE date1, DATE date2) {
+    public NUMBER monthDiff(Object date1, Object date2) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.monthDiff(date1, date2));
         } catch (Exception e) {
@@ -519,7 +519,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER yearDiff(DATE dateTime1, DATE dateTime2) {
+    public NUMBER yearDiff(Object dateTime1, Object dateTime2) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.yearDiff(dateTime1, dateTime2));
         } catch (Exception e) {

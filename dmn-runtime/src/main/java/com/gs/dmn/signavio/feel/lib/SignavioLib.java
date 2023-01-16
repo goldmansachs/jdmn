@@ -124,7 +124,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the amount of days between two days.
     //    Example: DayDiff(2015-12-24T12:15:00.000+01:00, 2015-12-25T12:15:00.000+01:00)
     //    returns 1.
-    NUMBER dayDiff(DATE date1, DATE date2);
+    NUMBER dayDiff(Object date1, Object date2);
 
     //    Date(day, month, year):DATE
     //    Returns a date using the standard parameters of a date: day, month, year
@@ -148,7 +148,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Return the number of hours between two datetimes.
     //    Example: HourDiff(2015-12-24T12:15:00.000+01:00, 2015-12-24T14:15:00.000+01:00)
     //    returns 2.
-    NUMBER hourDiff(TIME time1, TIME time2);
+    NUMBER hourDiff(Object time1, Object time2);
 
     //    Minute(time):NUMERIC
     //    Returns the minute part of a datetime.
@@ -159,7 +159,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Return the number of minutes between two datetimes.
     //    Example: MinutesDiff(2015-12-24T12:15:00.000+01:00,
     //                         2015-12-24T13:15:00.000+01:00) returns 60.
-    NUMBER minutesDiff(TIME time1, TIME time2);
+    NUMBER minutesDiff(Object time1, Object time2);
 
     //    Month(datetime):NUMERIC
     //    Returns the month part of a datetime.
@@ -176,7 +176,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Return the number of month between two datetimes.
     //    Example: MonthDiff(2015-10-10T12:15:00.000+01:00, 2015-11-10T12:15:00.000+01:00)
     //    returns 1.
-    NUMBER monthDiff(DATE date1, DATE date2);
+    NUMBER monthDiff(Object date1, Object date2);
 
     //    Now():DATE_TIME
     //    Returns current datetime.
@@ -208,7 +208,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the number of years between two datetimes.
     //    Example: YearDiff(2016-02-09T12:15:00.000+01:00, 2017-02-09T12:15:00.000+01:00)
     //    returns 1.
-    NUMBER yearDiff(DATE date1, DATE date2);
+    NUMBER yearDiff(Object date1, Object date2);
 
     //
     // List operations

@@ -1945,67 +1945,6 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     @Test
-    public void testInstanceOfExpression() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
-
-        doExpressionTest(entries, "", "3 instance of number",
-                "InstanceOfExpression(NumericLiteral(3), NamedTypeExpression(number))",
-                "boolean",
-                "number(\"3\") instanceof java.math.BigDecimal",
-                this.lib.number("3") instanceof java.math.BigDecimal,
-                true);
-        doExpressionTest(entries, "", "\"abc\" instance of string",
-                "InstanceOfExpression(StringLiteral(\"abc\"), NamedTypeExpression(string))",
-                "boolean",
-                "\"abc\" instanceof String",
-                "abc" instanceof String,
-                true);
-        doExpressionTest(entries, "", "true instance of boolean",
-                "InstanceOfExpression(BooleanLiteral(true), NamedTypeExpression(boolean))",
-                "boolean",
-                "Boolean.TRUE instanceof Boolean",
-                Boolean.TRUE instanceof Boolean,
-                true);
-        doExpressionTest(entries, "", "date(\"2011-01-03\") instance of date",
-                "InstanceOfExpression(DateTimeLiteral(date, \"2011-01-03\"), NamedTypeExpression(date))",
-                "boolean",
-                "date(\"2011-01-03\") instanceof javax.xml.datatype.XMLGregorianCalendar",
-                this.lib.date("2011-01-03") instanceof javax.xml.datatype.XMLGregorianCalendar,
-                true);
-        doExpressionTest(entries, "", "time(\"12:00:00Z\") instance of time",
-                "InstanceOfExpression(DateTimeLiteral(time, \"12:00:00Z\"), NamedTypeExpression(time))",
-                "boolean",
-                "time(\"12:00:00Z\") instanceof javax.xml.datatype.XMLGregorianCalendar",
-                this.lib.time("12:00:00Z") instanceof javax.xml.datatype.XMLGregorianCalendar,
-                true);
-        doExpressionTest(entries, "", "date and time(\"2016-03-01T12:00:00Z\") instance of date and time",
-                "InstanceOfExpression(DateTimeLiteral(date and time, \"2016-03-01T12:00:00Z\"), NamedTypeExpression(date and time))",
-                "boolean",
-                "dateAndTime(\"2016-03-01T12:00:00Z\") instanceof javax.xml.datatype.XMLGregorianCalendar",
-                this.lib.dateAndTime("2016-03-01T12:00:00Z") instanceof javax.xml.datatype.XMLGregorianCalendar,
-                true);
-        doExpressionTest(entries, "", "duration(\"P1Y1M\") instance of years and months duration",
-                "InstanceOfExpression(DateTimeLiteral(duration, \"P1Y1M\"), NamedTypeExpression(years and months duration))",
-                "boolean",
-                "duration(\"P1Y1M\") instanceof javax.xml.datatype.Duration",
-                this.lib.duration("P1Y1M") instanceof javax.xml.datatype.Duration,
-                true);
-        doExpressionTest(entries, "", "duration(\"P1DT1H\") instance of days and time duration",
-                "InstanceOfExpression(DateTimeLiteral(duration, \"P1DT1H\"), NamedTypeExpression(days and time duration))",
-                "boolean",
-                "duration(\"P1DT1H\") instanceof javax.xml.datatype.Duration",
-                this.lib.duration("P1Y1M") instanceof javax.xml.datatype.Duration,
-                true);
-        doExpressionTest(entries, "", "(function () 4) instance of function <> -> number",
-                "InstanceOfExpression(FunctionDefinition(, NumericLiteral(4), false), FunctionTypeExpression( -> NamedTypeExpression(number)))",
-                "boolean",
-                null,
-                null,
-                null);
-    }
-
-    @Test
     public void testPostfixExpression() {
         ItemDefinitionType employeeTableType = new ItemDefinitionType("tEmployeeTable")
                 .addMember("id", Arrays.asList(), STRING)

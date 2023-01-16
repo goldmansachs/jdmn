@@ -19,6 +19,7 @@ import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 
 public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements SignavioDateTimeLib<Number, LocalDate, OffsetTime, ZonedDateTime> {
     private static final MixedDateTimeLib MIXED_DATE_TIME_LIB = new MixedDateTimeLib();
@@ -128,20 +129,12 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
     }
 
     @Override
-    public Long yearDiff(LocalDate date1, LocalDate date2) {
+    public Long yearDiff(Object date1, Object date2) {
         if (!SignavioUtil.areNullSafe(date1, date2)) {
             return null;
         }
 
-        return ChronoUnit.YEARS.between(date1, date2);
-    }
-    @Override
-    public Long yearDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        if (!SignavioUtil.areNullSafe(dateTime1, dateTime2)) {
-            return null;
-        }
-
-        return yearDiff(dateTime1.toLocalDate(), dateTime2.toLocalDate());
+        return ChronoUnit.YEARS.between(toDate(date1), toDate(date2));
     }
 
     @Override
@@ -162,20 +155,12 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
     }
 
     @Override
-    public Long monthDiff(LocalDate date1, LocalDate date2) {
+    public Long monthDiff(Object date1, Object date2) {
         if (!SignavioUtil.areNullSafe(date1, date2)) {
             return null;
         }
 
-        return ChronoUnit.MONTHS.between(date1, date2);
-    }
-    @Override
-    public Long monthDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        if (!SignavioUtil.areNullSafe(dateTime1, dateTime2)) {
-            return null;
-        }
-
-        return ChronoUnit.MONTHS.between(dateTime1.toLocalDate(), dateTime2.toLocalDate());
+        return ChronoUnit.MONTHS.between(toDate(date1), toDate(date2));
     }
 
     @Override
@@ -196,56 +181,30 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
     }
 
     @Override
-    public Long dayDiff(LocalDate date1, LocalDate date2) {
+    public Long dayDiff(Object date1, Object date2) {
         if (!SignavioUtil.areNullSafe(date1, date2)) {
             return null;
         }
 
-        return ChronoUnit.DAYS.between(date1, date2);
+        return ChronoUnit.DAYS.between(toDate(date1), toDate(date2));
     }
 
     @Override
-    public Long dayDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        if (!SignavioUtil.areNullSafe(dateTime1, dateTime2)) {
-            return null;
-        }
-
-        return ChronoUnit.DAYS.between(dateTime1.toLocalDate(), dateTime2.toLocalDate());
-    }
-
-    @Override
-    public Long hourDiff(OffsetTime time1, OffsetTime time2) {
+    public Long hourDiff(Object time1, Object time2) {
         if (!SignavioUtil.areNullSafe(time1, time2)) {
             return null;
         }
 
-        return Duration.between(time1, time2).toHours();
+        return Duration.between((Temporal) time1, (Temporal) time2).toHours();
     }
 
     @Override
-    public Long hourDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        if (!SignavioUtil.areNullSafe(dateTime1, dateTime2)) {
-            return null;
-        }
-
-        return Duration.between(dateTime1, dateTime2).toHours();
-    }
-
-    @Override
-    public Long minutesDiff(OffsetTime time1, OffsetTime time2) {
+    public Long minutesDiff(Object time1, Object time2) {
         if (!SignavioUtil.areNullSafe(time1, time2)) {
             return null;
         }
 
-        return Duration.between(time1, time2).toMinutes();
-    }
-    @Override
-    public Long minutesDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        if (!SignavioUtil.areNullSafe(dateTime1, dateTime2)) {
-            return null;
-        }
-
-        return Duration.between(dateTime1, dateTime2).toMinutes();
+        return Duration.between((Temporal) time1, (Temporal) time2).toMinutes();
     }
 
     @Override
