@@ -195,7 +195,12 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
             return null;
         }
 
-        return Duration.between((Temporal) time1, (Temporal) time2).toHours();
+        if (time1 instanceof ZonedDateTime && time2 instanceof OffsetTime) {
+            // between() is not symmetric, converts second to first
+            return - Duration.between((Temporal) time2, (Temporal) time1).toHours();
+        } else {
+            return Duration.between((Temporal) time1, (Temporal) time2).toHours();
+        }
     }
 
     @Override
@@ -204,7 +209,12 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
             return null;
         }
 
-        return Duration.between((Temporal) time1, (Temporal) time2).toMinutes();
+        if (time1 instanceof ZonedDateTime && time2 instanceof OffsetTime) {
+            // between() is not symmetric, converts second to first
+            return - Duration.between((Temporal) time2, (Temporal) time1).toMinutes();
+        } else {
+            return Duration.between((Temporal) time1, (Temporal) time2).toMinutes();
+        }
     }
 
     @Override

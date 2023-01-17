@@ -115,6 +115,7 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
         assertEquals(makeNumber("27"), getLib().hourDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-25T15:15:00.000+01:00")));
         assertEquals(makeNumber("-24"), getLib().hourDiff(makeDateAndTime("2015-12-25T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
         assertEquals(makeNumber("-27"), getLib().hourDiff(makeDateAndTime("2015-12-25T15:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
+        assertEquals(makeNumber("8757"), getLib().hourDiff(makeDateAndTime("2015-12-25T15:15:00.000+01:00"), makeDateAndTime("2016-12-24T12:15:00.000+01:00")));
     }
 
     @Test
@@ -135,6 +136,7 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
         assertEquals(makeNumber("5"), getLib().minutesDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:20:00.000+01:00")));
         assertEquals(makeNumber("65"), getLib().minutesDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T13:20:00.000+01:00")));
         assertEquals(makeNumber("-65"), getLib().minutesDiff(makeDateAndTime("2015-12-24T13:20:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
+        assertEquals(makeNumber("525420"), getLib().minutesDiff(makeDateAndTime("2015-12-25T15:15:00.000+01:00"), makeDateAndTime("2016-12-24T12:15:00.000+01:00")));
     }
 
     @Test
