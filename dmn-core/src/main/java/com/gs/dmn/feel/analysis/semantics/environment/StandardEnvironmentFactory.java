@@ -71,11 +71,11 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     public static BuiltinFunctionType makeConcatenateBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list1", listType, false, true));
+        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType, false, true));
     }
 
     public static BuiltinFunctionType makeInsertBeforeBuiltinFunctionType(Type listType, Type itemType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("position", NUMBER), new FormalParameter<>("new item", itemType));
+        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("position", NUMBER), new FormalParameter<>("newItem", itemType));
     }
 
     public static BuiltinFunctionType makeRemoveBuiltinFunctionType(Type listType) {
@@ -95,7 +95,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     public static BuiltinFunctionType makeUnionBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list1", listType), new FormalParameter<>("list2", listType));
+        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType, false, true));
     }
 
     public static BuiltinFunctionType makeFlattenBuiltinFunctionType(Type listType) {
@@ -197,7 +197,6 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
 
     private static void addStringFunctions(Environment environment) {
         addFunctionDeclaration(environment, "substring", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING), new FormalParameter<>("start position", NUMBER), new FormalParameter<>("length", NUMBER, true, false)));
-        addFunctionDeclaration(environment, "substring", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING), new FormalParameter<>("startPosition", NUMBER), new FormalParameter<>("length", NUMBER, true, false)));
         addFunctionDeclaration(environment, "string length", new BuiltinFunctionType(NUMBER, new FormalParameter<>("string", STRING)));
         addFunctionDeclaration(environment, "upper case", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING)));
         addFunctionDeclaration(environment, "lower case", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING)));
@@ -222,10 +221,12 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "sum", new BuiltinFunctionType(NUMBER, new FormalParameter<>("n1", NUMBER), new FormalParameter<>("ns", NUMBER, false, true)));
         addFunctionDeclaration(environment, "mean", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", NUMBER_LIST)));
         addFunctionDeclaration(environment, "mean", new BuiltinFunctionType(NUMBER, new FormalParameter<>("n1", NUMBER), new FormalParameter<>("ns", NUMBER, false, true)));
+        // and() replaced with all() in DMN 1.2
         addFunctionDeclaration(environment, "and", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", BOOLEAN_LIST)));
         addFunctionDeclaration(environment, "and", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("b1", BOOLEAN), new FormalParameter<>("bs", BOOLEAN, false, true)));
         addFunctionDeclaration(environment, "all", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", BOOLEAN_LIST)));
         addFunctionDeclaration(environment, "all", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("b1", BOOLEAN), new FormalParameter<>("bs", BOOLEAN, false, true)));
+        // or() replaced with any() in DMN 1.2
         addFunctionDeclaration(environment, "or", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", BOOLEAN_LIST)));
         addFunctionDeclaration(environment, "or", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("b1", BOOLEAN), new FormalParameter<>("bs", BOOLEAN, false, true)));
         addFunctionDeclaration(environment, "any", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", BOOLEAN_LIST)));

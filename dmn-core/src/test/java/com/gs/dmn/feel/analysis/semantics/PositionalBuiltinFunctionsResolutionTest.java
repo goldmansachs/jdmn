@@ -215,12 +215,12 @@ public class PositionalBuiltinFunctionsResolutionTest extends AbstractStandardBu
         testFunctionInvocation("append(" + numberList + ", "  + number + ", "  + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter(item, number, false, true), ListType(number))", false);
 
         testFunctionInvocation("concatenate()", "", true);
-        testFunctionInvocation("concatenate(null)", "BuiltinFunctionType(FormalParameter(list1, Null, false, true), Null)", false);
-        testFunctionInvocation("concatenate(null, null)", "BuiltinFunctionType(FormalParameter(list1, Null, false, true), Null)", false);
-        testFunctionInvocation("concatenate(" + numberList + ", " + numberList + ")", "BuiltinFunctionType(FormalParameter(list1, ListType(number), false, true), ListType(number))", false);
+        testFunctionInvocation("concatenate(null)", "BuiltinFunctionType(FormalParameter(list, Null, false, true), Null)", false);
+        testFunctionInvocation("concatenate(null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, true), Null)", false);
+        testFunctionInvocation("concatenate(" + numberList + ", " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, true), ListType(number))", false);
 
-        testFunctionInvocation("insert before(null, null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter(position, number, false, false), FormalParameter(new item, Null, false, false), Null)", false);
-        testFunctionInvocation("insert before(" + numberList + ", "  + number + ", "  + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter(position, number, false, false), FormalParameter(new item, number, false, false), ListType(number))", false);
+        testFunctionInvocation("insert before(null, null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter(position, number, false, false), FormalParameter(newItem, Null, false, false), Null)", false);
+        testFunctionInvocation("insert before(" + numberList + ", "  + number + ", "  + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter(position, number, false, false), FormalParameter(newItem, number, false, false), ListType(number))", false);
 
         testFunctionInvocation("remove(null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter(position, number, false, false), Null)", false);
         testFunctionInvocation("remove(" + numberList + ", "  + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter(position, number, false, false), ListType(number))", false);
@@ -234,8 +234,11 @@ public class PositionalBuiltinFunctionsResolutionTest extends AbstractStandardBu
         testFunctionInvocation("distinct values(null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), Null)", false);
         testFunctionInvocation("distinct values(" + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), ListType(number))", false);
 
-        testFunctionInvocation("union(null, null)", "BuiltinFunctionType(FormalParameter(list1, Null, false, false), FormalParameter(list2, Null, false, false), Null)", false);
-        testFunctionInvocation("union(" + numberList + ", " + numberList + ")", "BuiltinFunctionType(FormalParameter(list1, ListType(number), false, false), FormalParameter(list2, ListType(number), false, false), ListType(number))", false);
+        testFunctionInvocation("union()", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, true), ListType(Any))", false);
+        testFunctionInvocation("union(null)", "BuiltinFunctionType(FormalParameter(list, Null, false, true), Null)", false);
+        testFunctionInvocation("union(null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, true), Null)", false);
+        testFunctionInvocation("union(null, null, null)", "BuiltinFunctionType(FormalParameter(list, Null, false, true), Null)", false);
+        testFunctionInvocation("union(" + numberList + ", " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, true), ListType(number))", false);
 
         testFunctionInvocation("flatten(null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), ListType(Null))", false);
         testFunctionInvocation("flatten(" + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), ListType(number))", false);
