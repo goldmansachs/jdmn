@@ -151,186 +151,135 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
     // Date properties
     //
     @Override
-    public Integer year(XMLGregorianCalendar date) {
+    public Integer year(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getYear();
-    }
-    @Override
-    public Integer yearDateTime(XMLGregorianCalendar dateTime) {
-        return year(dateTime);
+        return ((XMLGregorianCalendar) date).getYear();
     }
 
     @Override
-    public Integer month(XMLGregorianCalendar date) {
+    public Integer month(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getMonth();
-    }
-    @Override
-    public Integer monthDateTime(XMLGregorianCalendar dateTime) {
-        return month(dateTime);
+        return ((XMLGregorianCalendar) date).getMonth();
     }
 
     @Override
-    public Integer day(XMLGregorianCalendar date) {
+    public Integer day(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getDay();
-    }
-    @Override
-    public Integer dayDateTime(XMLGregorianCalendar dateTime) {
-        return day(dateTime);
+        return ((XMLGregorianCalendar) date).getDay();
     }
 
     @Override
-    public Integer weekday(XMLGregorianCalendar date) {
+    public Integer weekday(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK) - 1;
-    }
-    @Override
-    public Integer weekdayDateTime(XMLGregorianCalendar dateTime) {
-        return weekday(dateTime);
+        return ((XMLGregorianCalendar) date).toGregorianCalendar().get(Calendar.DAY_OF_WEEK) - 1;
     }
 
     //
     // Time properties
     //
     @Override
-    public Integer hour(XMLGregorianCalendar date) {
+    public Integer hour(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getHour();
-    }
-    @Override
-    public Integer hourDateTime(XMLGregorianCalendar dateTime) {
-        return hour(dateTime);
+        return ((XMLGregorianCalendar) date).getHour();
     }
 
     @Override
-    public Integer minute(XMLGregorianCalendar date) {
+    public Integer minute(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getMinute();
-    }
-    @Override
-    public Integer minuteDateTime(XMLGregorianCalendar dateTime) {
-        return minute(dateTime);
+        return ((XMLGregorianCalendar) date).getMinute();
     }
 
     @Override
-    public Integer second(XMLGregorianCalendar date) {
+    public Integer second(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getSecond();
-    }
-    @Override
-    public Integer secondDateTime(XMLGregorianCalendar dateTime) {
-        return second(dateTime);
+        return ((XMLGregorianCalendar) date).getSecond();
     }
 
     @Override
-    public Duration timeOffset(XMLGregorianCalendar date) {
+    public Duration timeOffset(Object date) {
         if (date == null) {
             return null;
         }
 
-        int secondsOffset = date.getTimezone();
+        int secondsOffset = ((XMLGregorianCalendar) date).getTimezone();
         if (secondsOffset == DatatypeConstants.FIELD_UNDEFINED) {
             return null;
         } else {
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
         }
     }
-    @Override
-    public Duration timeOffsetDateTime(XMLGregorianCalendar dateTime) {
-        return timeOffset(dateTime);
-    }
 
     @Override
-    public String timezone(XMLGregorianCalendar date) {
+    public String timezone(Object date) {
         if (date == null) {
             return null;
         }
 
         return ((FEELXMLGregorianCalendar) date).getZoneID();
     }
-    @Override
-    public String timezoneDateTime(XMLGregorianCalendar dateTime) {
-        return timezone(dateTime);
-    }
 
     //
     // Temporal functions
     //
     @Override
-    public Integer dayOfYear(XMLGregorianCalendar date) {
+    public Integer dayOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.toGregorianCalendar().get(Calendar.DAY_OF_YEAR);
-    }
-    @Override
-    public Integer dayOfYearDateTime(XMLGregorianCalendar dateTime) {
-        return dayOfYear(dateTime);
+        return ((XMLGregorianCalendar) date).toGregorianCalendar().get(Calendar.DAY_OF_YEAR);
     }
 
     @Override
-    public String dayOfWeek(XMLGregorianCalendar date) {
+    public String dayOfWeek(Object date) {
         if (date == null) {
             return null;
         }
 
-        int dow = date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK);
+        int dow = ((XMLGregorianCalendar) date).toGregorianCalendar().get(Calendar.DAY_OF_WEEK);
         return DAY_NAMES[dow];
     }
-    @Override
-    public String dayOfWeekDateTime(XMLGregorianCalendar dateTime) {
-        return dayOfWeek(dateTime);
-    }
 
     @Override
-    public Integer weekOfYear(XMLGregorianCalendar date) {
+    public Integer weekOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+        XMLGregorianCalendar xmlDate = ((XMLGregorianCalendar) date);
+        LocalDate localDate = LocalDate.of(xmlDate.getYear(), xmlDate.getMonth(), xmlDate.getDay());
         return localDate.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
     }
-    @Override
-    public Integer weekOfYearDateTime(XMLGregorianCalendar dateTime) {
-        return weekOfYear(dateTime);
-    }
 
     @Override
-    public String monthOfYear(XMLGregorianCalendar date) {
+    public String monthOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        int moy = date.getMonth();
+        int moy = ((XMLGregorianCalendar) date).getMonth();
         return MONTH_NAMES[moy - 1];
-    }
-    @Override
-    public String monthOfYearDateTime(XMLGregorianCalendar dateTime) {
-        return monthOfYear(dateTime);
     }
 
     //

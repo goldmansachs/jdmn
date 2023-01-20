@@ -43,28 +43,13 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
     }
     public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
-        Period period = Period.between(toDate(from), toDate(to));
-        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
+        return this.yearsAndMonthsDuration(toDate(from), toDate(to));
     }
     public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, LocalDate to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
-        Period period = Period.between(toDate(from), to);
-        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
+        return this.yearsAndMonthsDuration(toDate(from), to);
     }
     public Duration yearsAndMonthsDuration(LocalDate from, ZonedDateTime to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
-        Period period = Period.between(from, toDate(to));
-        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
+        return this.yearsAndMonthsDuration(from, toDate(to));
     }
 
     private LocalDate toDate(Object object) {

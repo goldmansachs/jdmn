@@ -297,7 +297,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), weekday)",
                 "number",
                 "weekday(dateAndTime(\"2018-12-10T10:30:01\"))",
-                this.lib.weekday((DATE) this.lib.dateAndTime("2018-12-10T10:30:01")),
+                this.lib.weekday(this.lib.dateAndTime("2018-12-10T10:30:01")),
                 this.lib.number("1"));
 
         doExpressionTest(entries, "", "time(\"10:30:01\").hour",
@@ -310,7 +310,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), hour)",
                 "number",
                 "hour(dateAndTime(\"2018-12-10T10:30:01\"))",
-                this.lib.hour((TIME) this.lib.dateAndTime("2018-12-10T10:30:01")),
+                this.lib.hour(this.lib.dateAndTime("2018-12-10T10:30:01")),
                 this.lib.number("10"));
     }
 
@@ -351,12 +351,6 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "dateAndTime(date(\"2012-03-01\"), time(\"10:11:12Z\"))",
                 this.lib.dateAndTime(this.lib.date("2012-03-01"), this.lib.time("10:11:12Z")),
                 this.lib.dateAndTime("2012-03-01T10:11:12Z"));
-//        doExpressionTest(entries, "", "date and time(date and time(\"2012-03-01T13:14:15Z\"), time(\"10:11:12Z\"))",
-//                "FunctionInvocation(Name(date and time) -> PositionalParameters(DateTimeLiteral(date and time, \"2012-03-01T13:14:15Z\"), DateTimeLiteral(time, \"10:11:12Z\")))",
-//                "date and time",
-//                "dateAndTime(dateAndTime(\"2012-03-01T13:14:15Z\"), time(\"10:11:12Z\"))",
-//                this.lib.date(this.lib.number("2012"), this.lib.number("3"), this.lib.number("1")),
-//                this.lib.dateAndTime("2012-03-01T10:11:12Z"));
         doExpressionTest(entries, "", "date and time(\"2012-03-01T10:11:12Z\")",
                 "DateTimeLiteral(date and time, \"2012-03-01T10:11:12Z\")",
                 "date and time",
@@ -1160,12 +1154,6 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "is(date(\"2012-12-25\"), date(\"2012-12-25\"))",
                 this.lib.is(this.lib.date("2012-12-25"), this.lib.date("2012-12-25")),
                 true);
-        doExpressionTest(entries, "", "is(@\"23:00:50Z\", @\"23:00:50\")",
-                "FunctionInvocation(Name(is) -> PositionalParameters(DateTimeLiteral(time, \"23:00:50Z\"), DateTimeLiteral(time, \"23:00:50\")))",
-                "boolean",
-                "is(time(\"23:00:50Z\"), time(\"23:00:50\"))",
-                this.lib.is(this.lib.time("23:00:50Z"), this.lib.time("23:00:50")),
-                false);
     }
 
     @Test

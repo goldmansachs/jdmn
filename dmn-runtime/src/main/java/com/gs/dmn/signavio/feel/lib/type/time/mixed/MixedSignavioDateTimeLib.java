@@ -13,12 +13,14 @@
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.mixed.MixedDateTimeLib;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.feel.lib.SignavioUtil;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 
-import java.time.*;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 
@@ -42,52 +44,27 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
 
     @Override
     public Integer year(Object date) {
-        if (date instanceof LocalDate) {
-            return MIXED_DATE_TIME_LIB.year((LocalDate) date);
-        } else if (date instanceof ZonedDateTime) {
-            return MIXED_DATE_TIME_LIB.yearDateTime((ZonedDateTime) date);
-        }
-        throw new DMNRuntimeException(String.format("Cannot extract 'year' from '%s'", date));
+        return MIXED_DATE_TIME_LIB.year(date);
     }
 
     @Override
     public Integer month(Object date) {
-        if (date instanceof LocalDate) {
-            return MIXED_DATE_TIME_LIB.month((LocalDate) date);
-        } else if (date instanceof ZonedDateTime) {
-            return MIXED_DATE_TIME_LIB.monthDateTime((ZonedDateTime) date);
-        }
-        throw new DMNRuntimeException(String.format("Cannot extract 'month' from '%s'", date));
+        return MIXED_DATE_TIME_LIB.month(date);
     }
 
     @Override
     public Integer day(Object date) {
-        if (date instanceof LocalDate) {
-            return MIXED_DATE_TIME_LIB.day((LocalDate) date);
-        } else if (date instanceof ZonedDateTime) {
-            return MIXED_DATE_TIME_LIB.dayDateTime((ZonedDateTime) date);
-        }
-        throw new DMNRuntimeException(String.format("Cannot extract 'day' from '%s'", date));
+        return MIXED_DATE_TIME_LIB.day(date);
     }
 
     @Override
     public Integer hour(Object time) {
-        if (time instanceof OffsetTime) {
-            return MIXED_DATE_TIME_LIB.hour((OffsetTime) time);
-        } else if (time instanceof ZonedDateTime) {
-            return MIXED_DATE_TIME_LIB.hourDateTime((ZonedDateTime) time);
-        }
-        throw new DMNRuntimeException(String.format("Cannot extract 'hour' from '%s'", time));
+        return MIXED_DATE_TIME_LIB.hour(time);
     }
 
     @Override
     public Integer minute(Object time) {
-        if (time instanceof OffsetTime) {
-            return MIXED_DATE_TIME_LIB.minute((OffsetTime) time);
-        } else if (time instanceof ZonedDateTime) {
-            return MIXED_DATE_TIME_LIB.minuteDateTime((ZonedDateTime) time);
-        }
-        throw new DMNRuntimeException(String.format("Cannot extract 'minute' from '%s'", time));
+        return MIXED_DATE_TIME_LIB.minute(time);
     }
 
     @Override

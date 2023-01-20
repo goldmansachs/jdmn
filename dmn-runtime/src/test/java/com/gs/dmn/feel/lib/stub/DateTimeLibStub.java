@@ -63,38 +63,22 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     // Date properties
     //
     @Override
-    public Integer year(DATE date) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public Integer yearDateTime(DATE_TIME dateTime) {
+    public Integer year(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Integer month(DATE date) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public Integer monthDateTime(DATE_TIME dateTime) {
+    public Integer month(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Integer day(DATE date) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public Integer dayDateTime(DATE_TIME dateTime) {
+    public Integer day(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Integer weekday(DATE date) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public Integer weekdayDateTime(DATE_TIME dateTime) {
+    public Integer weekday(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -102,47 +86,27 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     // Time properties
     //
     @Override
-    public Integer hour(TIME time) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public Integer hourDateTime(DATE_TIME dateTime) {
+    public Integer hour(Object time) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Integer minute(TIME time) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public Integer minuteDateTime(DATE_TIME dateTime) {
+    public Integer minute(Object time) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Integer second(TIME time) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public Integer secondDateTime(DATE_TIME dateTime) {
+    public Integer second(Object time) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public DURATION timeOffset(TIME time) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public DURATION timeOffsetDateTime(DATE_TIME dateTime) {
+    public DURATION timeOffset(Object time) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public String timezone(TIME time) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public String timezoneDateTime(DATE_TIME dateTime) {
+    public String timezone(Object time) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -150,38 +114,22 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     // Temporal functions
     //
     @Override
-    public Integer dayOfYear(DATE date) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public Integer dayOfYearDateTime(DATE_TIME date_time) {
+    public Integer dayOfYear(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public String dayOfWeek(DATE date) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public String dayOfWeekDateTime(DATE_TIME date_time) {
+    public String dayOfWeek(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Integer weekOfYear(DATE date) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public Integer weekOfYearDateTime(DATE_TIME date_time) {
+    public Integer weekOfYear(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public String monthOfYear(DATE date) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-    @Override
-    public String monthOfYearDateTime(DATE_TIME date_time) {
+    public String monthOfYear(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

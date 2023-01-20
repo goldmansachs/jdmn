@@ -35,35 +35,26 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Te
     //
     // Date properties
     //
-    Integer year(DATE date);
-    Integer yearDateTime(DATE_TIME dateTime);
+    Integer year(Object date);
 
-    Integer month(DATE date);
-    Integer monthDateTime(DATE_TIME dateTime);
+    Integer month(Object date);
 
-    Integer day(DATE date);
-    Integer dayDateTime(DATE_TIME dateTime);
+    Integer day(Object date);
 
-    Integer weekday(DATE date);
-    Integer weekdayDateTime(DATE_TIME dateTime);
+    Integer weekday(Object date);
 
     //
     // Time properties
     //
-    Integer hour(TIME date);
-    Integer hourDateTime(DATE_TIME dateTime);
+    Integer hour(Object date);
 
-    Integer minute(TIME date);
-    Integer minuteDateTime(DATE_TIME dateTime);
+    Integer minute(Object date);
 
-    Integer second(TIME date);
-    Integer secondDateTime(DATE_TIME dateTime);
+    Integer second(Object date);
 
-    DURATION timeOffset(TIME date);
-    DURATION timeOffsetDateTime(DATE_TIME dateTime);
+    DURATION timeOffset(Object date);
 
-    String timezone(TIME date);
-    String timezoneDateTime(DATE_TIME dateTime);
+    String timezone(Object date);
 
     //
     // Extra conversion functions

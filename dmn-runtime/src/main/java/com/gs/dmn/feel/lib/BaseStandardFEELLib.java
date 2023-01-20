@@ -460,7 +460,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER mean(List list) {
+    public NUMBER mean(List<?> list) {
         try {
             return this.numberLib.mean(list);
         } catch (Exception e) {
@@ -743,7 +743,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     // Date properties
     //
     @Override
-    public NUMBER year(DATE date) {
+    public NUMBER year(Object date) {
         try {
             return valueOf(this.dateTimeLib.year(date));
         } catch (Exception e) {
@@ -754,7 +754,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER month(DATE date) {
+    public NUMBER month(Object date) {
         try {
             return valueOf(this.dateTimeLib.month(date));
         } catch (Exception e) {
@@ -765,7 +765,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER day(DATE date) {
+    public NUMBER day(Object date) {
         try {
             return valueOf(this.dateTimeLib.day(date));
         } catch (Exception e) {
@@ -776,7 +776,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER weekday(DATE date) {
+    public NUMBER weekday(Object date) {
         try {
             return valueOf(this.dateTimeLib.weekday(date));
         } catch (Exception e) {
@@ -790,7 +790,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     // Time properties
     //
     @Override
-    public NUMBER hour(TIME time) {
+    public NUMBER hour(Object time) {
         try {
             return valueOf(this.dateTimeLib.hour(time));
         } catch (Exception e) {
@@ -801,7 +801,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER minute(TIME time) {
+    public NUMBER minute(Object time) {
         try {
             return valueOf(this.dateTimeLib.minute(time));
         } catch (Exception e) {
@@ -812,7 +812,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER second(TIME time) {
+    public NUMBER second(Object time) {
         try {
             return valueOf(this.dateTimeLib.second(time));
         } catch (Exception e) {
@@ -823,7 +823,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public DURATION timeOffset(TIME time) {
+    public DURATION timeOffset(Object time) {
         try {
             return this.dateTimeLib.timeOffset(time);
         } catch (Exception e) {
@@ -834,7 +834,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public String timezone(TIME time) {
+    public String timezone(Object time) {
         try {
             return this.dateTimeLib.timezone(time);
         } catch (Exception e) {
@@ -959,7 +959,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     // Temporal functions
     //
     @Override
-    public NUMBER dayOfYear(DATE date) {
+    public NUMBER dayOfYear(Object date) {
         try {
             return valueOf(this.dateTimeLib.dayOfYear(date));
         } catch (Exception e) {
@@ -970,7 +970,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public String dayOfWeek(DATE date) {
+    public String dayOfWeek(Object date) {
         try {
             return this.dateTimeLib.dayOfWeek(date);
         } catch (Exception e) {
@@ -981,7 +981,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER weekOfYear(DATE date) {
+    public NUMBER weekOfYear(Object date) {
         try {
             return valueOf(this.dateTimeLib.weekOfYear(date));
         } catch (Exception e) {
@@ -992,7 +992,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public String monthOfYear(DATE date) {
+    public String monthOfYear(Object date) {
         try {
             return this.dateTimeLib.monthOfYear(date);
         } catch (Exception e) {
@@ -1017,7 +1017,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER count(List list) {
+    public NUMBER count(List<?> list) {
         try {
             return this.numberLib.count(list);
         } catch (Exception e) {
@@ -1028,7 +1028,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER min(List list) {
+    public NUMBER min(List<?> list) {
         try {
             return this.numberLib.min(list);
         } catch (Exception e) {
@@ -1050,7 +1050,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER max(List list) {
+    public NUMBER max(List<?> list) {
         try {
             return this.numberLib.max(list);
         } catch (Exception e) {
@@ -1072,7 +1072,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER sum(List list) {
+    public NUMBER sum(List<?> list) {
         try {
             return this.numberLib.sum(list);
         } catch (Exception e) {
@@ -1196,7 +1196,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List flatten(List list) {
+    public List flatten(List<?> list) {
         try {
             return this.listLib.flatten(list);
         } catch (Exception e) {
@@ -1207,7 +1207,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER product(List list) {
+    public NUMBER product(List<?> list) {
         try {
             return this.numberLib.product(list);
         } catch (Exception e) {
@@ -1229,7 +1229,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER median(List list) {
+    public NUMBER median(List<?> list) {
         try {
             return this.numberLib.median(list);
         } catch (Exception e){
@@ -1251,7 +1251,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER stddev(List list) {
+    public NUMBER stddev(List<?> list) {
         try {
             return this.numberLib.stddev(list);
         } catch (Exception e) {
@@ -1273,7 +1273,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public List mode(List list) {
+    public List mode(List<?> list) {
         try {
             return this.numberLib.mode(list);
         } catch (Exception e) {
@@ -1295,7 +1295,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public void collect(List result, List list) {
+    public void collect(List<?> result, List<?> list) {
         try {
             this.listLib.collect(result, list);
         } catch (Exception e) {

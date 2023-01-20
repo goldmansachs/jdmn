@@ -25,23 +25,23 @@ class StandardFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> ex
     protected Object evaluateDateTimeMember(Object source, String member) {
         StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) getLib();
         if ("year".equals(member)) {
-            return lib.year(lib.toDate(source));
+            return lib.year(source);
         } else if ("month".equals(member)) {
-            return lib.month(lib.toDate(source));
+            return lib.month(source);
         } else if ("day".equals(member)) {
-            return lib.day(lib.toDate(source));
+            return lib.day(source);
         } else if ("weekday".equals(member)) {
-            return lib.weekday(lib.toDate(source));
+            return lib.weekday(source);
         } else if ("hour".equals(member)) {
-            return lib.hour(lib.toTime(source));
+            return lib.hour(source);
         } else if ("minute".equals(member)) {
-            return lib.minute(lib.toTime(source));
+            return lib.minute(source);
         } else if ("second".equals(member)) {
-            return lib.second(lib.toTime(source));
+            return lib.second(source);
         } else if ("time offset".equals(member)) {
-            return lib.timeOffset(lib.toTime(source));
+            return lib.timeOffset(source);
         } else if ("timezone".equals(member)) {
-            return lib.timezone(lib.toTime(source));
+            return lib.timezone(source);
 
         } else if ("years".equals(member)) {
             return lib.years((DURATION) source);

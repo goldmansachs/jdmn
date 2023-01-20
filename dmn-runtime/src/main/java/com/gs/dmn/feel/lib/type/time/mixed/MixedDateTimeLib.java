@@ -87,14 +87,14 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
             // Make OffsetTime and add nanos
             OffsetTime offsetTime = OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, zoneOffset);
-            Double secondFraction = second.doubleValue() - second.intValue();
+            double secondFraction = second.doubleValue() - second.intValue();
             double nanos = secondFraction * 1E9;
             offsetTime = offsetTime.plusNanos((long) nanos);
             return offsetTime;
         } else {
             // Make OffsetTime and add nanos
             OffsetTime offsetTime = OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, ZoneOffset.UTC);
-            Double secondFraction = second.doubleValue() - second.intValue();
+            double secondFraction = second.doubleValue() - second.intValue();
             double nanos = secondFraction * 1E9;
             offsetTime = offsetTime.plusNanos((long) nanos);
             return offsetTime;
@@ -185,220 +185,171 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
     // Date properties
     //
     @Override
-    public Integer year(LocalDate date) {
+    public Integer year(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getYear();
-    }
-    @Override
-    public Integer yearDateTime(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
+        if (date instanceof LocalDate) {
+            return ((LocalDate) date).getYear();
+        } else if (date instanceof ZonedDateTime) {
+            return ((ZonedDateTime) date).getYear();
         }
-
-        return dateTime.getYear();
+        throw new RuntimeException(String.format("Cannot extract 'year' from %s", date));
     }
 
     @Override
-    public Integer month(LocalDate date) {
+    public Integer month(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getMonth().getValue();
-    }
-    @Override
-    public Integer monthDateTime(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
+        if (date instanceof LocalDate) {
+            return ((LocalDate) date).getMonth().getValue();
+        } else if (date instanceof ZonedDateTime) {
+            return ((ZonedDateTime) date).getMonth().getValue();
         }
-
-        return dateTime.getMonth().getValue();
+        throw new RuntimeException(String.format("Cannot extract 'month' from %s", date));
     }
 
     @Override
-    public Integer day(LocalDate date) {
+    public Integer day(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getDayOfMonth();
-    }
-    @Override
-    public Integer dayDateTime(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
+        if (date instanceof LocalDate) {
+            return ((LocalDate) date).getDayOfMonth();
+        } else if (date instanceof ZonedDateTime) {
+            return ((ZonedDateTime) date).getDayOfMonth();
         }
-
-        return dateTime.getDayOfMonth();
+        throw new RuntimeException(String.format("Cannot extract 'day' from %s", date));
     }
 
     @Override
-    public Integer weekday(LocalDate date) {
+    public Integer weekday(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getDayOfWeek().getValue();
-    }
-    @Override
-    public Integer weekdayDateTime(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        return dateTime.getDayOfWeek().getValue();
+        return toDate(date).getDayOfWeek().getValue();
     }
 
     @Override
-    public Integer hour(OffsetTime time) {
+    public Integer hour(Object time) {
         if (time == null) {
             return null;
         }
 
-        return time.getHour();
-    }
-    @Override
-    public Integer hourDateTime(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
+        if (time instanceof OffsetTime) {
+            return ((OffsetTime) time).getHour();
+        } else if (time instanceof ZonedDateTime) {
+            return ((ZonedDateTime) time).getHour();
         }
-
-        return dateTime.getHour();
+        throw new RuntimeException(String.format("Cannot extract 'hour' from %s", time));
     }
 
     @Override
-    public Integer minute(OffsetTime time) {
+    public Integer minute(Object time) {
         if (time == null) {
             return null;
         }
 
-        return time.getMinute();
-    }
-    @Override
-    public Integer minuteDateTime(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
+        if (time instanceof OffsetTime) {
+            return ((OffsetTime) time).getMinute();
+        } else if (time instanceof ZonedDateTime) {
+            return ((ZonedDateTime) time).getMinute();
         }
-
-        return dateTime.getMinute();
+        throw new RuntimeException(String.format("Cannot extract 'minute' from %s", time));
     }
 
     //
     // Time properties
     //
     @Override
-    public Integer second(OffsetTime time) {
+    public Integer second(Object time) {
         if (time == null) {
             return null;
         }
 
-        return time.getSecond();
-    }
-    @Override
-    public Integer secondDateTime(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
+        if (time instanceof OffsetTime) {
+            return ((OffsetTime) time).getSecond();
+        } else if (time instanceof ZonedDateTime) {
+            return ((ZonedDateTime) time).getSecond();
         }
-
-        return dateTime.getSecond();
+        throw new RuntimeException(String.format("Cannot extract 'second' from %s", time));
     }
 
     @Override
-    public Duration timeOffset(OffsetTime time) {
+    public Duration timeOffset(Object time) {
         if (time == null) {
             return null;
         }
 
         // timezone offset in seconds
-        int secondsOffset = time.getOffset().getTotalSeconds();
-        return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
-    }
-    @Override
-    public Duration timeOffsetDateTime(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
+        if (time instanceof OffsetTime) {
+            int secondsOffset = ((OffsetTime) time).getOffset().getTotalSeconds();
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
+        } else if (time instanceof ZonedDateTime) {
+            int secondsOffset = ((ZonedDateTime) time).getOffset().getTotalSeconds();
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
         }
-
-        // timezone offset in seconds
-        int secondsOffset = dateTime.getOffset().getTotalSeconds();
-        return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
+        throw new RuntimeException(String.format("Cannot extract 'timeOffset' from %s", time));
     }
 
     @Override
-    public String timezone(OffsetTime time) {
+    public String timezone(Object time) {
         if (time == null) {
             return null;
         }
 
-        return time.getOffset().getId();
-    }
-    @Override
-    public String timezoneDateTime(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
+        if (time instanceof OffsetTime) {
+            return ((OffsetTime) time).getOffset().getId();
+        } else if (time instanceof ZonedDateTime) {
+            return ((ZonedDateTime) time).getZone().getId();
         }
-
-        return dateTime.getZone().getId();
+        throw new RuntimeException(String.format("Cannot extract 'timeOffset' from %s", time));
     }
 
     //
     // Temporal functions
     //
     @Override
-    public Integer dayOfYear(LocalDate date) {
+    public Integer dayOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getDayOfYear();
-    }
-    @Override
-    public Integer dayOfYearDateTime(ZonedDateTime dateTime) {
-        return dayOfYear(toDate(dateTime));
+        return toDate(date).getDayOfYear();
     }
 
     @Override
-    public String dayOfWeek(LocalDate date) {
+    public String dayOfWeek(Object date) {
         if (date == null) {
             return null;
         }
 
-        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        DayOfWeek dayOfWeek = toDate(date).getDayOfWeek();
         return dayOfWeek.getDisplayName(TextStyle.FULL, Locale.US);
     }
-    @Override
-    public String dayOfWeekDateTime(ZonedDateTime dateTime) {
-        return dayOfWeek(toDate(dateTime));
-    }
 
     @Override
-    public Integer weekOfYear(LocalDate date) {
+    public Integer weekOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
-    }
-    @Override
-    public Integer weekOfYearDateTime(ZonedDateTime dateTime) {
-        return weekOfYear(toDate(dateTime));
+        return toDate(date).get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
     }
 
     @Override
-    public String monthOfYear(LocalDate date) {
+    public String monthOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        Month month = date.getMonth();
+        Month month = toDate(date).getMonth();
         return MONTH_NAMES[month.getValue() - 1];
-    }
-    @Override
-    public String monthOfYearDateTime(ZonedDateTime dateTime) {
-        return monthOfYear(toDate(dateTime));
     }
 
     //

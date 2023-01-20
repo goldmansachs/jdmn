@@ -123,26 +123,26 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     // Date properties
     //
-    NUMBER year(DATE date);
+    NUMBER year(Object date);
 
-    NUMBER month(DATE date);
+    NUMBER month(Object date);
 
-    NUMBER day(DATE date);
+    NUMBER day(Object date);
 
-    NUMBER weekday(DATE date);
+    NUMBER weekday(Object date);
 
     //
     // Time properties
     //
-    NUMBER hour(TIME time);
+    NUMBER hour(Object time);
 
-    NUMBER minute(TIME time);
+    NUMBER minute(Object time);
 
-    NUMBER second(TIME time);
+    NUMBER second(Object time);
 
-    DURATION timeOffset(TIME time);
+    DURATION timeOffset(Object time);
 
-    String timezone(TIME time);
+    String timezone(Object time);
 
     //
     // Duration properties
@@ -162,13 +162,13 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     // Temporal functions
     //
-    NUMBER dayOfYear(DATE date);
+    NUMBER dayOfYear(Object date);
 
-    String dayOfWeek(DATE date);
+    String dayOfWeek(Object date);
 
-    NUMBER weekOfYear(DATE date);
+    NUMBER weekOfYear(Object date);
 
-    String monthOfYear(DATE date);
+    String monthOfYear(Object date);
 
     //
     // Date and time functions
@@ -178,20 +178,20 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     // List functions
     //
-    List append(List list, Object... items);
+    List append(List<?> list, Object... items);
 
-    NUMBER count(List list);
+    NUMBER count(List<?> list);
 
-    NUMBER min(List list);
+    NUMBER min(List<?> list);
     NUMBER min(Object... numbers);
 
-    NUMBER max(List list);
+    NUMBER max(List<?> list);
     NUMBER max(Object... numbers);
 
-    NUMBER sum(List list);
+    NUMBER sum(List<?> list);
     NUMBER sum(Object... numbers);
 
-    NUMBER mean(List list);
+    NUMBER mean(List<?> list);
     NUMBER mean(Object... numbers);
 
     // Use all instead
@@ -234,21 +234,21 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     <T> List<T> distinctValues(List<T> list1);
 
-    List flatten(List list1);
+    List flatten(List<?> list1);
 
-    NUMBER product(List list);
+    NUMBER product(List<?> list);
     NUMBER product(Object... numbers);
 
-    NUMBER median(List list);
+    NUMBER median(List<?> list);
     NUMBER median(Object... numbers);
 
-    NUMBER stddev(List list);
+    NUMBER stddev(List<?> list);
     NUMBER stddev(Object... numbers);
 
-    List mode(List list);
+    List mode(List<?> list);
     List mode(Object... numbers);
 
-    void collect(List result, List list);
+    void collect(List<?> result, List<?> list);
 
     //
     // Temporal built-in functions

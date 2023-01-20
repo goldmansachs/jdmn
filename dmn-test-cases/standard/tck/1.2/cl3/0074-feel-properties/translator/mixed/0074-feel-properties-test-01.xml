@@ -165,7 +165,7 @@
         <description>dateTime -  timezone when set</description>
         <resultNode name="dateTime_009" type="decision">
             <expected>
-                <value xsi:type="xsd:string">Z</value>
+                <value xsi:type="xsd:string">Etc/UTC</value>
             </expected>
         </resultNode>
     </testCase>

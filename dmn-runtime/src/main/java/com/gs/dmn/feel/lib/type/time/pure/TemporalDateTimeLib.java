@@ -177,177 +177,129 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     // Date properties
     //
     @Override
-    public Integer year(LocalDate date) {
+    public Integer year(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getYear();
-    }
-    @Override
-    public Integer yearDateTime(Temporal dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        return dateTime.get(ChronoField.YEAR);
+        return ((Temporal) date).get(ChronoField.YEAR);
     }
 
     @Override
-    public Integer month(LocalDate date) {
+    public Integer month(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getMonth().getValue();
-    }
-    @Override
-    public Integer monthDateTime(Temporal dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        return dateTime.get(ChronoField.MONTH_OF_YEAR);
+        return ((Temporal) date).get(ChronoField.MONTH_OF_YEAR);
     }
 
     @Override
-    public Integer day(LocalDate date) {
+    public Integer day(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getDayOfMonth();
-    }
-    @Override
-    public Integer dayDateTime(Temporal dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        return dateTime.get(ChronoField.DAY_OF_MONTH);
+        return ((Temporal) date).get(ChronoField.DAY_OF_MONTH);
     }
 
     @Override
-    public Integer weekday(LocalDate date) {
+    public Integer weekday(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getDayOfWeek().getValue();
-    }
-    @Override
-    public Integer weekdayDateTime(Temporal dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        return dateTime.get(ChronoField.DAY_OF_WEEK);
+        return ((Temporal) date).get(ChronoField.DAY_OF_WEEK);
     }
 
     //
     // Time properties
     //
     @Override
-    public Integer hour(Temporal time) {
-        return time.get(ChronoField.HOUR_OF_DAY);
-    }
-    @Override
-    public Integer hourDateTime(Temporal dateTime) {
-        return hour(dateTime);
+    public Integer hour(Object time) {
+        if (time == null) {
+            return null;
+        }
+
+        return ((Temporal) time).get(ChronoField.HOUR_OF_DAY);
     }
 
     @Override
-    public Integer minute(Temporal time) {
-        return time.get(ChronoField.MINUTE_OF_HOUR);
-    }
-    @Override
-    public Integer minuteDateTime(Temporal dateTime) {
-        return minute(dateTime);
+    public Integer minute(Object time) {
+        if (time == null) {
+            return null;
+        }
+
+        return ((Temporal) time).get(ChronoField.MINUTE_OF_HOUR);
     }
 
     @Override
-    public Integer second(Temporal time) {
-        return time.get(ChronoField.SECOND_OF_MINUTE);
-    }
-    @Override
-    public Integer secondDateTime(Temporal dateTime) {
-        return second(dateTime);
+    public Integer second(Object time) {
+        if (time == null) {
+            return null;
+        }
+
+        return ((Temporal) time).get(ChronoField.SECOND_OF_MINUTE);
     }
 
     @Override
-    public TemporalAmount timeOffset(Temporal time) {
-        int secondsOffset = time.get(ChronoField.OFFSET_SECONDS);
+    public TemporalAmount timeOffset(Object time) {
+        if (time == null) {
+            return null;
+        }
+
+        int secondsOffset = ((Temporal) time).get(ChronoField.OFFSET_SECONDS);
         return duration((long) secondsOffset * 1000);
     }
-    @Override
-    public TemporalAmount timeOffsetDateTime(Temporal dateTime) {
-        return timeOffset(dateTime);
-    }
 
     @Override
-    public String timezone(Temporal time) {
-        return time.query(TemporalQueries.zone()).getId();
-    }
-    @Override
-    public String timezoneDateTime(Temporal dateTime) {
-        return timezone(dateTime);
+    public String timezone(Object time) {
+        if (time == null) {
+            return null;
+        }
+
+        return ((Temporal) time).query(TemporalQueries.zone()).getId();
     }
 
     //
     // Temporal functions
     //
     @Override
-    public Integer dayOfYear(LocalDate date) {
+    public Integer dayOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getDayOfYear();
-    }
-    @Override
-    public Integer dayOfYearDateTime(Temporal dateTime) {
-        return dayOfYear(toDate(dateTime));
+        return toDate(date).getDayOfYear();
     }
 
     @Override
-    public String dayOfWeek(LocalDate date) {
+    public String dayOfWeek(Object date) {
         if (date == null) {
             return null;
         }
 
-        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        DayOfWeek dayOfWeek =  toDate(date).getDayOfWeek();
         return dayOfWeek.getDisplayName(TextStyle.FULL, Locale.US);
     }
-    @Override
-    public String dayOfWeekDateTime(Temporal dateTime) {
-        return dayOfWeek(toDate(dateTime));
-    }
 
     @Override
-    public Integer weekOfYear(LocalDate date) {
+    public Integer weekOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
-    }
-    @Override
-    public Integer weekOfYearDateTime(Temporal dateTime) {
-        return weekOfYear(toDate(dateTime));
+        return  toDate(date).get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
     }
 
     @Override
-    public String monthOfYear(LocalDate date) {
+    public String monthOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        Month month = date.getMonth();
+        Month month =  toDate(date).getMonth();
         return MONTH_NAMES[month.getValue() - 1];
-    }
-    @Override
-    public String monthOfYearDateTime(Temporal dateTime) {
-        return monthOfYear(toDate(dateTime));
     }
 
     //
