@@ -136,11 +136,11 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
         testFunctionInvocation("avg(null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("avg(" + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("max(null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
-        testFunctionInvocation("max(" + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
+        testFunctionInvocation("max(" + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), number)", false);
         testFunctionInvocation("median(null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("median(" + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("min(null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
-        testFunctionInvocation("min(" + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
+        testFunctionInvocation("min(" + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), number)", false);
         testFunctionInvocation("mode(null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("mode(" + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
     }

@@ -160,16 +160,26 @@ public class NamedBuiltinFunctionsResolutionTest extends AbstractStandardBuiltin
         testFunctionInvocation("count(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
 
         testFunctionInvocation("min()", "", true);
-        testFunctionInvocation("min(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), number)", false);
+        testFunctionInvocation("min(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), comparable)", false);
 //        testFunctionInvocation("min(c1: null, cs: null)", "BuiltinFunctionType(FormalParameter(c1, comparable, false, false), FormalParameter(cs, comparable, false, true), number)", false);
-        testFunctionInvocation("min(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), number)", false);
-//        testFunctionInvocation("min(c1: " + number + ", cs: " + numberList + ")", "BuiltinFunctionType(FormalParameter(c1, comparable, false, false), FormalParameter(cs, comparable, false, true), number)", false);
+        testFunctionInvocation("min(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), number)", false);
+        testFunctionInvocation("min(list: " + stringList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(string), false, false), string)", false);
+        testFunctionInvocation("min(list: " + dateList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(date), false, false), date)", false);
+        testFunctionInvocation("min(list: " + timeList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(time), false, false), time)", false);
+        testFunctionInvocation("min(list: " + dateTimeList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(date and time), false, false), date and time)", false);
+        testFunctionInvocation("min(list: " + yearsAndMonthsDurationList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(years and months duration), false, false), years and months duration)", false);
+        testFunctionInvocation("min(list: " + daysAndTimeDurationList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(days and time duration), false, false), days and time duration)", false);
 
         testFunctionInvocation("max()", "", true);
-        testFunctionInvocation("max(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), number)", false);
+        testFunctionInvocation("max(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), comparable)", false);
 //        testFunctionInvocation("max(c1: null, cs: null)", "BuiltinFunctionType(FormalParameter(c1, comparable, false, false), FormalParameter(cs, comparable, false, true), number)", false);
-        testFunctionInvocation("max(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), number)", false);
-//        testFunctionInvocation("max(c1: " + number + ", cs: " + numberList + ")", "BuiltinFunctionType(FormalParameter(c1, comparable, false, false), FormalParameter(cs, comparable, false, true), number)", false);
+        testFunctionInvocation("max(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), number)", false);
+        testFunctionInvocation("max(list: " + stringList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(string), false, false), string)", false);
+        testFunctionInvocation("max(list: " + dateList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(date), false, false), date)", false);
+        testFunctionInvocation("max(list: " + timeList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(time), false, false), time)", false);
+        testFunctionInvocation("max(list: " + dateTimeList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(date and time), false, false), date and time)", false);
+        testFunctionInvocation("max(list: " + yearsAndMonthsDurationList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(years and months duration), false, false), years and months duration)", false);
+        testFunctionInvocation("max(list: " + daysAndTimeDurationList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(days and time duration), false, false), days and time duration)", false);
 
         testFunctionInvocation("sum()", "", true);
         testFunctionInvocation("sum(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), number)", false);

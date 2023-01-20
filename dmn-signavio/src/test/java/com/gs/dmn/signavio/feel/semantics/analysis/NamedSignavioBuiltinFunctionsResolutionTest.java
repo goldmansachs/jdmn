@@ -136,11 +136,11 @@ public class NamedSignavioBuiltinFunctionsResolutionTest extends AbstractSignavi
         testFunctionInvocation("avg(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("avg(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("max(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
-        testFunctionInvocation("max(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
+        testFunctionInvocation("max(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), number)", false);
         testFunctionInvocation("median(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("median(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("min(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
-        testFunctionInvocation("min(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
+        testFunctionInvocation("min(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), number)", false);
         testFunctionInvocation("mode(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("mode(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
     }

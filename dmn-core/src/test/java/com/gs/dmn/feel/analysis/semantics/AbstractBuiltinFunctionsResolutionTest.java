@@ -27,10 +27,28 @@ public abstract class AbstractBuiltinFunctionsResolutionTest {
 
     protected final String numberSequence = "1, 2, 3";
     protected final String numberList = "[" + numberSequence + "]";
+    protected final String numberRange = "[1..2]";
+
     protected final String booleanSequence = "true, true, true";
     protected final String booleanList = "[" + booleanSequence + "]";
-    protected final String numberRange = "[1..2]";
-    protected final String stringList = "[" + stringString + "," + stringString + "]";
+
+    protected final String stringSequence = stringString + "," + stringString;
+    protected final String stringList = "[" + stringSequence + "]";
+
+    protected final String dateSequence = date + "," + date + "," + date;
+    protected final String dateList = "[" + dateSequence + "]";
+
+    protected final String timeSequence = time + "," + time + "," + time;
+    protected final String timeList = "[" + timeSequence + "]";
+
+    protected final String dateTimeSequence = dateTime + "," + dateTime + "," + dateTime;
+    protected final String dateTimeList = "[" + dateTimeSequence + "]";
+
+    protected final String yearsAndMonthsDurationSequence = yearsAndMonthsDuration + "," + yearsAndMonthsDuration;
+    protected final String yearsAndMonthsDurationList = "[" + yearsAndMonthsDurationSequence + "]";
+
+    protected final String daysAndTimeDurationSequence = daysAndTimeDuration + "," + daysAndTimeDuration;
+    protected final String daysAndTimeDurationList = "[" + daysAndTimeDurationSequence + "]";
 
     protected final String context = "{\"k\": 123}";
     protected final String contextValue = "\"123\"";

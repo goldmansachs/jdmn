@@ -62,6 +62,14 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         return INSTANCE;
     }
 
+    public static BuiltinFunctionType makeMaxMinBuiltInFunctionTypeForSequence(Type inputType, Type returnType) {
+        return new BuiltinFunctionType(returnType, new FormalParameter<>("c1", inputType), new FormalParameter<>("cs", inputType, false, true));
+    }
+
+    public static BuiltinFunctionType makeMaxMinBuiltInFunctionTypeForList(Type inputType, Type returnType) {
+        return new BuiltinFunctionType(returnType, new FormalParameter<>("list", inputType));
+    }
+
     public static BuiltinFunctionType makeSublistBuiltInFunctionType(Type listType) {
         return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("start position", NUMBER), new FormalParameter<>("length", NUMBER, true, false));
     }
@@ -213,10 +221,10 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     private static void addListFunctions(Environment environment) {
         addFunctionDeclaration(environment, "list contains", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", ANY_LIST), new FormalParameter<>("element", ANY)));
         addFunctionDeclaration(environment, "count", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "min", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", COMPARABLE_LIST)));
-        addFunctionDeclaration(environment, "min", new BuiltinFunctionType(NUMBER, new FormalParameter<>("c1", COMPARABLE), new FormalParameter<>("cs", COMPARABLE, false, true)));
-        addFunctionDeclaration(environment, "max", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", COMPARABLE_LIST)));
-        addFunctionDeclaration(environment, "max", new BuiltinFunctionType(NUMBER, new FormalParameter<>("c1", COMPARABLE), new FormalParameter<>("cs", COMPARABLE, false, true)));
+        addFunctionDeclaration(environment, "min", makeMaxMinBuiltInFunctionTypeForList(COMPARABLE_LIST, COMPARABLE));
+        addFunctionDeclaration(environment, "min", makeMaxMinBuiltInFunctionTypeForSequence(COMPARABLE, COMPARABLE));
+        addFunctionDeclaration(environment, "max", makeMaxMinBuiltInFunctionTypeForList(COMPARABLE_LIST, COMPARABLE));
+        addFunctionDeclaration(environment, "max", makeMaxMinBuiltInFunctionTypeForSequence(COMPARABLE, COMPARABLE));
         addFunctionDeclaration(environment, "sum", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", NUMBER_LIST)));
         addFunctionDeclaration(environment, "sum", new BuiltinFunctionType(NUMBER, new FormalParameter<>("n1", NUMBER), new FormalParameter<>("ns", NUMBER, false, true)));
         addFunctionDeclaration(environment, "mean", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", NUMBER_LIST)));
