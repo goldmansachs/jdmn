@@ -295,7 +295,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER day(DATE date) {
+    public NUMBER day(Object date) {
         try {
             return valueOf(this.dateTimeLib.day(date));
         } catch (Exception e) {
@@ -387,7 +387,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER hour(TIME time) {
+    public NUMBER hour(Object time) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.hour(time));
         } catch (Exception e) {
@@ -409,7 +409,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER minute(TIME time) {
+    public NUMBER minute(Object time) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.minute(time));
         } catch (Exception e) {
@@ -431,7 +431,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER month(DATE date) {
+    public NUMBER month(Object date) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.month(date));
         } catch (Exception e) {
@@ -486,7 +486,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER weekday(DATE date) {
+    public NUMBER weekday(Object date) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.weekday(date));
         } catch (Exception e) {
@@ -497,7 +497,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER year(DATE date) {
+    public NUMBER year(Object date) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.year(date));
         } catch (Exception e) {

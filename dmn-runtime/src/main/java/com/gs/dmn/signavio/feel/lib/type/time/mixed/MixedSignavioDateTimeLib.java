@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.mixed.MixedDateTimeLib;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.feel.lib.SignavioUtil;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
@@ -40,53 +41,53 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
     }
 
     @Override
-    public Integer year(LocalDate date) {
-        return MIXED_DATE_TIME_LIB.year(date);
+    public Integer year(Object date) {
+        if (date instanceof LocalDate) {
+            return MIXED_DATE_TIME_LIB.year((LocalDate) date);
+        } else if (date instanceof ZonedDateTime) {
+            return MIXED_DATE_TIME_LIB.yearDateTime((ZonedDateTime) date);
+        }
+        throw new DMNRuntimeException(String.format("Cannot extract 'year' from '%s'", date));
     }
 
     @Override
-    public Integer yearDateTime(ZonedDateTime dateTime) {
-        return MIXED_DATE_TIME_LIB.yearDateTime(dateTime);
+    public Integer month(Object date) {
+        if (date instanceof LocalDate) {
+            return MIXED_DATE_TIME_LIB.month((LocalDate) date);
+        } else if (date instanceof ZonedDateTime) {
+            return MIXED_DATE_TIME_LIB.monthDateTime((ZonedDateTime) date);
+        }
+        throw new DMNRuntimeException(String.format("Cannot extract 'month' from '%s'", date));
     }
 
     @Override
-    public Integer month(LocalDate date) {
-        return MIXED_DATE_TIME_LIB.month(date);
+    public Integer day(Object date) {
+        if (date instanceof LocalDate) {
+            return MIXED_DATE_TIME_LIB.day((LocalDate) date);
+        } else if (date instanceof ZonedDateTime) {
+            return MIXED_DATE_TIME_LIB.dayDateTime((ZonedDateTime) date);
+        }
+        throw new DMNRuntimeException(String.format("Cannot extract 'day' from '%s'", date));
     }
 
     @Override
-    public Integer monthDateTime(ZonedDateTime dateTime) {
-        return MIXED_DATE_TIME_LIB.monthDateTime(dateTime);
+    public Integer hour(Object time) {
+        if (time instanceof OffsetTime) {
+            return MIXED_DATE_TIME_LIB.hour((OffsetTime) time);
+        } else if (time instanceof ZonedDateTime) {
+            return MIXED_DATE_TIME_LIB.hourDateTime((ZonedDateTime) time);
+        }
+        throw new DMNRuntimeException(String.format("Cannot extract 'hour' from '%s'", time));
     }
 
     @Override
-    public Integer day(LocalDate date) {
-        return MIXED_DATE_TIME_LIB.day(date);
-    }
-
-    @Override
-    public Integer dayDateTime(ZonedDateTime dateTime) {
-        return MIXED_DATE_TIME_LIB.dayDateTime(dateTime);
-    }
-
-    @Override
-    public Integer hour(OffsetTime time) {
-        return MIXED_DATE_TIME_LIB.hour(time);
-    }
-
-    @Override
-    public Integer hourDateTime(ZonedDateTime dateTime) {
-        return MIXED_DATE_TIME_LIB.hourDateTime(dateTime);
-    }
-
-    @Override
-    public Integer minute(OffsetTime time) {
-        return MIXED_DATE_TIME_LIB.minute(time);
-    }
-
-    @Override
-    public Integer minuteDateTime(ZonedDateTime dateTime) {
-        return MIXED_DATE_TIME_LIB.minuteDateTime(dateTime);
+    public Integer minute(Object time) {
+        if (time instanceof OffsetTime) {
+            return MIXED_DATE_TIME_LIB.minute((OffsetTime) time);
+        } else if (time instanceof ZonedDateTime) {
+            return MIXED_DATE_TIME_LIB.minuteDateTime((ZonedDateTime) time);
+        }
+        throw new DMNRuntimeException(String.format("Cannot extract 'minute' from '%s'", time));
     }
 
     @Override
@@ -218,20 +219,17 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
     }
 
     @Override
-    public Integer weekday(LocalDate date) {
+    public Integer weekday(Object date) {
         if (!SignavioUtil.areNullSafe(date)) {
             return null;
         }
 
-        return date.getDayOfWeek().getValue();
-    }
-    @Override
-    public Integer weekdayDateTime(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
+        if (date instanceof LocalDate) {
+            return ((LocalDate) date).getDayOfWeek().getValue();
+        } else if (date instanceof ZonedDateTime) {
+            return ((ZonedDateTime) date).getDayOfWeek().getValue();
         }
-
-        return dateTime.getDayOfWeek().getValue();
+        throw new RuntimeException(String.format("Cannot extract 'weekday' from '%s'", date));
     }
 
     @Override

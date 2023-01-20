@@ -87,62 +87,32 @@ public class SignavioDateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME> implements S
     }
 
     @Override
-    public Integer year(DATE date) {
+    public Integer year(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Integer yearDateTime(DATE_TIME date) {
+    public Integer month(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Integer month(DATE date) {
+    public Integer day(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Integer monthDateTime(DATE_TIME date) {
+    public Integer weekday(Object date) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Integer day(DATE date) {
+    public Integer hour(Object time) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Integer dayDateTime(DATE_TIME date) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public Integer weekday(DATE date) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public Integer weekdayDateTime(DATE_TIME date) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public Integer hour(TIME time) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public Integer hourDateTime(DATE_TIME date_time) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public Integer minute(TIME time) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public Integer minuteDateTime(DATE_TIME date_time) {
+    public Integer minute(Object time) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

@@ -111,16 +111,6 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
     //
     // Date and time operations
     //
-    public BigDecimal day(ZonedDateTime date) {
-        try {
-            return valueOf(this.dateTimeLib.dayDateTime(date));
-        } catch (Exception e) {
-            String message = String.format("day(%s)", date);
-            logError(message, e);
-            return null;
-        }
-    }
-
     public ZonedDateTime dayAdd(ZonedDateTime dateTime, BigDecimal daysToAdd) {
         try {
             return this.dateTimeLib.dayAddDateTime(dateTime, daysToAdd);
@@ -131,61 +121,11 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
         }
     }
 
-    public BigDecimal hour(ZonedDateTime dateTime) {
-        try {
-            return valueOf(this.dateTimeLib.hourDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("hour(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal minute(ZonedDateTime dateTime) {
-        try {
-            return valueOf(this.dateTimeLib.minuteDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("minute(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal month(ZonedDateTime dateTime) {
-        try {
-            return valueOf(this.dateTimeLib.monthDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("month(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
     public ZonedDateTime monthAdd(ZonedDateTime dateTime, BigDecimal monthsToAdd) {
         try {
             return this.dateTimeLib.monthAddDateTime(dateTime, monthsToAdd);
         } catch (Exception e) {
             String message = String.format("monthAdd(%s, %s)", dateTime, monthsToAdd);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal weekday(ZonedDateTime dateTime) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.weekdayDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("weekday(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal year(ZonedDateTime dateTime) {
-        try {
-            return valueOf(this.dateTimeLib.yearDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("year(%s)", dateTime);
             logError(message, e);
             return null;
         }

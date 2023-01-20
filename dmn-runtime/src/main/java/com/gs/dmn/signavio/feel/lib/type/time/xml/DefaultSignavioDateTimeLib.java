@@ -48,53 +48,28 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     }
 
     @Override
-    public Integer year(XMLGregorianCalendar date) {
-        return DEFAULT_DATE_TIME_LIB.year(date);
+    public Integer year(Object date) {
+        return DEFAULT_DATE_TIME_LIB.year((XMLGregorianCalendar) date);
     }
 
     @Override
-    public Integer yearDateTime(XMLGregorianCalendar dateTime) {
-        return DEFAULT_DATE_TIME_LIB.yearDateTime(dateTime);
+    public Integer month(Object date) {
+        return DEFAULT_DATE_TIME_LIB.month((XMLGregorianCalendar) date);
     }
 
     @Override
-    public Integer month(XMLGregorianCalendar date) {
-        return DEFAULT_DATE_TIME_LIB.month(date);
+    public Integer day(Object date) {
+        return DEFAULT_DATE_TIME_LIB.day((XMLGregorianCalendar) date);
     }
 
     @Override
-    public Integer monthDateTime(XMLGregorianCalendar dateTime) {
-        return DEFAULT_DATE_TIME_LIB.monthDateTime(dateTime);
+    public Integer hour(Object date) {
+        return DEFAULT_DATE_TIME_LIB.hour((XMLGregorianCalendar) date);
     }
 
     @Override
-    public Integer day(XMLGregorianCalendar date) {
-        return DEFAULT_DATE_TIME_LIB.day(date);
-    }
-
-    @Override
-    public Integer dayDateTime(XMLGregorianCalendar dateTime) {
-        return DEFAULT_DATE_TIME_LIB.dayDateTime(dateTime);
-    }
-
-    @Override
-    public Integer hour(XMLGregorianCalendar date) {
-        return DEFAULT_DATE_TIME_LIB.hour(date);
-    }
-
-    @Override
-    public Integer hourDateTime(XMLGregorianCalendar dateTime) {
-        return DEFAULT_DATE_TIME_LIB.hourDateTime(dateTime);
-    }
-
-    @Override
-    public Integer minute(XMLGregorianCalendar date) {
-        return DEFAULT_DATE_TIME_LIB.minute(date);
-    }
-
-    @Override
-    public Integer minuteDateTime(XMLGregorianCalendar dateTime) {
-        return DEFAULT_DATE_TIME_LIB.minuteDateTime(dateTime);
+    public Integer minute(Object date) {
+        return DEFAULT_DATE_TIME_LIB.minute((XMLGregorianCalendar) date);
     }
 
     @Override
@@ -173,22 +148,18 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
     }
 
     @Override
-    public Integer weekday(XMLGregorianCalendar date) {
+    public Integer weekday(Object date) {
         if (date == null) {
             return null;
         }
 
-        int weekDay = date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK);
+        XMLGregorianCalendar xmlDate = (XMLGregorianCalendar) date;
+        int weekDay = xmlDate.toGregorianCalendar().get(Calendar.DAY_OF_WEEK);
         weekDay--;
         if (weekDay == 0) {
             weekDay = 7;
         }
         return weekDay;
-    }
-
-    @Override
-    public Integer weekdayDateTime(XMLGregorianCalendar dateTime) {
-        return weekday(dateTime);
     }
 
     @Override

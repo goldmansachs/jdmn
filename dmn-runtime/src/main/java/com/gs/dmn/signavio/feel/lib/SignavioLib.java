@@ -112,7 +112,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Day(datetime):NUMERIC
     //    Returns the day part of a datetime.
     //    Example: Day(2015-12-24T12:15:00.000+01:00) returns 24.
-    NUMBER day(DATE date);
+    NUMBER day(Object date);
 
     //    DayAdd(datetime, days to add):DATE
     //    Returns the date plus the provided number of days.
@@ -142,7 +142,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Hour(datetime):NUMERIC
     //    Returns the hour part of a datetime.
     //    Example: Hour(2015-12-24T12:15:00.000+01:00) returns 12.
-    NUMBER hour(TIME time);
+    NUMBER hour(Object time);
 
     //    HourDiff(datetime1, datetime2):NUMERIC
     //    Return the number of hours between two datetimes.
@@ -153,7 +153,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Minute(time):NUMERIC
     //    Returns the minute part of a datetime.
     //    Example: Minute(2015-12-24T12:15:00.000+01:00) returns 15.
-    NUMBER minute(TIME time);
+    NUMBER minute(Object time);
 
     //    MinutesDiff(datetimes1, date2times):NUMERIC
     //    Return the number of minutes between two datetimes.
@@ -164,7 +164,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Month(datetime):NUMERIC
     //    Returns the month part of a datetime.
     //    Example: Month(2015-12-24T12:15:00.000+01:00) returns 12.
-    NUMBER month(DATE date);
+    NUMBER month(Object date);
 
     //    MonthAdd(datetime, months_to_add):DATE
     //    Returns the datetime plus the number of months.
@@ -191,12 +191,12 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Weekday(datetime):NUMERIC
     //    Returns a number (1 to 7) representing the day of the week.
     //    Example: weekday(2016-02-09T12:15:00.000+01:00) returns 3.
-    NUMBER weekday(DATE dateTime);
+    NUMBER weekday(Object dateTime);
 
     //    Year(datetime):NUMERIC
     //    Returns the year part of a datetime.
     //    Example: Year(2016-02-09T12:15:00.000+01:00) returns 2016.
-    NUMBER year(DATE date);
+    NUMBER year(Object date);
 
     //    YearAdd(datetime, years_to_add):DATE
     //    Returns the datetime plus the number of years.

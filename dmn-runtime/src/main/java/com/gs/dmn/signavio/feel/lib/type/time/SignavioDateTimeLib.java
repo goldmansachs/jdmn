@@ -36,23 +36,17 @@ public interface SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> {
 
     Long minutesDiff(Object time1, Object time2);
 
-    Integer year(DATE date);
-    Integer yearDateTime(DATE_TIME date);
+    Integer year(Object date);
 
-    Integer month(DATE date);
-    Integer monthDateTime(DATE_TIME date);
+    Integer month(Object date);
 
-    Integer day(DATE date);
-    Integer dayDateTime(DATE_TIME date);
+    Integer day(Object date);
 
-    Integer weekday(DATE date);
-    Integer weekdayDateTime(DATE_TIME date);
+    Integer weekday(Object date);
 
-    Integer hour(TIME time);
-    Integer hourDateTime(DATE_TIME time);
+    Integer hour(Object time);
 
-    Integer minute(TIME time);
-    Integer minuteDateTime(DATE_TIME time);
+    Integer minute(Object time);
 
     DATE today();
 
