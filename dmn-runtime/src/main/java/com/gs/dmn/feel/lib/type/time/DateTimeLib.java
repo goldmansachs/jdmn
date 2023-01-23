@@ -20,17 +20,17 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Te
 
     DATE date(NUMBER year, NUMBER month, NUMBER day);
 
-    DATE date(DATE from);
+    DATE date(Object from);
 
     TIME time(String literal);
 
     TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset);
 
-    TIME time(TIME from);
+    TIME time(Object from);
 
     DATE_TIME dateAndTime(String literal);
 
-    DATE_TIME dateAndTime(DATE date, TIME time);
+    DATE_TIME dateAndTime(Object date, Object time);
 
     //
     // Date properties

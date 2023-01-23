@@ -53,11 +53,12 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
     }
 
     @Override
-    public XMLGregorianCalendar date(XMLGregorianCalendar from) {
-        if (from == null) {
+    public XMLGregorianCalendar date(Object fromObj) {
+        if (fromObj == null) {
             return null;
         }
 
+        XMLGregorianCalendar from = (XMLGregorianCalendar) fromObj;
         FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) from.clone();
         calendar.setTime(DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED);
         calendar.setZoneID(null);
@@ -100,11 +101,12 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
     }
 
     @Override
-    public XMLGregorianCalendar time(XMLGregorianCalendar from) {
-        if (from == null) {
+    public XMLGregorianCalendar time(Object fromObj) {
+        if (fromObj == null) {
             return null;
         }
 
+        XMLGregorianCalendar from = (XMLGregorianCalendar) fromObj;
         FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) from.clone();
         if (from.getXMLSchemaType() == DatatypeConstants.DATE) {
             calendar.setYear(DatatypeConstants.FIELD_UNDEFINED);
@@ -134,11 +136,13 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
     }
 
     @Override
-    public XMLGregorianCalendar dateAndTime(XMLGregorianCalendar date, XMLGregorianCalendar time) {
-        if (date == null || time == null) {
+    public XMLGregorianCalendar dateAndTime(Object dateObj, Object timeObj) {
+        if (dateObj == null || timeObj == null) {
             return null;
         }
 
+        XMLGregorianCalendar date = (XMLGregorianCalendar) dateObj;
+        XMLGregorianCalendar time = (XMLGregorianCalendar) timeObj;
         XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeDateTime(
                 BigInteger.valueOf(date.getYear()), date.getMonth(), date.getDay(),
                 time.getHour(), time.getMinute(), time.getSecond(), time.getFractionalSecond(),
@@ -301,7 +305,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
             return null;
         }
 
-        return time((XMLGregorianCalendar) from);
+        return time(from);
     }
 
     @Override

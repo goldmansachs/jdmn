@@ -30,7 +30,7 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     }
 
     @Override
-    public DATE date(DATE from) {
+    public DATE date(Object from) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -45,7 +45,7 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     }
 
     @Override
-    public TIME time(TIME from) {
+    public TIME time(Object from) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -55,7 +55,7 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
     }
 
     @Override
-    public DATE_TIME dateAndTime(DATE date, TIME time) {
+    public DATE_TIME dateAndTime(Object date, Object time) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

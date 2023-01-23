@@ -58,10 +58,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     }
 
     @Override
-    public LocalDate date(LocalDate from) {
-        return from;
-    }
-    public LocalDate date(Temporal from) {
+    public LocalDate date(Object from) {
         if (from == null) {
             return null;
         }
@@ -108,8 +105,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             ZoneId zoneId = parsed.query(TemporalQueries.zoneId());
             int millisOffset = TimeZone.getTimeZone(zoneId).getRawOffset();
             ZoneOffset zoneOffset = ZoneOffset.ofTotalSeconds(millisOffset / 1000);
-            OffsetTime asOffSetTime = OffsetTime.of(localTime, zoneOffset);
-            return asOffSetTime;
+            return OffsetTime.of(localTime, zoneOffset);
         } else {
             return (Temporal) parsed;
         }
@@ -128,7 +124,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     }
 
     @Override
-    public Temporal time(Temporal from) {
+    public Temporal time(Object from) {
         if (from == null) {
             return null;
         }
@@ -136,9 +132,9 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         if (from instanceof LocalDate) {
             return ((LocalDate) from).atStartOfDay(ZoneOffset.UTC).toOffsetDateTime().toOffsetTime();
         } else if (from instanceof LocalTime) {
-            return from;
+            return (LocalTime) from;
         } else if (from instanceof OffsetTime) {
-            return from;
+            return (OffsetTime) from;
         } else if (from instanceof LocalDateTime) {
             return ((LocalDateTime) from).toLocalTime();
         } else if (from instanceof OffsetDateTime) {
@@ -160,15 +156,17 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     }
 
     @Override
-    public Temporal dateAndTime(LocalDate date, Temporal time) {
+    public Temporal dateAndTime(Object date, Object time) {
         if (date == null || time == null) {
             return null;
         }
 
-        if (time instanceof LocalTime) {
-            return LocalDateTime.of(date, (LocalTime) time);
-        } else if (time instanceof OffsetTime) {
-            return OffsetDateTime.of(date, ((OffsetTime) time).toLocalTime(), ((OffsetTime) time).getOffset());
+        if (date instanceof LocalDate) {
+            if (time instanceof LocalTime) {
+                return LocalDateTime.of((LocalDate) date, (LocalTime) time);
+            } else if (time instanceof OffsetTime) {
+                return OffsetDateTime.of((LocalDate) date, ((OffsetTime) time).toLocalTime(), ((OffsetTime) time).getOffset());
+            }
         }
         throw new IllegalArgumentException(String.format("Cannot convert '%s' and '%s' to date and time", date, time));
     }
@@ -308,7 +306,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     @Override
     public LocalDate toDate(Object from) {
         if (from instanceof Temporal) {
-            return date((Temporal) from);
+            return date(from);
         }
         return null;
     }
@@ -316,7 +314,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     @Override
     public Temporal toTime(Object from) {
         if (from instanceof Temporal) {
-            return time((Temporal) from);
+            return time(from);
         }
         return null;
     }

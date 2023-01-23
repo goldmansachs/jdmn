@@ -30,11 +30,13 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
     }
 
     @Override
-    public Duration yearsAndMonthsDuration(XMLGregorianCalendar from, XMLGregorianCalendar to) {
-        if (from == null || to == null) {
+    public Duration yearsAndMonthsDuration(Object fromObj, Object toObj) {
+        if (fromObj == null || toObj == null) {
             return null;
         }
 
+        XMLGregorianCalendar from = (XMLGregorianCalendar) fromObj;
+        XMLGregorianCalendar to = (XMLGregorianCalendar) toObj;
         LocalDate fromLocalDate = LocalDate.of(from.getYear(), from.getMonth(), from.getDay());
         LocalDate toLocalDate = LocalDate.of(to.getYear(), to.getMonth(), to.getDay());
         Period period = Period.between(fromLocalDate, toLocalDate);

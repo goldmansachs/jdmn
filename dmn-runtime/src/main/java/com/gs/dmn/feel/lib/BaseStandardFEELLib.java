@@ -126,7 +126,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public DATE date(DATE from) {
+    public DATE date(Object from) {
         try {
             return this.dateTimeLib.date(from);
         } catch (Exception e) {
@@ -181,7 +181,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public DATE_TIME dateAndTime(DATE date, TIME time) {
+    public DATE_TIME dateAndTime(Object date, Object time) {
         try {
             return this.dateTimeLib.dateAndTime(date, time);
         } catch (Exception e) {
@@ -203,7 +203,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public DURATION yearsAndMonthsDuration(DATE from, DATE to) {
+    public DURATION yearsAndMonthsDuration(Object from, Object to) {
         try {
             return this.durationLib.yearsAndMonthsDuration(from, to);
         } catch (Exception e) {

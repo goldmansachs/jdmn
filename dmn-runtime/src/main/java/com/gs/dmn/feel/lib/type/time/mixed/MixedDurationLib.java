@@ -34,29 +34,13 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
     }
 
     @Override
-    public javax.xml.datatype.Duration yearsAndMonthsDuration(LocalDate from, LocalDate to) {
+    public javax.xml.datatype.Duration yearsAndMonthsDuration(Object from, Object to) {
         if (from == null || to == null) {
             return null;
         }
 
-        Period period = Period.between(from, to);
+        Period period = Period.between(toDate(from), toDate(to));
         return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
-    }
-    public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
-        return this.yearsAndMonthsDuration(toDate(from), toDate(to));
-    }
-    public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, LocalDate to) {
-        return this.yearsAndMonthsDuration(toDate(from), to);
-    }
-    public Duration yearsAndMonthsDuration(LocalDate from, ZonedDateTime to) {
-        return this.yearsAndMonthsDuration(from, toDate(to));
-    }
-
-    private LocalDate toDate(Object object) {
-        if (object instanceof ZonedDateTime) {
-            return this.dateTimeLib.date((ZonedDateTime) object);
-        }
-        return (LocalDate) object;
     }
 
     @Override
@@ -144,5 +128,9 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         return duration.getSign() == -1 ? duration.negate() : duration;
+    }
+
+    private LocalDate toDate(Object object) {
+        return this.dateTimeLib.toDate(object);
     }
 }

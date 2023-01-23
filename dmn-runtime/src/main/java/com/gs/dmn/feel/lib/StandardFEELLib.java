@@ -31,7 +31,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     DATE date(NUMBER year, NUMBER month, NUMBER day);
 
-    DATE date(DATE from);
+    DATE date(Object from);
 
     TIME time(String from);
 
@@ -41,11 +41,11 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     DATE_TIME dateAndTime(String from);
 
-    DATE_TIME dateAndTime(DATE date, TIME time);
+    DATE_TIME dateAndTime(Object date, Object time);
 
     DURATION duration(String literal);
 
-    DURATION yearsAndMonthsDuration(DATE from, DATE to);
+    DURATION yearsAndMonthsDuration(Object from, Object to);
 
     //
     // Numeric functions

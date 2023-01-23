@@ -154,6 +154,12 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
         return Duration.ofSeconds(seconds, nanos);
     }
 
+    private final TemporalDateTimeLib dateTimeLib;
+
+    public TemporalAmountDurationLib() {
+        this.dateTimeLib = new TemporalDateTimeLib();
+    }
+
     @Override
     public TemporalAmount duration(String from) {
         if (StringUtils.isBlank(from)) {
@@ -164,12 +170,12 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
     }
 
     @Override
-    public TemporalAmount yearsAndMonthsDuration(LocalDate from, LocalDate to) {
+    public TemporalAmount yearsAndMonthsDuration(Object from, Object to) {
         if (from == null || to == null) {
             return null;
         }
 
-        return Period.between(from, to).withDays(0);
+        return Period.between(toDate(from), toDate(to)).withDays(0);
     }
 
     @Override
@@ -250,5 +256,9 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
         } else {
             return null;
         }
+    }
+
+    private LocalDate toDate(Object object) {
+        return this.dateTimeLib.toDate(object);
     }
 }
