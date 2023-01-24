@@ -14,6 +14,7 @@ package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
@@ -319,10 +320,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
     public TemporalAccessor dateTemporalAccessor(String literal) {
         if (literal == null) {
-            throw new IllegalArgumentException("Date literal cannot be null");
+            throw new DMNRuntimeException("Date literal cannot be null");
         }
         if (!BEGIN_YEAR.matcher(literal).find()) {
-            throw new IllegalArgumentException("Year not compliant with XML Schema Part 2 Datatypes");
+            throw new DMNRuntimeException("Year not compliant with XML Schema Part 2 Datatypes");
         }
 
         try {
@@ -334,7 +335,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
     public TemporalAccessor timeTemporalAccessor(String literal) {
         if (literal == null) {
-            throw new IllegalArgumentException("Time literal cannot be null");
+            throw new DMNRuntimeException("Time literal cannot be null");
         }
 
         try {
@@ -354,10 +355,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
     public TemporalAccessor dateTimeTemporalAccessor(String literal) {
         if (literal == null) {
-            throw new IllegalArgumentException("Date and time literal cannot be null");
+            throw new DMNRuntimeException("Date and time literal cannot be null");
         }
         if (!BaseDateTimeLib.BEGIN_YEAR.matcher(literal).find()) {
-            throw new IllegalArgumentException("Year is not not compliant with XML Schema Part 2 Datatypes");
+            throw new DMNRuntimeException("Year is not not compliant with XML Schema Part 2 Datatypes");
         }
 
         try {

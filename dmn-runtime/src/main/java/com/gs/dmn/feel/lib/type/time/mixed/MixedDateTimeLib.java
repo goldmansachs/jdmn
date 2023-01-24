@@ -15,6 +15,7 @@ package com.gs.dmn.feel.lib.type.time.mixed;
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.Duration;
@@ -63,7 +64,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         } else if (from instanceof ZonedDateTime) {
             return ((ZonedDateTime) from).toLocalDate();
         }
-        throw new IllegalArgumentException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
     }
 
     @Override
@@ -139,7 +140,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         } else if (from instanceof ZonedDateTime) {
             return ((ZonedDateTime) from).toOffsetDateTime().toOffsetTime();
         }
-        throw new IllegalArgumentException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
     }
 
     @Override
@@ -175,7 +176,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
                 return dateAndTime(date.toLocalDate(), time);
             }
         }
-        throw new IllegalArgumentException(String.format("Cannot convert '%s' and '%s' to date and time", dateObj.getClass().getSimpleName(), timeObj.getClass().getSimpleName()));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' and '%s' to date and time", dateObj.getClass().getSimpleName(), timeObj.getClass().getSimpleName()));
     }
 
     //
@@ -365,7 +366,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         } else if (from instanceof ZonedDateTime) {
             return date(from);
         }
-        throw new IllegalArgumentException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
     }
 
     @Override
@@ -381,7 +382,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         } else if (from instanceof ZonedDateTime) {
             return time(from);
         }
-        throw new IllegalArgumentException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
     }
 
     @Override
@@ -399,6 +400,6 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         } else if (from instanceof ZonedDateTime) {
             return (ZonedDateTime) from;
         }
-        throw new IllegalArgumentException(String.format("Cannot convert '%s' to date time", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date time", from.getClass().getSimpleName()));
     }
 }

@@ -15,6 +15,7 @@ package com.gs.dmn.feel.lib.type.time.pure;
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.*;
@@ -72,7 +73,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         } else if (from instanceof ZonedDateTime) {
             return ((ZonedDateTime) from).toLocalDate();
         }
-        throw new IllegalArgumentException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
     }
 
     public Temporal dateDateTime(Temporal from) {
@@ -89,7 +90,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         } else if (from instanceof ZonedDateTime) {
             return from;
         }
-        throw new IllegalArgumentException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
     }
 
     @Override
@@ -142,7 +143,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         } else if (from instanceof ZonedDateTime) {
             return ((ZonedDateTime) from).toOffsetDateTime().toOffsetTime();
         }
-        throw new IllegalArgumentException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
     }
 
     @Override
@@ -168,7 +169,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
                 return OffsetDateTime.of((LocalDate) date, ((OffsetTime) time).toLocalTime(), ((OffsetTime) time).getOffset());
             }
         }
-        throw new IllegalArgumentException(String.format("Cannot convert '%s' and '%s' to date and time", date, time));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' and '%s' to date and time", date, time));
     }
 
     //

@@ -13,10 +13,10 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.DurationLib;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.*;
-import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAmount;
 import java.util.regex.Matcher;
@@ -44,7 +44,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
             String tGroup = matcher.group(5);
             // check for letter T but no time sections
             if ("T".equals(tGroup)) {
-                throw new DateTimeParseException("Text cannot be parsed to a Duration", text, 0);
+                throw new DMNRuntimeException(String.format("Text '%s' cannot be parsed to a Duration", text));
             }
 
             // Extract e temporal amount parts
@@ -69,7 +69,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
                 }
             }
         }
-        throw new DateTimeParseException("Text cannot be parsed to a Duration", text, 0);
+        throw new DMNRuntimeException(String.format("Text '%s' cannot be parsed to a Duration", text));
     }
 
     private static Duration extractDayTimePart(Matcher matcher, CharSequence text) {
@@ -77,7 +77,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
         String tGroup = matcher.group(5);
         // check for letter T but no time sections
         if ("T".equals(tGroup)) {
-            throw new DateTimeParseException("Text cannot be parsed to a Duration", text, 0);
+            throw new DMNRuntimeException(String.format("Text '%s' cannot be parsed to a Duration", text));
         }
         String hourMatch = matcher.group(6);
         String minuteMatch = matcher.group(7);
@@ -93,7 +93,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
                 int nanos = parseFraction(text, fractionMatch, seconds < 0 ? -1 : 1);
                 return create(daysAsSecs, hoursAsSecs, minsAsSecs, seconds, nanos);
             } catch (ArithmeticException ex) {
-                throw new DateTimeParseException("Text cannot be parsed to a Duration", text, 0, ex);
+                throw new DMNRuntimeException(String.format("Text '%s' cannot be parsed to a Duration", text));
             }
         }
         return null;
@@ -110,7 +110,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
                 int months = parseNumber(monthMatch);
                 period = Period.of(years, months, 0);
             } catch (NumberFormatException ex) {
-                throw new DateTimeParseException("Text cannot be parsed to a Duration", text, 0, ex);
+                throw new DMNRuntimeException(String.format("Text '%s' cannot be parsed to a Duration", text));
             }
         }
         return period;
@@ -130,9 +130,9 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
         }
         try {
             long val = Long.parseLong(parsed);
-            return Math.multiplyExact(val, multiplier);
+            return Math.multiplyExact(val, (long) multiplier);
         } catch (NumberFormatException | ArithmeticException ex) {
-            throw (DateTimeParseException) new DateTimeParseException("Text cannot be parsed to a Duration: " + errorText, text, 0).initCause(ex);
+            throw new DMNRuntimeException(String.format("Cannot extract '%s' from text '%s'", errorText, text));
         }
     }
 
@@ -145,7 +145,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
             parsed = (parsed + "000000000").substring(0, 9);
             return Integer.parseInt(parsed) * negate;
         } catch (NumberFormatException | ArithmeticException ex) {
-            throw (DateTimeParseException) new DateTimeParseException("Text cannot be parsed to a Duration: fraction", text, 0).initCause(ex);
+            throw new DMNRuntimeException(String.format("Text '%s' cannot be parsed to a Duration", text));
         }
     }
 
@@ -198,7 +198,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
            long hours = minutes / 60;
            return hours / 24;
        } else {
-           throw new IllegalArgumentException(String.format("Cannot extract days from '%s'", duration));
+           throw new DMNRuntimeException(String.format("Cannot extract days from '%s'", duration));
        }
     }
 
@@ -212,7 +212,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
             long hours = minutes / 60;
             return hours % 24;
         } else {
-            throw new IllegalArgumentException(String.format("Cannot extract hours from '%s'", duration));
+            throw new DMNRuntimeException(String.format("Cannot extract hours from '%s'", duration));
         }
     }
 
@@ -225,7 +225,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
             long minutes = seconds / 60;
             return minutes % 60;
         } else {
-            throw new IllegalArgumentException(String.format("Cannot extract minutes from '%s'", duration));
+            throw new DMNRuntimeException(String.format("Cannot extract minutes from '%s'", duration));
         }
     }
 
@@ -237,7 +237,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
             long seconds = ((Duration) duration).getSeconds();
             return seconds % 60;
         } else {
-            throw new IllegalArgumentException(String.format("Cannot extract seconds from '%s'", duration));
+            throw new DMNRuntimeException(String.format("Cannot extract seconds from '%s'", duration));
         }
     }
 

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -79,7 +80,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
             return null;
         }
 
-        return Double.valueOf(dividend.intValue() % divisor.intValue());
+        return (double) (dividend.intValue() % divisor.intValue());
     }
 
     @Override
@@ -99,7 +100,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
 
         double result = Math.sqrt(number);
         if (Double.isNaN(result)) {
-            throw new IllegalArgumentException("Illegal number" + number);
+            throw new DMNRuntimeException(String.format("Illegal number '%s'", number));
         } else {
             return result;
         }
@@ -113,7 +114,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
 
         double result = Math.log(number);
         if (Double.isNaN(result)) {
-            throw new IllegalArgumentException("Illegal number" + number);
+            throw new DMNRuntimeException(String.format("Illegal number '%s'", number));
         } else {
             return result;
         }
@@ -127,7 +128,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
 
         double result = Math.exp(number);
         if (Double.isNaN(result)) {
-            throw new IllegalArgumentException("Illegal number" + number);
+            throw new DMNRuntimeException(String.format("Illegal number '%s'", number));
         } else {
             return result;
         }
@@ -205,7 +206,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
             return null;
         }
 
-        Double result = Double.valueOf(0);
+        double result = 0;
         for (Object e : list) {
             Double number = (Double) e;
             result = result + number;
@@ -220,7 +221,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
         }
 
         Double sum = sum(list);
-        return DoubleNumericType.doubleNumericDivide(sum, Double.valueOf(list.size()));
+        return DoubleNumericType.doubleNumericDivide(sum, (double) list.size());
     }
 
     @Override
@@ -229,7 +230,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
             return null;
         }
 
-        Double result = 1.0;
+        double result = 1.0;
         for (Object e : list) {
             Double number = (Double) e;
             result = result * number;
@@ -264,16 +265,15 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
 
         Double mean = mean(list);
         int length = list.size();
-        Double variance = 0.0;
+        double variance = 0.0;
         for(Object e: list) {
             Double number = (Double) e;
             Double dm = number - mean;
-            Double dv = dm * dm;
+            double dv = dm * dm;
             variance = variance + dv;
         }
         variance = variance / (length - 1);
-        Double stddev = sqrt(variance);
-        return stddev;
+        return sqrt(variance);
     }
 
     @Override
