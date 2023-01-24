@@ -19,7 +19,6 @@ import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZonedDateTime;
 
 public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
     private final MixedDateTimeLib dateTimeLib;
@@ -30,7 +29,12 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
 
     @Override
     public javax.xml.datatype.Duration duration(String from) {
-        return XMLDurationFactory.INSTANCE.parse(from);
+        Duration duration = XMLDurationFactory.INSTANCE.parse(from);
+        if (XMLCalendarType.isYearMonthDuration(duration) || XMLCalendarType.isDayTimeDuration(duration)) {
+            return duration;
+        } else {
+            return null;
+        }
     }
 
     @Override

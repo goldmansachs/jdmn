@@ -52,21 +52,10 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
             Period yearMonthPart = extractYearMonthPart(matcher, text);
             Duration dayTimePart = extractDayTimePart(matcher, text);
 
-            if (yearMonthPart != null) {
-                if (dayTimePart != null) {
-                    // Calculate final duration
-                    OffsetDateTime dateTime = OffsetDateTime.ofInstant(Instant.EPOCH, ZoneOffset.ofHours(0));
-                    dateTime = dateTime.plus(yearMonthPart);
-                    long seconds = dateTime.toEpochSecond() + dayTimePart.getSeconds();
-                    Duration finalDuration = Duration.ofSeconds(seconds);
-                    return negate == -1 ? finalDuration.negated() : finalDuration;
-                } else {
-                    return negate == -1 ? yearMonthPart.negated() : yearMonthPart;
-                }
-            } else {
-                if (dayTimePart != null) {
-                    return negate == -1 ? dayTimePart.negated() : dayTimePart;
-                }
+            if (yearMonthPart != null && dayTimePart == null) {
+                return negate == -1 ? yearMonthPart.negated() : yearMonthPart;
+            } else if (yearMonthPart == null && dayTimePart != null) {
+                return negate == -1 ? dayTimePart.negated() : dayTimePart;
             }
         }
         throw new DMNRuntimeException(String.format("Text '%s' cannot be parsed to a Duration", text));

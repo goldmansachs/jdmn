@@ -927,8 +927,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().isDaysAndTimeDuration(makeDuration("-P1DT2H3M4S")));
 
         // mixture
-        assertTrue(getLib().isDuration(makeDuration("P1Y2M1DT2H3M4S")));
-        assertTrue(getLib().isDuration(makeDuration("-P1Y2M1DT2H3M4S")));
+        assertFalse(getLib().isDuration(makeDuration("P1Y2M1DT2H3M4S")));
+        assertFalse(getLib().isDuration(makeDuration("-P1Y2M1DT2H3M4S")));
     }
 
     @Test
@@ -944,8 +944,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertEquals(Long.valueOf(- ((24 + 2) * 3600L + 3 * 60L + 4)), getLib().durationValue(makeDuration("-P1DT2H3M4S")));
 
         // mixture
-        assertEquals(Long.valueOf(36727384L), getLib().durationValue(makeDuration("P1Y2M1DT2H3M4S")));
-//         assertEquals(Long.valueOf(-36727384L), getLib().durationValue(makeDuration("-P1Y2M1DT2H3M4S")));
+        assertNull(getLib().durationValue(makeDuration("P1Y2M1DT2H3M4S")));
+        assertNull(getLib().durationValue(makeDuration("-P1Y2M1DT2H3M4S")));
     }
 
     @Test

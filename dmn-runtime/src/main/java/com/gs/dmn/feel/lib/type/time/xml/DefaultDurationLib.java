@@ -26,7 +26,12 @@ public class DefaultDurationLib implements DurationLib<XMLGregorianCalendar, Dur
 
     @Override
     public Duration duration(String from) {
-        return XMLDurationFactory.INSTANCE.parse(from);
+        Duration duration = XMLDurationFactory.INSTANCE.parse(from);
+        if (XMLCalendarType.isYearMonthDuration(duration) || XMLCalendarType.isDayTimeDuration(duration)) {
+            return duration;
+        } else {
+            return null;
+        }
     }
 
     @Override

@@ -1009,7 +1009,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "days and time duration",
                 "timeOffset(time(\"12:00:00Z\"))",
                 this.lib.timeOffset(this.lib.time("12:00:00Z")),
-                this.lib.duration("P0Y0M0DT0H0M0.000S"));
+                this.lib.duration("P0DT0H0M0.000S"));
     }
 
     @Test

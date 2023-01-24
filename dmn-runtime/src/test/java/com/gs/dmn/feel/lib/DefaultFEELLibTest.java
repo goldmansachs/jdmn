@@ -220,7 +220,7 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
         assertNull(getLib().timeOffset(null));
         assertNull(getLib().timeOffset(makeTime("12:01:02")));
         assertEquals(getLib().duration("PT1H"), getLib().timeOffset(makeTime("12:01:02+01:00")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(makeTime("12:01:02Z")));
+        assertEquals(getLib().duration("P0DT0H0M0.000S"), getLib().timeOffset(makeTime("12:01:02Z")));
         assertNull(getLib().timeOffset(makeTime("12:01:02Z@Etc/UTC")));
 
         assertNull(getLib().timezone(null));
@@ -261,7 +261,7 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
         assertNull(getLib().timeOffset(null));
         assertNull(getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02")));
         assertEquals(getLib().duration("PT1H"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02+01:00")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02Z")));
+        assertEquals(getLib().duration("P0DT0H0M0.000S"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02Z")));
         assertNull(getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
 
         assertNull(getLib().timezone(null));

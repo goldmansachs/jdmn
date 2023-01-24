@@ -254,7 +254,7 @@ public abstract class BaseDateTimeLib {
         try {
             return LocalDate.from(FEEL_DATE.parse(literal));
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error in date('%s')", literal));
+            throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", literal));
         }
     }
 

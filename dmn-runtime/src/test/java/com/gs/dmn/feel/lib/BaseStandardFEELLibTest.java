@@ -55,12 +55,10 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEqualsDateTime("P2DT20H", getLib().duration("P2DT20H"));
         assertEqualsDateTime("-PT2H", getLib().duration("-PT2H"));
 
-        assertEqualsDateTime("P1Y8M", getLib().duration("P1Y8M"));
-        assertEqualsDateTime("P2DT20H", getLib().duration("P2DT20H"));
-
         assertEqualsDateTime("P999999999M", getLib().duration("P999999999M"));
         assertEqualsDateTime("-P999999999M", getLib().duration("-P999999999M"));
-        assertEqualsDateTime("P1Y0M2DT6H58M59.000S", getLib().duration("P1Y0M2DT6H58M59.000S"));
+        assertNull(getLib().duration("P1Y0M2DT6H58M59.000S"));
+
         // Overflow in duration(from)
         assertEqualsDateTime("P11999999988M", getLib().duration("P11999999988M"));
         assertEqualsDateTime("P2129706043D", getLib().duration("P2129706043D"));

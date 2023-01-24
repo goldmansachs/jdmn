@@ -202,9 +202,9 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
         assertEqualsNumber(makeNumber("2"), getLib().second(getLib().time("12:01:02Z")));
 
         assertNull(getLib().timeOffset(null));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02")));
+        assertEquals(getLib().duration("P0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02")));
         assertEquals(getLib().duration("PT1H"), getLib().timeOffset(getLib().time("12:01:02+01:00")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z")));
+        assertEquals(getLib().duration("P0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z")));
         assertNull(getLib().timeOffset(getLib().time("12:01:02Z@Etc/UTC")));
 
         assertNull(getLib().timezone(null));
@@ -243,9 +243,9 @@ public class DoubleMixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<Doub
         assertEqualsNumber(makeNumber("2"), getLib().second(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
         assertNull(getLib().timeOffset(null));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02")));
+        assertEquals(getLib().duration("P0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02")));
         assertEquals(getLib().duration("PT1H"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02+01:00")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z")));
+        assertEquals(getLib().duration("P0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z")));
         assertNull(getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
 
         assertNull(getLib().timezone(null));

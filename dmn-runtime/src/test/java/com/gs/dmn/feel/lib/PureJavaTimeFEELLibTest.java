@@ -145,15 +145,14 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         assertEqualsDateTime("PT68H", getLib().duration("P2DT20H"));
         assertEqualsDateTime("PT-2H", getLib().duration("-PT2H"));
 
-        assertEqualsDateTime("P1Y8M", getLib().duration("P1Y8M"));
-        assertEqualsDateTime("PT68H", getLib().duration("P2DT20H"));
-
         assertEqualsDateTime("P999999999M", getLib().duration("P999999999M"));
-        assertEqualsDateTime("P-999999999M",getLib().duration("-P999999999M"));
-        assertEqualsDateTime("PT8814H58M59S", getLib().duration("P1Y0M2DT6H58M59.000S"));
+        assertEqualsDateTime("P-999999999M", getLib().duration("-P999999999M"));
+        assertNull(getLib().duration("P1Y0M2DT6H58M59.000S"));
+
         // Overflow in duration(from)
-        assertEqualsDateTime(null, getLib().duration("P11999999988M"));
-        assertEqualsDateTime("PT51112945032H", getLib().duration("P2129706043D"));
+        assertNull(getLib().duration("P11999999988M"));
+        assertEqualsDateTime("PT287999999712H", getLib().duration("P11999999988D"));
+        assertEqualsDateTime("PT0S", getLib().duration("PT0.S"));
     }
 
     @Override

@@ -1594,7 +1594,7 @@
         <description>Both or neither values must have zone info</description>
         <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_002" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:duration">P0Y0M0DT23H0M0.000S</value>
+                <value xsi:type="xsd:duration">P0DT23H0M0.000S</value>
             </expected>
         </resultNode>
     </testCase>
@@ -1603,7 +1603,7 @@
         <description>Both or neither values must have zone info</description>
         <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_003" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:duration">P0Y0M1DT1H0M0.000S</value>
+                <value xsi:type="xsd:duration">P1DT1H0M0.000S</value>
             </expected>
         </resultNode>
     </testCase>
@@ -1612,7 +1612,7 @@
         <description>Both or neither values must have zone info</description>
         <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_004" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:duration">P0Y0M0DT22H0M0.000S</value>
+                <value xsi:type="xsd:duration">P0DT22H0M0.000S</value>
             </expected>
         </resultNode>
     </testCase>
@@ -1621,7 +1621,7 @@
         <description>Both or neither values must have zone info</description>
         <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_005" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:duration">P0Y0M1DT2H0M0.000S</value>
+                <value xsi:type="xsd:duration">P1DT2H0M0.000S</value>
             </expected>
         </resultNode>
     </testCase>
@@ -1657,7 +1657,7 @@
         <description>Offset datetime is UTC and datetime has no zone</description>
         <resultNode name="subtract_lhs_dateAndTime_minus_rhs_dateAndTime_009" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:duration">P0Y0M0DT23H0M0.000S</value>
+                <value xsi:type="xsd:duration">P0DT23H0M0.000S</value>
             </expected>
         </resultNode>
     </testCase>
@@ -1837,7 +1837,7 @@
         <description>Both must have zone info and date implies UTC</description>
         <resultNode name="subtract_lhs_dateAndTime_minus_rhs_date_001" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:duration">-P0Y0M1DT0H0M0.000S</value>
+                <value xsi:type="xsd:duration">-P1DT0H0M0.000S</value>
             </expected>
         </resultNode>
     </testCase>
@@ -2035,7 +2035,7 @@
         <description>subtract_lhs_date_minus_rhs_dateAndTime_001</description>
         <resultNode name="subtract_lhs_date_minus_rhs_dateAndTime_001" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:duration">P0Y0M0DT13H49M50.000S</value>
+                <value xsi:type="xsd:duration">P0DT13H49M50.000S</value>
             </expected>
         </resultNode>
     </testCase>

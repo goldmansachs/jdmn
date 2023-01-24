@@ -201,8 +201,7 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
     protected List<Pair<String, String>> getDurationTestData() {
         return Arrays.asList(
                 new Pair<>("P1Y2M", "P1Y2M"),
-                new Pair<>("P1DT2H3M", "P1DT2H3M"),
-                new Pair<>("P1Y1M3DT4H5M", "P1Y1M3DT4H5M")
+                new Pair<>("P1DT2H3M", "P1DT2H3M")
         );
     }
 }
