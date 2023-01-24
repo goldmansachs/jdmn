@@ -320,12 +320,12 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
     public TemporalAccessor dateTemporalAccessor(String literal) {
         if (literal == null) {
-            throw new DMNRuntimeException("Date literal cannot be null");
-        }
-        if (!BEGIN_YEAR.matcher(literal).find()) {
-            throw new DMNRuntimeException("Year not compliant with XML Schema Part 2 Datatypes");
+            return null;
         }
 
+        if (!BEGIN_YEAR.matcher(literal).find()) {
+            throw new DMNRuntimeException(String.format("Illegal year in '%s'", literal));
+        }
         try {
             return LocalDate.from(FEEL_DATE.parse(literal));
         } catch (DateTimeException e) {
@@ -335,9 +335,12 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
     public TemporalAccessor timeTemporalAccessor(String literal) {
         if (literal == null) {
-            throw new DMNRuntimeException("Time literal cannot be null");
+            return null;
         }
 
+        if (this.hasZoneOffset(literal) && this.hasZoneId(literal)) {
+            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", literal));
+        }
         try {
             TemporalAccessor parsed = FEEL_TIME.parse(literal);
 
@@ -349,31 +352,24 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
             return parsed;
         } catch (DateTimeException e) {
-            throw new RuntimeException("Parsing exception in time literal", e);
+            throw new DMNRuntimeException("Parsing exception in time literal", e);
         }
     }
 
     public TemporalAccessor dateTimeTemporalAccessor(String literal) {
         if (literal == null) {
-            throw new DMNRuntimeException("Date and time literal cannot be null");
-        }
-        if (!BaseDateTimeLib.BEGIN_YEAR.matcher(literal).find()) {
-            throw new DMNRuntimeException("Year is not not compliant with XML Schema Part 2 Datatypes");
+            return null;
         }
 
+        if (!BaseDateTimeLib.BEGIN_YEAR.matcher(literal).find()) {
+            throw new DMNRuntimeException(String.format("Illegal year in '%s'", literal));
+        }
+        if (this.hasZoneOffset(literal) && this.hasZoneId(literal)) {
+            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", literal));
+        }
         try {
             if (literal.contains("T")) {
-                TemporalAccessor value = FEEL_DATE_TIME.parse(literal);
-
-                if (value.query(TemporalQueries.zoneId()) != null) {
-                    return value.query(ZonedDateTime::from);
-                } else if (value.query(TemporalQueries.offset()) != null) {
-                    return value.query(OffsetDateTime::from);
-                } else if (value.query(TemporalQueries.zone()) == null) {
-                    return value.query(LocalDateTime::from);
-                }
-
-                return value;
+                return FEEL_DATE_TIME.parseBest(literal, ZonedDateTime::from, OffsetDateTime::from, LocalDateTime::from);
             } else {
                 LocalDate value = DateTimeFormatter.ISO_DATE.parse(literal, LocalDate::from);
                 return LocalDateTime.of(value, LocalTime.of(0, 0));

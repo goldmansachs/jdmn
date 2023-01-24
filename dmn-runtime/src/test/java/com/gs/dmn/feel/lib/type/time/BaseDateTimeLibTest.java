@@ -12,11 +12,8 @@
  */
 package com.gs.dmn.feel.lib.type.time;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.junit.Test;
-
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.format.DateTimeParseException;
 
 import static org.junit.Assert.*;
 
@@ -114,18 +111,6 @@ public class BaseDateTimeLibTest {
     }
 
     @Test
-    public void testTimeHasOffset() {
-        assertTrue(this.dateTimeLib.timeHasOffset("12:00:00+00:00"));
-        assertTrue(this.dateTimeLib.timeHasOffset("12:00:00-00:00"));
-        assertTrue(this.dateTimeLib.timeHasOffset("12:00:00-0000"));
-        assertTrue(this.dateTimeLib.timeHasOffset("12:00:00+0000"));
-
-        assertFalse(this.dateTimeLib.timeHasOffset("12:00:00"));
-        assertFalse(this.dateTimeLib.timeHasOffset("12:00:00Z"));
-        assertFalse(this.dateTimeLib.timeHasOffset("12:00:00[UTC]"));
-    }
-
-    @Test
     public void testMakeLocalDate() {
         assertEquals("2017-08-10", this.dateTimeLib.makeLocalDate("2017-08-10").format(BaseDateTimeLib.FEEL_DATE_FORMAT));
         assertEquals("9999-01-01", this.dateTimeLib.makeLocalDate("9999-01-01").format(BaseDateTimeLib.FEEL_DATE_FORMAT));
@@ -133,7 +118,7 @@ public class BaseDateTimeLibTest {
         assertEquals("-999999999-01-01", this.dateTimeLib.makeLocalDate("-999999999-01-01").format(BaseDateTimeLib.FEEL_DATE_FORMAT));
     }
 
-    @Test(expected = DateTimeParseException.class)
+    @Test(expected = DMNRuntimeException.class)
     public void testMakeLocalDateWhenSign() {
         assertNotNull(this.dateTimeLib.makeLocalDate("+999999999-01-01"));
     }

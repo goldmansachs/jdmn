@@ -223,7 +223,7 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         super.testToDateTime();
 
         assertEqualsDateTime("2016-08-01T00:00:00Z@UTC", getLib().toDateTime(makeDate("2016-08-01")));
-        assertEqualsDateTime("2016-08-01T12:00:00Z@UTC", getLib().toDateTime(makeDateAndTime("2016-08-01T12:00:00Z")));
+        assertEqualsDateTime("2016-08-01T12:00:00Z", getLib().toDateTime(makeDateAndTime("2016-08-01T12:00:00Z")));
     }
 
     //
@@ -261,16 +261,16 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
     @Override
     @Test
     public void testDateAndTimeProperties() {
-        assertNull(getLib().year((ZonedDateTime) null));
+        assertNull(getLib().year(null));
         assertEqualsNumber(makeNumber("2018"), getLib().year(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
-        assertNull(getLib().month((ZonedDateTime) null));
+        assertNull(getLib().month(null));
         assertEqualsNumber(makeNumber("12"), getLib().month(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
-        assertNull(getLib().day((ZonedDateTime) null));
+        assertNull(getLib().day(null));
         assertEqualsNumber(makeNumber("10"), getLib().day(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
-        assertNull(getLib().weekday((ZonedDateTime) null));
+        assertNull(getLib().weekday(null));
         assertEqualsNumber(makeNumber("1"), getLib().weekday(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
         assertNull(getLib().hour(null));

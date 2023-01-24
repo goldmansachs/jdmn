@@ -21,10 +21,7 @@ import org.junit.Test;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -643,6 +640,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().timeEqual(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
         assertTrue(getLib().timeEqual(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));
         assertTrue(getLib().timeEqual(makeTime("00:00:00Z"), makeTime("00:00:00@Etc/UTC")));
+        assertTrue(getLib().timeEqual(makeTime("10:30:00+01:00"), makeTime("10:30:00@Europe/Paris")));
     }
 
     @Test
@@ -1450,8 +1448,14 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         } else if (actual instanceof LocalDate) {
             String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
             assertEquals(expected, actualText);
+        } else if (actual instanceof LocalTime) {
+            String actualText = ((LocalTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
+            assertEquals(expected, actualText);
         } else if (actual instanceof OffsetTime) {
             String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
+            assertEquals(expected, actualText);
+        } else if (actual instanceof LocalDateTime) {
+            String actualText = ((LocalDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
             assertEquals(expected, actualText);
         } else if (actual instanceof OffsetDateTime) {
             String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);

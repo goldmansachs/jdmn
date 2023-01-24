@@ -33,15 +33,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
     //
     @Override
     public LocalDate date(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
-        if (this.hasTime(literal) || this.hasZoneId(literal)) {
-            return null;
-        } else {
-            return this.makeLocalDate(literal);
-        }
+        return this.makeLocalDate(literal);
     }
 
     @Override
@@ -148,13 +140,13 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         if (from == null) {
             return null;
         }
-        if (this.hasZoneId(from) && this.hasZoneOffset(from)) {
-            return null;
-        }
-        if (this.invalidYear(from)) {
-            return null;
-        }
 
+        if (this.hasZoneId(from) && this.hasZoneOffset(from)) {
+            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", from));
+        }
+        if (!BEGIN_YEAR.matcher(from).find()) {
+            throw new DMNRuntimeException(String.format("Illegal year in '%s'", from));
+        }
         return makeZonedDateTime(from);
     }
 

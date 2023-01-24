@@ -193,27 +193,27 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
     @Override
     @Test
     public void testTimeProperties() {
-        assertNull(getLib().hour((OffsetTime) null));
+        assertNull(getLib().hour(null));
         assertEqualsNumber(makeNumber("12"), getLib().hour(getLib().time("12:01:02Z")));
 
-        assertNull(getLib().minute((OffsetTime) null));
+        assertNull(getLib().minute(null));
         assertEqualsNumber(makeNumber("1"), getLib().minute(getLib().time("12:01:02Z")));
 
-        assertNull(getLib().second((OffsetTime) null));
+        assertNull(getLib().second(null));
         assertEqualsNumber(makeNumber("2"), getLib().second(getLib().time("12:01:02Z")));
 
-        assertNull(getLib().timeOffset((OffsetTime) null));
+        assertNull(getLib().timeOffset(null));
         assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02")));
         assertEquals(getLib().duration("PT1H"), getLib().timeOffset(getLib().time("12:01:02+01:00")));
         assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().time("12:01:02Z@Etc/UTC")));
+        assertNull(getLib().timeOffset(getLib().time("12:01:02Z@Etc/UTC")));
 
-        assertNull(getLib().timezone((OffsetTime) null));
+        assertNull(getLib().timezone(null));
         assertEquals("Z", getLib().timezone(getLib().time("12:01:02")));
         assertEquals("+01:00", getLib().timezone(getLib().time("12:01:02+01:00")));
         assertEquals("Z", getLib().timezone(getLib().time("12:01:02Z")));
         assertEquals("Z", getLib().timezone(getLib().time("12:01:02@Etc/UTC")));
-        assertEquals("Z", getLib().timezone(getLib().time("12:01:02Z@Etc/UTC")));
+        assertNull(getLib().timezone(getLib().time("12:01:02Z@Etc/UTC")));
     }
 
     //
@@ -222,38 +222,38 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
     @Override
     @Test
     public void testDateAndTimeProperties() {
-        assertNull(getLib().year((ZonedDateTime) null));
+        assertNull(getLib().year(null));
         assertEqualsNumber(makeNumber("2018"), getLib().year(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
-        assertNull(getLib().month((ZonedDateTime) null));
+        assertNull(getLib().month(null));
         assertEqualsNumber(makeNumber("12"), getLib().month(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
-        assertNull(getLib().day((ZonedDateTime) null));
+        assertNull(getLib().day(null));
         assertEqualsNumber(makeNumber("10"), getLib().day(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
-        assertNull(getLib().weekday((ZonedDateTime) null));
+        assertNull(getLib().weekday(null));
         assertEqualsNumber(makeNumber("1"), getLib().weekday(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
-        assertNull(getLib().hour((ZonedDateTime) null));
+        assertNull(getLib().hour(null));
         assertEqualsNumber(makeNumber("12"), getLib().hour(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
-        assertNull(getLib().minute((ZonedDateTime) null));
+        assertNull(getLib().minute(null));
         assertEqualsNumber(makeNumber("1"), getLib().minute(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
-        assertNull(getLib().second((ZonedDateTime) null));
+        assertNull(getLib().second(null));
         assertEqualsNumber(makeNumber("2"), getLib().second(getLib().dateAndTime("2018-12-10T12:01:02Z")));
 
-        assertNull(getLib().timeOffset((ZonedDateTime) null));
+        assertNull(getLib().timeOffset(null));
         assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02")));
         assertEquals(getLib().duration("PT1H"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02+01:00")));
         assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
+        assertNull(getLib().timeOffset(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
 
-        assertNull(getLib().timezone((ZonedDateTime) null));
+        assertNull(getLib().timezone(null));
         assertEquals("Z", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02")));
         assertEquals("+01:00", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02+01:00")));
         assertEquals("Z", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z")));
         assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02@Etc/UTC")));
-        assertEquals("Etc/UTC", getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
+        assertNull(getLib().timezone(getLib().dateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
     }
 }

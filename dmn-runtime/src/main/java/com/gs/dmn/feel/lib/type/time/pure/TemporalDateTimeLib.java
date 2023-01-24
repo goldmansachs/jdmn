@@ -38,15 +38,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     //
     @Override
     public LocalDate date(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
-        if (this.hasTime(literal) || this.hasZoneId(literal)) {
-            return null;
-        } else {
-            return this.makeLocalDate(literal);
-        }
+         return this.makeLocalDate(literal);
     }
 
     @Override

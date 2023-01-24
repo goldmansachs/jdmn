@@ -20,6 +20,7 @@ import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
+import java.util.Objects;
 
 public class TemporalDateTimeType extends BasePureCalendarType implements DateTimeType<Temporal, TemporalAmount> {
     private final TemporalComparator comparator;
@@ -79,7 +80,9 @@ public class TemporalDateTimeType extends BasePureCalendarType implements DateTi
                     && first1.getHour() == second1.getHour()
                     && first1.getMinute() == second1.getMinute()
                     && first1.getSecond() == second1.getSecond()
-                    && (first1.getOffset() == second1.getOffset() || first1.getOffset().equals(second1.getOffset()));
+                    && Objects.equals(first1.getOffset(), second1.getOffset())
+                    && Objects.equals(first1.getZone(), second1.getZone())
+                    ;
         } else {
             return false;
         }

@@ -39,7 +39,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         //
         // conversion from string
         //
-        assertNull(getLib().date((String) null));
+        assertNull(getLib().date(null));
         assertNull(getLib().date(""));
         assertNull(getLib().date("xxx"));
         assertNull(getLib().date("2012-12-25T"));
@@ -116,6 +116,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertNull(getLib().dateAndTime("xxx"));
         assertNull(getLib().dateAndTime("11:00:00"));
         assertNull(getLib().dateAndTime("2011-12-03T10:15:30+01:00@Europe/Paris"));
+        assertNull(getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris+01:00"));
         assertNull(getLib().dateAndTime("2017-12-31T12:20:00+19:00"));
         assertNull(getLib().dateAndTime("2011-12-0310:15:30"));
         assertNull(getLib().dateAndTime("2017-00-10T11:22:33"));
@@ -257,7 +258,6 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertTrue(getLib().and());
         assertNull(getLib().and((Object) null));
-        assertTrue(getLib().and(new Object[] {}));
         assertNull(getLib().and(null, null));
         assertFalse(getLib().and(null, false));
         assertNull(getLib().and(null, true));
@@ -278,7 +278,6 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertFalse(getLib().or());
         assertNull(getLib().or((Object) null));
-        assertFalse(getLib().or(new Object[] {}));
         assertNull(getLib().or(null, null));
         assertNull(getLib().or(null, false));
         assertTrue(getLib().or(null, true));
@@ -344,7 +343,6 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertNull(getLib().min());
         assertNull(getLib().min((Object) null));
-        assertNull(getLib().min(new Object[] {}));
         assertNull(getLib().min(makeNumber(1), null, makeNumber(3)));
         assertEqualsNumber(makeNumber("1"), getLib().min(makeNumber(1), makeNumber(2), makeNumber(3)));
     }
@@ -358,7 +356,6 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertNull(getLib().max());
         assertNull(getLib().max((Object) null));
-        assertNull(getLib().max(new Object[] {}));
         assertNull(getLib().max(makeNumber(1), null));
         assertEqualsNumber(makeNumber("3"), getLib().max(makeNumber(1), makeNumber(3)));
     }
@@ -372,7 +369,6 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertNull(getLib().sum());
         assertNull(getLib().sum((Object) null));
-        assertNull(getLib().sum(new Object[] {}));
         assertNull(getLib().sum(makeNumber(1), null, makeNumber(3)));
         assertEqualsNumber(makeNumber("6"), getLib().sum(makeNumber(1), makeNumber(2), makeNumber(3)));
     }
