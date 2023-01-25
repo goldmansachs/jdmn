@@ -35,7 +35,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-public class MixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<BigDecimal> implements StandardFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public class MixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<BigDecimal> {
     private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
     private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultDurationType();
     private static final NumericLib<BigDecimal> NUMERIC_LIB = new DefaultNumericLib();

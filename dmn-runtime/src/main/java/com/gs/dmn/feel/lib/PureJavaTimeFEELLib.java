@@ -44,7 +44,7 @@ import java.time.LocalDate;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> implements StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
     private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultStringType();
