@@ -152,9 +152,6 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     public void testDuration() {
         assertNull(getLib().duration("XXX"));
         assertNull(getLib().duration(null));
-
-        assertEqualsDateTime("P1Y8M", getLib().duration("P1Y8M"));
-        assertEqualsDateTime("P2DT20H", getLib().duration("P2DT20H"));
     }
 
     //

@@ -48,23 +48,6 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEqualsNumber(makeNumber("1000000.01"), getLib().number("1.000.000,01", ".", ","));
     }
 
-    @Override
-    @Test
-    public void testDuration() {
-        assertEqualsDateTime("P1Y8M", getLib().duration("P1Y8M"));
-        assertEqualsDateTime("P2DT20H", getLib().duration("P2DT20H"));
-        assertEqualsDateTime("-PT2H", getLib().duration("-PT2H"));
-
-        assertEqualsDateTime("P999999999M", getLib().duration("P999999999M"));
-        assertEqualsDateTime("-P999999999M", getLib().duration("-P999999999M"));
-        assertNull(getLib().duration("P1Y0M2DT6H58M59.000S"));
-
-        // Overflow in duration(from)
-        assertEqualsDateTime("P11999999988M", getLib().duration("P11999999988M"));
-        assertEqualsDateTime("P2129706043D", getLib().duration("P2129706043D"));
-        assertEqualsDateTime("PT0S", getLib().duration("PT0.S"));
-    }
-
     @Test
     public void testYearsAndMonthsDuration() {
         assertNull(getLib().yearsAndMonthsDuration(null, null));

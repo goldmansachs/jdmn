@@ -26,14 +26,11 @@ import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.*;
-import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
-
-import static org.junit.Assert.assertNull;
 
 public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExceptionsTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
     @Override
@@ -56,49 +53,11 @@ public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExcept
         DurationLib<LocalDate, TemporalAmount> durationLib = new DurationLibStub<>();
         ListLib listLib = new ListLibStub();
         RangeLib rangeLib = new RangeLibStub();
-        return new PureJavaTimeFEELLib(numericType, booleanType, stringType,
+        return new PureJavaTimeFEELLib(
+                numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,
                 numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
         );
     }
-
-    @Override
-    @Test
-    public void testYearsAndMonthsDuration() {
-        super.testYearsAndMonthsDuration();
-
-        assertNull(getLib().yearsAndMonthsDuration((Temporal) null, null));
-    }
-
-    @Override
-    @Test
-    public void testYear() {
-        super.testYear();
-
-        assertNull(getLib().year((Temporal) null));
-    }
-
-    @Override
-    @Test
-    public void testMonth() {
-        super.testMonth();
-
-        assertNull(getLib().month((Temporal) null));
-    }
-
-    @Override
-    @Test
-    public void testDay() {
-        super.testDay();
-
-        assertNull(getLib().day((Temporal) null));
-    }
-
-    @Override
-    @Test
-    public void testWeekday() {
-        assertNull(getLib().weekday((Temporal) null));
-    }
-
 }

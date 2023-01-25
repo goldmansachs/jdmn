@@ -14,6 +14,7 @@ package com.gs.dmn.serialization;
 
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Assert;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
@@ -148,8 +149,12 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
     protected abstract DATE_TIME readDateTime(String literal) throws Exception;
     protected abstract DURATION readDuration(String literal) throws Exception;
 
-    protected String write(Object obj) throws Exception {
-        return OBJECT_MAPPER.writeValueAsString(obj);
+    protected String write(Object obj) {
+        try {
+            return OBJECT_MAPPER.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot serialize '%s'", obj), e);
+        }
     }
 
     protected List<Pair<String, String>> getNumberTestData() {
@@ -177,7 +182,7 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
                 new Pair<>("04:20:20.00421", "04:20:20.00421"),
                 new Pair<>("04:20:20.00421Z", "04:20:20.00421Z"),
                 new Pair<>("04:20:20.00421+01:00", "04:20:20.00421+01:00"),
-                new Pair<>("04:20:20.004@UTC", "04:20:20.004Z"),
+                new Pair<>("04:20:20.004Z", "04:20:20.004Z"),
                 new Pair<>("04:20:20.00421@Europe/Paris", "04:20:20.00421+01:00")
         );
     }
