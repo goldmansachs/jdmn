@@ -38,10 +38,16 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         //
         // conversion from string
         //
-        assertNull(getLib().date((String) null));
+        assertNull(getLib().date(null));
         assertNull(getLib().date(""));
         assertNull(getLib().date("xxx"));
+        assertNull(getLib().date("2012-12-25T"));
+        assertNull(getLib().date("2012/12/25"));
+        assertNull(getLib().date("0000-12-25T"));
+        assertNull(getLib().date("2017-13-10"));
+        assertNull(getLib().date("998-12-31"));
         assertNull(getLib().date("01211-12-31"));
+        assertNull(getLib().date("+2012-12-02"));
         assertNull(getLib().date("2017-08-25T11:00:00"));
 
         // year must be in the range [-999,999,999..999,999,999].
@@ -94,7 +100,19 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertNull(getLib().dateAndTime("xxx"));
         assertNull(getLib().dateAndTime("11:00:00"));
         assertNull(getLib().dateAndTime("2011-12-03T10:15:30+01:00@Europe/Paris"));
+        assertNull(getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris+01:00"));
         assertNull(getLib().dateAndTime("2017-12-31T12:20:00+19:00"));
+        assertNull(getLib().dateAndTime("2011-12-0310:15:30"));
+        assertNull(getLib().dateAndTime("2017-00-10T11:22:33"));
+        assertNull(getLib().dateAndTime("998-12-31T11:22:33"));
+        assertNull(getLib().dateAndTime("01211-12-31T11:22:33"));
+        assertNull(getLib().dateAndTime("2017-12-31T07:1:00"));
+        assertNull(getLib().dateAndTime("2017-12-31T07:01:2"));
+        assertNull(getLib().dateAndTime("2017-12-31T13:20:00@xyz/abc"));
+        assertNull(getLib().dateAndTime("2017-12-31T13:20:00+05:0"));
+        assertNull(getLib().dateAndTime("2017-12-31T13:20:00+5:00"));
+        assertNull(getLib().dateAndTime("2017-12-31T13:20:00+5"));
+        assertNull(getLib().dateAndTime("2017-12-31T07:2"));
 
         // fix input literal
         assertEqualsDateTime("2016-08-01T11:00:00+01:00", getLib().dateAndTime("2016-08-01T11:00:00+0100"));
