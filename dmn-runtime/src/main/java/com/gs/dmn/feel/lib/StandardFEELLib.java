@@ -37,7 +37,7 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset);
 
-    TIME time(TIME time);
+    TIME time(Object time);
 
     DATE_TIME dateAndTime(String from);
 

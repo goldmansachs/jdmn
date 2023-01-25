@@ -159,7 +159,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public TIME time(TIME from) {
+    public TIME time(Object from) {
         try {
             return this.dateTimeLib.time(from);
         } catch (Exception e) {
