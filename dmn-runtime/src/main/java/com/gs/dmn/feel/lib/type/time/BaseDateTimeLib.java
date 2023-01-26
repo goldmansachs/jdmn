@@ -32,74 +32,36 @@ public abstract class BaseDateTimeLib {
     protected static final Pattern BEGIN_YEAR = Pattern.compile("^-?(([1-9]\\d\\d\\d+)|(0\\d\\d\\d))-"); // FEEL spec, "specified by XML Schema Part 2 Datatypes", hence: yearFrag ::= '-'? (([1-9] digit digit digit+)) | ('0' digit digit digit))
     protected static final Pattern ZONE_OFFSET = Pattern.compile("[+-]\\d\\d:\\d\\d");
 
-    public static final DateTimeFormatter FEEL_DATE_FORMAT;
-    public static final DateTimeFormatter FEEL_TIME_FORMAT;
-    public static final DateTimeFormatter FEEL_DATE_TIME_FORMAT;
-
-    protected static final DateTimeFormatter FEEL_DATE_TIME;
-    protected static final DateTimeFormatter FEEL_DATE;
-    protected static final DateTimeFormatter FEEL_TIME;
+    public static final DateTimeFormatter FEEL_DATE;
+    public static final DateTimeFormatter FEEL_TIME;
+    public static final DateTimeFormatter FEEL_DATE_TIME;
 
     protected static final DateFormatSymbols DATE_FORMAT_SYMBOLS = new DateFormatSymbols();
     protected static final String[] DAY_NAMES = DATE_FORMAT_SYMBOLS.getWeekdays();
     protected static final String[] MONTH_NAMES = DATE_FORMAT_SYMBOLS.getMonths();
 
     static {
-        FEEL_DATE_FORMAT = new DateTimeFormatterBuilder()
+        FEEL_DATE = new DateTimeFormatterBuilder()
                 .appendValue(YEAR, 4, 10, SignStyle.NORMAL)
                 .appendLiteral('-')
                 .appendValue(MONTH_OF_YEAR, 2)
                 .appendLiteral('-')
                 .appendValue(DAY_OF_MONTH, 2)
-                .toFormatter();
-
-        FEEL_DATE = new DateTimeFormatterBuilder()
-                .appendValue(YEAR, 4, 9, SignStyle.NORMAL)
-                .appendLiteral('-')
-                .appendValue(MONTH_OF_YEAR, 2)
-                .appendLiteral('-')
-                .appendValue(DAY_OF_MONTH, 2)
                 .toFormatter()
                 .withResolverStyle(ResolverStyle.STRICT);
-
-        FEEL_TIME_FORMAT = new DateTimeFormatterBuilder()
-                .appendValue(HOUR_OF_DAY, 2)
-                .appendLiteral(':')
-                .appendValue(MINUTE_OF_HOUR, 2)
-                .optionalStart()
-                .appendLiteral(':')
-                .appendValue(SECOND_OF_MINUTE, 2)
-                .optionalStart()
-                .appendFraction(NANO_OF_SECOND, 0, 9, true)
-                .optionalEnd()
-                .optionalEnd()
-                .optionalStart()
-                .appendOffsetId()
-                .optionalEnd()
-                .optionalStart()
-                .appendLiteral('@')
-                .parseCaseInsensitive()
-                .appendZoneRegionId()
-                .optionalEnd()
-                .toFormatter(Locale.getDefault(Locale.Category.FORMAT));
 
         FEEL_TIME = new DateTimeFormatterBuilder().parseCaseInsensitive()
                 .append(DateTimeFormatter.ISO_LOCAL_TIME)
                 .optionalStart()
-                .appendLiteral("@")
-                .appendZoneRegionId()
+                .appendOffsetId()
                 .optionalEnd()
                 .optionalStart()
-                .appendOffsetId()
+                .appendLiteral("@")
+                .appendZoneRegionId()
                 .optionalEnd()
                 .toFormatter()
                 .withResolverStyle(ResolverStyle.STRICT);
 
-        FEEL_DATE_TIME_FORMAT = new DateTimeFormatterBuilder()
-                .append(FEEL_DATE_FORMAT)
-                .appendLiteral('T')
-                .append(FEEL_TIME_FORMAT)
-                .toFormatter(Locale.getDefault(Locale.Category.FORMAT));
 
         FEEL_DATE_TIME = new DateTimeFormatterBuilder().parseCaseInsensitive()
                 .append(FEEL_DATE)
@@ -225,7 +187,7 @@ public abstract class BaseDateTimeLib {
                 int zoneIndex = literal.indexOf("@");
                 String zoneId = literal.substring(literal.indexOf('@') + 1);
                 ZoneId zone = ZoneId.of(zoneId);
-                LocalTime localTime = LocalTime.parse(literal.substring(0, zoneIndex), FEEL_TIME_FORMAT);
+                LocalTime localTime = LocalTime.parse(literal.substring(0, zoneIndex), FEEL_TIME);
                 ZonedDateTime zdt = ZonedDateTime.of(LocalDate.now(zone), localTime, zone);
                 ZoneOffset offset = zone.getRules().getStandardOffset(zdt.toInstant());
                 return localTime.atOffset(offset);
@@ -268,13 +230,13 @@ public abstract class BaseDateTimeLib {
 
         literal = fixDateTimeFormat(literal);
         if (hasZoneId(literal)) {
-            return ZonedDateTime.parse(literal, FEEL_DATE_TIME_FORMAT);
+            return ZonedDateTime.parse(literal, FEEL_DATE_TIME);
         } else if (hasZoneOffset(literal)) {
-            return ZonedDateTime.parse(literal, FEEL_DATE_TIME_FORMAT);
+            return ZonedDateTime.parse(literal, FEEL_DATE_TIME);
         } else if (hasTime(literal)) {
-            return ZonedDateTime.parse(literal + 'Z', FEEL_DATE_TIME_FORMAT);
+            return ZonedDateTime.parse(literal + 'Z', FEEL_DATE_TIME);
         } else {
-            LocalDate localDate = LocalDate.parse(literal, FEEL_DATE_FORMAT);
+            LocalDate localDate = LocalDate.parse(literal, FEEL_DATE);
             return localDate.atStartOfDay(UTC);
         }
     }

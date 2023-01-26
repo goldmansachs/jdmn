@@ -1446,22 +1446,22 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         if (actual instanceof XMLGregorianCalendar) {
             assertEquals(expected, actual.toString());
         } else if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
+            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE);
             assertEquals(expected, actualText);
         } else if (actual instanceof LocalTime) {
-            String actualText = ((LocalTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
+            String actualText = ((LocalTime) actual).format(BaseDateTimeLib.FEEL_TIME);
             assertEquals(expected, actualText);
         } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
+            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME);
             assertEquals(expected, actualText);
         } else if (actual instanceof LocalDateTime) {
-            String actualText = ((LocalDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
+            String actualText = ((LocalDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);
             assertEquals(expected, actualText);
         } else if (actual instanceof OffsetDateTime) {
-            String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
+            String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);
             assertEquals(expected, actualText);
         } else if (actual instanceof ZonedDateTime) {
-            String actualText = ((ZonedDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
+            String actualText = ((ZonedDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);
             assertEquals(expected, actualText);
         } else if (actual instanceof Duration) {
             assertEquals(expected, actual.toString());

@@ -50,11 +50,11 @@ public class DefaultStringLib implements StringLib {
         } else if (from instanceof BigDecimal) {
             return ((BigDecimal) from).toPlainString();
         } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
+            return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE);
         } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
+            return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME);
         } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
+            return ((ZonedDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
         } else if (from instanceof XMLGregorianCalendar) {
             return from.toString();
         } else {
@@ -97,8 +97,7 @@ public class DefaultStringLib implements StringLib {
         // The number of Unicode code units in the string
         int unicodeCodeUnitsCount = string.length();
         // The number of characters (Unicode code point)
-        int result = string.codePointCount(0, unicodeCodeUnitsCount);
-        return result;
+        return string.codePointCount(0, unicodeCodeUnitsCount);
     }
 
     @Override
@@ -116,8 +115,7 @@ public class DefaultStringLib implements StringLib {
 
         int[] cps = string.codePoints().toArray();
         int end = cps.length;
-        String result = appendCodePoints(cps, start, end);
-        return result;
+        return appendCodePoints(cps, start, end);
     }
 
     @Override
@@ -134,8 +132,7 @@ public class DefaultStringLib implements StringLib {
         }
         int[] cps = string.codePoints().toArray();
         int end = start + length.intValue();
-        String result = appendCodePoints(cps, start, end);
-        return result;
+        return appendCodePoints(cps, start, end);
     }
 
     private String appendCodePoints(int[] cps, int start, int end) {

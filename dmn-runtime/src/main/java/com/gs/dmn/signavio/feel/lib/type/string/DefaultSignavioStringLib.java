@@ -222,11 +222,11 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
         } else if (from instanceof BigDecimal) {
             return ((BigDecimal) from).toPlainString();
         } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
+            return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE);
         } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
+            return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME);
         } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
+            return ((ZonedDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
         } else if (from instanceof XMLGregorianCalendar) {
             return from.toString();
         } else {
