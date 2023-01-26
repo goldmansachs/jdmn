@@ -195,11 +195,11 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
         assertEquals("2016-08-01T11:00:01Z", getLib().string(makeDateAndTime("2016-08-01T11:00:01Z")));
         assertEquals("99999-12-31T11:22:33Z", getLib().string(makeDateAndTime("99999-12-31T11:22:33")));
         assertEquals("-99999-12-31T11:22:33Z", getLib().string(makeDateAndTime("-99999-12-31T11:22:33")));
-        assertEquals("2011-12-31T10:15:30+01:00@Europe/Paris", getLib().string(makeDateAndTime("2011-12-31T10:15:30@Europe/Paris")));
-        assertEquals("2011-12-31T10:15:30Z@Etc/UTC", getLib().string(makeDateAndTime("2011-12-31T10:15:30@Etc/UTC")));
-        assertEquals("2011-12-31T10:15:30.987+01:00@Europe/Paris", getLib().string(makeDateAndTime("2011-12-31T10:15:30.987@Europe/Paris")));
-        assertEquals("2011-12-31T10:15:30.123456789+01:00@Europe/Paris", getLib().string(makeDateAndTime("2011-12-31T10:15:30.123456789@Europe/Paris")));
-        assertEquals("999999999-12-31T23:59:59.999999999+01:00@Europe/Paris", getLib().string(makeDateAndTime("999999999-12-31T23:59:59.999999999@Europe/Paris")));
+        assertEquals("2011-12-31T10:15:30@Europe/Paris", getLib().string(makeDateAndTime("2011-12-31T10:15:30@Europe/Paris")));
+        assertEquals("2011-12-31T10:15:30@Etc/UTC", getLib().string(makeDateAndTime("2011-12-31T10:15:30@Etc/UTC")));
+        assertEquals("2011-12-31T10:15:30.987@Europe/Paris", getLib().string(makeDateAndTime("2011-12-31T10:15:30.987@Europe/Paris")));
+        assertEquals("2011-12-31T10:15:30.123456789@Europe/Paris", getLib().string(makeDateAndTime("2011-12-31T10:15:30.123456789@Europe/Paris")));
+        assertEquals("999999999-12-31T23:59:59.999999999@Europe/Paris", getLib().string(makeDateAndTime("999999999-12-31T23:59:59.999999999@Europe/Paris")));
         assertEquals("-999999999-12-31T23:59:59.999999999+02:00", getLib().string(makeDateAndTime("-999999999-12-31T23:59:59.999999999+02:00")));
         assertEquals("2017-01-01T23:59:01+01:00", getLib().string(getLib().dateAndTime(makeDate("2017-01-01"), makeTime("23:59:01@Europe/Paris"))));
         assertEquals("2017-01-01T23:59:01.123456789+01:00", getLib().string(getLib().dateAndTime(makeDate("2017-01-01"), makeTime("23:59:01.123456789@Europe/Paris"))));

@@ -35,6 +35,7 @@ public abstract class BaseDateTimeLib {
     public static final DateTimeFormatter FEEL_DATE;
     public static final DateTimeFormatter FEEL_TIME;
     public static final DateTimeFormatter FEEL_DATE_TIME;
+    public static final DateTimeFormatter REGION_DATETIME_FORMATTER;
 
     protected static final DateFormatSymbols DATE_FORMAT_SYMBOLS = new DateFormatSymbols();
     protected static final String[] DAY_NAMES = DATE_FORMAT_SYMBOLS.getWeekdays();
@@ -68,6 +69,15 @@ public abstract class BaseDateTimeLib {
                 .appendLiteral('T')
                 .append(FEEL_TIME)
                 .toFormatter();
+
+        REGION_DATETIME_FORMATTER = new DateTimeFormatterBuilder().parseCaseInsensitive()
+                .append(FEEL_DATE)
+                .appendLiteral('T')
+                .append(DateTimeFormatter.ISO_LOCAL_TIME)
+                .appendLiteral("@")
+                .appendZoneRegionId()
+                .toFormatter();
+
     }
 
     protected boolean isTime(String literal) {

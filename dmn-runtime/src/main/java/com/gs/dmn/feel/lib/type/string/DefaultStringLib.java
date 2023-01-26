@@ -30,9 +30,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
+import java.time.*;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalQueries;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -51,10 +51,23 @@ public class DefaultStringLib implements StringLib {
             return ((BigDecimal) from).toPlainString();
         } else if (from instanceof LocalDate) {
             return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE);
+        } else if (from instanceof LocalTime) {
+            return ((LocalTime) from).format(BaseDateTimeLib.FEEL_TIME);
         } else if (from instanceof OffsetTime) {
             return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME);
+        } else if (from instanceof LocalDateTime) {
+            return ((LocalDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
+        } else if (from instanceof OffsetDateTime) {
+            return ((OffsetDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
         } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
+            TemporalAccessor accessor = (TemporalAccessor) from;
+            ZoneId zone = accessor.query(TemporalQueries.zone());
+            if (!(zone instanceof ZoneOffset)) {
+                // it is a ZoneRegion
+                return BaseDateTimeLib.REGION_DATETIME_FORMATTER.format(accessor);
+            } else {
+                return BaseDateTimeLib.FEEL_DATE_TIME.format(accessor);
+            }
         } else if (from instanceof XMLGregorianCalendar) {
             return from.toString();
         } else {
