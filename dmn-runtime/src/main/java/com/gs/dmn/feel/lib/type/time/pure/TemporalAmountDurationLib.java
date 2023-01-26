@@ -53,7 +53,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
             Duration dayTimePart = extractDayTimePart(matcher, text);
 
             if (yearMonthPart != null && dayTimePart == null) {
-                return negate == -1 ? yearMonthPart.negated() : yearMonthPart;
+                return (negate == -1 ? yearMonthPart.negated() : yearMonthPart).normalized();
             } else if (yearMonthPart == null && dayTimePart != null) {
                 return negate == -1 ? dayTimePart.negated() : dayTimePart;
             }
@@ -164,7 +164,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
             return null;
         }
 
-        return Period.between(toDate(from), toDate(to)).withDays(0);
+        return Period.between(toDate(from), toDate(to)).withDays(0).normalized();
     }
 
     @Override

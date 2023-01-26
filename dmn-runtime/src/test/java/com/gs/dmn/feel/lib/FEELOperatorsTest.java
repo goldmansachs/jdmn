@@ -1466,9 +1466,17 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         } else if (actual instanceof Duration) {
             assertEquals(expected, actual.toString());
         } else if (actual instanceof java.time.Duration) {
-            assertEquals(expected, actual.toString());
+            try {
+                assertEquals(java.time.Duration.parse(expected), actual);
+            } catch (Exception e) {
+                fail("Cannot check Duration");
+            }
         } else if (actual instanceof java.time.Period) {
-            assertEquals(expected, actual.toString());
+            try {
+                assertEquals(java.time.Period.parse(expected).normalized(), actual);
+            } catch (Exception e) {
+                fail("Cannot check Duration");
+            }
         } else {
             assertEquals(expected, actual);
         }
