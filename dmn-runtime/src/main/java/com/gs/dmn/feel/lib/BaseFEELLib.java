@@ -637,7 +637,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
-    public DURATION dateSubtract(DATE first, DATE second) {
+    public DURATION dateSubtract(DATE first, Object second) {
         try {
             DATE_TIME dateTime1 = toDateTime(first);
             DATE_TIME dateTime2 = toDateTime(second);
@@ -909,7 +909,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
-    public DURATION dateTimeSubtract(DATE_TIME first, DATE_TIME second) {
+    public DURATION dateTimeSubtract(DATE_TIME first, Object second) {
         try {
             if (isDate(first)) {
                 first = toDateTime(first);

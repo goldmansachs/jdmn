@@ -1551,6 +1551,22 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.dateSubtract(this.lib.date("2016-08-01"), this.lib.date("2016-08-01")),
                 this.lib.duration("P0DT0H0M0.000S"));
 
+        // date and time, date
+        doExpressionTest(entries, "", String.format("%s %s %s", dateAndTime, "-", date),
+                "Addition(-,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"),DateTimeLiteral(date, \"2016-08-01\"))",
+                "days and time duration",
+                "dateTimeSubtract(dateAndTime(\"2016-08-01T11:00:00Z\"), date(\"2016-08-01\"))",
+                this.lib.dateTimeSubtract(this.lib.dateAndTime("2016-08-01T11:00:00Z"), this.lib.date("2016-08-01")),
+                this.lib.duration("P0DT11H0M0S"));
+
+        // date, date and time
+        doExpressionTest(entries, "", String.format("%s %s %s", date, "-", dateAndTime),
+                "Addition(-,DateTimeLiteral(date, \"2016-08-01\"),DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"))",
+                "days and time duration",
+                "dateSubtract(date(\"2016-08-01\"), dateAndTime(\"2016-08-01T11:00:00Z\"))",
+                this.lib.dateSubtract(this.lib.date("2016-08-01"), this.lib.dateAndTime("2016-08-01T11:00:00Z")),
+                this.lib.duration("-P0DT11H0M0S"));
+
         // time, time
         doExpressionTest(entries, "", String.format("%s %s %s", time, "-", time),
                 "Addition(-,DateTimeLiteral(time, \"12:00:00Z\"),DateTimeLiteral(time, \"12:00:00Z\"))",

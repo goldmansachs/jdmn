@@ -31,7 +31,7 @@ public interface DateTimeType<DATE_TIME, DURATION> {
 
     Boolean dateTimeGreaterEqualThan(DATE_TIME first, DATE_TIME second);
 
-    DURATION dateTimeSubtract(DATE_TIME first, DATE_TIME second);
+    DURATION dateTimeSubtract(DATE_TIME first, Object second);
 
     DATE_TIME dateTimeAddDuration(DATE_TIME dateTime, DURATION duration);
 

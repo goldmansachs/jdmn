@@ -62,7 +62,7 @@ public class DateTimeTypeStub<DATE_TIME, DURATION> implements DateTimeType<DATE_
     }
 
     @Override
-    public DURATION dateTimeSubtract(DATE_TIME first, DATE_TIME second) {
+    public DURATION dateTimeSubtract(DATE_TIME first, Object second) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

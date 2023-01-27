@@ -14,9 +14,13 @@ package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
+import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
-import java.time.LocalDate;
-import java.time.Period;
+import java.math.BigInteger;
+import java.time.*;
+import java.time.chrono.ChronoPeriod;
+import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
 public class LocalDateType extends BasePureCalendarType implements DateType<LocalDate, TemporalAmount> {
@@ -80,12 +84,15 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
     }
 
     @Override
-    public TemporalAmount dateSubtract(LocalDate first, LocalDate second) {
+    public TemporalAmount dateSubtract(LocalDate first, Object second) {
         if (first == null || second == null) {
             return null;
         }
 
-        return Period.between(first, second);
+        if (second instanceof Temporal) {
+            return Period.between(first, toDate(second));
+        }
+        throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", first, second));
     }
 
     @Override
@@ -94,7 +101,17 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
             return null;
         }
 
-        return date.plus(duration);
+        if (duration instanceof ChronoPeriod) {
+            return date.plus(duration);
+        } else if (duration instanceof Duration) {
+            // Calculate with value()
+            Long value1 = value(date);
+            Long value2 = secondsValue((java.time.Duration) duration);
+            // Invert value()
+            return LocalDateTime.ofEpochSecond(value1 + value2, 0, ZoneOffset.UTC).toLocalDate();
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' with '%s'", date, duration));
+        }
     }
 
     @Override
@@ -103,6 +120,15 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
             return null;
         }
 
-        return date.minus(duration);
+        if (duration instanceof ChronoPeriod) {
+            return date.minus(duration);
+        } else if (duration instanceof Duration) {
+            // Calculate with value()
+            Long value1 = value(date);
+            Long value2 = secondsValue((java.time.Duration) duration);
+            // Invert value()
+            return LocalDateTime.ofEpochSecond(value1 - value2, 0, ZoneOffset.UTC).toLocalDate();
+        }
+        throw new DMNRuntimeException(String.format("Cannot subtract '%s' and ''%s", date, duration));
     }
 }

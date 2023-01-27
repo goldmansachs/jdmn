@@ -13,11 +13,29 @@
 package com.gs.dmn.feel.lib.type.time;
 
 import com.gs.dmn.feel.lib.type.BaseType;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.time.*;
 import java.time.temporal.Temporal;
 
 public class JavaCalendarType extends BaseType {
+    protected static final int SECONDS_IN_DAY = 24 * 3600;
+
+    public Long value(Object object) {
+        if (object == null) {
+            return null;
+        }
+
+        if (isDate(object)) {
+            return dateValue((LocalDate) object);
+        } else if (isTime(object)) {
+            return timeValue((Temporal) object);
+        } else if (isDateTime(object)) {
+            return dateTimeValue((Temporal) object);
+        }
+        throw new DMNRuntimeException(String.format("Cannot calculate value() for '%s'", object));
+    }
+
     public Long dateValue(LocalDate localDate) {
         if (localDate == null) {
             return null;
@@ -104,7 +122,37 @@ public class JavaCalendarType extends BaseType {
         return duration.toMillis() / 1000;
     }
 
-    public ZonedDateTime toDateTime(LocalDate localDate) {
-        return localDate.atStartOfDay(UTC);
+    public LocalDate toDate(Object obj) {
+        if (obj == null) {
+            return null;
+        } else if (isDate(obj)) {
+            return (LocalDate) obj;
+        } else if (obj instanceof ZonedDateTime) {
+            return ((ZonedDateTime) obj).toLocalDate();
+        }
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", obj));
+    }
+
+    public ZonedDateTime toDateTime(Object obj) {
+        if (obj == null) {
+            return null;
+        } else if (isDate(obj)) {
+            return ((LocalDate) obj).atStartOfDay(UTC);
+        } else if (obj instanceof ZonedDateTime) {
+            return (ZonedDateTime) obj;
+        }
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", obj));
+    }
+
+    protected boolean isDate(Object object) {
+        return object instanceof LocalDate;
+    }
+
+    protected boolean isTime(Object object) {
+        return object instanceof LocalTime || object instanceof OffsetTime;
+    }
+
+    protected boolean isDateTime(Object object) {
+        return object instanceof LocalDateTime || object instanceof OffsetDateTime || object instanceof ZonedDateTime;
     }
 }

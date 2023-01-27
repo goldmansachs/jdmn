@@ -13,11 +13,19 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.DateType;
+import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
+import com.gs.dmn.feel.lib.type.time.xml.XMLCalendarType;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.Duration;
+import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.ZoneOffset;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAmount;
 
 public class LocalDateType extends BaseMixedCalendarType implements DateType<LocalDate, Duration> {
     protected final LocalDateComparator comparator;
@@ -80,13 +88,17 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
     }
 
     @Override
-    public Duration dateSubtract(LocalDate first, LocalDate second) {
+    public Duration dateSubtract(LocalDate first, Object second) {
         if (first == null || second == null) {
             return null;
         }
 
-        long durationInSeconds = dateValue(first) - (long) dateValue(second);
-        return XMLDurationFactory.INSTANCE.dayTimeFromValue(durationInSeconds);
+        if (second instanceof Temporal) {
+            long durationInSeconds = dateValue(first) - (long) value(second);
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(durationInSeconds);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", first, second));
+        }
     }
 
     @Override
@@ -95,9 +107,9 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
             return null;
         }
 
-        Period yearsMonthsDuration = (Period) toTemporalPeriod(duration);
-        java.time.Duration daysTimeDuration = (java.time.Duration) toTemporalDuration(duration);
-        return date.plus(yearsMonthsDuration).plusDays(daysTimeDuration.toDays());
+        TemporalAmount yearMonth = toTemporalPeriod(duration);
+        TemporalAmount dayTime = toTemporalDuration(duration);
+        return toDateTime(date).plus(yearMonth).plus(dayTime).toLocalDate();
     }
 
     @Override
@@ -108,5 +120,4 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
 
         return dateAddDuration(date, duration.negate());
     }
-
 }

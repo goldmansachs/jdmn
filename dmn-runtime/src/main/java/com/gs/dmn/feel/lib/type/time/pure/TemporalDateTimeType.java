@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.DateTimeType;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -119,12 +120,15 @@ public class TemporalDateTimeType extends BasePureCalendarType implements DateTi
     }
 
     @Override
-    public TemporalAmount dateTimeSubtract(Temporal first, Temporal second) {
+    public TemporalAmount dateTimeSubtract(Temporal first, Object second) {
         if (first == null || second == null) {
             return null;
         }
 
-        return Duration.between(second, first);
+        if (second instanceof Temporal) {
+            return Duration.between((Temporal) second, first);
+        }
+        throw new DMNRuntimeException(String.format("Cannot subtract '%s', %s", first, second));
     }
 
     @Override

@@ -78,7 +78,8 @@ public class DefaultDateTimeType extends XMLCalendarType implements DateTimeType
     }
 
     @Override
-    public Duration dateTimeSubtract(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Duration dateTimeSubtract(XMLGregorianCalendar first, Object secondObj) {
+        XMLGregorianCalendar second = (XMLGregorianCalendar) secondObj;
         if (first == null || second == null) {
             return null;
         }
@@ -88,9 +89,8 @@ public class DefaultDateTimeType extends XMLCalendarType implements DateTimeType
         if (isDate(second)) {
             second = dateToDateTime(second);
         }
-        if (
-                hasTimezone(first) && !hasTimezone(second)
-                || !hasTimezone(first) && hasTimezone(second)) {
+        // Subtraction is undefined for the case where only one of the values has a timezone
+        if (hasTimezone(first) && !hasTimezone(second) || !hasTimezone(first) && hasTimezone(second)) {
             return null;
         }
 

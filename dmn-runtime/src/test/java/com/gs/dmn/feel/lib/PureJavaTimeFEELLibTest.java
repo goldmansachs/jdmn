@@ -28,6 +28,42 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
     }
 
     //
+    // Date operators
+    //
+    @Test
+    public void testDateSubtract() {
+        super.testDateSubtract();
+
+        // Test mixture
+        assertEqualsDateTime("PT24H", getLib().dateSubtract(makeDate("2021-01-02"), makeDateAndTime("2021-01-01T00:00:00")));
+    }
+
+    @Test
+    public void testDateAddDuration() {
+        super.testDateAddDuration();
+
+        assertEqualsDateTime("2016-08-02", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("P1D")));
+        assertEqualsDateTime("2016-09-01", getLib().dateAddDuration(makeDate("2016-08-31"), makeDuration("P1D")));
+
+        assertEqualsDateTime("2021-01-01", getLib().dateAddDuration(makeDate("2021-01-02"), makeDuration("-PT1H")));
+        assertEqualsDateTime("2021-01-01", getLib().dateAddDuration(makeDate("2021-01-02"), makeDuration("-PT1M")));
+        assertEqualsDateTime("2021-01-01", getLib().dateAddDuration(makeDate("2021-01-02"), makeDuration("-PT1S")));
+    }
+
+    @Test
+    public void testDateSubtractDuration() {
+        super.testDateSubtractDuration();
+
+        assertEqualsDateTime("2016-08-01", getLib().dateSubtractDuration(makeDate("2016-08-02"), makeDuration("P1D")));
+        assertEqualsDateTime("2016-07-31", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("P1D")));
+
+        assertEqualsDateTime("2021-01-01", getLib().dateSubtractDuration(makeDate("2021-01-02"), makeDuration("PT1H")));
+        assertEqualsDateTime("2021-01-01", getLib().dateSubtractDuration(makeDate("2021-01-02"), makeDuration("PT1M")));
+        assertEqualsDateTime("2021-01-01", getLib().dateSubtractDuration(makeDate("2021-01-02"), makeDuration("PT1S")));
+        assertEqualsDateTime("2020-12-31", getLib().dateSubtractDuration(makeDate("2021-01-02"), makeDuration("PT25H")));
+    }
+
+    //
     // Time operators
     //
     @Override
@@ -44,6 +80,22 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         assertFalse(getLib().timeIs(makeTime("00:00:00Etc/UTC"), makeTime("00:00:00@Europe/Paris")));
     }
 
+    @Test
+    public void testTimeSubtract() {
+        super.testTimeSubtract();
+
+        assertEquals(makeDuration("-PT1H"), getLib().timeSubtract(makeTime("10:10:10@Australia/Melbourne"), makeTime("11:10:10@Australia/Melbourne")));
+        assertEquals(makeDuration("PT1H"), getLib().timeSubtract(makeTime("10:10:10@Australia/Melbourne"), makeTime("09:10:10@Australia/Melbourne")));
+    }
+
+    @Test
+    public void testTimeAddDuration() {
+        super.testTimeAddDuration();
+
+        assertEqualsDateTime("10:15:00+10:00", getLib().timeAddDuration(makeTime("10:15:00@Australia/Melbourne"), makeDuration("P1D")));
+        assertEqualsDateTime("11:15:00+10:00", getLib().timeAddDuration(makeTime("10:15:00@Australia/Melbourne"), makeDuration("PT1H")));
+    }
+
     //
     // Date time operators
     //
@@ -57,6 +109,20 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         assertFalse(getLib().dateTimeIs(makeDateAndTime("2018-12-08T00:00:00+00:00"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
         assertTrue(getLib().dateTimeIs(makeDateAndTime("2018-12-08T12:00:00Z"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
         assertFalse(getLib().dateTimeIs(makeDateAndTime("2018-12-08T00:00:00Z"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
+    }
+
+    @Test
+    public void testDateTimeSubtract() {
+        super.testDateTimeSubtract();
+
+        assertEqualsDateTime("PT24H", getLib().dateTimeSubtract(makeDateAndTime("2021-01-02T10:10:10@Europe/Paris"), makeDateAndTime("2021-01-01T10:10:10")));
+        assertNull(getLib().dateTimeSubtract(makeDateAndTime("2021-01-01T10:10:10"), makeDateAndTime("2021-01-02T10:10:10@Europe/Paris")));
+        assertEqualsDateTime("PT24H", getLib().dateTimeSubtract(makeDateAndTime("2021-01-02T10:10:10+02:00"), makeDateAndTime("2021-01-01T10:10:10")));
+        assertNull(getLib().dateTimeSubtract(makeDateAndTime("2021-01-01T10:10:10"), makeDateAndTime("2021-01-02T10:10:10+02:00")));
+        assertEqualsDateTime("PT24H", getLib().dateTimeSubtract(makeDateAndTime("2021-01-02T10:10:10+01:00"), makeDateAndTime("2021-01-01T10:10:10")));
+
+        // Test mixture
+        assertNull(getLib().dateTimeSubtract(makeDateAndTime("2021-01-01T00:00:00"), makeDate("2021-01-02")));
     }
 
     //
@@ -152,17 +218,18 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         super.testDuration();
 
         assertEqualsDateTime("P1Y8M", getLib().duration("P1Y8M"));
-        assertEqualsDateTime("PT68H", getLib().duration("P2DT20H"));
-        assertEqualsDateTime("PT-2H", getLib().duration("-PT2H"));
-
         assertEqualsDateTime("P999999999M", getLib().duration("P999999999M"));
         assertEqualsDateTime("P-999999999M", getLib().duration("-P999999999M"));
+
+        assertEqualsDateTime("PT68H", getLib().duration("P2DT20H"));
+        assertEqualsDateTime("PT-2H", getLib().duration("-PT2H"));
+        assertEqualsDateTime("PT0S", getLib().duration("PT0.S"));
+
         assertNull(getLib().duration("P1Y0M2DT6H58M59.000S"));
 
         // Overflow in duration(from)
         assertNull(getLib().duration("P11999999988M"));
-        assertEqualsDateTime("PT51112945032H", getLib().duration("P2129706043D"));
-        assertEqualsDateTime("PT0S", getLib().duration("PT0.S"));
+        assertEquals("PT51112945032H", getLib().duration("P2129706043D").toString());
     }
 
     @Override
@@ -296,10 +363,10 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
 
         assertNull(getLib().timeOffset(null));
         assertNull(getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02")));
-        assertEquals(getLib().duration("PT1H"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02+01:00")));
-        assertEquals(getLib().duration("PT0S"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02Z")));
-        assertEquals(getLib().duration("PT0S"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02@Etc/UTC")));
-        assertEquals(getLib().duration("PT1H"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02@Europe/Paris")));
+        assertEquals(makeDuration("PT1H"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02+01:00")));
+        assertEquals(makeDuration("PT0S"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02Z")));
+        assertEquals(makeDuration("PT0S"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02@Etc/UTC")));
+        assertEquals(makeDuration("PT1H"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02@Europe/Paris")));
 
         assertNull(getLib().timezone(null));
         assertNull(getLib().timezone(makeDateAndTime("2018-12-10T12:01:02")));
