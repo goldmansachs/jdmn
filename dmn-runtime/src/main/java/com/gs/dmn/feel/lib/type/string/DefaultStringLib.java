@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.string;
 
-import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.FormatUtils;
 import com.gs.dmn.serialization.XMLUtil;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.w3c.dom.Document;
@@ -28,48 +28,25 @@ import javax.xml.xpath.XPathFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.time.*;
 import java.time.temporal.TemporalAccessor;
-import java.time.temporal.TemporalQueries;
+import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DefaultStringLib implements StringLib {
-    public static final ThreadLocal<DecimalFormat> DECIMAL_FORMAT = ThreadLocal.withInitial(() -> new DecimalFormat("0.########"));
-
     @Override
     public String string(Object from) {
         if (from == null) {
             return "null";
-        } else if (from instanceof Double) {
-            return DECIMAL_FORMAT.get().format(from);
-        } else if (from instanceof BigDecimal) {
-            return ((BigDecimal) from).toPlainString();
-        } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE);
-        } else if (from instanceof LocalTime) {
-            return ((LocalTime) from).format(BaseDateTimeLib.FEEL_TIME);
-        } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME);
-        } else if (from instanceof LocalDateTime) {
-            return ((LocalDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
-        } else if (from instanceof OffsetDateTime) {
-            return ((OffsetDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
-        } else if (from instanceof ZonedDateTime) {
-            TemporalAccessor accessor = (TemporalAccessor) from;
-            ZoneId zone = accessor.query(TemporalQueries.zone());
-            if (!(zone instanceof ZoneOffset)) {
-                // it is a ZoneRegion
-                return BaseDateTimeLib.REGION_DATETIME_FORMATTER.format(accessor);
-            } else {
-                return BaseDateTimeLib.FEEL_DATE_TIME.format(accessor);
-            }
-        } else if (from instanceof XMLGregorianCalendar) {
-            return from.toString();
+        } else if (from instanceof Number) {
+            return FormatUtils.formatNumber((Number) from);
+        } else if (from instanceof XMLGregorianCalendar || from instanceof Duration) {
+            return FormatUtils.formatTemporal(from);
+        } else if (from instanceof TemporalAccessor || from instanceof TemporalAmount) {
+            return FormatUtils.formatTemporal(from);
         } else {
             return from.toString();
         }

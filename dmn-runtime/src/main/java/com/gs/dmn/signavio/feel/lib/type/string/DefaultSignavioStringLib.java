@@ -28,7 +28,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.gs.dmn.feel.lib.type.string.DefaultStringLib.DECIMAL_FORMAT;
+import static com.gs.dmn.feel.lib.FormatUtils.DECIMAL_FORMAT;
 
 public class DefaultSignavioStringLib implements SignavioStringLib {
     @Override
