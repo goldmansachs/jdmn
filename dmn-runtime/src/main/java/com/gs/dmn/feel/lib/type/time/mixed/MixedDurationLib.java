@@ -54,7 +54,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isYearMonthDuration(duration)) {
-            return (long) duration.getYears();
+            return duration.getSign() * (long) duration.getYears();
         } else {
             return null;
         }
@@ -67,7 +67,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isYearMonthDuration(duration)) {
-            return (long) duration.getMonths();
+            return duration.getSign() * (long) duration.getMonths();
         } else {
             return null;
         }
@@ -80,7 +80,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isDayTimeDuration(duration)) {
-            return (long) duration.getDays();
+            return duration.getSign() * (long) duration.getDays();
         } else {
             return null;
         }
@@ -93,7 +93,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isDayTimeDuration(duration)) {
-            return (long) duration.getHours();
+            return duration.getSign() * (long) duration.getHours();
         } else {
             return null;
         }
@@ -106,7 +106,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isDayTimeDuration(duration)) {
-            return (long) duration.getMinutes();
+            return duration.getSign() * (long) duration.getMinutes();
         } else {
             return null;
         }
@@ -119,7 +119,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isDayTimeDuration(duration)) {
-            return (long) duration.getSeconds();
+            return duration.getSign() * (long) duration.getSeconds();
         } else {
             return null;
         }

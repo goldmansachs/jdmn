@@ -1111,7 +1111,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "number",
                 "days(dateSubtract(date(\"2012-03-01\"), date(\"2012-04-01\")))",
                 this.lib.days(this.lib.dateSubtract(this.lib.date("2012-03-01"), this.lib.date("2012-04-01"))),
-                this.lib.number("31"));
+                this.lib.number("-31"));
         doExpressionTest(entries, "", "(date(\"2012-03-01\") - date(\"2012-04-01\")).hours",
                 "PathExpression(Addition(-,DateTimeLiteral(date, \"2012-03-01\"),DateTimeLiteral(date, \"2012-04-01\")), hours)",
                 "number",
