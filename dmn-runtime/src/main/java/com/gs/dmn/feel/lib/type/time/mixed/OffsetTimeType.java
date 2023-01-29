@@ -33,11 +33,6 @@ public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<Of
     // Time operators
     //
     @Override
-    public boolean isTime(Object value) {
-        return value instanceof OffsetTime;
-    }
-
-    @Override
     public Boolean timeIs(OffsetTime first, OffsetTime second) {
         if (first == null || second == null) {
             return first == second;

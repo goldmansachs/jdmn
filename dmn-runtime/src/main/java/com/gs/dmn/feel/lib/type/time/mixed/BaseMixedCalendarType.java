@@ -16,11 +16,25 @@ import com.gs.dmn.feel.lib.type.time.JavaCalendarType;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
-import java.time.Period;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.temporal.TemporalAmount;
 
 public abstract class BaseMixedCalendarType extends JavaCalendarType {
+    @Override
+    public boolean isDate(Object object) {
+        return object instanceof LocalDate;
+    }
+
+    @Override
+    public boolean isTime(Object object) {
+        return object instanceof OffsetTime;
+    }
+
+    @Override
+    public boolean isDateTime(Object object) {
+        return object instanceof ZonedDateTime;
+    }
+
     protected TemporalAmount toTemporalPeriod(Duration duration) {
         Period period = Period.of(duration.getYears(), duration.getMonths(), 0);
         return duration.getSign() == -1 ? period.negated() : period;

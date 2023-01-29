@@ -18,9 +18,9 @@ import java.time.Duration;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalAmountComparator extends DateTimeComparator<TemporalAmount> {
+public class TemporalAmountComparator extends BasePureCalendarType implements DateTimeComparator<TemporalAmount> {
     @Override
-    protected Integer compareTo(TemporalAmount first, TemporalAmount second) {
+    public Integer compareTo(TemporalAmount first, TemporalAmount second) {
         if (first instanceof Period && second instanceof Period) {
             Long firstValue = monthsValue((Period) first);
             Long secondValue = monthsValue((Period) second);

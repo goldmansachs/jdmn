@@ -14,31 +14,20 @@ package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
-import java.time.*;
 import java.time.temporal.Temporal;
 
-public class TemporalComparator extends DateTimeComparator<Temporal> {
+public class TemporalComparator extends BasePureCalendarType implements DateTimeComparator<Temporal> {
     @Override
-    protected Integer compareTo(Temporal first, Temporal second) {
+    public Integer compareTo(Temporal first, Temporal second) {
+        // Date time
+        if (isDateTime(first) && isDateTime(second)) {
+            return dateTimeValue(first).compareTo(dateTimeValue(second));
+        }
         // Time
         if (isTime(first) && isTime(second)) {
             return timeValue(first).compareTo(timeValue(second));
-
-        // Date time
-        } else if (isDateTime(first) && isDateTime(second)) {
-            return dateTimeValue(first).compareTo(dateTimeValue(second));
         }
 
         return  null;
-    }
-
-    private boolean isTime(Temporal dateTime) {
-        return dateTime instanceof LocalTime || dateTime instanceof OffsetTime;
-    }
-
-    private boolean isDateTime(Temporal time) {
-        return time instanceof LocalDateTime
-                || time instanceof OffsetDateTime
-                || time instanceof ZonedDateTime;
     }
 }

@@ -35,11 +35,6 @@ public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTime
     // Date and time operators
     //
     @Override
-    public boolean isDateTime(Object value) {
-        return value instanceof ZonedDateTime;
-    }
-
-    @Override
     public Boolean dateTimeIs(ZonedDateTime first, ZonedDateTime second) {
         if (first == null || second == null) {
             return first == second;

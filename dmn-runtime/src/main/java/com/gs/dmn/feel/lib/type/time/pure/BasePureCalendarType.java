@@ -14,5 +14,43 @@ package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.JavaCalendarType;
 
+import java.time.*;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalQueries;
+
 public abstract class BasePureCalendarType extends JavaCalendarType {
+    @Override
+    public boolean isDate(Object object) {
+        return object instanceof LocalDate;
+    }
+
+    @Override
+    public boolean isTime(Object object) {
+        return object instanceof LocalTime
+                || object instanceof OffsetTime
+                || isTimeWithZone(object);
+    }
+
+    @Override
+    public boolean isDateTime(Object object) {
+        return object instanceof LocalDateTime || object instanceof OffsetDateTime || object instanceof ZonedDateTime;
+    }
+
+    private boolean isTimeWithZone(Object obj) {
+        if (obj instanceof TemporalAccessor) {
+            TemporalAccessor value = (TemporalAccessor) obj;
+            return value.isSupported(ChronoField.HOUR_OF_DAY)
+                    && value.isSupported(ChronoField.MINUTE_OF_HOUR)
+                    && value.isSupported(ChronoField.SECOND_OF_MINUTE)
+                    && value.query(TemporalQueries.zone()) != null;
+
+        } else {
+            return false;
+        }
+    }
+
+    protected boolean hasTimezone(TemporalAccessor first) {
+        return first.query(TemporalQueries.zone()) != null;
+    }
 }

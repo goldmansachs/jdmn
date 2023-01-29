@@ -94,9 +94,8 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
         if (isDate(second)) {
             second = dateToDateTime(second);
         }
-        if (
-                hasTimezone(first) && !hasTimezone(second)
-                || !hasTimezone(first) && hasTimezone(second)) {
+        // Subtraction is undefined for the case where only one of the values has a timezone
+        if (hasTimezone(first) && !hasTimezone(second) || !hasTimezone(first) && hasTimezone(second)) {
             return null;
         }
 

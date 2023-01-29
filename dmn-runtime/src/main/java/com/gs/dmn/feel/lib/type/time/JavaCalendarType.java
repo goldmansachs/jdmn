@@ -16,11 +16,11 @@ import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.time.*;
+import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 
-public class JavaCalendarType extends BaseType {
-    protected static final int SECONDS_IN_DAY = 24 * 3600;
-
+public abstract class JavaCalendarType extends BaseType {
     public Long value(Object object) {
         if (object == null) {
             return null;
@@ -29,9 +29,9 @@ public class JavaCalendarType extends BaseType {
         if (isDate(object)) {
             return dateValue((LocalDate) object);
         } else if (isTime(object)) {
-            return timeValue((Temporal) object);
+            return timeValue((TemporalAccessor) object);
         } else if (isDateTime(object)) {
-            return dateTimeValue((Temporal) object);
+            return dateTimeValue((TemporalAccessor) object);
         }
         throw new DMNRuntimeException(String.format("Cannot calculate value() for '%s'", object));
     }
@@ -44,18 +44,33 @@ public class JavaCalendarType extends BaseType {
         return dateTimeValue(toDateTime(localDate));
     }
 
-    public Long timeValue(Temporal time) {
+    public Long timeValue(TemporalAccessor time) {
         if (time == null) {
             return null;
         }
 
-        if (time instanceof LocalTime) {
-            return timeValue((LocalTime) time);
-        } else if (time instanceof OffsetTime) {
-            return timeValue((OffsetTime) time);
-        } else {
-            return null;
+        long result = 0;
+        result += time.get(ChronoField.HOUR_OF_DAY) * 3600L;
+        result += time.get(ChronoField.MINUTE_OF_HOUR) * 60L;
+        result += time.get(ChronoField.SECOND_OF_MINUTE);
+
+        try {
+            ZoneId zoneId = ZoneId.from(time);
+            if (zoneId instanceof ZoneOffset) {
+                result -= ((ZoneOffset) zoneId).getTotalSeconds();
+            } else {
+                Instant instant = Instant.now();
+                ZoneOffset zoneOffset = zoneId.getRules().getOffset(instant);
+                result -= zoneOffset.getTotalSeconds();
+            }
+        } catch (Exception e) {
         }
+
+        return result;
+    }
+
+    public Long timeValue(Temporal time) {
+        return timeValue((TemporalAccessor) time);
     }
 
     public Long timeValue(LocalTime time) {
@@ -74,7 +89,7 @@ public class JavaCalendarType extends BaseType {
         return (long) time.toLocalTime().toSecondOfDay() - time.getOffset().getTotalSeconds();
     }
 
-    public Long dateTimeValue(Temporal dateTime) {
+    public Long dateTimeValue(TemporalAccessor dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -88,6 +103,10 @@ public class JavaCalendarType extends BaseType {
         } else {
             return null;
         }
+    }
+
+    public Long dateTimeValue(Temporal dateTime) {
+        return dateTimeValue((TemporalAccessor) dateTime);
     }
 
     public Long dateTimeValue(LocalDateTime dateTime) {
@@ -133,26 +152,24 @@ public class JavaCalendarType extends BaseType {
         throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", obj));
     }
 
-    public ZonedDateTime toDateTime(Object obj) {
+    public Temporal toDateTime(Object obj) {
         if (obj == null) {
             return null;
         } else if (isDate(obj)) {
             return ((LocalDate) obj).atStartOfDay(UTC);
+        } else if (obj instanceof LocalDateTime) {
+            return (LocalDateTime) obj;
+        } else if (obj instanceof OffsetDateTime) {
+            return (OffsetDateTime) obj;
         } else if (obj instanceof ZonedDateTime) {
             return (ZonedDateTime) obj;
         }
         throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", obj));
     }
 
-    protected boolean isDate(Object object) {
-        return object instanceof LocalDate;
-    }
+    public abstract boolean isDate(Object object);
 
-    protected boolean isTime(Object object) {
-        return object instanceof LocalTime || object instanceof OffsetTime;
-    }
+    public abstract boolean isTime(Object object);
 
-    protected boolean isDateTime(Object object) {
-        return object instanceof LocalDateTime || object instanceof OffsetDateTime || object instanceof ZonedDateTime;
-    }
+    public abstract boolean isDateTime(Object object);
 }

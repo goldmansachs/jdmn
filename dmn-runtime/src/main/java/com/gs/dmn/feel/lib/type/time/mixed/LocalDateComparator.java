@@ -16,9 +16,9 @@ import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.LocalDate;
 
-public class LocalDateComparator extends DateTimeComparator<LocalDate> {
+public class LocalDateComparator extends BaseMixedCalendarType implements DateTimeComparator<LocalDate> {
     @Override
-    protected Integer compareTo(LocalDate first, LocalDate second) {
+    public Integer compareTo(LocalDate first, LocalDate second) {
         return dateValue(first).compareTo(dateValue(second));
     }
 }

@@ -13,17 +13,12 @@
 package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.DateType;
-import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
-import com.gs.dmn.feel.lib.type.time.xml.XMLCalendarType;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.Duration;
-import java.math.BigInteger;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
@@ -41,11 +36,6 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
     //
     // Date operators
     //
-    @Override
-    public boolean isDate(Object value) {
-        return value instanceof LocalDate;
-    }
-
     @Override
     public Boolean dateIs(LocalDate first, LocalDate second) {
         if (first == null || second == null) {
@@ -109,7 +99,8 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
 
         TemporalAmount yearMonth = toTemporalPeriod(duration);
         TemporalAmount dayTime = toTemporalDuration(duration);
-        return toDateTime(date).plus(yearMonth).plus(dayTime).toLocalDate();
+        ZonedDateTime dateTime = (ZonedDateTime) toDateTime(date);
+        return dateTime.plus(yearMonth).plus(dayTime).toLocalDate();
     }
 
     @Override

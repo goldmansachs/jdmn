@@ -14,10 +14,8 @@ package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
-import com.gs.dmn.feel.lib.type.time.xml.FEELXMLGregorianCalendar;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-import java.math.BigInteger;
 import java.time.*;
 import java.time.chrono.ChronoPeriod;
 import java.time.temporal.Temporal;
@@ -37,11 +35,6 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
     //
     // Date operators
     //
-    @Override
-    public boolean isDate(Object value) {
-        return value instanceof LocalDate;
-    }
-
     @Override
     public Boolean dateIs(LocalDate first, LocalDate second) {
         if (first == null || second == null) {

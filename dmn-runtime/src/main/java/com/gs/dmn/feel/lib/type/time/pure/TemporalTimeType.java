@@ -35,12 +35,6 @@ public class TemporalTimeType extends BasePureCalendarType implements TimeType<T
     //
 
     @Override
-    public boolean isTime(Object value) {
-        return value instanceof LocalTime
-                || value instanceof OffsetTime;
-    }
-
-    @Override
     public Boolean timeIs(Temporal first, Temporal second) {
         if (first == null || second == null) {
             return first == second;
