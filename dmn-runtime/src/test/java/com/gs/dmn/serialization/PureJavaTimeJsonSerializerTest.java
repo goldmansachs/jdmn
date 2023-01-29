@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,9 +30,9 @@ import java.util.List;
 
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 
-public class PureJavaTimeJsonSerializerTest extends AbstractJavaTimeJsonSerializerTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+public class PureJavaTimeJsonSerializerTest extends AbstractJavaTimeJsonSerializerTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> makeFEELLib() {
+    protected StandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> makeFEELLib() {
         return new PureJavaTimeFEELLib();
     }
 

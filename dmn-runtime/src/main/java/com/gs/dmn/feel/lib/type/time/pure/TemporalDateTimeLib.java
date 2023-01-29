@@ -18,6 +18,8 @@ import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.*;
 import java.time.format.TextStyle;
 import java.time.temporal.*;
@@ -26,7 +28,9 @@ import java.util.TimeZone;
 
 import static com.gs.dmn.feel.lib.type.BaseType.UTC;
 
-public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, Temporal, Temporal, TemporalAmount> {
+public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+    private static final BigDecimal E9 = BigDecimal.valueOf(1000000000);
+
     private final DefaultDateTimeLib dateTimeLib;
 
     public TemporalDateTimeLib() {
@@ -56,19 +60,122 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        if (from instanceof LocalDate) {
-            return (LocalDate) from;
-        } else if (from instanceof LocalDateTime) {
-            return ((LocalDateTime) from).toLocalDate();
-        } else if (from instanceof OffsetDateTime) {
-            return ((OffsetDateTime) from).toLocalDate();
-        } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).toLocalDate();
+        try {
+            return LocalDate.from((TemporalAccessor) from);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", from));
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
     }
 
-    public Temporal dateDateTime(Temporal from) {
+    @Override
+    public TemporalAccessor time(String literal) {
+        if (StringUtils.isBlank(literal)) {
+            return null;
+        }
+
+        literal = this.fixDateTimeFormat(literal);
+        return this.dateTimeLib.timeTemporalAccessor(literal);
+    }
+
+    @Override
+    public TemporalAccessor time(Number hour, Number minute, Number second, TemporalAmount offset) {
+        if (hour == null || minute == null || second == null) {
+            return null;
+        }
+
+        try {
+            int nanosecs = 0;
+            if (second instanceof BigDecimal) {
+                BigDecimal secs = (BigDecimal) second;
+                nanosecs = secs.subtract(secs.setScale(0, RoundingMode.DOWN)).multiply(E9).intValue();
+            }
+
+            if (offset == null) {
+                return LocalTime.of(hour.intValue(), minute.intValue(), second.intValue(), nanosecs);
+            } else {
+                return OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), nanosecs, ZoneOffset.ofTotalSeconds((int) offset.get(ChronoUnit.SECONDS)));
+            }
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Error in time('%s', '%s', '%s', '%s'", hour, minute, second, offset));
+        }
+    }
+
+    @Override
+    public TemporalAccessor time(Object from) {
+        if (from == null) {
+            return null;
+        }
+
+        if (from instanceof TemporalAccessor) {
+            TemporalAccessor date = (TemporalAccessor) from;
+            if (!date.isSupported(ChronoField.HOUR_OF_DAY)) {
+                // is LocalDate
+                return ((LocalDate) from).atStartOfDay(ZoneOffset.UTC).toOffsetDateTime().toOffsetTime();
+            }
+            ZoneOffset zoneOffset = date.query(TemporalQueries.offset());
+            ZoneId zoneId = date.query(TemporalQueries.zoneId());
+            if (zoneOffset == null) {
+                // Has no offset
+                return LocalTime.from(date);
+            }
+            if (zoneId == null) {
+                return OffsetTime.from(date);
+            } else {
+                if (!(zoneId instanceof ZoneOffset)) {
+                    return time(date.query(TemporalQueries.localTime()) + "@" + zoneId);
+                } else {
+                    return OffsetTime.from(date);
+                }
+            }
+        }
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
+    }
+
+    @Override
+    public TemporalAccessor dateAndTime(String literal) {
+        if (StringUtils.isBlank(literal)) {
+            return null;
+        }
+
+        literal = this.fixDateTimeFormat(literal);
+        return this.dateTimeLib.dateTimeTemporalAccessor(literal);
+    }
+
+    @Override
+    public TemporalAccessor dateAndTime(Object date, Object time) {
+        return dateAndTime((TemporalAccessor) date, (TemporalAccessor) time);
+    }
+
+    public TemporalAccessor dateAndTime(TemporalAccessor date, TemporalAccessor time) {
+        if (date == null || time == null) {
+            return null;
+        }
+
+        // Convert date to LocalDate
+        if (!(date instanceof LocalDate)) {
+            date = date.query(TemporalQueries.localDate());
+        }
+        if (date == null) {
+            throw new DMNRuntimeException(String.format("Error in dateAndTime('%s', '%s')", date, time));
+        }
+        // Check time
+        if (!(time instanceof LocalTime || ((time.query(TemporalQueries.localTime()) != null && time.query(TemporalQueries.zone()) != null)))) {
+            throw new DMNRuntimeException(String.format("Error in dateAndTime('%s', '%s')", date, time));
+        }
+
+        try {
+            if (time instanceof LocalTime) {
+                return LocalDateTime.of((LocalDate) date, (LocalTime) time);
+            } else if (time.query(TemporalQueries.localTime()) != null && time.query(TemporalQueries.zone()) != null) {
+                return ZonedDateTime.of((LocalDate) date, LocalTime.from(time), ZoneId.from(time));
+            }
+            throw new DMNRuntimeException(String.format("Error in dateAndTime('%s', '%s')", date, time));
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Error in dateAndTime('%s', '%s')", date, time));
+        }
+    }
+
+    public TemporalAccessor dateTime(Object from) {
         if (from == null) {
             return null;
         }
@@ -80,88 +187,9 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         } else if (from instanceof OffsetDateTime) {
             return ((OffsetDateTime) from).atZoneSameInstant(UTC);
         } else if (from instanceof ZonedDateTime) {
-            return from;
+            return (ZonedDateTime) from;
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
-    }
-
-    @Override
-    public Temporal time(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
-        literal = this.fixDateTimeFormat(literal);
-        TemporalAccessor parsed = this.dateTimeLib.timeTemporalAccessor(literal);
-        if (parsed.query(TemporalQueries.zoneId()) != null) {
-            LocalTime localTime = parsed.query(LocalTime::from);
-            ZoneId zoneId = parsed.query(TemporalQueries.zoneId());
-            int millisOffset = TimeZone.getTimeZone(zoneId).getRawOffset();
-            ZoneOffset zoneOffset = ZoneOffset.ofTotalSeconds(millisOffset / 1000);
-            return OffsetTime.of(localTime, zoneOffset);
-        } else {
-            return (Temporal) parsed;
-        }
-    }
-
-    @Override
-    public Temporal time(Number hour, Number minute, Number second, TemporalAmount offset) {
-        if (hour == null || minute == null || second == null || offset == null) {
-            return null;
-        }
-
-        long hours = offset.get(ChronoUnit.HOURS);
-        long minutes = offset.get(ChronoUnit.MINUTES);
-        ZoneOffset zoneOffset = ZoneOffset.ofHoursMinutes((int)hours, (int)minutes);
-        return OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), 0, zoneOffset);
-    }
-
-    @Override
-    public Temporal time(Object from) {
-        if (from == null) {
-            return null;
-        }
-
-        if (from instanceof LocalDate) {
-            return ((LocalDate) from).atStartOfDay(ZoneOffset.UTC).toOffsetDateTime().toOffsetTime();
-        } else if (from instanceof LocalTime) {
-            return (LocalTime) from;
-        } else if (from instanceof OffsetTime) {
-            return (OffsetTime) from;
-        } else if (from instanceof LocalDateTime) {
-            return ((LocalDateTime) from).toLocalTime();
-        } else if (from instanceof OffsetDateTime) {
-            return ((OffsetDateTime) from).toOffsetTime();
-        } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).toOffsetDateTime().toOffsetTime();
-        }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
-    }
-
-    @Override
-    public Temporal dateAndTime(String literal) {
-        if (StringUtils.isBlank(literal)) {
-            return null;
-        }
-
-        literal = this.fixDateTimeFormat(literal);
-        return (Temporal) this.dateTimeLib.dateTimeTemporalAccessor(literal);
-    }
-
-    @Override
-    public Temporal dateAndTime(Object date, Object time) {
-        if (date == null || time == null) {
-            return null;
-        }
-
-        if (date instanceof LocalDate) {
-            if (time instanceof LocalTime) {
-                return LocalDateTime.of((LocalDate) date, (LocalTime) time);
-            } else if (time instanceof OffsetTime) {
-                return OffsetDateTime.of((LocalDate) date, ((OffsetTime) time).toLocalTime(), ((OffsetTime) time).getOffset());
-            }
-        }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' and '%s' to date and time", date, time));
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date and time", from.getClass().getSimpleName()));
     }
 
     //
@@ -173,7 +201,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        return ((Temporal) date).get(ChronoField.YEAR);
+        return ((TemporalAccessor) date).get(ChronoField.YEAR);
     }
 
     @Override
@@ -182,7 +210,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        return ((Temporal) date).get(ChronoField.MONTH_OF_YEAR);
+        return ((TemporalAccessor) date).get(ChronoField.MONTH_OF_YEAR);
     }
 
     @Override
@@ -191,7 +219,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        return ((Temporal) date).get(ChronoField.DAY_OF_MONTH);
+        return ((TemporalAccessor) date).get(ChronoField.DAY_OF_MONTH);
     }
 
     @Override
@@ -200,7 +228,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        return ((Temporal) date).get(ChronoField.DAY_OF_WEEK);
+        return ((TemporalAccessor) date).get(ChronoField.DAY_OF_WEEK);
     }
 
     //
@@ -212,7 +240,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        return ((Temporal) time).get(ChronoField.HOUR_OF_DAY);
+        return ((TemporalAccessor) time).get(ChronoField.HOUR_OF_DAY);
     }
 
     @Override
@@ -221,7 +249,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        return ((Temporal) time).get(ChronoField.MINUTE_OF_HOUR);
+        return ((TemporalAccessor) time).get(ChronoField.MINUTE_OF_HOUR);
     }
 
     @Override
@@ -230,7 +258,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        return ((Temporal) time).get(ChronoField.SECOND_OF_MINUTE);
+        return ((TemporalAccessor) time).get(ChronoField.SECOND_OF_MINUTE);
     }
 
     @Override
@@ -239,8 +267,17 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        int secondsOffset = ((Temporal) time).get(ChronoField.OFFSET_SECONDS);
-        return duration((long) secondsOffset * 1000);
+        if (((TemporalAccessor) time).isSupported(ChronoField.OFFSET_SECONDS)) {
+            return Duration.ofSeconds(((TemporalAccessor) time).get(ChronoField.OFFSET_SECONDS));
+        } else {
+            ZoneId zoneId = ((TemporalAccessor) time).query(TemporalQueries.zoneId());
+            if (zoneId != null) {
+                LocalDateTime now = LocalDateTime.now();
+                return Duration.ofSeconds(zoneId.getRules().getOffset(now).getTotalSeconds());
+            } else {
+                return null;
+            }
+        }
     }
 
     @Override
@@ -249,7 +286,13 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        return ((Temporal) time).query(TemporalQueries.zone()).getId();
+        ZoneId zoneId = ((TemporalAccessor) time).query(TemporalQueries.zoneId());
+        if (zoneId != null) {
+            // Normalization
+            return TimeZone.getTimeZone(zoneId).getID();
+        } else {
+            return null;
+        }
     }
 
     //
@@ -298,29 +341,16 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     //
     @Override
     public LocalDate toDate(Object from) {
-        if (from instanceof Temporal) {
-            return date(from);
-        }
-        return null;
+        return date(from);
     }
 
     @Override
-    public Temporal toTime(Object from) {
-        if (from instanceof Temporal) {
-            return time(from);
-        }
-        return null;
+    public TemporalAccessor toTime(Object from) {
+        return time(from);
     }
 
     @Override
-    public Temporal toDateTime(Object from) {
-        if (from instanceof Temporal) {
-            return dateDateTime((Temporal) from);
-        }
-        return null;
-    }
-
-    private TemporalAmount duration(long milliseconds) {
-        return Duration.ofSeconds(milliseconds / 1000, (milliseconds % 1000) * 1000);
+    public TemporalAccessor toDateTime(Object from) {
+        return dateTime(from);
     }
 }

@@ -173,14 +173,14 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
         //
         // conversion from string
         //
-        assertEqualsDateTime("2016-08-01T00:00:00Z@UTC", getLib().dateAndTime("2016-08-01"));
+        assertEqualsDateTime("2016-08-01T00:00:00@UTC", getLib().dateAndTime("2016-08-01"));
 
         // missing Z
         assertEqualsDateTime("-2016-01-30T09:05:00Z", getLib().dateAndTime("-2016-01-30T09:05:00"));
         assertEqualsDateTime("-2017-02-28T02:02:02Z", getLib().dateAndTime("-2017-02-28T02:02:02"));
 
         // with zone id
-        assertEqualsDateTime("2011-12-03T10:15:30+01:00@Europe/Paris", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
+        assertEqualsDateTime("2011-12-03T10:15:30@Europe/Paris", getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris"));
 
         // year must be in the range [-999,999,999..999,999,999]
         assertEqualsDateTime("-999999999-12-31T11:22:33Z", getLib().dateAndTime("-999999999-12-31T11:22:33"));
@@ -286,7 +286,7 @@ public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal
     public void testToDateTime() {
         super.testToDateTime();
 
-        assertEqualsDateTime("2016-08-01T00:00:00Z@UTC", getLib().toDateTime(makeDate("2016-08-01")));
+        assertEqualsDateTime("2016-08-01T00:00:00@UTC", getLib().toDateTime(makeDate("2016-08-01")));
         assertEqualsDateTime("2016-08-01T12:00:00Z", getLib().toDateTime(makeDateAndTime("2016-08-01T12:00:00Z")));
     }
 

@@ -20,10 +20,10 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
-import java.util.Objects;
 
-public class TemporalDateTimeType extends BasePureCalendarType implements DateTimeType<Temporal, TemporalAmount> {
+public class TemporalDateTimeType extends BasePureCalendarType implements DateTimeType<TemporalAccessor, TemporalAmount> {
     private final TemporalComparator comparator;
 
     public TemporalDateTimeType() {
@@ -45,107 +45,88 @@ public class TemporalDateTimeType extends BasePureCalendarType implements DateTi
     }
 
     @Override
-    public Boolean dateTimeIs(Temporal first, Temporal second) {
+    public Boolean dateTimeIs(TemporalAccessor first, TemporalAccessor second) {
         if (first == null || second == null) {
             return first == second;
         }
 
-        if (first.getClass() != second.getClass()) {
-            // Different kind
-            return false;
-        } else if (first instanceof LocalDateTime) {
-            LocalDateTime first1 = (LocalDateTime) first;
-            LocalDateTime second1 = (LocalDateTime) second;
-            return first1.getYear() == second1.getYear()
-                    && first1.getMonth() == second1.getMonth()
-                    && first1.getDayOfMonth() == second1.getDayOfMonth()
-                    && first1.getHour() == second1.getHour()
-                    && first1.getMinute() == second1.getMinute()
-                    && first1.getSecond() == second1.getSecond();
-        } else if (first instanceof OffsetDateTime) {
-            OffsetDateTime first1 = (OffsetDateTime) first;
-            OffsetDateTime second1 = (OffsetDateTime) second;
-            return first1.getYear() == second1.getYear()
-                    && first1.getMonth() == second1.getMonth()
-                    && first1.getDayOfMonth() == second1.getDayOfMonth()
-                    && first1.getHour() == second1.getHour()
-                    && first1.getMinute() == second1.getMinute()
-                    && first1.getSecond() == second1.getSecond()
-                    && first1.getOffset().equals(second1.getOffset());
-        } else if (first instanceof ZonedDateTime) {
-            ZonedDateTime first1 = (ZonedDateTime) first;
-            ZonedDateTime second1 = (ZonedDateTime) second;
-            return first1.getYear() == second1.getYear()
-                    && first1.getMonth() == second1.getMonth()
-                    && first1.getDayOfMonth() == second1.getDayOfMonth()
-                    && first1.getHour() == second1.getHour()
-                    && first1.getMinute() == second1.getMinute()
-                    && first1.getSecond() == second1.getSecond()
-                    && Objects.equals(first1.getOffset(), second1.getOffset())
-                    && Objects.equals(first1.getZone(), second1.getZone())
-                    ;
-        } else {
-            return false;
-        }
+        return sameDateTimeProperties(first, second);
     }
 
     @Override
-    public Boolean dateTimeEqual(Temporal first, Temporal second) {
+    public Boolean dateTimeEqual(TemporalAccessor first, TemporalAccessor second) {
         return this.comparator.equalTo(first, second);
     }
 
     @Override
-    public Boolean dateTimeNotEqual(Temporal first, Temporal second) {
+    public Boolean dateTimeNotEqual(TemporalAccessor first, TemporalAccessor second) {
         return this.comparator.notEqualTo(first, second);
     }
 
     @Override
-    public Boolean dateTimeLessThan(Temporal first, Temporal second) {
+    public Boolean dateTimeLessThan(TemporalAccessor first, TemporalAccessor second) {
         return this.comparator.lessThan(first, second);
     }
 
     @Override
-    public Boolean dateTimeGreaterThan(Temporal first, Temporal second) {
+    public Boolean dateTimeGreaterThan(TemporalAccessor first, TemporalAccessor second) {
         return this.comparator.greaterThan(first, second);
     }
 
     @Override
-    public Boolean dateTimeLessEqualThan(Temporal first, Temporal second) {
+    public Boolean dateTimeLessEqualThan(TemporalAccessor first, TemporalAccessor second) {
         return this.comparator.lessEqualThan(first, second);
     }
 
     @Override
-    public Boolean dateTimeGreaterEqualThan(Temporal first, Temporal second) {
+    public Boolean dateTimeGreaterEqualThan(TemporalAccessor first, TemporalAccessor second) {
         return this.comparator.greaterEqualThan(first, second);
     }
 
     @Override
-    public TemporalAmount dateTimeSubtract(Temporal first, Object second) {
+    public TemporalAmount dateTimeSubtract(TemporalAccessor first, Object secondObj) {
+        TemporalAccessor second = (TemporalAccessor) secondObj;
         if (first == null || second == null) {
             return null;
         }
 
-        if (second instanceof Temporal) {
-            return Duration.between((Temporal) second, first);
+        // Subtraction is undefined for the case where only one of the values has a timezone
+        if (hasTimezone(first) && !hasTimezone(second) || !hasTimezone(first) && hasTimezone(second)) {
+            return null;
         }
-        throw new DMNRuntimeException(String.format("Cannot subtract '%s', %s", first, second));
+
+        return Duration.between((Temporal) second, (Temporal) first);
     }
 
     @Override
-    public Temporal dateTimeAddDuration(Temporal dateTime, TemporalAmount duration) {
+    public TemporalAccessor dateTimeAddDuration(TemporalAccessor dateTime, TemporalAmount duration) {
         if (dateTime == null || duration == null) {
             return null;
         }
 
-        return dateTime.plus(duration);
+        if (dateTime instanceof ZonedDateTime) {
+            return ((ZonedDateTime) dateTime).plus(duration);
+        } else if (dateTime instanceof OffsetDateTime) {
+            return ((OffsetDateTime) dateTime).plus(duration);
+        } else if (dateTime instanceof LocalDateTime) {
+            return ((LocalDateTime) dateTime).plus(duration);
+        }
+        throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", dateTime, duration));
     }
 
     @Override
-    public Temporal dateTimeSubtractDuration(Temporal dateTime, TemporalAmount duration) {
+    public TemporalAccessor dateTimeSubtractDuration(TemporalAccessor dateTime, TemporalAmount duration) {
         if (dateTime == null || duration == null) {
             return null;
         }
 
-        return dateTime.minus(duration);
+        if (dateTime instanceof LocalDateTime) {
+            return ((LocalDateTime) dateTime).minus(duration);
+        } else if (dateTime instanceof OffsetDateTime) {
+            return ((OffsetDateTime) dateTime).minus(duration);
+        } else if (dateTime instanceof ZonedDateTime) {
+            return ((ZonedDateTime) dateTime).minus(duration);
+        }
+        throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", dateTime, duration));
     }
 }

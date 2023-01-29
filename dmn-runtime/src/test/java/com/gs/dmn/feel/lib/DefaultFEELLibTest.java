@@ -85,8 +85,8 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     public void testTimeSubtract() {
         super.testTimeSubtract();
 
-        assertEquals(makeDuration("-PT1H"), getLib().timeSubtract(makeTime("10:10:10@Australia/Melbourne"), makeTime("11:10:10@Australia/Melbourne")));
-        assertEquals(makeDuration("PT1H"), getLib().timeSubtract(makeTime("10:10:10@Australia/Melbourne"), makeTime("09:10:10@Australia/Melbourne")));
+        assertEqualsDateTime("-PT1H", getLib().timeSubtract(makeTime("10:10:10@Australia/Melbourne"), makeTime("11:10:10@Australia/Melbourne")));
+        assertEqualsDateTime("PT1H", getLib().timeSubtract(makeTime("10:10:10@Australia/Melbourne"), makeTime("09:10:10@Australia/Melbourne")));
     }
 
     @Test
@@ -212,14 +212,14 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     public void testYearsAndMonthsDuration() {
         super.testYearsAndMonthsDuration();
 
-        assertEqualsDateTime("P0Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
+        assertEqualsDateTime("P0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
         assertEqualsDateTime("P1Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2015-12-24T00:00:01-01:00"), makeDateAndTime("2016-12-24T23:59:00-08:00")));
         assertEqualsDateTime("P1Y2M", getLib().yearsAndMonthsDuration(makeDateAndTime("2016-09-30T23:25:00"), makeDateAndTime("2017-12-28T12:12:12")));
         assertEqualsDateTime("P7Y6M", getLib().yearsAndMonthsDuration(makeDateAndTime("2010-05-30T03:55:58"), makeDateAndTime("2017-12-15T00:59:59")));
         assertEqualsDateTime("-P4033Y2M", getLib().yearsAndMonthsDuration(makeDateAndTime("2014-12-31T23:59:59"), makeDateAndTime("-2019-10-01T12:32:59")));
         assertEqualsDateTime("-P4035Y11M", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00-01:00"), makeDateAndTime("-2019-10-01T12:32:59+02:00")));
 
-        assertEqualsDateTime("-P0Y11M", getLib().yearsAndMonthsDuration(makeDateAndTime("-2016-01-30T09:05:00"), makeDateAndTime("-2017-02-28T02:02:02")));
+        assertEqualsDateTime("-P11M", getLib().yearsAndMonthsDuration(makeDateAndTime("-2016-01-30T09:05:00"), makeDateAndTime("-2017-02-28T02:02:02")));
         assertEqualsDateTime("-P4033Y2M", getLib().yearsAndMonthsDuration(makeDateAndTime("2014-12-31T23:59:59"), makeDateAndTime("-2019-10-01T12:32:59")));
         assertEqualsDateTime("-P4035Y11M", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00-01:00"), makeDateAndTime("-2019-10-01T12:32:59+02:00")));
         assertEqualsDateTime("P2Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00+05:00"), makeDateAndTime("2019-10-01T12:32:59")));
@@ -305,10 +305,10 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
 
         assertNull(getLib().timeOffset(null));
         assertNull(getLib().timeOffset(makeTime("12:01:02")));
-        assertEquals(makeDuration("PT1H"), getLib().timeOffset(makeTime("12:01:02+01:00")));
-        assertEquals(makeDuration("PT0S"), getLib().timeOffset(makeTime("12:01:02Z")));
-        assertEquals(makeDuration("PT0S"), getLib().timeOffset(makeTime("12:01:02@Etc/UTC")));
-        assertEquals(makeDuration("PT01H"), getLib().timeOffset(makeTime("12:01:02@Europe/Paris")));
+        assertEqualsDateTime("PT1H", getLib().timeOffset(makeTime("12:01:02+01:00")));
+        assertEqualsDateTime("PT0S", getLib().timeOffset(makeTime("12:01:02Z")));
+        assertEqualsDateTime("PT0S", getLib().timeOffset(makeTime("12:01:02@Etc/UTC")));
+        assertEqualsDateTime("PT1H", getLib().timeOffset(makeTime("12:01:02@Europe/Paris")));
 
         assertNull(getLib().timezone(null));
         assertNull(getLib().timezone(makeTime("12:01:02")));

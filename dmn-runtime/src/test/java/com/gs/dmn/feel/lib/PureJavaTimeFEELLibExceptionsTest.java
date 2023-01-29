@@ -29,18 +29,18 @@ import com.gs.dmn.feel.lib.type.time.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExceptionsTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExceptionsTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected PureJavaTimeFEELLib getLib() {
         NumericType<BigDecimal> numericType = new NumericTypeStub<>();
         BooleanType booleanType = new BooleanTypeStub();
         StringType stringType = new StringTypeStub();
         DateType<LocalDate, TemporalAmount> dateType = new DateTypeStub<>();
-        TimeType<Temporal, TemporalAmount> timeType = new TimeTypeStub<>();
-        DateTimeType<Temporal, TemporalAmount> dateTimeType = new DateTimeTypeStub<>();
+        TimeType<TemporalAccessor, TemporalAmount> timeType = new TimeTypeStub<>();
+        DateTimeType<TemporalAccessor, TemporalAmount> dateTimeType = new DateTimeTypeStub<>();
         DurationType<TemporalAmount, BigDecimal> durationType = new DurationTypeStub<>();
         ListType listType = new ListTypeStub();
         ContextType contextType = new ContextTypeStub();
@@ -49,7 +49,7 @@ public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExcept
         NumericLib<BigDecimal> numericLib = new NumericLibStub<>();
         StringLib stringLib = new StringLibStub();
         BooleanLib booleanLib = new BooleanLibStub();
-        DateTimeLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> dateTimeLib = new DateTimeLibStub<>();
+        DateTimeLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> dateTimeLib = new DateTimeLibStub<>();
         DurationLib<LocalDate, TemporalAmount> durationLib = new DurationLibStub<>();
         ListLib listLib = new ListLibStub();
         RangeLib rangeLib = new RangeLibStub();

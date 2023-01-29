@@ -114,7 +114,7 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
         }
 
         if (first instanceof Period && second instanceof Period) {
-            return ((Period) first).plus(second);
+            return ((Period) first).plus(second).normalized();
         } else if (first instanceof Duration && second instanceof Duration) {
             return ((Duration) first).plus((Duration) second);
         } else {
@@ -129,7 +129,7 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
         }
 
         if (first instanceof Period && second instanceof Period) {
-            return ((Period) first).minus(second);
+            return ((Period) first).minus(second).normalized();
         } else if (first instanceof Duration && second instanceof Duration) {
             return ((Duration) first).minus((Duration) second);
         } else {
@@ -164,7 +164,7 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
 
         if (first instanceof Period) {
             BigDecimal months = BigDecimal.valueOf(value((Period) first)).multiply(second);
-            return Period.of((int) (months.longValue() / 12), (int) (months.longValue() % 12), 0);
+            return Period.of((int) (months.longValue() / 12), (int) (months.longValue() % 12), 0).normalized();
         } else if (first instanceof Duration) {
             BigDecimal seconds = BigDecimal.valueOf(value((Duration) first)).multiply(second);
             return Duration.ofSeconds(seconds.longValue());
@@ -183,22 +183,12 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
             BigDecimal bdMonths = BigDecimal.valueOf(value((Period) first)).divide(second, RoundingMode.HALF_DOWN);
             int years = bdMonths.intValue() / 12;
             int months = bdMonths.intValue() % 12;
-            return Period.of(years, months, 0);
+            return Period.of(years, months, 0).normalized();
         } else if (first instanceof Duration) {
             BigDecimal seconds = BigDecimal.valueOf(value((Duration) first)).divide(second, RoundingMode.HALF_DOWN);
             return Duration.ofSeconds(seconds.longValue());
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
-        }
-    }
-
-    private int compare(TemporalAmount first, TemporalAmount second) {
-        if (first instanceof Period && second instanceof Period) {
-            return Long.compare(value((Period) first), value((Period) second));
-        } else if (first instanceof Duration && second instanceof Duration) {
-            return ((Duration)first).compareTo((Duration)second);
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot compare '%s' to '%s'", first, second));
         }
     }
 

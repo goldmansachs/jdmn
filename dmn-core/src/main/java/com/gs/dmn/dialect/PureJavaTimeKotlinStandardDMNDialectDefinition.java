@@ -36,10 +36,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
-import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeKotlinStandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+public class PureJavaTimeKotlinStandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     //
     // DMN Processors
     //
@@ -63,7 +63,7 @@ public class PureJavaTimeKotlinStandardDMNDialectDefinition extends AbstractStan
     }
 
     @Override
-    public FEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> createFEELLib() {
+    public FEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> createFEELLib() {
         return new PureJavaTimeFEELLib();
     }
 

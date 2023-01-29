@@ -639,9 +639,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     @Override
     public DURATION dateSubtract(DATE first, Object second) {
         try {
-            DATE_TIME dateTime1 = toDateTime(first);
-            DATE_TIME dateTime2 = toDateTime(second);
-            return dateTimeType.dateTimeSubtract(dateTime1, dateTime2);
+            return dateType.dateSubtract(first, second);
         } catch (Exception e) {
             String message = String.format("dateSubtract(%s, %s)", first, second);
             logError(message, e);

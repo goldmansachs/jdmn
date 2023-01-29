@@ -13,21 +13,22 @@
 package com.gs.dmn.feel;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.PureJavaTimeDMNDialectDefinition;
 import com.gs.dmn.tck.ast.TestCases;
 import org.junit.Test;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DefaultStandardFEELProcessorTest extends AbstractStandardFEELProcessorTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public class PureJavaFEELProcessorTest extends AbstractStandardFEELProcessorTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> makeDialect() {
-        return new StandardDMNDialectDefinition();
+    protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialect() {
+        return new PureJavaTimeDMNDialectDefinition();
     }
 
     @Override

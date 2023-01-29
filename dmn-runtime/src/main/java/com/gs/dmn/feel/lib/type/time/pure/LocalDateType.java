@@ -16,7 +16,10 @@ import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
-import java.time.*;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.chrono.ChronoPeriod;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
@@ -41,9 +44,7 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
             return first == second;
         }
 
-        return first.getYear() == second.getYear()
-                && first.getMonth() == second.getMonth()
-                && first.getDayOfMonth() == second.getDayOfMonth();
+        return sameDateProperties(first, second);
     }
 
     @Override
@@ -77,15 +78,19 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
     }
 
     @Override
-    public TemporalAmount dateSubtract(LocalDate first, Object second) {
-        if (first == null || second == null) {
+    public TemporalAmount dateSubtract(LocalDate firstObj, Object secondObj) {
+        Temporal first = toDateTime(firstObj);
+        Temporal second = toDateTime(secondObj);
+        if (firstObj == null || second == null) {
             return null;
         }
 
-        if (second instanceof Temporal) {
-            return Period.between(first, toDate(second));
+        // Subtraction is undefined for the case where only one of the values has a timezone
+        if (hasTimezone(first) && !hasTimezone(second) || !hasTimezone(first) && hasTimezone(second)) {
+            return null;
         }
-        throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", first, second));
+
+        return Duration.between(second, first);
     }
 
     @Override

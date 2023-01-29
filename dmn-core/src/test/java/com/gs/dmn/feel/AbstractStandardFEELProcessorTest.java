@@ -269,6 +269,14 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 this.lib.contains("abc", "a"),
                 true);
 
+        // is invocation
+        doExpressionTest(entries, "", "is(@\"23:00:50@Australia/Melbourne\", @\"23:00:50@Australia/Melbourne\")",
+                "FunctionInvocation(Name(is) -> PositionalParameters(DateTimeLiteral(time, \"23:00:50@Australia/Melbourne\"), DateTimeLiteral(time, \"23:00:50@Australia/Melbourne\")))",
+                "boolean",
+                "is(time(\"23:00:50@Australia/Melbourne\"), time(\"23:00:50@Australia/Melbourne\"))",
+                this.lib.is(this.lib.time("23:00:50@Australia/Melbourne"), this.lib.time("23:00:50@Australia/Melbourne")),
+                true);
+
     }
 
     @Override

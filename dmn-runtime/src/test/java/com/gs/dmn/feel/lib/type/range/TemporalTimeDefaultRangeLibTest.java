@@ -17,17 +17,17 @@ import com.gs.dmn.feel.lib.StandardFEELLib;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+public class TemporalTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> getLib() {
+    protected StandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> getLib() {
         return new PureJavaTimeFEELLib();
     }
 
     @Override
-    protected Temporal makePoint(int number) {
+    protected TemporalAccessor makePoint(int number) {
         if (number < 0 || number > 60) {
             throw new IllegalArgumentException("Illegal second");
         }

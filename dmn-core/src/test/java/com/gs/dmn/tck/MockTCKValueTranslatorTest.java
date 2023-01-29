@@ -33,7 +33,7 @@ import org.junit.Test;
 import javax.xml.datatype.DatatypeFactory;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 import java.util.Collections;
 
@@ -61,8 +61,8 @@ public class MockTCKValueTranslatorTest {
     private final PureJavaTimeDMNDialectDefinition dialect = new PureJavaTimeDMNDialectDefinition();
     private final DMNModelRepository repository = new DMNModelRepository();
     private final BasicDMNToNativeTransformer<Type, DMNContext> transformer = dialect.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new InputParameters());
-    private final StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> lib = (StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount>) dialect.createFEELLib();
-    private final MockTCKValueTranslator<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> translator = new MockTCKValueTranslator<>(transformer, lib);
+    private final StandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> lib = (StandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount>) dialect.createFEELLib();
+    private final MockTCKValueTranslator<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> translator = new MockTCKValueTranslator<>(transformer, lib);
 
     @Test
     public void testWhenValueIsNil() {

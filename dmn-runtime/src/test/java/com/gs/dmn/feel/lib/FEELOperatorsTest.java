@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.Context;
@@ -22,7 +21,7 @@ import org.junit.Test;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
-import java.time.*;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -520,8 +519,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().dateSubtract(null, makeDate("2016-08-01")));
         assertNull(getLib().dateSubtract(makeDate("2016-08-01"), null));
 
-        assertEquals(makeDuration("PT0S"), getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
-        assertEquals(makeDuration("-P2D"), getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
+        assertEqualsDateTime("PT0S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
+        assertEqualsDateTime("-P2D", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
     }
 
     @Test
@@ -1114,8 +1113,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertEqualsDateTime("P1Y2M", getLib().durationSubtract(makeDuration("P1Y"), makeDuration("-P2M")));
         assertEqualsDateTime("-P10M", getLib().durationSubtract(makeDuration("-P1Y"), makeDuration("-P2M")));
 
-        assertEqualsDateTime("P0DT0H0M0S", getLib().durationSubtract(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
-        assertEqualsDateTime("-P0DT1H0M0S", getLib().durationSubtract(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
+        assertEqualsDateTime("PT0S", getLib().durationSubtract(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
+        assertEqualsDateTime("-PT1H", getLib().durationSubtract(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
     }
 
     @Test
@@ -1454,23 +1453,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     protected void assertEqualsDateTime(String expected, Object actual) {
         if (actual instanceof XMLGregorianCalendar) {
             assertEquals(expected, actual.toString());
-        } else if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE);
-            assertEquals(expected, actualText);
-        } else if (actual instanceof LocalTime) {
-            String actualText = ((LocalTime) actual).format(BaseDateTimeLib.FEEL_TIME);
-            assertEquals(expected, actualText);
-        } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME);
-            assertEquals(expected, actualText);
-        } else if (actual instanceof LocalDateTime) {
-            String actualText = ((LocalDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);
-            assertEquals(expected, actualText);
-        } else if (actual instanceof OffsetDateTime) {
-            String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);
-            assertEquals(expected, actualText);
-        } else if (actual instanceof ZonedDateTime) {
-            String actualText = ((ZonedDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);
+        } else if (actual instanceof TemporalAccessor) {
+            String actualText = FormatUtils.formatTemporal(actual);
             assertEquals(expected, actualText);
         } else if (actual instanceof Duration) {
             Duration expectedDuration = null;
@@ -1481,22 +1465,11 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
             }
             assertEquals(expectedDuration, actual);
         } else if (actual instanceof java.time.Duration) {
-            java.time.Duration expectedDuration = null;
-            try {
-                expectedDuration = java.time.Duration.parse(expected);
-            } catch (Exception e) {
-                fail("Cannot parse expected Duration");
-            }
-            assertEquals(expectedDuration, actual);
+            String actualText = FormatUtils.formatTemporal(actual);
+            assertEquals(expected, actualText);
         } else if (actual instanceof java.time.Period) {
-            Period expectedDuration = null;
-            try {
-                expectedDuration = java.time.Period.parse(expected).normalized();
-            } catch (Exception e) {
-                fail("Cannot parse expected Duration");
-            }
-            // Not comparable
-            assertEquals(expectedDuration, ((Period) actual).normalized());
+            String actualText = FormatUtils.formatTemporal(actual);
+            assertEquals(expected, actualText);
         } else {
             assertEquals(expected, actual);
         }
