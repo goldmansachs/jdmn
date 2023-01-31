@@ -15,9 +15,9 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 
-public class DefaultDurationComparator extends XMLDateTimeComparator<Duration> {
+public class DefaultDurationComparator extends XMLCalendarType implements XMLDateTimeComparator<Duration> {
     @Override
-    protected Integer compareTo(Duration first, Duration second) {
+    public Integer compareTo(Duration first, Duration second) {
         Long firstValue = durationValue(first);
         Long secondValue = durationValue(second);
         long diff = firstValue - secondValue;

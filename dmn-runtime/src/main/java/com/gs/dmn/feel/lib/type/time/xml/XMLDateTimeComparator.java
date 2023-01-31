@@ -20,9 +20,9 @@ import java.util.function.Supplier;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
-public abstract class XMLDateTimeComparator<T> extends XMLCalendarType implements RelationalComparator<T> {
+public interface XMLDateTimeComparator<T> extends RelationalComparator<T> {
     @Override
-    public Integer compare(T first, T second) {
+    default Integer compare(T first, T second) {
         if (first == null || second == null) {
             return null;
         } else {
@@ -31,7 +31,7 @@ public abstract class XMLDateTimeComparator<T> extends XMLCalendarType implement
     }
 
     @Override
-    public Boolean equalTo(T first, T second) {
+    default Boolean equalTo(T first, T second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> TRUE,
                 () -> FALSE,
@@ -41,7 +41,7 @@ public abstract class XMLDateTimeComparator<T> extends XMLCalendarType implement
     }
 
     @Override
-    public Boolean lessThan(T first, T second) {
+    default Boolean lessThan(T first, T second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> null,
                 () -> null,
@@ -50,5 +50,5 @@ public abstract class XMLDateTimeComparator<T> extends XMLCalendarType implement
         });
     }
 
-    protected abstract Integer compareTo(T first, T second);
+    Integer compareTo(T first, T second);
 }

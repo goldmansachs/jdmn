@@ -16,6 +16,7 @@ import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.numeric.DoubleComparator;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
 import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeComparator;
 import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeComparator;
@@ -47,7 +48,7 @@ public class DefaultRangeLib implements RangeLib {
 
     static {
         COMPARATOR_MAP.put(BigDecimal.class, new ComparableComparator<BigDecimal>());
-        COMPARATOR_MAP.put(Double.class, new ComparableComparator<BigDecimal>());
+        COMPARATOR_MAP.put(Double.class, new DoubleComparator());
         COMPARATOR_MAP.put(String.class, new ComparableComparator<String>());
 
         COMPARATOR_MAP.put(LocalDate.class, new LocalDateComparator());
