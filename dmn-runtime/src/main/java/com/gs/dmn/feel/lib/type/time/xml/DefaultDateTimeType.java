@@ -84,10 +84,10 @@ public class DefaultDateTimeType extends XMLCalendarType implements DateTimeType
             return null;
         }
         if (isDate(first)) {
-            first = dateToDateTime(first);
+            first = toDateTime(first);
         }
         if (isDate(second)) {
-            second = dateToDateTime(second);
+            second = toDateTime(second);
         }
         // Subtraction is undefined for the case where only one of the values has a timezone
         if (hasTimezone(first) && !hasTimezone(second) || !hasTimezone(first) && hasTimezone(second)) {

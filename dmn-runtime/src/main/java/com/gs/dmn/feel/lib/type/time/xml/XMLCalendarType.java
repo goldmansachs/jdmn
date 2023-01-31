@@ -18,7 +18,9 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
-import java.time.*;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
@@ -95,7 +97,7 @@ public abstract class XMLCalendarType extends BaseType {
             return null;
         }
 
-        XMLGregorianCalendar dateTime = dateToDateTime(date);
+        XMLGregorianCalendar dateTime = toDateTime(date);
         return dateTimeValue(dateTime);
     }
 
@@ -194,7 +196,7 @@ public abstract class XMLCalendarType extends BaseType {
         return toEpochSeconds(first) - toEpochSeconds(second);
     }
 
-    protected XMLGregorianCalendar dateToDateTime(XMLGregorianCalendar date) {
+    protected XMLGregorianCalendar toDateTime(XMLGregorianCalendar date) {
         if (date == null) {
             return null;
         }

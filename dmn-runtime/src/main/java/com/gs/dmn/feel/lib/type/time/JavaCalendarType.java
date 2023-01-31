@@ -95,42 +95,14 @@ public abstract class JavaCalendarType extends BaseType {
         }
 
         if (dateTime instanceof LocalDateTime) {
-            return dateTimeValue((LocalDateTime) dateTime);
+            return ((LocalDateTime) dateTime).toEpochSecond(ZoneOffset.of("Z"));
         } else if (dateTime instanceof OffsetDateTime) {
-            return dateTimeValue((OffsetDateTime) dateTime);
+            return ((OffsetDateTime) dateTime).toEpochSecond();
         } else if (dateTime instanceof ZonedDateTime) {
-            return dateTimeValue((ZonedDateTime) dateTime);
+            return ((ZonedDateTime) dateTime).toEpochSecond();
         } else {
             return null;
         }
-    }
-
-    public Long dateTimeValue(Temporal dateTime) {
-        return dateTimeValue((TemporalAccessor) dateTime);
-    }
-
-    public Long dateTimeValue(LocalDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        return dateTime.toEpochSecond(ZoneOffset.of("Z"));
-    }
-
-    public Long dateTimeValue(OffsetDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        return dateTime.toEpochSecond();
-    }
-
-    public Long dateTimeValue(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        return dateTime.toEpochSecond();
     }
 
     protected Long monthsValue(Period duration) {

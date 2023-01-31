@@ -31,6 +31,11 @@ public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTime
         this.comparator = comparator;
     }
 
+    @Override
+    public Long dateTimeValue(ZonedDateTime dateTime) {
+        return super.dateTimeValue(dateTime);
+    }
+
     //
     // Date and time operators
     //
