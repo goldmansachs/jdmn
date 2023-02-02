@@ -151,19 +151,19 @@
     </testCase>
 
     <testCase id="time_006">
-        <description>time: is equal - @ zone time with same offset zone time</description>
+        <description>time: is not equal - @ zone time with same offset zone time</description>
         <resultNode name="time_006" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">true</value>
+                <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
     </testCase>
 
     <testCase id="time_007">
-        <description>time: is equal - @ GMT vs zero offset zone time</description>
+        <description>time: is not equal - @ GMT vs zero offset zone time</description>
         <resultNode name="time_007" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">true</value>
+                <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
     </testCase>
@@ -205,10 +205,10 @@
     </testCase>
 
     <testCase id="time_012">
-        <description>time: is equal when zone differs but offset is same</description>
+        <description>time: is not equal when zone differs but offset is same</description>
         <resultNode name="time_012" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">true</value>
+                <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
     </testCase>
@@ -340,10 +340,10 @@
     </testCase>
 
     <testCase id="datetime_014">
-        <description>datetime: equals when zone ofset is same even though zone differs</description>
+        <description>datetime: not equals when region differs even though offset is same</description>
         <resultNode name="datetime_014" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">true</value>
+                <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
     </testCase>
@@ -358,19 +358,19 @@
     </testCase>
 
     <testCase id="datetime_016">
-        <description>datetime: is equal - zone vs offset - in DST</description>
+        <description>datetime: is not equal - zone vs offset - DST</description>
         <resultNode name="datetime_016" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">true</value>
+                <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
     </testCase>
 
     <testCase id="datetime_017">
-        <description>datetime: is equal - zone vs offset - outside DST</description>
+        <description>datetime: is not equal - zone vs offset - outside DST</description>
         <resultNode name="datetime_017" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">true</value>
+                <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
     </testCase>
@@ -448,11 +448,10 @@
     </testCase>
 
     <testCase id="named_params_004">
-        <!-- @tarilabs ... I still think this is wrong .... -->
-        <description>will ignore mismatching named params</description>
-        <resultNode name="named_params_004" type="decision">
+        <description>will return null when unknown named params</description>
+        <resultNode name="named_params_004" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:boolean">true</value>
+                <value xsi:nil="true"></value>
             </expected>
         </resultNode>
     </testCase>

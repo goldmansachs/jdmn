@@ -170,9 +170,9 @@
     </decision>
 
     <decision name="time_006" id="_time_006">
-        <description>Tests FEEL expression: 'is(@"23:00:50@Australia/Melbourne", @"23:00:50+10:00")' and expects result: 'true (boolean)'</description>
+        <description>Tests FEEL expression: 'is(@"23:00:50@Australia/Melbourne", @"23:00:50+10:00")' and expects result: 'false (boolean)'</description>
         <question>Result of FEEL expression 'is(@"23:00:50@Australia/Melbourne", @"23:00:50+10:00")'?</question>
-        <allowedAnswers>true (boolean)</allowedAnswers>
+        <allowedAnswers>false (boolean)</allowedAnswers>
         <variable name="time_006"/>
         <literalExpression>
             <text>is(@"23:00:50@Australia/Melbourne", @"23:00:50+10:00")</text>
@@ -180,9 +180,9 @@
     </decision>
 
     <decision name="time_007" id="_time_007">
-        <description>Tests FEEL expression: 'is(@"23:00:50@Etc/GMT", @"23:00:50Z")' and expects result: 'true (boolean)'</description>
+        <description>Tests FEEL expression: 'is(@"23:00:50@Etc/GMT", @"23:00:50Z")' and expects result: 'false (boolean)'</description>
         <question>Result of FEEL expression 'is(@"23:00:50@Etc/GMT", @"23:00:50Z")'?</question>
-        <allowedAnswers>true (boolean)</allowedAnswers>
+        <allowedAnswers>false (boolean)</allowedAnswers>
         <variable name="time_007"/>
         <literalExpression>
             <text>is(@"23:00:50@Etc/GMT", @"23:00:50Z")</text>
@@ -230,9 +230,9 @@
     </decision>
 
     <decision name="time_012" id="_time_012">
-        <description>Tests FEEL expression: 'is(@"23:00:50@Australia/Melbourne", @"23:00:50@Australia/Sydney")' and expects result: 'true (boolean)'</description>
+        <description>Tests FEEL expression: 'is(@"23:00:50@Australia/Melbourne", @"23:00:50@Australia/Sydney")' and expects result: 'false (boolean)'</description>
         <question>Result of FEEL expression 'is(@"23:00:50@Australia/Melbourne", @"23:00:50@Australia/Sydney")'?</question>
-        <allowedAnswers>true (boolean)</allowedAnswers>
+        <allowedAnswers>false (boolean)</allowedAnswers>
         <variable name="time_012"/>
         <literalExpression>
             <text>is(@"23:00:50@Australia/Melbourne", @"23:00:50@Australia/Sydney")</text>
@@ -387,9 +387,9 @@
     </decision>
 
     <decision name="datetime_014" id="_datetime_014">
-        <description>Tests FEEL expression: 'is(@"2002-04-02T23:00:00@Australia/Melbourne", @"2002-04-02T23:00:00@Australia/Sydney")' and expects result: 'true (boolean)'</description>
+        <description>Tests FEEL expression: 'is(@"2002-04-02T23:00:00@Australia/Melbourne", @"2002-04-02T23:00:00@Australia/Sydney")' and expects result: 'false (boolean)'</description>
         <question>Result of FEEL expression 'is(@"2002-04-02T23:00:00@Australia/Melbourne", @"2002-04-02T23:00:00@Australia/Sydney")'?</question>
-        <allowedAnswers>true (boolean)</allowedAnswers>
+        <allowedAnswers>false (boolean)</allowedAnswers>
         <variable name="datetime_014"/>
         <literalExpression>
             <text>is(@"2002-04-02T23:00:00@Australia/Melbourne", @"2002-04-02T23:00:00@Australia/Sydney")</text>
@@ -407,9 +407,9 @@
     </decision>
 
     <decision name="datetime_016" id="_datetime_016">
-        <description>Tests FEEL expression: 'is(@"2021-04-02T23:00:00@Australia/Melbourne", @"2021-04-02T23:00:00+11:00")' and expects result: 'true (boolean)'</description>
+        <description>Tests FEEL expression: 'is(@"2021-04-02T23:00:00@Australia/Melbourne", @"2021-04-02T23:00:00+11:00")' and expects result: 'false (boolean)'</description>
         <question>Result of FEEL expression 'is(@"2021-04-02T23:00:00@Australia/Melbourne", @"2021-04-02T23:00:00+11:00")'?</question>
-        <allowedAnswers>true (boolean)</allowedAnswers>
+        <allowedAnswers>false (boolean)</allowedAnswers>
         <variable name="datetime_016"/>
         <literalExpression>
             <text>is(@"2021-04-02T23:00:00@Australia/Melbourne", @"2021-04-02T23:00:00+11:00")</text>
@@ -417,9 +417,9 @@
     </decision>
 
     <decision name="datetime_017" id="_datetime_017">
-        <description>Tests FEEL expression: 'is(@"2021-10-02T23:00:00@Australia/Melbourne", @"2021-10-02T23:00:00+10:00")' and expects result: 'true (boolean)'</description>
+        <description>Tests FEEL expression: 'is(@"2021-10-02T23:00:00@Australia/Melbourne", @"2021-10-02T23:00:00+10:00")' and expects result: 'false (boolean)'</description>
         <question>Result of FEEL expression 'is(@"2021-10-02T23:00:00@Australia/Melbourne", @"2021-10-02T23:00:00+10:00")'?</question>
-        <allowedAnswers>true (boolean)</allowedAnswers>
+        <allowedAnswers>false (boolean)</allowedAnswers>
         <variable name="datetime_017"/>
         <literalExpression>
             <text>is(@"2021-10-02T23:00:00@Australia/Melbourne", @"2021-10-02T23:00:00+10:00")</text>
@@ -507,9 +507,9 @@
     </decision>
 
     <decision name="named_params_004" id="named_params_004">
-        <description>Tests FEEL expression: 'is(value1: @"2021-02-13" , value2: @"2021-02-13", value3: @"2020-01-01")' and expects result: 'true (boolean)'</description>
+        <description>Tests FEEL expression: 'is(value1: @"2021-02-13" , value2: @"2021-02-13", value3: @"2020-01-01")' and expects result: 'null (boolean)'</description>
         <question>Result of FEEL expression 'is(value1: @"2021-02-13" , value2: @"2021-02-13", value3: @"2020-01-01")'?</question>
-        <allowedAnswers>true (boolean)</allowedAnswers>
+        <allowedAnswers>null (boolean)</allowedAnswers>
         <variable name="named_params_004"/>
         <literalExpression>
             <text>is(value1: @"2021-02-13" , value2: @"2021-02-13", value3: @"2020-01-01")</text>
