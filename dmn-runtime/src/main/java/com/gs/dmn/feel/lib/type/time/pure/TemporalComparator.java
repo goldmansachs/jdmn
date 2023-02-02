@@ -14,17 +14,22 @@ package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
+import java.time.*;
 import java.time.temporal.TemporalAccessor;
 
 public class TemporalComparator extends BasePureCalendarType implements DateTimeComparator<TemporalAccessor> {
     @Override
     public Integer compareTo(TemporalAccessor first, TemporalAccessor second) {
-        // Date time
-        if (isDateTime(first) && isDateTime(second)) {
+        if (isDate(first) && isDate(second)) {
+            // Date
+            return dateValue((LocalDate) first).compareTo(dateValue((LocalDate) second));
+        } else if (isDateTime(first) && isDateTime(second)) {
+            // Date and time
+            // valuedt(e1) < valuedt(e2). valuedt is defined in 10.3.2.3.5. If one input has a null timezone offset, that input uses the timezone offset of the other input.
             return dateTimeValue(first).compareTo(dateTimeValue(second));
-        }
-        // Time
-        if (isTime(first) && isTime(second)) {
+        } else if (isTime(first) && isTime(second)) {
+            // Time
+            // valuet(e1) < valuet(e2). valuet is defined in 10.3.2.3.4. If one input has a null timezone offset, that input uses the timezone offset of the other input.
             return timeValue(first).compareTo(timeValue(second));
         }
 
