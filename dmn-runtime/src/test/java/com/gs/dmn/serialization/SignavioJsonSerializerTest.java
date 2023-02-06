@@ -13,6 +13,9 @@
 package com.gs.dmn.serialization;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Range;
 import com.gs.dmn.serialization.data.Address;
 import com.gs.dmn.serialization.data.AddressImpl;
 import com.gs.dmn.serialization.data.Person;
@@ -22,21 +25,18 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SignavioJsonSerializerTest {
     private final DefaultSignavioLib lib = new DefaultSignavioLib();
-    private final String personText = "{\"514 AT\":\"at\",\"AT\":\"AT\",\"Addresses\":null,\"Date and Time List\":[\"2016-08-01T12:00:00Z\"],\"Date and Time of Birth\":\"2016-08-01T12:00:00Z\",\"Date of Birth\":\"2017-01-03\",\"Days and Time Duration\":\"P2DT20H\",\"First Name\":\"Amy\",\"Gender\":\"female\",\"ID\":38,\"Last Name\":\"Smith\",\"List\":[\"Late payment\"],\"Married\":true,\"Time of Birth\":\"11:20:30Z\",\"Years and Months Duration\":\"P1Y1M\"}";
-    private final String listOfPersonText = "[{\"514 AT\":null,\"AT\":null,\"Addresses\":[{\"Line\":\"11\",\"Postcode\":\"11\"},{\"Line\":\"12\",\"Postcode\":\"12\"}],\"Date and Time List\":null,\"Date and Time of Birth\":null,\"Date of Birth\":null,\"Days and Time Duration\":null,\"First Name\":null,\"Gender\":null,\"ID\":1,\"Last Name\":null,\"List\":null,\"Married\":null,\"Time of Birth\":null,\"Years and Months Duration\":null}]";
-    private final String listOfListOfPersonText = "[[{\"514 AT\":null,\"AT\":null,\"Addresses\":[{\"Line\":\"11\",\"Postcode\":\"11\"},{\"Line\":\"12\",\"Postcode\":\"12\"}],\"Date and Time List\":null,\"Date and Time of Birth\":null,\"Date of Birth\":null,\"Days and Time Duration\":null,\"First Name\":null,\"Gender\":null,\"ID\":1,\"Last Name\":null,\"List\":null,\"Married\":null,\"Time of Birth\":null,\"Years and Months Duration\":null}]]";
-    private String numberListListText = "[[1,2]]";
+    private final String numberListListText = "[ [ 1, 2 ] ]";
+    private final List<Range> rangeList = new ArrayList<>(Collections.singletonList(new Range(true, 0, false, 1)));
 
     @Test
     public void testPersonSerialization() throws Exception {
@@ -55,12 +55,15 @@ public class SignavioJsonSerializerTest {
         person.setDaysAndTimeDuration(lib.duration("P2DT20H"));
         person.setAT("AT");
         person.setAt("at");
+        person.setRanges(rangeList);
 
-        assertEquals(personText, OBJECT_MAPPER.writeValueAsString(person));
+        String personText = readJson("expected/json/person.json");
+        compareJson(personText, prettyPrinter().writeValueAsString(person));
     }
 
     @Test
     public void testPersonDeserialization() throws Exception {
+        String personText = readJson("expected/json/person.json");
         Person person = readPerson(personText);
 
         assertTrue(lib.stringEqual("Amy", person.getFirstName()));
@@ -77,6 +80,8 @@ public class SignavioJsonSerializerTest {
         assertTrue(lib.durationEqual(lib.duration("P2DT20H"), person.getDaysAndTimeDuration()));
         assertTrue(lib.stringEqual("AT", person.getAT()));
         assertTrue(lib.stringEqual("at", person.getAt()));
+        assertNull(person.getAddresses());
+        assertEquals(this.rangeList, person.getRanges());
     }
 
     @Test
@@ -84,11 +89,13 @@ public class SignavioJsonSerializerTest {
         List<Person> personList = new ArrayList<>();
         personList.add(makePerson("1"));
 
-        assertEquals(listOfPersonText, OBJECT_MAPPER.writeValueAsString(personList));
+        String listOfPersonText = readJson("expected/json/list-of-person.json");
+        compareJson(listOfPersonText, prettyPrinter().writeValueAsString(personList));
     }
 
     @Test
     public void testListOfPersonDeserialization() throws Exception {
+        String listOfPersonText = readJson("expected/json/list-of-person.json");
         List<Person> personList = readPersonList(listOfPersonText);
 
         assertEquals(1, personList.size());
@@ -107,11 +114,13 @@ public class SignavioJsonSerializerTest {
         personList.add(makePerson("1"));
         Set<List<Person>> personListList = Collections.singleton(personList);
 
-        assertEquals(listOfListOfPersonText, OBJECT_MAPPER.writeValueAsString(personListList));
+        String listOfListOfPersonText = readJson("expected/json/list-of-list-of-person.json");
+        compareJson(listOfListOfPersonText, prettyPrinter().writeValueAsString(personListList));
     }
 
     @Test
     public void testListOfListOfPersonDeserialization() throws Exception {
+        String listOfListOfPersonText = readJson("expected/json/list-of-list-of-person.json");
         List<List<Person>> list = readPersonListList(listOfListOfPersonText);
 
         assertEquals(1, list.size());
@@ -132,7 +141,7 @@ public class SignavioJsonSerializerTest {
         numberList.add(new BigDecimal("2"));
         Set<List<BigDecimal>> numberListList = Collections.singleton(numberList);
 
-        assertEquals(numberListListText, OBJECT_MAPPER.writeValueAsString(numberListList));
+        compareJson(numberListListText, prettyPrinter().writeValueAsString(numberListList));
     }
 
     @Test
@@ -173,5 +182,25 @@ public class SignavioJsonSerializerTest {
 
     private List<List<Person>> readPersonListList(String personText) throws Exception {
         return OBJECT_MAPPER.readValue(personText, new TypeReference<List<List<Person>>>() {});
+    }
+
+    private String readJson(String resourcePath) {
+        try {
+            Path path = Paths.get(getClass().getClassLoader().getResource(resourcePath).toURI());
+            List<String> lines = Files.readAllLines(path);
+            return String.join("\n", lines);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot read resource '%s'", resourcePath), e);
+        }
+    }
+
+    private void compareJson(String expectedValue, String actualValue) {
+        expectedValue = expectedValue.replaceAll("\r", "");
+        actualValue = actualValue.replaceAll("\r", "");
+        assertEquals(expectedValue, actualValue);
+    }
+
+    private ObjectWriter prettyPrinter() {
+        return OBJECT_MAPPER.writerWithDefaultPrettyPrinter();
     }
 }
