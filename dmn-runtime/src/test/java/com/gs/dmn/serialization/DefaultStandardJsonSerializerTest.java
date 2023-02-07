@@ -12,50 +12,47 @@
  */
 package com.gs.dmn.serialization;
 
+import com.gs.dmn.feel.lib.DefaultFEELLib;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
 import com.gs.dmn.runtime.Pair;
 
 import javax.xml.datatype.Duration;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 
-public class MixedJavaTimeJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
-
-    public static final List<Pair<String, String>> TIME_TEST_DATA = Arrays.asList(
-            new Pair<>("04:20:20", "04:20:20Z"),
+public class DefaultStandardJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+    static final List<Pair<String, String>> TIME_TEST_DATA = Arrays.asList(
+            new Pair<>("04:20:20", "04:20:20"),
             new Pair<>("04:20:20Z", "04:20:20Z"),
-            new Pair<>("04:20:20.004", "04:20:20.004Z"),
+            new Pair<>("04:20:20.004", "04:20:20.004"),
             new Pair<>("04:20:20.004Z", "04:20:20.004Z"),
-            new Pair<>("04:20:20.00421", "04:20:20.004210Z"),
-            new Pair<>("04:20:20.00421Z", "04:20:20.004210Z"),
-            new Pair<>("04:20:20.00421+01:00", "04:20:20.004210+01:00"),
+            new Pair<>("04:20:20.00421", "04:20:20.00421"),
+            new Pair<>("04:20:20.00421Z", "04:20:20.00421Z"),
+            new Pair<>("04:20:20.00421+01:00", "04:20:20.00421+01:00"),
             new Pair<>("04:20:20.004Z", "04:20:20.004Z"),
-            new Pair<>("04:20:20.00421@Europe/Paris", "04:20:20.004210+01:00")
+            new Pair<>("04:20:20.00421@Europe/Paris", "04:20:20.00421+01:00")
     );
-    public static final List<Pair<String, String>> DATE_TIME_TEST_DATA = Arrays.asList(
-            new Pair<>("2019-03-11T04:20:20", "2019-03-11T04:20:20Z"),
+    static final List<Pair<String, String>> DATE_TIME_TEST_DATA = Arrays.asList(
+            new Pair<>("2019-03-11T04:20:20", "2019-03-11T04:20:20"),
             new Pair<>("2019-03-11T04:20:20Z", "2019-03-11T04:20:20Z"),
-            new Pair<>("2019-03-11T04:20:20.004", "2019-03-11T04:20:20.004Z"),
+            new Pair<>("2019-03-11T04:20:20.004", "2019-03-11T04:20:20.004"),
             new Pair<>("2019-03-11T04:20:20.004Z", "2019-03-11T04:20:20.004Z"),
-            new Pair<>("2019-03-11T04:20:20.00421", "2019-03-11T04:20:20.00421Z"),
+            new Pair<>("2019-03-11T04:20:20.00421", "2019-03-11T04:20:20.00421"),
             new Pair<>("2019-03-11T04:20:20.00421Z", "2019-03-11T04:20:20.00421Z"),
-//                new Pair<>("2019-03-11T04:20:20.00421+01:00", "2019-03-11T04:20:20.00421+01:00"),
+            new Pair<>("2019-03-11T04:20:20.00421+01:00", "2019-03-11T04:20:20.00421+01:00"),
             new Pair<>("2019-03-11T04:20:20.004@UTC", "2019-03-11T04:20:20.004Z"),
-//                new Pair<>("2019-03-11T04:20:20.00421@Europe/Paris", "2019-03-11T04:20:20.00421+01:00"),
+            new Pair<>("2019-03-11T04:20:20.00421@Europe/Paris", "2019-03-11T04:20:20.00421+01:00"),
 
-            new Pair<>("9999-03-11T04:20:20", "9999-03-11T04:20:20Z")
+            new Pair<>("9999-03-11T04:20:20", "9999-03-11T04:20:20")
     );
 
     @Override
-    protected FEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> makeFEELLib() {
-        return new MixedJavaTimeFEELLib();
+    protected FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> makeFEELLib() {
+        return new DefaultFEELLib();
     }
 
     @Override
@@ -64,25 +61,24 @@ public class MixedJavaTimeJsonSerializerTest extends AbstractJsonSerializerTest<
     }
 
     @Override
-    protected LocalDate readDate(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, LocalDate.class);
+    protected XMLGregorianCalendar readDate(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
     }
 
     @Override
-    protected OffsetTime readTime(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, OffsetTime.class);
+    protected XMLGregorianCalendar readTime(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
     }
 
     @Override
-    protected ZonedDateTime readDateTime(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, ZonedDateTime.class);
+    protected XMLGregorianCalendar readDateTime(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
     }
 
     @Override
     protected Duration readDuration(String literal) throws Exception {
         return OBJECT_MAPPER.readValue(literal, Duration.class);
     }
-
 
     @Override
     protected List<Pair<String, String>> getTimeTestData() {

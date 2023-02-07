@@ -13,7 +13,7 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.feel.lib.DoubleMixedJavaTimeFEELLib;
-import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Pair;
 
 import javax.xml.datatype.Duration;
@@ -24,10 +24,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
+import static com.gs.dmn.serialization.MixedJavaTimeJsonSerializerTest.DATE_TIME_TEST_DATA;
+import static com.gs.dmn.serialization.MixedJavaTimeJsonSerializerTest.TIME_TEST_DATA;
 
-public class DoubleMixedJavaTimeJsonSerializerTest extends AbstractJavaTimeJsonSerializerTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public class DoubleMixedJavaTimeJsonSerializerTest extends AbstractJsonSerializerTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
-    protected StandardFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> makeFEELLib() {
+    protected FEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> makeFEELLib() {
         return new DoubleMixedJavaTimeFEELLib();
     }
 
@@ -64,6 +66,16 @@ public class DoubleMixedJavaTimeJsonSerializerTest extends AbstractJavaTimeJsonS
                 new Pair<>("123.45", "123.45"),
                 new Pair<>("-123.45", "-123.45")
         );
+    }
+
+    @Override
+    protected List<Pair<String, String>> getTimeTestData() {
+        return TIME_TEST_DATA;
+    }
+
+    @Override
+    protected List<Pair<String, String>> getDateTimeTestData() {
+        return DATE_TIME_TEST_DATA;
     }
 }
 
