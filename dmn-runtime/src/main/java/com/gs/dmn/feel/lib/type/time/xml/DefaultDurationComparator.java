@@ -16,6 +16,11 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 
 public class DefaultDurationComparator extends XMLCalendarType implements XMLDateTimeComparator<Duration> {
+    public static DefaultDurationComparator COMPARATOR = new DefaultDurationComparator();
+
+    protected DefaultDurationComparator() {
+    }
+
     @Override
     public Integer compareTo(Duration first, Duration second) {
         Long firstValue = durationValue(first);

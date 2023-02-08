@@ -19,6 +19,6 @@ import javax.xml.datatype.Duration;
 
 public class DoubleSignavioDurationType extends DoubleDurationType implements DurationType<Duration, Double> {
     public DoubleSignavioDurationType() {
-        super(new DefaultSignavioDurationComparator());
+        super(DefaultSignavioDurationComparator.COMPARATOR);
     }
  }

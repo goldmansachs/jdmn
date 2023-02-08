@@ -22,7 +22,7 @@ import java.math.RoundingMode;
 
 public class DefaultDurationType extends BaseDefaultDurationType implements DurationType<Duration, BigDecimal> {
     public DefaultDurationType() {
-        this(new DefaultDurationComparator());
+        this(DefaultDurationComparator.COMPARATOR);
     }
 
     public DefaultDurationType(RelationalComparator<Duration> durationComparator) {

@@ -26,7 +26,7 @@ public class TemporalTimeType extends BasePureCalendarType implements TimeType<T
     private final TemporalComparator comparator;
 
     public TemporalTimeType() {
-        this(new TemporalComparator());
+        this(TemporalComparator.COMPARATOR);
     }
 
     public TemporalTimeType(TemporalComparator comparator) {

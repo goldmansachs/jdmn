@@ -28,7 +28,7 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
     private final LocalDateComparator comparator;
 
     public LocalDateType() {
-        this(new LocalDateComparator());
+        this(LocalDateComparator.COMPARATOR);
     }
 
     public LocalDateType(LocalDateComparator comparator) {

@@ -20,7 +20,7 @@ import javax.xml.datatype.Duration;
 
 public class DoubleDurationType extends BaseDefaultDurationType implements DurationType<Duration, Double> {
     public DoubleDurationType() {
-        this(new DefaultDurationComparator());
+        this(DefaultDurationComparator.COMPARATOR);
     }
 
     public DoubleDurationType(RelationalComparator<Duration> durationComparator) {

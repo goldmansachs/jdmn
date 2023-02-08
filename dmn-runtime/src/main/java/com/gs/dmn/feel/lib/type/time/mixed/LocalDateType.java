@@ -26,7 +26,7 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
     protected final LocalDateComparator comparator;
 
     public LocalDateType() {
-        this(new LocalDateComparator());
+        this(LocalDateComparator.COMPARATOR);
     }
 
     public LocalDateType(LocalDateComparator comparator) {

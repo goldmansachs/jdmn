@@ -32,7 +32,7 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
     private final BooleanType booleanType;
 
     public DefaultDateType() {
-        this(new DefaultXMLCalendarComparator());
+        this(DefaultXMLCalendarComparator.COMPARATOR);
     }
 
     public DefaultDateType(DefaultXMLCalendarComparator comparator) {

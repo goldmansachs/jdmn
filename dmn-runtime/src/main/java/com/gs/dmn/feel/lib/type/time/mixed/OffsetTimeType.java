@@ -22,7 +22,7 @@ public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<Of
     private final OffsetTimeComparator comparator;
 
     public OffsetTimeType() {
-        this(new OffsetTimeComparator());
+        this(OffsetTimeComparator.COMPARATOR);
     }
 
     public OffsetTimeType(OffsetTimeComparator comparator) {

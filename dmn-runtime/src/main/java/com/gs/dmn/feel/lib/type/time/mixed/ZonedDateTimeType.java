@@ -24,7 +24,7 @@ public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTime
     private final ZonedDateTimeComparator comparator;
 
     public ZonedDateTimeType() {
-        this(new ZonedDateTimeComparator());
+        this(ZonedDateTimeComparator.COMPARATOR);
     }
 
     public ZonedDateTimeType(ZonedDateTimeComparator comparator) {

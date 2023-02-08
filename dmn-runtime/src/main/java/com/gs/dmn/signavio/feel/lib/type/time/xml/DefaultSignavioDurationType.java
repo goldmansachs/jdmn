@@ -20,6 +20,6 @@ import java.math.BigDecimal;
 
 public class DefaultSignavioDurationType extends DefaultDurationType implements DurationType<Duration, BigDecimal> {
     public DefaultSignavioDurationType() {
-        super(new DefaultSignavioDurationComparator());
+        super(DefaultSignavioDurationComparator.COMPARATOR);
     }
 }

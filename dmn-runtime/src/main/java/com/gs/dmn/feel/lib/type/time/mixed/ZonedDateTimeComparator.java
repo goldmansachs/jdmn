@@ -17,6 +17,11 @@ import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 import java.time.ZonedDateTime;
 
 public class ZonedDateTimeComparator extends BaseMixedCalendarType implements DateTimeComparator<ZonedDateTime> {
+    public static final ZonedDateTimeComparator COMPARATOR = new ZonedDateTimeComparator();
+
+    protected ZonedDateTimeComparator() {
+    }
+
     @Override
     public Integer compareTo(ZonedDateTime first, ZonedDateTime second) {
         return dateTimeValue(first).compareTo(dateTimeValue(second));

@@ -26,7 +26,7 @@ public class DefaultDateTimeType extends XMLCalendarType implements DateTimeType
     private final BooleanType booleanType;
 
     public DefaultDateTimeType() {
-        this(new DefaultXMLCalendarComparator());
+        this(DefaultXMLCalendarComparator.COMPARATOR);
     }
 
     public DefaultDateTimeType(DefaultXMLCalendarComparator comparator) {

@@ -14,10 +14,15 @@ package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
-import java.time.*;
+import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 
 public class TemporalComparator extends BasePureCalendarType implements DateTimeComparator<TemporalAccessor> {
+    public static final TemporalComparator COMPARATOR = new TemporalComparator();
+
+    protected TemporalComparator() {
+    }
+
     @Override
     public Integer compareTo(TemporalAccessor first, TemporalAccessor second) {
         if (isDate(first) && isDate(second)) {

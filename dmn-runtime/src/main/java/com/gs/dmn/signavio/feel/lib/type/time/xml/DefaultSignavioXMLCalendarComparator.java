@@ -17,6 +17,11 @@ import com.gs.dmn.feel.lib.type.time.xml.DefaultXMLCalendarComparator;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 public class DefaultSignavioXMLCalendarComparator extends DefaultXMLCalendarComparator {
+    public static final DefaultSignavioXMLCalendarComparator COMPARATOR = new DefaultSignavioXMLCalendarComparator();
+
+    protected DefaultSignavioXMLCalendarComparator() {
+    }
+
     @Override
     public Boolean lessEqualThan(XMLGregorianCalendar first, XMLGregorianCalendar second) {
         if (first == null && second == null) {

@@ -25,7 +25,7 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
     private final TemporalAmountComparator comparator;
 
     public TemporalAmountDurationType() {
-        this.comparator = new TemporalAmountComparator();
+        this.comparator = TemporalAmountComparator.COMPARATOR;
     }
 
     //
