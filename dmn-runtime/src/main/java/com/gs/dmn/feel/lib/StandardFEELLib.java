@@ -190,12 +190,12 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     NUMBER count(List<?> list);
 
     @Override
-    NUMBER min(List<?> list);
-    NUMBER min(Object... numbers);
+    <T> T min(List<T> list);
+    <T> T min(Object... args);
 
     @Override
-    NUMBER max(List<?> list);
-    NUMBER max(Object... numbers);
+    <T> T max(List<T> list);
+    <T> T max(Object... args);
 
     @Override
     NUMBER sum(List<?> list);

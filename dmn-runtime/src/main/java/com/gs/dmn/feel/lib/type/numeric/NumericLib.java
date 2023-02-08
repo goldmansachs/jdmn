@@ -52,11 +52,7 @@ public interface NumericLib<NUMBER> {
 
     NUMBER min(List<?> list);
 
-    NUMBER min(Object... args);
-
     NUMBER max(List<?> list);
-
-    NUMBER max(Object... args);
 
     NUMBER sum(List<?> list);
 

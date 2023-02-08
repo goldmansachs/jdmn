@@ -274,7 +274,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the maximum value of the given list.
     //    Example: Max([5, 4, 10]) returns 10.
     @Override
-    NUMBER max(List<?> numbers);
+    <T> T max(List<T> numbers);
 
     //    Median([number1, number2, number3]):NUMERIC
     //    Returns the median value of the given list.
@@ -285,7 +285,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the minimum value of the given list.
     //    Example: Min([5, 4, 10]) returns 2.
     @Override
-    NUMBER min(List<?> numbers);
+    <T> T min(List<T> numbers);
 
     //    Mode([number1, number2, number3]):NUMERIC
     //    Returns the most frequently occurring value of the given list. Returns the 1rst (most left)

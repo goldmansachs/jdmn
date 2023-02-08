@@ -15,6 +15,8 @@ package com.gs.dmn.feel.lib.stub;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
+import java.util.List;
+
 public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     // Conversion functions
@@ -148,6 +150,16 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
 
     @Override
     public DATE_TIME toDateTime(Object from) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public <T> T min(List<T> list) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public <T> T max(List<T> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

@@ -758,9 +758,9 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER max(List<?> numbers) {
+    public <T> T max(List<T> numbers) {
         try {
-            return this.numberLib.max(numbers);
+            return (T) this.numberLib.max(numbers);
         } catch (Exception e) {
             String message = String.format("max(%s)", numbers);
             logError(message, e);
@@ -780,9 +780,9 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER min(List<?> numbers) {
+    public <T> T min(List<T> numbers) {
         try {
-            return this.numberLib.min(numbers);
+            return (T) this.numberLib.min(numbers);
         } catch (Exception e) {
             String message = String.format("min(%s)", numbers);
             logError(message, e);

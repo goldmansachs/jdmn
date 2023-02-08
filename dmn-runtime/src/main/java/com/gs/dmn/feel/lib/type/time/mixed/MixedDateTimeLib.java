@@ -14,6 +14,7 @@ package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
+import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationComparator;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +24,9 @@ import java.math.BigDecimal;
 import java.time.*;
 import java.time.format.TextStyle;
 import java.time.temporal.IsoFields;
+import java.util.List;
 import java.util.Locale;
+import java.util.function.Predicate;
 
 import static com.gs.dmn.feel.lib.type.BaseType.UTC;
 
@@ -393,5 +396,50 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return (ZonedDateTime) from;
         }
         throw new DMNRuntimeException(String.format("Cannot convert '%s' to date time", from.getClass().getSimpleName()));
+    }
+
+    @Override
+    public <T> T min(List<T> list) {
+        return minMax(list, LocalDateComparator.COMPARATOR, OffsetTimeComparator.COMPARATOR, ZonedDateTimeComparator.COMPARATOR, DefaultDurationComparator.COMPARATOR, x -> x > 0);
+    }
+
+    @Override
+    public <T> T max(List<T> list) {
+        return minMax(list, LocalDateComparator.COMPARATOR, OffsetTimeComparator.COMPARATOR, ZonedDateTimeComparator.COMPARATOR, DefaultDurationComparator.COMPARATOR, x -> x < 0);
+    }
+
+    private <T> T minMax(List<T> list, LocalDateComparator dateComparator, OffsetTimeComparator timeComparator, ZonedDateTimeComparator dateTimeComparator, DefaultDurationComparator durationComparator, Predicate<Integer> condition) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        T result = list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            T x = list.get(i);
+            if (dateComparator.isDate(result) && dateComparator.isDate(x)) {
+                if (condition.test(dateComparator.compareTo((LocalDate) result, (LocalDate) x))) {
+                    result = x;
+                }
+            } else if (timeComparator.isTime(result) && timeComparator.isTime(x)) {
+                if (condition.test(timeComparator.compareTo((OffsetTime) result, (OffsetTime) x))) {
+                    result = x;
+                }
+            } else if (dateTimeComparator.isDateTime(result) && dateTimeComparator.isDateTime(x)) {
+                if (condition.test(dateTimeComparator.compareTo((ZonedDateTime) result, (ZonedDateTime) x))) {
+                    result = x;
+                }
+            } else if (durationComparator.isYearsAndMonthsDuration(result) && durationComparator.isYearsAndMonthsDuration(x)) {
+                if (condition.test(durationComparator.compareTo((Duration) result, (Duration) x))) {
+                    result = x;
+                }
+            } else if (durationComparator.isDaysAndTimeDuration(result) && durationComparator.isDaysAndTimeDuration(x)) {
+                if (condition.test(durationComparator.compareTo((Duration) result, (Duration) x))) {
+                    result = x;
+                }
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot compare '%s' and '%s'", result, x));
+            }
+        }
+        return result;
     }
 }

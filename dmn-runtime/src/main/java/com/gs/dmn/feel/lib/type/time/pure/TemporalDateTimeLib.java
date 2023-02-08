@@ -23,8 +23,10 @@ import java.math.RoundingMode;
 import java.time.*;
 import java.time.format.TextStyle;
 import java.time.temporal.*;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.function.Predicate;
 
 import static com.gs.dmn.feel.lib.type.BaseType.UTC;
 
@@ -352,5 +354,53 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
     @Override
     public TemporalAccessor toDateTime(Object from) {
         return dateTime(from);
+    }
+
+    //
+    // List functions
+    //
+    @Override
+    public <T> T min(List<T> list) {
+        return minMax(list, TemporalComparator.COMPARATOR, TemporalAmountComparator.COMPARATOR, x -> x > 0);
+    }
+
+    @Override
+    public <T> T max(List<T> list) {
+        return minMax(list, TemporalComparator.COMPARATOR, TemporalAmountComparator.COMPARATOR, x -> x < 0);
+    }
+
+    private <T> T minMax(List<T> list, TemporalComparator temporalComparator, TemporalAmountComparator durationComparator, Predicate<Integer> condition) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        T result = list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            T x = list.get(i);
+            if (temporalComparator.isDate(result) && temporalComparator.isDate(x)) {
+                if (condition.test(temporalComparator.compareTo((TemporalAccessor) result, (TemporalAccessor) x))) {
+                    result = x;
+                }
+            } else if (temporalComparator.isTime(result) && temporalComparator.isTime(x)) {
+                if (condition.test(temporalComparator.compareTo((TemporalAccessor) result, (TemporalAccessor) x))) {
+                    result = x;
+                }
+            } else if (temporalComparator.isDateTime(result) && temporalComparator.isDateTime(x)) {
+                if (condition.test(temporalComparator.compareTo((TemporalAccessor) result, (TemporalAccessor) x))) {
+                    result = x;
+                }
+            } else if (durationComparator.isYearsAndMonthsDuration(result) && durationComparator.isYearsAndMonthsDuration(x)) {
+                if (condition.test(durationComparator.compareTo((TemporalAmount) result, (TemporalAmount) x))) {
+                    result = x;
+                }
+            } else if (durationComparator.isDaysAndTimeDuration(result) && durationComparator.isDaysAndTimeDuration(x)) {
+                if (condition.test(durationComparator.compareTo((TemporalAmount) result, (TemporalAmount) x))) {
+                    result = x;
+                }
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot compare '%s' and '%s'", result, x));
+            }
+        }
+        return result;
     }
 }

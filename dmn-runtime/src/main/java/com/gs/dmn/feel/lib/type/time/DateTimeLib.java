@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.lib.type.time;
 
+import java.util.List;
+
 public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends TemporalLib<DATE, DATE_TIME> {
     //
     // Conversion functions
@@ -64,4 +66,11 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Te
     TIME toTime(Object from);
 
     DATE_TIME toDateTime(Object from);
+
+    //
+    // List functions
+    //
+    <T> T min(List<T> list);
+
+    <T> T max(List<T> list);
 }

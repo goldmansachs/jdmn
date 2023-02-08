@@ -28,6 +28,8 @@ import java.time.temporal.IsoFields;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
 import java.util.Calendar;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     //
@@ -316,6 +318,51 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         }
 
         return dateAndTime(toDate(from), toTime(from));
+    }
+
+    @Override
+    public <T> T min(List<T> list) {
+        return minMax(list, DefaultXMLCalendarComparator.COMPARATOR, DefaultDurationComparator.COMPARATOR, x -> x > 0);
+    }
+
+    @Override
+    public <T> T max(List<T> list) {
+        return minMax(list, DefaultXMLCalendarComparator.COMPARATOR, DefaultDurationComparator.COMPARATOR, x -> x < 0);
+    }
+
+    private <T> T minMax(List<T> list, DefaultXMLCalendarComparator dateTimeComparator, DefaultDurationComparator durationComparator, Predicate<Integer> condition) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        T result = list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            T x = list.get(i);
+            if (dateTimeComparator.isDate(result) && dateTimeComparator.isDate(x)) {
+                if (condition.test(dateTimeComparator.compareTo((XMLGregorianCalendar) result, (XMLGregorianCalendar) x))) {
+                    result = x;
+                }
+            } else if (dateTimeComparator.isTime(result) && dateTimeComparator.isTime(x)) {
+                if (condition.test(dateTimeComparator.compareTo((XMLGregorianCalendar) result, (XMLGregorianCalendar) x))) {
+                    result = x;
+                }
+            } else if (dateTimeComparator.isDateTime(result) && dateTimeComparator.isDateTime(x)) {
+                if (condition.test(dateTimeComparator.compareTo((XMLGregorianCalendar) result, (XMLGregorianCalendar) x))) {
+                    result = x;
+                }
+            } else if (durationComparator.isYearsAndMonthsDuration(result) && durationComparator.isYearsAndMonthsDuration(x)) {
+                if (condition.test(durationComparator.compareTo((Duration) result, (Duration) x))) {
+                    result = x;
+                }
+            } else if (durationComparator.isDaysAndTimeDuration(result) && durationComparator.isDaysAndTimeDuration(x)) {
+                if (condition.test(durationComparator.compareTo((Duration) result, (Duration) x))) {
+                    result = x;
+                }
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot compare '%s' and '%s'", result, x));
+            }
+        }
+        return result;
     }
 
     public TemporalAccessor dateTemporalAccessor(String literal) {

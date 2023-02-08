@@ -28,11 +28,12 @@ import javax.xml.xpath.XPathFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.*;
+import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -224,6 +225,31 @@ public class DefaultStringLib implements StringLib {
         if (start <= string.length()) {
             String token = string.substring(start);
             result.add(token);
+        }
+        return result;
+    }
+
+    @Override
+    public String min(List<?> list) {
+        return minMax(list, x -> x > 0);
+    }
+
+    @Override
+    public String max(List<?> list) {
+        return minMax(list, x -> x < 0);
+    }
+
+    private String minMax(List<?> list, Predicate<Integer> condition) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        String result = (String) list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            String x = (String) list.get(i);
+            if (condition.test(result.compareTo(x))) {
+                result = x;
+            }
         }
         return result;
     }

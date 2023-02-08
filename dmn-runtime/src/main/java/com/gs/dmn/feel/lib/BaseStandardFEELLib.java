@@ -1028,9 +1028,28 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER min(List<?> list) {
+    public <T> T min(List<T> list) {
         try {
-            return this.numberLib.min(list);
+            if (list == null || list.isEmpty()) {
+                return null;
+            }
+
+            Object first = list.get(0);
+            if (first instanceof Number) {
+                return (T) this.numberLib.min(list);
+            } else if (first instanceof String) {
+                return (T) this.stringLib.min(list);
+            } else if (isDate(first)) {
+                return (T) this.dateTimeLib.min(list);
+            } else if (isTime(first)) {
+                return (T) this.dateTimeLib.min(list);
+            } else if (isDateTime(first)) {
+                return (T) this.dateTimeLib.min(list);
+            } else if (isDuration(first)) {
+                return (T) this.dateTimeLib.min(list);
+            } else {
+                throw new DMNRuntimeException(String.format("Not supported yet for '%s'", first));
+            }
         } catch (Exception e) {
             String message = String.format("min(%s)", list);
             logError(message, e);
@@ -1039,9 +1058,13 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER min(Object... args) {
+    public <T> T min(Object... args) {
         try {
-            return this.numberLib.min(args);
+            if (args == null || args.length < 1) {
+                return null;
+            }
+
+            return (T) min(Arrays.asList(args));
         } catch (Exception e) {
             String message = String.format("min(%s)", Arrays.toString(args));
             logError(message, e);
@@ -1050,20 +1073,43 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public NUMBER max(List<?> list) {
+    public <T> T max(List<T> list) {
         try {
-            return this.numberLib.max(list);
+            if (list == null || list.isEmpty()) {
+                return null;
+            }
+
+            Object first = list.get(0);
+            if (first instanceof Number) {
+                return (T) this.numberLib.max(list);
+            } else if (first instanceof String) {
+                return (T) this.stringLib.max(list);
+            } else if (isDate(first)) {
+                return (T) this.dateTimeLib.max(list);
+            } else if (isTime(first)) {
+                return (T) this.dateTimeLib.max(list);
+            } else if (isDateTime(first)) {
+                return (T) this.dateTimeLib.max(list);
+            } else if (isDuration(first)) {
+                return (T) this.dateTimeLib.max(list);
+            } else {
+                throw new DMNRuntimeException(String.format("Not supported yet for '%s'", first));
+            }
         } catch (Exception e) {
-            String message = String.format("max(%s)", list);
+            String message = String.format("min(%s)", list);
             logError(message, e);
             return null;
         }
     }
 
     @Override
-    public NUMBER max(Object... args) {
+    public <T> T max(Object... args) {
         try {
-            return this.numberLib.max(args);
+            if (args == null || args.length < 1) {
+                return null;
+            }
+
+            return (T) max(Arrays.asList(args));
         } catch (Exception e) {
             String message = String.format("max(%s)", Arrays.toString(args));
             logError(message, e);

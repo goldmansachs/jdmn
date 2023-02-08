@@ -89,32 +89,22 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public NUMBER count(List list) {
+    public NUMBER count(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public NUMBER min(List list) {
+    public NUMBER min(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public NUMBER min(Object... args) {
+    public NUMBER max(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public NUMBER max(List list) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public NUMBER max(Object... args) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public NUMBER sum(List list) {
+    public NUMBER sum(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -124,7 +114,7 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public NUMBER mean(List list) {
+    public NUMBER mean(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -134,7 +124,7 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public NUMBER product(List list) {
+    public NUMBER product(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -144,7 +134,7 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public NUMBER median(List list) {
+    public NUMBER median(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -154,7 +144,7 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public NUMBER stddev(List list) {
+    public NUMBER stddev(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -164,7 +154,7 @@ public class NumericLibStub<NUMBER> implements NumericLib<NUMBER> {
     }
 
     @Override
-    public List mode(List list) {
+    public List mode(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

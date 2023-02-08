@@ -99,7 +99,7 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     List flattenFirstLevel(List<?> list);
     // Used in HIT policies
     NUMBER count(List<?> numbers);
-    NUMBER min(List<?> numbers);
-    NUMBER max(List<?> numbers);
+    <T> T min(List<T> comparable);
+    <T> T max(List<T> comparable);
     NUMBER sum(List<?> numbers);
 }
