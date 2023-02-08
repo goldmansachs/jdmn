@@ -26,11 +26,11 @@ public class TemporalAmountComparator extends BasePureCalendarType implements Da
 
     @Override
     public Integer compareTo(TemporalAmount first, TemporalAmount second) {
-        if (first instanceof Period && second instanceof Period) {
+        if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
             Long firstValue = monthsValue((Period) first);
             Long secondValue = monthsValue((Period) second);
             return firstValue.compareTo(secondValue);
-        } else if (first instanceof Duration && second instanceof Duration) {
+        } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
             Long firstValue = secondsValue((Duration) first);
             Long secondValue = secondsValue((Duration) second);
             return firstValue.compareTo(secondValue);

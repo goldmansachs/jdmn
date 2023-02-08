@@ -144,4 +144,8 @@ public abstract class JavaCalendarType extends BaseType {
     public abstract boolean isTime(Object object);
 
     public abstract boolean isDateTime(Object object);
+
+    public abstract boolean isYearsAndMonthsDuration(Object value);
+
+    public abstract boolean isDaysAndTimeDuration(Object value);
 }

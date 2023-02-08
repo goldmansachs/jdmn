@@ -949,17 +949,6 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // Duration operators
     //
     @Override
-    public boolean isDuration(Object value) {
-        try {
-            return this.durationType.isDuration(value);
-        } catch (Exception e) {
-            String message = String.format("isDuration(%s)", value);
-            logError(message, e);
-            return false;
-        }
-    }
-
-    @Override
     public boolean isYearsAndMonthsDuration(Object value) {
         try {
             return this.durationType.isYearsAndMonthsDuration(value);

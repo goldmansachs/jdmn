@@ -38,13 +38,6 @@ public class TemporalDateTimeType extends BasePureCalendarType implements DateTi
     // Date and time operators
     //
     @Override
-    public boolean isDateTime(Object value) {
-        return value instanceof LocalDateTime
-                || value instanceof OffsetDateTime
-                || value instanceof ZonedDateTime;
-    }
-
-    @Override
     public Boolean dateTimeIs(TemporalAccessor first, TemporalAccessor second) {
         if (first == null || second == null) {
             return first == second;

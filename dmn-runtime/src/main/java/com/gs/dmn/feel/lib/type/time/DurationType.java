@@ -13,7 +13,9 @@
 package com.gs.dmn.feel.lib.type.time;
 
 public interface DurationType<DURATION,  NUMBER> {
-    boolean isDuration(Object value);
+    default boolean isDuration(Object value) {
+        return isYearsAndMonthsDuration(value) || isDaysAndTimeDuration(value);
+    }
 
     boolean isYearsAndMonthsDuration(Object value);
 

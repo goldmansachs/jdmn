@@ -23,10 +23,19 @@ public class DefaultDurationComparator extends XMLCalendarType implements XMLDat
 
     @Override
     public Integer compareTo(Duration first, Duration second) {
-        Long firstValue = durationValue(first);
-        Long secondValue = durationValue(second);
-        long diff = firstValue - secondValue;
-        if (diff == 0) {
+        Long diff = null;
+        if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
+            Long firstValue = monthsValue(first);
+            Long secondValue = monthsValue(second);
+            diff = firstValue - secondValue;
+        } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
+            Long firstValue = secondsValue(first);
+            Long secondValue = secondsValue(second);
+            diff = firstValue - secondValue;
+        }
+        if (diff == null) {
+            return DatatypeConstants.INDETERMINATE;
+        } else if (diff == 0) {
             return DatatypeConstants.EQUAL;
         } else if (diff < 0) {
             return DatatypeConstants.LESSER;

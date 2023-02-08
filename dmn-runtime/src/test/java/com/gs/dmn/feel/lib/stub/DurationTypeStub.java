@@ -17,11 +17,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class DurationTypeStub<DURATION, NUMBER> implements DurationType<DURATION, NUMBER> {
     @Override
-    public boolean isDuration(Object value) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
     public boolean isYearsAndMonthsDuration(Object value) {
         throw new DMNRuntimeException("Not supported yet");
     }

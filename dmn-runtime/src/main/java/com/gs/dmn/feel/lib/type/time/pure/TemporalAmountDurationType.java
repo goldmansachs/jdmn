@@ -32,21 +32,6 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
     // TemporalAmount operators
     //
     @Override
-    public boolean isDuration(Object value) {
-        return value instanceof TemporalAmount;
-    }
-
-    @Override
-    public boolean isYearsAndMonthsDuration(Object value) {
-        return value instanceof Period;
-    }
-
-    @Override
-    public boolean isDaysAndTimeDuration(Object value) {
-        return value instanceof Duration;
-    }
-
-    @Override
     public Long durationValue(TemporalAmount duration) {
         if (duration == null) {
             return null;
@@ -67,9 +52,9 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
             return first == second;
         }
 
-        if (first instanceof Period && second instanceof Period) {
+        if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
             return durationEqual(first, second);
-        } else if (first instanceof Duration && second instanceof Duration) {
+        } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
             return durationEqual(first, second);
         } else {
             return false;

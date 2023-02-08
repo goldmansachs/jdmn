@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.DateType;
-import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.time.Duration;
@@ -25,13 +24,13 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
 public class LocalDateType extends BasePureCalendarType implements DateType<LocalDate, TemporalAmount> {
-    private final LocalDateComparator comparator;
+    private final TemporalComparator comparator;
 
     public LocalDateType() {
-        this(LocalDateComparator.COMPARATOR);
+        this(TemporalComparator.COMPARATOR);
     }
 
-    public LocalDateType(LocalDateComparator comparator) {
+    public LocalDateType(TemporalComparator comparator) {
         this.comparator = comparator;
     }
 

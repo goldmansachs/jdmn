@@ -17,6 +17,7 @@ import com.gs.dmn.feel.lib.type.time.JavaCalendarType;
 import java.time.*;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalQueries;
 import java.util.Optional;
 
@@ -36,6 +37,16 @@ public abstract class BasePureCalendarType extends JavaCalendarType {
     @Override
     public boolean isDateTime(Object object) {
         return object instanceof LocalDateTime || object instanceof OffsetDateTime || object instanceof ZonedDateTime;
+    }
+
+    @Override
+    public boolean isYearsAndMonthsDuration(Object value) {
+        return value instanceof Period;
+    }
+
+    @Override
+    public boolean isDaysAndTimeDuration(Object value) {
+        return value instanceof Duration;
     }
 
     private boolean isTimeWithZone(Object obj) {
