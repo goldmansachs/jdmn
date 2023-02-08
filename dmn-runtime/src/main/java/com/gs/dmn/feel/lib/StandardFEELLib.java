@@ -21,28 +21,34 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     // Conversion functions
     //
+    @Override
     NUMBER number(String from);
 
     NUMBER number(String from, String groupingSeparator, String decimalSeparator);
 
+    @Override
     String string(Object from);
 
+    @Override
     DATE date(String from);
 
     DATE date(NUMBER year, NUMBER month, NUMBER day);
 
     DATE date(Object from);
 
+    @Override
     TIME time(String from);
 
     TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset);
 
     TIME time(Object time);
 
+    @Override
     DATE_TIME dateAndTime(String from);
 
     DATE_TIME dateAndTime(Object date, Object time);
 
+    @Override
     DURATION duration(String literal);
 
     DURATION yearsAndMonthsDuration(Object from, Object to);
@@ -180,14 +186,18 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     List append(List<?> list, Object... items);
 
+    @Override
     NUMBER count(List<?> list);
 
+    @Override
     NUMBER min(List<?> list);
     NUMBER min(Object... numbers);
 
+    @Override
     NUMBER max(List<?> list);
     NUMBER max(Object... numbers);
 
+    @Override
     NUMBER sum(List<?> list);
     NUMBER sum(Object... numbers);
 

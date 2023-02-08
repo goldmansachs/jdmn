@@ -41,6 +41,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Count([num1 ,num2, num3]):NUMERIC
     //    Returns the number of elements of the given list.
     //    Example: Count(["item1", "item2", "item3"]) returns 3.
+    @Override
     NUMBER count(List<?> list);
 
     //    Round(number,digits):NUMERIC
@@ -96,17 +97,22 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Sum([number1, number2, number3]):NUMERIC
     //    Returns the sum of a list of values.
     //    Example: Sum([1, 2, 3, 4, 5]) returns 15.
+    @Override
     NUMBER sum(List<?> numbers);
 
     //
     // Date and time operations
     //
+    @Override
     DATE date(String literal);
 
+    @Override
     TIME time(String literal);
 
+    @Override
     DATE_TIME dateAndTime(String literal);
 
+    @Override
     DURATION duration(String literal);
 
     //    Day(datetime):NUMERIC
@@ -267,6 +273,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Max([number1, number2, number3]):NUMERIC
     //    Returns the maximum value of the given list.
     //    Example: Max([5, 4, 10]) returns 10.
+    @Override
     NUMBER max(List<?> numbers);
 
     //    Median([number1, number2, number3]):NUMERIC
@@ -277,6 +284,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Min([number1, number2, number3]):NUMERIC
     //    Returns the minimum value of the given list.
     //    Example: Min([5, 4, 10]) returns 2.
+    @Override
     NUMBER min(List<?> numbers);
 
     //    Mode([number1, number2, number3]):NUMERIC
@@ -342,6 +350,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the numerical value represented in the text string. Only a period (.) is allowed as a
     //    separator.
     //    Example: Number("5") returns 5.
+    @Override
     NUMBER number(String text);
 
     //    Number(text, default_value):NUMERIC
@@ -401,12 +410,15 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //
     // Conversion to String
     //
+    @Override
     String string(Object from);
 
     //
     // Boolean operations
     //
+    @Override
     Boolean and(List<?> list);
 
+    @Override
     Boolean or(List<?> list);
 }
