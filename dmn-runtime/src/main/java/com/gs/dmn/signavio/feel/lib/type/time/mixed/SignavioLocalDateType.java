@@ -12,13 +12,9 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateType;
 
-import javax.xml.datatype.Duration;
-import java.time.LocalDate;
-
-public class SignavioLocalDateType extends LocalDateType implements DateType<LocalDate, Duration> {
+public class SignavioLocalDateType extends LocalDateType {
     public SignavioLocalDateType() {
         super(new SignavioLocalDateComparator());
     }

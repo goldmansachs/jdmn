@@ -12,13 +12,10 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 import com.gs.dmn.signavio.feel.lib.type.SignavioComparableComparator;
 
-import java.math.BigDecimal;
-
-public class DefaultSignavioNumericType extends DefaultNumericType implements NumericType<BigDecimal> {
+public class DefaultSignavioNumericType extends DefaultNumericType {
     public DefaultSignavioNumericType() {
         super(new SignavioComparableComparator<>());
     }

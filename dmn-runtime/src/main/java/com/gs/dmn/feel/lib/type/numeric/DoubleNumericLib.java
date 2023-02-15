@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericLib<Double> {
+public class DoubleNumericLib extends BaseNumericLib<Double> {
     @Override
     public Double number(String literal) {
         if (StringUtils.isBlank(literal)) {

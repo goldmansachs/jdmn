@@ -12,12 +12,9 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.xml;
 
-import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.feel.lib.type.time.xml.DoubleDurationType;
 
-import javax.xml.datatype.Duration;
-
-public class DoubleSignavioDurationType extends DoubleDurationType implements DurationType<Duration, Double> {
+public class DoubleSignavioDurationType extends DoubleDurationType {
     public DoubleSignavioDurationType() {
         super(DefaultSignavioDurationComparator.COMPARATOR);
     }

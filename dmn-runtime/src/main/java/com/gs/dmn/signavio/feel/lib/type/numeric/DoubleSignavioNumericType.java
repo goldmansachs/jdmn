@@ -13,9 +13,8 @@
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
 import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
-import com.gs.dmn.feel.lib.type.numeric.NumericType;
 
-public class DoubleSignavioNumericType extends DoubleNumericType implements NumericType<Double> {
+public class DoubleSignavioNumericType extends DoubleNumericType {
     public DoubleSignavioNumericType() {
         super(new SignavioDoubleComparator());
     }

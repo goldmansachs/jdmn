@@ -12,13 +12,9 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
-import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeType;
 
-import javax.xml.datatype.Duration;
-import java.time.ZonedDateTime;
-
-public class SignavioZonedDateTimeType extends ZonedDateTimeType implements DateTimeType<ZonedDateTime, Duration> {
+public class SignavioZonedDateTimeType extends ZonedDateTimeType {
     public SignavioZonedDateTimeType() {
         super(new SignavioZonedDateTimeComparator());
     }

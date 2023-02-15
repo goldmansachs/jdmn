@@ -20,7 +20,7 @@ import java.util.*;
 
 import static com.gs.dmn.feel.lib.type.numeric.DefaultNumericType.MATH_CONTEXT;
 
-public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements NumericLib<BigDecimal> {
+public class DefaultNumericLib extends BaseNumericLib<BigDecimal> {
     @Override
     public BigDecimal number(String literal) {
         if (StringUtils.isBlank(literal)) {
