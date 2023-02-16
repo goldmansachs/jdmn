@@ -17,6 +17,10 @@ import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeComparator;
 import java.time.ZonedDateTime;
 
 public class SignavioZonedDateTimeComparator extends ZonedDateTimeComparator {
+    public static SignavioZonedDateTimeComparator COMPARATOR = new SignavioZonedDateTimeComparator();
+    protected SignavioZonedDateTimeComparator() {
+    }
+
     @Override
     public Boolean lessEqualThan(ZonedDateTime first, ZonedDateTime second) {
         if (first == null && second == null) {

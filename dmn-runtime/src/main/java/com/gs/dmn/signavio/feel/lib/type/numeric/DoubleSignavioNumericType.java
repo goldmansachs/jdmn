@@ -16,6 +16,6 @@ import com.gs.dmn.feel.lib.type.numeric.DoubleNumericType;
 
 public class DoubleSignavioNumericType extends DoubleNumericType {
     public DoubleSignavioNumericType() {
-        super(new SignavioDoubleComparator());
+        super(SignavioDoubleComparator.COMPARATOR);
     }
 }

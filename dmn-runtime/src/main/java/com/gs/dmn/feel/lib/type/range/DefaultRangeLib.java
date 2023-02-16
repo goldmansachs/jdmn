@@ -48,7 +48,7 @@ public class DefaultRangeLib implements RangeLib {
 
     static {
         COMPARATOR_MAP.put(BigDecimal.class, new ComparableComparator<BigDecimal>());
-        COMPARATOR_MAP.put(Double.class, new DoubleComparator());
+        COMPARATOR_MAP.put(Double.class, DoubleComparator.COMPARATOR);
         COMPARATOR_MAP.put(String.class, new ComparableComparator<String>());
 
         COMPARATOR_MAP.put(LocalDate.class, LocalDateComparator.COMPARATOR);

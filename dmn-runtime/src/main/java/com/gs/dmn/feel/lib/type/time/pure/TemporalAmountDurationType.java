@@ -28,6 +28,10 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
         this.comparator = TemporalAmountComparator.COMPARATOR;
     }
 
+    public TemporalAmountDurationType(TemporalAmountComparator comparator) {
+        this.comparator = comparator;
+    }
+
     //
     // TemporalAmount operators
     //

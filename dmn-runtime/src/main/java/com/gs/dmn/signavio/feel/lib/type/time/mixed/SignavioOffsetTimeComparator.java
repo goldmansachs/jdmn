@@ -17,7 +17,9 @@ import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeComparator;
 import java.time.OffsetTime;
 
 public class SignavioOffsetTimeComparator extends OffsetTimeComparator {
-    public SignavioOffsetTimeComparator() {
+    public static SignavioOffsetTimeComparator COMPARATOR = new SignavioOffsetTimeComparator();
+
+    protected SignavioOffsetTimeComparator() {
     }
 
     @Override

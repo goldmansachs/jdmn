@@ -16,6 +16,6 @@ import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeType;
 
 public class SignavioOffsetTimeType extends OffsetTimeType {
     public SignavioOffsetTimeType() {
-        super(new SignavioOffsetTimeComparator());
+        super(SignavioOffsetTimeComparator.COMPARATOR);
     }
 }

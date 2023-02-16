@@ -16,6 +16,6 @@ import com.gs.dmn.feel.lib.type.time.mixed.LocalDateType;
 
 public class SignavioLocalDateType extends LocalDateType {
     public SignavioLocalDateType() {
-        super(new SignavioLocalDateComparator());
+        super(SignavioLocalDateComparator.COMPARATOR);
     }
 }

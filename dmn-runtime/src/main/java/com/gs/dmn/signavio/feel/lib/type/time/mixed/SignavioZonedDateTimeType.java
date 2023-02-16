@@ -16,6 +16,6 @@ import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeType;
 
 public class SignavioZonedDateTimeType extends ZonedDateTimeType {
     public SignavioZonedDateTimeType() {
-        super(new SignavioZonedDateTimeComparator());
+        super(SignavioZonedDateTimeComparator.COMPARATOR);
     }
 }

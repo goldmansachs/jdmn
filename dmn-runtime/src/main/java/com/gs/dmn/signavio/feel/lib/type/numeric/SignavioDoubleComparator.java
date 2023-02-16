@@ -15,6 +15,10 @@ package com.gs.dmn.signavio.feel.lib.type.numeric;
 import com.gs.dmn.feel.lib.type.numeric.DoubleComparator;
 
 public class SignavioDoubleComparator extends DoubleComparator {
+    public static SignavioDoubleComparator COMPARATOR = new SignavioDoubleComparator();
+    protected SignavioDoubleComparator() {
+    }
+
     @Override
     public Boolean lessEqualThan(Comparable<Double> first, Comparable<Double> second) {
         if (first == null && second == null) {
