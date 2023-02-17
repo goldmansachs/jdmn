@@ -31,10 +31,10 @@ public class PureJavaTimeKotlinNativeTypeFactory extends KotlinTypeFactory {
     private static final Map<String, String> FEEL_TYPE_TO_JAVA_TYPE = new LinkedHashMap<>();
     static {
         FEEL_TYPE_TO_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getName());
-        FEEL_TYPE_TO_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), java.time.Duration.class.getName());
-        FEEL_TYPE_TO_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), java.time.Duration.class.getName());
-        FEEL_TYPE_TO_JAVA_TYPE.put(DATE_AND_TIME.getName(), java.time.temporal.Temporal.class.getName());
-        FEEL_TYPE_TO_JAVA_TYPE.put(TIME.getName(), java.time.temporal.Temporal.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), java.time.temporal.TemporalAmount.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), java.time.temporal.TemporalAmount.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(DATE_AND_TIME.getName(), java.time.temporal.TemporalAccessor.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(TIME.getName(), java.time.temporal.TemporalAccessor.class.getName());
         FEEL_TYPE_TO_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
         FEEL_TYPE_TO_JAVA_TYPE.put(STRING.getName(), String.class.getSimpleName());
         FEEL_TYPE_TO_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getSimpleName());
@@ -46,11 +46,11 @@ public class PureJavaTimeKotlinNativeTypeFactory extends KotlinTypeFactory {
     private static final Map<String, String> FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE = new LinkedHashMap<>();
     static {
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getName());
-        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), java.time.Duration.class.getName());
-        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), java.time.Duration.class.getName());
-        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DATE_AND_TIME.getName(), java.time.temporal.Temporal.class.getName());
-        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(TIME.getName(), java.time.temporal.Temporal.class.getName());
-        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DATE.getName(), java.time.ZonedDateTime.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), java.time.temporal.TemporalAmount.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), java.time.temporal.TemporalAmount.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DATE_AND_TIME.getName(), java.time.temporal.TemporalAccessor.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(TIME.getName(), java.time.temporal.TemporalAccessor.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(STRING.getName(), String.class.getName());
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getName());
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), java.math.BigDecimal.class.getName());
