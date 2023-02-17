@@ -20,23 +20,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Calendar;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
     protected DefaultSignavioLib getLib() {
         return new DefaultSignavioLib();
-    }
-
-    //
-    // Time operators
-    //
-    @Override
-    @Test
-    public void testTimeEqual() {
-        super.testTimeEqual();
-
-        assertTrue(getLib().timeEqual(makeTime("12:00:00"), makeTime("12:00:00+00:00")));
     }
 
     //
@@ -79,20 +69,6 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
         assertEquals(makeNumber("1"), getLib().dayDiff(makeDateAndTime("2015-12-24T00:00:00"), makeDateAndTime("2015-12-25T00:00:00")));
         assertEquals(makeNumber("0"), getLib().dayDiff(makeDateAndTime("2015-12-24T12:25:00"), makeDateAndTime("2015-12-24T00:00:00")));
         assertEquals(makeNumber("-1"), getLib().dayDiff(makeDateAndTime("2015-12-24T00:00:00"), makeDateAndTime("2015-12-23T00:00:00")));
-    }
-
-    @Override
-    @Test
-    public void testDate() {
-        super.testDate();
-
-        assertEqualsDateTime("2016-01-01", getLib().date("2016-01-01"));
-    }
-
-    @Override
-    @Test
-    public void testDateAndTime() {
-        super.testDateAndTime();
     }
 
     @Test
@@ -288,4 +264,3 @@ public class DefaultSignavioLibTest extends BaseSignavioLibTest<BigDecimal, XMLG
         assertEqualsNumber(makeNumber("1"), getLib().minute(getLib().dateAndTime("2018-12-10T12:01:02Z")));
     }
 }
-

@@ -14,19 +14,20 @@ package com.gs.dmn.signavio.feel.lib;
 
 import org.junit.Test;
 
-import javax.xml.datatype.Duration;
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.OffsetTime;
 import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.util.Calendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public class PureJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected DoubleMixedJavaTimeSignavioLib getLib() {
-        return new DoubleMixedJavaTimeSignavioLib();
+    protected PureJavaTimeSignavioLib getLib() {
+        return new PureJavaTimeSignavioLib();
     }
 
     //
@@ -125,8 +126,8 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
 
     @Test
     public void testMonthAdd() {
-        assertNull(getLib().monthAdd((LocalDate) null, null));
-        assertNull(getLib().monthAdd((LocalDate) null, makeNumber("1")));
+        assertNull(getLib().monthAdd(null, null));
+        assertNull(getLib().monthAdd(null, makeNumber("1")));
         assertNull(getLib().monthAdd(makeDate("2015-01-05"), null));
 
         assertEqualsDateTime("2015-02-05", getLib().monthAdd(makeDate("2015-01-05"), makeNumber("1")));
@@ -136,7 +137,7 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
         assertEqualsDateTime("2016-01-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("12")));
         assertEqualsDateTime("2014-11-05T12:15:00.001+01:00", getLib().monthAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("-2")));
         assertNull(getLib().monthAdd(makeDateAndTime("xxx"), makeNumber("12")));
-        assertNull(getLib().monthAdd((LocalDate) null, makeNumber("12")));
+        assertNull(getLib().monthAdd(null, makeNumber("12")));
     }
 
     @Test
@@ -158,10 +159,10 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
 
     @Test
     public void testNow() {
-        ZonedDateTime actual = getLib().now();
+        ZonedDateTime actual = (ZonedDateTime) getLib().now();
         Calendar expected = Calendar.getInstance();
         assertEquals(expected.get(Calendar.YEAR), actual.getYear());
-        assertEquals(expected.get(Calendar.MONTH) + 1, actual.getMonthValue());
+        assertEquals(expected.get(Calendar.MONTH) + 1, actual.getMonth().getValue());
         assertEquals(expected.get(Calendar.DAY_OF_MONTH), actual.getDayOfMonth());
     }
 
@@ -195,8 +196,8 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
 
     @Test
     public void testYearAdd() {
-        assertNull(getLib().yearAdd((LocalDate) null, null));
-        assertNull(getLib().yearAdd((LocalDate) null, makeNumber("1")));
+        assertNull(getLib().yearAdd(null, null));
+        assertNull(getLib().yearAdd(null, makeNumber("1")));
         assertNull(getLib().yearAdd(makeDate("2015-01-05"), null));
 
         assertEqualsDateTime("2016-01-05", getLib().yearAdd(makeDate("2015-01-05"), makeNumber("1")));
@@ -204,7 +205,7 @@ public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Doub
         assertEqualsDateTime("2016-01-05T12:15:00.001+01:00", getLib().yearAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("1")));
         assertEqualsDateTime("2027-01-05T12:15:00.001+01:00", getLib().yearAdd(makeDateAndTime("2015-01-05T12:15:00.001+01:00"), makeNumber("12")));
         assertNull(getLib().yearAdd(makeDateAndTime("xxx"), makeNumber("12")));
-        assertNull(getLib().yearAdd((LocalDate) null, makeNumber("12")));
+        assertNull(getLib().yearAdd(null, makeNumber("12")));
     }
 
     @Test

@@ -31,10 +31,6 @@ public class MixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal
     }
 
     //
-    // Conversion
-    //
-
-    //
     // Date & time functions
     //
     @Test
@@ -76,26 +72,6 @@ public class MixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal
         assertEquals(makeNumber("-1"), getLib().dayDiff(makeDateAndTime("2015-12-24T00:00:00"), makeDateAndTime("2015-12-23T00:00:00")));
     }
 
-    @Override
-    @Test
-    public void testDate() {
-        super.testDate();
-
-        assertEqualsDateTime("2016-01-01", getLib().date("2016-01-01"));
-    }
-
-    @Override
-    @Test
-    public void testDateAndTime() {
-        assertNull(getLib().dateAndTime(null));
-
-        assertEqualsDateTime("2016-08-01T11:00:00Z", getLib().dateAndTime("2016-08-01T11:00:00Z"));
-        assertEqualsDateTime("2016-08-01T11:00:00Z", getLib().dateTime(
-                makeNumber("1"), makeNumber("8"), makeNumber("2016"),
-                makeNumber("11"), makeNumber("0"), makeNumber("0")
-        ));
-    }
-
     @Test
     public void testHour() {
         assertNull(getLib().hour(makeDateAndTime(null)));
@@ -116,6 +92,7 @@ public class MixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal
         assertEquals(makeNumber("27"), getLib().hourDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-25T15:15:00.000+01:00")));
         assertEquals(makeNumber("-24"), getLib().hourDiff(makeDateAndTime("2015-12-25T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
         assertEquals(makeNumber("-27"), getLib().hourDiff(makeDateAndTime("2015-12-25T15:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
+        assertEquals(makeNumber("8757"), getLib().hourDiff(makeDateAndTime("2015-12-25T15:15:00.000+01:00"), makeDateAndTime("2016-12-24T12:15:00.000+01:00")));
     }
 
     @Test
@@ -136,6 +113,7 @@ public class MixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal
         assertEquals(makeNumber("5"), getLib().minutesDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:20:00.000+01:00")));
         assertEquals(makeNumber("65"), getLib().minutesDiff(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T13:20:00.000+01:00")));
         assertEquals(makeNumber("-65"), getLib().minutesDiff(makeDateAndTime("2015-12-24T13:20:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
+        assertEquals(makeNumber("525420"), getLib().minutesDiff(makeDateAndTime("2015-12-25T15:15:00.000+01:00"), makeDateAndTime("2016-12-24T12:15:00.000+01:00")));
     }
 
     @Test
@@ -165,7 +143,7 @@ public class MixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal
     @Test
     public void testMonthDiff() {
         assertNull(getLib().monthDiff(null, null));
-        assertNull(getLib().monthDiff(null, makeDate("2015-05-05")));
+        assertNull(getLib().monthDiff(null, makeDate("2015-01-05")));
         assertNull(getLib().monthDiff(makeDate("2015-01-05"), null));
 
         assertEquals(makeNumber("0"), getLib().monthDiff(makeDate("2015-01-05"), makeDate("2015-01-05")));
@@ -184,17 +162,17 @@ public class MixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal
         ZonedDateTime actual = getLib().now();
         Calendar expected = Calendar.getInstance();
         assertEquals(expected.get(Calendar.YEAR), actual.getYear());
-        assertEquals(expected.get(Calendar.MONTH) + 1, actual.getMonth().getValue());
+        assertEquals(expected.get(Calendar.MONTH) + 1, actual.getMonthValue());
         assertEquals(expected.get(Calendar.DAY_OF_MONTH), actual.getDayOfMonth());
     }
 
     @Test
     public void testToday() {
         LocalDate actual = getLib().today();
-        Calendar expected = Calendar.getInstance();
-        assertEquals(expected.get(Calendar.YEAR), actual.getYear());
-        assertEquals(expected.get(Calendar.MONTH) + 1, actual.getMonth().getValue());
-        assertEquals(expected.get(Calendar.DAY_OF_MONTH), actual.getDayOfMonth());
+        LocalDate expected = LocalDate.now();
+        assertEquals(expected.getYear(), actual.getYear());
+        assertEquals(expected.getMonthValue(), actual.getMonthValue());
+        assertEquals(expected.getDayOfMonth(), actual.getDayOfMonth());
     }
 
 
@@ -233,7 +211,7 @@ public class MixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal
     @Test
     public void testYearDiff() {
         assertNull(getLib().yearDiff(null, null));
-        assertNull(getLib().yearDiff(null, makeDate("2015-05-05")));
+        assertNull(getLib().yearDiff(null, makeDate("2015-01-05")));
         assertNull(getLib().yearDiff(makeDate("2015-01-05"), null));
 
         assertEquals(makeNumber("0"), getLib().yearDiff(makeDate("2015-01-05"), makeDate("2015-01-05")));
@@ -287,4 +265,3 @@ public class MixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal
         assertEqualsNumber(makeNumber("1"), getLib().minute(getLib().dateAndTime("2018-12-10T12:01:02Z")));
     }
 }
-
