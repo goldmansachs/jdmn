@@ -77,7 +77,7 @@ public class MixedSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTes
     public void testDay() {
         super.testDay();
 
-        assertNull(getLib().day((ZonedDateTime) null));
+        assertNull(getLib().day(null));
     }
 
     @Override
@@ -93,7 +93,7 @@ public class MixedSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTes
     public void testHour() {
         super.testHour();
 
-        assertNull(getLib().hour((ZonedDateTime) null));
+        assertNull(getLib().hour(null));
     }
 
     @Override
@@ -101,7 +101,7 @@ public class MixedSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTes
     public void testMinute() {
         super.testMinute();
 
-        assertNull(getLib().minute((ZonedDateTime) null));
+        assertNull(getLib().minute(null));
     }
 
     @Override
@@ -109,7 +109,7 @@ public class MixedSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTes
     public void testMonth() {
         super.testMonth();
 
-        assertNull(getLib().month((ZonedDateTime) null));
+        assertNull(getLib().month(null));
     }
 
     @Override
@@ -125,7 +125,7 @@ public class MixedSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTes
     public void testWeekday() {
         super.testWeekday();
 
-        assertNull(getLib().weekday((ZonedDateTime) null));
+        assertNull(getLib().weekday(null));
     }
 
     @Override
@@ -133,7 +133,7 @@ public class MixedSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTes
     public void testYear() {
         super.testYear();
 
-        assertNull(getLib().year((ZonedDateTime) null));
+        assertNull(getLib().year(null));
     }
 
     @Override

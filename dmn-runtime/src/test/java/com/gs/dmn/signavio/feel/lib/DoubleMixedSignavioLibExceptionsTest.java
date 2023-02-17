@@ -58,7 +58,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
         BooleanLib booleanLib = new BooleanLibStub();
         SignavioDateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime> dateTimeLib = new SignavioDateTimeLibStub<>();
         DurationLib<LocalDate, Duration> durationLib = new DurationLibStub<>();
-        SignavioListLib listLib = new SignavioListLibStub();
+        SignavioListLib<?> listLib = new SignavioListLibStub();
         return new DoubleMixedJavaTimeSignavioLib(
                 numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
@@ -75,7 +75,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
     public void testDay() {
         super.testDay();
 
-        assertNull(getLib().day((ZonedDateTime) null));
+        assertNull(getLib().day(null));
     }
 
     @Override
@@ -91,7 +91,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
     public void testHour() {
         super.testHour();
 
-        assertNull(getLib().hour((ZonedDateTime) null));
+        assertNull(getLib().hour(null));
     }
 
     @Override
@@ -99,7 +99,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
     public void testMinute() {
         super.testMinute();
 
-        assertNull(getLib().minute((ZonedDateTime) null));
+        assertNull(getLib().minute(null));
     }
 
     @Override
@@ -107,7 +107,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
     public void testMonth() {
         super.testMonth();
 
-        assertNull(getLib().month((ZonedDateTime) null));
+        assertNull(getLib().month(null));
     }
 
     @Override
@@ -123,7 +123,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
     public void testWeekday() {
         super.testWeekday();
 
-        assertNull(getLib().weekday((ZonedDateTime) null));
+        assertNull(getLib().weekday(null));
     }
 
     @Override
@@ -131,7 +131,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
     public void testYear() {
         super.testYear();
 
-        assertNull(getLib().year((ZonedDateTime) null));
+        assertNull(getLib().year(null));
     }
 
     @Override

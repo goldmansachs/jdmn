@@ -199,7 +199,7 @@ public abstract class BaseSignavioLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIM
 
     @Test
     public void testAppend() {
-        assertEquals(null, getLib().append(null, null));
+        assertNull(getLib().append(null, null));
     }
 
     @Test
