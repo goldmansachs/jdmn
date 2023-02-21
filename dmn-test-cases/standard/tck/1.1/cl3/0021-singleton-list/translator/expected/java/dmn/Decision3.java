@@ -71,7 +71,7 @@ public class Decision3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
                 com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
-                return employees.stream().filter(item -> stringEqual(item, "Bob")).collect(Collectors.toList());
+                return employees.stream().filter(item -> stringEqual(item, "Bob") == Boolean.TRUE).collect(Collectors.toList());
             }
         };
 }

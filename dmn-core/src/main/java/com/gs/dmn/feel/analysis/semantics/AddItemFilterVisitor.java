@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
@@ -74,7 +75,7 @@ public class AddItemFilterVisitor<T, C> extends CloneVisitor<T, C> {
         } else if (type instanceof ItemDefinitionType) {
             return ((ItemDefinitionType) type).getMemberType(name) != null;
         } else {
-            return false;
+            return type instanceof AnyType;
         }
     }
 

@@ -279,6 +279,27 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     }
 
+    @Test
+    @Override
+    public void testFilterExpression() {
+        super.testFilterExpression();
+
+        List<EnvironmentEntry> entries = Arrays.asList(
+        );
+        doExpressionTest(entries, "", "[ { x: \"1\", y: \"2\" }, { x: null, y: \"3\" } ][ x < \"2\" ]",
+                "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = StringLiteral(\"1\")),ContextEntry(ContextEntryKey(y) = StringLiteral(\"2\"))),Context(ContextEntry(ContextEntryKey(x) = NullLiteral()),ContextEntry(ContextEntryKey(y) = StringLiteral(\"3\")))), Relational(<,PathExpression(Name(item), x),StringLiteral(\"2\")))",
+                "ListType(ContextType(x = string, y = string))",
+                "asList(new com.gs.dmn.runtime.Context().add(\"x\", \"1\").add(\"y\", \"2\"), new com.gs.dmn.runtime.Context().add(\"x\", null).add(\"y\", \"3\")).stream().filter(item -> stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get(\"x\")), \"2\") == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", "1").add("y", "2"), new com.gs.dmn.runtime.Context().add("x", null).add("y", "3")).stream().filter(item -> this.lib.stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get("x")), "2") == Boolean.TRUE).collect(Collectors.toList()),
+                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", "1").add("y", "2")));
+        doExpressionTest(entries, "", "[ { x: null, y: \"2\" }, { x: \"1\", y: \"3\" } ][ x < \"2\" ]",
+                "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NullLiteral()),ContextEntry(ContextEntryKey(y) = StringLiteral(\"2\"))),Context(ContextEntry(ContextEntryKey(x) = StringLiteral(\"1\")),ContextEntry(ContextEntryKey(y) = StringLiteral(\"3\")))), Relational(<,PathExpression(Name(item), x),StringLiteral(\"2\")))",
+                "ListType(ContextType(x = string, y = string))",
+                "asList(new com.gs.dmn.runtime.Context().add(\"x\", null).add(\"y\", \"2\"), new com.gs.dmn.runtime.Context().add(\"x\", \"1\").add(\"y\", \"3\")).stream().filter(item -> stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get(\"x\")), \"2\") == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", null).add("y", "2"), new com.gs.dmn.runtime.Context().add("x", "1").add("y", "3")).stream().filter(item -> this.lib.stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get("x")), "2") == Boolean.TRUE).collect(Collectors.toList()),
+                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", "1").add("y", "3")));
+    }
+
     @Override
     @Test
     public void testPathExpression() {

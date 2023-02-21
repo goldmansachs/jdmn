@@ -1980,9 +1980,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "DeptTable[number = EmployeeTable[name=LastName].deptNum[1]].manager[1]",
                 "FilterExpression(PathExpression(FilterExpression(Name(DeptTable), Relational(=,PathExpression(Name(item), number),FilterExpression(PathExpression(FilterExpression(Name(EmployeeTable), Relational(=,PathExpression(Name(item), name),Name(LastName))), deptNum), NumericLiteral(1)))), manager), NumericLiteral(1))",
                 "string",
-                "(String)(elementAt(deptTable.stream().filter(item -> numericEqual(((java.math.BigDecimal)(item != null ? item.getNumber() : null)), " +
-                        "(java.math.BigDecimal)(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)(item_1_ != null ? item_1_.getName() : null)), lastName)).collect(Collectors.toList()).stream().map(x -> ((java.math.BigDecimal)(x != null ? x.getDeptNum() : null))).collect(Collectors.toList()), number(\"1\"))))).collect(Collectors.toList()).stream()" +
-                        ".map(x -> ((String)(x != null ? x.getManager() : null))).collect(Collectors.toList()), number(\"1\")))",
+                "(String)(elementAt(deptTable.stream().filter(item -> numericEqual(((java.math.BigDecimal)(item != null ? item.getNumber() : null)), (java.math.BigDecimal)(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)(item_1_ != null ? item_1_.getName() : null)), lastName) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x -> ((java.math.BigDecimal)(x != null ? x.getDeptNum() : null))).collect(Collectors.toList()), number(\"1\")))) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x -> ((String)(x != null ? x.getManager() : null))).collect(Collectors.toList()), number(\"1\")))",
                 null,
                 null
         );
@@ -2011,49 +2009,49 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "[{item: 1}, {item: 2}, {item: 3}][item >= 2]",
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(3)))), Relational(>=,PathExpression(Name(item), item),NumericLiteral(2)))",
                 "ListType(ContextType(item = number))",
-                "asList(new com.gs.dmn.runtime.Context().add(\"item\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"3\"))).stream().filter(item -> numericGreaterEqualThan(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"item\")), number(\"2\"))).collect(Collectors.toList())",
-                this.lib.asList(new com.gs.dmn.runtime.Context().add("item", this.lib.number("1")), new com.gs.dmn.runtime.Context().add("item", this.lib.number("2")), new com.gs.dmn.runtime.Context().add("item", this.lib.number("3"))).stream().filter(item -> this.lib.numericGreaterEqualThan((NUMBER)((Context)item).get("item"), this.lib.number("2"))).collect(Collectors.toList()),
+                "asList(new com.gs.dmn.runtime.Context().add(\"item\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"3\"))).stream().filter(item -> numericGreaterEqualThan(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"item\")), number(\"2\")) == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("item", this.lib.number("1")), new com.gs.dmn.runtime.Context().add("item", this.lib.number("2")), new com.gs.dmn.runtime.Context().add("item", this.lib.number("3"))).stream().filter(item -> this.lib.numericGreaterEqualThan(((NUMBER)((com.gs.dmn.runtime.Context)item).get("item")), this.lib.number("2")) == Boolean.TRUE).collect(Collectors.toList()),
                 this.lib.asList(new Context().add("item", this.lib.number("2")), new Context().add("item", this.lib.number("3"))));
         doExpressionTest(entries, "", "source[true]",
                 "FilterExpression(Name(source), BooleanLiteral(true))",
                 "ListType(number)",
-                "source.stream().filter(item -> Boolean.TRUE).collect(Collectors.toList())",
-                source.stream().filter(item -> Boolean.TRUE).collect(Collectors.toList()),
+                "source.stream().filter(item -> Boolean.TRUE == Boolean.TRUE).collect(Collectors.toList())",
+                source.stream().filter(item -> Boolean.TRUE == Boolean.TRUE).collect(Collectors.toList()),
                 source);
         doExpressionTest(entries, "", "[1, 2][true]",
                 "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), BooleanLiteral(true))",
                 "ListType(number)",
-                "asList(number(\"1\"), number(\"2\")).stream().filter(item -> Boolean.TRUE).collect(Collectors.toList())",
-                Arrays.asList(this.lib.number("1"), this.lib.number("2")).stream().filter(item -> true).collect(Collectors.toList()),
+                "asList(number(\"1\"), number(\"2\")).stream().filter(item -> Boolean.TRUE == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(this.lib.number("1"), this.lib.number("2")).stream().filter(item -> Boolean.TRUE == Boolean.TRUE).collect(Collectors.toList()),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2")));
         doExpressionTest(entries, "", "1[true]",
                 "FilterExpression(NumericLiteral(1), BooleanLiteral(true))",
                 "ListType(number)",
-                "asList(number(\"1\")).stream().filter(item -> Boolean.TRUE).collect(Collectors.toList())",
-                Arrays.asList(this.lib.number("1")).stream().filter(item -> true).collect(Collectors.toList()),
+                "asList(number(\"1\")).stream().filter(item -> Boolean.TRUE == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(this.lib.number("1")).stream().filter(item -> Boolean.TRUE == Boolean.TRUE).collect(Collectors.toList()),
                 Arrays.asList(this.lib.number("1")));
         doExpressionTest(entries, "", "[1, 2, 3, 4][item > 2]",
                 "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)), Relational(>,Name(item),NumericLiteral(2)))",
                 "ListType(number)",
-                "asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\")).stream().filter(item -> numericGreaterThan(item, number(\"2\"))).collect(Collectors.toList())",
-                Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4")).stream().filter(item -> this.lib.numericGreaterThan(item, this.lib.number("2"))).collect(Collectors.toList()),
+                "asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\")).stream().filter(item -> numericGreaterThan(item, number(\"2\")) == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4")).stream().filter(item -> this.lib.numericGreaterThan(item, this.lib.number("2")) == Boolean.TRUE).collect(Collectors.toList()),
                 Arrays.asList(this.lib.number("3"), this.lib.number("4")));
         doExpressionTest(entries, "", "employee[item.dept = 20]",
                 "FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20)))",
                 "ListType(ContextType(id = number, dept = number, name = string))",
-                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> this.lib.numericEqual((NUMBER)((Context)item).get("dept"), this.lib.number("20"))).collect(Collectors.toList()),
+                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList())",
+                employeeValue.stream().filter(item -> this.lib.numericEqual(((NUMBER)((com.gs.dmn.runtime.Context)item).get("dept")), this.lib.number("20")) == Boolean.TRUE).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1), employeeValue.get(2)));
         doExpressionTest(entries, "", "employee[item.dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
-                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> this.lib.numericEqual((NUMBER)((Context)item).get("dept"), this.lib.number("20"))).collect(Collectors.toList()).stream().map(x -> x.get("name")).collect(Collectors.toList()),
+                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
+                employeeValue.stream().filter(item -> this.lib.numericEqual(((NUMBER)((com.gs.dmn.runtime.Context)item).get("dept")), this.lib.number("20")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get("name"))).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
         doExpressionTest(entries, "", "employee[dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
-                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\"))).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
+                "employee.stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
                 employeeValue.stream().filter(item -> this.lib.numericEqual((NUMBER)((Context)item).get("dept"), this.lib.number("20"))).collect(Collectors.toList()).stream().map(x -> (String) x.get("name")).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
 
@@ -2087,8 +2085,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "[{x:1, y:2}, {x:2, y:3}] [item.x = 1]",
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(2)),ContextEntry(ContextEntryKey(y) = NumericLiteral(3)))), Relational(=,PathExpression(Name(item), x),NumericLiteral(1)))",
                 "ListType(ContextType(x = number, y = number))",
-                "asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"x\", number(\"2\")).add(\"y\", number(\"3\"))).stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"x\")), number(\"1\"))).collect(Collectors.toList())",
-                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")).add("y", this.lib.number("2")), new com.gs.dmn.runtime.Context().add("x", this.lib.number("2")).add("y", this.lib.number("3"))).stream().filter(item -> this.lib.numericEqual((NUMBER)((Context)item).get("x"), this.lib.number("1"))).collect(Collectors.toList()),
+                "asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"x\", number(\"2\")).add(\"y\", number(\"3\"))).stream().filter(item -> numericEqual(((java.math.BigDecimal)((com.gs.dmn.runtime.Context)item).get(\"x\")), number(\"1\")) == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")).add("y", this.lib.number("2")), new com.gs.dmn.runtime.Context().add("x", this.lib.number("2")).add("y", this.lib.number("3"))).stream().filter(item -> this.lib.numericEqual(((NUMBER)((com.gs.dmn.runtime.Context)item).get("x")), this.lib.number("1")) == Boolean.TRUE).collect(Collectors.toList()),
                 Arrays.asList(new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")).add("y", this.lib.number("2"))));
     }
 

@@ -121,7 +121,7 @@ public class JavaFactory implements NativeFactory {
     //
     @Override
     public String makeCollectionLogicFilter(String source, String parameterName, String filter) {
-        return String.format("%s.stream().filter(%s -> %s).collect(Collectors.toList())", source, parameterName, filter);
+        return String.format("%s.stream().filter(%s -> %s == Boolean.TRUE).collect(Collectors.toList())", source, parameterName, filter);
     }
 
     @Override
