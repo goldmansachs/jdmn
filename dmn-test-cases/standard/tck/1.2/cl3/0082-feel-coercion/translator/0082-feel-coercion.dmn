@@ -128,9 +128,9 @@
     <!-- has an explicit context return type but return boolean -->
     <businessKnowledgeModel name="bkm_002" id="_bkm_002">
         <variable name="bkm_002"/>
-        <encapsulatedLogic typeRef="tNameAndAge">
+        <encapsulatedLogic>
             <formalParameter name="nameAndAge" typeRef="tNameAndAge"/>
-            <literalExpression>
+            <literalExpression typeRef="tNameAndAge">
                 <text>nameAndAge != null</text>
             </literalExpression>
         </encapsulatedLogic>
@@ -148,9 +148,9 @@
 
     <businessKnowledgeModel name="bkm_004" id="_bkm_004">
         <variable name="bkm_004"/>
-        <encapsulatedLogic typeRef="tNumberList">
+        <encapsulatedLogic>
             <formalParameter name="arg"/>
-            <literalExpression>
+            <literalExpression typeRef="tNumberList">
                 <text>arg</text>
             </literalExpression>
         </encapsulatedLogic>
@@ -158,9 +158,9 @@
 
     <businessKnowledgeModel name="bkm_005" id="_bkm_005">
         <variable name="bkm_005"/>
-        <encapsulatedLogic typeRef="number">
+        <encapsulatedLogic>
             <formalParameter name="arg"/>
-            <literalExpression>
+            <literalExpression typeRef="number">
                 <text>[arg]</text>
             </literalExpression>
         </encapsulatedLogic>
