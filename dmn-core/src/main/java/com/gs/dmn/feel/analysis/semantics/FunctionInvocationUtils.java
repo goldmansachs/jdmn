@@ -203,9 +203,6 @@ public class FunctionInvocationUtils {
 
     private static List<DeclarationMatch> findFunctionMatches(FunctionInvocation<Type, DMNContext> element, DMNContext context, String name, ParameterTypes<Type, DMNContext> parameterTypes) {
         List<Declaration> declarations = context.lookupFunctionDeclaration(name);
-        if ("max".equals(name)) {
-            int j = 4;
-        }
         // Phase 1: Look for candidates without conversions
         List<DeclarationMatch> matches = new ArrayList<>();
         for (Declaration declaration : declarations) {
