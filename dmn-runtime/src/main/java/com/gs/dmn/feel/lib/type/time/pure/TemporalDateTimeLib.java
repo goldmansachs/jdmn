@@ -272,13 +272,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         if (((TemporalAccessor) time).isSupported(ChronoField.OFFSET_SECONDS)) {
             return Duration.ofSeconds(((TemporalAccessor) time).get(ChronoField.OFFSET_SECONDS));
         } else {
-            ZoneId zoneId = ((TemporalAccessor) time).query(TemporalQueries.zoneId());
-            if (zoneId != null) {
-                LocalDateTime now = LocalDateTime.now();
-                return Duration.ofSeconds(zoneId.getRules().getOffset(now).getTotalSeconds());
-            } else {
-                return null;
-            }
+            return null;
         }
     }
 

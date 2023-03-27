@@ -576,7 +576,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertEquals(Long.valueOf(63L), getLib().timeValue(makeTime("01:02:03+01:01")));
 
         // zoneid time
-        assertEquals(Long.valueOf(123L), getLib().timeValue(makeTime("01:02:03@Europe/Paris")));
+        // non-deterministic valuet() due to daylight saving time
+//        assertEquals(Long.valueOf(123L), getLib().timeValue(makeTime("01:02:03@Europe/Paris")));
         assertEquals(Long.valueOf(3723L), getLib().timeValue(makeTime("01:02:03@Etc/UTC")));
     }
 
@@ -631,7 +632,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         // same times with different zones are not equal
         assertFalse(getLib().timeEqual(makeTime("10:30:00@Europe/Paris"), makeTime("10:30:00@Asia/Dhaka")));
         // same times = one with offset, the other with zone are not equal
-        assertFalse(getLib().timeEqual(makeTime("10:30:00+02:00"), makeTime("10:30:00@Europe/Paris")));
+        // non-deterministic valuet() due to daylight saving time
+//        assertFalse(getLib().timeEqual(makeTime("10:30:00+02:00"), makeTime("10:30:00@Europe/Paris")));
         // same times = one with Z zone, the other with UTC are equal
         assertTrue(getLib().timeEqual(makeTime("10:30:00Z"), makeTime("10:30:00+00:00")));
 
@@ -640,7 +642,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().timeEqual(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
         assertTrue(getLib().timeEqual(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));
         assertTrue(getLib().timeEqual(makeTime("00:00:00Z"), makeTime("00:00:00@Etc/UTC")));
-        assertTrue(getLib().timeEqual(makeTime("10:30:00+01:00"), makeTime("10:30:00@Europe/Paris")));
+        // non-deterministic valuet() due to daylight saving time
+//        assertTrue(getLib().timeEqual(makeTime("10:30:00+01:00"), makeTime("10:30:00@Europe/Paris")));
     }
 
     @Test

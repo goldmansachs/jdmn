@@ -308,8 +308,8 @@ public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal,
         assertNull(getLib().timeOffset(makeTime("12:01:02")));
         assertEqualsDateTime("PT1H", getLib().timeOffset(makeTime("12:01:02+01:00")));
         assertEqualsDateTime("PT0S", getLib().timeOffset(makeTime("12:01:02Z")));
-        assertEqualsDateTime("PT0S", getLib().timeOffset(makeTime("12:01:02@Etc/UTC")));
-        assertEqualsDateTime("PT1H", getLib().timeOffset(makeTime("12:01:02@Europe/Paris")));
+        assertNull(getLib().timeOffset(makeTime("12:01:02@Etc/UTC")));
+        assertNull(getLib().timeOffset(makeTime("12:01:02@Europe/Paris")));
 
         assertNull(getLib().timezone(null));
         assertNull(getLib().timezone(makeTime("12:01:02")));
