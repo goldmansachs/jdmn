@@ -19,5 +19,6 @@ import org.junit.runner.RunWith;
 @FitNesseRunner.Suite("FEELSuite")
 @FitNesseRunner.FitnesseDir("./src/test/resources/fitnesse")
 @FitNesseRunner.OutputDir("./target/fitnesse-results")
+@FitNesseRunner.PreventSystemExit(false)
 public class FEELSuiteIT {
 }
