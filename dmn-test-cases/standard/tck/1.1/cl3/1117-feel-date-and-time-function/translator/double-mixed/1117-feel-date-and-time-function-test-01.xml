@@ -166,35 +166,35 @@
     <testCase id="023_2e41497673">
         <resultNode name="feel-date-and-time-function_023_2e41497673" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30+01:00@Europe/Paris</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="024_b4d1fb8735">
         <resultNode name="feel-date-and-time-function_024_b4d1fb8735" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30Z@Etc/UTC</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30@Etc/UTC</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="025_0cb7f83ec6">
         <resultNode name="feel-date-and-time-function_025_0cb7f83ec6" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30.987+01:00@Europe/Paris</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30.987@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="026_5ba081cd5f">
         <resultNode name="feel-date-and-time-function_026_5ba081cd5f" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30.123456789+01:00@Europe/Paris</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2011-12-31T10:15:30.123456789@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>
     <testCase id="027_ae365197dd">
         <resultNode name="feel-date-and-time-function_027_ae365197dd" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">999999999-12-31T23:59:59.999999999+01:00@Europe/Paris</value>
+                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">999999999-12-31T23:59:59.999999999@Europe/Paris</value>
             </expected>
         </resultNode>
     </testCase>

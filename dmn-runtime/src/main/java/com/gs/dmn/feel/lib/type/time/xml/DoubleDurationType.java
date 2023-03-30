@@ -20,7 +20,7 @@ import javax.xml.datatype.Duration;
 
 public class DoubleDurationType extends BaseDefaultDurationType implements DurationType<Duration, Double> {
     public DoubleDurationType() {
-        this(new DefaultDurationComparator());
+        this(DefaultDurationComparator.COMPARATOR);
     }
 
     public DoubleDurationType(RelationalComparator<Duration> durationComparator) {
@@ -35,7 +35,7 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
 
         if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
             return durationEqual(first, second);
-        } else if(isDayTimeDuration(first) && isDayTimeDuration(second)) {
+        } else if(isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
             return durationEqual(first, second);
         } else {
             return false;

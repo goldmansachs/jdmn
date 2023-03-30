@@ -14,6 +14,7 @@ package com.gs.dmn.feel.lib.type.time.xml;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.DatatypeConstants;
@@ -27,6 +28,8 @@ import java.time.temporal.IsoFields;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQueries;
 import java.util.Calendar;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     //
@@ -53,11 +56,12 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
     }
 
     @Override
-    public XMLGregorianCalendar date(XMLGregorianCalendar from) {
-        if (from == null) {
+    public XMLGregorianCalendar date(Object fromObj) {
+        if (fromObj == null) {
             return null;
         }
 
+        XMLGregorianCalendar from = (XMLGregorianCalendar) fromObj;
         FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) from.clone();
         calendar.setTime(DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED);
         calendar.setZoneID(null);
@@ -100,11 +104,12 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
     }
 
     @Override
-    public XMLGregorianCalendar time(XMLGregorianCalendar from) {
-        if (from == null) {
+    public XMLGregorianCalendar time(Object fromObj) {
+        if (fromObj == null) {
             return null;
         }
 
+        XMLGregorianCalendar from = (XMLGregorianCalendar) fromObj;
         FEELXMLGregorianCalendar calendar = (FEELXMLGregorianCalendar) from.clone();
         if (from.getXMLSchemaType() == DatatypeConstants.DATE) {
             calendar.setYear(DatatypeConstants.FIELD_UNDEFINED);
@@ -134,11 +139,13 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
     }
 
     @Override
-    public XMLGregorianCalendar dateAndTime(XMLGregorianCalendar date, XMLGregorianCalendar time) {
-        if (date == null || time == null) {
+    public XMLGregorianCalendar dateAndTime(Object dateObj, Object timeObj) {
+        if (dateObj == null || timeObj == null) {
             return null;
         }
 
+        XMLGregorianCalendar date = (XMLGregorianCalendar) dateObj;
+        XMLGregorianCalendar time = (XMLGregorianCalendar) timeObj;
         XMLGregorianCalendar calendar = FEELXMLGregorianCalendar.makeDateTime(
                 BigInteger.valueOf(date.getYear()), date.getMonth(), date.getDay(),
                 time.getHour(), time.getMinute(), time.getSecond(), time.getFractionalSecond(),
@@ -151,186 +158,135 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
     // Date properties
     //
     @Override
-    public Integer year(XMLGregorianCalendar date) {
+    public Integer year(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getYear();
-    }
-    @Override
-    public Integer yearDateTime(XMLGregorianCalendar dateTime) {
-        return year(dateTime);
+        return ((XMLGregorianCalendar) date).getYear();
     }
 
     @Override
-    public Integer month(XMLGregorianCalendar date) {
+    public Integer month(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getMonth();
-    }
-    @Override
-    public Integer monthDateTime(XMLGregorianCalendar dateTime) {
-        return month(dateTime);
+        return ((XMLGregorianCalendar) date).getMonth();
     }
 
     @Override
-    public Integer day(XMLGregorianCalendar date) {
+    public Integer day(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getDay();
-    }
-    @Override
-    public Integer dayDateTime(XMLGregorianCalendar dateTime) {
-        return day(dateTime);
+        return ((XMLGregorianCalendar) date).getDay();
     }
 
     @Override
-    public Integer weekday(XMLGregorianCalendar date) {
+    public Integer weekday(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK) - 1;
-    }
-    @Override
-    public Integer weekdayDateTime(XMLGregorianCalendar dateTime) {
-        return weekday(dateTime);
+        return ((XMLGregorianCalendar) date).toGregorianCalendar().get(Calendar.DAY_OF_WEEK) - 1;
     }
 
     //
     // Time properties
     //
     @Override
-    public Integer hour(XMLGregorianCalendar date) {
+    public Integer hour(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getHour();
-    }
-    @Override
-    public Integer hourDateTime(XMLGregorianCalendar dateTime) {
-        return hour(dateTime);
+        return ((XMLGregorianCalendar) date).getHour();
     }
 
     @Override
-    public Integer minute(XMLGregorianCalendar date) {
+    public Integer minute(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getMinute();
-    }
-    @Override
-    public Integer minuteDateTime(XMLGregorianCalendar dateTime) {
-        return minute(dateTime);
+        return ((XMLGregorianCalendar) date).getMinute();
     }
 
     @Override
-    public Integer second(XMLGregorianCalendar date) {
+    public Integer second(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.getSecond();
-    }
-    @Override
-    public Integer secondDateTime(XMLGregorianCalendar dateTime) {
-        return second(dateTime);
+        return ((XMLGregorianCalendar) date).getSecond();
     }
 
     @Override
-    public Duration timeOffset(XMLGregorianCalendar date) {
+    public Duration timeOffset(Object date) {
         if (date == null) {
             return null;
         }
 
-        int secondsOffset = date.getTimezone();
+        int secondsOffset = ((XMLGregorianCalendar) date).getTimezone();
         if (secondsOffset == DatatypeConstants.FIELD_UNDEFINED) {
             return null;
         } else {
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
         }
     }
-    @Override
-    public Duration timeOffsetDateTime(XMLGregorianCalendar dateTime) {
-        return timeOffset(dateTime);
-    }
 
     @Override
-    public String timezone(XMLGregorianCalendar date) {
+    public String timezone(Object date) {
         if (date == null) {
             return null;
         }
 
         return ((FEELXMLGregorianCalendar) date).getZoneID();
     }
-    @Override
-    public String timezoneDateTime(XMLGregorianCalendar dateTime) {
-        return timezone(dateTime);
-    }
 
     //
     // Temporal functions
     //
     @Override
-    public Integer dayOfYear(XMLGregorianCalendar date) {
+    public Integer dayOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        return date.toGregorianCalendar().get(Calendar.DAY_OF_YEAR);
-    }
-    @Override
-    public Integer dayOfYearDateTime(XMLGregorianCalendar dateTime) {
-        return dayOfYear(dateTime);
+        return ((XMLGregorianCalendar) date).toGregorianCalendar().get(Calendar.DAY_OF_YEAR);
     }
 
     @Override
-    public String dayOfWeek(XMLGregorianCalendar date) {
+    public String dayOfWeek(Object date) {
         if (date == null) {
             return null;
         }
 
-        int dow = date.toGregorianCalendar().get(Calendar.DAY_OF_WEEK);
+        int dow = ((XMLGregorianCalendar) date).toGregorianCalendar().get(Calendar.DAY_OF_WEEK);
         return DAY_NAMES[dow];
     }
-    @Override
-    public String dayOfWeekDateTime(XMLGregorianCalendar dateTime) {
-        return dayOfWeek(dateTime);
-    }
 
     @Override
-    public Integer weekOfYear(XMLGregorianCalendar date) {
+    public Integer weekOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+        XMLGregorianCalendar xmlDate = ((XMLGregorianCalendar) date);
+        LocalDate localDate = LocalDate.of(xmlDate.getYear(), xmlDate.getMonth(), xmlDate.getDay());
         return localDate.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
     }
-    @Override
-    public Integer weekOfYearDateTime(XMLGregorianCalendar dateTime) {
-        return weekOfYear(dateTime);
-    }
 
     @Override
-    public String monthOfYear(XMLGregorianCalendar date) {
+    public String monthOfYear(Object date) {
         if (date == null) {
             return null;
         }
 
-        int moy = date.getMonth();
+        int moy = ((XMLGregorianCalendar) date).getMonth();
         return MONTH_NAMES[moy - 1];
-    }
-    @Override
-    public String monthOfYearDateTime(XMLGregorianCalendar dateTime) {
-        return monthOfYear(dateTime);
     }
 
     //
@@ -352,7 +308,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
             return null;
         }
 
-        return time((XMLGregorianCalendar) from);
+        return time(from);
     }
 
     @Override
@@ -364,14 +320,59 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         return dateAndTime(toDate(from), toTime(from));
     }
 
-    public TemporalAccessor dateTemporalAccessor(String literal) {
-        if (literal == null) {
-            throw new IllegalArgumentException("Date literal cannot be null");
-        }
-        if (!BEGIN_YEAR.matcher(literal).find()) {
-            throw new IllegalArgumentException("Year not compliant with XML Schema Part 2 Datatypes");
+    @Override
+    public <T> T min(List<T> list) {
+        return minMax(list, DefaultXMLCalendarComparator.COMPARATOR, DefaultDurationComparator.COMPARATOR, x -> x > 0);
+    }
+
+    @Override
+    public <T> T max(List<T> list) {
+        return minMax(list, DefaultXMLCalendarComparator.COMPARATOR, DefaultDurationComparator.COMPARATOR, x -> x < 0);
+    }
+
+    private <T> T minMax(List<T> list, DefaultXMLCalendarComparator dateTimeComparator, DefaultDurationComparator durationComparator, Predicate<Integer> condition) {
+        if (list == null || list.isEmpty()) {
+            return null;
         }
 
+        T result = list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            T x = list.get(i);
+            if (dateTimeComparator.isDate(result) && dateTimeComparator.isDate(x)) {
+                if (condition.test(dateTimeComparator.compareTo((XMLGregorianCalendar) result, (XMLGregorianCalendar) x))) {
+                    result = x;
+                }
+            } else if (dateTimeComparator.isTime(result) && dateTimeComparator.isTime(x)) {
+                if (condition.test(dateTimeComparator.compareTo((XMLGregorianCalendar) result, (XMLGregorianCalendar) x))) {
+                    result = x;
+                }
+            } else if (dateTimeComparator.isDateTime(result) && dateTimeComparator.isDateTime(x)) {
+                if (condition.test(dateTimeComparator.compareTo((XMLGregorianCalendar) result, (XMLGregorianCalendar) x))) {
+                    result = x;
+                }
+            } else if (durationComparator.isYearsAndMonthsDuration(result) && durationComparator.isYearsAndMonthsDuration(x)) {
+                if (condition.test(durationComparator.compareTo((Duration) result, (Duration) x))) {
+                    result = x;
+                }
+            } else if (durationComparator.isDaysAndTimeDuration(result) && durationComparator.isDaysAndTimeDuration(x)) {
+                if (condition.test(durationComparator.compareTo((Duration) result, (Duration) x))) {
+                    result = x;
+                }
+            } else {
+                throw new DMNRuntimeException(String.format("Cannot compare '%s' and '%s'", result, x));
+            }
+        }
+        return result;
+    }
+
+    public TemporalAccessor dateTemporalAccessor(String literal) {
+        if (literal == null) {
+            return null;
+        }
+
+        if (!BEGIN_YEAR.matcher(literal).find()) {
+            throw new DMNRuntimeException(String.format("Illegal year in '%s'", literal));
+        }
         try {
             return LocalDate.from(FEEL_DATE.parse(literal));
         } catch (DateTimeException e) {
@@ -381,9 +382,12 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
     public TemporalAccessor timeTemporalAccessor(String literal) {
         if (literal == null) {
-            throw new IllegalArgumentException("Time literal cannot be null");
+            return null;
         }
 
+        if (this.hasZoneOffset(literal) && this.hasZoneId(literal)) {
+            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", literal));
+        }
         try {
             TemporalAccessor parsed = FEEL_TIME.parse(literal);
 
@@ -395,31 +399,24 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
 
             return parsed;
         } catch (DateTimeException e) {
-            throw new RuntimeException("Parsing exception in time literal", e);
+            throw new DMNRuntimeException("Parsing exception in time literal", e);
         }
     }
 
     public TemporalAccessor dateTimeTemporalAccessor(String literal) {
         if (literal == null) {
-            throw new IllegalArgumentException("Date and time literal cannot be null");
-        }
-        if (!BaseDateTimeLib.BEGIN_YEAR.matcher(literal).find()) {
-            throw new IllegalArgumentException("Year is not not compliant with XML Schema Part 2 Datatypes");
+            return null;
         }
 
+        if (!BaseDateTimeLib.BEGIN_YEAR.matcher(literal).find()) {
+            throw new DMNRuntimeException(String.format("Illegal year in '%s'", literal));
+        }
+        if (this.hasZoneOffset(literal) && this.hasZoneId(literal)) {
+            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", literal));
+        }
         try {
             if (literal.contains("T")) {
-                TemporalAccessor value = FEEL_DATE_TIME.parse(literal);
-
-                if (value.query(TemporalQueries.zoneId()) != null) {
-                    return value.query(ZonedDateTime::from);
-                } else if (value.query(TemporalQueries.offset()) != null) {
-                    return value.query(OffsetDateTime::from);
-                } else if (value.query(TemporalQueries.zone()) == null) {
-                    return value.query(LocalDateTime::from);
-                }
-
-                return value;
+                return FEEL_DATE_TIME.parseBest(literal, ZonedDateTime::from, OffsetDateTime::from, LocalDateTime::from);
             } else {
                 LocalDate value = DateTimeFormatter.ISO_DATE.parse(literal, LocalDate::from);
                 return LocalDateTime.of(value, LocalTime.of(0, 0));

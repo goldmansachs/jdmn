@@ -31,7 +31,7 @@ public interface DateType<DATE, DURATION> {
 
     Boolean dateGreaterEqualThan(DATE first, DATE second);
 
-    DURATION dateSubtract(DATE first, DATE second);
+    DURATION dateSubtract(DATE first, Object second);
 
     DATE dateAddDuration(DATE date, DURATION duration);
 

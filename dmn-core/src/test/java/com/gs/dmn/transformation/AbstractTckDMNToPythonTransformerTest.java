@@ -20,12 +20,12 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public abstract class AbstractTckDMNToPythonTransformerTest extends AbstractTckDMNToNativeTransformerTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+public abstract class AbstractTckDMNToPythonTransformerTest extends AbstractTckDMNToNativeTransformerTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount, TestCases> makeDialectDefinition() {
+    protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialectDefinition() {
         return new PythonStandardDMNDialectDefinition();
     }
 

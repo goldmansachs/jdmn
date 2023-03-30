@@ -15,7 +15,9 @@ package com.gs.dmn.feel.lib.type.numeric;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
 
 public class DoubleComparator extends ComparableComparator<Double> {
-    public DoubleComparator() {
+    public static DoubleComparator COMPARATOR = new DoubleComparator();
+
+    protected DoubleComparator() {
     }
 
     @Override

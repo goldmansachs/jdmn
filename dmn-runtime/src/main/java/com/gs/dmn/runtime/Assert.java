@@ -19,10 +19,7 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,12 +146,14 @@ public class Assert {
         if (object == null) {
             return null;
         }
-        if (object instanceof Duration) {
-            return BaseDefaultDurationType.normalize((Duration) object);
+        if (object instanceof OffsetTime) {
+            return ((OffsetTime) object).withOffsetSameInstant(ZoneOffset.UTC);
         } else if (object instanceof ZonedDateTime) {
             return ((ZonedDateTime) object).withZoneSameInstant(BaseType.UTC);
-        } else if (object instanceof OffsetTime) {
-            return ((OffsetTime) object).withOffsetSameInstant(ZoneOffset.UTC);
+        } else if (object instanceof Duration) {
+            return BaseDefaultDurationType.normalize((Duration) object);
+        } else if (object instanceof java.time.Period) {
+            return ((Period) object).normalized();
         }
         return object;
     }

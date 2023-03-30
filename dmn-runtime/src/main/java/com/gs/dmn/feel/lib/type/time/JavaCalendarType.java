@@ -13,11 +13,29 @@
 package com.gs.dmn.feel.lib.type.time;
 
 import com.gs.dmn.feel.lib.type.BaseType;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.time.*;
+import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 
-public class JavaCalendarType extends BaseType {
+public abstract class JavaCalendarType extends BaseType {
+    public Long value(Object object) {
+        if (object == null) {
+            return null;
+        }
+
+        if (isDate(object)) {
+            return dateValue((LocalDate) object);
+        } else if (isTime(object)) {
+            return timeValue((TemporalAccessor) object);
+        } else if (isDateTime(object)) {
+            return dateTimeValue((TemporalAccessor) object);
+        }
+        throw new DMNRuntimeException(String.format("Cannot calculate value() for '%s'", object));
+    }
+
     public Long dateValue(LocalDate localDate) {
         if (localDate == null) {
             return null;
@@ -26,18 +44,33 @@ public class JavaCalendarType extends BaseType {
         return dateTimeValue(toDateTime(localDate));
     }
 
-    public Long timeValue(Temporal time) {
+    public Long timeValue(TemporalAccessor time) {
         if (time == null) {
             return null;
         }
 
-        if (time instanceof LocalTime) {
-            return timeValue((LocalTime) time);
-        } else if (time instanceof OffsetTime) {
-            return timeValue((OffsetTime) time);
-        } else {
-            return null;
+        long result = 0;
+        result += time.get(ChronoField.HOUR_OF_DAY) * 3600L;
+        result += time.get(ChronoField.MINUTE_OF_HOUR) * 60L;
+        result += time.get(ChronoField.SECOND_OF_MINUTE);
+
+        try {
+            ZoneId zoneId = ZoneId.from(time);
+            if (zoneId instanceof ZoneOffset) {
+                result -= ((ZoneOffset) zoneId).getTotalSeconds();
+            } else {
+                Instant instant = Instant.now();
+                ZoneOffset zoneOffset = zoneId.getRules().getOffset(instant);
+                result -= zoneOffset.getTotalSeconds();
+            }
+        } catch (Exception e) {
         }
+
+        return result;
+    }
+
+    public Long timeValue(Temporal time) {
+        return timeValue((TemporalAccessor) time);
     }
 
     public Long timeValue(LocalTime time) {
@@ -56,44 +89,20 @@ public class JavaCalendarType extends BaseType {
         return (long) time.toLocalTime().toSecondOfDay() - time.getOffset().getTotalSeconds();
     }
 
-    public Long dateTimeValue(Temporal dateTime) {
+    public Long dateTimeValue(TemporalAccessor dateTime) {
         if (dateTime == null) {
             return null;
         }
 
         if (dateTime instanceof LocalDateTime) {
-            return dateTimeValue((LocalDateTime) dateTime);
+            return ((LocalDateTime) dateTime).toEpochSecond(ZoneOffset.of("Z"));
         } else if (dateTime instanceof OffsetDateTime) {
-            return dateTimeValue((OffsetDateTime) dateTime);
+            return ((OffsetDateTime) dateTime).toEpochSecond();
         } else if (dateTime instanceof ZonedDateTime) {
-            return dateTimeValue((ZonedDateTime) dateTime);
+            return ((ZonedDateTime) dateTime).toEpochSecond();
         } else {
             return null;
         }
-    }
-
-    public Long dateTimeValue(LocalDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        return dateTime.toEpochSecond(ZoneOffset.of("Z"));
-    }
-
-    public Long dateTimeValue(OffsetDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        return dateTime.toEpochSecond();
-    }
-
-    public Long dateTimeValue(ZonedDateTime dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        return dateTime.toEpochSecond();
     }
 
     protected Long monthsValue(Period duration) {
@@ -104,7 +113,39 @@ public class JavaCalendarType extends BaseType {
         return duration.toMillis() / 1000;
     }
 
-    public ZonedDateTime toDateTime(LocalDate localDate) {
-        return localDate.atStartOfDay(UTC);
+    public LocalDate toDate(Object obj) {
+        if (obj == null) {
+            return null;
+        } else if (isDate(obj)) {
+            return (LocalDate) obj;
+        } else if (obj instanceof ZonedDateTime) {
+            return ((ZonedDateTime) obj).toLocalDate();
+        }
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", obj));
     }
+
+    public Temporal toDateTime(Object obj) {
+        if (obj == null) {
+            return null;
+        } else if (isDate(obj)) {
+            return ((LocalDate) obj).atStartOfDay(UTC);
+        } else if (obj instanceof LocalDateTime) {
+            return (LocalDateTime) obj;
+        } else if (obj instanceof OffsetDateTime) {
+            return (OffsetDateTime) obj;
+        } else if (obj instanceof ZonedDateTime) {
+            return (ZonedDateTime) obj;
+        }
+        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", obj));
+    }
+
+    public abstract boolean isDate(Object object);
+
+    public abstract boolean isTime(Object object);
+
+    public abstract boolean isDateTime(Object object);
+
+    public abstract boolean isYearsAndMonthsDuration(Object value);
+
+    public abstract boolean isDaysAndTimeDuration(Object value);
 }

@@ -23,6 +23,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
@@ -114,6 +115,27 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "contains(\"abc\", \"a\")",
                 this.lib.contains("abc", "a"),
                 true);
+    }
+
+    @Test
+    @Override
+    public void testFilterExpression() {
+        super.testFilterExpression();
+
+        List<EnvironmentEntry> entries = Arrays.asList(
+        );
+        doExpressionTest(entries, "", "[ { x: \"1\", y: \"2\" }, { x: null, y: \"3\" } ][ x < \"2\" ]",
+                "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = StringLiteral(\"1\")),ContextEntry(ContextEntryKey(y) = StringLiteral(\"2\"))),Context(ContextEntry(ContextEntryKey(x) = NullLiteral()),ContextEntry(ContextEntryKey(y) = StringLiteral(\"3\")))), Relational(<,PathExpression(Name(item), x),StringLiteral(\"2\")))",
+                "ListType(ContextType(x = string, y = string))",
+                "asList(new com.gs.dmn.runtime.Context().add(\"x\", \"1\").add(\"y\", \"2\"), new com.gs.dmn.runtime.Context().add(\"x\", null).add(\"y\", \"3\")).stream().filter(item -> stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get(\"x\")), \"2\") == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", "1").add("y", "2"), new com.gs.dmn.runtime.Context().add("x", null).add("y", "3")).stream().filter(item -> this.lib.stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get("x")), "2") == Boolean.TRUE).collect(Collectors.toList()),
+                Arrays.asList());
+        doExpressionTest(entries, "", "[ { x: null, y: \"2\" }, { x: \"1\", y: \"3\" } ][ x < \"2\" ]",
+                "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NullLiteral()),ContextEntry(ContextEntryKey(y) = StringLiteral(\"2\"))),Context(ContextEntry(ContextEntryKey(x) = StringLiteral(\"1\")),ContextEntry(ContextEntryKey(y) = StringLiteral(\"3\")))), Relational(<,PathExpression(Name(item), x),StringLiteral(\"2\")))",
+                "ListType(ContextType(x = string, y = string))",
+                "asList(new com.gs.dmn.runtime.Context().add(\"x\", null).add(\"y\", \"2\"), new com.gs.dmn.runtime.Context().add(\"x\", \"1\").add(\"y\", \"3\")).stream().filter(item -> stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get(\"x\")), \"2\") == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", null).add("y", "2"), new com.gs.dmn.runtime.Context().add("x", "1").add("y", "3")).stream().filter(item -> this.lib.stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get("x")), "2") == Boolean.TRUE).collect(Collectors.toList()),
+                Arrays.asList());
     }
 
     @Override
@@ -226,7 +248,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "number",
                 "power(number(\"10\"), number(\"2\"))",
                 this.lib.power(this.lib.number("10"), this.lib.number("2")),
-                this.lib.number("100.0"));
+                this.lib.number("100"));
         doExpressionTest(entries, "", "product([100])",
                 "FunctionInvocation(Name(product) -> PositionalParameters(ListLiteral(NumericLiteral(100))))",
                 "number",

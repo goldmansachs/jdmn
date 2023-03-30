@@ -39,95 +39,15 @@ public abstract class BaseMixedJavaTimeFEELLibExceptionsTest<NUMBER, DATE, TIME,
 
     @Override
     @Test
-    public void testDateAndTime() {
-        super.testDateAndTime();
-
-        assertNull(getBaseMixedJavaTimeLib().dateAndTime((Object) null, null));
-    }
-
-    @Override
-    @Test
     public void testYearsAndMonthsDuration() {
         super.testYearsAndMonthsDuration();
 
         assertNull(getBaseMixedJavaTimeLib().yearsAndMonthsDuration((ZonedDateTime) null, (ZonedDateTime) null));
-        assertNull(getBaseMixedJavaTimeLib().yearsAndMonthsDuration((ZonedDateTime) null, (LocalDate) null));
-        assertNull(getBaseMixedJavaTimeLib().yearsAndMonthsDuration((LocalDate) null, (ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testYear() {
-        super.testYear();
-
-        assertNull(getBaseMixedJavaTimeLib().year((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testMonth() {
-        super.testMonth();
-
-        assertNull(getBaseMixedJavaTimeLib().month((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testDay() {
-        super.testDay();
-
-        assertNull(getBaseMixedJavaTimeLib().day((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testWeekday() {
-        super.testWeekday();
-
-        assertNull(getBaseMixedJavaTimeLib().weekday((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testHour() {
-        super.testHour();
-
-        assertNull(getBaseMixedJavaTimeLib().hour((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testMinute() {
-        super.testMinute();
-
-        assertNull(getBaseMixedJavaTimeLib().minute((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testSecond() {
-        super.testSecond();
-
-        assertNull(getBaseMixedJavaTimeLib().second((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testTimeOffset() {
-        super.testTimeOffset();
-
-        assertNull(getBaseMixedJavaTimeLib().timeOffset((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testTimezone() {
-        super.testTimezone();
-
-        assertNull(getBaseMixedJavaTimeLib().timezone((ZonedDateTime) null));
+        assertNull(getBaseMixedJavaTimeLib().yearsAndMonthsDuration(null, (LocalDate) null));
+        assertNull(getBaseMixedJavaTimeLib().yearsAndMonthsDuration((LocalDate) null, null));
     }
 
     private BaseMixedJavaTimeFEELLib<NUMBER> getBaseMixedJavaTimeLib() {
-        return (BaseMixedJavaTimeFEELLib) getLib();
+        return (BaseMixedJavaTimeFEELLib<NUMBER>) getLib();
     }
 }

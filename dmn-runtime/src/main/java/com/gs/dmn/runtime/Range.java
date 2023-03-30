@@ -18,6 +18,10 @@ public class Range {
     private final boolean endIncluded;
     private final Object end;
 
+    public Range() {
+        this(false, null, false, null);
+    }
+
     public Range(boolean startIncluded, Object start, boolean endIncluded, Object end) {
         this.startIncluded = startIncluded;
         this.start = start;

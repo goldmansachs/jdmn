@@ -12,106 +12,201 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.time.mixed;
 
+import com.gs.dmn.feel.lib.type.time.mixed.MixedDateTimeLib;
+import com.gs.dmn.signavio.feel.lib.SignavioUtil;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioBaseDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.OffsetTime;
-import java.time.Period;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 
 public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements SignavioDateTimeLib<Number, LocalDate, OffsetTime, ZonedDateTime> {
+    private static final MixedDateTimeLib MIXED_DATE_TIME_LIB = new MixedDateTimeLib();
+
+    @Override
+    public LocalDate date(String literal) {
+        return MIXED_DATE_TIME_LIB.date(literal);
+    }
+
+    @Override
+    public OffsetTime time(String literal) {
+        return MIXED_DATE_TIME_LIB.time(literal);
+    }
+
+    @Override
+    public ZonedDateTime dateAndTime(String from) {
+        return MIXED_DATE_TIME_LIB.dateAndTime(from);
+    }
+
+    @Override
+    public Integer year(Object date) {
+        return MIXED_DATE_TIME_LIB.year(date);
+    }
+
+    @Override
+    public Integer month(Object date) {
+        return MIXED_DATE_TIME_LIB.month(date);
+    }
+
+    @Override
+    public Integer day(Object date) {
+        return MIXED_DATE_TIME_LIB.day(date);
+    }
+
+    @Override
+    public Integer hour(Object time) {
+        return MIXED_DATE_TIME_LIB.hour(time);
+    }
+
+    @Override
+    public Integer minute(Object time) {
+        return MIXED_DATE_TIME_LIB.minute(time);
+    }
+
+    @Override
+    public LocalDate toDate(Object from) {
+        return MIXED_DATE_TIME_LIB.toDate(from);
+    }
+
+    @Override
+    public OffsetTime toTime(Object from) {
+        return MIXED_DATE_TIME_LIB.toTime(from);
+    }
+
+    @Override
+    public ZonedDateTime toDateTime(Object from) {
+        return MIXED_DATE_TIME_LIB.toDateTime(from);
+    }
+
+    //
+    // Common methods
+    //
+
+    //
+    // Specific methods
+    //
     @Override
     public LocalDate yearAdd(LocalDate date, Number yearsToAdd) {
+        if (date == null || yearsToAdd == null) {
+            return null;
+        }
+
         return date.plusYears(yearsToAdd.longValue());
     }
     @Override
     public ZonedDateTime yearAddDateTime(ZonedDateTime dateTime, Number yearsToAdd) {
+        if (dateTime == null || yearsToAdd == null) {
+            return null;
+        }
+
         return dateTime.plusYears(yearsToAdd.longValue());
     }
 
     @Override
-    public Long yearDiff(LocalDate date1, LocalDate date2) {
-        Period period = periodBetween(date1, date2);
-        return (long) period.getYears();
-    }
-    @Override
-    public Long yearDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        Period period = periodBetween(dateTime1, dateTime2);
-        return (long) period.getYears();
+    public Long yearDiff(Object date1, Object date2) {
+        if (!SignavioUtil.areNullSafe(date1, date2)) {
+            return null;
+        }
+
+        return ChronoUnit.YEARS.between(toDate(date1), toDate(date2));
     }
 
     @Override
     public LocalDate monthAdd(LocalDate date, Number monthsToAdd) {
+        if (!SignavioUtil.areNullSafe(date, monthsToAdd)) {
+            return null;
+        }
+
         return date.plusMonths(monthsToAdd.longValue());
     }
     @Override
     public ZonedDateTime monthAddDateTime(ZonedDateTime dateTime, Number monthsToAdd) {
+        if (!SignavioUtil.areNullSafe(dateTime, monthsToAdd)) {
+            return null;
+        }
+
         return dateTime.plusMonths(monthsToAdd.longValue());
     }
 
     @Override
-    public Long monthDiff(LocalDate date1, LocalDate date2) {
-        Period period = periodBetween(date1, date2);
-        return period.toTotalMonths();
-    }
-    @Override
-    public Long monthDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        Period period = periodBetween(dateTime1, dateTime2);
-        return period.toTotalMonths();
+    public Long monthDiff(Object date1, Object date2) {
+        if (!SignavioUtil.areNullSafe(date1, date2)) {
+            return null;
+        }
+
+        return ChronoUnit.MONTHS.between(toDate(date1), toDate(date2));
     }
 
     @Override
     public LocalDate dayAdd(LocalDate date, Number daysToAdd) {
-        return date.plusDays(daysToAdd.intValue());
+        if (!SignavioUtil.areNullSafe(date, daysToAdd)) {
+            return null;
+        }
+
+        return date.plusDays(daysToAdd.longValue());
     }
     @Override
-    public LocalDate dayAddDateTime(ZonedDateTime dateTime, Number daysToAdd) {
-        return dateTime.plusDays(daysToAdd.intValue()).toLocalDate();
+    public ZonedDateTime dayAddDateTime(ZonedDateTime dateTime, Number daysToAdd) {
+        if (!SignavioUtil.areNullSafe(dateTime, daysToAdd)) {
+            return null;
+        }
+
+        return dateTime.plusDays(daysToAdd.longValue());
     }
 
     @Override
-    public Long dayDiff(LocalDate date1, LocalDate date2) {
-        long diff = durationBetween(date1, date2).getSeconds() / (60 * 60 * 24);
-        return diff;
-    }
-    @Override
-    public Long dayDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60 * 24);
-        return diff;
+    public Long dayDiff(Object date1, Object date2) {
+        if (!SignavioUtil.areNullSafe(date1, date2)) {
+            return null;
+        }
+
+        return ChronoUnit.DAYS.between(toDate(date1), toDate(date2));
     }
 
     @Override
-    public Long hourDiff(OffsetTime time1, OffsetTime time2) {
-        long diff = durationBetween(time1, time2).getSeconds() / (60 * 60);
-        return diff;
-    }
-    @Override
-    public Long hourDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        long diff = durationBetween(dateTime1, dateTime2).getSeconds() / (60 * 60);
-        return diff;
+    public Long hourDiff(Object time1, Object time2) {
+        if (!SignavioUtil.areNullSafe(time1, time2)) {
+            return null;
+        }
+
+        if (time1 instanceof ZonedDateTime && time2 instanceof OffsetTime) {
+            // between() is not symmetric, converts second to first
+            return - Duration.between((Temporal) time2, (Temporal) time1).toHours();
+        } else {
+            return Duration.between((Temporal) time1, (Temporal) time2).toHours();
+        }
     }
 
     @Override
-    public Long minutesDiff(OffsetTime time1, OffsetTime time2) {
-        long diff = durationBetween(time1, time2).getSeconds() / 60;
-        return diff;
-    }
-    @Override
-    public Long minutesDiffDateTime(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        long diff = durationBetween(dateTime1, dateTime2).getSeconds() / 60;
-        return diff;
+    public Long minutesDiff(Object time1, Object time2) {
+        if (!SignavioUtil.areNullSafe(time1, time2)) {
+            return null;
+        }
+
+        if (time1 instanceof ZonedDateTime && time2 instanceof OffsetTime) {
+            // between() is not symmetric, converts second to first
+            return - Duration.between((Temporal) time2, (Temporal) time1).toMinutes();
+        } else {
+            return Duration.between((Temporal) time1, (Temporal) time2).toMinutes();
+        }
     }
 
     @Override
-    public Integer weekday(LocalDate date) {
-        int weekDay = date.getDayOfWeek().getValue();
-        return weekDay;
-    }
-    @Override
-    public Integer weekdayDateTime(ZonedDateTime dateTime) {
-        int weekDay = dateTime.getDayOfWeek().getValue();
-        return weekDay;
+    public Integer weekday(Object date) {
+        if (!SignavioUtil.areNullSafe(date)) {
+            return null;
+        }
+
+        if (date instanceof LocalDate) {
+            return ((LocalDate) date).getDayOfWeek().getValue();
+        } else if (date instanceof ZonedDateTime) {
+            return ((ZonedDateTime) date).getDayOfWeek().getValue();
+        }
+        throw new RuntimeException(String.format("Cannot extract 'weekday' from '%s'", date));
     }
 
     @Override

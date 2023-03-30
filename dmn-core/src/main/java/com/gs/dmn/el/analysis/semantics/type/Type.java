@@ -58,8 +58,8 @@ public interface Type {
     }
 
     /*
-            A type type1 conforms to type type2 when an instance of type1 can be substituted at each place where an instance of type2 is expected
-        */
+        A type type1 conforms to type type2 when an instance of type1 can be substituted at each place where an instance of type2 is expected
+    */
     static boolean conformsTo(Type type1, Type type2) {
         if (type2 == null || type2 == ANY) {
             return true;

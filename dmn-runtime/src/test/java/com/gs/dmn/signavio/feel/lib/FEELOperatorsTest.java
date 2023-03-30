@@ -569,7 +569,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertEquals(Long.valueOf(63L), getLib().timeValue(makeTime("01:02:03+01:01")));
 
         // zoneid time
-        assertEquals(Long.valueOf(123L), getLib().timeValue(makeTime("01:02:03@Europe/Paris")));
+        // non-deterministic valuet() due to daylight saving time
+//        assertEquals(Long.valueOf(123L), getLib().timeValue(makeTime("01:02:03@Europe/Paris")));
         assertEquals(Long.valueOf(3723L), getLib().timeValue(makeTime("01:02:03@Etc/UTC")));
     }
 
@@ -624,7 +625,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         // same times with different zones are not equal
         assertFalse(getLib().timeEqual(makeTime("10:30:00@Europe/Paris"), makeTime("10:30:00@Asia/Dhaka")));
         // same times = one with offset, the other with zone are not equal
-        assertFalse(getLib().timeEqual(makeTime("10:30:00+02:00"), makeTime("10:30:00@Europe/Paris")));
+        // non-deterministic valuet due to daylight saving time
+//        assertFalse(getLib().timeEqual(makeTime("10:30:00+02:00"), makeTime("10:30:00@Europe/Paris")));
         // same times = one with Z zone, the other with UTC are equal
         assertTrue(getLib().timeEqual(makeTime("10:30:00Z"), makeTime("10:30:00+00:00")));
 
@@ -927,8 +929,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().isDaysAndTimeDuration(makeDuration("-P1DT2H3M4S")));
 
         // mixture
-        assertTrue(getLib().isDuration(makeDuration("P1Y2M1DT2H3M4S")));
-        assertTrue(getLib().isDuration(makeDuration("-P1Y2M1DT2H3M4S")));
+        assertFalse(getLib().isDuration(makeDuration("P1Y2M1DT2H3M4S")));
+        assertFalse(getLib().isDuration(makeDuration("-P1Y2M1DT2H3M4S")));
     }
 
     @Test
@@ -944,8 +946,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertEquals(Long.valueOf(- ((24 + 2) * 3600L + 3 * 60L + 4)), getLib().durationValue(makeDuration("-P1DT2H3M4S")));
 
         // mixture
-        assertEquals(Long.valueOf(36727384L), getLib().durationValue(makeDuration("P1Y2M1DT2H3M4S")));
-//         assertEquals(Long.valueOf(-36727384L), getLib().durationValue(makeDuration("-P1Y2M1DT2H3M4S")));
+        assertNull(getLib().durationValue(makeDuration("P1Y2M1DT2H3M4S")));
+        assertNull(getLib().durationValue(makeDuration("-P1Y2M1DT2H3M4S")));
     }
 
     @Test
@@ -1419,16 +1421,16 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         if (actual instanceof XMLGregorianCalendar) {
             assertEquals(expected, actual.toString());
         } else if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
+            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE);
             assertEquals(expected, actualText);
         } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
+            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME);
             assertEquals(expected, actualText);
         } else if (actual instanceof OffsetDateTime) {
-            String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
+            String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);
             assertEquals(expected, actualText);
         } else if (actual instanceof ZonedDateTime) {
-            String actualText = ((ZonedDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
+            String actualText = ((ZonedDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);
             assertEquals(expected, actualText);
         } else if (actual instanceof Duration) {
             assertEquals(expected, actual.toString());

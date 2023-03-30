@@ -19,7 +19,7 @@ public interface SignavioStringLib {
 
     String stringAdd(String first, String second);
 
-    String concat(List<String> texts);
+    String concat(List<?> texts);
 
     String mid(String text, Number start, Number numChar);
 
@@ -44,4 +44,12 @@ public interface SignavioStringLib {
     String trim(String text);
 
     String upper(String text);
+
+    Boolean contains(String text, String substring);
+
+    Boolean startsWith(String text, String prefix);
+
+    Boolean endsWith(String text, String suffix);
+
+    String string(Object from);
 }

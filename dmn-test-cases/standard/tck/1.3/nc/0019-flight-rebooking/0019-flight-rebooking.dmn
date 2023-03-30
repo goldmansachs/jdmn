@@ -132,10 +132,10 @@
 	
 	<businessKnowledgeModel id="b_PassengerPriority" name="passenger priority">
 		<variable name="passenger priority"/>
-		<encapsulatedLogic typeRef="boolean">
+		<encapsulatedLogic>
 			<formalParameter name="Passenger1" typeRef="tPassenger"/>
 		    <formalParameter name="Passenger2" typeRef="tPassenger"/>
-		    <decisionTable hitPolicy="UNIQUE">
+		    <decisionTable hitPolicy="UNIQUE" typeRef="boolean">
 				<input id="b_Passenger_Priority_dt_i_P1_Status" label="Passenger1.Status">
 					<inputExpression typeRef="string">
 						<text>Passenger1.Status</text>
@@ -241,11 +241,11 @@
 	
 	<businessKnowledgeModel id="b_ReassignNextPassenger" name="reassign next passenger">
 	    <variable name="reassign next passenger"/>
-	    <encapsulatedLogic typeRef="tPassengerTable">
+	    <encapsulatedLogic>
 			<formalParameter name="Waiting List" typeRef="tPassengerTable"/>
 			<formalParameter name="Reassigned Passengers List" typeRef="tPassengerTable"/>
 			<formalParameter name="Flights" typeRef="tFlightTable"/>
-			<context>
+			<context typeRef="tPassengerTable">
 				<contextEntry>
 					<variable name="Next Passenger" typeRef="tPassenger"/>
 					<literalExpression>
@@ -321,11 +321,11 @@
 	</businessKnowledgeModel>
     
     <businessKnowledgeModel id="b_HasCapacity" name="has capacity">
-        <variable name="has capacity" typeRef="boolean"/>
+        <variable name="has capacity"/>
         <encapsulatedLogic>
             <formalParameter name="flight" typeRef="tFlight"/>
             <formalParameter name="rebooked list" typeRef="tPassengerTable"/>
-            <literalExpression>
+            <literalExpression typeRef="boolean">
                 <text> flight.Capacity > count( rebooked list[ Flight Number = flight.Flight Number ] ) </text>
             </literalExpression>
         </encapsulatedLogic>

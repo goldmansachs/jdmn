@@ -42,7 +42,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the number of elements of the given list.
     //    Example: Count(["item1", "item2", "item3"]) returns 3.
     @Override
-    NUMBER count(List list);
+    NUMBER count(List<?> list);
 
     //    Round(number,digits):NUMERIC
     //    Returns a number rounded to the corresponding number of digits.
@@ -70,7 +70,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     NUMBER modulo(NUMBER dividend, NUMBER divisor);
 
     //    Percent(number):NUMERIC
-    //    Returns the number divided by .
+    //    Returns the number divided by 100.
     //    Example: Percent(10) returns 0.1.
     NUMBER percent(NUMBER number);
 
@@ -82,7 +82,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Product([factor1, factor2, factor3]):NUMERIC
     //    Returns the proudct of a list of factors.
     //    Example: Product([2, 3, 4]) returns 24.
-    NUMBER product(List factors);
+    NUMBER product(List<?> factors);
 
     //    RoundDown(number, digits):NUMERIC
     //    Returns a number rounded down to the corresponding number of digits.
@@ -98,17 +98,27 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the sum of a list of values.
     //    Example: Sum([1, 2, 3, 4, 5]) returns 15.
     @Override
-    NUMBER sum(List numbers);
+    NUMBER sum(List<?> numbers);
 
     //
     // Date and time operations
     //
+    @Override
+    DATE date(String literal);
+
+    @Override
+    TIME time(String literal);
+
+    @Override
+    DATE_TIME dateAndTime(String literal);
+
+    @Override
+    DURATION duration(String literal);
 
     //    Day(datetime):NUMERIC
     //    Returns the day part of a datetime.
     //    Example: Day(2015-12-24T12:15:00.000+01:00) returns 24.
-    @Override
-    NUMBER day(DATE date);
+    NUMBER day(Object date);
 
     //    DayAdd(datetime, days to add):DATE
     //    Returns the date plus the provided number of days.
@@ -120,7 +130,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the amount of days between two days.
     //    Example: DayDiff(2015-12-24T12:15:00.000+01:00, 2015-12-25T12:15:00.000+01:00)
     //    returns 1.
-    NUMBER dayDiff(DATE date1, DATE date2);
+    NUMBER dayDiff(Object date1, Object date2);
 
     //    Date(day, month, year):DATE
     //    Returns a date using the standard parameters of a date: day, month, year
@@ -138,32 +148,29 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Hour(datetime):NUMERIC
     //    Returns the hour part of a datetime.
     //    Example: Hour(2015-12-24T12:15:00.000+01:00) returns 12.
-    @Override
-    NUMBER hour(TIME time);
+    NUMBER hour(Object time);
 
     //    HourDiff(datetime1, datetime2):NUMERIC
     //    Return the number of hours between two datetimes.
     //    Example: HourDiff(2015-12-24T12:15:00.000+01:00, 2015-12-24T14:15:00.000+01:00)
     //    returns 2.
-    NUMBER hourDiff(TIME time1, TIME time2);
+    NUMBER hourDiff(Object time1, Object time2);
 
     //    Minute(time):NUMERIC
     //    Returns the minute part of a datetime.
     //    Example: Minute(2015-12-24T12:15:00.000+01:00) returns 15.
-    @Override
-    NUMBER minute(TIME time);
+    NUMBER minute(Object time);
 
     //    MinutesDiff(datetimes1, date2times):NUMERIC
     //    Return the number of minutes between two datetimes.
     //    Example: MinutesDiff(2015-12-24T12:15:00.000+01:00,
     //                         2015-12-24T13:15:00.000+01:00) returns 60.
-    NUMBER minutesDiff(TIME time1, TIME time2);
+    NUMBER minutesDiff(Object time1, Object time2);
 
     //    Month(datetime):NUMERIC
     //    Returns the month part of a datetime.
     //    Example: Month(2015-12-24T12:15:00.000+01:00) returns 12.
-    @Override
-    NUMBER month(DATE date);
+    NUMBER month(Object date);
 
     //    MonthAdd(datetime, months_to_add):DATE
     //    Returns the datetime plus the number of months.
@@ -175,7 +182,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Return the number of month between two datetimes.
     //    Example: MonthDiff(2015-10-10T12:15:00.000+01:00, 2015-11-10T12:15:00.000+01:00)
     //    returns 1.
-    NUMBER monthDiff(DATE date1, DATE date2);
+    NUMBER monthDiff(Object date1, Object date2);
 
     //    Now():DATE_TIME
     //    Returns current datetime.
@@ -188,15 +195,14 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     DATE today();
 
     //    Weekday(datetime):NUMERIC
-    //    Returns a number ( to ) representing the day of the week.
+    //    Returns a number (1 to 7) representing the day of the week.
     //    Example: weekday(2016-02-09T12:15:00.000+01:00) returns 3.
-    // NUMBER weekday(DATE_TIME dateTime);
+    NUMBER weekday(Object dateTime);
 
     //    Year(datetime):NUMERIC
     //    Returns the year part of a datetime.
     //    Example: Year(2016-02-09T12:15:00.000+01:00) returns 2016.
-    @Override
-    NUMBER year(DATE date);
+    NUMBER year(Object date);
 
     //    YearAdd(datetime, years_to_add):DATE
     //    Returns the datetime plus the number of years.
@@ -208,7 +214,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Returns the number of years between two datetimes.
     //    Example: YearDiff(2016-02-09T12:15:00.000+01:00, 2017-02-09T12:15:00.000+01:00)
     //    returns 1.
-    NUMBER yearDiff(DATE date1, DATE date2);
+    NUMBER yearDiff(Object date1, Object date2);
 
     //
     // List operations
@@ -217,43 +223,43 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Append(list, element): LIST
     //    Adds the element to a copy of the provided list. Returns the manipulated copy.
     //    Example: Append([2.5, 5.8, 4.3], 6.7) returns [2.5, 5.8, 4.3, 6.7].
-    List append(List list, Object element);
+    <T> List<T> append(List<T> list, T element);
 
     //    AppendAll(list1, list2): LIST
     //    Adds all elements from the second provided list to a copy of the 1rst one. Returns the
     //    manipulated copy.
     //    Example: AppendAll([2.5, 5.8, 4.3], [2.1, 3.5, 7.4]) returns [2.5, 5.8, 4.3,
     //            2.1, 3.5, 7.4].
-    List appendAll(List list1, List list2);
+    <T> List<T> appendAll(List<T> list1, List<T> list2);
 
     //    Zip(attributes, values): LIST
     //    Assembles a list of objects out of a list of attributes and a list values.
     //    Example: Zip(["id", "value"], [[23a3e98, c45da1b], [40, 120]]) returns [{id:
     //    23a3e98, value: 40},{ id: c45da1b, value: 120}].
-    List<?> zip(List attributes, List values);
+    List<?> zip(List<?> attributes, List<?> values);
 
     //    Remove(list, element): LIST
-    List remove(List list, Object element);
+    <T> List<T> remove(List<T> list, T element);
 
     //    RemoveAll(list1, list2): LIST
-    List removeAll(List list1, List list2);
+    <T> List<T> removeAll(List<T> list1, List<T> list2);
 
     //  NotContainsAny(list1, list2): BOOLEAN
     //  Determines whether list1 contains any element of list2.
     //  Example: NotContainsAny(["item1", "item2"], ["item2, item3"]) returns false.
-    Boolean notContainsAny(List list1, List list2);
+    Boolean notContainsAny(List<?> list1, List<?> list2);
 
     //  ContainsOnly(list1, list2): BOOLEAN
     //  Determines whether list1 contains only elements of list2.
     //  Example: ContainsOnly(["item1", "item2"], ["item2, item3"]) returns false.
-    Boolean containsOnly(List list1, List list2);
+    Boolean containsOnly(List<?> list1, List<?> list2);
 
     //  AreElementsOf(list1, list2): BOOLEAN
     //  Determines whether list2 contains all elements of list1.
     //  Example: AreElementsOf(["item2, item3"], ["item1", "item2" "item3"]) returns
     //  true.
-    Boolean areElementsOf(List list1, List list2);
-    Boolean elementOf(List list1, List list2);
+    Boolean areElementsOf(List<?> list1, List<?> list2);
+    Boolean elementOf(List<?> list1, List<?> list2);
 
     //
     // Statistical operations
@@ -262,31 +268,31 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Avg([number1, number2, number3]):NUMERIC
     //    Returns the average of the values of the given list.
     //    Example: Avg([3,5]) returns 4.
-    NUMBER avg(List list);
+    NUMBER avg(List<?> numbers);
 
     //    Max([number1, number2, number3]):NUMERIC
     //    Returns the maximum value of the given list.
     //    Example: Max([5, 4, 10]) returns 10.
     @Override
-    NUMBER max(List numbers);
+    <T> T max(List<T> numbers);
 
     //    Median([number1, number2, number3]):NUMERIC
     //    Returns the median value of the given list.
     //    Example: Median([2, 5, 10, 12, 34, 35]) returns 11.
-    NUMBER median(List numbers);
+    NUMBER median(List<?> numbers);
 
     //    Min([number1, number2, number3]):NUMERIC
     //    Returns the minimum value of the given list.
     //    Example: Min([5, 4, 10]) returns 2.
     @Override
-    NUMBER min(List numbers);
+    <T> T min(List<T> numbers);
 
     //    Mode([number1, number2, number3]):NUMERIC
     //    Returns the most frequently occurring value of the given list. Returns the 1rst (most left)
     //    most frequent value, if several values occur most frequently (e.g. two values appear each
     //            two times).
     //    Example: Mode([1, 2, 4, 4, 5, 6]) returns 4.
-    NUMBER mode(List numbers);
+    NUMBER mode(List<?> numbers);
 
     //
     // String functions
@@ -295,7 +301,7 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Concat([text1, text2, text3]):TEXT
     //    Returns the concatenation of the given list of text values.
     //    Example: Concat(["Hello ", "World", "!"]) returns "Hello World!".
-    String concat(List<String> texts);
+    String concat(List<?> texts);
 
     //    IsAlpha(text):BOOLEAN
     //    Determines whether the text contains only alphabetic characters (A-Z, a-z). Umlauts and
@@ -400,4 +406,19 @@ public interface SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends FE
     //    Negates the input boolean
     //    Example: endsWith("Hello World!", "!") returns true.
     Boolean not(Boolean bool);
+
+    //
+    // Conversion to String
+    //
+    @Override
+    String string(Object from);
+
+    //
+    // Boolean operations
+    //
+    @Override
+    Boolean and(List<?> list);
+
+    @Override
+    Boolean or(List<?> list);
 }

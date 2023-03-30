@@ -12,17 +12,15 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.*;
 
 import static com.gs.dmn.feel.lib.type.numeric.DefaultNumericType.MATH_CONTEXT;
 
-public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements NumericLib<BigDecimal> {
+public class DefaultNumericLib extends BaseNumericLib<BigDecimal> {
     @Override
     public BigDecimal number(String literal) {
         if (StringUtils.isBlank(literal)) {
@@ -153,12 +151,12 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
     // List functions
     //
     @Override
-    public BigDecimal count(List list) {
+    public BigDecimal count(List<?> list) {
         return list == null ? BigDecimal.valueOf(0) : BigDecimal.valueOf(list.size());
     }
 
     @Override
-    public BigDecimal min(List list) {
+    public BigDecimal min(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -174,7 +172,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
     }
 
     @Override
-    public BigDecimal max(List list) {
+    public BigDecimal max(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -190,7 +188,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
     }
 
     @Override
-    public BigDecimal sum(List list) {
+    public BigDecimal sum(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -204,7 +202,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
     }
 
     @Override
-    public BigDecimal mean(List list) {
+    public BigDecimal mean(List<?> list) {
         if (list == null) {
             return null;
         }
@@ -214,7 +212,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
     }
 
     @Override
-    public BigDecimal product(List list) {
+    public BigDecimal product(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -228,12 +226,12 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
     }
 
     @Override
-    public BigDecimal median(List list) {
+    public BigDecimal median(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
 
-        Collections.sort(list);
+        Collections.sort((List<BigDecimal>)list);
         BigDecimal median;
         int size = list.size();
         if (size % 2 == 0) {
@@ -247,7 +245,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
     }
 
     @Override
-    public BigDecimal stddev(List list) {
+    public BigDecimal stddev(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -267,7 +265,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> implements Num
     }
 
     @Override
-    public List mode(List list) {
+    public List mode(List<?> list) {
         if (list == null) {
             return null;
         }

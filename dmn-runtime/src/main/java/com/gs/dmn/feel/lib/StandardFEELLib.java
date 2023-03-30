@@ -34,28 +34,24 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     DATE date(NUMBER year, NUMBER month, NUMBER day);
 
-    @Override
-    DATE date(DATE from);
+    DATE date(Object from);
 
     @Override
     TIME time(String from);
 
-    @Override
     TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset);
 
-    @Override
-    TIME time(TIME time);
+    TIME time(Object time);
 
     @Override
     DATE_TIME dateAndTime(String from);
 
-    @Override
-    DATE_TIME dateAndTime(DATE date, TIME time);
+    DATE_TIME dateAndTime(Object date, Object time);
 
     @Override
     DURATION duration(String literal);
 
-    DURATION yearsAndMonthsDuration(DATE from, DATE to);
+    DURATION yearsAndMonthsDuration(Object from, Object to);
 
     //
     // Numeric functions
@@ -133,67 +129,52 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     // Date properties
     //
-    @Override
-    NUMBER year(DATE date);
+    NUMBER year(Object date);
 
-    @Override
-    NUMBER month(DATE date);
+    NUMBER month(Object date);
 
-    @Override
-    NUMBER day(DATE date);
+    NUMBER day(Object date);
 
-    @Override
-    NUMBER weekday(DATE date);
+    NUMBER weekday(Object date);
 
     //
     // Time properties
     //
-    @Override
-    NUMBER hour(TIME time);
+    NUMBER hour(Object time);
 
-    @Override
-    NUMBER minute(TIME time);
+    NUMBER minute(Object time);
 
-    @Override
-    NUMBER second(TIME time);
+    NUMBER second(Object time);
 
-    @Override
-    DURATION timeOffset(TIME time);
+    DURATION timeOffset(Object time);
 
-    @Override
-    String timezone(TIME time);
+    String timezone(Object time);
 
     //
     // Duration properties
     //
-    @Override
     NUMBER years(DURATION duration);
 
-    @Override
     NUMBER months(DURATION duration);
 
-    @Override
     NUMBER days(DURATION duration);
 
-    @Override
     NUMBER hours(DURATION duration);
 
-    @Override
     NUMBER minutes(DURATION duration);
 
-    @Override
     NUMBER seconds(DURATION duration);
 
     //
     // Temporal functions
     //
-    NUMBER dayOfYear(DATE date);
+    NUMBER dayOfYear(Object date);
 
-    String dayOfWeek(DATE date);
+    String dayOfWeek(Object date);
 
-    NUMBER weekOfYear(DATE date);
+    NUMBER weekOfYear(Object date);
 
-    String monthOfYear(DATE date);
+    String monthOfYear(Object date);
 
     //
     // Date and time functions
@@ -203,27 +184,24 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     // List functions
     //
-    @Override
-    Boolean listContains(List list, Object element);
-
-    List append(List list, Object... items);
+    List append(List<?> list, Object... items);
 
     @Override
-    NUMBER count(List list);
+    NUMBER count(List<?> list);
 
     @Override
-    NUMBER min(List list);
-    NUMBER min(Object... numbers);
+    <T> T min(List<T> list);
+    <T> T min(Object... args);
 
     @Override
-    NUMBER max(List list);
-    NUMBER max(Object... numbers);
+    <T> T max(List<T> list);
+    <T> T max(Object... args);
 
     @Override
-    NUMBER sum(List list);
+    NUMBER sum(List<?> list);
     NUMBER sum(Object... numbers);
 
-    NUMBER mean(List list);
+    NUMBER mean(List<?> list);
     NUMBER mean(Object... numbers);
 
     // Use all instead
@@ -266,21 +244,21 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     <T> List<T> distinctValues(List<T> list1);
 
-    List flatten(List list1);
+    List flatten(List<?> list1);
 
-    NUMBER product(List list);
+    NUMBER product(List<?> list);
     NUMBER product(Object... numbers);
 
-    NUMBER median(List list);
+    NUMBER median(List<?> list);
     NUMBER median(Object... numbers);
 
-    NUMBER stddev(List list);
+    NUMBER stddev(List<?> list);
     NUMBER stddev(Object... numbers);
 
-    List mode(List list);
+    List mode(List<?> list);
     List mode(Object... numbers);
 
-    void collect(List result, List list);
+    void collect(List<?> result, List<?> list);
 
     //
     // Temporal built-in functions

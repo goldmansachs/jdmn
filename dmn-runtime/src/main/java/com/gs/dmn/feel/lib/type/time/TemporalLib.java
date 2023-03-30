@@ -16,18 +16,14 @@ public interface TemporalLib<DATE, DATE_TIME> {
     //
     // Conform to Gregorian calendar
     //
-    Integer dayOfYear(DATE date);
-    Integer dayOfYearDateTime(DATE_TIME dateTime);
+    Integer dayOfYear(Object date);
 
-    String dayOfWeek(DATE date);
-    String dayOfWeekDateTime(DATE_TIME dateTime);
+    String dayOfWeek(Object date);
 
-    String monthOfYear(DATE date);
-    String monthOfYearDateTime(DATE_TIME dateTime);
+    String monthOfYear(Object date);
 
     //
     // Conforms to ISO 8601
     //
-    Integer weekOfYear(DATE date);
-    Integer weekOfYearDateTime(DATE_TIME dateTime);
+    Integer weekOfYear(Object date);
 }

@@ -24,17 +24,17 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public abstract class AbstractTestCasesToPythonJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+public abstract class AbstractTestCasesToPythonJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected FileTransformer makeTransformer(Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
-        return new TCKTestCasesToPythonJUnitTransformer<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount>(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
+        return new TCKTestCasesToPythonJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
     }
 
     @Override
-    protected DMNDialectDefinition<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount, TestCases> makeDialectDefinition() {
+    protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialectDefinition() {
         return new PythonStandardDMNDialectDefinition();
     }
 

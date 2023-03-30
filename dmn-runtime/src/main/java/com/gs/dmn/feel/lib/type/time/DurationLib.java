@@ -15,7 +15,7 @@ package com.gs.dmn.feel.lib.type.time;
 public interface DurationLib<DATE, DURATION> {
     DURATION duration(String from);
 
-    DURATION yearsAndMonthsDuration(DATE from, DATE to);
+    DURATION yearsAndMonthsDuration(Object from, Object to);
 
     Long years(DURATION duration);
 

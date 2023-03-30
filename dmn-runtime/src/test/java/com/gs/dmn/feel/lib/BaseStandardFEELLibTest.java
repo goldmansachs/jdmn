@@ -48,30 +48,11 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEqualsNumber(makeNumber("1000000.01"), getLib().number("1.000.000,01", ".", ","));
     }
 
-    @Override
-    @Test
-    public void testDuration() {
-        assertEqualsDateTime("P1Y8M", getLib().duration("P1Y8M"));
-        assertEqualsDateTime("P2DT20H", getLib().duration("P2DT20H"));
-        assertEqualsDateTime("-PT2H", getLib().duration("-PT2H"));
-
-        assertEqualsDateTime("P1Y8M", getLib().duration("P1Y8M"));
-        assertEqualsDateTime("P2DT20H", getLib().duration("P2DT20H"));
-
-        assertEqualsDateTime("P999999999M", getLib().duration("P999999999M"));
-        assertEqualsDateTime("-P999999999M", getLib().duration("-P999999999M"));
-        assertEqualsDateTime("P1Y0M2DT6H58M59.000S", getLib().duration("P1Y0M2DT6H58M59.000S"));
-        // Overflow in duration(from)
-        assertEqualsDateTime("P11999999988M", getLib().duration("P11999999988M"));
-        assertEqualsDateTime("P2129706043D", getLib().duration("P2129706043D"));
-        assertEqualsDateTime("PT0S", getLib().duration("PT0.S"));
-    }
-
     @Test
     public void testYearsAndMonthsDuration() {
         assertNull(getLib().yearsAndMonthsDuration(null, null));
 
-        assertEqualsDateTime("P0Y0M", getLib().yearsAndMonthsDuration(makeDate("2015-12-24"), makeDate("2015-12-24")));
+        assertEqualsDateTime("P0M", getLib().yearsAndMonthsDuration(makeDate("2015-12-24"), makeDate("2015-12-24")));
         assertEqualsDateTime("P1Y0M", getLib().yearsAndMonthsDuration(makeDate("2015-12-24"), makeDate("2016-12-24")));
         assertEqualsDateTime("P1Y2M", getLib().yearsAndMonthsDuration(makeDate("2016-09-30"), makeDate("2017-12-28")));
         assertEqualsDateTime("P7Y6M", getLib().yearsAndMonthsDuration(makeDate("2010-05-30"), makeDate("2017-12-15")));
@@ -772,6 +753,14 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEqualsNumber(makeNumber("4"), getLib().hours(makeDuration("P3DT4H5M6.700S")));
         assertEqualsNumber(makeNumber("5"), getLib().minutes(makeDuration("P3DT4H5M6.700S")));
         assertEqualsNumber(makeNumber("6"), getLib().seconds(makeDuration("P3DT4H5M6.700S")));
+
+        assertEqualsNumber(makeNumber("-1"), getLib().years(makeDuration("-P1Y2M")));
+        assertEqualsNumber(makeNumber("-2"), getLib().months(makeDuration("-P1Y2M")));
+
+        assertEqualsNumber(makeNumber("-3"), getLib().days(makeDuration("-P3DT4H5M6.700S")));
+        assertEqualsNumber(makeNumber("-4"), getLib().hours(makeDuration("-P3DT4H5M6.700S")));
+        assertEqualsNumber(makeNumber("-5"), getLib().minutes(makeDuration("-P3DT4H5M6.700S")));
+        assertEqualsNumber(makeNumber("-6"), getLib().seconds(makeDuration("-PT1M6.700S")));
     }
 
     //

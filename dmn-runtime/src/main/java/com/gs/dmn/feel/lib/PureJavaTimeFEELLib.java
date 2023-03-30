@@ -41,16 +41,16 @@ import com.gs.dmn.feel.lib.type.time.pure.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> implements StandardFEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultStringType();
     private static final DateType<LocalDate, TemporalAmount> DATE_TYPE = new LocalDateType();
-    private static final TimeType<Temporal, TemporalAmount> TIME_TYPE = new TemporalTimeType();
-    private static final DateTimeType<Temporal, TemporalAmount> DATE_TIME_TYPE = new TemporalDateTimeType();
+    private static final TimeType<TemporalAccessor, TemporalAmount> TIME_TYPE = new TemporalTimeType();
+    private static final DateTimeType<TemporalAccessor, TemporalAmount> DATE_TIME_TYPE = new TemporalDateTimeType();
     private static final DurationType<TemporalAmount, BigDecimal> DURATION_TYPE = new TemporalAmountDurationType();
     private static final ListType LIST_TYPE = new DefaultListType();
     private static final ContextType CONTEXT_TYPE = new DefaultContextType();
@@ -94,14 +94,14 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
             BooleanType booleanType,
             StringType stringType,
             DateType<LocalDate, TemporalAmount> dateType,
-            TimeType<Temporal, TemporalAmount> timeType,
-            DateTimeType<Temporal, TemporalAmount> dateTimeType,
+            TimeType<TemporalAccessor, TemporalAmount> timeType,
+            DateTimeType<TemporalAccessor, TemporalAmount> dateTimeType,
             DurationType<TemporalAmount, BigDecimal> durationType,
             ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
             NumericLib<BigDecimal> numericLib,
             StringLib stringLib,
             BooleanLib booleanLib,
-            DateTimeLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> dateTimeLib,
+            DateTimeLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> dateTimeLib,
             DurationLib<LocalDate, TemporalAmount> durationLib,
             ListLib listLib,
             RangeLib rangeLib) {
@@ -115,97 +115,11 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     //
     // Conversion functions
     //
-    public TemporalAmount yearsAndMonthsDuration(Temporal from, Temporal to) {
+    public TemporalAmount yearsAndMonthsDuration(TemporalAccessor from, TemporalAccessor to) {
         try {
             return this.durationLib.yearsAndMonthsDuration(toDate(from), toDate(to));
         } catch (Exception e) {
             String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    //
-    // Date properties
-    //
-    public BigDecimal year(Temporal dateTime) {
-        try {
-            return valueOf(this.dateTimeLib.yearDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("year(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal month(Temporal dateTime) {
-        try {
-            return valueOf(this.dateTimeLib.monthDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("month(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal day(Temporal dateTime) {
-        try {
-            return valueOf(this.dateTimeLib.dayDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("day(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal weekday(Temporal dateTime) {
-        try {
-            return valueOf(this.dateTimeLib.weekdayDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("weekday(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    //
-    // Temporal functions
-    //
-    public BigDecimal dayOfYear(Temporal dateTime) {
-        try {
-            return valueOf(this.dateTimeLib.dayOfYearDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("dayOfYear(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public String dayOfWeek(Temporal dateTime) {
-        try {
-            return this.dateTimeLib.dayOfWeekDateTime(dateTime);
-        } catch (Exception e) {
-            String message = String.format("dayOfWeek(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal weekOfYear(Temporal dateTime) {
-        try {
-            return valueOf(this.dateTimeLib.weekOfYearDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("weekday(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public String monthOfYear(Temporal dateTime) {
-        try {
-            return this.dateTimeLib.monthOfYearDateTime(dateTime);
-        } catch (Exception e) {
-            String message = String.format("weekday(%s)", dateTime);
             logError(message, e);
             return null;
         }

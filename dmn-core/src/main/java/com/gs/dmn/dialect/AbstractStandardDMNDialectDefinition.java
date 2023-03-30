@@ -15,6 +15,8 @@ package com.gs.dmn.dialect;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
+import com.gs.dmn.feel.interpreter.AbstractFEELInterpreter;
+import com.gs.dmn.feel.interpreter.StandardFEELInterpreter;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
@@ -31,6 +33,14 @@ import static com.gs.dmn.serialization.SerializationFormat.JSON;
 import static com.gs.dmn.serialization.SerializationFormat.XML;
 
 public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
+    //
+    // Interpreter
+    //
+    @Override
+    protected AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> createFEELInterpreter(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
+        return new StandardFEELInterpreter<>(dmnInterpreter);
+    }
+
     //
     // Serialization
     //

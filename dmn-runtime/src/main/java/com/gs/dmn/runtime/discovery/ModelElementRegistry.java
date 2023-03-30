@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.discovery;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +34,7 @@ public class ModelElementRegistry {
         if (value == null) {
             map.put(qName, className);
         } else if (!value.equals(className)) {
-            throw new IllegalArgumentException(String.format("Name '%s' is not unique", qName));
+            throw new DMNRuntimeException(String.format("Name '%s' is not unique", qName));
         } else {
             LOGGER.warn("Name {} and value {} were already registered", qName, className);
         }

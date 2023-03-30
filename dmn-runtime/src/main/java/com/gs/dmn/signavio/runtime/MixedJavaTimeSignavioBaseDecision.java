@@ -19,13 +19,15 @@ import com.gs.dmn.runtime.annotation.Rule;
 import com.gs.dmn.signavio.feel.lib.MixedJavaTimeSignavioLib;
 
 import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 public class MixedJavaTimeSignavioBaseDecision extends MixedJavaTimeSignavioLib
-        implements SignavioDecision<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration>,
+        implements SignavioDecision<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration>,
         AnnotationTarget
 {
     @Override

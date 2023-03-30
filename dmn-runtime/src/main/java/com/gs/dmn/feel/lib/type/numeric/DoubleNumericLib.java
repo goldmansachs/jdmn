@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericLib<Double> {
+public class DoubleNumericLib extends BaseNumericLib<Double> {
     @Override
     public Double number(String literal) {
         if (StringUtils.isBlank(literal)) {
@@ -80,7 +80,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
             return null;
         }
 
-        return Double.valueOf(dividend.intValue() % divisor.intValue());
+        return (double) (dividend.intValue() % divisor.intValue());
     }
 
     @Override
@@ -100,7 +100,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
 
         double result = Math.sqrt(number);
         if (Double.isNaN(result)) {
-            throw new IllegalArgumentException("Illegal number" + number);
+            throw new DMNRuntimeException(String.format("Illegal number '%s'", number));
         } else {
             return result;
         }
@@ -114,7 +114,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
 
         double result = Math.log(number);
         if (Double.isNaN(result)) {
-            throw new IllegalArgumentException("Illegal number" + number);
+            throw new DMNRuntimeException(String.format("Illegal number '%s'", number));
         } else {
             return result;
         }
@@ -128,7 +128,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
 
         double result = Math.exp(number);
         if (Double.isNaN(result)) {
-            throw new IllegalArgumentException("Illegal number" + number);
+            throw new DMNRuntimeException(String.format("Illegal number '%s'", number));
         } else {
             return result;
         }
@@ -164,12 +164,12 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     // List functions
     //
     @Override
-    public Double count(List list) {
+    public Double count(List<?> list) {
         return list == null ? Double.valueOf(0) : Double.valueOf(list.size());
     }
 
     @Override
-    public Double min(List list) {
+    public Double min(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -185,7 +185,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double max(List list) {
+    public Double max(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -201,12 +201,12 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double sum(List list) {
+    public Double sum(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
 
-        Double result = Double.valueOf(0);
+        double result = 0;
         for (Object e : list) {
             Double number = (Double) e;
             result = result + number;
@@ -215,22 +215,22 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double mean(List list) {
+    public Double mean(List<?> list) {
         if (list == null) {
             return null;
         }
 
         Double sum = sum(list);
-        return DoubleNumericType.doubleNumericDivide(sum, Double.valueOf(list.size()));
+        return DoubleNumericType.doubleNumericDivide(sum, (double) list.size());
     }
 
     @Override
-    public Double product(List list) {
+    public Double product(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
 
-        Double result = 1.0;
+        double result = 1.0;
         for (Object e : list) {
             Double number = (Double) e;
             result = result * number;
@@ -239,12 +239,12 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double median(List list) {
+    public Double median(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
 
-        Collections.sort(list);
+        Collections.sort((List<Double>)list);
         Double median;
         int size = list.size();
         if (size % 2 == 0) {
@@ -258,27 +258,26 @@ public class DoubleNumericLib extends BaseNumericLib<Double> implements NumericL
     }
 
     @Override
-    public Double stddev(List list) {
+    public Double stddev(List<?> list) {
         if (list == null || list.isEmpty()) {
             return null;
         }
 
         Double mean = mean(list);
         int length = list.size();
-        Double variance = 0.0;
+        double variance = 0.0;
         for(Object e: list) {
             Double number = (Double) e;
             Double dm = number - mean;
-            Double dv = dm * dm;
+            double dv = dm * dm;
             variance = variance + dv;
         }
         variance = variance / (length - 1);
-        Double stddev = sqrt(variance);
-        return stddev;
+        return sqrt(variance);
     }
 
     @Override
-    public List mode(List list) {
+    public List mode(List<?> list) {
         if (list == null) {
             return null;
         }

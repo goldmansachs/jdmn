@@ -17,6 +17,10 @@ import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
 import java.time.LocalDate;
 
 public class SignavioLocalDateComparator extends LocalDateComparator {
+    public static SignavioLocalDateComparator COMPARATOR = new SignavioLocalDateComparator();
+    protected SignavioLocalDateComparator() {
+    }
+
     @Override
     public Boolean lessEqualThan(LocalDate first, LocalDate second) {
         if (first == null && second == null) {

@@ -637,11 +637,9 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
-    public DURATION dateSubtract(DATE first, DATE second) {
+    public DURATION dateSubtract(DATE first, Object second) {
         try {
-            DATE_TIME dateTime1 = toDateTime(first);
-            DATE_TIME dateTime2 = toDateTime(second);
-            return dateTimeType.dateTimeSubtract(dateTime1, dateTime2);
+            return dateType.dateSubtract(first, second);
         } catch (Exception e) {
             String message = String.format("dateSubtract(%s, %s)", first, second);
             logError(message, e);
@@ -909,7 +907,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
-    public DURATION dateTimeSubtract(DATE_TIME first, DATE_TIME second) {
+    public DURATION dateTimeSubtract(DATE_TIME first, Object second) {
         try {
             if (isDate(first)) {
                 first = toDateTime(first);
@@ -950,17 +948,6 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     //
     // Duration operators
     //
-    @Override
-    public boolean isDuration(Object value) {
-        try {
-            return this.durationType.isDuration(value);
-        } catch (Exception e) {
-            String message = String.format("isDuration(%s)", value);
-            logError(message, e);
-            return false;
-        }
-    }
-
     @Override
     public boolean isYearsAndMonthsDuration(Object value) {
         try {
@@ -1468,7 +1455,31 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
-    public List flattenFirstLevel(List list) {
+    public <T> T elementAt(List<?> list, NUMBER index) {
+        return elementAt(list, intValue(index));
+    }
+
+    private <T> T elementAt(List<?> list, int index) {
+        if (list == null) {
+            return null;
+        }
+        int listSize = list.size();
+        if (1 <= index && index <= listSize) {
+            return (T) list.get(index - 1);
+        } else if (-listSize <= index && index <= -1) {
+            return (T) list.get(listSize + index);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean listContains(List<?> list, Object element) {
+        return list == null ? null : list.contains(element);
+    }
+
+    @Override
+    public List flattenFirstLevel(List<?> list) {
         if (list == null) {
             return null;
         }
@@ -1481,25 +1492,6 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             }
         }
         return result;
-    }
-
-    @Override
-    public Object elementAt(List list, NUMBER index) {
-        return elementAt(list, intValue(index));
-    }
-
-    private Object elementAt(List list, int index) {
-        if (list == null) {
-            return null;
-        }
-        int listSize = list.size();
-        if (1 <= index && index <= listSize) {
-            return list.get(index - 1);
-        } else if (-listSize <= index && index <= -1) {
-            return list.get(listSize + index);
-        } else {
-            return null;
-        }
     }
 
     public boolean ruleMatches(EventListener eventListener, Rule rule, Object... operands) {

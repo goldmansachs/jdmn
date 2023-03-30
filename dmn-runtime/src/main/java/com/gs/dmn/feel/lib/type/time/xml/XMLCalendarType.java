@@ -55,12 +55,16 @@ public abstract class XMLCalendarType extends BaseType {
         }
     }
 
-    public static boolean isYearMonthDuration(Duration duration) {
-        return getXMLSchemaType(duration) == DatatypeConstants.DURATION_YEARMONTH;
+    public static boolean isXMLDuration(Object duration) {
+        return isYearMonthDuration(duration) || isDayTimeDuration(duration);
     }
 
-    public static boolean isDayTimeDuration(Duration duration) {
-        return getXMLSchemaType(duration) == DatatypeConstants.DURATION_DAYTIME;
+    public static boolean isYearMonthDuration(Object duration) {
+        return duration instanceof Duration && getXMLSchemaType((Duration) duration) == DatatypeConstants.DURATION_YEARMONTH;
+    }
+
+    public static boolean isDayTimeDuration(Object duration) {
+        return duration instanceof Duration && getXMLSchemaType((Duration) duration) == DatatypeConstants.DURATION_DAYTIME;
     }
 
     public boolean isDate(Object value) {
@@ -78,10 +82,6 @@ public abstract class XMLCalendarType extends BaseType {
                 && ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATETIME;
     }
 
-    public boolean isDuration(Object value) {
-        return value instanceof Duration;
-    }
-
     public boolean isYearsAndMonthsDuration(Object value) {
         return value instanceof Duration
                 && isYearMonthDuration((Duration) value);
@@ -97,7 +97,7 @@ public abstract class XMLCalendarType extends BaseType {
             return null;
         }
 
-        XMLGregorianCalendar dateTime = dateToDateTime(date);
+        XMLGregorianCalendar dateTime = toDateTime(date);
         return dateTimeValue(dateTime);
     }
 
@@ -196,7 +196,7 @@ public abstract class XMLCalendarType extends BaseType {
         return toEpochSeconds(first) - toEpochSeconds(second);
     }
 
-    protected XMLGregorianCalendar dateToDateTime(XMLGregorianCalendar date) {
+    protected XMLGregorianCalendar toDateTime(XMLGregorianCalendar date) {
         if (date == null) {
             return null;
         }

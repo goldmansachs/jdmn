@@ -32,7 +32,7 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
     private final BooleanType booleanType;
 
     public DefaultDateType() {
-        this(new DefaultXMLCalendarComparator());
+        this(DefaultXMLCalendarComparator.COMPARATOR);
     }
 
     public DefaultDateType(DefaultXMLCalendarComparator comparator) {
@@ -83,19 +83,19 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
     }
 
     @Override
-    public Duration dateSubtract(XMLGregorianCalendar first, XMLGregorianCalendar second) {
+    public Duration dateSubtract(XMLGregorianCalendar first, Object secondObj) {
+        XMLGregorianCalendar second = (XMLGregorianCalendar) secondObj;
         if (first == null || second == null) {
             return null;
         }
         if (isDate(first)) {
-            first = dateToDateTime(first);
+            first = toDateTime(first);
         }
         if (isDate(second)) {
-            second = dateToDateTime(second);
+            second = toDateTime(second);
         }
-        if (
-                hasTimezone(first) && !hasTimezone(second)
-                || !hasTimezone(first) && hasTimezone(second)) {
+        // Subtraction is undefined for the case where only one of the values has a timezone
+        if (hasTimezone(first) && !hasTimezone(second) || !hasTimezone(first) && hasTimezone(second)) {
             return null;
         }
 
@@ -110,7 +110,6 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
         }
 
         if (isYearsAndMonthsDuration(duration)) {
-            // Calculate with Java 8 types
             LocalDate localDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
             Long totalMonths = monthsValue(duration);
             Period period = Period.ofMonths(totalMonths.intValue());

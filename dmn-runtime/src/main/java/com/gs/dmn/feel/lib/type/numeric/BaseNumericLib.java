@@ -49,24 +49,6 @@ public abstract class BaseNumericLib<NUMBER> implements NumericLib<NUMBER> {
     // List functions
     //
     @Override
-    public NUMBER min(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        return min(Arrays.asList(args));
-    }
-
-    @Override
-    public NUMBER max(Object... args) {
-        if (args == null || args.length < 1) {
-            return null;
-        }
-
-        return max(Arrays.asList(args));
-    }
-
-    @Override
     public NUMBER sum(Object... args) {
         if (args == null || args.length < 1) {
             return null;

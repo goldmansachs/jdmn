@@ -87,4 +87,14 @@ public class StringLibStub implements StringLib {
     public List<String> split(String string, String delimiter) {
         throw new DMNRuntimeException("Not supported yet");
     }
+
+    @Override
+    public String min(List<?> list) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public String max(List<?> list) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
 }

@@ -22,7 +22,7 @@ public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<Of
     private final OffsetTimeComparator comparator;
 
     public OffsetTimeType() {
-        this(new OffsetTimeComparator());
+        this(OffsetTimeComparator.COMPARATOR);
     }
 
     public OffsetTimeType(OffsetTimeComparator comparator) {
@@ -32,11 +32,6 @@ public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<Of
     //
     // Time operators
     //
-    @Override
-    public boolean isTime(Object value) {
-        return value instanceof OffsetTime;
-    }
-
     @Override
     public Boolean timeIs(OffsetTime first, OffsetTime second) {
         if (first == null || second == null) {

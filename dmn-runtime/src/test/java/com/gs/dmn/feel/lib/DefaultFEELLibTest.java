@@ -27,6 +27,44 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
     }
 
     //
+    // Date operators
+    //
+    @Test
+    public void testDateSubtract() {
+        super.testDateSubtract();
+
+        // Subtraction is undefined for the case where only one of the values has a timezone.
+        assertNull(getLib().dateSubtract(makeDate("2021-01-02"), makeDateAndTime("2021-01-01T00:00:00")));
+    }
+
+    @Test
+    public void testDateAddDuration() {
+        super.testDateAddDuration();
+
+        assertEqualsDateTime("2016-08-02", getLib().dateAddDuration(makeDate("2016-08-01"), makeDuration("P1D")));
+        assertEqualsDateTime("2016-09-01", getLib().dateAddDuration(makeDate("2016-08-31"), makeDuration("P1D")));
+
+        assertEqualsDateTime("2021-01-02", getLib().dateAddDuration(makeDate("2021-01-01"), makeDuration("PT36H")));
+        assertEqualsDateTime("2021-01-01", getLib().dateAddDuration(makeDate("2021-01-01"), makeDuration("PT1H")));
+        assertEqualsDateTime("2021-01-01", getLib().dateAddDuration(makeDate("2021-01-01"), makeDuration("PT1M")));
+        assertEqualsDateTime("2021-01-01", getLib().dateAddDuration(makeDate("2021-01-01"), makeDuration("PT1S")));
+    }
+
+    @Test
+    public void testDateSubtractDuration() {
+        super.testDateSubtractDuration();
+
+        assertEqualsDateTime("2016-08-01", getLib().dateSubtractDuration(makeDate("2016-08-02"), makeDuration("P1D")));
+        assertEqualsDateTime("2016-07-31", getLib().dateSubtractDuration(makeDate("2016-08-01"), makeDuration("P1D")));
+
+        assertEqualsDateTime("2020-12-30", getLib().dateSubtractDuration(makeDate("2021-01-01"), makeDuration("PT36H")));
+        assertEqualsDateTime("2021-01-01", getLib().dateSubtractDuration(makeDate("2021-01-02"), makeDuration("PT1H")));
+        assertEqualsDateTime("2021-01-01", getLib().dateSubtractDuration(makeDate("2021-01-02"), makeDuration("PT1M")));
+        assertEqualsDateTime("2021-01-01", getLib().dateSubtractDuration(makeDate("2021-01-02"), makeDuration("PT1S")));
+        assertEqualsDateTime("2020-12-31", getLib().dateSubtractDuration(makeDate("2021-01-02"), makeDuration("PT25H")));
+    }
+
+    //
     // Time operators
     //
     @Override
@@ -40,6 +78,23 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
         assertFalse(getLib().timeIs(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
         assertTrue(getLib().timeIs(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));
         assertFalse(getLib().timeIs(makeTime("00:00:00Z"), makeTime("00:00:00@Etc/UTC")));
+        assertFalse(getLib().timeIs(makeTime("00:00:00Etc/UTC"), makeTime("00:00:00@Europe/Paris")));
+    }
+
+    @Test
+    public void testTimeSubtract() {
+        super.testTimeSubtract();
+
+        assertEqualsDateTime("-PT1H", getLib().timeSubtract(makeTime("10:10:10@Australia/Melbourne"), makeTime("11:10:10@Australia/Melbourne")));
+        assertEqualsDateTime("PT1H", getLib().timeSubtract(makeTime("10:10:10@Australia/Melbourne"), makeTime("09:10:10@Australia/Melbourne")));
+    }
+
+    @Test
+    public void testTimeAddDuration() {
+        super.testTimeAddDuration();
+
+        assertEqualsDateTime("10:15:00@Australia/Melbourne", getLib().timeAddDuration(makeTime("10:15:00@Australia/Melbourne"), makeDuration("P1D")));
+        assertEqualsDateTime("11:15:00@Australia/Melbourne", getLib().timeAddDuration(makeTime("10:15:00@Australia/Melbourne"), makeDuration("PT1H")));
     }
 
     //
@@ -55,6 +110,21 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
         assertFalse(getLib().dateTimeIs(makeDateAndTime("2018-12-08T00:00:00+00:00"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
         assertTrue(getLib().dateTimeIs(makeDateAndTime("2018-12-08T12:00:00Z"), makeDateAndTime("2018-12-08T12:00:00+00:00")));
         assertFalse(getLib().dateTimeIs(makeDateAndTime("2018-12-08T00:00:00Z"), makeDateAndTime("2018-12-08T00:00:00@Etc/UTC")));
+    }
+
+    @Test
+    public void testDateTimeSubtract() {
+        super.testDateTimeSubtract();
+
+        // Subtraction is undefined for the case where only one of the values has a timezone.
+        assertNull(getLib().dateTimeSubtract(makeDateAndTime("2021-01-02T10:10:10@Europe/Paris"), makeDateAndTime("2021-01-01T10:10:10")));
+        assertNull(getLib().dateTimeSubtract(makeDateAndTime("2021-01-01T10:10:10"), makeDateAndTime("2021-01-02T10:10:10@Europe/Paris")));
+        assertNull(getLib().dateTimeSubtract(makeDateAndTime("2021-01-02T10:10:10+02:00"), makeDateAndTime("2021-01-01T10:10:10")));
+        assertNull(getLib().dateTimeSubtract(makeDateAndTime("2021-01-01T10:10:10"), makeDateAndTime("2021-01-02T10:10:10+02:00")));
+        assertNull(getLib().dateTimeSubtract(makeDateAndTime("2021-01-02T10:10:10+01:00"), makeDateAndTime("2021-01-01T10:10:10")));
+
+        // Subtraction is undefined for the case where only one of the values has a timezone.
+        assertNull(getLib().dateTimeSubtract(makeDateAndTime("2021-01-01T00:00:00"), makeDate("2021-01-02")));
     }
 
     //
@@ -119,29 +189,45 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
 
     @Override
     @Test
+    public void testDuration() {
+        super.testDuration();
+
+        assertEqualsDateTime("P1Y8M", getLib().duration("P1Y8M"));
+        assertEqualsDateTime("P999999999M", getLib().duration("P999999999M"));
+        assertEqualsDateTime("-P999999999M", getLib().duration("-P999999999M"));
+
+        assertEqualsDateTime("P2DT20H", getLib().duration("P2DT20H"));
+        assertEqualsDateTime("-PT2H", getLib().duration("-PT2H"));
+        assertEqualsDateTime("PT0S", getLib().duration("PT0.S"));
+
+        assertNull(getLib().duration("P1Y0M2DT6H58M59.000S"));
+
+        // Overflow in duration(from)
+        assertEquals("P11999999988M", getLib().duration("P11999999988M").toString());
+        assertEquals("P2129706043D", getLib().duration("P2129706043D").toString());
+    }
+
+    @Override
+    @Test
     public void testYearsAndMonthsDuration() {
         super.testYearsAndMonthsDuration();
 
-        assertEqualsDateTime("P0Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
+        assertEqualsDateTime("P0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2015-12-24T12:15:00.000+01:00"), makeDateAndTime("2015-12-24T12:15:00.000+01:00")));
         assertEqualsDateTime("P1Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2015-12-24T00:00:01-01:00"), makeDateAndTime("2016-12-24T23:59:00-08:00")));
         assertEqualsDateTime("P1Y2M", getLib().yearsAndMonthsDuration(makeDateAndTime("2016-09-30T23:25:00"), makeDateAndTime("2017-12-28T12:12:12")));
         assertEqualsDateTime("P7Y6M", getLib().yearsAndMonthsDuration(makeDateAndTime("2010-05-30T03:55:58"), makeDateAndTime("2017-12-15T00:59:59")));
         assertEqualsDateTime("-P4033Y2M", getLib().yearsAndMonthsDuration(makeDateAndTime("2014-12-31T23:59:59"), makeDateAndTime("-2019-10-01T12:32:59")));
         assertEqualsDateTime("-P4035Y11M", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00-01:00"), makeDateAndTime("-2019-10-01T12:32:59+02:00")));
 
-//        assertEqualsDateTime("-P11M", getLib().yearsAndMonthsDuration(makeDateAndTime("-2016-01-30T09:05:00"), makeDateAndTime("-2017-02-28T02:02:02")));
+        assertEqualsDateTime("-P11M", getLib().yearsAndMonthsDuration(makeDateAndTime("-2016-01-30T09:05:00"), makeDateAndTime("-2017-02-28T02:02:02")));
         assertEqualsDateTime("-P4033Y2M", getLib().yearsAndMonthsDuration(makeDateAndTime("2014-12-31T23:59:59"), makeDateAndTime("-2019-10-01T12:32:59")));
-        assertEqualsDateTime("-P4035Y11M", getLib().yearsAndMonthsDuration(
-                            makeDateAndTime("2017-09-05T10:20:00-01:00"), makeDateAndTime("-2019-10-01T12:32:59+02:00")));
-//        assertEqualsDateTime("P2Y", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00+05:00"), makeDateAndTime("2019-10-01T12:32:59")));
-//        assertEqualsDateTime("P1Y", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00@Etc/UTC"), makeDateAndTime("2018-10-01T23:59:59")));
-//        assertEqualsDateTime("P4Y", getLib().yearsAndMonthsDuration(
-//                makeDateAndTime("2011-08-25T15:59:59@Europe/Paris"), makeDateAndTime("2015-08-25T15:20:59+02:00")));
-        assertEqualsDateTime("P2Y9M", getLib().yearsAndMonthsDuration(
-                            makeDateAndTime("2015-12-31T23:59:59.9999999"), makeDateAndTime("2018-10-01T12:32:59.111111")));
-//        assertEqualsDateTime("P3Y", getLib().yearsAndMonthsDuration(
-//                makeDateAndTime("2016-09-05T22:20:55.123456+05:00"), makeDateAndTime("2019-10-01T12:32:59.32415645")));
-//        assertEqualsDateTime("P2Y", getLib().yearsAndMonthsDuration(makeDateAndTime("2014-12-31T23:59:59"), makeDateAndTime("2016-12-31T00:00:01")));
+        assertEqualsDateTime("-P4035Y11M", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00-01:00"), makeDateAndTime("-2019-10-01T12:32:59+02:00")));
+        assertEqualsDateTime("P2Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00+05:00"), makeDateAndTime("2019-10-01T12:32:59")));
+        assertEqualsDateTime("P1Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2017-09-05T10:20:00@Etc/UTC"), makeDateAndTime("2018-10-01T23:59:59")));
+        assertEqualsDateTime("P4Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2011-08-25T15:59:59@Europe/Paris"), makeDateAndTime("2015-08-25T15:20:59+02:00")));
+        assertEqualsDateTime("P2Y9M", getLib().yearsAndMonthsDuration(makeDateAndTime("2015-12-31T23:59:59.9999999"), makeDateAndTime("2018-10-01T12:32:59.111111")));
+        assertEqualsDateTime("P3Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2016-09-05T22:20:55.123456+05:00"), makeDateAndTime("2019-10-01T12:32:59.32415645")));
+        assertEqualsDateTime("P2Y0M", getLib().yearsAndMonthsDuration(makeDateAndTime("2014-12-31T23:59:59"), makeDateAndTime("2016-12-31T00:00:01")));
     }
 
     @Test
@@ -219,16 +305,17 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
 
         assertNull(getLib().timeOffset(null));
         assertNull(getLib().timeOffset(makeTime("12:01:02")));
-        assertEquals(getLib().duration("PT1H"), getLib().timeOffset(makeTime("12:01:02+01:00")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(makeTime("12:01:02Z")));
-        assertNull(getLib().timeOffset(makeTime("12:01:02Z@Etc/UTC")));
+        assertEqualsDateTime("PT1H", getLib().timeOffset(makeTime("12:01:02+01:00")));
+        assertEqualsDateTime("PT0S", getLib().timeOffset(makeTime("12:01:02Z")));
+        assertEqualsDateTime("PT0S", getLib().timeOffset(makeTime("12:01:02@Etc/UTC")));
+        assertEqualsDateTime("PT1H", getLib().timeOffset(makeTime("12:01:02@Europe/Paris")));
 
         assertNull(getLib().timezone(null));
         assertNull(getLib().timezone(makeTime("12:01:02")));
         assertEquals("+01:00", getLib().timezone(makeTime("12:01:02+01:00")));
         assertEquals("Z", getLib().timezone(makeTime("12:01:02Z")));
         assertEquals("Etc/UTC", getLib().timezone(makeTime("12:01:02@Etc/UTC")));
-        assertNull(getLib().timezone(makeTime("12:01:02Z@Etc/UTC")));
+        assertEquals("Europe/Paris", getLib().timezone(makeTime("12:01:02@Europe/Paris")));
     }
 
     //
@@ -260,15 +347,16 @@ public class DefaultFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, XMLG
 
         assertNull(getLib().timeOffset(null));
         assertNull(getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02")));
-        assertEquals(getLib().duration("PT1H"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02+01:00")));
-        assertEquals(getLib().duration("P0Y0M0DT0H0M0.000S"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02Z")));
-        assertNull(getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
+        assertEquals(makeDuration("PT1H"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02+01:00")));
+        assertEquals(makeDuration("PT0S"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02Z")));
+        assertEquals(makeDuration("PT0S"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02@Etc/UTC")));
+        assertEquals(makeDuration("PT1H"), getLib().timeOffset(makeDateAndTime("2018-12-10T12:01:02@Europe/Paris")));
 
         assertNull(getLib().timezone(null));
         assertNull(getLib().timezone(makeDateAndTime("2018-12-10T12:01:02")));
         assertEquals("+01:00", getLib().timezone(makeDateAndTime("2018-12-10T12:01:02+01:00")));
         assertEquals("Z", getLib().timezone(makeDateAndTime("2018-12-10T12:01:02Z")));
         assertEquals("Etc/UTC", getLib().timezone(makeDateAndTime("2018-12-10T12:01:02@Etc/UTC")));
-        assertNull(getLib().timezone(makeDateAndTime("2018-12-10T12:01:02Z@Etc/UTC")));
+        assertEquals("Europe/Paris", getLib().timezone(makeDateAndTime("2018-12-10T12:01:02@Europe/Paris")));
     }
 }

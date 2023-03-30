@@ -17,6 +17,11 @@ import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationComparator;
 import javax.xml.datatype.Duration;
 
 public class DefaultSignavioDurationComparator extends DefaultDurationComparator {
+    public static DefaultSignavioDurationComparator COMPARATOR = new DefaultSignavioDurationComparator();
+
+    protected DefaultSignavioDurationComparator() {
+    }
+
     @Override
     public Boolean lessEqualThan(Duration first, Duration second) {
         if (first == null && second == null) {

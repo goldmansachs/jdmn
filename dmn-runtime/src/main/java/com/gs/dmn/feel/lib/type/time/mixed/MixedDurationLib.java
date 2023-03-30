@@ -19,7 +19,6 @@ import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZonedDateTime;
 
 public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
     private final MixedDateTimeLib dateTimeLib;
@@ -30,48 +29,22 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
 
     @Override
     public javax.xml.datatype.Duration duration(String from) {
-        return XMLDurationFactory.INSTANCE.parse(from);
+        Duration duration = XMLDurationFactory.INSTANCE.parse(from);
+        if (XMLCalendarType.isYearMonthDuration(duration) || XMLCalendarType.isDayTimeDuration(duration)) {
+            return duration;
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public javax.xml.datatype.Duration yearsAndMonthsDuration(LocalDate from, LocalDate to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
-        Period period = Period.between(from, to);
-        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
-    }
-    public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, ZonedDateTime to) {
+    public javax.xml.datatype.Duration yearsAndMonthsDuration(Object from, Object to) {
         if (from == null || to == null) {
             return null;
         }
 
         Period period = Period.between(toDate(from), toDate(to));
         return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
-    }
-    public javax.xml.datatype.Duration yearsAndMonthsDuration(ZonedDateTime from, LocalDate to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
-        Period period = Period.between(toDate(from), to);
-        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
-    }
-    public Duration yearsAndMonthsDuration(LocalDate from, ZonedDateTime to) {
-        if (from == null || to == null) {
-            return null;
-        }
-
-        Period period = Period.between(from, toDate(to));
-        return XMLDurationFactory.INSTANCE.yearMonthFrom(period);
-    }
-
-    private LocalDate toDate(Object object) {
-        if (object instanceof ZonedDateTime) {
-            return this.dateTimeLib.date((ZonedDateTime) object);
-        }
-        return (LocalDate) object;
     }
 
     @Override
@@ -81,7 +54,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isYearMonthDuration(duration)) {
-            return (long) duration.getYears();
+            return duration.getSign() * (long) duration.getYears();
         } else {
             return null;
         }
@@ -94,7 +67,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isYearMonthDuration(duration)) {
-            return (long) duration.getMonths();
+            return duration.getSign() * (long) duration.getMonths();
         } else {
             return null;
         }
@@ -107,7 +80,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isDayTimeDuration(duration)) {
-            return (long) duration.getDays();
+            return duration.getSign() * (long) duration.getDays();
         } else {
             return null;
         }
@@ -120,7 +93,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isDayTimeDuration(duration)) {
-            return (long) duration.getHours();
+            return duration.getSign() * (long) duration.getHours();
         } else {
             return null;
         }
@@ -133,7 +106,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isDayTimeDuration(duration)) {
-            return (long) duration.getMinutes();
+            return duration.getSign() * (long) duration.getMinutes();
         } else {
             return null;
         }
@@ -146,7 +119,7 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         if (XMLCalendarType.isDayTimeDuration(duration)) {
-            return (long) duration.getSeconds();
+            return duration.getSign() * (long) duration.getSeconds();
         } else {
             return null;
         }
@@ -159,5 +132,9 @@ public class MixedDurationLib implements DurationLib<LocalDate, Duration> {
         }
 
         return duration.getSign() == -1 ? duration.negate() : duration;
+    }
+
+    private LocalDate toDate(Object object) {
+        return this.dateTimeLib.toDate(object);
     }
 }

@@ -160,16 +160,26 @@ public class NamedBuiltinFunctionsResolutionTest extends AbstractStandardBuiltin
         testFunctionInvocation("count(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
 
         testFunctionInvocation("min()", "", true);
-        testFunctionInvocation("min(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), number)", false);
+        testFunctionInvocation("min(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), comparable)", false);
 //        testFunctionInvocation("min(c1: null, cs: null)", "BuiltinFunctionType(FormalParameter(c1, comparable, false, false), FormalParameter(cs, comparable, false, true), number)", false);
-        testFunctionInvocation("min(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), number)", false);
-//        testFunctionInvocation("min(c1: " + number + ", cs: " + numberList + ")", "BuiltinFunctionType(FormalParameter(c1, comparable, false, false), FormalParameter(cs, comparable, false, true), number)", false);
+        testFunctionInvocation("min(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), number)", false);
+        testFunctionInvocation("min(list: " + stringList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(string), false, false), string)", false);
+        testFunctionInvocation("min(list: " + dateList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(date), false, false), date)", false);
+        testFunctionInvocation("min(list: " + timeList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(time), false, false), time)", false);
+        testFunctionInvocation("min(list: " + dateTimeList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(date and time), false, false), date and time)", false);
+        testFunctionInvocation("min(list: " + yearsAndMonthsDurationList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(years and months duration), false, false), years and months duration)", false);
+        testFunctionInvocation("min(list: " + daysAndTimeDurationList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(days and time duration), false, false), days and time duration)", false);
 
         testFunctionInvocation("max()", "", true);
-        testFunctionInvocation("max(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), number)", false);
+        testFunctionInvocation("max(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), comparable)", false);
 //        testFunctionInvocation("max(c1: null, cs: null)", "BuiltinFunctionType(FormalParameter(c1, comparable, false, false), FormalParameter(cs, comparable, false, true), number)", false);
-        testFunctionInvocation("max(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(comparable), false, false), number)", false);
-//        testFunctionInvocation("max(c1: " + number + ", cs: " + numberList + ")", "BuiltinFunctionType(FormalParameter(c1, comparable, false, false), FormalParameter(cs, comparable, false, true), number)", false);
+        testFunctionInvocation("max(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), number)", false);
+        testFunctionInvocation("max(list: " + stringList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(string), false, false), string)", false);
+        testFunctionInvocation("max(list: " + dateList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(date), false, false), date)", false);
+        testFunctionInvocation("max(list: " + timeList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(time), false, false), time)", false);
+        testFunctionInvocation("max(list: " + dateTimeList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(date and time), false, false), date and time)", false);
+        testFunctionInvocation("max(list: " + yearsAndMonthsDurationList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(years and months duration), false, false), years and months duration)", false);
+        testFunctionInvocation("max(list: " + daysAndTimeDurationList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(days and time duration), false, false), days and time duration)", false);
 
         testFunctionInvocation("sum()", "", true);
         testFunctionInvocation("sum(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), number)", false);
@@ -221,8 +231,8 @@ public class NamedBuiltinFunctionsResolutionTest extends AbstractStandardBuiltin
 //        testFunctionInvocation("concatenate(list1: [null, null])", "BuiltinFunctionType(FormalParameter(list1, Null, false, true), Null)", false);
 //        testFunctionInvocation("concatenate(list1: [" + numberList + ", " + numberList + "])", "BuiltinFunctionType(FormalParameter(list1, ListType(number), false, true), ListType(number))", false);
 
-        testFunctionInvocation("insert before(list: null, position: null, 'new item': null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter(position, number, false, false), FormalParameter(new item, Null, false, false), Null)", false);
-        testFunctionInvocation("insert before(list: " + numberList + ", position: "  + number + ", 'new item': "  + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter(position, number, false, false), FormalParameter(new item, number, false, false), ListType(number))", false);
+        testFunctionInvocation("insert before(list: null, position: null, newItem: null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter(position, number, false, false), FormalParameter(newItem, Null, false, false), Null)", false);
+        testFunctionInvocation("insert before(list: " + numberList + ", position: "  + number + ", newItem: "  + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter(position, number, false, false), FormalParameter(newItem, number, false, false), ListType(number))", false);
 
         testFunctionInvocation("remove(list: null, position: null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), FormalParameter(position, number, false, false), Null)", false);
         testFunctionInvocation("remove(list: " + numberList + ", position: "  + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter(position, number, false, false), ListType(number))", false);
@@ -236,8 +246,8 @@ public class NamedBuiltinFunctionsResolutionTest extends AbstractStandardBuiltin
         testFunctionInvocation("distinct values(list: null)", "BuiltinFunctionType(FormalParameter(list, Null, false, false), Null)", false);
         testFunctionInvocation("distinct values(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(number), false, false), ListType(number))", false);
 
-        testFunctionInvocation("union(list1: null, list2: null)", "BuiltinFunctionType(FormalParameter(list1, Null, false, false), FormalParameter(list2, Null, false, false), Null)", false);
-        testFunctionInvocation("union(list1: " + numberList + ", list2: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list1, ListType(number), false, false), FormalParameter(list2, ListType(number), false, false), ListType(number))", false);
+//        testFunctionInvocation("union(list: null)", "BuiltinFunctionType(FormalParameter(list, Null, false, true))", false);
+//        testFunctionInvocation("union(list: " + numberList + ", list2: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list1, ListType(number), false, false), FormalParameter(list2, ListType(number), false, false), ListType(number))", false);
 
         testFunctionInvocation("flatten(list: null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), ListType(Null))", false);
         testFunctionInvocation("flatten(list: " + numberList + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), ListType(number))", false);

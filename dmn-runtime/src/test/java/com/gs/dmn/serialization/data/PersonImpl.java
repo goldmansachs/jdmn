@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.serialization.data;
 
+import com.gs.dmn.runtime.Range;
+
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
@@ -34,11 +36,12 @@ public class PersonImpl implements Person {
     private String at;
     private String aT;
     private List<Address> addresses;
+    private List<Range> ranges;
 
     public PersonImpl() {
     }
 
-    public PersonImpl(BigDecimal id, String firstName, String lastName, XMLGregorianCalendar dateOfBirth, XMLGregorianCalendar timeOfBirth, XMLGregorianCalendar dateTimeOfBirth, String gender, Boolean married, List<String> list, List<XMLGregorianCalendar> dateTimeList, Duration yearsAndMonthsDuration, Duration daysAndTimeDuration, List<Address> addresses) {
+    public PersonImpl(BigDecimal id, String firstName, String lastName, XMLGregorianCalendar dateOfBirth, XMLGregorianCalendar timeOfBirth, XMLGregorianCalendar dateTimeOfBirth, String gender, Boolean married, List<String> list, List<XMLGregorianCalendar> dateTimeList, Duration yearsAndMonthsDuration, Duration daysAndTimeDuration, List<Address> addresses, List<Range> ranges) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,6 +55,7 @@ public class PersonImpl implements Person {
         this.yearsAndMonthsDuration = yearsAndMonthsDuration;
         this.daysAndTimeDuration = daysAndTimeDuration;
         this.addresses = addresses;
+        this.ranges = ranges;
     }
 
     @Override
@@ -213,6 +217,16 @@ public class PersonImpl implements Person {
     @com.fasterxml.jackson.annotation.JsonSetter("Addresses")
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    @Override
+    public List<Range> getRanges() {
+        return this.ranges;
+    }
+
+    @com.fasterxml.jackson.annotation.JsonSetter("Ranges")
+    public void setRanges(List<Range> ranges) {
+        this.ranges = ranges;
     }
 
     @Override

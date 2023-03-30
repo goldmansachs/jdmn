@@ -34,9 +34,10 @@ import com.gs.dmn.validation.DMNValidator;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> {
+public class PureJavaTimeDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     //
     // DMN Processors
     //
@@ -60,7 +61,7 @@ public class PureJavaTimeDMNDialectDefinition extends AbstractStandardDMNDialect
     }
 
     @Override
-    public FEELLib<BigDecimal, LocalDate, Temporal, Temporal, TemporalAmount> createFEELLib() {
+    public FEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> createFEELLib() {
         return new PureJavaTimeFEELLib();
     }
 

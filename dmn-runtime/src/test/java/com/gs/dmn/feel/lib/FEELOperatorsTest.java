@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
-import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.Range;
@@ -21,10 +21,7 @@ import org.junit.Test;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -522,8 +519,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().dateSubtract(null, makeDate("2016-08-01")));
         assertNull(getLib().dateSubtract(makeDate("2016-08-01"), null));
 
-        assertEquals(makeDuration("PT0S"), getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
-        assertEquals(makeDuration("-P2D"), getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
+        assertEqualsDateTime("PT0S", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-01")));
+        assertEqualsDateTime("-P2D", getLib().dateSubtract(makeDate("2016-08-01"), makeDate("2016-08-03")));
     }
 
     @Test
@@ -579,7 +576,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertEquals(Long.valueOf(63L), getLib().timeValue(makeTime("01:02:03+01:01")));
 
         // zoneid time
-        assertEquals(Long.valueOf(123L), getLib().timeValue(makeTime("01:02:03@Europe/Paris")));
+        // non-deterministic valuet() due to daylight saving time
+//        assertEquals(Long.valueOf(123L), getLib().timeValue(makeTime("01:02:03@Europe/Paris")));
         assertEquals(Long.valueOf(3723L), getLib().timeValue(makeTime("01:02:03@Etc/UTC")));
     }
 
@@ -634,7 +632,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         // same times with different zones are not equal
         assertFalse(getLib().timeEqual(makeTime("10:30:00@Europe/Paris"), makeTime("10:30:00@Asia/Dhaka")));
         // same times = one with offset, the other with zone are not equal
-        assertFalse(getLib().timeEqual(makeTime("10:30:00+02:00"), makeTime("10:30:00@Europe/Paris")));
+        // non-deterministic valuet() due to daylight saving time
+//        assertFalse(getLib().timeEqual(makeTime("10:30:00+02:00"), makeTime("10:30:00@Europe/Paris")));
         // same times = one with Z zone, the other with UTC are equal
         assertTrue(getLib().timeEqual(makeTime("10:30:00Z"), makeTime("10:30:00+00:00")));
 
@@ -643,6 +642,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().timeEqual(makeTime("00:00:00+00:00"), makeTime("00:00:00@Etc/UTC")));
         assertTrue(getLib().timeEqual(makeTime("00:00:00Z"), makeTime("00:00:00+00:00")));
         assertTrue(getLib().timeEqual(makeTime("00:00:00Z"), makeTime("00:00:00@Etc/UTC")));
+        // non-deterministic valuet() due to daylight saving time
+//        assertTrue(getLib().timeEqual(makeTime("10:30:00+01:00"), makeTime("10:30:00@Europe/Paris")));
     }
 
     @Test
@@ -952,8 +953,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertTrue(getLib().isDuration(makeDuration("-P1Y2M")));
         assertTrue(getLib().isDuration(makeDuration("P1DT2H3M4S")));
         assertTrue(getLib().isDuration(makeDuration("-P1DT2H3M4S")));
-        assertTrue(getLib().isDuration(makeDuration("P1Y2M1DT2H3M4S")));
-        assertTrue(getLib().isDuration(makeDuration("-P1Y2M1DT2H3M4S")));
+        assertFalse(getLib().isDuration(makeDuration("P1Y2M1DT2H3M4S")));
+        assertFalse(getLib().isDuration(makeDuration("-P1Y2M1DT2H3M4S")));
     }
 
     @Test
@@ -969,8 +970,8 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertEquals(Long.valueOf(- ((24 + 2) * 3600L + 3 * 60L + 4)), getLib().durationValue(makeDuration("-P1DT2H3M4S")));
 
         // mixture
-        assertEquals(Long.valueOf(36727384L), getLib().durationValue(makeDuration("P1Y2M1DT2H3M4S")));
-//         assertEquals(Long.valueOf(-36727384L), getLib().durationValue(makeDuration("-P1Y2M1DT2H3M4S")));
+        assertNull(getLib().durationValue(makeDuration("P1Y2M1DT2H3M4S")));
+        assertNull(getLib().durationValue(makeDuration("-P1Y2M1DT2H3M4S")));
     }
 
     @Test
@@ -1087,14 +1088,17 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().durationAdd(null, makeDuration("P1Y1M")));
         assertNull(getLib().durationAdd(makeDuration("P1Y1M"), null));
 
-        assertEquals(makeDuration("P2Y2M"), getLib().durationAdd(makeDuration("P1Y1M"), makeDuration("P1Y1M")));
-        assertEquals(makeDuration("P2Y3M"), getLib().durationAdd(makeDuration("P1Y1M"), makeDuration("P1Y2M")));
+        assertEqualsDateTime("P2Y2M", getLib().durationAdd(makeDuration("P1Y1M"), makeDuration("P1Y1M")));
+        assertEqualsDateTime("P2Y3M", getLib().durationAdd(makeDuration("P1Y1M"), makeDuration("P1Y2M")));
+        assertEqualsDateTime("P1Y2M", getLib().durationAdd(makeDuration("P1Y"), makeDuration("P2M")));
+        assertEqualsDateTime("-P10M", getLib().durationAdd(makeDuration("-P1Y"), makeDuration("P2M")));
+        assertEqualsDateTime("P10M", getLib().durationAdd(makeDuration("P1Y"), makeDuration("-P2M")));
+        assertEqualsDateTime("-P1Y2M", getLib().durationAdd(makeDuration("-P1Y"), makeDuration("-P2M")));
 
-        assertEquals(makeDuration("P2DT2H"), getLib().durationAdd(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
-        assertEquals(makeDuration("P2DT3H"), getLib().durationAdd(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
+        assertEqualsDateTime("P2DT2H", getLib().durationAdd(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
+        assertEqualsDateTime("P2DT3H", getLib().durationAdd(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
 
-        assertEquals(makeDuration("P380DT8H59M13S"), getLib().durationAdd(
-                makeDuration("P13DT2H14S"), getLib().dateTimeSubtract(makeDateAndTime("2016-12-24T23:59:00-08:00"), makeDateAndTime("2015-12-24T00:00:01-01:00"))));
+        assertEqualsDateTime("P380DT8H59M13S", getLib().durationAdd(makeDuration("P13DT2H14S"), getLib().dateTimeSubtract(makeDateAndTime("2016-12-24T23:59:00-08:00"), makeDateAndTime("2015-12-24T00:00:01-01:00"))));
 
     }
 
@@ -1104,11 +1108,16 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().durationSubtract(null, makeDuration("P1Y1M")));
         assertNull(getLib().durationSubtract(makeDuration("P1Y1M"), null));
 
-        assertEquals(makeDuration("P0Y0M"), getLib().durationSubtract(makeDuration("P1Y1M"), makeDuration("P1Y1M")));
-        assertEquals(makeDuration("-P0Y1M"), getLib().durationSubtract(makeDuration("P1Y1M"), makeDuration("P1Y2M")));
+        assertEqualsDateTime("P0M", getLib().durationSubtract(makeDuration("P1Y1M"), makeDuration("P1Y1M")));
+        assertEqualsDateTime("-P1M", getLib().durationSubtract(makeDuration("P1Y1M"), makeDuration("P1Y2M")));
+        assertEqualsDateTime("P1Y2M", getLib().durationSubtract(makeDuration("P1Y"), makeDuration("-P2M")));
+        assertEqualsDateTime("P10M", getLib().durationSubtract(makeDuration("P1Y"), makeDuration("P2M")));
+        assertEqualsDateTime("-P1Y2M", getLib().durationSubtract(makeDuration("-P1Y"), makeDuration("P2M")));
+        assertEqualsDateTime("P1Y2M", getLib().durationSubtract(makeDuration("P1Y"), makeDuration("-P2M")));
+        assertEqualsDateTime("-P10M", getLib().durationSubtract(makeDuration("-P1Y"), makeDuration("-P2M")));
 
-        assertEquals(makeDuration("P0DT0H"), getLib().durationSubtract(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
-        assertEquals(makeDuration("-P0DT1H"), getLib().durationSubtract(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
+        assertEqualsDateTime("PT0S", getLib().durationSubtract(makeDuration("P1DT1H"), makeDuration("P1DT1H")));
+        assertEqualsDateTime("-PT1H", getLib().durationSubtract(makeDuration("P1DT1H"), makeDuration("P1DT2H")));
     }
 
     @Test
@@ -1447,24 +1456,23 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     protected void assertEqualsDateTime(String expected, Object actual) {
         if (actual instanceof XMLGregorianCalendar) {
             assertEquals(expected, actual.toString());
-        } else if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
-            assertEquals(expected, actualText);
-        } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
-            assertEquals(expected, actualText);
-        } else if (actual instanceof OffsetDateTime) {
-            String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
-            assertEquals(expected, actualText);
-        } else if (actual instanceof ZonedDateTime) {
-            String actualText = ((ZonedDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
+        } else if (actual instanceof TemporalAccessor) {
+            String actualText = FormatUtils.formatTemporal(actual);
             assertEquals(expected, actualText);
         } else if (actual instanceof Duration) {
-            assertEquals(expected, actual.toString());
+            Duration expectedDuration = null;
+            try {
+                expectedDuration = XMLDurationFactory.INSTANCE.parse(expected);
+            } catch (Exception e) {
+                fail("Cannot parse expected Duration");
+            }
+            assertEquals(expectedDuration, actual);
         } else if (actual instanceof java.time.Duration) {
-            assertEquals(expected, actual.toString());
+            String actualText = FormatUtils.formatTemporal(actual);
+            assertEquals(expected, actualText);
         } else if (actual instanceof java.time.Period) {
-            assertEquals(expected, actual.toString());
+            String actualText = FormatUtils.formatTemporal(actual);
+            assertEquals(expected, actualText);
         } else {
             assertEquals(expected, actual);
         }
@@ -1474,4 +1482,3 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         Assert.assertEquals(expected, actual.toString());
     }
 }
-

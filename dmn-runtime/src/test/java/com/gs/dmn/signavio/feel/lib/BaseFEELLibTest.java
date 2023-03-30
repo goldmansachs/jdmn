@@ -38,25 +38,25 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         //
         // conversion from string
         //
-        assertNull(getLib().date((String) null));
+        assertNull(getLib().date(null));
         assertNull(getLib().date(""));
         assertNull(getLib().date("xxx"));
+        assertNull(getLib().date("2012-12-25T"));
+        assertNull(getLib().date("2012/12/25"));
+        assertNull(getLib().date("0000-12-25T"));
+        assertNull(getLib().date("2017-13-10"));
+        assertNull(getLib().date("998-12-31"));
         assertNull(getLib().date("01211-12-31"));
+        assertNull(getLib().date("+2012-12-02"));
         assertNull(getLib().date("2017-08-25T11:00:00"));
 
         // year must be in the range [-999,999,999..999,999,999].
-        assertEqualsDateTime("999999999-10-11", getLib().date(getLib().date("999999999-10-11")));
-        assertEqualsDateTime("-999999999-10-11", getLib().date(getLib().date("-999999999-10-11")));
-        assertNull(getLib().date(getLib().date("9999999991-10-11")));
-        assertNull(getLib().date(getLib().date("-9999999991-10-11")));
+        assertEqualsDateTime("999999999-10-11", getLib().date("999999999-10-11"));
+        assertEqualsDateTime("-999999999-10-11", getLib().date("-999999999-10-11"));
+        assertNull(getLib().date("9999999991-10-11"));
+        assertNull(getLib().date("-9999999991-10-11"));
 
         assertEqualsDateTime("2016-08-01", getLib().date("2016-08-01"));
-
-        //
-        // conversion from date
-        //
-        assertNull(getLib().date((DATE) null));
-        assertEqualsDateTime("2016-08-01", getLib().date(makeDate("2016-08-01")));
 
         //
         // conversion from numbers
@@ -65,7 +65,6 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertNull(getLib().date(makeNumber("2016"), null, null));
         assertNull(getLib().date(null, makeNumber("8"), null));
         assertNull(getLib().date(null, null, makeNumber("1")));
-        assertEqualsDateTime("2016-08-01", getLib().date(makeNumber("2016"), makeNumber("8"), makeNumber("1")));
     }
 
     @Test
@@ -73,7 +72,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         //
         // conversion from string
         //
-        assertNull(getLib().time((String) null));
+        assertNull(getLib().time(null));
         assertNull(getLib().time(""));
         assertNull(getLib().time("xxx"));
         assertNull(getLib().time("13:20:00+01:00@Europe/Paris"));
@@ -88,14 +87,6 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertEqualsDateTime("11:00:00.001+01:00", getLib().time("11:00:00.001+01:00"));
         assertEqualsDateTime("11:00:00+01:00", getLib().time("11:00:00+01:00"));
-
-        //
-        // conversion from number
-        //
-        assertNull(getLib().time(null, null, null, null));
-
-        assertNull(getLib().time(makeNumber("12"), makeNumber("00"), makeNumber("00"), makeDuration("PT25H10M")));
-        assertEqualsDateTime("12:00:00+01:10", getLib().time(makeNumber("12"), makeNumber("00"), makeNumber("00"), makeDuration("PT1H10M")));
     }
 
     @Test
@@ -108,7 +99,19 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertNull(getLib().dateAndTime("xxx"));
         assertNull(getLib().dateAndTime("11:00:00"));
         assertNull(getLib().dateAndTime("2011-12-03T10:15:30+01:00@Europe/Paris"));
+        assertNull(getLib().dateAndTime("2011-12-03T10:15:30@Europe/Paris+01:00"));
         assertNull(getLib().dateAndTime("2017-12-31T12:20:00+19:00"));
+        assertNull(getLib().dateAndTime("2011-12-0310:15:30"));
+        assertNull(getLib().dateAndTime("2017-00-10T11:22:33"));
+        assertNull(getLib().dateAndTime("998-12-31T11:22:33"));
+        assertNull(getLib().dateAndTime("01211-12-31T11:22:33"));
+        assertNull(getLib().dateAndTime("2017-12-31T07:1:00"));
+        assertNull(getLib().dateAndTime("2017-12-31T07:01:2"));
+        assertNull(getLib().dateAndTime("2017-12-31T13:20:00@xyz/abc"));
+        assertNull(getLib().dateAndTime("2017-12-31T13:20:00+05:0"));
+        assertNull(getLib().dateAndTime("2017-12-31T13:20:00+5:00"));
+        assertNull(getLib().dateAndTime("2017-12-31T13:20:00+5"));
+        assertNull(getLib().dateAndTime("2017-12-31T07:2"));
 
         // fix input literal
         assertEqualsDateTime("2016-08-01T11:00:00+01:00", getLib().dateAndTime("2016-08-01T11:00:00+0100"));
@@ -118,23 +121,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertEqualsDateTime("2016-08-01T11:00:00.001+01:00", getLib().dateAndTime("2016-08-01T11:00:00.001+01:00"));
         assertEqualsDateTime("2016-08-01T11:00:00+01:00", getLib().dateAndTime("2016-08-01T11:00:00+01:00"));
 
-        //
-        // conversion from date and time
-        //
-        assertNull(getLib().dateAndTime(null, null));
-        assertNull(getLib().dateAndTime(null, makeTime("11:00:00Z")));
-        assertNull(getLib().dateAndTime(getLib().date("2016-08-01"), null));
-
-        assertEqualsDateTime("2016-08-01T11:00:00Z", getLib().dateAndTime(makeDate("2016-08-01"), makeTime("11:00:00Z")));
-    }
-
-    @Test
-    public void testDuration() {
-        assertNull(getLib().duration("XXX"));
-        assertNull(getLib().duration(null));
-
-        assertEqualsDateTime("P1Y8M", getLib().duration("P1Y8M"));
-        assertEqualsDateTime("P2DT20H", getLib().duration("P2DT20H"));
+        assertEqualsDateTime("2016-08-01T11:00:00Z", getLib().dateTime(makeNumber("1"), makeNumber("8"), makeNumber("2016"), makeNumber("11"), makeNumber("0"), makeNumber("0")));
     }
 
     //

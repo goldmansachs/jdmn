@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.signavio.feel.lib;
 
-import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
-import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
+import com.gs.dmn.feel.lib.type.bool.DefaultBooleanLib;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.context.DefaultContextType;
@@ -26,10 +26,9 @@ import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.DefaultRangeType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringType;
-import com.gs.dmn.feel.lib.type.time.DateTimeType;
-import com.gs.dmn.feel.lib.type.time.DateType;
-import com.gs.dmn.feel.lib.type.time.DurationType;
-import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.feel.lib.type.time.*;
+import com.gs.dmn.feel.lib.type.time.mixed.MixedDurationLib;
+import com.gs.dmn.signavio.feel.lib.type.list.DefaultSignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumericType;
@@ -63,15 +62,14 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
     private static final RangeType RANGE_TYPE = new DefaultRangeType();
     private static final FunctionType FUNCTION_TYPE = new DefaultFunctionType();
 
-    private static final MixedJavaTimeFEELLib FEEL_LIB = new MixedJavaTimeFEELLib();
     private static final SignavioNumberLib<BigDecimal> NUMBER_LIB = new DefaultSignavioNumberLib();
     private static final SignavioStringLib STRING_LIB = new DefaultSignavioStringLib();
+    private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
     private static final SignavioDateTimeLib DATE_TIME_LIB = new MixedSignavioDateTimeLib();
-    private static final SignavioListLib LIST_LIB = new SignavioListLib();
+    private static final DurationLib<LocalDate, Duration> DURATION_LIB = new MixedDurationLib();
+    private static final SignavioListLib<BigDecimal> LIST_LIB = new DefaultSignavioListLib();
 
     public static MixedJavaTimeSignavioLib INSTANCE = new MixedJavaTimeSignavioLib();
-
-    private final MixedJavaTimeFEELLib mixedFeelLib;
 
     public MixedJavaTimeSignavioLib() {
         this(NUMERIC_TYPE,
@@ -85,10 +83,11 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
                 CONTEXT_TYPE,
                 RANGE_TYPE,
                 FUNCTION_TYPE,
-                FEEL_LIB,
                 NUMBER_LIB,
                 STRING_LIB,
+                BOOLEAN_LIB,
                 DATE_TIME_LIB,
+                DURATION_LIB,
                 LIST_LIB
         );
     }
@@ -97,26 +96,22 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
             NumericType<BigDecimal> numericType, BooleanType booleanType, StringType stringType,
             DateType<LocalDate, Duration> dateType, TimeType<OffsetTime, Duration> timeType, DateTimeType<ZonedDateTime, Duration> dateTimeType, DurationType<Duration, BigDecimal> durationType,
             ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
-            StandardFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> feelLib,
             SignavioNumberLib<BigDecimal> numberLib,
             SignavioStringLib stringLib,
+            BooleanLib booleanLib,
             SignavioDateTimeLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime> dateTimeLib,
-            SignavioListLib listLib) {
+            DurationLib<LocalDate, Duration> durationLib,
+            SignavioListLib<BigDecimal> listLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,
-                feelLib, numberLib, stringLib, dateTimeLib, listLib);
-        this.mixedFeelLib = (MixedJavaTimeFEELLib) this.feelLib;
+                numberLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib);
     }
 
     //
     // Date and time operations
     //
-    public BigDecimal day(ZonedDateTime date) {
-        return this.mixedFeelLib.day(date);
-    }
-
-    public LocalDate dayAdd(ZonedDateTime dateTime, BigDecimal daysToAdd) {
+    public ZonedDateTime dayAdd(ZonedDateTime dateTime, BigDecimal daysToAdd) {
         try {
             return this.dateTimeLib.dayAddDateTime(dateTime, daysToAdd);
         } catch (Exception e) {
@@ -124,60 +119,6 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
             logError(message, e);
             return null;
         }
-    }
-
-    public BigDecimal dayDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.dayDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("dayDiff(%s, %s)", dateTime1, dateTime2);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal hour(ZonedDateTime dateTime) {
-        return this.mixedFeelLib.hour(dateTime);
-    }
-
-    public BigDecimal hourDiff(ZonedDateTime time1, ZonedDateTime time2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.hourDiffDateTime(time1, time2));
-        } catch (Exception e) {
-            String message = String.format("hourDiff(%s, %s)", time1, time2);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal minute(ZonedDateTime dateTime) {
-        return this.mixedFeelLib.minute(dateTime);
-    }
-
-    public BigDecimal second(ZonedDateTime time) {
-        return this.mixedFeelLib.second(time);
-    }
-
-    public Duration timeOffset(ZonedDateTime time) {
-        return this.mixedFeelLib.timeOffset(time);
-    }
-
-    public String timezone(ZonedDateTime time) {
-        return this.mixedFeelLib.timezone(time);
-    }
-
-    public BigDecimal minutesDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.minutesDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("minutesDiff(%s, %s)", dateTime1, dateTime2);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal month(ZonedDateTime dateTime) {
-        return this.mixedFeelLib.month(dateTime);
     }
 
     public ZonedDateTime monthAdd(ZonedDateTime dateTime, BigDecimal monthsToAdd) {
@@ -190,30 +131,6 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
         }
     }
 
-    public BigDecimal monthDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.monthDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("monthDiff(%s, %s)", dateTime1, dateTime2);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal weekday(ZonedDateTime dateTime) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.weekdayDateTime(dateTime));
-        } catch (Exception e) {
-            String message = String.format("weekday(%s)", dateTime);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    public BigDecimal year(ZonedDateTime dateTime) {
-        return this.mixedFeelLib.year(dateTime);
-    }
-
     public ZonedDateTime yearAdd(ZonedDateTime dateTime, BigDecimal yearsToAdd) {
         try {
             return this.dateTimeLib.yearAddDateTime(dateTime, yearsToAdd);
@@ -224,23 +141,16 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
         }
     }
 
-    public BigDecimal yearDiff(ZonedDateTime dateTime1, ZonedDateTime dateTime2) {
-        try {
-            return BigDecimal.valueOf(this.dateTimeLib.yearDiffDateTime(dateTime1, dateTime2));
-        } catch (Exception e) {
-            String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
-            logError(message, e);
-            return null;
-        }
+    //
+    // Extra conversion functions
+    //
+    @Override
+    protected BigDecimal valueOf(long number) {
+        return BigDecimal.valueOf(number);
     }
 
     @Override
-    public LocalDate date(LocalDate date) {
-        return this.mixedFeelLib.date(date);
-    }
-
-    @Override
-    public OffsetTime time(OffsetTime time) {
-        return this.mixedFeelLib.time(time);
+    protected int intValue(BigDecimal number) {
+        return number.intValue();
     }
 }

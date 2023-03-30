@@ -62,6 +62,14 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         return INSTANCE;
     }
 
+    public static BuiltinFunctionType makeMaxMinBuiltInFunctionTypeForSequence(Type inputType, Type returnType) {
+        return new BuiltinFunctionType(returnType, new FormalParameter<>("c1", inputType), new FormalParameter<>("cs", inputType, false, true));
+    }
+
+    public static BuiltinFunctionType makeMaxMinBuiltInFunctionTypeForList(Type inputType, Type returnType) {
+        return new BuiltinFunctionType(returnType, new FormalParameter<>("list", inputType));
+    }
+
     public static BuiltinFunctionType makeSublistBuiltInFunctionType(Type listType) {
         return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("start position", NUMBER), new FormalParameter<>("length", NUMBER, true, false));
     }
@@ -71,11 +79,11 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     public static BuiltinFunctionType makeConcatenateBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list1", listType, false, true));
+        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType, false, true));
     }
 
     public static BuiltinFunctionType makeInsertBeforeBuiltinFunctionType(Type listType, Type itemType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("position", NUMBER), new FormalParameter<>("new item", itemType));
+        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("position", NUMBER), new FormalParameter<>("newItem", itemType));
     }
 
     public static BuiltinFunctionType makeRemoveBuiltinFunctionType(Type listType) {
@@ -95,7 +103,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     public static BuiltinFunctionType makeUnionBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list1", listType), new FormalParameter<>("list2", listType));
+        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType, false, true));
     }
 
     public static BuiltinFunctionType makeFlattenBuiltinFunctionType(Type listType) {
@@ -165,6 +173,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "duration", new BuiltinFunctionType(ANY_DURATION, new FormalParameter<>("from", STRING)));
         addFunctionDeclaration(environment, "years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter<>("from", DATE), new FormalParameter<>("to", DATE)));
         addFunctionDeclaration(environment, "years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter<>("from", DATE_AND_TIME), new FormalParameter<>("to", DATE_AND_TIME)));
+        // Extension to the standard to reduce the number of conversions
         addFunctionDeclaration(environment, "years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter<>("from", DATE), new FormalParameter<>("to", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter<>("from", DATE_AND_TIME), new FormalParameter<>("to", DATE)));
     }
@@ -197,7 +206,6 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
 
     private static void addStringFunctions(Environment environment) {
         addFunctionDeclaration(environment, "substring", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING), new FormalParameter<>("start position", NUMBER), new FormalParameter<>("length", NUMBER, true, false)));
-        addFunctionDeclaration(environment, "substring", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING), new FormalParameter<>("startPosition", NUMBER), new FormalParameter<>("length", NUMBER, true, false)));
         addFunctionDeclaration(environment, "string length", new BuiltinFunctionType(NUMBER, new FormalParameter<>("string", STRING)));
         addFunctionDeclaration(environment, "upper case", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING)));
         addFunctionDeclaration(environment, "lower case", new BuiltinFunctionType(STRING, new FormalParameter<>("string", STRING)));
@@ -214,18 +222,20 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     private static void addListFunctions(Environment environment) {
         addFunctionDeclaration(environment, "list contains", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", ANY_LIST), new FormalParameter<>("element", ANY)));
         addFunctionDeclaration(environment, "count", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
-        addFunctionDeclaration(environment, "min", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", COMPARABLE_LIST)));
-        addFunctionDeclaration(environment, "min", new BuiltinFunctionType(NUMBER, new FormalParameter<>("c1", COMPARABLE), new FormalParameter<>("cs", COMPARABLE, false, true)));
-        addFunctionDeclaration(environment, "max", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", COMPARABLE_LIST)));
-        addFunctionDeclaration(environment, "max", new BuiltinFunctionType(NUMBER, new FormalParameter<>("c1", COMPARABLE), new FormalParameter<>("cs", COMPARABLE, false, true)));
+        addFunctionDeclaration(environment, "min", makeMaxMinBuiltInFunctionTypeForList(COMPARABLE_LIST, COMPARABLE));
+        addFunctionDeclaration(environment, "min", makeMaxMinBuiltInFunctionTypeForSequence(COMPARABLE, COMPARABLE));
+        addFunctionDeclaration(environment, "max", makeMaxMinBuiltInFunctionTypeForList(COMPARABLE_LIST, COMPARABLE));
+        addFunctionDeclaration(environment, "max", makeMaxMinBuiltInFunctionTypeForSequence(COMPARABLE, COMPARABLE));
         addFunctionDeclaration(environment, "sum", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", NUMBER_LIST)));
         addFunctionDeclaration(environment, "sum", new BuiltinFunctionType(NUMBER, new FormalParameter<>("n1", NUMBER), new FormalParameter<>("ns", NUMBER, false, true)));
         addFunctionDeclaration(environment, "mean", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", NUMBER_LIST)));
         addFunctionDeclaration(environment, "mean", new BuiltinFunctionType(NUMBER, new FormalParameter<>("n1", NUMBER), new FormalParameter<>("ns", NUMBER, false, true)));
+        // and() replaced with all() in DMN 1.2
         addFunctionDeclaration(environment, "and", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", BOOLEAN_LIST)));
         addFunctionDeclaration(environment, "and", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("b1", BOOLEAN), new FormalParameter<>("bs", BOOLEAN, false, true)));
         addFunctionDeclaration(environment, "all", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", BOOLEAN_LIST)));
         addFunctionDeclaration(environment, "all", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("b1", BOOLEAN), new FormalParameter<>("bs", BOOLEAN, false, true)));
+        // or() replaced with any() in DMN 1.2
         addFunctionDeclaration(environment, "or", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", BOOLEAN_LIST)));
         addFunctionDeclaration(environment, "or", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("b1", BOOLEAN), new FormalParameter<>("bs", BOOLEAN, false, true)));
         addFunctionDeclaration(environment, "any", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", BOOLEAN_LIST)));

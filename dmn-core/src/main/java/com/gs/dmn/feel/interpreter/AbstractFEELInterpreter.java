@@ -22,12 +22,12 @@ import com.gs.dmn.feel.AbstractFEELProcessor;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 
-abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessor<Type, DMNContext> implements ELInterpreter<Type, DMNContext> {
-    private final FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> visitor;
+public abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessor<Type, DMNContext> implements ELInterpreter<Type, DMNContext> {
+    private final AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> visitor;
 
     protected AbstractFEELInterpreter(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter, ELAnalyzer<Type, DMNContext> feelAnalyzer) {
         super(feelAnalyzer);
-        this.visitor = new FEELInterpreterVisitor<>(dmnInterpreter);
+        this.visitor = makeVisitor(dmnInterpreter);
     }
 
     @Override
@@ -53,4 +53,6 @@ abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> 
         Object object = ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type, DMNContext>) expression).accept(visitor, context);
         return Result.of(object, expression.getType());
     }
+
+    protected abstract AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> makeVisitor(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter);
 }

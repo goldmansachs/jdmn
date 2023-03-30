@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.string;
 
-import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
+import com.gs.dmn.feel.lib.FormatUtils;
 import com.gs.dmn.serialization.XMLUtil;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.w3c.dom.Document;
@@ -28,35 +28,26 @@ import javax.xml.xpath.XPathFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
+import java.time.Duration;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DefaultStringLib implements StringLib {
-    private static final ThreadLocal<DecimalFormat> DECIMAL_FORMAT = ThreadLocal.withInitial(() -> new DecimalFormat("0.########"));
-
     @Override
     public String string(Object from) {
         if (from == null) {
             return "null";
-        } else if (from instanceof Double) {
-            return DECIMAL_FORMAT.get().format(from);
-        } else if (from instanceof BigDecimal) {
-            return ((BigDecimal) from).toPlainString();
-        } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE_FORMAT);
-        } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME_FORMAT);
-        } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME_FORMAT);
-        } else if (from instanceof XMLGregorianCalendar) {
-            return from.toString();
+        } else if (from instanceof Number) {
+            return FormatUtils.formatNumber((Number) from);
+        } else if (from instanceof XMLGregorianCalendar || from instanceof Duration) {
+            return FormatUtils.formatTemporal(from);
+        } else if (from instanceof TemporalAccessor || from instanceof TemporalAmount) {
+            return FormatUtils.formatTemporal(from);
         } else {
             return from.toString();
         }
@@ -97,8 +88,7 @@ public class DefaultStringLib implements StringLib {
         // The number of Unicode code units in the string
         int unicodeCodeUnitsCount = string.length();
         // The number of characters (Unicode code point)
-        int result = string.codePointCount(0, unicodeCodeUnitsCount);
-        return result;
+        return string.codePointCount(0, unicodeCodeUnitsCount);
     }
 
     @Override
@@ -116,8 +106,7 @@ public class DefaultStringLib implements StringLib {
 
         int[] cps = string.codePoints().toArray();
         int end = cps.length;
-        String result = appendCodePoints(cps, start, end);
-        return result;
+        return appendCodePoints(cps, start, end);
     }
 
     @Override
@@ -134,8 +123,7 @@ public class DefaultStringLib implements StringLib {
         }
         int[] cps = string.codePoints().toArray();
         int end = start + length.intValue();
-        String result = appendCodePoints(cps, start, end);
-        return result;
+        return appendCodePoints(cps, start, end);
     }
 
     private String appendCodePoints(int[] cps, int start, int end) {
@@ -237,6 +225,31 @@ public class DefaultStringLib implements StringLib {
         if (start <= string.length()) {
             String token = string.substring(start);
             result.add(token);
+        }
+        return result;
+    }
+
+    @Override
+    public String min(List<?> list) {
+        return minMax(list, x -> x > 0);
+    }
+
+    @Override
+    public String max(List<?> list) {
+        return minMax(list, x -> x < 0);
+    }
+
+    private String minMax(List<?> list, Predicate<Integer> condition) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        String result = (String) list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            String x = (String) list.get(i);
+            if (condition.test(result.compareTo(x))) {
+                result = x;
+            }
         }
         return result;
     }

@@ -22,7 +22,7 @@ import java.math.RoundingMode;
 
 public class DefaultDurationType extends BaseDefaultDurationType implements DurationType<Duration, BigDecimal> {
     public DefaultDurationType() {
-        this(new DefaultDurationComparator());
+        this(DefaultDurationComparator.COMPARATOR);
     }
 
     public DefaultDurationType(RelationalComparator<Duration> durationComparator) {
@@ -37,7 +37,7 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
 
         if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
             return durationEqual(first, second);
-        } else if(isDayTimeDuration(first) && isDayTimeDuration(second)) {
+        } else if(isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
             return durationEqual(first, second);
         } else {
             return false;

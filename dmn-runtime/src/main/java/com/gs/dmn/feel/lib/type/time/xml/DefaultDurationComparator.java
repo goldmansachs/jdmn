@@ -15,13 +15,27 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 
-public class DefaultDurationComparator extends XMLDateTimeComparator<Duration> {
+public class DefaultDurationComparator extends XMLCalendarType implements XMLDateTimeComparator<Duration> {
+    public static DefaultDurationComparator COMPARATOR = new DefaultDurationComparator();
+
+    protected DefaultDurationComparator() {
+    }
+
     @Override
-    protected Integer compareTo(Duration first, Duration second) {
-        Long firstValue = durationValue(first);
-        Long secondValue = durationValue(second);
-        long diff = firstValue - secondValue;
-        if (diff == 0) {
+    public Integer compareTo(Duration first, Duration second) {
+        Long diff = null;
+        if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
+            Long firstValue = monthsValue(first);
+            Long secondValue = monthsValue(second);
+            diff = firstValue - secondValue;
+        } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
+            Long firstValue = secondsValue(first);
+            Long secondValue = secondsValue(second);
+            diff = firstValue - secondValue;
+        }
+        if (diff == null) {
+            return DatatypeConstants.INDETERMINATE;
+        } else if (diff == 0) {
             return DatatypeConstants.EQUAL;
         } else if (diff < 0) {
             return DatatypeConstants.LESSER;

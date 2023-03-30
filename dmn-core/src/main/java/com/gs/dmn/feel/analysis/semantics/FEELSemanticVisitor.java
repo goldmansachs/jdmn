@@ -25,6 +25,7 @@ import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Exponentiation;
@@ -47,9 +48,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
@@ -876,24 +875,26 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
 
     private void checkListElementTypes(ListLiteral<Type, DMNContext> element) {
         List<Type> types = element.getExpressionList().stream().map(Expression::getType).collect(Collectors.toList());
-        boolean sameType = true;
-        for (int i = 0; i < types.size() - 1; i++) {
-            Type type1 = types.get(i);
-            for (int j = i + 1; j < types.size(); j++) {
-                Type type2 = types.get(j);
-                if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(type1, type2)) {
-                    sameType = false;
+        // Find root type if possible
+        if (types.size() == 0) {
+            element.setType(ListType.ANY_LIST);
+        } else {
+            Type rooType = types.get(0);
+            for (int i=1; i<types.size(); i++) {
+                Type type = types.get(i);
+                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(type, rooType)) {
+                } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(rooType, type)) {
+                    rooType = type;
+                } else {
+                    rooType = null;
                     break;
                 }
             }
-            if (!sameType) {
-                break;
+            if (rooType == null) {
+                element.setType(ListType.ANY_LIST);
+            } else {
+                element.setType(new ListType(rooType));
             }
-        }
-        if (sameType) {
-            element.setType(new ListType(types.get(0)));
-        } else {
-            element.setType(ListType.ANY_LIST);
         }
     }
 
@@ -920,48 +921,35 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     private void deriveType(QualifiedName<Type, DMNContext> element, DMNContext context) {
-        Type type;
-        String name = element.getName();
-        // Lookup for variables
-        Declaration declaration = context.lookupVariableDeclaration(name);
-        if (declaration instanceof VariableDeclaration) {
-            type = declaration.getType();
-            element.setType(type);
-            return;
-        }
-        // Lookup for functions
-        List<Declaration> declarations = context.lookupFunctionDeclaration(name);
-        if (declarations != null && declarations.size() == 1) {
-            declaration = declarations.get(0);
-            type = declaration.getType();
-        } else {
-            type = new BuiltinOverloadedFunctionType(declarations);
-        }
-        element.setType(type);
+        deriveType(element, context, element.getName());
     }
 
     @Override
     public Object visit(Name<Type, DMNContext> element, DMNContext context) {
-        // Derive type
+        deriveType(element, context, element.getName());
+        return element;
+    }
+
+    private void deriveType(NamedExpression<Type, DMNContext> element, DMNContext context, String name) {
         Type type;
-        String name = element.getName();
         // Lookup for variables
         Declaration declaration = context.lookupVariableDeclaration(name);
         if (declaration instanceof VariableDeclaration) {
             type = declaration.getType();
             element.setType(type);
-        } else {// Lookup for functions
+        } else {
+            // Lookup for functions
             List<Declaration> declarations = context.lookupFunctionDeclaration(name);
-            if (declarations != null && declarations.size() == 1) {
-                declaration = declarations.get(0);
-                type = declaration.getType();
-            } else {
-                type = new BuiltinOverloadedFunctionType(declarations);
+            if (declarations != null && !declarations.isEmpty()) {
+                if (declarations.size() == 1) {
+                    declaration = declarations.get(0);
+                    type = declaration.getType();
+                } else {
+                    type = new BuiltinOverloadedFunctionType(declarations);
+                }
+                element.setType(type);
             }
-            element.setType(type);
         }
-
-        return element;
     }
 
     //

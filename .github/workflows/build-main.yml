@@ -1,4 +1,4 @@
-name: "build jdk 11"
+name: "build"
 
 on:
   [ push, pull_request ]
@@ -26,4 +26,3 @@ jobs:
         run: date
       - name: Build with maven
         run: mvn clean install --show-version --batch-mode --errors --update-snapshots
-

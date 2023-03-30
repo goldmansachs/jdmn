@@ -13,20 +13,24 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.DateType;
-import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
+import java.time.Duration;
 import java.time.LocalDate;
-import java.time.Period;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.chrono.ChronoPeriod;
+import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
 public class LocalDateType extends BasePureCalendarType implements DateType<LocalDate, TemporalAmount> {
-    private final LocalDateComparator comparator;
+    private final TemporalComparator comparator;
 
     public LocalDateType() {
-        this(new LocalDateComparator());
+        this(TemporalComparator.COMPARATOR);
     }
 
-    public LocalDateType(LocalDateComparator comparator) {
+    public LocalDateType(TemporalComparator comparator) {
         this.comparator = comparator;
     }
 
@@ -34,19 +38,12 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
     // Date operators
     //
     @Override
-    public boolean isDate(Object value) {
-        return value instanceof LocalDate;
-    }
-
-    @Override
     public Boolean dateIs(LocalDate first, LocalDate second) {
         if (first == null || second == null) {
             return first == second;
         }
 
-        return first.getYear() == second.getYear()
-                && first.getMonth() == second.getMonth()
-                && first.getDayOfMonth() == second.getDayOfMonth();
+        return sameDateProperties(first, second);
     }
 
     @Override
@@ -80,12 +77,19 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
     }
 
     @Override
-    public TemporalAmount dateSubtract(LocalDate first, LocalDate second) {
-        if (first == null || second == null) {
+    public TemporalAmount dateSubtract(LocalDate firstObj, Object secondObj) {
+        Temporal first = toDateTime(firstObj);
+        Temporal second = toDateTime(secondObj);
+        if (firstObj == null || second == null) {
             return null;
         }
 
-        return Period.between(first, second);
+        // Subtraction is undefined for the case where only one of the values has a timezone
+        if (hasTimezone(first) && !hasTimezone(second) || !hasTimezone(first) && hasTimezone(second)) {
+            return null;
+        }
+
+        return Duration.between(second, first);
     }
 
     @Override
@@ -94,7 +98,17 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
             return null;
         }
 
-        return date.plus(duration);
+        if (duration instanceof ChronoPeriod) {
+            return date.plus(duration);
+        } else if (duration instanceof Duration) {
+            // Calculate with value()
+            Long value1 = value(date);
+            Long value2 = secondsValue((java.time.Duration) duration);
+            // Invert value()
+            return LocalDateTime.ofEpochSecond(value1 + value2, 0, ZoneOffset.UTC).toLocalDate();
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' with '%s'", date, duration));
+        }
     }
 
     @Override
@@ -103,6 +117,15 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
             return null;
         }
 
-        return date.minus(duration);
+        if (duration instanceof ChronoPeriod) {
+            return date.minus(duration);
+        } else if (duration instanceof Duration) {
+            // Calculate with value()
+            Long value1 = value(date);
+            Long value2 = secondsValue((java.time.Duration) duration);
+            // Invert value()
+            return LocalDateTime.ofEpochSecond(value1 - value2, 0, ZoneOffset.UTC).toLocalDate();
+        }
+        throw new DMNRuntimeException(String.format("Cannot subtract '%s' and ''%s", date, duration));
     }
 }

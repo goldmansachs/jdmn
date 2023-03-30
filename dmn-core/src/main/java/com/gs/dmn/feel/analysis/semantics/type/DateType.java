@@ -20,7 +20,7 @@ import java.util.Map;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
-public class DateType extends ComparableDataType {
+public class DateType extends TemporalType {
     public static final DateType DATE = new DateType();
 
     private static final Map<String, Type> MEMBERS = new LinkedHashMap<>();
@@ -46,7 +46,6 @@ public class DateType extends ComparableDataType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return other == DATE || other == COMPARABLE;
+        return other == DATE || other == TEMPORAL || other == COMPARABLE;
     }
-
 }

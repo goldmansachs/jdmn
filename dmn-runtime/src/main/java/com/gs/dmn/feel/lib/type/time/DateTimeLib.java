@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.lib.type.time;
 
+import java.util.List;
+
 public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends TemporalLib<DATE, DATE_TIME> {
     //
     // Conversion functions
@@ -20,50 +22,41 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Te
 
     DATE date(NUMBER year, NUMBER month, NUMBER day);
 
-    DATE date(DATE from);
+    DATE date(Object from);
 
     TIME time(String literal);
 
     TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset);
 
-    TIME time(TIME from);
+    TIME time(Object from);
 
     DATE_TIME dateAndTime(String literal);
 
-    DATE_TIME dateAndTime(DATE date, TIME time);
+    DATE_TIME dateAndTime(Object date, Object time);
 
     //
     // Date properties
     //
-    Integer year(DATE date);
-    Integer yearDateTime(DATE_TIME dateTime);
+    Integer year(Object date);
 
-    Integer month(DATE date);
-    Integer monthDateTime(DATE_TIME dateTime);
+    Integer month(Object date);
 
-    Integer day(DATE date);
-    Integer dayDateTime(DATE_TIME dateTime);
+    Integer day(Object date);
 
-    Integer weekday(DATE date);
-    Integer weekdayDateTime(DATE_TIME dateTime);
+    Integer weekday(Object date);
 
     //
     // Time properties
     //
-    Integer hour(TIME date);
-    Integer hourDateTime(DATE_TIME dateTime);
+    Integer hour(Object date);
 
-    Integer minute(TIME date);
-    Integer minuteDateTime(DATE_TIME dateTime);
+    Integer minute(Object date);
 
-    Integer second(TIME date);
-    Integer secondDateTime(DATE_TIME dateTime);
+    Integer second(Object date);
 
-    DURATION timeOffset(TIME date);
-    DURATION timeOffsetDateTime(DATE_TIME dateTime);
+    DURATION timeOffset(Object date);
 
-    String timezone(TIME date);
-    String timezoneDateTime(DATE_TIME dateTime);
+    String timezone(Object date);
 
     //
     // Extra conversion functions
@@ -73,4 +66,11 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Te
     TIME toTime(Object from);
 
     DATE_TIME toDateTime(Object from);
+
+    //
+    // List functions
+    //
+    <T> T min(List<T> list);
+
+    <T> T max(List<T> list);
 }

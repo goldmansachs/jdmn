@@ -29,7 +29,7 @@ public class DefaultTimeType extends XMLCalendarType implements TimeType<XMLGreg
     protected final DefaultXMLCalendarComparator comparator;
 
     public DefaultTimeType() {
-        this(new DefaultXMLCalendarComparator());
+        this(DefaultXMLCalendarComparator.COMPARATOR);
     }
 
     public DefaultTimeType(DefaultXMLCalendarComparator comparator) {

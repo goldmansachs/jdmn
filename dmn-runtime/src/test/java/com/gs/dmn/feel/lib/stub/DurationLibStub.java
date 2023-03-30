@@ -22,7 +22,7 @@ public class DurationLibStub<DATE, DURATION> implements DurationLib<DATE, DURATI
     }
 
     @Override
-    public DURATION yearsAndMonthsDuration(DATE from, DATE to) {
+    public DURATION yearsAndMonthsDuration(Object from, Object to) {
         throw new DMNRuntimeException("Not supported yet");
     }
 

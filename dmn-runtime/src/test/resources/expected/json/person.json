@@ -1,0 +1,23 @@
+{
+  "514 AT" : "at",
+  "AT" : "AT",
+  "Addresses" : null,
+  "Date and Time List" : [ "2016-08-01T12:00:00Z" ],
+  "Date and Time of Birth" : "2016-08-01T12:00:00Z",
+  "Date of Birth" : "2017-01-03",
+  "Days and Time Duration" : "P2DT20H",
+  "First Name" : "Amy",
+  "Gender" : "female",
+  "ID" : 38,
+  "Last Name" : "Smith",
+  "List" : [ "Late payment" ],
+  "Married" : true,
+  "Ranges" : [ {
+    "startIncluded" : true,
+    "start" : 0,
+    "endIncluded" : false,
+    "end" : 1
+  } ],
+  "Time of Birth" : "11:20:30Z",
+  "Years and Months Duration" : "P1Y1M"
+}

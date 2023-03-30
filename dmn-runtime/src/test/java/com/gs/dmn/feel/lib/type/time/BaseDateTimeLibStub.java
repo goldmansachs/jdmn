@@ -25,11 +25,6 @@ class BaseDateTimeLibStub extends BaseDateTimeLib {
     }
 
     @Override
-    protected boolean timeHasOffset(String literal) {
-        return super.timeHasOffset(literal);
-    }
-
-    @Override
     protected String fixDateTimeFormat(String literal) {
         return super.fixDateTimeFormat(literal);
     }

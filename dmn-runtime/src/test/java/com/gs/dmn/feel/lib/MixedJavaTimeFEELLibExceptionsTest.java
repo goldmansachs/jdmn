@@ -54,7 +54,8 @@ public class MixedJavaTimeFEELLibExceptionsTest extends BaseMixedJavaTimeFEELLib
         DurationLib<LocalDate, Duration> durationLib = new DurationLibStub<>();
         ListLib listLib = new ListLibStub();
         RangeLib rangeLib = new RangeLibStub();
-        return new MixedJavaTimeFEELLib(numericType, booleanType, stringType,
+        return new MixedJavaTimeFEELLib(
+                numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,
                 numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib

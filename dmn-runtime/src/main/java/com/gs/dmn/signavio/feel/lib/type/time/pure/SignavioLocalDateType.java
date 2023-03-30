@@ -10,13 +10,12 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.interpreter;
+package com.gs.dmn.signavio.feel.lib.type.time.pure;
 
-import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
-import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.feel.lib.type.time.pure.LocalDateType;
 
-public class FEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    public FEELInterpreter(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
-        super(dmnInterpreter, new FEELAnalyzerImpl(dmnInterpreter.getBasicDMNTransformer()));
+public class SignavioLocalDateType extends LocalDateType {
+    public SignavioLocalDateType() {
+        super(SignavioTemporalComparator.COMPARATOR);
     }
 }

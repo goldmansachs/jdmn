@@ -18,14 +18,19 @@ import java.time.Duration;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalAmountComparator extends DateTimeComparator<TemporalAmount> {
+public class TemporalAmountComparator extends BasePureCalendarType implements DateTimeComparator<TemporalAmount> {
+    public static TemporalAmountComparator COMPARATOR = new TemporalAmountComparator();
+
+    protected TemporalAmountComparator() {
+    }
+
     @Override
-    protected Integer compareTo(TemporalAmount first, TemporalAmount second) {
-        if (first instanceof Period && second instanceof Period) {
+    public Integer compareTo(TemporalAmount first, TemporalAmount second) {
+        if (isYearsAndMonthsDuration(first) && isYearsAndMonthsDuration(second)) {
             Long firstValue = monthsValue((Period) first);
             Long secondValue = monthsValue((Period) second);
             return firstValue.compareTo(secondValue);
-        } else if (first instanceof Duration && second instanceof Duration) {
+        } else if (isDaysAndTimeDuration(first) && isDaysAndTimeDuration(second)) {
             Long firstValue = secondsValue((Duration) first);
             Long secondValue = secondsValue((Duration) second);
             return firstValue.compareTo(secondValue);

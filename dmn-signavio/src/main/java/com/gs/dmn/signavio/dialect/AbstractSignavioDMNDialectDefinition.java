@@ -15,6 +15,8 @@ package com.gs.dmn.signavio.dialect;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.AbstractDMNDialectDefinition;
+import com.gs.dmn.feel.interpreter.AbstractFEELInterpreter;
+import com.gs.dmn.feel.interpreter.SignavioFEELInterpreter;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.DMNSerializer;
@@ -35,6 +37,14 @@ import static com.gs.dmn.serialization.SerializationFormat.JSON;
 import static com.gs.dmn.serialization.SerializationFormat.XML;
 
 public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
+    //
+    // Interpreter
+    //
+    @Override
+    protected AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> createFEELInterpreter(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
+        return new SignavioFEELInterpreter<>(dmnInterpreter);
+    }
+
     //
     // Serialization
     //

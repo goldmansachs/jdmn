@@ -14,31 +14,30 @@ package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
-import java.time.*;
-import java.time.temporal.Temporal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
 
-public class TemporalComparator extends DateTimeComparator<Temporal> {
+public class TemporalComparator extends BasePureCalendarType implements DateTimeComparator<TemporalAccessor> {
+    public static final TemporalComparator COMPARATOR = new TemporalComparator();
+
+    protected TemporalComparator() {
+    }
+
     @Override
-    protected Integer compareTo(Temporal first, Temporal second) {
-        // Time
-        if (isTime(first) && isTime(second)) {
-            return timeValue(first).compareTo(timeValue(second));
-
-        // Date time
+    public Integer compareTo(TemporalAccessor first, TemporalAccessor second) {
+        if (isDate(first) && isDate(second)) {
+            // Date
+            return dateValue((LocalDate) first).compareTo(dateValue((LocalDate) second));
         } else if (isDateTime(first) && isDateTime(second)) {
+            // Date and time
+            // valuedt(e1) < valuedt(e2). valuedt is defined in 10.3.2.3.5. If one input has a null timezone offset, that input uses the timezone offset of the other input.
             return dateTimeValue(first).compareTo(dateTimeValue(second));
+        } else if (isTime(first) && isTime(second)) {
+            // Time
+            // valuet(e1) < valuet(e2). valuet is defined in 10.3.2.3.4. If one input has a null timezone offset, that input uses the timezone offset of the other input.
+            return timeValue(first).compareTo(timeValue(second));
         }
 
         return  null;
-    }
-
-    private boolean isTime(Temporal dateTime) {
-        return dateTime instanceof LocalTime || dateTime instanceof OffsetTime;
-    }
-
-    private boolean isDateTime(Temporal time) {
-        return time instanceof LocalDateTime
-                || time instanceof OffsetDateTime
-                || time instanceof ZonedDateTime;
     }
 }

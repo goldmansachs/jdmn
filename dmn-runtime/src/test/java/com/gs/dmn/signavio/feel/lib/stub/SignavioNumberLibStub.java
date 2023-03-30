@@ -19,22 +19,42 @@ import java.util.List;
 
 public class SignavioNumberLibStub<NUMBER> implements SignavioNumberLib<NUMBER> {
     @Override
+    public NUMBER number(String text) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public NUMBER number(String text, NUMBER defaultValue) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public NUMBER count(List list) {
+    public NUMBER abs(NUMBER number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public NUMBER round(NUMBER NUMBER, NUMBER digits) {
+    public NUMBER count(List<?> list) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public NUMBER integer(NUMBER NUMBER) {
+    public NUMBER round(NUMBER number, NUMBER digits) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER ceiling(NUMBER number) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER floor(NUMBER number) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER integer(NUMBER number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -44,12 +64,7 @@ public class SignavioNumberLibStub<NUMBER> implements SignavioNumberLib<NUMBER> 
     }
 
     @Override
-    public NUMBER roundDown(NUMBER NUMBER, NUMBER digits) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public NUMBER roundUp(NUMBER NUMBER, NUMBER digits) {
+    public NUMBER percent(NUMBER base) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -59,22 +74,62 @@ public class SignavioNumberLibStub<NUMBER> implements SignavioNumberLib<NUMBER> 
     }
 
     @Override
+    public NUMBER product(List<?> numbers) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER roundDown(NUMBER number, NUMBER digits) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER roundUp(NUMBER number, NUMBER digits) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER sum(List<?> numbers) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER avg(List<?> numbers) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER max(List<?> numbers) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER median(List<?> numbers) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER min(List<?> numbers) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public NUMBER mode(List<?> numbers) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public NUMBER valueOf(long number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public int intValue(NUMBER NUMBER) {
-        throw new DMNRuntimeException("Not supported yet");
+    public int intValue(NUMBER number) {
+        return 0;
     }
 
     @Override
-    public Number toNumber(NUMBER NUMBER) {
-        throw new DMNRuntimeException("Not supported yet");
-    }
-
-    @Override
-    public NUMBER abs(NUMBER number) {
+    public Number toNumber(NUMBER number) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

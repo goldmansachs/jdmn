@@ -13,34 +13,48 @@
 package com.gs.dmn.signavio.feel.lib.type.time;
 
 public interface SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> {
+    DATE date(String literal);
+    TIME time(String literal);
+    DATE_TIME dateAndTime(String literal);
+
     DATE yearAdd(DATE date, NUMBER yearsToAdd);
     DATE_TIME yearAddDateTime(DATE_TIME dateTime, NUMBER yearsToAdd);
 
-    Long yearDiff(DATE date1, DATE date2);
-    Long yearDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);
+    Long yearDiff(Object date1, Object date2);
 
     DATE monthAdd(DATE date, NUMBER monthsToAdd);
     DATE_TIME monthAddDateTime(DATE_TIME dateTime, NUMBER monthsToAdd);
 
-    Long monthDiff(DATE date1, DATE date2);
-    Long monthDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);
+    Long monthDiff(Object date1, Object date2);
 
     DATE dayAdd(DATE date, NUMBER daysToAdd);
-    DATE dayAddDateTime(DATE_TIME dateTime, NUMBER daysToAdd);
+    DATE_TIME dayAddDateTime(DATE_TIME dateTime, NUMBER daysToAdd);
 
-    Long dayDiff(DATE date1, DATE date2);
-    Long dayDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);
+    Long dayDiff(Object date1, Object date2);
 
-    Long hourDiff(TIME time1, TIME time2);
-    Long hourDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);
+    Long hourDiff(Object time1, Object time2);
 
-    Long minutesDiff(TIME time1, TIME time2);
-    Long minutesDiffDateTime(DATE_TIME dateTime1, DATE_TIME dateTime2);
+    Long minutesDiff(Object time1, Object time2);
 
-    Integer weekday(DATE date);
-    Integer weekdayDateTime(DATE_TIME dateTime);
+    Integer year(Object date);
+
+    Integer month(Object date);
+
+    Integer day(Object date);
+
+    Integer weekday(Object date);
+
+    Integer hour(Object time);
+
+    Integer minute(Object time);
 
     DATE today();
 
     DATE_TIME now();
+
+    DATE toDate(Object object);
+
+    TIME toTime(Object object);
+
+    DATE_TIME toDateTime(Object object);
 }

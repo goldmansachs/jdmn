@@ -14,29 +14,31 @@ package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.Duration;
 import java.time.ZonedDateTime;
+import java.time.temporal.Temporal;
 
 public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTimeType<ZonedDateTime, Duration> {
     private final ZonedDateTimeComparator comparator;
 
     public ZonedDateTimeType() {
-        this(new ZonedDateTimeComparator());
+        this(ZonedDateTimeComparator.COMPARATOR);
     }
 
     public ZonedDateTimeType(ZonedDateTimeComparator comparator) {
         this.comparator = comparator;
     }
 
+    @Override
+    public Long dateTimeValue(ZonedDateTime dateTime) {
+        return super.dateTimeValue(dateTime);
+    }
+
     //
     // Date and time operators
     //
-    @Override
-    public boolean isDateTime(Object value) {
-        return value instanceof ZonedDateTime;
-    }
-
     @Override
     public Boolean dateTimeIs(ZonedDateTime first, ZonedDateTime second) {
         if (first == null || second == null) {
@@ -84,13 +86,16 @@ public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTime
     }
 
     @Override
-    public Duration dateTimeSubtract(ZonedDateTime first, ZonedDateTime second) {
+    public Duration dateTimeSubtract(ZonedDateTime first, Object second) {
         if (first == null || second == null) {
             return null;
         }
 
-        long durationInSeconds = dateTimeValue(first) - (long) dateTimeValue(second);
-        return XMLDurationFactory.INSTANCE.dayTimeFromValue(durationInSeconds);
+        if (second instanceof Temporal) {
+            long durationInSeconds = dateTimeValue(first) - (long) value(second);
+            return XMLDurationFactory.INSTANCE.dayTimeFromValue(durationInSeconds);
+        }
+        throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", first, second));
     }
 
     @Override
@@ -115,5 +120,4 @@ public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTime
                 .minus(toTemporalDuration(duration))
                 ;
     }
-
 }

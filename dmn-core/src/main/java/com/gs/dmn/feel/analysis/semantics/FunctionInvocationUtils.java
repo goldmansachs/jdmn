@@ -16,6 +16,8 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
+import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
+import com.gs.dmn.feel.analysis.semantics.type.ComparableDataType;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -29,6 +31,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 
 public class FunctionInvocationUtils {
     static void deriveType(FunctionInvocation<Type, DMNContext> element, DMNContext context, String functionName) {
@@ -43,13 +46,37 @@ public class FunctionInvocationUtils {
     }
 
     private static Type refineFunctionType(FunctionInvocation<Type, DMNContext> element, Declaration functionDeclaration) {
+        // Refine type for built-in functions
+        if (!(functionDeclaration.getType() instanceof BuiltinFunctionType)) {
+            return functionDeclaration.getType();
+        }
+
         String functionName = functionDeclaration.getName();
         Parameters<Type, DMNContext> parameters = element.getParameters();
-        if("sublist".equals(functionName)) {
+        List<FormalParameter<Type, DMNContext>> formalParameters = ((FunctionType) functionDeclaration.getType()).getParameters();
+        if ("max".equals(functionName) || "min".equals(functionName)) {
+            if (!formalParameters.isEmpty()) {
+                FormalParameter<Type, DMNContext> formalParameter = formalParameters.get(0);
+                String name = formalParameter.getName();
+                if ("list".equals(name)) {
+                    Type inputType = parameters.getParameterType(0, "list");
+                    if (inputType instanceof ListType) {
+                        Type returnType = ((ListType) inputType).getElementType();
+                        return StandardEnvironmentFactory.makeMaxMinBuiltInFunctionTypeForList(inputType, returnType);
+                    }
+                } else {
+                    Type inputType = parameters.getParameterType(0, "c1");
+                    if (inputType instanceof ComparableDataType) {
+                        return StandardEnvironmentFactory.makeMaxMinBuiltInFunctionTypeForSequence(inputType, inputType);
+                    }
+                }
+            }
+            return functionDeclaration.getType();
+        } else if("sublist".equals(functionName)) {
             Type listType = parameters.getParameterType(0, "list");
             return StandardEnvironmentFactory.makeSublistBuiltInFunctionType(listType);
         } else if("append".equals(functionName)) {
-            FormalParameter<Type, DMNContext> formalParameter = ((FunctionType) functionDeclaration.getType()).getParameters().get(1);
+            FormalParameter<Type, DMNContext> formalParameter = formalParameters.get(1);
             String name = formalParameter.getName();
             if ("item".equals(name)) {
                 Type listType = parameters.getParameterType(0, "list");
@@ -65,16 +92,15 @@ public class FunctionInvocationUtils {
             return StandardEnvironmentFactory.makeConcatenateBuiltinFunctionType(listType);
         } else if("insert before".equals(functionName)) {
             Type listType = parameters.getParameterType(0, "list");
-            Type newItemType = parameters.getParameterType(2, "new item");
+            Type newItemType = parameters.getParameterType(2, "newItem");
             return StandardEnvironmentFactory.makeInsertBeforeBuiltinFunctionType(listType, newItemType);
         } else if("remove".equals(functionName)) {
-            FormalParameter<Type, DMNContext> formalParameter = ((FunctionType) functionDeclaration.getType()).getParameters().get(1);
+            FormalParameter<Type, DMNContext> formalParameter = formalParameters.get(1);
             String name = formalParameter.getName();
+            Type listType = parameters.getParameterType(0, "list");
             if ("position".equals(name)) {
-                Type listType = parameters.getParameterType(0, "list");
                 return StandardEnvironmentFactory.makeRemoveBuiltinFunctionType(listType);
             } else {
-                Type listType = parameters.getParameterType(0, "list");
                 Type elementType = parameters.getParameterType(1, "element");
                 return StandardEnvironmentFactory.makeSignavioRemoveBuiltinFunctionType(listType, elementType);
             }
@@ -89,8 +115,12 @@ public class FunctionInvocationUtils {
             Type listType = parameters.getParameterType(0, "list");
             return StandardEnvironmentFactory.makeDistinctValuesBuiltinFunctionType(listType);
         } else if("union".equals(functionName)) {
-            Type listType = parameters.getParameterType(0, "list1");
-            return StandardEnvironmentFactory.makeUnionBuiltinFunctionType(listType);
+            if (parameters.isEmpty()) {
+                return StandardEnvironmentFactory.makeUnionBuiltinFunctionType(ANY_LIST);
+            } else {
+                Type listType = parameters.getParameterType(0, "list");
+                return StandardEnvironmentFactory.makeUnionBuiltinFunctionType(listType);
+            }
         } else if("flatten".equals(functionName)) {
             Expression<Type, DMNContext> inputListParameter = parameters.getParameter(0, "list");
             Type elementType = nestedElementType(inputListParameter);

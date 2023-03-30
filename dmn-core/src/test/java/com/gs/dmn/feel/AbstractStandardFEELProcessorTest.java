@@ -13,7 +13,7 @@
 package com.gs.dmn.feel;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.tck.ast.TestCases;
 import org.junit.Test;
@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
@@ -89,6 +90,40 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "TupleType(boolean)",
                 "(dateLessEqualThan(date, dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\"))))",
                 (this.lib.dateLessEqualThan(date, this.lib.dateSubtractDuration(this.lib.date("2020-01-01"), this.lib.duration("P5Y")))),
+                true);
+    }
+
+    @Override
+    @Test
+    public void testPositiveUnaryTest() {
+        super.testPositiveUnaryTest();
+
+        NUMBER number = this.lib.number("1");
+        String string = "abc";
+        boolean boolean_ = true;
+        DATE date = this.lib.date("2017-01-03");
+        TIME time = this.lib.time("12:00:00Z");
+        DATE_TIME dateTime = this.lib.dateAndTime("2017-01-03T12:00:00Z");
+        List<String> list = this.lib.asList("a", "b", "c");
+
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("number", NUMBER, number),
+                new EnvironmentEntry("string", STRING, string),
+                new EnvironmentEntry("boolean", BOOLEAN, boolean_),
+                new EnvironmentEntry("date", DateType.DATE, date),
+                new EnvironmentEntry("time", TimeType.TIME, time),
+                new EnvironmentEntry("dateTime", DateTimeType.DATE_AND_TIME, dateTime),
+                new EnvironmentEntry("list", ListType.STRING_LIST, list)
+        );
+
+        //
+        // ExpressionTest
+        //
+        doUnaryTestsTest(entries, "list", "count(?) > 2",
+                "PositiveUnaryTests(ExpressionTest(Relational(>,FunctionInvocation(Name(count) -> PositionalParameters(Name(?))),NumericLiteral(2))))",
+                "TupleType(boolean)",
+                "(numericGreaterThan(count(list), number(\"2\")))",
+                (this.lib.numericGreaterThan(this.lib.count(list), this.lib.number("2"))),
                 true);
     }
 
@@ -234,6 +269,35 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 this.lib.contains("abc", "a"),
                 true);
 
+        // is invocation
+        doExpressionTest(entries, "", "is(@\"23:00:50@Australia/Melbourne\", @\"23:00:50@Australia/Melbourne\")",
+                "FunctionInvocation(Name(is) -> PositionalParameters(DateTimeLiteral(time, \"23:00:50@Australia/Melbourne\"), DateTimeLiteral(time, \"23:00:50@Australia/Melbourne\")))",
+                "boolean",
+                "is(time(\"23:00:50@Australia/Melbourne\"), time(\"23:00:50@Australia/Melbourne\"))",
+                this.lib.is(this.lib.time("23:00:50@Australia/Melbourne"), this.lib.time("23:00:50@Australia/Melbourne")),
+                true);
+
+    }
+
+    @Test
+    @Override
+    public void testFilterExpression() {
+        super.testFilterExpression();
+
+        List<EnvironmentEntry> entries = Arrays.asList(
+        );
+        doExpressionTest(entries, "", "[ { x: \"1\", y: \"2\" }, { x: null, y: \"3\" } ][ x < \"2\" ]",
+                "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = StringLiteral(\"1\")),ContextEntry(ContextEntryKey(y) = StringLiteral(\"2\"))),Context(ContextEntry(ContextEntryKey(x) = NullLiteral()),ContextEntry(ContextEntryKey(y) = StringLiteral(\"3\")))), Relational(<,PathExpression(Name(item), x),StringLiteral(\"2\")))",
+                "ListType(ContextType(x = string, y = string))",
+                "asList(new com.gs.dmn.runtime.Context().add(\"x\", \"1\").add(\"y\", \"2\"), new com.gs.dmn.runtime.Context().add(\"x\", null).add(\"y\", \"3\")).stream().filter(item -> stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get(\"x\")), \"2\") == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", "1").add("y", "2"), new com.gs.dmn.runtime.Context().add("x", null).add("y", "3")).stream().filter(item -> this.lib.stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get("x")), "2") == Boolean.TRUE).collect(Collectors.toList()),
+                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", "1").add("y", "2")));
+        doExpressionTest(entries, "", "[ { x: null, y: \"2\" }, { x: \"1\", y: \"3\" } ][ x < \"2\" ]",
+                "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NullLiteral()),ContextEntry(ContextEntryKey(y) = StringLiteral(\"2\"))),Context(ContextEntry(ContextEntryKey(x) = StringLiteral(\"1\")),ContextEntry(ContextEntryKey(y) = StringLiteral(\"3\")))), Relational(<,PathExpression(Name(item), x),StringLiteral(\"2\")))",
+                "ListType(ContextType(x = string, y = string))",
+                "asList(new com.gs.dmn.runtime.Context().add(\"x\", null).add(\"y\", \"2\"), new com.gs.dmn.runtime.Context().add(\"x\", \"1\").add(\"y\", \"3\")).stream().filter(item -> stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get(\"x\")), \"2\") == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", null).add("y", "2"), new com.gs.dmn.runtime.Context().add("x", "1").add("y", "3")).stream().filter(item -> this.lib.stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get("x")), "2") == Boolean.TRUE).collect(Collectors.toList()),
+                Arrays.asList(new com.gs.dmn.runtime.Context().add("x", "1").add("y", "3")));
     }
 
     @Override
@@ -251,6 +315,32 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "stringLength(((String)(privateFundRequirements != null ? privateFundRequirements.getHierarchyNode() : null)))",
                 null,
                 null);
+
+        doExpressionTest(entries, "", "date(\"2018-12-10\").weekday",
+                "PathExpression(DateTimeLiteral(date, \"2018-12-10\"), weekday)",
+                "number",
+                "weekday(date(\"2018-12-10\"))",
+                this.lib.weekday(this.lib.date("2018-12-10")),
+                this.lib.number("1"));
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:01\").weekday",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), weekday)",
+                "number",
+                "weekday(dateAndTime(\"2018-12-10T10:30:01\"))",
+                this.lib.weekday(this.lib.dateAndTime("2018-12-10T10:30:01")),
+                this.lib.number("1"));
+
+        doExpressionTest(entries, "", "time(\"10:30:01\").hour",
+                "PathExpression(DateTimeLiteral(time, \"10:30:01\"), hour)",
+                "number",
+                "hour(time(\"10:30:01\"))",
+                this.lib.hour(this.lib.time("10:30:01")),
+                this.lib.number("10"));
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:01\").hour",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:01\"), hour)",
+                "number",
+                "hour(dateAndTime(\"2018-12-10T10:30:01\"))",
+                this.lib.hour(this.lib.dateAndTime("2018-12-10T10:30:01")),
+                this.lib.number("10"));
     }
 
     @Override
@@ -290,12 +380,6 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "dateAndTime(date(\"2012-03-01\"), time(\"10:11:12Z\"))",
                 this.lib.dateAndTime(this.lib.date("2012-03-01"), this.lib.time("10:11:12Z")),
                 this.lib.dateAndTime("2012-03-01T10:11:12Z"));
-//        doExpressionTest(entries, "", "date and time(date and time(\"2012-03-01T13:14:15Z\"), time(\"10:11:12Z\"))",
-//                "FunctionInvocation(Name(date and time) -> PositionalParameters(DateTimeLiteral(date and time, \"2012-03-01T13:14:15Z\"), DateTimeLiteral(time, \"10:11:12Z\")))",
-//                "date and time",
-//                "dateAndTime(dateAndTime(\"2012-03-01T13:14:15Z\"), time(\"10:11:12Z\"))",
-//                this.lib.date(this.lib.number("2012"), this.lib.number("3"), this.lib.number("1")),
-//                this.lib.dateAndTime("2012-03-01T10:11:12Z"));
         doExpressionTest(entries, "", "date and time(\"2012-03-01T10:11:12Z\")",
                 "DateTimeLiteral(date and time, \"2012-03-01T10:11:12Z\")",
                 "date and time",
@@ -524,12 +608,6 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "substring(\"abc\", number(\"3\"))",
                 this.lib.substring("abc", this.lib.number("3")),
                 "c");
-        doExpressionTest(entries, "", "substring(string: \"abc\", startPosition: 3)",
-                "FunctionInvocation(Name(substring) -> NamedParameters(string : StringLiteral(\"abc\"), startPosition : NumericLiteral(3)))",
-                "string",
-                "substring(\"abc\", number(\"3\"))",
-                this.lib.substring("abc", this.lib.number("3")),
-                "c");
         doExpressionTest(entries, "", "string length(\"abc\")",
                 "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"abc\")))",
                 "number",
@@ -693,6 +771,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "count(asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 this.lib.count(Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                 this.lib.number("3"));
+
         doExpressionTest(entries, "", "min([1, 2, 3])",
                 "FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
                 "number",
@@ -705,6 +784,67 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "min(number(\"1\"), number(\"2\"), number(\"3\"))",
                 this.lib.min(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")),
                 this.lib.number("1"));
+        doExpressionTest(entries, "", "min([\"a\", \"b\", \"c\"])",
+                "FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(StringLiteral(\"a\"),StringLiteral(\"b\"),StringLiteral(\"c\"))))",
+                "string",
+                "min(asList(\"a\", \"b\", \"c\"))",
+                this.lib.min(this.lib.asList("a", "b", "c")),
+                "a");
+        doExpressionTest(entries, "", "min(\"a\", \"b\", \"c\")",
+                "FunctionInvocation(Name(min) -> PositionalParameters(StringLiteral(\"a\"), StringLiteral(\"b\"), StringLiteral(\"c\")))",
+                "string",
+                "min(\"a\", \"b\", \"c\")",
+                this.lib.min("a", "b", "c"),
+                "a");
+        doExpressionTest(entries, "", "min([@\"2010-01-01\", @\"2010-01-02\", @\"2010-01-03\"])",
+                "FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(DateTimeLiteral(date, \"2010-01-01\"),DateTimeLiteral(date, \"2010-01-02\"),DateTimeLiteral(date, \"2010-01-03\"))))",
+                "date",
+                "min(asList(date(\"2010-01-01\"), date(\"2010-01-02\"), date(\"2010-01-03\")))",
+                this.lib.min(this.lib.asList(this.lib.date("2010-01-01"), this.lib.date("2010-01-02"), this.lib.date("2010-01-03"))),
+                this.lib.date("2010-01-01"));
+        doExpressionTest(entries, "", "min(@\"2010-01-01\", @\"2010-01-02\", @\"2010-01-03\")",
+                "FunctionInvocation(Name(min) -> PositionalParameters(DateTimeLiteral(date, \"2010-01-01\"), DateTimeLiteral(date, \"2010-01-02\"), DateTimeLiteral(date, \"2010-01-03\")))",
+                "date",
+                "min(date(\"2010-01-01\"), date(\"2010-01-02\"), date(\"2010-01-03\"))",
+                this.lib.min(this.lib.date("2010-01-01"), this.lib.date("2010-01-02"), this.lib.date("2010-01-03")),
+                this.lib.date("2010-01-01"));
+        doExpressionTest(entries, "", "min([@\"T12:00:01\", @\"T12:00:02\", @\"T12:00:03\"])",
+                "FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(DateTimeLiteral(time, \"T12:00:01\"),DateTimeLiteral(time, \"T12:00:02\"),DateTimeLiteral(time, \"T12:00:03\"))))",
+                "time",
+                "min(asList(time(\"T12:00:01\"), time(\"T12:00:02\"), time(\"T12:00:03\")))",
+                this.lib.min(this.lib.asList(this.lib.time("T12:00:01"), this.lib.time("T12:00:02"), this.lib.time("T12:00:03"))),
+                this.lib.time("T12:00:01"));
+        doExpressionTest(entries, "", "min(@\"T12:00:01\", @\"T12:00:02\", @\"T12:00:03\")",
+                "FunctionInvocation(Name(min) -> PositionalParameters(DateTimeLiteral(time, \"T12:00:01\"), DateTimeLiteral(time, \"T12:00:02\"), DateTimeLiteral(time, \"T12:00:03\")))",
+                "time",
+                "min(time(\"T12:00:01\"), time(\"T12:00:02\"), time(\"T12:00:03\"))",
+                this.lib.min(this.lib.time("T12:00:01"), this.lib.time("T12:00:02"), this.lib.time("T12:00:03")),
+                this.lib.time("T12:00:01"));
+        doExpressionTest(entries, "", "min([@\"2010-01-01T12:00:01\", @\"2010-01-01T12:00:02\", @\"2010-01-01T12:00:03\"])",
+                "FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(DateTimeLiteral(date and time, \"2010-01-01T12:00:01\"),DateTimeLiteral(date and time, \"2010-01-01T12:00:02\"),DateTimeLiteral(date and time, \"2010-01-01T12:00:03\"))))",
+                "date and time",
+                "min(asList(dateAndTime(\"2010-01-01T12:00:01\"), dateAndTime(\"2010-01-01T12:00:02\"), dateAndTime(\"2010-01-01T12:00:03\")))",
+                this.lib.min(this.lib.asList(this.lib.dateAndTime("2010-01-01T12:00:01"), this.lib.dateAndTime("2010-01-01T12:00:02"), this.lib.dateAndTime("2010-01-01T12:00:03"))),
+                this.lib.dateAndTime("2010-01-01T12:00:01"));
+        doExpressionTest(entries, "", "min(@\"2010-01-01T12:00:01\", @\"2010-01-01T12:00:02\", @\"2010-01-01T12:00:03\")",
+                "FunctionInvocation(Name(min) -> PositionalParameters(DateTimeLiteral(date and time, \"2010-01-01T12:00:01\"), DateTimeLiteral(date and time, \"2010-01-01T12:00:02\"), DateTimeLiteral(date and time, \"2010-01-01T12:00:03\")))",
+                "date and time",
+                "min(dateAndTime(\"2010-01-01T12:00:01\"), dateAndTime(\"2010-01-01T12:00:02\"), dateAndTime(\"2010-01-01T12:00:03\"))",
+                this.lib.min(this.lib.dateAndTime("2010-01-01T12:00:01"), this.lib.dateAndTime("2010-01-01T12:00:02"), this.lib.dateAndTime("2010-01-01T12:00:03")),
+                this.lib.dateAndTime("2010-01-01T12:00:01"));
+        doExpressionTest(entries, "", "min([@\"P1Y1M\", @\"P1Y2M\", @\"P1Y3M\"])",
+                "FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(DateTimeLiteral(duration, \"P1Y1M\"),DateTimeLiteral(duration, \"P1Y2M\"),DateTimeLiteral(duration, \"P1Y3M\"))))",
+                "years and months duration",
+                "min(asList(duration(\"P1Y1M\"), duration(\"P1Y2M\"), duration(\"P1Y3M\")))",
+                this.lib.min(this.lib.asList(this.lib.duration("P1Y1M"), this.lib.duration("P1Y2M"), this.lib.duration("P1Y3M"))),
+                this.lib.duration("P1Y1M"));
+        doExpressionTest(entries, "", " min(@\"P1D\", @\"P1DT1H\", @\"P1DT2H\")",
+                "FunctionInvocation(Name(min) -> PositionalParameters(DateTimeLiteral(duration, \"P1D\"), DateTimeLiteral(duration, \"P1DT1H\"), DateTimeLiteral(duration, \"P1DT2H\")))",
+                "days and time duration",
+                "min(duration(\"P1D\"), duration(\"P1DT1H\"), duration(\"P1DT2H\"))",
+                this.lib.min(this.lib.duration("P1D"), this.lib.duration("P1DT1H"), this.lib.duration("P1DT2H")),
+                this.lib.duration("P1D"));
+
         doExpressionTest(entries, "", "max([1, 2, 3])",
                 "FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
                 "number",
@@ -717,6 +857,67 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "max(number(\"1\"), number(\"2\"), number(\"3\"))",
                 this.lib.max(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")),
                 this.lib.number("3"));
+        doExpressionTest(entries, "", "max([\"a\", \"b\", \"c\"])",
+                "FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(StringLiteral(\"a\"),StringLiteral(\"b\"),StringLiteral(\"c\"))))",
+                "string",
+                "max(asList(\"a\", \"b\", \"c\"))",
+                this.lib.max(this.lib.asList("a", "b", "c")),
+                "c");
+        doExpressionTest(entries, "", "max(\"a\", \"b\", \"c\")",
+                "FunctionInvocation(Name(max) -> PositionalParameters(StringLiteral(\"a\"), StringLiteral(\"b\"), StringLiteral(\"c\")))",
+                "string",
+                "max(\"a\", \"b\", \"c\")",
+                this.lib.max("a", "b", "c"),
+                "c");
+        doExpressionTest(entries, "", "max([@\"2010-01-01\", @\"2010-01-02\", @\"2010-01-03\"])",
+                "FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(DateTimeLiteral(date, \"2010-01-01\"),DateTimeLiteral(date, \"2010-01-02\"),DateTimeLiteral(date, \"2010-01-03\"))))",
+                "date",
+                "max(asList(date(\"2010-01-01\"), date(\"2010-01-02\"), date(\"2010-01-03\")))",
+                this.lib.max(this.lib.asList(this.lib.date("2010-01-01"), this.lib.date("2010-01-02"), this.lib.date("2010-01-03"))),
+                this.lib.date("2010-01-03"));
+        doExpressionTest(entries, "", "max(@\"2010-01-01\", @\"2010-01-02\", @\"2010-01-03\")",
+                "FunctionInvocation(Name(max) -> PositionalParameters(DateTimeLiteral(date, \"2010-01-01\"), DateTimeLiteral(date, \"2010-01-02\"), DateTimeLiteral(date, \"2010-01-03\")))",
+                "date",
+                "max(date(\"2010-01-01\"), date(\"2010-01-02\"), date(\"2010-01-03\"))",
+                this.lib.max(this.lib.date("2010-01-01"), this.lib.date("2010-01-02"), this.lib.date("2010-01-03")),
+                this.lib.date("2010-01-03"));
+        doExpressionTest(entries, "", "max([@\"T12:00:01\", @\"T12:00:02\", @\"T12:00:03\"])",
+                "FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(DateTimeLiteral(time, \"T12:00:01\"),DateTimeLiteral(time, \"T12:00:02\"),DateTimeLiteral(time, \"T12:00:03\"))))",
+                "time",
+                "max(asList(time(\"T12:00:01\"), time(\"T12:00:02\"), time(\"T12:00:03\")))",
+                this.lib.max(this.lib.asList(this.lib.time("T12:00:01"), this.lib.time("T12:00:02"), this.lib.time("T12:00:03"))),
+                this.lib.time("T12:00:03"));
+        doExpressionTest(entries, "", "max(@\"T12:00:01\", @\"T12:00:02\", @\"T12:00:03\")",
+                "FunctionInvocation(Name(max) -> PositionalParameters(DateTimeLiteral(time, \"T12:00:01\"), DateTimeLiteral(time, \"T12:00:02\"), DateTimeLiteral(time, \"T12:00:03\")))",
+                "time",
+                "max(time(\"T12:00:01\"), time(\"T12:00:02\"), time(\"T12:00:03\"))",
+                this.lib.max(this.lib.time("T12:00:01"), this.lib.time("T12:00:02"), this.lib.time("T12:00:03")),
+                this.lib.time("T12:00:03"));
+        doExpressionTest(entries, "", "max([@\"2010-01-01T12:00:01\", @\"2010-01-01T12:00:02\", @\"2010-01-01T12:00:03\"])",
+                "FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(DateTimeLiteral(date and time, \"2010-01-01T12:00:01\"),DateTimeLiteral(date and time, \"2010-01-01T12:00:02\"),DateTimeLiteral(date and time, \"2010-01-01T12:00:03\"))))",
+                "date and time",
+                "max(asList(dateAndTime(\"2010-01-01T12:00:01\"), dateAndTime(\"2010-01-01T12:00:02\"), dateAndTime(\"2010-01-01T12:00:03\")))",
+                this.lib.max(this.lib.asList(this.lib.dateAndTime("2010-01-01T12:00:01"), this.lib.dateAndTime("2010-01-01T12:00:02"), this.lib.dateAndTime("2010-01-01T12:00:03"))),
+                this.lib.dateAndTime("2010-01-01T12:00:03"));
+        doExpressionTest(entries, "", "max(@\"2010-01-01T12:00:01\", @\"2010-01-01T12:00:02\", @\"2010-01-01T12:00:03\")",
+                "FunctionInvocation(Name(max) -> PositionalParameters(DateTimeLiteral(date and time, \"2010-01-01T12:00:01\"), DateTimeLiteral(date and time, \"2010-01-01T12:00:02\"), DateTimeLiteral(date and time, \"2010-01-01T12:00:03\")))",
+                "date and time",
+                "max(dateAndTime(\"2010-01-01T12:00:01\"), dateAndTime(\"2010-01-01T12:00:02\"), dateAndTime(\"2010-01-01T12:00:03\"))",
+                this.lib.max(this.lib.dateAndTime("2010-01-01T12:00:01"), this.lib.dateAndTime("2010-01-01T12:00:02"), this.lib.dateAndTime("2010-01-01T12:00:03")),
+                this.lib.dateAndTime("2010-01-01T12:00:03"));
+        doExpressionTest(entries, "", "max([@\"P1Y1M\", @\"P1Y2M\", @\"P1Y3M\"])",
+                "FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(DateTimeLiteral(duration, \"P1Y1M\"),DateTimeLiteral(duration, \"P1Y2M\"),DateTimeLiteral(duration, \"P1Y3M\"))))",
+                "years and months duration",
+                "max(asList(duration(\"P1Y1M\"), duration(\"P1Y2M\"), duration(\"P1Y3M\")))",
+                this.lib.max(this.lib.asList(this.lib.duration("P1Y1M"), this.lib.duration("P1Y2M"), this.lib.duration("P1Y3M"))),
+                this.lib.duration("P1Y3M"));
+        doExpressionTest(entries, "", "max(@\"P1D\", @\"P1DT1H\", @\"P1DT2H\")",
+                "FunctionInvocation(Name(max) -> PositionalParameters(DateTimeLiteral(duration, \"P1D\"), DateTimeLiteral(duration, \"P1DT1H\"), DateTimeLiteral(duration, \"P1DT2H\")))",
+                "days and time duration",
+                "max(duration(\"P1D\"), duration(\"P1DT1H\"), duration(\"P1DT2H\"))",
+                this.lib.max(this.lib.duration("P1D"), this.lib.duration("P1DT1H"), this.lib.duration("P1DT2H")),
+                this.lib.duration("P1DT2H"));
+
         doExpressionTest(entries, "", "sum([1, 2, 3])",
                 "FunctionInvocation(Name(sum) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
                 "number",
@@ -960,7 +1161,56 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "days and time duration",
                 "timeOffset(time(\"12:00:00Z\"))",
                 this.lib.timeOffset(this.lib.time("12:00:00Z")),
-                this.lib.duration("P0Y0M0DT0H0M0.000S"));
+                this.lib.duration("P0DT0H0M0.000S"));
+    }
+
+    @Test
+    public void testDateAndTimeProperties() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+        );
+
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").time offset",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), time offset)",
+                "days and time duration",
+                "timeOffset(dateAndTime(\"2018-12-10T10:30:00\"))",
+                this.lib.timeOffset((TIME) this.lib.dateAndTime("2018-12-10T10:30:00")),
+                null
+        );
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00@Etc/UTC\").timezone",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00@Etc/UTC\"), timezone)",
+                "string",
+                "timezone(dateAndTime(\"2018-12-10T10:30:00@Etc/UTC\"))",
+                this.lib.timezone((TIME) this.lib.dateAndTime("2018-12-10T10:30:00@Etc/UTC")),
+                "Etc/UTC"
+        );
+        doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").timezone",
+                "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), timezone)",
+                "string",
+                "timezone(dateAndTime(\"2018-12-10T10:30:00\"))",
+                this.lib.timezone((TIME) this.lib.dateAndTime("2018-12-10T10:30:00")),
+                null
+        );
+        doExpressionTest(entries, "", "time(\"10:30:00\").time offset",
+                "PathExpression(DateTimeLiteral(time, \"10:30:00\"), time offset)",
+                "days and time duration",
+                "timeOffset(time(\"10:30:00\"))",
+                this.lib.timeOffset(this.lib.time("10:30:00")),
+                null
+        );
+        doExpressionTest(entries, "", "time(\"10:30:00@Etc/UTC\").timezone",
+                "PathExpression(DateTimeLiteral(time, \"10:30:00@Etc/UTC\"), timezone)",
+                "string",
+                "timezone(time(\"10:30:00@Etc/UTC\"))",
+                this.lib.timezone(this.lib.time("10:30:00@Etc/UTC")),
+                "Etc/UTC"
+        );
+        doExpressionTest(entries, "", "time(\"10:30:00\").timezone",
+                "PathExpression(DateTimeLiteral(time, \"10:30:00\"), timezone)",
+                "string",
+                "timezone(time(\"10:30:00\"))",
+                this.lib.timezone(this.lib.time("10:30:00")),
+                null
+        );
     }
 
     @Test
@@ -1013,7 +1263,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "number",
                 "days(dateSubtract(date(\"2012-03-01\"), date(\"2012-04-01\")))",
                 this.lib.days(this.lib.dateSubtract(this.lib.date("2012-03-01"), this.lib.date("2012-04-01"))),
-                this.lib.number("31"));
+                this.lib.number("-31"));
         doExpressionTest(entries, "", "(date(\"2012-03-01\") - date(\"2012-04-01\")).hours",
                 "PathExpression(Addition(-,DateTimeLiteral(date, \"2012-03-01\"),DateTimeLiteral(date, \"2012-04-01\")), hours)",
                 "number",
@@ -1056,12 +1306,6 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "is(date(\"2012-12-25\"), date(\"2012-12-25\"))",
                 this.lib.is(this.lib.date("2012-12-25"), this.lib.date("2012-12-25")),
                 true);
-        doExpressionTest(entries, "", "is(@\"23:00:50Z\", @\"23:00:50\")",
-                "FunctionInvocation(Name(is) -> PositionalParameters(DateTimeLiteral(time, \"23:00:50Z\"), DateTimeLiteral(time, \"23:00:50\")))",
-                "boolean",
-                "is(time(\"23:00:50Z\"), time(\"23:00:50\"))",
-                this.lib.is(this.lib.time("23:00:50Z"), this.lib.time("23:00:50")),
-                false);
     }
 
     @Test

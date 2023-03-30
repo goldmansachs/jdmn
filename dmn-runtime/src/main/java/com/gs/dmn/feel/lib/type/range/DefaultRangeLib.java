@@ -16,6 +16,7 @@ import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
+import com.gs.dmn.feel.lib.type.numeric.DoubleComparator;
 import com.gs.dmn.feel.lib.type.time.mixed.LocalDateComparator;
 import com.gs.dmn.feel.lib.type.time.mixed.OffsetTimeComparator;
 import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeComparator;
@@ -47,17 +48,17 @@ public class DefaultRangeLib implements RangeLib {
 
     static {
         COMPARATOR_MAP.put(BigDecimal.class, new ComparableComparator<BigDecimal>());
-        COMPARATOR_MAP.put(Double.class, new ComparableComparator<BigDecimal>());
+        COMPARATOR_MAP.put(Double.class, DoubleComparator.COMPARATOR);
         COMPARATOR_MAP.put(String.class, new ComparableComparator<String>());
 
-        COMPARATOR_MAP.put(LocalDate.class, new LocalDateComparator());
-        COMPARATOR_MAP.put(OffsetTime.class, new OffsetTimeComparator());
-        COMPARATOR_MAP.put(ZonedDateTime.class, new ZonedDateTimeComparator());
-        COMPARATOR_MAP.put(Temporal.class, new TemporalComparator());
-        COMPARATOR_MAP.put(TemporalAmount.class, new TemporalAmountComparator());
+        COMPARATOR_MAP.put(LocalDate.class, LocalDateComparator.COMPARATOR);
+        COMPARATOR_MAP.put(OffsetTime.class, OffsetTimeComparator.COMPARATOR);
+        COMPARATOR_MAP.put(ZonedDateTime.class, ZonedDateTimeComparator.COMPARATOR);
+        COMPARATOR_MAP.put(Temporal.class, TemporalComparator.COMPARATOR);
+        COMPARATOR_MAP.put(TemporalAmount.class, TemporalAmountComparator.COMPARATOR);
 
-        COMPARATOR_MAP.put(XMLGregorianCalendar.class, new DefaultXMLCalendarComparator());
-        COMPARATOR_MAP.put(Duration.class, new DefaultDurationComparator());
+        COMPARATOR_MAP.put(XMLGregorianCalendar.class, DefaultXMLCalendarComparator.COMPARATOR);
+        COMPARATOR_MAP.put(Duration.class, DefaultDurationComparator.COMPARATOR);
     }
 
     @Override

@@ -33,6 +33,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
+import static com.gs.dmn.feel.analysis.semantics.type.TemporalType.TEMPORAL;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class SignavioEnvironmentFactory implements EnvironmentFactory {
@@ -101,8 +102,8 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "abs", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER)));
         addFunctionDeclaration(environment, "count", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
         addFunctionDeclaration(environment, "round", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER), new FormalParameter<>("digits", NUMBER)));
-        addFunctionDeclaration(environment, "ceiling", new BuiltinFunctionType(NUMBER, new FormalParameter<>("n", NUMBER)));
-        addFunctionDeclaration(environment, "floor", new BuiltinFunctionType(NUMBER, new FormalParameter<>("n", NUMBER)));
+        addFunctionDeclaration(environment, "ceiling", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER)));
+        addFunctionDeclaration(environment, "floor", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER)));
         addFunctionDeclaration(environment, "integer", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER)));
         addFunctionDeclaration(environment, "modulo", new BuiltinFunctionType(NUMBER, new FormalParameter<>("dividend", NUMBER), new FormalParameter<>("divisor", NUMBER)));
         addFunctionDeclaration(environment, "percent", new BuiltinFunctionType(NUMBER, new FormalParameter<>("number", NUMBER)));
@@ -142,24 +143,26 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "day", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE)));
         addFunctionDeclaration(environment, "day", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "dayAdd", new BuiltinFunctionType(DATE, new FormalParameter<>("datetime", DATE), new FormalParameter<>("days_to_add", NUMBER)));
-        addFunctionDeclaration(environment, "dayAdd", new BuiltinFunctionType(DATE, new FormalParameter<>("datetime", DATE_AND_TIME), new FormalParameter<>("days_to_add", NUMBER)));
+        addFunctionDeclaration(environment, "dayAdd", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter<>("datetime", DATE_AND_TIME), new FormalParameter<>("days_to_add", NUMBER)));
         addFunctionDeclaration(environment, "dayDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE), new FormalParameter<>("datetime2", DATE)));
+        addFunctionDeclaration(environment, "dayDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE), new FormalParameter<>("datetime2", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "dayDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE)));
         addFunctionDeclaration(environment, "dayDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "date", new BuiltinFunctionType(DATE, new FormalParameter<>("year", NUMBER), new FormalParameter<>("month", NUMBER), new FormalParameter<>("day", NUMBER)));
         addFunctionDeclaration(environment, "dateTime", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter<>("day", NUMBER), new FormalParameter<>("month", NUMBER), new FormalParameter<>("year", NUMBER), new FormalParameter<>("hour", NUMBER), new FormalParameter<>("minute", NUMBER), new FormalParameter<>("second", NUMBER), new FormalParameter<>("hourOffset", NUMBER, true, false)));
         addFunctionDeclaration(environment, "hour", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", TIME)));
         addFunctionDeclaration(environment, "hour", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "hourDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", TIME), new FormalParameter<>("datetime2", TIME)));
-        addFunctionDeclaration(environment, "hourDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "hourDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", TEMPORAL), new FormalParameter<>("datetime2", TEMPORAL)));
         addFunctionDeclaration(environment, "minute", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", TIME)));
         addFunctionDeclaration(environment, "minute", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "minutesDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", TIME), new FormalParameter<>("datetime2", TIME)));
-        addFunctionDeclaration(environment, "minutesDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "minutesDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", TEMPORAL), new FormalParameter<>("datetime2", TEMPORAL)));
         addFunctionDeclaration(environment, "month", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE)));
         addFunctionDeclaration(environment, "month", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "monthAdd", new BuiltinFunctionType(DATE, new FormalParameter<>("datetime", DATE), new FormalParameter<>("months_to_add", NUMBER)));
-        addFunctionDeclaration(environment, "monthAdd", new BuiltinFunctionType(DATE, new FormalParameter<>("datetime", DATE_AND_TIME), new FormalParameter<>("months_to_add", NUMBER)));
+        addFunctionDeclaration(environment, "monthAdd", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter<>("datetime", DATE_AND_TIME), new FormalParameter<>("months_to_add", NUMBER)));
         addFunctionDeclaration(environment, "monthDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE), new FormalParameter<>("datetime2", DATE)));
+        addFunctionDeclaration(environment, "monthDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE), new FormalParameter<>("datetime2", DATE_AND_TIME)));
+        addFunctionDeclaration(environment, "monthDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE)));
         addFunctionDeclaration(environment, "monthDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "now", new BuiltinFunctionType(DATE_AND_TIME));
         addFunctionDeclaration(environment, "today", new BuiltinFunctionType(DATE));
@@ -167,12 +170,12 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "weekday", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE)));
         addFunctionDeclaration(environment, "year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime", DATE_AND_TIME)));
-        addFunctionDeclaration(environment, "yearAdd", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter<>("datetime", DATE), new FormalParameter<>("years_to_add", NUMBER)));
+        addFunctionDeclaration(environment, "yearAdd", new BuiltinFunctionType(DATE, new FormalParameter<>("datetime", DATE), new FormalParameter<>("years_to_add", NUMBER)));
         addFunctionDeclaration(environment, "yearAdd", new BuiltinFunctionType(DATE_AND_TIME, new FormalParameter<>("datetime", DATE_AND_TIME), new FormalParameter<>("years_to_add", NUMBER)));
         addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE), new FormalParameter<>("datetime2", DATE)));
-        addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE), new FormalParameter<>("datetime2", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE)));
+        addFunctionDeclaration(environment, "yearDiff", new BuiltinFunctionType(NUMBER, new FormalParameter<>("datetime1", DATE_AND_TIME), new FormalParameter<>("datetime2", DATE_AND_TIME)));
     }
 
     private static void addListFunctions(Environment environment) {

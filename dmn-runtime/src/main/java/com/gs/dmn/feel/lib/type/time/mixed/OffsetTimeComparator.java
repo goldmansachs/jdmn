@@ -16,9 +16,14 @@ import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 
 import java.time.OffsetTime;
 
-public class OffsetTimeComparator extends DateTimeComparator<OffsetTime> {
+public class OffsetTimeComparator extends BaseMixedCalendarType implements DateTimeComparator<OffsetTime> {
+    public static final OffsetTimeComparator COMPARATOR = new OffsetTimeComparator();
+
+    protected OffsetTimeComparator() {
+    }
+
     @Override
-    protected Integer compareTo(OffsetTime first, OffsetTime second) {
+    public Integer compareTo(OffsetTime first, OffsetTime second) {
         return timeValue(first).compareTo(timeValue(second));
     }
 }

@@ -52,9 +52,11 @@ public class DefaultFEELLibExceptionsTest extends BaseStandardFEELLibExceptionsT
         DurationLib<XMLGregorianCalendar, Duration> durationLib = new DurationLibStub<>();
         ListLib listLib = new ListLibStub();
         RangeLib rangeLib = new RangeLibStub();
-        return new DefaultFEELLib(numericType, booleanType, stringType,
+        return new DefaultFEELLib(
+                numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,
-                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib);
+                numericLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib, rangeLib
+        );
     }
 }

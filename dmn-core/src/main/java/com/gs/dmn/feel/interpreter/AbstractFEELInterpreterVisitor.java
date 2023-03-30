@@ -75,8 +75,8 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.context.DMNContext.INPUT_ENTRY_PLACE_HOLDER;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression.PARTIAL_PARAMETER_NAME;
 
-class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELToJavaVisitor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FEELInterpreterVisitor.class);
+abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELToJavaVisitor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractFEELInterpreterVisitor.class);
 
     private final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
     private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
@@ -84,13 +84,17 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     private final DefaultExternalFunctionExecutor externalFunctionExecutor;
     private final TypeConverter typeConverter;
 
-    FEELInterpreterVisitor(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
+    AbstractFEELInterpreterVisitor(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
         super(dmnInterpreter.getBasicDMNTransformer());
         this.dmnInterpreter = dmnInterpreter;
         this.typeConverter = dmnInterpreter.getTypeConverter();
         this.feelTranslator = new FEELTranslatorForInterpreter(dmnInterpreter.getBasicDMNTransformer());
         this.lib = dmnInterpreter.getFeelLib();
         this.externalFunctionExecutor = new DefaultExternalFunctionExecutor();
+    }
+
+    public FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getLib() {
+        return lib;
     }
 
     @Override
@@ -152,9 +156,9 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 // Evaluate as test
                 Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
                 if (operator == null) {
-                    if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(inputExpressionType, endpointType)) {
+                    if (Type.equivalentTo(inputExpressionType, endpointType)) {
                         return evaluateOperatorRange(element, "=", self, endpoint, context);
-                    } else if (endpointType instanceof ListType && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(inputExpressionType, ((ListType) endpointType).getElementType())) {
+                    } else if (endpointType instanceof ListType && Type.equivalentTo(inputExpressionType, ((ListType) endpointType).getElementType())) {
                         List endpointValueList = (List)endpoint.accept(this, context);
                         List results = new ArrayList();
                         for(Object endpointValue: endpointValueList) {
@@ -312,11 +316,11 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
                 // Optimisation
                 Type optimizedListType = optimizedListLiteral.getType();
                 Type optimizedListElementType = ((ListType) optimizedListType).getElementType();
-                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, optimizedListType)) {
+                if (Type.conformsTo(inputExpressionType, optimizedListType)) {
                     // both are compatible lists
                     String operator = "=";
                     return evaluateOperatorRange(element, operator, self, optimizedListLiteral, context);
-                } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, optimizedListElementType)) {
+                } else if (Type.conformsTo(inputExpressionType, optimizedListElementType)) {
                     // input conforms to element in the list
                     List list = (List) optimizedListLiteral.accept(this, context);
                     result = this.lib.listContains(list, self);
@@ -447,7 +451,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             domain = (List) context.lookupBinding(name);
         } else if (expressionDomain instanceof EndpointsRange) {
             EndpointsRange<Type, DMNContext> test = (EndpointsRange<Type, DMNContext>) expressionDomain;
-            if (test.getType() instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((RangeType) test.getType()).getRangeType(), NumberType.NUMBER)) {
+            if (test.getType() instanceof RangeType && Type.conformsTo(((RangeType) test.getType()).getRangeType(), NumberType.NUMBER)) {
                 Object start = test.getStart().accept(this, context);
                 Object end = test.getEnd().accept(this, context);
                 domain = this.lib.rangeToList(test.isOpenStart(), (NUMBER) start, test.isOpenEnd(), (NUMBER) end);
@@ -546,9 +550,9 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
             Object e1 = element.getLeftOperand().accept(this, context);
             Type e2 = element.getRightOperand().getType();
             if (e1 == null) {
-                return com.gs.dmn.el.analysis.semantics.type.Type.isNullType(e2);
+                return Type.isNullType(e2);
             } else {
-                return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(element.getLeftOperand().getType(), e2);
+                return Type.conformsTo(element.getLeftOperand().getType(), e2);
             }
         } catch (Exception e) {
             this.errorHandler.reportError("Cannot evaluate instanceof", e);
@@ -570,7 +574,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         try {
             Object leftOperand = element.getLeftOperand().accept(this, context);
             Object rightOperand = element.getRightOperand().accept(this, context);
-            return this.lib.or(Arrays.asList(leftOperand, rightOperand));
+            return this.lib.booleanOr(leftOperand, rightOperand);
         } catch (Exception e) {
             this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
@@ -584,7 +588,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         try {
             Object leftOperand = element.getLeftOperand().accept(this, context);
             Object rightOperand = element.getRightOperand().accept(this, context);
-            return this.lib.and(Arrays.asList(leftOperand, rightOperand));
+            return this.lib.booleanAnd(Arrays.asList(leftOperand, rightOperand));
         } catch (Exception e) {
             this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
@@ -1044,42 +1048,7 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
         }
     }
 
-    private Object evaluateDateTimeMember(Object source, String member) {
-        if ("year".equals(member)) {
-            return this.lib.year(this.lib.toDate(source));
-        } else if ("month".equals(member)) {
-            return this.lib.month(this.lib.toDate(source));
-        } else if ("day".equals(member)) {
-            return this.lib.day(this.lib.toDate(source));
-        } else if ("weekday".equals(member)) {
-            return this.lib.weekday(this.lib.toDate(source));
-        } else if ("hour".equals(member)) {
-            return this.lib.hour(this.lib.toTime(source));
-        } else if ("minute".equals(member)) {
-            return this.lib.minute(this.lib.toTime(source));
-        } else if ("second".equals(member)) {
-            return this.lib.second(this.lib.toTime(source));
-        } else if ("time offset".equals(member)) {
-            return this.lib.timeOffset(this.lib.toTime(source));
-        } else if ("timezone".equals(member)) {
-            return this.lib.timezone(this.lib.toTime(source));
-
-        } else if ("years".equals(member)) {
-            return this.lib.years((DURATION) source);
-        } else if ("months".equals(member)) {
-            return this.lib.months((DURATION) source);
-        } else if ("days".equals(member)) {
-            return this.lib.days((DURATION) source);
-        } else if ("hours".equals(member)) {
-            return this.lib.hours((DURATION) source);
-        } else if ("minutes".equals(member)) {
-            return this.lib.minutes((DURATION) source);
-        } else if ("seconds".equals(member)) {
-            return this.lib.seconds((DURATION) source);
-        } else {
-            throw new DMNRuntimeException(String.format("Cannot resolve method '%s' for date time", member));
-        }
-    }
+    protected abstract Object evaluateDateTimeMember(Object source, String member);
 
     private Object evaluateRangeMember(Object source, String member) {
         if ("start".equals(member)) {

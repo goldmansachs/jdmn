@@ -14,6 +14,7 @@ package com.gs.dmn.serialization;
 
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Assert;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import org.junit.Test;
 
@@ -148,8 +149,12 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
     protected abstract DATE_TIME readDateTime(String literal) throws Exception;
     protected abstract DURATION readDuration(String literal) throws Exception;
 
-    protected String write(Object obj) throws Exception {
-        return OBJECT_MAPPER.writeValueAsString(obj);
+    protected String write(Object obj) {
+        try {
+            return OBJECT_MAPPER.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot serialize '%s'", obj), e);
+        }
     }
 
     protected List<Pair<String, String>> getNumberTestData() {
@@ -168,41 +173,14 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
         );
     }
 
-    protected List<Pair<String, String>> getTimeTestData() {
-        return Arrays.asList(
-                new Pair<>("04:20:20", "04:20:20"),
-                new Pair<>("04:20:20Z", "04:20:20Z"),
-                new Pair<>("04:20:20.004", "04:20:20.004"),
-                new Pair<>("04:20:20.004Z", "04:20:20.004Z"),
-                new Pair<>("04:20:20.00421", "04:20:20.00421"),
-                new Pair<>("04:20:20.00421Z", "04:20:20.00421Z"),
-                new Pair<>("04:20:20.00421+01:00", "04:20:20.00421+01:00"),
-                new Pair<>("04:20:20.004@UTC", "04:20:20.004Z"),
-                new Pair<>("04:20:20.00421@Europe/Paris", "04:20:20.00421+01:00")
-        );
-    }
+    protected abstract List<Pair<String, String>> getTimeTestData();
 
-    protected List<Pair<String, String>> getDateTimeTestData() {
-        return Arrays.asList(
-                new Pair<>("2019-03-11T04:20:20", "2019-03-11T04:20:20"),
-                new Pair<>("2019-03-11T04:20:20Z", "2019-03-11T04:20:20Z"),
-                new Pair<>("2019-03-11T04:20:20.004", "2019-03-11T04:20:20.004"),
-                new Pair<>("2019-03-11T04:20:20.004Z", "2019-03-11T04:20:20.004Z"),
-                new Pair<>("2019-03-11T04:20:20.00421", "2019-03-11T04:20:20.00421"),
-                new Pair<>("2019-03-11T04:20:20.00421Z", "2019-03-11T04:20:20.00421Z"),
-                new Pair<>("2019-03-11T04:20:20.00421+01:00", "2019-03-11T04:20:20.00421+01:00"),
-                new Pair<>("2019-03-11T04:20:20.004@UTC", "2019-03-11T04:20:20.004Z"),
-                new Pair<>("2019-03-11T04:20:20.00421@Europe/Paris", "2019-03-11T04:20:20.00421+01:00"),
-
-                new Pair<>("9999-03-11T04:20:20", "9999-03-11T04:20:20")
-        );
-    }
+    protected abstract List<Pair<String, String>> getDateTimeTestData();
 
     protected List<Pair<String, String>> getDurationTestData() {
         return Arrays.asList(
                 new Pair<>("P1Y2M", "P1Y2M"),
-                new Pair<>("P1DT2H3M", "P1DT2H3M"),
-                new Pair<>("P1Y1M3DT4H5M", "P1Y1M3DT4H5M")
+                new Pair<>("P1DT2H3M", "P1DT2H3M")
         );
     }
 }

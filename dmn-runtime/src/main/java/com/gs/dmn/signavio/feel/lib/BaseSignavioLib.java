@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.feel.lib;
 
 import com.gs.dmn.feel.lib.BaseFEELLib;
-import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.function.FunctionType;
@@ -21,10 +21,7 @@ import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringType;
-import com.gs.dmn.feel.lib.type.time.DateTimeType;
-import com.gs.dmn.feel.lib.type.time.DateType;
-import com.gs.dmn.feel.lib.type.time.DurationType;
-import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.feel.lib.type.time.*;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.SignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.string.SignavioStringLib;
@@ -33,27 +30,29 @@ import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 import java.util.List;
 
 public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements SignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    protected final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
-
     private final SignavioNumberLib<NUMBER> numberLib;
     private final SignavioStringLib stringLib;
+    private final BooleanLib booleanLib;
     protected final SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> dateTimeLib;
-    private final SignavioListLib listLib;
+    protected final DurationLib<DATE, DURATION> durationLib;
+    private final SignavioListLib<NUMBER> listLib;
 
     protected BaseSignavioLib(
             NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType,
             DateType<DATE, DURATION> dateType, TimeType<TIME, DURATION> timeType, DateTimeType<DATE_TIME, DURATION> dateTimeType, DurationType<DURATION, NUMBER> durationType,
             ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
-            StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib,
             SignavioNumberLib<NUMBER> numberLib,
             SignavioStringLib stringLib,
+            BooleanLib booleanLib,
             SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> dateTimeLib,
-            SignavioListLib listLib) {
+            DurationLib<DATE, DURATION> durationLib,
+            SignavioListLib<NUMBER> listLib) {
         super(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, contextType, rangeType, functionType);
-        this.feelLib = feelLib;
         this.numberLib = numberLib;
         this.stringLib = stringLib;
+        this.booleanLib = booleanLib;
         this.dateTimeLib = dateTimeLib;
+        this.durationLib = durationLib;
         this.listLib = listLib;
     }
 
@@ -80,9 +79,41 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         return object == null;
     }
 
+    @Override
+    public String string(Object from) {
+        try {
+            return this.stringLib.string(from);
+        } catch (Exception e) {
+            String message = String.format("string(%s)", from);
+            logError(message, e);
+            return null;
+        }
+    }
+
     //
     // Arithmetic functions
     //
+    @Override
+    public NUMBER number(String text) {
+        try {
+            return this.numberLib.number(text);
+        } catch (Exception e) {
+            String message = String.format("number(%s)", text);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER number(String text, NUMBER defaultValue) {
+        try {
+            return this.numberLib.number(text, defaultValue);
+        } catch (Exception e) {
+            String message = String.format("number(%s, %s)", text, defaultValue);
+            logError(message, e);
+            return null;
+        }
+    }
 
     @Override
     public NUMBER abs(NUMBER number) {
@@ -96,7 +127,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER count(List list) {
+    public NUMBER count(List<?> list) {
         try {
             return this.numberLib.count(list);
         } catch (Exception e) {
@@ -118,13 +149,25 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER ceiling(NUMBER aNumber) {
-        return this.feelLib.ceiling(aNumber);
+    public NUMBER ceiling(NUMBER number) {
+        try {
+            return this.numberLib.ceiling(number);
+        } catch (Exception e) {
+            String message = String.format("integer(%s)", number);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
-    public NUMBER floor(NUMBER aNumber) {
-        return this.feelLib.floor(aNumber);
+    public NUMBER floor(NUMBER number) {
+        try {
+            return this.numberLib.floor(number);
+        } catch (Exception e) {
+            String message = String.format("floor(%s)", number);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -152,7 +195,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     @Override
     public NUMBER percent(NUMBER number) {
         try {
-            return numericDivide(number, this.numberLib.valueOf(100));
+            return this.numberLib.percent(number);
         } catch (Exception e) {
             String message = String.format("percent(%s)", number);
             logError(message, e);
@@ -172,8 +215,14 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER product(List factors) {
-        return this.feelLib.product(factors);
+    public NUMBER product(List<?> numbers) {
+        try {
+            return this.numberLib.product(numbers);
+        } catch (Exception e) {
+            String message = String.format("product(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -199,18 +248,63 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER sum(List numbers) {
-        return this.feelLib.sum(numbers);
-    }
-
-    @Override
-    public NUMBER day(DATE date) {
-        return this.feelLib.day(date);
+    public NUMBER sum(List<?> numbers) {
+        try {
+            return this.numberLib.sum(numbers);
+        } catch (Exception e) {
+            String message = String.format("sum(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
     }
 
     //
     // Date and time operations
     //
+    @Override
+    public DATE date(String literal) {
+        try {
+            return this.dateTimeLib.date(literal);
+        } catch (Exception e) {
+            String message = String.format("date(%s)", literal);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public TIME time(String literal) {
+        try {
+            return this.dateTimeLib.time(literal);
+        } catch (Exception e) {
+            String message = String.format("time(%s)", literal);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public DATE_TIME dateAndTime(String literal) {
+        try {
+            return this.dateTimeLib.dateAndTime(literal);
+        } catch (Exception e) {
+            String message = String.format("dateAndTime(%s)", literal);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER day(Object date) {
+        try {
+            return valueOf(this.dateTimeLib.day(date));
+        } catch (Exception e) {
+            String message = String.format("day(%s)", date);
+            logError(message, e);
+            return null;
+        }
+    }
+
     @Override
     public DATE dayAdd(DATE date, NUMBER daysToAdd) {
         try {
@@ -223,7 +317,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER dayDiff(DATE date1, DATE date2) {
+    public NUMBER dayDiff(Object date1, Object date2) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.dayDiff(date1, date2));
         } catch (Exception e) {
@@ -244,7 +338,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
             }
 
             String literal = String.format("%04d-%02d-%02d", this.numberLib.intValue(year), this.numberLib.intValue(month), this.numberLib.intValue(day));
-            return this.feelLib.date(literal);
+            return this.dateTimeLib.date(literal);
         } catch (Exception e) {
             String message = String.format("date(%s, %s, %s)", year, month, day);
             logError(message, e);
@@ -264,7 +358,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
             String literal = String.format("%04d-%02d-%02dT%02d:%02d:%02dZ",
                     this.numberLib.intValue(year), this.numberLib.intValue(month), this.numberLib.intValue(day), this.numberLib.intValue(hour), this.numberLib.intValue(minute), this.numberLib.intValue(second));
-            return this.feelLib.dateAndTime(literal);
+            return this.dateTimeLib.dateAndTime(literal);
         } catch (Exception e) {
             String message = String.format("dateTime(%s, %s, %s, %s, %s, %s)", day, month, year, hour, minute, second);
             logError(message, e);
@@ -284,7 +378,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
             String literal = String.format("%04d-%02d-%02dT%02d:%02d:%02d%+03d:00",
                     this.numberLib.intValue(year), this.numberLib.intValue(month), this.numberLib.intValue(day), this.numberLib.intValue(hour), this.numberLib.intValue(minute), this.numberLib.intValue(second), this.numberLib.intValue(hourOffset));
-            return this.feelLib.dateAndTime(literal);
+            return this.dateTimeLib.dateAndTime(literal);
         } catch (Exception e) {
             String message = String.format("dateTime(%s, %s, %s, %s, %s, %s, %s)", day, month, year, hour, minute, second, hourOffset);
             logError(message, e);
@@ -293,12 +387,18 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER hour(TIME time) {
-        return this.feelLib.hour(time);
+    public NUMBER hour(Object time) {
+        try {
+            return this.numberLib.valueOf(this.dateTimeLib.hour(time));
+        } catch (Exception e) {
+            String message = String.format("hour(%s)", time);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
-    public NUMBER hourDiff(TIME time1, TIME time2) {
+    public NUMBER hourDiff(Object time1, Object time2) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.hourDiff(time1, time2));
         } catch (Exception e) {
@@ -309,62 +409,18 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER minute(TIME time) {
-        return feelLib.minute(time);
+    public NUMBER minute(Object time) {
+        try {
+            return this.numberLib.valueOf(this.dateTimeLib.minute(time));
+        } catch (Exception e) {
+            String message = String.format("minute(%s)", time);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
-    public NUMBER second(TIME time) {
-        return this.feelLib.second(time);
-    }
-
-    @Override
-    public DURATION timeOffset(TIME time) {
-        return this.feelLib.timeOffset(time);
-    }
-
-    @Override
-    public String timezone(TIME offsetTime) {
-        return this.feelLib.timezone(offsetTime);
-    }
-
-    @Override
-    public NUMBER years(DURATION duration) {
-        return this.feelLib.years(duration);
-    }
-
-    @Override
-    public NUMBER months(DURATION duration) {
-        return this.feelLib.months(duration);
-    }
-
-    @Override
-    public NUMBER days(DURATION duration) {
-        return this.feelLib.days(duration);
-    }
-
-    @Override
-    public NUMBER hours(DURATION duration) {
-        return this.feelLib.hours(duration);
-    }
-
-    @Override
-    public NUMBER minutes(DURATION duration) {
-        return this.feelLib.minutes(duration);
-    }
-
-    @Override
-    public NUMBER seconds(DURATION duration) {
-        return this.feelLib.seconds(duration);
-    }
-
-    @Override
-    public String string(Object object) {
-        return this.feelLib.string(object);
-    }
-
-    @Override
-    public NUMBER minutesDiff(TIME time1, TIME time2) {
+    public NUMBER minutesDiff(Object time1, Object time2) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.minutesDiff(time1, time2));
         } catch (Exception e) {
@@ -375,8 +431,14 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER month(DATE date) {
-        return this.feelLib.month(date);
+    public NUMBER month(Object date) {
+        try {
+            return this.numberLib.valueOf(this.dateTimeLib.month(date));
+        } catch (Exception e) {
+            String message = String.format("month(%s)", date);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -391,7 +453,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER monthDiff(DATE date1, DATE date2) {
+    public NUMBER monthDiff(Object date1, Object date2) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.monthDiff(date1, date2));
         } catch (Exception e) {
@@ -424,7 +486,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER weekday(DATE date) {
+    public NUMBER weekday(Object date) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.weekday(date));
         } catch (Exception e) {
@@ -435,8 +497,14 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER year(DATE date) {
-        return this.feelLib.year(date);
+    public NUMBER year(Object date) {
+        try {
+            return this.numberLib.valueOf(this.dateTimeLib.year(date));
+        } catch (Exception e) {
+            String message = String.format("year(%s)", date);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -451,7 +519,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER yearDiff(DATE dateTime1, DATE dateTime2) {
+    public NUMBER yearDiff(Object dateTime1, Object dateTime2) {
         try {
             return this.numberLib.valueOf(this.dateTimeLib.yearDiff(dateTime1, dateTime2));
         } catch (Exception e) {
@@ -462,16 +530,11 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public List append(List list, Object element) {
-        return this.feelLib.append(list, element);
-    }
-
-    @Override
-    public NUMBER number(String text, NUMBER defaultValue) {
+    public DURATION duration(String from) {
         try {
-            return this.numberLib.number(text, defaultValue);
+            return this.durationLib.duration(from);
         } catch (Exception e) {
-            String message = String.format("number(%s, %s)", text, defaultValue);
+            String message = String.format("duration(%s)", from);
             logError(message, e);
             return null;
         }
@@ -534,17 +597,35 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Override
     public Boolean contains(String text, String substring) {
-        return this.feelLib.contains(text, substring);
+        try {
+            return this.stringLib.contains(text, substring);
+        } catch (Exception e) {
+            String message = String.format("contains(%s, %s)", text, substring);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean startsWith(String text, String prefix) {
-        return this.feelLib.startsWith(text, prefix);
+        try {
+            return this.stringLib.startsWith(text, prefix);
+        } catch (Exception e) {
+            String message = String.format("startsWith(%s, %s)", text, prefix);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
     public Boolean endsWith(String text, String suffix) {
-        return this.feelLib.endsWith(text, suffix);
+        try {
+            return this.stringLib.endsWith(text, suffix);
+        } catch (Exception e) {
+            String message = String.format("endsWith(%s, %s)", text, suffix);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
@@ -558,52 +639,23 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         }
     }
 
-    @Override
-    public DATE date(String literal) {
-        return this.feelLib.date(literal);
-    }
-
-    @Override
-    public DATE date(DATE dateTime) {
-        return this.feelLib.date(dateTime);
-    }
-
-    @Override
-    public TIME time(String literal) {
-        return this.feelLib.time(literal);
-    }
-
-    @Override
-    public TIME time(TIME dateTime) {
-        return this.feelLib.time(dateTime);
-    }
-
-    @Override
-    public TIME time(NUMBER hour, NUMBER minute, NUMBER second, DURATION offset) {
-        return this.feelLib.time(hour, minute, second, offset);
-    }
-
-    @Override
-    public DATE_TIME dateAndTime(String literal) {
-        return this.feelLib.dateAndTime(literal);
-    }
-
-    @Override
-    public DATE_TIME dateAndTime(DATE localDate, TIME offsetTime) {
-        return this.feelLib.dateAndTime(localDate, offsetTime);
-    }
-
-    @Override
-    public DURATION duration(String literal) {
-        return this.feelLib.duration(literal);
-    }
-
     //
     // List operations
     //
 
     @Override
-    public List appendAll(List list1, List list2) {
+    public <T> List<T> append(List<T> list, T element) {
+        try {
+            return this.listLib.append(list, element);
+        } catch (Exception e) {
+            String message = String.format("append(%s, %s)", list, element);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public <T> List<T> appendAll(List<T> list1, List<T> list2) {
         try {
             return this.listLib.appendAll(list1, list2);
         } catch (Exception e) {
@@ -614,7 +666,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public List remove(List list, Object element) {
+    public <T> List<T> remove(List<T> list, T element) {
         try {
             return this.listLib.remove(list, element);
         } catch (Exception e) {
@@ -625,7 +677,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public List removeAll(List list1, List list2) {
+    public <T> List<T> removeAll(List<T> list1, List<T> list2) {
         try {
             return this.listLib.removeAll(list1, list2);
         } catch (Exception e) {
@@ -636,7 +688,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public Boolean notContainsAny(List list1, List list2) {
+    public Boolean notContainsAny(List<?> list1, List<?> list2) {
         try {
             return this.listLib.notContainsAny(list1, list2);
         } catch (Exception e) {
@@ -647,7 +699,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public Boolean containsOnly(List list1, List list2) {
+    public Boolean containsOnly(List<?> list1, List<?> list2) {
         try {
             return this.listLib.containsOnly(list1, list2);
         } catch (Exception e) {
@@ -658,7 +710,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public Boolean areElementsOf(List list1, List list2) {
+    public Boolean areElementsOf(List<?> list1, List<?> list2) {
         try {
             return this.listLib.areElementsOf(list1, list2);
         } catch (Exception e) {
@@ -669,12 +721,18 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public Boolean elementOf(List list1, List list2) {
-        return areElementsOf(list1, list2);
+    public Boolean elementOf(List<?> list1, List<?> list2) {
+        try {
+            return this.listLib.elementOf(list1, list2);
+        } catch (Exception e) {
+            String message = String.format("elementOf(%s, %s)", list1, list2);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
-    public List<?> zip(List attributes, List values) {
+    public List<?> zip(List<?> attributes, List<?> values) {
         try {
             return this.listLib.zip(attributes, values);
         } catch (Exception e) {
@@ -689,29 +747,53 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     //
 
     @Override
-    public NUMBER avg(List list) {
-        return this.feelLib.mean(list);
-    }
-
-    @Override
-    public NUMBER max(List numbers) {
-        return this.feelLib.max(numbers);
-    }
-
-    @Override
-    public NUMBER median(List numbers) {
-        return this.feelLib.median(numbers);
-    }
-
-    @Override
-    public NUMBER min(List numbers) {
-        return this.feelLib.min(numbers);
-    }
-
-    @Override
-    public NUMBER mode(List numbers) {
+    public NUMBER avg(List<?> numbers) {
         try {
-            return (NUMBER) this.listLib.mode(numbers);
+            return this.numberLib.avg(numbers);
+        } catch (Exception e) {
+            String message = String.format("avg(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public <T> T max(List<T> numbers) {
+        try {
+            return (T) this.numberLib.max(numbers);
+        } catch (Exception e) {
+            String message = String.format("max(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER median(List<?> numbers) {
+        try {
+            return this.numberLib.median(numbers);
+        } catch (Exception e) {
+            String message = String.format("median(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public <T> T min(List<T> numbers) {
+        try {
+            return (T) this.numberLib.min(numbers);
+        } catch (Exception e) {
+            String message = String.format("min(%s)", numbers);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public NUMBER mode(List<?> numbers) {
+        try {
+            return this.numberLib.mode(numbers);
         } catch (Exception e) {
             String message = String.format("mode(%s)", numbers);
             logError(message, e);
@@ -745,7 +827,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public String concat(List<String> texts) {
+    public String concat(List<?> texts) {
         try {
             return this.stringLib.concat(texts);
         } catch (Exception e) {
@@ -833,47 +915,60 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     }
 
     @Override
-    public NUMBER number(String text) {
-        return this.feelLib.number(text);
-    }
-
-    @Override
     public Boolean and(List<?> list) {
-        return this.feelLib.and(list);
+        try {
+            return this.booleanLib.and(list);
+        } catch (Exception e) {
+            String message = String.format("and(%s)", list);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
-    public Boolean or(List list) {
-        return this.feelLib.or(list);
+    public Boolean or(List<?> list) {
+        try {
+            return this.booleanLib.or(list);
+        } catch (Exception e) {
+            String message = String.format("or(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    //
+    // Extra conversion functions
+    //
+    @Override
+    public DATE toDate(Object from) {
+        try {
+            return this.dateTimeLib.toDate(from);
+        } catch (Exception e) {
+            String message = String.format("toDate(%s)", from);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
-    public Boolean listContains(List list, Object value) {
-        return this.feelLib.listContains(list, value);
+    public TIME toTime(Object from) {
+        try {
+            return this.dateTimeLib.toTime(from);
+        } catch (Exception e) {
+            String message = String.format("toTime(%s)", from);
+            logError(message, e);
+            return null;
+        }
     }
 
     @Override
-    public DATE toDate(Object object) {
-        return this.feelLib.toDate(object);
-    }
-
-    @Override
-    public TIME toTime(Object object) {
-        return this.feelLib.toTime(object);
-    }
-
-    @Override
-    public DATE_TIME toDateTime(Object object) {
-        return this.feelLib.toDateTime(object);
-    }
-
-    @Override
-    protected NUMBER valueOf(long number) {
-        return this.numberLib.valueOf(number);
-    }
-
-    @Override
-    protected int intValue(NUMBER number) {
-        return this.numberLib.intValue(number);
+    public DATE_TIME toDateTime(Object from) {
+        try {
+            return this.dateTimeLib.toDateTime(from);
+        } catch (Exception e) {
+            String message = String.format("toTime(%s)", from);
+            logError(message, e);
+            return null;
+        }
     }
 }

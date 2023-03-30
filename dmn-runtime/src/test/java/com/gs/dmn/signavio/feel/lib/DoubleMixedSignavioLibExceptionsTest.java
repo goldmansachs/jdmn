@@ -12,9 +12,8 @@
  */
 package com.gs.dmn.signavio.feel.lib;
 
-import com.gs.dmn.feel.lib.DoubleMixedJavaTimeFEELLib;
-import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.lib.stub.*;
+import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
 import com.gs.dmn.feel.lib.type.function.FunctionType;
@@ -22,10 +21,7 @@ import com.gs.dmn.feel.lib.type.list.ListType;
 import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringType;
-import com.gs.dmn.feel.lib.type.time.DateTimeType;
-import com.gs.dmn.feel.lib.type.time.DateType;
-import com.gs.dmn.feel.lib.type.time.DurationType;
-import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.feel.lib.type.time.*;
 import com.gs.dmn.signavio.feel.lib.stub.SignavioDateTimeLibStub;
 import com.gs.dmn.signavio.feel.lib.stub.SignavioListLibStub;
 import com.gs.dmn.signavio.feel.lib.stub.SignavioNumberLibStub;
@@ -57,16 +53,17 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
         ContextType contextType = new ContextTypeStub();
         RangeType rangeType = new RangeTypeStub();
         FunctionType functionType = new FunctionTypeStub();
-        StandardFEELLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> feelLib = new DoubleMixedJavaTimeFEELLib();
         SignavioNumberLib<Double> numberLib = new SignavioNumberLibStub<>();
         SignavioStringLib stringLib = new SignavioStringLibStub();
+        BooleanLib booleanLib = new BooleanLibStub();
         SignavioDateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime> dateTimeLib = new SignavioDateTimeLibStub<>();
-        SignavioListLib listLib = new SignavioListLibStub();
+        DurationLib<LocalDate, Duration> durationLib = new DurationLibStub<>();
+        SignavioListLib<?> listLib = new SignavioListLibStub();
         return new DoubleMixedJavaTimeSignavioLib(
                 numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,
-                feelLib, numberLib, stringLib, dateTimeLib, listLib
+                numberLib, stringLib, booleanLib, dateTimeLib, durationLib, listLib
         );
     }
 
@@ -78,7 +75,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
     public void testDay() {
         super.testDay();
 
-        assertNull(getLib().day((ZonedDateTime) null));
+        assertNull(getLib().day(null));
     }
 
     @Override
@@ -91,26 +88,10 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
 
     @Override
     @Test
-    public void testDayDiff() {
-        super.testDayDiff();
-
-        assertNull(getLib().dayDiff(null, (ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
     public void testHour() {
         super.testHour();
 
-        assertNull(getLib().hour((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testHourDiff() {
-        super.testHourDiff();
-
-        assertNull(getLib().hourDiff(null, (ZonedDateTime) null));
+        assertNull(getLib().hour(null));
     }
 
     @Override
@@ -118,39 +99,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
     public void testMinute() {
         super.testMinute();
 
-        assertNull(getLib().minute((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testSecond() {
-        super.testSecond();
-
-        assertNull(getLib().second((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testTimeOffset() {
-        super.testTimeOffset();
-
-        assertNull(getLib().timeOffset((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testTimezone() {
-        super.testTimezone();
-
-        assertNull(getLib().timezone((ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
-    public void testMinutesDiff() {
-        super.testMinutesDiff();
-
-        assertNull(getLib().minutesDiff(null, (ZonedDateTime) null));
+        assertNull(getLib().minute(null));
     }
 
     @Override
@@ -158,7 +107,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
     public void testMonth() {
         super.testMonth();
 
-        assertNull(getLib().month((ZonedDateTime) null));
+        assertNull(getLib().month(null));
     }
 
     @Override
@@ -171,18 +120,10 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
 
     @Override
     @Test
-    public void testMonthDiff() {
-        super.testMonthDiff();
-
-        assertNull(getLib().monthDiff(null, (ZonedDateTime) null));
-    }
-
-    @Override
-    @Test
     public void testWeekday() {
         super.testWeekday();
 
-        assertNull(getLib().weekday((ZonedDateTime) null));
+        assertNull(getLib().weekday(null));
     }
 
     @Override
@@ -190,7 +131,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
     public void testYear() {
         super.testYear();
 
-        assertNull(getLib().year((ZonedDateTime) null));
+        assertNull(getLib().year(null));
     }
 
     @Override
@@ -199,29 +140,5 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
         super.testYearAdd();
 
         assertNull(getLib().yearAdd((ZonedDateTime) null, null));
-    }
-
-    @Override
-    @Test
-    public void testYearDiff() {
-        super.testYearDiff();
-
-        assertNull(getLib().yearDiff((ZonedDateTime) null, null));
-    }
-
-    @Override
-    @Test
-    public void testDate() {
-        super.testDate();
-
-        assertNull(getLib().date((LocalDate) null));
-    }
-
-    @Override
-    @Test
-    public void testTime() {
-        super.testTime();
-
-        assertNull(getLib().time((OffsetTime) null));
     }
 }

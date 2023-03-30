@@ -19,9 +19,9 @@ import java.util.function.Supplier;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
-public abstract class DateTimeComparator<T> extends JavaCalendarType implements RelationalComparator<T> {
+public interface DateTimeComparator<T> extends RelationalComparator<T> {
     @Override
-    public Integer compare(T first, T second) {
+    default Integer compare(T first, T second) {
         if (first == null || second == null) {
             return null;
         } else {
@@ -29,8 +29,7 @@ public abstract class DateTimeComparator<T> extends JavaCalendarType implements 
         }
     }
 
-    @Override
-    public Boolean equalTo(T first, T second) {
+    default Boolean equalTo(T first, T second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> TRUE,
                 () -> FALSE,
@@ -39,8 +38,7 @@ public abstract class DateTimeComparator<T> extends JavaCalendarType implements 
         });
     }
 
-    @Override
-    public Boolean lessThan(T first, T second) {
+    default Boolean lessThan(T first, T second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> null,
                 () -> null,
@@ -49,5 +47,5 @@ public abstract class DateTimeComparator<T> extends JavaCalendarType implements 
         });
     }
 
-    protected abstract Integer compareTo(T first, T second);
+    Integer compareTo(T first, T second);
 }
