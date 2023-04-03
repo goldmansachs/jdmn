@@ -17,16 +17,19 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.xstream.DMN11ToLatestDialectTransformer;
 import com.gs.dmn.serialization.xstream.DMN12ToLatestDialectTransformer;
 import com.gs.dmn.serialization.xstream.DMN13ToLatestDialectTransformer;
+import com.gs.dmn.serialization.xstream.DMN14ToLatestDialectTransformer;
 
 public class DMNDialectTransformer {
     private final DMN11ToLatestDialectTransformer dmn11ToLatestDialectTransformer;
     private final DMN12ToLatestDialectTransformer dmn12ToLatestDialectTransformer;
     private final DMN13ToLatestDialectTransformer dmn13ToLatestDialectTransformer;
+    private final DMN14ToLatestDialectTransformer dmn14ToLatestDialectTransformer;
 
     public DMNDialectTransformer(BuildLogger logger) {
         this.dmn11ToLatestDialectTransformer = new DMN11ToLatestDialectTransformer(logger);
         this.dmn12ToLatestDialectTransformer = new DMN12ToLatestDialectTransformer(logger);
         this.dmn13ToLatestDialectTransformer = new DMN13ToLatestDialectTransformer(logger);
+        this.dmn14ToLatestDialectTransformer = new DMN14ToLatestDialectTransformer(logger);
     }
 
     public TDefinitions transform11ToLatestDefinitions(TDefinitions sourceDefinitions) {
@@ -39,5 +42,9 @@ public class DMNDialectTransformer {
 
     public TDefinitions transform13ToLatestDefinitions(TDefinitions sourceDefinitions) {
         return this.dmn13ToLatestDialectTransformer.transformDefinitions(sourceDefinitions);
+    }
+
+    public TDefinitions transform14ToLatestDefinitions(TDefinitions sourceDefinitions) {
+        return this.dmn14ToLatestDialectTransformer.transformDefinitions(sourceDefinitions);
     }
 }

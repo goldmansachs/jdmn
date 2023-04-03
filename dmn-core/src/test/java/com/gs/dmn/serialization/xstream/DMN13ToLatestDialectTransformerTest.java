@@ -4,7 +4,7 @@ import com.gs.dmn.serialization.DMNDialectTransformerTest;
 import com.gs.dmn.serialization.SimpleDMNDialectTransformer;
 import org.junit.Test;
 
-public class DMN12ToLatestDialectTransformerTest extends DMNDialectTransformerTest {
+public class DMN13ToLatestDialectTransformerTest extends DMNDialectTransformerTest {
     @Test
     public void testTransform() throws Exception {
         doTest("0004-lending.dmn");
@@ -14,12 +14,12 @@ public class DMN12ToLatestDialectTransformerTest extends DMNDialectTransformerTe
 
     @Override
     protected SimpleDMNDialectTransformer getTransformer() {
-        return new DMN12ToLatestDialectTransformer(LOGGER);
+        return new DMN13ToLatestDialectTransformer(LOGGER);
     }
 
     @Override
     protected String getSourceVersion() {
-        return "1.2";
+        return "1.3";
     }
 
     @Override

@@ -23,7 +23,6 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.converters.collections.AbstractCollectionConverter;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
-import com.thoughtworks.xstream.mapper.Mapper;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -60,7 +59,7 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
             } else {
                 return qname.toString();
             }
-        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13) {
+        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13 || version == DMNVersion.DMN_14) {
             // DMN v1.2 namespace typeRef is imported with dot.
             if (!XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
                 String nsForPrefix = parent.getNamespaceURI(qname.getPrefix());
