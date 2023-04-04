@@ -359,7 +359,7 @@ type returns [TypeExpression ast] :
     )
     |
     (
-        typeName = identifier {"list".equals($typeName.ast.getText())}? LT type GT {$ast = astFactory.toListTypeExpression($type.ast);}
+        typeName = identifier {"range".equals($typeName.ast.getText()) || "list".equals($typeName.ast.getText())}? LT type GT {$ast = astFactory.toTypeExpression($typeName.ast.getText(), $type.ast);}
     )
     |
     (

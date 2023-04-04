@@ -43,10 +43,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Conjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ContextTypeExpression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.type.FunctionTypeExpression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
@@ -1163,13 +1160,6 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Override
-    public Object visit(ListTypeExpression<Type, DMNContext> element, DMNContext context) {
-        LOGGER.debug("Visiting element '{}'", element);
-
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
-    }
-
-    @Override
     public Object visit(ContextTypeExpression<Type, DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
@@ -1177,7 +1167,21 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Override
+    public Object visit(RangeTypeExpression<Type, DMNContext> element, DMNContext context) {
+        LOGGER.debug("Visiting element '{}'", element);
+
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
     public Object visit(FunctionTypeExpression<Type, DMNContext> element, DMNContext context) {
+        LOGGER.debug("Visiting element '{}'", element);
+
+        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+    }
+
+    @Override
+    public Object visit(ListTypeExpression<Type, DMNContext> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
         throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");

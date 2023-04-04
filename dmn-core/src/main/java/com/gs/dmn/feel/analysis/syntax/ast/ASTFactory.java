@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
@@ -32,7 +33,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import org.apache.commons.lang3.StringUtils;
 
@@ -112,7 +112,7 @@ public class ASTFactory<T, C> {
         } else if ("not".equals(kind)) {
             return new LogicNegation<>(operand);
         } else {
-            throw new DMNRuntimeException(String.format("Unknown unary operator '%s'", kind));
+            throw new SemanticError(String.format("Unknown unary operator '%s'", kind));
         }
     }
 
@@ -178,7 +178,7 @@ public class ASTFactory<T, C> {
         if (names.size() > 0) {
             return toPathExpression(names);
         } else {
-            throw new IllegalArgumentException(String.format("Illegal qualified name '%s'", names));
+            throw new SemanticError(String.format("Illegal qualified name '%s'", names));
         }
     }
 
@@ -421,19 +421,34 @@ public class ASTFactory<T, C> {
         } else if (exp instanceof PathExpression) {
             return toNamedTypeExpression(((PathExpression<T, C>) exp).getPath());
         } else {
-            throw new UnsupportedOperationException("Not supported" + exp.toString());
+            throw new SemanticError("Not supported" + exp.toString());
         }
-    }
-
-    public TypeExpression<T, C> toListTypeExpression(TypeExpression<T, C> elementType) {
-        return new ListTypeExpression<>(elementType);
     }
 
     public TypeExpression<T, C> toContextTypeExpression(List<Pair<String, TypeExpression<T, C>>> members) {
         return new ContextTypeExpression<>(members);
     }
 
+    public TypeExpression<T, C> toRangeTypeExpression(TypeExpression<T, C> elementType) {
+        return new RangeTypeExpression<>(elementType);
+    }
+
     public TypeExpression<T, C> toFunctionTypeExpression(List<TypeExpression<T, C>> parameters, TypeExpression<T, C> returnType) {
         return new FunctionTypeExpression<>(parameters, returnType);
     }
+
+    public TypeExpression<T, C> toListTypeExpression(TypeExpression<T, C> elementType) {
+        return new ListTypeExpression<>(elementType);
+    }
+
+    public TypeExpression<T, C> toTypeExpression(String typeName, TypeExpression<T, C> elementType) {
+        if ("range".equals(typeName)) {
+            return new RangeTypeExpression<>(elementType);
+        } else if ("list".equals(typeName)) {
+            return new ListTypeExpression<>(elementType);
+        } else {
+            throw new SemanticError(String.format("Not supported type '%s'", typeName));
+        }
+    }
+
 }

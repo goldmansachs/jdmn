@@ -12,7 +12,8 @@
 |date and time("2016-03-01T12:00:00Z") instance of date and time|InstanceOfExpression(DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"), NamedTypeExpression(date and time))                              |
 |duration("P1Y1M") instance of years and months duration        |InstanceOfExpression(DateTimeLiteral(duration, "P1Y1M"), NamedTypeExpression(years and months duration))                                      |
 |duration("P1DT1H") instance of days and time duration          |InstanceOfExpression(DateTimeLiteral(duration, "P1DT1H"), NamedTypeExpression(days and time duration))                                        |
-|x instance of list<number>                                     |InstanceOfExpression(Name(x), ListTypeExpression(NamedTypeExpression(number)))                                                                |
+|x instance of number                                           |InstanceOfExpression(Name(x), NamedTypeExpression(number))                                                                                    |
 |x instance of context<x: number, y:string>                     |InstanceOfExpression(Name(x), ContextTypeExpression(x: NamedTypeExpression(number), y: NamedTypeExpression(string)))                          |
+|x instance of range<number>                                    |InstanceOfExpression(Name(x), RangeTypeExpression(NamedTypeExpression(number)))                                                               |
 |x instance of function<number, string> -> number               |InstanceOfExpression(Name(x), FunctionTypeExpression(NamedTypeExpression(number), NamedTypeExpression(string) -> NamedTypeExpression(number)))|
-
+|x instance of list<number>                                     |InstanceOfExpression(Name(x), ListTypeExpression(NamedTypeExpression(number)))                                                                |
