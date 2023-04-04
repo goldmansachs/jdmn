@@ -94,7 +94,7 @@ positiveUnaryTest returns [Expression ast]:
 
 simplePositiveUnaryTest returns [Expression ast] :
     (
-        ( op = LT | op = LE | op = GT | op = GE )? opd = endpoint
+        ( op = LT | op = LE | op = GT | op = GE ) opd = endpoint
         {$ast = $op == null ? astFactory.toOperatorRange(null, $opd.ast) : astFactory.toOperatorRange($op.text, $opd.ast);}
     )
     |
@@ -145,8 +145,8 @@ intervalEndPar returns [String ast] :
 
 endpoint returns [Expression ast]:
     (
-        (op = MINUS)? opd = simpleValue
-     	{$ast = ($op == null) ? $opd.ast : astFactory.toNegation($op.text, $opd.ast);}
+        expression
+     	{$ast = $expression.ast;}
     )
 ;
 
@@ -628,7 +628,6 @@ dateTimeLiteral returns [Expression ast] :
         PAREN_OPEN expression PAREN_CLOSE
         {$ast = astFactory.toDateTimeLiteral($kind.text, $expression.ast);}
     )
-
 ;
 
 identifier returns [Token ast] :
