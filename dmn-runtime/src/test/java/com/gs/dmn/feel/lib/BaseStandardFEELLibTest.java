@@ -652,6 +652,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertNull(getLib().replace("abcd", "(ab)|(a)", null));
         assertNull(getLib().replace("abcd", "(ab)|(a)", "$"));
 
+        assertEquals("bonono", getLib().replace("banana","a","o"));
         assertEquals("[1=ab][2=]cd", getLib().replace("abcd", "(ab)|(a)", "[1=$1][2=$2]"));
 
         assertEquals("a*cada*", getLib().replace("abracadabra", "bra", "*"));
