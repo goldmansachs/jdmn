@@ -1032,6 +1032,9 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertNull(getLib().product(makeNumber(2), null, makeNumber(4)));
         assertNull(getLib().product(makeNumberList(2, null, 4)));
 
+        assertEqualsNumber(makeNumber(2), getLib().product(makeNumber(2)));
+        assertEqualsNumber(makeNumber(2), getLib().product(makeNumberList(2)));
+
         assertEqualsNumber(makeNumber(24), getLib().product(makeNumber(2), makeNumber(3), makeNumber(4)));
         assertEqualsNumber(makeNumber(24), getLib().product(makeNumberList(2, 3, 4)));
     }
