@@ -693,11 +693,28 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Test
     public void testSplit() {
-        assertNull("", getLib().split(null, null));
-        assertNull("", getLib().split("", ""));
+        assertNull(getLib().split(null, null));
+        assertNull(getLib().split("", ""));
 
         assertEquals(getLib().asList("John", "Doe"), getLib().split("John Doe", "\\s"));
         assertEquals(getLib().asList("a", "b", "c", "", ""), getLib().split("a;b;c;;", ";"));
+    }
+
+    @Test
+    public void testStringJoin() {
+        assertNull(getLib().stringJoin(null));
+        assertNull(getLib().stringJoin(null, null));
+
+        assertEquals("a_and_b_and_c", getLib().stringJoin(makeStringList("a", "b", "c"), "_and_"));
+        assertEquals("abc", getLib().stringJoin(makeStringList("a", "b", "c"),  ""));
+        assertEquals("abc", getLib().stringJoin(makeStringList("a", "b", "c"), null));
+        assertEquals( "a", getLib().stringJoin(makeStringList("a"), "X"));
+        assertEquals("aXc", getLib().stringJoin(makeStringList("a", null, "c"), "X"));
+        assertEquals("", getLib().stringJoin(makeStringList(), "X"));
+
+        assertEquals("abc", getLib().stringJoin(makeStringList("a", "b", "c")));
+        assertEquals("ac", getLib().stringJoin(makeStringList("a", null, "c")));
+        assertEquals("", getLib().stringJoin(makeStringList()));
     }
 
     //

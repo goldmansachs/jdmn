@@ -43,6 +43,10 @@ public interface StringLib {
 
     List<String> split(String string, String delimiter);
 
+    String stringJoin(List<String> list);
+
+    String stringJoin(List<String> list, String delimiter);
+
     String min(List<?> list);
 
     String max(List<?> list);

@@ -33,9 +33,11 @@ import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class DefaultStringLib implements StringLib {
     @Override
@@ -227,6 +229,23 @@ public class DefaultStringLib implements StringLib {
             result.add(token);
         }
         return result;
+    }
+
+    @Override
+    public String stringJoin(List<String> list) {
+        return stringJoin(list, null);
+    }
+
+    @Override
+    public String stringJoin(List<String> list, String delimiter) {
+        if (list == null) {
+            return null;
+        }
+        if (delimiter == null) {
+            delimiter = "";
+        }
+
+        return list.stream().filter(Objects::nonNull).collect(Collectors.joining(delimiter));
     }
 
     @Override

@@ -758,6 +758,18 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "split(\"John Doe\", \"\\\\s\")",
                 this.lib.split("John Doe", "\\s"),
                 this.lib.asList("John", "Doe"));
+        doExpressionTest(entries, "", "string join([\"a\",\"b\",\"c\"], \"_and_\")",
+                "FunctionInvocation(Name(string join) -> PositionalParameters(ListLiteral(StringLiteral(\"a\"),StringLiteral(\"b\"),StringLiteral(\"c\")), StringLiteral(\"_and_\")))",
+                "string",
+                "stringJoin(asList(\"a\", \"b\", \"c\"), \"_and_\")",
+                this.lib.stringJoin(this.lib.asList("a", "b", "c"), "_and_"),
+                "a_and_b_and_c");
+        doExpressionTest(entries, "", "string join([\"a\",\"b\",\"c\"])",
+                "FunctionInvocation(Name(string join) -> PositionalParameters(ListLiteral(StringLiteral(\"a\"),StringLiteral(\"b\"),StringLiteral(\"c\"))))",
+                "string",
+                "stringJoin(asList(\"a\", \"b\", \"c\"))",
+                this.lib.stringJoin(this.lib.asList("a", "b", "c")),
+                "abc");
     }
 
     @Test
