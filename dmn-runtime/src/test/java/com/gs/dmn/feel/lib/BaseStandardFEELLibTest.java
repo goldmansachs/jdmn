@@ -577,6 +577,8 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEquals("\uD83D\uDE00", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("8")));
         assertEquals("\uD83D\uDC0E", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("4"), makeNumber("1")));
         assertEquals("\uD83D\uDC0Ebar", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("4"), makeNumber("4")));
+
+        assertEquals("ab", getLib().substring("\uD83D\uDC0Eab", makeNumber("2")));
     }
 
     @Test

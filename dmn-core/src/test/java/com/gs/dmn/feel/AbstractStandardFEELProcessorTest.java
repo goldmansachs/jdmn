@@ -260,6 +260,12 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "stringLength(substring(input, number(\"1\")))",
                 this.lib.stringLength(this.lib.substring(input, this.lib.number("1"))),
                 this.lib.number("3"));
+        doExpressionTest(entries, "", "substring(\"\\U01F40Eab\", 2)",
+                "FunctionInvocation(Name(substring) -> PositionalParameters(StringLiteral(\"\uD83D\uDC0Eab\"), NumericLiteral(2)))",
+                "string",
+                "substring(\"\\uD83D\\uDC0Eab\", number(\"2\"))",
+                this.lib.substring("\uD83D\uDC0Eab", this.lib.number("2")),
+                "ab");
 
         // invocation with named arguments
         doExpressionTest(entries, "", "contains(string : \"abc\", match : \"a\")",
