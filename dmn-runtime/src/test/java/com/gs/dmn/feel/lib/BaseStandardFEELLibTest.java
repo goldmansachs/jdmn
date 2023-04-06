@@ -805,12 +805,29 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertTrue(getLib().is(makeDate("2012-12-25"), makeDate("2012-12-25")));
         assertFalse(getLib().is(makeDate("2012-12-25"), makeDate("2012-12-26")));
 
+        assertTrue(getLib().is(makeTime("23:00:50"), makeTime("23:00:50")));
+        // Fails for XML dialects
+//        assertFalse(getLib().is(makeTime("23:00:50"), makeTime("23:00:50z")));
+        assertFalse(getLib().is(makeTime("23:00:50"), makeTime("23:00:50@Europe/Paris")));
         assertTrue(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50z")));
         assertTrue(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50Z")));
         assertTrue(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50+00:00")));
+        assertFalse(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50@Europe/Paris")));
+        assertFalse(getLib().is(makeTime("23:00:50+00:00"), makeTime("23:00:50@Europe/Paris")));
+        assertFalse(getLib().is(makeTime("23:00:50@America/New_York"), makeTime("23:00:50@Europe/Paris")));
 
         assertTrue(getLib().is(makeDateAndTime("2012-12-25T12:00:00"), makeDateAndTime("2012-12-25T12:00:00")));
         assertFalse(getLib().is(makeDateAndTime("2012-12-25T12:00:00"), makeDateAndTime("2012-12-26T12:00:00z")));
+        assertTrue(getLib().is(makeDateAndTime("2012-12-25T23:00:50"), makeDateAndTime("2012-12-25T23:00:50")));
+        // Fails for XML dialects
+//        assertFalse(getLib().is(makeDateAndTime("2012-12-25T23:00:50"), makeDateAndTime("2012-12-25T23:00:50z")));
+        assertFalse(getLib().is(makeDateAndTime("2012-12-25T23:00:50"), makeDateAndTime("2012-12-25T23:00:50@Europe/Paris")));
+        assertTrue(getLib().is(makeDateAndTime("2012-12-25T23:00:50z"), makeDateAndTime("2012-12-25T23:00:50z")));
+        assertTrue(getLib().is(makeDateAndTime("2012-12-25T23:00:50z"), makeDateAndTime("2012-12-25T23:00:50Z")));
+        assertTrue(getLib().is(makeDateAndTime("2012-12-25T23:00:50z"), makeDateAndTime("2012-12-25T23:00:50+00:00")));
+        assertFalse(getLib().is(makeDateAndTime("2012-12-25T23:00:50z"), makeDateAndTime("2012-12-25T23:00:50@Europe/Paris")));
+        assertFalse(getLib().is(makeDateAndTime("2012-12-25T23:00:50+00:00"), makeDateAndTime("2012-12-25T23:00:50@Europe/Paris")));
+        assertFalse(getLib().is(makeDateAndTime("2012-12-25T23:00:50@America/New_York"), makeDateAndTime("2012-12-25T23:00:50@Europe/Paris")));
 
         assertTrue(getLib().is(makeDuration("P1Y"), makeDuration("P1Y")));
         assertFalse(getLib().is(makeDuration("P1Y"), makeDuration("-P1Y")));
