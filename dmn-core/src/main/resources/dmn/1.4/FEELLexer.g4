@@ -198,7 +198,7 @@ INSTANCE_OF:
     ;
 
 NAME:
-    // Functions
+    // contructors
     'date' WhiteSpace+ 'and' WhiteSpace+ 'time'
     { setText("date and time"); }
     |
@@ -208,6 +208,20 @@ NAME:
     'years' WhiteSpace+ 'and' WhiteSpace+ 'months' WhiteSpace+ 'duration'
     { setText("years and months duration"); }
     |
+    // number functions
+    'round' WhiteSpace+ 'up'
+    { setText("round up"); }
+    |
+    'round' WhiteSpace+ 'down'
+    { setText("round down"); }
+    |
+    'round' WhiteSpace+ 'half' WhiteSpace+ 'up'
+    { setText("round half up"); }
+    |
+    'round' WhiteSpace+ 'half' WhiteSpace+ 'down'
+    { setText("round half down"); }
+    |
+    // string functions
     'string' WhiteSpace+ 'length'
     { setText("string length"); }
     |
@@ -232,6 +246,7 @@ NAME:
     'string' WhiteSpace+ 'join'
     { setText("string join"); }
     |
+    // list functions
     'start' WhiteSpace+ 'position'
     { setText("start position"); }
     |
@@ -247,12 +262,14 @@ NAME:
     'distinct' WhiteSpace+ 'values'
     { setText("distinct values"); }
     |
+    // context functions
     'get' WhiteSpace+ 'entries'
     { setText("get entries"); }
     |
     'get' WhiteSpace+ 'value'
     { setText("get value"); }
     |
+    // range functions
     'met' WhiteSpace+ 'by'
     { setText("met by"); }
     |
@@ -274,6 +291,7 @@ NAME:
     'end' WhiteSpace+ 'included'
     { setText("end included"); }
     |
+    // date time properties
     'day' WhiteSpace+ 'of' WhiteSpace+ 'year'
     { setText("day of year"); }
     |
@@ -286,19 +304,6 @@ NAME:
     'week' WhiteSpace+ 'of' WhiteSpace+ 'year'
     { setText("week of year"); }
     |
-    'round' WhiteSpace+ 'up'
-    { setText("round up"); }
-    |
-    'round' WhiteSpace+ 'down'
-    { setText("round down"); }
-    |
-    'round' WhiteSpace+ 'half' WhiteSpace+ 'up'
-    { setText("round half up"); }
-    |
-    'round' WhiteSpace+ 'half' WhiteSpace+ 'down'
-    { setText("round half down"); }
-    |
-    // Properties
     'time' WhiteSpace+ 'offset'
     { setText("time offset"); }
     |
