@@ -118,6 +118,7 @@ public class FEELLexerTest extends AbstractLexerTest {
         token = checkToken(name, NAME, name);
         checkPosition(token, 1, 1, 1, 32, 0, 30);
 
+        // date and time functions
         token = checkToken("date and time", NAME, "date and time");
         checkPosition(token, 1, 1, 1, 13, 0, 13);
 
@@ -127,6 +128,7 @@ public class FEELLexerTest extends AbstractLexerTest {
         token = checkToken("days and time duration", NAME, "days and time duration");
         checkPosition(token, 1, 1, 1, 22, 0, 22);
 
+        // string functions
         token = checkToken("string length", NAME, "string length");
         checkPosition(token, 1, 1, 1, 13, 0, 13);
 
@@ -151,6 +153,7 @@ public class FEELLexerTest extends AbstractLexerTest {
         token = checkToken("string join", NAME, "string join");
         checkPosition(token, 1, 1, 1, 11, 0, 11);
 
+        // list functions
         token = checkToken("list contains", NAME, "list contains");
         checkPosition(token, 1, 1, 1, 13, 0, 13);
 
@@ -165,6 +168,19 @@ public class FEELLexerTest extends AbstractLexerTest {
 
         token = checkToken("distinct  values", NAME, "distinct values");
         checkPosition(token, 1, 1, 1, 15, 0, 16);
+
+        // range functions
+        token = checkToken("overlaps before", NAME, "overlaps before");
+        checkPosition(token, 1, 1, 1, 15, 0, 15);
+
+        token = checkToken("overlaps after", NAME, "overlaps after");
+        checkPosition(token, 1, 1, 1, 14, 0, 14);
+
+        token = checkToken("finished by", NAME, "finished by");
+        checkPosition(token, 1, 1, 1, 11, 0, 11);
+
+        token = checkToken("started by", NAME, "started by");
+        checkPosition(token, 1, 1, 1, 10, 0, 10);
     }
 
     @Test
