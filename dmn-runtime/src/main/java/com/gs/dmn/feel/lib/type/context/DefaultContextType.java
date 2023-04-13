@@ -16,6 +16,7 @@ import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,5 +84,69 @@ public class DefaultContextType extends BaseType implements ContextType {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Context contextPut(Context context, String key, Object value) {
+        if (context == null || key == null) {
+            return null;
+        }
+
+        Context clone = Context.clone(context);
+        clone.put(key, value);
+        return clone;
+    }
+
+    @Override
+    public Context contextPut(Context context, List<String> keys, Object value) {
+        if (context == null || keys == null || keys.isEmpty()) {
+            return null;
+        }
+
+        if (keys.size() == 1) {
+            return contextPut(context, keys.get(0), value);
+        }
+        Context rootContext = Context.clone(context);
+        Context currentContext = rootContext;
+        for (int i=0; i<keys.size(); i++) {
+            String key = keys.get(i);
+            if (i == keys.size() -1) {
+                // last key from path
+                if (currentContext != null) {
+                    currentContext.put(key, value);
+                } else {
+                    throw new DMNRuntimeException(String.format("Incorrect path '%s' in context '%s'", keys, context));
+                }
+            } else {
+                // extract context from path
+                Object o = currentContext.get(key);
+                if (o instanceof Context) {
+                   currentContext = (Context) o;
+                } else {
+                    throw new DMNRuntimeException(String.format("Incorrect path '%s' in context '%s'", keys, context));
+                }
+            }
+        }
+        return rootContext;
+    }
+
+    @Override
+    public Context contextMerge(List<?> contexts) {
+        if (contexts == null) {
+            return null;
+        }
+
+        Context context = new Context();
+        for (Object o: contexts) {
+            if (o instanceof Context) {
+                Context c = (Context) o;
+                for (Object key : c.keySet()) {
+                    context.put(key, c.get(key));
+                }
+            } else {
+                throw new DMNRuntimeException(String.format("Expected Context found '%s'", o));
+            }
+        }
+        return context;
     }
 }

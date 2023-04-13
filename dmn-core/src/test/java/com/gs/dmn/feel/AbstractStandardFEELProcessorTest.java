@@ -1150,6 +1150,25 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "getValue(null, null)",
                 this.lib.getValue(null, null),
                 null);
+
+        doExpressionTest(entries, "", "context put({x: 1}, \"y\", 2)",
+                "FunctionInvocation(Name(context put) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1))), StringLiteral(\"y\"), NumericLiteral(2)))",
+                "ContextType()",
+                "contextPut(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")), \"y\", number(\"2\"))",
+                this.lib.contextPut(new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")), "y", this.lib.number("2")),
+                new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")).add("y", this.lib.number("2")));
+        doExpressionTest(entries, "", "context put({x: 1, y: {a: 0}}, [\"y\", \"a\"], 2)",
+                "FunctionInvocation(Name(context put) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = Context(ContextEntry(ContextEntryKey(a) = NumericLiteral(0))))), ListLiteral(StringLiteral(\"y\"),StringLiteral(\"a\")), NumericLiteral(2)))",
+                "ContextType()",
+                "contextPut(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", new com.gs.dmn.runtime.Context().add(\"a\", number(\"0\"))), asList(\"y\", \"a\"), number(\"2\"))",
+                this.lib.contextPut(new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")).add("y", new com.gs.dmn.runtime.Context().add("a", this.lib.number("0"))), this.lib.asList("y", "a"), this.lib.number("2")),
+                new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")).add("y", new com.gs.dmn.runtime.Context().add("a", this.lib.number("2"))));
+        doExpressionTest(entries, "", "context merge([{x: 1}, {y:2}])",
+                "FunctionInvocation(Name(context merge) -> PositionalParameters(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(y) = NumericLiteral(2))))))",
+                "ContextType()",
+                "contextMerge(asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"y\", number(\"2\"))))",
+                this.lib.contextMerge(this.lib.asList(new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")), new com.gs.dmn.runtime.Context().add("y", this.lib.number("2")))),
+                new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")).add("y", this.lib.number("2")));
     }
 
     @Test

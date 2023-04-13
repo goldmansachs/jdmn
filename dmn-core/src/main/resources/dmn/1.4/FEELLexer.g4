@@ -269,6 +269,12 @@ NAME:
     'get' WhiteSpace+ 'value'
     { setText("get value"); }
     |
+    'context' WhiteSpace+ 'put'
+    { setText("context put"); }
+    |
+    'context' WhiteSpace+ 'merge'
+    { setText("context merge"); }
+    |
     // range functions
     'met' WhiteSpace+ 'by'
     { setText("met by"); }

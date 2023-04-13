@@ -30,4 +30,10 @@ public interface ContextType {
     List getEntries(Context context);
 
     Object getValue(Context context, Object key);
+
+    Context contextPut(Context context, String key, Object value);
+
+    Context contextPut(Context context, List<String> keys, Object value);
+
+    Context contextMerge(List<?> contexts);
 }

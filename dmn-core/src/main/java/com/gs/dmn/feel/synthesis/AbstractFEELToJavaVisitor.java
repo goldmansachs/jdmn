@@ -37,14 +37,11 @@ import java.util.Map;
 public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<Type, DMNContext> {
     private static final Map<String, String> FEEL_2_JAVA_FUNCTION = new LinkedHashMap<>();
     static {
-        FEEL_2_JAVA_FUNCTION.put("get value", "getValue");
-        FEEL_2_JAVA_FUNCTION.put("get entries", "getEntries");
+        // constructors
+        FEEL_2_JAVA_FUNCTION.put("date and time", "dateAndTime");
+        FEEL_2_JAVA_FUNCTION.put("years and months duration", "yearsAndMonthsDuration");
 
-        FEEL_2_JAVA_FUNCTION.put("distinct values", "distinctValues");
-        FEEL_2_JAVA_FUNCTION.put("index of", "indexOf");
-        FEEL_2_JAVA_FUNCTION.put("insert before", "insertBefore");
-        FEEL_2_JAVA_FUNCTION.put("list contains", "listContains");
-
+        // string functions
         FEEL_2_JAVA_FUNCTION.put("ends with", "endsWith");
         FEEL_2_JAVA_FUNCTION.put("starts with", "startsWith");
         FEEL_2_JAVA_FUNCTION.put("substring after", "substringAfter");
@@ -54,24 +51,36 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<
         FEEL_2_JAVA_FUNCTION.put("string length", "stringLength");
         FEEL_2_JAVA_FUNCTION.put("string join", "stringJoin");
 
-        FEEL_2_JAVA_FUNCTION.put("years and months duration", "yearsAndMonthsDuration");
-        FEEL_2_JAVA_FUNCTION.put("date and time", "dateAndTime");
+        // number functions
+        FEEL_2_JAVA_FUNCTION.put("round up", "roundUp");
+        FEEL_2_JAVA_FUNCTION.put("round down", "roundDown");
+        FEEL_2_JAVA_FUNCTION.put("round half up", "roundHalfUp");
+        FEEL_2_JAVA_FUNCTION.put("round half down", "roundHalfDown");
 
+        // list functions
+        FEEL_2_JAVA_FUNCTION.put("distinct values", "distinctValues");
+        FEEL_2_JAVA_FUNCTION.put("index of", "indexOf");
+        FEEL_2_JAVA_FUNCTION.put("insert before", "insertBefore");
+        FEEL_2_JAVA_FUNCTION.put("list contains", "listContains");
+
+        // context functions
+        FEEL_2_JAVA_FUNCTION.put("get value", "getValue");
+        FEEL_2_JAVA_FUNCTION.put("get entries", "getEntries");
+        FEEL_2_JAVA_FUNCTION.put("context put", "contextPut");
+        FEEL_2_JAVA_FUNCTION.put("context merge", "contextMerge");
+
+        // range functions
         FEEL_2_JAVA_FUNCTION.put("met by", "metBy");
         FEEL_2_JAVA_FUNCTION.put("overlaps before", "overlapsBefore");
         FEEL_2_JAVA_FUNCTION.put("overlaps after", "overlapsAfter");
         FEEL_2_JAVA_FUNCTION.put("finished by", "finishedBy");
         FEEL_2_JAVA_FUNCTION.put("started by", "startedBy");
 
+        // date time properties
         FEEL_2_JAVA_FUNCTION.put("day of year", "dayOfYear");
         FEEL_2_JAVA_FUNCTION.put("day of week", "dayOfWeek");
         FEEL_2_JAVA_FUNCTION.put("month of year", "monthOfYear");
         FEEL_2_JAVA_FUNCTION.put("week of year", "weekOfYear");
-
-        FEEL_2_JAVA_FUNCTION.put("round up", "roundUp");
-        FEEL_2_JAVA_FUNCTION.put("round down", "roundDown");
-        FEEL_2_JAVA_FUNCTION.put("round half up", "roundHalfUp");
-        FEEL_2_JAVA_FUNCTION.put("round half down", "roundHalfDown");
     }
 
     public AbstractFEELToJavaVisitor(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {

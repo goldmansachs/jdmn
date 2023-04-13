@@ -52,4 +52,19 @@ public class ContextTypeStub implements ContextType {
     public Object getValue(Context context, Object key) {
         throw new DMNRuntimeException("Not supported yet");
     }
+
+    @Override
+    public Context contextPut(Context context, String key, Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Context contextPut(Context context, List<String> key, Object value) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Context contextMerge(List<?> contexts) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
 }

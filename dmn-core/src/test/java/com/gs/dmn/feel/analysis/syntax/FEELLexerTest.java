@@ -53,6 +53,8 @@ public class FEELLexerTest extends AbstractLexerTest {
             // context functions
             "get entries",
             "get value",
+            "context put",
+            "context merge",
             // range functions
             "met by",
             "overlaps before",

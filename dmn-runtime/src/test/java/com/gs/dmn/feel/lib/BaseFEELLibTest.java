@@ -389,4 +389,63 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertEquals(makeNumber("1"), getLib().getValue(new Context().add("a", makeNumber("1")), "a"));
     }
+
+    @Test
+    public void testContextPut() {
+        assertNull(getLib().contextPut(null, (String) null, null));
+        assertNull(getLib().contextPut(new Context(), (String) null, "a"));
+        assertNull(getLib().contextPut(null, (List) null, null));
+        assertNull(getLib().contextPut(new Context(), (List) null, "a"));
+
+        // context put({x:1}, "y", 2) = {x:1, y:2}
+        assertEquals(
+                makeContext("x", makeNumber(1), "y", makeNumber(2)),
+                getLib().contextPut(makeContext("x", makeNumber(1)), "y", makeNumber("2")));
+        // context put({x:1, y:0}, "y", 2) = {x:1, y:2}
+        assertEquals(
+                makeContext("x", makeNumber(1), "y", makeNumber(2)),
+                getLib().contextPut(makeContext("x", makeNumber(1), "y", makeNumber(0)), "y", makeNumber("2")));
+        // context put({x:1, y:0, z:0}, "y",2) = {x:1, y:2, z:0}
+        assertEquals(
+                makeContext("x", makeNumber(1), "y", makeNumber(2), "z", makeNumber(0)),
+                getLib().contextPut(makeContext("x", makeNumber(1), "y", makeNumber(0), "z", makeNumber(0)), "y", makeNumber("2")));
+        // context put({x:1}, ["y"], 2) = context put({x:1}, "y", 2) = {x:1, y:2}
+        assertEquals(
+                makeContext("x", makeNumber(1), "y", makeNumber(2)),
+                getLib().contextPut(makeContext("x", makeNumber(1)), makeStringList("y"), makeNumber("2")));
+
+        // context put({x:1, y: {a: 0} }, ["y","a"], 2) = context put({x:1, y: {a: 0} }, "y", context put({a: 0}, ["a"], 2)) = {x:1, y: {a: 2} }
+        assertEquals(
+                makeContext("x", makeNumber(1), "y", makeContext("a", makeNumber(2))),
+                getLib().contextPut(makeContext("x", makeNumber(1), "y", makeContext("a", makeNumber(0))), makeStringList("y", "a"), makeNumber("2")));
+        // context put({x:1, y: {a: 0} }, [], 2) = null
+        assertNull(
+                getLib().contextPut(makeContext("x", makeNumber(1), "y", makeContext("a", makeNumber(0))), makeStringList(), makeNumber("2")));
+
+        // Incorrect path
+        assertNull(
+                getLib().contextPut(makeContext("x", makeNumber(1), "y", makeContext("a", makeNumber(0))), makeStringList("z", "a"), makeNumber("2")));
+    }
+
+    @Test
+    public void testContextMerge() {
+        assertNull(getLib().contextMerge(null));
+
+        assertEquals(
+                makeContext(),
+                getLib().contextMerge(Arrays.asList())
+        );
+        assertEquals(
+                makeContext(),
+                getLib().contextMerge(Arrays.asList(makeContext()))
+        );
+        // context merge([{x:1}, {y:2}]) = {x:1, y:2}
+        assertEquals(
+                makeContext("x", makeNumber(1), "y", makeNumber(2)),
+                getLib().contextMerge(Arrays.asList(makeContext("x", makeNumber(1)), makeContext("y", makeNumber("2")))));
+        // context merge([{x:1, y:0},{y:2}]) = {x:1, y:2}
+        assertEquals(
+                makeContext("x", makeNumber(1), "y", makeNumber(2)),
+                getLib().contextMerge(Arrays.asList(makeContext("x", makeNumber(1), "y", makeNumber(0)), makeContext("y", makeNumber("2")))));
+    }
 }

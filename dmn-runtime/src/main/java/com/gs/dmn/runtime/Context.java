@@ -12,9 +12,23 @@
  */
 package com.gs.dmn.runtime;
 
+import org.apache.commons.lang3.SerializationUtils;
+
+import java.io.Serializable;
 import java.util.*;
 
-public class Context {
+public class Context implements Serializable {
+    public static Context clone(Context context) {
+        // shallow copy
+        if (context != null) {
+            Context deepCopy = new Context(context.name);
+            deepCopy.map.putAll(SerializationUtils.clone((LinkedHashMap) context.map));
+            return deepCopy;
+        } else {
+            return null;
+        }
+    }
+
     private String name;
     private final Map map = new LinkedHashMap<>();
 

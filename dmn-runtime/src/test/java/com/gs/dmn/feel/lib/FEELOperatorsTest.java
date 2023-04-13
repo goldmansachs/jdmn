@@ -1441,6 +1441,14 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         return getLib().duration(literal);
     }
 
+    protected Context makeContext(Object... objects) {
+        Context context = new Context();
+        for (int i=0; i<objects.length; i+=2) {
+            context.put(objects[i], objects[i+1]);
+        }
+        return context;
+    }
+
     protected void assertEqualsNumber(String expected, Object actual) {
         if (actual instanceof Number) {
             assertEquals(expected, actual.toString());

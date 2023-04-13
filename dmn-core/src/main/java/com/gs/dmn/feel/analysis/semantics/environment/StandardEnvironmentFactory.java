@@ -29,6 +29,7 @@ import java.util.Map;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
+import static com.gs.dmn.feel.analysis.semantics.type.ContextType.ANY_CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.*;
@@ -264,8 +265,11 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     private static void addContextFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "get entries", new BuiltinFunctionType(CONTEXT_LIST, new FormalParameter<>("m", ContextType.ANY_CONTEXT)));
-        addFunctionDeclaration(environment, "get value", new BuiltinFunctionType(ANY, new FormalParameter<>("m", ContextType.ANY_CONTEXT), new FormalParameter<>("key", STRING)));
+        addFunctionDeclaration(environment, "get entries", new BuiltinFunctionType(CONTEXT_LIST, new FormalParameter<>("m", ANY_CONTEXT)));
+        addFunctionDeclaration(environment, "get value", new BuiltinFunctionType(ANY, new FormalParameter<>("m", ANY_CONTEXT), new FormalParameter<>("key", STRING)));
+        addFunctionDeclaration(environment, "context put", new BuiltinFunctionType(ANY_CONTEXT, new FormalParameter<>("context", ANY_CONTEXT), new FormalParameter<>("key", STRING), new FormalParameter<>("value", ANY)));
+        addFunctionDeclaration(environment, "context put", new BuiltinFunctionType(ANY_CONTEXT, new FormalParameter<>("context", ANY_CONTEXT), new FormalParameter<>("keys", STRING_LIST), new FormalParameter<>("value", ANY)));
+        addFunctionDeclaration(environment, "context merge", new BuiltinFunctionType(ANY_CONTEXT, new FormalParameter<>("contexts", ANY_LIST)));
     }
 
     private static void addDateTimeFunctions(Environment environment) {
