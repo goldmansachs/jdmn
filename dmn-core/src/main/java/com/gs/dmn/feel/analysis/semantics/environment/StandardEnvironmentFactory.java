@@ -149,10 +149,11 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addNumberFunctions(environment);
         addBooleanFunctions(environment);
         addStringFunctions(environment);
-        addListFunctions(environment);
-        addContextFunctions(environment);
         addDateTimeFunctions(environment);
         addTemporalFunctions(environment);
+        addMiscellaneousFunctions(environment);
+        addListFunctions(environment);
+        addContextFunctions(environment);
         addRangeFunctions(environment);
     }
 
@@ -221,6 +222,29 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "string join", new BuiltinFunctionType(STRING, new FormalParameter<>("list", STRING_LIST), new FormalParameter<>("delimiter", STRING, true, false)));
     }
 
+    private static void addDateTimeFunctions(Environment environment) {
+        addFunctionDeclaration(environment, "is", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("value1", ANY), new FormalParameter<>("value2", ANY)));
+    }
+
+    private static void addTemporalFunctions(Environment environment) {
+        addFunctionDeclaration(environment, "day of year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("date", DATE)));
+        addFunctionDeclaration(environment, "day of year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("date", DATE_AND_TIME)));
+
+        addFunctionDeclaration(environment, "day of week", new BuiltinFunctionType(STRING, new FormalParameter<>("date", DATE)));
+        addFunctionDeclaration(environment, "day of week", new BuiltinFunctionType(STRING, new FormalParameter<>("date", DATE_AND_TIME)));
+
+        addFunctionDeclaration(environment, "month of year", new BuiltinFunctionType(STRING, new FormalParameter<>("date", DATE)));
+        addFunctionDeclaration(environment, "month of year", new BuiltinFunctionType(STRING, new FormalParameter<>("date", DATE_AND_TIME)));
+
+        addFunctionDeclaration(environment, "week of year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("date", DATE)));
+        addFunctionDeclaration(environment, "week of year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("date", DATE_AND_TIME)));
+    }
+
+    private static void addMiscellaneousFunctions(Environment environment) {
+        addFunctionDeclaration(environment, "now", new BuiltinFunctionType(DATE_AND_TIME));
+        addFunctionDeclaration(environment, "today", new BuiltinFunctionType(DATE));
+    }
+
     private static void addListFunctions(Environment environment) {
         addFunctionDeclaration(environment, "list contains", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list", ANY_LIST), new FormalParameter<>("element", ANY)));
         addFunctionDeclaration(environment, "count", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", ANY_LIST)));
@@ -270,24 +294,6 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "context put", new BuiltinFunctionType(ANY_CONTEXT, new FormalParameter<>("context", ANY_CONTEXT), new FormalParameter<>("key", STRING), new FormalParameter<>("value", ANY)));
         addFunctionDeclaration(environment, "context put", new BuiltinFunctionType(ANY_CONTEXT, new FormalParameter<>("context", ANY_CONTEXT), new FormalParameter<>("keys", STRING_LIST), new FormalParameter<>("value", ANY)));
         addFunctionDeclaration(environment, "context merge", new BuiltinFunctionType(ANY_CONTEXT, new FormalParameter<>("contexts", ANY_LIST)));
-    }
-
-    private static void addDateTimeFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "is", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("value1", ANY), new FormalParameter<>("value2", ANY)));
-    }
-
-    private static void addTemporalFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "day of year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("date", DATE)));
-        addFunctionDeclaration(environment, "day of year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("date", DATE_AND_TIME)));
-
-        addFunctionDeclaration(environment, "day of week", new BuiltinFunctionType(STRING, new FormalParameter<>("date", DATE)));
-        addFunctionDeclaration(environment, "day of week", new BuiltinFunctionType(STRING, new FormalParameter<>("date", DATE_AND_TIME)));
-
-        addFunctionDeclaration(environment, "month of year", new BuiltinFunctionType(STRING, new FormalParameter<>("date", DATE)));
-        addFunctionDeclaration(environment, "month of year", new BuiltinFunctionType(STRING, new FormalParameter<>("date", DATE_AND_TIME)));
-
-        addFunctionDeclaration(environment, "week of year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("date", DATE)));
-        addFunctionDeclaration(environment, "week of year", new BuiltinFunctionType(NUMBER, new FormalParameter<>("date", DATE_AND_TIME)));
     }
 
     private static void addRangeFunctions(Environment environment) {

@@ -977,6 +977,28 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         }
     }
 
+    @Override
+    public DATE_TIME now() {
+        try {
+            return this.dateTimeLib.now();
+        } catch (Exception e) {
+            String message = "now()";
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public DATE today() {
+        try {
+            return this.dateTimeLib.today();
+        } catch (Exception e) {
+            String message = "today()";
+            logError(message, e);
+            return null;
+        }
+    }
+
     //
     // Temporal functions
     //

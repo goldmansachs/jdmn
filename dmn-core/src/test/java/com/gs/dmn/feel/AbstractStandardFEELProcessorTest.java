@@ -1343,6 +1343,21 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "is(date(\"2012-12-25\"), date(\"2012-12-25\"))",
                 this.lib.is(this.lib.date("2012-12-25"), this.lib.date("2012-12-25")),
                 true);
+        // Skip evaluation as is non-deterministic
+        doExpressionTest(entries, "", "now()",
+                "FunctionInvocation(Name(now) -> PositionalParameters())",
+                "date and time",
+                "now()",
+                null,
+                null);
+        // Skip evaluation as is non-deterministic
+        doExpressionTest(entries, "", "today()",
+                "FunctionInvocation(Name(today) -> PositionalParameters())",
+                "date",
+                "today()",
+                null,
+                null);
+
     }
 
     @Test

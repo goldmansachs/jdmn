@@ -304,6 +304,16 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         throw new RuntimeException(String.format("Cannot extract 'timeOffset' from %s", time));
     }
 
+    @Override
+    public ZonedDateTime now() {
+        return ZonedDateTime.now();
+    }
+
+    @Override
+    public LocalDate today() {
+        return LocalDate.now();
+    }
+
     //
     // Temporal functions
     //

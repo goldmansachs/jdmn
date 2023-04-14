@@ -112,6 +112,16 @@ public class DateTimeLibStub<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements
         throw new DMNRuntimeException("Not supported yet");
     }
 
+    @Override
+    public DATE_TIME now() {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public DATE today() {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
     //
     // Temporal functions
     //

@@ -59,6 +59,13 @@ public interface DateTimeLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Te
     String timezone(Object date);
 
     //
+    // Miscellaneous
+    //
+    DATE_TIME now();
+
+    DATE today();
+
+    //
     // Extra conversion functions
     //
     DATE toDate(Object from);

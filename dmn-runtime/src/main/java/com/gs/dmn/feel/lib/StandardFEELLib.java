@@ -185,6 +185,10 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     Boolean is(Object value1, Object value2);
 
+    DATE_TIME now();
+
+    DATE today();
+
     //
     // List functions
     //
