@@ -321,6 +321,12 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
         xStream.alias("extension", DiagramElement.Extension.class);
         xStream.alias(DMNLabelConverter.TEXT, String.class);
 
+        xStream.alias("for", TFor.class);
+        xStream.alias("every", TEvery.class);
+        xStream.alias("some", TSome.class);
+        xStream.alias("conditional", TConditional.class);
+        xStream.alias("filter", TFilter.class);
+
         xStream.registerConverter(new AssociationConverter(xStream, DMNVersion.DMN_14));
         xStream.registerConverter(new AuthorityRequirementConverter(xStream, DMNVersion.DMN_14));
         xStream.registerConverter(new BindingConverter(xStream, DMNVersion.DMN_14));
@@ -353,6 +359,14 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
         xStream.registerConverter(new TextAnnotationConverter(xStream, DMNVersion.DMN_14));
         xStream.registerConverter(new UnaryTestsConverter(xStream, DMNVersion.DMN_14));
         xStream.registerConverter(new FunctionItemConverter(xStream, DMNVersion.DMN_14));
+
+        xStream.registerConverter(new ChildExpressionConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new TypedChildExpressionConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new ForConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new EveryConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new SomeConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new ConditionalConverter(xStream, DMNVersion.DMN_14));
+        xStream.registerConverter(new FilterConverter(xStream, DMNVersion.DMN_14));
 
         xStream.registerConverter(new QNameConverter(DMNVersion.DMN_14));
         xStream.registerConverter(new DMNListConverter(xStream, DMNVersion.DMN_14));

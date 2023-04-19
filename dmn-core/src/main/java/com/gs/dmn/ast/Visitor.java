@@ -73,6 +73,20 @@ public interface Visitor {
 
     <C> Object visit(TUnaryTests element, C context);
 
+    <C> Object visit(TConditional element, C context);
+
+    <C> Object visit(TFor element, C context);
+
+    <C> Object visit(TFilter element, C context);
+
+    <C> Object visit(TEvery element, C context);
+
+    <C> Object visit(TSome element, C context);
+
+    <C> Object visit(TChildExpression element, C context);
+
+    <C> Object visit(TTypedChildExpression element, C context);
+
     // Requirements
     <C> Object visit(TAuthorityRequirement element, C context);
 

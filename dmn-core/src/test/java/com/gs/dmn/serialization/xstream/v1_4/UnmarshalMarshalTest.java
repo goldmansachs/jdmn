@@ -22,58 +22,78 @@ import javax.xml.transform.stream.StreamSource;
 
 public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
-    public void testV13_simple() throws Exception {
+    public void testSimple() throws Exception {
         testRoundTrip("xstream/v1_4/simple.dmn");
     }
 
     @Test
-    public void testV13_ch11example_asFromOMG() throws Exception {
+    public void testChapter11Example() throws Exception {
         testRoundTrip("xstream/v1_4/Chapter 11 Example.dmn", getMarshaller());
     }
 
     @Test
-    public void testV13_financial() throws Exception {
+    public void testFinancial() throws Exception {
         testRoundTrip("xstream/v1_4/Financial.dmn");
     }
 
     @Test
-    public void testV13_loan_info() throws Exception {
+    public void testLoanInfo() throws Exception {
         testRoundTrip("xstream/v1_4/Loan info.dmn");
     }
 
     @Test
-    public void testV13_recommended_loan_product() throws Exception {
+    public void testRecommendedLoanProducts() throws Exception {
         testRoundTrip("xstream/v1_4/Recommended Loan Products.dmn");
     }
 
     @Test
-    public void testV13_group() throws Exception {
+    public void testGroup() throws Exception {
         testRoundTrip("xstream/v1_4/group.dmn");
     }
 
     @Test
-    public void testV13_dmnedge() throws Exception {
+    public void testDMNeEdge() throws Exception {
         testRoundTrip("xstream/v1_4/dmnedge.dmn");
     }
 
     @Test
-    public void testV13_functionItem() throws Exception {
+    public void testFunctionItem() throws Exception {
         testRoundTrip("xstream/v1_4/functionItem.dmn");
     }
 
     @Test
-    public void testV13_decision_list() throws Exception {
+    public void testDecisionList() throws Exception {
         testRoundTrip("xstream/v1_4/decision-list.dmn");
     }
 
     @Test
-    public void testV13_extensions() throws Exception {
+    public void test0034DrgScopes() throws Exception {
         testRoundTrip("xstream/v1_4/0034-drg-scopes.dmn");
+    }
+
+    @Test
+    public void testSampleConditional() throws Exception {
+        testRoundTrip("xstream/v1_4/sampleConditional.dmn");
+    }
+
+    @Test
+    public void testSampleFilter() throws Exception {
+        testRoundTrip("xstream/v1_4/sampleFilter.dmn");
+    }
+
+    @Test
+    public void testSampleFor() throws Exception {
+        testRoundTrip("xstream/v1_4/sampleFor.dmn");
+    }
+
+    @Test
+    public void testSampleQuantified() throws Exception {
+        testRoundTrip("xstream/v1_4/sampleQuantified.dmn");
     }
 
     @Override
     protected StreamSource getSchemaSource() {
-        return new StreamSource(com.gs.dmn.serialization.xstream.v1_2.UnmarshalMarshalTest.class.getResource("/dmn/1.4/DMN14.xsd").getFile());
+        return new StreamSource(this.getClass().getResource("/dmn/1.4/DMN14.xsd").getFile());
     }
 
     @Override

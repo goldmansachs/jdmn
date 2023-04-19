@@ -26,7 +26,12 @@ import javax.xml.namespace.QName;
         @JsonSubTypes.Type(name = "functionDefinition", value = TFunctionDefinition.class),
         @JsonSubTypes.Type(name = "relation", value = TRelation.class),
         @JsonSubTypes.Type(name = "list", value = TList.class),
-        @JsonSubTypes.Type(name = "unaryTests", value = TUnaryTests.class)
+        @JsonSubTypes.Type(name = "unaryTests", value = TUnaryTests.class),
+        @JsonSubTypes.Type(name = "conditional", value = TConditional.class),
+        @JsonSubTypes.Type(name = "for", value = TFor.class),
+        @JsonSubTypes.Type(name = "filter", value = TFilter.class),
+        @JsonSubTypes.Type(name = "some", value = TSome.class),
+        @JsonSubTypes.Type(name = "every", value = TEvery.class)
 })
 public abstract class TExpression extends TDMNElement {
     private QName typeRef;

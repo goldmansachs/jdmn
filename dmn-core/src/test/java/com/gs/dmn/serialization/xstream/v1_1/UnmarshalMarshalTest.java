@@ -27,32 +27,32 @@ import java.util.Arrays;
 
 public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
-    public void test0001() throws Exception {
+    public void test0001InputDataString() throws Exception {
         testRoundTrip("xstream/v1_1/0001-input-data-string.dmn");
     }
 
     @Test
-    public void test0002() throws Exception {
+    public void test0002InputDataNumber() throws Exception {
         testRoundTrip("xstream/v1_1/0002-input-data-number.dmn");
     }
 
     @Test
-    public void test0003() throws Exception {
+    public void test0003InputDataStringAllowedValues() throws Exception {
         testRoundTrip("xstream/v1_1/0003-input-data-string-allowed-values.dmn");
     }
 
     @Test
-    public void test0005_decision_list() throws Exception {
+    public void test0005DecisionList() throws Exception {
         testRoundTrip("xstream/v1_1/0005-decision-list.dmn");
     }
 
     @Test
-    public void test_hardcoded_java_max_call() throws Exception {
+    public void testHardcodedJavaMaxCall() throws Exception {
         testRoundTrip("xstream/v1_1/hardcoded-java-max-call.dmn");
     }
 
     @Test
-    public void testDish() throws Exception {
+    public void testDishDecision() throws Exception {
         testRoundTrip("xstream/v1_1/dish-decision.dmn");
     }
 
@@ -67,23 +67,23 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     }
 
     @Test
-    public void testCh11() throws Exception {
+    public void testCh11Example() throws Exception {
         testRoundTrip("xstream/v1_1/ch11example.dmn");
     }
 
     @Test
-    public void testHello_World_semantic_namespace() throws Exception {
+    public void testHelloWorldSemanticNamespace() throws Exception {
         testRoundTrip("xstream/v1_1/Hello_World_semantic_namespace.dmn");
     }
 
     @Test
-    public void testHello_World_semantic_namespace_with_extensions() throws Exception {
+    public void testHelloWorldSemanticNamespaceWithExtensions() throws Exception {
         DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Arrays.asList(new MyTestRegister()));
         testRoundTrip("xstream/v1_1/Hello_World_semantic_namespace_with_extensions.dmn", marshaller);
     }
 
     @Test
-    public void testHello_World_semantic_namespace_with_extensions_other_ns_location() throws Exception {
+    public void testHelloWorldSemanticNamespaceWithExtensionsOtherNsLocation() throws Exception {
         DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Arrays.asList(new MyTestRegister()));
         testRoundTrip("xstream/v1_1/Hello_World_semantic_namespace_with_extensions_other_ns_location.dmn", marshaller);
     }
@@ -100,7 +100,7 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     }
 
     @Test
-    public void testQNameSerialization() throws Exception {
+    public void testHardcodedFunctionDefinition() throws Exception {
         testRoundTrip("xstream/v1_1/hardcoded_function_definition.dmn");
     }
 
