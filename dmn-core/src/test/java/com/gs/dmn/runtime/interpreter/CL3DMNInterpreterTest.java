@@ -488,6 +488,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_14_cl3_0086_import() {
+        doMultipleModelsTest("1.4", Arrays.asList("0086-import", "Imported_Model"), new Pair<>("singletonInputData", "false"));
+    }
+
+    @Test
     public void test_14_cl3_100_arithmetic() {
         doSingleModelTest("1.4", "0100-arithmetic");
     }
