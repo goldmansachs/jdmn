@@ -2024,5 +2024,89 @@
         </literalExpression>
     </decision>
 
+    <inputData name="input_for_null_tests" id="_input_for_null_tests">
+        <variable name="input_for_null_tests"/>
+    </inputData>
+
+    <!--
+        <decision name="null_001" id="_null_001">
+            <variable name="null_001"/>
+            <literalExpression>
+                <text>null in [1..10]</text>
+            </literalExpression>
+        </decision>
+
+        <decision name="null_001_a" id="_null_001_a">
+            <variable name="null_001_a"/>
+            <literalExpression>
+                <text>5 in (null..10]</text>
+            </literalExpression>
+        </decision>
+
+        <decision name="null_001_b" id="_null_001_b">
+            <variable name="null_001_b"/>
+            <literalExpression>
+                <text>5 in [1..null)</text>
+            </literalExpression>
+        </decision>
+
+        <decision name="null_001_c" id="_null_001_c">
+            <variable name="null_001_c"/>
+            <literalExpression>
+                <text>5 in [1..null]</text>
+            </literalExpression>
+        </decision>
+
+        <decision name="null_001_d" id="_null_001_d">
+            <variable name="null_001_d"/>
+            <literalExpression>
+                <text>5 in [null..10]</text>
+            </literalExpression>
+        </decision>
+    -->
+
+<!--
+    <decision name="null_002" id="_null_002">
+        <variable name="null_002"/>
+        <informationRequirement>
+            <requiredInput href="#_input_for_null_tests"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>5 in [input_for_null_tests..10]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_003" id="_null_003">
+        <variable name="null_003"/>
+        <informationRequirement>
+            <requiredInput href="#_input_for_null_tests"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>5 in (input_for_null_tests..10]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_004" id="_null_004">
+        <variable name="null_004"/>
+        <informationRequirement>
+            <requiredInput href="#_input_for_null_tests"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>5 in [1..input_for_null_tests]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_005" id="_null_005">
+        <variable name="null_005"/>
+        <informationRequirement>
+            <requiredInput href="#_input_for_null_tests"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>5 in [1..input_for_null_tests)</text>
+        </literalExpression>
+    </decision>
+
+-->
+
 </definitions>
 

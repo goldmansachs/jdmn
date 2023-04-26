@@ -2542,4 +2542,123 @@
         </resultNode>
     </testCase>
 
+<!--
+    <testCase id="null_001">
+        <description>range null test value</description>
+        <resultNode errorResult="true" name="null_001" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_001_a">
+        <description>range null start value with non-inclusive start</description>
+        <resultNode name="null_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_001_b">
+        <description>range null end value with non-inclusive end</description>
+        <resultNode name="null_001_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_001_c">
+        <description>range null start value with inclusive start</description>
+        <resultNode errorResult="true" name="null_001_c" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_001_d">
+        <description>range null end value with inclusive end</description>
+        <resultNode errorResult="true" name="null_001_d" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+<!--
+    <testCase id="null_002">
+        &lt;!&ndash; as null is a valid value for a range start, this test asserts that a null start caused by a
+        invalid type coercion is not the same as simply supplying a null value &ndash;&gt;
+        <description>range - invalid inclusive start type coerces to null and makes range check invalid</description>
+
+        &lt;!&ndash; invalid value provided as input so compiler type inference (if any) is not relevant &ndash;&gt;
+        &lt;!&ndash; the range has a number end and we're supplying a list as the start &ndash;&gt;
+        <inputNode name="input_for_null_tests">
+            <list></list>
+        </inputNode>
+
+        <resultNode errorResult="true" name="null_002" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_003">
+        &lt;!&ndash; as null is a valid value for a range start, this test asserts that a null start caused by a
+        invalid type coercion is not the same as simply supplying a null value &ndash;&gt;
+        <description>range - invalid non-inclusive start type coerces to null and makes range check invalid</description>
+
+        &lt;!&ndash; invalid value provided as input so compiler type inference (if any) is not relevant &ndash;&gt;
+        &lt;!&ndash; the range has a number end and we're supplying a list as the start &ndash;&gt;
+        <inputNode name="input_for_null_tests">
+            <list></list>
+        </inputNode>
+
+        <resultNode errorResult="true" name="null_003" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_004">
+        &lt;!&ndash; as null is a valid value for a range end, this test asserts that a null end caused by a
+        invalid type coercion is not the same as simply supplying a null value &ndash;&gt;
+        <description>range - invalid inclusive end type coerces to null and makes range check invalid</description>
+
+        &lt;!&ndash; invalid value provided as input so compiler type inference (if any) is not relevant &ndash;&gt;
+        &lt;!&ndash; the range has a number start and we're supplying a list as the end &ndash;&gt;
+        <inputNode name="input_for_null_tests">
+            <list></list>
+        </inputNode>
+
+        <resultNode errorResult="true" name="null_004" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_005">
+        <description>range - invalid non-inclusive end type coerces to null and makes range check invalid</description>
+
+        &lt;!&ndash; invalid value provided as input so compiler type inference (if any) is not relevant &ndash;&gt;
+        &lt;!&ndash; the range has a number start and we're supplying a list as the end &ndash;&gt;
+        <inputNode name="input_for_null_tests">
+            <list></list>
+        </inputNode>
+
+        <resultNode errorResult="true" name="null_005" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
 </testCases>
