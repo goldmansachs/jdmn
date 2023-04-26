@@ -477,4 +477,13 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     public void test_13_cl3_1130_feel_interval() {
         doSingleModelTest("1.3", "1130-feel-interval");
     }
+
+    //
+    // DMN 1.4 files
+    //
+
+    @Test
+    public void test_14_cl3_100_arithmetic() {
+        doSingleModelTest("1.4", "0100-arithmetic");
+    }
 }
