@@ -2025,7 +2025,7 @@
     </decision>
 
     <inputData name="input_for_null_tests" id="_input_for_null_tests">
-        <variable name="input_for_null_tests"/>
+        <variable name="input_for_null_tests" typeRef="number"/>
     </inputData>
 
     <!--

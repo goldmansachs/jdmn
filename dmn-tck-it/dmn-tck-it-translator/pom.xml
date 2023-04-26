@@ -1304,6 +1304,36 @@
                     </execution>
 
                     <execution>
+                        <id>cl3-0072-feel-in</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_feel_in</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-0072-feel-in</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_feel_in</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>cl3-0076-feel-external-java</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1394,7 +1424,7 @@
                     </execution>
 
                     <execution>
-                        <id>0092-feel-lambda</id>
+                        <id>cl3-0092-feel-lambda</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
@@ -1409,7 +1439,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-0092-feel-lambda</id>
+                        <id>test-cl3-0092-feel-lambda</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>tck-to-java</goal>
@@ -1476,11 +1506,11 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1100-feel-decimal-function/translator/1100-feel-decimal-function-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.11.diagram.folder}/cl3/1100-feel-decimal-function/translator/1100-feel-decimal-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0093_feel_at_literals</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1100_feel_decimal_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
