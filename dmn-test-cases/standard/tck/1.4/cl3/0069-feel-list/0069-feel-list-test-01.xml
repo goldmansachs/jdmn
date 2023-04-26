@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0069-feel-list.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: List</label>
+    </labels>
+    <testCase id="001">
+        <description>creation of list</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">1</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">2</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">3</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="001_a">
+        <description>creation of empty list</description>
+        <resultNode name="decision001_a" type="decision">
+            <expected>
+                <list>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>access of index 0</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>access of index > size</description>
+        <resultNode name="decision003" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>access of first element</description>
+        <resultNode name="decision004" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>access of last element</description>
+        <resultNode name="decision005" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">3</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>access of negative element</description>
+        <resultNode name="decision006" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">3</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>access of negative element</description>
+        <resultNode name="decision007" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>access of negative element > -size</description>
+        <resultNode name="decision008" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009">
+        <description>true boolean index element gives entire list</description>
+        <resultNode name="decision009" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">1</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">2</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">3</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010">
+        <description>false boolean index element gives empty list</description>
+        <resultNode name="decision010" type="decision">
+            <expected>
+                <list>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011">
+        <description>filter expression using item</description>
+        <resultNode name="decision011" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">2</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">3</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012">
+        <description>true filter expression on non list - boolean</description>
+        <resultNode name="decision012" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:boolean">true</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="013">
+        <description>false filter expression on non list - boolean</description>
+        <resultNode name="decision013" type="decision">
+            <expected>
+                <list>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="014">
+        <description>true filter expression on non list - number</description>
+        <resultNode name="decision014" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">100</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="015">
+        <description>false filter expression on non list - number</description>
+        <resultNode name="decision015" type="decision">
+            <expected>
+                <list>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="016">
+        <description>true filter expression on non list - string</description>
+        <resultNode name="decision016" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">foo</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="017">
+        <description>false filter expression on non list - string</description>
+        <resultNode name="decision017" type="decision">
+            <expected>
+                <list>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="018">
+        <description>index of 1 on non list - boolean</description>
+        <resultNode name="decision018" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="019">
+        <description>index of 1 on non list - number</description>
+        <resultNode name="decision019" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">100</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="020">
+        <description>index of 1 on non list - string</description>
+        <resultNode name="decision020" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="021">
+        <description>index of 0 on non list - boolean</description>
+        <resultNode name="decision021" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="022">
+        <description>index of 0 on non list - number</description>
+        <resultNode name="decision022" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="023">
+        <description>index of 0 on non list - string</description>
+        <resultNode name="decision023" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="024">
+        <description>filter on context using item</description>
+        <resultNode name="decision024" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <component name="a">
+                            <value xsi:type="xsd:decimal">2</value>
+                        </component>
+                    </item>
+                    <item>
+                        <component name="a">
+                            <value xsi:type="xsd:decimal">3</value>
+                        </component>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="025">
+        <description>filter on context using property name</description>
+        <resultNode name="decision025" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <component name="a">
+                            <value xsi:type="xsd:decimal">2</value>
+                        </component>
+                    </item>
+                    <item>
+                        <component name="a">
+                            <value xsi:type="xsd:decimal">3</value>
+                        </component>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="026">
+        <description>filter on context using property 'item' name</description>
+        <resultNode name="decision026" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <component name="item">
+                            <value xsi:type="xsd:decimal">2</value>
+                        </component>
+                    </item>
+                    <item>
+                        <component name="item">
+                            <value xsi:type="xsd:decimal">3</value>
+                        </component>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

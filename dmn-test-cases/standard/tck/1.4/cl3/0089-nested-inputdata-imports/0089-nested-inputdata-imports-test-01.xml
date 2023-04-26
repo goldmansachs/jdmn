@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testCases
+  xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <modelName>0089-nested-inputdata-imports.dmn</modelName>
+  <labels>
+    <label>Compliance Level 3</label>
+  </labels>
+
+  <testCase id="001" invocableName="Evaluation DS" type="decision">
+    <description>Nested imports of InputData following GITHUB DMN TCK 274</description>
+    <inputNode name="Model B">
+      <component name="modelA">
+        <component name="Person name">
+          <value xsi:type="xsd:string">B.A.John</value>
+        </component>
+      </component>
+    </inputNode>
+    <inputNode name="Model B2">
+      <component name="modelA">
+        <component name="Person name">
+          <value xsi:type="xsd:string">B2.A.John2</value>
+        </component>
+      </component>
+    </inputNode>
+    <resultNode name="Model C Decision based on Bs">
+      <expected>
+        <value xsi:type="xsd:string">B: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B2.A.John2</value>
+      </expected>
+    </resultNode>
+  </testCase>
+
+</testCases>
