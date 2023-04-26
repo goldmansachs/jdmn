@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0103-feel-is-function.dmn</modelName>
+
+    <testCase id="number_001">
+        <description>number: is equal</description>
+        <resultNode name="number_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_002">
+        <description>number: is not equal</description>
+        <resultNode name="number_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_001">
+        <description>boolean: is equal</description>
+        <resultNode name="boolean_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="boolean_002">
+        <description>boolean: is not equal</description>
+        <resultNode name="boolean_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_001">
+        <description>string: is equal</description>
+        <resultNode name="string_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_002">
+        <description>string: is not equal</description>
+        <resultNode name="string_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_001">
+        <description>date: is equal</description>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_002">
+        <description>date: is not equal when year differs</description>
+        <resultNode name="date_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_003">
+        <description>date: is not equal when months differs</description>
+        <resultNode name="date_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_004">
+        <description>date: is not equal when days differs</description>
+        <resultNode name="date_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_005">
+        <description>date: is not equal to UTC zero time of same date</description>
+        <resultNode name="date_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_001">
+        <description>time: is equal</description>
+        <resultNode name="time_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_002">
+        <description>time: is equal with same offset</description>
+        <resultNode name="time_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_003">
+        <description>time: is equal with same timezone</description>
+        <resultNode name="time_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_004">
+        <description>time: is equal - UTC zone and UTC offset</description>
+        <resultNode name="time_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_005">
+        <description>time: is not equal - no zone time vs UTC zone time</description>
+        <resultNode name="time_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_006">
+        <description>time: is not equal - @ zone time with same offset zone time</description>
+        <resultNode name="time_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_007">
+        <description>time: is not equal - @ GMT vs zero offset zone time</description>
+        <resultNode name="time_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_008">
+        <description>time: is not equal when hour differs</description>
+        <resultNode name="time_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_009">
+        <description>time: is not equal when minute differs</description>
+        <resultNode name="time_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_010">
+        <description>time: is not equal when second differs</description>
+        <resultNode name="time_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_011">
+        <description>time: is not equal when offset differs</description>
+        <resultNode name="time_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_012">
+        <description>time: is not equal when zone differs but offset is same</description>
+        <resultNode name="time_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_013">
+        <description>time: is not equal when equivalent time in different zones</description>
+        <resultNode name="time_013" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_001">
+        <description>datetime: is equal with same date and time</description>
+        <resultNode name="datetime_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_002">
+        <description>datetime: is equal with same date and time and offset</description>
+        <resultNode name="datetime_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_003">
+        <description>datetime: is equal with same date and time and timezone</description>
+        <resultNode name="datetime_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_004">
+        <description>datetime: not equals despite being equal points in time</description>
+        <resultNode name="datetime_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_005">
+        <description>datetime: not equals despite being equal points in time</description>
+        <resultNode name="datetime_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_006">
+        <description>datetime: not equals despite being equal points in time</description>
+        <resultNode name="datetime_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_007">
+        <description>datetime: not equals when year differs</description>
+        <resultNode name="datetime_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_008">
+        <description>datetime: not equals when month differs</description>
+        <resultNode name="datetime_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_009">
+        <description>datetime: not equals when day differs</description>
+        <resultNode name="datetime_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_010">
+        <description>datetime: not equals when hour differs</description>
+        <resultNode name="datetime_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_011">
+        <description>datetime: not equals when minute differs</description>
+        <resultNode name="datetime_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_012">
+        <description>datetime: not equals when seconds differs</description>
+        <resultNode name="datetime_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_013">
+        <description>datetime: not equals when offset differs</description>
+        <resultNode name="datetime_013" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_014">
+        <description>datetime: not equals when region differs even though offset is same</description>
+        <resultNode name="datetime_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_015">
+        <description>datetime: is equal - UTC zone vs UTC offset</description>
+        <resultNode name="datetime_015" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_016">
+        <description>datetime: is not equal - zone vs offset - DST</description>
+        <resultNode name="datetime_016" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_017">
+        <description>datetime: is not equal - zone vs offset - outside DST</description>
+        <resultNode name="datetime_017" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_001">
+        <description>days and time duration: same stuff is equal</description>
+        <resultNode name="dt_duration_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dt_duration_002">
+        <description>days and time duration: same duration in different units is equal</description>
+        <resultNode name="dt_duration_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_001">
+        <description>years and months duration: not a permitted type</description>
+        <resultNode name="ym_duration_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ym_duration_002">
+        <description>years and months duration: same duration in different units is equal</description>
+        <resultNode name="ym_duration_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="zero_duration_001">
+        <description>zero durations are not equal</description>
+        <resultNode name="zero_duration_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="named_params_001">
+        <description>correct names params okay</description>
+        <resultNode name="named_params_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="named_params_002">
+        <description>value1 param is nullable</description>
+        <resultNode name="named_params_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="named_params_003">
+        <description>value2 param is nullable</description>
+        <resultNode name="named_params_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="named_params_004">
+        <description>will return null when unknown named params</description>
+        <resultNode name="named_params_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

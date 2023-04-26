@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=""  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0083-feel-unicode.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: String</label>
+        <label>FEEL Functions: string</label>
+    </labels>
+
+    <testCase id="decision_001">
+        <description>Assert length of string with 4 digit unicode char</description>
+        <resultNode name="decision_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_001_a">
+        <description>Assert length of string with 6 digit unicode char</description>
+        <resultNode name="decision_001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_001_b">
+        <description>Assert string with 6 digit unicode char</description>
+        <resultNode name="decision_001_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_002">
+        <description>Escaped encoded unicode</description>
+        <resultNode name="decision_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">6</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_003">
+        <description>encoded unicode - supplementary char (uppercase)</description>
+        <resultNode name="decision_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_003_a">
+        <description>encoded unicode - supplementary char (lowercase)</description>
+        <resultNode name="decision_003_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_004">
+        <description>encoded unicode - string literal with supplementary chars</description>
+        <resultNode name="decision_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_004_a">
+        <description>literal unicode - supplementary 2 char - in string literal</description>
+        <resultNode name="decision_004_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">2</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_005">
+        <description>encoded unicode - string contains with supplementary chars</description>
+        <resultNode name="decision_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_005_a">
+        <description>literal unicode - string contains with supplementary chars</description>
+        <resultNode name="decision_005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_006">
+        <description>literal unicode - context property name as supplementary character</description>
+        <resultNode name="decision_006" type="decision">
+            <expected>
+                <component name="🐎">
+                    <value xsi:type="xsd:string">bar</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_007">
+        <description>literal unicode - context property and value supplementary characters</description>
+        <resultNode name="decision_007" type="decision">
+            <expected>
+                <component name="🐎">
+                    <value xsi:type="xsd:string">😀</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="endswith_001">
+        <description>literal unicode - string ends with with supplementary chars</description>
+        <resultNode name="endswith_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--     <testCase id="substring_001">
+        <description>literal unicode - substring with mixed chars and supplementary chars</description>
+        <resultNode name="substring_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">-->
+                <!-- THE GRINNING FACE EMOJI --> <!-- ref: https://github.com/dmn-tck/tck/issues/299 why emoji was not preserved in the comment, if uncommenting please do restore original emojis -->
+                <!--</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="substring_002">
+        <description>literal unicode - substring with mixed chars and supplementary chars</description>
+        <resultNode name="substring_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">-->
+                <!-- THE HORSE FACE EMOJI --> <!-- ref: https://github.com/dmn-tck/tck/issues/299 why emoji was not preserved in the comment, if uncommenting please do restore original emojis -->
+                <!--</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="substring_003">
+        <description>literal unicode - substring with mixed chars and supplementary chars</description>
+        <resultNode name="substring_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">-->
+                <!-- THE HORSE FACE EMOJI, followed by "bar" --> <!-- ref: https://github.com/dmn-tck/tck/issues/299 why emoji was not preserved in the comment, if uncommenting please do restore original emojis -->
+                <!--</value>
+            </expected>
+        </resultNode>
+    </testCase> -->
+
+    <testCase id="substring_004">
+        <description>escape 6 digit unicode substring</description>
+        <resultNode name="substring_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>
