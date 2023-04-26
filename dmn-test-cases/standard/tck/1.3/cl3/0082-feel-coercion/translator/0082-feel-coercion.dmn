@@ -32,7 +32,7 @@
     </decision>
 
 <!--    <decision name="decision_002" id="_decision_002">
-        <variable typeRef="list" name="decision_002"/>
+        <variable typeRef="tStringList" name="decision_002"/>
         <literalExpression>
             <text>[1,2,"foo"]</text>
         </literalExpression>
@@ -88,7 +88,7 @@
     </decision>
 
     <decision name="decision_008" id="_decision_008">
-        <variable typeRef="list" name="decision_008"/>
+        <variable typeRef="tStringList" name="decision_008"/>
         <literalExpression>
             <text>null</text>
         </literalExpression>
@@ -321,6 +321,25 @@
                 <parameter name="arg"/>
                 <literalExpression>
                     <text>["foo"]</text>
+                </literalExpression>
+            </binding>
+        </invocation>
+    </decision>
+
+    <decision name="invoke_007" id="_invoke_007">
+        <variable name="invoke_007"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_005"/>
+        </knowledgeRequirement>
+        <invocation>
+            <literalExpression>
+                <text>bkm_005</text>
+            </literalExpression>
+            <binding>
+                <!-- correctly passes a number, but the named parameter is unknown - should be 'arg' -->
+                <parameter name="arg1"/>
+                <literalExpression>
+                    <text>123</text>
                 </literalExpression>
             </binding>
         </invocation>

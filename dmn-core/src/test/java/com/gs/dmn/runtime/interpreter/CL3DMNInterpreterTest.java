@@ -488,6 +488,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_14_cl3_0082_feel_coercion() {
+        doSingleModelTest("1.4", "0082-feel-coercion");
+    }
+
+    @Test
     public void test_14_cl3_0086_import() {
         doMultipleModelsTest("1.4", Arrays.asList("0086-import", "Imported_Model"), new Pair<>("singletonInputData", "false"));
     }
