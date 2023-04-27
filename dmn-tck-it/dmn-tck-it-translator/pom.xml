@@ -1304,6 +1304,38 @@
                     </execution>
 
                     <execution>
+                        <id>cl3-0070-feel-instance-of</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/0070-feel-instance-of/translator/0070-feel-instance-of.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <strongTyping>false</strongTyping>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0070_feel_instance_of</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-0070-feel-instance-of</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/0070-feel-instance-of/translator/0070-feel-instance-of-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/0070-feel-instance-of/translator/0070-feel-instance-of.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <strongTyping>false</strongTyping>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0070_feel_instance_of</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>cl3-0072-feel-in</id>
                         <phase>generate-sources</phase>
                         <goals>

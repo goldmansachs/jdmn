@@ -172,8 +172,9 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String makeInstanceOf(String value, String type) {
-        return String.format("isinstance(%s, %s)", value, type);
+    public String makeInstanceOf(String value, Type type) {
+        String nativeType = this.typeFactory.toNativeType(type.toString());
+        return String.format("isinstance(%s, %s)", value, nativeType);
     }
 
     //

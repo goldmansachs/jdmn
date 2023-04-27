@@ -73,7 +73,7 @@ public interface NativeExpressionFactory {
 
     String makeEveryExpression(String list);
 
-    String makeInstanceOf(String value, String type);
+    String makeInstanceOf(String value, Type type);
 
     //
     // Decision Table aggregators

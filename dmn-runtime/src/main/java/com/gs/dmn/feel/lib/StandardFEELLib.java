@@ -271,6 +271,6 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     // Temporal built-in functions
     //
-
     <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator);
+    Boolean isInstanceOf(Object value, String type);
 }

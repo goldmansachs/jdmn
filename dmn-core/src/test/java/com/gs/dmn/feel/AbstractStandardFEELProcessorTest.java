@@ -1704,4 +1704,89 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 new com.gs.dmn.runtime.Range(false, lib.number("10"), false, null).isEndIncluded(),
                 false);
     }
+
+    @Test
+    public void testInstanceOfExpression() {
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+
+        doExpressionTest(entries, "", "3 instance of number",
+                "InstanceOfExpression(NumericLiteral(3), NamedTypeExpression(number))",
+                "boolean",
+                "isInstanceOf(number(\"3\"), \"number\")",
+                this.lib.isInstanceOf(lib.number("3"), "number"),
+                true);
+        doExpressionTest(entries, "", "\"abc\" instance of string",
+                "InstanceOfExpression(StringLiteral(\"abc\"), NamedTypeExpression(string))",
+                "boolean",
+                "isInstanceOf(\"abc\", \"string\")",
+                lib.isInstanceOf("abc", "string"),
+                true);
+        doExpressionTest(entries, "", "true instance of boolean",
+                "InstanceOfExpression(BooleanLiteral(true), NamedTypeExpression(boolean))",
+                "boolean",
+                "isInstanceOf(Boolean.TRUE, \"boolean\")",
+                lib.isInstanceOf(Boolean.TRUE, "boolean"),
+                true);
+        doExpressionTest(entries, "", "date(\"2011-01-03\") instance of date",
+                "InstanceOfExpression(DateTimeLiteral(date, \"2011-01-03\"), NamedTypeExpression(date))",
+                "boolean",
+                "isInstanceOf(date(\"2011-01-03\"), \"date\")",
+                this.lib.isInstanceOf(lib.date("2011-01-03"), "date"),
+                true);
+        doExpressionTest(entries, "", "time(\"12:00:00Z\") instance of time",
+                "InstanceOfExpression(DateTimeLiteral(time, \"12:00:00Z\"), NamedTypeExpression(time))",
+                "boolean",
+                "isInstanceOf(time(\"12:00:00Z\"), \"time\")",
+                this.lib.isInstanceOf(lib.time("12:00:00Z"), "time"),
+                true);
+        doExpressionTest(entries, "", "date and time(\"2016-03-01T12:00:00Z\") instance of date and time",
+                "InstanceOfExpression(DateTimeLiteral(date and time, \"2016-03-01T12:00:00Z\"), NamedTypeExpression(date and time))",
+                "boolean",
+                "isInstanceOf(dateAndTime(\"2016-03-01T12:00:00Z\"), \"date and time\")",
+                this.lib.isInstanceOf(lib.dateAndTime("2016-03-01T12:00:00Z"), "date and time"),
+                true);
+        doExpressionTest(entries, "", "duration(\"P1Y1M\") instance of years and months duration",
+                "InstanceOfExpression(DateTimeLiteral(duration, \"P1Y1M\"), NamedTypeExpression(years and months duration))",
+                "boolean",
+                "isInstanceOf(duration(\"P1Y1M\"), \"years and months duration\")",
+                this.lib.isInstanceOf(lib.duration("P1Y1M"), "years and months duration"),
+                true);
+        doExpressionTest(entries, "", "duration(\"P1DT1H\") instance of days and time duration",
+                "InstanceOfExpression(DateTimeLiteral(duration, \"P1DT1H\"), NamedTypeExpression(days and time duration))",
+                "boolean",
+                "isInstanceOf(duration(\"P1DT1H\"), \"days and time duration\")",
+                this.lib.isInstanceOf(lib.duration("P1DT1H"), "days and time duration"),
+                true);
+        doExpressionTest(entries, "", "[1, 2, 3] instance of list<number>",
+                "InstanceOfExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTypeExpression(NamedTypeExpression(number)))",
+                "boolean",
+                "isInstanceOf(asList(number(\"1\"), number(\"2\"), number(\"3\")), \"ListType(number)\")",
+                null,
+                null);
+        doExpressionTest(entries, "", "{a: 1, b: \"2\"} instance of context<a: number, b: string>",
+                "InstanceOfExpression(Context(ContextEntry(ContextEntryKey(a) = NumericLiteral(1)),ContextEntry(ContextEntryKey(b) = StringLiteral(\"2\"))), ContextTypeExpression(a: NamedTypeExpression(number), b: NamedTypeExpression(string)))",
+                "boolean",
+                "isInstanceOf(new com.gs.dmn.runtime.Context().add(\"a\", number(\"1\")).add(\"b\", \"2\"), \"ContextType(a = number, b = string)\")",
+                null,
+                null);
+        doExpressionTest(entries, "", "{\"a\": 1, \"b\": \"2\"} instance of context<a: number, b: string>",
+                "InstanceOfExpression(Context(ContextEntry(ContextEntryKey(a) = NumericLiteral(1)),ContextEntry(ContextEntryKey(b) = StringLiteral(\"2\"))), ContextTypeExpression(a: NamedTypeExpression(number), b: NamedTypeExpression(string)))",
+                "boolean",
+                "isInstanceOf(new com.gs.dmn.runtime.Context().add(\"a\", number(\"1\")).add(\"b\", \"2\"), \"ContextType(a = number, b = string)\")",
+                null,
+                null);
+        doExpressionTest(entries, "", "[1..3) instance of range<number>",
+                "InstanceOfExpression(EndpointsRange(false,NumericLiteral(1),true,NumericLiteral(3)), RangeTypeExpression(NamedTypeExpression(number)))",
+                "boolean",
+                "isInstanceOf(new com.gs.dmn.runtime.Range(true, number(\"1\"), false, number(\"3\")), \"RangeType(number)\")",
+                null,
+                null);
+        doExpressionTest(entries, "", "(function () 4) instance of function <> -> number",
+                "InstanceOfExpression(FunctionDefinition(, NumericLiteral(4), false), FunctionTypeExpression( -> NamedTypeExpression(number)))",
+                "boolean",
+                null,
+                null,
+                null);
+    }
 }

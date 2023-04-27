@@ -178,8 +178,8 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String makeInstanceOf(String value, String type) {
-        return String.format("%s instanceof %s", value, type);
+    public String makeInstanceOf(String value, Type type) {
+        return String.format("isInstanceOf(%s, \"%s\")", value, type.toString());
     }
 
     //

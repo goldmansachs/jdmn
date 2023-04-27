@@ -1704,4 +1704,37 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             return null;
         }
     }
+    @Override
+    public Boolean isInstanceOf(Object value, String type) {
+        try {
+            if (value == null) {
+                return "Null".equals(type);
+            } else {
+                return conformsTo(value, type);
+            }
+        } catch (Exception e) {
+            String message = String.format("instance of(%s, %s)", value, type);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    private Boolean conformsTo(Object value, String type) {
+        if (type == null) {
+            return null;
+        }
+        switch (type) {
+            case "Null": return value == null;
+            case "Any": return value != null;
+            case "number": return this.numericType.isNumber(value);
+            case "string": return this.stringType.isString(value);
+            case "boolean": return this.booleanType.isBoolean(value);
+            case "date": return this.dateType.isDate(value);
+            case "time": return this.timeType.isTime(value);
+            case "date and time": return this.dateTimeType.isDateTime(value);
+            case "years and months duration": return this.durationType.isYearsAndMonthsDuration(value);
+            case "days and time duration": return this.durationType.isDaysAndTimeDuration(value);
+            default: throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
+        }
+    }
 }

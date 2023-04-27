@@ -362,10 +362,13 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(InstanceOfExpression<Type, DMNContext> element, DMNContext context) {
-        String leftOperand = (String) element.getLeftOperand().accept(this, context);
-        Type rightOperandType = element.getRightOperand().getType();
-        String javaType = this.nativeTypeFactory.toNativeType(rightOperandType.toString());
-        return this.nativeFactory.makeInstanceOf(leftOperand, javaType);
+        try {
+            String leftOperand = (String) element.getLeftOperand().accept(this, context);
+            Type rightOperandType = element.getRightOperand().getType();
+            return this.nativeFactory.makeInstanceOf(leftOperand, rightOperandType);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        }
     }
 
     //

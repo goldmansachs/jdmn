@@ -483,6 +483,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     //
 
     @Test
+    public void test_14_cl3_0070_feel_instance_of() {
+        doSingleModelTest("1.4", "0070-feel-instance-of");
+    }
+
+    @Test
     public void test_14_cl3_0072_feel_in() {
         doSingleModelTest("1.4", "0072-feel-in");
     }
