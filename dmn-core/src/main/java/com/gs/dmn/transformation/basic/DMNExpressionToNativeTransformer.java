@@ -22,10 +22,14 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.runtime.*;
+import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.runtime.RuleOutput;
+import com.gs.dmn.runtime.RuleOutputList;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.annotation.Rule;
 import com.gs.dmn.runtime.external.JavaFunctionInfo;
@@ -46,16 +50,16 @@ public class DMNExpressionToNativeTransformer {
     private static final String TAB = "    ";
     private static final String RELATION_INDENT = TAB + TAB + TAB + TAB;
 
-    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
-    private final DMNModelRepository dmnModelRepository;
+    protected final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
+    protected final DMNModelRepository dmnModelRepository;
     private final ELTranslator<Type, DMNContext> feelTranslator;
     private final EnvironmentFactory environmentFactory;
     private final DMNEnvironmentFactory dmnEnvironmentFactory;
     private final NativeTypeFactory nativeTypeFactory;
-    private final NativeFactory nativeFactory;
+    protected final NativeFactory nativeFactory;
     private final ExternalFunctionExtractor externalFunctionExtractor;
 
-    DMNExpressionToNativeTransformer(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    protected DMNExpressionToNativeTransformer(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         this.dmnTransformer = dmnTransformer;
 
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
@@ -586,7 +590,7 @@ public class DMNExpressionToNativeTransformer {
         return invocationExpressionToNative(element, invocation, globalContext);
     }
 
-    Statement invocationExpressionToNative(TDRGElement element, TInvocation invocation, DMNContext parentContext) {
+    protected Statement invocationExpressionToNative(TDRGElement element, TInvocation invocation, DMNContext parentContext) {
         // Compute name-java binding for arguments
         Map<String, Statement> argBinding = new LinkedHashMap<>();
         for(TBinding binding: invocation.getBinding()) {
@@ -595,17 +599,15 @@ public class DMNExpressionToNativeTransformer {
             Statement argJava = this.dmnTransformer.expressionToNative(element, argExpression, parentContext);
             argBinding.put(argName, argJava);
         }
+
         // Build call
-        TExpression body = invocation.getExpression();
-        if (body instanceof TLiteralExpression) {
-            String bkmName = NameUtils.bkmName(((TLiteralExpression) body).getText());
-            TBusinessKnowledgeModel bkm = this.dmnModelRepository.findKnowledgeModelByName(bkmName);
-            if (bkm == null) {
-                throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", bkmName));
-            }
+        TExpression functionExp = invocation.getExpression();
+        Type functionType = this.dmnTransformer.expressionType(element, functionExp, parentContext);
+        if (functionType instanceof FunctionType) {
+            // Make args
             List<Statement> argList = new ArrayList<>();
-            List<String> formalParameterList = this.dmnTransformer.bkmFEELParameterNames(bkm);
-            for(String paramName: formalParameterList) {
+            for (FormalParameter<Type, DMNContext> param: ((FunctionType) functionType).getParameters()) {
+                String paramName = param.getName();
                 if (argBinding.containsKey(paramName)) {
                     Statement argValue = argBinding.get(paramName);
                     argList.add(argValue);
@@ -613,13 +615,24 @@ public class DMNExpressionToNativeTransformer {
                     throw new UnsupportedOperationException(String.format("Cannot find binding for parameter '%s'", paramName));
                 }
             }
-            String invocableInstance = this.dmnTransformer.singletonInvocableInstance(bkm);
-            String argListString = argList.stream().map(Statement::getText).collect(Collectors.joining(", "));
-            String expressionText = String.format("%s.apply(%s)", invocableInstance, this.dmnTransformer.augmentArgumentList(argListString));
-            Type expressionType = this.dmnTransformer.drgElementOutputFEELType(bkm);
-            return this.nativeFactory.makeExpressionStatement(expressionText, expressionType);
+
+            if (functionType instanceof DMNFunctionType) {
+                // Find Invocable
+                String invocableName = NameUtils.invocableName(((TLiteralExpression) functionExp).getText());
+                TInvocable invocable = this.dmnModelRepository.findInvocableByName(invocableName);
+                if (invocable == null) {
+                    throw new DMNRuntimeException(String.format("Cannot find BKM or DS for '%s'", invocableName));
+                }
+                String invocableInstance = this.dmnTransformer.singletonInvocableInstance(invocable);
+                String argListString = argList.stream().map(Statement::getText).collect(Collectors.joining(", "));
+                String expressionText = String.format("%s.apply(%s)", invocableInstance, this.dmnTransformer.augmentArgumentList(argListString));
+                Type expressionType = this.dmnTransformer.drgElementOutputFEELType(invocable);
+                return this.nativeFactory.makeExpressionStatement(expressionText, expressionType);
+            } else {
+                throw new DMNRuntimeException(String.format("Not supported in TInvocation '%s' yet", functionExp));
+            }
         } else {
-            throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
+            throw new DMNRuntimeException(String.format("Expecting function found '%s' in %s", functionType, invocation));
         }
     }
 

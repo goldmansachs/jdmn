@@ -67,6 +67,11 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         this.dmnEnvironmentFactory = new SignavioDMNEnvironmentFactory(transformer);
     }
 
+    @Override
+    protected void setExpressionToNativeTransformer(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
+        this.expressionToNativeTransformer = new SignavioDMNExpressionToNativeTransformer(transformer);
+    }
+
     //
     // BKM
     //

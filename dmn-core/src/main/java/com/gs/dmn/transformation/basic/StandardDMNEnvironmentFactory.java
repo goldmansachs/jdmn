@@ -12,7 +12,10 @@
  */
 package com.gs.dmn.transformation.basic;
 
-import com.gs.dmn.*;
+import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.ImportPath;
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
@@ -34,6 +37,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.xml.namespace.QName;
 import java.util.*;
 
 public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
@@ -213,6 +217,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 return returnType;
             }
         } else if (expression instanceof TFunctionDefinition) {
+            if (!dmnModelRepository.isNullOrAny(typeRef)) {
+                return toFEELType(model, typeRef);
+            }
+
             // Infer type from expression
             return functionDefinitionType(element, (TFunctionDefinition) expression, context);
         } else if (expression instanceof TLiteralExpression) {
@@ -229,15 +237,11 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
             // Infer type from expression
             TExpression body = ((TInvocation) expression).getExpression();
-            if (body instanceof TLiteralExpression) {
-                String bkmName = NameUtils.bkmName(((TLiteralExpression) body).getText());
-                TBusinessKnowledgeModel bkm = this.dmnModelRepository.findKnowledgeModelByName(bkmName);
-                if (bkm == null) {
-                    throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", bkmName));
-                }
-                return drgElementOutputFEELType(bkm);
+            Type bodyType = expressionType(element, body, context);
+            if (bodyType instanceof FunctionType) {
+                return ((FunctionType) bodyType).getReturnType();
             } else {
-                throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
+                throw new DMNRuntimeException(String.format("Expecting function type found '%s'", bodyType));
             }
         } else if (expression instanceof TDecisionTable) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
@@ -279,6 +283,23 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 elementType = expressionType(element, listExpression.get(0), context);
             }
             return new ListType(elementType);
+        } else if (expression instanceof TRelation) {
+            if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
+                Type elementType = toFEELType(model, typeRef);
+                return new ListType(elementType);
+            }
+
+            List<TInformationItem> columns = ((TRelation) expression).getColumn();
+            ContextType rowType = new ContextType();
+            for (TInformationItem column: columns) {
+                QName columnTypeRef = column.getTypeRef();
+                Type columnType = toFEELType(model, QualifiedName.toQualifiedName(model, columnTypeRef));
+                if (columnType == null) {
+                    columnType = AnyType.ANY;
+                }
+                rowType.addMember(column.getName(), Arrays.asList(), columnType);
+            }
+            return new ListType(rowType);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", expression.getClass().getSimpleName()));
         }
@@ -528,14 +549,9 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private String bodyTypeRef(TFunctionDefinition functionDefinition) {
-        String typeRef = QualifiedName.toName(functionDefinition.getTypeRef());
-        if (!StringUtils.isEmpty(typeRef)) {
-            return typeRef;
-        } else {
-            TExpression expression = functionDefinition.getExpression();
-            if (expression != null) {
-                return QualifiedName.toName(expression.getTypeRef());
-            }
+        TExpression expression = functionDefinition.getExpression();
+        if (expression != null) {
+            return QualifiedName.toName(expression.getTypeRef());
         }
         return null;
     }

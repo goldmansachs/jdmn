@@ -12,13 +12,14 @@
  */
 package com.gs.dmn.signavio.runtime.interpreter;
 
-import com.gs.dmn.ast.TDRGElement;
-import com.gs.dmn.ast.TDecision;
-import com.gs.dmn.ast.TExpression;
+import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.NameUtils;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.AbstractDMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.runtime.listener.DRGElement;
@@ -30,7 +31,9 @@ import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransforme
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private final SignavioDMNModelRepository dmnModelRepository;
@@ -103,6 +106,47 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             }
         }
         return Result.of(output, getBasicDMNTransformer().drgElementOutputFEELType(decision));
+    }
+
+    @Override
+    protected Result evaluateInvocationExpression(TDRGElement element, TInvocation invocation, DMNContext parentContext, DRGElement elementAnnotation) {
+        // Compute name-java binding for arguments
+        Map<String, Object> argBinding = new LinkedHashMap<>();
+        for(TBinding binding: invocation.getBinding()) {
+            String argName = binding.getParameter().getName();
+            TExpression argExpression = binding.getExpression();
+            Result argResult = evaluateExpression(element, argExpression, parentContext, elementAnnotation);
+            Object argJava = Result.value(argResult);
+            argBinding.put(argName, argJava);
+        }
+
+        // Evaluate function
+        TExpression functionExp = invocation.getExpression();
+        if (functionExp instanceof TLiteralExpression) {
+            // Find invocable
+            String invocableName = NameUtils.invocableName(((TLiteralExpression) functionExp).getText());
+            TInvocable invocable = this.dmnModelRepository.findInvocableByName(invocableName);
+            if (invocable == null) {
+                throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", invocableName));
+            }
+            // Make args
+            List<Object> argList = new ArrayList<>();
+            List<String> formalParameterList = this.dmnTransformer.invocableFEELParameterNames(invocable);
+            for(String paramName: formalParameterList) {
+                if (argBinding.containsKey(paramName)) {
+                    Object argValue = argBinding.get(paramName);
+                    argList.add(argValue);
+                } else {
+                    throw new DMNRuntimeException(String.format("Cannot find binding for parameter '%s'", paramName));
+                }
+            }
+
+            // Evaluate invocation
+            DRGElementReference<TInvocable> reference = this.dmnModelRepository.makeDRGElementReference(invocable);
+            return evaluateInvocableInContext(reference, argList, parentContext);
+        } else {
+            throw new DMNRuntimeException(String.format("Not supported '%s'", functionExp.getClass().getSimpleName()));
+        }
     }
 
     @Override

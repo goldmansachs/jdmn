@@ -44,10 +44,10 @@ public class DMNModelRepository {
     protected final List<TDefinitions> allDefinitions = new ArrayList<>();
     protected final Map<String, TDefinitions> namespaceToDefinitions = new LinkedHashMap<>();
     protected final Map<TNamedElement, TDefinitions> elementToDefinitions = new LinkedHashMap<>();
-    protected List<TBusinessKnowledgeModel> businessKnowledgeModels;
+    protected List<TInvocable> invocables;
     protected List<TItemDefinition> itemDefinitions;
     protected Map<String, TDRGElement> drgElementByName = new LinkedHashMap<>();
-    protected Map<String, TBusinessKnowledgeModel> knowledgeModelByName = new LinkedHashMap<>();
+    protected Map<String, TInvocable> invocablesByName = new LinkedHashMap<>();
     protected Map<String, TDRGElement> drgElementByRef = new LinkedHashMap<>();
     protected Map<TDefinitions, List<TDRGElement>> drgElementsByModel = new LinkedHashMap<>();
     protected Map<TDefinitions, List<TDecision>> decisionsByModel = new LinkedHashMap<>();
@@ -260,14 +260,14 @@ public class DMNModelRepository {
         return definitions == null ? null : definitions.getName();
     }
 
-    private List<TBusinessKnowledgeModel> findAllBKMs() {
-        if (this.businessKnowledgeModels == null) {
-            this.businessKnowledgeModels = new ArrayList<>();
+    private List<TInvocable> findAllInvocables() {
+        if (this.invocables == null) {
+            this.invocables = new ArrayList<>();
             for (TDefinitions definitions: this.allDefinitions) {
-                collectBKMs(definitions, this.businessKnowledgeModels);
+                collectInvocables(definitions, this.invocables);
             }
         }
-        return this.businessKnowledgeModels;
+        return this.invocables;
     }
 
     private List<TItemDefinition> findAllItemDefinitions() {
@@ -372,6 +372,14 @@ public class DMNModelRepository {
         for (TDRGElement element: definitions.getDrgElement()) {
             if (element instanceof TDecisionService) {
                 result.add((TDecisionService) element);
+            }
+        }
+    }
+
+    protected void collectInvocables(TDefinitions definitions, List<TInvocable> result) {
+        for (TDRGElement element: definitions.getDrgElement()) {
+            if (element instanceof TInvocable) {
+                result.add((TInvocable) element);
             }
         }
     }
@@ -534,18 +542,18 @@ public class DMNModelRepository {
         }
     }
 
-    public TBusinessKnowledgeModel findKnowledgeModelByName(String name) {
-        TBusinessKnowledgeModel result = this.knowledgeModelByName.get(name);
+    public TInvocable findInvocableByName(String name) {
+        TInvocable result = this.invocablesByName.get(name);
         if (result == null) {
-            List<TBusinessKnowledgeModel> value = new ArrayList<>();
-            for (TBusinessKnowledgeModel knowledgeModel: findAllBKMs()) {
-                if (sameName(knowledgeModel, name)) {
-                    value.add(knowledgeModel);
+            List<TInvocable> value = new ArrayList<>();
+            for (TInvocable invocable: findAllInvocables()) {
+                if (sameName(invocable, name)) {
+                    value.add(invocable);
                 }
             }
             if (value.size() == 1) {
                 result = value.get(0);
-                this.knowledgeModelByName.put(name, result);
+                this.invocablesByName.put(name, result);
             } else if (value.size() > 1) {
                 throw new DMNRuntimeException(String.format("Found %s business knowledge models for name='%s'", value.size(), name));
             }

@@ -238,6 +238,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     List<FormalParameter<Type, DMNContext>> invocableFEELParameters(TDRGElement invocable);
 
+    List<String> invocableFEELParameterNames(TDRGElement invocable);
+
     String singletonInvocableInstance(TInvocable invocable);
 
     //

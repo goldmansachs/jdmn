@@ -35,4 +35,9 @@ public abstract class TNamedElement extends TDMNElement {
     public void setName(String value) {
         this.name = value;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s(%s)", this.getClass().getSimpleName(), name);
+    }
 }
