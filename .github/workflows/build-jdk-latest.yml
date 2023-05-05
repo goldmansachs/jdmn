@@ -1,4 +1,4 @@
-name: "build jdk 19"
+name: "build jdk 20"
 
 on:
   [ push, pull_request ]
@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 19
+      - name: Set up JDK Latest
         uses: actions/setup-java@v3
         with:
           distribution: 'oracle'
