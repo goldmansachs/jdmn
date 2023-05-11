@@ -127,9 +127,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.FALSE)),
-            (numericLessThan(applicationRiskScore, number("120"))),
-            (numericLessThan(creditScore, number("590")))
+            booleanEqual(existingCustomer, Boolean.FALSE),
+            numericLessThan(applicationRiskScore, number("120")),
+            numericLessThan(creditScore, number("590"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -163,9 +163,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.FALSE)),
-            (numericLessThan(applicationRiskScore, number("120"))),
-            (booleanAnd(numericGreaterEqualThan(creditScore, number("590")), numericLessEqualThan(creditScore, number("610"))))
+            booleanEqual(existingCustomer, Boolean.FALSE),
+            numericLessThan(applicationRiskScore, number("120")),
+            booleanAnd(numericGreaterEqualThan(creditScore, number("590")), numericLessEqualThan(creditScore, number("610")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -199,9 +199,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.FALSE)),
-            (numericLessThan(applicationRiskScore, number("120"))),
-            (numericGreaterThan(creditScore, number("610")))
+            booleanEqual(existingCustomer, Boolean.FALSE),
+            numericLessThan(applicationRiskScore, number("120")),
+            numericGreaterThan(creditScore, number("610"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -235,9 +235,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.FALSE)),
-            (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130")))),
-            (numericLessThan(creditScore, number("600")))
+            booleanEqual(existingCustomer, Boolean.FALSE),
+            booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130"))),
+            numericLessThan(creditScore, number("600"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -271,9 +271,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.FALSE)),
-            (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130")))),
-            (booleanAnd(numericGreaterEqualThan(creditScore, number("600")), numericLessEqualThan(creditScore, number("625"))))
+            booleanEqual(existingCustomer, Boolean.FALSE),
+            booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130"))),
+            booleanAnd(numericGreaterEqualThan(creditScore, number("600")), numericLessEqualThan(creditScore, number("625")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -307,9 +307,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.FALSE)),
-            (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130")))),
-            (numericGreaterThan(creditScore, number("625")))
+            booleanEqual(existingCustomer, Boolean.FALSE),
+            booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130"))),
+            numericGreaterThan(creditScore, number("625"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -343,8 +343,8 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.FALSE)),
-            (numericGreaterThan(applicationRiskScore, number("130"))),
+            booleanEqual(existingCustomer, Boolean.FALSE),
+            numericGreaterThan(applicationRiskScore, number("130")),
             Boolean.TRUE
         )) {
             // Rule match
@@ -379,9 +379,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.TRUE)),
-            (numericLessEqualThan(applicationRiskScore, number("100"))),
-            (numericLessThan(creditScore, number("580")))
+            booleanEqual(existingCustomer, Boolean.TRUE),
+            numericLessEqualThan(applicationRiskScore, number("100")),
+            numericLessThan(creditScore, number("580"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -415,9 +415,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.TRUE)),
-            (numericLessEqualThan(applicationRiskScore, number("100"))),
-            (booleanAnd(numericGreaterEqualThan(creditScore, number("580")), numericLessEqualThan(creditScore, number("600"))))
+            booleanEqual(existingCustomer, Boolean.TRUE),
+            numericLessEqualThan(applicationRiskScore, number("100")),
+            booleanAnd(numericGreaterEqualThan(creditScore, number("580")), numericLessEqualThan(creditScore, number("600")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -451,9 +451,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.TRUE)),
-            (numericLessEqualThan(applicationRiskScore, number("100"))),
-            (numericGreaterThan(creditScore, number("600")))
+            booleanEqual(existingCustomer, Boolean.TRUE),
+            numericLessEqualThan(applicationRiskScore, number("100")),
+            numericGreaterThan(creditScore, number("600"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -487,9 +487,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.TRUE)),
-            (numericGreaterThan(applicationRiskScore, number("100"))),
-            (numericLessThan(creditScore, number("590")))
+            booleanEqual(existingCustomer, Boolean.TRUE),
+            numericGreaterThan(applicationRiskScore, number("100")),
+            numericLessThan(creditScore, number("590"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -523,9 +523,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.TRUE)),
-            (numericGreaterThan(applicationRiskScore, number("100"))),
-            (booleanAnd(numericGreaterEqualThan(creditScore, number("590")), numericLessEqualThan(creditScore, number("615"))))
+            booleanEqual(existingCustomer, Boolean.TRUE),
+            numericGreaterThan(applicationRiskScore, number("100")),
+            booleanAnd(numericGreaterEqualThan(creditScore, number("590")), numericLessEqualThan(creditScore, number("615")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -559,9 +559,9 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
         // Apply rule
         PostBureauRiskCategoryTableRuleOutput output_ = new PostBureauRiskCategoryTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, Boolean.TRUE)),
-            (numericGreaterThan(applicationRiskScore, number("100"))),
-            (numericGreaterThan(creditScore, number("615")))
+            booleanEqual(existingCustomer, Boolean.TRUE),
+            numericGreaterThan(applicationRiskScore, number("100")),
+            numericGreaterThan(creditScore, number("615"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

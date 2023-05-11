@@ -105,8 +105,8 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericEqual(numberInput, number("1"))),
-            (stringEqual(textInput, "1"))
+            numericEqual(numberInput, number("1")),
+            stringEqual(textInput, "1")
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -143,7 +143,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericEqual(numberInput, number("1"))),
+            numericEqual(numberInput, number("1")),
             Boolean.TRUE
         )) {
             // Rule match
@@ -182,7 +182,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
-            (stringEqual(textInput, "1"))
+            stringEqual(textInput, "1")
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

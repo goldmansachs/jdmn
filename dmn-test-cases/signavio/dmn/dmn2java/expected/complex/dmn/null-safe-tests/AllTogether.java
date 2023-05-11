@@ -124,9 +124,9 @@ public class AllTogether extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         // Apply rule
         AllTogetherRuleOutput output_ = new AllTogetherRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((partB == null)),
-            booleanNot((partA == null)),
-            booleanNot((partC == null))
+            booleanNot(partB == null),
+            booleanNot(partA == null),
+            booleanNot(partC == null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

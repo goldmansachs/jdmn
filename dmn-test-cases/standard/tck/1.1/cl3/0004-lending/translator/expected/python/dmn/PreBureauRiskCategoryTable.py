@@ -120,8 +120,8 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
         # Apply rule
         output_: PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, False)),
-            (self.numericLessThan(applicationRiskScore, self.number("100")))
+            self.booleanEqual(existingCustomer, False),
+            self.numericLessThan(applicationRiskScore, self.number("100"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -152,8 +152,8 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
         # Apply rule
         output_: PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, False)),
-            (self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("100")), self.numericLessThan(applicationRiskScore, self.number("120"))))
+            self.booleanEqual(existingCustomer, False),
+            self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("100")), self.numericLessThan(applicationRiskScore, self.number("120")))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -184,8 +184,8 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
         # Apply rule
         output_: PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, False)),
-            (self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("120")), self.numericLessThan(applicationRiskScore, self.number("130"))))
+            self.booleanEqual(existingCustomer, False),
+            self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("120")), self.numericLessThan(applicationRiskScore, self.number("130")))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -216,8 +216,8 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
         # Apply rule
         output_: PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, False)),
-            (self.numericGreaterThan(applicationRiskScore, self.number("130")))
+            self.booleanEqual(existingCustomer, False),
+            self.numericGreaterThan(applicationRiskScore, self.number("130"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -248,8 +248,8 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
         # Apply rule
         output_: PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, True)),
-            (self.numericLessThan(applicationRiskScore, self.number("80")))
+            self.booleanEqual(existingCustomer, True),
+            self.numericLessThan(applicationRiskScore, self.number("80"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -280,8 +280,8 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
         # Apply rule
         output_: PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, True)),
-            (self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("80")), self.numericLessThan(applicationRiskScore, self.number("90"))))
+            self.booleanEqual(existingCustomer, True),
+            self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("80")), self.numericLessThan(applicationRiskScore, self.number("90")))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -312,8 +312,8 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
         # Apply rule
         output_: PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, True)),
-            (self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("90")), self.numericLessEqualThan(applicationRiskScore, self.number("110"))))
+            self.booleanEqual(existingCustomer, True),
+            self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("90")), self.numericLessEqualThan(applicationRiskScore, self.number("110")))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -344,8 +344,8 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
         # Apply rule
         output_: PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput.PreBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, True)),
-            (self.numericGreaterThan(applicationRiskScore, self.number("110")))
+            self.booleanEqual(existingCustomer, True),
+            self.numericGreaterThan(applicationRiskScore, self.number("110"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)

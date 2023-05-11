@@ -110,7 +110,7 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         // Apply rule
         DotProductRuleOutput output_ = new DotProductRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(numericEqual(count(a), count(b)), Boolean.TRUE))
+            booleanEqual(numericEqual(count(a), count(b)), Boolean.TRUE)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -145,7 +145,7 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         // Apply rule
         DotProductRuleOutput output_ = new DotProductRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(numericEqual(count(a), count(b)), Boolean.FALSE))
+            booleanEqual(numericEqual(count(a), count(b)), Boolean.FALSE)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

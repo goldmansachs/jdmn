@@ -107,7 +107,7 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
         // Apply rule
         var output_: CompareAgainstLendingThresholdRuleOutput = CompareAgainstLendingThresholdRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((lendingThreshold == null))
+            booleanNot(lendingThreshold == null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -141,7 +141,7 @@ class CompareAgainstLendingThreshold(val assessApplicantAge : AssessApplicantAge
         // Apply rule
         var output_: CompareAgainstLendingThresholdRuleOutput = CompareAgainstLendingThresholdRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (lendingThreshold == null)
+            lendingThreshold == null
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

@@ -100,7 +100,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
-            (numericGreaterEqualThan(((java.math.BigDecimal)(testPersonType6_iterator != null ? testPersonType6_iterator.getAge() : null)), number("18")))
+            numericGreaterEqualThan(((java.math.BigDecimal)(testPersonType6_iterator != null ? testPersonType6_iterator.getAge() : null)), number("18"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -135,7 +135,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
-            (numericLessThan(((java.math.BigDecimal)(testPersonType6_iterator != null ? testPersonType6_iterator.getAge() : null)), number("18")))
+            numericLessThan(((java.math.BigDecimal)(testPersonType6_iterator != null ? testPersonType6_iterator.getAge() : null)), number("18"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

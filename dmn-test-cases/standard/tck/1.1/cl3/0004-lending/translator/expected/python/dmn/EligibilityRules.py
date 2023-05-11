@@ -117,7 +117,7 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
         # Apply rule
         output_: EligibilityRulesRuleOutput.EligibilityRulesRuleOutput = EligibilityRulesRuleOutput.EligibilityRulesRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.stringEqual(preBureauRiskCategory, "DECLINE")),
+            self.stringEqual(preBureauRiskCategory, "DECLINE"),
             True,
             True
         )):
@@ -152,7 +152,7 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
         output_: EligibilityRulesRuleOutput.EligibilityRulesRuleOutput = EligibilityRulesRuleOutput.EligibilityRulesRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
-            (self.booleanEqual(preBureauAffordability, False)),
+            self.booleanEqual(preBureauAffordability, False),
             True
         )):
             # Rule match
@@ -187,7 +187,7 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
             True,
-            (self.numericLessThan(age, self.number("18")))
+            self.numericLessThan(age, self.number("18"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)

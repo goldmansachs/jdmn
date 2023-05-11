@@ -136,7 +136,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         ProcessPriorIssuesRuleOutput output_ = new ProcessPriorIssuesRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((notContainsAny(((List<String>)(applicant != null ? applicant.getPriorIssues() : null)), asList("Card rejection", "Late payment"))))
+            booleanNot(notContainsAny(((List<String>)(applicant != null ? applicant.getPriorIssues() : null)), asList("Card rejection", "Late payment")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -170,7 +170,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         ProcessPriorIssuesRuleOutput output_ = new ProcessPriorIssuesRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((notContainsAny(((List<String>)(applicant != null ? applicant.getPriorIssues() : null)), asList("Default on obligations"))))
+            booleanNot(notContainsAny(((List<String>)(applicant != null ? applicant.getPriorIssues() : null)), asList("Default on obligations")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -204,7 +204,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         ProcessPriorIssuesRuleOutput output_ = new ProcessPriorIssuesRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((notContainsAny(((List<String>)(applicant != null ? applicant.getPriorIssues() : null)), asList("Bankruptcy"))))
+            booleanNot(notContainsAny(((List<String>)(applicant != null ? applicant.getPriorIssues() : null)), asList("Bankruptcy")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -238,7 +238,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         ProcessPriorIssuesRuleOutput output_ = new ProcessPriorIssuesRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (notContainsAny(((List<String>)(applicant != null ? applicant.getPriorIssues() : null)), asList("Card rejection", "Late payment", "Default on obligations", "Bankruptcy")))
+            notContainsAny(((List<String>)(applicant != null ? applicant.getPriorIssues() : null)), asList("Card rejection", "Late payment", "Default on obligations", "Bankruptcy"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

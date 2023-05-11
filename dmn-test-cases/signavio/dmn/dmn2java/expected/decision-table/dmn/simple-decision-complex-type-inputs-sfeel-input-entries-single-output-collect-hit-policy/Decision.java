@@ -102,16 +102,16 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericEqual(((java.math.BigDecimal)(person != null ? person.getId() : null)), number("4"))),
-            (stringEqual(((String)(person != null ? person.getFirstName() : null)), "Peter")),
-            (stringEqual(((String)(person != null ? person.getLastName() : null)), "Sellers")),
-            (stringEqual(((String)(person != null ? person.getGender() : null)), "male")),
-            (dateEqual(((javax.xml.datatype.XMLGregorianCalendar)(person != null ? person.getDateOfBirth() : null)), date("2016-10-01"))),
-            (timeEqual(((javax.xml.datatype.XMLGregorianCalendar)(person != null ? person.getTimeOfBirth() : null)), time("01:00:00+0000"))),
-            (dateTimeEqual(((javax.xml.datatype.XMLGregorianCalendar)(person != null ? person.getDateTimeOfBirth() : null)), dateAndTime("2016-10-01T00:00:00+0000"))),
-            (areElementsOf(((List<String>)(person != null ? person.getList() : null)), asList("abc"))),
-            (booleanEqual(((Boolean)(person != null ? person.getMarried() : null)), Boolean.FALSE)),
-            (booleanEqual(employed, Boolean.TRUE))
+            numericEqual(((java.math.BigDecimal)(person != null ? person.getId() : null)), number("4")),
+            stringEqual(((String)(person != null ? person.getFirstName() : null)), "Peter"),
+            stringEqual(((String)(person != null ? person.getLastName() : null)), "Sellers"),
+            stringEqual(((String)(person != null ? person.getGender() : null)), "male"),
+            dateEqual(((javax.xml.datatype.XMLGregorianCalendar)(person != null ? person.getDateOfBirth() : null)), date("2016-10-01")),
+            timeEqual(((javax.xml.datatype.XMLGregorianCalendar)(person != null ? person.getTimeOfBirth() : null)), time("01:00:00+0000")),
+            dateTimeEqual(((javax.xml.datatype.XMLGregorianCalendar)(person != null ? person.getDateTimeOfBirth() : null)), dateAndTime("2016-10-01T00:00:00+0000")),
+            areElementsOf(((List<String>)(person != null ? person.getList() : null)), asList("abc")),
+            booleanEqual(((Boolean)(person != null ? person.getMarried() : null)), Boolean.FALSE),
+            booleanEqual(employed, Boolean.TRUE)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

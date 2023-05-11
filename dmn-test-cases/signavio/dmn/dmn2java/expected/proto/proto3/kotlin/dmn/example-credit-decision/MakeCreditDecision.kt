@@ -107,7 +107,7 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
         // Apply rule
         var output_: MakeCreditDecisionRuleOutput = MakeCreditDecisionRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericLessThan(compareAgainstLendingThreshold, numericUnaryMinus(number("0.1"))))
+            numericLessThan(compareAgainstLendingThreshold, numericUnaryMinus(number("0.1")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -141,7 +141,7 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
         // Apply rule
         var output_: MakeCreditDecisionRuleOutput = MakeCreditDecisionRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanAnd(numericGreaterEqualThan(compareAgainstLendingThreshold, numericUnaryMinus(number("0.1"))), numericLessEqualThan(compareAgainstLendingThreshold, number("0.1"))))
+            booleanAnd(numericGreaterEqualThan(compareAgainstLendingThreshold, numericUnaryMinus(number("0.1"))), numericLessEqualThan(compareAgainstLendingThreshold, number("0.1")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -175,7 +175,7 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
         // Apply rule
         var output_: MakeCreditDecisionRuleOutput = MakeCreditDecisionRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericGreaterThan(compareAgainstLendingThreshold, number("0.1")))
+            numericGreaterThan(compareAgainstLendingThreshold, number("0.1"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

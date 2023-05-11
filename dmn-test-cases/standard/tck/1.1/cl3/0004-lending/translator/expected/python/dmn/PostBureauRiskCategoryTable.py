@@ -126,9 +126,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, False)),
-            (self.numericLessThan(applicationRiskScore, self.number("120"))),
-            (self.numericLessThan(creditScore, self.number("590")))
+            self.booleanEqual(existingCustomer, False),
+            self.numericLessThan(applicationRiskScore, self.number("120")),
+            self.numericLessThan(creditScore, self.number("590"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -159,9 +159,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, False)),
-            (self.numericLessThan(applicationRiskScore, self.number("120"))),
-            (self.booleanAnd(self.numericGreaterEqualThan(creditScore, self.number("590")), self.numericLessEqualThan(creditScore, self.number("610"))))
+            self.booleanEqual(existingCustomer, False),
+            self.numericLessThan(applicationRiskScore, self.number("120")),
+            self.booleanAnd(self.numericGreaterEqualThan(creditScore, self.number("590")), self.numericLessEqualThan(creditScore, self.number("610")))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -192,9 +192,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, False)),
-            (self.numericLessThan(applicationRiskScore, self.number("120"))),
-            (self.numericGreaterThan(creditScore, self.number("610")))
+            self.booleanEqual(existingCustomer, False),
+            self.numericLessThan(applicationRiskScore, self.number("120")),
+            self.numericGreaterThan(creditScore, self.number("610"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -225,9 +225,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, False)),
-            (self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("120")), self.numericLessEqualThan(applicationRiskScore, self.number("130")))),
-            (self.numericLessThan(creditScore, self.number("600")))
+            self.booleanEqual(existingCustomer, False),
+            self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("120")), self.numericLessEqualThan(applicationRiskScore, self.number("130"))),
+            self.numericLessThan(creditScore, self.number("600"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -258,9 +258,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, False)),
-            (self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("120")), self.numericLessEqualThan(applicationRiskScore, self.number("130")))),
-            (self.booleanAnd(self.numericGreaterEqualThan(creditScore, self.number("600")), self.numericLessEqualThan(creditScore, self.number("625"))))
+            self.booleanEqual(existingCustomer, False),
+            self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("120")), self.numericLessEqualThan(applicationRiskScore, self.number("130"))),
+            self.booleanAnd(self.numericGreaterEqualThan(creditScore, self.number("600")), self.numericLessEqualThan(creditScore, self.number("625")))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -291,9 +291,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, False)),
-            (self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("120")), self.numericLessEqualThan(applicationRiskScore, self.number("130")))),
-            (self.numericGreaterThan(creditScore, self.number("625")))
+            self.booleanEqual(existingCustomer, False),
+            self.booleanAnd(self.numericGreaterEqualThan(applicationRiskScore, self.number("120")), self.numericLessEqualThan(applicationRiskScore, self.number("130"))),
+            self.numericGreaterThan(creditScore, self.number("625"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -324,8 +324,8 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, False)),
-            (self.numericGreaterThan(applicationRiskScore, self.number("130"))),
+            self.booleanEqual(existingCustomer, False),
+            self.numericGreaterThan(applicationRiskScore, self.number("130")),
             True
         )):
             # Rule match
@@ -357,9 +357,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, True)),
-            (self.numericLessEqualThan(applicationRiskScore, self.number("100"))),
-            (self.numericLessThan(creditScore, self.number("580")))
+            self.booleanEqual(existingCustomer, True),
+            self.numericLessEqualThan(applicationRiskScore, self.number("100")),
+            self.numericLessThan(creditScore, self.number("580"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -390,9 +390,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, True)),
-            (self.numericLessEqualThan(applicationRiskScore, self.number("100"))),
-            (self.booleanAnd(self.numericGreaterEqualThan(creditScore, self.number("580")), self.numericLessEqualThan(creditScore, self.number("600"))))
+            self.booleanEqual(existingCustomer, True),
+            self.numericLessEqualThan(applicationRiskScore, self.number("100")),
+            self.booleanAnd(self.numericGreaterEqualThan(creditScore, self.number("580")), self.numericLessEqualThan(creditScore, self.number("600")))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -423,9 +423,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, True)),
-            (self.numericLessEqualThan(applicationRiskScore, self.number("100"))),
-            (self.numericGreaterThan(creditScore, self.number("600")))
+            self.booleanEqual(existingCustomer, True),
+            self.numericLessEqualThan(applicationRiskScore, self.number("100")),
+            self.numericGreaterThan(creditScore, self.number("600"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -456,9 +456,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, True)),
-            (self.numericGreaterThan(applicationRiskScore, self.number("100"))),
-            (self.numericLessThan(creditScore, self.number("590")))
+            self.booleanEqual(existingCustomer, True),
+            self.numericGreaterThan(applicationRiskScore, self.number("100")),
+            self.numericLessThan(creditScore, self.number("590"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -489,9 +489,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, True)),
-            (self.numericGreaterThan(applicationRiskScore, self.number("100"))),
-            (self.booleanAnd(self.numericGreaterEqualThan(creditScore, self.number("590")), self.numericLessEqualThan(creditScore, self.number("615"))))
+            self.booleanEqual(existingCustomer, True),
+            self.numericGreaterThan(applicationRiskScore, self.number("100")),
+            self.booleanAnd(self.numericGreaterEqualThan(creditScore, self.number("590")), self.numericLessEqualThan(creditScore, self.number("615")))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -522,9 +522,9 @@ class PostBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMN
         # Apply rule
         output_: PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput.PostBureauRiskCategoryTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanEqual(existingCustomer, True)),
-            (self.numericGreaterThan(applicationRiskScore, self.number("100"))),
-            (self.numericGreaterThan(creditScore, self.number("615")))
+            self.booleanEqual(existingCustomer, True),
+            self.numericGreaterThan(applicationRiskScore, self.number("100")),
+            self.numericGreaterThan(creditScore, self.number("615"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)

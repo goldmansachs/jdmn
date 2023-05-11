@@ -108,7 +108,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericEqual(numberInput, number("1"))),
+            numericEqual(numberInput, number("1")),
             Boolean.TRUE,
             Boolean.TRUE,
             Boolean.TRUE,
@@ -149,7 +149,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
-            (stringEqual(stringInput, "abc")),
+            stringEqual(stringInput, "abc"),
             Boolean.TRUE,
             Boolean.TRUE,
             Boolean.TRUE,
@@ -190,7 +190,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
             Boolean.TRUE,
-            (booleanEqual(booleanInput, Boolean.TRUE)),
+            booleanEqual(booleanInput, Boolean.TRUE),
             Boolean.TRUE,
             Boolean.TRUE,
             Boolean.TRUE,
@@ -231,7 +231,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             Boolean.TRUE,
             Boolean.TRUE,
             Boolean.TRUE,
-            (dateEqual(dateInput, date("2017-01-01"))),
+            dateEqual(dateInput, date("2017-01-01")),
             Boolean.TRUE,
             Boolean.TRUE,
             Boolean.TRUE
@@ -272,7 +272,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             Boolean.TRUE,
             Boolean.TRUE,
             Boolean.TRUE,
-            (stringEqual(enumerationInput, "E1")),
+            stringEqual(enumerationInput, "E1"),
             Boolean.TRUE,
             Boolean.TRUE
         )) {
@@ -313,8 +313,8 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             Boolean.TRUE,
             Boolean.TRUE,
             Boolean.TRUE,
-            (stringEqual(((String)(person != null ? person.getName() : null)), "Peter")),
-            (numericEqual(((java.math.BigDecimal)(person != null ? person.getAge() : null)), number("10")))
+            stringEqual(((String)(person != null ? person.getName() : null)), "Peter"),
+            numericEqual(((java.math.BigDecimal)(person != null ? person.getAge() : null)), number("10"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

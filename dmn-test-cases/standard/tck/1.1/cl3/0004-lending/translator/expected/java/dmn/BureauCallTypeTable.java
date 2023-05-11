@@ -113,7 +113,7 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         // Apply rule
         BureauCallTypeTableRuleOutput output_ = new BureauCallTypeTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanOr((stringEqual(preBureauRiskCategory, "HIGH")), (stringEqual(preBureauRiskCategory, "MEDIUM")))
+            booleanOr(stringEqual(preBureauRiskCategory, "HIGH"), stringEqual(preBureauRiskCategory, "MEDIUM"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -147,7 +147,7 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         // Apply rule
         BureauCallTypeTableRuleOutput output_ = new BureauCallTypeTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(preBureauRiskCategory, "LOW"))
+            stringEqual(preBureauRiskCategory, "LOW")
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -181,7 +181,7 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         // Apply rule
         BureauCallTypeTableRuleOutput output_ = new BureauCallTypeTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanOr((stringEqual(preBureauRiskCategory, "VERY LOW")), (stringEqual(preBureauRiskCategory, "DECLINE")))
+            booleanOr(stringEqual(preBureauRiskCategory, "VERY LOW"), stringEqual(preBureauRiskCategory, "DECLINE"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

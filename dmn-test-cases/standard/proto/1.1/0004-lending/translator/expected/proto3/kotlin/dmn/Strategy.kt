@@ -106,7 +106,7 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
         // Apply rule
         var output_: StrategyRuleOutput = StrategyRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(eligibility, "INELIGIBLE")),
+            stringEqual(eligibility, "INELIGIBLE"),
             true
         )) {
             // Rule match
@@ -141,8 +141,8 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
         // Apply rule
         var output_: StrategyRuleOutput = StrategyRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(eligibility, "ELIGIBLE")),
-            booleanOr((stringEqual(bureauCallType, "FULL")), (stringEqual(bureauCallType, "MINI")))
+            stringEqual(eligibility, "ELIGIBLE"),
+            booleanOr(stringEqual(bureauCallType, "FULL"), stringEqual(bureauCallType, "MINI"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -176,8 +176,8 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
         // Apply rule
         var output_: StrategyRuleOutput = StrategyRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(eligibility, "ELIGIBLE")),
-            (stringEqual(bureauCallType, "NONE"))
+            stringEqual(eligibility, "ELIGIBLE"),
+            stringEqual(bureauCallType, "NONE")
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

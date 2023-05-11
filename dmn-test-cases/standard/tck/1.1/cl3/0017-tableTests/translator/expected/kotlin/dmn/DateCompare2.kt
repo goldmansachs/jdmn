@@ -86,7 +86,7 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Apply rule
         var output_: DateCompare2RuleOutput = DateCompare2RuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (dateGreaterThan(dateD, dateE))
+            dateGreaterThan(dateD, dateE)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -120,7 +120,7 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Apply rule
         var output_: DateCompare2RuleOutput = DateCompare2RuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (dateLessEqualThan(dateD, dateE))
+            dateLessEqualThan(dateD, dateE)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

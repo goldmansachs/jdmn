@@ -100,8 +100,8 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         // Apply rule
         BodyRuleOutput output_ = new BodyRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericLessThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getA() : null)), number("0"))),
-            (numericLessThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getB() : null)), number("0")))
+            numericLessThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getA() : null)), number("0")),
+            numericLessThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getB() : null)), number("0"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -135,8 +135,8 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         // Apply rule
         BodyRuleOutput output_ = new BodyRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericGreaterThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getA() : null)), number("0"))),
-            (numericGreaterThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getB() : null)), number("0")))
+            numericGreaterThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getA() : null)), number("0")),
+            numericGreaterThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getB() : null)), number("0"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -170,8 +170,8 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         // Apply rule
         BodyRuleOutput output_ = new BodyRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericEqual(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getA() : null)), number("0"))),
-            (numericEqual(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getB() : null)), number("0")))
+            numericEqual(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getA() : null)), number("0")),
+            numericEqual(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getB() : null)), number("0"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

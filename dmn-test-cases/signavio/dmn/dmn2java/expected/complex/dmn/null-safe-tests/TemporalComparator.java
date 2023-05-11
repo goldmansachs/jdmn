@@ -106,7 +106,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         TemporalComparatorRuleOutput output_ = new TemporalComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (dateTimeLessThan(dateTime, dateAndTime("2015-12-31T18:00:00-0500")))
+            dateTimeLessThan(dateTime, dateAndTime("2015-12-31T18:00:00-0500"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -140,7 +140,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         TemporalComparatorRuleOutput output_ = new TemporalComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (dateTimeGreaterThan(dateTime, dateAndTime("2015-12-31T18:00:00-0500")))
+            dateTimeGreaterThan(dateTime, dateAndTime("2015-12-31T18:00:00-0500"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -174,7 +174,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         TemporalComparatorRuleOutput output_ = new TemporalComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((dateTimeEqual(dateTime, dateAndTime("2015-12-31T18:00:00-0500"))))
+            booleanNot(dateTimeEqual(dateTime, dateAndTime("2015-12-31T18:00:00-0500")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -208,7 +208,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         TemporalComparatorRuleOutput output_ = new TemporalComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (dateTimeLessEqualThan(dateTime, dateAndTime("2015-12-31T18:00:00-0500")))
+            dateTimeLessEqualThan(dateTime, dateAndTime("2015-12-31T18:00:00-0500"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -242,7 +242,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         TemporalComparatorRuleOutput output_ = new TemporalComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (dateTimeGreaterEqualThan(dateTime, dateAndTime("2015-12-31T18:00:00-0500")))
+            dateTimeGreaterEqualThan(dateTime, dateAndTime("2015-12-31T18:00:00-0500"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -276,7 +276,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         TemporalComparatorRuleOutput output_ = new TemporalComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (dateTime == null)
+            dateTime == null
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

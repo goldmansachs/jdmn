@@ -106,7 +106,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         // Apply rule
         DescribeAgesListRuleOutput output_ = new DescribeAgesListRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (listEqual(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5"))))
+            listEqual(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -140,7 +140,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         // Apply rule
         DescribeAgesListRuleOutput output_ = new DescribeAgesListRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((listEqual(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5")))))
+            booleanNot(listEqual(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5"))))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -174,7 +174,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         // Apply rule
         DescribeAgesListRuleOutput output_ = new DescribeAgesListRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (elementOf(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5"))))
+            elementOf(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -208,7 +208,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         // Apply rule
         DescribeAgesListRuleOutput output_ = new DescribeAgesListRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((notContainsAny(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5")))))
+            booleanNot(notContainsAny(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5"))))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -242,7 +242,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         // Apply rule
         DescribeAgesListRuleOutput output_ = new DescribeAgesListRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (containsOnly(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5"))))
+            containsOnly(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -276,7 +276,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         // Apply rule
         DescribeAgesListRuleOutput output_ = new DescribeAgesListRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (notContainsAny(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5"))))
+            notContainsAny(ages, asList(number("1"), number("2"), number("3"), number("4"), number("5")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

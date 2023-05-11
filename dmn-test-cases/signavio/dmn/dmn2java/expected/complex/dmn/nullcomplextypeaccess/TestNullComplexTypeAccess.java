@@ -111,8 +111,8 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
         // Apply rule
         TestNullComplexTypeAccessRuleOutput output_ = new TestNullComplexTypeAccessRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null)),
-            (((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null)
+            booleanNot(((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null),
+            ((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -146,8 +146,8 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
         // Apply rule
         TestNullComplexTypeAccessRuleOutput output_ = new TestNullComplexTypeAccessRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null)),
-            booleanNot((((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null))
+            booleanNot(((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null),
+            booleanNot(((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -181,8 +181,8 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
         // Apply rule
         TestNullComplexTypeAccessRuleOutput output_ = new TestNullComplexTypeAccessRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null),
-            (((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null)
+            ((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null,
+            ((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -216,8 +216,8 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
         // Apply rule
         TestNullComplexTypeAccessRuleOutput output_ = new TestNullComplexTypeAccessRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null),
-            booleanNot((((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null))
+            ((String)(incompleteDecisionTable != null ? incompleteDecisionTable.getA() : null)) == null,
+            booleanNot(((java.math.BigDecimal)(incompleteDecisionTable != null ? incompleteDecisionTable.getB() : null)) == null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

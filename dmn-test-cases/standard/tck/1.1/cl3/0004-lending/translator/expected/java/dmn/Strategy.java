@@ -121,7 +121,7 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         StrategyRuleOutput output_ = new StrategyRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(eligibility, "INELIGIBLE")),
+            stringEqual(eligibility, "INELIGIBLE"),
             Boolean.TRUE
         )) {
             // Rule match
@@ -156,8 +156,8 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         StrategyRuleOutput output_ = new StrategyRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(eligibility, "ELIGIBLE")),
-            booleanOr((stringEqual(bureauCallType, "FULL")), (stringEqual(bureauCallType, "MINI")))
+            stringEqual(eligibility, "ELIGIBLE"),
+            booleanOr(stringEqual(bureauCallType, "FULL"), stringEqual(bureauCallType, "MINI"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -191,8 +191,8 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         StrategyRuleOutput output_ = new StrategyRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(eligibility, "ELIGIBLE")),
-            (stringEqual(bureauCallType, "NONE"))
+            stringEqual(eligibility, "ELIGIBLE"),
+            stringEqual(bureauCallType, "NONE")
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
