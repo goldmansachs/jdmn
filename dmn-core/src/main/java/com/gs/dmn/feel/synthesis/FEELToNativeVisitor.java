@@ -448,7 +448,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
             result.add(test);
         }
         if (result.size() == 1) {
-            return String.format("(%s)", result.get(0));
+            return String.format("%s", result.get(0));
         } else {
             return this.nativeFactory.makeBuiltinFunctionInvocation("booleanOr", String.join(", ", result));
         }
