@@ -18,7 +18,6 @@ import DecisionService_002
 import DecisionService_003
 import Decision_004_1
 import Decision_006_1
-import Decision_007_1
 import Decision_009_1
 import Decision_011_1
 import Decision_012_1
@@ -75,13 +74,6 @@ class _0085DecisionServicesTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDe
 
         # Check 'decision_006_1'
         self.checkValues("foo bar", Decision_006_1.Decision_006_1().apply(context_))
-
-    def testCase007(self):
-        context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
-        cache_ = context_.cache
-
-        # Check 'decision_007_1'
-        self.checkValues(True, Decision_007_1.Decision_007_1().apply(context_))
 
     def testCase009(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()

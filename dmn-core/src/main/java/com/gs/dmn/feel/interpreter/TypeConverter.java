@@ -139,6 +139,11 @@ public class TypeConverter {
 
     public Result convertResult(Result result, Type expectedType, FEELLib<?, ?, ?, ?, ?> lib) {
         Object value = Result.value(result);
+        if (value == null) {
+            return result;
+        }
+
+        // Convert value
         Type actualType = Result.type(result);
         if (expectedType == null) {
             expectedType = ANY;
@@ -158,6 +163,9 @@ public class TypeConverter {
             expectedType = ANY;
         }
         ConversionKind conversionKind = conversionKind(value, expectedType, lib);
+        if (conversionKind.isError()) {
+            throw new DMNRuntimeException(String.format("Value '%s' does not conform to type '%s'", value, expectedType));
+        }
         Object newValue = convertValue(value, conversionKind, lib);
         return Result.of(newValue, expectedType);
     }

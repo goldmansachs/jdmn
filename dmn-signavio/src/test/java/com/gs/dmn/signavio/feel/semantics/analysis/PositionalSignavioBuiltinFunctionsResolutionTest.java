@@ -47,7 +47,7 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
         testFunctionInvocation("power(null, null)", "BuiltinFunctionType(FormalParameter(base, number, false, false), FormalParameter(exponent, number, false, false), number)", false);
         testFunctionInvocation("power(" + number + ", " + number + ")", "BuiltinFunctionType(FormalParameter(base, number, false, false), FormalParameter(exponent, number, false, false), number)", false);
         testFunctionInvocation("product(null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
-        testFunctionInvocation("product(" + number + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
+        testFunctionInvocation("product([" + number + "])", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), number)", false);
         testFunctionInvocation("roundDown(null, null)", "BuiltinFunctionType(FormalParameter(number, number, false, false), FormalParameter(digits, number, false, false), number)", false);
         testFunctionInvocation("roundDown(" + number + ", " + number + ")", "BuiltinFunctionType(FormalParameter(number, number, false, false), FormalParameter(digits, number, false, false), number)", false);
         testFunctionInvocation("roundUp(null, null)", "BuiltinFunctionType(FormalParameter(number, number, false, false), FormalParameter(digits, number, false, false), number)", false);
@@ -128,7 +128,7 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
         testFunctionInvocation("areElementsOf(null, null)", "BuiltinFunctionType(FormalParameter(list1, ListType(Any), false, false), FormalParameter(list2, ListType(Any), false, false), boolean)", false);
         testFunctionInvocation("areElementsOf(" + numberList + ", " + numberList + ")", "BuiltinFunctionType(FormalParameter(list1, ListType(Any), false, false), FormalParameter(list2, ListType(Any), false, false), boolean)", false);
         testFunctionInvocation("elementOf(null, null)", "BuiltinFunctionType(FormalParameter(list1, Any, false, false), FormalParameter(list2, ListType(Any), false, false), boolean)", false);
-        testFunctionInvocation("elementOf(" + numberList + ", " + number + ")", "BuiltinFunctionType(FormalParameter(list1, Any, false, false), FormalParameter(list2, ListType(Any), false, false), boolean)", false);
+        testFunctionInvocation("elementOf(" + number + ", " + numberList + ")", "BuiltinFunctionType(FormalParameter(list1, Any, false, false), FormalParameter(list2, ListType(Any), false, false), boolean)", false);
     }
 
     @Test
@@ -148,7 +148,7 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
     @Test
     public void testStringFunctions() {
         testFunctionInvocation("concat(null)", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), string)", false);
-        testFunctionInvocation("concat(" + stringString + ")", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), string)", false);
+        testFunctionInvocation("concat([" + stringString + "])", "BuiltinFunctionType(FormalParameter(list, ListType(Any), false, false), string)", false);
         testFunctionInvocation("isAlpha(null)", "BuiltinFunctionType(FormalParameter(text, string, false, false), boolean)", false);
         testFunctionInvocation("isAlpha(" + stringString + ")", "BuiltinFunctionType(FormalParameter(text, string, false, false), boolean)", false);
         testFunctionInvocation("isAlphanumeric(null)", "BuiltinFunctionType(FormalParameter(text, string, false, false), boolean)", false);
@@ -176,7 +176,7 @@ public class PositionalSignavioBuiltinFunctionsResolutionTest extends AbstractSi
         testFunctionInvocation("right(null, null)", "BuiltinFunctionType(FormalParameter(text, string, false, false), FormalParameter(num_chars, number, false, false), string)", false);
         testFunctionInvocation("right(" + stringString + ", " + number + ")", "BuiltinFunctionType(FormalParameter(text, string, false, false), FormalParameter(num_chars, number, false, false), string)", false);
         testFunctionInvocation("text(null, null)", "BuiltinFunctionType(FormalParameter(num, number, false, false), FormalParameter(format_text, string, false, false), string)", false);
-        testFunctionInvocation("text(" + stringString + ", " + stringString + ")", "BuiltinFunctionType(FormalParameter(num, number, false, false), FormalParameter(format_text, string, false, false), string)", false);
+        testFunctionInvocation("text(" + number + ", " + stringString + ")", "BuiltinFunctionType(FormalParameter(num, number, false, false), FormalParameter(format_text, string, false, false), string)", false);
         testFunctionInvocation("textOccurrences(null, null)", "BuiltinFunctionType(FormalParameter(find_text, string, false, false), FormalParameter(within_text, string, false, false), number)", false);
         testFunctionInvocation("textOccurrences(" + stringString + ", " + stringString + ")", "BuiltinFunctionType(FormalParameter(find_text, string, false, false), FormalParameter(within_text, string, false, false), number)", false);
         testFunctionInvocation("contains(null, null)", "BuiltinFunctionType(FormalParameter(text, string, false, false), FormalParameter(substring, string, false, false), boolean)", false);

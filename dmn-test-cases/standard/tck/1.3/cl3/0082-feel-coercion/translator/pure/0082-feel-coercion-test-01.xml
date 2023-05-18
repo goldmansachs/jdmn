@@ -71,7 +71,7 @@
             </expected>
         </resultNode>
     </testCase>
-<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315
      Expected result is a wrapped element not justified with DMN spec
     <testCase id="decision_006">
         <description>decision returns value but type is list - coercion to list</description>
@@ -132,11 +132,10 @@
     </testCase>
 
     <testCase id="decision_bkm_002">
-        <description>pass non-conforming type to bkm - bkm
-            input param is null coerced</description>
-        <resultNode name="decision_bkm_002" type="decision">
+        <description>pass non-conforming type to bkm - bkm is never invoked</description>
+        <resultNode name="decision_bkm_002" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:boolean">false</value>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
@@ -149,7 +148,7 @@
             </expected>
         </resultNode>
     </testCase>
-<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315
      Expected result is a wrapped element not justified with DMN spec
     <testCase id="decision_bkm_004">
         <description>bkm type is list and bkm logic returns conforming (non-list) value - coercion val to list</description>
@@ -201,11 +200,11 @@
     </testCase>
 
     <testCase id="invoke_001">
-        <description>decision has invocation call a bkm and passing invalid
-            non-comforming context - null coercion of param into bkm</description>
+        <description>decision has invocation call to bkm passing
+            non-conforming context - bkm is never invoked</description>
         <resultNode name="invoke_001" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:boolean">false</value>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
@@ -220,7 +219,7 @@
             </expected>
         </resultNode>
     </testCase>
-<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315
      Expected result is a wrapped element not justified with DMN spec
     <testCase id="invoke_003">
         <description>invocation type is a list and invoked bkm returns single conforming value - coercion to list</description>
@@ -246,7 +245,7 @@
 
     <testCase id="invoke_005">
         <description>Ref https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315
-        <!-- 
+        <!--
 bkm_005([10])
 
 where bkm_005 is a BKM analogous to:
@@ -269,6 +268,16 @@ null   // BKM variable's typeRef is number.
     <testCase id="invoke_006">
         <description>invocation type is a non-list and invoked bkm returns singleton array of non-conforming value - coercion to null</description>
         <resultNode name="invoke_006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="invoke_007">
+        <description>invocation has binding name that is not a valid formal param name -
+            function is never invoked</description>
+        <resultNode name="invoke_007" type="decision" errorResult="true">
             <expected>
                 <value xsi:nil="true"/>
             </expected>
@@ -310,7 +319,7 @@ null   // BKM variable's typeRef is number.
             </expected>
         </resultNode>
     </testCase>
-<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315
      Expected result is a wrapped element not justified with DMN spec
     <testCase id="literal_003">
         <description>literal expression has list typeRef and result is conforming value - coercion to list</description>
@@ -406,7 +415,7 @@ null   // BKM variable's typeRef is number.
             </expected>
         </resultNode>
     </testCase>
-<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315
      Expected result is a wrapped element not justified with DMN spec
     <testCase id="decisionService_003" invocableName="decisionService_003" type="decisionService">
         <description>Decision service has string list input but we pass string - input is coerced to string list</description>
@@ -423,7 +432,7 @@ null   // BKM variable's typeRef is number.
             </expected>
         </resultNode>
     </testCase> -->
-<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315 
+<!-- Ref: https://github.com/dmn-tck/tck/pull/238#issuecomment-497744315
      Expected result is a wrapped element not justified with DMN spec
     <testCase id="decisionService_003_a">
         <description>Indirect invocation: Decision service has string list input but we pass in string - input is coerced to string list</description>

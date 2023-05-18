@@ -28,7 +28,6 @@ import com.gs.dmn.runtime.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
@@ -214,7 +213,7 @@ public class FunctionInvocationUtils {
                 return matches;
             }
         }
-        // Phase 2: Check for candidates after applying conversions when types do not conform
+        // Phase 2: Check for candidates after applying implicit conversions when types do not conform
         for (Declaration declaration : declarations) {
             FunctionType functionType = (FunctionType) declaration.getType();
             List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> candidates = functionType.matchCandidates(parameterTypes);
@@ -232,12 +231,6 @@ public class FunctionInvocationUtils {
                 }
             }
         }
-        // Phase 3: Filter candidates without conformTo conversion
-        List<DeclarationMatch> noConformTo = matches.stream().filter(m -> !m.getParameterConversions().hasConversion(ConversionKind.CONFORMS_TO)).collect(Collectors.toList());
-        if (noConformTo.size() != 0) {
-            return noConformTo;
-        }
-        // Phase 3: Return candidates with conformsTo
         return matches;
     }
 

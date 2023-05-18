@@ -124,10 +124,10 @@
 
 
     <testCase id="007">
-        <description>passing a single input decision param with incorrect type</description>
+        <description>passing a single input decision param with incorrect type - decision service is never invoked</description>
         <resultNode name="decision_007_1" type="decision" errorResult="true">
             <expected>
-                <value xsi:type="xsd:boolean">true</value> <!-- DMN13-163 Decision Service output value in the case of single output Decision -->
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>

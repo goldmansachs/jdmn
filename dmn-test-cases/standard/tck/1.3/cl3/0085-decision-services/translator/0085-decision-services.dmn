@@ -185,6 +185,7 @@
         <inputDecision href="#_decision_007_3"/>
     </decisionService>
 
+<!--
     <decision name="decision_007_1" id="_decision_007_1">
         <variable name="decision_007_1"/>
         <knowledgeRequirement>
@@ -194,6 +195,7 @@
             <text>decisionService_007(123)</text>
         </literalExpression>
     </decision>
+-->
 
     <decision name="decision_007_2" id="_decision_007_2">
         <variable name="decision_007_2"/>

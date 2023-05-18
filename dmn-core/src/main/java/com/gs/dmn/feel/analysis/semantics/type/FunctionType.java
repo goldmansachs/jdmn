@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -161,15 +160,6 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
                             // the expression is converted to UTC midnight data and time.
                             if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(argumentType, DATE) && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(parameterType, DATE_AND_TIME)) {
                                 newType = DATE_AND_TIME;
-                                conversion = new Conversion<>(kind, newType);
-
-                                different = true;
-                            }
-                        } else if (kind == CONFORMS_TO) {
-                            // When the type of the expression is T1, the target type is T2, and T1 conforms to T2 the value of expression
-                            // remains unchanged. Otherwise the result is null.
-                            if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(argumentType, parameterType)) {
-                                newType = NullType.NULL;
                                 conversion = new Conversion<>(kind, newType);
 
                                 different = true;
