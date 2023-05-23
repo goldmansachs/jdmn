@@ -125,6 +125,10 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     List<String> split(String string, String delimiter);
 
+    String stringJoin(List<String> list);
+
+    String stringJoin(List<String> list, String delimiter);
+
     //
     // Boolean functions
     //

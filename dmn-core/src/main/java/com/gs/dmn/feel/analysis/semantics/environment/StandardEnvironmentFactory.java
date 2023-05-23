@@ -210,6 +210,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "ends with", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("string", STRING), new FormalParameter<>("match", STRING)));
         addFunctionDeclaration(environment, "matches", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("input", STRING), new FormalParameter<>("pattern", STRING), new FormalParameter<>("flags", STRING, true, false)));
         addFunctionDeclaration(environment, "split", new BuiltinFunctionType(STRING_LIST, new FormalParameter<>("string", STRING), new FormalParameter<>("delimiter", STRING)));
+        addFunctionDeclaration(environment, "string join", new BuiltinFunctionType(STRING, new FormalParameter<>("list", STRING_LIST), new FormalParameter<>("delimiter", STRING, true, false)));
     }
 
     private static void addListFunctions(Environment environment) {

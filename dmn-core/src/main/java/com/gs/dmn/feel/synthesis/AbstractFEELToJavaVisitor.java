@@ -59,6 +59,7 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<
         FEEL_2_JAVA_FUNCTION.put("lower case", "lowerCase");
         FEEL_2_JAVA_FUNCTION.put("upper case", "upperCase");
         FEEL_2_JAVA_FUNCTION.put("string length", "stringLength");
+        FEEL_2_JAVA_FUNCTION.put("string join", "stringJoin");
 
         FEEL_2_JAVA_FUNCTION.put("years and months duration", "yearsAndMonthsDuration");
         FEEL_2_JAVA_FUNCTION.put("date and time", "dateAndTime");

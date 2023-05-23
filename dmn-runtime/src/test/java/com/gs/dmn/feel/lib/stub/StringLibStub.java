@@ -84,6 +84,16 @@ public class StringLibStub implements StringLib {
     }
 
     @Override
+    public String stringJoin(List<String> list) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public String stringJoin(List<String> list, String delimiter) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public List<String> split(String string, String delimiter) {
         throw new DMNRuntimeException("Not supported yet");
     }
