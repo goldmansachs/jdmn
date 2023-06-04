@@ -24,8 +24,17 @@ public class XMLUtil {
 
     public static DocumentBuilderFactory makeDocumentBuilderFactory() {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
-        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // compliant
+        String attribute = null;
+        try {
+            attribute = XMLConstants.ACCESS_EXTERNAL_DTD;
+            dbf.setAttribute(attribute, ""); // Compliant
+            attribute = XMLConstants.ACCESS_EXTERNAL_SCHEMA;
+            dbf.setAttribute(attribute, ""); // compliant
+        } catch (IllegalArgumentException e) {
+            // This should catch a failed setAttribute feature
+            LOGGER.info("IllegalArgumentException was thrown. The attribute '" + attribute
+                    + "' is probably not supported by your XML processor.");
+        }
         String feature = null;
         try {
             // This is the PRIMARY defense. If DTDs (doctypes) are disallowed, almost all
@@ -50,8 +59,6 @@ public class XMLUtil {
             // Disable external DTDs as well
             feature = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
             dbf.setFeature(feature, false);
-            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 
             // and these as well, per Timothy Morgan's 2014 paper: "XML Schema, DTD, and Entity Attacks"
             dbf.setXIncludeAware(false);
