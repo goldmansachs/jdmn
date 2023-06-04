@@ -19,7 +19,7 @@
     <parent>
         <groupId>com.goldmansachs.jdmn</groupId>
         <artifactId>jdmn-parent</artifactId>
-        <version>5.5.5-SNAPSHOT</version>
+        <version>5.5.5</version>
     </parent>
 
     <artifactId>jdmn-signavio-integration-tests</artifactId>
