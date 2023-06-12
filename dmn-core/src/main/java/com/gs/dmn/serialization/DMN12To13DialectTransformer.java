@@ -244,6 +244,8 @@ public class DMN12To13DialectTransformer extends SimpleDMNDialectTransformer<org
                 result.add(transform((org.omg.spec.dmn._20180521.model.TDMNElementReference) element));
             } else if (element instanceof org.omg.spec.dmn._20180521.model.THitPolicy) {
                 result.add(transform((org.omg.spec.dmn._20180521.model.THitPolicy) element));
+            } else if (element instanceof org.omg.spec.dmn._20180521.model.TRuleAnnotation) {
+                result.add(transform((org.omg.spec.dmn._20180521.model.TRuleAnnotation) element));
             } else if (element instanceof org.omg.spec.dmn._20180521.model.TBuiltinAggregator) {
                 result.add(transform((org.omg.spec.dmn._20180521.model.TBuiltinAggregator) element));
             } else if (element instanceof org.omg.spec.dmn._20180521.model.TDecisionTableOrientation) {
@@ -808,9 +810,19 @@ public class DMN12To13DialectTransformer extends SimpleDMNDialectTransformer<org
         addElementProperties(element, result);
         result.getInputEntry().addAll(transformList(element.getInputEntry()));
         result.getOutputEntry().addAll(transformList(element.getOutputEntry()));
+        result.getAnnotationEntry().addAll(transformList(element.getAnnotationEntry()));
         return result;
     }
 
+    private TRuleAnnotation transform(org.omg.spec.dmn._20180521.model.TRuleAnnotation element) {
+        if (element == null) {
+            return null;
+        }
+
+        TRuleAnnotation result = DMN_13_OBJECT_FACTORY.createTRuleAnnotation();
+        result.setText(element.getText());
+        return result;
+    }
     private String transformTypeRef(String element) {
         return element;
     }
