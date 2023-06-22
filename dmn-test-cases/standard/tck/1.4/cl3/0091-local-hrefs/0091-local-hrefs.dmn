@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions namespace="http://www.montera.com.au/spec/DMN/0091-local-hrefs"
              name="0091-local-hrefs"
-             xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/">
+             xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/">
 
     <description>Local (non-imported) qualified hrefs</description>
 
