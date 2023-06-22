@@ -65,5 +65,19 @@
         </literalExpression>
     </decision>
 
+    <decision name="decision009" id="_decision009">
+        <variable name="decision009"/>
+        <literalExpression>
+            <text>{ a: 1 }.b</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision010" id="_decision010">
+        <variable name="decision010"/>
+        <literalExpression>
+            <text>null.b</text>
+        </literalExpression>
+    </decision>
+
 </definitions>
 

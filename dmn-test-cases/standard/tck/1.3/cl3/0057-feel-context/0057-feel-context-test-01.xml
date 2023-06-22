@@ -127,4 +127,22 @@
         </resultNode>
     </testCase>
 
+    <testCase id="009">
+        <description>non-existing member access results in null</description>
+        <resultNode name="decision009" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010">
+        <description>non-existing member access (on null)</description>
+        <resultNode errorResult="true" name="decision010" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
 </testCases>
