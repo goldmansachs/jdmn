@@ -326,4 +326,132 @@
         </resultNode>
     </testCase>
 
+    <testCase id="027">
+        <description>filter on scalars (10.3.2.5 - example 1)</description>
+        <resultNode name="decision027" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">3</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">4</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="028">
+        <description>filter on property name (10.3.2.5 - example 2)</description>
+        <resultNode name="decision028" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <component name="x">
+                            <value xsi:type="xsd:decimal">1</value>
+                        </component>
+                        <component name="y">
+                            <value xsi:type="xsd:decimal">2</value>
+                        </component>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="029">
+        <description>filter on property name + null value (10.3.2.5 - example 3)</description>
+        <resultNode name="decision029" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <component name="x">
+                            <value xsi:type="xsd:decimal">1</value>
+                        </component>
+                        <component name="y">
+                            <value xsi:type="xsd:decimal">2</value>
+                        </component>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="030">
+        <description>path expression (10.3.2.5 - example 4)</description>
+        <resultNode name="decision030" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">2</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">3</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="031">
+        <description>filter / non-member matching (empty)</description>
+        <resultNode name="decision031" type="decision">
+            <expected>
+                <list></list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="032">
+        <description>filter / non-member matching (single result)</description>
+        <resultNode name="decision032" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <component name="y">
+                            <value xsi:type="xsd:decimal">2</value>
+                        </component>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="033">
+        <description>path expression / no match</description>
+        <resultNode name="decision033" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:nil="true"/>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="034">
+        <description>path expression / partial match</description>
+        <resultNode name="decision034" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:nil="true"/>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">2</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
 </testCases>

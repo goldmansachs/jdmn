@@ -191,5 +191,61 @@
         </literalExpression>
     </decision>
 
+    <decision name="decision027" id="_decision027">
+        <variable name="decision027"/>
+        <literalExpression>
+            <text>[ 1, 2, 3, 4 ][ item > 2 ]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision028" id="_decision028">
+        <variable name="decision028"/>
+        <literalExpression>
+            <text>[ { x: 1, y: 2 }, { x: 2, y: 3 } ][ x = 1 ]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision029" id="_decision029">
+        <variable name="decision029"/>
+        <literalExpression>
+            <text>[ { x: 1, y: 2 }, { x: null, y: 3 } ][ x &lt; 2 ]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision030" id="_decision030">
+        <variable name="decision030"/>
+        <literalExpression>
+            <text>[ { x: 1, y: 2 }, { x: 2, y: 3 } ].y</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision031" id="_decision031">
+        <variable name="decision031"/>
+        <literalExpression>
+            <text>[ { x: 1 } ][ y > 1 ]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision032" id="_decision032">
+        <variable name="decision032"/>
+        <literalExpression>
+            <text>[ { x: 1 }, { y: 2 } ][ y > 1 ]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision033" id="_decision033">
+        <variable name="decision033"/>
+        <literalExpression>
+            <text>[ { x: 1 } ].y</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision034" id="_decision034">
+        <variable name="decision034"/>
+        <literalExpression>
+            <text>[ { x: 1 }, { y: 2 } ].y</text>
+        </literalExpression>
+    </decision>
+
 </definitions>
 
