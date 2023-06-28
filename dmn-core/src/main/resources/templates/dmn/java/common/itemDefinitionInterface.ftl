@@ -41,9 +41,17 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
             <#assign name = "\"${modelRepository.name(child)}\"" />
             <#assign label = "\"${modelRepository.label(child)}\"" />
             <#if modelRepository.label(child)?has_content>
-            result_.${transformer.setter(child, "${castToItemDefinitionInterface}(${castToContext}other).get(${name}, ${label})")};
+            if ((${castToContext}other).keySet().contains(${name}) || (${castToContext}other).keySet().contains(${label})) {
+                result_.${transformer.setter(child, "${castToItemDefinitionInterface}(${castToContext}other).get(${name}, ${label})")};
+            } else {
+                return  null;
+            }
             <#else>
-            result_.${transformer.setter(child, "${castToItemDefinitionInterface}(${castToContext}other).get(${name})")};
+            if ((${castToContext}other).keySet().contains(${name})) {
+                result_.${transformer.setter(child, "${castToItemDefinitionInterface}(${castToContext}other).get(${name})")};
+            } else {
+                return  null;
+            }
             </#if>
         </#list>
             return result_;

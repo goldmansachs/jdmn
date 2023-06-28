@@ -13,10 +13,26 @@ public interface TFnInvocationNamedResult extends com.gs.dmn.runtime.DMNType {
             return (TFnInvocationNamedResult)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TFnInvocationNamedResultImpl result_ = new TFnInvocationNamedResultImpl();
-            result_.setSubResult((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("subResult"));
-            result_.setSubResultMixed((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("subResultMixed"));
-            result_.setDivisionResultNamed((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("divisionResultNamed"));
-            result_.setMultiplicationResultNamed((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("multiplicationResultNamed"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("subResult")) {
+                result_.setSubResult((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("subResult"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("subResultMixed")) {
+                result_.setSubResultMixed((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("subResultMixed"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("divisionResultNamed")) {
+                result_.setDivisionResultNamed((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("divisionResultNamed"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("multiplicationResultNamed")) {
+                result_.setMultiplicationResultNamed((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("multiplicationResultNamed"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTFnInvocationNamedResult(((com.gs.dmn.runtime.DMNType)other).toContext());

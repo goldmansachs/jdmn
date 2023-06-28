@@ -14,7 +14,7 @@ class _0010MultiOutputUTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val isAffordable: Boolean? = true
 
         // Check 'Approval'
-        checkValues(type.TApprovalImpl("Standard", "Approved"), Approval().apply(age, riskCategory, isAffordable, context_))
+        checkValues(type.TApproval.toTApproval(com.gs.dmn.runtime.Context().add("Rate", "Standard").add("Status", "Approved")), Approval().apply(age, riskCategory, isAffordable, context_))
     }
 
     @org.junit.Test
@@ -27,7 +27,7 @@ class _0010MultiOutputUTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val isAffordable: Boolean? = true
 
         // Check 'Approval'
-        checkValues(type.TApprovalImpl("Standard", "Declined"), Approval().apply(age, riskCategory, isAffordable, context_))
+        checkValues(type.TApproval.toTApproval(com.gs.dmn.runtime.Context().add("Rate", "Standard").add("Status", "Declined")), Approval().apply(age, riskCategory, isAffordable, context_))
     }
 
     @org.junit.Test
@@ -40,7 +40,7 @@ class _0010MultiOutputUTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val isAffordable: Boolean? = true
 
         // Check 'Approval'
-        checkValues(type.TApprovalImpl("Standard", "Declined"), Approval().apply(age, riskCategory, isAffordable, context_))
+        checkValues(type.TApproval.toTApproval(com.gs.dmn.runtime.Context().add("Rate", "Standard").add("Status", "Declined")), Approval().apply(age, riskCategory, isAffordable, context_))
     }
 
     private fun checkValues(expected: Any?, actual: Any?) {

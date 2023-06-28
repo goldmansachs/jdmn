@@ -2042,6 +2042,36 @@
                         </configuration>
                     </execution>
 
+                    <execution>
+                        <id>cl3-1145-feel-context-function</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/1145-feel-context-function/translator/1145-feel-context-function.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1145_feel_context_function</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-1145-feel-context-function</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/1145-feel-context-function/translator/1145-feel-context-function-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/1145-feel-context-function/translator/1145-feel-context-function.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1145_feel_context_function</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
                     <!-- Composite models -->
                     <execution>
                         <id>composite-0001-no-name-conflicts-one-package</id>

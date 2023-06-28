@@ -1151,6 +1151,18 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 this.lib.getValue(null, null),
                 null);
 
+        doExpressionTest(entries, "", "context([{key:\"a\", value:1}, {key:\"b\", value:2}])",
+                "FunctionInvocation(Name(context) -> PositionalParameters(ListLiteral(Context(ContextEntry(ContextEntryKey(key) = StringLiteral(\"a\")),ContextEntry(ContextEntryKey(value) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(key) = StringLiteral(\"b\")),ContextEntry(ContextEntryKey(value) = NumericLiteral(2))))))",
+                "ContextType()",
+                "context(asList(new com.gs.dmn.runtime.Context().add(\"key\", \"a\").add(\"value\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"key\", \"b\").add(\"value\", number(\"2\"))))",
+                this.lib.context(this.lib.asList(new com.gs.dmn.runtime.Context().add("key", "a").add("value", this.lib.number("1")), new com.gs.dmn.runtime.Context().add("key", "b").add("value", this.lib.number("2")))),
+                new com.gs.dmn.runtime.Context().add("a", this.lib.number("1")).add("b", this.lib.number("2")));
+        doExpressionTest(entries, "", "context({key:\"a\", value:1})",
+                "FunctionInvocation(Name(context) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(key) = StringLiteral(\"a\")),ContextEntry(ContextEntryKey(value) = NumericLiteral(1)))))",
+                "ContextType()",
+                "context(asList(new com.gs.dmn.runtime.Context().add(\"key\", \"a\").add(\"value\", number(\"1\"))))",
+                this.lib.context(this.lib.asList(new com.gs.dmn.runtime.Context().add("key", "a").add("value", this.lib.number("1")))),
+                new com.gs.dmn.runtime.Context().add("a", this.lib.number("1")));
         doExpressionTest(entries, "", "context put({x: 1}, \"y\", 2)",
                 "FunctionInvocation(Name(context put) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1))), StringLiteral(\"y\"), NumericLiteral(2)))",
                 "ContextType()",

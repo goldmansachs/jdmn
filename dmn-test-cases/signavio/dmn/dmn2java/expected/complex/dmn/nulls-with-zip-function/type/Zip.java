@@ -13,8 +13,16 @@ public interface Zip extends com.gs.dmn.runtime.DMNType {
             return (Zip)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             ZipImpl result_ = new ZipImpl();
-            result_.setInputA((String)((com.gs.dmn.runtime.Context)other).get("inputA", "inputA"));
-            result_.setInputB((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("inputB", "inputB"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("inputA") || ((com.gs.dmn.runtime.Context)other).keySet().contains("inputA")) {
+                result_.setInputA((String)((com.gs.dmn.runtime.Context)other).get("inputA", "inputA"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("inputB") || ((com.gs.dmn.runtime.Context)other).keySet().contains("inputB")) {
+                result_.setInputB((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("inputB", "inputB"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toZip(((com.gs.dmn.runtime.DMNType)other).toContext());

@@ -31,6 +31,8 @@ public interface ContextType {
 
     Object getValue(Context context, Object key);
 
+    Context context(List entries);
+
     Context contextPut(Context context, String key, Object value);
 
     Context contextPut(Context context, List<String> keys, Object value);

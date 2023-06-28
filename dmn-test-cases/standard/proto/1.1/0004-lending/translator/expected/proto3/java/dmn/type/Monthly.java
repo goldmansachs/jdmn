@@ -13,9 +13,21 @@ public interface Monthly extends com.gs.dmn.runtime.DMNType {
             return (Monthly)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             MonthlyImpl result_ = new MonthlyImpl();
-            result_.setIncome((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Income"));
-            result_.setExpenses((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Expenses"));
-            result_.setRepayments((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Repayments"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Income")) {
+                result_.setIncome((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Income"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Expenses")) {
+                result_.setExpenses((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Expenses"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Repayments")) {
+                result_.setRepayments((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Repayments"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toMonthly(((com.gs.dmn.runtime.DMNType)other).toContext());

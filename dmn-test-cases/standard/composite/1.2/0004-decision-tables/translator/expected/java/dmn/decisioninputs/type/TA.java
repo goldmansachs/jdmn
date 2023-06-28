@@ -13,8 +13,16 @@ public interface TA extends com.gs.dmn.runtime.DMNType {
             return (TA)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TAImpl result_ = new TAImpl();
-            result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name"));
-            result_.setPrice((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("price"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("name")) {
+                result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("price")) {
+                result_.setPrice((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("price"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTA(((com.gs.dmn.runtime.DMNType)other).toContext());

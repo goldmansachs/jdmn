@@ -137,7 +137,7 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
                         } else if (kind == ELEMENT_TO_SINGLETON_LIST) {
                             // When the type of the expression is T and the target type is List<T> the expression is converted to a singleton list.
                             if (parameterType instanceof ListType) {
-                                if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(argumentType, ((ListType) parameterType).getElementType())) {
+                                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(argumentType, ((ListType) parameterType).getElementType())) {
                                     newType = new ListType(argumentType);
                                     conversion = new Conversion<>(kind, newType);
 
@@ -148,7 +148,7 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
                             // When the type of the expression is List<T>, the value of the expression is a singleton list and the target type is T,
                             // the expression is converted by unwraping the first element.
                             if (argumentType instanceof ListType) {
-                                if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(parameterType, ((ListType) argumentType).getElementType())) {
+                                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(parameterType, ((ListType) argumentType).getElementType())) {
                                     newType = ((ListType) argumentType).getElementType();
                                     conversion = new Conversion<>(kind, newType);
 

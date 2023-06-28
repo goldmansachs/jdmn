@@ -13,9 +13,21 @@ public interface TCompositeDateTime extends com.gs.dmn.runtime.DMNType {
             return (TCompositeDateTime)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TCompositeDateTimeImpl result_ = new TCompositeDateTimeImpl();
-            result_.setDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Date", "Date"));
-            result_.setTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Time", "Time"));
-            result_.setDateTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("DateTime", "DateTime"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Date") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Date")) {
+                result_.setDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Date", "Date"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Time") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Time")) {
+                result_.setTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Time", "Time"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("DateTime") || ((com.gs.dmn.runtime.Context)other).keySet().contains("DateTime")) {
+                result_.setDateTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("DateTime", "DateTime"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTCompositeDateTime(((com.gs.dmn.runtime.DMNType)other).toContext());

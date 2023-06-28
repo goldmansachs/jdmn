@@ -13,14 +13,46 @@ public interface TMetric extends com.gs.dmn.runtime.DMNType {
             return (TMetric)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TMetricImpl result_ = new TMetricImpl();
-            result_.setLenderName((String)((com.gs.dmn.runtime.Context)other).get("lenderName"));
-            result_.setRate((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("rate"));
-            result_.setPoints((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("points"));
-            result_.setFee((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("fee"));
-            result_.setLoanAmt((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("loanAmt"));
-            result_.setDownPmtAmt((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("downPmtAmt"));
-            result_.setPaymentAmt((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("paymentAmt"));
-            result_.setEquity36moPct((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("equity36moPct"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("lenderName")) {
+                result_.setLenderName((String)((com.gs.dmn.runtime.Context)other).get("lenderName"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("rate")) {
+                result_.setRate((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("rate"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("points")) {
+                result_.setPoints((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("points"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("fee")) {
+                result_.setFee((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("fee"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("loanAmt")) {
+                result_.setLoanAmt((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("loanAmt"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("downPmtAmt")) {
+                result_.setDownPmtAmt((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("downPmtAmt"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("paymentAmt")) {
+                result_.setPaymentAmt((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("paymentAmt"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("equity36moPct")) {
+                result_.setEquity36moPct((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("equity36moPct"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTMetric(((com.gs.dmn.runtime.DMNType)other).toContext());

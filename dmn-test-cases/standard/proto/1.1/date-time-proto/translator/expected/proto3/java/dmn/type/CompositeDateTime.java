@@ -13,11 +13,31 @@ public interface CompositeDateTime extends com.gs.dmn.runtime.DMNType {
             return (CompositeDateTime)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             CompositeDateTimeImpl result_ = new CompositeDateTimeImpl();
-            result_.setDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Date"));
-            result_.setTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Time"));
-            result_.setDateTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("DateTime"));
-            result_.setYearMonthDuration((javax.xml.datatype.Duration)((com.gs.dmn.runtime.Context)other).get("YearMonthDuration"));
-            result_.setDayTimeDuration((javax.xml.datatype.Duration)((com.gs.dmn.runtime.Context)other).get("DayTimeDuration"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Date")) {
+                result_.setDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Date"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Time")) {
+                result_.setTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Time"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("DateTime")) {
+                result_.setDateTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("DateTime"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("YearMonthDuration")) {
+                result_.setYearMonthDuration((javax.xml.datatype.Duration)((com.gs.dmn.runtime.Context)other).get("YearMonthDuration"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("DayTimeDuration")) {
+                result_.setDayTimeDuration((javax.xml.datatype.Duration)((com.gs.dmn.runtime.Context)other).get("DayTimeDuration"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toCompositeDateTime(((com.gs.dmn.runtime.DMNType)other).toContext());

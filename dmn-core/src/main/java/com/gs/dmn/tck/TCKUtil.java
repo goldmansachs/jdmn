@@ -19,6 +19,7 @@ import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
@@ -284,7 +285,12 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String toNativeExpression(ResultNodeInfo info) {
         Type outputType = toFEELType(info);
-        return this.tckValueTranslator.toNativeExpression(info.getExpectedValue(), outputType, info.getReference().getElement());
+        if (outputType instanceof ItemDefinitionType) {
+            String javaExpression = this.tckValueTranslator.toNativeExpression(info.getExpectedValue(), ((ItemDefinitionType) outputType).toContextType(), info.getReference().getElement());
+            return this.transformer.getNativeFactory().convertToItemDefinitionType(javaExpression, (ItemDefinitionType) outputType);
+        } else {
+            return this.tckValueTranslator.toNativeExpression(info.getExpectedValue(), outputType, info.getReference().getElement());
+        }
     }
 
     public String toNativeExpressionProto(ResultNodeInfo info) {
@@ -299,12 +305,16 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     public String qualifiedName(ResultNodeInfo info) {
+        TDRGElement element = info.getReference().getElement();
+        if (element == null) {
+            throw new DMNRuntimeException(String.format("Cannot find DRG Element for node '%s'", info.getNodeName()));
+        }
         if (info.isDecision()) {
             String pkg = this.transformer.nativeModelPackageName(info.getRootModelName());
-            String cls = this.transformer.drgElementClassName(info.getReference().getElement());
+            String cls = this.transformer.drgElementClassName(element);
             return this.transformer.qualifiedName(pkg, cls);
         } else if (info.isBKM() || info.isDS()) {
-            return this.transformer.singletonInvocableInstance((TInvocable) info.getReference().getElement());
+            return this.transformer.singletonInvocableInstance((TInvocable) element);
         } else {
             throw new DMNRuntimeException(String.format("Not supported '%s' in '%s'", info.getNodeType(), info.getNodeName()));
         }

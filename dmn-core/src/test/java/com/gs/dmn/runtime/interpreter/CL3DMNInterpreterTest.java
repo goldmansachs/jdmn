@@ -507,4 +507,9 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     public void test_14_cl3_100_arithmetic() {
         doSingleModelTest("1.4", "0100-arithmetic");
     }
+
+    @Test
+    public void test_14_cl3_1145_feel_context_function() {
+        doSingleModelTest("1.4", "1145-feel-context-function");
+    }
 }

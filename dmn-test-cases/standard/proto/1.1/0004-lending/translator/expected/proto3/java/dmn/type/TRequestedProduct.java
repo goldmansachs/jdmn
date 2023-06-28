@@ -13,10 +13,26 @@ public interface TRequestedProduct extends com.gs.dmn.runtime.DMNType {
             return (TRequestedProduct)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TRequestedProductImpl result_ = new TRequestedProductImpl();
-            result_.setProductType((String)((com.gs.dmn.runtime.Context)other).get("ProductType"));
-            result_.setAmount((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Amount"));
-            result_.setRate((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Rate"));
-            result_.setTerm((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Term"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("ProductType")) {
+                result_.setProductType((String)((com.gs.dmn.runtime.Context)other).get("ProductType"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Amount")) {
+                result_.setAmount((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Amount"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Rate")) {
+                result_.setRate((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Rate"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Term")) {
+                result_.setTerm((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Term"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTRequestedProduct(((com.gs.dmn.runtime.DMNType)other).toContext());

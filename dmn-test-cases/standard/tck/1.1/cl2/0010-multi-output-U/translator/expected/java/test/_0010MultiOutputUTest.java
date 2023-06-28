@@ -14,7 +14,7 @@ public class _0010MultiOutputUTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         Boolean isAffordable = Boolean.TRUE;
 
         // Check 'Approval'
-        checkValues(new type.TApprovalImpl("Standard", "Approved"), new Approval().apply(age, riskCategory, isAffordable, context_));
+        checkValues(type.TApproval.toTApproval(new com.gs.dmn.runtime.Context().add("Rate", "Standard").add("Status", "Approved")), new Approval().apply(age, riskCategory, isAffordable, context_));
     }
 
     @org.junit.Test
@@ -27,7 +27,7 @@ public class _0010MultiOutputUTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         Boolean isAffordable = Boolean.TRUE;
 
         // Check 'Approval'
-        checkValues(new type.TApprovalImpl("Standard", "Declined"), new Approval().apply(age, riskCategory, isAffordable, context_));
+        checkValues(type.TApproval.toTApproval(new com.gs.dmn.runtime.Context().add("Rate", "Standard").add("Status", "Declined")), new Approval().apply(age, riskCategory, isAffordable, context_));
     }
 
     @org.junit.Test
@@ -40,7 +40,7 @@ public class _0010MultiOutputUTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         Boolean isAffordable = Boolean.TRUE;
 
         // Check 'Approval'
-        checkValues(new type.TApprovalImpl("Standard", "Declined"), new Approval().apply(age, riskCategory, isAffordable, context_));
+        checkValues(type.TApproval.toTApproval(new com.gs.dmn.runtime.Context().add("Rate", "Standard").add("Status", "Declined")), new Approval().apply(age, riskCategory, isAffordable, context_));
     }
 
     private void checkValues(Object expected, Object actual) {

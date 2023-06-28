@@ -13,8 +13,16 @@ public interface GenerateTemporalObjects extends com.gs.dmn.runtime.DMNType {
             return (GenerateTemporalObjects)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             GenerateTemporalObjectsImpl result_ = new GenerateTemporalObjectsImpl();
-            result_.setDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("date", "date"));
-            result_.setDatetime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("datetime", "datetime"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("date") || ((com.gs.dmn.runtime.Context)other).keySet().contains("date")) {
+                result_.setDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("date", "date"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("datetime") || ((com.gs.dmn.runtime.Context)other).keySet().contains("datetime")) {
+                result_.setDatetime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("datetime", "datetime"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toGenerateTemporalObjects(((com.gs.dmn.runtime.DMNType)other).toContext());

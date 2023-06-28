@@ -1255,6 +1255,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     }
 
     @Override
+    public Context context(List entries) {
+        try {
+            return contextType.context(entries);
+        } catch (Exception e) {
+            String message = String.format("context(%s)", entries);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public Context contextPut(Context context, String key, Object value) {
         try {
             return contextType.contextPut(context, key, value);

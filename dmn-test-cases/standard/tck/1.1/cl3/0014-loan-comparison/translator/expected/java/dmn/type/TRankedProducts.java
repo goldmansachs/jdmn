@@ -13,11 +13,31 @@ public interface TRankedProducts extends com.gs.dmn.runtime.DMNType {
             return (TRankedProducts)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TRankedProductsImpl result_ = new TRankedProductsImpl();
-            result_.setMetricsTable((List<type.TMetric>)((com.gs.dmn.runtime.Context)other).get("metricsTable"));
-            result_.setRankByRate((List<type.TMetric>)((com.gs.dmn.runtime.Context)other).get("rankByRate"));
-            result_.setRankByDownPmt((List<type.TMetric>)((com.gs.dmn.runtime.Context)other).get("rankByDownPmt"));
-            result_.setRankByMonthlyPmt((List<type.TMetric>)((com.gs.dmn.runtime.Context)other).get("rankByMonthlyPmt"));
-            result_.setRankByEquityPct((List<type.TMetric>)((com.gs.dmn.runtime.Context)other).get("rankByEquityPct"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("metricsTable")) {
+                result_.setMetricsTable((List<type.TMetric>)((com.gs.dmn.runtime.Context)other).get("metricsTable"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("rankByRate")) {
+                result_.setRankByRate((List<type.TMetric>)((com.gs.dmn.runtime.Context)other).get("rankByRate"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("rankByDownPmt")) {
+                result_.setRankByDownPmt((List<type.TMetric>)((com.gs.dmn.runtime.Context)other).get("rankByDownPmt"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("rankByMonthlyPmt")) {
+                result_.setRankByMonthlyPmt((List<type.TMetric>)((com.gs.dmn.runtime.Context)other).get("rankByMonthlyPmt"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("rankByEquityPct")) {
+                result_.setRankByEquityPct((List<type.TMetric>)((com.gs.dmn.runtime.Context)other).get("rankByEquityPct"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTRankedProducts(((com.gs.dmn.runtime.DMNType)other).toContext());

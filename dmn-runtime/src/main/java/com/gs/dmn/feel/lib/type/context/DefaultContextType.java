@@ -87,6 +87,44 @@ public class DefaultContextType extends BaseType implements ContextType {
     }
 
     @Override
+    public Context context(List entries) {
+        if (entries == null) {
+            return null;
+        }
+
+        Context result = new Context();
+        for (Object entry : entries) {
+            if (validEntry(entry)) {
+                String key = (String) ((Context) entry).get("key");
+                Object value = ((Context) entry).get("value");
+                if (!result.keySet().contains(key)) {
+                    result.put(key, value);
+                } else {
+                    throw new DMNRuntimeException(String.format("Duplicated key '%s' in context()", key));
+                }
+            } else {
+                throw new DMNRuntimeException(String.format("Illegal entry '%s' in context()", entry));
+            }
+        }
+        return result;
+    }
+
+    private boolean validEntry(Object entry) {
+        if (!(entry instanceof Context)) {
+            return false;
+        }
+        Set keys = ((Context) entry).keySet();
+        if (!(keys.contains("key") && keys.contains("value"))) {
+            return false;
+        }
+        Object key = ((Context) entry).get("key");
+        if (!(key instanceof String)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public Context contextPut(Context context, String key, Object value) {
         if (context == null || key == null) {
             return null;
@@ -110,6 +148,9 @@ public class DefaultContextType extends BaseType implements ContextType {
         Context currentContext = rootContext;
         for (int i=0; i<keys.size(); i++) {
             String key = keys.get(i);
+            if (key == null) {
+                throw new DMNRuntimeException(String.format("Incorrect key '%s' in context '%s'", keys, context));
+            }
             if (i == keys.size() -1) {
                 // last key from path
                 if (currentContext != null) {

@@ -13,10 +13,26 @@ public interface TRow extends com.gs.dmn.runtime.DMNType {
             return (TRow)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TRowImpl result_ = new TRowImpl();
-            result_.setCol1((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col1"));
-            result_.setCol2((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col2"));
-            result_.setCol3((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col3"));
-            result_.setCol4((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col4"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("col1")) {
+                result_.setCol1((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col1"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("col2")) {
+                result_.setCol2((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col2"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("col3")) {
+                result_.setCol3((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col3"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("col4")) {
+                result_.setCol4((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col4"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTRow(((com.gs.dmn.runtime.DMNType)other).toContext());
