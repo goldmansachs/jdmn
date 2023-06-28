@@ -117,6 +117,10 @@ public class FEELLexerTest extends AbstractLexerTest {
         token = checkToken("\"a\\U01F40Eb\"", STRING, "\"a\uD83D\uDC0Eb\"");
         checkPosition(token, 1, 1, 1, 6, 0, 12);
 
+        // multiline string
+        token = checkToken("\"l1\\\nl2\"", STRING, "\"l1\\\nl2\"");
+        checkPosition(token, 1, 1, 2, 4, 0, 8);
+
         token = checkToken("\".\"", STRING, "\".\"");
         checkPosition(token, 1, 1, 1, 3, 0, 3);
     }
