@@ -41,6 +41,7 @@ import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,8 @@ import static com.gs.dmn.transformation.DMNToJavaTransformer.DECISION_RULE_OUTPU
 public class DMNExpressionToNativeTransformer {
     private static final String TAB = "    ";
     private static final String RELATION_INDENT = TAB + TAB + TAB + TAB;
+
+    private static final String LINE_SEPARATOR = System.lineSeparator();
 
     protected final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
     protected final DMNModelRepository dmnModelRepository;
@@ -337,10 +340,10 @@ public class DMNExpressionToNativeTransformer {
             // Build rule matches call
             String indent3tabs = "            ";
             String indent2tabs = "        ";
-            String operands = conditionParts.stream().collect(Collectors.joining(",\n" + indent3tabs));
+            String operands = conditionParts.stream().collect(Collectors.joining("," + LINE_SEPARATOR + indent3tabs));
             String eventListenerVariable = this.dmnTransformer.eventListenerVariableName();
             String ruleMetadataVariable = this.dmnTransformer.drgRuleMetadataFieldName();
-            String args = String.format("%s, %s,\n%s%s\n%s", eventListenerVariable, ruleMetadataVariable, indent3tabs, operands, indent2tabs);
+            String args = String.format("%s, %s,%s%s%s", eventListenerVariable, ruleMetadataVariable, LINE_SEPARATOR + indent3tabs, operands, LINE_SEPARATOR + indent2tabs);
             return this.nativeFactory.makeBuiltinFunctionInvocation(ruleMatchesMethodName(), args);
         }
         throw new DMNRuntimeException("Cannot build condition for " + decisionTable.getClass().getSimpleName());
@@ -703,7 +706,7 @@ public class DMNExpressionToNativeTransformer {
 
         // Make a list
         Type elementType = ((ListType) resultType).getElementType();
-        String result = this.nativeFactory.asList(elementType, String.join(",\n" + RELATION_INDENT, rowValues));
+        String result = this.nativeFactory.asList(elementType, String.join("," + LINE_SEPARATOR + RELATION_INDENT, rowValues));
         return this.nativeFactory.makeExpressionStatement(result, resultType);
     }
 }

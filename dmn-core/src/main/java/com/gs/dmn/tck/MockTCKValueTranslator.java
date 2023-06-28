@@ -232,6 +232,6 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
     }
 
     private String removeWhiteSpaces(String text) {
-        return text.replaceAll("[ \t\n]", "");
+        return text.replaceAll("[ \t\r\n]", "");
     }
 }
