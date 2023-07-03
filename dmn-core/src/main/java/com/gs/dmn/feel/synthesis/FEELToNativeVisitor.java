@@ -239,7 +239,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor {
 
     @Override
     public Object visit(ForExpression<Type, DMNContext> element, DMNContext context) {
-        DMNContext forContext = this.dmnTransformer.makeForContext(element, context);
+        DMNContext forContext = this.dmnTransformer.makeForContext(context);
 
         List<Iterator<Type, DMNContext>> iterators = element.getIterators();
         List<Pair<String, String>> domainIterators = new ArrayList<>();

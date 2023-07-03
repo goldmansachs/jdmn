@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1150-boxed-conditional"
+             name="1150-boxed-conditional"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Boxed Conditional Expression</description>
+
+    <decision name="decision001" id="_decision001">
+        <variable name="decision001"/>
+        <conditional>
+            <if><literalExpression><text>true</text></literalExpression></if>
+            <then><literalExpression><text>"then"</text></literalExpression></then>
+            <else><literalExpression><text>"else"</text></literalExpression></else>
+        </conditional>
+    </decision>
+
+    <decision name="decision002" id="_decision002">
+        <variable name="decision002"/>
+        <conditional>
+            <if><literalExpression><text>false</text></literalExpression></if>
+            <then><literalExpression><text>"then"</text></literalExpression></then>
+            <else><literalExpression><text>"else"</text></literalExpression></else>
+        </conditional>
+    </decision>
+
+    <decision name="decision003" id="_decision003">
+        <variable name="decision003"/>
+        <conditional>
+            <if><literalExpression><text>"abc"</text></literalExpression></if>
+            <then><literalExpression><text>"then"</text></literalExpression></then>
+            <else><literalExpression><text>"else"</text></literalExpression></else>
+        </conditional>
+    </decision>
+
+</definitions>
+

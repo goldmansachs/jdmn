@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1154-boxed-every.dmn</modelName>
+
+    <testCase id="001">
+        <description>Will report true when all 'in' elements satisfy expression</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>Will report false when not all 'in' elements satisfy expression</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>Will return null when 'in' expression is not a list</description>
+        <resultNode name="decision003" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>Will not coerce single value 'in' expression to list - and return null</description>
+        <resultNode name="decision004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>Will return null when 'satisfies' does not return boolean</description>
+        <resultNode name="decision005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>Will return null when any 'satisfies' does not return boolean</description>
+        <resultNode name="decision006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>Will return true for empty list</description>
+        <resultNode name="decision007" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+
+</testCases>

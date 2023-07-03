@@ -940,6 +940,32 @@ public class DMNModelRepository {
         return expression instanceof TFunctionDefinition;
     }
 
+    public boolean isConditionalExpression(TDRGElement element) {
+        TExpression expression = expression(element);
+        return expression instanceof TConditional;
+    }
+
+    public boolean isFilterExpression(TDRGElement element) {
+        TExpression expression = expression(element);
+        return expression instanceof TFilter;
+    }
+
+    public boolean isForExpression(TDRGElement element) {
+        TExpression expression = expression(element);
+        return expression instanceof TFor;
+    }
+
+    public boolean isSomeExpression(TDRGElement element) {
+        TExpression expression = expression(element);
+        return expression instanceof TSome;
+    }
+
+    public boolean isEveryExpression(TDRGElement element) {
+        TExpression expression = expression(element);
+        return expression instanceof TEvery;
+    }
+
+
     //
     // Item definition related functions
     //

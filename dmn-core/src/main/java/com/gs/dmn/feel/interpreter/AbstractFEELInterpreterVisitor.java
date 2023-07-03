@@ -399,13 +399,13 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         Object domain = expressionDomain.accept(this, context);
 
         // Loop over domain and evaluate body
-        DMNContext forContext = this.dmnTransformer.makeForContext(element, context);
+        DMNContext iteratorContext = this.dmnTransformer.makeIteratorContext(context);
         List result = new ArrayList<>();
-        forContext.bind(PARTIAL_PARAMETER_NAME, result);
+        iteratorContext.bind(PARTIAL_PARAMETER_NAME, result);
         if (expressionDomain instanceof ExpressionIteratorDomain) {
             for (Object value : (List) domain) {
-                forContext.bind(iterator.getName(), value);
-                result.add(element.getBody().accept(this, forContext));
+                iteratorContext.bind(iterator.getName(), value);
+                result.add(element.getBody().accept(this, iteratorContext));
             }
         } else {
             NUMBER start = toNumber(((Pair) domain).getLeft());
@@ -413,8 +413,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             java.util.Iterator<NUMBER> numberIterator = this.lib.rangeToStream(start, end).iterator();
             while (numberIterator.hasNext()) {
                 NUMBER number = numberIterator.next();
-                forContext.bind(iterator.getName(), number);
-                result.add(element.getBody().accept(this, forContext));
+                iteratorContext.bind(iterator.getName(), number);
+                result.add(element.getBody().accept(this, iteratorContext));
             }
         }
         for (int i = 1; i <= iteratorNo - 1; i++) {

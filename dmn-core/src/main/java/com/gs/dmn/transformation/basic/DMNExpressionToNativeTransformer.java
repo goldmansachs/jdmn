@@ -24,6 +24,7 @@ import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -41,7 +42,6 @@ import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -661,11 +661,11 @@ public class DMNExpressionToNativeTransformer {
     Statement relationExpressionToNative(TDRGElement element, TRelation relation) {
         DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
 
-        // Make relation environment
         return relationExpressionToNative(element, relation, globalContext);
     }
 
     Statement relationExpressionToNative(TDRGElement element, TRelation relation, DMNContext parentContext) {
+        // Make relation context
         DMNContext relationContext = this.dmnTransformer.makeRelationContext(element, relation, parentContext);
         Type resultType = this.dmnTransformer.drgElementOutputFEELType(element);
         if (relation.getRow() == null) {
@@ -708,5 +708,137 @@ public class DMNExpressionToNativeTransformer {
         Type elementType = ((ListType) resultType).getElementType();
         String result = this.nativeFactory.asList(elementType, String.join("," + LINE_SEPARATOR + RELATION_INDENT, rowValues));
         return this.nativeFactory.makeExpressionStatement(result, resultType);
+    }
+
+    //
+    // TConditional
+    //
+    Statement conditionalExpressionToNative(TDRGElement element, TConditional conditional) {
+        DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
+
+        return conditionalExpressionToNative(element, conditional, globalContext);
+    }
+
+    Statement conditionalExpressionToNative(TDRGElement element, TConditional expression, DMNContext parentContext) {
+        // Check semantics
+        Type type = this.dmnTransformer.expressionType(element, expression, parentContext);
+
+        // Generate code
+        Statement condition = this.dmnTransformer.expressionToNative(element, expression.getIf().getExpression(), parentContext);
+        Statement thenExp = this.dmnTransformer.expressionToNative(element, expression.getThen().getExpression(), parentContext);
+        Statement elseExp = this.dmnTransformer.expressionToNative(element, expression.getElse().getExpression(), parentContext);
+        String conditionalText = this.nativeFactory.makeIfExpression(condition.getText(), thenExp.getText(), elseExp.getText());
+        return this.nativeFactory.makeExpressionStatement(conditionalText, type);
+    }
+
+    //
+    // TFilter
+    //
+    Statement filterExpressionToNative(TDRGElement element, TFilter expression) {
+        DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
+
+        return filterExpressionToNative(element, expression, globalContext);
+    }
+
+    Statement filterExpressionToNative(TDRGElement element, TFilter expression, DMNContext parentContext) {
+        // Check semantics
+        Type sourceType = this.dmnTransformer.expressionType(element, expression, parentContext);
+
+        // Generate code
+        Statement source = this.dmnTransformer.expressionToNative(element, expression.getIn().getExpression(), parentContext);
+        String filterParameterName = FilterExpression.FILTER_PARAMETER_NAME;
+        DMNContext filterContext = this.dmnTransformer.makeFilterContext(sourceType, filterParameterName, parentContext);
+        Statement filter = this.dmnTransformer.expressionToNative(element, expression.getMatch().getExpression(), filterContext);
+        String filterExp = this.nativeFactory.makeCollectionLogicFilter(source.getText(), filterParameterName, filter.getText());
+        return this.nativeFactory.makeExpressionStatement(filterExp, sourceType);
+    }
+
+    //
+    // TFor
+    //
+    Statement forExpressionToNative(TDRGElement element, TFor expression) {
+        DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
+
+        return forExpressionToNative(element, expression, globalContext);
+    }
+
+    Statement forExpressionToNative(TDRGElement element, TFor expression, DMNContext parentContext) {
+        // Check semantics
+        Type forType = this.dmnTransformer.expressionType(element, expression, parentContext);
+        Type sourceType = this.dmnTransformer.expressionType(element, expression.getIn().getExpression(), parentContext);
+
+        // Generate code
+        TExpression domainExpression = expression.getIn().getExpression();
+        String iteratorVariable = expression.getIteratorVariable();
+        TExpression bodyExpression = expression.getReturn().getExpression();
+
+        List<Pair<String, String>> domainIterators = new ArrayList<>();
+        DMNContext iteratorContext = this.dmnTransformer.makeIteratorContext(parentContext);
+        iteratorContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(iteratorVariable, ((ListType) sourceType).getElementType()));
+        Statement domain = this.dmnTransformer.expressionToNative(element, domainExpression, iteratorContext);
+        domainIterators.add(new Pair<>(domain.getText(), iteratorVariable));
+
+        Statement body = this.dmnTransformer.expressionToNative(element, bodyExpression, iteratorContext);
+        String forText = this.nativeFactory.makeForExpression(domainIterators, body.getText());
+        return this.nativeFactory.makeExpressionStatement(forText, forType);
+    }
+
+    //
+    // TSome
+    //
+    Statement someExpressionToNative(TDRGElement element, TSome expression) {
+        DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
+
+        return someExpressionToNative(element, expression, globalContext);
+    }
+
+    Statement someExpressionToNative(TDRGElement element, TSome expression, DMNContext parentContext) {
+        // Check semantics
+        Type type = this.dmnTransformer.expressionType(element, expression, parentContext);
+
+        // Generate code
+        TFor forExp = toFor(expression);
+        Statement forList = this.dmnTransformer.expressionToNative(element, forExp, parentContext);
+        String everyText = quantifiedExpressionToNative(forList.getText(), "some");
+        return nativeFactory.makeExpressionStatement(everyText, type);
+    }
+
+    //
+    // TEvery
+    //
+    Statement everyExpressionToNative(TDRGElement element, TEvery expression) {
+        DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
+
+        return everyExpressionToNative(element, expression, globalContext);
+    }
+
+    Statement everyExpressionToNative(TDRGElement element, TEvery expression, DMNContext parentContext) {
+        // Check semantics
+        Type type = this.dmnTransformer.expressionType(element, expression, parentContext);
+
+        // Generate code
+        TFor forExp = toFor(expression);
+        Statement forList = this.dmnTransformer.expressionToNative(element, forExp, parentContext);
+        String everyText = quantifiedExpressionToNative(forList.getText(), "every");
+        return nativeFactory.makeExpressionStatement(everyText, type);
+    }
+
+    private static TFor toFor(TQuantified expression) {
+        TFor for_ = new TFor();
+        for_.setIn(expression.getIn());
+        for_.setIteratorVariable(expression.getIteratorVariable());
+        for_.setReturn(expression.getSatisfies());
+        return for_;
+    }
+
+    private String quantifiedExpressionToNative(String list, String predicate) {
+        // Add boolean predicate
+        if ("some".equals(predicate)) {
+            return this.nativeFactory.makeSomeExpression(list);
+        } else if ("every".equals(predicate)) {
+            return this.nativeFactory.makeEveryExpression(list);
+        } else {
+            throw new UnsupportedOperationException("Predicate '" + predicate + "' is not supported yet");
+        }
     }
 }

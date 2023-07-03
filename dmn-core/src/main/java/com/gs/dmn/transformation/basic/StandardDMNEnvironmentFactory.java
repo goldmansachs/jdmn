@@ -40,6 +40,8 @@ import org.apache.commons.lang3.StringUtils;
 import javax.xml.namespace.QName;
 import java.util.*;
 
+import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
+
 public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     protected final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
 
@@ -300,6 +302,108 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 rowType.addMember(column.getName(), Arrays.asList(), columnType);
             }
             return new ListType(rowType);
+        } else if (expression instanceof TConditional) {
+            if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
+                return toFEELType(model, typeRef);
+            }
+
+            TChildExpression if_ = ((TConditional) expression).getIf();
+            TChildExpression then_ = ((TConditional) expression).getThen();
+            TChildExpression else_ = ((TConditional) expression).getElse();
+
+            // Derive type
+            Type conditionType = expressionType(element, if_.getExpression(), context);
+            Type thenType = expressionType(element, then_.getExpression(), context);
+            Type elseType = expressionType(element, else_.getExpression(), context);
+            if (conditionType != BOOLEAN) {
+                throw new DMNRuntimeException(String.format("Condition type must be boolean. Found '%s' instead in element '%s'.", conditionType, element.getName()));
+            }
+            if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType) && com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
+                throw new DMNRuntimeException(String.format("Types of then and else branches are incompatible. Found '%s' and '%s' in element '%s'.", thenType, elseType, element.getName()));
+            } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType)) {
+                return elseType;
+            } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
+                return thenType;
+            } else {
+                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(thenType, elseType)) {
+                    return elseType;
+                } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(elseType, thenType)) {
+                    return thenType;
+                } else {
+                    throw new DMNRuntimeException(String.format("Types of then and else branches are incompatible. Found '%s' and '%s' in element '%s'.", thenType, elseType, element.getName()));
+                }
+            }
+        } else if (expression instanceof TFilter) {
+            if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
+                return toFEELType(model, typeRef);
+            }
+
+            TChildExpression source = ((TFilter) expression).getIn();
+            TChildExpression match = ((TFilter) expression).getMatch();
+
+            // Derive type
+            Type sourceType = expressionType(element, source.getExpression(), context);
+            Type matchType = expressionType(element, match.getExpression(), context);
+            if (!(sourceType instanceof ListType)) {
+                throw new DMNRuntimeException(String.format("In expression in filter boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
+            }
+            if (matchType != BOOLEAN) {
+                throw new DMNRuntimeException(String.format("Match condition in filter boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName()));
+            }
+            return sourceType;
+        } else if (expression instanceof TFor) {
+            if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
+                return toFEELType(model, typeRef);
+            }
+
+            TChildExpression source = ((TFor) expression).getIn();
+            TChildExpression return_ = ((TFor) expression).getReturn();
+
+            // Derive type
+            Type sourceType = expressionType(element, source.getExpression(), context);
+            if (!(sourceType instanceof ListType)) {
+                throw new DMNRuntimeException(String.format("In expression in for boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
+            }
+            DMNContext iteratorContext = this.dmnTransformer.makeIteratorContext(context);
+            iteratorContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(((TFor) expression).getIteratorVariable(), ((ListType) sourceType).getElementType()));
+            Type returnType = expressionType(element, return_.getExpression(), iteratorContext);
+            return new ListType(returnType);
+        } else if (expression instanceof TSome) {
+            if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
+                return toFEELType(model, typeRef);
+            }
+
+            TChildExpression source = ((TSome) expression).getIn();
+            TChildExpression satisfies = ((TSome) expression).getSatisfies();
+
+            // Derive type
+            Type sourceType = expressionType(element, source.getExpression(), context);
+            Type satisfiesType = expressionType(element, satisfies.getExpression(), context);
+            if (satisfiesType != BOOLEAN) {
+                throw new DMNRuntimeException(String.format("Satisfies condition in some boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName()));
+            }
+            if (!(sourceType instanceof ListType)) {
+                throw new DMNRuntimeException(String.format("In expression in some boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
+            }
+            return BOOLEAN;
+        } else if (expression instanceof TEvery) {
+            if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
+                return toFEELType(model, typeRef);
+            }
+
+            TChildExpression source = ((TEvery) expression).getIn();
+            TChildExpression satisfies = ((TEvery) expression).getSatisfies();
+
+            // Derive type
+            Type sourceType = expressionType(element, source.getExpression(), context);
+            Type satisfiesType = expressionType(element, satisfies.getExpression(), context);
+            if (satisfiesType != BOOLEAN) {
+                throw new DMNRuntimeException(String.format("Satisfies condition in every boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName()));
+            }
+            if (!(sourceType instanceof ListType)) {
+                throw new DMNRuntimeException(String.format("In expression in every boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
+            }
+            return BOOLEAN;
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", expression.getClass().getSimpleName()));
         }

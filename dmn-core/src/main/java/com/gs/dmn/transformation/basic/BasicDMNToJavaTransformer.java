@@ -1654,6 +1654,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             return convertExpression(statement, expectedType);
         } else if (expression instanceof TRelation) {
             return this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression);
+        } else if (expression instanceof TConditional) {
+            return this.expressionToNativeTransformer.conditionalExpressionToNative(element, (TConditional) expression);
+        } else if (expression instanceof TFilter) {
+            return this.expressionToNativeTransformer.filterExpressionToNative(element, (TFilter) expression);
+        } else if (expression instanceof TFor) {
+            return this.expressionToNativeTransformer.forExpressionToNative(element, (TFor) expression);
+        } else if (expression instanceof TSome) {
+            return this.expressionToNativeTransformer.someExpressionToNative(element, (TSome) expression);
+        } else if (expression instanceof TEvery) {
+            return this.expressionToNativeTransformer.everyExpressionToNative(element, (TEvery) expression);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
         }
@@ -1671,6 +1681,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             return this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText(), context);
         } else if (expression instanceof TRelation) {
             return this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression, context);
+        } else if (expression instanceof TConditional) {
+            return this.expressionToNativeTransformer.conditionalExpressionToNative(element, (TConditional) expression, context);
+        } else if (expression instanceof TFilter) {
+            return this.expressionToNativeTransformer.filterExpressionToNative(element, (TFilter) expression, context);
+        } else if (expression instanceof TFor) {
+            return this.expressionToNativeTransformer.forExpressionToNative(element, (TFor) expression, context);
+        } else if (expression instanceof TSome) {
+            return this.expressionToNativeTransformer.someExpressionToNative(element, (TSome) expression, context);
+        } else if (expression instanceof TEvery) {
+            return this.expressionToNativeTransformer.everyExpressionToNative(element, (TEvery) expression, context);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
         }

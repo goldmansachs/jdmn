@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1152-boxed-for"
+             name="1152-boxed-for"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Boxed For Expression</description>
+
+    <decision name="decision001" id="_decision001">
+        <variable name="decision001"/>
+        <for iteratorVariable="element">
+            <in><literalExpression><text>[1,2,3,4,5]</text></literalExpression></in>
+            <return><literalExpression><text>element * 2</text></literalExpression></return>
+        </for>
+    </decision>
+
+    <decision name="decision002" id="_decision002">
+        <variable name="decision002"/>
+        <for iteratorVariable="element">
+            <in><literalExpression><text>[]</text></literalExpression></in>
+            <return><literalExpression><text>element * 2</text></literalExpression></return>
+        </for>
+    </decision>
+
+    <decision name="decision003" id="_decision003">
+        <variable name="decision003"/>
+        <for iteratorVariable="element">
+            <in><literalExpression><text>"not a list"</text></literalExpression></in>
+            <return><literalExpression><text>element</text></literalExpression></return>
+        </for>
+    </decision>
+
+    <decision name="decision004" id="_decision004">
+        <variable name="decision004"/>
+        <for iteratorVariable="element">
+            <in><literalExpression><text>1</text></literalExpression></in>
+            <return><literalExpression><text>element * 2</text></literalExpression></return>
+        </for>
+    </decision>
+
+</definitions>
+

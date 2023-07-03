@@ -512,4 +512,27 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     public void test_14_cl3_1145_feel_context_function() {
         doSingleModelTest("1.4", "1145-feel-context-function");
     }
+
+    @Test
+    public void test_14_cl3_1150_boxed_conditional() {
+        doSingleModelTest("1.4", "1150-boxed-conditional");
+    }
+
+    @Test
+    public void test_14_cl3_1151_boxed_filter() {
+        doSingleModelTest("1.4", "1151-boxed-filter");
+    }
+
+    @Test
+    public void test_14_cl3_1152_boxed_for() {
+        doSingleModelTest("1.4", "1152-boxed-for");
+    }
+    @Test
+    public void test_14_cl3_1153_boxed_some() {
+        doSingleModelTest("1.4", "1153-boxed-some");
+    }
+    @Test
+    public void test_14_cl3_1154_boxed_every() {
+        doSingleModelTest("1.4", "1154-boxed-every");
+    }
 }

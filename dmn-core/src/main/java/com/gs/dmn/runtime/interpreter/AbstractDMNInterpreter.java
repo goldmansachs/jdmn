@@ -27,6 +27,7 @@ import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.interpreter.StandardFEELInterpreter;
 import com.gs.dmn.feel.interpreter.TypeConverter;
@@ -549,6 +550,16 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             result = evaluateListExpression(element, (TList) expression, context, elementAnnotation);
         } else if (expression instanceof TRelation) {
             result = evaluateRelationExpression(element, (TRelation) expression, context, elementAnnotation);
+        } else if (expression instanceof TConditional) {
+            result = evaluateConditionalExpression(element, (TConditional) expression, context, elementAnnotation);
+        } else if (expression instanceof TFilter) {
+            result = evaluateFilterExpression(element, (TFilter) expression, context, elementAnnotation);
+        } else if (expression instanceof TFor) {
+            result = evaluateForExpression(element, (TFor) expression, context, elementAnnotation);
+        } else if (expression instanceof TSome) {
+            result = evaluateSomeExpression(element, (TSome) expression, context, elementAnnotation);
+        } else if (expression instanceof TEvery) {
+            result = evaluateEveryExpression(element, (TEvery) expression, context, elementAnnotation);
         } else {
             this.errorHandler.reportError(String.format("Expression '%s' not supported yet", expression.getClass().getSimpleName()));
         }
@@ -768,6 +779,124 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         }
         ListType listType = new ListType(relationType);
         return Result.of(relationValue, listType);
+    }
+
+    private Result evaluateConditionalExpression(TDRGElement element, TConditional expression, DMNContext context, DRGElement elementAnnotation) {
+        // Check semantics
+        Type type = this.dmnTransformer.expressionType(element, expression, context);
+
+        // Evaluate
+        Result condition = evaluateExpression(element, expression.getIf().getExpression(), context, elementAnnotation);
+        Result result;
+        if (Result.value(condition) == Boolean.TRUE) {
+            result = evaluateExpression(element, expression.getThen().getExpression(), context, elementAnnotation);
+        } else {
+            result = evaluateExpression(element, expression.getElse().getExpression(), context, elementAnnotation);
+        }
+
+        return Result.of(result.getValue(), type);
+    }
+
+    private Result evaluateFilterExpression(TDRGElement element, TFilter expression, DMNContext context, DRGElement elementAnnotation) {
+        // Check semantics
+        Type sourceType = this.dmnTransformer.expressionType(element, expression, context);
+
+        // Evaluate
+        Result source = evaluateExpression(element, expression.getIn().getExpression(), context, elementAnnotation);
+        Object sourceValue = Result.value(source);
+        sourceValue = checkSource(sourceValue, String.format("Expected list in filter boxed expression found '%s' in element '%s'", sourceValue, element.getName()));
+        List<Object> resultValue = new ArrayList<>();
+        for (Object item : (List) sourceValue) {
+            String filterParameterName = FilterExpression.FILTER_PARAMETER_NAME;
+            DMNContext filterContext = this.dmnTransformer.makeFilterContext(sourceType, filterParameterName, context);
+            filterContext.bind(filterParameterName, item);
+
+            Result filterResult = evaluateExpression(element, expression.getMatch().getExpression(), filterContext, elementAnnotation);
+            if (Result.value(filterResult) == Boolean.TRUE) {
+                resultValue.add(item);
+            }
+        }
+        return Result.of(resultValue, sourceType);
+    }
+
+    private Result evaluateForExpression(TDRGElement element, TFor expression, DMNContext context, DRGElement elementAnnotation) {
+        // Check semantics
+        Type sourceType = this.dmnTransformer.expressionType(element, expression, context);
+
+        // Evaluate
+        Result source = evaluateExpression(element, expression.getIn().getExpression(), context, elementAnnotation);
+        Object sourceValue = Result.value(source);
+        sourceValue = checkSource(sourceValue, String.format("Expected list in filter boxed expression found '%s' in element '%s'", sourceValue, element.getName()));
+        List<Object> resultValue = new ArrayList<>();
+        for (Object item : (List) sourceValue) {
+            DMNContext iteratorContext = this.dmnTransformer.makeIteratorContext(context);
+            String iteratorVariable = expression.getIteratorVariable();
+            iteratorContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(iteratorVariable, ((ListType) sourceType).getElementType()));
+            iteratorContext.bind(iteratorVariable, item);
+
+            Result iterationResult = evaluateExpression(element, expression.getReturn().getExpression(), iteratorContext, elementAnnotation);
+            resultValue.add(Result.value(iterationResult));
+        }
+        return Result.of(resultValue, sourceType);
+    }
+
+    private Result evaluateSomeExpression(TDRGElement element, TSome expression, DMNContext context, DRGElement elementAnnotation) {
+        // Check semantics
+        Type type = this.dmnTransformer.expressionType(element, expression, context);
+        Type sourceType = this.dmnTransformer.expressionType(element, expression.getIn().getExpression(), context);
+
+        // Evaluate
+        Result source = evaluateExpression(element, expression.getIn().getExpression(), context, elementAnnotation);
+        Object sourceValue = Result.value(source);
+        sourceValue = checkSource(sourceValue, String.format("Expected list in some boxed expression found '%s' in element '%s'", sourceValue, element.getName()));
+        Boolean resultValue = Boolean.FALSE;
+        for (Object item : (List) sourceValue) {
+            DMNContext iteratorContext = this.dmnTransformer.makeIteratorContext(context);
+            String iteratorVariable = expression.getIteratorVariable();
+            iteratorContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(iteratorVariable, ((ListType) sourceType).getElementType()));
+            iteratorContext.bind(iteratorVariable, item);
+
+            Result iterationResult = evaluateExpression(element, expression.getSatisfies().getExpression(), iteratorContext, elementAnnotation);
+            if (Result.value(iterationResult) == Boolean.TRUE) {
+                resultValue = Boolean.TRUE;
+                break;
+            }
+        }
+        return Result.of(resultValue, type);
+    }
+
+    private Result evaluateEveryExpression(TDRGElement element, TEvery expression, DMNContext context, DRGElement elementAnnotation) {
+        // Check semantics
+        Type type = this.dmnTransformer.expressionType(element, expression, context);
+        Type sourceType = this.dmnTransformer.expressionType(element, expression.getIn().getExpression(), context);
+
+        // Evaluate
+        Result source = evaluateExpression(element, expression.getIn().getExpression(), context, elementAnnotation);
+        Object sourceValue = Result.value(source);
+        sourceValue = checkSource(sourceValue, String.format("Expected list in every boxed expression found '%s' in element '%s'", sourceValue, element.getName()));
+        Boolean resultValue = Boolean.TRUE;
+        for (Object item : (List) sourceValue) {
+            DMNContext iteratorContext = this.dmnTransformer.makeIteratorContext(context);
+            String iteratorVariable = expression.getIteratorVariable();
+            iteratorContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(iteratorVariable, ((ListType) sourceType).getElementType()));
+            iteratorContext.bind(iteratorVariable, item);
+
+            Result iterationResult = evaluateExpression(element, expression.getSatisfies().getExpression(), iteratorContext, elementAnnotation);
+            Object value = Result.value(iterationResult);
+            if (value == null || value == Boolean.FALSE ) {
+                resultValue = Boolean.FALSE;
+                break;
+            }
+        }
+        return Result.of(resultValue, type);
+    }
+
+    private static List checkSource(Object sourceValue, String errorMessage) {
+        if (sourceValue instanceof List) {
+            return (List) sourceValue;
+        } else {
+            throw new DMNRuntimeException(errorMessage);
+        }
     }
 
     private Result evaluateFunctionDefinitionExpression(TDRGElement element, TFunctionDefinition expression, DMNContext context, DRGElement elementAnnotation) {

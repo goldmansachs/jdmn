@@ -239,6 +239,46 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link TConditional }
+     *
+     */
+    public TConditional createTConditional() {
+        return new TConditional();
+    }
+
+    /**
+     * Create an instance of {@link TFilter }
+     *
+     */
+    public TFilter createTFilter() {
+        return new TFilter();
+    }
+
+    /**
+     * Create an instance of {@link TFor }
+     *
+     */
+    public TFor createTFor() {
+        return new TFor();
+    }
+
+    /**
+     * Create an instance of {@link TSome }
+     *
+     */
+    public TSome createTSome() {
+        return new TSome();
+    }
+
+    /**
+     * Create an instance of {@link TEvery }
+     *
+     */
+    public TEvery createTEvery() {
+        return new TEvery();
+    }
+
+    /**
      * Create an instance of {@link TDecisionService }
      * 
      */
