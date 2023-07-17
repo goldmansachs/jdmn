@@ -96,7 +96,7 @@
                         <exclude>org/omg/**/*</exclude>
                         <!-- JPA integration -->
                         <exclude>com/gs/jpa/**/*</exclude>
-                        <!-- Signavio integration -->
+                        <!-- JMH integration -->
                         <exclude>com/gs/**/jmh/**/*</exclude>
                     </excludes>
                 </configuration>
