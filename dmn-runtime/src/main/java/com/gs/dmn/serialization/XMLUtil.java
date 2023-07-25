@@ -32,7 +32,7 @@ public class XMLUtil {
             dbf.setAttribute(attribute, ""); // compliant
         } catch (IllegalArgumentException e) {
             // This should catch a failed setAttribute feature
-            LOGGER.info("IllegalArgumentException was thrown. The attribute '" + attribute
+            LOGGER.debug("IllegalArgumentException was thrown. The attribute '" + attribute
                     + "' is probably not supported by your XML processor.");
         }
         String feature = null;
@@ -70,7 +70,7 @@ public class XMLUtil {
             // of service attacks (such as billion laughs or decompression bombs via "jar:") are a risk."
         } catch (ParserConfigurationException e) {
             // This should catch a failed setFeature feature
-            LOGGER.info("ParserConfigurationException was thrown. The feature '" + feature
+            LOGGER.debug("ParserConfigurationException was thrown. The feature '" + feature
                     + "' is probably not supported by your XML processor.");
         }
 
