@@ -637,6 +637,28 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         }
     }
 
+    @Override
+    public String stringJoin(List<String> list) {
+        try {
+            return this.stringLib.stringJoin(list);
+        } catch (Exception e) {
+            String message = String.format("stringJoin(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public String stringJoin(List<String> list, String delimiter) {
+        try {
+            return this.stringLib.stringJoin(list, delimiter);
+        } catch (Exception e) {
+            String message = String.format("stringJoin(%s, %s)", list, delimiter);
+            logError(message, e);
+            return null;
+        }
+    }
+
     //
     // Boolean functions
     //

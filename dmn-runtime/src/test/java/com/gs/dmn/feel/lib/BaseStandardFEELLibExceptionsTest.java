@@ -198,6 +198,12 @@ public abstract class BaseStandardFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE
     }
 
     @Test
+    public void testStringJoin() {
+        assertNull(getLib().stringJoin(null));
+        assertNull(getLib().stringJoin(null, null));
+    }
+
+    @Test
     public void testAnd() {
         assertNull(getLib().and((List) null));
         assertNull(getLib().and());

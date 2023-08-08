@@ -42,4 +42,8 @@ public interface StringLib {
     Boolean matches(String input, String pattern, String flags) throws Exception;
 
     List<String> split(String string, String delimiter);
+
+    String stringJoin(List<String> list);
+
+    String stringJoin(List<String> list, String delimiter);
 }
