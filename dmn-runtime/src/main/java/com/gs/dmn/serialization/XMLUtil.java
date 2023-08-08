@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.serialization;
 
+import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,8 @@ public class XMLUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(XMLUtil.class);
 
     public static DocumentBuilderFactory makeDocumentBuilderFactory() {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilderFactory dbf = new DocumentBuilderFactoryImpl();
+
         String attribute = null;
         try {
             attribute = XMLConstants.ACCESS_EXTERNAL_DTD;
