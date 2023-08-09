@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.serialization;
 
+import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,9 +24,19 @@ public class XMLUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(XMLUtil.class);
 
     public static DocumentBuilderFactory makeDocumentBuilderFactory() {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
-        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // compliant
+        DocumentBuilderFactory dbf = new DocumentBuilderFactoryImpl();
+
+        String attribute = null;
+        try {
+            attribute = XMLConstants.ACCESS_EXTERNAL_DTD;
+            dbf.setAttribute(attribute, ""); // Compliant
+            attribute = XMLConstants.ACCESS_EXTERNAL_SCHEMA;
+            dbf.setAttribute(attribute, ""); // compliant
+        } catch (IllegalArgumentException e) {
+            // This should catch a failed setAttribute feature
+            LOGGER.debug("IllegalArgumentException was thrown. The attribute '" + attribute
+                    + "' is probably not supported by your XML processor.");
+        }
         String feature = null;
         try {
             // This is the PRIMARY defense. If DTDs (doctypes) are disallowed, almost all
@@ -50,8 +61,6 @@ public class XMLUtil {
             // Disable external DTDs as well
             feature = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
             dbf.setFeature(feature, false);
-            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 
             // and these as well, per Timothy Morgan's 2014 paper: "XML Schema, DTD, and Entity Attacks"
             dbf.setXIncludeAware(false);
@@ -63,7 +72,7 @@ public class XMLUtil {
             // of service attacks (such as billion laughs or decompression bombs via "jar:") are a risk."
         } catch (ParserConfigurationException e) {
             // This should catch a failed setFeature feature
-            LOGGER.info("ParserConfigurationException was thrown. The feature '" + feature
+            LOGGER.debug("ParserConfigurationException was thrown. The feature '" + feature
                     + "' is probably not supported by your XML processor.");
         }
 

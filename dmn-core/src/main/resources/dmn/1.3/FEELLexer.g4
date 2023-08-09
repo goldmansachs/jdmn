@@ -229,6 +229,9 @@ NAME:
     'ends' WhiteSpace+ 'with'
     { setText("ends with"); }
     |
+    'string' WhiteSpace+ 'join'
+    { setText("string join"); }
+    |
     'start' WhiteSpace+ 'position'
     { setText("start position"); }
     |

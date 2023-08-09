@@ -1408,6 +1408,14 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         return result;
     }
 
+    protected List<String> makeStringList(String... strings) {
+        List<String> result = new ArrayList<>();
+        for (String str: strings) {
+            result.add(str);
+        }
+        return result;
+    }
+
     protected DATE makeDate(String literal) {
         return getLib().date(literal);
     }

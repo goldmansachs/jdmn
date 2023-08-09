@@ -32,6 +32,9 @@ buildNumber.properties
 
 # Binary files
 *.class
+/dmn-tck-it/dmn-tck-it-python-translator/.venv/
+/dmn-tck-it/dmn-tck-it-python-translator/src/scripts.egg-info/
+/dmn-tck-it/dmn-tck-it-python-translator/src/UNKNOWN.egg-info/
 
 # Python related
 .pytest_cache/
