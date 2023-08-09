@@ -35,8 +35,10 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class DefaultStringLib implements StringLib {
     private static final ThreadLocal<DecimalFormat> DECIMAL_FORMAT = ThreadLocal.withInitial(() -> new DecimalFormat("0.########"));
@@ -118,6 +120,23 @@ public class DefaultStringLib implements StringLib {
         int end = cps.length;
         String result = appendCodePoints(cps, start, end);
         return result;
+    }
+
+    @Override
+    public String stringJoin(List<String> list) {
+        return stringJoin(list, null);
+    }
+
+    @Override
+    public String stringJoin(List<String> list, String delimiter) {
+        if (list == null) {
+            return null;
+        }
+        if (delimiter == null) {
+            delimiter = "";
+        }
+
+        return list.stream().filter(Objects::nonNull).collect(Collectors.joining(delimiter));
     }
 
     @Override

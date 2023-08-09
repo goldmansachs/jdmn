@@ -148,6 +148,9 @@ public class FEELLexerTest extends AbstractLexerTest {
         token = checkToken("ends with", NAME, "ends with");
         checkPosition(token, 1, 1, 1, 9, 0, 9);
 
+        token = checkToken("string join", NAME, "string join");
+        checkPosition(token, 1, 1, 1, 11, 0, 11);
+
         token = checkToken("list contains", NAME, "list contains");
         checkPosition(token, 1, 1, 1, 13, 0, 13);
 
