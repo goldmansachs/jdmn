@@ -27,7 +27,7 @@
     <packaging>maven-plugin</packaging>
 
     <properties>
-        <maven.version>3.6.2</maven.version>
+        <maven.version>3.8.1</maven.version>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../dmn-aggregate/${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
