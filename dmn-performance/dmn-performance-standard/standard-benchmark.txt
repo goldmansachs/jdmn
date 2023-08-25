@@ -1,0 +1,13 @@
+Benchmark                                            Mode      Cnt   Score    Error   Units
+LendingStandardBenchmarkTest.testCompiler           thrpt       20  49.179 ±  1.467  ops/ms
+LendingStandardBenchmarkTest.testCompiler            avgt       20   0.018 ±  0.001   ms/op
+LendingStandardBenchmarkTest.testCompiler          sample  4831332   0.021 ±  0.001   ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.00    sample            0.014            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.50    sample            0.018            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.90    sample            0.026            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.95    sample            0.033            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.99    sample            0.046            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.999   sample            0.087            ms/op
+LendingStandardBenchmarkTest.testCompiler:p0.9999  sample            1.219            ms/op
+LendingStandardBenchmarkTest.testCompiler:p1.00    sample           15.417            ms/op
+LendingStandardBenchmarkTest.testCompiler              ss       20   0.878 ±  0.161   ms/op
