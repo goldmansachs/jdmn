@@ -13,14 +13,14 @@
 package com.gs.dmn.feel.lib.type.string;
 
 import com.gs.dmn.feel.lib.FormatUtils;
-import com.gs.dmn.serialization.XMLUtil;
+import net.sf.saxon.Configuration;
+import net.sf.saxon.dom.DocumentBuilderImpl;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
@@ -287,13 +287,13 @@ public class DefaultStringLib implements StringLib {
     private String evaluateXPath(String input, String expression) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
         // Read document
         String xml = "<root>" + input + "</root>";
-        DocumentBuilderFactory builderFactory = XMLUtil.makeDocumentBuilderFactory();
-        DocumentBuilder builder = builderFactory.newDocumentBuilder();
+        DocumentBuilder builder = new DocumentBuilderImpl();
         InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
         Document document = builder.parse(inputStream);
+        Configuration configuration = ((DocumentBuilderImpl) builder).getConfiguration();
 
         // Evaluate xpath
-        XPathFactory xPathFactory = new XPathFactoryImpl();
+        XPathFactory xPathFactory = new XPathFactoryImpl(configuration);
         XPath xPath = xPathFactory.newXPath();
         return xPath.evaluate(expression, document.getDocumentElement());
     }
