@@ -5,4 +5,5 @@ java -cp target/benchmarks.jar com.gs.dmn.jmh.example_credit_decision_mixed.Cred
 cd ..
 cd dmn-performance-standard
 java -cp target/benchmarks.jar com.gs.dmn.jmh.cl3_0004_lending.LendingStandardBenchmarkTest
+java -cp target/benchmarks.jar com.gs.dmn.jmh.StringLibBenchmarkTest
 cd ..
