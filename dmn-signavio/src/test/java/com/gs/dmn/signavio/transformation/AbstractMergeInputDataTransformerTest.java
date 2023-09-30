@@ -19,6 +19,7 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public abstract class AbstractMergeInputDataTransformerTest extends AbstractSignavioFileTransformerTest {
@@ -136,5 +138,14 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
         String key1 = this.transformer.equivalenceKey(inputData1, signavioDMNModelRepository);
         String key2 = this.transformer.equivalenceKey(inputData2, signavioDMNModelRepository);
         return key1.equals(key2) && inputData1 != inputData2;
+    }
+
+    @Test
+    public void testReplace() {
+        doReplace("employee222", "employee", "employee2227.field", "employee2227.field");
+    }
+
+    private void doReplace(String oldName, String newName, String oldText, String newText) {
+        assertEquals(newText, getTransformer().replace(oldName, newName, oldText));
     }
 }
