@@ -165,6 +165,9 @@
                 <outputEntry id="_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661-2">
                     <text>"DECLINE"</text>
                 </outputEntry>
+                <annotationEntry>
+                    <text>annotation</text>
+                </annotationEntry>
             </rule>
             <rule id="_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12">
                 <inputEntry id="_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12-0">
