@@ -1,13 +1,13 @@
 Benchmark                                 Mode     Cnt       Score   Error   Units
-StringLibBenchmarkTest.testLib           thrpt      20       0.861 ± 0.169  ops/ms
-StringLibBenchmarkTest.testLib            avgt      20       1.125 ± 0.010   ms/op
-StringLibBenchmarkTest.testLib          sample  166950       1.972 ± 2.548   ms/op
-StringLibBenchmarkTest.testLib:p0.00    sample               0.806           ms/op
-StringLibBenchmarkTest.testLib:p0.50    sample               1.149           ms/op
-StringLibBenchmarkTest.testLib:p0.90    sample               1.389           ms/op
-StringLibBenchmarkTest.testLib:p0.95    sample               1.534           ms/op
-StringLibBenchmarkTest.testLib:p0.99    sample               1.845           ms/op
-StringLibBenchmarkTest.testLib:p0.999   sample               4.293           ms/op
-StringLibBenchmarkTest.testLib:p0.9999  sample              22.274           ms/op
-StringLibBenchmarkTest.testLib:p1.00    sample          129251.672           ms/op
-StringLibBenchmarkTest.testLib              ss      20       9.073 ± 2.595   ms/op
+StringLibBenchmarkTest.testLib           thrpt      20       1.616 ± 0.033  ops/ms
+StringLibBenchmarkTest.testLib            avgt      20       0.620 ± 0.012   ms/op
+StringLibBenchmarkTest.testLib          sample  314875       2.408 ± 5.835   ms/op
+StringLibBenchmarkTest.testLib:p0.00    sample               0.538           ms/op
+StringLibBenchmarkTest.testLib:p0.50    sample               0.601           ms/op
+StringLibBenchmarkTest.testLib:p0.90    sample               0.718           ms/op
+StringLibBenchmarkTest.testLib:p0.95    sample               0.790           ms/op
+StringLibBenchmarkTest.testLib:p0.99    sample               1.108           ms/op
+StringLibBenchmarkTest.testLib:p0.999   sample               2.071           ms/op
+StringLibBenchmarkTest.testLib:p0.9999  sample               6.501           ms/op
+StringLibBenchmarkTest.testLib:p1.00    sample          558345.748           ms/op
+StringLibBenchmarkTest.testLib              ss      20       3.175 ± 0.260   ms/op

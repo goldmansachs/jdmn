@@ -44,10 +44,7 @@ public class LendingStandardBenchmarkTest {
     }
 
     private void testCase001() {
-        com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
-        com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
-        com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-        com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
+        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
         TApplicantData applicantData = new TApplicantDataImpl(decision.number("35"), "EMPLOYED", true, "M", new MonthlyImpl(decision.number("2000"), decision.number("6000"), decision.number("0")));
         TRequestedProduct requestedProduct = new TRequestedProductImpl(decision.number("350000"), "STANDARD LOAN", decision.number("0.0395"), decision.number("360"));
@@ -55,27 +52,27 @@ public class LendingStandardBenchmarkTest {
         String supportingDocuments = "YES";
 
         // Check Adjudication
-        new Adjudication().apply(applicantData, bureauData, supportingDocuments, annotationSet_, eventListener_, externalExecutor_, cache_);
+        new Adjudication().apply(applicantData, bureauData, supportingDocuments, context_);
         // Check ApplicationRiskScore
-        new ApplicationRiskScore().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+        new ApplicationRiskScore().apply(applicantData, context_);
         // Check 'Pre-bureauRiskCategory'
-        new PreBureauRiskCategory().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+        new PreBureauRiskCategory().apply(applicantData, context_);
         // Check BureauCallType
-        new BureauCallType().apply(applicantData, annotationSet_, eventListener_, externalExecutor_, cache_);
+        new BureauCallType().apply(applicantData, context_);
         // Check 'Post-bureauRiskCategory'
-        new PostBureauRiskCategory().apply(applicantData, bureauData, annotationSet_, eventListener_, externalExecutor_, cache_);
+        new PostBureauRiskCategory().apply(applicantData, bureauData, context_);
         // Check RequiredMonthlyInstallment
-        new RequiredMonthlyInstallment().apply(requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+        new RequiredMonthlyInstallment().apply(requestedProduct, context_);
         // Check 'Pre-bureauAffordability'
-        new PreBureauAffordability().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+        new PreBureauAffordability().apply(applicantData, requestedProduct, context_);
         // Check Eligibility
-        new Eligibility().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+        new Eligibility().apply(applicantData, requestedProduct, context_);
         // Check Strategy
-        new Strategy().apply(applicantData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+        new Strategy().apply(applicantData, requestedProduct, context_);
         // Check 'Post-bureauAffordability'
-        new PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+        new PostBureauAffordability().apply(applicantData, bureauData, requestedProduct, context_);
         // Check Routing
-        new Routing().apply(applicantData, bureauData, requestedProduct, annotationSet_, eventListener_, externalExecutor_, cache_);
+        new Routing().apply(applicantData, bureauData, requestedProduct, context_);
     }
 
     public static void main(String[] args) throws RunnerException {

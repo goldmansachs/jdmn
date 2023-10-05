@@ -15,13 +15,7 @@ package com.gs.dmn.jmh.example_credit_decision;
 import com.gs.dmn.generated.example_credit_decision.GenerateOutputData;
 import com.gs.dmn.generated.example_credit_decision.type.ApplicantImpl;
 import com.gs.dmn.jmh.PerformanceUtils;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.cache.Cache;
-import com.gs.dmn.runtime.cache.DefaultCache;
-import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
-import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
-import com.gs.dmn.runtime.listener.EventListener;
-import com.gs.dmn.runtime.listener.NopEventListener;
+import com.gs.dmn.runtime.*;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.RunResult;
 import org.openjdk.jmh.runner.Runner;
@@ -46,10 +40,7 @@ public class CreditDecisionSignavioBenchmarkTest {
     }
 
     private void executeCompiled(long startTime) {
-        AnnotationSet annotationSet_ = new AnnotationSet();
-        EventListener eventListener_ = new NopEventListener();
-        ExternalFunctionExecutor externalExecutor_ = new DefaultExternalFunctionExecutor();
-        Cache cache_ = new DefaultCache();
+        ExecutionContext context_ = new ExecutionContext();
 
         ApplicantImpl applicant = new ApplicantImpl();
         applicant.setName("Amy");
@@ -60,7 +51,7 @@ public class CreditDecisionSignavioBenchmarkTest {
         BigDecimal currentRiskAppetite = decision.number("50");
         BigDecimal lendingThreshold = decision.number("25");
 
-        List<?> result = decision.apply(applicant, currentRiskAppetite, lendingThreshold, annotationSet_, eventListener_, externalExecutor_, cache_);
+        List<?> result = decision.apply(applicant, currentRiskAppetite, lendingThreshold, context_);
 //        System.out.println(result);
 
         long endTime = System.currentTimeMillis();
