@@ -1,5 +1,5 @@
 -r ../requirements.txt
 -r ../requirements.testing.txt
 
-tox>=4.0.2    # Command line driven CI frontend and development task automation tool
+# tox>=4.11.3 # Command line driven CI frontend and development task automation tool
 wheel>=0.37.1 # To build wheels
