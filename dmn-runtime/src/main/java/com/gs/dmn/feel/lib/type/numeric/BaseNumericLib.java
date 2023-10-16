@@ -18,6 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class BaseNumericLib<NUMBER> implements NumericLib<NUMBER> {
+    protected static int MIN_SCALE = -6111;
+    protected static int MAX_SCALE = 6176;
+
     @Override
     public NUMBER number(String from, String groupingSeparator, String decimalSeparator) {
         if (StringUtils.isBlank(from)) {

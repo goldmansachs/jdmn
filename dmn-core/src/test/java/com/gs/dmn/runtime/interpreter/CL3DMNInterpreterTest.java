@@ -527,12 +527,44 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     public void test_14_cl3_1152_boxed_for() {
         doSingleModelTest("1.4", "1152-boxed-for");
     }
+
     @Test
     public void test_14_cl3_1153_boxed_some() {
         doSingleModelTest("1.4", "1153-boxed-some");
     }
+
     @Test
     public void test_14_cl3_1154_boxed_every() {
         doSingleModelTest("1.4", "1154-boxed-every");
+    }
+
+    @Test
+    public void test_14_cl3_1101_feel_floor_function() {
+        doSingleModelTest("1.4", "1101-feel-floor-function");
+    }
+
+    @Test
+    public void test_14_cl3_1102_feel_ceiling_function() {
+        doSingleModelTest("1.4", "1102-feel-ceiling-function");
+    }
+
+    @Test
+    public void test_14_cl3_1141_feel_round_up_function() {
+        doSingleModelTest("1.4", "1141-feel-round-up-function");
+    }
+
+    @Test
+    public void test_14_cl3_1142_feel_round_down_function() {
+        doSingleModelTest("1.4", "1142-feel-round-down-function");
+    }
+
+    @Test
+    public void test_14_cl3_1143_feel_round_half_up_function() {
+        doSingleModelTest("1.4", "1143-feel-round-half-up-function");
+    }
+
+    @Test
+    public void test_14_cl3_1144_feel_round_half_down_function() {
+        doSingleModelTest("1.4", "1144-feel-round-half-down-function");
     }
 }

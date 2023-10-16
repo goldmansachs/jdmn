@@ -34,6 +34,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> {
         if (n == null || scale == null) {
             return null;
         }
+        checkScale(scale);
 
         return BigDecimal.valueOf(n).setScale(scale.intValue(), RoundingMode.HALF_EVEN).doubleValue();
     }
@@ -43,6 +44,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> {
         if (n == null || scale == null || mode == null) {
             return null;
         }
+        checkScale(scale);
 
         return BigDecimal.valueOf(n).setScale(scale.intValue(), mode).doubleValue();
     }
@@ -52,6 +54,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> {
         if (n == null || scale == null) {
             return null;
         }
+        checkScale(scale);
 
         return BigDecimal.valueOf(n).setScale(scale.intValue(), RoundingMode.FLOOR).doubleValue();
     }
@@ -61,6 +64,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> {
         if (n == null || scale == null) {
             return null;
         }
+        checkScale(scale);
 
         return BigDecimal.valueOf(n).setScale(scale.intValue(), RoundingMode.CEILING).doubleValue();
     }
@@ -318,5 +322,11 @@ public class DoubleNumericLib extends BaseNumericLib<Double> {
     @Override
     public Number toNumber(Double number) {
         return number;
+    }
+
+    private void checkScale(Double scale) {
+        if (scale != null && (scale.intValue() < MIN_SCALE || scale.intValue() > MAX_SCALE)) {
+            throw new DMNRuntimeException(String.format("Scale '%s' not in range [%s, %s]", scale, MIN_SCALE, MAX_SCALE));
+        }
     }
 }

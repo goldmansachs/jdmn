@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1144-feel-round-half-down-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: Number</label>
+        <label>FEEL Functions: number</label>
+    </labels>
+
+    <testCase id="001">
+        <description>Will round to integer</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">5</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>Will round to negative to integer</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">-5</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>Will round positive to scale</description>
+        <resultNode name="decision003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1.12</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>Will round negative to scale</description>
+        <resultNode name="decision004" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">-1.13</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>No params gives null</description>
+        <resultNode errorResult="true" name="decision005" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>Missing scale param gives null</description>
+        <resultNode errorResult="true" name="decision006" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>null number gives null</description>
+        <resultNode errorResult="true" name="decision007" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>null scale gives null</description>
+        <resultNode errorResult="true" name="decision008" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009">
+        <description>Too many params gives null</description>
+        <resultNode errorResult="true" name="decision009" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010">
+        <description>named params</description>
+        <resultNode name="decision010" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">5</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011_a">
+        <description>Missing 'n' named param gives null </description>
+        <resultNode errorResult="true" name="decision011_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011_b">
+        <description>Missing 'scale' named param gives null </description>
+        <resultNode errorResult="true" name="decision011_b" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012">
+        <description>Incorrect named param gives null</description>
+        <resultNode errorResult="true" name="decision012" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="013">
+        <description>Incorrect 'n' type gives null</description>
+        <resultNode errorResult="true" name="decision013" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="014">
+        <description>Incorrect 'scale' type gives null</description>
+        <resultNode errorResult="true" name="decision014" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- comment decimal scale tests for now, subject to clarification -->
+<!--
+    <testCase id="015">
+        <description>Non integer scale param gives null</description>
+        <resultNode errorResult="true" name="decision015" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <!-- comment negative scale tests for now, subject to clarification -->
+<!--
+    what is expected for a negative scale?
+    <testCase id="016_a">
+        <description>Min scale is −6111</description>
+        <resultNode errorResult="true" name="decision016_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">5.5</value>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <testCase id="016_b">
+        <description>less than min scale gives null</description>
+        <resultNode errorResult="true" name="decision016_b" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="017_a">
+        <description>Max scale is 6176</description>
+        <resultNode name="decision017_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">5.5</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="017_b">
+        <description>Greater than max scale gives null</description>
+        <resultNode errorResult="true" name="decision017_b" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

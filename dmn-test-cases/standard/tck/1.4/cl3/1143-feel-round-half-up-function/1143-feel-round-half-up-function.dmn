@@ -1,126 +1,157 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions namespace="http://www.actico.com/spec/DMN/1102-feel-ceiling-function"
-             name="1102-feel-ceiling-function"
-             id="_i-UiEPUUEeesLuP4RHs4vA"
-             xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/">
-    <description>FEEL built-in function 'ceiling(n, scale)' in category numeric functions</description>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1143-feel-round-half-up-function"
+             name="1143-feel-round-half-up-function"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>FEEL built-in function 'round half up(n,scale)' in category number functions</description>
 
     <decision name="decision001" id="_decision001">
         <variable name="decision001"/>
         <literalExpression>
-            <text>ceiling(1.5)</text>
+            <text>round half up(5.5, 0)</text>
         </literalExpression>
     </decision>
 
     <decision name="decision002" id="_decision002">
         <variable name="decision002"/>
         <literalExpression>
-            <text>ceiling(-1.5)</text>
+            <text>round half up(-5.5, 0)</text>
         </literalExpression>
     </decision>
 
     <decision name="decision003" id="_decision003">
         <variable name="decision003"/>
         <literalExpression>
-            <text>ceiling(-0.3333)</text>
+            <text>round half up(1.121, 2)</text>
         </literalExpression>
     </decision>
 
     <decision name="decision004" id="_decision004">
         <variable name="decision004"/>
         <literalExpression>
-            <text>ceiling(1.56, 1)</text>
+            <text>round half up(-1.126, 2)</text>
         </literalExpression>
     </decision>
 
     <decision name="decision005" id="_decision005">
         <variable name="decision005"/>
         <literalExpression>
-            <text>ceiling(-1.56, 1)</text>
+            <text>round half up()</text>
         </literalExpression>
     </decision>
 
     <decision name="decision006" id="_decision006">
         <variable name="decision006"/>
         <literalExpression>
-            <text>ceiling(null, 1)</text>
+            <text>round half up(1234)</text>
         </literalExpression>
     </decision>
 
     <decision name="decision007" id="_decision007">
         <variable name="decision007"/>
         <literalExpression>
-            <text>ceiling(n:null, scale:1)</text>
+            <text>round half up(null,0)</text>
         </literalExpression>
     </decision>
 
     <decision name="decision008" id="_decision008">
         <variable name="decision008"/>
         <literalExpression>
-            <text>ceiling(1.56, null)</text>
+            <text>round half up(1234,null)</text>
         </literalExpression>
     </decision>
 
     <decision name="decision009" id="_decision009">
         <variable name="decision009"/>
         <literalExpression>
-            <text>ceiling(n:1.56, scale:null)</text>
+            <text>round half up(1234.12,1,2)</text>
         </literalExpression>
     </decision>
 
     <decision name="decision010" id="_decision010">
         <variable name="decision010"/>
         <literalExpression>
-            <text>ceiling()</text>
+            <text>round half up(n:5.5,scale:0)</text>
         </literalExpression>
     </decision>
 
-    <decision name="decision011" id="_decision011">
-        <variable name="decision011"/>
+    <decision name="decision011_a" id="_decision011_a">
+        <variable name="decision011_a"/>
         <literalExpression>
-            <text>ceiling(1.5, 1, 2)</text>
+            <text>round half up(scale:0)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision011_b" id="_decision011_b">
+        <variable name="decision011_b"/>
+        <literalExpression>
+            <text>round half up(n:5.5)</text>
         </literalExpression>
     </decision>
 
     <decision name="decision012" id="_decision012">
         <variable name="decision012"/>
         <literalExpression>
-            <text>ceiling(n:1.5, scale:1, stuff:2)</text>
+            <text>round half up(n:5.5,scale:0,foo:123)</text>
         </literalExpression>
     </decision>
 
     <decision name="decision013" id="_decision013">
         <variable name="decision013"/>
         <literalExpression>
-            <text>ceiling(n:1.5, scal:1)</text>
+            <text>round half up("123", 0)</text>
         </literalExpression>
     </decision>
 
     <decision name="decision014" id="_decision014">
         <variable name="decision014"/>
         <literalExpression>
-            <text>ceiling("1.5")</text>
+            <text>round half up(5.5, "0")</text>
         </literalExpression>
     </decision>
 
+    <!-- comment decimal scale tests for now, subject to clarification -->
+<!--
     <decision name="decision015" id="_decision015">
         <variable name="decision015"/>
         <literalExpression>
-            <text>ceiling(1.5, "1")</text>
+            <text>round half up(5.5, 1.1)</text>
+        </literalExpression>
+    </decision>
+-->
+
+    <!-- comment negative scale tests for now, subject to clarification -->
+<!--
+    <decision name="decision016_a" id="_decision016_a">
+        <variable name="decision016_a"/>
+        <literalExpression>
+            <text>round half up(5.5, -6111)</text>
+        </literalExpression>
+    </decision>
+-->
+
+    <decision name="decision016_b" id="_decision016_b">
+        <variable name="decision016_b"/>
+        <literalExpression>
+            <text>round half up(5.5, (-6111 - 1))</text>
         </literalExpression>
     </decision>
 
-    <decision name="decision016" id="_decision016">
-        <variable name="decision016"/>
+    <decision name="decision017_a" id="_decision017_a">
+        <variable name="decision017_a"/>
         <literalExpression>
-            <text>ceiling(n:"1.5")</text>
+            <text>round half up(5.5, 6176)</text>
         </literalExpression>
     </decision>
 
-    <decision name="decision017" id="_decision017">
-        <variable name="decision017"/>
+    <decision name="decision017_b" id="_decision017_b">
+        <variable name="decision017_b"/>
         <literalExpression>
-            <text>ceiling(n:1.5, scale:"1")</text>
+            <text>round half up(5.5, (6176 + 1))</text>
         </literalExpression>
     </decision>
 
