@@ -509,6 +509,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_14_cl3_0092_feel_lambda() {
+        doSingleModelTest("1.4", "0092-feel-lambda", new Pair<>("strongTyping", "false"));
+    }
+
+    @Test
     public void test_14_cl3_100_arithmetic() {
         doSingleModelTest("1.4", "0100-arithmetic");
     }

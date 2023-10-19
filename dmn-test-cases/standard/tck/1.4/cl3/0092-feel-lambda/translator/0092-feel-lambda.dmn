@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+             name="0092-feel-lambda"
+             xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/" >
+    <description>FEEL lambda</description>
+
+    <!-- function definitions -->
+    <itemDefinition name="lambda_number_returns_number">
+        <functionItem outputTypeRef="number">
+            <parameters name="n" typeRef="number" />
+        </functionItem>
+    </itemDefinition>
+
+    <itemDefinition name="lambda_number_number_returns_number">
+        <functionItem outputTypeRef="number">
+            <parameters name="n1" typeRef="number" />
+            <parameters name="n2" typeRef="number" />
+        </functionItem>
+    </itemDefinition>
+
+    <itemDefinition name="lambda_list_number_returns_number">
+        <functionItem outputTypeRef="number">
+            <parameters name="ns" typeRef="list_of_number" />
+        </functionItem>
+    </itemDefinition>
+
+    <itemDefinition name="list_of_number" isCollection="true">
+        <typeRef>number</typeRef>
+    </itemDefinition>
+
+    <itemDefinition name="lambda_string_string_returns_bool">
+        <functionItem outputTypeRef="boolean">
+            <parameters name="s1" typeRef="string" />
+            <parameters name="s2" typeRef="string" />
+        </functionItem>
+    </itemDefinition>
+
+    <itemDefinition name="list_of_string" isCollection="true">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
+    <!-- decision returns a UDF lambda (no closures) -->
+    <decision name="decision_001_2" id="_decision_001_2">
+        <variable name="decision_001_2"/>
+        <literalExpression>
+            <text>function (a: number) 1 + a</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_001_1" id="_decision_001_1">
+        <variable name="decision_001_1"/>
+        <informationRequirement>
+            <requiredDecision href="#_decision_001_2"/>
+        </informationRequirement>
+        <!-- invokes a lambda supplied by another decision -->
+        <literalExpression>
+            <text>decision_001_2(2)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <!-- decision returns a function definition lambda (no closures) -->
+    <decision name="decision_002_2" id="_decision_002_2">
+        <variable name="decision_002_2"/>
+        <functionDefinition>
+            <formalParameter name="a" typeRef="number"/>
+            <literalExpression>
+                <text>1 + a</text>
+            </literalExpression>
+        </functionDefinition>
+    </decision>
+
+    <decision name="decision_002_1" id="_decision_002_1">
+        <variable name="decision_002_1"/>
+        <informationRequirement>
+            <requiredDecision href="#_decision_002_2"/>
+        </informationRequirement>
+        <!-- invokes a lambda supplied by another decision -->
+        <literalExpression>
+            <text>decision_002_2(3)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <!-- BKM returns a UDF lambda (no closures) -->
+    <businessKnowledgeModel name="bkm_003_1" id="_bkm_003_1">
+        <variable name="bkm_003_1"/>
+        <encapsulatedLogic>
+            <literalExpression>
+                <text>function (a: number) 1 + a</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_003_1" id="_decision_003_1">
+        <variable name="decision_003_1"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_003_1"/>
+        </knowledgeRequirement>
+        <!-- invokes a lambda supplied by bkm -->
+        <literalExpression>
+            <text>bkm_003_1()(4)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <!-- BKM returns a Function Definition lambda (no closures) -->
+    <businessKnowledgeModel name="bkm_004_1" id="_bkm_004_1">
+        <variable name="bkm_004_1"/>
+        <encapsulatedLogic>
+            <functionDefinition>
+                <formalParameter name="a" typeRef="number"/>
+                <literalExpression>
+                    <text>1 + a</text>
+                </literalExpression>
+            </functionDefinition>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_004_1" id="_decision_004_1">
+        <variable name="decision_004_1"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_004_1"/>
+        </knowledgeRequirement>
+        <!-- invokes a lambda supplied by bkm -->
+        <literalExpression>
+            <text>bkm_004_1()(5)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <!-- BKM has a single param.  It returns a UDF lambda that uses that bkm param in closure -->
+    <businessKnowledgeModel name="bkm_005_1" id="_bkm_005_1">
+        <variable name="bkm_005_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="a" typeRef="number"/>
+            <literalExpression>
+                <text>function (b: number) a * b</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_005_1" id="_decision_005_1">
+        <variable name="decision_005_1"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_005_1"/>
+        </knowledgeRequirement>
+        <!-- invokes bkm.  The bkm returns a function with '10' closed over.   -->
+        <literalExpression>
+            <text>bkm_005_1(10)(2)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <!-- BKM has a single param.  It returns a func defn lambda that uses that bkm param in closure -->
+    <businessKnowledgeModel name="bkm_006_1" id="_bkm_006_1">
+        <variable name="bkm_006_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="a" typeRef="number"/>
+            <functionDefinition>
+                <formalParameter name="b" typeRef="number"/>
+                <literalExpression>
+                    <text>a * b</text>
+                </literalExpression>
+            </functionDefinition>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_006_1" id="_decision_006_1">
+        <variable name="decision_006_1"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_006_1"/>
+        </knowledgeRequirement>
+        <!-- invokes bkm.  The bkm returns a function with '10' closed over.   -->
+        <literalExpression>
+            <text>bkm_006_1(10)(3)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <inputData name="input_007_1" id="_input_007_1">
+        <variable name="input_007_1" typeRef="number" />
+    </inputData>
+
+    <!-- decision returns a UDF lambda that closes over an info requirement input data value -->
+    <decision name="decision_007_2" id="_decision_007_2">
+        <variable name="decision_007_2"/>
+        <informationRequirement>
+            <requiredInput href="#_input_007_1"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>function (a: number) a * input_007_1</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_007_1" id="_decision_007_1">
+        <variable name="decision_007_1"/>
+        <informationRequirement>
+            <requiredDecision href="#_decision_007_2"/>
+        </informationRequirement>
+        <!-- invokes a lambda that has the value of input_007_1 closed over -->
+        <literalExpression>
+            <text>decision_007_2(5)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <!-- BKM has a param.  It returns a UDF lambda that has the same name as one of its own params -->
+    <businessKnowledgeModel name="bkm_008_1" id="_bkm_008_1">
+        <variable name="bkm_008_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="a" typeRef="number"/>
+            <literalExpression>
+                <text>function (a: number, b: number) a * b</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_008_1" id="_decision_008_1">
+        <variable name="decision_008_1"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_008_1"/>
+        </knowledgeRequirement>
+        <!-- invokes lambda passing 10 as param 'a', but as lambda has an 'a' param the 10 is not closed over -->
+        <literalExpression>
+            <text>bkm_008_1(10)(2, 3)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <!-- BKM returns a UDF with a closed over 'a' -->
+    <businessKnowledgeModel name="bkm_009_1" id="_bkm_009_1">
+        <variable name="bkm_009_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="a" typeRef="number"/>
+            <literalExpression>
+                <text>function (b: number) a * b</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_009_1" id="_decision_009_1">
+        <variable name="decision_009_1"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_009_1"/>
+        </knowledgeRequirement>
+        <context>
+            <contextEntry>
+                <!-- var 'a' in scope for expression below -->
+                <variable name="a"/>
+                <literalExpression>
+                    <text>10</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <!-- lambda from bkm has 'a' closed over with value 100 - so it gets used, not the 10 from context
+                var above -->
+                <literalExpression>
+                    <text>bkm_009_1(100)(2)</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+
+    <!-- -->
+
+    <!-- bkm has UDF lambda that has a currying-like multiple levels of closure -->
+    <businessKnowledgeModel name="bkm_010_1" id="_bkm_010_1">
+        <variable name="bkm_010_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="a" typeRef="number"/>
+            <literalExpression>
+                <text>function (b: number) function(c: number) function(d: number) a*b*c*d</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_010_2" id="_decision_010_2">
+        <variable name="decision_010_2"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_010_1"/>
+        </knowledgeRequirement>
+        <!-- invokes lambda passing param that close over multiple levels, but last level is not invoked
+        so expression result is actually the final nested lambda -->
+        <literalExpression>
+            <text>bkm_010_1(2)(3)(4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_010_1" id="_decision_010_1">
+        <variable name="decision_010_1"/>
+        <informationRequirement>
+            <requiredDecision href="#_decision_010_2"/>
+        </informationRequirement>
+        <!-- invokes lambda passing param that close over multiple levels -->
+        <literalExpression>
+            <text>decision_010_2(5)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <!-- bkm has function definition lambda that a currying-like multiple levels of closure -->
+    <businessKnowledgeModel name="bkm_010_1_a" id="_bkm_010_1_a">
+        <variable name="bkm_010_1_a"/>
+        <encapsulatedLogic>
+            <formalParameter name="a" typeRef="number"/>
+            <functionDefinition>
+                <formalParameter name="b" typeRef="number"/>
+                <functionDefinition>
+                    <formalParameter name="c" typeRef="number"/>
+                    <functionDefinition>
+                        <formalParameter name="d" typeRef="number"/>
+                        <literalExpression>
+                            <text>a*b*c*d</text>
+                        </literalExpression>
+                    </functionDefinition>
+                </functionDefinition>
+            </functionDefinition>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_010_2_a" id="_decision_010_2_a">
+        <variable name="decision_010_2_a"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_010_1_a"/>
+        </knowledgeRequirement>
+        <!-- invokes lambda passing param that close over multiple levels, but last level is not invoked
+        so expression result is actually the final nested lambda -->
+        <literalExpression>
+            <text>bkm_010_1_a(2)(3)(4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_010_1_a" id="_decision_010_1_a">
+        <variable name="decision_010_1_a"/>
+        <informationRequirement>
+            <requiredDecision href="#_decision_010_2_a"/>
+        </informationRequirement>
+        <!-- invokes lambda passing param that close over multiple levels -->
+        <literalExpression>
+            <text>decision_010_2_a(5)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <!-- BKM take two lambda params -->
+    <businessKnowledgeModel name="bkm_011_1" id="_bkm_011_1">
+        <variable name="bkm_011_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="fn1" typeRef="lambda_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_returns_number"/>
+            <literalExpression>
+                <text>fn1(5)*fn2(10)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <inputData name="input_011_1" id="_input_011_1">
+        <variable name="input_011_1" typeRef="number" />
+    </inputData>
+
+    <decision name="decision_011_1" id="_decision_011_1">
+        <variable name="decision_011_1"/>
+        <informationRequirement>
+            <requiredInput href="#_input_011_1"/>
+        </informationRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_011_1"/>
+        </knowledgeRequirement>
+        <literalExpression>
+            <!-- two UDF lambdas are passed to bkm_011_1 -->
+            <text>bkm_011_1(function (a: number) input_011_1 * a, function (b: number) input_011_1 * b)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <!-- BKM take two lambda params -->
+    <businessKnowledgeModel name="bkm_012_1" id="_bkm_012_1">
+        <variable name="bkm_012_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="fn1" typeRef="lambda_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_returns_number"/>
+            <literalExpression>
+                <text>fn1(5)*fn2(10)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <businessKnowledgeModel name="bkm_012_2" id="_bkm_012_2">
+        <variable name="bkm_012_2"/>
+        <encapsulatedLogic>
+            <formalParameter name="a" typeRef="number"/>
+            <literalExpression>
+                <text>a * 10</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_012_1" id="_decision_012_1">
+        <variable name="decision_012_1"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_012_1"/>
+        </knowledgeRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_012_2"/>
+        </knowledgeRequirement>
+        <!-- bkm_012_2 is not executed here but is passed on to bkm_012_1 -->
+        <literalExpression>
+            <text>bkm_012_1(bkm_012_2, bkm_012_2)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <inputData name="input_013_1" id="_input_013_1">
+        <variable name="input_013_1" typeRef="number"/>
+    </inputData>
+
+    <decisionService name="decisionService_013_1" id="_decisionService_013_1">
+        <variable name="decisionService_013_1"/>
+        <outputDecision href="#_decision_013_2"/>
+        <inputData href="#_input_013_1"/>
+    </decisionService>
+
+    <decision name="decision_013_2" id="_decision_013_2">
+        <variable name="decision_013_2"/>
+        <informationRequirement>
+            <requiredInput href="#_input_013_1"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>input_013_1 * 10</text>
+        </literalExpression>
+    </decision>
+
+    <!-- BKM take two DS lambda params (each DS returns a context)-->
+    <businessKnowledgeModel name="bkm_013_1" id="_bkm_013_1">
+        <variable name="bkm_013_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="fn1" typeRef="lambda_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_returns_number"/>
+            <literalExpression>
+                <!-- DS invocations - with param.  Each DS invocation returns a context -->
+                <text>fn1(5)*fn2(10)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_013_1" id="_decision_013_1">
+        <variable name="decision_013_1"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_013_1"/>
+        </knowledgeRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_decisionService_013_1"/>
+        </knowledgeRequirement>
+        <!-- decisionService_013_1 is not executed here but is passed on to bkm_013_1 -->
+        <literalExpression>
+            <text>bkm_013_1(decisionService_013_1, decisionService_013_1)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <!-- BKM take two lambda params -->
+    <businessKnowledgeModel name="bkm_014_1" id="_bkm_014_1">
+        <variable name="bkm_014_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="fn1" typeRef="lambda_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_returns_number"/>
+            <literalExpression>
+                <text>fn1(-5)*fn2(25)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_014_1" id="_decision_014_1">
+        <variable name="decision_014_1"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_014_1"/>
+        </knowledgeRequirement>
+        <!-- passed built-in functions as params  -->
+        <literalExpression>
+            <text>bkm_014_1(abs, sqrt)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <businessKnowledgeModel name="bkm_015_1" id="_bkm_015_1">
+        <variable name="bkm_015_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="fn1" typeRef="lambda_list_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_number_returns_number"/>
+            <literalExpression>
+                <!-- pass in 'sum' func is used both in sum(list) and sum(list..) modes -->
+                <text>fn1([1,2,3])*fn2(1,2)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_015_1" id="_decision_015_1">
+        <variable name="decision_015_1"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_015_1"/>
+        </knowledgeRequirement>
+        <!-- passed overloadable built-in function as param  -->
+        <literalExpression>
+            <text>bkm_015_1(sum, sum)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <businessKnowledgeModel name="bkm_016_1" id="_bkm_016_1">
+        <variable name="bkm_016_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="fn1" typeRef="lambda_number_number_returns_number"/>
+            <literalExpression>
+                <!-- passed in 'sqrt' func is invoked with too many params -->
+                <text>fn1(10,2)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision_016_1" id="_decision_016_1">
+        <variable name="decision_016_1"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_016_1"/>
+        </knowledgeRequirement>
+        <literalExpression>
+            <text>bkm_016_1(sqrt)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <businessKnowledgeModel name="bkm_017_1" id="_bkm_017_1">
+        <variable name="bkm_017_1"/>
+        <encapsulatedLogic>
+            <formalParameter name="fn1" typeRef="lambda_string_string_returns_bool"/>
+            <literalExpression>
+                <!-- passed in 'precedes' lambda is passed again to sort() -->
+                <text>sort(["a","z", "a", "z"], fn1)</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <inputData name="input_017_1" id="_input_017_1">
+        <variable name="input_017_1" typeRef="string" />
+    </inputData>
+
+    <decision name="decision_017_1" id="_decision_017_1">
+        <variable name="decision_017_1"/>
+        <informationRequirement>
+            <requiredInput href="#_input_017_1"/>
+        </informationRequirement>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_017_1"/>
+        </knowledgeRequirement>
+        <literalExpression>
+            <text>bkm_017_1(function (a: string, b: string) if a = input_017_1 then true else false)</text>
+        </literalExpression>
+    </decision>
+
+    <!-- -->
+
+    <businessKnowledgeModel name="bkm_018" id="_bkm_018">
+        <variable name="bkm_018"/>
+        <encapsulatedLogic>
+            <formalParameter name="p1" typeRef="string"/>
+            <formalParameter name="p2" typeRef="string"/>
+            <literalExpression>
+                <text>if p1 = "a" then true else false</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <!-- decision pass a BKM to the sort() function -->
+    <decision name="decision_018" id="_decision_018">
+        <variable name="decision_018"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_bkm_018"/>
+        </knowledgeRequirement>
+        <literalExpression>
+            <text>sort(["a","z", "a", "z"], bkm_018)</text>
+        </literalExpression>
+    </decision>
+
+</definitions>
