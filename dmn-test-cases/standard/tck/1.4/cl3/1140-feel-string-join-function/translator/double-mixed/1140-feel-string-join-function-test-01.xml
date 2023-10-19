@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1140-feel-string-join-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: String</label>
+        <label>FEEL Functions: string</label>
+    </labels>
+
+    <testCase id="001">
+        <description>Will join</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>Will join (with delimiter)</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">a and b and c</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>Will join with empty delimiter</description>
+        <resultNode name="decision003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>Will join with null delimiter</description>
+        <resultNode name="decision004" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005_a">
+        <description>Will join single element list</description>
+        <resultNode name="decision005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">a</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005_b">
+        <description>Will join single element list (with delimiter)</description>
+        <resultNode name="decision005_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">a</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006_a">
+        <description>Will ignore null elements in list</description>
+        <resultNode name="decision006_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">ac</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006_b">
+        <description>Will ignore null elements in list (with delimiter)</description>
+        <resultNode name="decision006_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">aXc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007_a">
+        <description>Will join empty list as ""</description>
+        <resultNode name="decision007_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007_b">
+        <description>Will join empty list as "" (with delimiter)</description>
+        <resultNode name="decision007_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:string"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>No params gives null</description>
+        <resultNode errorResult="true" name="decision008" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009">
+        <description>Too many params gives null</description>
+        <resultNode errorResult="true" name="decision009" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010_a">
+        <description>Join with named param</description>
+        <resultNode name="decision010_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">ac</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010_b">
+        <description>Join with named params (with delimiter) </description>
+        <resultNode name="decision010_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">aXc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011_a">
+        <description>Incorrect named delimiter param gives null</description>
+        <resultNode errorResult="true" name="decision011_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011_b">
+        <description>Incorrect named list param gives null</description>
+        <resultNode errorResult="true" name="decision011_b" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012_a">
+        <description>null list gives null</description>
+        <resultNode errorResult="true" name="decision012_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012_b">
+        <description>null list gives null (with delimiter)</description>
+        <resultNode errorResult="true" name="decision012_b" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="013">
+        <description>Incorrect list type gives null</description>
+        <resultNode errorResult="true" name="decision013" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="014">
+        <description>Non-list non-string list param gives null</description>
+        <resultNode errorResult="true" name="decision014" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="015">
+        <description>Non-list string list param is coerced to list</description>
+        <resultNode name="decision015" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">a</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="016">
+        <description>Non-list string named list param is coerced to list</description>
+        <resultNode name="decision016" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">a</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>
