@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1147-feel-context-merge-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: Context</label>
+        <label>FEEL Functions: context</label>
+    </labels>
+
+    <testCase id="001">
+        <description>Will merge a context</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:decimal">1</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="001_a">
+        <description>Will merge empty context</description>
+        <resultNode name="decision001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>Will merge multiple contexts</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:decimal">1</value>
+                </component>
+                <component name="b">
+                    <value xsi:type="xsd:decimal">2</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>Will overwrite existing context entry</description>
+        <resultNode name="decision003" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:decimal">2</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>Will overwrite (not merge) nested contexts</description>
+        <resultNode name="decision004" type="decision">
+            <expected>
+                <component name="a">
+                    <component name="bb">
+                        <value xsi:type="xsd:decimal">2</value>
+                    </component>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>Null contexts param gives null</description>
+        <resultNode errorResult="true" name="decision005" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>Too few params gives null</description>
+        <resultNode errorResult="true" name="decision006" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>Too many params gives null</description>
+        <resultNode errorResult="true" name="decision007" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>named params</description>
+        <resultNode name="decision008" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:decimal">1</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009">
+        <description>Incorrect named param gives null</description>
+        <resultNode errorResult="true" name="decision009" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010">
+        <description>Incorrect 'contexts' type gives null</description>
+        <resultNode errorResult="true" name="decision010" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011">
+        <description>Non-context entry in 'contexts' gives null</description>
+        <resultNode errorResult="true" name="decision011" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012">
+        <description>Will coerce single context to list</description>
+        <resultNode name="decision012" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:decimal">1</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="013">
+        <description>Will coerce single name param entry to list</description>
+        <resultNode name="decision013" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:decimal">1</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>
