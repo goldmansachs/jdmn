@@ -504,6 +504,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_14_cl3_0085_decision_services() {
+        doSingleModelTest("1.4", "0085-decision-services");
+    }
+
+    @Test
     public void test_14_cl3_100_arithmetic() {
         doSingleModelTest("1.4", "0100-arithmetic");
     }
