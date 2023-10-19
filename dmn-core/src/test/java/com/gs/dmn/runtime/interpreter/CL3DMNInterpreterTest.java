@@ -567,4 +567,14 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     public void test_14_cl3_1144_feel_round_half_down_function() {
         doSingleModelTest("1.4", "1144-feel-round-half-down-function");
     }
+
+    @Test
+    public void test_14_cl3_1148_feel_now_function() {
+        doSingleModelTest("1.4", "1148-feel-now-function");
+    }
+
+    @Test
+    public void test_14_cl3_1148_feel_today_function() {
+        doSingleModelTest("1.4", "1149-feel-today-function");
+    }
 }
