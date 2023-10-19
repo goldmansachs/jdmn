@@ -549,6 +549,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_14_cl3_1131_feel_function_invocation() {
+        doSingleModelTest("1.4", "1131-feel-function-invocation");
+    }
+
+    @Test
     public void test_14_cl3_1141_feel_round_up_function() {
         doSingleModelTest("1.4", "1141-feel-round-up-function");
     }
