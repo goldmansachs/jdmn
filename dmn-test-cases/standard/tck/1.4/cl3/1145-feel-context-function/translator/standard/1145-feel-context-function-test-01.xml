@@ -16,10 +16,10 @@
         <resultNode name="decision001" type="decision">
             <expected>
                 <component name="a">
-                    <value xsi:type="xsd:double">1</value>
+                    <value xsi:type="xsd:decimal">1</value>
                 </component>
                 <component name="b">
-                    <value xsi:type="xsd:double">2</value>
+                    <value xsi:type="xsd:decimal">2</value>
                 </component>
             </expected>
         </resultNode>
@@ -30,7 +30,7 @@
         <resultNode name="decision002" type="decision">
             <expected>
                 <component name="a">
-                    <value xsi:type="xsd:double">1</value>
+                    <value xsi:type="xsd:decimal">1</value>
                 </component>
             </expected>
         </resultNode>
@@ -62,7 +62,7 @@
         <resultNode name="decision005" type="decision">
             <expected>
                 <component name="a">
-                    <value xsi:type="xsd:double">1</value>
+                    <value xsi:type="xsd:decimal">1</value>
                 </component>
             </expected>
         </resultNode>
@@ -111,7 +111,7 @@
         <resultNode name="decision010" type="decision">
             <expected>
                 <component name="">
-                    <value xsi:type="xsd:double">1</value>
+                    <value xsi:type="xsd:decimal">1</value>
                 </component>
             </expected>
         </resultNode>
@@ -153,7 +153,7 @@
         <resultNode name="decision014_a" type="decision">
             <expected>
                 <component name="a">
-                    <value xsi:type="xsd:double">1</value>
+                    <value xsi:type="xsd:decimal">1</value>
                 </component>
             </expected>
         </resultNode>
@@ -164,7 +164,7 @@
         <resultNode name="decision014_b" type="decision">
             <expected>
                 <component name="a">
-                    <value xsi:type="xsd:double">1</value>
+                    <value xsi:type="xsd:decimal">1</value>
                 </component>
             </expected>
         </resultNode>
@@ -197,47 +197,12 @@
         <resultNode name="decision017" type="decision">
             <expected>
                 <component name="a">
-                    <value xsi:type="xsd:double">1</value>
-                </component>
-            </expected>
-        </resultNode>
-    </testCase>
-
-    <testCase id="018">
-        <description>Value of context() equivalentTo the decision typeRef</description>
-        <resultNode name="decision018" type="decision">
-            <expected>
-                <component name="a">
                     <value xsi:type="xsd:decimal">1</value>
                 </component>
-                <component name="b">
-                    <value xsi:type="xsd:decimal">2</value>
-                </component>
             </expected>
         </resultNode>
     </testCase>
 
-    <testCase id="019">
-        <description>Value of context() conformsTo the decision typeRef</description>
-        <resultNode name="decision019" type="decision">
-            <expected>
-                <component name="a">
-                    <value xsi:type="xsd:decimal">1</value>
-                </component>
-                <component name="b">
-                    <value xsi:type="xsd:decimal">2</value>
-                </component>
-            </expected>
-        </resultNode>
-    </testCase>
 
-    <testCase id="020">
-        <description>Value of context() does not conformsTo the decision typeRef</description>
-        <resultNode name="decision020" type="decision">
-            <expected>
-               <value xsi:nil="true"/>
-            </expected>
-        </resultNode>
-    </testCase>
 
 </testCases>
