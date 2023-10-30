@@ -449,4 +449,41 @@ null   // BKM variable's typeRef is number.
         </resultNode>
     </testCase> -->
 
+    <testCase id="decision_context_01">
+        <description>Value of context() equivalentTo the decision typeRef</description>
+        <resultNode name="decision_context_01" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:decimal">1</value>
+                </component>
+                <component name="b">
+                    <value xsi:type="xsd:decimal">2</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_context_02">
+        <description>Value of context() conformsTo the decision typeRef</description>
+        <resultNode name="decision_context_02" type="decision">
+            <expected>
+                <component name="a">
+                    <value xsi:type="xsd:decimal">1</value>
+                </component>
+                <component name="b">
+                    <value xsi:type="xsd:decimal">2</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_context_03">
+        <description>Value of context() does not conformsTo the decision typeRef</description>
+        <resultNode name="decision_context_03" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
 </testCases>

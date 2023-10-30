@@ -24,6 +24,33 @@
         </itemComponent>
     </itemDefinition>
 
+    <itemDefinition name="exactContextType" label="ExactContextType" id="_exactContextType">
+        <itemComponent name="a" id="_ae">
+            <typeRef>number</typeRef>
+        </itemComponent>
+        <itemComponent name="b" id="_be">
+            <typeRef>number</typeRef>
+        </itemComponent>
+    </itemDefinition>
+
+    <itemDefinition name="superContextType" label="SuperContextType" id="_superContextType">
+        <itemComponent name="a" id="_as">
+            <typeRef>number</typeRef>
+        </itemComponent>
+    </itemDefinition>
+
+    <itemDefinition name="otherContextType" label="OtherContextType" id="_otherContextType">
+        <itemComponent name="a" id="_ao">
+            <typeRef>number</typeRef>
+        </itemComponent>
+        <itemComponent name="b" id="_b">
+            <typeRef>number</typeRef>
+        </itemComponent>
+        <itemComponent name="c" id="_c">
+            <typeRef>number</typeRef>
+        </itemComponent>
+    </itemDefinition>
+
     <decision name="decision_001" id="_decision_001">
         <variable typeRef="string" name="decision_001"/>
         <literalExpression>
@@ -516,6 +543,27 @@
         </knowledgeRequirement>
         <literalExpression>
             <text>decisionService_003("foo")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_context_01" id="_decision_context_01">
+        <variable name="decision_context_01" typeRef="exactContextType"/>
+        <literalExpression>
+            <text>context(entries: [{key:"a", value:1}, {key:"b", value:2}])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_context_02" id="_decision_context_02">
+        <variable name="decision_context_02" typeRef="superContextType"/>
+        <literalExpression>
+            <text>context(entries: [{key:"a", value:1}, {key:"b", value:2}])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision_context_03" id="_decision_context_03">
+        <variable name="decision_context_03" typeRef="otherContextType"/>
+        <literalExpression>
+            <text>context(entries: [{key:"a", value:1}, {key:"b", value:2}])</text>
         </literalExpression>
     </decision>
 
