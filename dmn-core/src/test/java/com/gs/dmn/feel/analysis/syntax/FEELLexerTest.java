@@ -19,9 +19,58 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer.*;
 
 public class FEELLexerTest extends AbstractLexerTest {
+    private static List<String> SPECIAL_NAMES = Arrays.asList(
+            // constructors
+            "date and time",
+            "days and time duration",
+            "years and months duration",
+            // number functions
+            "round up",
+            "round down",
+            "round half up",
+            "round half down",
+            // string functions
+            "string length",
+            "upper case",
+            "lower case",
+            "substring before",
+            "substring after",
+            "starts with",
+            "ends with",
+            "string join",
+            // list functions
+            "start position",
+            "list contains",
+            "insert before",
+            "index of",
+            "distinct values",
+            // context functions
+            "get entries",
+            "get value",
+            "context put",
+            "context merge",
+            // range functions
+            "met by",
+            "overlaps before",
+            "overlaps after",
+            "finished by",
+            "started by",
+            "start included",
+            "end included",
+            // date time properties
+            "day of year",
+            "day of week",
+            "month of year",
+            "week of year",
+            "time offset"
+    );
+
     @Test
     public void testSpaces() {
         String verticalSpaces = "\n\u000B\u000C\r";
@@ -67,6 +116,10 @@ public class FEELLexerTest extends AbstractLexerTest {
 
         token = checkToken("\"a\\U01F40Eb\"", STRING, "\"a\uD83D\uDC0Eb\"");
         checkPosition(token, 1, 1, 1, 6, 0, 12);
+
+        // multiline string
+        token = checkToken("\"l1\\\nl2\"", STRING, "\"l1\\\nl2\"");
+        checkPosition(token, 1, 1, 2, 4, 0, 8);
 
         token = checkToken("\".\"", STRING, "\".\"");
         checkPosition(token, 1, 1, 1, 3, 0, 3);
@@ -118,50 +171,17 @@ public class FEELLexerTest extends AbstractLexerTest {
         token = checkToken(name, NAME, name);
         checkPosition(token, 1, 1, 1, 32, 0, 30);
 
-        token = checkToken("date and time", NAME, "date and time");
-        checkPosition(token, 1, 1, 1, 13, 0, 13);
-
-        token = checkToken("years and months duration", NAME, "years and months duration");
-        checkPosition(token, 1, 1, 1, 25, 0, 25);
-
-        token = checkToken("days and time duration", NAME, "days and time duration");
-        checkPosition(token, 1, 1, 1, 22, 0, 22);
-
-        token = checkToken("string length", NAME, "string length");
-        checkPosition(token, 1, 1, 1, 13, 0, 13);
-
-        token = checkToken("upper case", NAME, "upper case");
-        checkPosition(token, 1, 1, 1, 10, 0, 10);
-
-        token = checkToken("lower case", NAME, "lower case");
-        checkPosition(token, 1, 1, 1, 10, 0, 10);
-
-        token = checkToken("substring before", NAME, "substring before");
-        checkPosition(token, 1, 1, 1, 16, 0, 16);
-
-        token = checkToken("substring after", NAME, "substring after");
-        checkPosition(token, 1, 1, 1, 15, 0, 15);
-
-        token = checkToken("starts with", NAME, "starts with");
-        checkPosition(token, 1, 1, 1, 11, 0, 11);
-
-        token = checkToken("ends with", NAME, "ends with");
-        checkPosition(token, 1, 1, 1, 9, 0, 9);
-
-        token = checkToken("list contains", NAME, "list contains");
-        checkPosition(token, 1, 1, 1, 13, 0, 13);
-
-        token = checkToken("insert before", NAME, "insert before");
-        checkPosition(token, 1, 1, 1, 13, 0, 13);
-
-        token = checkToken("index of", NAME, "index of");
-        checkPosition(token, 1, 1, 1, 8, 0, 8);
-
-        token = checkToken("distinct values", NAME, "distinct values");
-        checkPosition(token, 1, 1, 1, 15, 0, 15);
-
-        token = checkToken("distinct  values", NAME, "distinct values");
-        checkPosition(token, 1, 1, 1, 15, 0, 16);
+        // date and time functions
+        for (String nameWithSpaces: SPECIAL_NAMES) {
+            token = checkToken(nameWithSpaces, NAME, nameWithSpaces);
+            int end = nameWithSpaces.length();
+            checkPosition(token, 1, 1, 1, end, 0, end);
+            // Check for extra spaces
+            String nameWithExtraSpaces = nameWithSpaces.replace(" ", "  ");
+            token = checkToken(nameWithExtraSpaces, NAME, nameWithSpaces);
+            int endWithSpaces = nameWithExtraSpaces.length();
+            checkPosition(token, 1, 1, 1, end, 0, endWithSpaces);
+        }
     }
 
     @Test
@@ -224,7 +244,7 @@ public class FEELLexerTest extends AbstractLexerTest {
                 new String[] {"<", "1"}
         );
 
-        checkTokenList(false,
+        checkTokenList(
                 "booleanA and booleanB or booleanA", new Integer[] {NAME, AND, NAME, OR, NAME},
                 new String[] {"booleanA", "and", "booleanB", "or", "booleanA", "1"}
         );
@@ -233,43 +253,43 @@ public class FEELLexerTest extends AbstractLexerTest {
     @Test
     public void testNameAndKeywords() {
         String text = "true and true";
-        checkTokenList(true,
+        checkTokenList(
                 text, new Integer[] {TRUE, AND, TRUE},
                 new String[] {"true", "and", "true"}
         );
 
         text = "true and BooleanInput";
-        checkTokenList(true,
+        checkTokenList(
                 text, new Integer[] {TRUE, AND, NAME},
                 new String[] {"true", "and", "BooleanInput"}
         );
 
         text = "BooleanInput and true";
-        checkTokenList(true,
+        checkTokenList(
                 text, new Integer[] {NAME, AND, TRUE},
                 new String[] {"BooleanInput", "and", "true"}
         );
 
         text = "3 between 1 and 4";
-        checkTokenList(true,
+        checkTokenList(
                 text, new Integer[] {NUMBER, BETWEEN, NUMBER, AND, NUMBER},
                 new String[] {"3", "between", "1", "and", "4"}
         );
 
         text = "(i) between 1 and 2";
-        checkTokenList(true,
+        checkTokenList(
                 text, new Integer[] {PAREN_OPEN, NAME, PAREN_CLOSE, BETWEEN, NUMBER, AND, NUMBER},
                 new String[] {"(", "i", ")", "between", "1", "and", "2"}
         );
 
         text = "1 in 1";
-        checkTokenList(true,
+        checkTokenList(
                 text, new Integer[] {NUMBER, IN, NUMBER},
                 new String[] {"1", "in", "1"}
         );
 
         text = "i instance of number";
-        checkTokenList(true,
+        checkTokenList(
                 text, new Integer[] {NAME, INSTANCE_OF, NAME},
                 new String[] {"i", "instance of", "number"}
         );
@@ -296,7 +316,7 @@ public class FEELLexerTest extends AbstractLexerTest {
     @Test
     public void testForIterator() {
         String text = "for i in ";
-        checkTokenList(false,
+        checkTokenList(
                 text, new Integer[] {FOR, NAME, IN},
                 new String[] {"for", "i", "in"}
         );

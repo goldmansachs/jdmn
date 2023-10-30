@@ -19,11 +19,11 @@ import com.gs.dmn.feel.analysis.FEELAnalyzerImpl;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 public class FEELTranslatorForInterpreter extends AbstractFEELTranslator {
-    public FEELTranslatorForInterpreter(ELAnalyzer<Type, DMNContext> feelAnalyzer, FEELToNativeVisitor expressionVisitor) {
+    public FEELTranslatorForInterpreter(ELAnalyzer<Type, DMNContext> feelAnalyzer, FEELToTripleNativeVisitor expressionVisitor) {
         super(feelAnalyzer, expressionVisitor);
     }
 
     public FEELTranslatorForInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
-        this(new FEELAnalyzerImpl(dmnTransformer), new FEELToNativeForInterpreterVisitor(dmnTransformer));
+        this(new FEELAnalyzerImpl(dmnTransformer), new FEELToTripleNativeVisitor(dmnTransformer));
     }
 }

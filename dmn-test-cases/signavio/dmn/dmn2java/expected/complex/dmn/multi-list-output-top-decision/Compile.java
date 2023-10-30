@@ -112,7 +112,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
             Boolean.TRUE,
-            (listEqual(trafficLight, asList("Red")))
+            listEqual(trafficLight, asList("Red"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -150,7 +150,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
             Boolean.TRUE,
-            (listEqual(trafficLight, asList("Yellow")))
+            listEqual(trafficLight, asList("Yellow"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -188,7 +188,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
             Boolean.TRUE,
-            (listEqual(trafficLight, asList("Green")))
+            listEqual(trafficLight, asList("Green"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -226,7 +226,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
             Boolean.TRUE,
-            (notContainsAny(trafficLight, asList("Red", "Green")))
+            notContainsAny(trafficLight, asList("Red", "Green"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -264,7 +264,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
             Boolean.TRUE,
-            (containsOnly(trafficLight, asList("Red", "Green")))
+            containsOnly(trafficLight, asList("Red", "Green"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -302,7 +302,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
             Boolean.TRUE,
-            booleanNot((notContainsAny(trafficLight, asList("Yellow"))))
+            booleanNot(notContainsAny(trafficLight, asList("Yellow")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -340,7 +340,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
             Boolean.TRUE,
-            (containsOnly(trafficLight, asList("Red")))
+            containsOnly(trafficLight, asList("Red"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -378,7 +378,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
             Boolean.TRUE,
-            (containsOnly(trafficLight, asList("Green")))
+            containsOnly(trafficLight, asList("Green"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

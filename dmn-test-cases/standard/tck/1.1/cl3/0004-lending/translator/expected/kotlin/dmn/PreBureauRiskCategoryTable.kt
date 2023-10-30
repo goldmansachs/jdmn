@@ -94,8 +94,8 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, false)),
-            (numericLessThan(applicationRiskScore, number("100")))
+            booleanEqual(existingCustomer, false),
+            numericLessThan(applicationRiskScore, number("100"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -129,8 +129,8 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, false)),
-            (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("100")), numericLessThan(applicationRiskScore, number("120"))))
+            booleanEqual(existingCustomer, false),
+            booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("100")), numericLessThan(applicationRiskScore, number("120")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -164,8 +164,8 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, false)),
-            (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessThan(applicationRiskScore, number("130"))))
+            booleanEqual(existingCustomer, false),
+            booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessThan(applicationRiskScore, number("130")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -199,8 +199,8 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, false)),
-            (numericGreaterThan(applicationRiskScore, number("130")))
+            booleanEqual(existingCustomer, false),
+            numericGreaterThan(applicationRiskScore, number("130"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -234,8 +234,8 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, true)),
-            (numericLessThan(applicationRiskScore, number("80")))
+            booleanEqual(existingCustomer, true),
+            numericLessThan(applicationRiskScore, number("80"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -269,8 +269,8 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, true)),
-            (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("80")), numericLessThan(applicationRiskScore, number("90"))))
+            booleanEqual(existingCustomer, true),
+            booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("80")), numericLessThan(applicationRiskScore, number("90")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -304,8 +304,8 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, true)),
-            (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("90")), numericLessEqualThan(applicationRiskScore, number("110"))))
+            booleanEqual(existingCustomer, true),
+            booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("90")), numericLessEqualThan(applicationRiskScore, number("110")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -339,8 +339,8 @@ class PreBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PreBureauRiskCategoryTableRuleOutput = PreBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, true)),
-            (numericGreaterThan(applicationRiskScore, number("110")))
+            booleanEqual(existingCustomer, true),
+            numericGreaterThan(applicationRiskScore, number("110"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

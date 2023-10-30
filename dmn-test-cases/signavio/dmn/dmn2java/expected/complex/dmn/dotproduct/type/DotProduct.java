@@ -13,8 +13,16 @@ public interface DotProduct extends com.gs.dmn.runtime.DMNType {
             return (DotProduct)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             DotProductImpl result_ = new DotProductImpl();
-            result_.setDotProduct2((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("dotProduct2", "DotProduct"));
-            result_.setOutputMessage((String)((com.gs.dmn.runtime.Context)other).get("outputMessage", "Output Message"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("dotProduct2") || ((com.gs.dmn.runtime.Context)other).keySet().contains("DotProduct")) {
+                result_.setDotProduct2((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("dotProduct2", "DotProduct"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("outputMessage") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Output Message")) {
+                result_.setOutputMessage((String)((com.gs.dmn.runtime.Context)other).get("outputMessage", "Output Message"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toDotProduct(((com.gs.dmn.runtime.DMNType)other).toContext());

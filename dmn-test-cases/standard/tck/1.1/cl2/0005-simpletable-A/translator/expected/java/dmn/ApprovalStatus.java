@@ -111,9 +111,9 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         ApprovalStatusRuleOutput output_ = new ApprovalStatusRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericGreaterEqualThan(age, number("18"))),
-            booleanOr((stringEqual(riskCategory, "Medium")), (stringEqual(riskCategory, "Low"))),
-            (booleanEqual(isAffordable, Boolean.TRUE))
+            numericGreaterEqualThan(age, number("18")),
+            booleanOr(stringEqual(riskCategory, "Medium"), stringEqual(riskCategory, "Low")),
+            booleanEqual(isAffordable, Boolean.TRUE)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -147,7 +147,7 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         ApprovalStatusRuleOutput output_ = new ApprovalStatusRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericLessThan(age, number("18"))),
+            numericLessThan(age, number("18")),
             Boolean.TRUE,
             Boolean.TRUE
         )) {
@@ -184,7 +184,7 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         ApprovalStatusRuleOutput output_ = new ApprovalStatusRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
-            (stringEqual(riskCategory, "High")),
+            stringEqual(riskCategory, "High"),
             Boolean.TRUE
         )) {
             // Rule match
@@ -221,7 +221,7 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
             Boolean.TRUE,
-            (booleanEqual(isAffordable, Boolean.FALSE))
+            booleanEqual(isAffordable, Boolean.FALSE)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

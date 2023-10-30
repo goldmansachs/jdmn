@@ -13,9 +13,21 @@ public interface TFnInvocationPositionalResult extends com.gs.dmn.runtime.DMNTyp
             return (TFnInvocationPositionalResult)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TFnInvocationPositionalResultImpl result_ = new TFnInvocationPositionalResultImpl();
-            result_.setSumResult((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("sumResult"));
-            result_.setDivisionResultPositional((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("divisionResultPositional"));
-            result_.setMultiplicationResultPositional((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("multiplicationResultPositional"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("sumResult")) {
+                result_.setSumResult((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("sumResult"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("divisionResultPositional")) {
+                result_.setDivisionResultPositional((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("divisionResultPositional"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("multiplicationResultPositional")) {
+                result_.setMultiplicationResultPositional((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("multiplicationResultPositional"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTFnInvocationPositionalResult(((com.gs.dmn.runtime.DMNType)other).toContext());

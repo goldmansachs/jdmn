@@ -89,9 +89,9 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Apply rule
         var output_: ApprovalStatusRuleOutput = ApprovalStatusRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericGreaterEqualThan(age, number("18"))),
-            booleanOr((stringEqual(riskCategory, "Medium")), (stringEqual(riskCategory, "Low"))),
-            (booleanEqual(isAffordable, true))
+            numericGreaterEqualThan(age, number("18")),
+            booleanOr(stringEqual(riskCategory, "Medium"), stringEqual(riskCategory, "Low")),
+            booleanEqual(isAffordable, true)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -125,7 +125,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Apply rule
         var output_: ApprovalStatusRuleOutput = ApprovalStatusRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericLessThan(age, number("18"))),
+            numericLessThan(age, number("18")),
             true,
             true
         )) {
@@ -162,7 +162,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         var output_: ApprovalStatusRuleOutput = ApprovalStatusRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
             true,
-            (stringEqual(riskCategory, "High")),
+            stringEqual(riskCategory, "High"),
             true
         )) {
             // Rule match
@@ -199,7 +199,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         if (ruleMatches(eventListener_, drgRuleMetadata,
             true,
             true,
-            (booleanEqual(isAffordable, false))
+            booleanEqual(isAffordable, false)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

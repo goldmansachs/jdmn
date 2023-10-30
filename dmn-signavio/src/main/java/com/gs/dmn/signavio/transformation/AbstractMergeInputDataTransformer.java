@@ -257,8 +257,8 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
         }
     }
 
-    private String replace(String oldName, String newName, String text) {
-        return text == null ? null : text.replace(oldName, newName);
+    protected String replace(String oldName, String newName, String text) {
+        return text == null ? null : text.replaceAll("\\b"+oldName+"\\b", newName);
     }
 
     private void removeDRGElement(TDefinitions definitions, TDRGElement drgElement) {

@@ -291,6 +291,16 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         }
     }
 
+    @Override
+    public TemporalAccessor now() {
+        return ZonedDateTime.now();
+    }
+
+    @Override
+    public LocalDate today() {
+        return LocalDate.now();
+    }
+
     //
     // Temporal functions
     //

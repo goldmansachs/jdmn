@@ -113,8 +113,8 @@ public class TopDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         // Apply rule
         TopDecisionRuleOutput output_ = new TopDecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(decision, "Consider")),
-            (containsOnly(smallMid, asList("Accept", "Warn")))
+            stringEqual(decision, "Consider"),
+            containsOnly(smallMid, asList("Accept", "Warn"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -148,7 +148,7 @@ public class TopDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         // Apply rule
         TopDecisionRuleOutput output_ = new TopDecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(decision, "Don't Consider")),
+            stringEqual(decision, "Don't Consider"),
             Boolean.TRUE
         )) {
             // Rule match
@@ -184,7 +184,7 @@ public class TopDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         TopDecisionRuleOutput output_ = new TopDecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
-            booleanNot((notContainsAny(smallMid, asList("Reject"))))
+            booleanNot(notContainsAny(smallMid, asList("Reject")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

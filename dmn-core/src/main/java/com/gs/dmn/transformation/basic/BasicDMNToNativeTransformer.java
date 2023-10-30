@@ -31,7 +31,6 @@ import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
@@ -237,6 +236,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     // Invocable  related functions
     //
     List<FormalParameter<Type, DMNContext>> invocableFEELParameters(TDRGElement invocable);
+
+    List<String> invocableFEELParameterNames(TDRGElement invocable);
 
     String singletonInvocableInstance(TInvocable invocable);
 
@@ -709,7 +710,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
         return functionContext;
     }
 
-    default DMNContext makeForContext(ForExpression<Type, DMNContext> expression, DMNContext parentContext) {
+    default DMNContext makeForContext(DMNContext parentContext) {
         return DMNContext.of(
                 parentContext,
                 DMNContextKind.FOR,
@@ -731,9 +732,14 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     default DMNContext makeFilterContext(FilterExpression<Type, DMNContext> filterExpression, String filterParameterName, DMNContext parentContext) {
         Expression<Type, DMNContext> source = filterExpression.getSource();
+        Type sourceType = source.getType();
+        return makeFilterContext(sourceType, filterParameterName, parentContext);
+    }
+
+    default DMNContext makeFilterContext(Type sourceType, String filterParameterName, DMNContext parentContext) {
         Type itemType = AnyType.ANY;
-        if (source.getType() instanceof ListType) {
-            itemType = ((ListType) source.getType()).getElementType();
+        if (sourceType instanceof ListType) {
+            itemType = ((ListType) sourceType).getElementType();
         }
         DMNContext filterContext = DMNContext.of(
                 parentContext,

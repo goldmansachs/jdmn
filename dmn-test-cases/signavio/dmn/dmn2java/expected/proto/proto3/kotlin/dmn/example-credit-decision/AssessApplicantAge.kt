@@ -100,7 +100,7 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         var output_: AssessApplicantAgeRuleOutput = AssessApplicantAgeRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericLessThan(applicant?.let({ it.age as java.math.BigDecimal? }), number("18")))
+            numericLessThan(applicant?.let({ it.age as java.math.BigDecimal? }), number("18"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -134,7 +134,7 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         var output_: AssessApplicantAgeRuleOutput = AssessApplicantAgeRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanAnd(numericGreaterEqualThan(applicant?.let({ it.age as java.math.BigDecimal? }), number("18")), numericLessEqualThan(applicant?.let({ it.age as java.math.BigDecimal? }), number("25"))))
+            booleanAnd(numericGreaterEqualThan(applicant?.let({ it.age as java.math.BigDecimal? }), number("18")), numericLessEqualThan(applicant?.let({ it.age as java.math.BigDecimal? }), number("25")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -168,7 +168,7 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         var output_: AssessApplicantAgeRuleOutput = AssessApplicantAgeRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericGreaterThan(applicant?.let({ it.age as java.math.BigDecimal? }), number("25")))
+            numericGreaterThan(applicant?.let({ it.age as java.math.BigDecimal? }), number("25"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

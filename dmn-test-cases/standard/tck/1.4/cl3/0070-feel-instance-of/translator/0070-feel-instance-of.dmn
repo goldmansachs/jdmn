@@ -1,0 +1,1355 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dmn:definitions namespace="http://www.montera.com.au/spec/DMN/0070-feel-instance-of" xmlns:dmn="https://www.omg.org/spec/DMN/20211108/MODEL/" name="0070-feel-instance-of" id="_i9fboPUUEeesLuP4RHs4vA" xmlns="http://www.montera.com.au/spec/DMN/0070-feel-instance-of" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <dmn:description>FEEL instance of</dmn:description>
+
+    <dmn:itemDefinition name="t_context_013">
+        <dmn:itemComponent name="a">
+            <dmn:typeRef>string</dmn:typeRef>
+        </dmn:itemComponent>
+        <dmn:itemComponent name="b">
+            <dmn:typeRef>string</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+
+    <dmn:itemDefinition name="tNumberList" isCollection="true">
+        <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemDefinition>
+
+    <dmn:itemDefinition name="tAnyList" isCollection="true">
+        <dmn:typeRef>Any</dmn:typeRef>
+    </dmn:itemDefinition>
+
+    <dmn:itemDefinition name="t255">
+        <dmn:typeRef>number</dmn:typeRef>
+        <dmn:allowedValues>
+            <dmn:text>[0..255]</dmn:text>
+        </dmn:allowedValues>
+    </dmn:itemDefinition>
+
+    <dmn:itemDefinition name="tFooBar">
+        <dmn:typeRef>string</dmn:typeRef>
+        <dmn:allowedValues>
+            <dmn:text>"FOO", "BAR"</dmn:text>
+        </dmn:allowedValues>
+    </dmn:itemDefinition>
+
+    <dmn:itemDefinition name="tFunctionWithNoParams">
+        <dmn:functionItem></dmn:functionItem>
+    </dmn:itemDefinition>
+
+    <dmn:itemDefinition name="tStringFunctionWithNoParams">
+        <dmn:functionItem outputTypeRef="string"></dmn:functionItem>
+    </dmn:itemDefinition>
+
+    <dmn:itemDefinition name="tStringFunctionWithUntypedParams">
+        <dmn:functionItem outputTypeRef="string">
+            <dmn:parameters name="p1"></dmn:parameters>
+            <dmn:parameters name="p2"></dmn:parameters>
+        </dmn:functionItem>
+    </dmn:itemDefinition>
+
+    <dmn:itemDefinition name="tListOfFunctions" isCollection="true">
+        <!-- note - the typeRef here has not yet been declared in the XML. This
+        is on purpose to catch the assumption that item definitions are declared
+        in a 'nice' order -->
+        <dmn:typeRef>tStringFunctionWithSimpleTypedParams</dmn:typeRef>
+    </dmn:itemDefinition>
+
+    <dmn:itemDefinition name="tContextWithFunction">
+        <dmn:itemComponent name="prop1">
+            <!-- note - the typeRef here has not yet been declared in the XML. This
+            is on purpose to catch the assumption that item definitions are declared
+            in a 'nice' order -->
+            <dmn:typeRef>tStringFunctionWithSimpleTypedParams</dmn:typeRef>
+        </dmn:itemComponent>
+    </dmn:itemDefinition>
+
+    <dmn:itemDefinition name="tStringFunctionWithSimpleTypedParams">
+        <dmn:functionItem outputTypeRef="string">
+            <dmn:parameters name="p1" typeRef="string"></dmn:parameters>
+            <dmn:parameters name="p2" typeRef="number"></dmn:parameters>
+        </dmn:functionItem>
+    </dmn:itemDefinition>
+
+    <dmn:decision name="null_001" id="_null_001">
+        <dmn:variable name="null_001"/>
+        <dmn:literalExpression>
+            <dmn:text>null instance of Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="null_002" id="_null_002">
+        <dmn:variable name="null_002"/>
+        <dmn:literalExpression>
+            <dmn:text>null instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="null_003" id="_null_003">
+        <dmn:variable name="null_003"/>
+        <dmn:literalExpression>
+            <dmn:text>null instance of string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="null_004" id="_null_004">
+        <dmn:variable name="null_004"/>
+        <dmn:literalExpression>
+            <dmn:text>null instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="null_005" id="_null_005">
+        <dmn:variable name="null_005"/>
+        <dmn:literalExpression>
+            <dmn:text>null instance of date</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="null_006" id="_null_006">
+        <dmn:variable name="null_006"/>
+        <dmn:literalExpression>
+            <dmn:text>null instance of time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="null_007" id="_null_007">
+        <dmn:variable name="null_007"/>
+        <dmn:literalExpression>
+            <dmn:text>null instance of date and time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="null_008" id="_null_008">
+        <dmn:variable name="null_008"/>
+        <dmn:literalExpression>
+            <dmn:text>null instance of list&lt;Any&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="null_009" id="_null_009">
+        <dmn:variable name="null_009"/>
+        <dmn:literalExpression>
+            <dmn:text>null instance of years and months duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="null_010" id="_null_010">
+        <dmn:variable name="null_010"/>
+        <dmn:literalExpression>
+            <dmn:text>null instance of days and time duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--    <dmn:decision name="null_011" id="_null_011">
+        <dmn:variable name="null_011"/>
+        <dmn:literalExpression>
+            &lt;!&ndash; context<> &ndash;&gt;
+            <dmn:text>null instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>-->
+
+    <dmn:decision name="null_012" id="_null_012">
+        <dmn:variable name="null_012"/>
+        <dmn:literalExpression>
+            <!-- function<dmn:> -> Any -->
+            <dmn:text>null instance of function&lt;&gt; -&gt; Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="number_001" id="_number_001">
+        <dmn:variable name="number_001"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="number_002" id="_number_002">
+        <dmn:variable name="number_002"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="number_003" id="_number_003">
+        <dmn:variable name="number_003"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="number_004" id="_number_004">
+        <dmn:variable name="number_004"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="number_005" id="_number_005">
+        <dmn:variable name="number_005"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of date</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="number_006" id="_number_006">
+        <dmn:variable name="number_006"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="number_007" id="_number_007">
+        <dmn:variable name="number_007"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of date and time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="number_008" id="_number_008">
+        <dmn:variable name="number_008"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of list&lt;Any&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="number_009" id="_number_009">
+        <dmn:variable name="number_009"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of years and months duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="number_010" id="_number_010">
+        <dmn:variable name="number_010"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of days and time duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--    <dmn:decision name="number_011" id="_number_011">
+        <dmn:variable name="number_011"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>-->
+
+    <dmn:decision name="number_012" id="_number_012">
+        <dmn:variable name="number_012"/>
+        <dmn:literalExpression>
+            <dmn:text>123.01 instance of function&lt;&gt;-&gt;Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="number_013" id="_number_013">
+        <dmn:variable name="number_013"/>
+        <dmn:literalExpression>
+            <!-- true: does not take allowedValues into account -->
+            <dmn:text>256 instance of t255</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="string_001" id="_string_001">
+        <dmn:variable name="string_001"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="string_002" id="_string_002">
+        <dmn:variable name="string_002"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="string_003" id="_string_003">
+        <dmn:variable name="string_003"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="string_004" id="_string_004">
+        <dmn:variable name="string_004"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="string_005" id="_string_005">
+        <dmn:variable name="string_005"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of date</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="string_006" id="_string_006">
+        <dmn:variable name="string_006"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="string_007" id="_string_007">
+        <dmn:variable name="string_007"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of date and time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="string_008" id="_string_008">
+        <dmn:variable name="string_008"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of list&lt;Any&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="string_009" id="_string_009">
+        <dmn:variable name="string_009"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of years and months duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="string_010" id="_string_010">
+        <dmn:variable name="string_010"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of days and time duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--    <dmn:decision name="string_011" id="_string_011">
+        <dmn:variable name="string_011"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>-->
+
+    <dmn:decision name="string_012" id="_string_012">
+        <dmn:variable name="string_012"/>
+        <dmn:literalExpression>
+            <dmn:text>"foo" instance of function&lt;&gt;-&gt;Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="string_013" id="_string_013">
+        <dmn:variable name="string_013"/>
+        <dmn:literalExpression>
+            <!-- true: does not take into account allowedValues -->
+            <dmn:text>"123" instance of tFooBar</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+
+    <dmn:decision name="boolean_001" id="_boolean_001">
+        <dmn:variable name="boolean_001"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="boolean_002" id="_boolean_002">
+        <dmn:variable name="boolean_002"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="boolean_003" id="_boolean_003">
+        <dmn:variable name="boolean_003"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="boolean_004" id="_boolean_004">
+        <dmn:variable name="boolean_004"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="boolean_005" id="_boolean_005">
+        <dmn:variable name="boolean_005"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of date</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="boolean_006" id="_boolean_006">
+        <dmn:variable name="boolean_006"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="boolean_007" id="_boolean_007">
+        <dmn:variable name="boolean_007"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of date and time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="boolean_008" id="_boolean_008">
+        <dmn:variable name="boolean_008"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of list&lt;Any&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="boolean_009" id="_boolean_009">
+        <dmn:variable name="boolean_009"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of years and months duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="boolean_010" id="_boolean_010">
+        <dmn:variable name="boolean_010"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of days and time duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--
+    <dmn:decision name="boolean_011" id="_boolean_011">
+        <dmn:variable name="boolean_011"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+-->
+
+    <dmn:decision name="boolean_012" id="_boolean_012">
+        <dmn:variable name="boolean_012"/>
+        <dmn:literalExpression>
+            <dmn:text>true instance of function&lt;&gt;-&gt;Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+
+    <dmn:decision name="date_001" id="_date_001">
+        <dmn:variable name="date_001"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="date_002" id="_date_002">
+        <dmn:variable name="date_002"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="date_003" id="_date_003">
+        <dmn:variable name="date_003"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="date_004" id="_date_004">
+        <dmn:variable name="date_004"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="date_005" id="_date_005">
+        <dmn:variable name="date_005"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of date</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="date_006" id="_date_006">
+        <dmn:variable name="date_006"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="date_007" id="_date_007">
+        <dmn:variable name="date_007"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of date and time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="date_008" id="_date_008">
+        <dmn:variable name="date_008"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of list&lt;Any&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="date_009" id="_date_009">
+        <dmn:variable name="date_009"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of years and months duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="date_010" id="_date_010">
+        <dmn:variable name="date_010"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of days and time duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--    <dmn:decision name="date_011" id="_date_011">
+        <dmn:variable name="date_011"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>-->
+
+    <dmn:decision name="date_012" id="_date_012">
+        <dmn:variable name="date_012"/>
+        <dmn:literalExpression>
+            <dmn:text>date("2018-12-08") instance of function&lt;&gt;-&gt;Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="time_001" id="_time_001">
+        <dmn:variable name="time_001"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="time_002" id="_time_002">
+        <dmn:variable name="time_002"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="time_003" id="_time_003">
+        <dmn:variable name="time_003"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="time_004" id="_time_004">
+        <dmn:variable name="time_004"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="time_005" id="_time_005">
+        <dmn:variable name="time_005"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of date</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="time_006" id="_time_006">
+        <dmn:variable name="time_006"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="time_007" id="_time_007">
+        <dmn:variable name="time_007"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of date and time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="time_008" id="_time_008">
+        <dmn:variable name="time_008"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of list&lt;Any&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="time_009" id="_time_009">
+        <dmn:variable name="time_009"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of years and months duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="time_010" id="_time_010">
+        <dmn:variable name="time_010"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of days and time duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--    <dmn:decision name="time_011" id="_time_011">
+        <dmn:variable name="time_011"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>-->
+
+    <dmn:decision name="time_012" id="_time_012">
+        <dmn:variable name="time_012"/>
+        <dmn:literalExpression>
+            <dmn:text>time("10:30:00") instance of function&lt;&gt;-&gt;Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_001" id="_list_001">
+        <dmn:variable name="list_001"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_002" id="_list_002">
+        <dmn:variable name="list_002"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_003" id="_list_003">
+        <dmn:variable name="list_003"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_004" id="_list_004">
+        <dmn:variable name="list_004"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_005" id="_list_005">
+        <dmn:variable name="list_005"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of date</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_006" id="_list_006">
+        <dmn:variable name="list_006"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_007" id="_list_007">
+        <dmn:variable name="list_007"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of date and time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_008" id="_list_008">
+        <dmn:variable name="list_008"/>
+        <dmn:literalExpression>
+            <!-- list<Any>-->
+            <dmn:text>[1,2,3] instance of list&lt;Any&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_009" id="_list_009">
+        <dmn:variable name="list_009"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of years and months duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_010" id="_list_010">
+        <dmn:variable name="list_010"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of days and time duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--    <dmn:decision name="list_011" id="_list_011">
+        <dmn:variable name="list_011"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>-->
+
+    <dmn:decision name="list_012" id="_list_012">
+        <dmn:variable name="list_012"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of function&lt;&gt;-&gt;Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_013" id="_list_013">
+        <dmn:variable name="list_013"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,2,3] instance of tNumberList</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_014" id="_list_014">
+        <dmn:variable name="list_014"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,"2", date("2018-12-08")] instance of tAnyList</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_014_a" id="_list_014_a">
+        <dmn:variable name="list_014_a"/>
+        <dmn:literalExpression>
+            <dmn:text>[] instance of tAnyList</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_015" id="_list_015">
+        <dmn:variable name="list_015"/>
+        <dmn:literalExpression>
+            <dmn:text>[1,"2", date("2018-12-08")] instance of tNumberList</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_016" id="_list_016">
+        <dmn:variable name="list_016"/>
+        <dmn:literalExpression>
+            <dmn:text>[1] instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_017" id="_list_017">
+        <dmn:variable name="list_017"/>
+        <dmn:literalExpression>
+            <dmn:text>1 instance of tNumberList</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_018" id="_list_018">
+        <dmn:variable name="list_018"/>
+        <dmn:literalExpression>
+            <!-- list<t_context_013>-->
+            <dmn:text>[{a: "a", b: "b"}] instance of list&lt;t_context_013&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_019" id="_list_019">
+        <dmn:variable name="list_019"/>
+        <dmn:literalExpression>
+            <!-- list<t_context_013>-->
+            <dmn:text>[{a: "a"}] instance of list&lt;t_context_013&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="list_020" id="_list_020">
+        <dmn:variable name="list_020"/>
+        <dmn:literalExpression>
+            <!-- list<context<a: string, b: string>>-->
+            <dmn:text>[{a: "a", b: "b"}] instance of list&lt;context&lt;a: string, b: string&gt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <!-- comment out as per: https://github.com/dmn-tck/tck/pull/390#issuecomment-1053664450
+    <dmn:decision name="list_021" id="_list_021">
+        <dmn:variable name="list_021"/>
+        <dmn:literalExpression>
+             // list<function<string, string> -> number>>
+            <dmn:text>[(function(a:string, b:string) 1), (function(a:string, b:string) 2)] instance of list&lt;function&lt;string, string&gt;-&gt;number&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+    -->
+
+    <dmn:decision name="ym_duration_001" id="_ym_duration_001">
+        <dmn:variable name="ym_duration_001"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="ym_duration_002" id="_ym_duration_002">
+        <dmn:variable name="ym_duration_002"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="ym_duration_003" id="_ym_duration_003">
+        <dmn:variable name="ym_duration_003"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="ym_duration_004" id="_ym_duration_004">
+        <dmn:variable name="ym_duration_004"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="ym_duration_005" id="_ym_duration_005">
+        <dmn:variable name="ym_duration_005"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of date</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="ym_duration_006" id="_ym_duration_006">
+        <dmn:variable name="ym_duration_006"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="ym_duration_007" id="_ym_duration_007">
+        <dmn:variable name="ym_duration_007"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of date and time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="ym_duration_008" id="_ym_duration_008">
+        <dmn:variable name="ym_duration_008"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of list&lt;Any&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="ym_duration_009" id="_ym_duration_009">
+        <dmn:variable name="ym_duration_009"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of years and months duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="ym_duration_010" id="_ym_duration_010">
+        <dmn:variable name="ym_duration_010"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of days and time duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--    <dmn:decision name="ym_duration_011" id="_ym_duration_011">
+        <dmn:variable name="ym_duration_011"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>-->
+
+    <dmn:decision name="ym_duration_012" id="_ym_duration_012">
+        <dmn:variable name="ym_duration_012"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1Y") instance of function&lt;&gt;-&gt;Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+
+    <dmn:decision name="dt_duration_001" id="_dt_duration_001">
+        <dmn:variable name="dt_duration_001"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="dt_duration_002" id="_dt_duration_002">
+        <dmn:variable name="dt_duration_002"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="dt_duration_003" id="_dt_duration_003">
+        <dmn:variable name="dt_duration_003"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="dt_duration_004" id="_dt_duration_004">
+        <dmn:variable name="dt_duration_004"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="dt_duration_005" id="_dt_duration_005">
+        <dmn:variable name="dt_duration_005"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of date</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="dt_duration_006" id="_dt_duration_006">
+        <dmn:variable name="dt_duration_006"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="dt_duration_007" id="_dt_duration_007">
+        <dmn:variable name="dt_duration_007"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of date and time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="dt_duration_008" id="_dt_duration_008">
+        <dmn:variable name="dt_duration_008"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of list&lt;Any&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="dt_duration_009" id="_dt_duration_009">
+        <dmn:variable name="dt_duration_009"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of years and months duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="dt_duration_010" id="_dt_duration_010">
+        <dmn:variable name="dt_duration_010"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of days and time duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--    <dmn:decision name="dt_duration_011" id="_dt_duration_011">
+        <dmn:variable name="dt_duration_011"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>-->
+
+    <dmn:decision name="dt_duration_012" id="_dt_duration_012">
+        <dmn:variable name="dt_duration_012"/>
+        <dmn:literalExpression>
+            <dmn:text>duration("P1D") instance of function&lt;&gt;-&gt;Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+
+    <dmn:decision name="context_001" id="_context_001">
+        <dmn:variable name="context_001"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_002" id="_context_002">
+        <dmn:variable name="context_002"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_003" id="_context_003">
+        <dmn:variable name="context_003"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_004" id="_context_004">
+        <dmn:variable name="context_004"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_005" id="_context_005">
+        <dmn:variable name="context_005"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of date</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_006" id="_context_006">
+        <dmn:variable name="context_006"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_007" id="_context_007">
+        <dmn:variable name="context_007"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of date and time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_008" id="_context_008">
+        <dmn:variable name="context_008"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of list&lt;Any&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_009" id="_context_009">
+        <dmn:variable name="context_009"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of years and months duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_010" id="_context_010">
+        <dmn:variable name="context_010"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of days and time duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--    <dmn:decision name="context_011" id="_context_011">
+        <dmn:variable name="context_011"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>-->
+
+    <dmn:decision name="context_012" id="_context_012">
+        <dmn:variable name="context_012"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of function&lt;&gt;-&gt;Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_013" id="_context_013">
+        <dmn:variable name="context_013"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo", b: "bar"} instance of t_context_013</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_014" id="_context_014">
+        <dmn:variable name="context_014"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo", b: "bar", c: "baz"} instance of t_context_013</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_015" id="_context_015">
+        <dmn:variable name="context_015"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo"} instance of t_context_013</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_016" id="_context_016">
+        <dmn:variable name="context_016"/>
+        <dmn:literalExpression>
+            <dmn:text>{a: "foo", b: [1,2,3]} instance of t_context_013</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--    <dmn:decision name="context_017" id="_context_017">
+        <dmn:variable name="context_017"/>
+        <dmn:literalExpression>
+            &lt;!&ndash; true &ndash;&gt;
+            <dmn:text>{} instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>-->
+
+    <dmn:decision name="context_018" id="_context_018">
+        <dmn:variable name="context_018"/>
+        <dmn:literalExpression>
+            <!-- true -->
+            <!-- {a: "foo"} instance of context<a: string> -->
+            <dmn:text>{a: "foo"} instance of context&lt;a: string&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_019" id="_context_019">
+        <dmn:variable name="context_019"/>
+        <dmn:literalExpression>
+            <!-- true -->
+            <!-- {a: null} instance of context<a: string> -->
+            <dmn:text>{a: null} instance of context&lt;a: string&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_020" id="_context_020">
+        <dmn:variable name="context_020"/>
+        <dmn:literalExpression>
+            <!-- true -->
+            <!-- {a: "123", b: 123} instance of context<a: string> -->
+            <dmn:text>{a: "123", b: 123} instance of context&lt;a: string&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_021" id="_context_021">
+        <dmn:variable name="context_021"/>
+        <dmn:literalExpression>
+            <!-- true -->
+            <!-- {a: "123", b: 123} instance of context<a: string, b: number> -->
+            <dmn:text>{a: "123", b: 123} instance of context&lt;a: string, b: number&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_022" id="_context_022">
+        <dmn:variable name="context_022"/>
+        <dmn:literalExpression>
+            <!-- false -->
+            <!-- {a: "123"} instance of context<a: number> -->
+            <dmn:text>{a: "123"} instance of context&lt;a: number&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_023" id="_context_023">
+        <dmn:variable name="context_023"/>
+        <dmn:literalExpression>
+            <!-- true -->
+            <!-- {a: {b: 123}} instance of context<a: context<b: number>> -->
+            <dmn:text>{a: {b: 123}} instance of context&lt;a: context&lt;b: number&gt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="context_024" id="_context_024">
+        <dmn:variable name="context_024"/>
+        <dmn:literalExpression>
+            <!-- false -->
+            <!-- {a: {b: 123}} instance of context<a: context<b: string>> -->
+            <dmn:text>{a: {b: 123}} instance of context&lt;a: context&lt;b: string&gt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+
+    <dmn:decision name="function_001" id="_function_001">
+        <dmn:variable name="function_001"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_002" id="_function_002">
+        <dmn:variable name="function_002"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of number</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_003" id="_function_003">
+        <dmn:variable name="function_003"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_004" id="_function_004">
+        <dmn:variable name="function_004"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of boolean</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_005" id="_function_005">
+        <dmn:variable name="function_005"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of date</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_006" id="_function_006">
+        <dmn:variable name="function_006"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_007" id="_function_007">
+        <dmn:variable name="function_007"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of date and time</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_008" id="_function_008">
+        <dmn:variable name="function_008"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of list&lt;Any&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_009" id="_function_009">
+        <dmn:variable name="function_009"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of years and months duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_010" id="_function_010">
+        <dmn:variable name="function_010"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of days and time duration</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+<!--    <dmn:decision name="function_011" id="_function_011">
+        <dmn:variable name="function_011"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of context&lt;&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>-->
+
+    <!-- comment out as per: https://github.com/dmn-tck/tck/pull/390#issuecomment-1053664450
+    <dmn:decision name="function_012" id="_function_012">
+        <dmn:variable name="function_012"/>
+        <dmn:literalExpression>
+             // true: covariant return type
+            <dmn:text>(function() "foo") instance of function&lt;&gt;-&gt;Any</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_013" id="_function_013">
+        <dmn:variable name="function_013"/>
+        <dmn:literalExpression>
+             // true: equivalent return type
+            <dmn:text>(function() "foo") instance of function&lt;&gt;-&gt;string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_014" id="_function_014">
+        <dmn:variable name="function_014"/>
+        <dmn:literalExpression>
+             // true: equivalent parm, covariant return type
+             // (function(a: list<number>) {b: "b", c: "c", d: "d"}) instance of function<list<number>> -> context<b: string, c: string>
+            <dmn:text>(function(a: list&lt;number&gt;) {b: "b", c: "c", d: "d"}) instance of function&lt;list&lt;number&gt;&gt;-&gt;context&lt;b: string, c: string&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_015" id="_function_015">
+        <dmn:variable name="function_015"/>
+        <dmn:literalExpression>
+             // false: equivalent parm, non-covariant return type
+             // (function(a: list<number>) {b: "b"}) instance of function<list<number>> -> context<b: string, c: string>
+            <dmn:text>(function(a: list&lt;number&gt;) {b: "b"}) instance of function&lt;list&lt;number&gt;&gt;-&gt;context&lt;b: string, c: string&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_016" id="_function_016">
+        <dmn:variable name="function_016"/>
+        <dmn:literalExpression>
+             // true: contravariant parm, covariant return type
+             // (function(a: context<a: string>) {b: "b", c: "c"}) instance of function<context<a: string, b: string> -> context<b: string>
+            <dmn:text>(function(a: context&lt;a: string&gt;) {b: "b", c: "c"}) instance of function&lt;context&lt;a: string, b: string&gt;&gt;-&gt;context&lt;b: string&gt;</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_017" id="_function_017">
+        <dmn:variable name="function_017"/>
+        <dmn:literalExpression>
+             // false: non-contravariant parm, equivalent return type
+             // (function(a: context<a: string, b: string>) "foo") instance of function<context<a: string> -> string
+            <dmn:text>(function(a: context&lt;a: string, b: string&gt;) "foo") instance of function&lt;context&lt;a: string&gt;&gt;-&gt;string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_018" id="_function_018">
+        <dmn:variable name="function_018"/>
+        <dmn:literalExpression>
+             // true: contravariant parm, equivalent return type, same param arity
+             // (function(a: string, b: number> "foo") instance of function<string, number> -> string
+            <dmn:text>(function(a: string, b: number) "foo") instance of function&lt;string, number&gt;-&gt;string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_019" id="_function_019">
+        <dmn:variable name="function_019"/>
+        <dmn:literalExpression>
+             // false: contravariant parm, equivalent return type, different param arity
+             // (function(a: string, b: string> "foo") instance of function<string> -> string
+            <dmn:text>(function(a: string, b: string) "foo") instance of function&lt;string&gt;-&gt;string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_020" id="_function_020">
+        <dmn:variable name="function_020"/>
+        <dmn:literalExpression>
+             // true: multiple contravariant parms, equivalent return type
+             // (function(a: context<a: string>, b: context<a: string, b: string>> "foo") instance of function<context<a: string, b: string>, context<a: string, b: string, c: string>> -> string
+            <dmn:text>(function(a: context&lt;a: string&gt;, b: context&lt;a: string, b: string&gt;) "foo") instance of function&lt;context&lt;a: string, b: string&gt;,context&lt;a: string, b: string, c: string&gt;&gt;-&gt;string</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_021" id="_function_021">
+        <dmn:variable name="function_021"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of tFunctionWithNoParams</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_022" id="_function_022">
+        <dmn:variable name="function_022"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() "foo") instance of tStringFunctionWithNoParams</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_023" id="_function_023">
+        <dmn:variable name="function_023"/>
+        <dmn:literalExpression>
+            <dmn:text>(function() 123) instance of tStringFunctionWithNoParams</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_024" id="_function_024">
+        <dmn:variable name="function_024"/>
+        <dmn:literalExpression>
+            <dmn:text>(function(a, b) "123") instance of tStringFunctionWithUntypedParams</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_025" id="_function_025">
+        <dmn:variable name="function_025"/>
+        <dmn:literalExpression>
+            <dmn:text>(function(a: string, b: number) "123") instance of tStringFunctionWithSimpleTypedParams</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_026" id="_function_026">
+        <dmn:variable name="function_026"/>
+        <dmn:literalExpression>
+            <dmn:text>(function(a: string, b: string) "123") instance of tStringFunctionWithSimpleTypedParams</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_027" id="_function_027">
+        <dmn:variable name="function_027"/>
+        <dmn:literalExpression>
+             // note that the param names differ to each other and also tListOfFunctions - FEEL type conformance does
+            // not consider param names
+            <dmn:text>[(function(a: string, b: number) "123"), (function(c: string, d: number) "456")] instance of tListOfFunctions</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_028" id="_function_028">
+        <dmn:variable name="function_028"/>
+        <dmn:literalExpression>
+             // true, not false.  The LHS list type is list<function<string, Any> -> string> which makes the 'b' param
+            // contravariant to the b 'number' type in tListOfFunctions
+            <dmn:text>[(function(a: string, b: number) "123"), (function(c: string, d: string) "456")] instance of tListOfFunctions</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_029" id="_function_029">
+        <dmn:variable name="function_029"/>
+        <dmn:literalExpression>
+            <dmn:text>{prop1: (function(a: string, b: number) "123")} instance of tContextWithFunction</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_030" id="_function_030">
+        <dmn:variable name="function_030"/>
+        <dmn:literalExpression>
+            <dmn:text>{prop1: (function(a: string, b: string) "123")} instance of tContextWithFunction</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+
+    <dmn:decision name="function_031" id="_function_031">
+        <dmn:variable name="function_031"/>
+        <dmn:literalExpression>
+            <dmn:text>[(function(a: string, b: number) "123"), "foo"] instance of tListOfFunctions</dmn:text>
+        </dmn:literalExpression>
+    </dmn:decision>
+    -->
+
+
+</dmn:definitions>

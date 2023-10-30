@@ -50,4 +50,8 @@ public abstract class AbstractAnalysisVisitor<T, C> extends AbstractVisitor<T, C
         this.functionExtractor = new ExternalFunctionExtractor();
         this.nativeFactory = dmnTransformer.getNativeFactory();
     }
+
+    public BasicDMNToNativeTransformer<T, C> getDmnTransformer() {
+        return dmnTransformer;
+    }
 }

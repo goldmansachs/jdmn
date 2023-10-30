@@ -520,15 +520,6 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(ListTypeExpression<T, C> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
-        return this.astFactory.toListTypeExpression(element.getElementTypeExpression());
-    }
-
-    @Override
     public Object visit(ContextTypeExpression<T, C> element, C context) {
         if (element == null) {
             return null;
@@ -538,11 +529,29 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
+    public Object visit(RangeTypeExpression<T, C> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        return this.astFactory.toRangeTypeExpression(element.getElementTypeExpression());
+    }
+
+    @Override
     public Object visit(FunctionTypeExpression<T, C> element, C context) {
         if (element == null) {
             return null;
         }
 
         return this.astFactory.toFunctionTypeExpression(element.getParameters(), element.getReturnType());
+    }
+
+    @Override
+    public Object visit(ListTypeExpression<T, C> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        return this.astFactory.toListTypeExpression(element.getElementTypeExpression());
     }
 }

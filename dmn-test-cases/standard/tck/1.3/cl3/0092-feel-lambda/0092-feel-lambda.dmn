@@ -4,11 +4,46 @@
              xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" >
     <description>FEEL lambda</description>
 
+    <!-- function definitions -->
+    <itemDefinition name="lambda_number_returns_number">
+        <functionItem outputTypeRef="number">
+            <parameters name="n" typeRef="number" />
+        </functionItem>
+    </itemDefinition>
+
+    <itemDefinition name="lambda_number_number_returns_number">
+        <functionItem outputTypeRef="number">
+            <parameters name="n1" typeRef="number" />
+            <parameters name="n2" typeRef="number" />
+        </functionItem>
+    </itemDefinition>
+
+    <itemDefinition name="lambda_list_number_returns_number">
+        <functionItem outputTypeRef="number">
+            <parameters name="ns" typeRef="list_of_number" />
+        </functionItem>
+    </itemDefinition>
+
+    <itemDefinition name="list_of_number" isCollection="true">
+        <typeRef>number</typeRef>
+    </itemDefinition>
+
+    <itemDefinition name="lambda_string_string_returns_bool">
+        <functionItem outputTypeRef="boolean">
+            <parameters name="s1" typeRef="string" />
+            <parameters name="s2" typeRef="string" />
+        </functionItem>
+    </itemDefinition>
+
+    <itemDefinition name="list_of_string" isCollection="true">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
     <!-- decision returns a UDF lambda (no closures) -->
     <decision name="decision_001_2" id="_decision_001_2">
         <variable name="decision_001_2"/>
         <literalExpression>
-            <text>function (a) 1 + a</text>
+            <text>function (a: number) 1 + a</text>
         </literalExpression>
     </decision>
 
@@ -54,7 +89,7 @@
         <variable name="bkm_003_1"/>
         <encapsulatedLogic>
             <literalExpression>
-                <text>function (a) 1 + a</text>
+                <text>function (a: number) 1 + a</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
@@ -104,7 +139,7 @@
         <encapsulatedLogic>
             <formalParameter name="a" typeRef="number"/>
             <literalExpression>
-                <text>function (b) a * b</text>
+                <text>function (b: number) a * b</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
@@ -183,7 +218,7 @@
         <encapsulatedLogic>
             <formalParameter name="a" typeRef="number"/>
             <literalExpression>
-                <text>function (a, b) a * b</text>
+                <text>function (a: number, b: number) a * b</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
@@ -207,7 +242,7 @@
         <encapsulatedLogic>
             <formalParameter name="a" typeRef="number"/>
             <literalExpression>
-                <text>function (b) a * b</text>
+                <text>function (b: number) a * b</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
@@ -243,7 +278,7 @@
         <encapsulatedLogic>
             <formalParameter name="a" typeRef="number"/>
             <literalExpression>
-                <text>function (b) function(c) function(d) a*b*c*d</text>
+                <text>function (b: number) function(c: number) function(d: number) a*b*c*d</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
@@ -322,8 +357,8 @@
     <businessKnowledgeModel name="bkm_011_1" id="_bkm_011_1">
         <variable name="bkm_011_1"/>
         <encapsulatedLogic>
-            <formalParameter name="fn1"/>
-            <formalParameter name="fn2"/>
+            <formalParameter name="fn1" typeRef="lambda_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_returns_number"/>
             <literalExpression>
                 <text>fn1(5)*fn2(10)</text>
             </literalExpression>
@@ -344,7 +379,7 @@
         </knowledgeRequirement>
         <literalExpression>
             <!-- two UDF lambdas are passed to bkm_011_1 -->
-            <text>bkm_011_1(function (a) input_011_1 * a, function (b) input_011_1 * b)</text>
+            <text>bkm_011_1(function (a: number) input_011_1 * a, function (b: number) input_011_1 * b)</text>
         </literalExpression>
     </decision>
 
@@ -354,8 +389,8 @@
     <businessKnowledgeModel name="bkm_012_1" id="_bkm_012_1">
         <variable name="bkm_012_1"/>
         <encapsulatedLogic>
-            <formalParameter name="fn1"/>
-            <formalParameter name="fn2"/>
+            <formalParameter name="fn1" typeRef="lambda_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_returns_number"/>
             <literalExpression>
                 <text>fn1(5)*fn2(10)</text>
             </literalExpression>
@@ -365,7 +400,7 @@
     <businessKnowledgeModel name="bkm_012_2" id="_bkm_012_2">
         <variable name="bkm_012_2"/>
         <encapsulatedLogic>
-            <formalParameter name="a"/>
+            <formalParameter name="a" typeRef="number"/>
             <literalExpression>
                 <text>a * 10</text>
             </literalExpression>
@@ -412,8 +447,8 @@
     <businessKnowledgeModel name="bkm_013_1" id="_bkm_013_1">
         <variable name="bkm_013_1"/>
         <encapsulatedLogic>
-            <formalParameter name="fn1"/>
-            <formalParameter name="fn2"/>
+            <formalParameter name="fn1" typeRef="lambda_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_returns_number"/>
             <literalExpression>
                 <!-- DS invocations - with param.  Each DS invocation returns a context -->
                 <text>fn1(5)*fn2(10)</text>
@@ -441,8 +476,8 @@
     <businessKnowledgeModel name="bkm_014_1" id="_bkm_014_1">
         <variable name="bkm_014_1"/>
         <encapsulatedLogic>
-            <formalParameter name="fn1"/>
-            <formalParameter name="fn2"/>
+            <formalParameter name="fn1" typeRef="lambda_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_returns_number"/>
             <literalExpression>
                 <text>fn1(-5)*fn2(25)</text>
             </literalExpression>
@@ -465,10 +500,11 @@
     <businessKnowledgeModel name="bkm_015_1" id="_bkm_015_1">
         <variable name="bkm_015_1"/>
         <encapsulatedLogic>
-            <formalParameter name="fn1"/>
+            <formalParameter name="fn1" typeRef="lambda_list_number_returns_number"/>
+            <formalParameter name="fn2" typeRef="lambda_number_number_returns_number"/>
             <literalExpression>
                 <!-- pass in 'sum' func is used both in sum(list) and sum(list..) modes -->
-                <text>fn1([1,2,3])*fn1(1,2)</text>
+                <text>fn1([1,2,3])*fn2(1,2)</text>
             </literalExpression>
         </encapsulatedLogic>
     </businessKnowledgeModel>
@@ -480,7 +516,7 @@
         </knowledgeRequirement>
         <!-- passed overloadable built-in function as param  -->
         <literalExpression>
-            <text>bkm_015_1(sum)</text>
+            <text>bkm_015_1(sum, sum)</text>
         </literalExpression>
     </decision>
 
@@ -489,7 +525,7 @@
     <businessKnowledgeModel name="bkm_016_1" id="_bkm_016_1">
         <variable name="bkm_016_1"/>
         <encapsulatedLogic>
-            <formalParameter name="fn1"/>
+            <formalParameter name="fn1" typeRef="lambda_number_number_returns_number"/>
             <literalExpression>
                 <!-- passed in 'sqrt' func is invoked with too many params -->
                 <text>fn1(10,2)</text>
@@ -512,7 +548,7 @@
     <businessKnowledgeModel name="bkm_017_1" id="_bkm_017_1">
         <variable name="bkm_017_1"/>
         <encapsulatedLogic>
-            <formalParameter name="fn1"/>
+            <formalParameter name="fn1" typeRef="lambda_string_string_returns_bool"/>
             <literalExpression>
                 <!-- passed in 'precedes' lambda is passed again to sort() -->
                 <text>sort(["a","z", "a", "z"], fn1)</text>
@@ -533,7 +569,7 @@
             <requiredKnowledge href="#_bkm_017_1"/>
         </knowledgeRequirement>
         <literalExpression>
-            <text>bkm_017_1(function (a,b) if a = input_017_1 then true else false)</text>
+            <text>bkm_017_1(function (a: string, b: string) if a = input_017_1 then true else false)</text>
         </literalExpression>
     </decision>
 
@@ -542,8 +578,8 @@
     <businessKnowledgeModel name="bkm_018" id="_bkm_018">
         <variable name="bkm_018"/>
         <encapsulatedLogic>
-            <formalParameter name="p1"/>
-            <formalParameter name="p2"/>
+            <formalParameter name="p1" typeRef="string"/>
+            <formalParameter name="p2" typeRef="string"/>
             <literalExpression>
                 <text>if p1 = "a" then true else false</text>
             </literalExpression>

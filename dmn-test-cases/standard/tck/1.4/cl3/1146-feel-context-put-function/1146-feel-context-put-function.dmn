@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1146-feel-context-put-function"
+             name="1146-feel-context-put-function"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>FEEL built-in function 'context put(context, key, value)' in category context functions</description>
+
+    <decision name="decision001" id="_decision001">
+        <variable name="decision001"/>
+        <literalExpression>
+            <text>context put({}, "a", 1)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision002" id="_decision002">
+        <variable name="decision002"/>
+        <literalExpression>
+            <text>get entries(context put({"a": 1}, "b", 2))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003" id="_decision003">
+        <variable name="decision003"/>
+        <literalExpression>
+            <text>context put({"a": 1}, "a", 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003_a" id="_decision003_a">
+        <variable name="decision003_a"/>
+        <literalExpression>
+            <text>context put({"a":1, "b":2, "c":3 }, "b", 3)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision004" id="_decision004">
+        <variable name="decision004"/>
+        <literalExpression>
+            <text>context put({}, "", 1)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision005" id="_decision005">
+        <variable name="decision005"/>
+        <literalExpression>
+            <text>context put({}, null, 1)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision006" id="_decision006">
+        <variable name="decision006"/>
+        <literalExpression>
+            <text>context put(null, "a", 1)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision007" id="_decision007">
+        <variable name="decision007"/>
+        <literalExpression>
+            <text>context put({}, "a", null)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision008" id="_decision008">
+        <variable name="decision008"/>
+        <literalExpression>
+            <text>context put({}, "a")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision009" id="_decision009">
+        <variable name="decision009"/>
+        <literalExpression>
+            <text>context put({}, "a", 1, 1)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision010" id="_decision010">
+        <variable name="decision010"/>
+        <literalExpression>
+            <text>context put(context: {}, key: "a", value: 1)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision011" id="_decision011">
+        <variable name="decision011"/>
+        <literalExpression>
+            <text>context put(context: {}, ky: "a", value: 1)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision012" id="_decision012">
+        <variable name="decision012"/>
+        <literalExpression>
+            <text>context put([], "a", 1)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision013" id="_decision013">
+        <variable name="decision013"/>
+        <literalExpression>
+            <text>context put({}, 1, 1)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="context01" id="_context01">
+        <variable name="context01"/>
+        <context>
+            <contextEntry>
+                <variable name="a"/>
+                <literalExpression>
+                    <text>1</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+
+    <decision name="decision014" id="_decision014">
+        <variable name="decision014"/>
+        <informationRequirement>
+            <requiredDecision href="#_context01"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>context put(context01, "a", 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision015" id="_decision015">
+        <variable name="decision015"/>
+        <informationRequirement>
+            <requiredDecision href="#_context01"/>
+        </informationRequirement>
+        <context>
+            <contextEntry>
+                <variable name="context01"/>
+                <literalExpression>
+                    <text>context01</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="copied"/>
+                <literalExpression>
+                    <text>context put(context01, "a", 2)</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+
+    <decision name="decision016" id="_decision016">
+        <variable name="decision016"/>
+        <context>
+            <contextEntry>
+                <variable name="original"/>
+                <literalExpression>
+                    <text>{a: 1}</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="copied"/>
+                <literalExpression>
+                    <text>context put(original, "a", 2)</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+
+
+
+    <decision name="nested001" id="_nested001">
+        <variable name="nested001"/>
+        <literalExpression>
+            <text>context put({x:1, y: {a: 0} }, ["y", "a"], 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="nested001_a" id="_nested001_a">
+        <variable name="nested001_a"/>
+        <literalExpression>
+            <text>context put({x:1, y: {a: 0} }, ["y", "b"], 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="nested002" id="_nested002">
+        <variable name="nested002"/>
+        <literalExpression>
+            <text>context put({x:1, y: {a: 0} }, ["y", null], 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="nested003" id="_nested003">
+        <variable name="nested003"/>
+        <literalExpression>
+            <text>context put({x:1, y: {a: 0} }, [null, "a"], 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="nested004" id="_nested004">
+        <variable name="nested004"/>
+        <literalExpression>
+            <text>context put({x:1, y: {a: 0} }, [null], 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="nested005" id="_nested005">
+        <variable name="nested005"/>
+        <literalExpression>
+            <text>context put({x:1, y: {a: 0} }, [], 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="nested006" id="_nested006">
+        <variable name="nested006"/>
+        <literalExpression>
+            <text>context put({x:1, y: {a: {b: {c: 1}} }}, ["y", "a", "b", "c"], 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="nested007" id="_nested007">
+        <variable name="nested007"/>
+        <literalExpression>
+            <text>context put(context: {x:1, y: {a: 0} }, keys: ["y", "a"], value: 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="nested008" id="_nested008">
+        <variable name="nested008"/>
+        <literalExpression>
+            <text>context put(context: {x:1, y: {a: 0} }, key: ["y", "a"], value: 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="nested009" id="_nested009">
+        <variable name="nested009"/>
+        <literalExpression>
+            <text>context put({x:1, y: {a: 0}}, ["y", "a", "b", "c"], 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="nestedContext01" id="_nestedContext01">
+        <variable name="nestedContext01"/>
+        <context>
+            <contextEntry>
+                <variable name="a"/>
+                <context>
+                    <contextEntry>
+                        <variable name="b"/>
+                        <literalExpression>
+                            <text>1</text>
+                        </literalExpression>
+                    </contextEntry>
+                </context>
+            </contextEntry>
+        </context>
+    </decision>
+
+    <decision name="nested010" id="_nested010">
+        <variable name="nested010"/>
+        <informationRequirement>
+            <requiredDecision href="#_nestedContext01"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>context put(nestedContext01, ["a", "b"], 2)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="nested011" id="_nested011">
+        <variable name="nested011"/>
+        <informationRequirement>
+            <requiredDecision href="#_nestedContext01"/>
+        </informationRequirement>
+        <context>
+            <contextEntry>
+                <variable name="nestedContext01"/>
+                <literalExpression>
+                    <text>nestedContext01</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="copied"/>
+                <literalExpression>
+                    <text>context put(nestedContext01, ["a", "b"], 2)</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+
+    <decision name="nested012" id="_nested012">
+        <variable name="nested012"/>
+        <context>
+            <contextEntry>
+                <variable name="original"/>
+                <literalExpression>
+                    <text>{a: {b: 1}}</text>
+                </literalExpression>
+            </contextEntry>
+            <contextEntry>
+                <variable name="copied"/>
+                <literalExpression>
+                    <text>context put(original, ["a", "b"], 2)</text>
+                </literalExpression>
+            </contextEntry>
+        </context>
+    </decision>
+
+</definitions>
+

@@ -215,8 +215,41 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             for (TExpression subExpression: expressionList) {
                 replace(subExpression, lexicalContext);
             }
+        } else if (expression instanceof TConditional) {
+            TChildExpression if_ = ((TConditional) expression).getIf();
+            replace(if_, lexicalContext);
+            TChildExpression then_ = ((TConditional) expression).getThen();
+            replace(then_, lexicalContext);
+            TChildExpression else_ = ((TConditional) expression).getElse();
+            replace(else_, lexicalContext);
+        } else if (expression instanceof TFilter) {
+            TChildExpression in = ((TFilter) expression).getIn();
+            replace(in, lexicalContext);
+            TChildExpression match = ((TFilter) expression).getMatch();
+            replace( match, lexicalContext);
+        } else if (expression instanceof TFor) {
+            TChildExpression in = ((TFor) expression).getIn();
+            replace(in, lexicalContext);
+            TChildExpression return_ = ((TFor) expression).getReturn();
+            replace( return_, lexicalContext);
+        } else if (expression instanceof TSome) {
+            TChildExpression in = ((TSome) expression).getIn();
+            replace(in, lexicalContext);
+            TChildExpression satisfies = ((TSome) expression).getSatisfies();
+            replace(satisfies, lexicalContext);
+        } else if (expression instanceof TEvery) {
+            TChildExpression in = ((TEvery) expression).getIn();
+            replace(in, lexicalContext);
+            TChildExpression satisfies = ((TEvery) expression).getSatisfies();
+            replace(satisfies, lexicalContext);
         } else {
             throw new UnsupportedOperationException("Not supported yet " + expression.getClass().getSimpleName());
+        }
+    }
+
+    private void replace(TChildExpression childExpression, LexicalContext lexicalContext) {
+        if (childExpression != null) {
+            replace(childExpression.getExpression(), lexicalContext);
         }
     }
 

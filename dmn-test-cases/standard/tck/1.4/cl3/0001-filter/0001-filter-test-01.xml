@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<modelName>0001-filter.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Literal Expression</label>
+        <label>Item Definition</label>
+        <label>FEEL Filter (10.3.2.5)</label>
+    	<label>Compliance Level 3</label>
+		<label>Literal Expression</label>
+		<label>Item Definition</label>
+		<label>FEEL Filter (10.3.2.5)</label>
+		<label>Data Type: String</label>
+		<label>Data Type: Number</label>
+		<label>Data Type: Structure</label>
+		<label>Data Type: Collection</label>
+	</labels>
+	<testCase id="001">
+		<inputNode name="Employees">
+			<list>
+				<item>
+					<component name="id">
+						<value xsi:type="xsd:decimal">7792</value>
+					</component>
+					<component name="dept">
+						<value xsi:type="xsd:decimal">10</value>
+					</component>
+					<component name="name">
+						<value xsi:type="xsd:string">Clark</value>
+					</component>
+				</item>
+				<item>
+					<component name="id">
+						<value xsi:type="xsd:decimal">7934</value>
+					</component>
+					<component name="dept">
+						<value xsi:type="xsd:decimal">10</value>
+					</component>
+					<component name="name">
+						<value xsi:type="xsd:string">Miller</value>
+					</component>
+				</item>
+				<item>
+					<component name="id">
+						<value xsi:type="xsd:decimal">7976</value>
+					</component>
+					<component name="dept">
+						<value xsi:type="xsd:decimal">20</value>
+					</component>
+					<component name="name">
+						<value xsi:type="xsd:string">Adams</value>
+					</component>
+				</item>
+				<item>
+					<component name="id">
+						<value xsi:type="xsd:decimal">7902</value>
+					</component>
+					<component name="dept">
+						<value xsi:type="xsd:decimal">20</value>
+					</component>
+					<component name="name">
+						<value xsi:type="xsd:string">Ford</value>
+					</component>
+				</item>
+				<item>
+					<component name="id">
+						<value xsi:type="xsd:decimal">7900</value>
+					</component>
+					<component name="dept">
+						<value xsi:type="xsd:decimal">30</value>
+					</component>
+					<component name="name">
+						<value xsi:type="xsd:string">James</value>
+					</component>
+				</item>
+			</list>
+		</inputNode>
+		<resultNode name="filter01" type="decision">
+			<expected>
+				<list>
+					<item>
+						<value xsi:type="xsd:string">Adams</value>
+					</item>
+					<item>
+						<value xsi:type="xsd:string">Ford</value>
+					</item>
+				</list>
+			</expected>
+		</resultNode>
+	</testCase>
+</testCases>

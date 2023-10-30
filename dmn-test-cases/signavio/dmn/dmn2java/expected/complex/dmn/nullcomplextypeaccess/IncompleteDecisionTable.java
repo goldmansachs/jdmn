@@ -98,7 +98,7 @@ public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.Default
         // Apply rule
         IncompleteDecisionTableRuleOutput output_ = new IncompleteDecisionTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(inputString, "abc"))
+            stringEqual(inputString, "abc")
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

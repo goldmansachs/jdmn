@@ -48,7 +48,7 @@ public interface Type {
 
     /*
             A type type1 is equivalent to type type2 when the types are either structurally or name equivalent. The types are compatible without coercion
-        */
+    */
     static boolean equivalentTo(Type type1, Type type2) {
         if (type1 == null) {
             return type2 == null;

@@ -107,7 +107,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         var output_: ProcessPriorIssuesRuleOutput = ProcessPriorIssuesRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Card rejection", "Late payment"))))
+            booleanNot(notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Card rejection", "Late payment")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -141,7 +141,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         var output_: ProcessPriorIssuesRuleOutput = ProcessPriorIssuesRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Default on obligations"))))
+            booleanNot(notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Default on obligations")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -175,7 +175,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         var output_: ProcessPriorIssuesRuleOutput = ProcessPriorIssuesRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Bankruptcy"))))
+            booleanNot(notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Bankruptcy")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -209,7 +209,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         // Apply rule
         var output_: ProcessPriorIssuesRuleOutput = ProcessPriorIssuesRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Card rejection", "Late payment", "Default on obligations", "Bankruptcy")))
+            notContainsAny(applicant?.let({ it.priorIssues as List<String?>? }), asList("Card rejection", "Late payment", "Default on obligations", "Bankruptcy"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

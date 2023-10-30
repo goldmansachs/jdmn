@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -35,6 +36,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> {
         if (n == null || scale == null) {
             return null;
         }
+        checkScale(scale);
 
         return round(n, scale, RoundingMode.HALF_EVEN);
     }
@@ -44,6 +46,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> {
         if (n == null || scale == null || mode == null) {
             return null;
         }
+        checkScale(scale);
 
         return n.setScale(scale.intValue(), mode);
     }
@@ -53,6 +56,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> {
         if (n == null || scale == null) {
             return null;
         }
+        checkScale(scale);
 
         return n.setScale(scale.intValue(), RoundingMode.FLOOR);
     }
@@ -62,6 +66,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> {
         if (n == null || scale == null) {
             return null;
         }
+        checkScale(scale);
 
         return n.setScale(scale.intValue(), RoundingMode.CEILING);
     }
@@ -299,5 +304,11 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> {
     @Override
     public Number toNumber(BigDecimal number) {
         return number;
+    }
+
+    private void checkScale(BigDecimal scale) {
+        if (scale != null && (scale.intValue() < MIN_SCALE || scale.intValue() > MAX_SCALE)) {
+            throw new DMNRuntimeException(String.format("Scale '%s' not in range [%s, %s]", scale, MIN_SCALE, MAX_SCALE));
+        }
     }
 }

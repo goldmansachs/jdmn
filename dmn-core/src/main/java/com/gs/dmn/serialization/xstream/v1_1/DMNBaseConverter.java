@@ -23,7 +23,6 @@ import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.converters.collections.AbstractCollectionConverter;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
-import com.thoughtworks.xstream.mapper.Mapper;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -60,7 +59,7 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
             } else {
                 return qname.toString();
             }
-        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13) {
+        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13 || version == DMNVersion.DMN_14) {
             // DMN v1.2 namespace typeRef is imported with dot.
             if (!XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
                 String nsForPrefix = parent.getNamespaceURI(qname.getPrefix());
@@ -116,7 +115,7 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
         while (reader.hasMoreChildren()) {
             reader.moveDown();
             String nodeName = reader.getNodeName();
-            Object object = readBareItem(reader, context,null);
+            Object object = readBareItem(reader, context, null);
             if (object instanceof DMNBaseElement) {
                 ((DMNBaseElement) object).setParent((DMNBaseElement) parent);
                 ((DMNBaseElement) parent).addChildren((DMNBaseElement) object);
@@ -142,8 +141,31 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
             nodeName = "relation";
         } else if (e instanceof TList) {
             nodeName = "list";
+        } else if (e instanceof TFor) {
+            nodeName = "for";
+        } else if (e instanceof TEvery) {
+            nodeName = "every";
+        } else if (e instanceof TSome) {
+            nodeName = "some";
+        } else if (e instanceof TConditional) {
+            nodeName = "conditional";
+        } else if (e instanceof TFilter) {
+            nodeName = "filter";
         }
         return nodeName;
+    }
+
+    protected void mvDownConvertAnotherMvUpAssignChildElement(HierarchicalStreamReader reader, UnmarshallingContext context, Object parent, String expectedNodeName, Class<? extends DMNBaseElement> type) {
+        reader.moveDown();
+        String nodeName = reader.getNodeName();
+        if (!expectedNodeName.equals(nodeName)) throw new IllegalStateException();
+        Object object = context.convertAnother(null, type);
+        if (object instanceof DMNBaseElement) {
+            ((DMNBaseElement) object).setParent((DMNBaseElement) parent);
+            ((DMNBaseElement) parent).addChildren((DMNBaseElement) object);
+        }
+        reader.moveUp();
+        assignChildElement(parent, nodeName, object);
     }
 
     protected abstract DMNBaseElement createModelObject();

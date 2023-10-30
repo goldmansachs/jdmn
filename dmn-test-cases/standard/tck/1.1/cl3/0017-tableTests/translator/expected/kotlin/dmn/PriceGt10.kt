@@ -85,7 +85,7 @@ class PriceGt10() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Apply rule
         var output_: PriceGt10RuleOutput = PriceGt10RuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericGreaterThan(structA?.let({ it.price as java.math.BigDecimal? }), number("10")))
+            numericGreaterThan(structA?.let({ it.price as java.math.BigDecimal? }), number("10"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -119,7 +119,7 @@ class PriceGt10() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         // Apply rule
         var output_: PriceGt10RuleOutput = PriceGt10RuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericLessEqualThan(structA?.let({ it.price as java.math.BigDecimal? }), number("10")))
+            numericLessEqualThan(structA?.let({ it.price as java.math.BigDecimal? }), number("10"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

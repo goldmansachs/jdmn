@@ -121,10 +121,10 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         // Apply rule
         PartCRuleOutput output_ = new PartCRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((logical == null)),
-            booleanNot((temporalDiff == null)),
-            (notContainsAny(temporalComparator, asList("notDefined"))),
-            booleanNot((temporal == null))
+            booleanNot(logical == null),
+            booleanNot(temporalDiff == null),
+            notContainsAny(temporalComparator, asList("notDefined")),
+            booleanNot(temporal == null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

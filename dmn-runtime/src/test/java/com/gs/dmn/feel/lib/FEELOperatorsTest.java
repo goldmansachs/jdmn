@@ -1410,9 +1410,17 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     protected List<NUMBER> makeNumberList(Object... numbers) {
-        List result = new ArrayList();
-        for(Object num: numbers) {
+        List<NUMBER> result = new ArrayList<>();
+        for (Object num: numbers) {
             result.add(makeNumber(String.format("%s", num)));
+        }
+        return result;
+    }
+
+    protected List<String> makeStringList(String... strings) {
+        List<String> result = new ArrayList<>();
+        for (String str: strings) {
+            result.add(str);
         }
         return result;
     }
@@ -1431,6 +1439,14 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     protected DURATION makeDuration(String literal) {
         return getLib().duration(literal);
+    }
+
+    protected Context makeContext(Object... objects) {
+        Context context = new Context();
+        for (int i=0; i<objects.length; i+=2) {
+            context.put(objects[i], objects[i+1]);
+        }
+        return context;
     }
 
     protected void assertEqualsNumber(String expected, Object actual) {

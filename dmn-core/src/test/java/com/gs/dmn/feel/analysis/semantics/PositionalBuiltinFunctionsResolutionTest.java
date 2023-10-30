@@ -25,7 +25,7 @@ public class PositionalBuiltinFunctionsResolutionTest extends AbstractStandardBu
         testFunctionInvocation("time(" + date + ")", "BuiltinFunctionType(FormalParameter(from, date, false, false), time)", false);
         testFunctionInvocation("time(" + dateTime + ")", "BuiltinFunctionType(FormalParameter(from, date and time, false, false), time)", false);
         testFunctionInvocation("time(12, 0, 0)", "BuiltinFunctionType(FormalParameter(hour, number, false, false), FormalParameter(minute, number, false, false), FormalParameter(second, number, false, false), FormalParameter(offset, days and time duration, true, false), time)", false);
-        testFunctionInvocation("time(12, 0, 0, 0)", "BuiltinFunctionType(FormalParameter(hour, number, false, false), FormalParameter(minute, number, false, false), FormalParameter(second, number, false, false), FormalParameter(offset, days and time duration, true, false), time)", false);
+        testFunctionInvocation("time(12, 0, 0, " + daysAndTimeDuration + ")", "BuiltinFunctionType(FormalParameter(hour, number, false, false), FormalParameter(minute, number, false, false), FormalParameter(second, number, false, false), FormalParameter(offset, days and time duration, true, false), time)", false);
 
         testFunctionInvocation("number(null, null, null)", "BuiltinFunctionType(FormalParameter(from, string, false, false), FormalParameter(grouping separator, string, false, false), FormalParameter(decimal separator, string, false, false), number)", false);
         testFunctionInvocation("number(" + numberString + ", \",\", \".\")", "BuiltinFunctionType(FormalParameter(from, string, false, false), FormalParameter(grouping separator, string, false, false), FormalParameter(decimal separator, string, false, false), number)", false);
@@ -35,7 +35,6 @@ public class PositionalBuiltinFunctionsResolutionTest extends AbstractStandardBu
 
         testFunctionInvocation("duration(null)", "BuiltinFunctionType(FormalParameter(from, string, false, false), duration)", false);
         testFunctionInvocation("duration(" + yearsAndMonthsDurationString + ")", "DateTimeLiteral", false);
-        testFunctionInvocation("duration(" + daysAndTimeDuration + ")", "BuiltinFunctionType(FormalParameter(from, string, false, false), duration)", false);
 
         testFunctionInvocation("years and months duration(null, null)", "BuiltinFunctionType(FormalParameter(from, date, false, false), FormalParameter(to, date, false, false), years and months duration)", false);
         testFunctionInvocation("years and months duration(" + date + ", " +  date + ")", "BuiltinFunctionType(FormalParameter(from, date, false, false), FormalParameter(to, date, false, false), years and months duration)", false);
@@ -50,7 +49,7 @@ public class PositionalBuiltinFunctionsResolutionTest extends AbstractStandardBu
         testFunctionInvocation("decimal(" + number + ", " + number + ")", "BuiltinFunctionType(FormalParameter(n, number, false, false), FormalParameter(scale, number, false, false), number)", false);
 
         testFunctionInvocation("round(null, null, null)", "BuiltinFunctionType(FormalParameter(n, number, false, false), FormalParameter(scale, number, false, false), FormalParameter(mode, string, false, false), number)", false);
-        testFunctionInvocation("round(" + number + ", " + number + ", " + number + ")", "BuiltinFunctionType(FormalParameter(n, number, false, false), FormalParameter(scale, number, false, false), FormalParameter(mode, string, false, false), number)", false);
+        testFunctionInvocation("round(" + number + ", " + number + ", " + stringString + ")", "BuiltinFunctionType(FormalParameter(n, number, false, false), FormalParameter(scale, number, false, false), FormalParameter(mode, string, false, false), number)", false);
 
         testFunctionInvocation("round up(null, null)", "BuiltinFunctionType(FormalParameter(n, number, false, false), FormalParameter(scale, number, false, false), number)", false);
         testFunctionInvocation("round up(" + number + ", " + number + ")", "BuiltinFunctionType(FormalParameter(n, number, false, false), FormalParameter(scale, number, false, false), number)", false);

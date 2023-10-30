@@ -13,14 +13,14 @@
 package com.gs.dmn.feel.lib.type.string;
 
 import com.gs.dmn.feel.lib.FormatUtils;
-import com.gs.dmn.serialization.XMLUtil;
+import net.sf.saxon.Configuration;
+import net.sf.saxon.dom.DocumentBuilderImpl;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
@@ -33,9 +33,11 @@ import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class DefaultStringLib implements StringLib {
     @Override
@@ -230,6 +232,23 @@ public class DefaultStringLib implements StringLib {
     }
 
     @Override
+    public String stringJoin(List<String> list) {
+        return stringJoin(list, null);
+    }
+
+    @Override
+    public String stringJoin(List<String> list, String delimiter) {
+        if (list == null) {
+            return null;
+        }
+        if (delimiter == null) {
+            delimiter = "";
+        }
+
+        return list.stream().filter(Objects::nonNull).collect(Collectors.joining(delimiter));
+    }
+
+    @Override
     public String min(List<?> list) {
         return minMax(list, x -> x > 0);
     }
@@ -268,13 +287,13 @@ public class DefaultStringLib implements StringLib {
     private String evaluateXPath(String input, String expression) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
         // Read document
         String xml = "<root>" + input + "</root>";
-        DocumentBuilderFactory builderFactory = XMLUtil.makeDocumentBuilderFactory();
-        DocumentBuilder builder = builderFactory.newDocumentBuilder();
+        DocumentBuilder builder = new DocumentBuilderImpl();
         InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
         Document document = builder.parse(inputStream);
+        Configuration configuration = ((DocumentBuilderImpl) builder).getConfiguration();
 
         // Evaluate xpath
-        XPathFactory xPathFactory = new XPathFactoryImpl();
+        XPathFactory xPathFactory = new XPathFactoryImpl(configuration);
         XPath xPath = xPathFactory.newXPath();
         return xPath.evaluate(expression, document.getDocumentElement());
     }

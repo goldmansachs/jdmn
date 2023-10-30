@@ -121,8 +121,8 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             Boolean.TRUE,
             Boolean.TRUE,
             Boolean.TRUE,
-            (booleanEqual(numericLessEqualThan(count(dateOperators), count(datetimeOperators)), Boolean.FALSE)),
-            (booleanEqual(numericGreaterEqualThan(count(datetimeOperators), count(timeOperators)), Boolean.TRUE))
+            booleanEqual(numericLessEqualThan(count(dateOperators), count(datetimeOperators)), Boolean.FALSE),
+            booleanEqual(numericGreaterEqualThan(count(datetimeOperators), count(timeOperators)), Boolean.TRUE)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -159,8 +159,8 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             Boolean.TRUE,
             Boolean.TRUE,
             Boolean.TRUE,
-            (booleanEqual(numericLessEqualThan(count(dateOperators), count(datetimeOperators)), Boolean.TRUE)),
-            (booleanEqual(numericGreaterEqualThan(count(datetimeOperators), count(timeOperators)), Boolean.FALSE))
+            booleanEqual(numericLessEqualThan(count(dateOperators), count(datetimeOperators)), Boolean.TRUE),
+            booleanEqual(numericGreaterEqualThan(count(datetimeOperators), count(timeOperators)), Boolean.FALSE)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -197,8 +197,8 @@ public class Pick extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             Boolean.TRUE,
             Boolean.TRUE,
             Boolean.TRUE,
-            (booleanEqual(numericLessEqualThan(count(dateOperators), count(datetimeOperators)), Boolean.TRUE)),
-            (booleanEqual(numericGreaterEqualThan(count(datetimeOperators), count(timeOperators)), Boolean.TRUE))
+            booleanEqual(numericLessEqualThan(count(dateOperators), count(datetimeOperators)), Boolean.TRUE),
+            booleanEqual(numericGreaterEqualThan(count(datetimeOperators), count(timeOperators)), Boolean.TRUE)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

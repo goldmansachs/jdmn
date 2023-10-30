@@ -121,6 +121,10 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     List<String> split(String string, String delimiter);
 
+    String stringJoin(List<String> list);
+
+    String stringJoin(List<String> list, String delimiter);
+
     //
     // Boolean functions
     //
@@ -180,6 +184,10 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     // Date and time functions
     //
     Boolean is(Object value1, Object value2);
+
+    DATE_TIME now();
+
+    DATE today();
 
     //
     // List functions
@@ -263,6 +271,6 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     // Temporal built-in functions
     //
-
     <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator);
+    Boolean isInstanceOf(Object value, String type);
 }

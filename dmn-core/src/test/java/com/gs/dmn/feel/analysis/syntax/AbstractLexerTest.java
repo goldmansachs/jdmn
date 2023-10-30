@@ -19,12 +19,13 @@ import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractLexerTest {
     protected void checkPosition(Token token, int beginLine, int beginColumn, int endLine, int endColumn, int beginOffset, int endOffset) {
-        assertEquals(beginLine, getBeginLine(token));
-        assertEquals(beginColumn, getBeginColumn(token));
-        assertEquals(endLine, getEndLine(token));
-        assertEquals(endColumn, getEndColumn(token));
-        assertEquals(beginOffset, getBeginOffset(token));
-        assertEquals(endOffset, getEndOffset(token));
+        String message = String.format("Error when checking '%s'", token.getText());
+        assertEquals(message, beginLine, getBeginLine(token));
+        assertEquals(message, beginColumn, getBeginColumn(token));
+        assertEquals(message, endLine, getEndLine(token));
+        assertEquals(message, endColumn, getEndColumn(token));
+        assertEquals(message, beginOffset, getBeginOffset(token));
+        assertEquals(message, endOffset, getEndOffset(token));
     }
 
     private int getBeginLine(Token token) {
@@ -75,11 +76,7 @@ public abstract class AbstractLexerTest {
         return token;
     }
 
-    protected void checkTokenList(String text, Integer[] expectedTokenCodes, String[] expectedLexemes) {
-        checkTokenList(true, text, expectedTokenCodes, expectedLexemes);
-    }
-
-    public void checkTokenList(boolean allowSpaceInNames, String text, Integer[] expectedTokenCodes, String[] expectedLexemes) {
+    public void checkTokenList(String text, Integer[] expectedTokenCodes, String[] expectedLexemes) {
         Lexer lexer = makeLexer(text);
         for(int i=0; i<expectedTokenCodes.length; i++) {
             Token token = lexer.nextToken();

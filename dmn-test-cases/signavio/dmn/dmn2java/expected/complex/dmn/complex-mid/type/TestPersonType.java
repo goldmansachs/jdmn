@@ -13,9 +13,21 @@ public interface TestPersonType extends com.gs.dmn.runtime.DMNType {
             return (TestPersonType)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TestPersonTypeImpl result_ = new TestPersonTypeImpl();
-            result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name", "Name"));
-            result_.setAge((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("age", "Age"));
-            result_.setProperties((List<String>)((com.gs.dmn.runtime.Context)other).get("properties", "Properties"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("name") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Name")) {
+                result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name", "Name"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("age") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Age")) {
+                result_.setAge((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("age", "Age"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("properties") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Properties")) {
+                result_.setProperties((List<String>)((com.gs.dmn.runtime.Context)other).get("properties", "Properties"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTestPersonType(((com.gs.dmn.runtime.DMNType)other).toContext());

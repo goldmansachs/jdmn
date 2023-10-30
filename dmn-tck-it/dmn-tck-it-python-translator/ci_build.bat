@@ -18,7 +18,7 @@ python -m pytest && (
   echo pytest failed
   exit /b 1
 )
-tox -e flake8 && (
+python -m flake8 && (
   echo flake8 passed
 ) || (
   echo flake8 failed

@@ -66,7 +66,7 @@ public class DateTimeProtoTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         type.CompositeDateTime compositeInputDateTime = new type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), duration("P1D"), time("12:10:10"), duration("P1Y"));
 
         // Check 'CompositeDateTime'
-        checkValues(new type.CompositeDateTimeImpl(date("2020-09-19"), dateAndTime("2020-09-19T12:10:10"), duration("P1D"), time("12:10:10"), duration("P1Y")), new CompositeDateTime().apply(compositeInputDateTime, context_));
+        checkValues(type.CompositeDateTime.toCompositeDateTime(new com.gs.dmn.runtime.Context().add("Date", date("2020-09-19")).add("DateTime", dateAndTime("2020-09-19T12:10:10")).add("DayTimeDuration", duration("P1D")).add("Time", time("12:10:10")).add("YearMonthDuration", duration("P1Y"))), new CompositeDateTime().apply(compositeInputDateTime, context_));
 
         // Check 'CompositeDateTime' with proto request
         proto.CompositeDateTimeRequest.Builder compositeDateTimeBuilder_ = proto.CompositeDateTimeRequest.newBuilder();

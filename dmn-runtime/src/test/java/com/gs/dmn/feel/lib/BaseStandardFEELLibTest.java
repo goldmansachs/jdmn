@@ -577,6 +577,8 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEquals("\uD83D\uDE00", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("8")));
         assertEquals("\uD83D\uDC0E", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("4"), makeNumber("1")));
         assertEquals("\uD83D\uDC0Ebar", getLib().substring("foo\ud83d\udc0ebar\uD83D\uDE00", makeNumber("4"), makeNumber("4")));
+
+        assertEquals("ab", getLib().substring("\uD83D\uDC0Eab", makeNumber("2")));
     }
 
     @Test
@@ -650,6 +652,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertNull(getLib().replace("abcd", "(ab)|(a)", null));
         assertNull(getLib().replace("abcd", "(ab)|(a)", "$"));
 
+        assertEquals("bonono", getLib().replace("banana","a","o"));
         assertEquals("[1=ab][2=]cd", getLib().replace("abcd", "(ab)|(a)", "[1=$1][2=$2]"));
 
         assertEquals("a*cada*", getLib().replace("abracadabra", "bra", "*"));
@@ -690,11 +693,28 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Test
     public void testSplit() {
-        assertNull("", getLib().split(null, null));
-        assertNull("", getLib().split("", ""));
+        assertNull(getLib().split(null, null));
+        assertNull(getLib().split("", ""));
 
         assertEquals(getLib().asList("John", "Doe"), getLib().split("John Doe", "\\s"));
         assertEquals(getLib().asList("a", "b", "c", "", ""), getLib().split("a;b;c;;", ";"));
+    }
+
+    @Test
+    public void testStringJoin() {
+        assertNull(getLib().stringJoin(null));
+        assertNull(getLib().stringJoin(null, null));
+
+        assertEquals("a_and_b_and_c", getLib().stringJoin(makeStringList("a", "b", "c"), "_and_"));
+        assertEquals("abc", getLib().stringJoin(makeStringList("a", "b", "c"),  ""));
+        assertEquals("abc", getLib().stringJoin(makeStringList("a", "b", "c"), null));
+        assertEquals( "a", getLib().stringJoin(makeStringList("a"), "X"));
+        assertEquals("aXc", getLib().stringJoin(makeStringList("a", null, "c"), "X"));
+        assertEquals("", getLib().stringJoin(makeStringList(), "X"));
+
+        assertEquals("abc", getLib().stringJoin(makeStringList("a", "b", "c")));
+        assertEquals("ac", getLib().stringJoin(makeStringList("a", null, "c")));
+        assertEquals("", getLib().stringJoin(makeStringList()));
     }
 
     //
@@ -785,12 +805,29 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertTrue(getLib().is(makeDate("2012-12-25"), makeDate("2012-12-25")));
         assertFalse(getLib().is(makeDate("2012-12-25"), makeDate("2012-12-26")));
 
+        assertTrue(getLib().is(makeTime("23:00:50"), makeTime("23:00:50")));
+        // Fails for XML dialects
+//        assertFalse(getLib().is(makeTime("23:00:50"), makeTime("23:00:50z")));
+        assertFalse(getLib().is(makeTime("23:00:50"), makeTime("23:00:50@Europe/Paris")));
         assertTrue(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50z")));
         assertTrue(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50Z")));
         assertTrue(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50+00:00")));
+        assertFalse(getLib().is(makeTime("23:00:50z"), makeTime("23:00:50@Europe/Paris")));
+        assertFalse(getLib().is(makeTime("23:00:50+00:00"), makeTime("23:00:50@Europe/Paris")));
+        assertFalse(getLib().is(makeTime("23:00:50@America/New_York"), makeTime("23:00:50@Europe/Paris")));
 
         assertTrue(getLib().is(makeDateAndTime("2012-12-25T12:00:00"), makeDateAndTime("2012-12-25T12:00:00")));
         assertFalse(getLib().is(makeDateAndTime("2012-12-25T12:00:00"), makeDateAndTime("2012-12-26T12:00:00z")));
+        assertTrue(getLib().is(makeDateAndTime("2012-12-25T23:00:50"), makeDateAndTime("2012-12-25T23:00:50")));
+        // Fails for XML dialects
+//        assertFalse(getLib().is(makeDateAndTime("2012-12-25T23:00:50"), makeDateAndTime("2012-12-25T23:00:50z")));
+        assertFalse(getLib().is(makeDateAndTime("2012-12-25T23:00:50"), makeDateAndTime("2012-12-25T23:00:50@Europe/Paris")));
+        assertTrue(getLib().is(makeDateAndTime("2012-12-25T23:00:50z"), makeDateAndTime("2012-12-25T23:00:50z")));
+        assertTrue(getLib().is(makeDateAndTime("2012-12-25T23:00:50z"), makeDateAndTime("2012-12-25T23:00:50Z")));
+        assertTrue(getLib().is(makeDateAndTime("2012-12-25T23:00:50z"), makeDateAndTime("2012-12-25T23:00:50+00:00")));
+        assertFalse(getLib().is(makeDateAndTime("2012-12-25T23:00:50z"), makeDateAndTime("2012-12-25T23:00:50@Europe/Paris")));
+        assertFalse(getLib().is(makeDateAndTime("2012-12-25T23:00:50+00:00"), makeDateAndTime("2012-12-25T23:00:50@Europe/Paris")));
+        assertFalse(getLib().is(makeDateAndTime("2012-12-25T23:00:50@America/New_York"), makeDateAndTime("2012-12-25T23:00:50@Europe/Paris")));
 
         assertTrue(getLib().is(makeDuration("P1Y"), makeDuration("P1Y")));
         assertFalse(getLib().is(makeDuration("P1Y"), makeDuration("-P1Y")));
@@ -986,6 +1023,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     public void testDistinctValues() {
         assertEquals(Arrays.asList(), getLib().distinctValues(null));
 
+        assertEquals(makeNumberList("1", "2", "3"), getLib().distinctValues(makeNumberList(1, 2, 3, 2, 3)));
         assertEquals(makeNumberList("1", "2", "3"), getLib().distinctValues(makeNumberList(1, 2, 3, 2, 1)));
     }
 
@@ -1010,6 +1048,9 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
         assertNull(getLib().product(makeNumber(2), null, makeNumber(4)));
         assertNull(getLib().product(makeNumberList(2, null, 4)));
+
+        assertEqualsNumber(makeNumber(2), getLib().product(makeNumber(2)));
+        assertEqualsNumber(makeNumber(2), getLib().product(makeNumberList(2)));
 
         assertEqualsNumber(makeNumber(24), getLib().product(makeNumber(2), makeNumber(3), makeNumber(4)));
         assertEqualsNumber(makeNumber(24), getLib().product(makeNumberList(2, 3, 4)));

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0097-feel-month-of-year-function.dmn</modelName>
+
+    <testCase id="date_001">
+        <description>date: month of year</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:date">2021-01-01</value>
+        </inputNode>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <component name="_2021-01-01">
+                    <value xsi:type="xsd:string">January</value>
+                </component>
+                <component name="_2021-02-01">
+                    <value xsi:type="xsd:string">February</value>
+                </component>
+                <component name="_2021-03-01">
+                    <value xsi:type="xsd:string">March</value>
+                </component>
+                <component name="_2021-04-01">
+                    <value xsi:type="xsd:string">April</value>
+                </component>
+                <component name="_2021-05-01">
+                    <value xsi:type="xsd:string">May</value>
+                </component>
+                <component name="_2021-06-01">
+                    <value xsi:type="xsd:string">June</value>
+                </component>
+                <component name="_2021-07-01">
+                    <value xsi:type="xsd:string">July</value>
+                </component>
+                <component name="_2021-08-01">
+                    <value xsi:type="xsd:string">August</value>
+                </component>
+                <component name="_2021-09-01">
+                    <value xsi:type="xsd:string">September</value>
+                </component>
+                <component name="_2021-10-01">
+                    <value xsi:type="xsd:string">October</value>
+                </component>
+                <component name="_2021-11-01">
+                    <value xsi:type="xsd:string">November</value>
+                </component>
+                <component name="_2021-12-01">
+                    <value xsi:type="xsd:string">December</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_002">
+        <description>date: will accept date as named param</description>
+        <resultNode name="date_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">September</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_001">
+        <description>datetime: month of year</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:dateTime">2021-01-01T10:10:10</value>
+        </inputNode>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <component name="_2021-01-01">
+                    <value xsi:type="xsd:string">January</value>
+                </component>
+                <component name="_2021-02-01">
+                    <value xsi:type="xsd:string">February</value>
+                </component>
+                <component name="_2021-03-01">
+                    <value xsi:type="xsd:string">March</value>
+                </component>
+                <component name="_2021-04-01">
+                    <value xsi:type="xsd:string">April</value>
+                </component>
+                <component name="_2021-05-01">
+                    <value xsi:type="xsd:string">May</value>
+                </component>
+                <component name="_2021-06-01">
+                    <value xsi:type="xsd:string">June</value>
+                </component>
+                <component name="_2021-07-01">
+                    <value xsi:type="xsd:string">July</value>
+                </component>
+                <component name="_2021-08-01">
+                    <value xsi:type="xsd:string">August</value>
+                </component>
+                <component name="_2021-09-01">
+                    <value xsi:type="xsd:string">September</value>
+                </component>
+                <component name="_2021-10-01">
+                    <value xsi:type="xsd:string">October</value>
+                </component>
+                <component name="_2021-11-01">
+                    <value xsi:type="xsd:string">November</value>
+                </component>
+                <component name="_2021-12-01">
+                    <value xsi:type="xsd:string">December</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="datetime_002">
+        <description>date: will accept datetime as named param</description>
+        <resultNode name="datetime_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">September</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_001">
+        <description>null param gives null result</description>
+        <resultNode name="null_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_002">
+        <description>no param gives null result</description>
+        <resultNode name="null_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_003">
+        <description>invalid param type gives null result</description>
+        <resultNode name="null_003" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_004">
+        <description>null value named param gives null result</description>
+        <resultNode name="null_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_005">
+        <description>invalid type as named param gives null result</description>
+        <resultNode name="null_005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_006">
+        <description>invalidly named param gives null result</description>
+        <resultNode name="null_006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_007">
+        <description>unknown type at compile time with invalid type as runtime input</description>
+        <inputNode name="date_input_001">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="null_007" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="null_008">
+        <description>too many params gives null result</description>
+        <resultNode name="null_008" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+
+</testCases>

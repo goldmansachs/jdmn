@@ -64,8 +64,8 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "\"b\" in [[\"f\"..\"h\"], [\"a\"..\"c\"]]",
                 "InExpression(StringLiteral(\"b\"), ListTest(ListLiteral(EndpointsRange(false,StringLiteral(\"f\"),false,StringLiteral(\"h\")),EndpointsRange(false,StringLiteral(\"a\"),false,StringLiteral(\"c\")))))",
                 "boolean",
-                "(listContains(asList(booleanAnd(stringGreaterEqualThan(\"b\", \"f\"), stringLessEqualThan(\"b\", \"h\")), booleanAnd(stringGreaterEqualThan(\"b\", \"a\"), stringLessEqualThan(\"b\", \"c\"))), true))",
-                (this.lib.listContains(this.lib.asList(this.lib.booleanAnd(this.lib.stringGreaterEqualThan("b", "f"), this.lib.stringLessEqualThan("b", "h")), this.lib.booleanAnd(this.lib.stringGreaterEqualThan("b", "a"), this.lib.stringLessEqualThan("b", "c"))), true)),
+                "listContains(asList(booleanAnd(stringGreaterEqualThan(\"b\", \"f\"), stringLessEqualThan(\"b\", \"h\")), booleanAnd(stringGreaterEqualThan(\"b\", \"a\"), stringLessEqualThan(\"b\", \"c\"))), true)",
+                this.lib.listContains(this.lib.asList(this.lib.booleanAnd(this.lib.stringGreaterEqualThan("b", "f"), this.lib.stringLessEqualThan("b", "h")), this.lib.booleanAnd(this.lib.stringGreaterEqualThan("b", "a"), this.lib.stringLessEqualThan("b", "c"))), true),
                 false);
     }
 

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1140-feel-string-join-function"
+             name="1140-feel-string-join-function"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>FEEL built-in function 'string join(string,delimiter)' in category string functions</description>
+
+    <decision name="decision001" id="_decision001">
+        <variable name="decision001"/>
+        <literalExpression>
+            <text>string join(["a","b","c"])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision002" id="_decision002">
+        <variable name="decision002"/>
+        <literalExpression>
+            <text>string join(["a","b","c"], " and ")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003" id="_decision003">
+        <variable name="decision003"/>
+        <literalExpression>
+            <text>string join(["a","b","c"], "")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision004" id="_decision004">
+        <variable name="decision004"/>
+        <literalExpression>
+            <text>string join(["a","b","c"], null)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision005_a" id="_decision005_a">
+        <variable name="decision005_a"/>
+        <literalExpression>
+            <text>string join(["a"])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision005_b" id="_decision005_b">
+        <variable name="decision005_b"/>
+        <literalExpression>
+            <text>string join(["a"], "X")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision006_a" id="_decision006_a">
+        <variable name="decision006_a"/>
+        <literalExpression>
+            <text>string join(["a",null,"c"])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision006_b" id="_decision006_b">
+        <variable name="decision006_b"/>
+        <literalExpression>
+            <text>string join(["a",null,"c"], "X")</text>
+        </literalExpression>
+    </decision>
+
+
+    <decision name="decision007_a" id="_decision007_a">
+        <variable name="decision007_a"/>
+        <literalExpression>
+            <text>string join([])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision007_b" id="_decision007_b">
+        <variable name="decision007_b"/>
+        <literalExpression>
+            <text>string join([], "X")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision008" id="_decision008">
+        <variable name="decision008"/>
+        <literalExpression>
+            <text>string join()</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision009" id="_decision009">
+        <variable name="decision009"/>
+        <literalExpression>
+            <text>string join(["a","c"], "X", "foo")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision010_a" id="_decision010_a">
+        <variable name="decision010_a"/>
+        <literalExpression>
+            <text>string join(list: ["a","c"])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision010_b" id="_decision010_b">
+        <variable name="decision010_b"/>
+        <literalExpression>
+            <text>string join(delimiter: "X", list: ["a","c"])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision011_a" id="_decision011_a">
+        <variable name="decision011_a"/>
+        <literalExpression>
+            <text>string join(list: ["a","c"], delimitr: "X")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision011_b" id="_decision011_b">
+        <variable name="decision011_b"/>
+        <literalExpression>
+            <text>string join(lst: ["a","c"], delimiter: "X")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision012_a" id="_decision012_a">
+        <variable name="decision012_a"/>
+        <literalExpression>
+            <text>string join(null)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision012_b" id="_decision012_b">
+        <variable name="decision012_b"/>
+        <literalExpression>
+            <text>string join(null, "X")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision013" id="_decision013">
+        <variable name="decision013"/>
+        <literalExpression>
+            <text>string join([1,2,3], "X")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision014" id="_decision014">
+        <variable name="decision014"/>
+        <literalExpression>
+            <text>string join(123, "X")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision015" id="_decision015">
+        <variable name="decision015"/>
+        <literalExpression>
+            <text>string join("a", "X")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision016" id="_decision016">
+        <variable name="decision016"/>
+        <literalExpression>
+            <text>string join(list: "a", delimiter: "X")</text>
+        </literalExpression>
+    </decision>
+
+</definitions>
+

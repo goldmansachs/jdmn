@@ -121,12 +121,12 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
         // Apply rule
         CompoundOutputCompoundDecisionRuleOutput output_ = new CompoundOutputCompoundDecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(booleanInput, Boolean.TRUE)),
-            (stringEqual(enumerationInput, "e1")),
-            (stringEqual(((String)(dependentDecision1 != null ? dependentDecision1.getDD1O1() : null)), "dd1o1")),
-            (stringEqual(((String)(dependentDecision1 != null ? dependentDecision1.getDD1O2() : null)), "dd1o2")),
-            (stringEqual(((String)(dependentDecision2 != null ? dependentDecision2.getDD2O1() : null)), "dd2o1")),
-            (stringEqual(((String)(dependentDecision2 != null ? dependentDecision2.getDD2O2() : null)), "dd2o2"))
+            booleanEqual(booleanInput, Boolean.TRUE),
+            stringEqual(enumerationInput, "e1"),
+            stringEqual(((String)(dependentDecision1 != null ? dependentDecision1.getDD1O1() : null)), "dd1o1"),
+            stringEqual(((String)(dependentDecision1 != null ? dependentDecision1.getDD1O2() : null)), "dd1o2"),
+            stringEqual(((String)(dependentDecision2 != null ? dependentDecision2.getDD2O1() : null)), "dd2o1"),
+            stringEqual(((String)(dependentDecision2 != null ? dependentDecision2.getDD2O2() : null)), "dd2o2")
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -161,12 +161,12 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
         // Apply rule
         CompoundOutputCompoundDecisionRuleOutput output_ = new CompoundOutputCompoundDecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((booleanEqual(booleanInput, Boolean.FALSE))),
-            booleanNot((stringEqual(enumerationInput, "e1"))),
-            (stringEqual(((String)(dependentDecision1 != null ? dependentDecision1.getDD1O1() : null)), "dd1o1")),
-            (stringEqual(((String)(dependentDecision1 != null ? dependentDecision1.getDD1O2() : null)), "dd1o2")),
-            (stringEqual(((String)(dependentDecision2 != null ? dependentDecision2.getDD2O1() : null)), "dd2o1")),
-            (stringEqual(((String)(dependentDecision2 != null ? dependentDecision2.getDD2O2() : null)), "dd2o2"))
+            booleanNot(booleanEqual(booleanInput, Boolean.FALSE)),
+            booleanNot(stringEqual(enumerationInput, "e1")),
+            stringEqual(((String)(dependentDecision1 != null ? dependentDecision1.getDD1O1() : null)), "dd1o1"),
+            stringEqual(((String)(dependentDecision1 != null ? dependentDecision1.getDD1O2() : null)), "dd1o2"),
+            stringEqual(((String)(dependentDecision2 != null ? dependentDecision2.getDD2O1() : null)), "dd2o1"),
+            stringEqual(((String)(dependentDecision2 != null ? dependentDecision2.getDD2O2() : null)), "dd2o2")
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

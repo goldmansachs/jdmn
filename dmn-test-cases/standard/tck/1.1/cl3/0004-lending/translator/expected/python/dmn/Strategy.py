@@ -123,7 +123,7 @@ class Strategy(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
         # Apply rule
         output_: StrategyRuleOutput.StrategyRuleOutput = StrategyRuleOutput.StrategyRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.stringEqual(eligibility, "INELIGIBLE")),
+            self.stringEqual(eligibility, "INELIGIBLE"),
             True
         )):
             # Rule match
@@ -155,8 +155,8 @@ class Strategy(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
         # Apply rule
         output_: StrategyRuleOutput.StrategyRuleOutput = StrategyRuleOutput.StrategyRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.stringEqual(eligibility, "ELIGIBLE")),
-            self.booleanOr((self.stringEqual(bureauCallType, "FULL")), (self.stringEqual(bureauCallType, "MINI")))
+            self.stringEqual(eligibility, "ELIGIBLE"),
+            self.booleanOr(self.stringEqual(bureauCallType, "FULL"), self.stringEqual(bureauCallType, "MINI"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -187,8 +187,8 @@ class Strategy(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
         # Apply rule
         output_: StrategyRuleOutput.StrategyRuleOutput = StrategyRuleOutput.StrategyRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.stringEqual(eligibility, "ELIGIBLE")),
-            (self.stringEqual(bureauCallType, "NONE"))
+            self.stringEqual(eligibility, "ELIGIBLE"),
+            self.stringEqual(bureauCallType, "NONE")
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)

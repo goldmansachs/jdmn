@@ -355,6 +355,95 @@ public class DefaultDMNVisitor implements Visitor {
         return element;
     }
 
+    @Override
+    public <C> Object visit(TConditional  element, C context) {
+        visitTExpressionProperties(element, context);
+        TChildExpression ifExp = element.getIf();
+        if (ifExp != null) {
+            ifExp.accept(this, context);
+        }
+        TChildExpression thenExp = element.getThen();
+        if (thenExp != null) {
+            thenExp.accept(this, context);
+        }
+        TChildExpression elseExp = element.getElse();
+        if (elseExp != null) {
+            elseExp.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public <C> Object visit(TFor  element, C context) {
+        visitTExpressionProperties(element, context);
+        TChildExpression inExp = element.getIn();
+        if (inExp != null) {
+            inExp.accept(this, context);
+        }
+        TChildExpression returnExp = element.getReturn();
+        if (returnExp != null) {
+            returnExp.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public <C> Object visit(TFilter  element, C context) {
+        visitTExpressionProperties(element, context);
+        TChildExpression inExp = element.getIn();
+        if (inExp != null) {
+            inExp.accept(this, context);
+        }
+        TChildExpression matchExp = element.getMatch();
+        if (matchExp != null) {
+            matchExp.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public <C> Object visit(TEvery  element, C context) {
+        visitTExpressionProperties(element, context);
+        visitTQuantifiedProperties(element, context);
+        return element;
+    }
+
+    @Override
+    public <C> Object visit(TSome  element, C context) {
+        visitTExpressionProperties(element, context);
+        visitTQuantifiedProperties(element, context);
+        return element;
+    }
+
+    @Override
+    public <C> Object visit(TChildExpression  element, C context) {
+        TExpression exp = element.getExpression();
+        if (exp != null) {
+            visitTExpression(exp, context);
+        }
+        return element;
+    }
+
+    @Override
+    public <C> Object visit(TTypedChildExpression  element, C context) {
+        TExpression exp = element.getExpression();
+        if (exp != null) {
+            visitTExpression(exp, context);
+        }
+        return element;
+    }
+
+    private <C> void visitTQuantifiedProperties(TQuantified element, C context) {
+        TChildExpression inExp = element.getIn();
+        if (inExp != null) {
+            inExp.accept(this, context);
+        }
+        TChildExpression satisfiesExp = element.getSatisfies();
+        if (satisfiesExp != null) {
+            satisfiesExp.accept(this, context);
+        }
+    }
+
     // Requirements
     @Override
     public <C> Object visit(TAuthorityRequirement  element, C context) {
@@ -638,6 +727,16 @@ public class DefaultDMNVisitor implements Visitor {
             ((TRelation) element).accept(this, context);
         } else if (element instanceof TUnaryTests) {
             ((TUnaryTests) element).accept(this, context);
+        } else if (element instanceof TConditional) {
+            ((TConditional) element).accept(this, context);
+        } else if (element instanceof TFor) {
+            ((TFor) element).accept(this, context);
+        } else if (element instanceof TFilter) {
+            ((TFilter) element).accept(this, context);
+        } else if (element instanceof TEvery) {
+            ((TEvery) element).accept(this, context);
+        } else if (element instanceof TSome) {
+            ((TSome) element).accept(this, context);
         }
     }
 

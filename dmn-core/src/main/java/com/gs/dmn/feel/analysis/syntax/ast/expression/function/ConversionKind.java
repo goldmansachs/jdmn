@@ -13,27 +13,31 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
 public enum ConversionKind {
-    NONE(false),
-    ELEMENT_TO_SINGLETON_LIST(true),
-    SINGLETON_LIST_TO_ELEMENT(true),
-    DATE_TO_UTC_MIDNIGHT(true),
-    CONFORMS_TO(true);
+    NONE(false, false),
+    ELEMENT_TO_SINGLETON_LIST(true, false),
+    SINGLETON_LIST_TO_ELEMENT(true, false),
+    DATE_TO_UTC_MIDNIGHT(true, false),
+    CONFORMS_TO(false, true);
 
     public static final ConversionKind[] FUNCTION_RESOLUTION_CANDIDATES = new ConversionKind[] {
             NONE,
             ELEMENT_TO_SINGLETON_LIST,
             SINGLETON_LIST_TO_ELEMENT,
-            DATE_TO_UTC_MIDNIGHT,
-            CONFORMS_TO
+            DATE_TO_UTC_MIDNIGHT
     };
 
     private final boolean implicit;
+    private final boolean error;
 
-    ConversionKind(boolean implicit) {
-        this.implicit = implicit;
+    ConversionKind(boolean implicit, boolean error) {
+        this.implicit = implicit;this.error = error;
     }
 
     public boolean isImplicit() {
         return implicit;
+    }
+
+    public boolean isError() {
+        return error;
     }
 }

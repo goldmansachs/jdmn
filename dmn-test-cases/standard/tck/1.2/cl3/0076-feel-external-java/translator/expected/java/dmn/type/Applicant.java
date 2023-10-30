@@ -13,8 +13,16 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
             return (Applicant)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             ApplicantImpl result_ = new ApplicantImpl();
-            result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name"));
-            result_.setAge((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("age"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("name")) {
+                result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("age")) {
+                result_.setAge((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("age"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toApplicant(((com.gs.dmn.runtime.DMNType)other).toContext());

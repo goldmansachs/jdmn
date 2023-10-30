@@ -124,7 +124,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
         # Apply rule
         output_: ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanAnd(self.numericGreaterEqualThan(age, self.number("18")), self.numericLessEqualThan(age, self.number("21")))),
+            self.booleanAnd(self.numericGreaterEqualThan(age, self.number("18")), self.numericLessEqualThan(age, self.number("21"))),
             True,
             True
         )):
@@ -157,7 +157,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
         # Apply rule
         output_: ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanAnd(self.numericGreaterEqualThan(age, self.number("22")), self.numericLessEqualThan(age, self.number("25")))),
+            self.booleanAnd(self.numericGreaterEqualThan(age, self.number("22")), self.numericLessEqualThan(age, self.number("25"))),
             True,
             True
         )):
@@ -190,7 +190,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
         # Apply rule
         output_: ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanAnd(self.numericGreaterEqualThan(age, self.number("26")), self.numericLessEqualThan(age, self.number("35")))),
+            self.booleanAnd(self.numericGreaterEqualThan(age, self.number("26")), self.numericLessEqualThan(age, self.number("35"))),
             True,
             True
         )):
@@ -223,7 +223,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
         # Apply rule
         output_: ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.booleanAnd(self.numericGreaterEqualThan(age, self.number("36")), self.numericLessEqualThan(age, self.number("49")))),
+            self.booleanAnd(self.numericGreaterEqualThan(age, self.number("36")), self.numericLessEqualThan(age, self.number("49"))),
             True,
             True
         )):
@@ -256,7 +256,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
         # Apply rule
         output_: ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.numericGreaterEqualThan(age, self.number("50"))),
+            self.numericGreaterEqualThan(age, self.number("50")),
             True,
             True
         )):
@@ -290,7 +290,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
         output_: ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
-            (self.stringEqual(maritalStatus, "S")),
+            self.stringEqual(maritalStatus, "S"),
             True
         )):
             # Rule match
@@ -323,7 +323,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
         output_: ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput = ApplicationRiskScoreModelRuleOutput.ApplicationRiskScoreModelRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
-            (self.stringEqual(maritalStatus, "M")),
+            self.stringEqual(maritalStatus, "M"),
             True
         )):
             # Rule match
@@ -357,7 +357,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
             True,
-            (self.stringEqual(employmentStatus, "UNEMPLOYED"))
+            self.stringEqual(employmentStatus, "UNEMPLOYED")
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -390,7 +390,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
             True,
-            (self.stringEqual(employmentStatus, "EMPLOYED"))
+            self.stringEqual(employmentStatus, "EMPLOYED")
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -423,7 +423,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
             True,
-            (self.stringEqual(employmentStatus, "SELF-EMPLOYED"))
+            self.stringEqual(employmentStatus, "SELF-EMPLOYED")
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -456,7 +456,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
             True,
-            (self.stringEqual(employmentStatus, "STUDENT"))
+            self.stringEqual(employmentStatus, "STUDENT")
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)

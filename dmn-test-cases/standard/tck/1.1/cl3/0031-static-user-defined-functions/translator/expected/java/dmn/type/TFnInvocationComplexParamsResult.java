@@ -13,9 +13,21 @@ public interface TFnInvocationComplexParamsResult extends com.gs.dmn.runtime.DMN
             return (TFnInvocationComplexParamsResult)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TFnInvocationComplexParamsResultImpl result_ = new TFnInvocationComplexParamsResultImpl();
-            result_.setFunctionInvocationLiteralExpressionInParameter((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("functionInvocationLiteralExpressionInParameter"));
-            result_.setFunctionInvocationInParameter((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("functionInvocationInParameter"));
-            result_.setCircumference((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("circumference"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("functionInvocationLiteralExpressionInParameter")) {
+                result_.setFunctionInvocationLiteralExpressionInParameter((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("functionInvocationLiteralExpressionInParameter"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("functionInvocationInParameter")) {
+                result_.setFunctionInvocationInParameter((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("functionInvocationInParameter"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("circumference")) {
+                result_.setCircumference((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("circumference"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTFnInvocationComplexParamsResult(((com.gs.dmn.runtime.DMNType)other).toContext());

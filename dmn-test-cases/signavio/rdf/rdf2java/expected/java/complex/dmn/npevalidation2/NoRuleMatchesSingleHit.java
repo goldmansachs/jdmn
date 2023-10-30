@@ -100,7 +100,7 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultS
         // Apply rule
         NoRuleMatchesSingleHitRuleOutput output_ = new NoRuleMatchesSingleHitRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericEqual(second, number("1")))
+            numericEqual(second, number("1"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -134,7 +134,7 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultS
         // Apply rule
         NoRuleMatchesSingleHitRuleOutput output_ = new NoRuleMatchesSingleHitRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericEqual(second, number("2")))
+            numericEqual(second, number("2"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -168,7 +168,7 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultS
         // Apply rule
         NoRuleMatchesSingleHitRuleOutput output_ = new NoRuleMatchesSingleHitRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericEqual(second, number("3")))
+            numericEqual(second, number("3"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

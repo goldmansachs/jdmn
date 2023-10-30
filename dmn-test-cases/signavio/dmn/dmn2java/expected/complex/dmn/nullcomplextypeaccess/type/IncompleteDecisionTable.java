@@ -13,8 +13,16 @@ public interface IncompleteDecisionTable extends com.gs.dmn.runtime.DMNType {
             return (IncompleteDecisionTable)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             IncompleteDecisionTableImpl result_ = new IncompleteDecisionTableImpl();
-            result_.setA((String)((com.gs.dmn.runtime.Context)other).get("a", "a"));
-            result_.setB((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("b", "b"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("a") || ((com.gs.dmn.runtime.Context)other).keySet().contains("a")) {
+                result_.setA((String)((com.gs.dmn.runtime.Context)other).get("a", "a"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("b") || ((com.gs.dmn.runtime.Context)other).keySet().contains("b")) {
+                result_.setB((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("b", "b"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toIncompleteDecisionTable(((com.gs.dmn.runtime.DMNType)other).toContext());

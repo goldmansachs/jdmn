@@ -18,14 +18,18 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.el.synthesis.ELTranslator;
+import com.gs.dmn.el.synthesis.triple.Triple;
+import com.gs.dmn.el.synthesis.triple.TripleSerializerToString;
 import com.gs.dmn.feel.AbstractFEELProcessor;
 
 public abstract class AbstractFEELTranslator extends AbstractFEELProcessor<Type, DMNContext> implements ELTranslator<Type, DMNContext> {
-    private final FEELToNativeVisitor expressionVisitor;
+    private final FEELToTripleNativeVisitor expressionVisitor;
+    private final TripleSerializerToString tripleSerializer;
 
-    public AbstractFEELTranslator(ELAnalyzer<Type, DMNContext> feelAnalyzer, FEELToNativeVisitor expressionVisitor) {
+    public AbstractFEELTranslator(ELAnalyzer<Type, DMNContext> feelAnalyzer, FEELToTripleNativeVisitor expressionVisitor) {
         super(feelAnalyzer);
         this.expressionVisitor = expressionVisitor;
+        this.tripleSerializer = new TripleSerializerToString(expressionVisitor.getDmnTransformer());
     }
 
     @Override
@@ -37,7 +41,8 @@ public abstract class AbstractFEELTranslator extends AbstractFEELProcessor<Type,
     @Override
     public String unaryTestsToJava(UnaryTests<Type, DMNContext> expression, DMNContext context) {
         this.expressionVisitor.init();
-        return (String) ((com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests<Type, DMNContext>) expression).accept(this.expressionVisitor, context);
+        Triple result = (Triple) ((com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests<Type, DMNContext>) expression).accept(this.expressionVisitor, context);
+        return result.accept(tripleSerializer, expressionVisitor.getTriples());
     }
 
     @Override
@@ -49,6 +54,7 @@ public abstract class AbstractFEELTranslator extends AbstractFEELProcessor<Type,
     @Override
     public String expressionToNative(Expression<Type, DMNContext> expression, DMNContext context) {
         this.expressionVisitor.init();
-        return (String) ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type, DMNContext>) expression).accept(this.expressionVisitor, context);
+        Triple result = (Triple) ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type, DMNContext>) expression).accept(this.expressionVisitor, context);
+        return result.accept(tripleSerializer, expressionVisitor.getTriples());
     }
 }

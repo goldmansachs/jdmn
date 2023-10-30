@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0076-feel-external-java.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>FEEL External Java</label>
+    </labels>
+
+    <testCase id="boxed_001">
+        <description>boxed external function definition</description>
+        <resultNode name="boxed_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">456</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="incorrect_001">
+        <description>no method on class</description>
+        <resultNode errorResult="true" name="incorrect_001" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="incorrect_002">
+        <description>no class</description>
+        <resultNode errorResult="true" name="incorrect_002" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="incorrect_003">
+        <description>no matching signature on class</description>
+        <resultNode errorResult="true" name="incorrect_003" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_001">
+        <description>external function definition - single param</description>
+        <resultNode name="literal_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">-0.88796890</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_002">
+        <description>external function definition - two params - double</description>
+        <resultNode name="literal_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">456.78</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_003">
+        <description>external function definition overrides built in function</description>
+        <resultNode name="literal_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">456</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_004">
+        <description>external function definition - int</description>
+        <resultNode name="literal_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">456</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_005">
+        <description>external function definition - short</description>
+        <resultNode name="literal_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">123</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_006">
+        <description>external function definition - byte</description>
+        <resultNode name="literal_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">3</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_007">
+        <description>external function definition - char</description>
+        <resultNode name="literal_007" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">a</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_007_a">
+        <description>external function definition - char</description>
+        <resultNode errorResult="true" name="literal_007_a" type="decision">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_008">
+        <description>external function definition - long</description>
+        <resultNode name="literal_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">456</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_009">
+        <description>external function definition - float</description>
+        <resultNode name="literal_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">456.78</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_010">
+        <description>external function definition - string</description>
+        <resultNode name="literal_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">123</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_011">
+        <description>external function definition - string to float (Java float -> BigDecimal is sometimes not quite exact)</description>
+        <resultNode name="literal_011" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1234.56</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="literal_012">
+        <description>external function definition - string to double (Java double -> BigDecimal is sometimes not quite exact)</description>
+        <resultNode name="literal_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">1234.56</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="varargs_001">
+        <description>external function definition - varargs func</description>
+        <resultNode name="varargs_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo bar</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

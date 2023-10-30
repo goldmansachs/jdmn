@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0094-feel-product-function.dmn</modelName>
+
+    <testCase id="001">
+        <description>will return product for list</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">5832</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>will return null when empty list</description>
+        <resultNode name="decision002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>will return null when no params</description>
+        <resultNode errorResult="true" name="decision003" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003_a">
+        <description>will error when null param</description>
+        <resultNode errorResult="true" name="decision003_a" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>will error when list item not a number</description>
+        <resultNode errorResult="true" name="decision004" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>will error when list item not a number</description>
+        <resultNode errorResult="true" name="decision005" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>will multiple decimals</description>
+        <resultNode name="decision006" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">18.75</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>will multiply varargs number list</description>
+        <resultNode name="decision007" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">24</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>product of single item is itself</description>
+        <resultNode name="decision008" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">6</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008_a">
+        <description>product of single item list is value of first item</description>
+        <resultNode name="decision008_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">6</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="011">
+        <description>will return product for named params</description>
+        <resultNode name="decision011" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">5832</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012">
+        <description>will error when null named param</description>
+        <resultNode errorResult="true" name="decision012" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="013">
+        <description>will error when wrongly named param</description>
+        <resultNode errorResult="true" name="decision013" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

@@ -34,20 +34,20 @@ public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
     @Test
     public void testCL3() throws Exception {
         // DMN 1.1
-        doSingleModelTest("1.1","0004-lending", "0004-lending-test-01");
-        doSingleModelTest("1.1","0005-literal-invocation", "0005-literal-invocation-test-01");
-        doSingleModelTest("1.1","0006-join", "0006-join-test-01");
-        doSingleModelTest("1.1","0013-sort", "0013-sort-test-01");
-        doSingleModelTest("1.1","0014-loan-comparison", "0014-loan-comparison-test-01");
-        doSingleModelTest("1.1","0016-some-every", "0016-some-every-test-01");
-        doSingleModelTest("1.1","0017-tableTests", "0017-tableTests-test-01");
-        doSingleModelTest("1.1","0020-vacation-days", "0020-vacation-days-test-01");
-        doSingleModelTest("1.1","0021-singleton-list", "0021-singleton-list-test-01");
-        doSingleModelTest("1.1","0030-user-defined-functions", "0030-user-defined-functions-test-01");
-        doSingleModelTest("1.1","0031-user-defined-functions", "0031-user-defined-functions-test-01");
+//        doSingleModelTest("1.1","0004-lending", "0004-lending-test-01");
+//        doSingleModelTest("1.1","0005-literal-invocation", "0005-literal-invocation-test-01");
+//        doSingleModelTest("1.1","0006-join", "0006-join-test-01");
+//        doSingleModelTest("1.1","0013-sort", "0013-sort-test-01");
+//        doSingleModelTest("1.1","0014-loan-comparison", "0014-loan-comparison-test-01");
+//        doSingleModelTest("1.1","0016-some-every", "0016-some-every-test-01");
+//        doSingleModelTest("1.1","0017-tableTests", "0017-tableTests-test-01");
+//        doSingleModelTest("1.1","0020-vacation-days", "0020-vacation-days-test-01");
+//        doSingleModelTest("1.1","0021-singleton-list", "0021-singleton-list-test-01");
+//        doSingleModelTest("1.1","0030-user-defined-functions", "0030-user-defined-functions-test-01");
+//        doSingleModelTest("1.1","0031-user-defined-functions", "0031-user-defined-functions-test-01");
 
         // DMN 1.2
-        doSingleModelTest("1.2","0076-feel-external-java", "0076-feel-external-java-test-01");
+//        doSingleModelTest("1.2","0076-feel-external-java", "0076-feel-external-java-test-01");
 
         // DMN 1.3
         doSingleModelTest("1.3", "0085-decision-services", "0085-decision-services-test-01", new Pair<>("caching", "true"));

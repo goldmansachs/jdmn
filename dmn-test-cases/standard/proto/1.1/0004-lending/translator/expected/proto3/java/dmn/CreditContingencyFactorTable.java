@@ -113,7 +113,7 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.DefaultDMNB
         // Apply rule
         CreditContingencyFactorTableRuleOutput output_ = new CreditContingencyFactorTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanOr((stringEqual(riskCategory, "HIGH")), (stringEqual(riskCategory, "DECLINE")))
+            booleanOr(stringEqual(riskCategory, "HIGH"), stringEqual(riskCategory, "DECLINE"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -147,7 +147,7 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.DefaultDMNB
         // Apply rule
         CreditContingencyFactorTableRuleOutput output_ = new CreditContingencyFactorTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(riskCategory, "MEDIUM"))
+            stringEqual(riskCategory, "MEDIUM")
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -181,7 +181,7 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.DefaultDMNB
         // Apply rule
         CreditContingencyFactorTableRuleOutput output_ = new CreditContingencyFactorTableRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanOr((stringEqual(riskCategory, "LOW")), (stringEqual(riskCategory, "VERY LOW")))
+            booleanOr(stringEqual(riskCategory, "LOW"), stringEqual(riskCategory, "VERY LOW"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

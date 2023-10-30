@@ -13,11 +13,31 @@ public interface TApplicantData extends com.gs.dmn.runtime.DMNType {
             return (TApplicantData)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TApplicantDataImpl result_ = new TApplicantDataImpl();
-            result_.setMonthly((type.Monthly)((com.gs.dmn.runtime.Context)other).get("Monthly"));
-            result_.setAge((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Age"));
-            result_.setExistingCustomer((Boolean)((com.gs.dmn.runtime.Context)other).get("ExistingCustomer"));
-            result_.setMaritalStatus((String)((com.gs.dmn.runtime.Context)other).get("MaritalStatus"));
-            result_.setEmploymentStatus((String)((com.gs.dmn.runtime.Context)other).get("EmploymentStatus"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Monthly")) {
+                result_.setMonthly((type.Monthly)((com.gs.dmn.runtime.Context)other).get("Monthly"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Age")) {
+                result_.setAge((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Age"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("ExistingCustomer")) {
+                result_.setExistingCustomer((Boolean)((com.gs.dmn.runtime.Context)other).get("ExistingCustomer"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("MaritalStatus")) {
+                result_.setMaritalStatus((String)((com.gs.dmn.runtime.Context)other).get("MaritalStatus"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("EmploymentStatus")) {
+                result_.setEmploymentStatus((String)((com.gs.dmn.runtime.Context)other).get("EmploymentStatus"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTApplicantData(((com.gs.dmn.runtime.DMNType)other).toContext());

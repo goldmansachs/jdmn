@@ -59,15 +59,6 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @org.junit.Test
-    public void testCase007() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
-        com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-
-        // Check 'decision_007_1'
-        checkValues(Boolean.TRUE, new Decision_007_1().apply(context_));
-    }
-
-    @org.junit.Test
     public void testCase009() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();

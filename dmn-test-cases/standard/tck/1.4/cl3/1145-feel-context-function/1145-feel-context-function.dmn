@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1145-feel-context-function"
+             name="1145-feel-context-function"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>FEEL built-in function 'context(entries)' in category context functions</description>
+
+    <decision name="decision001" id="_decision001">
+        <variable name="decision001"/>
+        <literalExpression>
+            <text>context([{key:"a", value:1}, {key:"b", value:2}])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision002" id="_decision002">
+        <variable name="decision002"/>
+        <literalExpression>
+            <text>context([{key:"a", value:1}])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003" id="_decision003">
+        <variable name="decision003"/>
+        <literalExpression>
+            <text>context([{key:"a", value:1},{key:"a", value:2}])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision004" id="_decision004">
+        <variable name="decision004"/>
+        <literalExpression>
+            <text>context([]) = {}</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision005" id="_decision005">
+        <variable name="decision005"/>
+        <literalExpression>
+            <text>context({key:"a", value:1})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision006" id="_decision006">
+        <variable name="decision006"/>
+        <literalExpression>
+            <text>context({value:1})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision007" id="_decision007">
+        <variable name="decision007"/>
+        <literalExpression>
+            <text>context({key: null, value:1})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision008" id="_decision008">
+        <variable name="decision008"/>
+        <literalExpression>
+            <text>context({key: "a"})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision009" id="_decision009">
+        <variable name="decision009"/>
+        <literalExpression>
+            <text>context({key: "a", value: null})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision010" id="_decision010">
+        <variable name="decision010"/>
+        <literalExpression>
+            <text>context({key: "", value: 1})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision011" id="_decision011">
+        <variable name="decision011"/>
+        <literalExpression>
+            <text>context(null)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision012" id="_decision012">
+        <variable name="decision012"/>
+        <literalExpression>
+            <text>context()</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision013" id="_decision013">
+        <variable name="decision013"/>
+        <literalExpression>
+            <text>context([], "foo")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision014_a" id="_decision014_a">
+        <variable name="decision014_a"/>
+        <literalExpression>
+            <text>context(entries: [{key:"a", value:1}])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision014_b" id="_decision014_b">
+        <variable name="decision014_b"/>
+        <literalExpression>
+            <text>context(entries: {key:"a", value:1})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision015" id="_decision015">
+        <variable name="decision015"/>
+        <literalExpression>
+            <text>context(entris: {key:"a", value:1})</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision016" id="_decision016">
+        <variable name="decision016"/>
+        <literalExpression>
+            <text>context("foo")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision017" id="_decision017">
+        <variable name="decision017"/>
+        <literalExpression>
+            <text>context(entries: [{key:"a", value:1, ignored: "foo"}])</text>
+        </literalExpression>
+    </decision>
+
+
+
+</definitions>
+

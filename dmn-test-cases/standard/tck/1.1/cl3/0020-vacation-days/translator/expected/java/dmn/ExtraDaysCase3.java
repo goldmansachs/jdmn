@@ -108,7 +108,7 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         ExtraDaysCase3RuleOutput output_ = new ExtraDaysCase3RuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
             Boolean.TRUE,
-            (booleanAnd(numericGreaterEqualThan(yearsOfService, number("15")), numericLessThan(yearsOfService, number("30"))))
+            booleanAnd(numericGreaterEqualThan(yearsOfService, number("15")), numericLessThan(yearsOfService, number("30")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -142,7 +142,7 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         ExtraDaysCase3RuleOutput output_ = new ExtraDaysCase3RuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericGreaterEqualThan(age, number("45"))),
+            numericGreaterEqualThan(age, number("45")),
             Boolean.TRUE
         )) {
             // Rule match

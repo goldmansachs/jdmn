@@ -100,9 +100,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, false)),
-            (numericLessThan(applicationRiskScore, number("120"))),
-            (numericLessThan(creditScore, number("590")))
+            booleanEqual(existingCustomer, false),
+            numericLessThan(applicationRiskScore, number("120")),
+            numericLessThan(creditScore, number("590"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -136,9 +136,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, false)),
-            (numericLessThan(applicationRiskScore, number("120"))),
-            (booleanAnd(numericGreaterEqualThan(creditScore, number("590")), numericLessEqualThan(creditScore, number("610"))))
+            booleanEqual(existingCustomer, false),
+            numericLessThan(applicationRiskScore, number("120")),
+            booleanAnd(numericGreaterEqualThan(creditScore, number("590")), numericLessEqualThan(creditScore, number("610")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -172,9 +172,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, false)),
-            (numericLessThan(applicationRiskScore, number("120"))),
-            (numericGreaterThan(creditScore, number("610")))
+            booleanEqual(existingCustomer, false),
+            numericLessThan(applicationRiskScore, number("120")),
+            numericGreaterThan(creditScore, number("610"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -208,9 +208,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, false)),
-            (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130")))),
-            (numericLessThan(creditScore, number("600")))
+            booleanEqual(existingCustomer, false),
+            booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130"))),
+            numericLessThan(creditScore, number("600"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -244,9 +244,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, false)),
-            (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130")))),
-            (booleanAnd(numericGreaterEqualThan(creditScore, number("600")), numericLessEqualThan(creditScore, number("625"))))
+            booleanEqual(existingCustomer, false),
+            booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130"))),
+            booleanAnd(numericGreaterEqualThan(creditScore, number("600")), numericLessEqualThan(creditScore, number("625")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -280,9 +280,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, false)),
-            (booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130")))),
-            (numericGreaterThan(creditScore, number("625")))
+            booleanEqual(existingCustomer, false),
+            booleanAnd(numericGreaterEqualThan(applicationRiskScore, number("120")), numericLessEqualThan(applicationRiskScore, number("130"))),
+            numericGreaterThan(creditScore, number("625"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -316,8 +316,8 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, false)),
-            (numericGreaterThan(applicationRiskScore, number("130"))),
+            booleanEqual(existingCustomer, false),
+            numericGreaterThan(applicationRiskScore, number("130")),
             true
         )) {
             // Rule match
@@ -352,9 +352,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, true)),
-            (numericLessEqualThan(applicationRiskScore, number("100"))),
-            (numericLessThan(creditScore, number("580")))
+            booleanEqual(existingCustomer, true),
+            numericLessEqualThan(applicationRiskScore, number("100")),
+            numericLessThan(creditScore, number("580"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -388,9 +388,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, true)),
-            (numericLessEqualThan(applicationRiskScore, number("100"))),
-            (booleanAnd(numericGreaterEqualThan(creditScore, number("580")), numericLessEqualThan(creditScore, number("600"))))
+            booleanEqual(existingCustomer, true),
+            numericLessEqualThan(applicationRiskScore, number("100")),
+            booleanAnd(numericGreaterEqualThan(creditScore, number("580")), numericLessEqualThan(creditScore, number("600")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -424,9 +424,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, true)),
-            (numericLessEqualThan(applicationRiskScore, number("100"))),
-            (numericGreaterThan(creditScore, number("600")))
+            booleanEqual(existingCustomer, true),
+            numericLessEqualThan(applicationRiskScore, number("100")),
+            numericGreaterThan(creditScore, number("600"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -460,9 +460,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, true)),
-            (numericGreaterThan(applicationRiskScore, number("100"))),
-            (numericLessThan(creditScore, number("590")))
+            booleanEqual(existingCustomer, true),
+            numericGreaterThan(applicationRiskScore, number("100")),
+            numericLessThan(creditScore, number("590"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -496,9 +496,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, true)),
-            (numericGreaterThan(applicationRiskScore, number("100"))),
-            (booleanAnd(numericGreaterEqualThan(creditScore, number("590")), numericLessEqualThan(creditScore, number("615"))))
+            booleanEqual(existingCustomer, true),
+            numericGreaterThan(applicationRiskScore, number("100")),
+            booleanAnd(numericGreaterEqualThan(creditScore, number("590")), numericLessEqualThan(creditScore, number("615")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -532,9 +532,9 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: PostBureauRiskCategoryTableRuleOutput = PostBureauRiskCategoryTableRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanEqual(existingCustomer, true)),
-            (numericGreaterThan(applicationRiskScore, number("100"))),
-            (numericGreaterThan(creditScore, number("615")))
+            booleanEqual(existingCustomer, true),
+            numericGreaterThan(applicationRiskScore, number("100")),
+            numericGreaterThan(creditScore, number("615"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

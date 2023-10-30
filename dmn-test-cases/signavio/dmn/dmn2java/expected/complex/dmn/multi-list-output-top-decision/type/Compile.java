@@ -13,9 +13,21 @@ public interface Compile extends com.gs.dmn.runtime.DMNType {
             return (Compile)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             CompileImpl result_ = new CompileImpl();
-            result_.setNextTrafficLight((String)((com.gs.dmn.runtime.Context)other).get("nextTrafficLight", "Next traffic light"));
-            result_.setAvgOfNumbers((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("avgOfNumbers", "avg of numbers"));
-            result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name", "name"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("nextTrafficLight") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Next traffic light")) {
+                result_.setNextTrafficLight((String)((com.gs.dmn.runtime.Context)other).get("nextTrafficLight", "Next traffic light"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("avgOfNumbers") || ((com.gs.dmn.runtime.Context)other).keySet().contains("avg of numbers")) {
+                result_.setAvgOfNumbers((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("avgOfNumbers", "avg of numbers"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("name") || ((com.gs.dmn.runtime.Context)other).keySet().contains("name")) {
+                result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name", "name"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toCompile(((com.gs.dmn.runtime.DMNType)other).toContext());

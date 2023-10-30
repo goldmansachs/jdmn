@@ -25,7 +25,6 @@ import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Exponentiation;
@@ -48,7 +47,9 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
@@ -966,17 +967,6 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(ListTypeExpression<Type, DMNContext> element, DMNContext context) {
-        // Visit children
-        element.getElementTypeExpression().accept(this, context);
-
-        // Derive type
-        element.setType(new ListType(element.getElementTypeExpression().getType()));
-
-        return element;
-    }
-
-    @Override
     public Object visit(ContextTypeExpression<Type, DMNContext> element, DMNContext context) {
         // Derive type
         ContextType contextType = new ContextType();
@@ -985,6 +975,17 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             contextType.addMember(member.getLeft(), new ArrayList<>(), member.getRight().getType());
         }
         element.setType(contextType);
+        return element;
+    }
+
+    @Override
+    public Object visit(RangeTypeExpression<Type, DMNContext> element, DMNContext context) {
+        // Visit children
+        element.getElementTypeExpression().accept(this, context);
+
+        // Derive type
+        element.setType(new RangeType(element.getElementTypeExpression().getType()));
+
         return element;
     }
 
@@ -999,6 +1000,17 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         Type returnType = element.getReturnType().getType();
         FunctionType functionType = new FEELFunctionType(parameters, returnType, false);
         element.setType(functionType);
+        return element;
+    }
+
+    @Override
+    public Object visit(ListTypeExpression<Type, DMNContext> element, DMNContext context) {
+        // Visit children
+        element.getElementTypeExpression().accept(this, context);
+
+        // Derive type
+        element.setType(new ListType(element.getElementTypeExpression().getType()));
+
         return element;
     }
 

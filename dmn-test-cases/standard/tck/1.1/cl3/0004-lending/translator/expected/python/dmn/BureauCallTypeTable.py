@@ -114,7 +114,7 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
         # Apply rule
         output_: BureauCallTypeTableRuleOutput.BureauCallTypeTableRuleOutput = BureauCallTypeTableRuleOutput.BureauCallTypeTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            self.booleanOr((self.stringEqual(preBureauRiskCategory, "HIGH")), (self.stringEqual(preBureauRiskCategory, "MEDIUM")))
+            self.booleanOr(self.stringEqual(preBureauRiskCategory, "HIGH"), self.stringEqual(preBureauRiskCategory, "MEDIUM"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -145,7 +145,7 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
         # Apply rule
         output_: BureauCallTypeTableRuleOutput.BureauCallTypeTableRuleOutput = BureauCallTypeTableRuleOutput.BureauCallTypeTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.stringEqual(preBureauRiskCategory, "LOW"))
+            self.stringEqual(preBureauRiskCategory, "LOW")
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -176,7 +176,7 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
         # Apply rule
         output_: BureauCallTypeTableRuleOutput.BureauCallTypeTableRuleOutput = BureauCallTypeTableRuleOutput.BureauCallTypeTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            self.booleanOr((self.stringEqual(preBureauRiskCategory, "VERY LOW")), (self.stringEqual(preBureauRiskCategory, "DECLINE")))
+            self.booleanOr(self.stringEqual(preBureauRiskCategory, "VERY LOW"), self.stringEqual(preBureauRiskCategory, "DECLINE"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)

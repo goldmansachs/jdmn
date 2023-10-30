@@ -13,8 +13,16 @@ public interface CompoundOutputDecision extends com.gs.dmn.runtime.DMNType {
             return (CompoundOutputDecision)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             CompoundOutputDecisionImpl result_ = new CompoundOutputDecisionImpl();
-            result_.setFirstOutput((String)((com.gs.dmn.runtime.Context)other).get("firstOutput", "First Output"));
-            result_.setSecondOutput((String)((com.gs.dmn.runtime.Context)other).get("secondOutput", "Second Output"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("firstOutput") || ((com.gs.dmn.runtime.Context)other).keySet().contains("First Output")) {
+                result_.setFirstOutput((String)((com.gs.dmn.runtime.Context)other).get("firstOutput", "First Output"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("secondOutput") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Second Output")) {
+                result_.setSecondOutput((String)((com.gs.dmn.runtime.Context)other).get("secondOutput", "Second Output"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toCompoundOutputDecision(((com.gs.dmn.runtime.DMNType)other).toContext());

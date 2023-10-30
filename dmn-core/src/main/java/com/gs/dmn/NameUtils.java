@@ -67,7 +67,7 @@ public class NameUtils {
         }
     }
 
-    public static String bkmName(String text) {
+    public static String invocableName(String text) {
         if (StringUtils.isBlank(text)) {
             return text;
         } else {

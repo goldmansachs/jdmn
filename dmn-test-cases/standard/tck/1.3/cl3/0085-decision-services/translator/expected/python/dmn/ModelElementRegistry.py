@@ -26,7 +26,6 @@ class ModelElementRegistry(jdmn.runtime.discovery.ModelElementRegistry.ModelElem
         self.register("decision_006_1", "Decision_006_1.Decision_006_1")
         self.register("decision_006_2", "Decision_006_2.Decision_006_2")
         self.register("decision_006_3", "Decision_006_3.Decision_006_3")
-        self.register("decision_007_1", "Decision_007_1.Decision_007_1")
         self.register("decision_007_2", "Decision_007_2.Decision_007_2")
         self.register("decision_007_3", "Decision_007_3.Decision_007_3")
         self.register("decision_009_1", "Decision_009_1.Decision_009_1")

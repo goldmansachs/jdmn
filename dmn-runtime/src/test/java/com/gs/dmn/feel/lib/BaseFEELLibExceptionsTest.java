@@ -378,6 +378,17 @@ public abstract class BaseFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, D
         assertNull(getLib().getValue(null, null));
     }
 
+    @Test
+    public void testContextPut() {
+        assertNull(getLib().contextPut(null, (String) null, null));
+        assertNull(getLib().contextPut(null, (List) null, null));
+    }
+
+    @Test
+    public void testContextMerge() {
+        assertNull(getLib().contextMerge(null));
+    }
+
     protected abstract StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getLib();
 
     private BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getBaseFEELLib() {

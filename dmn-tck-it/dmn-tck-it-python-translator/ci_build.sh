@@ -27,7 +27,7 @@ else
   echo "pytest failed"
   exit 1
 fi
-tox -e flake8
+python -m flake8
 status=$?
 if [ $status -eq 0 ]
 then

@@ -114,7 +114,7 @@ class CreditContingencyFactorTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDM
         # Apply rule
         output_: CreditContingencyFactorTableRuleOutput.CreditContingencyFactorTableRuleOutput = CreditContingencyFactorTableRuleOutput.CreditContingencyFactorTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            self.booleanOr((self.stringEqual(riskCategory, "HIGH")), (self.stringEqual(riskCategory, "DECLINE")))
+            self.booleanOr(self.stringEqual(riskCategory, "HIGH"), self.stringEqual(riskCategory, "DECLINE"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -145,7 +145,7 @@ class CreditContingencyFactorTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDM
         # Apply rule
         output_: CreditContingencyFactorTableRuleOutput.CreditContingencyFactorTableRuleOutput = CreditContingencyFactorTableRuleOutput.CreditContingencyFactorTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.stringEqual(riskCategory, "MEDIUM"))
+            self.stringEqual(riskCategory, "MEDIUM")
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -176,7 +176,7 @@ class CreditContingencyFactorTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDM
         # Apply rule
         output_: CreditContingencyFactorTableRuleOutput.CreditContingencyFactorTableRuleOutput = CreditContingencyFactorTableRuleOutput.CreditContingencyFactorTableRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            self.booleanOr((self.stringEqual(riskCategory, "LOW")), (self.stringEqual(riskCategory, "VERY LOW")))
+            self.booleanOr(self.stringEqual(riskCategory, "LOW"), self.stringEqual(riskCategory, "VERY LOW"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)

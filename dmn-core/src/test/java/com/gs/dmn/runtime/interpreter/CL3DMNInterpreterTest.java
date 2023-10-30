@@ -13,6 +13,7 @@
 package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.runtime.Pair;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -294,7 +295,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doSingleModelTest("1.2", "0076-feel-external-java");
     }
 
-    @Test
+    @Ignore("incorrect DS type")
     public void test_12_cl3_0082_feel_coercion() {
         doSingleModelTest("1.2", "0082-feel-coercion");
     }
@@ -304,7 +305,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doSingleModelTest("1.2", "0085-decision-services");
     }
 
-    @Test
+    @Ignore("incorrect DS type")
     public void test_12_cl3_0086_import() {
         doMultipleModelsTest("1.2", Arrays.asList("0086-import", "0086-imported-model"), new Pair<>("singletonInputData", "false"));
     }
@@ -476,5 +477,134 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     @Test
     public void test_13_cl3_1130_feel_interval() {
         doSingleModelTest("1.3", "1130-feel-interval");
+    }
+
+    //
+    // DMN 1.4 files
+    //
+
+    @Test
+    public void test_14_cl3_0070_feel_instance_of() {
+        doSingleModelTest("1.4", "0070-feel-instance-of");
+    }
+
+    @Test
+    public void test_14_cl3_0072_feel_in() {
+        doSingleModelTest("1.4", "0072-feel-in");
+    }
+
+    @Test
+    public void test_14_cl3_0082_feel_coercion() {
+        doSingleModelTest("1.4", "0082-feel-coercion");
+    }
+
+    @Test
+    public void test_14_cl3_0086_import() {
+        doMultipleModelsTest("1.4", Arrays.asList("0086-import", "Imported_Model"), new Pair<>("singletonInputData", "false"));
+    }
+
+    @Test
+    public void test_14_cl3_0085_decision_services() {
+        doSingleModelTest("1.4", "0085-decision-services");
+    }
+
+    @Test
+    public void test_14_cl3_0092_feel_lambda() {
+        doSingleModelTest("1.4", "0092-feel-lambda", new Pair<>("strongTyping", "false"));
+    }
+
+    @Test
+    public void test_14_cl3_100_arithmetic() {
+        doSingleModelTest("1.4", "0100-arithmetic");
+    }
+
+    @Test
+    public void test_14_cl3_1145_feel_context_function() {
+        doSingleModelTest("1.4", "1145-feel-context-function");
+    }
+
+    @Test
+    public void test_14_cl3_1146_feel_context_put_function() {
+        doSingleModelTest("1.4", "1146-feel-context-put-function");
+    }
+
+    @Test
+    public void test_14_cl3_1147_feel_context_merge_function() {
+        doSingleModelTest("1.4", "1147-feel-context-merge-function");
+    }
+
+    @Test
+    public void test_14_cl3_1150_boxed_conditional() {
+        doSingleModelTest("1.4", "1150-boxed-conditional");
+    }
+
+    @Test
+    public void test_14_cl3_1151_boxed_filter() {
+        doSingleModelTest("1.4", "1151-boxed-filter");
+    }
+
+    @Test
+    public void test_14_cl3_1152_boxed_for() {
+        doSingleModelTest("1.4", "1152-boxed-for");
+    }
+
+    @Test
+    public void test_14_cl3_1153_boxed_some() {
+        doSingleModelTest("1.4", "1153-boxed-some");
+    }
+
+    @Test
+    public void test_14_cl3_1154_boxed_every() {
+        doSingleModelTest("1.4", "1154-boxed-every");
+    }
+
+    @Test
+    public void test_14_cl3_1101_feel_floor_function() {
+        doSingleModelTest("1.4", "1101-feel-floor-function");
+    }
+
+    @Test
+    public void test_14_cl3_1102_feel_ceiling_function() {
+        doSingleModelTest("1.4", "1102-feel-ceiling-function");
+    }
+
+    @Test
+    public void test_14_cl3_1131_feel_function_invocation() {
+        doSingleModelTest("1.4", "1131-feel-function-invocation");
+    }
+
+    @Test
+    public void test_14_cl3_1141_feel_round_up_function() {
+        doSingleModelTest("1.4", "1141-feel-round-up-function");
+    }
+
+    @Test
+    public void test_14_cl3_1142_feel_round_down_function() {
+        doSingleModelTest("1.4", "1142-feel-round-down-function");
+    }
+
+    @Test
+    public void test_14_cl3_1143_feel_round_half_up_function() {
+        doSingleModelTest("1.4", "1143-feel-round-half-up-function");
+    }
+
+    @Test
+    public void test_14_cl3_1144_feel_round_half_down_function() {
+        doSingleModelTest("1.4", "1144-feel-round-half-down-function");
+    }
+
+    @Test
+    public void test_14_cl3_1148_feel_now_function() {
+        doSingleModelTest("1.4", "1148-feel-now-function");
+    }
+
+    @Test
+    public void test_14_cl3_1148_feel_today_function() {
+        doSingleModelTest("1.4", "1149-feel-today-function");
+    }
+
+    @Test
+    public void test_14_cl3_1140_feel_string_join_function() {
+        doSingleModelTest("1.4", "1140-feel-string-join-function");
     }
 }

@@ -54,9 +54,22 @@ public class DMNVersion {
             "org.omg.spec.dmn._20191111.model"
     );
 
-    public static final DMNVersion LATEST = DMN_13;
+    protected static final LinkedHashMap<String, String> DMN_14_OTHER_NAMESPACES = new LinkedHashMap<>();
+    static {
+        DMN_14_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DC/", "dc");
+        DMN_14_OTHER_NAMESPACES.put("https://www.omg.org/spec/DMN/20191111/DMNDI/", "dmndi");
+        DMN_14_OTHER_NAMESPACES.put("http://www.omg.org/spec/DMN/20180521/DI/", "di");
+    }
+    public static final DMNVersion DMN_14 = new DMNVersion("1.4", "dmn/1.4/DMN14.xsd",
+            "", "https://www.omg.org/spec/DMN/20211108/MODEL/",
+            "feel", "https://www.omg.org/spec/DMN/20211108/FEEL/",
+            DMN_14_OTHER_NAMESPACES,
+            "org.omg.spec.dmn._20211108.model"
+    );
 
-    protected static final List<DMNVersion> VALUES = Arrays.asList(DMN_11, DMN_12, DMN_13);
+    public static final DMNVersion LATEST = DMN_14;
+
+    protected static final List<DMNVersion> VALUES = Arrays.asList(DMN_11, DMN_12, DMN_13, DMN_14);
 
     public static DMNVersion fromVersion(String key) {
         for (DMNVersion version: VALUES) {

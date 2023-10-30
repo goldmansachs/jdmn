@@ -55,4 +55,9 @@ public class Result {
     public boolean hasErrors() {
         return !this.errors.isEmpty();
     }
+
+    @Override
+    public String toString() {
+        return String.format("Result(%s, %s, %s)", value, type, errors);
+    }
 }

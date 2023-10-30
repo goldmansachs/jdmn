@@ -109,7 +109,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         PriceInRangeRuleOutput output_ = new PriceInRangeRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(structA != null ? structA.getPrice() : null)), numB), numericLessEqualThan(((java.math.BigDecimal)(structA != null ? structA.getPrice() : null)), numC)))
+            booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(structA != null ? structA.getPrice() : null)), numB), numericLessEqualThan(((java.math.BigDecimal)(structA != null ? structA.getPrice() : null)), numC))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

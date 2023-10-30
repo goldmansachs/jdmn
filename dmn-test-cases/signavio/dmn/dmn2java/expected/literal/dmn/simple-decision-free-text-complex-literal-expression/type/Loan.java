@@ -13,9 +13,21 @@ public interface Loan extends com.gs.dmn.runtime.DMNType {
             return (Loan)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             LoanImpl result_ = new LoanImpl();
-            result_.setPrincipal((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("principal", "principal"));
-            result_.setRate((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("rate", "rate"));
-            result_.setTerm((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("term", "term"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("principal") || ((com.gs.dmn.runtime.Context)other).keySet().contains("principal")) {
+                result_.setPrincipal((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("principal", "principal"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("rate") || ((com.gs.dmn.runtime.Context)other).keySet().contains("rate")) {
+                result_.setRate((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("rate", "rate"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("term") || ((com.gs.dmn.runtime.Context)other).keySet().contains("term")) {
+                result_.setTerm((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("term", "term"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toLoan(((com.gs.dmn.runtime.DMNType)other).toContext());

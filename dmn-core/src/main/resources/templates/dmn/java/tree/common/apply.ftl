@@ -77,6 +77,16 @@
             <@expressionApplyBody drgElement/>
         <#elseif modelRepository.isFunctionDefinitionExpression(drgElement)>
             <@expressionApplyBody drgElement/>
+        <#elseif modelRepository.isConditionalExpression(drgElement)>
+            <@expressionApplyBody drgElement/>
+        <#elseif modelRepository.isFilterExpression(drgElement)>
+            <@expressionApplyBody drgElement/>
+        <#elseif modelRepository.isForExpression(drgElement)>
+            <@expressionApplyBody drgElement/>
+        <#elseif modelRepository.isSomeExpression(drgElement)>
+            <@expressionApplyBody drgElement/>
+        <#elseif modelRepository.isEveryExpression(drgElement)>
+            <@expressionApplyBody drgElement/>
         <#else>
             logError("${modelRepository.expression(drgElement).class.simpleName} is not implemented yet");
             return null;
@@ -160,6 +170,21 @@
 
         <@addEvaluateExpressionMethod drgElement/>
     <#elseif modelRepository.isFunctionDefinitionExpression(drgElement)>
+
+        <@addEvaluateExpressionMethod drgElement/>
+    <#elseif modelRepository.isConditionalExpression(drgElement)>
+
+        <@addEvaluateExpressionMethod drgElement/>
+    <#elseif modelRepository.isFilterExpression(drgElement)>
+
+        <@addEvaluateExpressionMethod drgElement/>
+    <#elseif modelRepository.isForExpression(drgElement)>
+
+        <@addEvaluateExpressionMethod drgElement/>
+    <#elseif modelRepository.isSomeExpression(drgElement)>
+
+        <@addEvaluateExpressionMethod drgElement/>
+    <#elseif modelRepository.isEveryExpression(drgElement)>
 
         <@addEvaluateExpressionMethod drgElement/>
     </#if>

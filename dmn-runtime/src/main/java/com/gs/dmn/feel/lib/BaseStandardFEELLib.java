@@ -637,6 +637,28 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         }
     }
 
+    @Override
+    public String stringJoin(List<String> list) {
+        try {
+            return this.stringLib.stringJoin(list);
+        } catch (Exception e) {
+            String message = String.format("stringJoin(%s)", list);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public String stringJoin(List<String> list, String delimiter) {
+        try {
+            return this.stringLib.stringJoin(list, delimiter);
+        } catch (Exception e) {
+            String message = String.format("stringJoin(%s, %s)", list, delimiter);
+            logError(message, e);
+            return null;
+        }
+    }
+
     //
     // Boolean functions
     //
@@ -952,6 +974,28 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             String message = String.format("is(%s, %s)", value1, value2);
             logError(message, e);
             return false;
+        }
+    }
+
+    @Override
+    public DATE_TIME now() {
+        try {
+            return this.dateTimeLib.now();
+        } catch (Exception e) {
+            String message = "now()";
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public DATE today() {
+        try {
+            return this.dateTimeLib.today();
+        } catch (Exception e) {
+            String message = "today()";
+            logError(message, e);
+            return null;
         }
     }
 
@@ -1658,6 +1702,39 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             String message = String.format("coincides(%s, %s)", range1, range2);
             logError(message, e);
             return null;
+        }
+    }
+    @Override
+    public Boolean isInstanceOf(Object value, String type) {
+        try {
+            if (value == null) {
+                return "Null".equals(type);
+            } else {
+                return conformsTo(value, type);
+            }
+        } catch (Exception e) {
+            String message = String.format("instance of(%s, %s)", value, type);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    private Boolean conformsTo(Object value, String type) {
+        if (type == null) {
+            return null;
+        }
+        switch (type) {
+            case "Null": return value == null;
+            case "Any": return value != null;
+            case "number": return this.numericType.isNumber(value);
+            case "string": return this.stringType.isString(value);
+            case "boolean": return this.booleanType.isBoolean(value);
+            case "date": return this.dateType.isDate(value);
+            case "time": return this.timeType.isTime(value);
+            case "date and time": return this.dateTimeType.isDateTime(value);
+            case "years and months duration": return this.durationType.isYearsAndMonthsDuration(value);
+            case "days and time duration": return this.durationType.isDaysAndTimeDuration(value);
+            default: throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
         }
     }
 }

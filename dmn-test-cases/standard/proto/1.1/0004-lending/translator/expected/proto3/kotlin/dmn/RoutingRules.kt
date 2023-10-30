@@ -94,7 +94,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         var output_: RoutingRulesRuleOutput = RoutingRulesRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
             true,
-            (booleanEqual(postBureauAffordability, false)),
+            booleanEqual(postBureauAffordability, false),
             true,
             true
         )) {
@@ -133,7 +133,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         if (ruleMatches(eventListener_, drgRuleMetadata,
             true,
             true,
-            (booleanEqual(bankrupt, true)),
+            booleanEqual(bankrupt, true),
             true
         )) {
             // Rule match
@@ -169,7 +169,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         var output_: RoutingRulesRuleOutput = RoutingRulesRuleOutput(false)
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (stringEqual(postBureauRiskCategory, "HIGH")),
+            stringEqual(postBureauRiskCategory, "HIGH"),
             true,
             true,
             true
@@ -210,7 +210,7 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             true,
             true,
             true,
-            (numericLessThan(creditScore, number("580")))
+            numericLessThan(creditScore, number("580"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata)

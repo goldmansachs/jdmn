@@ -106,7 +106,7 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericGreaterThan(numberA, number("0")))
+            numericGreaterThan(numberA, number("0"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -140,7 +140,7 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericLessThan(numberA, number("0")))
+            numericLessThan(numberA, number("0"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -174,7 +174,7 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericGreaterEqualThan(numberA, number("2")))
+            numericGreaterEqualThan(numberA, number("2"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -208,7 +208,7 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericLessEqualThan(numberA, numericUnaryMinus(number("2"))))
+            numericLessEqualThan(numberA, numericUnaryMinus(number("2")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -276,7 +276,7 @@ public class Comparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numberA == null)
+            numberA == null
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

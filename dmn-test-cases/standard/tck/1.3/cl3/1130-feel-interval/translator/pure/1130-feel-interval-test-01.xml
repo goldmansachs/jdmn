@@ -1,0 +1,487 @@
+<tc:testCases xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <tc:modelName>1130-feel-interval.dmn</tc:modelName>
+    <tc:labels>
+        <tc:label>Compliance Level 3</tc:label>
+        <tc:label>FEEL: Interval functions</tc:label>
+    </tc:labels>
+    <tc:testCase id="during">
+        <tc:resultNode type="decision" name="during">
+            <tc:expected>
+                <tc:component name="duringPRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="duringPRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="duringPRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="duringPRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="duringPRF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="duringPRF3">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="duringRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="duringRRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="duringRRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="duringRRT4">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="duringRRT5">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="duringRRT6">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="duringRRT7">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="duringRRT8">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="after">
+        <tc:resultNode type="decision" name="after">
+            <tc:expected>
+                <tc:component name="afterPPT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="afterPPF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="afterPRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="afterPRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="afterPRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="afterRPF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="afterRPT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="afterRPT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="afterRPF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="afterRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="afterRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="afterRRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="afterRRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="started by">
+        <tc:resultNode type="decision" name="started by">
+            <tc:expected>
+                <tc:component name="startedbyRPT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="startedbyRPF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="startedbyRPF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="startedbyRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="startedbyRRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="startedbyRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="startedbyRRF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="startedbyRRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="startedbyRRT4">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="startedbyRRT5">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="includes">  
+        <tc:resultNode type="decision" name="includes">
+            <tc:expected>
+                <tc:component name="includesRPT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="includesRPF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="includesRPT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="includesRPT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="includesRPF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="includesRPF3">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="includesRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="includesRRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="includesRRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="includesRRT4">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="includesRRT5">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="includesRRT6">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="includesRRT7">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="includesRRT8">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="met by">
+        <tc:resultNode type="decision" name="met by" >
+            <tc:expected>
+                <tc:component name="metbyRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="metbyRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="metbyRRF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="metbyRRF3">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="before">
+        <tc:resultNode type="decision" name="before">
+            <tc:expected>
+                <tc:component name="beforePPT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="beforPPF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="beforePRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="beforePRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="beforePRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="beforeRPF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="beforeRPT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="beforeRPT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="beforeRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="beforeRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="beforeRRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="beforeRRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="overlaps">
+        <tc:resultNode type="decision" name="overlaps" >
+            <tc:expected>
+                <tc:component name="overlapsRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRT4">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRT5">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRF3">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRF4">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRF5">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRT6">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRF6">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRF7">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsRRF8">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="overlaps before">
+        <tc:resultNode type="decision" name="overlaps before" >
+            <tc:expected>
+                <tc:component name="overlapsbeforeRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsbeforeRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsbeforeRRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsbeforeRRF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsbeforeRRF3">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsbeforeRRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsbeforeRRT4">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsbeforeRRF4">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsbeforeRRF5">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="finishes">
+        <tc:resultNode type="decision" name="finishes" >
+            <tc:expected>
+                <tc:component name="fnishesPRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="finishesPRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="finishesRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="finishesRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="finishesRRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="finishesRRF2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="finishesRRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="finished by">
+        <tc:resultNode type="decision" name="finished by" >
+            <tc:expected>
+                <tc:component name="finishedbyRPT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="finishedbyRPF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="finishedbyRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="finishedbyRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="finishedbyRRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="finishedbyRRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="finishedbyRRT4">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="starts">
+        <tc:resultNode type="decision" name="starts" >
+            <tc:expected>
+                <tc:component name="startsPRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="startsPRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="startsPRF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="startsRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="startsRRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="startsRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="startsRRF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="startsRRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="startsRRT4">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="startsRRT5">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="coincides">
+        <tc:resultNode type="decision" name="coincides" >
+            <tc:expected>
+                <tc:component name="coincidesPPT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="coincidesPPF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="coincidesRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="coincidesRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="coincidesRRF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="overlaps after">
+        <tc:resultNode type="decision" name="overlaps after" >
+            <tc:expected>
+                <tc:component name="overlapsafterRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsafterRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsafterRRT2">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsafterRRF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsafterRRF3">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsafterRRT3">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsafterRRT4">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="overlapsafterRRF4">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="overlapsafterRRF5">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+    <tc:testCase id="mmets">
+        <tc:resultNode type="decision" name="meets">
+            <tc:expected>
+                <tc:component name="meetsRRT">
+                    <tc:value xsi:type="xsd:boolean">true</tc:value>
+                </tc:component>
+                <tc:component name="meetsRRF">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="meetsRRF2">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+                <tc:component name="meetsRRF3">
+                    <tc:value xsi:type="xsd:boolean">false</tc:value>
+                </tc:component>
+            </tc:expected>
+        </tc:resultNode>
+    </tc:testCase>
+</tc:testCases>

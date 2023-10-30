@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1152-boxed-for.dmn</modelName>
+
+    <testCase id="001">
+        <description>Will map 'in' values based on 'return' expression</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">2</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">4</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">6</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">8</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:decimal">10</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>Will return an empty list when 'in' is empty</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <list>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>Will return null when 'in' expression is not a list</description>
+        <resultNode name="decision003" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>Will not coerce single value 'in' expression to list - and return null</description>
+        <resultNode name="decision004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

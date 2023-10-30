@@ -39,63 +39,6 @@
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
     </properties>
 
-    <profiles>
-        <profile>
-            <id>jmh</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>default-jar</id>
-                                <phase>package</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-shade-plugin</artifactId>
-                        <version>3.2.1</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>shade</goal>
-                                </goals>
-                                <configuration>
-                                    <finalName>benchmarks</finalName>
-                                    <transformers>
-                                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                            <mainClass>org.openjdk.jmh.Main</mainClass>
-                                        </transformer>
-                                        <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-                                    </transformers>
-                                    <filters>
-                                        <filter>
-                                            <!--
-                                                Shading signed JARs will fail without this.
-                                                http://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar
-                                            -->
-                                            <artifact>*:*</artifact>
-                                            <excludes>
-                                                <exclude>META-INF/*.SF</exclude>
-                                                <exclude>META-INF/*.DSA</exclude>
-                                                <exclude>META-INF/*.RSA</exclude>
-                                            </excludes>
-                                        </filter>
-                                    </filters>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
     <build>
         <extensions>
             <extension>
@@ -1304,6 +1247,68 @@
                     </execution>
 
                     <execution>
+                        <id>cl3-0070-feel-instance-of</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/0070-feel-instance-of/translator/0070-feel-instance-of.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <strongTyping>false</strongTyping>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0070_feel_instance_of</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-0070-feel-instance-of</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/0070-feel-instance-of/translator/0070-feel-instance-of-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/0070-feel-instance-of/translator/0070-feel-instance-of.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <strongTyping>false</strongTyping>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0070_feel_instance_of</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-0072-feel-in</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_feel_in</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-0072-feel-in</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_feel_in</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>cl3-0076-feel-external-java</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1394,7 +1399,7 @@
                     </execution>
 
                     <execution>
-                        <id>0092-feel-lambda</id>
+                        <id>cl3-0092-feel-lambda</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
@@ -1409,7 +1414,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-0092-feel-lambda</id>
+                        <id>test-cl3-0092-feel-lambda</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>tck-to-java</goal>
@@ -1476,11 +1481,11 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0093-feel-at-literals/translator/0093-feel-at-literals.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1100-feel-decimal-function/translator/1100-feel-decimal-function-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.11.diagram.folder}/cl3/1100-feel-decimal-function/translator/1100-feel-decimal-function.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_0093_feel_at_literals</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1100_feel_decimal_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1951,6 +1956,156 @@
                     </execution>
 
                     <execution>
+                        <id>cl3-1150-boxed-conditional</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/1150-boxed-conditional/translator/1150-boxed-conditional.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1150_boxed_conditional</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-1150-boxed-conditional</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/1150-boxed-conditional/translator/1150-boxed-conditional-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/1150-boxed-conditional/translator/1150-boxed-conditional.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1150_boxed_conditional</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-1151-boxed-filter</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/1151-boxed-filter/translator/1151-boxed-filter.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1151_boxed_filter</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-1151-boxed-filter</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/1151-boxed-filter/translator/1151-boxed-filter-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/1151-boxed-filter/translator/1151-boxed-filter.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1151_boxed_filter</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-1152-boxed-for</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/1152-boxed-for/translator/1152-boxed-for.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1152_boxed_for</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-1152-boxed-for</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/1152-boxed-for/translator/1152-boxed-for-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/1152-boxed-for/translator/1152-boxed-for.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1152_boxed_for</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-1153-boxed-some</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/1153-boxed-some/translator/1153-boxed-some.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1153_boxed_some</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-1153-boxed-some</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/1153-boxed-some/translator/1153-boxed-some-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/1153-boxed-some/translator/1153-boxed-some.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1153_boxed_some</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-1154-boxed-every</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/1154-boxed-every/translator/1154-boxed-every.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1154_boxed_every</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-1154-boxed-every</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/1154-boxed-every/translator/1154-boxed-every-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/1154-boxed-every/translator/1154-boxed-every.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1154_boxed_every</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>cl3-9001-recursive-function</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1976,6 +2131,36 @@
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_9001_recursive_function</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-1145-feel-context-function</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/1145-feel-context-function/translator/1145-feel-context-function.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1145_feel_context_function</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-1145-feel-context-function</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/1145-feel-context-function/translator/1145-feel-context-function-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/1145-feel-context-function/translator/1145-feel-context-function.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1145_feel_context_function</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>

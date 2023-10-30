@@ -37,19 +37,15 @@ public abstract class FunctionTypeTest {
         doTest(Arrays.asList(), Arrays.asList(), "[]");
         doTest(Arrays.asList(NUMBER), Arrays.asList(NUMBER), "[]");
         doTest(Arrays.asList(NUMBER), Arrays.asList(NUMBER_LIST), "[" +
-                 "Pair(PositionalParameterTypes(number), PositionalParameterConversions([Conversion(SINGLETON_LIST_TO_ELEMENT, number)])), " +
-                 "Pair(PositionalParameterTypes(Null), PositionalParameterConversions([Conversion(CONFORMS_TO, Null)]))" +
+                 "Pair(PositionalParameterTypes(number), PositionalParameterConversions([Conversion(SINGLETON_LIST_TO_ELEMENT, number)]))" +
                  "]");
         doTest(Arrays.asList(NUMBER_LIST), Arrays.asList(NUMBER), "[" +
-                "Pair(PositionalParameterTypes(ListType(number)), PositionalParameterConversions([Conversion(ELEMENT_TO_SINGLETON_LIST, ListType(number))])), " +
-                "Pair(PositionalParameterTypes(Null), PositionalParameterConversions([Conversion(CONFORMS_TO, Null)]))" +
+                "Pair(PositionalParameterTypes(ListType(number)), PositionalParameterConversions([Conversion(ELEMENT_TO_SINGLETON_LIST, ListType(number))]))" +
                 "]");
         doTest(Arrays.asList(NUMBER), Arrays.asList(STRING), "[" +
-                "Pair(PositionalParameterTypes(Null), PositionalParameterConversions([Conversion(CONFORMS_TO, Null)]))" +
                 "]");
         doTest(Arrays.asList(NUMBER, DATE_AND_TIME), Arrays.asList(NUMBER, DATE), "[" +
-                "Pair(PositionalParameterTypes(number, date and time), PositionalParameterConversions([Conversion(NONE, number), Conversion(DATE_TO_UTC_MIDNIGHT, date and time)])), " +
-                "Pair(PositionalParameterTypes(number, Null), PositionalParameterConversions([Conversion(NONE, number), Conversion(CONFORMS_TO, Null)]))" +
+                "Pair(PositionalParameterTypes(number, date and time), PositionalParameterConversions([Conversion(NONE, number), Conversion(DATE_TO_UTC_MIDNIGHT, date and time)]))" +
                 "]");
     }
 

@@ -107,7 +107,7 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
         output_: org.gs.ExtraDaysCase2RuleOutput.ExtraDaysCase2RuleOutput = org.gs.ExtraDaysCase2RuleOutput.ExtraDaysCase2RuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
-            (self.numericGreaterEqualThan(yearsOfService, self.number("30")))
+            self.numericGreaterEqualThan(yearsOfService, self.number("30"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)
@@ -138,7 +138,7 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
         # Apply rule
         output_: org.gs.ExtraDaysCase2RuleOutput.ExtraDaysCase2RuleOutput = org.gs.ExtraDaysCase2RuleOutput.ExtraDaysCase2RuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.numericGreaterEqualThan(age, self.number("60"))),
+            self.numericGreaterEqualThan(age, self.number("60")),
             True
         )):
             # Rule match

@@ -22,8 +22,8 @@
     </parent>
 
     <properties>
-        <xmlunit.version>2.9.0</xmlunit.version>
-        <jdom.version>2.0.2</jdom.version>
+        <xmlunit.version>2.9.1</xmlunit.version>
+        <jdom.version>2.0.6.1</jdom.version>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../dmn-aggregate/${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
@@ -56,7 +56,7 @@
 
         <dependency>
             <groupId>org.jdom</groupId>
-            <artifactId>jdom</artifactId>
+            <artifactId>jdom2</artifactId>
             <version>${jdom.version}</version>
             <scope>test</scope>
         </dependency>
@@ -65,13 +65,5 @@
             <groupId>org.skyscreamer</groupId>
             <artifactId>jsonassert</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.openjdk.jmh</groupId>
-            <artifactId>jmh-core</artifactId>
-            <version>1.19</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 </project>

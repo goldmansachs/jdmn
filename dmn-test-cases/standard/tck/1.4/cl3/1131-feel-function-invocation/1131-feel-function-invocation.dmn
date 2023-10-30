@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://camunda.com/spec/DMN/1131-feel-function-invocation" name="1131-feel-function-invocation" id="_i9fboPUasda" xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>FEEL function invocation</description>
+    <decision name="decision001" id="_decision001">
+        <description>Tests invocation of non-existing function</description>
+        <variable name="decision_001"/>
+        <literalExpression>
+            <text>non_existing_function()</text>
+        </literalExpression>
+    </decision>
+    <decision name="decision002" id="_decision002">
+        <description>Tests invocation of null</description>
+        <variable name="decision_002"/>
+        <literalExpression>
+            <text>null()</text>
+        </literalExpression>
+    </decision>
+    <decision name="decision003" id="_decision003">
+        <description>Tests invocation of string</description>
+        <variable name="decision_003"/>
+        <literalExpression>
+            <text>"some_func"()</text>
+        </literalExpression>
+    </decision>
+    <decision name="decision004" id="_decision004">
+        <description>Tests invocation of string (name of function)</description>
+        <variable name="decision_004"/>
+        <literalExpression>
+            <text>"abs"(-1)</text>
+        </literalExpression>
+    </decision>
+    <decision name="decision005" id="_decision005">
+        <description>Tests invocation of date</description>
+        <variable name="decision_005"/>
+        <literalExpression>
+            <text>@"2023-11-11"()</text>
+        </literalExpression>
+    </decision>
+    <decision name="decision006" id="_decision006">
+        <description>Tests invocation of number</description>
+        <variable name="decision_006"/>
+        <literalExpression>
+            <text>123()</text>
+        </literalExpression>
+    </decision>
+    <decision name="decision007" id="_decision007">
+        <description>Tests invocation of true</description>
+        <variable name="decision_007"/>
+        <literalExpression>
+            <text>true()</text>
+        </literalExpression>
+    </decision>
+    <decision name="decision008" id="_decision008">
+        <description>Tests invocation of false</description>
+        <variable name="decision_008"/>
+        <literalExpression>
+            <text>false()</text>
+        </literalExpression>
+    </decision>
+</definitions>
+

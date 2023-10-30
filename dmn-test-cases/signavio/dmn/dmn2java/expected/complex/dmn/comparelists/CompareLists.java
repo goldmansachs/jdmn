@@ -100,7 +100,7 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         // Apply rule
         CompareListsRuleOutput output_ = new CompareListsRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericEqual(l12_iterator, l2_iterator)),
+            numericEqual(l12_iterator, l2_iterator),
             Boolean.TRUE
         )) {
             // Rule match
@@ -135,7 +135,7 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         // Apply rule
         CompareListsRuleOutput output_ = new CompareListsRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((numericEqual(l12_iterator, l2_iterator))),
+            booleanNot(numericEqual(l12_iterator, l2_iterator)),
             Boolean.TRUE
         )) {
             // Rule match

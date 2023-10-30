@@ -121,7 +121,7 @@ public class NamedParameters<T, C> extends Parameters<T, C> {
         if (this.parameterConversions == null) {
             return false;
         }
-        return this.parameterConversions.getConversions().values().stream().anyMatch(c -> c.getKind().isImplicit());
+        return this.parameterConversions.getConversions().values().stream().anyMatch(c -> c.getKind() != ConversionKind.NONE);
     }
 
     @Override

@@ -100,7 +100,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         AssessApplicantAgeRuleOutput output_ = new AssessApplicantAgeRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericLessThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("18")))
+            numericLessThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("18"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -134,7 +134,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         AssessApplicantAgeRuleOutput output_ = new AssessApplicantAgeRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("18")), numericLessEqualThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("25"))))
+            booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("18")), numericLessEqualThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("25")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -168,7 +168,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         AssessApplicantAgeRuleOutput output_ = new AssessApplicantAgeRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (numericGreaterThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("25")))
+            numericGreaterThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("25"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

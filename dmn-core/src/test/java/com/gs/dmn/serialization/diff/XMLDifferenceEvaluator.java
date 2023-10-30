@@ -34,6 +34,10 @@ public abstract class XMLDifferenceEvaluator implements DifferenceEvaluator {
         return new DMN13DifferenceEvaluator();
     }
 
+    public static DifferenceEvaluator dmn14DiffEvaluator() {
+        return new DMN14DifferenceEvaluator();
+    }
+
     public static DifferenceEvaluator tck1DiffEvaluator() {
         return new TCK1DifferenceEvaluator();
     }

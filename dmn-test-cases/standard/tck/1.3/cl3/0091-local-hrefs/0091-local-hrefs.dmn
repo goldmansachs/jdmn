@@ -6,7 +6,7 @@
     <description>Local (non-imported) qualified hrefs</description>
 
     <inputData name="input_001" id="_input_001">
-        <variable name="input_001"/>
+        <variable name="input_001" typeRef="string"/>
     </inputData>
 
     <decision name="decision_001" id="_decision_001">

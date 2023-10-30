@@ -114,13 +114,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (listEqual(dateInput, asList(date("2016-08-01")))),
-            (listEqual(timeInput, asList(time("12:00:00Z")))),
-            (listEqual(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z")))),
-            (listEqual(numberInput, asList(numericUnaryMinus(number("1"))))),
-            (listEqual(textInput, asList("abc"))),
-            (listEqual(booleanInput, asList(Boolean.TRUE))),
-            (listEqual(enumerationInput, asList("e1")))
+            listEqual(dateInput, asList(date("2016-08-01"))),
+            listEqual(timeInput, asList(time("12:00:00Z"))),
+            listEqual(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z"))),
+            listEqual(numberInput, asList(numericUnaryMinus(number("1")))),
+            listEqual(textInput, asList("abc")),
+            listEqual(booleanInput, asList(Boolean.TRUE)),
+            listEqual(enumerationInput, asList("e1"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -154,13 +154,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((listEqual(dateInput, asList(date("2016-08-01"))))),
-            booleanNot((listEqual(timeInput, asList(time("12:00:00Z"))))),
-            booleanNot((listEqual(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z"))))),
-            booleanNot((listEqual(numberInput, asList(numericUnaryMinus(number("1")))))),
-            booleanNot((listEqual(textInput, asList("abc")))),
-            booleanNot((listEqual(booleanInput, asList(Boolean.FALSE)))),
-            booleanNot((listEqual(enumerationInput, asList("e1"))))
+            booleanNot(listEqual(dateInput, asList(date("2016-08-01")))),
+            booleanNot(listEqual(timeInput, asList(time("12:00:00Z")))),
+            booleanNot(listEqual(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z")))),
+            booleanNot(listEqual(numberInput, asList(numericUnaryMinus(number("1"))))),
+            booleanNot(listEqual(textInput, asList("abc"))),
+            booleanNot(listEqual(booleanInput, asList(Boolean.FALSE))),
+            booleanNot(listEqual(enumerationInput, asList("e1")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -194,13 +194,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (elementOf(dateInput, asList(date("2016-08-01"), date("2016-08-02")))),
-            (elementOf(timeInput, asList(time("12:00:00Z"), time("13:00:00Z")))),
-            (elementOf(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z")))),
-            (elementOf(numberInput, asList(numericUnaryMinus(number("1"))))),
-            (elementOf(textInput, asList("b"))),
-            (elementOf(booleanInput, asList(Boolean.TRUE))),
-            (elementOf(enumerationInput, asList("e1", "e2")))
+            elementOf(dateInput, asList(date("2016-08-01"), date("2016-08-02"))),
+            elementOf(timeInput, asList(time("12:00:00Z"), time("13:00:00Z"))),
+            elementOf(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z"))),
+            elementOf(numberInput, asList(numericUnaryMinus(number("1")))),
+            elementOf(textInput, asList("b")),
+            elementOf(booleanInput, asList(Boolean.TRUE)),
+            elementOf(enumerationInput, asList("e1", "e2"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -234,13 +234,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot((notContainsAny(dateInput, asList(date("2016-08-01"), date("2016-08-02"))))),
-            booleanNot((notContainsAny(timeInput, asList(time("12:00:00Z"), time("13:00:00Z"))))),
-            booleanNot((notContainsAny(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z"))))),
-            booleanNot((notContainsAny(numberInput, asList(numericUnaryMinus(number("1")))))),
-            booleanNot((notContainsAny(textInput, asList("b")))),
-            booleanNot((notContainsAny(booleanInput, asList(Boolean.FALSE)))),
-            booleanNot((notContainsAny(enumerationInput, asList("e1", "e2"))))
+            booleanNot(notContainsAny(dateInput, asList(date("2016-08-01"), date("2016-08-02")))),
+            booleanNot(notContainsAny(timeInput, asList(time("12:00:00Z"), time("13:00:00Z")))),
+            booleanNot(notContainsAny(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z")))),
+            booleanNot(notContainsAny(numberInput, asList(numericUnaryMinus(number("1"))))),
+            booleanNot(notContainsAny(textInput, asList("b"))),
+            booleanNot(notContainsAny(booleanInput, asList(Boolean.FALSE))),
+            booleanNot(notContainsAny(enumerationInput, asList("e1", "e2")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -274,13 +274,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (containsOnly(dateInput, asList(date("2016-08-01"), date("2016-08-02")))),
-            (containsOnly(timeInput, asList(time("12:00:00Z"), time("13:00:00Z")))),
-            (containsOnly(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z")))),
-            (containsOnly(numberInput, asList(numericUnaryMinus(number("1"))))),
-            (containsOnly(textInput, asList("ab"))),
-            (containsOnly(booleanInput, asList(Boolean.FALSE))),
-            (containsOnly(enumerationInput, asList("e1")))
+            containsOnly(dateInput, asList(date("2016-08-01"), date("2016-08-02"))),
+            containsOnly(timeInput, asList(time("12:00:00Z"), time("13:00:00Z"))),
+            containsOnly(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z"))),
+            containsOnly(numberInput, asList(numericUnaryMinus(number("1")))),
+            containsOnly(textInput, asList("ab")),
+            containsOnly(booleanInput, asList(Boolean.FALSE)),
+            containsOnly(enumerationInput, asList("e1"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -314,13 +314,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            (notContainsAny(dateInput, asList(date("2016-08-01"), date("2016-08-02")))),
-            (notContainsAny(timeInput, asList(time("12:00:00Z"), time("13:00:00Z")))),
-            (notContainsAny(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z")))),
+            notContainsAny(dateInput, asList(date("2016-08-01"), date("2016-08-02"))),
+            notContainsAny(timeInput, asList(time("12:00:00Z"), time("13:00:00Z"))),
+            notContainsAny(dateAndTimeInput, asList(dateAndTime("2016-08-01T11:00:00Z"))),
             Boolean.TRUE,
-            (notContainsAny(textInput, asList("bc"))),
-            (notContainsAny(booleanInput, asList(Boolean.FALSE))),
-            (notContainsAny(enumerationInput, asList("e2")))
+            notContainsAny(textInput, asList("bc")),
+            notContainsAny(booleanInput, asList(Boolean.FALSE)),
+            notContainsAny(enumerationInput, asList("e2"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

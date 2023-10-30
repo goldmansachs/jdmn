@@ -37,14 +37,11 @@ import java.util.Map;
 public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<Type, DMNContext> {
     private static final Map<String, String> FEEL_2_JAVA_FUNCTION = new LinkedHashMap<>();
     static {
-        FEEL_2_JAVA_FUNCTION.put("get value", "getValue");
-        FEEL_2_JAVA_FUNCTION.put("get entries", "getEntries");
+        // constructors
+        FEEL_2_JAVA_FUNCTION.put("date and time", "dateAndTime");
+        FEEL_2_JAVA_FUNCTION.put("years and months duration", "yearsAndMonthsDuration");
 
-        FEEL_2_JAVA_FUNCTION.put("distinct values", "distinctValues");
-        FEEL_2_JAVA_FUNCTION.put("index of", "indexOf");
-        FEEL_2_JAVA_FUNCTION.put("insert before", "insertBefore");
-        FEEL_2_JAVA_FUNCTION.put("list contains", "listContains");
-
+        // string functions
         FEEL_2_JAVA_FUNCTION.put("ends with", "endsWith");
         FEEL_2_JAVA_FUNCTION.put("starts with", "startsWith");
         FEEL_2_JAVA_FUNCTION.put("substring after", "substringAfter");
@@ -52,25 +49,38 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<
         FEEL_2_JAVA_FUNCTION.put("lower case", "lowerCase");
         FEEL_2_JAVA_FUNCTION.put("upper case", "upperCase");
         FEEL_2_JAVA_FUNCTION.put("string length", "stringLength");
+        FEEL_2_JAVA_FUNCTION.put("string join", "stringJoin");
 
-        FEEL_2_JAVA_FUNCTION.put("years and months duration", "yearsAndMonthsDuration");
-        FEEL_2_JAVA_FUNCTION.put("date and time", "dateAndTime");
+        // number functions
+        FEEL_2_JAVA_FUNCTION.put("round up", "roundUp");
+        FEEL_2_JAVA_FUNCTION.put("round down", "roundDown");
+        FEEL_2_JAVA_FUNCTION.put("round half up", "roundHalfUp");
+        FEEL_2_JAVA_FUNCTION.put("round half down", "roundHalfDown");
 
+        // list functions
+        FEEL_2_JAVA_FUNCTION.put("distinct values", "distinctValues");
+        FEEL_2_JAVA_FUNCTION.put("index of", "indexOf");
+        FEEL_2_JAVA_FUNCTION.put("insert before", "insertBefore");
+        FEEL_2_JAVA_FUNCTION.put("list contains", "listContains");
+
+        // context functions
+        FEEL_2_JAVA_FUNCTION.put("get value", "getValue");
+        FEEL_2_JAVA_FUNCTION.put("get entries", "getEntries");
+        FEEL_2_JAVA_FUNCTION.put("context put", "contextPut");
+        FEEL_2_JAVA_FUNCTION.put("context merge", "contextMerge");
+
+        // range functions
         FEEL_2_JAVA_FUNCTION.put("met by", "metBy");
         FEEL_2_JAVA_FUNCTION.put("overlaps before", "overlapsBefore");
         FEEL_2_JAVA_FUNCTION.put("overlaps after", "overlapsAfter");
         FEEL_2_JAVA_FUNCTION.put("finished by", "finishedBy");
         FEEL_2_JAVA_FUNCTION.put("started by", "startedBy");
 
+        // date time properties
         FEEL_2_JAVA_FUNCTION.put("day of year", "dayOfYear");
         FEEL_2_JAVA_FUNCTION.put("day of week", "dayOfWeek");
         FEEL_2_JAVA_FUNCTION.put("month of year", "monthOfYear");
         FEEL_2_JAVA_FUNCTION.put("week of year", "weekOfYear");
-
-        FEEL_2_JAVA_FUNCTION.put("round up", "roundUp");
-        FEEL_2_JAVA_FUNCTION.put("round down", "roundDown");
-        FEEL_2_JAVA_FUNCTION.put("round half up", "roundHalfUp");
-        FEEL_2_JAVA_FUNCTION.put("round half down", "roundHalfDown");
     }
 
     public AbstractFEELToJavaVisitor(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
@@ -86,49 +96,6 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<
         }
     }
 
-    protected String makeNavigation(Expression<Type, DMNContext> element, Type sourceType, String source, String memberName, String memberVariableName) {
-        if (sourceType instanceof ImportContextType) {
-            ImportContextType importContextType = (ImportContextType) sourceType;
-            DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
-            if (memberReference == null) {
-                throw new DMNRuntimeException(String.format("Cannot find reference for '%s'", memberName));
-            }
-            TDRGElement drgElement = memberReference.getElement();
-            if (drgElement instanceof TBusinessKnowledgeModel) {
-                return this.dmnTransformer.singletonInvocableInstance((TBusinessKnowledgeModel) drgElement);
-            } else {
-                String javaName = this.dmnTransformer.drgReferenceQualifiedName(memberReference);
-                return this.dmnTransformer.lazyEvaluation(memberReference.getElementName(), javaName);
-            }
-        } else if (sourceType instanceof ItemDefinitionType) {
-            Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
-            String javaType = this.dmnTransformer.toNativeType(memberType);
-            return this.nativeFactory.makeItemDefinitionAccessor(javaType, source, memberName);
-        } else if (sourceType instanceof ContextType) {
-            Type memberType = ((ContextType) sourceType).getMemberType(memberName);
-            String javaType = this.dmnTransformer.toNativeType(memberType);
-            return this.nativeFactory.makeContextAccessor(javaType, source, memberName);
-        } else if (sourceType instanceof ListType) {
-            String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName);
-            return this.nativeFactory.makeCollectionMap(source, filter);
-        } else if (sourceType instanceof DateType) {
-            return this.nativeFactory.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
-        } else if (sourceType instanceof TimeType) {
-            return this.nativeFactory.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
-        } else if (sourceType instanceof DateTimeType) {
-            return this.nativeFactory.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
-        } else if (sourceType instanceof DurationType) {
-            return this.nativeFactory.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
-        } else if (sourceType instanceof RangeType) {
-            return String.format("%s.%s", source, rangeGetter(memberName));
-        } else if (sourceType instanceof AnyType) {
-            // source is Context
-            return this.nativeFactory.makeContextSelectExpression(this.dmnTransformer.contextClassName(), source, memberName);
-        } else {
-            throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element));
-        }
-    }
-
     protected String propertyFunctionName(String memberName) {
         memberName = NameUtils.removeSingleQuotes(memberName);
         if ("time offset".equalsIgnoreCase(memberName)) {
@@ -138,68 +105,8 @@ public abstract class AbstractFEELToJavaVisitor extends AbstractAnalysisVisitor<
         }
     }
 
-    private String rangeGetter(String memberName) {
-        memberName = NameUtils.removeSingleQuotes(memberName);
-        if ("start included".equalsIgnoreCase(memberName)) {
-            return "isStartIncluded()";
-        }  else if ("end included".equalsIgnoreCase(memberName)) {
-            return "isEndIncluded()";
-        } else {
-            return this.dmnTransformer.getter(memberName);
-        }
-    }
-
     protected String nativeFriendlyVariableName(String name) {
         return this.dmnTransformer.lowerCaseFirst(name);
-    }
-
-    protected Object makeCondition(String feelOperator, Expression<Type, DMNContext> leftOperand, Expression<Type, DMNContext> rightOperand, DMNContext context) {
-        String leftOpd = (String) leftOperand.accept(this, context);
-        String rightOpd = (String) rightOperand.accept(this, context);
-        NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftOperand.getType(), rightOperand.getType());
-        return makeCondition(feelOperator, leftOpd, rightOpd, javaOperator);
-    }
-
-    protected String makeCondition(String feelOperator, String leftOpd, String rightOpd, NativeOperator javaOperator) {
-        if (javaOperator == null) {
-            throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
-        } else {
-            if (javaOperator.getCardinality() == 2) {
-                if (javaOperator.getNotation() == NativeOperator.Notation.FUNCTIONAL) {
-                    if (javaOperator.getAssociativity() == NativeOperator.Associativity.LEFT_RIGHT) {
-                        return functionalExpression(javaOperator.getName(), leftOpd, rightOpd);
-                    } else {
-                        return functionalExpression(javaOperator.getName(), rightOpd, leftOpd);
-                    }
-                } else {
-                    if (javaOperator.getAssociativity() == NativeOperator.Associativity.LEFT_RIGHT) {
-                        return infixExpression(javaOperator.getName(), leftOpd, rightOpd);
-                    } else {
-                        return infixExpression(javaOperator.getName(), rightOpd, leftOpd);
-                    }
-                }
-            } else {
-                throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
-            }
-        }
-    }
-
-    protected String listTestOperator(String feelOperatorName, Expression<Type, DMNContext> leftOperand, Expression<Type, DMNContext> rightOperand) {
-        NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperatorName, rightOperand.getType(), rightOperand.getType());
-        if (javaOperator != null) {
-            return javaOperator.getName();
-        } else {
-            throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperatorName, leftOperand, rightOperand));
-        }
-    }
-
-    protected String functionalExpression(String javaOperator, String leftOpd, String rightOpd) {
-        String args = String.format("%s, %s", leftOpd, rightOpd);
-        return this.nativeFactory.makeBuiltinFunctionInvocation(javaOperator, args);
-    }
-
-    protected String infixExpression(String javaOperator, String leftOpd, String rightOpd) {
-        return String.format("(%s) %s (%s)", leftOpd, javaOperator, rightOpd);
     }
 
     protected String functionName(Expression<Type, DMNContext> function) {

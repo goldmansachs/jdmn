@@ -156,4 +156,40 @@
         </resultNode>
     </testCase>
 
+    <testCase id="decision_015">
+        <description>for loop with second iterator depending on first iterator</description>
+        <resultNode name="decision_015" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                    <item><value xsi:type="xsd:decimal">2</value></item>
+                    <item><value xsi:type="xsd:decimal">3</value></item>
+                    <item><value xsi:type="xsd:decimal">4</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_016">
+        <description>nested loops</description>
+        <resultNode name="decision_016" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <list>
+                            <item><value xsi:type="xsd:decimal">1</value></item>
+                            <item><value xsi:type="xsd:decimal">2</value></item>
+                        </list>
+                    </item>
+                    <item>
+                        <list>
+                            <item><value xsi:type="xsd:decimal">3</value></item>
+                            <item><value xsi:type="xsd:decimal">4</value></item>
+                        </list>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
 </testCases>

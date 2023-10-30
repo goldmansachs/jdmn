@@ -120,7 +120,7 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
         output_: RoutingRulesRuleOutput.RoutingRulesRuleOutput = RoutingRulesRuleOutput.RoutingRulesRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
-            (self.booleanEqual(postBureauAffordability, False)),
+            self.booleanEqual(postBureauAffordability, False),
             True,
             True
         )):
@@ -156,7 +156,7 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
             True,
             True,
-            (self.booleanEqual(bankrupt, True)),
+            self.booleanEqual(bankrupt, True),
             True
         )):
             # Rule match
@@ -189,7 +189,7 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
         # Apply rule
         output_: RoutingRulesRuleOutput.RoutingRulesRuleOutput = RoutingRulesRuleOutput.RoutingRulesRuleOutput(False)
         if (self.ruleMatches(eventListener_, drgRuleMetadata,
-            (self.stringEqual(postBureauRiskCategory, "HIGH")),
+            self.stringEqual(postBureauRiskCategory, "HIGH"),
             True,
             True,
             True
@@ -227,7 +227,7 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             True,
             True,
             True,
-            (self.numericLessThan(creditScore, self.number("580")))
+            self.numericLessThan(creditScore, self.number("580"))
         )):
             # Rule match
             eventListener_.matchRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata)

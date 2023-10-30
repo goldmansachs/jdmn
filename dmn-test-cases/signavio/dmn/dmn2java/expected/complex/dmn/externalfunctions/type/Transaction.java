@@ -13,19 +13,71 @@ public interface Transaction extends com.gs.dmn.runtime.DMNType {
             return (Transaction)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TransactionImpl result_ = new TransactionImpl();
-            result_.setTradeDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("tradeDate", "tradeDate"));
-            result_.setBuySellIndicator((String)((com.gs.dmn.runtime.Context)other).get("buySellIndicator", "buySellIndicator"));
-            result_.setOfferingType((String)((com.gs.dmn.runtime.Context)other).get("offeringType", "offeringType"));
-            result_.setExerciseAssign((Boolean)((com.gs.dmn.runtime.Context)other).get("exerciseAssign", "exerciseAssign"));
-            result_.setSettlementDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("settlementDate", "settlementDate"));
-            result_.setClearingAgent((String)((com.gs.dmn.runtime.Context)other).get("clearingAgent", "clearingAgent"));
-            result_.setDeliveryInstruction((Boolean)((com.gs.dmn.runtime.Context)other).get("deliveryInstruction", "deliveryInstruction"));
-            result_.setExecutionCapacity((String)((com.gs.dmn.runtime.Context)other).get("executionCapacity", "executionCapacity"));
-            result_.setQuantity((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("quantity", "quantity"));
-            result_.setPrice((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("price", "price"));
-            result_.setCommision((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("commision", "commision"));
-            result_.setExecutionMarket((String)((com.gs.dmn.runtime.Context)other).get("executionMarket", "executionMarket"));
-            result_.setCurrencyCode((String)((com.gs.dmn.runtime.Context)other).get("currencyCode", "currencyCode"));
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("tradeDate") || ((com.gs.dmn.runtime.Context)other).keySet().contains("tradeDate")) {
+                result_.setTradeDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("tradeDate", "tradeDate"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("buySellIndicator") || ((com.gs.dmn.runtime.Context)other).keySet().contains("buySellIndicator")) {
+                result_.setBuySellIndicator((String)((com.gs.dmn.runtime.Context)other).get("buySellIndicator", "buySellIndicator"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("offeringType") || ((com.gs.dmn.runtime.Context)other).keySet().contains("offeringType")) {
+                result_.setOfferingType((String)((com.gs.dmn.runtime.Context)other).get("offeringType", "offeringType"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("exerciseAssign") || ((com.gs.dmn.runtime.Context)other).keySet().contains("exerciseAssign")) {
+                result_.setExerciseAssign((Boolean)((com.gs.dmn.runtime.Context)other).get("exerciseAssign", "exerciseAssign"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("settlementDate") || ((com.gs.dmn.runtime.Context)other).keySet().contains("settlementDate")) {
+                result_.setSettlementDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("settlementDate", "settlementDate"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("clearingAgent") || ((com.gs.dmn.runtime.Context)other).keySet().contains("clearingAgent")) {
+                result_.setClearingAgent((String)((com.gs.dmn.runtime.Context)other).get("clearingAgent", "clearingAgent"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("deliveryInstruction") || ((com.gs.dmn.runtime.Context)other).keySet().contains("deliveryInstruction")) {
+                result_.setDeliveryInstruction((Boolean)((com.gs.dmn.runtime.Context)other).get("deliveryInstruction", "deliveryInstruction"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("executionCapacity") || ((com.gs.dmn.runtime.Context)other).keySet().contains("executionCapacity")) {
+                result_.setExecutionCapacity((String)((com.gs.dmn.runtime.Context)other).get("executionCapacity", "executionCapacity"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("quantity") || ((com.gs.dmn.runtime.Context)other).keySet().contains("quantity")) {
+                result_.setQuantity((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("quantity", "quantity"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("price") || ((com.gs.dmn.runtime.Context)other).keySet().contains("price")) {
+                result_.setPrice((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("price", "price"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("commision") || ((com.gs.dmn.runtime.Context)other).keySet().contains("commision")) {
+                result_.setCommision((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("commision", "commision"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("executionMarket") || ((com.gs.dmn.runtime.Context)other).keySet().contains("executionMarket")) {
+                result_.setExecutionMarket((String)((com.gs.dmn.runtime.Context)other).get("executionMarket", "executionMarket"));
+            } else {
+                return  null;
+            }
+            if (((com.gs.dmn.runtime.Context)other).keySet().contains("currencyCode") || ((com.gs.dmn.runtime.Context)other).keySet().contains("currencyCode")) {
+                result_.setCurrencyCode((String)((com.gs.dmn.runtime.Context)other).get("currencyCode", "currencyCode"));
+            } else {
+                return  null;
+            }
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTransaction(((com.gs.dmn.runtime.DMNType)other).toContext());

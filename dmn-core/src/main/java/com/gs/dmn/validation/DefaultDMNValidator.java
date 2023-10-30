@@ -251,6 +251,24 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                     String errorMessage = "Empty relation";
                     errors.add(makeError(repository, definitions, element, errorMessage));
                 }
+            } else if (expression instanceof TConditional) {
+                checkChildExpression(repository, definitions, element, ((TConditional) expression).getIf(), "conditional", "if", errors);
+                checkChildExpression(repository, definitions, element, ((TConditional) expression).getThen(), "conditional", "then", errors);
+                checkChildExpression(repository, definitions, element, ((TConditional) expression).getElse(), "conditional", "else", errors);
+            } else if (expression instanceof TFilter) {
+                checkChildExpression(repository, definitions, element, ((TFilter) expression).getIn(), "filter", "in", errors);
+                checkChildExpression(repository, definitions, element, ((TFilter) expression).getMatch(), "filter", "match", errors);
+            } else if (expression instanceof TFor) {
+                checkChildExpression(repository, definitions, element, ((TFor) expression).getIn(), "for", "in", errors);
+                checkChildExpression(repository, definitions, element, ((TFor) expression).getReturn(), "for", "return", errors);
+            } else if (expression instanceof TSome) {
+                String parentName = "some";
+                checkChildExpression(repository, definitions, element, ((TQuantified) (TSome) expression).getIn(), parentName, "in", errors);
+                checkChildExpression(repository, definitions, element, ((TQuantified) (TSome) expression).getSatisfies(), parentName, "satisfies", errors);
+            } else if (expression instanceof TEvery) {
+                String parentName = "every";
+                checkChildExpression(repository, definitions, element, ((TQuantified) (TEvery) expression).getIn(), parentName, "in", errors);
+                checkChildExpression(repository, definitions, element, ((TQuantified) (TEvery) expression).getSatisfies(), parentName, "satisfies", errors);
             } else {
                 throw new UnsupportedOperationException("Not supported DMN expression type " + expression.getClass().getName());
             }
@@ -270,6 +288,13 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         List<TLiteralExpression> outputEntry = rule.getOutputEntry();
         if (outputEntry == null || outputEntry.isEmpty()) {
             String errorMessage = "No outputEntry entries for rule " + rule.getId();
+            errors.add(makeError(repository, definitions, element, errorMessage));
+        }
+    }
+
+    private void checkChildExpression(DMNModelRepository repository, TDefinitions definitions, TDRGElement element, TChildExpression childExpression, String parentName, String childName, List<String> errors) {
+        String errorMessage = String.format("Missing '%s' expression in '%s' boxed expression in element '%s'", childName, parentName, element.getName());
+        if (childExpression == null || childExpression.getExpression() == null) {
             errors.add(makeError(repository, definitions, element, errorMessage));
         }
     }

@@ -246,6 +246,16 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         return ((FEELXMLGregorianCalendar) date).getZoneID();
     }
 
+    @Override
+    public XMLGregorianCalendar now() {
+        return FEELXMLGregorianCalendar.makeXMLCalendar(ZonedDateTime.now());
+    }
+
+    @Override
+    public XMLGregorianCalendar today() {
+        return FEELXMLGregorianCalendar.makeXMLCalendar(LocalDate.now());
+    }
+
     //
     // Temporal functions
     //

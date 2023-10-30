@@ -34,48 +34,48 @@ import static org.junit.Assert.assertEquals;
 
 public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
-    public void testV12_simple() throws Exception {
+    public void testSimple() throws Exception {
         testRoundTrip("xstream/v1_2/simple.dmn");
     }
 
     @Test
-    public void testV12_ch11example() throws Exception {
+    public void testCh11Example() throws Exception {
         testRoundTrip("xstream/v1_2/ch11example.dmn");
     }
 
     @Test
-    public void testV12_ImportName() throws Exception {
+    public void testImportName() throws Exception {
         testRoundTrip("xstream/v1_2/ImportName.dmn");
     }
 
     @Test
-    public void testV12_DecisionService20180911v12() throws Exception {
+    public void testDecisionService20180911v12() throws Exception {
         testRoundTrip("xstream/v1_2/DecisionService20180911v12.dmn");
     }
 
     @Test
-    public void testV12_DiamondWithColors() throws Exception {
+    public void testDiamondWithColors() throws Exception {
         testRoundTrip("xstream/v1_2/diamondWithColors.dmn");
     }
 
     @Test
-    public void testV12_DMNDIDiagramElementExtension() throws Exception {
+    public void testDMNDIDiagramElementExtension() throws Exception {
         testRoundTrip("xstream/v1_2/DMNDIDiagramElementExtension.dmn");
     }
 
     @Test
-    public void testV12_DMNDIDiagramElementExtension_withContent() throws Exception {
+    public void testDMNDIDiagramElementExtensionWithContent() throws Exception {
         DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Arrays.asList(new MyTestRegister()));
         testRoundTrip("xstream/v1_2/DMNDIDiagramElementExtension_withContent.dmn", marshaller);
     }
 
     @Test
-    public void test_hardcoded_java_max_call() throws Exception {
+    public void testHardcodedJavaMaxCall() throws Exception {
         testRoundTrip("xstream/v1_2/hardcoded-java-max-call.dmn");
     }
 
     @Test
-    public void test_FontSize_sharedStyle() throws Exception {
+    public void testFontSizeSharedStyle() throws Exception {
         testRoundTrip("xstream/v1_2/test-FontSize-sharedStyle.dmn");
         TDefinitions definitions = getMarshaller().unmarshal(new InputStreamReader(this.getClass().getResourceAsStream("/xstream/v1_2/test-FontSize-sharedStyle.dmn")), true);
         List<DMNDiagram> dmnDiagram = definitions.getDMNDI().getDMNDiagram();
@@ -86,18 +86,18 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     }
 
     @Test
-    public void test_DMNLabel_Text() throws Exception {
+    public void testDMNLabelText() throws Exception {
         testRoundTrip("xstream/v1_2/DMNLabel-Text.dmn");
     }
 
     @Test
-    public void testV12_decision_list() throws Exception {
+    public void testDecisionList() throws Exception {
         testRoundTrip("xstream/v1_2/decision-list.dmn");
     }
 
     @Override
     protected StreamSource getSchemaSource() {
-        return new StreamSource(UnmarshalMarshalTest.class.getResource("/dmn/1.2/DMN12.xsd").getFile());
+        return new StreamSource(this.getClass().getResource("/dmn/1.2/DMN12.xsd").getFile());
     }
 
 
