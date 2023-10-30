@@ -70,14 +70,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="null_008">
+    <testCase id="null_008">
         <description>null instance of list is false</description>
         <resultNode name="null_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="null_009">
         <description>null instance of years and months duration is false</description>
@@ -97,14 +97,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="null_011">
+<!--    <testCase id="null_011">
         <description>null instance of context is false</description>
         <resultNode name="null_011" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase>
+    </testCase>-->
 
     <testCase id="null_012">
         <description>null instance of function is false</description>
@@ -113,7 +113,7 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="number_001">
         <description>number instance of Any is true</description>
@@ -178,14 +178,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="number_008">
+    <testCase id="number_008">
         <description>number instance of list is false</description>
         <resultNode name="number_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="number_009">
         <description>number instance of years and months duration is false</description>
@@ -205,14 +205,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="number_011">
+<!--    <testCase id="number_011">
         <description>number instance of context is false</description>
         <resultNode name="number_011" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase>
+    </testCase>-->
 
     <testCase id="number_012">
         <description>number instance of function is false</description>
@@ -221,7 +221,16 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
+
+    <testCase id="number_013">
+        <description>type conformance does not take into account allowedValues</description>
+        <resultNode name="number_013" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
 
 
     <testCase id="string_001">
@@ -287,14 +296,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="string_008">
+    <testCase id="string_008">
         <description>string instance of list is false</description>
         <resultNode name="string_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="string_009">
         <description>string instance of years and months duration is false</description>
@@ -314,14 +323,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="string_011">
+<!--    <testCase id="string_011">
         <description>string instance of context is false</description>
         <resultNode name="string_011" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase>
+    </testCase-->
 
     <testCase id="string_012">
         <description>string instance of function is false</description>
@@ -330,7 +339,16 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
+
+    <testCase id="string_013">
+        <description>string type conformance does not take into account allowedValues</description>
+        <resultNode name="string_013" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
 
 
     <testCase id="boolean_001">
@@ -396,14 +414,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="boolean_008">
+    <testCase id="boolean_008">
         <description>boolean instance of list is false</description>
         <resultNode name="boolean_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="boolean_009">
         <description>boolean instance of years and months duration is false</description>
@@ -423,14 +441,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="boolean_011">
+<!--    <testCase id="boolean_011">
         <description>boolean instance of context is false</description>
         <resultNode name="boolean_011" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase>
+    </testCase>-->
 
     <testCase id="boolean_012">
         <description>boolean instance of function is false</description>
@@ -439,7 +457,7 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="date_001">
         <description>date instance of Any is true</description>
@@ -507,14 +525,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="date_008">
+    <testCase id="date_008">
         <description>date instance of list is false</description>
         <resultNode name="date_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="date_009">
         <description>date instance of years and months duration is false</description>
@@ -534,14 +552,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="date_011">
+<!--    <testCase id="date_011">
         <description>date instance of context is false</description>
         <resultNode name="date_011" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase>
+    </testCase>-->
 
     <testCase id="date_012">
         <description>date instance of function is false</description>
@@ -550,7 +568,7 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="time_001">
         <description>time instance of Any is true</description>
@@ -615,14 +633,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="time_008">
+    <testCase id="time_008">
         <description>time instance of list is false</description>
         <resultNode name="time_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="time_009">
         <description>time instance of years and months duration is false</description>
@@ -642,14 +660,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="time_011">
+<!--    <testCase id="time_011">
         <description>time instance of context is false</description>
         <resultNode name="time_011" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase>
+    </testCase>-->
 
     <testCase id="time_012">
         <description>time instance of function is false</description>
@@ -658,7 +676,7 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="list_001">
         <description>list instance of Any is true</description>
@@ -723,14 +741,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="list_008">
+    <testCase id="list_008">
         <description>list instance of list is rrue</description>
         <resultNode name="list_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="list_009">
         <description>list instance of years and months duration is false</description>
@@ -750,14 +768,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="list_011">
+<!--    <testCase id="list_011">
         <description>list instance of context is false</description>
         <resultNode name="list_011" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase>
+    </testCase>-->
 
     <testCase id="list_012">
         <description>list instance of function is false</description>
@@ -766,9 +784,9 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
-<!--     <testCase id="list_013">
+    <testCase id="list_013">
         <description>list instance with same itemtype is true</description>
         <resultNode name="list_013" type="decision">
             <expected>
@@ -802,7 +820,7 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="list_016">
         <description>singleton list is not instance of element type</description>
@@ -813,14 +831,52 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="list_017">
+    <testCase id="list_017">
         <description>primitive is not instance of list of same type</description>
         <resultNode name="list_017" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
+
+    <testCase id="list_018">
+        <description>list is an instance of inline list of itemdefinition context type</description>
+        <resultNode name="list_018" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_019">
+        <description>list is not an instance of inline list of inline context type</description>
+        <resultNode name="list_019" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_020">
+        <description>list is an instance of inline list of inline context type</description>
+        <resultNode name="list_020" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- comment out as per: https://github.com/dmn-tck/tck/pull/390#issuecomment-1053664450
+    <testCase id="list_021">
+        <description>list is an instance of inline function types</description>
+        <resultNode name="list_021" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    -->
 
     <testCase id="ym_duration_001">
         <description>years and months duration instance of Any is true</description>
@@ -885,14 +941,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="ym_duration_008">
+    <testCase id="ym_duration_008">
         <description>years and months duration instance of list is false</description>
         <resultNode name="ym_duration_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="ym_duration_009">
         <description>years and months duration instance of years and months duration is true</description>
@@ -912,14 +968,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="ym_duration_011">
+<!--    <testCase id="ym_duration_011">
         <description>years and months duration instance of context is false</description>
         <resultNode name="ym_duration_011" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase>
+    </testCase>-->
 
     <testCase id="ym_duration_012">
         <description>years and months duration instance of function is false</description>
@@ -928,7 +984,7 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="dt_duration_001">
         <description>days and time duration instance of Any is true</description>
@@ -993,14 +1049,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="dt_duration_008">
+    <testCase id="dt_duration_008">
         <description>days and time durationinstance of list is false</description>
         <resultNode name="dt_duration_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="dt_duration_009">
         <description>days and time duration instance of years and months duration is false</description>
@@ -1020,14 +1076,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="dt_duration_011">
+<!--    <testCase id="dt_duration_011">
         <description>days and time duration instance of context is false</description>
         <resultNode name="dt_duration_011" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase>
+    </testCase>-->
 
     <testCase id="dt_duration_012">
         <description>days and time duration instance of function is false</description>
@@ -1036,7 +1092,7 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="context_001">
         <description>context instance of Any is true</description>
@@ -1101,14 +1157,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="context_008">
+    <testCase id="context_008">
         <description>context instance of list is false</description>
         <resultNode name="context_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="context_009">
         <description>context instance of years and months duration is false</description>
@@ -1128,7 +1184,8 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="context_011">
+<!--
+    <testCase id="context_011">
         <description>context instance of context is true</description>
         <resultNode name="context_011" type="decision">
             <expected>
@@ -1136,6 +1193,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="context_012">
         <description>context instance of function is false</description>
@@ -1144,9 +1202,9 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
-<!--     <testCase id="context_013">
+     <testCase id="context_013">
         <description>context instance of context with same property names is true</description>
         <resultNode name="context_013" type="decision">
             <expected>
@@ -1180,7 +1238,79 @@
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
+
+<!--    <testCase id="context_017">
+        <description>empty context instance conforms to empty context type</description>
+        <resultNode name="context_017" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>-->
+
+    <testCase id="context_018">
+        <description>context instance conforms to equivalent type</description>
+        <resultNode name="context_018" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_019">
+        <description>context with null value conforms to specific type</description>
+        <resultNode name="context_019" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_020">
+        <description>context with multiple properties conforms to type with equivalent single property </description>
+        <resultNode name="context_020" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_021">
+        <description>context with multiple properties conforms to type with equivalent multiple properties </description>
+        <resultNode name="context_021" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_022">
+        <description>context with non-conforming property does not match type</description>
+        <resultNode name="context_022" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_023">
+        <description>context with nested context conforms to type</description>
+        <resultNode name="context_023" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_024">
+        <description>context with nested context dot not conform to type</description>
+        <resultNode name="context_024" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
 
     <testCase id="function_001">
         <description>function instance of Any is true</description>
@@ -1245,14 +1375,14 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="function_008">
+    <testCase id="function_008">
         <description>function instance of list is false</description>
         <resultNode name="function_008" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
 
     <testCase id="function_009">
         <description>function instance of years and months duration is false</description>
@@ -1272,22 +1402,195 @@
         </resultNode>
     </testCase>
 
-<!--     <testCase id="function_011">
+<!--    <testCase id="function_011">
         <description>function instance of context is false</description>
         <resultNode name="function_011" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
-    </testCase>
+    </testCase>-->
 
+    <!-- comment out as per: https://github.com/dmn-tck/tck/pull/390#issuecomment-1053664450
     <testCase id="function_012">
-        <description>function instance of function is true</description>
+        <description>conforms when no params and covariant return type</description>
         <resultNode name="function_012" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
-    </testCase> -->
+    </testCase>
+
+    <testCase id="function_013">
+        <description>conforms when no params and equivalent return type</description>
+        <resultNode name="function_013" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_014">
+        <description>conforms when contravariant parm, covariant return type</description>
+        <resultNode name="function_014" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_015">
+        <description>does not conform when equivalent parm, non-covariant return type</description>
+        <resultNode name="function_015" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_016">
+        <description>conforms when contravariant parm, covariant return type</description>
+        <resultNode name="function_016" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_017">
+        <description>does not conform when non-contravariant parm, covariant return type</description>
+        <resultNode name="function_017" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_018">
+        <description>conforms when contravariant parms, covariant return type, same param arity</description>
+        <resultNode name="function_018" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_019">
+        <description>does not conform when contravariant parm, covariant return type, different param arity</description>
+        <resultNode name="function_019" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_020">
+        <description>conforms when multiple contravariant parms, equivalent return type</description>
+        <resultNode name="function_020" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_021">
+        <description>conforms to basic FunctionItem type</description>
+        <resultNode name="function_021" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_022">
+        <description>conforms to basic FunctionItem type with return type</description>
+        <resultNode name="function_022" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_023">
+        <description>does not conforms to basic FunctionItem type with return type</description>
+        <resultNode name="function_023" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_024">
+        <description>conforms to basic FunctionItem type with untyped params</description>
+        <resultNode name="function_024" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_025">
+        <description>conforms to basic FunctionItem type with simple typed params</description>
+        <resultNode name="function_025" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_026">
+        <description>does not conform to basic FunctionItem type with simple typed params</description>
+        <resultNode name="function_026" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_027">
+        <description>conform to list of function items</description>
+        <resultNode name="function_027" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_028">
+        <description>does not conform to list of function items</description>
+        <resultNode name="function_028" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_029">
+        <description>conforms to a context type with a function property</description>
+        <resultNode name="function_029" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_030">
+        <description>does not conform to a context type with a function property</description>
+        <resultNode name="function_030" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="function_031">
+        <description>mixed list of type does not conform to a list function type</description>
+        <resultNode name="function_031" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+    -->
 
 </testCases>
