@@ -25,23 +25,11 @@ public class GoogleJavaFormatter implements JavaFormatter {
 
     static {
         try {
-            setFinalStatic();
             JavaFormatterOptions options = JavaFormatterOptions.builder().style(JavaFormatterOptions.Style.GOOGLE).build();
             FORMATTER = new Formatter(options);
         } catch (Exception e) {
             throw new DMNRuntimeException("Cannot set max length in formatter", e);
         }
-    }
-
-    static void setFinalStatic() throws Exception {
-        Field field = JavaFormatterOptions.class.getDeclaredField("DEFAULT_MAX_LINE_LENGTH");
-        field.setAccessible(true);
-
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
-        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-
-        field.set(null, 150);
     }
 
     @Override
