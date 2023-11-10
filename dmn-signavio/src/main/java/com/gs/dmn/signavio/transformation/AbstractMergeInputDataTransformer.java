@@ -156,7 +156,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
     }
 
     private DMNModelRepository mergeInputData(DMNModelRepository repository, BuildLogger logger) {
-        // Compute equivalence classes for InputData with same label
+        // Compute equivalence classes for InputData with same equivalence key
         this.inputDataClasses = inputDataEquivalenceClasses(repository);
 
         // For each equivalence class
@@ -232,12 +232,12 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
         return repository.copy();
     }
 
-    private Map<String, Pair<TInputData, List<TInputData>>> inputDataEquivalenceClasses(DMNModelRepository dmnModelRepository) {
+    private Map<String, Pair<TInputData, List<TInputData>>> inputDataEquivalenceClasses(DMNModelRepository repository) {
         Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses = new LinkedHashMap<>();
-        TDefinitions definitions = dmnModelRepository.getRootDefinitions();
-        List<TInputData> inputDataList = dmnModelRepository.findInputDatas(definitions);
+        TDefinitions definitions = repository.getRootDefinitions();
+        List<TInputData> inputDataList = repository.findInputDatas(definitions);
         for(TInputData inputData: inputDataList) {
-            String key = equivalenceKey(inputData, dmnModelRepository);
+            String key = equivalenceKey(inputData, repository);
             Pair<TInputData, List<TInputData>> inputDataClass = inputDataClasses.computeIfAbsent(key, k -> new Pair<>(null, new ArrayList<>()));
             inputDataClass.getRight().add(inputData);
         }
@@ -285,7 +285,11 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
         return representative;
     }
 
-    protected abstract String equivalenceKey(TInputData inputData, DMNModelRepository dmnModelRepository);
+    protected boolean isIterator(TInputData inputData, DMNModelRepository repository) {
+        return repository instanceof SignavioDMNModelRepository && ((SignavioDMNModelRepository) repository).isIterator(inputData);
+    }
+
+    protected abstract String equivalenceKey(TInputData inputData, DMNModelRepository repository);
 
     protected abstract String equivalenceKey(InputParameterDefinition parameter);
 }

@@ -27,6 +27,7 @@ import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
+import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;
@@ -58,7 +59,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
             URL url = getClass().getClassLoader().getResource(pathName).toURI().toURL();
             Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(url);
-            DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
+            DMNModelRepository repository = new SignavioDMNModelRepository(pair, SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
             DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = dialectDefinition.createDMNInterpreter(repository, makeInputParameters());
 
             TDRGElement decision = repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);

@@ -17,6 +17,7 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
+import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
@@ -145,7 +146,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractFileTran
         transformer.configure(configuration);
 
         File dmnFile = new File(resource(dmnFilePath));
-        DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile), "http://www.provider.com/schema/dmn/1.1/");
+        DMNModelRepository repository = new SignavioDMNModelRepository(dmnReader.read(dmnFile), SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
         List<TItemDefinition> definitions = new ArrayList<>(repository.findItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
 

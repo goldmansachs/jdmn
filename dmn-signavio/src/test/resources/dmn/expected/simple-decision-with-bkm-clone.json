@@ -2,14 +2,14 @@
   "source" : "simple-decision-with-bkm-clone.json",
   "inputParameterDefinitions" : [ {
     "id" : "2521256910f54d44b0a90fa88a1aa917/sid-51423E05-DA13-44BF-9227-7AA7B88C67AC",
-    "shapeId" : null,
-    "diagramId" : null,
+    "shapeId" : "sid-F2486B26-F187-43CA-8687-DF0893AD1D27",
+    "diagramId" : "0cad6eb96bfc4b638250c73ff90f439b",
     "modelName" : "simple-decision-with-bkm-clone",
     "requirementName" : "A"
   }, {
     "id" : "2521256910f54d44b0a90fa88a1aa917/sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B",
-    "shapeId" : null,
-    "diagramId" : null,
+    "shapeId" : "sid-F50F4E8B-4C8A-4CA6-81FD-A5B3AEE8DD05",
+    "diagramId" : "0cad6eb96bfc4b638250c73ff90f439b",
     "modelName" : "simple-decision-with-bkm-clone",
     "requirementName" : "B"
   } ],

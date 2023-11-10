@@ -23,5 +23,6 @@ public class MergeInputDataTransformerTest extends AbstractMergeInputDataTransfo
     @Test
     public void testTransform() throws Exception {
         doTransform("simple-decision-with-bkm-clone.dmn", "simple-decision-with-bkm-clone.json");
+        doTransform("simpleMID-with-cloned-mids.dmn");
     }
 }
