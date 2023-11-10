@@ -28,8 +28,12 @@ public class MergeInputDataByLabelAndDiagramIdTransformer extends AbstractMergeI
     }
 
     @Override
-    protected String equivalenceKey(TInputData inputData, DMNModelRepository dmnModelRepository) {
-        return String.format("%s-%s", diagramId(inputData, dmnModelRepository), inputData.getLabel().trim());
+    protected String equivalenceKey(TInputData inputData, DMNModelRepository repository) {
+        if (isIterator(inputData, repository)) {
+            return String.format("%s-%s", diagramId(inputData, repository), shapeId(inputData, repository));
+        } else {
+            return String.format("%s-%s", diagramId(inputData, repository), inputData.getLabel().trim());
+        }
     }
 
     @Override
@@ -41,5 +45,10 @@ public class MergeInputDataByLabelAndDiagramIdTransformer extends AbstractMergeI
     private String diagramId(TInputData inputData, DMNModelRepository repository) {
         SignavioDMNModelRepository signavioRepository = (SignavioDMNModelRepository) repository;
         return signavioRepository.getDiagramId(inputData);
+    }
+
+    private String shapeId(TInputData inputData, DMNModelRepository repository) {
+        SignavioDMNModelRepository signavioRepository = (SignavioDMNModelRepository) repository;
+        return signavioRepository.getShapeId(inputData);
     }
 }

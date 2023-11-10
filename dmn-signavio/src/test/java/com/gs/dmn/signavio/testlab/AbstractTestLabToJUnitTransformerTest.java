@@ -16,6 +16,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
+import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.transformation.AbstractTestCasesTransformerTest;
@@ -57,7 +58,7 @@ public abstract class AbstractTestLabToJUnitTransformerTest<NUMBER, DATE, TIME, 
         Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
         inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
-        inputParams.put("signavioSchemaNamespace", "http://www.provider.com/schema/dmn/1.1/");
+        inputParams.put("signavioSchemaNamespace", SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
         return inputParams;
    }
 

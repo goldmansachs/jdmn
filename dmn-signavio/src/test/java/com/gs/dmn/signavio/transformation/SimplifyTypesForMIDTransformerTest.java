@@ -19,6 +19,7 @@ import com.gs.dmn.serialization.DMNReader;
 import com.gs.dmn.serialization.DMNWriter;
 import com.gs.dmn.serialization.PrefixNamespaceMappings;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
+import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -39,7 +40,7 @@ public class SimplifyTypesForMIDTransformerTest extends AbstractFileTransformerT
         // Transform DMN
         File dmnFile = new File(resource(path + "IteratorExampleReturningMultiple.dmn"));
         Pair<TDefinitions, PrefixNamespaceMappings> pair = dmnReader.read(dmnFile);
-        DMNModelRepository repository = new SignavioDMNModelRepository(pair, "http://www.provider.com/schema/dmn/1.1/");
+        DMNModelRepository repository = new SignavioDMNModelRepository(pair, SignavioTestConstants.TEST_SCHEMA_NAMESPACE);
         DMNModelRepository actualRepository = transformer.transform(repository);
 
         // Check output

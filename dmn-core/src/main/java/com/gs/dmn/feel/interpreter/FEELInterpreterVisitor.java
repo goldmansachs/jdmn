@@ -70,7 +70,6 @@ class FEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends Ab
     private static final Logger LOGGER = LoggerFactory.getLogger(FEELInterpreterVisitor.class);
     private static final RuntimeEnvironmentFactory RUNTIME_ENVIRONMENT_FACTORY = RuntimeEnvironmentFactory.instance();
 
-    // private static final JavaCompiler JAVA_COMPILER = new JavaAssistCompiler();
     private static final JavaCompiler JAVA_COMPILER = new JavaxToolsCompiler();
 
     private final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
