@@ -41,6 +41,8 @@
         </resultNode>
     </testCase>
 
+    <!-- commented out pending RTF.  https://github.com/dmn-tck/tck/pull/602#issuecomment-1770863632 -->
+<!--
     <testCase id="003">
         <description>Will return null when 'in' expression is not a list</description>
         <resultNode name="decision003" type="decision" errorResult="true">
@@ -49,7 +51,10 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
+    <!-- commented out pending RTF.  https://github.com/dmn-tck/tck/pull/602#issuecomment-1770863632 -->
+<!--
     <testCase id="004">
         <description>Will not coerce single value 'in' expression to list - and return null</description>
         <resultNode name="decision004" type="decision" errorResult="true">
@@ -58,5 +63,6 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
 </testCases>
