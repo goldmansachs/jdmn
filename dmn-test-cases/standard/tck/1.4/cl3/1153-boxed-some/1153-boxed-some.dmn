@@ -25,6 +25,8 @@
         </some>
     </decision>
 
+    <!-- commented out pending RTF.  https://github.com/dmn-tck/tck/pull/602#issuecomment-1770863632 -->
+<!--
     <decision name="decision003" id="_decision003">
         <variable name="decision003"/>
         <some iteratorVariable="element">
@@ -32,7 +34,10 @@
             <satisfies><literalExpression><text>element</text></literalExpression></satisfies>
         </some>
     </decision>
+-->
 
+    <!-- commented out pending RTF.  https://github.com/dmn-tck/tck/pull/602#issuecomment-1770863632 -->
+<!--
     <decision name="decision004" id="_decision004">
         <variable name="decision004"/>
         <some iteratorVariable="element">
@@ -40,6 +45,7 @@
             <satisfies><literalExpression><text>element * 2</text></literalExpression></satisfies>
         </some>
     </decision>
+-->
 
     <decision name="decision005" id="_decision005">
         <variable name="decision005"/>
@@ -61,7 +67,7 @@
         <variable name="decision007"/>
         <some iteratorVariable="element">
             <in><literalExpression><text>[]</text></literalExpression></in>
-            <satisfies><literalExpression><text>"not a boolean"</text></literalExpression></satisfies>
+            <satisfies><literalExpression><text>true</text></literalExpression></satisfies>
         </some>
     </decision>
 
