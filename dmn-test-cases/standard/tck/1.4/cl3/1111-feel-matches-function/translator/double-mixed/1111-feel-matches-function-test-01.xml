@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Extracted from https://dev.w3.org/2011/QT3-test-suite/ -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="">
+    <modelName>1111-feel-matches-function.dmn</modelName>
+    <labels>
+        <label>Compliance Level 3</label>
+        <label>Data Type: String</label>
+        <label>Literal Expression</label>
+        <label>FEEL Functions: strings</label>
+    </labels>
+
+    <testCase id="fn-null-input">
+        <description>Evaluates "matches" function with null input</description>
+        <resultNode name="fn-null-input">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn-null-pattern">
+        <description>Evaluates "matches" function with null pattern</description>
+        <resultNode name="fn-null-pattern">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn-null-flags">
+        <description>Evaluates "matches" function with null flags</description>
+        <resultNode name="fn-null-flags">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn-matches2args-1">
+        <description>Evaluates The "matches" function with the arguments set as follows: $input = xs:string(lower bound)
+            $pattern = xs:string(lower bound)
+        </description>
+        <resultNode name="fn-matches2args-1">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn-matchesErr-1">
+        <description>Invalid flag for third argument of matches.</description>
+        <resultNode name="fn-matchesErr-1">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn-matches-27">
+        <description>Check for the correct behavior of ^ and $ in multi-line mode This test case was motivated by the
+            resolution of Bug Report 4543
+        </description>
+        <resultNode name="fn-matches-27">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn-matches-28">
+        <description>Check for the correct behavior of ^ and $ in multi-line mode This test case was motivated by the
+            resolution of Bug Report 4543
+        </description>
+        <resultNode name="fn-matches-28">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--
+    <testCase id="fn-matches-32">
+        <description>Evaluation of matches function with "q" flag (allowed in XQuery 3.0)</description>
+        <resultNode name="fn-matches-32">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn-matches-33">
+        <description>Evaluation of matches function with "q" flag (allowed in XQuery 3.0)</description>
+        <resultNode name="fn-matches-33">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="fn-matches-34">
+        <description>Evaluation of matches function with "q" and "i" flags (allowed in XQuery 3.0)</description>
+        <resultNode name="fn-matches-34">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+-->
+
+    <testCase id="fn-matches-45">
+        <description>"." does NOT match CR in default mode</description>
+        <resultNode name="fn-matches-45">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="caselessmatch01">
+        <description>Simple call of matches() with "i" flag</description>
+        <resultNode name="caselessmatch01">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="caselessmatch02">
+        <description>Call of matches() with "i" flag and a character range</description>
+        <resultNode name="caselessmatch02">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="caselessmatch03">
+        <description>Call of matches() with "i" flag and a character range</description>
+        <resultNode name="caselessmatch03">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="caselessmatch07">
+        <description>Call of matches() with "i" flag and Kelvin sign Kelvin sign</description>
+        <resultNode name="caselessmatch07">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="caselessmatch08">
+        <description>Call of matches() with "i" flag and range subtraction</description>
+        <resultNode name="caselessmatch08">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="caselessmatch09">
+        <description>Call of matches() with "i" flag and range subtraction</description>
+        <resultNode name="caselessmatch09">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="caselessmatch10">
+        <description>Call of matches() with "i" flag and range subtraction</description>
+        <resultNode name="caselessmatch10">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="caselessmatch11">
+        <description>Call of matches() with "i" flag and range subtraction</description>
+        <resultNode name="caselessmatch11">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="caselessmatch12">
+        <description>Call of matches() with "i" flag and negation</description>
+        <resultNode name="caselessmatch12">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="caselessmatch13">
+        <description>Call of matches() with "i" flag and negation</description>
+        <resultNode name="caselessmatch13">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K-MatchesFunc-1">
+        <description>The pattern can't be the empty sequence.</description>
+        <resultNode name="K-MatchesFunc-1">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K-MatchesFunc-2">
+        <description>matches() takes at least two arguments, not one.</description>
+        <resultNode name="K-MatchesFunc-2">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K-MatchesFunc-3">
+        <description>The third argument cannot be the empty sequence.</description>
+        <resultNode name="K-MatchesFunc-3">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K-MatchesFunc-4">
+        <description>Only three arguments are accepted.</description>
+        <resultNode name="K-MatchesFunc-4">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K-MatchesFunc-5">
+        <description>The flags argument cannot contain whitespace.</description>
+        <resultNode name="K-MatchesFunc-5">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K-MatchesFunc-6">
+        <description>The flags argument cannot contain 'X'.</description>
+        <resultNode name="K-MatchesFunc-6">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-1">
+        <description>Whitespace in the regexp is collapsed.</description>
+        <resultNode name="K2-MatchesFunc-1">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-2">
+        <description>Whitespace(before) in the regexp is collapsed, but not inside a character class.</description>
+        <resultNode name="K2-MatchesFunc-2">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-3">
+        <description>Whitespace(after) in the regexp is collapsed, but not inside a character class.</description>
+        <resultNode name="K2-MatchesFunc-3">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-4">
+        <description>Whitespace(in the middle) in the regexp is collapsed, but not inside a character class.
+        </description>
+        <resultNode name="K2-MatchesFunc-4">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-5">
+        <description>whitespace in the regexp is collapsed, and should therefore compile.</description>
+        <resultNode name="K2-MatchesFunc-5">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-6">
+        <description>whitespace in the regexp is collapsed completely, and should therefore compile and match.
+        </description>
+        <resultNode name="K2-MatchesFunc-6">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-7">
+        <description>whitespace in the regexp is not collapsed, and should therefore not compile.</description>
+        <resultNode name="K2-MatchesFunc-7">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-8">
+        <description>Since no string is captured by the back-reference, the single character is matched.</description>
+        <resultNode name="K2-MatchesFunc-8">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-9">
+        <description>Since no string is captured by the back-reference, the single character is matched(#2).
+        </description>
+        <resultNode name="K2-MatchesFunc-9">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-10">
+        <description>A non-matching backwards-reference matches the empty string.</description>
+        <resultNode name="K2-MatchesFunc-10">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-11">
+        <description>Use a back reference inside a character class.</description>
+        <resultNode name="K2-MatchesFunc-11">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-12">
+        <description>Use a back reference inside a character class(#2).</description>
+        <resultNode name="K2-MatchesFunc-12">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-13">
+        <description>Use a back reference inside a character class(#3).</description>
+        <resultNode name="K2-MatchesFunc-13">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-14">
+        <description>Use a back reference inside a character class(#3).</description>
+        <resultNode name="K2-MatchesFunc-14">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="K2-MatchesFunc-15">
+        <description> A negative character class never match a non-character. </description>
+        <resultNode name="K2-MatchesFunc-15" >
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:boolean">false</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:boolean">true</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!--
+        <testCase id="K2-MatchesFunc-16">
+            <description>Use a pattern whose interpretation is unknown. See public report 4466 and 21425.</description>
+            <resultNode name="K2-MatchesFunc-16">
+                <expected>
+                    <value xsi:type="xsd:boolean">false</value>
+                </expected>
+            </resultNode>
+        </testCase>
+    -->
+
+    <testCase id="K2-MatchesFunc-17">
+        <description>Caseless match with back-reference.</description>
+        <resultNode name="K2-MatchesFunc-17">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

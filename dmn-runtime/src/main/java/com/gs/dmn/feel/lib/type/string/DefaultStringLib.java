@@ -195,7 +195,7 @@ public class DefaultStringLib implements StringLib {
     // See https://www.w3.org/TR/xquery-operators/#func-matches
     public Boolean matches(String input, String pattern, String flags) throws Exception {
         if (input == null || pattern == null) {
-            return false;
+            return null;
         }
         if (flags == null) {
             flags = "";
