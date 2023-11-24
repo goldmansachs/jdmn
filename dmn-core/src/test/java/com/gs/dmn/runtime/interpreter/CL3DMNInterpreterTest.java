@@ -519,6 +519,11 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
     }
 
     @Test
+    public void test_14_cl3_1111_feel_matches_function() {
+        doSingleModelTest("1.4", "1111-feel-matches-function");
+    }
+
+    @Test
     public void test_14_cl3_1145_feel_context_function() {
         doSingleModelTest("1.4", "1145-feel-context-function");
     }

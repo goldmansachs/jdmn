@@ -25,6 +25,8 @@
         </for>
     </decision>
 
+    <!-- commented out pending RTF.  https://github.com/dmn-tck/tck/pull/602#issuecomment-1770863632 -->
+<!--
     <decision name="decision003" id="_decision003">
         <variable name="decision003"/>
         <for iteratorVariable="element">
@@ -32,7 +34,10 @@
             <return><literalExpression><text>element</text></literalExpression></return>
         </for>
     </decision>
+-->
 
+    <!-- commented out pending RTF.  https://github.com/dmn-tck/tck/pull/602#issuecomment-1770863632 -->
+<!--
     <decision name="decision004" id="_decision004">
         <variable name="decision004"/>
         <for iteratorVariable="element">
@@ -40,6 +45,7 @@
             <return><literalExpression><text>element * 2</text></literalExpression></return>
         </for>
     </decision>
+-->
 
 </definitions>
 

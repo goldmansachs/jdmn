@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Contributed to DMN TCK by ACTICO GmbH https://actico.com -->
-<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="">
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:schemaLocation="">
     <modelName>1101-feel-floor-function.dmn</modelName>
     <labels>
         <label>Compliance Level 3</label>
@@ -9,46 +12,159 @@
         <label>FEEL Functions: number</label>
         <label>FEEL Arithmetic</label>
     </labels>
-    <testCase id="001_75592d0dee">
-        <resultNode name="feel-floor-function_001_75592d0dee" type="decision">
+
+    <testCase id="001">
+        <description>Will round down positive number to nearest integer when no scale</description>
+        <resultNode name="decision001" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xsd:decimal">1</value>
+                <value xsi:type="xsd:decimal">1</value>
             </expected>
         </resultNode>
     </testCase>
-    <testCase id="002_6fea586853">
-        <resultNode name="feel-floor-function_002_6fea586853" type="decision">
+
+    <testCase id="002">
+        <description>Will round down negative number to nearest integer when no scale</description>
+        <resultNode name="decision002" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xsd:decimal">-2</value>
+                <value xsi:type="xsd:decimal">-2</value>
             </expected>
         </resultNode>
     </testCase>
-    <testCase id="003_cbae05445d">
-        <resultNode name="feel-floor-function_003_cbae05445d" type="decision">
+
+    <testCase id="003">
+        <description>Will round down negative number to nearest integer when no scale</description>
+        <resultNode name="decision003" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xsd:decimal">1</value>
+                <value xsi:type="xsd:decimal">0</value>
             </expected>
         </resultNode>
     </testCase>
-    <testCase id="004_30f6d26798">
-        <resultNode name="feel-floor-function_004_30f6d26798" type="decision">
+
+    <testCase id="004">
+        <description>Will round down positive decimal to given scale</description>
+        <resultNode name="decision004" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xsd:decimal">-11</value>
+                <value xsi:type="xsd:decimal">1.5</value>
             </expected>
         </resultNode>
     </testCase>
-    <testCase id="005_dd970ad275">
-        <resultNode name="feel-floor-function_005_dd970ad275" type="decision">
+
+    <testCase id="005">
+        <description>Will round down negative decimal to given scale</description>
+        <resultNode name="decision005" type="decision">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xsd:decimal">5</value>
+                <value xsi:type="xsd:decimal">-1.6</value>
             </expected>
         </resultNode>
     </testCase>
-    <testCase id="006_1223620d9c">
-        <resultNode name="feel-floor-function_006_1223620d9c" type="decision">
+
+    <testCase id="006">
+        <description>Will give null when 'n' is null</description>
+        <resultNode name="decision006" type="decision" errorResult="true">
             <expected>
-                <value xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xsd:decimal">-1</value>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
+
+    <testCase id="007">
+        <description>Will give null when named param 'n' is null</description>
+        <resultNode name="decision007" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>Will give null when 'scale' is null</description>
+        <resultNode name="decision008" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009">
+        <description>Will give null when named param 'scale' is null</description>
+        <resultNode name="decision009" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010">
+        <description>No params gives null</description>
+        <resultNode errorResult="true" name="decision010" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011">
+        <description>Too many params gives null</description>
+        <resultNode errorResult="true" name="decision011" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012">
+        <description>Additional unknown named param gives null</description>
+        <resultNode errorResult="true" name="decision012" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="013">
+        <description>Unknown named param gives null</description>
+        <resultNode errorResult="true" name="decision013" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="014">
+        <description>Invalid type for 'n' gives null</description>
+        <resultNode errorResult="true" name="decision014" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="015">
+        <description>Invalid type for named param 'n' gives null</description>
+        <resultNode errorResult="true" name="decision015" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="016">
+        <description>Invalid type for 'scale' gives null</description>
+        <resultNode errorResult="true" name="decision016" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="017">
+        <description>Invalid type for named param 'scale' gives null</description>
+        <resultNode errorResult="true" name="decision017" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
 </testCases>
