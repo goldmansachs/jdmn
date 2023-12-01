@@ -17,12 +17,12 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpecialVariableTransformerVisitor extends DefaultDMNVisitor {
+public class SpecialVariableTransformerVisitor<C> extends DefaultDMNVisitor<C> {
     public SpecialVariableTransformerVisitor() {
     }
 
     @Override
-    public <C> Object visit(TDecisionTable element, C context) {
+    public DMNBaseElement visit(TDecisionTable element, C context) {
         // Collect input expressions
         List<String> inputExpressions = new ArrayList<>();
         for (TInputClause ic : element.getInput()) {

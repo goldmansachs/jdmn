@@ -70,9 +70,9 @@ public class MixedItemDefinitionsTransformer extends SimpleDMNTransformer<TestCa
     }
 }
 
-class MixedItemDefinitionsVisitor extends DefaultDMNVisitor {
+class MixedItemDefinitionsVisitor<C> extends DefaultDMNVisitor<C> {
     @Override
-    protected <C> QName visitTypeRef(QName typeRef, C context) {
+    protected QName visitTypeRef(QName typeRef, C context) {
         if (typeRef != null) {
             String localPart = typeRef.getLocalPart();
             if (localPart != null) {
@@ -86,7 +86,7 @@ class MixedItemDefinitionsVisitor extends DefaultDMNVisitor {
     }
 
     @Override
-    public <C> Object visit(TItemDefinition element, C context) {
+    public DMNBaseElement visit(TItemDefinition element, C context) {
         super.visit(element, context);
 
         if (isMixed(element) && isEmpty(element)) {

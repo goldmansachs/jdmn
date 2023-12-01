@@ -16,13 +16,13 @@ import com.gs.dmn.ast.dmndi.*;
 
 import javax.xml.namespace.QName;
 
-public class DefaultDMNVisitor implements Visitor {
+public class DefaultDMNVisitor<C> implements Visitor<C, Object> {
     //
     // DMN Elements
     //
     // Definitions
     @Override
-    public <C> Object visit(TDefinitions  element, C context) {
+    public DMNBaseElement visit(TDefinitions  element, C context) {
         visitTNamedElementProperties(element, context);
         for (TImport import_ : element.getImport()){
             import_.accept(this, context);
@@ -51,20 +51,20 @@ public class DefaultDMNVisitor implements Visitor {
 
     // Import
     @Override
-    public <C> Object visit(TImport element, C context) {
+    public DMNBaseElement visit(TImport element, C context) {
         visitTNamedElementProperties(element, context);
         return element;
     }
 
     @Override
-    public <C> Object visit(TImportedValues element, C context) {
+    public DMNBaseElement visit(TImportedValues element, C context) {
         visitTNamedElementProperties(element, context);
         return element;
     }
 
     // Data types
     @Override
-    public <C> Object visit(TItemDefinition  element, C context) {
+    public DMNBaseElement visit(TItemDefinition  element, C context) {
         visitTNamedElementProperties(element, context);
         element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
         TUnaryTests allowedValues = element.getAllowedValues();
@@ -82,7 +82,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TFunctionItem  element, C context) {
+    public DMNBaseElement visit(TFunctionItem  element, C context) {
         visitTDMNElementProperties(element, context);
         for (TInformationItem parameter : element.getParameters()) {
             parameter.accept(this, context);
@@ -93,7 +93,7 @@ public class DefaultDMNVisitor implements Visitor {
 
     // DRG Elements
     @Override
-    public <C> Object visit(TInputData  element, C context) {
+    public DMNBaseElement visit(TInputData  element, C context) {
         visitTNamedElementProperties(element, context);
         TInformationItem variable = element.getVariable();
         if (variable  != null) {
@@ -103,7 +103,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TDecision  element, C context) {
+    public DMNBaseElement visit(TDecision  element, C context) {
         visitTNamedElementProperties(element, context);
         TInformationItem variable = element.getVariable();
         if (variable != null) {
@@ -141,7 +141,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TBusinessKnowledgeModel  element, C context) {
+    public DMNBaseElement visit(TBusinessKnowledgeModel  element, C context) {
         visitTNamedElementProperties(element, context);
         TInformationItem variable = element.getVariable();
         if (variable != null) {
@@ -161,7 +161,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TDecisionService  element, C context) {
+    public DMNBaseElement visit(TDecisionService  element, C context) {
         visitTNamedElementProperties(element, context);
         TInformationItem variable = element.getVariable();
         if (variable != null) {
@@ -183,7 +183,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TKnowledgeSource  element, C context) {
+    public DMNBaseElement visit(TKnowledgeSource  element, C context) {
         visitTNamedElementProperties(element, context);
         for (TAuthorityRequirement authorityRequirement : element.getAuthorityRequirement()) {
             authorityRequirement.accept(this, context);
@@ -197,7 +197,7 @@ public class DefaultDMNVisitor implements Visitor {
 
     // Expressions
     @Override
-    public <C> Object visit(TContext  element, C context) {
+    public DMNBaseElement visit(TContext  element, C context) {
         visitTExpressionProperties(element, context);
         for (TContextEntry contextEntry : element.getContextEntry()) {
             contextEntry.accept(this, context);
@@ -206,7 +206,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TContextEntry  element, C context) {
+    public DMNBaseElement visit(TContextEntry  element, C context) {
         visitTDMNElementProperties(element, context);
         TInformationItem variable = element.getVariable();
         if (variable != null) {
@@ -217,7 +217,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TDecisionTable  element, C context) {
+    public DMNBaseElement visit(TDecisionTable  element, C context) {
         visitTExpressionProperties(element, context);
         for (TInputClause inputClause : element.getInput()) {
             inputClause.accept(this, context);
@@ -235,7 +235,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TInputClause  element, C context) {
+    public DMNBaseElement visit(TInputClause  element, C context) {
         visitTDMNElementProperties(element, context);
         TLiteralExpression inputExpression = element.getInputExpression();
         if (inputExpression != null) {
@@ -249,7 +249,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TOutputClause  element, C context) {
+    public DMNBaseElement visit(TOutputClause  element, C context) {
         visitTDMNElementProperties(element, context);
         TUnaryTests outputValues = element.getOutputValues();
         if (outputValues != null) {
@@ -264,12 +264,12 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TRuleAnnotationClause  element, C context) {
+    public DMNBaseElement visit(TRuleAnnotationClause  element, C context) {
         return element;
     }
 
     @Override
-    public <C> Object visit(TDecisionRule  element, C context) {
+    public DMNBaseElement visit(TDecisionRule  element, C context) {
         visitTDMNElementProperties(element, context);
         for (TUnaryTests unaryTests : element.getInputEntry()) {
             unaryTests.accept(this, context);
@@ -284,12 +284,12 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TRuleAnnotation  element, C context) {
+    public DMNBaseElement visit(TRuleAnnotation  element, C context) {
         return element;
     }
 
     @Override
-    public <C> Object visit(TFunctionDefinition  element, C context) {
+    public DMNBaseElement visit(TFunctionDefinition  element, C context) {
         visitTExpressionProperties(element, context);
         for (TInformationItem informationItem : element.getFormalParameter()) {
             informationItem.accept(this, context);
@@ -299,7 +299,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TInvocation  element, C context) {
+    public DMNBaseElement visit(TInvocation  element, C context) {
         visitTExpressionProperties(element, context);
         visitTExpression(element.getExpression(), context);
         for (TBinding binding : element.getBinding()) {
@@ -309,7 +309,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TBinding  element, C context) {
+    public DMNBaseElement visit(TBinding  element, C context) {
         TInformationItem parameter = element.getParameter();
         if (parameter != null) {
             parameter.accept(this, context);
@@ -319,7 +319,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TList  element, C context) {
+    public DMNBaseElement visit(TList  element, C context) {
         visitTExpressionProperties(element, context);
         for (TExpression expression : element.getExpression()) {
             visitTExpression(expression, context);
@@ -328,7 +328,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TLiteralExpression  element, C context) {
+    public DMNBaseElement visit(TLiteralExpression  element, C context) {
         visitTExpressionProperties(element, context);
         TImportedValues importedValues = element.getImportedValues();
         if (importedValues != null) {
@@ -338,7 +338,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TRelation  element, C context) {
+    public DMNBaseElement visit(TRelation  element, C context) {
         visitTExpressionProperties(element, context);
         for (TInformationItem informationItem : element.getColumn()) {
             informationItem.accept(this, context);
@@ -350,13 +350,13 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TUnaryTests  element, C context) {
+    public DMNBaseElement visit(TUnaryTests  element, C context) {
         visitTExpressionProperties(element, context);
         return element;
     }
 
     @Override
-    public <C> Object visit(TConditional  element, C context) {
+    public DMNBaseElement visit(TConditional  element, C context) {
         visitTExpressionProperties(element, context);
         TChildExpression ifExp = element.getIf();
         if (ifExp != null) {
@@ -374,7 +374,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TFor  element, C context) {
+    public DMNBaseElement visit(TFor  element, C context) {
         visitTExpressionProperties(element, context);
         TChildExpression inExp = element.getIn();
         if (inExp != null) {
@@ -388,7 +388,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TFilter  element, C context) {
+    public DMNBaseElement visit(TFilter  element, C context) {
         visitTExpressionProperties(element, context);
         TChildExpression inExp = element.getIn();
         if (inExp != null) {
@@ -402,21 +402,21 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TEvery  element, C context) {
+    public DMNBaseElement visit(TEvery  element, C context) {
         visitTExpressionProperties(element, context);
         visitTQuantifiedProperties(element, context);
         return element;
     }
 
     @Override
-    public <C> Object visit(TSome  element, C context) {
+    public DMNBaseElement visit(TSome  element, C context) {
         visitTExpressionProperties(element, context);
         visitTQuantifiedProperties(element, context);
         return element;
     }
 
     @Override
-    public <C> Object visit(TChildExpression  element, C context) {
+    public DMNBaseElement visit(TChildExpression  element, C context) {
         TExpression exp = element.getExpression();
         if (exp != null) {
             visitTExpression(exp, context);
@@ -425,7 +425,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TTypedChildExpression  element, C context) {
+    public DMNBaseElement visit(TTypedChildExpression  element, C context) {
         TExpression exp = element.getExpression();
         if (exp != null) {
             visitTExpression(exp, context);
@@ -433,7 +433,7 @@ public class DefaultDMNVisitor implements Visitor {
         return element;
     }
 
-    private <C> void visitTQuantifiedProperties(TQuantified element, C context) {
+    private void visitTQuantifiedProperties(TQuantified element, C context) {
         TChildExpression inExp = element.getIn();
         if (inExp != null) {
             inExp.accept(this, context);
@@ -446,7 +446,7 @@ public class DefaultDMNVisitor implements Visitor {
 
     // Requirements
     @Override
-    public <C> Object visit(TAuthorityRequirement  element, C context) {
+    public DMNBaseElement visit(TAuthorityRequirement  element, C context) {
         visitTDMNElementProperties(element, context);
         TDMNElementReference requiredDecision = element.getRequiredDecision();
         if (requiredDecision != null) {
@@ -464,7 +464,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TInformationRequirement  element, C context) {
+    public DMNBaseElement visit(TInformationRequirement  element, C context) {
         visitTDMNElementProperties(element, context);
         TDMNElementReference requiredDecision = element.getRequiredDecision();
         if (requiredDecision != null) {
@@ -478,7 +478,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TKnowledgeRequirement  element, C context) {
+    public DMNBaseElement visit(TKnowledgeRequirement  element, C context) {
         visitTDMNElementProperties(element, context);
         TDMNElementReference requiredKnowledge = element.getRequiredKnowledge();
         if (requiredKnowledge != null) {
@@ -488,20 +488,20 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TInformationItem  element, C context) {
+    public DMNBaseElement visit(TInformationItem  element, C context) {
         visitTNamedElementProperties(element, context);
         element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
         return element;
     }
 
     @Override
-    public <C> Object visit(TDMNElementReference  element, C context) {
+    public DMNBaseElement visit(TDMNElementReference  element, C context) {
         return element;
     }
 
     // Artifacts
     @Override
-    public <C> Object visit(TAssociation  element, C context) {
+    public DMNBaseElement visit(TAssociation  element, C context) {
         visitTDMNElementProperties(element, context);
         TDMNElementReference sourceRef = element.getSourceRef();
         if (sourceRef != null) {
@@ -515,26 +515,26 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TGroup  element, C context) {
+    public DMNBaseElement visit(TGroup  element, C context) {
         visitTDMNElementProperties(element, context);
         return element;
     }
 
     @Override
-    public <C> Object visit(TTextAnnotation  element, C context) {
+    public DMNBaseElement visit(TTextAnnotation  element, C context) {
         visitTDMNElementProperties(element, context);
         return element;
     }
 
     // Other
     @Override
-    public <C> Object visit(TBusinessContextElement  element, C context) {
+    public DMNBaseElement visit(TBusinessContextElement  element, C context) {
         visitTNamedElementProperties(element, context);
         return element;
     }
 
     @Override
-    public <C> Object visit(TPerformanceIndicator  element, C context) {
+    public DMNBaseElement visit(TPerformanceIndicator  element, C context) {
         visitTNamedElementProperties(element, context);
         for (TDMNElementReference  elementReference : element.getImpactingDecision()) {
             elementReference.accept(this, context);
@@ -543,7 +543,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TOrganizationUnit  element, C context) {
+    public DMNBaseElement visit(TOrganizationUnit  element, C context) {
         visitTNamedElementProperties(element, context);
         for (TDMNElementReference  elementReference : element.getDecisionMade()) {
             elementReference.accept(this, context);
@@ -555,7 +555,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(TElementCollection  element, C context) {
+    public DMNBaseElement visit(TElementCollection  element, C context) {
         visitTNamedElementProperties(element, context);
         for (TDMNElementReference  elementReference : element.getDrgElement()) {
             elementReference.accept(this, context);
@@ -565,7 +565,7 @@ public class DefaultDMNVisitor implements Visitor {
 
     // Extensions
     @Override
-    public <C> Object visit(TDMNElement.ExtensionElements element, C context) {
+    public DMNBaseElement visit(TDMNElement.ExtensionElements element, C context) {
         return visitExtensions(element, context);
     }
 
@@ -573,7 +573,7 @@ public class DefaultDMNVisitor implements Visitor {
     // DMNDI elements
     //
     @Override
-    public <C> Object visit(DMNDI  element, C context) {
+    public DMNBaseElement visit(DMNDI  element, C context) {
         for (DMNDiagram diagram : element.getDMNDiagram()) {
             diagram.accept(this, context);
         }
@@ -584,7 +584,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(DMNDiagram  element, C context) {
+    public DMNBaseElement visit(DMNDiagram  element, C context) {
         visitDiagramElementProperties(element, context);
         Dimension size = element.getSize();
         if (size != null) {
@@ -597,7 +597,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(DMNShape  element, C context) {
+    public DMNBaseElement visit(DMNShape  element, C context) {
         visitDiagramElementProperties(element, context);
         visitShapeProperties(element, context);
         DMNLabel dmnLabel = element.getDMNLabel();
@@ -613,7 +613,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(DMNEdge  element, C context) {
+    public DMNBaseElement visit(DMNEdge  element, C context) {
         visitEdgeProperties(element, context);
         DMNLabel dmnLabel = element.getDMNLabel();
         if (dmnLabel != null) {
@@ -626,7 +626,7 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(DMNStyle  element, C context) {
+    public DMNBaseElement visit(DMNStyle  element, C context) {
         visitExtension(element.getExtension(), context);
         Color fillColor = element.getFillColor();
         if (fillColor != null) {
@@ -644,52 +644,52 @@ public class DefaultDMNVisitor implements Visitor {
     }
 
     @Override
-    public <C> Object visit(DMNLabel  element, C context) {
+    public DMNBaseElement visit(DMNLabel  element, C context) {
         visitShapeProperties(element, context);
         return element;
     }
 
     @Override
-    public <C> Object visit(DMNDecisionServiceDividerLine  element, C context) {
+    public DMNBaseElement visit(DMNDecisionServiceDividerLine  element, C context) {
         visitEdgeProperties(element, context);
         return element;
     }
 
     @Override
-    public <C> Object visit(Color  element, C context) {
+    public DMNBaseElement visit(Color  element, C context) {
         return element;
     }
 
     @Override
-    public <C> Object visit(Point  element, C context) {
+    public DMNBaseElement visit(Point  element, C context) {
         return element;
     }
 
     @Override
-    public <C> Object visit(Bounds  element, C context) {
+    public DMNBaseElement visit(Bounds  element, C context) {
         return element;
     }
 
     @Override
-    public <C> Object visit(Dimension  element, C context) {
+    public DMNBaseElement visit(Dimension  element, C context) {
         return element;
     }
 
     @Override
-    public <C> Object visit(DiagramElement.Extension element, C context) {
+    public DMNBaseElement visit(DiagramElement.Extension element, C context) {
         return visitExtension(element, context);
     }
 
     @Override
-    public <C> Object visit(Style.Extension element, C context) {
+    public Object visit(Style.Extension element, C context) {
         return visitExtension(element, context);
     }
 
-    private <C> void visitTDMNElementProperties(TDMNElement  element, C context) {
+    private void visitTDMNElementProperties(TDMNElement  element, C context) {
         visitExtensions(element.getExtensionElements(), context);
     }
 
-    private <C> void visitTArtifact(TArtifact  element, C context) {
+    private void visitTArtifact(TArtifact  element, C context) {
         visitTDMNElementProperties(element, context);
         if (element instanceof TAssociation) {
             ((TAssociation) element).accept(this, context);
@@ -700,12 +700,12 @@ public class DefaultDMNVisitor implements Visitor {
         }
     }
 
-    private <C> void visitTExpressionProperties(TExpression  element, C context) {
+    private void visitTExpressionProperties(TExpression  element, C context) {
         visitTDMNElementProperties(element, context);
         element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
     }
 
-    private <C> void visitTExpression(TExpression  element, C context) {
+    private void visitTExpression(TExpression  element, C context) {
         if (element == null) {
             return;
         }
@@ -740,11 +740,11 @@ public class DefaultDMNVisitor implements Visitor {
         }
     }
 
-    private <C> void visitTNamedElementProperties(TNamedElement  element, C context) {
+    private void visitTNamedElementProperties(TNamedElement  element, C context) {
         visitTDMNElementProperties(element, context);
     }
 
-    private <C> void visitTDRGElement(TDRGElement  element, C context) {
+    private void visitTDRGElement(TDRGElement  element, C context) {
         if (element instanceof TInputData) {
             ((TInputData) element).accept(this, context);
         } else if (element instanceof TDecision) {
@@ -756,7 +756,7 @@ public class DefaultDMNVisitor implements Visitor {
         }
     }
 
-    private <C> void visitInvocable(TDRGElement  element, C context) {
+    private void visitInvocable(TDRGElement  element, C context) {
         if (element instanceof TBusinessKnowledgeModel) {
             ((TBusinessKnowledgeModel) element).accept(this, context);
         } else if (element instanceof TDecisionService) {
@@ -764,23 +764,23 @@ public class DefaultDMNVisitor implements Visitor {
         }
     }
 
-    protected <C> QName visitTypeRef(QName typeRef, C context) {
+    protected QName visitTypeRef(QName typeRef, C context) {
         return typeRef;
     }
 
-    protected <C> QName visitQName(QName qName, C context) {
+    protected QName visitQName(QName qName, C context) {
         return qName;
     }
 
-    private <C> Object visitExtensions(TDMNElement.ExtensionElements element, C context) {
+    private DMNBaseElement visitExtensions(TDMNElement.ExtensionElements element, C context) {
         return element;
     }
 
-    private <C> void visitDiagramElementProperties(DiagramElement  element, C context) {
+    private void visitDiagramElementProperties(DiagramElement  element, C context) {
         visitExtension(element.getExtension(), context);
     }
 
-    private <C> void visitDiagramElement(DiagramElement  element, C context) {
+    private void visitDiagramElement(DiagramElement  element, C context) {
         visitDiagramElementProperties(element, context);
         if (element instanceof DMNDiagram) {
             ((DMNDiagram) element).accept(this, context);
@@ -795,7 +795,7 @@ public class DefaultDMNVisitor implements Visitor {
         }
     }
 
-    private <C> void visitShapeProperties(Shape  element, C context) {
+    private void visitShapeProperties(Shape  element, C context) {
         visitDiagramElementProperties(element, context);
         Bounds bounds = element.getBounds();
         if (bounds != null) {
@@ -803,18 +803,18 @@ public class DefaultDMNVisitor implements Visitor {
         }
     }
 
-    private <C> void visitEdgeProperties(Edge  element, C context) {
+    private void visitEdgeProperties(Edge  element, C context) {
         visitDiagramElementProperties(element, context);
         for (Point point : element.getWaypoint()) {
             point.accept(this, context);
         }
     }
 
-    private <C> Object visitExtension(DiagramElement.Extension element, C context) {
+    private DMNBaseElement visitExtension(DiagramElement.Extension element, C context) {
         return element;
     }
 
-    private <C> Object visitExtension(Style.Extension element, C context) {
+    private Object visitExtension(Style.Extension element, C context) {
         return element;
     }
 }

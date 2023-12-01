@@ -43,7 +43,7 @@ public class TUnaryTests extends TExpression implements Visitable {
     }
 
     @Override
-    public <C> Object accept(Visitor visitor, C context) {
+    public <C, R> R accept(Visitor<C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

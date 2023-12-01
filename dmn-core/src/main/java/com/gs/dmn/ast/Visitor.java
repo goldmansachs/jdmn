@@ -14,135 +14,135 @@ package com.gs.dmn.ast;
 
 import com.gs.dmn.ast.dmndi.*;
 
-public interface Visitor {
+public interface Visitor<C, R> {
     //
     // DMN Elements
     //
     // Definitions
-    <C> Object visit(TDefinitions element, C context);
+    R visit(TDefinitions element, C context);
 
     // Import
-    <C> Object visit(TImport element, C context);
+    R visit(TImport element, C context);
 
-    <C> Object visit(TImportedValues element, C context);
+    R visit(TImportedValues element, C context);
 
     // Data types
-    <C> Object visit(TItemDefinition element, C context);
+    R visit(TItemDefinition element, C context);
 
-    <C> Object visit(TFunctionItem element, C context);
+    R visit(TFunctionItem element, C context);
 
     // DRG Elements
-    <C> Object visit(TInputData element, C context);
+    R visit(TInputData element, C context);
 
-    <C> Object visit(TDecision element, C context);
+    R visit(TDecision element, C context);
 
-    <C> Object visit(TBusinessKnowledgeModel element, C context);
+    R visit(TBusinessKnowledgeModel element, C context);
 
-    <C> Object visit(TDecisionService element, C context);
+    R visit(TDecisionService element, C context);
 
-    <C> Object visit(TKnowledgeSource element, C context);
+    R visit(TKnowledgeSource element, C context);
 
     // Expressions
-    <C> Object visit(TContext element, C context);
+    R visit(TContext element, C context);
 
-    <C> Object visit(TContextEntry element, C context);
+    R visit(TContextEntry element, C context);
 
-    <C> Object visit(TDecisionTable element, C context);
+    R visit(TDecisionTable element, C context);
 
-    <C> Object visit(TInputClause element, C context);
+    R visit(TInputClause element, C context);
 
-    <C> Object visit(TOutputClause element, C context);
+    R visit(TOutputClause element, C context);
 
-    <C> Object visit(TRuleAnnotationClause element, C context);
+    R visit(TRuleAnnotationClause element, C context);
 
-    <C> Object visit(TDecisionRule element, C context);
+    R visit(TDecisionRule element, C context);
 
-    <C> Object visit(TRuleAnnotation element, C context);
+    R visit(TRuleAnnotation element, C context);
 
-    <C> Object visit(TFunctionDefinition element, C context);
+    R visit(TFunctionDefinition element, C context);
 
-    <C> Object visit(TInvocation element, C context);
+    R visit(TInvocation element, C context);
 
-    <C> Object visit(TBinding element, C context);
+    R visit(TBinding element, C context);
 
-    <C> Object visit(TList element, C context);
+    R visit(TList element, C context);
 
-    <C> Object visit(TLiteralExpression element, C context);
+    R visit(TLiteralExpression element, C context);
 
-    <C> Object visit(TRelation element, C context);
+    R visit(TRelation element, C context);
 
-    <C> Object visit(TUnaryTests element, C context);
+    R visit(TUnaryTests element, C context);
 
-    <C> Object visit(TConditional element, C context);
+    R visit(TConditional element, C context);
 
-    <C> Object visit(TFor element, C context);
+    R visit(TFor element, C context);
 
-    <C> Object visit(TFilter element, C context);
+    R visit(TFilter element, C context);
 
-    <C> Object visit(TEvery element, C context);
+    R visit(TEvery element, C context);
 
-    <C> Object visit(TSome element, C context);
+    R visit(TSome element, C context);
 
-    <C> Object visit(TChildExpression element, C context);
+    R visit(TChildExpression element, C context);
 
-    <C> Object visit(TTypedChildExpression element, C context);
+    R visit(TTypedChildExpression element, C context);
 
     // Requirements
-    <C> Object visit(TAuthorityRequirement element, C context);
+    R visit(TAuthorityRequirement element, C context);
 
-    <C> Object visit(TInformationRequirement element, C context);
+    R visit(TInformationRequirement element, C context);
 
-    <C> Object visit(TKnowledgeRequirement element, C context);
+    R visit(TKnowledgeRequirement element, C context);
 
-    <C> Object visit(TInformationItem element, C context);
+    R visit(TInformationItem element, C context);
 
-    <C> Object visit(TDMNElementReference element, C context);
+    R visit(TDMNElementReference element, C context);
 
     // Artifacts
-    <C> Object visit(TAssociation element, C context);
+    R visit(TAssociation element, C context);
 
-    <C> Object visit(TGroup element, C context);
+    R visit(TGroup element, C context);
 
-    <C> Object visit(TTextAnnotation element, C context);
+    R visit(TTextAnnotation element, C context);
 
     // Other
-    <C> Object visit(TBusinessContextElement element, C context);
+    R visit(TBusinessContextElement element, C context);
 
-    <C> Object visit(TPerformanceIndicator element, C context);
+    R visit(TPerformanceIndicator element, C context);
 
-    <C> Object visit(TOrganizationUnit element, C context);
+    R visit(TOrganizationUnit element, C context);
 
-    <C> Object visit(TElementCollection element, C context);
+    R visit(TElementCollection element, C context);
 
     // Extensions
-    <C> Object visit(TDMNElement.ExtensionElements element, C context);
+    R visit(TDMNElement.ExtensionElements element, C context);
 
     //
     // DMNDI elements
     //
-    <C> Object visit(DMNDI element, C context);
+    R visit(DMNDI element, C context);
 
-    <C> Object visit(DMNDiagram element, C context);
+    R visit(DMNDiagram element, C context);
 
-    <C> Object visit(DMNShape element, C context);
+    R visit(DMNShape element, C context);
 
-    <C> Object visit(DMNEdge element, C context);
+    R visit(DMNEdge element, C context);
 
-    <C> Object visit(DMNStyle element, C context);
+    R visit(DMNStyle element, C context);
 
-    <C> Object visit(DMNLabel element, C context);
+    R visit(DMNLabel element, C context);
 
-    <C> Object visit(DMNDecisionServiceDividerLine element, C context);
+    R visit(DMNDecisionServiceDividerLine element, C context);
 
-    <C> Object visit(Color element, C context);
+    R visit(Color element, C context);
 
-    <C> Object visit(Point element, C context);
+    R visit(Point element, C context);
 
-    <C> Object visit(Bounds element, C context);
+    R visit(Bounds element, C context);
 
-    <C> Object visit(Dimension element, C context);
+    R visit(Dimension element, C context);
 
-    <C> Object visit(DiagramElement.Extension element, C context);
+    R visit(DiagramElement.Extension element, C context);
 
-    <C> Object visit(Style.Extension element, C context);
+    R visit(Style.Extension element, C context);
 }

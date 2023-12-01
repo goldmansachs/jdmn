@@ -47,7 +47,7 @@ public class TOrganizationUnit extends TBusinessContextElement implements Visita
     }
 
     @Override
-    public <C> Object accept(Visitor visitor, C context) {
+    public <C, R> R accept(Visitor<C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

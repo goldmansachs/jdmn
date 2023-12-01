@@ -17,7 +17,7 @@ import com.gs.dmn.serialization.DMNVersion;
 import javax.xml.namespace.QName;
 import java.util.Map;
 
-public class DMNVersionTransformerVisitor extends DefaultDMNVisitor {
+public class DMNVersionTransformerVisitor<C> extends DefaultDMNVisitor<C> {
     private final DMNVersion sourceVersion;
     private final DMNVersion targetVersion;
     private TDefinitions definitions;
@@ -28,7 +28,7 @@ public class DMNVersionTransformerVisitor extends DefaultDMNVisitor {
     }
 
     @Override
-    public <C> Object visit(TDefinitions element, C context) {
+    public DMNBaseElement visit(TDefinitions element, C context) {
         definitions = element;
         // Update expression language
         if (this.sourceVersion.getFeelNamespace().equals(element.getTypeLanguage())) {
@@ -62,7 +62,7 @@ public class DMNVersionTransformerVisitor extends DefaultDMNVisitor {
     }
 
     @Override
-    protected <C> QName visitTypeRef(QName typeRef, C context) {
+    protected QName visitTypeRef(QName typeRef, C context) {
         if (this.sourceVersion == DMNVersion.DMN_11) {
             if (typeRef != null) {
                 String namespaceURI = typeRef.getNamespaceURI();
