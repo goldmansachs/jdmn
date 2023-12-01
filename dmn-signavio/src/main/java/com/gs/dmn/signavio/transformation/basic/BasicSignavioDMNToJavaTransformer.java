@@ -102,11 +102,11 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         }
     }
 
-    public String externalFunctionClassName(Expression<Type, DMNContext> body) {
+    public String externalFunctionClassName(Expression<Type> body) {
         if (body instanceof Context) {
-            Expression<Type, DMNContext> javaExpression = ((Context<Type, DMNContext>) body).entry("java").getExpression();
+            Expression<Type> javaExpression = ((Context<Type, DMNContext>) body).entry("java").getExpression();
             if (javaExpression instanceof Context) {
-                Expression<Type, DMNContext> returnTypeExp = ((Context<Type, DMNContext>) javaExpression).entry("class").getExpression();
+                Expression<Type> returnTypeExp = ((Context<Type, DMNContext>) javaExpression).entry("class").getExpression();
                 if (returnTypeExp instanceof StringLiteral) {
                     String lexeme = ((StringLiteral<Type, DMNContext>) returnTypeExp).getLexeme();
                     return StringEscapeUtil.stripQuotes(lexeme);
@@ -116,11 +116,11 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         throw new DMNRuntimeException(String.format("Missing class in '%s'", body));
     }
 
-    public String externalFunctionMethodName(Expression<Type, DMNContext> body) {
+    public String externalFunctionMethodName(Expression<Type> body) {
         if (body instanceof Context) {
-            Expression<Type, DMNContext> javaExpression = ((Context<Type, DMNContext>) body).entry("java").getExpression();
+            Expression<Type> javaExpression = ((Context<Type, DMNContext>) body).entry("java").getExpression();
             if (javaExpression instanceof Context) {
-                Expression<Type, DMNContext> returnTypeExp = ((Context<Type, DMNContext>) javaExpression).entry("methodSignature").getExpression();
+                Expression<Type> returnTypeExp = ((Context<Type, DMNContext>) javaExpression).entry("methodSignature").getExpression();
                 if (returnTypeExp instanceof StringLiteral) {
                     // Signature should be methodName(arg1, arg2, ..., argN)
                     String lexeme = ((StringLiteral<Type, DMNContext>) returnTypeExp).getLexeme();
@@ -326,9 +326,9 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     public String freeTextLiteralExpressionToNative(TDRGElement element) {
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
         DMNContext globalContext = this.makeGlobalContext(element);
-        Expression<Type, DMNContext> literalExpression = this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
+        Expression<Type> literalExpression = this.feelTranslator.analyzeExpression(expression.getText(), globalContext);
         if (literalExpression instanceof FunctionDefinition) {
-            Expression<Type, DMNContext> body = ((FunctionDefinition<Type, DMNContext>) literalExpression).getBody();
+            Expression<Type> body = ((FunctionDefinition<Type, DMNContext>) literalExpression).getBody();
             String javaCode;
             if (((FunctionDefinition<Type, DMNContext>) literalExpression).isExternal()) {
                 Type type = literalExpression.getType();

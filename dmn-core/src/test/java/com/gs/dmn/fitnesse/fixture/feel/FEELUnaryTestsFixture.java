@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.fitnesse.fixture.feel;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.test.UnaryTests;
 
@@ -28,7 +27,7 @@ public class FEELUnaryTestsFixture extends FEELFixture {
     }
 
     public Object output() {
-        UnaryTests<Type, DMNContext> unaryTests = this.feelInterpreter.parseUnaryTests(this.inputEntry);
+        UnaryTests<Type> unaryTests = this.feelInterpreter.parseUnaryTests(this.inputEntry);
         return unaryTests.toString();
     }
 }

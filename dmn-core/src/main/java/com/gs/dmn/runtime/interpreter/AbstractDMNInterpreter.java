@@ -622,20 +622,20 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         TDefinitions model = this.repository.getModel(element);
 
         // Make entry context
-        Pair<DMNContext, Map<TContextEntry, Expression<Type, DMNContext>>> pair = this.dmnTransformer.makeContextEnvironment(element, context, parentContext);
+        Pair<DMNContext, Map<TContextEntry, Expression<Type>>> pair = this.dmnTransformer.makeContextEnvironment(element, context, parentContext);
         DMNContext localContext = pair.getLeft();
 
         // Evaluate entries
         Result returnResult = null;
         Map<TContextEntry, Result> entryResultMap = new LinkedHashMap<>();
-        Map<TContextEntry, Expression<Type, DMNContext>> literalExpressionMap = pair.getRight();
+        Map<TContextEntry, Expression<Type>> literalExpressionMap = pair.getRight();
         for(TContextEntry entry: context.getContextEntry()) {
             // Evaluate entry value
             Result entryResult;
             TExpression expression = entry.getExpression();
             if (expression != null) {
                 if (expression instanceof TLiteralExpression) {
-                    Expression<Type, DMNContext> feelExpression = literalExpressionMap.get(entry);
+                    Expression<Type> feelExpression = literalExpressionMap.get(entry);
                     entryResult = this.elInterpreter.evaluateExpression(feelExpression, localContext);
                 } else {
                     entryResult = evaluateExpression(element, expression, localContext, elementAnnotation);
@@ -911,7 +911,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         for (TInputClause inputClause : decisionTable.getInput()) {
             TLiteralExpression inputExpression = inputClause.getInputExpression();
             String inputExpressionText = inputExpression.getText();
-            Expression<Type, DMNContext> expression = this.elInterpreter.analyzeExpression(inputExpressionText, context);
+            Expression<Type> expression = this.elInterpreter.analyzeExpression(inputExpressionText, context);
             Result inputExpressionResult = this.elInterpreter.evaluateExpression(expression, context);
             Object inputExpressionValue = Result.value(inputExpressionResult);
             inputClauseList.add(new InputClausePair(expression, inputExpressionValue));
@@ -946,10 +946,10 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         for (int index = 0; index < inputEntry.size(); index++) {
             TUnaryTests unaryTest = inputEntry.get(index);
             String text = unaryTest.getText();
-            Expression<Type, DMNContext> inputExpression = inputClauseList.get(index).getExpression();
+            Expression<Type> inputExpression = inputClauseList.get(index).getExpression();
             DMNContext testContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, context);
             testContext.bind(DMNContext.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
-            Expression<Type, DMNContext> ast = this.elInterpreter.analyzeUnaryTests(text, testContext);
+            Expression<Type> ast = this.elInterpreter.analyzeUnaryTests(text, testContext);
             Result result = this.elInterpreter.evaluateUnaryTests((UnaryTests<Type, DMNContext>) ast, testContext);
             Object testMatched = Result.value(result);
             if (isFalse(testMatched)) {

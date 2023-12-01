@@ -15,15 +15,15 @@ package com.gs.dmn.el.analysis;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 
 public interface ELExpressionsAnalyzer<T, C> {
-    Expression<T, C> parseExpression(String text);
+    Expression<T> parseExpression(String text);
 
-    Expression<T, C> parseTextualExpressions(String text);
+    Expression<T> parseTextualExpressions(String text);
 
-    Expression<T, C> parseBoxedExpression(String text);
+    Expression<T> parseBoxedExpression(String text);
 
-    Expression<T, C> analyzeExpression(String text, C context);
+    Expression<T> analyzeExpression(String text, C context);
 
-    Expression<T, C> analyzeTextualExpressions(String text, C context);
+    Expression<T> analyzeTextualExpressions(String text, C context);
 
-    Expression<T, C> analyzeBoxedExpression(String text, C context);
+    Expression<T> analyzeBoxedExpression(String text, C context);
 }

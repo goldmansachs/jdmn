@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.context.environment;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.FunctionType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
@@ -28,17 +27,17 @@ public class Environment {
     final Map<String, List<Declaration>> variablesTable = new LinkedHashMap<>();
 
     // For unary test context (input)
-    private final Expression<Type, DMNContext> inputExpression;
+    private final Expression<Type> inputExpression;
 
     Environment() {
         this(null);
     }
 
-    Environment(Expression<Type, DMNContext> inputExpression) {
+    Environment(Expression<Type> inputExpression) {
         this.inputExpression = inputExpression;
     }
 
-    public Expression<Type, DMNContext> getInputExpression() {
+    public Expression<Type> getInputExpression() {
         return this.inputExpression;
     }
 

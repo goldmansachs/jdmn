@@ -69,7 +69,7 @@ public class ExternalFunctionExtractor {
         String className = null;
         String methodName = null;
         List<String> paramTypes = new ArrayList<>();
-        Expression<Type, DMNContext> body = functionDefinition.getBody();
+        Expression<Type> body = functionDefinition.getBody();
         if (body instanceof Context) {
             body = ((Context<Type, DMNContext>) body).getEntries().get(0).getExpression();
         }
@@ -77,13 +77,13 @@ public class ExternalFunctionExtractor {
             for (ContextEntry<Type, DMNContext> entry: ((Context<Type, DMNContext>) body).getEntries()) {
                 String name = entry.getKey().getKey();
                 if ("class".equals(name)) {
-                    Expression<Type, DMNContext> value = entry.getExpression();
+                    Expression<Type> value = entry.getExpression();
                     if (value instanceof StringLiteral) {
                         String lexeme = ((StringLiteral<Type, DMNContext>) value).getLexeme();
                         className = StringEscapeUtil.stripQuotes(lexeme);
                     }
                 } else if (isMethodSignature(name)) {
-                    Expression<Type, DMNContext> value = entry.getExpression();
+                    Expression<Type> value = entry.getExpression();
                     if (value instanceof StringLiteral) {
                         String lexeme = ((StringLiteral<Type, DMNContext>) value).getLexeme();
                         String signature = StringEscapeUtil.stripQuotes(lexeme);

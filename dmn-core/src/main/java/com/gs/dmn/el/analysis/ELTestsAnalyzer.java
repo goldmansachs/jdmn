@@ -15,7 +15,7 @@ package com.gs.dmn.el.analysis;
 import com.gs.dmn.el.analysis.syntax.ast.test.UnaryTests;
 
 public interface ELTestsAnalyzer<T, C> {
-    UnaryTests<T, C> parseUnaryTests(String text);
+    UnaryTests<T> parseUnaryTests(String text);
 
-    UnaryTests<T, C> analyzeUnaryTests(String text, C context);
+    UnaryTests<T> analyzeUnaryTests(String text, C context);
 }

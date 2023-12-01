@@ -18,5 +18,5 @@ import com.gs.dmn.el.analysis.syntax.ast.test.UnaryTests;
 interface ELTestsTranslator<T, C> extends ELTestsAnalyzer<T, C> {
     String unaryTestsToJava(String text, C context);
 
-    String unaryTestsToJava(UnaryTests<T, C> expression, C context);
+    String unaryTestsToJava(UnaryTests<T> expression, C context);
 }

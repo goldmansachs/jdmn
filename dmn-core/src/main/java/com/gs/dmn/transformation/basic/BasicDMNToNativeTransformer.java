@@ -545,7 +545,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition);
 
-    Pair<DMNContext, Map<TContextEntry, Expression<Type, DMNContext>>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
+    Pair<DMNContext, Map<TContextEntry, Expression<Type>>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
 
     Environment makeRelationEnvironment(TNamedElement element, TRelation relation);
 
@@ -638,7 +638,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
         );
     }
 
-    default DMNContext makeUnaryTestContext(Expression<Type, DMNContext> inputExpression, DMNContext parentContext) {
+    default DMNContext makeUnaryTestContext(Expression<Type> inputExpression, DMNContext parentContext) {
         return DMNContext.of(
                 parentContext,
                 DMNContextKind.UNARY_TEST_CONTEXT,
@@ -731,7 +731,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
     }
 
     default DMNContext makeFilterContext(FilterExpression<Type, DMNContext> filterExpression, String filterParameterName, DMNContext parentContext) {
-        Expression<Type, DMNContext> source = filterExpression.getSource();
+        Expression<Type> source = filterExpression.getSource();
         Type sourceType = source.getType();
         return makeFilterContext(sourceType, filterParameterName, parentContext);
     }

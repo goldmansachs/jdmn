@@ -18,5 +18,5 @@ import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 interface ELExpressionsTranslator<T, C> extends ELExpressionsAnalyzer<T, C> {
     String expressionToNative(String text, C context);
 
-    String expressionToNative(Expression<T, C> expression, C context);
+    String expressionToNative(Expression<T> expression, C context);
 }

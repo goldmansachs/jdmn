@@ -185,8 +185,8 @@ public class TableFactory {
     }
 
     private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, Input input, EndpointsRange<Type, DMNContext> astRange) {
-        Expression<Type, DMNContext> start = astRange.getStart();
-        Expression<Type, DMNContext> end = astRange.getEnd();
+        Expression<Type> start = astRange.getStart();
+        Expression<Type> end = astRange.getEnd();
         if (start instanceof NumericLiteral && end instanceof NumericLiteral) {
             Double startValue = makeBoundValue(repository, element, decisionTable, columnIndex, start);
             Double endValue = makeBoundValue(repository, element, decisionTable, columnIndex, end);
@@ -207,7 +207,7 @@ public class TableFactory {
 
     private Interval makeInterval(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int ruleIndex, int columnIndex, Input input, OperatorRange<Type, DMNContext> operatorRange) {
         String operator = operatorRange.getOperator();
-        Expression<Type, DMNContext> endpoint = operatorRange.getEndpoint();
+        Expression<Type> endpoint = operatorRange.getEndpoint();
         if (endpoint instanceof NumericLiteral) {
             // Number
             String lexeme = ((NumericLiteral<Type, DMNContext>) endpoint).getLexeme();
@@ -244,7 +244,7 @@ public class TableFactory {
         return null;
     }
 
-    private Double makeBoundValue(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int columnIndex, Expression<Type, DMNContext> exp) {
+    private Double makeBoundValue(DMNModelRepository repository, TDRGElement element, TDecisionTable decisionTable, int columnIndex, Expression<Type> exp) {
         Double value = null;
         if (exp instanceof NumericLiteral) {
             String lexeme = ((SimpleLiteral<Type, DMNContext>) exp).getLexeme();
