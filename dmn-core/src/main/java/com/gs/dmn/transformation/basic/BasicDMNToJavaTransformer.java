@@ -840,7 +840,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public List<FormalParameter<Type, DMNContext>> invocableFEELParameters(TDRGElement invocable) {
+    public List<FormalParameter<Type>> invocableFEELParameters(TDRGElement invocable) {
         if (invocable instanceof TBusinessKnowledgeModel) {
             return bkmFEELParameters((TBusinessKnowledgeModel) invocable);
         } else if (invocable instanceof TDecisionService) {
@@ -865,7 +865,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     // BKM related functions
     //
     @Override
-    public List<FormalParameter<Type, DMNContext>> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
+    public List<FormalParameter<Type>> bkmFEELParameters(TBusinessKnowledgeModel bkm) {
         // Check variable.typeRef
         TDefinitions model = this.dmnModelRepository.getModel(bkm);
         QName bkmTypeRef = bkm.getVariable().getTypeRef();
@@ -880,7 +880,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             }
         }
         // Infer from expression
-        List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
+        List<FormalParameter<Type>> parameters = new ArrayList<>();
         for (TInformationItem p: bkm.getEncapsulatedLogic().getFormalParameter()) {
             String typeRef = QualifiedName.toName(p.getTypeRef());
             Type type = null;
@@ -914,7 +914,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     // Decision Service related functions
     //
     @Override
-    public List<FormalParameter<Type, DMNContext>> dsFEELParameters(TDecisionService service) {
+    public List<FormalParameter<Type>> dsFEELParameters(TDecisionService service) {
         // Check variable.typeRef
         TDefinitions model = this.dmnModelRepository.getModel(service);
         QName invocableTypeRef = service.getVariable().getTypeRef();
@@ -929,7 +929,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             }
         }
         // Infer from inputs
-        List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
+        List<FormalParameter<Type>> parameters = new ArrayList<>();
         for (TDMNElementReference er : service.getInputData()) {
             TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
             parameters.add(new FormalParameter<>(inputData.getName(), toFEELType(inputData)));
@@ -1703,7 +1703,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String functionDefinitionToNative(TDRGElement element, FunctionDefinition<Type, DMNContext> functionDefinition, boolean convertTypeToContext, String body) {
+    public String functionDefinitionToNative(TDRGElement element, FunctionDefinition<Type> functionDefinition, boolean convertTypeToContext, String body) {
         return this.expressionToNativeTransformer.functionDefinitionToNative(element, functionDefinition, body, convertTypeToContext);
     }
 

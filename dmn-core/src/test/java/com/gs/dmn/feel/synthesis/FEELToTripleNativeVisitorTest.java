@@ -69,16 +69,16 @@ public class FEELToTripleNativeVisitorTest extends AbstractTest {
     }
 
     private void doExpressionTest(List<EnvironmentEntry> entries, String inputExpressionText, String expressionText, String expectedTriples, String expectedRoot) {
-        Expression<Type, DMNContext> inputExpression = null;
+        Expression<Type> inputExpression = null;
         DMNContext globalContext = makeContext(entries);
         if (!StringUtils.isEmpty(inputExpressionText)) {
             // Analyze input expression
-            inputExpression = (Expression<Type, DMNContext>) this.feelTranslator.analyzeExpression(inputExpressionText, globalContext);
+            inputExpression = (Expression<Type>) this.feelTranslator.analyzeExpression(inputExpressionText, globalContext);
         }
 
         // Analyse expression
         DMNContext expressionContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, globalContext);
-        Expression<Type, DMNContext> expression = (Expression<Type, DMNContext>) this.feelTranslator.analyzeExpression(expressionText, expressionContext);
+        Expression<Type> expression = (Expression<Type>) this.feelTranslator.analyzeExpression(expressionText, expressionContext);
 
         // Translate to triples
         this.nativeVisitor = new FEELToTripleNativeVisitor(this.dmnTransformer);

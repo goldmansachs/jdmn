@@ -18,7 +18,7 @@ import com.gs.dmn.error.NopErrorHandler;
 
 public class CloneVisitorTest extends BaseVisitorTest {
     @Override
-    protected Visitor<Type, DMNContext> getVisitor() {
+    protected Visitor<Type, DMNContext, Element<Type>> getVisitor() {
         return new CloneVisitor<>(NopErrorHandler.INSTANCE);
     }
 }

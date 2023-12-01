@@ -483,7 +483,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         List<Object> args = new ArrayList<>();
         if (drgElement instanceof TInvocable) {
             // Preserve de order in the call
-            List<FormalParameter<Type, DMNContext>> formalParameters = this.transformer.invocableFEELParameters(drgElement);
+            List<FormalParameter<Type>> formalParameters = this.transformer.invocableFEELParameters(drgElement);
             Map<String, Object> map = new LinkedHashMap<>();
             List<InputNode> inputNode = testCase.getInputNode();
             for (int i = 0; i < inputNode.size(); i++) {
@@ -496,7 +496,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                     throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DRGElement '%s'", input.getName(), i, drgElement.getName()), e);
                 }
             }
-            for (FormalParameter<Type, DMNContext> parameter: formalParameters) {
+            for (FormalParameter<Type> parameter: formalParameters) {
                 args.add(map.get(parameter.getName()));
             }
         }

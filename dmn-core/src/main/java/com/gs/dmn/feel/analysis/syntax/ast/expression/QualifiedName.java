@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class QualifiedName<T, C> extends NamedExpression<T, C> {
+public class QualifiedName<T> extends NamedExpression<T> {
     private List<String> names = new ArrayList<>();
 
     public QualifiedName(List<String> names) {
@@ -41,7 +41,7 @@ public class QualifiedName<T, C> extends NamedExpression<T, C> {
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -49,7 +49,7 @@ public class QualifiedName<T, C> extends NamedExpression<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        QualifiedName<?, ?> that = (QualifiedName<?, ?>) o;
+        QualifiedName<?> that = (QualifiedName<?>) o;
         return Objects.equals(names, that.names);
     }
 

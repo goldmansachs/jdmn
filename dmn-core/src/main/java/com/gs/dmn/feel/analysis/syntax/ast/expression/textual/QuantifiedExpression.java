@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class QuantifiedExpression<T, C> extends Expression<T, C> {
+public class QuantifiedExpression<T> extends Expression<T> {
     private final String predicate;
-    private final List<Iterator<T, C>> iterators;
-    private final Expression<T, C> body;
+    private final List<Iterator<T>> iterators;
+    private final Expression<T> body;
 
-    public QuantifiedExpression(String predicate, List<Iterator<T, C>> iterators, Expression<T, C> body) {
+    public QuantifiedExpression(String predicate, List<Iterator<T>> iterators, Expression<T> body) {
         this.predicate = predicate;
         this.iterators = iterators;
         this.body = body;
@@ -35,20 +35,20 @@ public class QuantifiedExpression<T, C> extends Expression<T, C> {
         return this.predicate;
     }
 
-    public List<Iterator<T, C>> getIterators() {
+    public List<Iterator<T>> getIterators() {
         return this.iterators;
     }
 
-    public Expression<T, C> getBody() {
+    public Expression<T> getBody() {
         return this.body;
     }
 
-    public ForExpression<T, C> toForExpression() {
+    public ForExpression<T> toForExpression() {
         return new ForExpression<>(this.iterators, this.body);
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -56,7 +56,7 @@ public class QuantifiedExpression<T, C> extends Expression<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        QuantifiedExpression<?, ?> that = (QuantifiedExpression<?, ?>) o;
+        QuantifiedExpression<?> that = (QuantifiedExpression<?>) o;
         return Objects.equals(predicate, that.predicate) && Objects.equals(iterators, that.iterators) && Objects.equals(body, that.body);
     }
 

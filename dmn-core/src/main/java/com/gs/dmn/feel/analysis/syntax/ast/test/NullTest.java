@@ -14,10 +14,10 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-public class NullTest<T, C> extends PositiveUnaryTest<T, C> {
+public class NullTest<T> extends PositiveUnaryTest<T> {
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 

@@ -555,7 +555,7 @@ public class DMNExpressionToNativeTransformer {
         return this.dmnTransformer.constructor(className, String.format("%s, %s, %s", javaInfoArg, this.dmnTransformer.externalExecutorVariableName(), javaClassOfReturnType));
     }
 
-    String functionDefinitionToNative(TDRGElement element, FunctionDefinition<Type, DMNContext> functionDefinition, String body, boolean convertToContext) {
+    String functionDefinitionToNative(TDRGElement element, FunctionDefinition<Type> functionDefinition, String body, boolean convertToContext) {
         FunctionType functionType = (FunctionType) functionDefinition.getType();
         return functionDefinitionToNative(element, functionType, body, convertToContext);
     }
@@ -609,7 +609,7 @@ public class DMNExpressionToNativeTransformer {
         if (functionType instanceof FunctionType) {
             // Make args
             List<Statement> argList = new ArrayList<>();
-            for (FormalParameter<Type, DMNContext> param: ((FunctionType) functionType).getParameters()) {
+            for (FormalParameter<Type> param: ((FunctionType) functionType).getParameters()) {
                 String paramName = param.getName();
                 if (argBinding.containsKey(paramName)) {
                     Statement argValue = argBinding.get(paramName);

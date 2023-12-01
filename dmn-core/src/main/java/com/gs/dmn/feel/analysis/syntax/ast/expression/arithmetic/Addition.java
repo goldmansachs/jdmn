@@ -15,13 +15,13 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public class Addition<T, C> extends ArithmeticExpression<T, C> {
-    public Addition(String operator, Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
+public class Addition<T> extends ArithmeticExpression<T> {
+    public Addition(String operator, Expression<T> leftOperand, Expression<T> rightOperand) {
         super(operator, leftOperand, rightOperand);
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 

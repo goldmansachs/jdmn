@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
@@ -54,7 +53,7 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
     }
 
     @Override
-    public List<FormalParameter<Type, DMNContext>> getParameters() {
+    public List<FormalParameter<Type>> getParameters() {
         throw new SemanticError("Not supported yet");
     }
 
@@ -79,12 +78,12 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
+    public boolean match(ParameterTypes<Type> parameterTypes) {
         throw new SemanticError("Not supported yet");
     }
 
     @Override
-    protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(List<Type> argumentTypes) {
         throw new SemanticError("Not supported yet");
     }
 

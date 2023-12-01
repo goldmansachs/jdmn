@@ -38,7 +38,7 @@ public abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Override
     public Result evaluateUnaryTests(UnaryTests<Type> expression, DMNContext context) {
-        Object value = ((com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests<Type, DMNContext>) expression).accept(visitor, context);
+        Object value = ((com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests<Type>) expression).accept(visitor, context);
         return Result.of(value, expression.getType());
     }
 
@@ -50,7 +50,7 @@ public abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Override
     public Result evaluateExpression(Expression<Type> expression, DMNContext context) {
-        Object object = ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type, DMNContext>) expression).accept(visitor, context);
+        Object object = ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type>) expression).accept(visitor, context);
         return Result.of(object, expression.getType());
     }
 

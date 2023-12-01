@@ -12,17 +12,16 @@
  */
 package com.gs.dmn.el.synthesis.triple;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 
 public class DateTimeLiteral extends LiteralTriple {
-    private final com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral<Type, DMNContext> element;
+    private final com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral<Type> element;
 
-    DateTimeLiteral(com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral<Type, DMNContext> element) {
+    DateTimeLiteral(com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral<Type> element) {
         this.element = element;
     }
 
-    com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral<Type, DMNContext> getElement() {
+    com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral<Type> getElement() {
         return element;
     }
 

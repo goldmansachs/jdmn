@@ -29,18 +29,18 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class FEELAnalyzerImpl extends AbstractFEELAnalyzer {
-    private final Map<String, Expression<Type, DMNContext>> expressionMap = new LinkedHashMap<>();
-    private final Map<String, UnaryTests<Type, DMNContext>> testsMap = new LinkedHashMap<>();
+    private final Map<String, Expression<Type>> expressionMap = new LinkedHashMap<>();
+    private final Map<String, UnaryTests<Type>> testsMap = new LinkedHashMap<>();
 
     public FEELAnalyzerImpl(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         super(dmnTransformer);
     }
 
     @Override
-    public UnaryTests<Type, DMNContext> parseUnaryTests(String text) {
+    public UnaryTests<Type> parseUnaryTests(String text) {
         if (testsMap.get(text) == null) {
             FEELParser parser = makeParser(text);
-            UnaryTests<Type, DMNContext> ast = parser.unaryTestsRoot().ast;
+            UnaryTests<Type> ast = parser.unaryTestsRoot().ast;
 
             this.testsMap.put(text, ast);
         }
@@ -49,10 +49,10 @@ public class FEELAnalyzerImpl extends AbstractFEELAnalyzer {
     }
 
     @Override
-    public Expression<Type, DMNContext> parseExpression(String text) {
+    public Expression<Type> parseExpression(String text) {
         if (expressionMap.get(text) == null) {
             FEELParser parser = makeParser(text);
-            Expression<Type, DMNContext> ast = parser.expressionRoot().ast;
+            Expression<Type> ast = parser.expressionRoot().ast;
 
             this.expressionMap.put(text, ast);
         }
@@ -60,10 +60,10 @@ public class FEELAnalyzerImpl extends AbstractFEELAnalyzer {
     }
 
     @Override
-    public Expression<Type, DMNContext> parseTextualExpressions(String text) {
+    public Expression<Type> parseTextualExpressions(String text) {
         if (expressionMap.get(text) == null) {
             FEELParser parser = makeParser(text);
-            Expression<Type, DMNContext> ast = parser.textualExpressionsRoot().ast;
+            Expression<Type> ast = parser.textualExpressionsRoot().ast;
 
             this.expressionMap.put(text, ast);
         }
@@ -71,10 +71,10 @@ public class FEELAnalyzerImpl extends AbstractFEELAnalyzer {
     }
 
     @Override
-    public Expression<Type, DMNContext> parseBoxedExpression(String text) {
+    public Expression<Type> parseBoxedExpression(String text) {
         if (expressionMap.get(text) == null) {
             FEELParser parser = makeParser(text);
-            Expression<Type, DMNContext> ast = parser.boxedExpressionRoot().ast;
+            Expression<Type> ast = parser.boxedExpressionRoot().ast;
 
             this.expressionMap.put(text, ast);
         }

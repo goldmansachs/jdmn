@@ -55,7 +55,7 @@ public abstract class AbstractBuiltinFunctionsResolutionTest {
 
     protected void testFunctionInvocation(String text, String expectedType, boolean error) {
         try {
-            Expression<Type, DMNContext> expression = (Expression<Type, DMNContext>) getFEELAnalyzer().analyzeExpression(text, getDMNContext());
+            Expression<Type> expression = (Expression<Type>) getFEELAnalyzer().analyzeExpression(text, getDMNContext());
             if (expression instanceof SimpleLiteral) {
                 assertEquals(expectedType, expression.getClass().getSimpleName());
                 assertFalse(error);
@@ -63,7 +63,7 @@ public abstract class AbstractBuiltinFunctionsResolutionTest {
                 assertEquals(expectedType, expression.getClass().getSimpleName());
                 assertFalse(error);
             } else {
-                FunctionInvocation<Type, DMNContext> functionInvocation = (FunctionInvocation<Type, DMNContext>) expression;
+                FunctionInvocation<Type> functionInvocation = (FunctionInvocation<Type>) expression;
                 Type actualType = functionInvocation.getFunction().getType();
                 assertEquals(expectedType, actualType.toString());
             }

@@ -16,7 +16,6 @@ import com.gs.dmn.ast.TBusinessKnowledgeModel;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TFunctionDefinition;
 import com.gs.dmn.ast.TFunctionKind;
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
@@ -32,15 +31,15 @@ public class DMNFunctionType extends FunctionType implements com.gs.dmn.el.analy
     private final TDRGElement drgElement;
     private final TFunctionDefinition functionDefinition;
 
-    public DMNFunctionType(List<FormalParameter<Type, DMNContext>> formalParameters, Type outputType) {
+    public DMNFunctionType(List<FormalParameter<Type>> formalParameters, Type outputType) {
         this(formalParameters, outputType, null);
     }
 
-    public DMNFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, TDRGElement drgElement) {
+    public DMNFunctionType(List<FormalParameter<Type>> parameters, Type returnType, TDRGElement drgElement) {
         this(parameters, returnType, drgElement, drgElement instanceof TBusinessKnowledgeModel ? ((TBusinessKnowledgeModel) drgElement).getEncapsulatedLogic() : null);
     }
 
-    public DMNFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
+    public DMNFunctionType(List<FormalParameter<Type>> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
         super(parameters, returnType);
         this.drgElement = drgElement;
         this.functionDefinition = functionDefinition;
@@ -76,8 +75,8 @@ public class DMNFunctionType extends FunctionType implements com.gs.dmn.el.analy
     }
 
     @Override
-    public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
-        List<FormalParameter<Type, DMNContext>> parameters = getParameters();
+    public boolean match(ParameterTypes<Type> parameterTypes) {
+        List<FormalParameter<Type>> parameters = getParameters();
         if (parameters.size() != parameterTypes.size()) {
             return false;
         }
@@ -85,7 +84,7 @@ public class DMNFunctionType extends FunctionType implements com.gs.dmn.el.analy
     }
 
     @Override
-    protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(List<Type> argumentTypes) {
         // check size constraint
         if (argumentTypes.size() != this.parameterTypes.size()) {
             return new ArrayList<>();

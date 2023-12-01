@@ -15,11 +15,11 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class NamedParameterTypes<T, C> extends ParameterTypes<T, C> {
-    public static <T, C> ParameterTypes<T, C> toNamedParameterTypes(PositionalParameterTypes<T, C> candidateParameterTypes, List<FormalParameter<T, C>> formalParameters) {
+public class NamedParameterTypes<T> extends ParameterTypes<T> {
+    public static <T> ParameterTypes<T> toNamedParameterTypes(PositionalParameterTypes<T> candidateParameterTypes, List<FormalParameter<T>> formalParameters) {
         Map<String, T> map = new LinkedHashMap<>();
         for (int i = 0; i< formalParameters.size(); i++) {
-            FormalParameter<T, C> p = formalParameters.get(i);
+            FormalParameter<T> p = formalParameters.get(i);
             map.put(p.getName(), candidateParameterTypes.getTypes().get(i));
         }
         return new NamedParameterTypes<>(map);
@@ -50,7 +50,7 @@ public class NamedParameterTypes<T, C> extends ParameterTypes<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NamedParameterTypes<?, ?> that = (NamedParameterTypes<?, ?>) o;
+        NamedParameterTypes<?> that = (NamedParameterTypes<?>) o;
         return Objects.equals(this.namedTypes, that.namedTypes);
     }
 

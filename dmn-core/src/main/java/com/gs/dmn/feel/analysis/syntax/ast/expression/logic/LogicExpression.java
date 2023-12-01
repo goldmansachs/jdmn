@@ -16,12 +16,12 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.Objects;
 
-public abstract class LogicExpression<T, C> extends Expression<T, C> {
+public abstract class LogicExpression<T> extends Expression<T> {
     private final String operator;
-    private final Expression<T, C> leftOperand;
-    private final Expression<T, C> rightOperand;
+    private final Expression<T> leftOperand;
+    private final Expression<T> rightOperand;
 
-    protected LogicExpression(String operator, Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
+    protected LogicExpression(String operator, Expression<T> leftOperand, Expression<T> rightOperand) {
         this.operator = operator;
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
@@ -31,11 +31,11 @@ public abstract class LogicExpression<T, C> extends Expression<T, C> {
         return this.operator;
     }
 
-    public Expression<T, C> getLeftOperand() {
+    public Expression<T> getLeftOperand() {
         return this.leftOperand;
     }
 
-    public Expression<T, C> getRightOperand() {
+    public Expression<T> getRightOperand() {
         return this.rightOperand;
     }
 
@@ -43,7 +43,7 @@ public abstract class LogicExpression<T, C> extends Expression<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LogicExpression<?, ?> that = (LogicExpression<?, ?>) o;
+        LogicExpression<?> that = (LogicExpression<?>) o;
         return Objects.equals(operator, that.operator) && Objects.equals(leftOperand, that.leftOperand) && Objects.equals(rightOperand, that.rightOperand);
     }
 

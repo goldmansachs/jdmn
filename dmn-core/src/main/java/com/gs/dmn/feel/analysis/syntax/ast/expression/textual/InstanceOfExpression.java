@@ -18,25 +18,25 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
 
 import java.util.Objects;
 
-public class InstanceOfExpression<T, C> extends Expression<T, C> {
-    private final Expression<T, C> leftOperand;
-    private final TypeExpression<T, C> rightOperand;
+public class InstanceOfExpression<T> extends Expression<T> {
+    private final Expression<T> leftOperand;
+    private final TypeExpression<T> rightOperand;
 
-    public InstanceOfExpression(Expression<T, C> leftOperand, TypeExpression<T, C> rightOperand) {
+    public InstanceOfExpression(Expression<T> leftOperand, TypeExpression<T> rightOperand) {
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
     }
 
-    public Expression<T, C> getLeftOperand() {
+    public Expression<T> getLeftOperand() {
         return this.leftOperand;
     }
 
-    public TypeExpression<T, C> getRightOperand() {
+    public TypeExpression<T> getRightOperand() {
         return this.rightOperand;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -44,7 +44,7 @@ public class InstanceOfExpression<T, C> extends Expression<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        InstanceOfExpression<?, ?> that = (InstanceOfExpression<?, ?>) o;
+        InstanceOfExpression<?> that = (InstanceOfExpression<?>) o;
         return Objects.equals(leftOperand, that.leftOperand) && Objects.equals(rightOperand, that.rightOperand);
     }
 

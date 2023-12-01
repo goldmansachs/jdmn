@@ -26,7 +26,7 @@ public class UpdatePartialVisitorTest extends BaseVisitorTest {
     private final Type partialType = StringType.STRING;
 
     @Override
-    protected Visitor<Type, DMNContext> getVisitor() {
+    protected Visitor<Type, DMNContext, Element<Type>> getVisitor() {
         return new UpdatePartialVisitor<>(this.partialType, NopErrorHandler.INSTANCE);
     }
 
@@ -35,6 +35,6 @@ public class UpdatePartialVisitorTest extends BaseVisitorTest {
     public void testVisitName() {
         super.testVisitName();
 
-        assertEquals(this.partialType, ((Name<Type, DMNContext>) getVisitor().visit(new Name<>("partial"), null)).getType());
+        assertEquals(this.partialType, ((Name<Type>) getVisitor().visit(new Name<>("partial"), null)).getType());
     }
 }

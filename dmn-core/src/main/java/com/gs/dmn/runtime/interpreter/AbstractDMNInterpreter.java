@@ -512,9 +512,9 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     private void bindArguments(TDecisionService service, List<Object> argList, DMNContext serviceContext) {
         // Bind parameters
-        List<FormalParameter<Type, DMNContext>> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
+        List<FormalParameter<Type>> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
         for (int i = 0; i < formalParameterList.size(); i++) {
-            FormalParameter<Type, DMNContext> param = formalParameterList.get(i);
+            FormalParameter<Type> param = formalParameterList.get(i);
             String name = param.getName();
             Type type = param.getType();
             Object value = argList.get(i);
@@ -593,7 +593,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         if (functionType instanceof FunctionType) {
             // Make args
             List<Object> argList = new ArrayList<>();
-            for (FormalParameter<Type, DMNContext> param : ((FunctionType) functionType).getParameters()) {
+            for (FormalParameter<Type> param : ((FunctionType) functionType).getParameters()) {
                 String paramName = param.getName();
                 if (argBinding.containsKey(paramName)) {
                     Object argValue = argBinding.get(paramName);
@@ -950,7 +950,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             DMNContext testContext = this.dmnTransformer.makeUnaryTestContext(inputExpression, context);
             testContext.bind(DMNContext.INPUT_ENTRY_PLACE_HOLDER, inputClauseList.get(index).getValue());
             Expression<Type> ast = this.elInterpreter.analyzeUnaryTests(text, testContext);
-            Result result = this.elInterpreter.evaluateUnaryTests((UnaryTests<Type, DMNContext>) ast, testContext);
+            Result result = this.elInterpreter.evaluateUnaryTests((UnaryTests<Type>) ast, testContext);
             Object testMatched = Result.value(result);
             if (isFalse(testMatched)) {
                 ruleMatched = false;

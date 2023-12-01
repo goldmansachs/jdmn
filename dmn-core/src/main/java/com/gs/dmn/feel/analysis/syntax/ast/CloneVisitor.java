@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
+public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     private final ASTFactory<T, C> astFactory;
 
     public CloneVisitor(ErrorHandler errorHandler) {
@@ -50,63 +50,63 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     // Tests
     //
     @Override
-    public Object visit(PositiveUnaryTests<T, C> element, C context) {
+    public Element<T> visit(PositiveUnaryTests<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        List<Expression<T, C>> putList = element.getPositiveUnaryTests().stream().map(ut -> (Expression<T, C>) ut.accept(this, context)).collect(Collectors.toList());
+        List<Expression<T>> putList = element.getPositiveUnaryTests().stream().map(ut -> (Expression<T>) ut.accept(this, context)).collect(Collectors.toList());
         return this.astFactory.toPositiveUnaryTests(putList);
     }
 
     @Override
-    public Object visit(NegatedPositiveUnaryTests<T, C> element, C context) {
+    public Element<T> visit(NegatedPositiveUnaryTests<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        PositiveUnaryTests<T, C> puts = (PositiveUnaryTests<T, C>) element.getPositiveUnaryTests().accept(this, context);
+        PositiveUnaryTests<T> puts = (PositiveUnaryTests<T>) element.getPositiveUnaryTests().accept(this, context);
         return this.astFactory.toNegatedUnaryTests(puts);
     }
 
     @Override
-    public Object visit(Any<T, C> element, C context) {
+    public Element<T> visit(Any<T> element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(NullTest<T, C> element, C context) {
+    public Element<T> visit(NullTest<T> element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(ExpressionTest<T, C> element, C context) {
+    public Element<T> visit(ExpressionTest<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> expression = (Expression<T, C>) element.getExpression().accept(this, context);
+        Expression<T> expression = (Expression<T>) element.getExpression().accept(this, context);
         return this.astFactory.toExpressionTest(expression);
     }
 
     @Override
-    public Object visit(OperatorRange<T, C> element, C context) {
+    public Element<T> visit(OperatorRange<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> endpoint = (Expression<T, C>) element.getEndpoint().accept(this, context);
+        Expression<T> endpoint = (Expression<T>) element.getEndpoint().accept(this, context);
         return this.astFactory.toOperatorRange(element.getOperator(), endpoint);
     }
 
     @Override
-    public Object visit(EndpointsRange<T, C> element, C context) {
+    public Element<T> visit(EndpointsRange<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> start = (Expression<T, C>) element.getStart().accept(this, context);
-        Expression<T, C> end = (Expression<T, C>) element.getEnd().accept(this, context);
+        Expression<T> start = (Expression<T>) element.getStart().accept(this, context);
+        Expression<T> end = (Expression<T>) element.getEnd().accept(this, context);
         return this.astFactory.toEndpointsRange(par(element.isOpenStart()), start, par(element.isOpenEnd()), end);
     }
 
@@ -115,12 +115,12 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(ListTest<T, C> element, C context) {
+    public Element<T> visit(ListTest<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        ListLiteral<T, C> listLiteral = (ListLiteral<T, C>) element.getListLiteral().accept(this, context);
+        ListLiteral<T> listLiteral = (ListLiteral<T>) element.getListLiteral().accept(this, context);
         return this.astFactory.toListTest(listLiteral.getExpressionList());
     }
 
@@ -128,38 +128,38 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     // Textual expressions
     //
     @Override
-    public Object visit(FunctionDefinition<T, C> element, C context) {
+    public Element<T> visit(FunctionDefinition<T> element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(FormalParameter<T, C> element, C context) {
+    public Element<T> visit(FormalParameter<T> element, C context) {
         return element;
     }
 
     @Override
-    public Object visit(Context<T, C> element, C context) {
+    public Element<T> visit(Context<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        List<ContextEntry<T, C>> entries = element.getEntries().stream().map(ce -> (ContextEntry<T, C>) ce.accept(this, context)).collect(Collectors.toList());
+        List<ContextEntry<T>> entries = element.getEntries().stream().map(ce -> (ContextEntry<T>) ce.accept(this, context)).collect(Collectors.toList());
         return this.astFactory.toContext(entries);
     }
 
     @Override
-    public Object visit(ContextEntry<T, C> element, C context) {
+    public Element<T> visit(ContextEntry<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        ContextEntryKey<T, C> key = (ContextEntryKey<T, C>) element.getKey().accept(this, context);
-        Expression<T, C> expression = (Expression<T, C>) element.getExpression().accept(this, context);
+        ContextEntryKey<T> key = (ContextEntryKey<T>) element.getKey().accept(this, context);
+        Expression<T> expression = (Expression<T>) element.getExpression().accept(this, context);
         return this.astFactory.toContextEntry(key, expression);
     }
 
     @Override
-    public Object visit(ContextEntryKey<T, C> element, C context) {
+    public Element<T> visit(ContextEntryKey<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -168,89 +168,89 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(ForExpression<T, C> element, C context) {
+    public Element<T> visit(ForExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        List<Iterator<T, C>> iterators = element.getIterators().stream().map(it -> (Iterator<T, C>) it.accept(this, context)).collect(Collectors.toList());
-        Expression<T, C> body = (Expression<T, C>) element.getBody().accept(this, context);
+        List<Iterator<T>> iterators = element.getIterators().stream().map(it -> (Iterator<T>) it.accept(this, context)).collect(Collectors.toList());
+        Expression<T> body = (Expression<T>) element.getBody().accept(this, context);
         return this.astFactory.toForExpression(iterators, body);
     }
 
     @Override
-    public Object visit(Iterator<T, C> element, C context) {
+    public Element<T> visit(Iterator<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        IteratorDomain<T, C> domain = (IteratorDomain<T, C>) element.getDomain().accept(this, context);
+        IteratorDomain<T> domain = (IteratorDomain<T>) element.getDomain().accept(this, context);
         return this.astFactory.toIterator(element.getName(), domain);
     }
 
     @Override
-    public Object visit(ExpressionIteratorDomain<T, C> element, C context) {
+    public Element<T> visit(ExpressionIteratorDomain<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> expression = (Expression<T, C>) element.getExpression().accept(this, context);
+        Expression<T> expression = (Expression<T>) element.getExpression().accept(this, context);
         return this.astFactory.toIteratorDomain(expression, null);
     }
 
     @Override
-    public Object visit(RangeIteratorDomain<T, C> element, C context) {
+    public Element<T> visit(RangeIteratorDomain<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> start = (Expression<T, C>) element.getStart().accept(this, context);
-        Expression<T, C> end = (Expression<T, C>) element.getEnd().accept(this, context);
+        Expression<T> start = (Expression<T>) element.getStart().accept(this, context);
+        Expression<T> end = (Expression<T>) element.getEnd().accept(this, context);
         return this.astFactory.toIteratorDomain(start, end);
     }
 
     @Override
-    public Object visit(IfExpression<T, C> element, C context) {
+    public Element<T> visit(IfExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> condition = (Expression<T, C>) element.getCondition().accept(this, context);
-        Expression<T, C> thenExpression = (Expression<T, C>) element.getThenExpression().accept(this, context);
-        Expression<T, C> elseExpression = (Expression<T, C>) element.getElseExpression().accept(this, context);
+        Expression<T> condition = (Expression<T>) element.getCondition().accept(this, context);
+        Expression<T> thenExpression = (Expression<T>) element.getThenExpression().accept(this, context);
+        Expression<T> elseExpression = (Expression<T>) element.getElseExpression().accept(this, context);
         return this.astFactory.toIfExpression(condition, thenExpression, elseExpression);
     }
 
     @Override
-    public Object visit(QuantifiedExpression<T, C> element, C context) {
+    public Element<T> visit(QuantifiedExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        List<Iterator<T, C>> iterators = element.getIterators().stream().map(it -> (Iterator<T, C>) it.accept(this, context)).collect(Collectors.toList());
-        Expression<T, C> body = (Expression<T, C>) element.getBody().accept(this, context);
+        List<Iterator<T>> iterators = element.getIterators().stream().map(it -> (Iterator<T>) it.accept(this, context)).collect(Collectors.toList());
+        Expression<T> body = (Expression<T>) element.getBody().accept(this, context);
         return this.astFactory.toQuantifiedExpression(element.getPredicate(), iterators, body);
     }
 
     @Override
-    public Object visit(FilterExpression<T, C> element, C context) {
+    public Element<T> visit(FilterExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> source = (Expression<T, C>) element.getSource().accept(this, context);
-        Expression<T, C> filter = (Expression<T, C>) element.getFilter().accept(this, context);
+        Expression<T> source = (Expression<T>) element.getSource().accept(this, context);
+        Expression<T> filter = (Expression<T>) element.getFilter().accept(this, context);
         return this.astFactory.toFilterExpression(source, filter);
     }
 
     @Override
-    public Object visit(InstanceOfExpression<T, C> element, C context) {
+    public Element<T> visit(InstanceOfExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> leftOperand = (Expression<T, C>) element.getLeftOperand().accept(this, context);
-        TypeExpression<T, C> rightOperand = (TypeExpression<T, C>) element.getRightOperand().accept(this, context);
+        Expression<T> leftOperand = (Expression<T>) element.getLeftOperand().accept(this, context);
+        TypeExpression<T> rightOperand = (TypeExpression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toInstanceOf(leftOperand, rightOperand);
     }
 
@@ -258,12 +258,12 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     // Expressions
     //
     @Override
-    public Object visit(ExpressionList<T, C> element, C context) {
+    public Element<T> visit(ExpressionList<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        List<Expression<T, C>> expressionList = element.getExpressionList().stream().map(e -> (Expression<T, C>) e.accept(this, context)).collect(Collectors.toList());
+        List<Expression<T>> expressionList = element.getExpressionList().stream().map(e -> (Expression<T>) e.accept(this, context)).collect(Collectors.toList());
         return this.astFactory.toExpressionList(expressionList);
     }
 
@@ -271,34 +271,34 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     // Logic expressions
     //
     @Override
-    public Object visit(Conjunction<T, C> element, C context) {
+    public Element<T> visit(Conjunction<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> left = (Expression<T, C>) element.getLeftOperand().accept(this, context);
-        Expression<T, C> right = (Expression<T, C>) element.getRightOperand().accept(this, context);
+        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> right = (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toConjunction(left, right);
     }
 
     @Override
-    public Object visit(Disjunction<T, C> element, C context) {
+    public Element<T> visit(Disjunction<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> left = (Expression<T, C>) element.getLeftOperand().accept(this, context);
-        Expression<T, C> right = (Expression<T, C>) element.getRightOperand().accept(this, context);
+        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> right = (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toDisjunction(left, right);
     }
 
     @Override
-    public Object visit(LogicNegation<T, C> element, C context) {
+    public Element<T> visit(LogicNegation<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> left = (Expression<T, C>) element.getLeftOperand().accept(this, context);
+        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
         return this.astFactory.toNegation("not", left);
     }
 
@@ -306,36 +306,36 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     // Comparison expressions
     //
     @Override
-    public Object visit(Relational<T, C> element, C context) {
+    public Element<T> visit(Relational<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> leftOpd = (Expression<T, C>) element.getLeftOperand().accept(this, context);
-        Expression<T, C> rightOpd = (Expression<T, C>) element.getRightOperand().accept(this, context);
+        Expression<T> leftOpd = (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> rightOpd = (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toComparison(element.getOperator(), leftOpd, rightOpd);
     }
 
     @Override
-    public Object visit(BetweenExpression<T, C> element, C context) {
+    public Element<T> visit(BetweenExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> value = (Expression<T, C>) element.getValue().accept(this, context);
-        Expression<T, C> left = (Expression<T, C>) element.getLeftEndpoint().accept(this, context);
-        Expression<T, C> right = (Expression<T, C>) element.getRightEndpoint().accept(this, context);
+        Expression<T> value = (Expression<T>) element.getValue().accept(this, context);
+        Expression<T> left = (Expression<T>) element.getLeftEndpoint().accept(this, context);
+        Expression<T> right = (Expression<T>) element.getRightEndpoint().accept(this, context);
         return this.astFactory.toBetweenExpression(value, left, right);
     }
 
     @Override
-    public Object visit(InExpression<T, C> element, C context) {
+    public Element<T> visit(InExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> value = (Expression<T, C>) element.getValue().accept(this, context);
-        List<Expression<T, C>> putList = element.getTests().stream().map(t -> (Expression<T, C>) t.accept(this, context)).collect(Collectors.toList());
+        Expression<T> value = (Expression<T>) element.getValue().accept(this, context);
+        List<Expression<T>> putList = element.getTests().stream().map(t -> (Expression<T>) t.accept(this, context)).collect(Collectors.toList());
         return this.astFactory.toInExpression(value, this.astFactory.toPositiveUnaryTests(putList));
     }
 
@@ -343,45 +343,45 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     // Arithmetic expressions
     //
     @Override
-    public Object visit(Addition<T, C> element, C context) {
+    public Element<T> visit(Addition<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> left = (Expression<T, C>) element.getLeftOperand().accept(this, context);
-        Expression<T, C> right = (Expression<T, C>) element.getRightOperand().accept(this, context);
+        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> right = (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toAddition(element.getOperator(), left, right);
     }
 
     @Override
-    public Object visit(Multiplication<T, C> element, C context) {
+    public Element<T> visit(Multiplication<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> left = (Expression<T, C>) element.getLeftOperand().accept(this, context);
-        Expression<T, C> right = (Expression<T, C>) element.getRightOperand().accept(this, context);
+        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> right = (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toMultiplication(element.getOperator(), left, right);
     }
 
     @Override
-    public Object visit(Exponentiation<T, C> element, C context) {
+    public Element<T> visit(Exponentiation<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> left = (Expression<T, C>) element.getLeftOperand().accept(this, context);
-        Expression<T, C> right = (Expression<T, C>) element.getRightOperand().accept(this, context);
+        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> right = (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toExponentiation(left, right);
     }
 
     @Override
-    public Object visit(ArithmeticNegation<T, C> element, C context) {
+    public Element<T> visit(ArithmeticNegation<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> left = (Expression<T, C>) element.getLeftOperand().accept(this, context);
+        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
         return this.astFactory.toNegation("-", left);
     }
 
@@ -389,48 +389,48 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     // Postfix expressions
     //
     @Override
-    public Object visit(PathExpression<T, C> element, C context) {
+    public Element<T> visit(PathExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> source = (Expression<T, C>) element.getSource().accept(this, context);
+        Expression<T> source = (Expression<T>) element.getSource().accept(this, context);
         return this.astFactory.toPathExpression(source, element.getMember());
     }
 
     @Override
-    public Object visit(FunctionInvocation<T, C> element, C context) {
+    public Element<T> visit(FunctionInvocation<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Expression<T, C> function = (Expression<T, C>) element.getFunction().accept(this, context);
-        Parameters<T, C> parameters = (Parameters<T, C>) element.getParameters().accept(this, context);
+        Expression<T> function = (Expression<T>) element.getFunction().accept(this, context);
+        Parameters<T> parameters = (Parameters<T>) element.getParameters().accept(this, context);
         return this.astFactory.toFunctionInvocation(function, parameters);
     }
 
     @Override
-    public Object visit(NamedParameters<T, C> element, C context) {
+    public Element<T> visit(NamedParameters<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        Map<String, Expression<T, C>> newParameters = new LinkedHashMap<>();
-        Map<String, Expression<T, C>> parameters = element.getParameters();
+        Map<String, Expression<T>> newParameters = new LinkedHashMap<>();
+        Map<String, Expression<T>> parameters = element.getParameters();
         parameters.forEach((key, value1) -> {
-            Expression<T, C> value = (Expression<T, C>) value1.accept(this, context);
+            Expression<T> value = (Expression<T>) value1.accept(this, context);
             newParameters.put(key, value);
         });
         return this.astFactory.toNamedParameters(newParameters);
     }
 
     @Override
-    public Object visit(PositionalParameters<T, C> element, C context) {
+    public Element<T> visit(PositionalParameters<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        List<Expression<T, C>> expressionList = element.getParameters().stream().map(p -> (Expression<T, C>) p.accept(this, context)).collect(Collectors.toList());
+        List<Expression<T>> expressionList = element.getParameters().stream().map(p -> (Expression<T>) p.accept(this, context)).collect(Collectors.toList());
         return this.astFactory.toPositionalParameters(expressionList);
     }
 
@@ -438,7 +438,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     // Primary expressions
     //
     @Override
-    public Object visit(BooleanLiteral<T, C> element, C context) {
+    public Element<T> visit(BooleanLiteral<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -447,7 +447,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(DateTimeLiteral<T, C> element, C context) {
+    public Element<T> visit(DateTimeLiteral<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -456,7 +456,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(NullLiteral<T, C> element, C context) {
+    public Element<T> visit(NullLiteral<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -465,7 +465,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(NumericLiteral<T, C> element, C context) {
+    public Element<T> visit(NumericLiteral<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -474,7 +474,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(StringLiteral<T, C> element, C context) {
+    public Element<T> visit(StringLiteral<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -483,17 +483,17 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(ListLiteral<T, C> element, C context) {
+    public Element<T> visit(ListLiteral<T> element, C context) {
         if (element == null) {
             return null;
         }
 
-        List<Expression<T, C>> expressionList = element.getExpressionList().stream().map(e -> (Expression<T, C>) e.accept(this, context)).collect(Collectors.toList());
+        List<Expression<T>> expressionList = element.getExpressionList().stream().map(e -> (Expression<T>) e.accept(this, context)).collect(Collectors.toList());
         return this.astFactory.toListLiteral(expressionList);
     }
 
     @Override
-    public Object visit(QualifiedName<T, C> element, C context) {
+    public Element<T> visit(QualifiedName<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -502,7 +502,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(Name<T, C> element, C context) {
+    public Element<T> visit(Name<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -511,7 +511,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(NamedTypeExpression<T, C> element, C context) {
+    public Element<T> visit(NamedTypeExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -520,7 +520,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(ContextTypeExpression<T, C> element, C context) {
+    public Element<T> visit(ContextTypeExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -529,7 +529,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(RangeTypeExpression<T, C> element, C context) {
+    public Element<T> visit(RangeTypeExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -538,7 +538,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(FunctionTypeExpression<T, C> element, C context) {
+    public Element<T> visit(FunctionTypeExpression<T> element, C context) {
         if (element == null) {
             return null;
         }
@@ -547,7 +547,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C> {
     }
 
     @Override
-    public Object visit(ListTypeExpression<T, C> element, C context) {
+    public Element<T> visit(ListTypeExpression<T> element, C context) {
         if (element == null) {
             return null;
         }

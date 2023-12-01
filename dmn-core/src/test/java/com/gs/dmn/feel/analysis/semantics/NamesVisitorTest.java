@@ -55,7 +55,7 @@ public class NamesVisitorTest {
 
     private void testExpression(String text, List<String> expectedNames) {
         FEELParser parser = makeParser(text);
-        Expression<Type, DMNContext> ast = parser.expressionRoot().ast;
+        Expression<Type> ast = parser.expressionRoot().ast;
         NamesVisitor<Type, DMNContext> visitor = new NamesVisitor<>(new NopErrorHandler());
         ast.accept(visitor, null);
         Set<String> actualNames = visitor.getNames();
@@ -65,7 +65,7 @@ public class NamesVisitorTest {
 
     private void testUnaryTests(String text, List<String> expectedNames) {
         FEELParser parser = makeParser(text);
-        UnaryTests<Type, DMNContext> ast = parser.unaryTestsRoot().ast;
+        UnaryTests<Type> ast = parser.unaryTestsRoot().ast;
         NamesVisitor<Type, DMNContext> visitor = new NamesVisitor<>(new NopErrorHandler());
         ast.accept(visitor, null);
         Set<String> actualNames = visitor.getNames();

@@ -17,7 +17,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NamedArguments<T, C> extends Arguments<T, C> {
+public class NamedArguments<T> extends Arguments<T> {
     private final Map<String, Object> arguments;
 
     public NamedArguments() {
@@ -40,12 +40,12 @@ public class NamedArguments<T, C> extends Arguments<T, C> {
     }
 
     @Override
-    public List<Object> argumentList(List<FormalParameter<T, C>> formalParameters) {
+    public List<Object> argumentList(List<FormalParameter<T>> formalParameters) {
         List<Object> argList = new ArrayList<>();
         if (arguments == null) {
             return argList;
         }
-        for(FormalParameter<T, C> parameter: formalParameters) {
+        for(FormalParameter<T> parameter: formalParameters) {
             if (arguments.containsKey(parameter.getName())) {
                 Object arg = arguments.get(parameter.getName());
                 argList.add(arg);

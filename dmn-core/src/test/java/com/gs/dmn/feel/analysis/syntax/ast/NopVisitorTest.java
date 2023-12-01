@@ -17,7 +17,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 
 public class NopVisitorTest extends BaseVisitorTest {
     @Override
-    protected Visitor<Type, DMNContext> getVisitor() {
+    protected Visitor<Type, DMNContext, Element<Type>> getVisitor() {
         return new NopVisitor<>();
     }
 }

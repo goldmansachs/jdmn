@@ -14,6 +14,7 @@ package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.syntax.ast.CloneVisitor;
+import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 
 public class ReplaceItemFilterVisitor<T, C> extends CloneVisitor<T, C> {
@@ -30,7 +31,7 @@ public class ReplaceItemFilterVisitor<T, C> extends CloneVisitor<T, C> {
     // Primary expressions
     //
     @Override
-    public Object visit(Name<T, C> element, C context) {
+    public Element<T> visit(Name<T> element, C context) {
         if (element == null) {
             return null;
         }

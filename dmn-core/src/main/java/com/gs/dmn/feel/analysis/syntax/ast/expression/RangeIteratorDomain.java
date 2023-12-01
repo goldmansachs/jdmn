@@ -14,25 +14,25 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-public class RangeIteratorDomain<T, C> extends IteratorDomain<T, C> {
-    private final Expression<T, C> start;
-    private final Expression<T, C> end;
+public class RangeIteratorDomain<T> extends IteratorDomain<T> {
+    private final Expression<T> start;
+    private final Expression<T> end;
 
-    public RangeIteratorDomain(Expression<T, C> start, Expression<T, C> end) {
+    public RangeIteratorDomain(Expression<T> start, Expression<T> end) {
         this.start = start;
         this.end = end;
     }
 
-    public Expression<T, C> getStart() {
+    public Expression<T> getStart() {
         return this.start;
     }
 
-    public Expression<T, C> getEnd() {
+    public Expression<T> getEnd() {
         return this.end;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 

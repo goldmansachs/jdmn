@@ -17,31 +17,31 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.Objects;
 
-public class IfExpression<T, C> extends Expression<T, C> {
-    private final Expression<T, C> condition;
-    private final Expression<T, C> thenExpression;
-    private final Expression<T, C> elseExpression;
+public class IfExpression<T> extends Expression<T> {
+    private final Expression<T> condition;
+    private final Expression<T> thenExpression;
+    private final Expression<T> elseExpression;
 
-    public IfExpression(Expression<T, C> condition, Expression<T, C> thenExpression, Expression<T, C> elseExpression) {
+    public IfExpression(Expression<T> condition, Expression<T> thenExpression, Expression<T> elseExpression) {
         this.condition = condition;
         this.thenExpression = thenExpression;
         this.elseExpression = elseExpression;
     }
 
-    public Expression<T, C> getCondition() {
+    public Expression<T> getCondition() {
         return this.condition;
     }
 
-    public Expression<T, C> getThenExpression() {
+    public Expression<T> getThenExpression() {
         return this.thenExpression;
     }
 
-    public Expression<T, C> getElseExpression() {
+    public Expression<T> getElseExpression() {
         return this.elseExpression;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -49,7 +49,7 @@ public class IfExpression<T, C> extends Expression<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        IfExpression<?, ?> that = (IfExpression<?, ?>) o;
+        IfExpression<?> that = (IfExpression<?>) o;
         return Objects.equals(condition, that.condition) && Objects.equals(thenExpression, that.thenExpression) && Objects.equals(elseExpression, that.elseExpression);
     }
 

@@ -17,31 +17,31 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.Objects;
 
-public class FilterExpression<T, C> extends Expression<T, C> {
+public class FilterExpression<T> extends Expression<T> {
     public static final String FILTER_PARAMETER_NAME = "item";
 
-    private final Expression<T, C> source;
-    private Expression<T, C> filter;
+    private final Expression<T> source;
+    private Expression<T> filter;
 
-    public FilterExpression(Expression<T, C> source, Expression<T, C> filter) {
+    public FilterExpression(Expression<T> source, Expression<T> filter) {
         this.source = source;
         this.filter = filter;
     }
 
-    public Expression<T, C> getSource() {
+    public Expression<T> getSource() {
         return this.source;
     }
 
-    public Expression<T, C> getFilter() {
+    public Expression<T> getFilter() {
         return this.filter;
     }
 
-    public void setFilter(Expression<T, C> filter) {
+    public void setFilter(Expression<T> filter) {
         this.filter = filter;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -49,7 +49,7 @@ public class FilterExpression<T, C> extends Expression<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FilterExpression<?, ?> that = (FilterExpression<?, ?>) o;
+        FilterExpression<?> that = (FilterExpression<?>) o;
         return Objects.equals(source, that.source) && Objects.equals(filter, that.filter);
     }
 

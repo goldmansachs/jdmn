@@ -14,19 +14,19 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-public class ExpressionIteratorDomain<T, C> extends IteratorDomain<T, C> {
-    private final Expression<T, C> expression;
+public class ExpressionIteratorDomain<T> extends IteratorDomain<T> {
+    private final Expression<T> expression;
 
-    public ExpressionIteratorDomain(Expression<T, C> expression) {
+    public ExpressionIteratorDomain(Expression<T> expression) {
         this.expression = expression;
     }
 
-    public Expression<T, C> getExpression() {
+    public Expression<T> getExpression() {
         return this.expression;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 

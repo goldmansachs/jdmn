@@ -13,16 +13,15 @@
 package com.gs.dmn.el.synthesis.triple;
 
 import com.gs.dmn.ast.TDRGElement;
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 
 public class FunctionDefinitionTriple extends Triple {
     private final TDRGElement element;
-    private final com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition<Type, DMNContext> functionDefinition;
+    private final com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition<Type> functionDefinition;
     private final boolean convertTypeToContext;
     private final Triple body;
 
-    FunctionDefinitionTriple(TDRGElement element, com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition<Type, DMNContext> functionDefinition, boolean convertTypeToContext, Triple body) {
+    FunctionDefinitionTriple(TDRGElement element, com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition<Type> functionDefinition, boolean convertTypeToContext, Triple body) {
         super();
         this.element = element;
         this.functionDefinition = functionDefinition;
@@ -34,7 +33,7 @@ public class FunctionDefinitionTriple extends Triple {
         return element;
     }
 
-    com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition<Type, DMNContext> getFunctionDefinition() {
+    com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition<Type> getFunctionDefinition() {
         return functionDefinition;
     }
 

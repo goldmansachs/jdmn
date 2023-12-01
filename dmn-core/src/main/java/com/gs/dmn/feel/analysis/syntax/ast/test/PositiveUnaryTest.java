@@ -14,5 +14,5 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public abstract class PositiveUnaryTest<T, C> extends Expression<T, C> implements Test {
+public abstract class PositiveUnaryTest<T> extends Expression<T> implements Test {
 }

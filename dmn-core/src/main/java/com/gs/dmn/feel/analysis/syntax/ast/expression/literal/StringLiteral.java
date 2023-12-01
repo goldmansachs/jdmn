@@ -14,13 +14,13 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.literal;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-public class StringLiteral<T, C> extends SimpleLiteral<T, C> {
+public class StringLiteral<T> extends SimpleLiteral<T> {
     public StringLiteral(String value) {
         super(value);
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

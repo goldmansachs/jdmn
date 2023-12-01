@@ -24,6 +24,7 @@ import com.gs.dmn.feel.FEELConstants;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
@@ -56,7 +57,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression.PARTIAL_PARAMETER_NAME;
 
-public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContext> {
+public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContext, Element<Type>> {
     public FEELSemanticVisitor(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         super(dmnTransformer, new LogAndThrowErrorHandler(LOGGER));
     }
@@ -65,9 +66,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     // Tests
     //
     @Override
-    public Object visit(PositiveUnaryTests<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(PositiveUnaryTests<Type> element, DMNContext context) {
         // Visit children
-        List<PositiveUnaryTest<Type, DMNContext>> positiveUnaryTests = element.getPositiveUnaryTests();
+        List<PositiveUnaryTest<Type>> positiveUnaryTests = element.getPositiveUnaryTests();
         positiveUnaryTests.forEach(ut -> ut.accept(this, context));
 
         // Derive type
@@ -78,9 +79,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(NegatedPositiveUnaryTests<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(NegatedPositiveUnaryTests<Type> element, DMNContext context) {
         // Visit children
-        PositiveUnaryTests<Type, DMNContext> positiveUnaryTests = element.getPositiveUnaryTests();
+        PositiveUnaryTests<Type> positiveUnaryTests = element.getPositiveUnaryTests();
         positiveUnaryTests.accept(this, context);
 
         // Derive type
@@ -99,7 +100,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(Any<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(Any<Type> element, DMNContext context) {
         // Derive type
         element.setType(BooleanType.BOOLEAN);
 
@@ -107,7 +108,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(NullTest<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(NullTest<Type> element, DMNContext context) {
         // Derive type
         element.setType(BooleanType.BOOLEAN);
 
@@ -115,9 +116,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(ExpressionTest<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(ExpressionTest<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> expression = element.getExpression();
+        Expression<Type> expression = element.getExpression();
         expression.accept(this, context);
 
         // Derive type
@@ -127,9 +128,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(OperatorRange<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(OperatorRange<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> endpoint = element.getEndpoint();
+        Expression<Type> endpoint = element.getEndpoint();
         String operator = element.getOperator();
         endpoint.accept(this, context);
 
@@ -150,9 +151,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(EndpointsRange<Type, DMNContext> element, DMNContext context) {
-        Expression<Type, DMNContext> start = element.getStart();
-        Expression<Type, DMNContext> end = element.getEnd();
+    public Element<Type> visit(EndpointsRange<Type> element, DMNContext context) {
+        Expression<Type> start = element.getStart();
+        Expression<Type> end = element.getEnd();
         if (start == null && end == null) {
             throw new DMNRuntimeException(String.format("Illegal range, both endpoints are null in context of element '%s'", context.getElementName()));
         }
@@ -183,15 +184,15 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(ListTest<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(ListTest<Type> element, DMNContext context) {
         // Visit children
-        ListLiteral<Type, DMNContext> listLiteral = element.getListLiteral();
+        ListLiteral<Type> listLiteral = element.getListLiteral();
 
         // Calculate optimization
         if (listLiteral.allTestsAreEqualityTest()) {
-            List<Expression<Type, DMNContext>> expressionList = listLiteral.getExpressionList();
-            List<Expression<Type, DMNContext>> newListElements = expressionList.stream().map(e -> e instanceof OperatorRange ? ((OperatorRange<Type, DMNContext>) e).getEndpoint() : e).collect(Collectors.toList());
-            ListLiteral<Type, DMNContext> newListLiteral = new ListLiteral<>(newListElements);
+            List<Expression<Type>> expressionList = listLiteral.getExpressionList();
+            List<Expression<Type>> newListElements = expressionList.stream().map(e -> e instanceof OperatorRange ? ((OperatorRange<Type>) e).getEndpoint() : e).collect(Collectors.toList());
+            ListLiteral<Type> newListLiteral = new ListLiteral<>(newListElements);
             newListLiteral.accept(this, context);
 
             element.setOptimizedListLiteral(newListLiteral);
@@ -202,7 +203,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         // Derive type
         element.setType(BOOLEAN);
         Type inputExpressionType = context.getInputExpressionType();
-        ListLiteral<Type, DMNContext> optimizedListLiteral = element.getOptimizedListLiteral();
+        ListLiteral<Type> optimizedListLiteral = element.getOptimizedListLiteral();
         if (optimizedListLiteral != null) {
             // Optimisation
             Type optimizedListType = optimizedListLiteral.getType();
@@ -225,13 +226,13 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     // Textual expressions
     //
     @Override
-    public Object visit(FunctionDefinition<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(FunctionDefinition<Type> element, DMNContext context) {
         // Analyze parameters
         element.getFormalParameters().forEach(p -> p.accept(this, context));
 
         // Analyze return type
         Type returnType = null;
-        TypeExpression<Type, DMNContext> returnTypeExpression = element.getReturnTypeExpression();
+        TypeExpression<Type> returnTypeExpression = element.getReturnTypeExpression();
         if (returnTypeExpression != null) {
             returnTypeExpression.accept(this, context);
             returnType = returnTypeExpression.getType();
@@ -241,7 +242,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         DMNContext bodyContext = this.dmnTransformer.makeFunctionContext(element, context);
 
         // Analyze body
-        Expression<Type, DMNContext> body = element.getBody();
+        Expression<Type> body = element.getBody();
         if (element.isStaticTyped()) {
             // Analyze body
             body.accept(this, bodyContext);
@@ -262,9 +263,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(FormalParameter<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(FormalParameter<Type> element, DMNContext context) {
         if (element.getType() == null) {
-            TypeExpression<Type, DMNContext> typeExpression = element.getTypeExpression();
+            TypeExpression<Type> typeExpression = element.getTypeExpression();
             if (typeExpression != null) {
                 typeExpression.accept(this, context);
                 element.setType(typeExpression.getType());
@@ -274,10 +275,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(Context<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(Context<Type> element, DMNContext context) {
         // Visit children
         DMNContext localContext = this.dmnTransformer.makeLocalContext(context);
-        List<ContextEntry<Type, DMNContext>> entries = element.getEntries();
+        List<ContextEntry<Type>> entries = element.getEntries();
         entries.forEach(ce -> ce.accept(this, localContext));
 
         // Derive type
@@ -289,10 +290,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(ContextEntry<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(ContextEntry<Type> element, DMNContext context) {
         // Visit children
-        ContextEntryKey<Type, DMNContext> key = (ContextEntryKey<Type, DMNContext>) element.getKey().accept(this, context);
-        Expression<Type, DMNContext> expression = (Expression<Type, DMNContext>) element.getExpression().accept(this, context);
+        ContextEntryKey<Type> key = (ContextEntryKey<Type>) element.getKey().accept(this, context);
+        Expression<Type> expression = (Expression<Type>) element.getExpression().accept(this, context);
 
         // Add declaration
         context.addDeclaration(this.environmentFactory.makeVariableDeclaration(key.getKey(), expression.getType()));
@@ -301,17 +302,17 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(ContextEntryKey<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(ContextEntryKey<Type> element, DMNContext context) {
         return element;
     }
 
     @Override
-    public Object visit(ForExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(ForExpression<Type> element, DMNContext context) {
         // Visit children
-        List<Iterator<Type, DMNContext>> iterators = element.getIterators();
+        List<Iterator<Type>> iterators = element.getIterators();
         DMNContext qParamsContext = visitIterators(element, context, iterators);
         qParamsContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(PARTIAL_PARAMETER_NAME, new ListType(NullType.NULL)));
-        Expression<Type, DMNContext> body = element.getBody();
+        Expression<Type> body = element.getBody();
         body.accept(this, qParamsContext);
 
         // Derive type
@@ -325,7 +326,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(Iterator<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(Iterator<Type> element, DMNContext context) {
         // Visit children
         element.getDomain().accept(this, context);
 
@@ -333,9 +334,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(ExpressionIteratorDomain<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(ExpressionIteratorDomain<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> expression = element.getExpression();
+        Expression<Type> expression = element.getExpression();
         expression.accept(this, context);
 
         // Derive type
@@ -345,9 +346,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(RangeIteratorDomain<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(RangeIteratorDomain<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> start = element.getStart();
+        Expression<Type> start = element.getStart();
         start.accept(this, context);
         element.getEnd().accept(this, context);
 
@@ -358,13 +359,13 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(IfExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(IfExpression<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> condition = element.getCondition();
+        Expression<Type> condition = element.getCondition();
         condition.accept(this, context);
-        Expression<Type, DMNContext> thenExpression = element.getThenExpression();
+        Expression<Type> thenExpression = element.getThenExpression();
         thenExpression.accept(this, context);
-        Expression<Type, DMNContext> elseExpression = element.getElseExpression();
+        Expression<Type> elseExpression = element.getElseExpression();
         elseExpression.accept(this, context);
 
         // Derive type
@@ -394,11 +395,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(QuantifiedExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(QuantifiedExpression<Type> element, DMNContext context) {
         // Visit children
-        List<Iterator<Type, DMNContext>> iterators = element.getIterators();
+        List<Iterator<Type>> iterators = element.getIterators();
         DMNContext qParamsContext = visitIterators(element, context, iterators);
-        Expression<Type, DMNContext> body = element.getBody();
+        Expression<Type> body = element.getBody();
         body.accept(this, qParamsContext);
 
         // Derive type
@@ -408,13 +409,13 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(FilterExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(FilterExpression<Type> element, DMNContext context) {
         // analyse source
-        Expression<Type, DMNContext> source = element.getSource();
+        Expression<Type> source = element.getSource();
         source.accept(this, context);
 
         // transform filter (add missing 'item' in front of members)
-        Expression<Type, DMNContext> filter = transformFilter(source, element.getFilter(), FilterExpression.FILTER_PARAMETER_NAME, context);
+        Expression<Type> filter = transformFilter(source, element.getFilter(), FilterExpression.FILTER_PARAMETER_NAME, context);
         element.setFilter(filter);
 
         // analyse filter
@@ -445,16 +446,16 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         return element;
     }
 
-    private Expression<Type, DMNContext> transformFilter(Expression<Type, DMNContext> source, Expression<Type, DMNContext> filter, String filterVariableName, DMNContext context) {
+    private Expression<Type> transformFilter(Expression<Type> source, Expression<Type> filter, String filterVariableName, DMNContext context) {
         Type elementType = source.getType();
         if (elementType instanceof ListType) {
             elementType = ((ListType) elementType).getElementType();
         }
-        return (Expression<Type, DMNContext>)filter.accept(new AddItemFilterVisitor<>(filterVariableName, elementType, this.errorHandler), context);
+        return (Expression<Type>)filter.accept(new AddItemFilterVisitor<>(filterVariableName, elementType, this.errorHandler), context);
     }
 
     @Override
-    public Object visit(InstanceOfExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(InstanceOfExpression<Type> element, DMNContext context) {
         // Visit children
         element.getLeftOperand().accept(this, context);
         element.getRightOperand().accept(this, context);
@@ -469,9 +470,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     // Expressions
     //
     @Override
-    public Object visit(ExpressionList<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(ExpressionList<Type> element, DMNContext context) {
         // Visit children
-        List<Expression<Type, DMNContext>> expressionList = element.getExpressionList();
+        List<Expression<Type>> expressionList = element.getExpressionList();
         expressionList.forEach(e -> e.accept(this, context));
 
         // Derive type
@@ -485,7 +486,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     // Logic expressions
     //
     @Override
-    public Object visit(Conjunction<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(Conjunction<Type> element, DMNContext context) {
         // Visit children
         element.getLeftOperand().accept(this, context);
         element.getRightOperand().accept(this, context);
@@ -498,7 +499,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(Disjunction<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(Disjunction<Type> element, DMNContext context) {
         // Visit children
         element.getLeftOperand().accept(this, context);
         element.getRightOperand().accept(this, context);
@@ -511,7 +512,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(LogicNegation<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(LogicNegation<Type> element, DMNContext context) {
         // Visit children
         element.getLeftOperand().accept(this, context);
 
@@ -526,11 +527,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     // Comparison expressions
     //
     @Override
-    public Object visit(Relational<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(Relational<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> leftOperand = element.getLeftOperand();
+        Expression<Type> leftOperand = element.getLeftOperand();
         leftOperand.accept(this, context);
-        Expression<Type, DMNContext> rightOperand = element.getRightOperand();
+        Expression<Type> rightOperand = element.getRightOperand();
         rightOperand.accept(this, context);
         String operator = element.getOperator();
 
@@ -542,13 +543,13 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(BetweenExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(BetweenExpression<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> value = element.getValue();
+        Expression<Type> value = element.getValue();
         value.accept(this, context);
-        Expression<Type, DMNContext> leftEndpoint = element.getLeftEndpoint();
+        Expression<Type> leftEndpoint = element.getLeftEndpoint();
         leftEndpoint.accept(this, context);
-        Expression<Type, DMNContext> rightEndpoint = element.getRightEndpoint();
+        Expression<Type> rightEndpoint = element.getRightEndpoint();
         rightEndpoint.accept(this, context);
 
         // Derive type
@@ -560,9 +561,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(InExpression<Type, DMNContext> element, DMNContext parentContext) {
+    public Element<Type> visit(InExpression<Type> element, DMNContext parentContext) {
         // Visit children
-        Expression<Type, DMNContext> value = element.getValue();
+        Expression<Type> value = element.getValue();
         value.accept(this, parentContext);
 
         // Visit tests with value type injected in scope
@@ -579,11 +580,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     // Arithmetic expressions
     //
     @Override
-    public Object visit(Addition<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(Addition<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> leftOperand = element.getLeftOperand();
+        Expression<Type> leftOperand = element.getLeftOperand();
         leftOperand.accept(this, context);
-        Expression<Type, DMNContext> rightOperand = element.getRightOperand();
+        Expression<Type> rightOperand = element.getRightOperand();
         rightOperand.accept(this, context);
 
         // Derive type
@@ -594,11 +595,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(Multiplication<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(Multiplication<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> leftOperand = element.getLeftOperand();
+        Expression<Type> leftOperand = element.getLeftOperand();
         leftOperand.accept(this, context);
-        Expression<Type, DMNContext> rightOperand = element.getRightOperand();
+        Expression<Type> rightOperand = element.getRightOperand();
         rightOperand.accept(this, context);
 
         // Derive type
@@ -609,11 +610,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(Exponentiation<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(Exponentiation<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> leftOperand = element.getLeftOperand();
+        Expression<Type> leftOperand = element.getLeftOperand();
         leftOperand.accept(this, context);
-        Expression<Type, DMNContext> rightOperand = element.getRightOperand();
+        Expression<Type> rightOperand = element.getRightOperand();
         rightOperand.accept(this, context);
 
         // Derive type
@@ -624,7 +625,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(ArithmeticNegation<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(ArithmeticNegation<Type> element, DMNContext context) {
         // Visit children
         element.getLeftOperand().accept(this, context);
 
@@ -643,9 +644,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     // Postfix expressions
     //
     @Override
-    public Object visit(PathExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(PathExpression<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> source = element.getSource();
+        Expression<Type> source = element.getSource();
         source.accept(this, context);
 
         // Derive type
@@ -657,11 +658,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(FunctionInvocation<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(FunctionInvocation<Type> element, DMNContext context) {
         // Visit children
-        Expression<Type, DMNContext> function = element.getFunction();
-        Parameters<Type, DMNContext> parameters = element.getParameters();
-        if (function instanceof Name && "sort".equals(((Name<Type, DMNContext>) function).getName())) {
+        Expression<Type> function = element.getFunction();
+        Parameters<Type> parameters = element.getParameters();
+        if (function instanceof Name && "sort".equals(((Name<Type>) function).getName())) {
             visitSortParameters(element, context, parameters);
         } else {
             parameters.accept(this, context);
@@ -671,20 +672,20 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         // Derive type
         inferMissingTypesInFEELFunction(element.getFunction(), element.getParameters(), context);
         if (function instanceof Name) {
-            String functionName = ((Name<Type, DMNContext>) function).getName();
+            String functionName = ((Name<Type>) function).getName();
             FunctionInvocationUtils.deriveType(element, context, functionName);
-        } else if (function instanceof QualifiedName && ((QualifiedName<Type, DMNContext>) function).getNames().size() == 1) {
-            String functionName = ((QualifiedName<Type, DMNContext>) function).getQualifiedName();
+        } else if (function instanceof QualifiedName && ((QualifiedName<Type>) function).getNames().size() == 1) {
+            String functionName = ((QualifiedName<Type>) function).getQualifiedName();
             FunctionInvocationUtils.deriveType(element, context, functionName);
         } else {
             FunctionType functionType = (FunctionType) function.getType();
 
             FunctionInvocationUtils.setInvocationType(element, functionType);
             if (parameters instanceof NamedParameters) {
-                ParameterConversions<Type, DMNContext> parameterConversions = new NamedParameterConversions<>(functionType.getParameters());
+                ParameterConversions<Type> parameterConversions = new NamedParameterConversions<>(functionType.getParameters());
                 parameters.setParameterConversions(parameterConversions);
             } else {
-                ParameterConversions<Type, DMNContext> parameterConversions = new PositionalParameterConversions<>(functionType.getParameterTypes());
+                ParameterConversions<Type> parameterConversions = new PositionalParameterConversions<>(functionType.getParameterTypes());
                 parameters.setParameterConversions(parameterConversions);
             }
             parameters.setConvertedParameterTypes(parameters.getSignature());
@@ -693,31 +694,31 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         return element;
     }
 
-    private void visitSortParameters(FunctionInvocation<Type, DMNContext> element, DMNContext context, Parameters<Type, DMNContext> parameters) {
+    private void visitSortParameters(FunctionInvocation<Type> element, DMNContext context, Parameters<Type> parameters) {
         boolean success = false;
         if (parameters.getSignature().size() == 2) {
-            Expression<Type, DMNContext> listExpression;
-            Expression<Type, DMNContext> lambdaExpression;
+            Expression<Type> listExpression;
+            Expression<Type> lambdaExpression;
             if (parameters instanceof PositionalParameters) {
-                listExpression = ((PositionalParameters<Type, DMNContext>) parameters).getParameters().get(0);
-                lambdaExpression = ((PositionalParameters<Type, DMNContext>) parameters).getParameters().get(1);
+                listExpression = ((PositionalParameters<Type>) parameters).getParameters().get(0);
+                lambdaExpression = ((PositionalParameters<Type>) parameters).getParameters().get(1);
             } else {
-                listExpression = ((NamedParameters<Type, DMNContext>) parameters).getParameters().get("list");
-                lambdaExpression = ((NamedParameters<Type, DMNContext>) parameters).getParameters().get("function");
+                listExpression = ((NamedParameters<Type>) parameters).getParameters().get("list");
+                lambdaExpression = ((NamedParameters<Type>) parameters).getParameters().get("function");
             }
             listExpression.accept(this, context);
             Type listType = listExpression.getType();
             if (listType instanceof ListType) {
                 Type elementType = ((ListType) listType).getElementType();
                 if (lambdaExpression instanceof FunctionDefinition) {
-                    List<FormalParameter<Type, DMNContext>> formalParameters = ((FunctionDefinition<Type, DMNContext>) lambdaExpression).getFormalParameters();
+                    List<FormalParameter<Type>> formalParameters = ((FunctionDefinition<Type>) lambdaExpression).getFormalParameters();
                     formalParameters.forEach(p -> p.setType(elementType));
                     success = true;
                 } else if (lambdaExpression instanceof Name) {
-                    Declaration declaration = context.lookupVariableDeclaration(((Name<Type, DMNContext>) lambdaExpression).getName());
+                    Declaration declaration = context.lookupVariableDeclaration(((Name<Type>) lambdaExpression).getName());
                     Type type = declaration.getType();
                     if (type instanceof FunctionType && !(type instanceof BuiltinFunctionType)) {
-                        List<FormalParameter<Type, DMNContext>> formalParameters = ((FunctionType) type).getParameters();
+                        List<FormalParameter<Type>> formalParameters = ((FunctionType) type).getParameters();
                         formalParameters.forEach(p -> p.setType(elementType));
                         success = true;
                     }
@@ -730,7 +731,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         }
     }
 
-    private void inferMissingTypesInFEELFunction(Expression<Type, DMNContext> function, Parameters<Type, DMNContext> arguments, DMNContext context) {
+    private void inferMissingTypesInFEELFunction(Expression<Type> function, Parameters<Type> arguments, DMNContext context) {
         Type functionType = function.getType();
         if (functionType instanceof FEELFunctionType) {
             FEELFunctionType feelFunctionType = (FEELFunctionType) functionType;
@@ -739,7 +740,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
                 bindNameToTypes(feelFunctionType.getParameters(), arguments);
 
                 // Process function definition
-                FunctionDefinition<Type, DMNContext> functionDefinition = feelFunctionType.getFunctionDefinition();
+                FunctionDefinition<Type> functionDefinition = feelFunctionType.getFunctionDefinition();
                 if (functionDefinition != null) {
                     // Bind names to types in function definition
                     bindNameToTypes(functionDefinition.getFormalParameters(), arguments);
@@ -756,21 +757,21 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         }
     }
 
-    private void bindNameToTypes(List<FormalParameter<Type, DMNContext>> parameters, Parameters<Type, DMNContext> arguments) {
+    private void bindNameToTypes(List<FormalParameter<Type>> parameters, Parameters<Type> arguments) {
         if (arguments instanceof NamedParameters) {
-            for(FormalParameter<Type, DMNContext> p: parameters) {
+            for(FormalParameter<Type> p: parameters) {
                 Type type = p.getType();
                 if (com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(type)) {
-                    Type newType = ((NamedParameters<Type, DMNContext>) arguments).getParameters().get(p.getName()).getType();
+                    Type newType = ((NamedParameters<Type>) arguments).getParameters().get(p.getName()).getType();
                     p.setType(newType);
                 }
             }
         } else if (arguments instanceof PositionalParameters) {
             for(int i=0; i < parameters.size(); i++) {
-                FormalParameter<Type, DMNContext> p = parameters.get(i);
+                FormalParameter<Type> p = parameters.get(i);
                 Type type = p.getType();
                 if (com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(type)) {
-                    Type newType = ((PositionalParameters<Type, DMNContext>) arguments).getParameters().get(i).getType();
+                    Type newType = ((PositionalParameters<Type>) arguments).getParameters().get(i).getType();
                     p.setType(newType);
                 }
             }
@@ -778,7 +779,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(NamedParameters<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(NamedParameters<Type> element, DMNContext context) {
         // Visit children
         element.getParameters().values().forEach(p -> p.accept(this, context));
 
@@ -786,7 +787,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(PositionalParameters<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(PositionalParameters<Type> element, DMNContext context) {
         // Visit children
         element.getParameters().forEach(p -> p.accept(this, context));
 
@@ -797,7 +798,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     // Primary expressions
     //
     @Override
-    public Object visit(BooleanLiteral<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(BooleanLiteral<Type> element, DMNContext context) {
         // Derive type
         element.setType(BOOLEAN);
 
@@ -805,7 +806,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(DateTimeLiteral<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(DateTimeLiteral<Type> element, DMNContext context) {
         String conversionFunction = element.getConversionFunction();
         // Derive type
         if (DateType.DATE.hasConversionFunction(conversionFunction)) {
@@ -830,7 +831,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(NullLiteral<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(NullLiteral<Type> element, DMNContext context) {
         // Derive type
         element.setType(NullType.NULL);
 
@@ -838,7 +839,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(NumericLiteral<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(NumericLiteral<Type> element, DMNContext context) {
         // Derive type
         element.setType(NUMBER);
 
@@ -846,7 +847,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(StringLiteral<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(StringLiteral<Type> element, DMNContext context) {
         // Derive type
         element.setType(StringType.STRING);
 
@@ -854,9 +855,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(ListLiteral<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(ListLiteral<Type> element, DMNContext context) {
         // Visit children
-        List<Expression<Type, DMNContext>> expressionList = element.getExpressionList();
+        List<Expression<Type>> expressionList = element.getExpressionList();
         expressionList.forEach(e -> e.accept(this, context));
 
         // Derive type
@@ -874,7 +875,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         return element;
     }
 
-    private void checkListElementTypes(ListLiteral<Type, DMNContext> element) {
+    private void checkListElementTypes(ListLiteral<Type> element) {
         List<Type> types = element.getExpressionList().stream().map(Expression::getType).collect(Collectors.toList());
         // Find root type if possible
         if (types.size() == 0) {
@@ -900,7 +901,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(QualifiedName<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(QualifiedName<Type> element, DMNContext context) {
         // Derive type
         List<String> names = element.getNames();
         if (names ==  null || names.isEmpty()) {
@@ -921,17 +922,17 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         return element;
     }
 
-    private void deriveType(QualifiedName<Type, DMNContext> element, DMNContext context) {
+    private void deriveType(QualifiedName<Type> element, DMNContext context) {
         deriveType(element, context, element.getName());
     }
 
     @Override
-    public Object visit(Name<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(Name<Type> element, DMNContext context) {
         deriveType(element, context, element.getName());
         return element;
     }
 
-    private void deriveType(NamedExpression<Type, DMNContext> element, DMNContext context, String name) {
+    private void deriveType(NamedExpression<Type> element, DMNContext context, String name) {
         Type type;
         // Lookup for variables
         Declaration declaration = context.lookupVariableDeclaration(name);
@@ -958,7 +959,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     //
 
     @Override
-    public Object visit(NamedTypeExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(NamedTypeExpression<Type> element, DMNContext context) {
         // Derive type
         TDefinitions model = this.dmnModelRepository.getModel(context.getElement());
         com.gs.dmn.QualifiedName typeRef = com.gs.dmn.QualifiedName.toQualifiedName(model, element.getQualifiedName());
@@ -967,10 +968,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(ContextTypeExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(ContextTypeExpression<Type> element, DMNContext context) {
         // Derive type
         ContextType contextType = new ContextType();
-        for (Pair<String, TypeExpression<Type, DMNContext>> member: element.getMembers()) {
+        for (Pair<String, TypeExpression<Type>> member: element.getMembers()) {
             member.getRight().accept(this, context);
             contextType.addMember(member.getLeft(), new ArrayList<>(), member.getRight().getType());
         }
@@ -979,7 +980,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(RangeTypeExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(RangeTypeExpression<Type> element, DMNContext context) {
         // Visit children
         element.getElementTypeExpression().accept(this, context);
 
@@ -990,13 +991,13 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(FunctionTypeExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(FunctionTypeExpression<Type> element, DMNContext context) {
         // Visit children
         element.getParameters().forEach(e -> e.accept(this, context));
         element.getReturnType().accept(this, context);
 
         // Derive type
-        List<FormalParameter<Type, DMNContext>> parameters = element.getParameters().stream().map(e -> new FormalParameter<Type, DMNContext>(null, e.getType())).collect(Collectors.toList());
+        List<FormalParameter<Type>> parameters = element.getParameters().stream().map(e -> new FormalParameter<Type>(null, e.getType())).collect(Collectors.toList());
         Type returnType = element.getReturnType().getType();
         FunctionType functionType = new FEELFunctionType(parameters, returnType, false);
         element.setType(functionType);
@@ -1004,7 +1005,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Object visit(ListTypeExpression<Type, DMNContext> element, DMNContext context) {
+    public Element<Type> visit(ListTypeExpression<Type> element, DMNContext context) {
         // Visit children
         element.getElementTypeExpression().accept(this, context);
 
@@ -1014,7 +1015,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         return element;
     }
 
-    private DMNContext visitIterators(final Expression<Type, DMNContext> element, DMNContext context, List<Iterator<Type, DMNContext>> iterators) {
+    private DMNContext visitIterators(final Expression<Type> element, DMNContext context, List<Iterator<Type>> iterators) {
         FEELSemanticVisitor visitor = this;
         DMNContext qContext = this.dmnTransformer.makeIteratorContext(context);
         iterators.forEach(it -> {
@@ -1034,7 +1035,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         return qContext;
     }
 
-    protected void checkType(Expression<Type, DMNContext> element, String operator, Type leftOperandType, Type rightOperandType, DMNContext context) {
+    protected void checkType(Expression<Type> element, String operator, Type leftOperandType, Type rightOperandType, DMNContext context) {
         try {
             Type resultType = OperatorDecisionTable.resultType(operator, normalize(leftOperandType), normalize(rightOperandType));
             if (resultType != null) {

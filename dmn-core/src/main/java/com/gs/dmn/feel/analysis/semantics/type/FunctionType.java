@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -39,21 +38,21 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
         }
 
         @Override
-        public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
+        public boolean match(ParameterTypes<Type> parameterTypes) {
             return false;
         }
 
         @Override
-        protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List argumentTypes) {
+        protected List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(List argumentTypes) {
             return null;
         }
     };
 
-    protected final List<FormalParameter<Type, DMNContext>> parameters = new ArrayList<>();
+    protected final List<FormalParameter<Type>> parameters = new ArrayList<>();
     protected final List<Type> parameterTypes = new ArrayList<>();
     protected Type returnType;
 
-    protected FunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType) {
+    protected FunctionType(List<FormalParameter<Type>> parameters, Type returnType) {
         this.returnType = returnType;
         if (parameters != null) {
             this.parameters.addAll(parameters);
@@ -61,7 +60,7 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
         }
     }
 
-    public List<FormalParameter<Type, DMNContext>> getParameters() {
+    public List<FormalParameter<Type>> getParameters() {
         return this.parameters;
     }
 
@@ -89,14 +88,14 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
                 && !com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(this.returnType);
     }
 
-    public List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(ParameterTypes<Type, DMNContext> parameterTypes) {
+    public List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(ParameterTypes<Type> parameterTypes) {
         if (parameterTypes instanceof PositionalParameterTypes) {
-            List<Type> argumentTypes = ((PositionalParameterTypes<Type, DMNContext>) parameterTypes).getTypes();
+            List<Type> argumentTypes = ((PositionalParameterTypes<Type>) parameterTypes).getTypes();
             return matchCandidates(argumentTypes);
         } else {
-            NamedParameterTypes<Type, DMNContext> namedSignature = (NamedParameterTypes<Type, DMNContext>) parameterTypes;
+            NamedParameterTypes<Type> namedSignature = (NamedParameterTypes<Type>) parameterTypes;
             List<Type> argumentTypes = new ArrayList<>();
-            for(FormalParameter<Type, DMNContext> parameter: this.parameters) {
+            for(FormalParameter<Type> parameter: this.parameters) {
                 Type type = namedSignature.getType(parameter.getName());
                 if (!com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
                     argumentTypes.add(type);
@@ -108,9 +107,9 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
         }
     }
 
-    protected ArrayList<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> calculateCandidates(List<Type> parameterTypes, List<Type> argumentTypes) {
+    protected ArrayList<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> calculateCandidates(List<Type> parameterTypes, List<Type> argumentTypes) {
         // calculate candidates
-        Set<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> candidates = new LinkedHashSet<>();
+        Set<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> candidates = new LinkedHashSet<>();
         int argumentSize = argumentTypes.size();
         ConversionKind[] candidateConversions = FUNCTION_RESOLUTION_CANDIDATES;
         int conversionSize = candidateConversions.length;
@@ -121,7 +120,7 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
         while (conversionMap != null) {
             // Calculate new types and conversions for every argument
             List<Type> newTypes = new ArrayList<>();
-            PositionalParameterConversions<Type, DMNContext> conversions = new PositionalParameterConversions<>();
+            PositionalParameterConversions<Type> conversions = new PositionalParameterConversions<>();
             boolean different = false;
             for (int i = 0; i < argumentSize; i++) {
                 // Compute new type and conversion
@@ -175,7 +174,7 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
 
             // Add new candidate
             if (different) {
-                PositionalParameterTypes<Type, DMNContext> newSignature = new PositionalParameterTypes<>(newTypes);
+                PositionalParameterTypes<Type> newSignature = new PositionalParameterTypes<>(newTypes);
                 candidates.add(new Pair<>(newSignature, conversions));
             }
 
@@ -215,15 +214,15 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
         return end ? null : vector;
     }
 
-    protected boolean compatible(ParameterTypes<Type, DMNContext> parameterTypes, List<FormalParameter<Type, DMNContext>> parameters) {
+    protected boolean compatible(ParameterTypes<Type> parameterTypes, List<FormalParameter<Type>> parameters) {
         if (parameterTypes instanceof PositionalParameterTypes) {
-            return compatible((PositionalParameterTypes<Type, DMNContext>) parameterTypes, parameters);
+            return compatible((PositionalParameterTypes<Type>) parameterTypes, parameters);
         } else {
-            return compatible((NamedParameterTypes<Type, DMNContext>) parameterTypes, parameters);
+            return compatible((NamedParameterTypes<Type>) parameterTypes, parameters);
         }
     }
 
-    private boolean compatible(PositionalParameterTypes<Type, DMNContext> parameterTypes, List<FormalParameter<Type, DMNContext>> parameters) {
+    private boolean compatible(PositionalParameterTypes<Type> parameterTypes, List<FormalParameter<Type>> parameters) {
         if (parameterTypes.size() != parameters.size()) {
             return false;
         }
@@ -237,11 +236,11 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
         return true;
     }
 
-    private boolean compatible(NamedParameterTypes<Type, DMNContext> parameterTypes, List<FormalParameter<Type, DMNContext>> parameters) {
+    private boolean compatible(NamedParameterTypes<Type> parameterTypes, List<FormalParameter<Type>> parameters) {
         if (parameterTypes.size() != parameters.size()) {
             return false;
         }
-        for (FormalParameter<Type, DMNContext> formalParameter : parameters) {
+        for (FormalParameter<Type> formalParameter : parameters) {
             Type argumentType = parameterTypes.getType(formalParameter.getName());
             Type parameterType = formalParameter.getType();
             if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(argumentType, parameterType)) {
@@ -251,7 +250,7 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
         return true;
     }
 
-    public abstract boolean match(ParameterTypes<Type, DMNContext> parameterTypes);
+    public abstract boolean match(ParameterTypes<Type> parameterTypes);
 
-    protected abstract List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes);
+    protected abstract List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(List<Type> argumentTypes);
 }

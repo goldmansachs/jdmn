@@ -16,7 +16,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
 import java.util.regex.Pattern;
 
-public class DateTimeLiteral<T, C> extends SimpleLiteral<T, C> {
+public class DateTimeLiteral<T> extends SimpleLiteral<T> {
     private static final Pattern DAYS_AND_TIME_DURATION_PATTERN = Pattern.compile("\"[-]?P([0-9]+D)?T?([0-9]+H)?([0-9]+M)?([0-9]+H)?([0-9]+(\\.[0-9]*)?S)?\"");
     private static final Pattern YEARS_AND_MONTHS_DURATION_PATTERN = Pattern.compile("\"[-]?P([0-9]+Y)?([0-9]+M)?\"");
 
@@ -40,7 +40,7 @@ public class DateTimeLiteral<T, C> extends SimpleLiteral<T, C> {
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 

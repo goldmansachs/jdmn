@@ -15,13 +15,13 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.logic;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public class Conjunction<T, C> extends LogicExpression<T, C> {
-    public Conjunction(Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
+public class Conjunction<T> extends LogicExpression<T> {
+    public Conjunction(Expression<T> leftOperand, Expression<T> rightOperand) {
         super("and", leftOperand, rightOperand);
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

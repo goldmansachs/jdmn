@@ -21,21 +21,21 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-public class PositionalParameters<T, C> extends Parameters<T, C> {
-    private final List<Expression<T, C>> parameters;
-    private PositionalArguments<T, C> originalArguments;
-    private PositionalParameterConversions<T, C> parameterConversions;
-    private PositionalParameterTypes<T, C> parameterTypes;
-    private PositionalArguments<T, C> convertedArguments;
+public class PositionalParameters<T> extends Parameters<T> {
+    private final List<Expression<T>> parameters;
+    private PositionalArguments<T> originalArguments;
+    private PositionalParameterConversions<T> parameterConversions;
+    private PositionalParameterTypes<T> parameterTypes;
+    private PositionalArguments<T> convertedArguments;
 
-    public PositionalParameters(List<Expression<T, C>> params) {
+    public PositionalParameters(List<Expression<T>> params) {
         if (params == null) {
             params = new ArrayList<>();
         }
         this.parameters = params;
     }
 
-    public List<Expression<T, C>> getParameters() {
+    public List<Expression<T>> getParameters() {
         return this.parameters;
     }
 
@@ -45,47 +45,47 @@ public class PositionalParameters<T, C> extends Parameters<T, C> {
     }
 
     @Override
-    public ParameterTypes<T, C> getSignature() {
+    public ParameterTypes<T> getSignature() {
         return new PositionalParameterTypes<>(this.parameters.stream().map(Expression::getType).collect(Collectors.toList()));
     }
 
     @Override
-    public Arguments<T, C> getOriginalArguments() {
+    public Arguments<T> getOriginalArguments() {
         return this.originalArguments;
     }
 
     @Override
-    public void setOriginalArguments(Arguments<T, C> originalArguments) {
-        this.originalArguments = (PositionalArguments<T, C>) originalArguments;
+    public void setOriginalArguments(Arguments<T> originalArguments) {
+        this.originalArguments = (PositionalArguments<T>) originalArguments;
     }
 
     @Override
-    public ParameterConversions<T, C> getParameterConversions() {
+    public ParameterConversions<T> getParameterConversions() {
         return this.parameterConversions;
     }
 
     @Override
-    public void setParameterConversions(ParameterConversions<T, C> parameterConversions) {
-        this.parameterConversions = (PositionalParameterConversions<T, C>) parameterConversions;
+    public void setParameterConversions(ParameterConversions<T> parameterConversions) {
+        this.parameterConversions = (PositionalParameterConversions<T>) parameterConversions;
     }
 
     @Override
-    public ParameterTypes<T, C> getConvertedParameterTypes() {
+    public ParameterTypes<T> getConvertedParameterTypes() {
         return this.parameterTypes;
     }
 
     @Override
-    public void setConvertedParameterTypes(ParameterTypes<T, C> parameterTypes) {
-        this.parameterTypes = (PositionalParameterTypes<T, C>) parameterTypes;
+    public void setConvertedParameterTypes(ParameterTypes<T> parameterTypes) {
+        this.parameterTypes = (PositionalParameterTypes<T>) parameterTypes;
     }
 
     @Override
-    public Arguments<T, C> getConvertedArguments() {
+    public Arguments<T> getConvertedArguments() {
         return this.convertedArguments;
     }
 
     @Override
-    public Arguments<T, C> convertArguments(BiFunction<Object, Conversion<T>, Object> convertArgument) {
+    public Arguments<T> convertArguments(BiFunction<Object, Conversion<T>, Object> convertArgument) {
         if (requiresConversion()) {
             this.convertedArguments = new PositionalArguments<>();
             for (int i = 0; i< this.parameterConversions.getConversions().size(); i++) {
@@ -101,7 +101,7 @@ public class PositionalParameters<T, C> extends Parameters<T, C> {
     }
 
     @Override
-    public Expression<T, C> getParameter(int position, String name) {
+    public Expression<T> getParameter(int position, String name) {
         if (0 > position || position > this.parameters.size()) {
             return null;
         } else {
@@ -114,7 +114,7 @@ public class PositionalParameters<T, C> extends Parameters<T, C> {
         if (0 > position || position > this.parameters.size()) {
             return null;
         } else {
-            Expression<T, C> expression = this.parameters.get(position);
+            Expression<T> expression = this.parameters.get(position);
             if (expression == null) {
                 throw new DMNRuntimeException(String.format("Cannot find parameter '%s'", name));
             }
@@ -130,7 +130,7 @@ public class PositionalParameters<T, C> extends Parameters<T, C> {
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 

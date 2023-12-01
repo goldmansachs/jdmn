@@ -17,12 +17,12 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.Objects;
 
-public class Relational<T, C> extends Comparison<T, C> {
+public class Relational<T> extends Comparison<T> {
     private final String operator;
-    private final Expression<T, C> leftOperand;
-    private final Expression<T, C> rightOperand;
+    private final Expression<T> leftOperand;
+    private final Expression<T> rightOperand;
 
-    public Relational(String operator, Expression<T, C> leftOperand, Expression<T, C> rightOperand) {
+    public Relational(String operator, Expression<T> leftOperand, Expression<T> rightOperand) {
         this.operator = operator;
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
@@ -32,16 +32,16 @@ public class Relational<T, C> extends Comparison<T, C> {
         return this.operator;
     }
 
-    public Expression<T, C> getLeftOperand() {
+    public Expression<T> getLeftOperand() {
         return this.leftOperand;
     }
 
-    public Expression<T, C> getRightOperand() {
+    public Expression<T> getRightOperand() {
         return this.rightOperand;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -49,7 +49,7 @@ public class Relational<T, C> extends Comparison<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Relational<?, ?> that = (Relational<?, ?>) o;
+        Relational<?> that = (Relational<?>) o;
         return Objects.equals(operator, that.operator) && Objects.equals(leftOperand, that.leftOperand) && Objects.equals(rightOperand, that.rightOperand);
     }
 

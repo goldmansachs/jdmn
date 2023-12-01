@@ -15,13 +15,13 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.logic;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
-public class LogicNegation<T, C> extends LogicExpression<T, C> {
-    public LogicNegation(Expression<T, C> operand) {
+public class LogicNegation<T> extends LogicExpression<T> {
+    public LogicNegation(Expression<T> operand) {
         super("not", operand, null);
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 

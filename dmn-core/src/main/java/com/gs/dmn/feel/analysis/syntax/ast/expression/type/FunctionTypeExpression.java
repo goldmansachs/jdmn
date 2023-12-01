@@ -18,25 +18,25 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class FunctionTypeExpression<T, C> extends TypeExpression<T, C> {
-    private final List<TypeExpression<T, C>> parameters;
-    private final TypeExpression<T, C> returnType;
+public class FunctionTypeExpression<T> extends TypeExpression<T> {
+    private final List<TypeExpression<T>> parameters;
+    private final TypeExpression<T> returnType;
 
-    public FunctionTypeExpression(List<TypeExpression<T, C>> parameters, TypeExpression<T, C> returnType) {
+    public FunctionTypeExpression(List<TypeExpression<T>> parameters, TypeExpression<T> returnType) {
         this.parameters = parameters;
         this.returnType = returnType;
     }
 
-    public List<TypeExpression<T, C>> getParameters() {
+    public List<TypeExpression<T>> getParameters() {
         return this.parameters;
     }
 
-    public TypeExpression<T, C> getReturnType() {
+    public TypeExpression<T> getReturnType() {
         return this.returnType;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -44,7 +44,7 @@ public class FunctionTypeExpression<T, C> extends TypeExpression<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FunctionTypeExpression<?, ?> that = (FunctionTypeExpression<?, ?>) o;
+        FunctionTypeExpression<?> that = (FunctionTypeExpression<?>) o;
         return Objects.equals(parameters, that.parameters) && Objects.equals(returnType, that.returnType);
     }
 

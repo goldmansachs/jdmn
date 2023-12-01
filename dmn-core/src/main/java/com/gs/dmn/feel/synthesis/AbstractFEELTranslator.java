@@ -41,7 +41,7 @@ public abstract class AbstractFEELTranslator extends AbstractFEELProcessor<Type,
     @Override
     public String unaryTestsToJava(UnaryTests<Type> expression, DMNContext context) {
         this.expressionVisitor.init();
-        Triple result = (Triple) ((com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests<Type, DMNContext>) expression).accept(this.expressionVisitor, context);
+        Triple result = (Triple) ((com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests<Type>) expression).accept(this.expressionVisitor, context);
         return result.accept(tripleSerializer, expressionVisitor.getTriples());
     }
 
@@ -54,7 +54,7 @@ public abstract class AbstractFEELTranslator extends AbstractFEELProcessor<Type,
     @Override
     public String expressionToNative(Expression<Type> expression, DMNContext context) {
         this.expressionVisitor.init();
-        Triple result = (Triple) ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type, DMNContext>) expression).accept(this.expressionVisitor, context);
+        Triple result = (Triple) ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type>) expression).accept(this.expressionVisitor, context);
         return result.accept(tripleSerializer, expressionVisitor.getTriples());
     }
 }

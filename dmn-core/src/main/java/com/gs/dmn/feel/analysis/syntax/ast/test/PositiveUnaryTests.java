@@ -19,21 +19,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class PositiveUnaryTests<T, C> extends UnaryTests<T, C> {
-    private List<PositiveUnaryTest<T, C>> positiveUnaryTests = new ArrayList<>();
+public class PositiveUnaryTests<T> extends UnaryTests<T> {
+    private List<PositiveUnaryTest<T>> positiveUnaryTests = new ArrayList<>();
 
-    public PositiveUnaryTests(List<PositiveUnaryTest<T, C>> positiveUnaryTests) {
+    public PositiveUnaryTests(List<PositiveUnaryTest<T>> positiveUnaryTests) {
         if (positiveUnaryTests != null) {
             this.positiveUnaryTests = positiveUnaryTests;
         }
     }
 
-    public List<PositiveUnaryTest<T, C>> getPositiveUnaryTests() {
+    public List<PositiveUnaryTest<T>> getPositiveUnaryTests() {
         return this.positiveUnaryTests;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -41,7 +41,7 @@ public class PositiveUnaryTests<T, C> extends UnaryTests<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PositiveUnaryTests<?, ?> that = (PositiveUnaryTests<?, ?>) o;
+        PositiveUnaryTests<?> that = (PositiveUnaryTests<?>) o;
         return Objects.equals(positiveUnaryTests, that.positiveUnaryTests);
     }
 

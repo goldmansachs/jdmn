@@ -15,11 +15,11 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-public class Iterator<T, C> extends Element<T, C> {
+public class Iterator<T> extends Element<T> {
     private final String name;
-    private final IteratorDomain<T, C> domain;
+    private final IteratorDomain<T> domain;
 
-    public Iterator(String name, IteratorDomain<T, C> domain) {
+    public Iterator(String name, IteratorDomain<T> domain) {
         this.name = name;
         this.domain = domain;
     }
@@ -28,12 +28,12 @@ public class Iterator<T, C> extends Element<T, C> {
         return this.name;
     }
 
-    public IteratorDomain<T, C> getDomain() {
+    public IteratorDomain<T> getDomain() {
         return this.domain;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 

@@ -26,7 +26,7 @@ public class ReplaceItemFilterVisitorTest extends BaseVisitorTest {
     private final String newLambdaParameterName = "newName";
 
     @Override
-    protected Visitor<Type, DMNContext> getVisitor() {
+    protected Visitor<Type, DMNContext, Element<Type>> getVisitor() {
         return new ReplaceItemFilterVisitor<>(this.oldLambdaParameterName, this.newLambdaParameterName, NopErrorHandler.INSTANCE);
     }
 

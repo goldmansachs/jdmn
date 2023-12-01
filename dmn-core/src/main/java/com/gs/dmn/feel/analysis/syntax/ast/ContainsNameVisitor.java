@@ -30,7 +30,7 @@ public class ContainsNameVisitor<T, C> extends TraversalVisitor<T, C> {
     }
 
     @Override
-    public Object visit(OperatorRange<T, C> element, C context) {
+    public Element<T> visit(OperatorRange<T> element, C context) {
         super.visit(element, context);
 
         this.found = true;
@@ -39,7 +39,7 @@ public class ContainsNameVisitor<T, C> extends TraversalVisitor<T, C> {
     }
 
     @Override
-    public Object visit(EndpointsRange<T, C> element, C context) {
+    public Element<T> visit(EndpointsRange<T> element, C context) {
         super.visit(element, context);
 
         this.found = true;
@@ -48,7 +48,7 @@ public class ContainsNameVisitor<T, C> extends TraversalVisitor<T, C> {
     }
 
     @Override
-    public Object visit(Name<T, C> element, C context) {
+    public Element<T> visit(Name<T> element, C context) {
         if (element.getName().equals(DMNContext.INPUT_ENTRY_PLACE_HOLDER)) {
             this.found = true;
         }

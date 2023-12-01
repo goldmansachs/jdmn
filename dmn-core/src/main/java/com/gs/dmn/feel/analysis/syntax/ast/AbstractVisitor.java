@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.syntax.ast;
 
 import com.gs.dmn.error.ErrorHandler;
 
-public abstract class AbstractVisitor<T, C> implements Visitor<T, C> {
+public abstract class AbstractVisitor<T, C, R> implements Visitor<T, C, R> {
     protected final ErrorHandler errorHandler;
 
     public AbstractVisitor(ErrorHandler errorHandler) {

@@ -16,7 +16,6 @@ package com.gs.dmn.transformation.native_.expression;
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TItemDefinition;
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.FunctionType;
 import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -145,7 +144,7 @@ public interface NativeExpressionFactory {
 
     String falseValueConstant();
 
-    String dateTimeLiteral(DateTimeLiteral<Type, DMNContext> element);
+    String dateTimeLiteral(DateTimeLiteral<Type> element);
 
     String nullLiteral();
 

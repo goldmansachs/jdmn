@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
@@ -36,24 +35,24 @@ public abstract class ParameterTypesTest {
 
     @Test
     public void testCompatibleWhenEmpty() {
-        List<FormalParameter<Type, DMNContext>> formalParameters = makeFormalParameters(new ArrayList<>());
+        List<FormalParameter<Type>> formalParameters = makeFormalParameters(new ArrayList<>());
         assertTrue(FunctionType.ANY_FUNCTION.compatible(makeParameterTypes(formalParameters), formalParameters));
     }
 
     @Test
     public void testCompatible() {
         List<Type> parameterTypes = Arrays.asList(NumberType.NUMBER, StringType.STRING);
-        List<FormalParameter<Type, DMNContext>> formalParameters = makeFormalParameters(parameterTypes);
+        List<FormalParameter<Type>> formalParameters = makeFormalParameters(parameterTypes);
         assertTrue(FunctionType.ANY_FUNCTION.compatible(makeParameterTypes(formalParameters), formalParameters));
     }
 
-    protected List<FormalParameter<Type, DMNContext>> makeFormalParameters(List<Type> types) {
-        return types.stream().map(t -> new FormalParameter<Type, DMNContext>(newName(), t)).collect(Collectors.toList());
+    protected List<FormalParameter<Type>> makeFormalParameters(List<Type> types) {
+        return types.stream().map(t -> new FormalParameter<>(newName(), t)).collect(Collectors.toList());
     }
 
     protected String newName() {
         return String.format("name_%d", count++);
     }
 
-    protected abstract ParameterTypes<Type, DMNContext> makeParameterTypes(List<FormalParameter<Type, DMNContext>> parameterTypes);
+    protected abstract ParameterTypes<Type> makeParameterTypes(List<FormalParameter<Type>> parameterTypes);
 }

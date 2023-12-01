@@ -20,20 +20,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class FunctionDefinition<T, C> extends Expression<T, C> {
-    private final List<FormalParameter<T, C>> formalParameters;
-    private final TypeExpression<T, C> returnTypeExpression;
-    private final Expression<T, C> body;
+public class FunctionDefinition<T> extends Expression<T> {
+    private final List<FormalParameter<T>> formalParameters;
+    private final TypeExpression<T> returnTypeExpression;
+    private final Expression<T> body;
     private final boolean external;
 
-    public FunctionDefinition(List<FormalParameter<T, C>> formalParameters, TypeExpression<T, C> returnTypeExpression, Expression<T, C> body, boolean external) {
+    public FunctionDefinition(List<FormalParameter<T>> formalParameters, TypeExpression<T> returnTypeExpression, Expression<T> body, boolean external) {
         this.formalParameters = formalParameters;
         this.returnTypeExpression = returnTypeExpression;
         this.body = body;
         this.external = external;
     }
 
-    public List<FormalParameter<T, C>> getFormalParameters() {
+    public List<FormalParameter<T>> getFormalParameters() {
         return this.formalParameters;
     }
 
@@ -41,11 +41,11 @@ public class FunctionDefinition<T, C> extends Expression<T, C> {
         return this.formalParameters.stream().allMatch(p -> p.getType() != null);
     }
 
-    public TypeExpression<T, C> getReturnTypeExpression() {
+    public TypeExpression<T> getReturnTypeExpression() {
         return this.returnTypeExpression;
     }
 
-    public Expression<T, C> getBody() {
+    public Expression<T> getBody() {
         return this.body;
     }
 
@@ -62,7 +62,7 @@ public class FunctionDefinition<T, C> extends Expression<T, C> {
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -70,7 +70,7 @@ public class FunctionDefinition<T, C> extends Expression<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FunctionDefinition<?, ?> that = (FunctionDefinition<?, ?>) o;
+        FunctionDefinition<?> that = (FunctionDefinition<?>) o;
         return external == that.external && Objects.equals(formalParameters, that.formalParameters) && Objects.equals(returnTypeExpression, that.returnTypeExpression) && Objects.equals(body, that.body);
     }
 

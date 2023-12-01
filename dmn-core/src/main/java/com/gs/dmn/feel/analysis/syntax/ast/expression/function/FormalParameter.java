@@ -18,15 +18,15 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
 
 import java.util.Objects;
 
-public class FormalParameter<T, C> extends Element<T, C> {
+public class FormalParameter<T> extends Element<T> {
     protected final String name;
-    private TypeExpression<T, C> typeExpression;
+    private TypeExpression<T> typeExpression;
     protected T type;
 
     protected final boolean optional;
     protected final boolean varArg;
 
-    public FormalParameter(String name, TypeExpression<T, C> typeExpression) {
+    public FormalParameter(String name, TypeExpression<T> typeExpression) {
         this.name = name;
         this.typeExpression = typeExpression;
         this.optional = false;
@@ -54,7 +54,7 @@ public class FormalParameter<T, C> extends Element<T, C> {
         return name;
     }
 
-    public TypeExpression<T, C> getTypeExpression() {
+    public TypeExpression<T> getTypeExpression() {
         return this.typeExpression;
     }
 
@@ -78,7 +78,7 @@ public class FormalParameter<T, C> extends Element<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FormalParameter<?, ?> that = (FormalParameter<?, ?>) o;
+        FormalParameter<?> that = (FormalParameter<?>) o;
         return Objects.equals(name, that.name) &&
                 Objects.equals(typeExpression, that.typeExpression) &&
                 Objects.equals(type, that.type);
@@ -90,7 +90,7 @@ public class FormalParameter<T, C> extends Element<T, C> {
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 

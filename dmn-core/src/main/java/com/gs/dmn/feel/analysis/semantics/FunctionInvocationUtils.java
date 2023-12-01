@@ -33,7 +33,7 @@ import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 
 public class FunctionInvocationUtils {
-    static void deriveType(FunctionInvocation<Type, DMNContext> element, DMNContext context, String functionName) {
+    static void deriveType(FunctionInvocation<Type> element, DMNContext context, String functionName) {
         DeclarationMatch declarationMatch = functionResolution(element, context, functionName);
         Declaration functionDeclaration = declarationMatch.getDeclaration();
         Type functionType = refineFunctionType(element, functionDeclaration);
@@ -44,18 +44,18 @@ public class FunctionInvocationUtils {
         element.getParameters().setConvertedParameterTypes(declarationMatch.getParameterTypes());
     }
 
-    private static Type refineFunctionType(FunctionInvocation<Type, DMNContext> element, Declaration functionDeclaration) {
+    private static Type refineFunctionType(FunctionInvocation<Type> element, Declaration functionDeclaration) {
         // Refine type for built-in functions
         if (!(functionDeclaration.getType() instanceof BuiltinFunctionType)) {
             return functionDeclaration.getType();
         }
 
         String functionName = functionDeclaration.getName();
-        Parameters<Type, DMNContext> parameters = element.getParameters();
-        List<FormalParameter<Type, DMNContext>> formalParameters = ((FunctionType) functionDeclaration.getType()).getParameters();
+        Parameters<Type> parameters = element.getParameters();
+        List<FormalParameter<Type>> formalParameters = ((FunctionType) functionDeclaration.getType()).getParameters();
         if ("max".equals(functionName) || "min".equals(functionName)) {
             if (!formalParameters.isEmpty()) {
-                FormalParameter<Type, DMNContext> formalParameter = formalParameters.get(0);
+                FormalParameter<Type> formalParameter = formalParameters.get(0);
                 String name = formalParameter.getName();
                 if ("list".equals(name)) {
                     Type inputType = parameters.getParameterType(0, "list");
@@ -75,7 +75,7 @@ public class FunctionInvocationUtils {
             Type listType = parameters.getParameterType(0, "list");
             return StandardEnvironmentFactory.makeSublistBuiltInFunctionType(listType);
         } else if("append".equals(functionName)) {
-            FormalParameter<Type, DMNContext> formalParameter = formalParameters.get(1);
+            FormalParameter<Type> formalParameter = formalParameters.get(1);
             String name = formalParameter.getName();
             if ("item".equals(name)) {
                 Type listType = parameters.getParameterType(0, "list");
@@ -94,7 +94,7 @@ public class FunctionInvocationUtils {
             Type newItemType = parameters.getParameterType(2, "newItem");
             return StandardEnvironmentFactory.makeInsertBeforeBuiltinFunctionType(listType, newItemType);
         } else if("remove".equals(functionName)) {
-            FormalParameter<Type, DMNContext> formalParameter = formalParameters.get(1);
+            FormalParameter<Type> formalParameter = formalParameters.get(1);
             String name = formalParameter.getName();
             Type listType = parameters.getParameterType(0, "list");
             if ("position".equals(name)) {
@@ -121,7 +121,7 @@ public class FunctionInvocationUtils {
                 return StandardEnvironmentFactory.makeUnionBuiltinFunctionType(listType);
             }
         } else if("flatten".equals(functionName)) {
-            Expression<Type, DMNContext> inputListParameter = parameters.getParameter(0, "list");
+            Expression<Type> inputListParameter = parameters.getParameter(0, "list");
             Type elementType = nestedElementType(inputListParameter);
             return StandardEnvironmentFactory.makeFlattenBuiltinFunctionType(new ListType(elementType));
         } else if ("sort".equals(functionName)) {
@@ -140,7 +140,7 @@ public class FunctionInvocationUtils {
         }
     }
 
-    private static Type nestedElementType(Expression<Type, DMNContext> expression) {
+    private static Type nestedElementType(Expression<Type> expression) {
         List<Type> primitiveTypes = new ArrayList<>();
         collectPrimitiveTypes(expression, primitiveTypes);
         Type upperBound = null;
@@ -163,10 +163,10 @@ public class FunctionInvocationUtils {
         return upperBound;
     }
 
-    private static void collectPrimitiveTypes(Expression<Type, DMNContext> expression, List<Type> types) {
+    private static void collectPrimitiveTypes(Expression<Type> expression, List<Type> types) {
         if (expression instanceof ListLiteral) {
-            List<Expression<Type, DMNContext>> expressionList = ((ListLiteral<Type, DMNContext>) expression).getExpressionList();
-            for (Expression<Type, DMNContext> exp: expressionList) {
+            List<Expression<Type>> expressionList = ((ListLiteral<Type>) expression).getExpressionList();
+            for (Expression<Type> exp: expressionList) {
                 collectPrimitiveTypes(exp, types);
             }
         } else {
@@ -180,8 +180,8 @@ public class FunctionInvocationUtils {
         }
     }
 
-    private static DeclarationMatch functionResolution(FunctionInvocation<Type, DMNContext> element, DMNContext context, String name) {
-        ParameterTypes<Type, DMNContext> parameterTypes = element.getParameters().getSignature();
+    private static DeclarationMatch functionResolution(FunctionInvocation<Type> element, DMNContext context, String name) {
+        ParameterTypes<Type> parameterTypes = element.getParameters().getSignature();
         List<DeclarationMatch> functionMatches = findFunctionMatches(element, context, name, parameterTypes);
         if (functionMatches.isEmpty()) {
             throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'. No match found.", name, parameterTypes));
@@ -192,7 +192,7 @@ public class FunctionInvocationUtils {
         }
     }
 
-    static void setInvocationType(FunctionInvocation<Type, DMNContext> element, Type functionType) {
+    static void setInvocationType(FunctionInvocation<Type> element, Type functionType) {
         if (functionType instanceof FunctionType) {
             element.setType(((FunctionType) functionType).getReturnType());
         } else {
@@ -200,7 +200,7 @@ public class FunctionInvocationUtils {
         }
     }
 
-    private static List<DeclarationMatch> findFunctionMatches(FunctionInvocation<Type, DMNContext> element, DMNContext context, String name, ParameterTypes<Type, DMNContext> parameterTypes) {
+    private static List<DeclarationMatch> findFunctionMatches(FunctionInvocation<Type> element, DMNContext context, String name, ParameterTypes<Type> parameterTypes) {
         List<Declaration> declarations = context.lookupFunctionDeclaration(name);
         // Phase 1: Look for candidates without conversions
         List<DeclarationMatch> matches = new ArrayList<>();
@@ -216,15 +216,15 @@ public class FunctionInvocationUtils {
         // Phase 2: Check for candidates after applying implicit conversions when types do not conform
         for (Declaration declaration : declarations) {
             FunctionType functionType = (FunctionType) declaration.getType();
-            List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> candidates = functionType.matchCandidates(parameterTypes);
-            for (Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>> candidate: candidates) {
-                ParameterTypes<Type, DMNContext> candidateParameterTypes = candidate.getLeft();
-                ParameterConversions<Type, DMNContext> candidateParameterConversions = candidate.getRight();
+            List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> candidates = functionType.matchCandidates(parameterTypes);
+            for (Pair<ParameterTypes<Type>, ParameterConversions<Type>> candidate: candidates) {
+                ParameterTypes<Type> candidateParameterTypes = candidate.getLeft();
+                ParameterConversions<Type> candidateParameterConversions = candidate.getRight();
                 if (element.getParameters() instanceof NamedParameters) {
                     // candidates are always positional
-                    List<FormalParameter<Type, DMNContext>> formalParameters = functionType.getParameters();
-                    ParameterTypes<Type, DMNContext> matchParameterTypes = NamedParameterTypes.toNamedParameterTypes((PositionalParameterTypes<Type, DMNContext>) candidateParameterTypes, formalParameters);
-                    NamedParameterConversions<Type, DMNContext> matchParameterConversions = NamedParameterConversions.toNamedParameterConversions((PositionalParameterConversions<Type, DMNContext>) candidateParameterConversions, formalParameters);
+                    List<FormalParameter<Type>> formalParameters = functionType.getParameters();
+                    ParameterTypes<Type> matchParameterTypes = NamedParameterTypes.toNamedParameterTypes((PositionalParameterTypes<Type>) candidateParameterTypes, formalParameters);
+                    NamedParameterConversions<Type> matchParameterConversions = NamedParameterConversions.toNamedParameterConversions((PositionalParameterConversions<Type>) candidateParameterConversions, formalParameters);
                     matches.add(makeDeclarationMatch(declaration, matchParameterTypes, matchParameterConversions));
                 } else {
                     matches.add(makeDeclarationMatch(declaration, candidateParameterTypes, candidateParameterConversions));
@@ -234,20 +234,20 @@ public class FunctionInvocationUtils {
         return matches;
     }
 
-    private static DeclarationMatch makeDeclarationMatch(FunctionInvocation<Type, DMNContext> element, Declaration functionDeclaration) {
+    private static DeclarationMatch makeDeclarationMatch(FunctionInvocation<Type> element, Declaration functionDeclaration) {
         FunctionType functionType = (FunctionType) functionDeclaration.getType();
-        Parameters<Type, DMNContext> parameters = element.getParameters();
-        ParameterTypes<Type, DMNContext> newParameterTypes = parameters.getSignature();
+        Parameters<Type> parameters = element.getParameters();
+        ParameterTypes<Type> newParameterTypes = parameters.getSignature();
         if (parameters instanceof NamedParameters) {
-            NamedParameterConversions<Type, DMNContext> parameterConversions = new NamedParameterConversions<>(functionType.getParameters());
+            NamedParameterConversions<Type> parameterConversions = new NamedParameterConversions<>(functionType.getParameters());
             return makeDeclarationMatch(functionDeclaration, newParameterTypes, parameterConversions);
         } else {
-            PositionalParameterConversions<Type, DMNContext> parameterConversions = new PositionalParameterConversions<>(functionType.getParameterTypes());
+            PositionalParameterConversions<Type> parameterConversions = new PositionalParameterConversions<>(functionType.getParameterTypes());
             return makeDeclarationMatch(functionDeclaration, newParameterTypes, parameterConversions);
         }
     }
 
-    private static DeclarationMatch makeDeclarationMatch(Declaration declaration, ParameterTypes<Type, DMNContext> newParameterTypes, ParameterConversions<Type, DMNContext> parameterConversions) {
+    private static DeclarationMatch makeDeclarationMatch(Declaration declaration, ParameterTypes<Type> newParameterTypes, ParameterConversions<Type> parameterConversions) {
         return new DeclarationMatch(declaration, newParameterTypes, parameterConversions);
     }
 }

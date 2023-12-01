@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PositionalArguments<T, C> extends Arguments<T, C> {
+public class PositionalArguments<T> extends Arguments<T> {
     private final List<Object> arguments;
 
     public PositionalArguments() {
@@ -38,7 +38,7 @@ public class PositionalArguments<T, C> extends Arguments<T, C> {
     }
 
     @Override
-    public List<Object> argumentList(List<FormalParameter<T, C>> formalParameters) {
+    public List<Object> argumentList(List<FormalParameter<T>> formalParameters) {
         return arguments;
     }
 }
