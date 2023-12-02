@@ -25,6 +25,15 @@ import org.slf4j.LoggerFactory;
 public abstract class SimpleDMNValidator implements DMNValidator {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SimpleDMNValidator.class);
 
+    public static String makeError(DMNModelRepository dmnModelRepository, TDefinitions definitions, TDMNElement element, String message) {
+        String location = dmnModelRepository.makeLocation(definitions, element);
+        if (location == null) {
+            return message;
+        } else {
+            return String.format("%s: error: %s", location, message);
+        }
+    }
+
     protected final ErrorHandler errorHandler = new LogErrorHandler(LOGGER);
     protected final BuildLogger logger;
 
@@ -34,14 +43,5 @@ public abstract class SimpleDMNValidator implements DMNValidator {
 
     protected SimpleDMNValidator(BuildLogger logger) {
         this.logger = logger;
-    }
-
-    protected String makeError(DMNModelRepository dmnModelRepository, TDefinitions definitions, TDMNElement element, String message) {
-        String location = dmnModelRepository.makeLocation(definitions, element);
-        if (location == null) {
-            return message;
-        } else {
-            return String.format("%s: error: %s", location, message);
-        }
     }
 }
