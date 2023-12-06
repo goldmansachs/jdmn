@@ -20,7 +20,7 @@ import java.util.List;
 @JsonPropertyOrder({
         "label"
 })
-public class Labels extends DMNBaseElement {
+public class Labels extends TCKBaseElement {
     protected List<String> label;
 
     public List<String> getLabel() {

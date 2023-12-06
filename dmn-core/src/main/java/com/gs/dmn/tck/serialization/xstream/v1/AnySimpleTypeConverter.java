@@ -15,7 +15,7 @@ package com.gs.dmn.tck.serialization.xstream.v1;
 import com.gs.dmn.serialization.xstream.CustomStaxReader;
 import com.gs.dmn.serialization.xstream.CustomStaxWriter;
 import com.gs.dmn.tck.ast.AnySimpleType;
-import com.gs.dmn.tck.ast.DMNBaseElement;
+import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -32,7 +32,7 @@ public class AnySimpleTypeConverter extends DMNBaseElementConverter {
     }
 
     @Override
-    protected DMNBaseElement createModelObject() {
+    protected TCKBaseElement createModelObject() {
         return new AnySimpleType();
     }
 

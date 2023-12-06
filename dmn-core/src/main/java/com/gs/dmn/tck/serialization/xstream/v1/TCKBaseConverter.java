@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.tck.serialization.xstream.v1;
 
-import com.gs.dmn.tck.ast.DMNBaseElement;
+import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.converters.collections.AbstractCollectionConverter;
@@ -20,14 +20,14 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.mapper.Mapper;
 
-public abstract class DMNBaseConverter extends AbstractCollectionConverter {
-    public DMNBaseConverter(Mapper mapper) {
+public abstract class TCKBaseConverter extends AbstractCollectionConverter {
+    public TCKBaseConverter(Mapper mapper) {
         super(mapper);
     }
 
     @Override
     public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
-        DMNBaseElement obj = createModelObject();
+        TCKBaseElement obj = createModelObject();
         assignAttributes(reader, obj);
         parseElements(reader, context, obj);
         return obj;
@@ -38,9 +38,9 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
             reader.moveDown();
             String nodeName = reader.getNodeName();
             Object object = readBareItem(reader, context,null);
-            if (object instanceof DMNBaseElement) {
-                ((DMNBaseElement) object).setParent((DMNBaseElement) parent);
-                ((DMNBaseElement) parent).addChildren((DMNBaseElement) object);
+            if (object instanceof TCKBaseElement) {
+                ((TCKBaseElement) object).setParent((TCKBaseElement) parent);
+                ((TCKBaseElement) parent).addChildren((TCKBaseElement) object);
             }
             reader.moveUp();
             assignChildElement(parent, nodeName, object);
@@ -65,7 +65,7 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
         writer.endNode();
     }
 
-    protected abstract DMNBaseElement createModelObject();
+    protected abstract TCKBaseElement createModelObject();
 
     protected abstract void assignChildElement(Object parent, String nodeName, Object child);
 

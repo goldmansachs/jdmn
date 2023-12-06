@@ -27,7 +27,7 @@ import java.util.Map;
         "labels",
         "testCase"
 })
-public class TestCases extends DMNBaseElement {
+public class TestCases extends TCKBaseElement {
     protected String modelName;
     protected Labels labels;
     protected List<TestCase> testCase;

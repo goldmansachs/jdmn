@@ -32,7 +32,7 @@ import java.util.Map;
         "resultNode",
         "extensionElements"
 })
-public class TestCase extends DMNBaseElement {
+public class TestCase extends TCKBaseElement {
     protected String description;
     protected List<InputNode> inputNode;
     protected List<ResultNode> resultNode;

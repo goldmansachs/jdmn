@@ -27,7 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public abstract class DMNBaseElementConverter extends DMNBaseConverter {
+public abstract class DMNBaseElementConverter extends TCKBaseConverter {
     private static final Logger LOG = LoggerFactory.getLogger(DMNBaseElementConverter.class);
 
     static final String EXTENSION_ELEMENTS = "extensionElements";
@@ -48,7 +48,7 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
 
     @Override
     protected void assignAttributes(HierarchicalStreamReader reader, Object parent) {
-        DMNBaseElement element = (DMNBaseElement) parent;
+        TCKBaseElement element = (TCKBaseElement) parent;
         CustomStaxReader customStaxReader = (CustomStaxReader) reader.underlyingReader();
         element.setElementInfo(customStaxReader.getElementInfo());
         setAdditionalAttributes(parent, customStaxReader.getAdditionalAttributes());
@@ -65,7 +65,7 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
 
     @Override
     protected void writeAttributes(HierarchicalStreamWriter writer, Object parent) {
-        DMNBaseElement element = (DMNBaseElement) parent;
+        TCKBaseElement element = (TCKBaseElement) parent;
 
         CustomStaxWriter staxWriter = ((CustomStaxWriter) writer.underlyingWriter());
         for (Entry<String, String> kv : element.getElementInfo().getNsContext().entrySet()) {

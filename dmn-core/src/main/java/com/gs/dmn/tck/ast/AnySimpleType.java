@@ -28,7 +28,7 @@ import static com.gs.dmn.serialization.DMNConstants.XSI_NS;
 @JsonPropertyOrder({
         "test"
 })
-public class AnySimpleType extends DMNBaseElement {
+public class AnySimpleType extends TCKBaseElement {
     public static AnySimpleType from(String localPart, String value, String prefix, String text) {
         AnySimpleType anySimpleType = new AnySimpleType();
         anySimpleType.getOtherAttributes().put(new QName(XSI_NS, localPart, prefix), value);

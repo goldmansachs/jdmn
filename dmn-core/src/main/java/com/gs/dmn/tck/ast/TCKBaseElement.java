@@ -22,13 +22,13 @@ import java.util.*;
 @JsonPropertyOrder({
         "elementInfo"
 })
-public abstract class DMNBaseElement implements Visitable {
+public abstract class TCKBaseElement implements Visitable {
     private ElementInfo elementInfo;
 
     @JsonIgnore
-    private DMNBaseElement parent;
+    private TCKBaseElement parent;
     @JsonIgnore
-    private final java.util.List<DMNBaseElement> children = new ArrayList<>();
+    private final java.util.List<TCKBaseElement> children = new ArrayList<>();
 
     public ElementInfo getElementInfo() {
         if (elementInfo == null) {
@@ -63,19 +63,19 @@ public abstract class DMNBaseElement implements Visitable {
         return Optional.empty();
     }
 
-    public DMNBaseElement getParent() {
+    public TCKBaseElement getParent() {
         return parent;
     }
 
-    public void setParent(DMNBaseElement parent) {
+    public void setParent(TCKBaseElement parent) {
         this.parent = parent;
     }
 
-    public List<DMNBaseElement> getChildren() {
+    public List<TCKBaseElement> getChildren() {
         return Collections.unmodifiableList(children);
     }
 
-    public void addChildren(DMNBaseElement child) {
+    public void addChildren(TCKBaseElement child) {
         this.children.add(child);
     }
 }

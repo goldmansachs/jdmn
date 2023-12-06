@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.tck.serialization.xstream.v1;
 
-import com.gs.dmn.tck.ast.DMNBaseElement;
+import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.List;
 import com.gs.dmn.tck.ast.ValueType;
 import com.thoughtworks.xstream.XStream;
@@ -33,7 +33,7 @@ public class ListConverter extends DMNBaseElementConverter {
     }
 
     @Override
-    protected DMNBaseElement createModelObject() {
+    protected TCKBaseElement createModelObject() {
         return new List();
     }
 

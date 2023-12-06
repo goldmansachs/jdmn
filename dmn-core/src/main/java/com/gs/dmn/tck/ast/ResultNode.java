@@ -28,7 +28,7 @@ import java.util.Map;
         "expected",
         "computed"
 })
-public class ResultNode extends DMNBaseElement {
+public class ResultNode extends TCKBaseElement {
     protected ValueType computed;
     protected ValueType expected;
     protected Boolean errorResult;

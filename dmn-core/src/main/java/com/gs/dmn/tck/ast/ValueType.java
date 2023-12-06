@@ -34,7 +34,7 @@ import java.util.Map;
         "list",
         "extensionElements"
 })
-public class ValueType extends DMNBaseElement {
+public class ValueType extends TCKBaseElement {
     protected AnySimpleType value;
     protected java.util.List<Component> component;
     protected List list;

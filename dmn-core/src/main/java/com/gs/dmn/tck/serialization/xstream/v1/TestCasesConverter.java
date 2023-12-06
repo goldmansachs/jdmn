@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.tck.serialization.xstream.v1;
 
-import com.gs.dmn.tck.ast.DMNBaseElement;
+import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.Labels;
 import com.gs.dmn.tck.ast.TestCase;
 import com.gs.dmn.tck.ast.TestCases;
@@ -40,7 +40,7 @@ public class TestCasesConverter extends DMNBaseElementConverter {
     }
 
     @Override
-    protected DMNBaseElement createModelObject() {
+    protected TCKBaseElement createModelObject() {
         return new TestCases();
     }
 

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 @JsonPropertyOrder({
         "item"
 })
-public class List extends DMNBaseElement {
+public class List extends TCKBaseElement {
     protected java.util.List<ValueType> item;
 
     public java.util.List<ValueType> getItem() {

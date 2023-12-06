@@ -20,7 +20,7 @@ import java.util.ArrayList;
 @JsonPropertyOrder({
         "any"
 })
-public class ExtensionElements extends DMNBaseElement {
+public class ExtensionElements extends TCKBaseElement {
     protected java.util.List<Object> any;
 
     /**
