@@ -70,7 +70,7 @@ public class MixedItemDefinitionsTransformer extends SimpleDMNTransformer<TestCa
     }
 }
 
-class MixedItemDefinitionsVisitor<C> extends DefaultDMNVisitor<C> {
+class MixedItemDefinitionsVisitor<C> extends TraversalVisitor<C> {
     @Override
     protected QName visitTypeRef(QName typeRef, C context) {
         if (typeRef != null) {

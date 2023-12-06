@@ -17,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpecialVariableTransformerVisitor<C> extends DefaultDMNVisitor<C> {
+public class SpecialVariableTransformerVisitor<C> extends TraversalVisitor<C> {
     public SpecialVariableTransformerVisitor() {
     }
 

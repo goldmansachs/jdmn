@@ -17,7 +17,7 @@ import com.gs.dmn.serialization.DMNVersion;
 import javax.xml.namespace.QName;
 import java.util.Map;
 
-public class DMNVersionTransformerVisitor<C> extends DefaultDMNVisitor<C> {
+public class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
     private final DMNVersion sourceVersion;
     private final DMNVersion targetVersion;
     private TDefinitions definitions;

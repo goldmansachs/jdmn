@@ -16,7 +16,7 @@ import com.gs.dmn.ast.dmndi.*;
 
 import javax.xml.namespace.QName;
 
-public class DefaultDMNVisitor<C> implements Visitor<C, Object> {
+public class TraversalVisitor<C> implements Visitor<C, Object> {
     //
     // DMN Elements
     //

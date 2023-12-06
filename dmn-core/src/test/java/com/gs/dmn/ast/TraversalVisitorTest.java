@@ -21,9 +21,9 @@ import java.io.FileReader;
 
 import static org.junit.Assert.assertNotNull;
 
-public class DefaultDMNVisitorTest {
+public class TraversalVisitorTest {
     private final DMNMarshaller marshaller = DMNMarshallerFactory.newDefaultMarshaller();
-    private final Visitor visitor = new DefaultDMNVisitor();
+    private final Visitor<?, Object> visitor = new TraversalVisitor<>();
 
     @Test
     public void visit() throws Exception {
