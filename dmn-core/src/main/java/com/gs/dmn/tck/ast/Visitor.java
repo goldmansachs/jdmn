@@ -12,31 +12,31 @@
  */
 package com.gs.dmn.tck.ast;
 
-public interface Visitor {
+public interface Visitor<C, R> {
     //
     // TCK Elements
     //
     // Test Cases
-    <C> Object visit(TestCases element, C context);
+    R visit(TestCases element, C context);
 
-    <C> Object visit(TestCase element, C context);
+    R visit(TestCase element, C context);
 
-    <C> Object visit(Labels element, C context);
+    R visit(Labels element, C context);
 
     // Nodes
-    <C> Object visit(InputNode element, C context);
+    R visit(InputNode element, C context);
 
-    <C> Object visit(ResultNode element, C context);
+    R visit(ResultNode element, C context);
 
     // Values
-    <C> Object visit(ValueType element, C context);
+    R visit(ValueType element, C context);
 
-    <C> Object visit(List element, C context);
+    R visit(List element, C context);
 
-    <C> Object visit(Component element, C context);
+    R visit(Component element, C context);
 
     // Extensions
-    <C> Object visit(ExtensionElements element, C context);
+    R visit(ExtensionElements element, C context);
 
-    <C> Object visit(AnySimpleType anySimpleType, C context);
+    R visit(AnySimpleType anySimpleType, C context);
 }
