@@ -20,8 +20,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class UniqueInformationRequirementValidatorTest extends AbstractValidatorTest {
-    private final UniqueInformationRequirementValidator validator = new UniqueInformationRequirementValidator();
+public class UniqueRequirementValidatorTest extends AbstractValidatorTest {
+    private final UniqueRequirementValidator validator = new UniqueRequirementValidator();
 
     @Test
     public void testValidateWhenCorrect() {
