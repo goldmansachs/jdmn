@@ -10,8 +10,9 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.ast;
+package com.gs.dmn.ast.visitor;
 
+import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.error.ErrorHandler;
 
@@ -27,7 +28,7 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
     //
     // Definitions
     @Override
-    public DMNBaseElement visit(TDefinitions  element, C context) {
+    public DMNBaseElement visit(TDefinitions element, C context) {
         visitTNamedElementProperties(element, context);
         for (TImport import_ : element.getImport()){
             import_.accept(this, context);

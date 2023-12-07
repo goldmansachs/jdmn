@@ -14,6 +14,7 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.log.BuildLogger;

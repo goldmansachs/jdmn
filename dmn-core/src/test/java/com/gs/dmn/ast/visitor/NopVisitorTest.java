@@ -10,8 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.ast;
+package com.gs.dmn.ast.visitor;
 
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.Visitor;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
@@ -20,11 +22,11 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileReader;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-public class TraversalVisitorTest {
+public class NopVisitorTest {
     private final DMNMarshaller marshaller = DMNMarshallerFactory.newDefaultMarshaller();
-    private final Visitor<?, Object> visitor = new TraversalVisitor<>(new NopErrorHandler());
+    private final Visitor<?, Object> visitor = new NopVisitor<>(new NopErrorHandler());
 
     @Test
     public void visit() throws Exception {
@@ -38,7 +40,7 @@ public class TraversalVisitorTest {
 
         File inputXMLFile = new File(baseInputDir, subDir + xmlFile);
         TDefinitions definitions = marshaller.unmarshal(new FileReader(inputXMLFile), true);
-        definitions.accept(visitor, null);
-        assertNotNull(definitions);
+        Object result = definitions.accept(visitor, null);
+        assertNull(result);
     }
 }
