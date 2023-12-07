@@ -22,7 +22,6 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.validation.table.Bound;
 import com.gs.dmn.validation.table.RuleGroup;
 import com.gs.dmn.validation.table.Table;
@@ -44,60 +43,63 @@ public class SweepRuleOverlapValidator extends SweepValidator {
     }
 
     @Override
-    protected void validate(TDRGElement element, TDecisionTable decisionTable, BasicDMNToJavaTransformer transformer, DMNModelRepository repository, List<String> errorReport) {
-        logger.debug(String.format("Validate element '%s'", element.getName()));
+    protected void validate(TDRGElement element, TDecisionTable decisionTable, ValidationContext context) {
+        if (element != null) {
+            logger.debug(String.format("Validating element '%s'", element.getName()));
 
-        // Find the overlapping rules
-        ELTranslator<Type, DMNContext> feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
-        List<Integer> ruleIndexList = new ArrayList<>();
-        int totalNumberOfRules = decisionTable.getRule().size();
-        for (int i = 0; i< totalNumberOfRules; i++) {
-            ruleIndexList.add(i);
-        }
-        int totalNumberOfColumns = decisionTable.getInput().size();
-        Table table = this.factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
+            // Find the overlapping rules
+            DMNModelRepository repository = context.getRepository();
+            ELTranslator<Type, DMNContext> feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
+            List<Integer> ruleIndexList = new ArrayList<>();
+            int totalNumberOfRules = decisionTable.getRule().size();
+            for (int i = 0; i< totalNumberOfRules; i++) {
+                ruleIndexList.add(i);
+            }
+            int totalNumberOfColumns = decisionTable.getInput().size();
+            Table table = this.factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
 
-        LOGGER.debug("Table {}", table);
+            logger.debug(String.format("Table '%s'", table));
 
-        ArrayList<RuleGroup> overlappingRules = new ArrayList<>();
-        if (!table.isEmpty()) {
-            findOverlappingRules(ruleIndexList, 0, totalNumberOfColumns, overlappingRules, table);
-        }
+            ArrayList<RuleGroup> overlappingRules = new ArrayList<>();
+            if (!table.isEmpty()) {
+                findOverlappingRules(ruleIndexList, 0, totalNumberOfColumns, overlappingRules, table);
+            }
 
-        LOGGER.debug("Overlapping rules {}", overlappingRules);
+            logger.debug(String.format("Overlapping rules '%s'", overlappingRules));
 
-        // Overlap graph
-        Map<Integer, Set<Integer>> neighbor = new LinkedHashMap<>();
-        for (RuleGroup ruleGroup: overlappingRules) {
-            List<Integer> ruleIndexes = ruleGroup.getRuleIndexes();
-            int size = ruleIndexes.size();
-            if (size > 1) {
-                for (int i = 0; i<size-1; i++) {
-                    int n1 = ruleIndexes.get(i);
-                    Set<Integer> n1Neighbor = neighbor.computeIfAbsent(n1, k -> new LinkedHashSet<>());
-                    for (int j=i+1; j<size; j++) {
-                        int n2 = ruleIndexes.get(j);
-                        Set<Integer> n2Neighbor = neighbor.computeIfAbsent(n2, k -> new LinkedHashSet<>());
-                        n1Neighbor.add(n2);
-                        n2Neighbor.add(n1);
+            // Overlap graph
+            Map<Integer, Set<Integer>> neighbor = new LinkedHashMap<>();
+            for (RuleGroup ruleGroup: overlappingRules) {
+                List<Integer> ruleIndexes = ruleGroup.getRuleIndexes();
+                int size = ruleIndexes.size();
+                if (size > 1) {
+                    for (int i = 0; i<size-1; i++) {
+                        int n1 = ruleIndexes.get(i);
+                        Set<Integer> n1Neighbor = neighbor.computeIfAbsent(n1, k -> new LinkedHashSet<>());
+                        for (int j=i+1; j<size; j++) {
+                            int n2 = ruleIndexes.get(j);
+                            Set<Integer> n2Neighbor = neighbor.computeIfAbsent(n2, k -> new LinkedHashSet<>());
+                            n1Neighbor.add(n2);
+                            n2Neighbor.add(n1);
+                        }
                     }
                 }
             }
-        }
 
-        LOGGER.debug("Overlap graph {}", neighbor);
+            logger.debug(String.format("Overlap graph '%s'", neighbor));
 
-        // Generate the maximal cliques of the overlap graph - Bron-Kerbosch
-        List<RuleGroup> maxCliques = new ArrayList<>();
-        maxCliquesBronKerbosch(new RuleGroup(), new RuleGroup(ruleIndexList), new RuleGroup(), neighbor, maxCliques);
+            // Generate the maximal cliques of the overlap graph - Bron-Kerbosch
+            List<RuleGroup> maxCliques = new ArrayList<>();
+            maxCliquesBronKerbosch(new RuleGroup(), new RuleGroup(ruleIndexList), new RuleGroup(), neighbor, maxCliques);
 
-        LOGGER.debug("Max cliques {}", maxCliques);
+            logger.debug(String.format("Max cliques '%s'", maxCliques));
 
-        // Make errors
-        maxCliques.sort(RuleGroup.COMPARATOR);
-        for (RuleGroup ruleGroup: maxCliques) {
-            String error = makeError(element, ruleGroup, repository);
-            errorReport.add(error);
+            // Make errors
+            maxCliques.sort(RuleGroup.COMPARATOR);
+            for (RuleGroup ruleGroup: maxCliques) {
+                String error = makeError(element, ruleGroup, repository);
+                context.addError(error);
+            }
         }
     }
 
@@ -130,7 +132,7 @@ public class SweepRuleOverlapValidator extends SweepValidator {
     //  return overlappingRuleList;
     private List<RuleGroup> findOverlappingRules(List<Integer> ruleList, int columnIndex, int inputColumnCount, List<RuleGroup> overlappingRuleList, Table table) {
         String indent = StringUtils.repeat("\t", columnIndex);
-        LOGGER.debug("{}findOverlappingRules column = '{}' active rules '{}' overlapping rules '{}'", indent, columnIndex, ruleList, overlappingRuleList);
+        logger.debug(String.format("%sfindOverlappingRules column = '%s' active rules '%s' overlapping rules '%s'", indent, columnIndex, ruleList, overlappingRuleList));
 
         if(columnIndex == inputColumnCount) {
             RuleGroup group = new RuleGroup(new ArrayList<>(ruleList));
@@ -141,20 +143,20 @@ public class SweepRuleOverlapValidator extends SweepValidator {
             // Project rules on column columnIndex
             List<Bound> sortedListAllBounds = makeBoundList(ruleList, columnIndex, table);
             for (Bound currentBound : sortedListAllBounds) {
-                LOGGER.debug("{}Current bound = '{}' active rules {}", indent, currentBound, lxi);
+                logger.debug(String.format("%sCurrent bound = '%s' active rules %s", indent, currentBound, lxi));
 
                 int ruleIndex = currentBound.getInterval().getRuleIndex();
                 if (!currentBound.isLowerBound()) {
                     List<RuleGroup> overlappingRules = findOverlappingRules(lxi, columnIndex + 1, inputColumnCount, overlappingRuleList, table);
 
-                    LOGGER.debug("{}Remove active rule {}", indent, ruleIndex);
+                    logger.debug(String.format("%sRemove active rule %s", indent, ruleIndex));
                     lxi.remove((Object) ruleIndex);
 
                     for (RuleGroup group : overlappingRules) {
                         addGroup(overlappingRuleList, group);
                     }
                 } else {
-                    LOGGER.debug("{}Add active rule {}", indent, ruleIndex);
+                    logger.debug(String.format("%sAdd active rule %s", indent, ruleIndex));
                     lxi.add(ruleIndex);
                 }
             }

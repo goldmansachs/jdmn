@@ -130,7 +130,7 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefVisitorContext> {
     }
 
     private void validate(TDRGElement element, TInformationItem variable, TypeRefVisitorContext context) {
-        logger.debug(String.format("Validate element '%s'", element.getName()));
+        logger.debug(String.format("Validating element '%s'", element.getName()));
 
         DMNModelRepository dmnModelRepository = context.getRepository();
         BasicDMNToJavaTransformer dmnTransformer = context.getDmnTransformer();

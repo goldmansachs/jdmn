@@ -86,7 +86,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         validateReferences(definitions, element, element.getEncapsulatedDecision(), context);
     }
 
-    void validateUnique(TDefinitions definitions, List<? extends TDMNElement> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElement, String> accessor, String errorMessage, ValidationContext context) {
+    protected void validateUnique(TDefinitions definitions, List<? extends TDMNElement> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElement, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
             errorMessage = String.format("The '%s' of a '%s' must be unique.", property, elementType);
         }
