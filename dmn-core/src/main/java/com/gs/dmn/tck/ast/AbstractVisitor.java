@@ -12,31 +12,12 @@
  */
 package com.gs.dmn.tck.ast;
 
-public interface Visitor<C, R> {
-    //
-    // TCK Elements
-    //
-    // Test Cases
-    R visit(TestCases element, C context);
+import com.gs.dmn.error.ErrorHandler;
 
-    R visit(TestCase element, C context);
+public abstract class AbstractVisitor<C, R> implements Visitor<C, R> {
+    protected final ErrorHandler errorHandler;
 
-    R visit(Labels element, C context);
-
-    // Nodes
-    R visit(InputNode element, C context);
-
-    R visit(ResultNode element, C context);
-
-    // Values
-    R visit(ValueType element, C context);
-
-    R visit(List element, C context);
-
-    R visit(Component element, C context);
-
-    // Extensions
-    R visit(ExtensionElements element, C context);
-
-    R visit(AnySimpleType element, C context);
+    public AbstractVisitor(ErrorHandler errorHandler) {
+        this.errorHandler = errorHandler;
+    }
 }
