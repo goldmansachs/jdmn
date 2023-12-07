@@ -38,19 +38,18 @@ public class UniqueNameValidator extends SimpleDMNValidator {
 
     @Override
     public List<String> validate(DMNModelRepository repository) {
-        ArrayList<String> errors = new ArrayList<>();
         if (isEmpty(repository)) {
             this.logger.warn("DMN repository is empty; validator will not run");
-            return errors;
+            return new ArrayList<>();
         }
 
-        ValidationContext validationContext = new ValidationContext(repository, errors);
+        ValidationContext context = new ValidationContext(repository);
         UniqueNameValidatorVisitor visitor = new UniqueNameValidatorVisitor(this.errorHandler, this.logger);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            definitions.accept(visitor, validationContext);
+            definitions.accept(visitor, context);
         }
 
-        return errors;
+        return context.getErrors();
     }
 }
 

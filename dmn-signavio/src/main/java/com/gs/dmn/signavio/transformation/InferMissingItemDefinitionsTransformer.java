@@ -71,7 +71,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
             logger.debug(String.format("Iteration: %d", iteration));
 
             itemDefinitionsToAdd.clear();
-            List<Pair<TDRGElement, Type>> errorReport = typeRefValidator.makeErrorReport(repository);
+            List<Pair<TDRGElement, Type>> errorReport = typeRefValidator.makeErrorReport(repository).getErrorReport();
             for (Pair<TDRGElement, Type> pair: errorReport) {
                 TDRGElement element = pair.getLeft();
                 Type type = pair.getRight();
@@ -133,8 +133,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
         try {
             Object object = Class.forName(dialectClassName).getDeclaredConstructor().newInstance();
             if (object instanceof DMNDialectDefinition) {
-                DMNDialectDefinition dmnDialect = (DMNDialectDefinition) object;
-                this.dmnDialect = dmnDialect;
+                this.dmnDialect = (DMNDialectDefinition) object;
                 this.typeRefValidator = new TypeRefValidator(this.dmnDialect);
             } else {
                 reportInvalidConfig(String.format("Incorrect DMN dialect name '%s'", dialectClassName));

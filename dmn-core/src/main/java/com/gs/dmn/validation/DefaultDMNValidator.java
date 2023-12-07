@@ -40,19 +40,18 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
 
     @Override
     public List<String> validate(DMNModelRepository repository) {
-        List<String> errors = new ArrayList<>();
+        ValidationContext context = new ValidationContext(repository);
         if (isEmpty(repository)) {
             this.logger.warn("DMN repository is empty; validator will not run");
-            return errors;
+            return context.getErrors();
         }
 
-        ValidationContext context = new ValidationContext(repository, errors);
         DefaultDMNValidatorVisitor visitor = new DefaultDMNValidatorVisitor(this.errorHandler, this.logger, this);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             definitions.accept(visitor, context);
         }
 
-        return errors;
+        return context.getErrors();
     }
 
     protected void validateInputData(TDefinitions definitions, TInputData element, ValidationContext context) {

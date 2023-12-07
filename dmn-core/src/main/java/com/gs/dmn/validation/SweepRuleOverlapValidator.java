@@ -39,17 +39,17 @@ public class SweepRuleOverlapValidator extends SweepValidator {
     }
 
     public SweepRuleOverlapValidator(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition) {
-        super(new Slf4jBuildLogger(LOGGER));
+        super(dmnDialectDefinition);
     }
 
     @Override
-    protected void validate(TDRGElement element, TDecisionTable decisionTable, ValidationContext context) {
+    protected void validate(TDRGElement element, TDecisionTable decisionTable, SweepValidationContext context) {
         if (element != null) {
             logger.debug(String.format("Validating element '%s'", element.getName()));
 
             // Find the overlapping rules
             DMNModelRepository repository = context.getRepository();
-            ELTranslator<Type, DMNContext> feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
+            ELTranslator<Type, DMNContext> feelTranslator = context.getElTranslator();
             List<Integer> ruleIndexList = new ArrayList<>();
             int totalNumberOfRules = decisionTable.getRule().size();
             for (int i = 0; i< totalNumberOfRules; i++) {

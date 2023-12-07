@@ -36,19 +36,18 @@ public class UniqueRequirementValidator extends SimpleDMNValidator {
 
     @Override
     public List<String> validate(DMNModelRepository repository) {
-        List<String> errors = new ArrayList<>();
         if (isEmpty(repository)) {
             logger.warn("DMN repository is empty; validator will not run");
-            return errors;
+            return new ArrayList<>();
         }
 
-        ValidationContext validationContext = new ValidationContext(repository, errors);
+        ValidationContext context = new ValidationContext(repository);
         UniqueRequirementValidatorVisitor visitor = new UniqueRequirementValidatorVisitor(this.errorHandler, this.logger);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            definitions.accept(visitor, validationContext);
+            definitions.accept(visitor, context);
         }
 
-        return errors;
+        return context.getErrors();
     }
 }
 

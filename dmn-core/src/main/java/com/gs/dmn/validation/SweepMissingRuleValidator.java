@@ -52,12 +52,12 @@ public class SweepMissingRuleValidator extends SweepValidator {
     }
 
     @Override
-    protected void validate(TDRGElement element, TDecisionTable decisionTable, ValidationContext context) {
+    protected void validate(TDRGElement element, TDecisionTable decisionTable, SweepValidationContext context) {
         if (element != null) {
             logger.debug(String.format("Validating element '%s'", element.getName()));
 
             DMNModelRepository repository = context.getRepository();
-            ELTranslator<Type, DMNContext> feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
+            ELTranslator<Type, DMNContext> feelTranslator = context.getElTranslator();
             List<Integer> ruleIndex = new ArrayList<>();
             int totalNumberOfRules = decisionTable.getRule().size();
             for (int i = 0; i< totalNumberOfRules; i++) {

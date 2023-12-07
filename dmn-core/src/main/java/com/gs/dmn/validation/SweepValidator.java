@@ -15,8 +15,11 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -59,7 +62,13 @@ public abstract class SweepValidator extends SimpleDMNValidator {
             return new ArrayList<>();
         }
 
-        return makeErrorReport(dmnModelRepository);
+        ELTranslator<Type, DMNContext> feelTranslator = this.dmnDialectDefinition.createFEELTranslator(dmnModelRepository, this.inputParameters);
+        SweepValidationContext context = new SweepValidationContext(dmnModelRepository, feelTranslator);
+        SweepValidatorVisitor visitor = new SweepValidatorVisitor(this.errorHandler, this.logger, this);
+        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
+            definitions.accept(visitor, context);
+        }
+        return context.getErrors();
     }
 
     private Map<String, String> makeInputParametersMap() {
@@ -70,26 +79,16 @@ public abstract class SweepValidator extends SimpleDMNValidator {
         return inputParams;
     }
 
-    public List<String> makeErrorReport(DMNModelRepository dmnModelRepository) {
-        List<String> errorReport = new ArrayList<>();
-        ValidationContext context = new ValidationContext(dmnModelRepository, errorReport);
-        SweepValidatorVisitor visitor = new SweepValidatorVisitor(this.errorHandler, this.logger, this);
-        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
-            definitions.accept(visitor, context);
-        }
-        return errorReport;
-    }
-
     protected List<Bound> makeBoundList(List<Integer> ruleList, int columnIndex, Table table) {
         BoundList boundList = new BoundList(ruleList, columnIndex, table);
         boundList.sort();
         return boundList.getBounds();
     }
 
-    protected abstract void validate(TDRGElement element, TDecisionTable decisionTable, ValidationContext context);
+    protected abstract void validate(TDRGElement element, TDecisionTable decisionTable, SweepValidationContext context);
 }
 
-class SweepValidatorVisitor extends TraversalVisitor<ValidationContext> {
+class SweepValidatorVisitor extends TraversalVisitor<SweepValidationContext> {
     private final BuildLogger logger;
     private final SweepValidator validator;
 
@@ -100,9 +99,9 @@ class SweepValidatorVisitor extends TraversalVisitor<ValidationContext> {
     }
 
     @Override
-    public DMNBaseElement visit(TDecision element, ValidationContext context) {
+    public DMNBaseElement visit(TDecision element, SweepValidationContext context) {
         if (element != null) {
-            logger.debug(String.format("Validating element '%s'", element.getName()));
+            this.logger.debug(String.format("Validating element '%s'", element.getName()));
             TExpression expression = element.getExpression();
             if (expression instanceof TDecisionTable && ((TDecisionTable) expression).getHitPolicy() == THitPolicy.UNIQUE) {
                 this.validator.validate(element, (TDecisionTable) expression, context);

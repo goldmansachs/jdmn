@@ -46,12 +46,12 @@ public class SweepMissingIntervalValidator extends SweepValidator {
     }
 
     @Override
-    protected void validate(TDRGElement element, TDecisionTable decisionTable, ValidationContext context) {
+    protected void validate(TDRGElement element, TDecisionTable decisionTable, SweepValidationContext context) {
         if (element != null) {
             DMNModelRepository repository = context.getRepository();
+            ELTranslator<Type, DMNContext> elTranslator = context.getElTranslator();
             logger.debug(String.format("Validating element '%s'", element.getName()));
 
-            ELTranslator<Type, DMNContext> feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
             List<Integer> ruleIndex = new ArrayList<>();
             int totalNumberOfRules = decisionTable.getRule().size();
             for (int i = 0; i< totalNumberOfRules; i++) {
@@ -59,7 +59,7 @@ public class SweepMissingIntervalValidator extends SweepValidator {
             }
             MissingIntervals missingIntervals = new MissingIntervals();
             int totalNumberOfColumns = decisionTable.getInput().size();
-            Table table = this.factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
+            Table table = this.factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, elTranslator);
             if (!table.isEmpty()) {
                 findMissingIntervals(ruleIndex, totalNumberOfColumns, missingIntervals, table);
 

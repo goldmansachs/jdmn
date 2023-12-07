@@ -13,31 +13,19 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
-import org.apache.commons.lang3.StringUtils;
+import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.synthesis.ELTranslator;
 
-import java.util.ArrayList;
-import java.util.List;
+public class SweepValidationContext extends ValidationContext {
+    private final ELTranslator<Type, DMNContext> elTranslator;
 
-public class ValidationContext {
-    protected final DMNModelRepository repository;
-    protected final List<String> errors;
-
-    public ValidationContext(DMNModelRepository repository) {
-        this.repository = repository;
-        this.errors = new ArrayList<>();
+    public SweepValidationContext(DMNModelRepository repository, ELTranslator<Type, DMNContext> elTranslator) {
+        super(repository);
+        this.elTranslator = elTranslator;
     }
 
-    public DMNModelRepository getRepository() {
-        return repository;
-    }
-
-    public List<String> getErrors() {
-        return errors;
-    }
-
-    public void addError(String error) {
-        if (StringUtils.isNotBlank(error)) {
-            this.errors.add(error);
-        }
+    public ELTranslator<Type, DMNContext> getElTranslator() {
+        return elTranslator;
     }
 }
