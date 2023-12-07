@@ -10,9 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.tck.ast;
+package com.gs.dmn.tck.ast.visitor;
 
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.tck.ast.*;
 
 public class TraversalVisitor<C> extends AbstractVisitor<C, TCKBaseElement> {
     public TraversalVisitor(ErrorHandler errorHandler) {
@@ -26,7 +27,7 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, TCKBaseElement> {
             if (labels != null) {
                 labels.accept(this, context);
             }
-            element.testCase.forEach( e -> e.accept(this, context) );
+            element.getTestCase().forEach( e -> e.accept(this, context) );
         }
         return element;
     }
@@ -34,7 +35,7 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, TCKBaseElement> {
     @Override
     public TCKBaseElement visit(TestCase element, C context) {
         if (element != null) {
-            visitExtensionElements(element.extensionElements, context);
+            visitExtensionElements(element.getExtensionElements(), context);
             element.getInputNode().forEach( e -> e.accept(this, context) );
             element.getResultNode().forEach(e -> e.accept(this, context) );
         }
@@ -68,10 +69,10 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, TCKBaseElement> {
     @Override
     public TCKBaseElement visit(ValueType element, C context) {
         if (element != null) {
-            visitExtensionElements(element.extensionElements, context);
+            visitExtensionElements(element.getExtensionElements(), context);
             visitValue(element.getValue(), context);
-            visitComponents(element.component, context);
-            visitList(element.list, context);
+            visitComponents(element.getComponent(), context);
+            visitList(element.getList(), context);
         }
         return element;
     }
@@ -79,7 +80,7 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, TCKBaseElement> {
     @Override
     public TCKBaseElement visit(List element, C context) {
         if (element != null) {
-            element.item.forEach( e -> e.accept(this, context));
+            element.getItem().forEach( e -> e.accept(this, context));
         }
         return element;
     }
@@ -87,10 +88,10 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, TCKBaseElement> {
     @Override
     public TCKBaseElement visit(Component element, C context) {
         if (element != null) {
-            visitExtensionElements(element.extensionElements, context);
-            visitValue(element.value, context);
-            visitComponents(element.component, context);
-            visitList(element.list, context);
+            visitExtensionElements(element.getExtensionElements(), context);
+            visitValue(element.getValue(), context);
+            visitComponents(element.getComponent(), context);
+            visitList(element.getList(), context);
         }
         return element;
     }

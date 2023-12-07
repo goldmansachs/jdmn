@@ -10,9 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.tck.ast;
+package com.gs.dmn.tck.ast.visitor;
 
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.tck.ast.Visitor;
 
 public abstract class AbstractVisitor<C, R> implements Visitor<C, R> {
     protected final ErrorHandler errorHandler;

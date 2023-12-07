@@ -10,9 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.tck.ast;
+package com.gs.dmn.tck.ast.visitor;
 
 import com.gs.dmn.error.NopErrorHandler;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
 import com.gs.dmn.tck.serialization.xstream.TCKMarshallerFactory;
 import org.junit.Test;
@@ -20,7 +21,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileReader;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 public class TraversalVisitorTest {
     private final TraversalVisitor<?> visitor = new TraversalVisitor<>(new NopErrorHandler());
