@@ -18,25 +18,20 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.tck.ast.TestCases;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.namespace.QName;
 import java.util.List;
 
 public class MixedItemDefinitionsTransformer extends SimpleDMNTransformer<TestCases> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MixedItemDefinitionsTransformer.class);
-
-    private final BuildLogger logger;
     private boolean transformRepository = true;
-    private final Visitor visitor = new MixedItemDefinitionsVisitor();
+    private final Visitor<?, Object> visitor = new MixedItemDefinitionsVisitor<>();
 
     public MixedItemDefinitionsTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     public MixedItemDefinitionsTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override
@@ -62,7 +57,7 @@ public class MixedItemDefinitionsTransformer extends SimpleDMNTransformer<TestCa
         }
 
         // Transform model
-        if (transformRepository) {
+        if (this.transformRepository) {
             transform(repository);
         }
 

@@ -22,15 +22,11 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.config.Correction;
 import com.gs.dmn.signavio.transformation.config.DecisionTableCorrection;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<TestLab> {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(CorrectPathsInDecisionsTransformer.class);
-
     private static final String CORRECTIONS_TAG = "corrections";
     private static final String CORRECTION_TAG = "correction";
     private static final String NAME_TAG = "name";
@@ -39,16 +35,14 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
     private static final String INPUT_INDEXES_TAG = "inputClauseIndexes";
     private static final String RULE_INDEXES_TAG = "ruleIndexes";
 
-    protected final BuildLogger logger;
-    protected boolean transformRepository = true;
     protected List<Correction> corrections;
 
     public CorrectPathsInDecisionsTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
-    protected CorrectPathsInDecisionsTransformer(BuildLogger logger) {
-        this.logger = logger;
+    public CorrectPathsInDecisionsTransformer(BuildLogger logger) {
+        super(logger);
     }
 
     @Override

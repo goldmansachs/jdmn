@@ -24,16 +24,12 @@ import com.gs.dmn.signavio.testlab.TestCase;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.testlab.expression.Expression;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransformer<TestLab> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractMergeInputDataTransformer.class);
     private static final String FORCE_MERGE = "forceMerge";
 
-    private final BuildLogger logger;
     private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
     private boolean forceMerge = true;
 
@@ -41,8 +37,8 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
         this(new Slf4jBuildLogger(LOGGER));
     }
 
-    public AbstractMergeInputDataTransformer(BuildLogger logger) {
-        this.logger = logger;
+    protected AbstractMergeInputDataTransformer(BuildLogger logger) {
+        super(logger);
     }
 
     @Override
@@ -65,6 +61,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
         }
 
         this.inputDataClasses = new LinkedHashMap<>();
+        this.transformRepository = false;
         return mergeInputData(repository, logger);
     }
 
@@ -76,7 +73,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
         }
 
         // Transform model
-        if (inputDataClasses == null) {
+        if (this.transformRepository) {
             transform(repository);
         }
 

@@ -13,32 +13,26 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.TDMNElementReference;
+import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TInformationRequirement;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UniqueInformationRequirementTransformer extends SimpleDMNTransformer<TestLab> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UniqueInformationRequirementTransformer.class);
-
-    private final BuildLogger logger;
-    private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
-
     public UniqueInformationRequirementTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     public UniqueInformationRequirementTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override
@@ -48,7 +42,7 @@ public class UniqueInformationRequirementTransformer extends SimpleDMNTransforme
             return repository;
         }
 
-        this.inputDataClasses = new LinkedHashMap<>();
+        this.transformRepository = false;
         return removeDuplicateInformationRequirements(repository, logger);
     }
 
@@ -60,7 +54,7 @@ public class UniqueInformationRequirementTransformer extends SimpleDMNTransforme
         }
 
         // Transform model
-        if (inputDataClasses == null) {
+        if (this.transformRepository) {
             transform(repository);
         }
 

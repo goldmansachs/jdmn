@@ -20,15 +20,12 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RuleDescriptionTransformer.class);
     private static final Map<String, String> PATTERNS = new LinkedHashMap<>();
     static {
         PATTERNS.put("[ ,", "[");
@@ -40,15 +37,12 @@ public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
         PATTERNS.put("\u00A0", " ");
     }
 
-    private final BuildLogger logger;
-    private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
-
     public RuleDescriptionTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     public RuleDescriptionTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override
@@ -58,7 +52,7 @@ public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
             return repository;
         }
 
-        this.inputDataClasses = new LinkedHashMap<>();
+        this.transformRepository = false;
         return cleanRuleDescription(repository, logger);
     }
 
@@ -70,7 +64,7 @@ public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
         }
 
         // Transform model
-        if (inputDataClasses == null) {
+        if (this.transformRepository) {
             transform(repository);
         }
 

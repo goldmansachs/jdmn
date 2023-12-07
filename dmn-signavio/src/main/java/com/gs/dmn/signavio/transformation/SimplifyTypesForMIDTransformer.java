@@ -16,7 +16,6 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.ast.TInputData;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
@@ -34,27 +33,20 @@ import com.gs.dmn.transformation.SimpleDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.namespace.QName;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SimplifyTypesForMIDTransformer.class);
     private static final DMNDialectDefinition<?, ?, ?, ?, ?, ?> SIGNAVIO_DIALECT = new SignavioDMNDialectDefinition();
-
-    private final BuildLogger logger;
-    private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
 
     public SimplifyTypesForMIDTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     public SimplifyTypesForMIDTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override
@@ -64,7 +56,7 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
             return repository;
         }
 
-        this.inputDataClasses = new LinkedHashMap<>();
+        this.transformRepository = false;
         return removeDuplicateInformationRequirements(repository, logger);
     }
 
@@ -76,7 +68,7 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
         }
 
         // Transform model
-        if (inputDataClasses == null) {
+        if (transformRepository) {
             transform(repository);
         }
 

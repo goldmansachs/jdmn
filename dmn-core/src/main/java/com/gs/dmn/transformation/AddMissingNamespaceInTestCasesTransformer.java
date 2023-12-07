@@ -13,7 +13,8 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
@@ -22,23 +23,16 @@ import com.gs.dmn.tck.ast.ResultNode;
 import com.gs.dmn.tck.ast.TestCase;
 import com.gs.dmn.tck.ast.TestCases;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class AddMissingNamespaceInTestCasesTransformer extends SimpleDMNTransformer<TestCases> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AddMissingNamespaceInTestCasesTransformer.class);
-
-    private final BuildLogger logger;
-    private boolean transformRepository = true;
-
     public AddMissingNamespaceInTestCasesTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     public AddMissingNamespaceInTestCasesTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override
@@ -60,7 +54,7 @@ public class AddMissingNamespaceInTestCasesTransformer extends SimpleDMNTransfor
         }
 
         // Transform model
-        if (transformRepository) {
+        if (this.transformRepository) {
             transform(repository);
         }
 

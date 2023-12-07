@@ -20,8 +20,6 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.tck.ast.*;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -31,12 +29,9 @@ import java.util.Set;
 import static com.gs.dmn.feel.analysis.scanner.ContextDependentFEELLexer.*;
 
 public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NameTransformer.class);
     private DMNModelRepository repository;
 
-    protected final BuildLogger logger;
-    private boolean transformDefinition = true;
-    private boolean renameElements = false;
+    private final boolean renameElements = false;
     private final Set<TDMNElement> renamedElements = new LinkedHashSet<>();
 
     protected NameTransformer() {
@@ -44,7 +39,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     protected NameTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override
@@ -56,7 +51,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
 
         this.repository = repository;
         transformDefinitions(repository);
-        this.transformDefinition = false;
+        this.transformRepository = false;
         return repository;
     }
 
@@ -68,7 +63,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
 
         // Transform model
-        if (transformDefinition) {
+        if (this.transformRepository) {
             transform(repository);
         }
 

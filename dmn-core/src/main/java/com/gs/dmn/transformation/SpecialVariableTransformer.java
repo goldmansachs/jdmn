@@ -20,25 +20,18 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.tck.ast.TestCases;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class SpecialVariableTransformer extends SimpleDMNTransformer<TestCases> {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(SpecialVariableTransformer.class);
-
-    protected final BuildLogger logger;
-    protected boolean transformRepository = true;
-
-    private final Visitor visitor = new SpecialVariableTransformerVisitor();
+    private final Visitor<?, Object> visitor = new SpecialVariableTransformerVisitor<>();
 
     public SpecialVariableTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     protected SpecialVariableTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override

@@ -26,8 +26,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.ZoneOffset;
 import java.time.temporal.Temporal;
@@ -35,19 +33,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NormalizeDateTimeLiteralsTransformer extends SimpleDMNTransformer<TestLab> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NormalizeDateTimeLiteralsTransformer.class);
-
-    private final BuildLogger logger;
-    private boolean transformRepository = true;
-
-    private MixedJavaTimeFEELLib feelLib = new MixedJavaTimeFEELLib();
+    private final MixedJavaTimeFEELLib feelLib = new MixedJavaTimeFEELLib();
 
     public NormalizeDateTimeLiteralsTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     public NormalizeDateTimeLiteralsTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override
