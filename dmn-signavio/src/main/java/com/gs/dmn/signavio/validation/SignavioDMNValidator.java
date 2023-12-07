@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.validation.DefaultDMNValidator;
+import com.gs.dmn.validation.ValidationContext;
 import org.w3c.dom.Element;
 
 import java.util.List;
@@ -24,40 +25,41 @@ public class SignavioDMNValidator extends DefaultDMNValidator {
     }
 
     @Override
-    protected void validateBusinessKnowledgeModel(DMNModelRepository repository, TDefinitions definitions, TBusinessKnowledgeModel knowledgeModel, List<String> errors) {
-        super.validateBusinessKnowledgeModel(repository, definitions, knowledgeModel, errors);
+    protected void validateBusinessKnowledgeModel(TDefinitions definitions, TBusinessKnowledgeModel knowledgeModel, ValidationContext context) {
+        super.validateBusinessKnowledgeModel(definitions, knowledgeModel, context);
 
         // Validate encapsulated logic
         TFunctionDefinition encapsulatedLogic = knowledgeModel.getEncapsulatedLogic();
         TDMNElement.ExtensionElements extensionElements = knowledgeModel.getExtensionElements();
         if (encapsulatedLogic == null && extensionElements == null) {
             String errorMessage = "Missing encapsulatedLogic";
-            errors.add(makeError(repository, definitions, knowledgeModel, errorMessage));
+            context.addError(makeError(context.getRepository(), definitions, knowledgeModel, errorMessage));
         }
     }
 
     @Override
-    protected void validateDecision(DMNModelRepository repository, TDefinitions definitions, TDecision decision, List<String> errors) {
-        super.validateDecision(repository, definitions, decision, errors);
+    protected void validateDecision(TDefinitions definitions, TDecision decision, ValidationContext context) {
+        super.validateDecision(definitions, decision, context);
         // Validate extensions
-        validateExtensionElements(repository, definitions, decision, errors);
+        validateExtensionElements(definitions, decision, context);
     }
 
-    private void validateExtensionElements(DMNModelRepository repository, TDefinitions definitions, TDecision decision, List<String> errors) {
+    private void validateExtensionElements(TDefinitions definitions, TDecision decision, ValidationContext context) {
         TDMNElement.ExtensionElements extensionElements = decision.getExtensionElements();
         if (extensionElements != null) {
             List<Object> any = extensionElements.getAny();
             if (any != null) {
                 for (Object obj : any) {
+                    DMNModelRepository repository = context.getRepository();
                     if (obj instanceof Element) {
                         String nodeName = ((Element) obj).getNodeName();
                         if (!"MultiInstanceDecisionLogic".equals(nodeName)) {
                             String errorMessage = String.format("Extension '%s' not supported", obj);
-                            errors.add(makeError(repository, definitions, decision, errorMessage));
+                            context.addError(makeError(repository, definitions, decision, errorMessage));
                         }
                     } else {
                         String errorMessage = String.format("Extension '%s' not supported", obj);
-                        errors.add(makeError(repository, definitions, decision, errorMessage));
+                        context.addError(makeError(repository, definitions, decision, errorMessage));
                     }
                 }
             }
