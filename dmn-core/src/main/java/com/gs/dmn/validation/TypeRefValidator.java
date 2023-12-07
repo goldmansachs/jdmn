@@ -16,6 +16,7 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
@@ -40,7 +41,7 @@ import java.util.stream.Collectors;
 
 public class TypeRefValidator extends SimpleDMNValidator {
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition;
-    private InputParameters inputParameters;
+    private final InputParameters inputParameters;
 
     public TypeRefValidator() {
         this(new Slf4jBuildLogger(LOGGER));
@@ -69,12 +70,15 @@ public class TypeRefValidator extends SimpleDMNValidator {
         return errorReport.stream().map(p -> makeError(p, dmnModelRepository)).collect(Collectors.toList());
     }
 
-    private Map<String, String> makeInputParametersMap() {
-        Map<String, String> inputParams = new LinkedHashMap<>();
-        inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "2.0");
-        inputParams.put("platformVersion", "1.0");
-        return inputParams;
+    public List<Pair<TDRGElement, Type>> makeErrorReport(DMNModelRepository dmnModelRepository) {
+        List<Pair<TDRGElement, Type>> errorReport = new ArrayList<>();
+        BasicDMNToJavaTransformer dmnTransformer = this.dmnDialectDefinition.createBasicTransformer(dmnModelRepository, new NopLazyEvaluationDetector(), this.inputParameters);
+        TypeRefVisitorContext context = new TypeRefVisitorContext(dmnModelRepository, dmnTransformer, errorReport);
+        TypeRefValidatorVisitor visitor = new TypeRefValidatorVisitor(this.errorHandler, this.logger);
+        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
+            definitions.accept(visitor, context);
+        }
+        return errorReport;
     }
 
     private String makeError(Pair<TDRGElement, Type> pair, DMNModelRepository repository) {
@@ -84,30 +88,53 @@ public class TypeRefValidator extends SimpleDMNValidator {
         TInformationItem variable = repository.variable(element);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
 
-        String hint = com.gs.dmn.el.analysis.semantics.type.Type.isNull(type) ? "" : String.format(". The inferred type is '%s'", type.toString());
+        String hint = com.gs.dmn.el.analysis.semantics.type.Type.isNull(type) ? "" : String.format(". The inferred type is '%s'", type);
         return makeError(repository, model, element, String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint);
     }
 
-    public List<Pair<TDRGElement, Type>> makeErrorReport(DMNModelRepository dmnModelRepository) {
-        List<Pair<TDRGElement, Type>> errorReport = new ArrayList<>();
-        BasicDMNToJavaTransformer dmnTransformer = this.dmnDialectDefinition.createBasicTransformer(dmnModelRepository, new NopLazyEvaluationDetector(), this.inputParameters);
-        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
-            List<TDRGElement> drgElements = dmnModelRepository.findDRGElements(definitions);
-            for (TDRGElement element: drgElements) {
-                if (element instanceof TInputData) {
-                    TInformationItem variable = ((TInputData) element).getVariable();
-                    validate(element, variable, dmnTransformer, dmnModelRepository, errorReport);
-                } else if (element instanceof TDecision) {
-                    TInformationItem variable = ((TDecision) element).getVariable();
-                    validate(element, variable, dmnTransformer, dmnModelRepository, errorReport);
-                }
-            }
-        }
-        return errorReport;
+    private Map<String, String> makeInputParametersMap() {
+        Map<String, String> inputParams = new LinkedHashMap<>();
+        inputParams.put("dmnVersion", "1.1");
+        inputParams.put("modelVersion", "2.0");
+        inputParams.put("platformVersion", "1.0");
+        return inputParams;
+    }
+}
+
+class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefVisitorContext> {
+    private final BuildLogger logger;
+
+    public TypeRefValidatorVisitor(ErrorHandler errorHandler, BuildLogger logger) {
+        super(errorHandler);
+        this.logger = logger;
     }
 
-    private void validate(TDRGElement element, TInformationItem variable, BasicDMNToJavaTransformer dmnTransformer, DMNModelRepository dmnModelRepository, List<Pair<TDRGElement, Type>> errorReport) {
+    @Override
+    public DMNBaseElement visit(TInputData element, TypeRefVisitorContext context) {
+        if (element != null) {
+            TInformationItem variable = element.getVariable();
+            validate(element, variable, context);
+        }
+
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecision element, TypeRefVisitorContext context) {
+        if (element != null) {
+            TInformationItem variable = element.getVariable();
+            validate(element, variable, context);
+        }
+
+        return element;
+    }
+
+    private void validate(TDRGElement element, TInformationItem variable, TypeRefVisitorContext context) {
         logger.debug(String.format("Validate element '%s'", element.getName()));
+
+        DMNModelRepository dmnModelRepository = context.getRepository();
+        BasicDMNToJavaTransformer dmnTransformer = context.getDmnTransformer();
+        List<Pair<TDRGElement, Type>> errorReport = context.getErrorReport();
 
         TDefinitions model = dmnModelRepository.getModel(element);
         DMNEnvironmentFactory dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
@@ -149,5 +176,29 @@ public class TypeRefValidator extends SimpleDMNValidator {
 
     private boolean isPrimitiveType(String name) {
         return FEELTypes.FEEL_TYPE_NAMES.contains(name) || name.startsWith(DMNVersion.DMN_12.getFeelPrefix());
+    }
+}
+
+class TypeRefVisitorContext {
+    private final DMNModelRepository repository;
+    private final BasicDMNToJavaTransformer dmnTransformer;
+    private final List<Pair<TDRGElement, Type>> errorReport;
+
+    public TypeRefVisitorContext(DMNModelRepository repository, BasicDMNToJavaTransformer dmnTransformer, List<Pair<TDRGElement, Type>> errorReport) {
+        this.repository = repository;
+        this.dmnTransformer = dmnTransformer;
+        this.errorReport = errorReport;
+    }
+
+    public DMNModelRepository getRepository() {
+        return repository;
+    }
+
+    public BasicDMNToJavaTransformer getDmnTransformer() {
+        return dmnTransformer;
+    }
+
+    public List<Pair<TDRGElement, Type>> getErrorReport() {
+        return errorReport;
     }
 }
