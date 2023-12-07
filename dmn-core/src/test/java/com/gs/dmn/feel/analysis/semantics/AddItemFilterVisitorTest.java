@@ -10,18 +10,20 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast;
+package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.NopErrorHandler;
-import com.gs.dmn.feel.analysis.semantics.AddItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
+import com.gs.dmn.feel.analysis.syntax.ast.Element;
+import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.PathExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.visitor.BaseVisitorTest;
 import org.junit.Test;
 
 import java.util.Arrays;

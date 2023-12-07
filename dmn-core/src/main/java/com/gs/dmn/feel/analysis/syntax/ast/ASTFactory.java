@@ -33,6 +33,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
+import com.gs.dmn.feel.analysis.syntax.ast.visitor.ContainsNameVisitor;
 import com.gs.dmn.runtime.Pair;
 import org.apache.commons.lang3.StringUtils;
 

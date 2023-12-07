@@ -10,11 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics;
+package com.gs.dmn.feel.analysis.syntax.ast.visitor;
 
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
-import com.gs.dmn.feel.analysis.syntax.ast.TraversalVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 
 import java.util.LinkedHashSet;

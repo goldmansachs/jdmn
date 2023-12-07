@@ -25,7 +25,6 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.triple.Triple;
 import com.gs.dmn.el.synthesis.triple.Triples;
 import com.gs.dmn.feel.OperatorDecisionTable;
-import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;

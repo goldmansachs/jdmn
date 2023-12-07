@@ -10,10 +10,11 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast;
+package com.gs.dmn.feel.analysis.syntax.ast.visitor;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.error.NopErrorHandler;
+import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.test.EndpointsRange;
 import com.gs.dmn.feel.analysis.syntax.ast.test.OperatorRange;

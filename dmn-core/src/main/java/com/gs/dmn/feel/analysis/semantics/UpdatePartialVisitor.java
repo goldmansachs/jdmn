@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.feel.analysis.syntax.ast.CloneVisitor;
+import com.gs.dmn.feel.analysis.syntax.ast.visitor.CloneVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression;

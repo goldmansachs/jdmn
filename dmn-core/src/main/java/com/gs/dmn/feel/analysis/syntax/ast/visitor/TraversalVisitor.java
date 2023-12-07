@@ -10,9 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast;
+package com.gs.dmn.feel.analysis.syntax.ast.visitor;
 
-import com.gs.dmn.error.NopErrorHandler;
+import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.ArithmeticNegation;
@@ -33,9 +34,9 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
-public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
-    public NopVisitor() {
-        super(NopErrorHandler.INSTANCE);
+public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
+    public TraversalVisitor(ErrorHandler errorHandler) {
+        super(errorHandler);
     }
 
     //
@@ -43,11 +44,21 @@ public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     //
     @Override
     public Element<T> visit(PositiveUnaryTests<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+        
+        element.getPositiveUnaryTests().forEach(ut -> ut.accept(this, context));
         return element;
     }
 
     @Override
     public Element<T> visit(NegatedPositiveUnaryTests<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getPositiveUnaryTests().accept(this, context);
         return element;
     }
 
@@ -63,21 +74,42 @@ public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
 
     @Override
     public Element<T> visit(ExpressionTest<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getExpression().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(OperatorRange<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getEndpoint().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(EndpointsRange<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getStart().accept(this, context);
+        element.getEnd().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(ListTest<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getListLiteral().accept(this, context);
         return element;
     }
 
@@ -86,6 +118,8 @@ public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     //
     @Override
     public Element<T> visit(FunctionDefinition<T> element, C context) {
+        element.getBody().accept(this, context);
+        element.getFormalParameters().forEach(p -> p.accept(this, context));
         return element;
     }
 
@@ -96,56 +130,118 @@ public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
 
     @Override
     public Element<T> visit(Context<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getEntries().forEach(ce -> ce.accept(this, context));
         return element;
     }
 
     @Override
     public Element<T> visit(ContextEntry<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getKey().accept(this, context);
+        element.getExpression().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(ContextEntryKey<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
     @Override
     public Element<T> visit(ForExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getIterators().forEach(it -> it.accept(this, context));
+        element.getBody().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(Iterator<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getDomain().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(ExpressionIteratorDomain<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getExpression().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(RangeIteratorDomain<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getStart().accept(this, context);
+        element.getEnd().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(IfExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getCondition().accept(this, context);
+        element.getThenExpression().accept(this, context);
+        element.getElseExpression().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(QuantifiedExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getIterators().forEach(it -> it.accept(this, context));
+        element.getBody().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(FilterExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getSource().accept(this, context);
+        element.getFilter().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(InstanceOfExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getLeftOperand().accept(this, context);
+        element.getRightOperand().accept(this, context);
         return element;
     }
 
@@ -154,6 +250,11 @@ public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     //
     @Override
     public Element<T> visit(ExpressionList<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getExpressionList().forEach(e -> e.accept(this, context));
         return element;
     }
 
@@ -162,16 +263,33 @@ public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     //
     @Override
     public Element<T> visit(Conjunction<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getLeftOperand().accept(this, context);
+        element.getRightOperand().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(Disjunction<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getLeftOperand().accept(this, context);
+        element.getRightOperand().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(LogicNegation<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getLeftOperand().accept(this, context);
         return element;
     }
 
@@ -180,16 +298,35 @@ public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     //
     @Override
     public Element<T> visit(Relational<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getLeftOperand().accept(this, context);
+        element.getRightOperand().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(BetweenExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getValue().accept(this, context);
+        element.getLeftEndpoint().accept(this, context);
+        element.getRightEndpoint().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(InExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getValue().accept(this, context);
+        element.getTests().forEach(t -> t.accept(this, context));
         return element;
     }
 
@@ -198,21 +335,44 @@ public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     //
     @Override
     public Element<T> visit(Addition<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getLeftOperand().accept(this, context);
+        element.getRightOperand().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(Multiplication<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getLeftOperand().accept(this, context);
+        element.getRightOperand().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(Exponentiation<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getLeftOperand().accept(this, context);
+        element.getRightOperand().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(ArithmeticNegation<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getLeftOperand().accept(this, context);
         return element;
     }
 
@@ -221,21 +381,42 @@ public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     //
     @Override
     public Element<T> visit(PathExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getSource().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(FunctionInvocation<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getFunction().accept(this, context);
+        element.getParameters().accept(this, context);
         return element;
     }
 
     @Override
     public Element<T> visit(NamedParameters<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getParameters().forEach((key, value1) -> value1.accept(this, context));
         return element;
     }
 
     @Override
     public Element<T> visit(PositionalParameters<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getParameters().forEach(p -> p.accept(this, context));
         return element;
     }
 
@@ -244,69 +425,118 @@ public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     //
     @Override
     public Element<T> visit(BooleanLiteral<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
     @Override
     public Element<T> visit(DateTimeLiteral<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
     @Override
     public Element<T> visit(NullLiteral<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
     @Override
     public Element<T> visit(NumericLiteral<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
     @Override
     public Element<T> visit(StringLiteral<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
     @Override
     public Element<T> visit(ListLiteral<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.getExpressionList().forEach(e -> e.accept(this, context));
         return element;
     }
 
     @Override
     public Element<T> visit(QualifiedName<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
     @Override
     public Element<T> visit(Name<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
-    //
-    // Type expressions
-    //
     @Override
     public Element<T> visit(NamedTypeExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
     @Override
     public Element<T> visit(ContextTypeExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
     @Override
     public Element<T> visit(RangeTypeExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
     @Override
     public Element<T> visit(FunctionTypeExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 
-    @Override
     public Element<T> visit(ListTypeExpression<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         return element;
     }
 }

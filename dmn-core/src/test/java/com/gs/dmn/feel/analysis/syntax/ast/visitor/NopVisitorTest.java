@@ -10,31 +10,16 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast;
+package com.gs.dmn.feel.analysis.syntax.ast.visitor;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.NopErrorHandler;
-import com.gs.dmn.feel.analysis.semantics.UpdatePartialVisitor;
-import com.gs.dmn.feel.analysis.semantics.type.StringType;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
-import org.junit.Test;
+import com.gs.dmn.feel.analysis.syntax.ast.Element;
+import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-import static org.junit.Assert.assertEquals;
-
-public class UpdatePartialVisitorTest extends BaseVisitorTest {
-    private final Type partialType = StringType.STRING;
-
+public class NopVisitorTest extends BaseVisitorTest {
     @Override
     protected Visitor<Type, DMNContext, Element<Type>> getVisitor() {
-        return new UpdatePartialVisitor<>(this.partialType, NopErrorHandler.INSTANCE);
-    }
-
-    @Override
-    @Test
-    public void testVisitName() {
-        super.testVisitName();
-
-        assertEquals(this.partialType, ((Name<Type>) getVisitor().visit(new Name<>("partial"), null)).getType());
+        return new NopVisitor<>();
     }
 }

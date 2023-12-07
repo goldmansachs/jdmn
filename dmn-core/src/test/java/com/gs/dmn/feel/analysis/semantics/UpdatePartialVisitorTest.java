@@ -10,24 +10,26 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast;
+package com.gs.dmn.feel.analysis.semantics;
 
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.NopErrorHandler;
-import com.gs.dmn.feel.analysis.semantics.ReplaceItemFilterVisitor;
+import com.gs.dmn.feel.analysis.semantics.type.StringType;
+import com.gs.dmn.feel.analysis.syntax.ast.Element;
+import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
+import com.gs.dmn.feel.analysis.syntax.ast.visitor.BaseVisitorTest;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ReplaceItemFilterVisitorTest extends BaseVisitorTest {
-    private final String oldLambdaParameterName = "oldName";
-    private final String newLambdaParameterName = "newName";
+public class UpdatePartialVisitorTest extends BaseVisitorTest {
+    private final Type partialType = StringType.STRING;
 
     @Override
     protected Visitor<Type, DMNContext, Element<Type>> getVisitor() {
-        return new ReplaceItemFilterVisitor<>(this.oldLambdaParameterName, this.newLambdaParameterName, NopErrorHandler.INSTANCE);
+        return new UpdatePartialVisitor<>(this.partialType, NopErrorHandler.INSTANCE);
     }
 
     @Override
@@ -35,8 +37,6 @@ public class ReplaceItemFilterVisitorTest extends BaseVisitorTest {
     public void testVisitName() {
         super.testVisitName();
 
-        assertEquals("Name(newName)", getVisitor().visit(new Name<>(this.oldLambdaParameterName), null).toString());
-        assertEquals("Name(otherName)", getVisitor().visit(new Name<>("otherName"), null).toString());
+        assertEquals(this.partialType, ((Name<Type>) getVisitor().visit(new Name<>("partial"), null)).getType());
     }
-
 }

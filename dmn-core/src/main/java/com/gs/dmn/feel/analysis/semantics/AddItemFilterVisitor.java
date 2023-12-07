@@ -18,7 +18,7 @@ import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.syntax.ast.ASTFactory;
-import com.gs.dmn.feel.analysis.syntax.ast.CloneVisitor;
+import com.gs.dmn.feel.analysis.syntax.ast.visitor.CloneVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;

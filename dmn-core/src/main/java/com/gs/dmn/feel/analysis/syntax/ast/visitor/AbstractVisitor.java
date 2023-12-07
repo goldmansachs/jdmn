@@ -10,14 +10,15 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast;
+package com.gs.dmn.feel.analysis.syntax.ast.visitor;
 
-import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 
-public class NopVisitorTest extends BaseVisitorTest {
-    @Override
-    protected Visitor<Type, DMNContext, Element<Type>> getVisitor() {
-        return new NopVisitor<>();
+public abstract class AbstractVisitor<T, C, R> implements Visitor<T, C, R> {
+    protected final ErrorHandler errorHandler;
+
+    public AbstractVisitor(ErrorHandler errorHandler) {
+        this.errorHandler = errorHandler;
     }
 }
