@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import org.slf4j.Logger;
@@ -20,6 +22,7 @@ import org.slf4j.LoggerFactory;
 public abstract class SimpleDMNTransformer<T> implements DMNTransformer<T> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SimpleDMNTransformer.class);
 
+    protected final ErrorHandler errorHandler = new LogErrorHandler(LOGGER);
     protected final BuildLogger logger;
     protected boolean transformRepository = true;
 

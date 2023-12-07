@@ -12,13 +12,16 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.error.ErrorHandler;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SpecialVariableTransformerVisitor<C> extends TraversalVisitor<C> {
-    public SpecialVariableTransformerVisitor() {
+
+    public SpecialVariableTransformerVisitor(ErrorHandler errorHandler) {
+        super(errorHandler);
     }
 
     @Override

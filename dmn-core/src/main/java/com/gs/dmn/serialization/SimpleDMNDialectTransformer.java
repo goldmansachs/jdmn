@@ -14,9 +14,16 @@ package com.gs.dmn.serialization;
 
 import com.gs.dmn.ast.DMNVersionTransformerVisitor;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.log.BuildLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class SimpleDMNDialectTransformer {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(SimpleDMNDialectTransformer.class);
+
+    protected final ErrorHandler errorHandler = new LogErrorHandler(LOGGER);
     protected final BuildLogger logger;
     protected final DMNVersion sourceVersion;
     protected final DMNVersion targetVersion;
@@ -26,13 +33,13 @@ public abstract class SimpleDMNDialectTransformer {
         this.logger = logger;
         this.sourceVersion = sourceVersion;
         this.targetVersion = targetVersion;
-        this.visitor = new DMNVersionTransformerVisitor(sourceVersion, targetVersion);
+        this.visitor = new DMNVersionTransformerVisitor(this.errorHandler, sourceVersion, targetVersion);
     }
 
     public TDefinitions transformDefinitions(TDefinitions sourceDefinitions) {
-        logger.info(String.format("Transforming '%s' from DMN %s to DMN %s ...", sourceDefinitions.getName(), sourceVersion.getVersion(), targetVersion.getVersion()));
+        this.logger.info(String.format("Transforming '%s' from DMN %s to DMN %s ...", sourceDefinitions.getName(), this.sourceVersion.getVersion(), this.targetVersion.getVersion()));
         if (this.sourceVersion != this.targetVersion) {
-            sourceDefinitions.accept(visitor, null);
+            sourceDefinitions.accept(this.visitor, null);
         }
         return sourceDefinitions;
     }

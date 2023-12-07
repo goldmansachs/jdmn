@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import org.junit.Test;
@@ -23,7 +24,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class TraversalVisitorTest {
     private final DMNMarshaller marshaller = DMNMarshallerFactory.newDefaultMarshaller();
-    private final Visitor<?, Object> visitor = new TraversalVisitor<>();
+    private final Visitor<?, Object> visitor = new TraversalVisitor<>(new NopErrorHandler());
 
     @Test
     public void visit() throws Exception {

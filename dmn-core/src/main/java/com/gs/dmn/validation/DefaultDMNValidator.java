@@ -15,6 +15,7 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
@@ -39,7 +40,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     public List<String> validate(DMNModelRepository repository) {
         List<String> errors = new ArrayList<>();
         if (isEmpty(repository)) {
-            logger.warn("DMN repository is empty; validator will not run");
+            this.logger.warn("DMN repository is empty; validator will not run");
             return errors;
         }
 

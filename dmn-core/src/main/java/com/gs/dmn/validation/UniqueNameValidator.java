@@ -38,7 +38,7 @@ public class UniqueNameValidator extends SimpleDMNValidator {
     public List<String> validate(DMNModelRepository repository) {
         List<String> errors = new ArrayList<>();
         if (isEmpty(repository)) {
-            logger.warn("DMN repository is empty; validator will not run");
+            this.logger.warn("DMN repository is empty; validator will not run");
             return errors;
         }
 

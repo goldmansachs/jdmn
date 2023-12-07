@@ -1,11 +1,12 @@
 package com.gs.dmn.ast;
 
+import com.gs.dmn.error.NopErrorHandler;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class SpecialVariableTransformerVisitorTest {
-    private final SpecialVariableTransformerVisitor visitor = new SpecialVariableTransformerVisitor();
+    private final SpecialVariableTransformerVisitor<?> visitor = new SpecialVariableTransformerVisitor<>(new NopErrorHandler());
 
     @Test
     public void testUpdateUnaryTests() {

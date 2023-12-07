@@ -24,7 +24,7 @@ import com.gs.dmn.tck.ast.TestCases;
 import java.util.List;
 
 public class SpecialVariableTransformer extends SimpleDMNTransformer<TestCases> {
-    private final Visitor<?, Object> visitor = new SpecialVariableTransformerVisitor<>();
+    private final Visitor<?, Object> visitor = new SpecialVariableTransformerVisitor<>(this.errorHandler);
 
     public SpecialVariableTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
@@ -37,13 +37,13 @@ public class SpecialVariableTransformer extends SimpleDMNTransformer<TestCases> 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
         if (isEmpty(repository)) {
-            logger.warn("Repository is empty; transformer will not run");
+            this.logger.warn("Repository is empty; transformer will not run");
             return repository;
         }
 
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            logger.info(String.format("Replace inputExpressions with ? in inputEntries in model '%s'", definitions.getName()));
-            definitions.accept(visitor, null);
+            this.logger.info(String.format("Replace inputExpressions with ? in inputEntries in model '%s'", definitions.getName()));
+            definitions.accept(this.visitor, null);
         }
 
         this.transformRepository = false;
@@ -53,7 +53,7 @@ public class SpecialVariableTransformer extends SimpleDMNTransformer<TestCases> 
     @Override
     public Pair<DMNModelRepository, List<TestCases>> transform(DMNModelRepository repository, List<TestCases> testCasesList) {
         if (isEmpty(repository, testCasesList)) {
-            logger.warn("DMN repository or test list is empty; transformer will not run");
+            this.logger.warn("DMN repository or test list is empty; transformer will not run");
             return new Pair<>(repository, testCasesList);
         }
 

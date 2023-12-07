@@ -20,6 +20,7 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -60,7 +61,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
     @Override
     public List<String> validate(DMNModelRepository dmnModelRepository) {
         if (isEmpty(dmnModelRepository)) {
-            logger.warn("DMN repository is empty; validator will not run");
+            this.logger.warn("DMN repository is empty; validator will not run");
             return new ArrayList<>();
         }
 
@@ -119,7 +120,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
                     Type type = inferType(element, dmnTransformer, dmnModelRepository, dmnEnvironmentFactory);
                     errorReport.add(new Pair<>(element, type));
 
-                    logger.debug(String.format("Missing typeRef '%s'", typeRef));
+                    this.logger.debug(String.format("Missing typeRef '%s'", typeRef));
                 }
             }
         }

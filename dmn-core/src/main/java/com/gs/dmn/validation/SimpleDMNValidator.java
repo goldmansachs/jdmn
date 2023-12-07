@@ -15,6 +15,8 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDMNElement;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import org.slf4j.Logger;
@@ -23,6 +25,7 @@ import org.slf4j.LoggerFactory;
 public abstract class SimpleDMNValidator implements DMNValidator {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SimpleDMNValidator.class);
 
+    protected final ErrorHandler errorHandler = new LogErrorHandler(LOGGER);
     protected final BuildLogger logger;
 
     protected SimpleDMNValidator() {

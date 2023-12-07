@@ -55,7 +55,7 @@ public abstract class SweepValidator extends SimpleDMNValidator {
     @Override
     public List<String> validate(DMNModelRepository dmnModelRepository) {
         if (isEmpty(dmnModelRepository)) {
-            logger.warn("DMN repository is empty; validator will not run");
+            this.logger.warn("DMN repository is empty; validator will not run");
             return new ArrayList<>();
         }
 

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.ast;
 
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.serialization.DMNVersion;
 
 import javax.xml.namespace.QName;
@@ -22,14 +23,15 @@ public class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
     private final DMNVersion targetVersion;
     private TDefinitions definitions;
 
-    public DMNVersionTransformerVisitor(DMNVersion sourceVersion, DMNVersion targetVersion) {
+    public DMNVersionTransformerVisitor(ErrorHandler errorHandler, DMNVersion sourceVersion, DMNVersion targetVersion) {
+        super(errorHandler);
         this.sourceVersion = sourceVersion;
         this.targetVersion = targetVersion;
     }
 
     @Override
     public DMNBaseElement visit(TDefinitions element, C context) {
-        definitions = element;
+        this.definitions = element;
         // Update expression language
         if (this.sourceVersion.getFeelNamespace().equals(element.getTypeLanguage())) {
             element.setTypeLanguage(this.targetVersion.getFeelNamespace());
@@ -67,7 +69,7 @@ public class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
             if (typeRef != null) {
                 String namespaceURI = typeRef.getNamespaceURI();
                 String prefix = typeRef.getPrefix();
-                String nsForPrefix = definitions.getNamespaceURI(prefix);
+                String nsForPrefix = this.definitions.getNamespaceURI(prefix);
                 String localPart = typeRef.getLocalPart();
                 if (this.sourceVersion.getFeelNamespace().equals(namespaceURI) || this.targetVersion.getFeelNamespace().equals(nsForPrefix)) {
                     return new QName(String.format("%s.%s", this.targetVersion.getFeelPrefix(), localPart));

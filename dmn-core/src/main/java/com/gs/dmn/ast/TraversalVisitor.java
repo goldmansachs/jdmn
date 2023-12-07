@@ -13,10 +13,15 @@
 package com.gs.dmn.ast;
 
 import com.gs.dmn.ast.dmndi.*;
+import com.gs.dmn.error.ErrorHandler;
 
 import javax.xml.namespace.QName;
 
-public class TraversalVisitor<C> implements Visitor<C, Object> {
+public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
+    public TraversalVisitor(ErrorHandler errorHandler) {
+        super(errorHandler);
+    }
+
     //
     // DMN Elements
     //
