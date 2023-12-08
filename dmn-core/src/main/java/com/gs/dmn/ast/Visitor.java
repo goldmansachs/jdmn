@@ -13,6 +13,7 @@
 package com.gs.dmn.ast;
 
 import com.gs.dmn.ast.dmndi.*;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 public interface Visitor<C, R> {
     //
@@ -35,6 +36,16 @@ public interface Visitor<C, R> {
     R visit(TInputData element, C context);
 
     R visit(TDecision element, C context);
+
+    default R visit(TInvocable element, C context) {
+        R result;
+        if (element == null) {
+            result = null;
+        } else {
+            result = element.accept(this, context);
+        }
+        return result;
+    }
 
     R visit(TBusinessKnowledgeModel element, C context);
 
@@ -66,6 +77,16 @@ public interface Visitor<C, R> {
     R visit(TBinding element, C context);
 
     R visit(TList element, C context);
+
+    default R visit(TExpression element, C context) {
+        R result;
+        if (element == null) {
+            result = null;
+        } else {
+            result = element.accept(this, context);
+        }
+        return result;
+    }
 
     R visit(TLiteralExpression element, C context);
 
