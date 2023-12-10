@@ -14,6 +14,8 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.NopErrorHandler;
+import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import org.junit.Test;
 
@@ -23,17 +25,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioFileTransformerTest {
+    private final NormalizeDateTimeLiteralsVisitor visitor = new NormalizeDateTimeLiteralsVisitor(new NopErrorHandler(), new NopBuildLogger());
     private final NormalizeDateTimeLiteralsTransformer transformer = new NormalizeDateTimeLiteralsTransformer(LOGGER);
 
     @Test
     public void testNormalize() {
-        assertNull(this.transformer.normalize(null));
-        assertEquals("", this.transformer.normalize(""));
+        assertNull(this.visitor.normalize(null));
+        assertEquals("", this.visitor.normalize(""));
 
-        assertEquals("date and time(\"1900-01-01T00:00:00Z\")", this.transformer.normalize("date and time(\"1899-12-31T19:00:00-0500\")"));
+        assertEquals("date and time(\"1900-01-01T00:00:00Z\")", this.visitor.normalize("date and time(\"1899-12-31T19:00:00-0500\")"));
 
-        assertEquals("time(\"00:00:00Z\")", this.transformer.normalize("time(\"T19:00:00-0500\")"));
-        assertEquals("time(\"00:00:00Z\")", this.transformer.normalize("time(\"19:00:00-0500\")"));
+        assertEquals("time(\"00:00:00Z\")", this.visitor.normalize("time(\"T19:00:00-0500\")"));
+        assertEquals("time(\"00:00:00Z\")", this.visitor.normalize("time(\"19:00:00-0500\")"));
     }
 
     @Test

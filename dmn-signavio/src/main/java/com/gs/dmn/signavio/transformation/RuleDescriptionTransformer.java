@@ -14,11 +14,14 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.visitor.TraversalVisitor;
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
+import com.gs.dmn.transformation.TransformationContext;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedHashMap;
@@ -26,17 +29,6 @@ import java.util.List;
 import java.util.Map;
 
 public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
-    private static final Map<String, String> PATTERNS = new LinkedHashMap<>();
-    static {
-        PATTERNS.put("[ ,", "[");
-        PATTERNS.put(",  ,", ",");
-        PATTERNS.put(", ]", "]");
-
-        PATTERNS.put("string(-)", "\"\"");
-
-        PATTERNS.put("\u00A0", " ");
-    }
-
     public RuleDescriptionTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
@@ -72,20 +64,52 @@ public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
     }
 
     private DMNModelRepository cleanRuleDescription(DMNModelRepository repository, BuildLogger logger) {
+        RuleDescriptionVisitor dmnVisitor = new RuleDescriptionVisitor(this.errorHandler, this.logger);
+        TransformationContext context = new TransformationContext(repository);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            for(TDecision decision: repository.findDecisions(definitions)) {
-                TExpression expression = repository.expression(decision);
-                if (expression instanceof TDecisionTable) {
-                    logger.debug(String.format("Cleaning descriptions for '%s'", decision.getName()));
-                    List<TDecisionRule> rules = ((TDecisionTable) expression).getRule();
-                    for (TDecisionRule rule: rules) {
-                        cleanRuleDescription(rule);
-                    }
-                }
-            }
+            definitions.accept(dmnVisitor, context);
         }
 
         return repository;
+    }
+}
+
+class RuleDescriptionVisitor extends TraversalVisitor<TransformationContext> {
+    private static final Map<String, String> PATTERNS = new LinkedHashMap<>();
+    static {
+        PATTERNS.put("[ ,", "[");
+        PATTERNS.put(",  ,", ",");
+        PATTERNS.put(", ]", "]");
+
+        PATTERNS.put("string(-)", "\"\"");
+
+        PATTERNS.put("\u00A0", " ");
+    }
+
+    private final BuildLogger logger;
+
+    public RuleDescriptionVisitor(ErrorHandler errorHandler, BuildLogger logger) {
+        super(errorHandler);
+        this.logger = logger;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecision element, TransformationContext context) {
+        logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
+
+        DMNModelRepository repository = context.getRepository();
+        TExpression expression = repository.expression(element);
+        if (expression instanceof TDecisionTable) {
+            logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
+            ((TDecisionTable) expression).accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecisionRule element, TransformationContext context) {
+        cleanRuleDescription(element);
+        return element;
     }
 
     void cleanRuleDescription(TDecisionRule rule) {

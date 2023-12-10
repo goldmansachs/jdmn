@@ -29,8 +29,6 @@ import java.util.Set;
 import static com.gs.dmn.feel.analysis.scanner.ContextDependentFEELLexer.*;
 
 public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
-    private DMNModelRepository repository;
-
     private final boolean renameElements = false;
     private final Set<TDMNElement> renamedElements = new LinkedHashSet<>();
 
@@ -49,7 +47,6 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             return repository;
         }
 
-        this.repository = repository;
         transformDefinitions(repository);
         this.transformRepository = false;
         return repository;
@@ -378,7 +375,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
 
         LexicalContext lexicalContext = new LexicalContext(names);
-        lexicalContext.addNames(this.repository.getImportedNames());
+        lexicalContext.addNames(repository.getImportedNames());
 
         return lexicalContext;
     }

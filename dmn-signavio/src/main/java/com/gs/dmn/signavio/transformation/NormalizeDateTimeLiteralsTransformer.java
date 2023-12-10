@@ -14,6 +14,8 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.visitor.TraversalVisitor;
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer;
 import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
 import com.gs.dmn.log.BuildLogger;
@@ -21,6 +23,7 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
+import com.gs.dmn.transformation.TransformationContext;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.Lexer;
@@ -33,8 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NormalizeDateTimeLiteralsTransformer extends SimpleDMNTransformer<TestLab> {
-    private final MixedJavaTimeFEELLib feelLib = new MixedJavaTimeFEELLib();
-
     public NormalizeDateTimeLiteralsTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
@@ -50,17 +51,10 @@ public class NormalizeDateTimeLiteralsTransformer extends SimpleDMNTransformer<T
             return repository;
         }
 
+        NormalizeDateTimeLiteralsVisitor dmnVisitor = new NormalizeDateTimeLiteralsVisitor(this.errorHandler, this.logger);
+        TransformationContext context = new TransformationContext(repository);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            for (TDecision decision: repository.findDecisions(definitions)) {
-                TExpression expression = repository.expression(decision);
-                if (expression instanceof TDecisionTable) {
-                    logger.debug(String.format("Process decision table in decision '%s'", decision.getName()));
-                    transform((TDecisionTable) expression);
-                } else if (expression instanceof TLiteralExpression) {
-                    logger.debug(String.format("Process literal expression in decision '%s'", decision.getName()));
-                    transform((TLiteralExpression) expression);
-                }
-            }
+            definitions.accept(dmnVisitor, context);
         }
         this.transformRepository = false;
         return repository;
@@ -80,6 +74,44 @@ public class NormalizeDateTimeLiteralsTransformer extends SimpleDMNTransformer<T
 
         // Signavio export of TestLab seems to produce normalized date and time / time literals
         return new Pair<>(repository, testCasesList);
+    }
+}
+
+class NormalizeDateTimeLiteralsVisitor extends TraversalVisitor<TransformationContext> {
+    private final MixedJavaTimeFEELLib feelLib = new MixedJavaTimeFEELLib();
+    private final BuildLogger logger;
+
+    public NormalizeDateTimeLiteralsVisitor(ErrorHandler errorHandler, BuildLogger logger) {
+        super(errorHandler);
+        this.logger = logger;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecision element, TransformationContext context) {
+        logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
+
+        DMNModelRepository repository = context.getRepository();
+        TExpression expression = repository.expression(element);
+        if (expression instanceof TDecisionTable) {
+            logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
+            ((TDecisionTable) expression).accept(this, context);
+        } else if (expression instanceof TLiteralExpression) {
+            logger.debug(String.format("Process literal expression in decision '%s'", element.getName()));
+            ((TLiteralExpression) expression).accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecisionTable element, TransformationContext context) {
+        transform(element);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TLiteralExpression element, TransformationContext context) {
+        transform(element);
+        return element;
     }
 
     private void transform(TLiteralExpression literalExpression) {

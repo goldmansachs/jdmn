@@ -15,13 +15,12 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.tck.ast.InputNode;
-import com.gs.dmn.tck.ast.ResultNode;
-import com.gs.dmn.tck.ast.TestCase;
-import com.gs.dmn.tck.ast.TestCases;
+import com.gs.dmn.tck.ast.*;
+import com.gs.dmn.tck.ast.visitor.TraversalVisitor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -58,18 +57,36 @@ public class AddMissingNamespaceInTestCasesTransformer extends SimpleDMNTransfor
             transform(repository);
         }
 
+        AddMissingImportPrefixInDTVisitor visitor = new AddMissingImportPrefixInDTVisitor(this.errorHandler);
+        TransformationContext context = new TransformationContext(repository);
         for (TestCases testCases : testCasesList) {
+            testCases.accept(visitor, context);
+        }
+
+        return new Pair<>(repository, testCasesList);
+    }
+}
+
+class AddMissingImportPrefixInDTVisitor extends TraversalVisitor<TransformationContext> {
+    public AddMissingImportPrefixInDTVisitor(ErrorHandler errorHandler) {
+        super(errorHandler);
+    }
+
+    @Override
+    public TCKBaseElement visit(TestCases element, TransformationContext context) {
+        DMNModelRepository repository = context.getRepository();
+        if (element != null) {
             // Search model by name
-            if (StringUtils.isBlank(testCases.getNamespace())) {
-                String modelName = testCases.getModelName();
+            if (StringUtils.isBlank(element.getNamespace())) {
+                String modelName = element.getModelName();
                 List<TDefinitions> definitionsList = repository.findDefinitionByName(modelName);
                 if (definitionsList.size() == 1) {
-                    testCases.setNamespace(definitionsList.get(0).getNamespace());
+                    element.setNamespace(definitionsList.get(0).getNamespace());
                 }
             }
 
             // Set namespace for nodes
-            for (TestCase testCase : testCases.getTestCase()) {
+            for (TestCase testCase : element.getTestCase()) {
                 for (InputNode node : testCase.getInputNode()) {
                     if (StringUtils.isBlank(node.getNamespace())) {
                         String name = node.getName();
@@ -90,7 +107,6 @@ public class AddMissingNamespaceInTestCasesTransformer extends SimpleDMNTransfor
                 }
             }
         }
-
-        return new Pair<>(repository, testCasesList);
+        return element;
     }
 }

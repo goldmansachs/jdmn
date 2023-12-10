@@ -13,17 +13,20 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.ast.TDecisionRule;
+import com.gs.dmn.error.NopErrorHandler;
+import com.gs.dmn.log.NopBuildLogger;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class RuleDescriptionTransformerTest extends AbstractSignavioFileTransformerTest {
+    private final RuleDescriptionVisitor visitor = new RuleDescriptionVisitor(new NopErrorHandler(), new NopBuildLogger());
     private final RuleDescriptionTransformer transformer = new RuleDescriptionTransformer(LOGGER);
 
     @Test
     public void testTransformForIncorrectLists() {
         TDecisionRule rule = makeRule("[ , string(\"\") ,  , string(\"\") , ]");
-        transformer.cleanRuleDescription(rule);
+        visitor.cleanRuleDescription(rule);
 
         assertEquals("[ string(\"\") , string(\"\") ]", rule.getDescription());
     }
@@ -31,7 +34,7 @@ public class RuleDescriptionTransformerTest extends AbstractSignavioFileTransfor
     @Test
     public void testTransformForIllegalString() {
         TDecisionRule rule = makeRule("[ string(-) ]");
-        transformer.cleanRuleDescription(rule);
+        visitor.cleanRuleDescription(rule);
 
         assertEquals("[ \"\" ]", rule.getDescription());
     }
@@ -39,7 +42,7 @@ public class RuleDescriptionTransformerTest extends AbstractSignavioFileTransfor
     @Test
     public void testTransformForIllegalCharacters() {
         TDecisionRule rule = makeRule("[ string(\"abc \u00A0 123\") ]");
-        transformer.cleanRuleDescription(rule);
+        visitor.cleanRuleDescription(rule);
 
         assertEquals("[ string(\"abc   123\") ]", rule.getDescription());
     }
