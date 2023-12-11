@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 export CI_PROJECT_DIR=.
 
 # mvn clean does not remove them
@@ -5,7 +7,7 @@ rm -rf .pytest_cache
 rm -rf .tox
 rm -rf .venv
 
-$CI_PROJECT_DIR/ci/make_env.sh .venv
+source $CI_PROJECT_DIR/ci/make_env.sh .venv
 status=$?
 if [ $status -eq 0 ]
 then
