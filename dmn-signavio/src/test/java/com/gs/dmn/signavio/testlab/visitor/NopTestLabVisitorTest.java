@@ -1,6 +1,11 @@
-package com.gs.dmn.signavio.testlab;
+package com.gs.dmn.signavio.testlab.visitor;
 
+import com.gs.dmn.signavio.testlab.InputParameterDefinition;
+import com.gs.dmn.signavio.testlab.OutputParameterDefinition;
+import com.gs.dmn.signavio.testlab.TestCase;
+import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.testlab.expression.*;
+import com.gs.dmn.signavio.testlab.visitor.NopTestLabVisitor;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;

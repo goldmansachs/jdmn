@@ -23,6 +23,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
+import com.gs.dmn.signavio.testlab.visitor.TestLabEnhancer;
 import com.gs.dmn.transformation.AbstractTestCasesToJUnitTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
