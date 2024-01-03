@@ -12,5 +12,5 @@
  */
 package com.gs.dmn.signavio.testlab;
 
-public abstract class TestLabElement implements TestLabVisitable {
+public abstract class TestLabElement implements Visitable {
 }

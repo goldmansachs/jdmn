@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.testlab.expression;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.signavio.testlab.TestLabVisitor;
+import com.gs.dmn.signavio.testlab.Visitor;
 
 @JsonPropertyOrder({ "type", "value" })
 public class NumberLiteral extends SimpleExpression {
@@ -60,7 +60,7 @@ public class NumberLiteral extends SimpleExpression {
     }
 
     @Override
-    public Object accept(TestLabVisitor visitor, Object... params) {
-        return visitor.visit(this, params);
+    public <R, C> R accept(Visitor<R, C> visitor, C context) {
+        return visitor.visit(this, context);
     }
 }

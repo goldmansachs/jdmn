@@ -12,6 +12,6 @@
  */
 package com.gs.dmn.signavio.testlab;
 
-public interface TestLabVisitable {
-    Object accept(TestLabVisitor visitor, Object... params);
+public interface Visitable {
+    <R, C> R accept(Visitor<R, C> visitor, C context);
 }

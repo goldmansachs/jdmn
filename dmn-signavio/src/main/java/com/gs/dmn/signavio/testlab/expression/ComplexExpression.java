@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.testlab.expression;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.gs.dmn.signavio.testlab.TestLabVisitor;
+import com.gs.dmn.signavio.testlab.Visitor;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,7 +64,7 @@ public class ComplexExpression extends Expression {
     }
 
     @Override
-    public Object accept(TestLabVisitor visitor, Object... params) {
-        return visitor.visit(this, params);
+    public <R, C> R accept(Visitor<R, C> visitor, C context) {
+        return visitor.visit(this, context);
     }
 }

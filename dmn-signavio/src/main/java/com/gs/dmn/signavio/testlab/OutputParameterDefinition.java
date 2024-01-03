@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({ "id", "shapeId", "diagramId", "modelName", "requirementName" })
 public class OutputParameterDefinition extends ParameterDefinition {
     @Override
-    public Object accept(TestLabVisitor visitor, Object... params) {
-        return visitor.visit(this, params);
+    public <R, C> R accept(Visitor<R, C> visitor, C context) {
+        return visitor.visit(this, context);
     }
 }

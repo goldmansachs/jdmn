@@ -19,10 +19,9 @@ import com.gs.dmn.signavio.testlab.expression.Expression;
 import com.gs.dmn.signavio.testlab.expression.ListExpression;
 import com.gs.dmn.signavio.testlab.expression.Slot;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 
-public class TestLabEnhancer extends NopTestLabVisitor implements TestLabVisitor {
+public class TestLabEnhancer extends NopTestLabVisitor<EnhancerContext> {
     private final TestLabUtil testLabUtil;
 
     public TestLabEnhancer(TestLabUtil testLabUtil) {
@@ -30,23 +29,23 @@ public class TestLabEnhancer extends NopTestLabVisitor implements TestLabVisitor
     }
 
     public void enhance(TestLab testLab) {
-        testLab.accept(this, new LinkedHashMap<>());
+        testLab.accept(this, new EnhancerContext(testLab));
     }
 
     @Override
-    public Object visit(TestLab testLab, Object... params) {
+    public TestLabElement visit(TestLab testLab, EnhancerContext context) {
         List<TestCase> testCases = testLab.getTestCases();
         for (int i=0; i<testCases.size(); i++) {
             TestCase tc = testCases.get(i);
-            tc.accept(this, testLab, i);
+            tc.accept(this, context.withTestCaseIndex(i));
         }
         return testLab;
     }
 
     @Override
-    public Object visit(TestCase testCase, Object... params) {
-        TestLab testLab = getTestLab(params);
-        int testCaseIndex = getTestCaseIndex(params);
+    public TestLabElement visit(TestCase testCase, EnhancerContext context) {
+        TestLab testLab = context.getTestLab();
+        int testCaseIndex = context.getTestCaseIndex();
         List<Expression> inputValues = testCase.getInputValues();
         if (inputValues != null) {
             for(int i = 0; i< inputValues.size(); i++) {
@@ -55,7 +54,7 @@ public class TestLabEnhancer extends NopTestLabVisitor implements TestLabVisitor
                     InputParameterDefinition parameterDefinition = testLab.getInputParameterDefinitions().get(i);
                     try {
                         TItemDefinition itemDefinition = testLabUtil.lookupItemDefinition(parameterDefinition);
-                        expression.accept(this, testLab, itemDefinition);
+                        expression.accept(this, context.withType(itemDefinition));
                     } catch (Exception e) {
                         String requirementName = parameterDefinition.getRequirementName();
                         throw new DMNRuntimeException(String.format("Error in TestCase '%d' for '%s'", testCaseIndex + 1, requirementName), e);
@@ -70,7 +69,7 @@ public class TestLabEnhancer extends NopTestLabVisitor implements TestLabVisitor
                 if (expression != null) {
                     OutputParameterDefinition parameterDefinition = testLab.getOutputParameterDefinitions().get(i);
                     TItemDefinition itemDefinition = testLabUtil.lookupItemDefinition(parameterDefinition);
-                    expression.accept(this, testLab, itemDefinition);
+                    expression.accept(this, context.withType(itemDefinition));
                 }
             }
         }
@@ -78,15 +77,14 @@ public class TestLabEnhancer extends NopTestLabVisitor implements TestLabVisitor
     }
 
     @Override
-    public Object visit(ListExpression element, Object... params) {
-        TestLab testLab = getTestLab(params);
-        TItemDefinition listType = getType(params);
+    public TestLabElement visit(ListExpression element, EnhancerContext context) {
+        TItemDefinition listType = context.getType();
         List<Expression> elements = element.getElements();
         if (elements != null) {
             TItemDefinition elementType = testLabUtil.elementType(listType);
             for (Expression e: elements) {
                 if (e != null) {
-                    e.accept(this, testLab, elementType);
+                    e.accept(this, context.withType(elementType));
                 }
             }
         }
@@ -94,40 +92,27 @@ public class TestLabEnhancer extends NopTestLabVisitor implements TestLabVisitor
     }
 
     @Override
-    public Object visit(ComplexExpression expression, Object... params) {
-        TestLab testLab = getTestLab(params);
-        TItemDefinition complexType = getType(params);
+    public TestLabElement visit(ComplexExpression expression, EnhancerContext context) {
+        TItemDefinition complexType = context.getType();
         List<Slot> slots = expression.getSlots();
         if (slots != null) {
-            slots.forEach(
-                    s -> s.accept(this, testLab, testLabUtil.memberType(complexType, s))
-            );
+            for (Slot slot : slots) {
+                slot.accept(this, context.withType(testLabUtil.memberType(complexType, slot)));
+            }
         }
         return expression;
     }
 
     @Override
-    public Object visit(Slot slot, Object... params) {
+    public TestLabElement visit(Slot slot, EnhancerContext context) {
         // Set name in parent
-        TItemDefinition type = getType(params);
+        TItemDefinition type = context.getType();
         String name = type.getName();
         slot.setItemComponentName(name);
 
         // Visit value
-        slot.getValue().accept(this, params);
+        slot.getValue().accept(this, context);
 
         return slot;
-    }
-
-    private TestLab getTestLab(Object... params) {
-        return (TestLab) params[0];
-    }
-
-    private int getTestCaseIndex(Object[] params) {
-        return (int) params[1];
-    }
-
-    private TItemDefinition getType(Object... params) {
-        return (TItemDefinition) params[1];
     }
 }

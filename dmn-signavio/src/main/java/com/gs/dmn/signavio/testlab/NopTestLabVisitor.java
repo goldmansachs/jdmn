@@ -14,74 +14,74 @@ package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.signavio.testlab.expression.*;
 
-public class NopTestLabVisitor implements TestLabVisitor {
+public class NopTestLabVisitor<C> implements Visitor<TestLabElement, C> {
     @Override
-    public Object visit(TestLab element, Object... params) {
-        return element;
+    public TestLabElement visit(TestLab element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(InputParameterDefinition element, Object... params) {
-        return element;
+    public TestLabElement visit(InputParameterDefinition element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(OutputParameterDefinition element, Object... params) {
-        return element;
+    public TestLabElement visit(OutputParameterDefinition element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(TestCase element, Object... params) {
-        return element;
+    public TestLabElement visit(TestCase element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(NumberLiteral element, Object... params) {
-        return element;
+    public TestLabElement visit(NumberLiteral element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(StringLiteral element, Object... params) {
-        return element;
+    public TestLabElement visit(StringLiteral element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(BooleanLiteral element, Object... params) {
-        return element;
+    public TestLabElement visit(BooleanLiteral element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(DateLiteral element, Object... params) {
-        return element;
+    public TestLabElement visit(DateLiteral element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(TimeLiteral element, Object... params) {
-        return element;
+    public TestLabElement visit(TimeLiteral element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(DatetimeLiteral element, Object... params) {
-        return element;
+    public TestLabElement visit(DatetimeLiteral element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(EnumerationLiteral element, Object... params) {
-        return element;
+    public TestLabElement visit(EnumerationLiteral element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(ListExpression element, Object... params) {
-        return element;
+    public TestLabElement visit(ListExpression element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(ComplexExpression element, Object... params) {
-        return element;
+    public TestLabElement visit(ComplexExpression element, C context) {
+       return element;
     }
 
     @Override
-    public Object visit(Slot element, Object... params) {
-        return element;
+    public TestLabElement visit(Slot element, C context) {
+       return element;
     }
 }
