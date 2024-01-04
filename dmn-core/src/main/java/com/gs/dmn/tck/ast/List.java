@@ -19,7 +19,7 @@ import java.util.ArrayList;
 @JsonPropertyOrder({
         "item"
 })
-public class List extends DMNBaseElement {
+public class List extends TCKBaseElement {
     protected java.util.List<ValueType> item;
 
     public java.util.List<ValueType> getItem() {
@@ -30,7 +30,7 @@ public class List extends DMNBaseElement {
     }
 
     @Override
-    public <C> Object accept(Visitor visitor, C context) {
+    public <C, R> R accept(Visitor<C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

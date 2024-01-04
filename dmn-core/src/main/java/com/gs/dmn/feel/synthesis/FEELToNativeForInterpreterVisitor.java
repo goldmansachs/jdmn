@@ -24,7 +24,7 @@ public class FEELToNativeForInterpreterVisitor extends FEELToNativeVisitor {
     }
 
     @Override
-    protected String makeNavigation(Expression<Type, DMNContext> element, Type sourceType, String source, String memberName, String memberVariableName) {
+    protected String makeNavigation(Expression<Type> element, Type sourceType, String source, String memberName, String memberVariableName) {
         if (sourceType instanceof ItemDefinitionType) {
             String javaType = dmnTransformer.toNativeType(((ItemDefinitionType) sourceType).getMemberType(memberName));
             return this.nativeFactory.makeItemDefinitionSelectExpression(source, memberName, javaType);

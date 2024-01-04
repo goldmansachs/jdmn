@@ -14,13 +14,16 @@ package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.visitor.TraversalVisitor;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.synthesis.ELTranslator;
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParameters;
-import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
-import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.validation.table.Bound;
 import com.gs.dmn.validation.table.BoundList;
 import com.gs.dmn.validation.table.Table;
@@ -55,11 +58,17 @@ public abstract class SweepValidator extends SimpleDMNValidator {
     @Override
     public List<String> validate(DMNModelRepository dmnModelRepository) {
         if (isEmpty(dmnModelRepository)) {
-            logger.warn("DMN repository is empty; validator will not run");
+            this.logger.warn("DMN repository is empty; validator will not run");
             return new ArrayList<>();
         }
 
-        return makeErrorReport(dmnModelRepository);
+        ELTranslator<Type, DMNContext> feelTranslator = this.dmnDialectDefinition.createFEELTranslator(dmnModelRepository, this.inputParameters);
+        SweepValidationContext context = new SweepValidationContext(dmnModelRepository, feelTranslator);
+        SweepValidatorVisitor visitor = new SweepValidatorVisitor(this.errorHandler, this.logger, this);
+        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
+            definitions.accept(visitor, context);
+        }
+        return context.getErrors();
     }
 
     private Map<String, String> makeInputParametersMap() {
@@ -70,28 +79,36 @@ public abstract class SweepValidator extends SimpleDMNValidator {
         return inputParams;
     }
 
-    public List<String> makeErrorReport(DMNModelRepository dmnModelRepository) {
-        List<String> errorReport = new ArrayList<>();
-        BasicDMNToJavaTransformer dmnTransformer = this.dmnDialectDefinition.createBasicTransformer(dmnModelRepository, new NopLazyEvaluationDetector(), this.inputParameters);
-        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
-            List<TDRGElement> drgElements = dmnModelRepository.findDRGElements(definitions);
-            for (TDRGElement element: drgElements) {
-                if (element instanceof TDecision) {
-                    TExpression expression = ((TDecision) element).getExpression();
-                    if (expression instanceof TDecisionTable && ((TDecisionTable) expression).getHitPolicy() == THitPolicy.UNIQUE) {
-                        validate(element, (TDecisionTable) expression, dmnTransformer, dmnModelRepository, errorReport);
-                    }
-                }
-            }
-        }
-        return errorReport;
-    }
-
-    protected abstract void validate(TDRGElement element, TDecisionTable decisionTable, BasicDMNToJavaTransformer transformer, DMNModelRepository repository, List<String> errorReport);
-
     protected List<Bound> makeBoundList(List<Integer> ruleList, int columnIndex, Table table) {
         BoundList boundList = new BoundList(ruleList, columnIndex, table);
         boundList.sort();
         return boundList.getBounds();
+    }
+
+    protected abstract void validate(TDRGElement element, TDecisionTable decisionTable, SweepValidationContext context);
+}
+
+class SweepValidatorVisitor extends TraversalVisitor<SweepValidationContext> {
+    private final BuildLogger logger;
+    private final SweepValidator validator;
+
+    public SweepValidatorVisitor(ErrorHandler errorHandler, BuildLogger logger, SweepValidator validator) {
+        super(errorHandler);
+        this.logger = logger;
+        this.validator = validator;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecision element, SweepValidationContext context) {
+        if (element != null) {
+            this.logger.debug(String.format("Validating element '%s'", element.getName()));
+            TExpression expression = element.getExpression();
+            if (expression instanceof TDecisionTable && ((TDecisionTable) expression).getHitPolicy() == THitPolicy.UNIQUE) {
+                this.validator.validate(element, (TDecisionTable) expression, context);
+            }
+
+        }
+
+        return element;
     }
 }

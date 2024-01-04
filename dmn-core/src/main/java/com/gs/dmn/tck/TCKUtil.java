@@ -26,6 +26,7 @@ import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.EvaluationContext;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.tck.ast.*;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -441,10 +442,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             throw new DMNRuntimeException(String.format("Cannot find DRG elements for node '%s'", info.getNodeName()));
         } else if (element instanceof TDecision) {
             Map<String, Object> informationRequirements = makeInputs(testCases, testCase);
-            return interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), informationRequirements);
+            return interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeDecisionEvaluationContext(informationRequirements));
         } else if (element instanceof TInvocable) {
             List<Object> arguments = makeArgs(element, testCase);
-            return interpreter.evaluateInvocable(reference.getNamespace(), reference.getElementName(), arguments);
+            return interpreter.evaluateInvocable(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeFunctionInvocationContext(arguments));
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
         }
@@ -483,7 +484,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         List<Object> args = new ArrayList<>();
         if (drgElement instanceof TInvocable) {
             // Preserve de order in the call
-            List<FormalParameter<Type, DMNContext>> formalParameters = this.transformer.invocableFEELParameters(drgElement);
+            List<FormalParameter<Type>> formalParameters = this.transformer.invocableFEELParameters(drgElement);
             Map<String, Object> map = new LinkedHashMap<>();
             List<InputNode> inputNode = testCase.getInputNode();
             for (int i = 0; i < inputNode.size(); i++) {
@@ -496,7 +497,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                     throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DRGElement '%s'", input.getName(), i, drgElement.getName()), e);
                 }
             }
-            for (FormalParameter<Type, DMNContext> parameter: formalParameters) {
+            for (FormalParameter<Type> parameter: formalParameters) {
                 args.add(map.get(parameter.getName()));
             }
         }

@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
-public abstract class ParameterTypes<T, C> {
+public abstract class ParameterTypes<T> {
     public abstract int size();
 }
 

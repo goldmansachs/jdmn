@@ -44,7 +44,7 @@ public class TestCaseConverter extends DMNBaseElementConverter {
     }
 
     @Override
-    protected DMNBaseElement createModelObject() {
+    protected TCKBaseElement createModelObject() {
         return new TestCase();
     }
 

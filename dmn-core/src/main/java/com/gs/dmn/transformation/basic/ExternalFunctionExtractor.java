@@ -13,7 +13,6 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.ast.*;
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
@@ -64,28 +63,28 @@ public class ExternalFunctionExtractor {
         }
     }
 
-    public JavaFunctionInfo extractJavaFunctionInfo(TDRGElement element, FunctionDefinition<Type, DMNContext> functionDefinition) {
+    public JavaFunctionInfo extractJavaFunctionInfo(TDRGElement element, FunctionDefinition<Type> functionDefinition) {
         // Extract class, method and param types names
         String className = null;
         String methodName = null;
         List<String> paramTypes = new ArrayList<>();
-        Expression<Type, DMNContext> body = functionDefinition.getBody();
+        Expression<Type> body = functionDefinition.getBody();
         if (body instanceof Context) {
-            body = ((Context<Type, DMNContext>) body).getEntries().get(0).getExpression();
+            body = ((Context<Type>) body).getEntries().get(0).getExpression();
         }
         if (body instanceof Context) {
-            for (ContextEntry<Type, DMNContext> entry: ((Context<Type, DMNContext>) body).getEntries()) {
+            for (ContextEntry<Type> entry: ((Context<Type>) body).getEntries()) {
                 String name = entry.getKey().getKey();
                 if ("class".equals(name)) {
-                    Expression<Type, DMNContext> value = entry.getExpression();
+                    Expression<Type> value = entry.getExpression();
                     if (value instanceof StringLiteral) {
-                        String lexeme = ((StringLiteral<Type, DMNContext>) value).getLexeme();
+                        String lexeme = ((StringLiteral<Type>) value).getLexeme();
                         className = StringEscapeUtil.stripQuotes(lexeme);
                     }
                 } else if (isMethodSignature(name)) {
-                    Expression<Type, DMNContext> value = entry.getExpression();
+                    Expression<Type> value = entry.getExpression();
                     if (value instanceof StringLiteral) {
-                        String lexeme = ((StringLiteral<Type, DMNContext>) value).getLexeme();
+                        String lexeme = ((StringLiteral<Type>) value).getLexeme();
                         String signature = StringEscapeUtil.stripQuotes(lexeme);
                         int lpIndex = signature.indexOf('(');
                         int rpIndex = signature.indexOf(')');

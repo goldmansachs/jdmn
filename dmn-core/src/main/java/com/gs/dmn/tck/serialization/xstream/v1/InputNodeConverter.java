@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.tck.serialization.xstream.v1;
 
-import com.gs.dmn.tck.ast.DMNBaseElement;
+import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.InputNode;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
@@ -34,7 +34,7 @@ public class InputNodeConverter extends ValueTypeConverter {
     }
 
     @Override
-    protected DMNBaseElement createModelObject() {
+    protected TCKBaseElement createModelObject() {
         return new InputNode();
     }
 

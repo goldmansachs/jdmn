@@ -27,7 +27,7 @@ import java.util.Map;
         "labels",
         "testCase"
 })
-public class TestCases extends DMNBaseElement {
+public class TestCases extends TCKBaseElement {
     protected String modelName;
     protected Labels labels;
     protected List<TestCase> testCase;
@@ -70,7 +70,7 @@ public class TestCases extends DMNBaseElement {
     }
 
     @Override
-    public <C> Object accept(Visitor visitor, C context) {
+    public <C, R> R accept(Visitor<C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

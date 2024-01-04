@@ -17,21 +17,21 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.function.BiFunction;
 
-public abstract class Parameters<T, C> extends Element<T, C> {
+public abstract class Parameters<T> extends Element<T> {
     // API for initial status
     public abstract boolean isEmpty();
-    public abstract ParameterTypes<T, C> getSignature();
-    public abstract Arguments<T, C> getOriginalArguments();
-    public abstract void setOriginalArguments(Arguments<T, C> originalArguments);
+    public abstract ParameterTypes<T> getSignature();
+    public abstract Arguments<T> getOriginalArguments();
+    public abstract void setOriginalArguments(Arguments<T> originalArguments);
 
     // API during and after conversion
-    public abstract ParameterConversions<T, C> getParameterConversions();
-    public abstract void setParameterConversions(ParameterConversions<T, C> parameterConversions);
-    public abstract ParameterTypes<T, C> getConvertedParameterTypes();
-    public abstract void setConvertedParameterTypes(ParameterTypes<T, C> parameterTypes);
-    public abstract Arguments<T, C> getConvertedArguments();
-    public abstract Arguments<T, C> convertArguments(BiFunction<Object, Conversion<T>, Object> convertArgument);
+    public abstract ParameterConversions<T> getParameterConversions();
+    public abstract void setParameterConversions(ParameterConversions<T> parameterConversions);
+    public abstract ParameterTypes<T> getConvertedParameterTypes();
+    public abstract void setConvertedParameterTypes(ParameterTypes<T> parameterTypes);
+    public abstract Arguments<T> getConvertedArguments();
+    public abstract Arguments<T> convertArguments(BiFunction<Object, Conversion<T>, Object> convertArgument);
 
     public abstract T getParameterType(int position, String name);
-    public abstract Expression<T, C> getParameter(int position, String name);
+    public abstract Expression<T> getParameter(int position, String name);
 }

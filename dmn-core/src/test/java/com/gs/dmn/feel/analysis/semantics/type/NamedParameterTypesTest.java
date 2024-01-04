@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.NamedParameterTypes;
@@ -24,9 +23,9 @@ import java.util.Map;
 
 public class NamedParameterTypesTest extends ParameterTypesTest {
     @Override
-    protected ParameterTypes<Type, DMNContext> makeParameterTypes(List<FormalParameter<Type, DMNContext>> parameters) {
+    protected ParameterTypes<Type> makeParameterTypes(List<FormalParameter<Type>> parameters) {
         Map<String, Type> namedTypes = new LinkedHashMap<>();
-        for (FormalParameter<Type, DMNContext> fp: parameters) {
+        for (FormalParameter<Type> fp: parameters) {
             namedTypes.put(fp.getName(), fp.getType());
         }
         return new NamedParameterTypes<>(namedTypes);

@@ -17,28 +17,28 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.ListLiteral;
 
 import java.util.Objects;
 
-public class ListTest<T, C> extends SimplePositiveUnaryTest<T, C> {
-    private final ListLiteral<T, C> listLiteral;
-    private ListLiteral<T, C> optimizedListLiteral;
+public class ListTest<T> extends SimplePositiveUnaryTest<T> {
+    private final ListLiteral<T> listLiteral;
+    private ListLiteral<T> optimizedListLiteral;
 
-    public ListTest(ListLiteral<T, C> listLiteral) {
+    public ListTest(ListLiteral<T> listLiteral) {
         this.listLiteral = listLiteral;
     }
 
-    public ListLiteral<T, C> getListLiteral() {
+    public ListLiteral<T> getListLiteral() {
         return this.listLiteral;
     }
 
-    public void setOptimizedListLiteral(ListLiteral<T, C> optimizedListLiteral) {
+    public void setOptimizedListLiteral(ListLiteral<T> optimizedListLiteral) {
         this.optimizedListLiteral = optimizedListLiteral;
     }
 
-    public ListLiteral<T, C> getOptimizedListLiteral() {
+    public ListLiteral<T> getOptimizedListLiteral() {
         return optimizedListLiteral;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -46,7 +46,7 @@ public class ListTest<T, C> extends SimplePositiveUnaryTest<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListTest<?, ?> listTest = (ListTest<?, ?>) o;
+        ListTest<?> listTest = (ListTest<?>) o;
         return Objects.equals(listLiteral, listTest.listLiteral);
     }
 

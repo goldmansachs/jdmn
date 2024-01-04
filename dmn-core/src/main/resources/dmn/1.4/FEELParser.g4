@@ -28,10 +28,6 @@ import com.gs.dmn.runtime.Pair;
         this(input);
         this.astFactory = astFactory;
     }
-
-    public ASTFactory getASTFactory() {
-        return astFactory;
-    }
 }
 
 // Start rules

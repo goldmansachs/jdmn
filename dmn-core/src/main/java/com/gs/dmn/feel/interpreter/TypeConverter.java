@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.interpreter;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.*;
@@ -86,7 +85,7 @@ public class TypeConverter {
             }
             return true;
         } else if (value instanceof FEELFunction && type instanceof FunctionType) {
-            FunctionDefinition<Type, DMNContext> functionDefinition = ((FEELFunction) value).getFunctionDefinition();
+            FunctionDefinition<Type> functionDefinition = ((FEELFunction) value).getFunctionDefinition();
             return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(functionDefinition.getType(), type);
         } else if (value instanceof DMNInvocable && type instanceof FunctionType) {
             Type valueType = ((DMNInvocable) value).getType();

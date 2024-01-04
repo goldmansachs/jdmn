@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
@@ -50,7 +49,7 @@ public abstract class FunctionTypeTest {
     }
 
     private void doTest(List<Type> parameterTypes, List<Type> argumentTypes, String expectedCandidates) {
-        List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> candidates = makeFunctionType().calculateCandidates(parameterTypes, argumentTypes);
+        List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> candidates = makeFunctionType().calculateCandidates(parameterTypes, argumentTypes);
         assertEquals(expectedCandidates, candidates.toString());
     }
 }

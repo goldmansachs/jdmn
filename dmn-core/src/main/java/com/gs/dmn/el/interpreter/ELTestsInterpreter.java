@@ -19,5 +19,5 @@ import com.gs.dmn.runtime.interpreter.Result;
 interface ELTestsInterpreter<T, C> extends ELTestsAnalyzer<T, C> {
     Result evaluateUnaryTests(String text, C context);
 
-    Result evaluateUnaryTests(UnaryTests<T, C> expression, C context);
+    Result evaluateUnaryTests(UnaryTests<T> expression, C context);
 }

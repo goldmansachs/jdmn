@@ -38,7 +38,7 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
     }
 
     public RuleDescriptionValidator() {
-        super(new Slf4jBuildLogger(LOGGER));
+        this(new Slf4jBuildLogger(LOGGER));
     }
 
     public RuleDescriptionValidator(BuildLogger logger) {

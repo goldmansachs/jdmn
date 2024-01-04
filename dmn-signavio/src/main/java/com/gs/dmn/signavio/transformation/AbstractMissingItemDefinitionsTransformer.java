@@ -22,25 +22,17 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.namespace.QName;
 import java.util.List;
 
 public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDMNTransformer<TestLab> {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractMissingItemDefinitionsTransformer.class);
-
-    protected final BuildLogger logger;
-
-    protected boolean transformRepository = true;
-
-    public AbstractMissingItemDefinitionsTransformer() {
+    protected AbstractMissingItemDefinitionsTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     protected AbstractMissingItemDefinitionsTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     protected void addNewDefinitions(DMNModelRepository repository, List<TItemDefinition> definitions) {

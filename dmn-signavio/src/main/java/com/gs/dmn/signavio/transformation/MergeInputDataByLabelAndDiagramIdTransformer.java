@@ -15,12 +15,13 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TInputData;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 
 public class MergeInputDataByLabelAndDiagramIdTransformer extends AbstractMergeInputDataTransformer {
     public MergeInputDataByLabelAndDiagramIdTransformer() {
-        super();
+        this(new Slf4jBuildLogger(LOGGER));
     }
 
     public MergeInputDataByLabelAndDiagramIdTransformer(BuildLogger logger) {

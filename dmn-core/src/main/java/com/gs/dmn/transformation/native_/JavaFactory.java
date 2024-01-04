@@ -279,10 +279,10 @@ public class JavaFactory implements NativeFactory {
                 returnType, signature, parametersAssignment, body);
     }
 
-    protected String parametersAssignment(List<FormalParameter<Type, DMNContext>> formalParameters, boolean convertTypeToContext) {
+    protected String parametersAssignment(List<FormalParameter<Type>> formalParameters, boolean convertTypeToContext) {
         List<String> parameters = new ArrayList<>();
         for(int i=0; i<formalParameters.size(); i++) {
-            FormalParameter<Type, DMNContext> p = formalParameters.get(i);
+            FormalParameter<Type> p = formalParameters.get(i);
             String type = transformer.toNativeType(transformer.convertType(p.getType(), convertTypeToContext));
             String name = transformer.nativeFriendlyVariableName(p.getName());
             parameters.add(makeLambdaParameterAssignment(type, name, i));
@@ -373,7 +373,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String dateTimeLiteral(DateTimeLiteral<Type, DMNContext> element) {
+    public String dateTimeLiteral(DateTimeLiteral<Type> element) {
         Type type = element.getType();
         String value = element.getLexeme();
         String functionName;

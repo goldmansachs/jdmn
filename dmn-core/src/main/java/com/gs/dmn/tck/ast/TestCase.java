@@ -32,7 +32,7 @@ import java.util.Map;
         "resultNode",
         "extensionElements"
 })
-public class TestCase extends DMNBaseElement {
+public class TestCase extends TCKBaseElement {
     protected String description;
     protected List<InputNode> inputNode;
     protected List<ResultNode> resultNode;
@@ -130,7 +130,7 @@ public class TestCase extends DMNBaseElement {
     }
 
     @Override
-    public <C> Object accept(Visitor visitor, C context) {
+    public <C, R> R accept(Visitor<C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

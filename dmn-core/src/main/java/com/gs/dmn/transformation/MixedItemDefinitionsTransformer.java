@@ -14,40 +14,38 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.visitor.TraversalVisitor;
+import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.tck.ast.TestCases;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.namespace.QName;
 import java.util.List;
 
 public class MixedItemDefinitionsTransformer extends SimpleDMNTransformer<TestCases> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MixedItemDefinitionsTransformer.class);
-
-    private final BuildLogger logger;
     private boolean transformRepository = true;
-    private final Visitor visitor = new MixedItemDefinitionsVisitor();
+    private final Visitor<?, Object> visitor = new MixedItemDefinitionsVisitor<>(new NopErrorHandler());
 
     public MixedItemDefinitionsTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     public MixedItemDefinitionsTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override
     public DMNModelRepository transform(DMNModelRepository repository) {
         if (isEmpty(repository)) {
-            logger.warn("DMN repository is empty; transformer will not run");
+            this.logger.warn("DMN repository is empty; transformer will not run");
             return repository;
         }
 
         for (TDefinitions definitions : repository.getAllDefinitions()) {
-            definitions.accept(visitor, null);
+            definitions.accept(this.visitor, null);
         }
 
         this.transformRepository = false;
@@ -57,12 +55,12 @@ public class MixedItemDefinitionsTransformer extends SimpleDMNTransformer<TestCa
     @Override
     public Pair<DMNModelRepository, List<TestCases>> transform(DMNModelRepository repository, List<TestCases> testCasesList) {
         if (isEmpty(repository, testCasesList)) {
-            logger.warn("DMN repository or test cases list is empty; transformer will not run");
+            this.logger.warn("DMN repository or test cases list is empty; transformer will not run");
             return new Pair<>(repository, testCasesList);
         }
 
         // Transform model
-        if (transformRepository) {
+        if (this.transformRepository) {
             transform(repository);
         }
 
@@ -70,9 +68,13 @@ public class MixedItemDefinitionsTransformer extends SimpleDMNTransformer<TestCa
     }
 }
 
-class MixedItemDefinitionsVisitor extends DefaultDMNVisitor {
+class MixedItemDefinitionsVisitor<C> extends TraversalVisitor<C> {
+    public MixedItemDefinitionsVisitor(ErrorHandler errorHandler) {
+        super(errorHandler);
+    }
+
     @Override
-    protected <C> QName visitTypeRef(QName typeRef, C context) {
+    protected QName visitTypeRef(QName typeRef, C context) {
         if (typeRef != null) {
             String localPart = typeRef.getLocalPart();
             if (localPart != null) {
@@ -86,7 +88,7 @@ class MixedItemDefinitionsVisitor extends DefaultDMNVisitor {
     }
 
     @Override
-    public <C> Object visit(TItemDefinition element, C context) {
+    public DMNBaseElement visit(TItemDefinition element, C context) {
         super.visit(element, context);
 
         if (isMixed(element) && isEmpty(element)) {

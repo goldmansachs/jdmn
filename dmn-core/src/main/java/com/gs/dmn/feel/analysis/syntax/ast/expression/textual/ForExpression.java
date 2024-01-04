@@ -21,39 +21,39 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ForExpression<T, C> extends Expression<T, C> {
+public class ForExpression<T> extends Expression<T> {
     public static final String PARTIAL_PARAMETER_NAME = "partial";
 
-    private final List<Iterator<T, C>> iterators;
-    private final Expression<T, C> body;
+    private final List<Iterator<T>> iterators;
+    private final Expression<T> body;
 
-    public ForExpression(List<Iterator<T, C>> iterators, Expression<T, C> body) {
+    public ForExpression(List<Iterator<T>> iterators, Expression<T> body) {
         this.iterators = iterators;
         this.body = body;
     }
 
-    public List<Iterator<T, C>> getIterators() {
+    public List<Iterator<T>> getIterators() {
         return this.iterators;
     }
 
-    public Expression<T, C> getBody() {
+    public Expression<T> getBody() {
         return this.body;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
-    public ForExpression<T, C> toNestedForExpression() {
+    public ForExpression<T> toNestedForExpression() {
         if (this.iterators.size() == 1) {
             return this;
         } else {
-            Expression<T, C> newBody = this.body;
+            Expression<T> newBody = this.body;
             for(int i=this.iterators.size()-1; i>=0; i--) {
                 newBody = new ForExpression<>(Arrays.asList(this.iterators.get(i)), newBody);
             }
-            return (ForExpression<T, C>) newBody;
+            return (ForExpression<T>) newBody;
         }
     }
 
@@ -61,7 +61,7 @@ public class ForExpression<T, C> extends Expression<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ForExpression<?, ?> that = (ForExpression<?, ?>) o;
+        ForExpression<?> that = (ForExpression<?>) o;
         return Objects.equals(iterators, that.iterators) && Objects.equals(body, that.body);
     }
 

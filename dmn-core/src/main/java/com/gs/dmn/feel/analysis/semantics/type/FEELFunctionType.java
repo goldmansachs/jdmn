@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
@@ -25,20 +24,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FEELFunctionType extends FunctionType {
-    private final FunctionDefinition<Type, DMNContext> functionDefinition;
+    private final FunctionDefinition<Type> functionDefinition;
     private final boolean external;
 
-    public FEELFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, boolean external) {
+    public FEELFunctionType(List<FormalParameter<Type>> parameters, Type returnType, boolean external) {
         this(parameters, returnType, external, null);
     }
 
-    public FEELFunctionType(List<FormalParameter<Type, DMNContext>> parameters, Type returnType, boolean external, FunctionDefinition<Type, DMNContext> functionDefinition) {
+    public FEELFunctionType(List<FormalParameter<Type>> parameters, Type returnType, boolean external, FunctionDefinition<Type> functionDefinition) {
         super(parameters, returnType);
         this.functionDefinition = functionDefinition;
         this.external = external;
     }
 
-    public FunctionDefinition<Type, DMNContext> getFunctionDefinition() {
+    public FunctionDefinition<Type> getFunctionDefinition() {
         return this.functionDefinition;
     }
 
@@ -62,8 +61,8 @@ public class FEELFunctionType extends FunctionType {
     }
 
     @Override
-    public boolean match(ParameterTypes<Type, DMNContext> parameterTypes) {
-        List<FormalParameter<Type, DMNContext>> parameters = getParameters();
+    public boolean match(ParameterTypes<Type> parameterTypes) {
+        List<FormalParameter<Type>> parameters = getParameters();
         if (parameters.size() != parameterTypes.size()) {
             return false;
         }
@@ -71,7 +70,7 @@ public class FEELFunctionType extends FunctionType {
     }
 
     @Override
-    protected List<Pair<ParameterTypes<Type, DMNContext>, ParameterConversions<Type, DMNContext>>> matchCandidates(List<Type> argumentTypes) {
+    protected List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(List<Type> argumentTypes) {
         // check size constraint
         if (argumentTypes.size() != this.parameterTypes.size()) {
             return new ArrayList<>();

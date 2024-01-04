@@ -12,20 +12,19 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 
 public class InputClausePair {
-    private final Expression<Type, DMNContext> expression;
+    private final Expression<Type> expression;
     private final Object value;
 
-    public InputClausePair(Expression<Type, DMNContext> expression, Object value) {
+    public InputClausePair(Expression<Type> expression, Object value) {
         this.expression = expression;
         this.value = value;
     }
 
-    public Expression<Type, DMNContext> getExpression() {
+    public Expression<Type> getExpression() {
         return expression;
     }
 

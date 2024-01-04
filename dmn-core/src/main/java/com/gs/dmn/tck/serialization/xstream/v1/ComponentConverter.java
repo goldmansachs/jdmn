@@ -13,7 +13,7 @@
 package com.gs.dmn.tck.serialization.xstream.v1;
 
 import com.gs.dmn.tck.ast.Component;
-import com.gs.dmn.tck.ast.DMNBaseElement;
+import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -32,7 +32,7 @@ public class ComponentConverter extends ValueTypeConverter {
     }
 
     @Override
-    protected DMNBaseElement createModelObject() {
+    protected TCKBaseElement createModelObject() {
         return new Component();
     }
 

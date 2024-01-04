@@ -20,7 +20,7 @@ import java.util.ArrayList;
 @JsonPropertyOrder({
         "any"
 })
-public class ExtensionElements extends DMNBaseElement {
+public class ExtensionElements extends TCKBaseElement {
     protected java.util.List<Object> any;
 
     /**
@@ -47,7 +47,7 @@ public class ExtensionElements extends DMNBaseElement {
     }
 
     @Override
-    public <C> Object accept(Visitor visitor, C context) {
+    public <C, R> R accept(Visitor<C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 }

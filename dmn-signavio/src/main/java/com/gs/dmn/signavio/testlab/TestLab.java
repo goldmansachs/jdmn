@@ -61,8 +61,8 @@ public class TestLab extends TestLabElement {
     }
 
     @Override
-    public Object accept(TestLabVisitor visitor, Object... params) {
-        return visitor.visit(this, params);
+    public <R, C> R accept(Visitor<R, C> visitor, C context) {
+        return visitor.visit(this, context);
     }
 
 }

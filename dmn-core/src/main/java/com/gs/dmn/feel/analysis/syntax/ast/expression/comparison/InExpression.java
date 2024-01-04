@@ -22,34 +22,34 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class InExpression<T, C> extends Comparison<T, C> {
-    private final Expression<T, C> value;
-    private final List<PositiveUnaryTest<T, C>> tests = new ArrayList<>();
+public class InExpression<T> extends Comparison<T> {
+    private final Expression<T> value;
+    private final List<PositiveUnaryTest<T>> tests = new ArrayList<>();
 
-    public InExpression(Expression<T, C> value, PositiveUnaryTest<T, C> test) {
+    public InExpression(Expression<T> value, PositiveUnaryTest<T> test) {
         this.value = value;
         if (test != null) {
             this.tests.add(test);
         }
     }
 
-    public InExpression(Expression<T, C> value, PositiveUnaryTests<T, C> tests) {
+    public InExpression(Expression<T> value, PositiveUnaryTests<T> tests) {
         this.value = value;
         if (tests != null) {
             this.tests.addAll(tests.getPositiveUnaryTests());
         }
     }
 
-    public Expression<T, C> getValue() {
+    public Expression<T> getValue() {
         return this.value;
     }
 
-    public List<PositiveUnaryTest<T, C>> getTests() {
+    public List<PositiveUnaryTest<T>> getTests() {
         return this.tests;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -57,7 +57,7 @@ public class InExpression<T, C> extends Comparison<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        InExpression<?, ?> that = (InExpression<?, ?>) o;
+        InExpression<?> that = (InExpression<?>) o;
         return Objects.equals(value, that.value) && Objects.equals(tests, that.tests);
     }
 

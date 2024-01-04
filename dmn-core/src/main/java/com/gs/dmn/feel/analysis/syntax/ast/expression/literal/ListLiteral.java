@@ -22,25 +22,25 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ListLiteral<T, C> extends Expression<T, C> {
-    private final List<Expression<T, C>> expressionList = new ArrayList<>();
+public class ListLiteral<T> extends Expression<T> {
+    private final List<Expression<T>> expressionList = new ArrayList<>();
 
-    public ListLiteral(List<Expression<T, C>> expressionList) {
+    public ListLiteral(List<Expression<T>> expressionList) {
         if (expressionList != null) {
             this.expressionList.addAll(expressionList);
         }
     }
 
-    public List<Expression<T, C>> getExpressionList() {
+    public List<Expression<T>> getExpressionList() {
         return this.expressionList;
     }
 
-    public void add(Expression<T, C> ast) {
+    public void add(Expression<T> ast) {
         this.expressionList.add(ast);
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -48,7 +48,7 @@ public class ListLiteral<T, C> extends Expression<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListLiteral<?, ?> that = (ListLiteral<?, ?>) o;
+        ListLiteral<?> that = (ListLiteral<?>) o;
         return Objects.equals(expressionList, that.expressionList);
     }
 
@@ -67,9 +67,9 @@ public class ListLiteral<T, C> extends Expression<T, C> {
         return this.expressionList.stream().allMatch(this::isEqualityTest);
     }
 
-    private boolean isEqualityTest(Expression<T, C> expression) {
+    private boolean isEqualityTest(Expression<T> expression) {
         if (expression instanceof SimplePositiveUnaryTest) {
-            return expression instanceof OperatorRange && ((OperatorRange<T, C>) expression).getOperator() == null;
+            return expression instanceof OperatorRange && ((OperatorRange<T>) expression).getOperator() == null;
         } else {
             return true;
         }

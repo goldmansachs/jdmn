@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class PositionalParameterTypesTest extends ParameterTypesTest {
     @Override
-    protected ParameterTypes<Type, DMNContext> makeParameterTypes(List<FormalParameter<Type, DMNContext>> parameters) {
+    protected ParameterTypes<Type> makeParameterTypes(List<FormalParameter<Type>> parameters) {
         return new PositionalParameterTypes<>(parameters.stream().map(FormalParameter::getType).collect(Collectors.toList()));
     }
 }

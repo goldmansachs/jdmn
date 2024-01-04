@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.feel.analysis.syntax.ast.AbstractVisitor;
+import com.gs.dmn.feel.analysis.syntax.ast.visitor.AbstractVisitor;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
@@ -24,7 +24,7 @@ import com.gs.dmn.transformation.native_.NativeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class AbstractAnalysisVisitor<T, C> extends AbstractVisitor<T, C> {
+public abstract class AbstractAnalysisVisitor<T, C, R> extends AbstractVisitor<T, C, R> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractAnalysisVisitor.class);
 
     protected final BasicDMNToNativeTransformer<T, C> dmnTransformer;

@@ -32,129 +32,129 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
-public interface Visitor<T, C> {
+public interface Visitor<T, C, R> {
     //
     // Tests
     //
-    Object visit(PositiveUnaryTests<T, C> element, C context);
+    R visit(PositiveUnaryTests<T> element, C context);
 
-    Object visit(NegatedPositiveUnaryTests<T, C> element, C context);
+    R visit(NegatedPositiveUnaryTests<T> element, C context);
 
-    Object visit(Any<T, C> element, C context);
+    R visit(Any<T> element, C context);
 
-    Object visit(NullTest<T, C> element, C context);
+    R visit(NullTest<T> element, C context);
 
-    Object visit(ExpressionTest<T, C> element, C context);
+    R visit(ExpressionTest<T> element, C context);
 
-    Object visit(OperatorRange<T, C> element, C context);
+    R visit(OperatorRange<T> element, C context);
 
-    Object visit(EndpointsRange<T, C> element, C context);
+    R visit(EndpointsRange<T> element, C context);
 
-    Object visit(ListTest<T, C> element, C context);
+    R visit(ListTest<T> element, C context);
 
     //
     // Textual expressions
     //
-    Object visit(FormalParameter<T, C> element, C context);
+    R visit(FormalParameter<T> element, C context);
 
-    Object visit(FunctionDefinition<T, C> element, C context);
+    R visit(FunctionDefinition<T> element, C context);
 
-    Object visit(Context<T, C> element, C context);
+    R visit(Context<T> element, C context);
 
-    Object visit(ContextEntry<T, C> element, C context);
+    R visit(ContextEntry<T> element, C context);
 
-    Object visit(ContextEntryKey<T, C> element, C context);
+    R visit(ContextEntryKey<T> element, C context);
 
-    Object visit(ForExpression<T, C> element, C context);
+    R visit(ForExpression<T> element, C context);
 
-    Object visit(Iterator<T, C> element, C context);
+    R visit(Iterator<T> element, C context);
 
-    Object visit(ExpressionIteratorDomain<T, C> element, C context);
+    R visit(ExpressionIteratorDomain<T> element, C context);
 
-    Object visit(RangeIteratorDomain<T, C> element, C context);
+    R visit(RangeIteratorDomain<T> element, C context);
 
-    Object visit(IfExpression<T, C> element, C context);
+    R visit(IfExpression<T> element, C context);
 
-    Object visit(QuantifiedExpression<T, C> element, C context);
+    R visit(QuantifiedExpression<T> element, C context);
 
-    Object visit(FilterExpression<T, C> element, C context);
+    R visit(FilterExpression<T> element, C context);
 
-    Object visit(InstanceOfExpression<T, C> element, C context);
+    R visit(InstanceOfExpression<T> element, C context);
 
     //
     // Expressions
     //
-    Object visit(ExpressionList<T, C> element, C context);
+    R visit(ExpressionList<T> element, C context);
 
     //
     // Logic expressions
     //
-    Object visit(Disjunction<T, C> element, C context);
+    R visit(Disjunction<T> element, C context);
 
-    Object visit(Conjunction<T, C> element, C context);
+    R visit(Conjunction<T> element, C context);
 
-    Object visit(LogicNegation<T, C> element, C context);
+    R visit(LogicNegation<T> element, C context);
 
     //
     // Comparison expressions
     //
-    Object visit(Relational<T, C> element, C context);
+    R visit(Relational<T> element, C context);
 
-    Object visit(BetweenExpression<T, C> element, C context);
+    R visit(BetweenExpression<T> element, C context);
 
-    Object visit(InExpression<T, C> element, C context);
+    R visit(InExpression<T> element, C context);
 
     //
     // Arithmetic expressions
     //
-    Object visit(Addition<T, C> element, C context);
+    R visit(Addition<T> element, C context);
 
-    Object visit(Multiplication<T, C> element, C context);
+    R visit(Multiplication<T> element, C context);
 
-    Object visit(Exponentiation<T, C> element, C context);
+    R visit(Exponentiation<T> element, C context);
 
-    Object visit(ArithmeticNegation<T, C> element, C context);
+    R visit(ArithmeticNegation<T> element, C context);
 
     //
     // Postfix expressions
     //
-    Object visit(FunctionInvocation<T, C> element, C context);
+    R visit(FunctionInvocation<T> element, C context);
 
-    Object visit(NamedParameters<T, C> element, C context);
+    R visit(NamedParameters<T> element, C context);
 
-    Object visit(PositionalParameters<T, C> element, C context);
+    R visit(PositionalParameters<T> element, C context);
 
-    Object visit(PathExpression<T, C> element, C context);
+    R visit(PathExpression<T> element, C context);
 
     //
     // Primary expressions
     //
-    Object visit(BooleanLiteral<T, C> element, C context);
+    R visit(BooleanLiteral<T> element, C context);
 
-    Object visit(DateTimeLiteral<T, C> element, C context);
+    R visit(DateTimeLiteral<T> element, C context);
 
-    Object visit(NullLiteral<T, C> element, C context);
+    R visit(NullLiteral<T> element, C context);
 
-    Object visit(NumericLiteral<T, C> element, C context);
+    R visit(NumericLiteral<T> element, C context);
 
-    Object visit(StringLiteral<T, C> element, C context);
+    R visit(StringLiteral<T> element, C context);
 
-    Object visit(ListLiteral<T, C> element, C context);
+    R visit(ListLiteral<T> element, C context);
 
-    Object visit(QualifiedName<T, C> element, C context);
+    R visit(QualifiedName<T> element, C context);
 
-    Object visit(Name<T, C> element, C context);
+    R visit(Name<T> element, C context);
 
     //
     // Type expressions
     //
-    Object visit(NamedTypeExpression<T, C> element, C context);
+    R visit(NamedTypeExpression<T> element, C context);
 
-    Object visit(ContextTypeExpression<T, C> element, C context);
+    R visit(ContextTypeExpression<T> element, C context);
 
-    Object visit(RangeTypeExpression<T, C> element, C context);
+    R visit(RangeTypeExpression<T> element, C context);
 
-    Object visit(FunctionTypeExpression<T, C> element, C context);
+    R visit(FunctionTypeExpression<T> element, C context);
 
-    Object visit(ListTypeExpression<T, C> element, C context);
+    R visit(ListTypeExpression<T> element, C context);
 }

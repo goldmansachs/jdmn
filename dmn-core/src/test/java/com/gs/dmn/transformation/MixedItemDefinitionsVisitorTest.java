@@ -14,6 +14,7 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.ast.TDMNElement;
 import com.gs.dmn.ast.TItemDefinition;
+import com.gs.dmn.error.NopErrorHandler;
 import org.junit.Test;
 
 import javax.xml.namespace.QName;
@@ -21,7 +22,7 @@ import javax.xml.namespace.QName;
 import static org.junit.Assert.*;
 
 public class MixedItemDefinitionsVisitorTest {
-    MixedItemDefinitionsVisitor visitor = new MixedItemDefinitionsVisitor();
+    private final MixedItemDefinitionsVisitor<?> visitor = new MixedItemDefinitionsVisitor<>(new NopErrorHandler());
 
     @Test
     public void testVisitTypeRef() {

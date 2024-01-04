@@ -24,8 +24,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -33,17 +31,12 @@ import java.util.List;
 import java.util.Set;
 
 public class AddMissingImportPrefixInDTTransformer extends SimpleDMNTransformer<TestCases> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AddMissingImportPrefixInDTTransformer.class);
-
-    private final BuildLogger logger;
-    private boolean transformRepository = true;
-
     public AddMissingImportPrefixInDTTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     public AddMissingImportPrefixInDTTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override
@@ -74,7 +67,7 @@ public class AddMissingImportPrefixInDTTransformer extends SimpleDMNTransformer<
         }
 
         // Transform model
-        if (transformRepository) {
+        if (this.transformRepository) {
             transform(repository);
         }
 

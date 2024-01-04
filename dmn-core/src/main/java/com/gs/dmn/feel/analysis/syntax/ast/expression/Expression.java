@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 
-public abstract class Expression<T, C> extends Element<T, C> implements com.gs.dmn.el.analysis.syntax.ast.expression.Expression<T, C> {
+public abstract class Expression<T> extends Element<T> implements com.gs.dmn.el.analysis.syntax.ast.expression.Expression<T> {
     private T type;
 
     @Override

@@ -14,21 +14,67 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.visitor.TraversalVisitor;
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
+import com.gs.dmn.transformation.TransformationContext;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RuleDescriptionTransformer.class);
+    public RuleDescriptionTransformer() {
+        this(new Slf4jBuildLogger(LOGGER));
+    }
+
+    public RuleDescriptionTransformer(BuildLogger logger) {
+        super(logger);
+    }
+
+    @Override
+    public DMNModelRepository transform(DMNModelRepository repository) {
+        if (isEmpty(repository)) {
+            logger.warn("DMN repository is empty; transformer will not run");
+            return repository;
+        }
+
+        this.transformRepository = false;
+        return cleanRuleDescription(repository, logger);
+    }
+
+    @Override
+    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
+        if (isEmpty(repository, testCasesList)) {
+            logger.warn("DMN repository or test cases list is empty; transformer will not run");
+            return new Pair<>(repository, testCasesList);
+        }
+
+        // Transform model
+        if (this.transformRepository) {
+            transform(repository);
+        }
+
+        return new Pair<>(repository, testCasesList);
+    }
+
+    private DMNModelRepository cleanRuleDescription(DMNModelRepository repository, BuildLogger logger) {
+        RuleDescriptionVisitor dmnVisitor = new RuleDescriptionVisitor(this.errorHandler, this.logger);
+        TransformationContext context = new TransformationContext(repository);
+        for (TDefinitions definitions: repository.getAllDefinitions()) {
+            definitions.accept(dmnVisitor, context);
+        }
+
+        return repository;
+    }
+}
+
+class RuleDescriptionVisitor extends TraversalVisitor<TransformationContext> {
     private static final Map<String, String> PATTERNS = new LinkedHashMap<>();
     static {
         PATTERNS.put("[ ,", "[");
@@ -41,57 +87,29 @@ public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
     }
 
     private final BuildLogger logger;
-    private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
 
-    public RuleDescriptionTransformer() {
-        this(new Slf4jBuildLogger(LOGGER));
-    }
-
-    public RuleDescriptionTransformer(BuildLogger logger) {
+    public RuleDescriptionVisitor(ErrorHandler errorHandler, BuildLogger logger) {
+        super(errorHandler);
         this.logger = logger;
     }
 
     @Override
-    public DMNModelRepository transform(DMNModelRepository repository) {
-        if (isEmpty(repository)) {
-            logger.warn("DMN repository is empty; transformer will not run");
-            return repository;
-        }
+    public DMNBaseElement visit(TDecision element, TransformationContext context) {
+        logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
 
-        this.inputDataClasses = new LinkedHashMap<>();
-        return cleanRuleDescription(repository, logger);
+        DMNModelRepository repository = context.getRepository();
+        TExpression expression = repository.expression(element);
+        if (expression instanceof TDecisionTable) {
+            logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
+            ((TDecisionTable) expression).accept(this, context);
+        }
+        return element;
     }
 
     @Override
-    public Pair<DMNModelRepository, List<TestLab>> transform(DMNModelRepository repository, List<TestLab> testCasesList) {
-        if (isEmpty(repository, testCasesList)) {
-            logger.warn("DMN repository or test cases list is empty; transformer will not run");
-            return new Pair<>(repository, testCasesList);
-        }
-
-        // Transform model
-        if (inputDataClasses == null) {
-            transform(repository);
-        }
-
-        return new Pair<>(repository, testCasesList);
-    }
-
-    private DMNModelRepository cleanRuleDescription(DMNModelRepository repository, BuildLogger logger) {
-        for (TDefinitions definitions: repository.getAllDefinitions()) {
-            for(TDecision decision: repository.findDecisions(definitions)) {
-                TExpression expression = repository.expression(decision);
-                if (expression instanceof TDecisionTable) {
-                    logger.debug(String.format("Cleaning descriptions for '%s'", decision.getName()));
-                    List<TDecisionRule> rules = ((TDecisionTable) expression).getRule();
-                    for (TDecisionRule rule: rules) {
-                        cleanRuleDescription(rule);
-                    }
-                }
-            }
-        }
-
-        return repository;
+    public DMNBaseElement visit(TDecisionRule element, TransformationContext context) {
+        cleanRuleDescription(element);
+        return element;
     }
 
     void cleanRuleDescription(TDecisionRule rule) {

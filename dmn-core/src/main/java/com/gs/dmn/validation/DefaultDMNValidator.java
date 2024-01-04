@@ -15,6 +15,8 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.visitor.TraversalVisitor;
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
@@ -25,10 +27,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class DefaultDMNValidator extends SimpleDMNValidator {
     public DefaultDMNValidator() {
-        super(new Slf4jBuildLogger(LOGGER));
+        this(new Slf4jBuildLogger(LOGGER));
     }
 
     public DefaultDMNValidator(BuildLogger logger) {
@@ -37,47 +40,52 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
 
     @Override
     public List<String> validate(DMNModelRepository repository) {
-        List<String> errors = new ArrayList<>();
+        ValidationContext context = new ValidationContext(repository);
         if (isEmpty(repository)) {
-            logger.warn("DMN repository is empty; validator will not run");
-            return errors;
+            this.logger.warn("DMN repository is empty; validator will not run");
+            return context.getErrors();
         }
 
+        DefaultDMNValidatorVisitor visitor = new DefaultDMNValidatorVisitor(this.errorHandler, this.logger, this);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            logger.debug("Validate unique 'DRGElement.id'");
-            validateUnique(
-                    repository, definitions, new ArrayList<>(repository.findDRGElements(definitions)), "DRGElement", "id", false,
-                    TDMNElement::getId, null, errors
-            );
-
-            logger.debug("Validate unique 'DRGElement.name'");
-            validateUnique(
-                    repository, definitions, new ArrayList<>(repository.findDRGElements(definitions)), "DRGElement", "name", false,
-                    e -> ((TNamedElement)e).getName(), null, errors
-            );
-
-            logger.debug("Validate unique 'ItemDefinition.name'");
-            validateUnique(
-                    repository, definitions, new ArrayList<>(repository.findItemDefinitions(definitions)), "ItemDefinition", "name", false,
-                    e -> ((TNamedElement)e).getName(), null, errors
-            );
-
-            for (TDRGElement element : repository.findDRGElements(definitions)) {
-                logger.debug(String.format("Validate element '%s'", element.getName()));
-                if (element instanceof TInputData) {
-                    validateInputData(repository, definitions, (TInputData) element, errors);
-                } else if (element instanceof TBusinessKnowledgeModel) {
-                    validateBusinessKnowledgeModel(repository, definitions, (TBusinessKnowledgeModel) element, errors);
-                } else if (element instanceof TDecision) {
-                    validateDecision(repository, definitions, (TDecision) element, errors);
-                }
-            }
+            definitions.accept(visitor, context);
         }
 
-        return errors;
+        return context.getErrors();
     }
 
-    private void validateUnique(DMNModelRepository repository, TDefinitions definitions, List<? extends TDMNElement> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElement, String> accessor, String errorMessage, List<String> errors) {
+    protected void validateInputData(TDefinitions definitions, TInputData element, ValidationContext context) {
+        validateNamedElement(definitions, element, context);
+        validateVariable(definitions, element, element.getVariable(), true, context);
+    }
+
+    protected void validateDecision(TDefinitions definitions, TDecision element, ValidationContext context) {
+        validateNamedElement(definitions, element, context);
+        TInformationItem variable = element.getVariable();
+        validateVariable(definitions, element, variable, true, context);
+        validateInformationRequirements(definitions, element, element.getInformationRequirement(), context);
+        List<TDMNElementReference> krs = element.getKnowledgeRequirement().stream().map(TKnowledgeRequirement::getRequiredKnowledge).collect(Collectors.toList());
+        validateReferences(definitions, element, krs, context);
+        validateExpression(definitions, element, context);
+    }
+
+    protected void validateBusinessKnowledgeModel(TDefinitions definitions, TBusinessKnowledgeModel element, ValidationContext context) {
+        validateNamedElement(definitions, element, context);
+        validateVariable(definitions, element, element.getVariable(), false, context);
+        List<TDMNElementReference> krs = element.getKnowledgeRequirement().stream().map(TKnowledgeRequirement::getRequiredKnowledge).collect(Collectors.toList());
+        validateReferences(definitions, element, krs, context);
+    }
+
+    protected void validateDecisionService(TDefinitions definitions, TDecisionService element, ValidationContext context) {
+        validateNamedElement(definitions, element, context);
+        validateVariable(definitions, element, element.getVariable(), false, context);
+        validateReferences(definitions, element, element.getInputData(), context);
+        validateReferences(definitions, element, element.getInputDecision(), context);
+        validateReferences(definitions, element, element.getOutputDecision(), context);
+        validateReferences(definitions, element, element.getEncapsulatedDecision(), context);
+    }
+
+    protected void validateUnique(TDefinitions definitions, List<? extends TDMNElement> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElement, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
             errorMessage = String.format("The '%s' of a '%s' must be unique.", property, elementType);
         }
@@ -107,45 +115,83 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         // Report error
         if (!duplicates.isEmpty()) {
             String message = String.join(", ", duplicates);
-            errors.add(makeError(repository, definitions, null, String.format("%s Found duplicates for '%s'.", errorMessage, message)));
+            context.addError(makeError(context.getRepository(), definitions, null, String.format("%s Found duplicates for '%s'.", errorMessage, message)));
         }
     }
 
-    private void validateInputData(DMNModelRepository repository, TDefinitions definitions, TInputData inputData, List<String> errors) {
-        validateNamedElement(repository, definitions, inputData, errors);
-        validateVariable(repository, definitions, inputData, inputData.getVariable(), errors);
+    private void validateUniqueReferences(TDefinitions definitions, List<? extends TDMNElementReference> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElementReference, String> accessor, String errorMessage, ValidationContext context) {
+        if (errorMessage == null) {
+            errorMessage = String.format("The '%s' of a '%s' must be unique.", property, elementType);
+        }
+        // Create a map
+        Map<String, List<TDMNElementReference>> map = new LinkedHashMap<>();
+        for (TDMNElementReference element : elements) {
+            String key = accessor.apply(element);
+            if (!isOptionalProperty || key != null) {
+                List<TDMNElementReference> list = map.get(key);
+                if (list == null) {
+                    list = new ArrayList<>();
+                    list.add(element);
+                    map.put(key, list);
+                } else {
+                    list.add(element);
+                }
+            }
+        }
+        // Find duplicates
+        List<String> duplicates = new ArrayList<>();
+        for (Map.Entry<String, List<TDMNElementReference>> entry : map.entrySet()) {
+            String key = entry.getKey();
+            if(entry.getValue().size() > 1){
+                duplicates.add(key);
+            }
+        }
+        // Report error
+        if (!duplicates.isEmpty()) {
+            String message = String.join(", ", duplicates);
+            context.addError(makeError(context.getRepository(), definitions, null, String.format("%s Found duplicates for '%s'.", errorMessage, message)));
+        }
     }
 
-    protected void validateBusinessKnowledgeModel(DMNModelRepository repository, TDefinitions definitions, TBusinessKnowledgeModel knowledgeModel, List<String> errors) {
-        validateNamedElement(repository, definitions, knowledgeModel, errors);
-        validateVariable(repository, definitions, knowledgeModel, knowledgeModel.getVariable(), errors);
+    private void validateNamedElement(TDefinitions definitions, TNamedElement element, ValidationContext context) {
+        if (StringUtils.isBlank(element.getName())) {
+            String errorMessage = "Missing name";
+            context.addError(makeError(context.getRepository(), definitions, element, errorMessage));
+        }
     }
 
-    protected void validateDecision(DMNModelRepository repository, TDefinitions definitions, TDecision decision, List<String> errors) {
-        validateNamedElement(repository, definitions, decision, errors);
-        TInformationItem variable = decision.getVariable();
-        validateVariable(repository, definitions, decision, variable, errors);
-        String decisionName = decision.getName();
-        if (variable != null) {
-            // decision/@name == decision/variable/@name
-            String variableName = variable.getName();
-            if (!decisionName.equals(variableName)) {
-                String errorMessage = String.format("Decision name and variable name should be the same. Found '%s' and '%s'", decisionName, variableName);
-                errors.add(makeError(repository, definitions, decision, errorMessage));
-            }
-            // decision/variable/@typeRef is not null
-            QualifiedName typeRef = QualifiedName.toQualifiedName(definitions, variable.getTypeRef());
-            if (repository.isNull(typeRef)) {
-                String errorMessage = "Missing typRef in variable";
-                errors.add(makeError(repository, definitions, decision, errorMessage));
-            }
-        } else {
+    private void validateVariable(TDefinitions definitions, TNamedElement element, TInformationItem variable, boolean validateTypeRef, ValidationContext context) {
+        DMNModelRepository repository = context.getRepository();
+
+        if (variable == null) {
             String errorMessage = "Missing variable";
-            errors.add(makeError(repository, definitions, decision, errorMessage));
+            context.addError(makeError(repository, definitions, element, errorMessage));
+        } else {
+            if (variable.getName() == null) {
+                String errorMessage = "Missing variable name";
+                context.addError(makeError(context.getRepository(), definitions, element, errorMessage));
+            } else {
+                // element/@name == element/variable/@name
+                String variableName = variable.getName();
+                String elementName = element.getName();
+                if (!elementName.equals(variableName)) {
+                    String errorMessage = String.format("DRGElement name and variable name should be the same. Found '%s' and '%s'", elementName, variableName);
+                    context.addError(makeError(repository, definitions, element, errorMessage));
+                }
+                // decision/variable/@typeRef is not null
+                if (validateTypeRef) {
+                    QualifiedName typeRef = QualifiedName.toQualifiedName(definitions, variable.getTypeRef());
+                    if (repository.isNull(typeRef)) {
+                        String errorMessage = "Missing typRef in variable";
+                        context.addError(makeError(repository, definitions, element, errorMessage));
+                    }
+                }
+            }
         }
+    }
 
+    private void validateInformationRequirements(TDefinitions definitions, TNamedElement decision, List<TInformationRequirement> informationRequirements, ValidationContext context) {
         // Validate requirements
-        List<TInformationRequirement> informationRequirement = decision.getInformationRequirement();
         Function<TDMNElement, String> accessor =
                 (TDMNElement e) -> {
                     TInformationRequirement ir = (TInformationRequirement) e;
@@ -155,123 +201,124 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                         return ir.getRequiredDecision().getHref();
                     }
                 };
-        validateUnique(repository, definitions, informationRequirement, "TInformationRequirement", "href", false,
-                accessor, decision.getName(), errors);
+        validateUnique(definitions, informationRequirements, "TInformationRequirement", "href", false,
+                accessor, decision.getName(), context);
+    }
 
+    private void validateReferences(TDefinitions definitions, TNamedElement decision, List<TDMNElementReference> references, ValidationContext context) {
+        // Validate requirements
+        Function<TDMNElementReference, String> accessor =
+                TDMNElementReference::getHref;
+        validateUniqueReferences(definitions, references, "TDMNElementReference", "href", false,
+                accessor, decision.getName(), context);
+    }
+
+    private void validateExpression(TDefinitions definitions, TDecision decision, ValidationContext context) {
         // Validate expression
         TExpression expression = decision.getExpression();
         if (expression != null) {
-            validateExpression(repository, definitions, decision, expression, errors);
+            validateExpression(definitions, decision, expression, context);
         }
     }
 
-    private void validateDecisionTable(DMNModelRepository repository, TDefinitions definitions, TDMNElement element, TDecisionTable decisionTable, List<String> errors) {
-        List<TInputClause> input = decisionTable.getInput();
-        if (input == null || input.isEmpty()) {
-            String errorMessage = "Missing input clauses";
-            errors.add(makeError(repository, definitions, element, errorMessage));
-        }
-        List<TOutputClause> output = decisionTable.getOutput();
-        if (output == null || output.isEmpty()) {
-            String errorMessage = "Missing output clauses";
-            errors.add(makeError(repository, definitions, element, errorMessage));
-        }
-        validateHitPolicy(repository, definitions, element, decisionTable, errors);
-        List<TDecisionRule> ruleList = decisionTable.getRule();
-        if (ruleList == null || ruleList.isEmpty()) {
-            String errorMessage = "Missing rules in decision table";
-            errors.add(makeError(repository, definitions, element, errorMessage));
-        } else {
-            for (TDecisionRule rule : ruleList) {
-                validateRule(repository, definitions, element, rule, errors);
-            }
-        }
-    }
-
-    private void validateHitPolicy(DMNModelRepository repository, TDefinitions definitions, TDMNElement element, TDecisionTable decisionTable, List<String> errors) {
-        List<TOutputClause> output = decisionTable.getOutput();
-        THitPolicy hitPolicy = decisionTable.getHitPolicy();
-        TBuiltinAggregator aggregation = decisionTable.getAggregation();
-        if (hitPolicy != THitPolicy.COLLECT && aggregation != null) {
-            String errorMessage = String.format("Aggregation '%s' not allowed for hit policy '%s'", aggregation, hitPolicy);
-            errors.add(makeError(repository, definitions, element, errorMessage));
-        }
-        if (output != null && output.size() > 1
-                && hitPolicy == THitPolicy.COLLECT
-                && aggregation != null) {
-            String errorMessage = String.format("Collect operator is not defined over multiple outputs for decision table '%s'", decisionTable.getId());
-            errors.add(makeError(repository, definitions, element, errorMessage));
-        }
-    }
-
-    private void validateNamedElement(DMNModelRepository repository, TDefinitions definitions, TNamedElement element, List<String> errors) {
-        if (StringUtils.isBlank(element.getName())) {
-            String errorMessage = "Missing name";
-            errors.add(makeError(repository, definitions, element, errorMessage));
-        }
-    }
-
-    private void validateVariable(DMNModelRepository repository, TDefinitions definitions, TNamedElement element, TInformationItem variable, List<String> errors) {
-        if (variable != null && variable.getName() == null) {
-            String errorMessage = "Missing variable name";
-            errors.add(makeError(repository, definitions, element, errorMessage));
-        }
-    }
-
-    private void validateExpression(DMNModelRepository repository, TDefinitions definitions, TDRGElement element, TExpression expression, List<String> errors) {
+    private void validateExpression(TDefinitions definitions, TDRGElement element, TExpression expression, ValidationContext context) {
+        DMNModelRepository repository = context.getRepository();
         if (expression == null) {
             String errorMessage = "Missing expression";
-            errors.add(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(repository, definitions, element, errorMessage));
         } else {
             if (expression instanceof TDecisionTable) {
                 TDecisionTable decisionTable = (TDecisionTable) expression;
-                validateDecisionTable(repository, definitions, element, decisionTable, errors);
+                validateDecisionTable(definitions, element, decisionTable, context);
             } else if (expression instanceof TInvocation) {
                 TInvocation invocation = (TInvocation) expression;
-                validateExpression(repository, definitions, element, invocation.getExpression(), errors);
+                validateExpression(definitions, element, invocation.getExpression(), context);
             } else if (expression instanceof TLiteralExpression) {
                 TLiteralExpression literalExpression = (TLiteralExpression) expression;
                 String expressionLanguage = ((TLiteralExpression) expression).getExpressionLanguage();
                 if (!isSupported(expressionLanguage)) {
                     String errorMessage = String.format("Not supported expression language '%s'", expressionLanguage);
-                    errors.add(makeError(repository, definitions, element, errorMessage));
+                    context.addError(makeError(repository, definitions, element, errorMessage));
                 }
                 if (StringUtils.isBlank(literalExpression.getText())) {
                     String errorMessage = "Missing text in literal expressions";
-                    errors.add(makeError(repository, definitions, element, errorMessage));
+                    context.addError(makeError(repository, definitions, element, errorMessage));
                 }
             } else if (expression instanceof TContext) {
                 List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
                 if (contextEntryList.isEmpty()) {
                     String errorMessage = "Missing entries in context expression";
-                    errors.add(makeError(repository, definitions, element, errorMessage));
+                    context.addError(makeError(repository, definitions, element, errorMessage));
                 }
             } else if (expression instanceof TRelation) {
                 if (((TRelation) expression).getColumn() == null && ((TRelation) expression).getRow() == null) {
                     String errorMessage = "Empty relation";
-                    errors.add(makeError(repository, definitions, element, errorMessage));
+                    context.addError(makeError(repository, definitions, element, errorMessage));
                 }
             } else if (expression instanceof TConditional) {
-                checkChildExpression(repository, definitions, element, ((TConditional) expression).getIf(), "conditional", "if", errors);
-                checkChildExpression(repository, definitions, element, ((TConditional) expression).getThen(), "conditional", "then", errors);
-                checkChildExpression(repository, definitions, element, ((TConditional) expression).getElse(), "conditional", "else", errors);
+                checkChildExpression(definitions, element, ((TConditional) expression).getIf(), "conditional", "if", context);
+                checkChildExpression(definitions, element, ((TConditional) expression).getThen(), "conditional", "then", context);
+                checkChildExpression(definitions, element, ((TConditional) expression).getElse(), "conditional", "else", context);
             } else if (expression instanceof TFilter) {
-                checkChildExpression(repository, definitions, element, ((TFilter) expression).getIn(), "filter", "in", errors);
-                checkChildExpression(repository, definitions, element, ((TFilter) expression).getMatch(), "filter", "match", errors);
+                checkChildExpression(definitions, element, ((TFilter) expression).getIn(), "filter", "in", context);
+                checkChildExpression(definitions, element, ((TFilter) expression).getMatch(), "filter", "match", context);
             } else if (expression instanceof TFor) {
-                checkChildExpression(repository, definitions, element, ((TFor) expression).getIn(), "for", "in", errors);
-                checkChildExpression(repository, definitions, element, ((TFor) expression).getReturn(), "for", "return", errors);
+                checkChildExpression(definitions, element, ((TFor) expression).getIn(), "for", "in", context);
+                checkChildExpression(definitions, element, ((TFor) expression).getReturn(), "for", "return", context);
             } else if (expression instanceof TSome) {
                 String parentName = "some";
-                checkChildExpression(repository, definitions, element, ((TQuantified) (TSome) expression).getIn(), parentName, "in", errors);
-                checkChildExpression(repository, definitions, element, ((TQuantified) (TSome) expression).getSatisfies(), parentName, "satisfies", errors);
+                checkChildExpression(definitions, element, ((TQuantified) expression).getIn(), parentName, "in", context);
+                checkChildExpression(definitions, element, ((TQuantified) expression).getSatisfies(), parentName, "satisfies", context);
             } else if (expression instanceof TEvery) {
                 String parentName = "every";
-                checkChildExpression(repository, definitions, element, ((TQuantified) (TEvery) expression).getIn(), parentName, "in", errors);
-                checkChildExpression(repository, definitions, element, ((TQuantified) (TEvery) expression).getSatisfies(), parentName, "satisfies", errors);
+                checkChildExpression(definitions, element, ((TQuantified) expression).getIn(), parentName, "in", context);
+                checkChildExpression(definitions, element, ((TQuantified) expression).getSatisfies(), parentName, "satisfies", context);
             } else {
                 throw new UnsupportedOperationException("Not supported DMN expression type " + expression.getClass().getName());
             }
+        }
+    }
+
+
+    private void validateDecisionTable(TDefinitions definitions, TDMNElement element, TDecisionTable decisionTable, ValidationContext context) {
+        DMNModelRepository repository = context.getRepository();
+        List<TInputClause> input = decisionTable.getInput();
+        if (input == null || input.isEmpty()) {
+            String errorMessage = "Missing input clauses";
+            context.addError(makeError(repository, definitions, element, errorMessage));
+        }
+        List<TOutputClause> output = decisionTable.getOutput();
+        if (output == null || output.isEmpty()) {
+            String errorMessage = "Missing output clauses";
+            context.addError(makeError(repository, definitions, element, errorMessage));
+        }
+        validateHitPolicy(definitions, element, decisionTable, context);
+        List<TDecisionRule> ruleList = decisionTable.getRule();
+        if (ruleList == null || ruleList.isEmpty()) {
+            String errorMessage = "Missing rules in decision table";
+            context.addError(makeError(repository, definitions, element, errorMessage));
+        } else {
+            for (TDecisionRule rule : ruleList) {
+                validateRule(definitions, element, rule, context);
+            }
+        }
+    }
+
+    private void validateHitPolicy(TDefinitions definitions, TDMNElement element, TDecisionTable decisionTable, ValidationContext context) {
+        DMNModelRepository repository = context.getRepository();
+
+        List<TOutputClause> output = decisionTable.getOutput();
+        THitPolicy hitPolicy = decisionTable.getHitPolicy();
+        TBuiltinAggregator aggregation = decisionTable.getAggregation();
+        if (hitPolicy != THitPolicy.COLLECT && aggregation != null) {
+            String errorMessage = String.format("Aggregation '%s' not allowed for hit policy '%s'", aggregation, hitPolicy);
+            context.addError(makeError(repository, definitions, element, errorMessage));
+        }
+        if (output != null && output.size() > 1
+                && hitPolicy == THitPolicy.COLLECT
+                && aggregation != null) {
+            String errorMessage = String.format("Collect operator is not defined over multiple outputs for decision table '%s'", decisionTable.getId());
+            context.addError(makeError(repository, definitions, element, errorMessage));
         }
     }
 
@@ -279,23 +326,113 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         return expressionLanguage == null || AbstractDMNToNativeTransformer.SUPPORTED_LANGUAGES.contains(expressionLanguage);
     }
 
-    private void validateRule(DMNModelRepository repository, TDefinitions definitions, TDMNElement element, TDecisionRule rule, List<String> errors) {
+    private void validateRule(TDefinitions definitions, TDMNElement element, TDecisionRule rule, ValidationContext context) {
+        DMNModelRepository repository = context.getRepository();
         List<TUnaryTests> inputEntry = rule.getInputEntry();
         if (inputEntry == null || inputEntry.isEmpty()) {
             String errorMessage = "No input entries for rule " + rule.getId();
-            errors.add(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(repository, definitions, element, errorMessage));
         }
         List<TLiteralExpression> outputEntry = rule.getOutputEntry();
         if (outputEntry == null || outputEntry.isEmpty()) {
             String errorMessage = "No outputEntry entries for rule " + rule.getId();
-            errors.add(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(repository, definitions, element, errorMessage));
         }
     }
 
-    private void checkChildExpression(DMNModelRepository repository, TDefinitions definitions, TDRGElement element, TChildExpression childExpression, String parentName, String childName, List<String> errors) {
+    private void checkChildExpression(TDefinitions definitions, TDRGElement element, TChildExpression childExpression, String parentName, String childName, ValidationContext context) {
         String errorMessage = String.format("Missing '%s' expression in '%s' boxed expression in element '%s'", childName, parentName, element.getName());
         if (childExpression == null || childExpression.getExpression() == null) {
-            errors.add(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(context.getRepository(), definitions, element, errorMessage));
         }
+    }
+}
+
+class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
+    private final BuildLogger logger;
+    private final DefaultDMNValidator validator;
+
+    public DefaultDMNValidatorVisitor(ErrorHandler errorHandler, BuildLogger logger, DefaultDMNValidator validator) {
+        super(errorHandler);
+        this.logger = logger;
+        this.validator = validator;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDefinitions element, ValidationContext context) {
+        if (element != null)
+        {
+            DMNModelRepository repository = context.getRepository();
+
+            logger.debug("Validate unique 'DRGElement.id'");
+            this.validator.validateUnique(
+                    element, new ArrayList<>(repository.findDRGElements(element)), "DRGElement", "id", false,
+                    TDMNElement::getId, null, context
+            );
+
+            logger.debug("Validate unique 'DRGElement.name'");
+            this.validator.validateUnique(
+                    element, new ArrayList<>(repository.findDRGElements(element)), "DRGElement", "name", false,
+                    e -> ((TNamedElement)e).getName(), null, context
+            );
+
+            logger.debug("Validate unique 'ItemDefinition.name'");
+            this.validator.validateUnique(
+                    element, new ArrayList<>(repository.findItemDefinitions(element)), "ItemDefinition", "name", false,
+                    e -> ((TNamedElement)e).getName(), null, context
+            );
+        }
+
+        // Visit children
+        super.visit(element, context);
+
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TInputData element, ValidationContext context) {
+        if (element != null) {
+            DMNModelRepository repository = context.getRepository();
+            TDefinitions definitions = repository.getModel(element);
+
+            this.validator.validateInputData(definitions, element, context);
+        }
+
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecision element, ValidationContext context) {
+        if (element != null) {
+            DMNModelRepository repository = context.getRepository();
+            TDefinitions definitions = repository.getModel(element);
+
+            this.validator.validateDecision(definitions, element, context);
+        }
+
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TBusinessKnowledgeModel element, ValidationContext context) {
+        if (element != null) {
+            DMNModelRepository repository = context.getRepository();
+            TDefinitions definitions = repository.getModel(element);
+
+            this.validator.validateBusinessKnowledgeModel(definitions, element, context);
+        }
+
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecisionService element, ValidationContext context) {
+        if (element != null) {
+            DMNModelRepository repository = context.getRepository();
+            TDefinitions definitions = repository.getModel(element);
+            this.validator.validateDecisionService(definitions, element, context);
+        }
+
+        return element;
     }
 }

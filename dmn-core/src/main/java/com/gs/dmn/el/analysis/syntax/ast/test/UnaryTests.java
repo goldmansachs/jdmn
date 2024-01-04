@@ -14,5 +14,5 @@ package com.gs.dmn.el.analysis.syntax.ast.test;
 
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 
-public interface UnaryTests<T, C> extends Expression<T, C> {
+public interface UnaryTests<T> extends Expression<T> {
 }

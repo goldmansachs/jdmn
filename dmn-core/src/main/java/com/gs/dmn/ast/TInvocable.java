@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(name = "bkm", value = TBusinessKnowledgeModel.class),
         @JsonSubTypes.Type(name = "ds", value = TDecisionService.class)
 })
-public abstract class TInvocable extends TDRGElement {
+public abstract class TInvocable extends TDRGElement implements Visitable {
     private TInformationItem variable;
 
     public TInformationItem getVariable() {
@@ -29,5 +29,10 @@ public abstract class TInvocable extends TDRGElement {
 
     public void setVariable(TInformationItem value) {
         this.variable = value;
+    }
+
+    @Override
+    public <C, R> R accept(Visitor<C, R> visitor, C context) {
+        return visitor.visit(this, context);
     }
 }

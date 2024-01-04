@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class PositionalParameterTypes<T, C> extends ParameterTypes<T, C> {
+public class PositionalParameterTypes<T> extends ParameterTypes<T> {
     private List<T> types = new ArrayList<>();
 
     public PositionalParameterTypes(List<T> types) {
@@ -39,7 +39,7 @@ public class PositionalParameterTypes<T, C> extends ParameterTypes<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PositionalParameterTypes<?, ?> that = (PositionalParameterTypes<?, ?>) o;
+        PositionalParameterTypes<?> that = (PositionalParameterTypes<?>) o;
         return Objects.equals(this.types, that.types);
     }
 

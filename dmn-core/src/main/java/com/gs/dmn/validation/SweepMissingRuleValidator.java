@@ -22,7 +22,6 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.validation.table.*;
 import org.apache.commons.lang3.StringUtils;
 
@@ -53,27 +52,29 @@ public class SweepMissingRuleValidator extends SweepValidator {
     }
 
     @Override
-    protected void validate(TDRGElement element, TDecisionTable decisionTable, BasicDMNToJavaTransformer transformer, DMNModelRepository repository, List<String> errorReport) {
-        logger.debug(String.format("Validate element '%s'", element.getName()));
+    protected void validate(TDRGElement element, TDecisionTable decisionTable, SweepValidationContext context) {
+        if (element != null) {
+            logger.debug(String.format("Validating element '%s'", element.getName()));
 
-        ELTranslator<Type, DMNContext> feelTranslator = this.dmnDialectDefinition.createFEELTranslator(repository, this.inputParameters);
-        List<Integer> ruleIndex = new ArrayList<>();
-        int totalNumberOfRules = decisionTable.getRule().size();
-        for (int i = 0; i< totalNumberOfRules; i++) {
-            ruleIndex.add(i);
-        }
-        MissingIntervals missingIntervals = new MissingIntervals();
-        MissingRuleList missingRuleList = new MissingRuleList();
-        int totalNumberOfColumns = decisionTable.getInput().size();
-        Table table = this.factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
-        if (!table.isEmpty()) {
-            findMissingRules(ruleIndex, 0, totalNumberOfColumns, missingIntervals, missingRuleList, table);
+            DMNModelRepository repository = context.getRepository();
+            ELTranslator<Type, DMNContext> feelTranslator = context.getElTranslator();
+            List<Integer> ruleIndex = new ArrayList<>();
+            int totalNumberOfRules = decisionTable.getRule().size();
+            for (int i = 0; i< totalNumberOfRules; i++) {
+                ruleIndex.add(i);
+            }
+            MissingIntervals missingIntervals = new MissingIntervals();
+            MissingRuleList missingRuleList = new MissingRuleList();
+            int totalNumberOfColumns = decisionTable.getInput().size();
+            Table table = this.factory.makeTable(totalNumberOfRules, totalNumberOfColumns, repository, element, decisionTable, feelTranslator);
+            if (!table.isEmpty()) {
+                findMissingRules(ruleIndex, 0, totalNumberOfColumns, missingIntervals, missingRuleList, table);
 
-            LOGGER.debug("Found missing rules {}", missingRuleList);
+                logger.debug(String.format("Found missing rules %s", missingRuleList));
 
-            for (Rule rule: missingRuleList.getRules()) {
-                String error = makeError(element, rule, repository);
-                errorReport.add(error);
+                for (Rule rule: missingRuleList.getRules()) {
+                    context.addError(makeError(element, rule, repository));
+                }
             }
         }
     }
@@ -115,7 +116,7 @@ public class SweepMissingRuleValidator extends SweepValidator {
     //  return missingRuleList;
     private void findMissingRules(List<Integer> ruleList, int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals, MissingRuleList missingRuleList, Table table) {
         String indent = StringUtils.repeat("\t", columnIndex);
-        LOGGER.debug("{}Column = '{}' Active rules = '{}' Missing intervals = '{}'", indent, columnIndex, ruleList, missingIntervals);
+        logger.debug(String.format("%sColumn = '%s' Active rules = '%s' Missing intervals = '%s'", indent, columnIndex, ruleList, missingIntervals));
 
         if(columnIndex < totalNumberOfColumns) {
             List<Bound> sortedListAllBounds = makeBoundList(ruleList, columnIndex, table);
@@ -125,12 +126,12 @@ public class SweepMissingRuleValidator extends SweepValidator {
             int boundCount = sortedListAllBounds.size();
             List<Integer> lxi = new ArrayList<>();
 
-            LOGGER.debug("{}Column = {} Sorted bounds = '{}'", indent, columnIndex, sortedListAllBounds);
+            logger.debug(String.format("%sColumn = %s Sorted bounds = '%s'", indent, columnIndex, sortedListAllBounds));
 
             for (int i = 0; i<boundCount; i++) {
                 Bound currentBound = sortedListAllBounds.get(i);
 
-                LOGGER.debug("{}Current bound = '{}'", indent, currentBound);
+                logger.debug(String.format("%sCurrent bound = '%s'", indent, currentBound));
 
                 Interval missingInterval = null;
                 if (i == 0) {
@@ -166,10 +167,10 @@ public class SweepMissingRuleValidator extends SweepValidator {
 
                 int ruleIndex = currentBound.getInterval().getRuleIndex();
                 if (currentBound.isLowerBound()) {
-                    LOGGER.info("{}Add active rule {}", indent, ruleIndex);
+                    logger.debug(String.format("%sAdd active rule %s", indent, ruleIndex));
                     lxi.add(ruleIndex);
                 } else {
-                    LOGGER.info("{}Remove active rule {}", indent, ruleIndex);
+                    logger.debug(String.format("%sRemove active rule %s", indent, ruleIndex));
                     lxi.remove((Object) ruleIndex);
                 }
                 lastBound = currentBound;

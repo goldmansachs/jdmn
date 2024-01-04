@@ -23,35 +23,35 @@ public class AbstractFEELProcessor<T, C> {
         this.feelAnalyzer = feelAnalyzer;
     }
 
-    public UnaryTests<T, C> parseUnaryTests(String text) {
-        return (UnaryTests<T, C>) this.feelAnalyzer.parseUnaryTests(text);
+    public UnaryTests<T> parseUnaryTests(String text) {
+        return (UnaryTests<T>) this.feelAnalyzer.parseUnaryTests(text);
     }
 
-    public UnaryTests<T, C> analyzeUnaryTests(String text, C context) {
-        return (UnaryTests<T, C>) this.feelAnalyzer.analyzeUnaryTests(text, context);
+    public UnaryTests<T> analyzeUnaryTests(String text, C context) {
+        return (UnaryTests<T>) this.feelAnalyzer.analyzeUnaryTests(text, context);
     }
 
-    public Expression<T, C> parseExpression(String text) {
-        return (Expression<T, C>) this.feelAnalyzer.parseExpression(text);
+    public Expression<T> parseExpression(String text) {
+        return (Expression<T>) this.feelAnalyzer.parseExpression(text);
     }
 
-    public Expression<T, C> parseTextualExpressions(String text) {
-        return (Expression<T, C>) this.feelAnalyzer.parseTextualExpressions(text);
+    public Expression<T> parseTextualExpressions(String text) {
+        return (Expression<T>) this.feelAnalyzer.parseTextualExpressions(text);
     }
 
-    public Expression<T, C> parseBoxedExpression(String text) {
-        return (Expression<T, C>) this.feelAnalyzer.parseBoxedExpression(text);
+    public Expression<T> parseBoxedExpression(String text) {
+        return (Expression<T>) this.feelAnalyzer.parseBoxedExpression(text);
     }
 
-    public Expression<T, C> analyzeExpression(String text, C context) {
-        return (Expression<T, C>) this.feelAnalyzer.analyzeExpression(text, context);
+    public Expression<T> analyzeExpression(String text, C context) {
+        return (Expression<T>) this.feelAnalyzer.analyzeExpression(text, context);
     }
 
-    public Expression<T, C> analyzeTextualExpressions(String text, C context) {
-        return (Expression<T, C>) this.feelAnalyzer.analyzeTextualExpressions(text, context);
+    public Expression<T> analyzeTextualExpressions(String text, C context) {
+        return (Expression<T>) this.feelAnalyzer.analyzeTextualExpressions(text, context);
     }
 
-    public Expression<T, C> analyzeBoxedExpression(String text, C context) {
-        return (Expression<T, C>) this.feelAnalyzer.analyzeBoxedExpression(text, context);
+    public Expression<T> analyzeBoxedExpression(String text, C context) {
+        return (Expression<T>) this.feelAnalyzer.analyzeBoxedExpression(text, context);
     }
 }

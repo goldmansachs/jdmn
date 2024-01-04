@@ -19,5 +19,5 @@ import com.gs.dmn.runtime.interpreter.Result;
 interface ELExpressionsInterpreter<T, C> extends ELExpressionsAnalyzer<T, C> {
     Result evaluateExpression(String text, C context);
 
-    Result evaluateExpression(Expression<T, C> expression, C context);
+    Result evaluateExpression(Expression<T> expression, C context);
 }

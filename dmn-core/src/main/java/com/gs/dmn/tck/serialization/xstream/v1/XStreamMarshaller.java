@@ -135,8 +135,8 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
                 CustomStaxWriter hsWriter = (CustomStaxWriter) STAX_DRIVER.createWriter(writer)) {
 
             XStream xStream = newXStream();
-            if (o instanceof DMNBaseElement) {
-                DMNBaseElement base = (DMNBaseElement) o;
+            if (o instanceof TCKBaseElement) {
+                TCKBaseElement base = (TCKBaseElement) o;
                 String dmnPrefix = base.getElementInfo().getNsContext().entrySet().stream().filter(kv -> TCKVersion.TCK_1.getNamespace().equals(kv.getValue())).findFirst().map(Map.Entry::getKey).orElse("");
                 hsWriter.getQNameMap().setDefaultPrefix(dmnPrefix);
             }
@@ -181,7 +181,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
     private XStream newXStream() {
         XStream xStream = XStreamUtils.createNonTrustingXStream(STAX_DRIVER, TestCases.class.getClassLoader(), DMNXStream::from);
         xStream.addPermission(new TypeHierarchyPermission(QName.class));
-        xStream.addPermission(new TypeHierarchyPermission(DMNBaseElement.class));
+        xStream.addPermission(new TypeHierarchyPermission(TCKBaseElement.class));
 
         xStream.alias("testCases", TestCases.class);
         xStream.alias(TestCasesConverter.TEST_CASE, TestCase.class);

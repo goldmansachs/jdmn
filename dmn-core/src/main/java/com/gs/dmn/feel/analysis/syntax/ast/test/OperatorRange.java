@@ -18,12 +18,12 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.Objects;
 
-public class OperatorRange<T, C> extends Range<T, C> {
+public class OperatorRange<T> extends Range<T> {
     private final String operator;
-    private final Expression<T, C> endpoint;
-    private final EndpointsRange<T, C> endpointsRange;
+    private final Expression<T> endpoint;
+    private final EndpointsRange<T> endpointsRange;
 
-    public OperatorRange(String operator, Expression<T, C> endpoint) {
+    public OperatorRange(String operator, Expression<T> endpoint) {
         this.operator = operator;
         this.endpoint = endpoint;
         if (operator == null || "=".equals(operator)) {
@@ -41,7 +41,7 @@ public class OperatorRange<T, C> extends Range<T, C> {
         }
     }
 
-    public Expression<T, C> getEndpoint() {
+    public Expression<T> getEndpoint() {
         return this.endpoint;
     }
 
@@ -54,12 +54,12 @@ public class OperatorRange<T, C> extends Range<T, C> {
         return this.operator;
     }
 
-    public EndpointsRange<T, C> getEndpointsRange() {
+    public EndpointsRange<T> getEndpointsRange() {
         return this.endpointsRange;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -67,7 +67,7 @@ public class OperatorRange<T, C> extends Range<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OperatorRange<?, ?> that = (OperatorRange<?, ?>) o;
+        OperatorRange<?> that = (OperatorRange<?>) o;
         return Objects.equals(operator, that.operator) && Objects.equals(endpoint, that.endpoint) && Objects.equals(endpointsRange, that.endpointsRange);
     }
 

@@ -12,6 +12,6 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.test;
 
-public abstract class Range<T, C> extends SimplePositiveUnaryTest<T, C> {
+public abstract class Range<T> extends SimplePositiveUnaryTest<T> {
     public abstract T getEndpointType();
 }

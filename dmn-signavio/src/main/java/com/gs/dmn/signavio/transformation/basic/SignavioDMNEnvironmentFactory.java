@@ -40,7 +40,7 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementOutputFEELType(outputDecision);
         } else if (element instanceof TDecision && this.dmnModelRepository.isFreeTextLiteralExpression(element)) {
-            Expression<Type, DMNContext> feelExpression = analyzeExpression(element);
+            Expression<Type> feelExpression = analyzeExpression(element);
             if (feelExpression instanceof FunctionDefinition) {
                 Type type = feelExpression.getType();
                 if (type instanceof FEELFunctionType) {
@@ -60,10 +60,10 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             return super.drgElementOutputFEELType(outputDecision);
         } else if (element instanceof TDecision && this.dmnModelRepository.isFreeTextLiteralExpression(element)) {
-            Expression<Type, DMNContext> feelExpression = analyzeExpression(element);
+            Expression<Type> feelExpression = analyzeExpression(element);
             if (feelExpression instanceof FunctionDefinition) {
-                if (((FunctionDefinition<Type, DMNContext>) feelExpression).isExternal()) {
-                    Expression<Type, DMNContext> body = ((FunctionDefinition<Type, DMNContext>) feelExpression).getBody();
+                if (((FunctionDefinition<Type>) feelExpression).isExternal()) {
+                    Expression<Type> body = ((FunctionDefinition<Type>) feelExpression).getBody();
                     return externalFunctionReturnFEELType(element, body);
                 } else {
                     Type type = feelExpression.getType();
@@ -79,7 +79,7 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
         }
     }
 
-    private Expression<Type, DMNContext> analyzeExpression(TDRGElement element) {
+    private Expression<Type> analyzeExpression(TDRGElement element) {
         TLiteralExpression expression = (TLiteralExpression) this.dmnModelRepository.expression(element);
         DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
         return this.feelTranslator.analyzeExpression(expression.getText(), globalContext);

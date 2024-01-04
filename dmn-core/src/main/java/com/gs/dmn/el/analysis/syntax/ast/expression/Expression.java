@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.el.analysis.syntax.ast.expression;
 
-public interface Expression<T, C> {
+public interface Expression<T> {
     T getType();
 
     void setType(T type);

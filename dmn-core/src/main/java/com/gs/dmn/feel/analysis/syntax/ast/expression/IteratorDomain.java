@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 
-public abstract class IteratorDomain<T, C> extends Element<T, C> {
+public abstract class IteratorDomain<T> extends Element<T> {
     private T type;
 
     public T getType() {

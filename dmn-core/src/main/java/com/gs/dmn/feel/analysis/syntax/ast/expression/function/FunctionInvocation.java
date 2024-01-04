@@ -17,25 +17,25 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 import java.util.Objects;
 
-public class FunctionInvocation<T, C> extends Expression<T, C> {
-    private final Expression<T, C> function;
-    private final Parameters<T, C> parameters;
+public class FunctionInvocation<T> extends Expression<T> {
+    private final Expression<T> function;
+    private final Parameters<T> parameters;
 
-    public FunctionInvocation(Expression<T, C> function, Parameters<T, C> parameters) {
+    public FunctionInvocation(Expression<T> function, Parameters<T> parameters) {
         this.function = function;
         this.parameters = parameters;
     }
 
-    public Expression<T, C> getFunction() {
+    public Expression<T> getFunction() {
         return this.function;
     }
 
-    public Parameters<T, C> getParameters() {
+    public Parameters<T> getParameters() {
         return this.parameters;
     }
 
     @Override
-    public Object accept(Visitor<T, C> visitor, C context) {
+    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
@@ -43,7 +43,7 @@ public class FunctionInvocation<T, C> extends Expression<T, C> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FunctionInvocation<?, ?> that = (FunctionInvocation<?, ?>) o;
+        FunctionInvocation<?> that = (FunctionInvocation<?>) o;
         return Objects.equals(function, that.function) && Objects.equals(parameters, that.parameters);
     }
 

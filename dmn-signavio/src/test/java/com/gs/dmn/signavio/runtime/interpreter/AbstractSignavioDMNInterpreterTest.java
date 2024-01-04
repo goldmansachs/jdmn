@@ -23,6 +23,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
+import com.gs.dmn.runtime.interpreter.EvaluationContext;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNSerializer;
@@ -63,7 +64,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
 
             TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
             DRGElementReference<TDecision> reference = repository.makeDRGElementReference(decision);
-            Result actualResult = interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), inputRequirements);
+            Result actualResult = interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeDecisionEvaluationContext(inputRequirements));
             Object actualValue = Result.value(actualResult);
 
             assertEquals(errorMessage, expectedResult, actualValue);

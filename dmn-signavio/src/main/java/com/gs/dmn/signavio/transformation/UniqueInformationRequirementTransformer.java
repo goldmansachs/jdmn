@@ -14,31 +14,25 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.visitor.TraversalVisitor;
+import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.gs.dmn.transformation.TransformationContext;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UniqueInformationRequirementTransformer extends SimpleDMNTransformer<TestLab> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UniqueInformationRequirementTransformer.class);
-
-    private final BuildLogger logger;
-    private Map<String, Pair<TInputData, List<TInputData>>> inputDataClasses;
-
     public UniqueInformationRequirementTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     public UniqueInformationRequirementTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override
@@ -48,8 +42,8 @@ public class UniqueInformationRequirementTransformer extends SimpleDMNTransforme
             return repository;
         }
 
-        this.inputDataClasses = new LinkedHashMap<>();
-        return removeDuplicateInformationRequirements(repository, logger);
+        this.transformRepository = false;
+        return removeDuplicateInformationRequirements(repository);
     }
 
     @Override
@@ -60,38 +54,56 @@ public class UniqueInformationRequirementTransformer extends SimpleDMNTransforme
         }
 
         // Transform model
-        if (inputDataClasses == null) {
+        if (this.transformRepository) {
             transform(repository);
         }
 
         return new Pair<>(repository, testCasesList);
     }
 
-    private DMNModelRepository removeDuplicateInformationRequirements(DMNModelRepository repository, BuildLogger logger) {
+    private DMNModelRepository removeDuplicateInformationRequirements(DMNModelRepository repository) {
+        UniqueInformationRequirementVisitor dmnVisitor = new UniqueInformationRequirementVisitor(this.errorHandler, logger);
+        TransformationContext context = new TransformationContext(repository);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            for(TDecision decision: repository.findDecisions(definitions)) {
-                List<String> hrefs = new ArrayList<>();
-                List<TInformationRequirement> newList = new ArrayList<>();
-                for(TInformationRequirement ir: decision.getInformationRequirement()) {
-                    String href = null;
-                    TDMNElementReference requiredInput = ir.getRequiredInput();
-                    TDMNElementReference requiredDecision = ir.getRequiredDecision();
-                    if (requiredInput != null) {
-                        href = requiredInput.getHref();
-                    }
-                    if (requiredDecision != null) {
-                        href = requiredDecision.getHref();
-                    }
-                    if (!hrefs.contains(href)) {
-                        newList.add(ir);
-                        hrefs.add(href);
-                    }
-                }
-                decision.getInformationRequirement().clear();
-                decision.getInformationRequirement().addAll(newList);
-            }
+            definitions.accept(dmnVisitor, context);
         }
 
         return repository;
+    }
+}
+
+class UniqueInformationRequirementVisitor extends TraversalVisitor<TransformationContext> {
+    private final BuildLogger logger;
+
+    public UniqueInformationRequirementVisitor(ErrorHandler errorHandler, BuildLogger logger) {
+        super(errorHandler);
+        this.logger = logger;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecision element, TransformationContext context) {
+        logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
+
+        List<String> hrefs = new ArrayList<>();
+        List<TInformationRequirement> newList = new ArrayList<>();
+        for(TInformationRequirement ir: element.getInformationRequirement()) {
+            String href = null;
+            TDMNElementReference requiredInput = ir.getRequiredInput();
+            TDMNElementReference requiredDecision = ir.getRequiredDecision();
+            if (requiredInput != null) {
+                href = requiredInput.getHref();
+            }
+            if (requiredDecision != null) {
+                href = requiredDecision.getHref();
+            }
+            if (!hrefs.contains(href)) {
+                newList.add(ir);
+                hrefs.add(href);
+            }
+        }
+        element.getInformationRequirement().clear();
+        element.getInformationRequirement().addAll(newList);
+
+        return element;
     }
 }

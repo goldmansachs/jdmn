@@ -14,13 +14,9 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.ast.TFunctionDefinition;
 import com.gs.dmn.ast.TInvocable;
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
-
-import java.util.List;
-import java.util.Map;
 
 public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     BasicDMNToNativeTransformer getBasicDMNTransformer();
@@ -32,12 +28,12 @@ public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     // Evaluate DRG elements
     //
-    Result evaluateDecision(String namespace, String decisionName, Map<String, Object> informationRequirements);
-    Result evaluateInvocable(String namespace, String invocableName, List<Object> argList);
+    Result evaluateDecision(String namespace, String decisionName, EvaluationContext context);
+    Result evaluateInvocable(String namespace, String invocableName, EvaluationContext context);
 
     //
     // Evaluate DMN elements in context
     //
-    Result evaluate(TInvocable invocable, List<Object> argList, DMNContext context);
-    Result evaluate(TFunctionDefinition functionDefinition, List<Object> args, DMNContext context);
+    Result evaluate(TInvocable invocable, EvaluationContext context);
+    Result evaluate(TFunctionDefinition functionDefinition, EvaluationContext context);
 }

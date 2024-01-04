@@ -13,7 +13,6 @@
 package com.gs.dmn.el.synthesis.triple;
 
 import com.gs.dmn.ast.TDRGElement;
-import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.runtime.Pair;
@@ -69,7 +68,7 @@ public class Triples {
         return addTriple(triple);
     }
 
-    public Triple dateTimeLiteral(com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral<Type, DMNContext> element) {
+    public Triple dateTimeLiteral(com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral<Type> element) {
         Triple triple = new DateTimeLiteral(element);
         return addTriple(triple);
     }
@@ -138,7 +137,7 @@ public class Triples {
     //
     // Function
     //
-    public Triple makeFunctionDefinition(TDRGElement element, com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition<Type, DMNContext> functionDefinition, boolean convertTypeToContext, Triple body) {
+    public Triple makeFunctionDefinition(TDRGElement element, com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition<Type> functionDefinition, boolean convertTypeToContext, Triple body) {
         Triple triple = new FunctionDefinitionTriple(element, functionDefinition, convertTypeToContext, body);
         return addTriple(triple);
     }

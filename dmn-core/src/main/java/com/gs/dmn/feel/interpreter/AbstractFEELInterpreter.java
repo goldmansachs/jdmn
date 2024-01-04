@@ -32,25 +32,25 @@ public abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Override
     public Result evaluateUnaryTests(String text, DMNContext context) {
-        UnaryTests<Type, DMNContext> expression = analyzeUnaryTests(text, context);
+        UnaryTests<Type> expression = analyzeUnaryTests(text, context);
         return evaluateUnaryTests(expression, context);
     }
 
     @Override
-    public Result evaluateUnaryTests(UnaryTests<Type, DMNContext> expression, DMNContext context) {
-        Object value = ((com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests<Type, DMNContext>) expression).accept(visitor, context);
+    public Result evaluateUnaryTests(UnaryTests<Type> expression, DMNContext context) {
+        Object value = ((com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests<Type>) expression).accept(visitor, context);
         return Result.of(value, expression.getType());
     }
 
     @Override
     public Result evaluateExpression(String text, DMNContext context) {
-        Expression<Type, DMNContext> expression = analyzeExpression(text, context);
+        Expression<Type> expression = analyzeExpression(text, context);
         return evaluateExpression(expression, context);
     }
 
     @Override
-    public Result evaluateExpression(Expression<Type, DMNContext> expression, DMNContext context) {
-        Object object = ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type, DMNContext>) expression).accept(visitor, context);
+    public Result evaluateExpression(Expression<Type> expression, DMNContext context) {
+        Object object = ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type>) expression).accept(visitor, context);
         return Result.of(object, expression.getType());
     }
 

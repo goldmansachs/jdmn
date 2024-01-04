@@ -260,7 +260,7 @@ public class TestLabUtil {
         }
     }
 
-    TItemDefinition elementType(TItemDefinition type) {
+    public TItemDefinition elementType(TItemDefinition type) {
         TDefinitions model = this.repository.getModel(type);
         if (type.isIsCollection()) {
             String typeRef = QualifiedName.toName(type.getTypeRef());
@@ -278,7 +278,7 @@ public class TestLabUtil {
         }
     }
 
-    TItemDefinition memberType(TItemDefinition itemDefinition, Slot slot) {
+    public TItemDefinition memberType(TItemDefinition itemDefinition, Slot slot) {
         String id = slot.getId();
         String name = slot.getItemComponentName();
         String label = slot.getName();
@@ -384,7 +384,7 @@ public class TestLabUtil {
         }
     }
 
-    TItemDefinition lookupItemDefinition(ParameterDefinition parameterDefinition) {
+    public TItemDefinition lookupItemDefinition(ParameterDefinition parameterDefinition) {
         String typeRef = getTypeRef(parameterDefinition);
         TDRGElement element = findDRGElement(parameterDefinition);
         TDefinitions model = this.repository.getModel(element);

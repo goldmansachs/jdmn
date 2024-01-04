@@ -34,7 +34,7 @@ public class ValueTypeConverter extends DMNBaseElementConverter {
     }
 
     @Override
-    protected DMNBaseElement createModelObject() {
+    protected TCKBaseElement createModelObject() {
         return new ValueType();
     }
 
