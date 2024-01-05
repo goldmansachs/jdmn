@@ -505,7 +505,7 @@ specific language governing permissions and limitations under the License.]]></i
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.4.1</version>
                     <executions>
                         <execution>
                             <id>enforce-java</id>
@@ -517,7 +517,7 @@ specific language governing permissions and limitations under the License.]]></i
                                     <requireJavaVersion>
                                         <version>${java.version}</version>
                                     </requireJavaVersion>
-                                    <DependencyConvergence />
+                                    <dependencyConvergence/>
                                     <requirePluginVersions>
                                         <banLatest>true</banLatest>
                                         <banRelease>true</banRelease>
