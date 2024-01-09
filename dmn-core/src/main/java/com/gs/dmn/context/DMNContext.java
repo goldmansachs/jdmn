@@ -58,7 +58,7 @@ public class DMNContext {
         return this.environment;
     }
 
-    public Expression getInputExpression() {
+    public Expression<Type> getInputExpression() {
         return this.environment.getInputExpression();
     }
 
@@ -128,6 +128,18 @@ public class DMNContext {
         } else {
             if (this.parent != null) {
                 return this.parent.lookupBinding(key);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public Object lookupFunctionBinding(String key) {
+        if (this.runtimeEnvironment.isLocalFunctionBound(key)) {
+            return this.runtimeEnvironment.lookupLocalFunctionBinding(key);
+        } else {
+            if (this.parent != null) {
+                return this.parent.lookupFunctionBinding(key);
             } else {
                 return null;
             }

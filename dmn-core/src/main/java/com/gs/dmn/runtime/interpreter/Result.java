@@ -18,18 +18,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Result {
-    private List<Error> errors = new ArrayList();
+    private final List<Error> errors = new ArrayList();
 
-    public static final Result of(Object value, Type type) {
+    public static Result of(Object value, Type type) {
         return new Result(value, type);
     }
 
     public static Object value(Result result) {
-        return result == null ? null : result.getValue();
+        return result == null ? null : result.value;
     }
 
     public static Type type(Result result) {
-        return result == null ? null : result.getType();
+        return result == null ? null : result.type;
     }
 
     private final Object value;
@@ -40,13 +40,6 @@ public class Result {
         this.type = type;
     }
 
-    public Object getValue() {
-        return value;
-    }
-
-    public Type getType() {
-        return type;
-    }
 
     public void addError(String error, Exception e) {
         this.errors.add(new Error(error, e));

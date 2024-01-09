@@ -14,15 +14,19 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.NameUtils;
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
+import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.function.BuiltinFunction;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractFEELToJavaVisitor<R> extends AbstractAnalysisVisitor<Type, DMNContext, R> {
@@ -102,5 +106,14 @@ public abstract class AbstractFEELToJavaVisitor<R> extends AbstractAnalysisVisit
 
     protected String functionName(Expression<Type> function) {
         return ((Name<Type>) function).getName();
+    }
+
+    protected String functionName(Object function) {
+        try {
+            List<Declaration> declarations = ((BuiltinFunction) function).getDeclarations();
+            return declarations.get(0).getName();
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot find name of builtin function '%s'", function));
+        }
     }
 }

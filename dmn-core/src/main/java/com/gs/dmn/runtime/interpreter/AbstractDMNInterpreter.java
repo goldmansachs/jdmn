@@ -20,6 +20,7 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.NopVisitor;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.el.analysis.semantics.type.ConstraintType;
 import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
@@ -84,6 +85,11 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
     @Override
     public BasicDMNToNativeTransformer<Type, DMNContext> getBasicDMNTransformer() {
         return this.dmnTransformer;
+    }
+
+    @Override
+    public ELInterpreter<Type, DMNContext> getElInterpreter() {
+        return this.elInterpreter;
     }
 
     @Override
@@ -382,7 +388,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             Object value = argList.get(i);
 
             // Check value and apply implicit conversions
-            Result result = this.typeConverter.convertValue(value, paramType, this.feelLib);
+            Result result = this.typeConverter.convertValue(value, paramType, this.feelLib, true, true, this.elInterpreter, this.dmnTransformer);
             value = Result.value(result);
 
             // Declaration is already in environment
@@ -400,7 +406,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             Object value = argList.get(i);
 
             // Check value and apply implicit conversions
-            Result result = this.typeConverter.convertValue(value, type, this.feelLib);
+            Result result = this.typeConverter.convertValue(value, type, this.feelLib, true, true, this.elInterpreter, this.dmnTransformer);
             value = Result.value(result);
 
             // Variable declaration already exists
@@ -562,7 +568,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
                 // Check value and apply implicit conversions
                 Type expectedType = dmnTransformer.drgElementOutputFEELType(decision, decisionContext);
-                result = typeConverter.convertResult(result, expectedType, feelLib);
+                result = typeConverter.convertResult(result, expectedType, feelLib, true, elInterpreter, dmnTransformer);
             }
 
             // Decision end
@@ -587,7 +593,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
             // Check value and apply implicit conversions
             Type expectedType = dmnTransformer.drgElementOutputFEELType(bkm, bkmContext);
-            result = typeConverter.convertResult(result, expectedType, feelLib);
+            result = typeConverter.convertResult(result, expectedType, feelLib, true, elInterpreter, dmnTransformer);
             Object value = Result.value(result);
 
             // BKM end
@@ -635,7 +641,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
             // Check value and apply implicit conversions
             Type expectedType = dmnTransformer.drgElementOutputFEELType(service, serviceContext);
-            Result result = typeConverter.convertValue(output, expectedType, feelLib);
+            Result result = typeConverter.convertValue(output, expectedType, feelLib, false, true, elInterpreter, dmnTransformer);
             output = Result.value(result);
 
             // Decision service end
@@ -674,20 +680,27 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             TDRGElement element = expressionContext.getElement();
             DMNContext parentContext = expressionContext.getContext();
             DRGElement elementAnnotation = expressionContext.getElementAnnotation();
-            // Compute name-java binding for arguments
+            // Compute and bind arguments
+            TDefinitions model = repository.getModel(element);
             Map<String, Object> argBinding = new LinkedHashMap<>();
             for (TBinding binding : invocation.getBinding()) {
+                // Evaluate argument
                 String argName = binding.getParameter().getName();
                 TExpression argExpression = binding.getExpression();
                 Result argResult = this.visit(argExpression, EvaluationContext.makeExpressionEvaluationContext(element, parentContext, elementAnnotation));
+
+                // Check constraint for argument
+                argResult = checkConstraintFor(argResult, binding.getParameter(), model);
                 Object argJava = Result.value(argResult);
+
+                // Bind argument
                 argBinding.put(argName, argJava);
             }
 
             // Evaluate functionExp
             TExpression functionExp = invocation.getExpression();
-            Result result = this.visit(functionExp, EvaluationContext.makeExpressionEvaluationContext(element, parentContext, elementAnnotation));
-            Type functionType = Result.type(result);
+            Result functionResult = this.visit(functionExp, EvaluationContext.makeExpressionEvaluationContext(element, parentContext, elementAnnotation));
+            Type functionType = Result.type(functionResult);
             if (functionType instanceof FunctionType) {
                 // Make args
                 List<Object> argList = new ArrayList<>();
@@ -701,16 +714,13 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                     }
                 }
 
-                // Invoke function
-                if (functionType instanceof DMNFunctionType) {
-                    // Evaluate invocation
-                    Object value = Result.value(result);
-                    TInvocable invocable = ((DMNInvocable) value).getInvocable();
-                    DRGElementReference<TInvocable> reference = repository.makeDRGElementReference(invocable);
-                    return visitor.visitInvocable(reference, makeInvocableGlobalContext(((DRGElementReference<? extends TInvocable>) reference).getElement(), argList, parentContext));
-                } else {
-                    throw new DMNRuntimeException(String.format("Not supported function type '%s' in element '%s'", functionType, element));
-                }
+                // Evaluate function invocation
+                Object function = Result.value(functionResult);
+                Result returnResult = elInterpreter.evaluateFunctionInvocation((Function) function, (FunctionType) functionType, argList);
+
+                // Check constraint for returned result
+                returnResult = checkConstraintFor(returnResult, ((FunctionType) functionType).getReturnType());
+                return returnResult;
             } else {
                 throw new DMNRuntimeException(String.format("Expecting function type found '%s' in element '%s'", functionType, element));
             }
@@ -770,8 +780,8 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 for (TContextEntry entry : context.getContextEntry()) {
                     TInformationItem variable = entry.getVariable();
                     if (variable != null) {
+                        // Determine entry type
                         String entryName = variable.getName();
-                        output.add(entryName, localContext.lookupBinding(entryName));
                         String typeRef = QualifiedName.toName(variable.getTypeRef());
                         Type entryType;
                         if (StringUtils.isEmpty(typeRef)) {
@@ -780,7 +790,14 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                         } else {
                             entryType = dmnTransformer.toFEELType(model, typeRef);
                         }
+                        // Add member type
                         type.addMember(entryName, new ArrayList<>(), entryType);
+
+                        // Check constraint for entry
+                        Object entryValue = localContext.lookupBinding(entryName);
+                        entryValue = checkConstraintForValue(entryValue, entryType);
+                        // Add entry value
+                        output.add(entryName, entryValue);
                     }
                 }
                 // Return value
@@ -794,24 +811,45 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             TDRGElement element = expressionContext.getElement();
             DMNContext context = expressionContext.getContext();
             DRGElement elementAnnotation = expressionContext.getElementAnnotation();
-            TDefinitions model = repository.getModel(element);
             if (list.getExpression() == null) {
                 return null;
             }
+
+            // Evaluate list
             List<Object> resultValue = new ArrayList<>();
-            Type elementType = ANY;
-            for (TExpression exp : list.getExpression()) {
-                Result expResult = this.visit(exp, EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
-                Object expValue = Result.value(expResult);
-                String typeRef = QualifiedName.toName(exp.getTypeRef());
-                if (!repository.isNull(typeRef)) {
-                    elementType = dmnTransformer.toFEELType(model, typeRef);
-                } else {
-                    elementType = dmnTransformer.expressionType(element, exp, context);
+            Type firstElementType = ANY;
+            TDefinitions model = repository.getModel(element);
+            for (TExpression elementExp : list.getExpression()) {
+                // Evaluate list element
+                Result elementResult = this.visit(elementExp, EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
+
+                // Set elementType
+                if (Type.isNullOrAny(firstElementType)) {
+                    firstElementType = Result.type(elementResult);
                 }
+
+                // Check constraint for element
+                elementResult = checkConstraintFor(elementResult, elementExp.getTypeRef(), model);
+
+                // Collect element value
+                Object expValue = Result.value(elementResult);
                 resultValue.add(expValue);
             }
-            return Result.of(resultValue, new ListType(elementType));
+
+            // Determine list type
+            QName listTypeRef = list.getTypeRef();
+            Type listType;
+            if (listTypeRef == null) {
+                listType = new ListType(firstElementType);
+            } else {
+                listType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, listTypeRef));
+            }
+
+            // Check constraint for list
+            resultValue = (List) checkConstraintForValue(resultValue, listTypeRef, model);
+
+            // Return result
+            return Result.of(resultValue, listType);
         }
 
         @Override
@@ -824,75 +862,58 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 return null;
             }
 
-            // Check relation.typeRef
-            TDefinitions model = repository.getModel(element);
-            QName typeRef = relation.getTypeRef();
-            Type relationType;
+            // Evaluate relation
             List<Object> relationValue = new ArrayList<>();
-            if (typeRef != null) {
-                Type typeRefType = dmnTransformer.toFEELType(model, QualifiedName.toName(typeRef));
-                relationType = ((ListType) typeRefType).getElementType();
-                // Make relation environment
-                DMNContext relationContext = dmnTransformer.makeRelationContext(element, relation, parentContext);
-                // Column names
-                List<String> columnNameList = relation.getColumn().stream().map(TNamedElement::getName).collect(Collectors.toList());
-                // Scan relation and evaluate each row
-                for (TList row : relation.getRow()) {
-                    Object rowValue = null;
-                    List<? extends TExpression> expList = row.getExpression();
-                    if (expList != null) {
-                        Context contextValue = new Context();
-                        for (int i = 0; i < expList.size(); i++) {
-                            TExpression expression = expList.get(i);
-                            Result columnResult;
-                            columnResult = expression == null ? null : this.visit(expression, EvaluationContext.makeExpressionEvaluationContext(element, relationContext, elementAnnotation));
-                            Object columnValue = Result.value(columnResult);
-                            String columnName = columnNameList.get(i);
-                            contextValue.add(columnName, columnValue);
-                        }
-                        rowValue = contextValue;
-                    }
-                    relationValue.add(rowValue);
-                }
-            } else {
-                // Make relation environment
-                DMNContext relationContext = dmnTransformer.makeRelationContext(element, relation, parentContext);
-                // Column names
-                List<TInformationItem> columns = relation.getColumn();
+            TDefinitions model = repository.getModel(element);
+            DMNContext relationContext = dmnTransformer.makeRelationContext(element, relation, parentContext);
+            List<TInformationItem> columns = relation.getColumn();
+            ContextType firstRowType = null;
+            for (TList row : relation.getRow()) {
+                // Evaluate row
+                Object rowValue = null;
+                List<? extends TExpression> rowExp = row.getExpression();
+                if (rowExp != null) {
+                    Context contextValue = new Context();
+                    ContextType actualRowType = new ContextType();
+                    for (int i = 0; i < rowExp.size(); i++) {
+                        // Evaluate column
+                        TExpression columnExp = rowExp.get(i);
+                        Result columnResult = columnExp == null ? null : this.visit(columnExp, EvaluationContext.makeExpressionEvaluationContext(element, relationContext, elementAnnotation));
 
-                // Scan relation and evaluate each row
-                relationType = new ContextType();
-                for (TList row : relation.getRow()) {
-                    Object rowValue = null;
-                    List<? extends TExpression> expList = row.getExpression();
-                    if (expList != null) {
-                        Context contextValue = new Context();
-                        ContextType contextType = new ContextType();
-                        for (int i = 0; i < expList.size(); i++) {
-                            TExpression expression = expList.get(i);
-                            Result columnResult = expression == null ? null : this.visit(expression, EvaluationContext.makeExpressionEvaluationContext(element, relationContext, elementAnnotation));
-                            Object columnValue = Result.value(columnResult);
-                            String columnName = columns.get(i).getName();
-                            contextValue.add(columnName, columnValue);
+                        // Check constraint for column
+                        columnResult = checkConstraintFor(columnResult, columns.get(i), columnExp, model);
 
-                            Type columnType = null;
-                            QName columnTypeRef = columns.get(i).getTypeRef();
-                            if (columnTypeRef != null) {
-                                columnType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, columnTypeRef));
-                            }
-                            if (columnType == null) {
-                                columnType = columnResult == null ? ANY : columnResult.getType();
-                            }
-                            contextType.addMember(columnName, new ArrayList<>(), columnType);
-                            relationType = contextType;
+                        // Collect column value
+                        String columnName = columns.get(i).getName();
+                        Object columnValue = Result.value(columnResult);
+                        contextValue.add(columnName, columnValue);
+
+                        // Determine actual column type
+                        Type columnType = columnResult == null ? ANY : Result.type(columnResult);
+                        actualRowType.addMember(columnName, new ArrayList<>(), columnType);
+                        if (Type.isNull(firstRowType)) {
+                            firstRowType = actualRowType;
                         }
-                        rowValue = contextValue;
                     }
-                    relationValue.add(rowValue);
+                    rowValue = contextValue;
                 }
+                relationValue.add(rowValue);
             }
-            ListType listType = new ListType(relationType);
-            return Result.of(relationValue, listType);
+
+            // Check constraint for list
+            QName listTypeRef = relation.getTypeRef();
+            relationValue = (List) checkConstraintForValue(relationValue, listTypeRef, model);
+
+            // Determine relation type
+            Type relationType;
+            if (listTypeRef == null) {
+                relationType = new ListType(firstRowType);
+            } else {
+                relationType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, listTypeRef));
+            }
+
+            // Return result
+            return Result.of(relationValue, relationType);
         }
 
         @Override
@@ -913,7 +934,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 result = this.visit(expression.getElse().getExpression(), EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
             }
 
-            return Result.of(result.getValue(), type);
+            return Result.of(Result.value(result), type);
         }
 
         @Override
@@ -1057,12 +1078,17 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             // Evaluate InputClauses
             List<InputClausePair> inputClauseList = new ArrayList<>();
             for (TInputClause inputClause : decisionTable.getInput()) {
+                // Evaluate input
                 TLiteralExpression inputExpression = inputClause.getInputExpression();
                 String inputExpressionText = inputExpression.getText();
-                Expression<Type> expression = elInterpreter.analyzeExpression(inputExpressionText, context);
-                Result inputExpressionResult = elInterpreter.evaluateExpression(expression, context);
-                Object inputExpressionValue = Result.value(inputExpressionResult);
-                inputClauseList.add(new InputClausePair(expression, inputExpressionValue));
+                Expression<Type> feelInputExpression = elInterpreter.analyzeExpression(inputExpressionText, context);
+                Result inputExpressionResult = elInterpreter.evaluateExpression(feelInputExpression, context);
+
+                // Check constraint for input
+                Object inputExpressionValue = checkConstraintFor(inputClause, feelInputExpression.getType(), inputExpressionResult);
+
+                // Collect result
+                inputClauseList.add(new InputClausePair(feelInputExpression, inputExpressionValue));
             }
 
             // Evaluate rules
@@ -1089,6 +1115,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
         private InterpretedRuleOutput evaluateRule(TDRGElement element, TDecisionTable decisionTable, TDecisionRule rule, List<InputClausePair> inputClauseList, DMNContext context, DRGElement elementAnnotation, Rule ruleAnnotation) {
             // Check tests
+            TDefinitions model = repository.getModel(element);
             List<TUnaryTests> inputEntry = rule.getInputEntry();
             boolean ruleMatched = true;
             for (int index = 0; index < inputEntry.size(); index++) {
@@ -1112,14 +1139,21 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                 EVENT_LISTENER.matchRule(elementAnnotation, ruleAnnotation);
 
                 THitPolicy hitPolicy = decisionTable.getHitPolicy();
+                List<TLiteralExpression> outputEntry = rule.getOutputEntry();
                 if (repository.isCompoundDecisionTable(element)) {
                     Context output = new Context();
-                    List<TLiteralExpression> outputEntry = rule.getOutputEntry();
                     for (int i = 0; i < outputEntry.size(); i++) {
-                        TLiteralExpression literalExpression = outputEntry.get(i);
-                        String key = decisionTable.getOutput().get(i).getName();
-                        Result result = this.visit(literalExpression, EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
+                        // Evaluate output expression
+                        TOutputClause outputClause = decisionTable.getOutput().get(i);
+                        TLiteralExpression outputExpression = outputEntry.get(i);
+                        Result result = this.visit(outputExpression, EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
+
+                        // Check constraint for output expression
+                        result = checkConstraintFor(result, outputClause, outputExpression, model);
+
+                        // Collect rule output
                         Object value = Result.value(result);
+                        String key = decisionTable.getOutput().get(i).getName();
                         if (repository.isOutputOrderHit(hitPolicy)) {
                             Object priority = dmnTransformer.outputClausePriority(element, rule.getOutputEntry().get(i), i);
                             output.put(key, new Pair<>(value, priority));
@@ -1129,11 +1163,17 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
                     }
                     return new InterpretedRuleOutput(ruleMatched, output);
                 } else {
-                    List<TLiteralExpression> outputEntry = rule.getOutputEntry();
-                    TLiteralExpression literalExpression = outputEntry.get(0);
-                    Object output;
-                    Result result = this.visit(literalExpression, EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
+                    // Evaluate output entry
+                    TOutputClause outputClause = decisionTable.getOutput().get(0);
+                    TLiteralExpression outputExpression = outputEntry.get(0);
+                    Result result = this.visit(outputExpression, EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
+
+                    // Check constraint for output expression
+                    result = checkConstraintFor(result, outputClause, outputExpression, model);
+
+                    // Collect rule output
                     Object value = Result.value(result);
+                    Object output;
                     if (repository.isOutputOrderHit(hitPolicy)) {
                         Object priority = dmnTransformer.outputClausePriority(element, rule.getOutputEntry().get(0), 0);
                         output = new Pair<>(value, priority);
@@ -1247,6 +1287,66 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             } else {
                 return result;
             }
+        }
+
+        private Object checkConstraintFor(TInputClause inputClause, Type inputType, Result inputExpressionResult) {
+            Object inputExpressionValue = Result.value(inputExpressionResult);
+            TUnaryTests inputValues = inputClause.getInputValues();
+            if (inputValues != null) {
+                ConstraintType cType = new ConstraintType(inputType, inputValues);
+                inputExpressionValue = Result.value(typeConverter.convertValue(inputExpressionValue, cType, feelLib, true, true, elInterpreter, dmnTransformer));
+            }
+            return inputExpressionValue;
+        }
+
+        private Result checkConstraintFor(Result result, TInformationItem expression, TDefinitions model) {
+            return checkConstraintFor(result, expression.getTypeRef(), model);
+        }
+
+        private Result checkConstraintFor(Result result, TOutputClause outputClause, TExpression expression, TDefinitions model) {
+            QName typeRef = expression.getTypeRef();
+            if (typeRef == null) {
+                typeRef = outputClause.getTypeRef();
+            }
+            return checkConstraintFor(result, typeRef, model);
+        }
+
+        private Result checkConstraintFor(Result result, TInformationItem informationItem, TExpression expression, TDefinitions model) {
+            QName typeRef = expression.getTypeRef();
+            if (typeRef == null) {
+                typeRef = informationItem.getTypeRef();
+            }
+            return checkConstraintFor(result, typeRef, model);
+        }
+
+        private Result checkConstraintFor(Result result, QName typeRef, TDefinitions model) {
+            if (typeRef != null) {
+                Type paramType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+                result = typeConverter.convertResult(result, paramType, feelLib, true, elInterpreter, dmnTransformer);
+            }
+            return result;
+        }
+
+        private Result checkConstraintFor(Result result, Type type) {
+            if (type != null) {
+                result = typeConverter.convertResult(result, type, feelLib, true, elInterpreter, dmnTransformer);
+            }
+            return result;
+        }
+
+        private Object checkConstraintForValue(Object value, QName typeRef, TDefinitions model) {
+            if (typeRef != null) {
+                Type type = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+                return checkConstraintForValue(value, type);
+            }
+            return value;
+        }
+
+        private Object checkConstraintForValue(Object value, Type type) {
+            if (type != null && value != null) {
+                value = Result.value(typeConverter.convertValue(value, type, feelLib, true, true, elInterpreter, dmnTransformer));
+            }
+            return value;
         }
 
         //

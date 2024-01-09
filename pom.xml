@@ -111,7 +111,7 @@
         </sonar.exclusions>
         <line.coverage.minimum>0.60</line.coverage.minimum>
 
-        <ban.snapshot>false</ban.snapshot>
+        <ban.snapshot>true</ban.snapshot>
     </properties>
 
     <modules>

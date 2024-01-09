@@ -46,10 +46,23 @@ public interface Type {
         return typeRef == null || "Any".equals(typeRef);
     }
 
+    static boolean hasConstraint(Type type) {
+        return type instanceof ConstraintType;
+    }
+
+    static Type extractTypeFromConstraint(Type type) {
+        if (hasConstraint(type)) {
+            type = ((ConstraintType) type).getType();
+        }
+        return type;
+    }
+
     /*
             A type type1 is equivalent to type type2 when the types are either structurally or name equivalent. The types are compatible without coercion
     */
     static boolean equivalentTo(Type type1, Type type2) {
+        type1 = extractTypeFromConstraint(type1);
+        type2 = extractTypeFromConstraint(type2);
         if (type1 == null) {
             return type2 == null;
         } else {
@@ -61,6 +74,8 @@ public interface Type {
         A type type1 conforms to type type2 when an instance of type1 can be substituted at each place where an instance of type2 is expected
     */
     static boolean conformsTo(Type type1, Type type2) {
+        type1 = extractTypeFromConstraint(type1);
+        type2 = extractTypeFromConstraint(type2);
         if (type2 == null || type2 == ANY) {
             return true;
         } else if (type1 == null) {
@@ -107,4 +122,8 @@ public interface Type {
     }
 
     boolean isFullySpecified();
+
+    default String serialize() {
+        return this.toString();
+    }
 }

@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.context.environment;
 
+import com.gs.dmn.runtime.function.Function;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -33,7 +35,15 @@ public class RuntimeEnvironment {
         return this.bindings.get(key);
     }
 
+    public Object lookupLocalFunctionBinding(String key) {
+        return this.bindings.get(key);
+    }
+
     public boolean isLocalBound(String key) {
         return this.bindings.containsKey(key);
+    }
+
+    public boolean isLocalFunctionBound(String key) {
+        return this.bindings.containsKey(key) && this.bindings.get(key) instanceof Function;
     }
 }

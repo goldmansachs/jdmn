@@ -38,6 +38,7 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     // Make java expressions from ValueType
     //
     public String toNativeExpression(ValueType valueType, Type type, TDRGElement element) {
+        type = Type.extractTypeFromConstraint(type);
         if (valueType.getValue() != null) {
             Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);

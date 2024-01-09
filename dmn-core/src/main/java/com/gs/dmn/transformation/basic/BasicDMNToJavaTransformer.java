@@ -487,11 +487,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         TDRGElement element = reference.getElement();
         if (element instanceof TDecision) {
             List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::displayName);
-            String arguments = parameters.stream().map(p -> extractAndConvertInputMember(p)).collect(Collectors.joining(", "));
+            String arguments = parameters.stream().map(this::extractAndConvertInputMember).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else if (element instanceof TInvocable) {
             List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::displayName);
-            String arguments = parameters.stream().map(p -> extractAndConvertInputMember(p)).collect(Collectors.joining(", "));
+            String arguments = parameters.stream().map(this::extractAndConvertInputMember).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
             throw new DMNRuntimeException(String.format("Not supported yet for '%s'", element.getClass().getSimpleName()));
@@ -988,7 +988,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         }
         if (expectedType instanceof ListType && expressionType instanceof ListType) {
             Type expectedElementType = ((ListType) expectedType).getElementType();
-            Type expressionElementType = ((ListType) expressionType).getElementType();
             if (expectedElementType instanceof ItemDefinitionType) {
                 String conversionText = this.nativeFactory.makeListConversion(javaExpression, (ItemDefinitionType) expectedElementType);
                 return this.nativeFactory.makeExpressionStatement(conversionText, expectedType);
@@ -1032,18 +1031,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             return String.format("%s", contextVar);
         } else {
             return String.format("%s, %s", arguments, contextVar);
-        }
-    }
-
-    private String augmentArgumentListFromContext(String arguments) {
-        String annotations = String.format("%s.%s", executionContextVariableName(), getter("annotations"));
-        String listener = String.format("%s.%s", executionContextVariableName(), getter("eventListener"));
-        String executor = String.format("%s.%s", executionContextVariableName(), getter("externalFunctionExecutor"));
-        String cache = String.format("%s.%s", executionContextVariableName(), getter("cache"));
-        if (StringUtils.isBlank(arguments)) {
-            return String.format("%s, %s, %s, %s", annotations, listener, executor, cache);
-        } else {
-            return String.format("%s, %s, %s, %s, %s", arguments, annotations, listener, executor, cache);
         }
     }
 
@@ -1795,6 +1782,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     private String toNativeTypeNoCache(Type type) {
+        type = Type.extractTypeFromConstraint(type);
         if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             if (isStrongTyping()) {
                 throw new DMNRuntimeException(String.format("Cannot infer native type for '%s' type", type));

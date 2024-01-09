@@ -12,5 +12,12 @@
  */
 package com.gs.dmn.el.interpreter;
 
+import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
+import com.gs.dmn.runtime.function.Function;
+import com.gs.dmn.runtime.interpreter.Result;
+
+import java.util.List;
+
 public interface ELInterpreter<T, C> extends ELTestsInterpreter<T, C>, ELExpressionsInterpreter<T, C> {
+    Result evaluateFunctionInvocation(Function function, FunctionType functionType, List<Object> argList);
 }

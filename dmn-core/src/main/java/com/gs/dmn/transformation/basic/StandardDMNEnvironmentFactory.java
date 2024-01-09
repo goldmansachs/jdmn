@@ -23,6 +23,7 @@ import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
+import com.gs.dmn.el.analysis.semantics.type.ConstraintType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
@@ -531,7 +532,9 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private Type toFEELTypeNoCache(TItemDefinition itemDefinition) {
-        itemDefinition = this.dmnModelRepository.normalize(itemDefinition);
+        Pair<TItemDefinition, TUnaryTests> normalized = this.dmnModelRepository.normalize(itemDefinition);
+        itemDefinition = normalized.getLeft();
+        TUnaryTests allowedValues = normalized.getRight();
         TDefinitions model = this.dmnModelRepository.getModel(itemDefinition);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, itemDefinition.getTypeRef());
         List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
@@ -553,6 +556,9 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             for(TItemDefinition item: itemComponent) {
                 ((ItemDefinitionType) type).addMember(item.getName(), Collections.singletonList(item.getLabel()), toFEELType(item));
             }
+        }
+        if (type != null && allowedValues != null) {
+            type = new ConstraintType(type, allowedValues);
         }
         if (itemDefinition.isIsCollection()) {
             return new ListType(type);
