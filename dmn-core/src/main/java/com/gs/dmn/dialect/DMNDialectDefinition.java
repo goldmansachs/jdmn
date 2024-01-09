@@ -13,7 +13,9 @@
 package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.lib.FEELLib;
@@ -41,9 +43,9 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
     //
     EnvironmentFactory createEnvironmentFactory();
 
-    ELInterpreter createELInterpreter(DMNModelRepository repository, InputParameters inputParameters);
+    ELInterpreter<Type, DMNContext> createELInterpreter(DMNModelRepository repository, InputParameters inputParameters);
 
-    ELTranslator createFEELTranslator(DMNModelRepository repository, InputParameters inputParameters);
+    ELTranslator<Type, DMNContext> createFEELTranslator(DMNModelRepository repository, InputParameters inputParameters);
 
     //
     // DMN Processors

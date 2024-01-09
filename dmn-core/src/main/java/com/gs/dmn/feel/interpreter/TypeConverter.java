@@ -47,10 +47,20 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
 
 public class TypeConverter {
+    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
+    private final ELInterpreter<Type, DMNContext> elInterpreter;
+    protected final FEELLib<?, ?, ?, ?, ?> lib;
+
+    public TypeConverter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, ELInterpreter<Type, DMNContext> elInterpreter, FEELLib<?, ?, ?, ?, ?> lib) {
+        this.dmnTransformer = dmnTransformer;
+        this.elInterpreter = elInterpreter;
+        this.lib = lib;
+    }
+
     /*
         A value conforms to a type when the value is in the semantic domain of type (in varies from one dialect to another)
     */
-    public static boolean conformsTo(Object value, Type type) {
+    private static boolean conformsTo(Object value, Type type) {
         type = Type.extractTypeFromConstraint(type);
         if (type == ANY) {
             return true;
@@ -140,7 +150,7 @@ public class TypeConverter {
                 isDate(value) || isTime(value) || isDateTime(value) || isDuration(value);
     }
 
-    public Result convertResult(Result result, Type expectedType, FEELLib<?, ?, ?, ?, ?> lib, boolean checkConstraint, ELInterpreter<Type, DMNContext> elInterpreter, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    public Result convertResult(Result result, Type expectedType, boolean checkConstraint) {
         Object value = Result.value(result);
         if (value == null) {
             return result;
@@ -160,12 +170,12 @@ public class TypeConverter {
             finalResult = Result.of(value, expectedType);
         } else {
             // Dynamic conversion
-            finalResult = convertValue(value, expectedType, lib, false, checkConstraint, elInterpreter, dmnTransformer);
+            finalResult = convertValue(value, expectedType, false, checkConstraint);
         }
         return finalResult;
     }
 
-    public Result convertValue(Object value, Type expectedType, FEELLib<?, ?, ?, ?, ?> lib, boolean checkError, boolean checkConstraint, ELInterpreter<Type, DMNContext> elInterpreter, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    public Result convertValue(Object value, Type expectedType, boolean checkError, boolean checkConstraint) {
         if (value == null) {
             return Result.of(value, expectedType);
         }
@@ -174,11 +184,11 @@ public class TypeConverter {
         if (expectedType == null) {
             expectedType = ANY;
         }
-        ConversionKind conversionKind = conversionKind(value, expectedType, lib);
+        ConversionKind conversionKind = conversionKind(value, expectedType);
         if (checkError && conversionKind.isError()) {
             throw new DMNRuntimeException(String.format("Value '%s' does not conform to type '%s'", value, expectedType));
         }
-        Object newValue = convertValue(value, conversionKind, lib);
+        Object newValue = convertValue(value, conversionKind);
 
         if (checkConstraint) {
             newValue = AllowedValuesConverter.validateConstraint(newValue, expectedType, elInterpreter, dmnTransformer);
@@ -186,12 +196,12 @@ public class TypeConverter {
         return Result.of(newValue, expectedType);
     }
 
-    public Object convertValue(Object value, Conversion<Type> conversion, FEELLib<?, ?, ?, ?, ?> lib) {
+    public Object convertValue(Object value, Conversion<Type> conversion) {
         ConversionKind kind = conversion.getKind();
-        return convertValue(value, kind, lib);
+        return convertValue(value, kind);
     }
 
-    private ConversionKind conversionKind(Object value, Type expectedType, FEELLib<?, ?, ?, ?, ?> lib) {
+    private ConversionKind conversionKind(Object value, Type expectedType) {
         expectedType = Type.extractTypeFromConstraint(expectedType);
         if (conformsTo(value, expectedType)) {
             return NONE;
@@ -206,7 +216,7 @@ public class TypeConverter {
         }
     }
 
-    private Object convertValue(Object value, ConversionKind kind, FEELLib<?, ?, ?, ?, ?> lib) {
+    private Object convertValue(Object value, ConversionKind kind) {
         if (kind == NONE) {
             return value;
         } else if (kind == ELEMENT_TO_SINGLETON_LIST) {

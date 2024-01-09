@@ -61,7 +61,7 @@ public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, D
     //
     @Override
     public DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> createDMNInterpreter(DMNModelRepository repository, InputParameters inputParameters) {
-        return new StandardDMNInterpreter<>(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters), createFEELLib(), new TypeConverter());
+        return new StandardDMNInterpreter<>(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters), createFEELLib());
     }
 
     @Override

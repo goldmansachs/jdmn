@@ -80,12 +80,10 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
     private final ELTranslator<Type, DMNContext> feelTranslator;
     private final DefaultExternalFunctionExecutor externalFunctionExecutor;
-    private final TypeConverter typeConverter;
 
     AbstractFEELInterpreterVisitor(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter) {
         super(dmnInterpreter.getBasicDMNTransformer());
         this.dmnInterpreter = dmnInterpreter;
-        this.typeConverter = dmnInterpreter.getTypeConverter();
         this.feelTranslator = new FEELTranslatorForInterpreter(dmnInterpreter.getBasicDMNTransformer());
         this.lib = dmnInterpreter.getFeelLib();
         this.externalFunctionExecutor = new DefaultExternalFunctionExecutor();
@@ -720,7 +718,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         // Evaluate and convert actual parameters
         Parameters<Type> parameters = element.getParameters();
         parameters.accept(this, context);
-        Arguments<Type> arguments = parameters.convertArguments((value, conversion) -> this.typeConverter.convertValue(value, conversion, this.lib));
+        Arguments<Type> arguments = parameters.convertArguments((value, conversion) -> this.dmnInterpreter.getTypeConverter().convertValue(value, conversion));
         Expression<Type> function = element.getFunction();
         FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter<Type>> formalParameters = functionType.getParameters();
@@ -841,7 +839,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     private Object applyImplicitConversions(List<Object> argList, int i, Type type) {
         Object value = argList.get(i);
         // Check value and apply implicit conversions
-        Result result = this.typeConverter.convertValue(value, type, this.lib, true, true, this.dmnInterpreter.getElInterpreter(), this.dmnTransformer);
+        Result result = this.dmnInterpreter.getTypeConverter().convertValue(value, type, true, true);
         value = Result.value(result);
         return value;
     }

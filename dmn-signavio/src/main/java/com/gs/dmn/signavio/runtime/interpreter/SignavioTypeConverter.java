@@ -24,8 +24,12 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import java.util.List;
 
 public class SignavioTypeConverter extends TypeConverter {
+    public SignavioTypeConverter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, ELInterpreter<Type, DMNContext> elInterpreter, FEELLib<?, ?, ?, ?, ?> lib) {
+        super(dmnTransformer, elInterpreter, lib);
+    }
+
     @Override
-    public Result convertResult(Result result, Type expectedType, FEELLib<?, ?, ?, ?, ?> lib, boolean checkConstraint, ELInterpreter<Type, DMNContext> elInterpreter, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    public Result convertResult(Result result, Type expectedType, boolean checkConstraint) {
         expectedType = Type.extractTypeFromConstraint(expectedType);
         Object value = Result.value(result);
         if (value == null) {

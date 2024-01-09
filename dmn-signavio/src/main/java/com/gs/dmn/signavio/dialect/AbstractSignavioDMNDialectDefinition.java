@@ -65,7 +65,7 @@ public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, D
     //
     @Override
     public DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> createDMNInterpreter(DMNModelRepository repository, InputParameters inputParameters) {
-        return new SignavioDMNInterpreter<>(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters), createFEELLib(), new SignavioTypeConverter());
+        return new SignavioDMNInterpreter<>(createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters), createFEELLib());
     }
 
     @Override

@@ -52,7 +52,7 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 
-public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
+public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> implements DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractDMNInterpreter.class);
 
     protected static EventListener EVENT_LISTENER = new LoggingEventListener(LOGGER);
@@ -66,19 +66,17 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
     protected final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
     protected final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
-    private final ELInterpreter<Type, DMNContext> elInterpreter;
-    private final TypeConverter typeConverter;
+    protected ELInterpreter<Type, DMNContext> elInterpreter;
+    protected TypeConverter typeConverter;
 
     protected InterpreterVisitor visitor;
 
-    public AbstractDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib, TypeConverter typeConverter) {
+    public AbstractDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         this.errorHandler = new LogErrorHandler(LOGGER);
-        this.typeConverter = typeConverter;
         this.dmnTransformer = dmnTransformer;
         this.repository = dmnTransformer.getDMNModelRepository();
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
         this.feelLib = feelLib;
-        this.elInterpreter = new StandardFEELInterpreter<>(this);
         this.visitor = new InterpreterVisitor(this.errorHandler);
     }
 
@@ -388,7 +386,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             Object value = argList.get(i);
 
             // Check value and apply implicit conversions
-            Result result = this.typeConverter.convertValue(value, paramType, this.feelLib, true, true, this.elInterpreter, this.dmnTransformer);
+            Result result = this.typeConverter.convertValue(value, paramType, true, true);
             value = Result.value(result);
 
             // Declaration is already in environment
@@ -406,7 +404,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             Object value = argList.get(i);
 
             // Check value and apply implicit conversions
-            Result result = this.typeConverter.convertValue(value, type, this.feelLib, true, true, this.elInterpreter, this.dmnTransformer);
+            Result result = this.typeConverter.convertValue(value, type, true, true);
             value = Result.value(result);
 
             // Variable declaration already exists
@@ -568,7 +566,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
                 // Check value and apply implicit conversions
                 Type expectedType = dmnTransformer.drgElementOutputFEELType(decision, decisionContext);
-                result = typeConverter.convertResult(result, expectedType, feelLib, true, elInterpreter, dmnTransformer);
+                result = typeConverter.convertResult(result, expectedType, true);
             }
 
             // Decision end
@@ -593,7 +591,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
             // Check value and apply implicit conversions
             Type expectedType = dmnTransformer.drgElementOutputFEELType(bkm, bkmContext);
-            result = typeConverter.convertResult(result, expectedType, feelLib, true, elInterpreter, dmnTransformer);
+            result = typeConverter.convertResult(result, expectedType, true);
             Object value = Result.value(result);
 
             // BKM end
@@ -641,7 +639,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
             // Check value and apply implicit conversions
             Type expectedType = dmnTransformer.drgElementOutputFEELType(service, serviceContext);
-            Result result = typeConverter.convertValue(output, expectedType, feelLib, false, true, elInterpreter, dmnTransformer);
+            Result result = typeConverter.convertValue(output, expectedType, false, true);
             output = Result.value(result);
 
             // Decision service end
@@ -1294,7 +1292,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
             TUnaryTests inputValues = inputClause.getInputValues();
             if (inputValues != null) {
                 ConstraintType cType = new ConstraintType(inputType, inputValues);
-                inputExpressionValue = Result.value(typeConverter.convertValue(inputExpressionValue, cType, feelLib, true, true, elInterpreter, dmnTransformer));
+                inputExpressionValue = Result.value(typeConverter.convertValue(inputExpressionValue, cType, true, true));
             }
             return inputExpressionValue;
         }
@@ -1322,14 +1320,14 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
         private Result checkConstraintFor(Result result, QName typeRef, TDefinitions model) {
             if (typeRef != null) {
                 Type paramType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
-                result = typeConverter.convertResult(result, paramType, feelLib, true, elInterpreter, dmnTransformer);
+                result = typeConverter.convertResult(result, paramType, true);
             }
             return result;
         }
 
         private Result checkConstraintFor(Result result, Type type) {
             if (type != null) {
-                result = typeConverter.convertResult(result, type, feelLib, true, elInterpreter, dmnTransformer);
+                result = typeConverter.convertResult(result, type, true);
             }
             return result;
         }
@@ -1344,7 +1342,7 @@ public class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> imp
 
         private Object checkConstraintForValue(Object value, Type type) {
             if (type != null && value != null) {
-                value = Result.value(typeConverter.convertValue(value, type, feelLib, true, true, elInterpreter, dmnTransformer));
+                value = Result.value(typeConverter.convertValue(value, type, true, true));
             }
             return value;
         }
