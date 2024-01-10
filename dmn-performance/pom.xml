@@ -27,7 +27,7 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
 
         <jdmn.version>8.2.0</jdmn.version>
         <jdmn.plugin.version>${jdmn.version}</jdmn.plugin.version>
