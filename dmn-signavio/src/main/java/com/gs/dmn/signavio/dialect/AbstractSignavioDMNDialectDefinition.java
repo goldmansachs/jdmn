@@ -25,7 +25,6 @@ import com.gs.dmn.serialization.jackson.JsonDMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
-import com.gs.dmn.signavio.runtime.interpreter.SignavioTypeConverter;
 import com.gs.dmn.signavio.serialization.xstream.SignavioExtensionRegister;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;

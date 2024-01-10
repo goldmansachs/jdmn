@@ -515,7 +515,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
 
     @Test
     public void test_13_0104_allowed_values() {
-        doSingleModelTest("1.3", "0104-allowed-values", new Pair<>("strongTyping", "true"));
+        doSingleModelTest("1.3", "0104-allowed-values", new Pair<>("strongTyping", "true"), new Pair<>("checkConstraints", "true"));
     }
 
     @Test

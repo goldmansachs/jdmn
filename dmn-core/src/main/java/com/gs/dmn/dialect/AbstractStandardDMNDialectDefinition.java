@@ -17,7 +17,6 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.interpreter.AbstractFEELInterpreter;
 import com.gs.dmn.feel.interpreter.StandardFEELInterpreter;
-import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;

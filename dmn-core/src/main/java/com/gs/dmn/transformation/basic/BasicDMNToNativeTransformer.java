@@ -842,4 +842,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     String makeDuration(String text);
 
     String getDefaultValue(Type memberType, TItemDefinition memberItemDefinition);
+
+    boolean isCheckConstraints();
 }

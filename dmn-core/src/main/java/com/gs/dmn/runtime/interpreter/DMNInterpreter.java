@@ -17,7 +17,6 @@ import com.gs.dmn.ast.TInvocable;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.interpreter.ELInterpreter;
-import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
@@ -28,7 +27,7 @@ public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getFeelLib();
 
-    TypeConverter getTypeConverter();
+    TypeChecker getTypeChecker();
 
     //
     // Evaluate DRG elements

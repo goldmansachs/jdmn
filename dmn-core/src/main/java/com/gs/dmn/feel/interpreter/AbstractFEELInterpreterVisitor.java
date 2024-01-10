@@ -718,7 +718,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         // Evaluate and convert actual parameters
         Parameters<Type> parameters = element.getParameters();
         parameters.accept(this, context);
-        Arguments<Type> arguments = parameters.convertArguments((value, conversion) -> this.dmnInterpreter.getTypeConverter().convertValue(value, conversion));
+        Arguments<Type> arguments = parameters.convertArguments((value, conversion) -> this.dmnInterpreter.getTypeChecker().checkArgument(value, conversion));
         Expression<Type> function = element.getFunction();
         FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter<Type>> formalParameters = functionType.getParameters();
@@ -813,7 +813,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             // check for optional and varArgs parameters (builtin functions)
             if (parameter.isOptional()) {
                 if (i < argList.size()) {
-                    Object value = applyImplicitConversions(argList, i, type);
+                    Object value = checkArgument(argList.get(i), type);
                     // Add variable declaration and bind
                     functionContext.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
                     functionContext.bind(name, value);
@@ -821,14 +821,14 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             } else if (parameter.isVarArg()) {
                 List<Object> value = new ArrayList<>();
                 for (int j = i; j < argList.size(); j++) {
-                    Object varArg = applyImplicitConversions(argList, j, type);
+                    Object varArg = checkArgument(argList.get(j), type);
                     value.add(varArg);
                 }
                 // Add variable declaration and bind
                 functionContext.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
                 functionContext.bind(name, value);
             } else {
-                Object value = applyImplicitConversions(argList, i, type);
+                Object value = checkArgument(argList.get(i), type);
                 // Add variable declaration and bind
                 functionContext.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
                 functionContext.bind(name, value);
@@ -836,10 +836,9 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         }
     }
 
-    private Object applyImplicitConversions(List<Object> argList, int i, Type type) {
-        Object value = argList.get(i);
-        // Check value and apply implicit conversions
-        Result result = this.dmnInterpreter.getTypeConverter().convertValue(value, type, true, true);
+    private Object checkArgument(Object value, Type type) {
+        // Check value
+        Result result = this.dmnInterpreter.getTypeChecker().checkArgument(value, type);
         value = Result.value(result);
         return value;
     }

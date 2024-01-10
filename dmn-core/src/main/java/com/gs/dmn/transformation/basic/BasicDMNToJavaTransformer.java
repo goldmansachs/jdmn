@@ -2409,6 +2409,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return value;
     }
 
+    @Override
+    public boolean isCheckConstraints() {
+        return this.inputParameters.isCheckConstraints();
+    }
+
     private String makeDateTimeLiteral(String constructor, String text) {
         if (!text.startsWith(constructor)) {
             text = String.format("%s(\"%s\")", constructor, text);

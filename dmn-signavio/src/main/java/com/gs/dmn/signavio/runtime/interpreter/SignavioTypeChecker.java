@@ -16,20 +16,24 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.feel.interpreter.TypeConverter;
+import com.gs.dmn.runtime.interpreter.TypeChecker;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import java.util.List;
 
-public class SignavioTypeConverter extends TypeConverter {
-    public SignavioTypeConverter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, ELInterpreter<Type, DMNContext> elInterpreter, FEELLib<?, ?, ?, ?, ?> lib) {
+public class SignavioTypeChecker extends TypeChecker {
+    public SignavioTypeChecker(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, ELInterpreter<Type, DMNContext> elInterpreter, FEELLib<?, ?, ?, ?, ?> lib) {
         super(dmnTransformer, elInterpreter, lib);
     }
 
     @Override
-    public Result convertResult(Result result, Type expectedType, boolean checkConstraint) {
+    public Result checkResult(Result result, Type expectedType) {
+        return convertResult(result, expectedType);
+    }
+
+    protected Result convertResult(Result result, Type expectedType) {
         expectedType = Type.extractTypeFromConstraint(expectedType);
         Object value = Result.value(result);
         if (value == null) {

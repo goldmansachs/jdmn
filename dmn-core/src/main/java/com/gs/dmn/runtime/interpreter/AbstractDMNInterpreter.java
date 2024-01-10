@@ -20,7 +20,6 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.NopVisitor;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
-import com.gs.dmn.el.analysis.semantics.type.ConstraintType;
 import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
@@ -31,8 +30,6 @@ import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
-import com.gs.dmn.feel.interpreter.StandardFEELInterpreter;
-import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
@@ -67,7 +64,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     protected final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
     protected final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
     protected ELInterpreter<Type, DMNContext> elInterpreter;
-    protected TypeConverter typeConverter;
+    protected TypeChecker typeChecker;
 
     protected InterpreterVisitor visitor;
 
@@ -96,8 +93,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     @Override
-    public TypeConverter getTypeConverter() {
-        return this.typeConverter;
+    public TypeChecker getTypeChecker() {
+        return this.typeChecker;
     }
 
     //
@@ -385,8 +382,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             }
             Object value = argList.get(i);
 
-            // Check value and apply implicit conversions
-            Result result = this.typeConverter.convertValue(value, paramType, true, true);
+            // Check argument
+            Result result = this.typeChecker.checkArgument(value, paramType);
             value = Result.value(result);
 
             // Declaration is already in environment
@@ -403,8 +400,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             Type type = param.getType();
             Object value = argList.get(i);
 
-            // Check value and apply implicit conversions
-            Result result = this.typeConverter.convertValue(value, type, true, true);
+            // Check argument
+            Result result = this.typeChecker.checkArgument(value, type);
             value = Result.value(result);
 
             // Variable declaration already exists
@@ -564,9 +561,9 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 TExpression expression = repository.expression(decision);
                 result = this.visit(expression, EvaluationContext.makeExpressionEvaluationContext(decision, decisionContext, drgElementAnnotation));
 
-                // Check value and apply implicit conversions
+                // Check result
                 Type expectedType = dmnTransformer.drgElementOutputFEELType(decision, decisionContext);
-                result = typeConverter.convertResult(result, expectedType, true);
+                result = typeChecker.checkResult(result, expectedType);
             }
 
             // Decision end
@@ -589,13 +586,12 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             TExpression expression = repository.expression(bkm);
             Result result = this.visit(expression, EvaluationContext.makeExpressionEvaluationContext(bkm, bkmContext, drgElementAnnotation));
 
-            // Check value and apply implicit conversions
+            // Check result
             Type expectedType = dmnTransformer.drgElementOutputFEELType(bkm, bkmContext);
-            result = typeConverter.convertResult(result, expectedType, true);
-            Object value = Result.value(result);
+            result = typeChecker.checkResult(result, expectedType);
 
             // BKM end
-            EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, value, (System.currentTimeMillis() - startTime_));
+            EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, Result.value(result), (System.currentTimeMillis() - startTime_));
 
             return result;
         }
@@ -637,15 +633,14 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 }
             }
 
-            // Check value and apply implicit conversions
+            // Check result
             Type expectedType = dmnTransformer.drgElementOutputFEELType(service, serviceContext);
-            Result result = typeConverter.convertValue(output, expectedType, false, true);
-            output = Result.value(result);
+            Result result = typeChecker.checkResult(Result.of(output, expectedType), expectedType);
 
             // Decision service end
-            EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, output, (System.currentTimeMillis() - startTime_));
+            EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, Result.value(result), (System.currentTimeMillis() - startTime_));
 
-            return Result.of(output, dmnTransformer.drgElementOutputFEELType(service));
+            return result;
         }
 
         //
@@ -687,8 +682,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 TExpression argExpression = binding.getExpression();
                 Result argResult = this.visit(argExpression, EvaluationContext.makeExpressionEvaluationContext(element, parentContext, elementAnnotation));
 
-                // Check constraint for argument
-                argResult = checkConstraintFor(argResult, binding.getParameter(), model);
+                // Check argument
+                argResult = typeChecker.checkArgument(argResult, binding.getParameter(), model);
                 Object argJava = Result.value(argResult);
 
                 // Bind argument
@@ -716,8 +711,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 Object function = Result.value(functionResult);
                 Result returnResult = elInterpreter.evaluateFunctionInvocation((Function) function, (FunctionType) functionType, argList);
 
-                // Check constraint for returned result
-                returnResult = checkConstraintFor(returnResult, ((FunctionType) functionType).getReturnType());
+                // Check result
+                returnResult = typeChecker.checkResult(returnResult, ((FunctionType) functionType).getReturnType());
                 return returnResult;
             } else {
                 throw new DMNRuntimeException(String.format("Expecting function type found '%s' in element '%s'", functionType, element));
@@ -793,7 +788,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
                         // Check constraint for entry
                         Object entryValue = localContext.lookupBinding(entryName);
-                        entryValue = checkConstraintForValue(entryValue, entryType);
+                        entryValue = typeChecker.checkEntry(entryValue, entryType);
                         // Add entry value
                         output.add(entryName, entryValue);
                     }
@@ -827,7 +822,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 }
 
                 // Check constraint for element
-                elementResult = checkConstraintFor(elementResult, elementExp.getTypeRef(), model);
+                elementResult = typeChecker.checkListElement(elementResult, elementExp.getTypeRef(), model);
 
                 // Collect element value
                 Object expValue = Result.value(elementResult);
@@ -843,11 +838,11 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 listType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, listTypeRef));
             }
 
-            // Check constraint for list
-            resultValue = (List) checkConstraintForValue(resultValue, listTypeRef, model);
+            // Check result
+            Result result = typeChecker.checkResult(Result.of(resultValue, listType), listType);
 
             // Return result
-            return Result.of(resultValue, listType);
+            return result;
         }
 
         @Override
@@ -879,7 +874,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                         Result columnResult = columnExp == null ? null : this.visit(columnExp, EvaluationContext.makeExpressionEvaluationContext(element, relationContext, elementAnnotation));
 
                         // Check constraint for column
-                        columnResult = checkConstraintFor(columnResult, columns.get(i), columnExp, model);
+                        columnResult = typeChecker.checkListElement(columnResult, columns.get(i), columnExp, model);
 
                         // Collect column value
                         String columnName = columns.get(i).getName();
@@ -898,20 +893,20 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 relationValue.add(rowValue);
             }
 
-            // Check constraint for list
-            QName listTypeRef = relation.getTypeRef();
-            relationValue = (List) checkConstraintForValue(relationValue, listTypeRef, model);
-
             // Determine relation type
             Type relationType;
+            QName listTypeRef = relation.getTypeRef();
             if (listTypeRef == null) {
                 relationType = new ListType(firstRowType);
             } else {
                 relationType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, listTypeRef));
             }
 
+            // Check result
+            Result result = typeChecker.checkResult(Result.of(relationValue, relationType), relationType);
+
             // Return result
-            return Result.of(relationValue, relationType);
+            return result;
         }
 
         @Override
@@ -1082,8 +1077,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 Expression<Type> feelInputExpression = elInterpreter.analyzeExpression(inputExpressionText, context);
                 Result inputExpressionResult = elInterpreter.evaluateExpression(feelInputExpression, context);
 
-                // Check constraint for input
-                Object inputExpressionValue = checkConstraintFor(inputClause, feelInputExpression.getType(), inputExpressionResult);
+                // Check input expression
+                Object inputExpressionValue = typeChecker.checkInputExpression(inputExpressionResult, inputClause, feelInputExpression.getType());
 
                 // Collect result
                 inputClauseList.add(new InputClausePair(feelInputExpression, inputExpressionValue));
@@ -1146,8 +1141,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                         TLiteralExpression outputExpression = outputEntry.get(i);
                         Result result = this.visit(outputExpression, EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
 
-                        // Check constraint for output expression
-                        result = checkConstraintFor(result, outputClause, outputExpression, model);
+                        // Check output expression
+                        result = typeChecker.checkOutputClause(result, outputClause, outputExpression, model);
 
                         // Collect rule output
                         Object value = Result.value(result);
@@ -1166,8 +1161,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                     TLiteralExpression outputExpression = outputEntry.get(0);
                     Result result = this.visit(outputExpression, EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
 
-                    // Check constraint for output expression
-                    result = checkConstraintFor(result, outputClause, outputExpression, model);
+                    // Check output expression
+                    result = typeChecker.checkOutputClause(result, outputClause, outputExpression, model);
 
                     // Collect rule output
                     Object value = Result.value(result);
@@ -1287,65 +1282,6 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             }
         }
 
-        private Object checkConstraintFor(TInputClause inputClause, Type inputType, Result inputExpressionResult) {
-            Object inputExpressionValue = Result.value(inputExpressionResult);
-            TUnaryTests inputValues = inputClause.getInputValues();
-            if (inputValues != null) {
-                ConstraintType cType = new ConstraintType(inputType, inputValues);
-                inputExpressionValue = Result.value(typeConverter.convertValue(inputExpressionValue, cType, true, true));
-            }
-            return inputExpressionValue;
-        }
-
-        private Result checkConstraintFor(Result result, TInformationItem expression, TDefinitions model) {
-            return checkConstraintFor(result, expression.getTypeRef(), model);
-        }
-
-        private Result checkConstraintFor(Result result, TOutputClause outputClause, TExpression expression, TDefinitions model) {
-            QName typeRef = expression.getTypeRef();
-            if (typeRef == null) {
-                typeRef = outputClause.getTypeRef();
-            }
-            return checkConstraintFor(result, typeRef, model);
-        }
-
-        private Result checkConstraintFor(Result result, TInformationItem informationItem, TExpression expression, TDefinitions model) {
-            QName typeRef = expression.getTypeRef();
-            if (typeRef == null) {
-                typeRef = informationItem.getTypeRef();
-            }
-            return checkConstraintFor(result, typeRef, model);
-        }
-
-        private Result checkConstraintFor(Result result, QName typeRef, TDefinitions model) {
-            if (typeRef != null) {
-                Type paramType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
-                result = typeConverter.convertResult(result, paramType, true);
-            }
-            return result;
-        }
-
-        private Result checkConstraintFor(Result result, Type type) {
-            if (type != null) {
-                result = typeConverter.convertResult(result, type, true);
-            }
-            return result;
-        }
-
-        private Object checkConstraintForValue(Object value, QName typeRef, TDefinitions model) {
-            if (typeRef != null) {
-                Type type = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
-                return checkConstraintForValue(value, type);
-            }
-            return value;
-        }
-
-        private Object checkConstraintForValue(Object value, Type type) {
-            if (type != null && value != null) {
-                value = Result.value(typeConverter.convertValue(value, type, true, true));
-            }
-            return value;
-        }
 
         //
         // Logging

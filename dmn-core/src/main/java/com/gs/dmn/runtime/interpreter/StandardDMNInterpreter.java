@@ -15,7 +15,6 @@ package com.gs.dmn.runtime.interpreter;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.interpreter.StandardFEELInterpreter;
-import com.gs.dmn.feel.interpreter.TypeConverter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -24,7 +23,7 @@ public class StandardDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
     public StandardDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         super(dmnTransformer, feelLib);
         this.elInterpreter = new StandardFEELInterpreter<>(this);
-        this.typeConverter = new TypeConverter(this.dmnTransformer, this.elInterpreter, this.feelLib);
+        this.typeChecker = new TypeChecker(this.dmnTransformer, this.elInterpreter, this.feelLib);
     }
 
     @Override
