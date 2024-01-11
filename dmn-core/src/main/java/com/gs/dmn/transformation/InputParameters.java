@@ -81,6 +81,8 @@ public class InputParameters {
     private final boolean mockTesting;
     private final boolean generateExtra;
 
+    private boolean checkConstraints;
+
     public InputParameters() {
         this(new LinkedHashMap<>());
     }
@@ -114,6 +116,8 @@ public class InputParameters {
 
         this.mockTesting = InputParameters.getOptionalBooleanParam(inputParameters, "mockTesting");
         this.generateExtra = InputParameters.getOptionalBooleanParam(inputParameters, "generateExtra", "false");
+
+        this.checkConstraints = InputParameters.getOptionalBooleanParam(inputParameters, "checkConstraints", "false");
     }
 
     public String getDmnVersion() {
@@ -202,5 +206,9 @@ public class InputParameters {
 
     public boolean isGenerateExtra() {
         return generateExtra;
+    }
+
+    public boolean isCheckConstraints() {
+        return checkConstraints;
     }
 }

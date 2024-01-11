@@ -153,6 +153,7 @@ public abstract class ProtoBufferFactory {
     // Types
     //
     public String toNativeProtoType(Type type) {
+        type = Type.extractTypeFromConstraint(type);
         if (type instanceof AnyType) {
             return "Object";
         } else if (type instanceof NamedType) {
@@ -188,6 +189,7 @@ public abstract class ProtoBufferFactory {
     }
 
     private FieldType toProtoFieldType(Type type) {
+        type = Type.extractTypeFromConstraint(type);
         String modifier = OPTIONAL;
         if (type instanceof AnyType) {
             return new FieldType(modifier, "Any");

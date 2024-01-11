@@ -18,6 +18,7 @@ import com.gs.dmn.ast.dmndi.DMNDiagram;
 import com.gs.dmn.ast.dmndi.DMNStyle;
 import com.gs.dmn.ast.dmndi.DiagramElement;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ import static com.gs.dmn.ast.TBuiltinAggregator.SUM;
 public class DMNModelRepository {
     public static final String FREE_TEXT_LANGUAGE = "free_text";
     protected static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
-    private static Pattern WORD = Pattern.compile("\\w+");
+    private static final Pattern WORD = Pattern.compile("\\w+");
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
 
@@ -407,8 +408,18 @@ public class DMNModelRepository {
         return children;
     }
 
-    public TItemDefinition normalize(TItemDefinition itemDefinition) {
+    public Pair<TItemDefinition, TUnaryTests> normalize(TItemDefinition itemDefinition) {
+        // 7.3.3. ItemDefinition metamodel If an ItemDefinition element contains one or
+        // more allowedValues, the allowedValues specifies the complete range of values that this
+        // ItemDefinition represents. If an ItemDefinition element does not contain allowedValues, its range
+        // of allowed values is the full range of the referenced typeRef.
+        // Scan the chain of ItemDefinitions and find the first allowedValues
+        TUnaryTests restrictions = null;
         while (true) {
+            TUnaryTests allowedValues = itemDefinition.getAllowedValues();
+            if (restrictions == null) {
+                restrictions =  allowedValues;
+            }
             TItemDefinition next = next(itemDefinition);
             if (next != null) {
                 itemDefinition = next;
@@ -416,7 +427,7 @@ public class DMNModelRepository {
                 break;
             }
         }
-        return itemDefinition;
+        return new Pair<>(itemDefinition, restrictions);
     }
 
     protected TItemDefinition next(TItemDefinition itemDefinition) {
@@ -442,7 +453,7 @@ public class DMNModelRepository {
     private void sortDMNDI(DMNDI dmndi) {
         if (dmndi != null) {
             sortDMNDiagrams(dmndi);
-            dmndi.getDMNStyle().sort(Comparator.comparing((DMNStyle s) -> styleKey(s)));
+            dmndi.getDMNStyle().sort(Comparator.comparing(this::styleKey));
         }
     }
 
@@ -455,9 +466,9 @@ public class DMNModelRepository {
 
     private void sortDMNDiagrams(DMNDI dmndi) {
         List<DMNDiagram> diagrams = dmndi.getDMNDiagram();
-        diagrams.sort(Comparator.comparing((DMNDiagram d) -> diagramKey(d)));
+        diagrams.sort(Comparator.comparing(this::diagramKey));
         for (DMNDiagram d: diagrams) {
-            d.getDMNDiagramElement().sort(Comparator.comparing((DiagramElement e) -> diagramElementKey(e)));
+            d.getDMNDiagramElement().sort(Comparator.comparing(this::diagramElementKey));
         }
     }
 
@@ -883,13 +894,11 @@ public class DMNModelRepository {
 
     public TExpression expression(TDRGElement element) {
         if (element instanceof TDecision) {
-            TExpression expression = ((TDecision) element).getExpression();
-            return expression;
+            return ((TDecision) element).getExpression();
         } else if (element instanceof TBusinessKnowledgeModel) {
             TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
             if (encapsulatedLogic != null) {
-                TExpression expression = encapsulatedLogic.getExpression();
-                return expression;
+                return encapsulatedLogic.getExpression();
             }
         } else if (element instanceof TDecisionService) {
             return null;

@@ -19,8 +19,12 @@ import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.feel.AbstractFEELProcessor;
+import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
+import com.gs.dmn.runtime.function.Function;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
+
+import java.util.List;
 
 public abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessor<Type, DMNContext> implements ELInterpreter<Type, DMNContext> {
     private final AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> visitor;
@@ -50,8 +54,14 @@ public abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Override
     public Result evaluateExpression(Expression<Type> expression, DMNContext context) {
-        Object object = ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type>) expression).accept(visitor, context);
-        return Result.of(object, expression.getType());
+        Object value = ((com.gs.dmn.feel.analysis.syntax.ast.expression.Expression<Type>) expression).accept(visitor, context);
+        return Result.of(value, expression.getType());
+    }
+
+    @Override
+    public Result evaluateFunctionInvocation(Function function, FunctionType functionType, List<Object> argList) {
+        Object value = this.visitor.evaluateFunctionInvocation(function, functionType, argList);
+        return Result.of(value, functionType.getReturnType());
     }
 
     protected abstract AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> makeVisitor(DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter);

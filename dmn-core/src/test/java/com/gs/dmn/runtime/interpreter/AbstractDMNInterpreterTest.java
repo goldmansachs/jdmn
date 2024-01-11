@@ -185,7 +185,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
                 Assert.assertEquals(errorMessage, expectedValue, actualValue);
                 if (!IGNORE_ERROR_FLAG) {
                     String errorFlagMessage = String.format("%s ResultNode '%s' error flag mismatch", testLocation, res.getName());
-                    Assert.assertEquals(errorFlagMessage, actualResult.hasErrors(), res.isErrorResult());
+                    Assert.assertEquals(errorFlagMessage, res.isErrorResult(), actualResult.hasErrors());
                 }
             } catch (Exception e) {
                 String stackTrace = ExceptionUtils.getStackTrace(e);

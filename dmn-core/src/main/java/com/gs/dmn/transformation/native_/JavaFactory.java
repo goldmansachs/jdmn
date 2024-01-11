@@ -179,7 +179,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String makeInstanceOf(String value, Type type) {
-        return String.format("isInstanceOf(%s, \"%s\")", value, type.toString());
+        return String.format("isInstanceOf(%s, \"%s\")", value, type.serialize());
     }
 
     //
@@ -441,6 +441,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public boolean isSerializable(Type type) {
+        type = Type.extractTypeFromConstraint(type);
         return FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type) ||
                 (type instanceof ListType && isSerializable(((ListType) type).getElementType())) ||
                 type instanceof ItemDefinitionType ||
@@ -449,6 +450,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String convertArgumentFromString(String paramName, Type type) {
+        type = Type.extractTypeFromConstraint(type);
         if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             if (transformer.isStrongTyping()) {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
@@ -539,6 +541,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext) {
+        type = Type.extractTypeFromConstraint(type);
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 String qNativeType = this.transformer.getNativeTypeFactory().toQualifiedNativeType(((DataType) type).getName());
@@ -558,6 +561,7 @@ public class JavaFactory implements NativeFactory {
             }
         } else if (type instanceof ListType) {
             Type elementType = ((ListType) type).getElementType();
+            elementType = Type.extractTypeFromConstraint(elementType);
             String mapFunction;
             if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
                 if (elementType == NumberType.NUMBER) {
@@ -619,6 +623,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String convertValueToProtoNativeType(String value, Type type, boolean staticContext) {
+        type = Type.extractTypeFromConstraint(type);
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 return toProtoNumber(value);
@@ -633,6 +638,7 @@ public class JavaFactory implements NativeFactory {
             }
         } else if (type instanceof ListType) {
             Type elementType = ((ListType) type).getElementType();
+            elementType = Type.extractTypeFromConstraint(elementType);
             String mapFunction;
             if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
                 if (elementType == NumberType.NUMBER) {

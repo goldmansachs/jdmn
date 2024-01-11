@@ -10,10 +10,15 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.interpreter;
+package com.gs.dmn.runtime.interpreter;
 
+import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
+import com.gs.dmn.el.analysis.semantics.type.ConstraintType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
@@ -26,10 +31,11 @@ import com.gs.dmn.runtime.function.BuiltinFunction;
 import com.gs.dmn.runtime.function.DMNFunction;
 import com.gs.dmn.runtime.function.DMNInvocable;
 import com.gs.dmn.runtime.function.FEELFunction;
-import com.gs.dmn.runtime.interpreter.Result;
+import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 import java.time.*;
 import java.time.temporal.TemporalAmount;
 import java.util.List;
@@ -43,11 +49,29 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
 
-public class TypeConverter {
+public class TypeChecker {
+    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
+    private final ELInterpreter<Type, DMNContext> elInterpreter;
+    protected final FEELLib<?, ?, ?, ?, ?> lib;
+    private final boolean checkConstraints;
+    private final boolean throwError = true;
+
+    public TypeChecker(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, ELInterpreter<Type, DMNContext> elInterpreter, FEELLib<?, ?, ?, ?, ?> lib) {
+        this.dmnTransformer = dmnTransformer;
+        this.elInterpreter = elInterpreter;
+        this.lib = lib;
+        this.checkConstraints = dmnTransformer.isCheckConstraints();
+    }
+
     /*
         A value conforms to a type when the value is in the semantic domain of type (in varies from one dialect to another)
     */
-    public static boolean conformsTo(Object value, Type type) {
+    private static boolean conformsTo(Object value, Type type) {
+        if (value == null) {
+            return true;
+        }
+
+        type = Type.extractTypeFromConstraint(type);
         if (type == ANY) {
             return true;
         } else if (type == NUMBER && isNumber(value)) {
@@ -70,7 +94,7 @@ public class TypeConverter {
             Context context = (Context) value;
             CompositeDataType contextType = (CompositeDataType) type;
             for (String member : contextType.getMembers()) {
-                if (!conformsTo(context.get(member), contextType.getMemberType(member))) {
+                if (!context.getBindings().containsKey(member) || !conformsTo(context.get(member), contextType.getMemberType(member))) {
                     return false;
                 }
             }
@@ -136,47 +160,126 @@ public class TypeConverter {
                 isDate(value) || isTime(value) || isDateTime(value) || isDuration(value);
     }
 
-    public Result convertResult(Result result, Type expectedType, FEELLib<?, ?, ?, ?, ?> lib) {
-        Object value = Result.value(result);
-        if (value == null) {
-            return result;
-        }
-
-        // Convert value
-        Type actualType = Result.type(result);
-        if (expectedType == null) {
-            expectedType = ANY;
-        }
-
-        if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(actualType, expectedType)) {
-            return Result.of(value, expectedType);
-        } else {
-            // Dynamic conversion
-            return convertValue(value, expectedType, lib);
-        }
+    private static boolean isSingletonList(Object value) {
+        return value instanceof List && ((List) value).size() == 1;
     }
 
-    public Result convertValue(Object value, Type expectedType, FEELLib<?, ?, ?, ?, ?> lib) {
+    public Result checkResult(Result result, Type expectedType) {
+        // Apply conversions
+        Result finalResult = convertValue(Result.value(result), expectedType);
+
+        // Check constraints
+        return checkConstraints(finalResult, expectedType);
+    }
+
+    private Result checkConstraints(Result result, Type expectedType) {
+        // Check constraints
+        if (checkConstraints) {
+            Type actualType = Result.type(result);
+            if (Type.conformsTo(actualType, expectedType)) {
+                Object value = Result.value(result);
+                value = AllowedValuesConverter.validateConstraint(value, expectedType, elInterpreter, dmnTransformer);
+                result = Result.of(value, expectedType);
+            }
+        }
+        return result;
+    }
+
+    public Result checkArgument(Result argResult, TInformationItem parameter, TDefinitions model) {
+        QName typeRef = parameter.getTypeRef();
+        if (typeRef == null) {
+            return argResult;
+        }
+
+        // Apply conversions
+        Type parameterType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+        Result finalResult = convertValue(Result.value(argResult), parameterType);
+
+        // Check constraints
+        return checkConstraints(finalResult, parameterType);
+    }
+
+    public Result checkArgument(Object value, Type parameterType) {
+        // Apply conversions
+        Result finalResult = convertValue(value, parameterType);
+
+        // Check constraints
+        return checkConstraints(finalResult, parameterType);
+    }
+
+    public Object checkArgument(Object value, Conversion<Type> conversion) {
+        ConversionKind kind = conversion.getKind();
+        return convertValue(value, kind);
+    }
+
+    public Object checkEntry(Object entryValue, Type entryType) {
+        // Apply conversions
+        Result finalResult = convertValue(entryValue, entryType);
+
+        // Check constraints
+        Result result = checkConstraints(finalResult, entryType);
+        return Result.value(result);
+    }
+
+    public Result checkListElement(Result elementResult, QName typeRef, TDefinitions model) {
+        if (typeRef != null) {
+            Type type = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+            elementResult = checkResult(elementResult, type);
+        }
+        return elementResult;
+    }
+
+    public Result checkListElement(Result columnResult, TInformationItem tInformationItem, TExpression columnExp, TDefinitions model) {
+        QName typeRef = columnExp.getTypeRef();
+        if (typeRef == null) {
+            typeRef = tInformationItem.getTypeRef();
+        }
+        return checkListElement(columnResult, typeRef, model);
+    }
+
+    public Object checkInputExpression(Result inputExpressionResult, TInputClause inputClause, Type type) {
+        TUnaryTests inputValues = inputClause.getInputValues();
+        Type inputType = inputValues == null ? type : new ConstraintType(type, inputValues);
+        Result finalResult = checkResult(inputExpressionResult, inputType);
+        return Result.value(finalResult);
+    }
+
+    public Result checkOutputClause(Result result, TOutputClause outputClause, TLiteralExpression outputExpression, TDefinitions model) {
+        QName typeRef = outputClauseTypeRef(outputClause, outputExpression);
+        Type paramType = typeRef == null ? null : dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+        return checkResult(result, paramType);
+    }
+
+    private Result convertValue(Object value, Type expectedType) {
+        expectedType = Type.extractTypeFromConstraint(expectedType);
+        if (value == null) {
+            return Result.of(value, expectedType);
+        }
+
         // Dynamic conversion
         if (expectedType == null) {
             expectedType = ANY;
         }
-        ConversionKind conversionKind = conversionKind(value, expectedType, lib);
-        if (conversionKind.isError()) {
+        ConversionKind conversionKind = conversionKind(value, expectedType);
+        if (throwError && conversionKind.isError()) {
             throw new DMNRuntimeException(String.format("Value '%s' does not conform to type '%s'", value, expectedType));
         }
-        Object newValue = convertValue(value, conversionKind, lib);
+        Object newValue = convertValue(value, conversionKind);
         return Result.of(newValue, expectedType);
     }
 
-    public Object convertValue(Object value, Conversion<Type> conversion, FEELLib<?, ?, ?, ?, ?> lib) {
-        ConversionKind kind = conversion.getKind();
-        return convertValue(value, kind, lib);
+    private static QName outputClauseTypeRef(TOutputClause outputClause, TExpression expression) {
+        QName typeRef = expression.getTypeRef();
+        if (typeRef == null) {
+            typeRef = outputClause.getTypeRef();
+        }
+        return typeRef;
     }
 
-    private ConversionKind conversionKind(Object value, Type expectedType, FEELLib<?, ?, ?, ?, ?> lib) {
+    private ConversionKind conversionKind(Object value, Type expectedType) {
+        expectedType = Type.extractTypeFromConstraint(expectedType);
         if (conformsTo(value, expectedType)) {
-            return ConversionKind.NONE;
+            return NONE;
         } else if (isSingletonList(value) && conformsTo(((List) value).get(0), expectedType)) {
             return SINGLETON_LIST_TO_ELEMENT;
         } else if (expectedType instanceof ListType && conformsTo(value, ((ListType) expectedType).getElementType())) {
@@ -184,27 +287,23 @@ public class TypeConverter {
         } else if (lib.isDate(value) && expectedType instanceof DateTimeType) {
             return DATE_TO_UTC_MIDNIGHT;
         } else {
-            return ConversionKind.CONFORMS_TO;
+            return CONFORMS_TO;
         }
     }
 
-    private Object convertValue(Object value, ConversionKind kind, FEELLib<?, ?, ?, ?, ?> lib) {
-        if (kind == ConversionKind.NONE) {
+    private Object convertValue(Object value, ConversionKind kind) {
+        if (kind == NONE) {
             return value;
-        } else if (kind == ConversionKind.ELEMENT_TO_SINGLETON_LIST) {
+        } else if (kind == ELEMENT_TO_SINGLETON_LIST) {
             return lib.asList(value);
-        } else if (kind == ConversionKind.SINGLETON_LIST_TO_ELEMENT) {
+        } else if (kind == SINGLETON_LIST_TO_ELEMENT) {
             return lib.asElement((List) value);
-        } else if (kind == ConversionKind.CONFORMS_TO) {
+        } else if (kind == CONFORMS_TO) {
             return null;
-        } else if (kind == ConversionKind.DATE_TO_UTC_MIDNIGHT) {
+        } else if (kind == DATE_TO_UTC_MIDNIGHT) {
             return lib.toDate(value);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", kind));
         }
-    }
-
-    private static boolean isSingletonList(Object value) {
-        return value instanceof List && ((List) value).size() == 1;
     }
 }

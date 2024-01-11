@@ -293,6 +293,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String convertArgumentFromString(String paramName, Type type) {
+        type = Type.extractTypeFromConstraint(type);
         if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             if (transformer.isStrongTyping()) {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));

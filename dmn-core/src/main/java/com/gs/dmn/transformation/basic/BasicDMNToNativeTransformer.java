@@ -27,6 +27,7 @@ import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
+import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
@@ -42,6 +43,7 @@ import com.gs.dmn.transformation.proto.MessageType;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import com.gs.dmn.transformation.proto.Service;
 
+import javax.xml.namespace.QName;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -684,12 +686,30 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 parentContext.getElement(),
                 getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of());
-        List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
+        // Determine function type
+        QName functionTypeRef = functionDefinition.getTypeRef();
         TDefinitions model = getDMNModelRepository().getModel(parentContext.getElement());
-        for (TInformationItem param : formalParameterList) {
+        FunctionType functionType = null;
+        if (functionTypeRef != null) {
+            functionType = (FunctionType) toFEELType(null, QualifiedName.toQualifiedName(model, functionTypeRef));
+        }
+        // Add parameter declarations
+        List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
+        for (int i=0; i<formalParameterList.size(); i++) {
+            TInformationItem param = formalParameterList.get(i);
+            // Determine parameter type
+            QName paramTypeRef = param.getTypeRef();
+            Type paramType = null;
+            if (paramTypeRef != null) {
+                paramType = toFEELType(null, QualifiedName.toQualifiedName(model, paramTypeRef));
+            }
+            if (paramType == null && functionType != null) {
+                // Infer from function type
+                paramType = functionType.getParameterTypes().get(i);
+            }
+            // Add param declaration
             String name = param.getName();
-            Type type = toFEELType(null, QualifiedName.toQualifiedName(model, param.getTypeRef()));
-            functionContext.addDeclaration(getEnvironmentFactory().makeVariableDeclaration(name, type));
+            functionContext.addDeclaration(getEnvironmentFactory().makeVariableDeclaration(name, paramType));
         }
         return functionContext;
     }
@@ -822,4 +842,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     String makeDuration(String text);
 
     String getDefaultValue(Type memberType, TItemDefinition memberItemDefinition);
+
+    boolean isCheckConstraints();
 }

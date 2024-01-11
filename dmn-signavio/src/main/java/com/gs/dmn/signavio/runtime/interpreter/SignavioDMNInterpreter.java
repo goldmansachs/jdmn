@@ -18,7 +18,7 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.feel.interpreter.TypeConverter;
+import com.gs.dmn.feel.interpreter.SignavioFEELInterpreter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.AbstractDMNInterpreter;
@@ -41,10 +41,12 @@ import java.util.Map;
 public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private final SignavioDMNModelRepository dmnModelRepository;
 
-    public SignavioDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib, TypeConverter typeConverter) {
-        super(dmnTransformer, feelLib, typeConverter);
+    public SignavioDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
+        super(dmnTransformer, feelLib);
         this.dmnModelRepository = (SignavioDMNModelRepository) this.getBasicDMNTransformer().getDMNModelRepository();
         this.visitor = new SignavioInterpreterVisitor(this.errorHandler);
+        this.elInterpreter = new SignavioFEELInterpreter<>(this);
+        this.typeChecker = new SignavioTypeChecker(dmnTransformer, this.getElInterpreter(), feelLib);
     }
 
     @Override

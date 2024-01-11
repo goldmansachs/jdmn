@@ -1,0 +1,1224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0104-allowed-values.dmn</modelName>
+
+    <!-- STRING -->
+
+    <testCase id="string_001">
+        <description>complies with string domain</description>
+        <resultNode name="decision_string_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_002">
+        <description>does not comply with string domain</description>
+        <resultNode name="decision_string_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_003">
+        <description>input value complies with input string domain</description>
+        <inputNode name="tFooBarStringInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_tFooBarInput_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_004">
+        <description>input value does not comply with input string domain</description>
+        <inputNode name="tFooBarStringInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_tFooBarInput_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_005">
+        <!-- test uses a item defn with no allowed values, but the item defn uses a base
+        type _with_ allowed values.  We're asserting the base values are indeed associated
+        with the new type -->
+        <description>complies with copy of type string domain</description>
+        <resultNode name="decision_string_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="string_006">
+        <!-- test uses a item defn with no allowed values, but the item defn uses a base
+        type _with_ allowed values.  We're asserting the base values are indeed associated
+        with the new type -->
+        <description>does not comply with copy string domain</description>
+        <resultNode name="decision_string_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- NUMBER -->
+
+    <testCase id="number_001">
+        <description>complies with number domain</description>
+        <resultNode name="number_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">17</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_002">
+        <description>does not comply with number domain</description>
+        <resultNode name="number_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_003">
+        <description>input value complies with number domain</description>
+        <inputNode name="tNumberRangeTypeInput">
+            <value xsi:type="xsd:decimal">17</value>
+        </inputNode>
+        <resultNode name="decision_tNumberRangeType_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">17</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="number_004">
+        <description>input value does not comply with number domain</description>
+        <inputNode name="tNumberRangeTypeInput">
+            <value xsi:type="xsd:decimal">20</value>
+        </inputNode>
+        <resultNode name="decision_tNumberRangeType_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- DATE -->
+
+    <testCase id="date_001">
+        <description>complies with date domain</description>
+        <resultNode name="date_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:date">1960-02-01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_002">
+        <description>does not comply with date domain</description>
+        <resultNode name="date_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_003">
+        <description>input value complies with date domain</description>
+        <inputNode name="tDateRangeTypeInput">
+            <value xsi:type="xsd:date">1960-02-01</value>
+        </inputNode>
+        <resultNode name="decision_tDateRangeType_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:date">1960-02-01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="date_004">
+        <description>input value does not comply with date domain</description>
+        <inputNode name="tDateRangeTypeInput">
+            <value xsi:type="xsd:date">1970-01-01</value>
+        </inputNode>
+        <resultNode name="decision_tDateRangeType_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- DATETIME -->
+
+    <testCase id="dateTime_001">
+        <description>complies with dateTime domain</description>
+        <resultNode name="dateTime_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:dateTime">1960-01-01T00:00:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_002">
+        <description>does not comply with dateTime domain</description>
+        <resultNode name="dateTime_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_003">
+        <description>input value complies with dateTime domain</description>
+        <inputNode name="tDateTimeRangeTypeInput">
+            <value xsi:type="xsd:dateTime">1960-01-01T00:00:01</value>
+        </inputNode>
+        <resultNode name="decision_tDateTimeRangeType_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:dateTime">1960-01-01T00:00:01</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dateTime_004">
+        <description>input value does not comply with dateTime domain</description>
+        <inputNode name="tDateTimeRangeTypeInput">
+            <value xsi:type="xsd:dateTime">1970-01-01T00:00:00</value>
+        </inputNode>
+        <resultNode name="decision_tDateTimeRangeType_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- TIME -->
+
+    <testCase id="time_001">
+        <description>complies with time domain</description>
+        <resultNode name="time_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:time">10:00:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_002">
+        <description>does not comply with time domain</description>
+        <resultNode name="time_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_003">
+        <description>input value complies with time domain</description>
+        <inputNode name="tTimeRangeTypeInput">
+            <value xsi:type="xsd:time">10:00:00</value>
+        </inputNode>
+        <resultNode name="decision_tTimeRangeType_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:time">10:00:00</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="time_004">
+        <description>input value does not comply with time domain</description>
+        <inputNode name="tTimeRangeTypeInput">
+            <value xsi:type="xsd:time">13:00:00</value>
+        </inputNode>
+        <resultNode name="decision_tTimeRangeType_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- YEARS AND MONTHS DURATION -->
+
+    <testCase id="ymd_001">
+        <description>complies with ymd domain</description>
+        <resultNode name="ymd_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">P2Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ymd_002">
+        <description>does not comply with ymd domain</description>
+        <resultNode name="ymd_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ymd_003">
+        <description>input value complies with ymd domain</description>
+        <inputNode name="tYmdRangeTypeInput">
+            <value xsi:type="xsd:duration">P2Y</value>
+        </inputNode>
+        <resultNode name="decision_tYmdRangeType_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">P2Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ymd_004">
+        <description>input value does not comply with ymd domain</description>
+        <inputNode name="tYmdRangeTypeInput">
+            <value xsi:type="xsd:duration">P6Y</value>
+        </inputNode>
+        <resultNode name="decision_tYmdRangeType_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- DAYS AND TIME DURATION -->
+
+    <testCase id="dtd_001">
+        <description>complies with dtd domain</description>
+        <resultNode name="dtd_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">P2D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dtd_002">
+        <description>does not comply with dtd domain</description>
+        <resultNode name="dtd_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dtd_003">
+        <description>input value complies with dtd domain</description>
+        <inputNode name="tDtdRangeTypeInput">
+            <value xsi:type="xsd:duration">P2D</value>
+        </inputNode>
+        <resultNode name="decision_tDtdRangeType_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">P2D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="dtd_004">
+        <description>input value does not comply with dtd domain</description>
+        <inputNode name="tDtdRangeTypeInput">
+            <value xsi:type="xsd:duration">P6D</value>
+        </inputNode>
+        <resultNode name="decision_tDtdRangeType_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- STRUCTURAL / ESOTERIC -->
+
+    <testCase id="override_001">
+        <description>complies with string domain for 'overridden' base type</description>
+        <resultNode name="override_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">left</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="override_002">
+        <description>does not comply with string domain for 'overridden' base type</description>
+        <resultNode name="override_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- BKM -->
+
+    <testCase id="bkm_001">
+        <description>BKM argument complies with parameter domain</description>
+        <inputNode name="tFooBarStringInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_bkm_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="bkm_002">
+        <description>BKM argument does not comply with parameter domain</description>
+        <inputNode name="tFooBarStringInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_bkm_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="bkm_003">
+        <description>BKM return type complies with encapsulatedLogic typed function return type domain</description>
+        <inputNode name="tFooBarStringInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_bkm_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="bkm_004">
+        <description>BKM return type does not comply with encapsulatedLogic typed typed function return type domain</description>
+        <inputNode name="tFooBarStringInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_bkm_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="bkm_005">
+        <description>BKM return type complies with variable typeRef function return type domain</description>
+        <inputNode name="tFooBarStringInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_bkm_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="bkm_006">
+        <description>BKM return type does not comply with variable typRef function return type domain</description>
+        <inputNode name="tFooBarStringInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_bkm_003" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- DECISION SERVICE -->
+
+    <testCase id="ds_001" invocableName="a_decisionservice_with_typed_result" type="decisionService">
+        <description>Decision Service return value complies with return type domain</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="a_decisionservice_with_typed_result" >
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ds_002" invocableName="a_decisionservice_with_typed_result" type="decisionService">
+        <description>Decision Service return value does not comply with return type domain</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="a_decisionservice_with_typed_result" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ds_003" invocableName="a_decisionservice_with_typed_param" type="decisionService">
+        <description>Decision Service param value complies with param type domain</description>
+        <inputNode name="ds_inputdecision">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="a_decisionservice_with_typed_param" >
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="ds_004" invocableName="a_decisionservice_with_typed_param" type="decisionService">
+        <description>Decision Service param value does not comply with param type domain</description>
+        <inputNode name="ds_inputdecision">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="a_decisionservice_with_typed_param" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- LAMBDA -->
+
+    <testCase id="lambda_001">
+        <description>lambda argument complies with parameter domain</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_lambda_expression_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="lambda_002">
+        <description>lambda argument does not comply with parameter domain</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_lambda_expression_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="lambda_003">
+        <description>function definition return result complies with function result domain</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_lambda_expression_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="lambda_004">
+        <description>function definition return result does not comply with function result domain</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_lambda_expression_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- FUNCTION DEFINITION -->
+
+    <testCase id="functiondefinition_001">
+        <description>function definition argument complies with parameter domain</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_funcdef_expression_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="functiondefinition_002">
+        <description>function definition argument does not comply with parameter domain</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_funcdef_expression_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="functiondefinition_003">
+        <description>function definition return result complies with function result domain</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_funcdef_expression_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="functiondefinition_004">
+        <description>function definition return result does not comply with function result domain</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_funcdef_expression_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- LIST -->
+
+    <testCase id="list_001">
+        <description>complies with list type with constrained item type</description>
+        <resultNode name="list_001" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">foo</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">foo</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">bar</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_002">
+        <description>does not comply with list type with constrained item type</description>
+        <resultNode name="list_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_003">
+        <description>singleton value complies with list type with constrained item type</description>
+        <resultNode name="list_003" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">foo</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="list_004">
+        <description>singleton value does not comply with list type with constrained item type</description>
+        <resultNode name="list_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="list_005">
+        <description>singleton list complies with constrained item type</description>
+        <resultNode name="list_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+    <testCase id="list_006">
+        <description>singleton list does not comply with constained item type</description>
+        <resultNode name="list_006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+
+    <testCase id="list_boxed_001">
+        <description>complies with list type with constrained item type</description>
+        <resultNode name="list_boxed_001" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">foo</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">foo</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">bar</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_boxed_002">
+        <description>does not comply with list type with constrained item type</description>
+        <resultNode name="list_boxed_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- CONTEXT -->
+
+    <testCase id="context_001">
+        <description>complies with context type with constrained property type</description>
+        <resultNode name="context_001" type="decision">
+            <expected>
+                <component name="prop1">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_002">
+        <description>does not comply with context type with constrained property type</description>
+        <resultNode name="context_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_boxed_001">
+        <description>complies with context type with constrained property type</description>
+        <resultNode name="context_boxed_001" type="decision">
+            <expected>
+                <component name="prop1">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_boxed_002">
+        <description>does not comply with context type with constrained property type</description>
+        <resultNode name="context_boxed_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_003">
+        <description>complies with context type with constrained list property type</description>
+        <resultNode name="context_003" type="decision">
+            <expected>
+                <component name="prop1">
+                    <list>
+                        <item>
+                            <value xsi:type="xsd:string">foo</value>
+                        </item>
+                        <item>
+                            <value xsi:type="xsd:string">foo</value>
+                        </item>
+                        <item>
+                            <value xsi:type="xsd:string">bar</value>
+                        </item>
+                    </list>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_004">
+        <description>does not comply with context type with constrained list property type</description>
+        <resultNode name="context_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_005">
+        <description>does not comply with context type with constrained property type - no singleton list unbox</description>
+        <resultNode name="context_005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_006">
+        <description>does not comply with context type with constrained property type - no singleton list boxing</description>
+        <resultNode name="context_006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_input_001">
+        <description>context input data complies with constrained input type</description>
+        <inputNode name="tFooBarContextInput">
+            <component name="prop1">
+                <value xsi:type="xsd:string">foo</value>
+            </component>
+        </inputNode>
+        <resultNode name="context_input_decision_001" type="decision">
+            <expected>
+                <component name="prop1">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="context_input_002">
+        <description>context input data does not comply with constrained input type</description>
+        <inputNode name="tFooBarContextInput">
+            <component name="prop1">
+                <value xsi:type="xsd:string">baz</value>
+            </component>
+        </inputNode>
+        <resultNode name="context_input_decision_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- LITERAL EXPRESSION -->
+
+    <testCase id="decision_literal_expression_001">
+        <description>literal expression typeRef complies with type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_literal_expression_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_literal_expression_002">
+        <description>literal expression typeRef does not comply with type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_literal_expression_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- CONTEXT EXPRESSION -->
+
+    <testCase id="decision_context_expression_001">
+        <description>context expression typeRef complies with type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_context_expression_001" type="decision">
+            <expected>
+                <component name="prop1">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_context_expression_002">
+        <description>context expression typeRef does not comply with type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_context_expression_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- CONTEXT ENTRY -->
+
+    <testCase id="decision_contextentry_expression_001">
+        <description>contextentry expression typeRef complies with type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_contextentry_expression_001" type="decision">
+            <expected>
+                <component name="prop1">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_contextentry_expression_002">
+        <description>contextentry expression typeRef does not comply with type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_contextentry_expression_001" type="decision" errorResult="true">
+            <expected>
+                <component name="prop1">
+                    <value xsi:nil="true"></value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- LIST EXPRESSION -->
+
+    <testCase id="decision_list_expression_001">
+        <description>list expression typeRef complies with type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_list_expression_001" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">foo</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_list_expression_002">
+        <description>list expression typeRef does not comply with type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_list_expression_002" type="decision" errorResult="true">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:nil="true"></value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_input_001">
+        <description>list input data complies with constrained input type</description>
+        <inputNode name="tFooBarListInput">
+            <list>
+                <item>
+                    <value xsi:type="xsd:string">foo</value>
+                </item>
+            </list>
+        </inputNode>
+        <resultNode name="list_input_decision_001" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">foo</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="list_input_002">
+        <description>list input data does not comply with constrained input type</description>
+        <inputNode name="tFooBarListInput">
+            <list>
+                <item>
+                    <value xsi:type="xsd:string">baz</value>
+                </item>
+            </list>
+        </inputNode>
+        <resultNode name="list_input_decision_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- RELATION EXPRESSION -->
+
+    <testCase id="decision_relation_expression_001">
+        <description>relation expression typeRef complies with type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_relation_expression_001" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <component name="col1">
+                            <value xsi:type="xsd:string">foo</value>
+                        </component>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_relation_expression_002">
+        <description>relation expression typeRef does not comply with type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_relation_expression_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- RELATION ROW -->
+
+    <testCase id="decision_relationrow_expression_001">
+        <description>relation row expression complies with column typeRef</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_relationrow_expression_001" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <component name="col1">
+                            <value xsi:type="xsd:string">foo</value>
+                        </component>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_relationrow_expression_002">
+        <description>relation row expression does not comply with column typeRef</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_relationrow_expression_001" type="decision" errorResult="true">
+            <expected>
+                <list>
+                    <item>
+                        <component name="col1">
+                            <value xsi:nil="true"></value>
+                        </component>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- DECISION TABLE EXPRESSION -->
+
+    <testCase id="decision_dt_expression_001">
+        <description>DT single output complies with DT typeRef</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_dt_expression_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_dt_expression_002">
+        <description>DT single output complies with DT typeRef</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_dt_expression_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_dt_expression_003">
+        <description>DT multiple output values complies with output entry typeRef</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_dt_expression_002" type="decision">
+            <expected>
+                <component name="col1">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+                <component name="col2">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_dt_expression_004">
+        <description>DT multiple output values do not comply with output entry typeRef</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_dt_expression_002" type="decision" errorResult="true">
+            <expected>
+                <component name="col1">
+                    <value xsi:nil="true"></value>
+                </component>
+                <component name="col2">
+                    <value xsi:type="xsd:string">baz</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_dt_expression_005">
+        <description>DT multiple output values complies with output clause typeRef</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_dt_expression_003" type="decision">
+            <expected>
+                <component name="col1">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+                <component name="col2">
+                    <value xsi:type="xsd:string">foo</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_dt_expression_006">
+        <description>DT multiple output values do not comply with output clause typeRef</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_dt_expression_003" type="decision" errorResult="true">
+            <expected>
+                <component name="col1">
+                    <value xsi:nil="true"></value>
+                </component>
+                <component name="col2">
+                    <value xsi:type="xsd:string">baz</value>
+                </component>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_dt_expression_007">
+        <description>DT input value complies with input clause clause inputValues</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_dt_expression_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">complies</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_dt_expression_008">
+        <description>DT input value does not comply with input clause clause inputValues</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_dt_expression_004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:type="xsd:string">does not comply</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_dt_expression_009">
+        <description>DT output value complies with output clause clause outputValues</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_dt_expression_005" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_dt_expression_010">
+        <description>DT output value does not comply with output clause clause outputValues</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_dt_expression_005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <!-- INVOCATION EXPRESSION -->
+
+    <testCase id="decision_invocation_expression_001">
+        <description>Invocation binding value complies with binding type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_invocation_expression_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_invocation_expression_002">
+        <description>Invocation binding value does not comply with binding type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_invocation_expression_001" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_invocation_expression_003">
+        <description>Invocation return value complies with invocation return type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">foo</value>
+        </inputNode>
+        <resultNode name="decision_invocation_expression_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_invocation_expression_004">
+        <description>Invocation return value does not comply with invocation return type</description>
+        <inputNode name="tUntypedInput">
+            <value xsi:type="xsd:string">baz</value>
+        </inputNode>
+        <resultNode name="decision_invocation_expression_002" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>
