@@ -1,4 +1,4 @@
-name: "build jdk 20"
+name: "build jdk latest"
 
 on:
   [ push, pull_request ]

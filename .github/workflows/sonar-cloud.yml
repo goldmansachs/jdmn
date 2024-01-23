@@ -1,4 +1,4 @@
-name: "sonar cloud"
+name: "build sonar cloud"
 
 on:
   # Trigger the workflow on push or pull request,
