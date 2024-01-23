@@ -1,4 +1,4 @@
-name: "build jdk 20"
+name: "build jdk latest"
 
 on:
   [ push, pull_request ]
@@ -13,10 +13,14 @@ jobs:
         with:
           distribution: 'oracle'
           java-version: '21'
-      - name: Set up Python 3.10
+      - name: Set up Python
         uses: actions/setup-python@v3
         with:
           python-version: '3.10'
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4.5
+        with:
+          maven-version: 3.9.6
       - name: Cache Maven packages
         uses: actions/cache@v3
         with:
