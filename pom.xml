@@ -98,6 +98,8 @@
         <io.grpc.version>1.61.0</io.grpc.version>
         <google.protobuf.version>3.25.2</google.protobuf.version>
 
+        <junit.version>5.10.1</junit.version>
+
         <jacoco.plugin.version>0.8.8</jacoco.plugin.version>
         <sonar.language>java</sonar.language>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -416,10 +418,17 @@ specific language governing permissions and limitations under the License.]]></i
                 <version>2.11.0</version>
             </dependency>
 
+
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.13.2</version>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -476,10 +485,16 @@ specific language governing permissions and limitations under the License.]]></i
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -506,8 +521,8 @@ specific language governing permissions and limitations under the License.]]></i
                     <version>5.16.0</version>
                     <configuration>
                         <activeRecipes>
-                            <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
-                        </activeRecipes>
+<!--                            <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>-->
+                            <recipe>org.openrewrite.java.testing.junit5.JUnit5BestPractices</recipe>                        </activeRecipes>
                     </configuration>
                     <dependencies>
                         <dependency>
