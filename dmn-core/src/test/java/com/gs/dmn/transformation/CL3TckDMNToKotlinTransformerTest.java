@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CL3TckDMNToKotlinTransformerTest extends AbstractTckDMNToKotlinTransformerTest {
     @Override

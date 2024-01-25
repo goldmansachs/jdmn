@@ -37,7 +37,7 @@ import java.util.Map;
 
 import static com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer.RDF_FILE_EXTENSION;
 import static com.gs.dmn.signavio.rdf2dmn.RDFToDMNTransformer.isRDFFile;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFileTransformerTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractRDFToDMNTransformerTest.class));
@@ -62,7 +62,7 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFi
     private void doTestFolder(String inputPath, String outputPath, String expectedPath) throws Exception {
         File inputFolder = new File(resource(inputPath));
         File[] files = inputFolder.listFiles();
-        assertNotNull("Not empty folder", files);
+        assertNotNull(files, "Not empty folder");
         for (File child : files) {
             if (isRDFFile(child)) {
                 String fileName = child.getName();

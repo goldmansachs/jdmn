@@ -14,9 +14,9 @@ package com.gs.dmn.signavio.runtime;
 
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DefaultSignavioBaseDecisionTest {
     private final DefaultSignavioBaseDecision baseDecision = new DefaultSignavioBaseDecision();

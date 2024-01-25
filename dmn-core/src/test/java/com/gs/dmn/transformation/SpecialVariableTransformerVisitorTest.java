@@ -1,11 +1,10 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.ast.TUnaryTests;
-import com.gs.dmn.transformation.SpecialVariableTransformerVisitor;
 import com.gs.dmn.error.NopErrorHandler;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SpecialVariableTransformerVisitorTest {
     private final SpecialVariableTransformerVisitor<?> visitor = new SpecialVariableTransformerVisitor<>(new NopErrorHandler());

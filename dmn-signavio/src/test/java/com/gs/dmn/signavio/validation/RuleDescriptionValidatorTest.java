@@ -14,13 +14,13 @@ package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDecision;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest {
     private final DMNModelRepository repository = new DMNModelRepository();

@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.signavio.feel.lib;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;
@@ -20,8 +20,8 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DoubleMixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override

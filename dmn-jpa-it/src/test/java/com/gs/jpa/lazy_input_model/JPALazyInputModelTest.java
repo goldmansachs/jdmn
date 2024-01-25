@@ -14,8 +14,9 @@ package com.gs.jpa.lazy_input_model;
 
 import com.gs.dmn.generated.lazy_input_model.Decision;
 import com.gs.dmn.generated.lazy_input_model.type.Person;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,20 +27,20 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
     protected static EntityManagerFactory emf;
     protected static EntityManager em;
 
-    @BeforeClass
+    @BeforeAll
     public static void init() {
         emf = Persistence.createEntityManagerFactory("lazy-pu-test");
         em = emf.createEntityManager();
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDown(){
         em.clear();
         em.close();
         emf.close();
     }
 
-    @org.junit.Test
+    @Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
@@ -51,7 +52,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
         checkValues(number("1"), score);
     }
 
-    @org.junit.Test
+    @Test
     public void testCase002() {
         com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
@@ -63,7 +64,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
         checkValues(number("2"), score);
     }
 
-    @org.junit.Test
+    @Test
     public void testCase003() {
         com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
@@ -75,7 +76,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
         checkValues(number("3"), score);
     }
 
-    @org.junit.Test
+    @Test
     public void testCase004() {
         com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
@@ -87,7 +88,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
         checkValues(number("4"), score);
     }
 
-    @org.junit.Test
+    @Test
     public void testCase005() {
         com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data

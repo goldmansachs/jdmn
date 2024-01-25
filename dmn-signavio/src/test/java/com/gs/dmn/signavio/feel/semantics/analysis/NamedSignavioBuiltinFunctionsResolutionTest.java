@@ -1,6 +1,6 @@
 package com.gs.dmn.signavio.feel.semantics.analysis;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class NamedSignavioBuiltinFunctionsResolutionTest extends AbstractSignavioBuiltinFunctionsResolutionTest {
     @Test

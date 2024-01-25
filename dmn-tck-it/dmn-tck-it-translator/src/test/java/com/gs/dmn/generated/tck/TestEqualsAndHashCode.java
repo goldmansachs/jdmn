@@ -14,12 +14,12 @@ package com.gs.dmn.generated.tck;
 
 import com.gs.dmn.generated.tck.cl2_0009_invocation_arithmetic.type.TLoan;
 import com.gs.dmn.generated.tck.cl2_0009_invocation_arithmetic.type.TLoanImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TestEqualsAndHashCode {
     @Test

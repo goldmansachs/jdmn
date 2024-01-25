@@ -20,8 +20,8 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URI;
@@ -64,14 +64,16 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
                 "creditIssueType", "assessApplicantAge", "priorIssue", "makeCreditDecision", "assessIssueRisk"), Collections.emptyList());
     }
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testTransformerForExistingConflictingDefinition() throws Exception {
-        executeTransformation(
-                signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
-                signavioResource("dmn/dmn2java/configuration/credit-decision-existing-conflicting-definition-config.json")
-        );
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            executeTransformation(
+                    signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
+                    signavioResource("dmn/dmn2java/configuration/credit-decision-existing-conflicting-definition-config.json")
+            );
 
-        Assert.fail("Test is expected to fail; attempted to replace existing conflicting definition");
+            Assertions.fail("Test is expected to fail; attempted to replace existing conflicting definition");
+        });
     }
 
     @Test
@@ -86,14 +88,16 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
                 "currentRiskAppetite", "processPriorIssues"), Collections.emptyList());
     }
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testTransformerForDuplicateConflictingNewDefinitions() throws Exception {
-        executeTransformation(
-                signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
-                signavioResource("dmn/dmn2java/configuration/credit-decision-duplicate-conflicting-definition-config.json")
-        );
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            executeTransformation(
+                    signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
+                    signavioResource("dmn/dmn2java/configuration/credit-decision-duplicate-conflicting-definition-config.json")
+            );
 
-        Assert.fail("Test is expected to fail; attempted to insert duplicate, conflicting new definitions");
+            Assertions.fail("Test is expected to fail; attempted to insert duplicate, conflicting new definitions");
+        });
     }
 
     @Test
@@ -106,15 +110,15 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
         List<String> expectedNewDefinitions = Arrays.asList("assessIssue", "lendingThreshold", "currentRiskAppetite", "processPriorIssues");
 
         List<String> newDefinitions = identifyNewDefinitions(transformResult.getBeforeTransform(), transformResult.getAfterTransform());
-        Assert.assertEquals("Unexpected new definition count", expectedNewDefinitions.size(), newDefinitions.size());
+        Assertions.assertEquals(expectedNewDefinitions.size(), newDefinitions.size(), "Unexpected new definition count");
 
         for (String definitionName : newDefinitions) {
-            Assert.assertTrue("Unexpected new definition", expectedNewDefinitions.contains(definitionName));
+            Assertions.assertTrue(expectedNewDefinitions.contains(definitionName), "Unexpected new definition");
             TItemDefinition definition = transformResult.getAfterTransform()
                     .stream().filter(x -> x.getName().equals(definitionName)).findFirst()
                     .orElseThrow(() -> new DMNRuntimeException("Cannot locate new definition"));
 
-            Assert.assertEquals("Definition type reference is not correct", "feel.number", QualifiedName.toName(definition.getTypeRef()));
+            Assertions.assertEquals("feel.number", QualifiedName.toName(definition.getTypeRef()), "Definition type reference is not correct");
         }
     }
 
@@ -151,12 +155,12 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
     private void assertExpectedTransformResult(RepositoryTransformResult transformResult,
                                                List<String> expectedNewDefinitions, List<String> expectedRemovedDefinitions) {
         List<String> newDefinitions = identifyNewDefinitions(transformResult.getBeforeTransform(), transformResult.getAfterTransform());
-        Assert.assertTrue("Missing expected new definition", newDefinitions.containsAll(expectedNewDefinitions));
-        Assert.assertEquals("Incorrect number of new definitions", expectedNewDefinitions.size(), newDefinitions.size());
+        Assertions.assertTrue(newDefinitions.containsAll(expectedNewDefinitions), "Missing expected new definition");
+        Assertions.assertEquals(expectedNewDefinitions.size(), newDefinitions.size(), "Incorrect number of new definitions");
 
         List<String> removedDefinitions = identifyNewDefinitions(transformResult.getAfterTransform(), transformResult.getBeforeTransform());
-        Assert.assertTrue("Expected removed definition is still present", removedDefinitions.containsAll(expectedRemovedDefinitions));
-        Assert.assertEquals("Incorrect number of removed definitions", expectedRemovedDefinitions.size(), removedDefinitions.size());
+        Assertions.assertTrue(removedDefinitions.containsAll(expectedRemovedDefinitions), "Expected removed definition is still present");
+        Assertions.assertEquals(expectedRemovedDefinitions.size(), removedDefinitions.size(), "Incorrect number of removed definitions");
     }
 
     private static class RepositoryTransformResult {

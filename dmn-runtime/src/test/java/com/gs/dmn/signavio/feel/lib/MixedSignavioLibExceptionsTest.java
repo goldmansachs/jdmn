@@ -31,7 +31,7 @@ import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.SignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.string.SignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
@@ -39,7 +39,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class MixedSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override

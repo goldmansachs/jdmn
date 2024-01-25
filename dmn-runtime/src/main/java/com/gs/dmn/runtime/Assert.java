@@ -14,6 +14,7 @@ package com.gs.dmn.runtime;
 
 import com.gs.dmn.feel.lib.type.BaseType;
 import com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType;
+import org.junit.jupiter.api.Assertions;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -32,27 +33,27 @@ public class Assert {
 
     public static void assertEquals(String message, Object expected, Object actual) {
         if (expected == null) {
-            org.junit.Assert.assertEquals(message, expected, actual);
+            Assertions.assertEquals(expected, actual, message);
         } else if (isNumber(expected)) {
             BigDecimal expectedBD = (BigDecimal) normalizeNumber(expected);
             BigDecimal actualBD = (BigDecimal) normalizeNumber(actual);
             if (actual == null) {
-                org.junit.Assert.assertEquals(message, expected, actual);
+                Assertions.assertEquals(expected, actual, message);
             } else {
                 boolean condition = expectedBD.subtract(actualBD).abs().compareTo(NUMBER_COMPARISON_PRECISION) < 0;
-                org.junit.Assert.assertTrue(String.format(message + ". Expected '%s' found '%s'", expectedBD, actualBD), condition);
+                Assertions.assertTrue(condition, String.format(message + ". Expected '%s' found '%s'", expectedBD, actualBD));
             }
         } else if (isBoolean(expected)) {
-            org.junit.Assert.assertEquals(message, expected, actual);
+            Assertions.assertEquals(expected, actual, message);
         } else if (isString(expected)) {
-            org.junit.Assert.assertEquals(message, expected, actual);
+            Assertions.assertEquals(expected, actual, message);
         } else if (isDateTime(expected)) {
-            org.junit.Assert.assertEquals(message, normalizeDateTime(expected), normalizeDateTime(actual));
+            Assertions.assertEquals(normalizeDateTime(expected), normalizeDateTime(actual), message);
         } else if (isList(expected)) {
             if (actual == null) {
-                org.junit.Assert.assertEquals(message, expected, actual);
+                Assertions.assertEquals(expected, actual, message);
             } else {
-                org.junit.Assert.assertEquals((message == null ? "" : message)  + expected + " vs " + actual, ((List) expected).size(), ((List) actual).size());
+                Assertions.assertEquals(((List) expected).size(), ((List) actual).size(), (message == null ? "" : message)  + expected + " vs " + actual);
                 for (int i = 0; i < ((List) expected).size(); i++) {
                     assertEquals(message, ((List) expected).get(i), ((List) actual).get(i));
                 }
@@ -91,7 +92,7 @@ public class Assert {
                 }
             }
         } else {
-            org.junit.Assert.assertEquals(message, expected, actual);
+            Assertions.assertEquals(expected, actual, message);
         }
     }
 

@@ -28,7 +28,7 @@ import com.gs.dmn.tck.ast.ValueType;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.DatatypeFactory;
 import java.math.BigDecimal;
@@ -46,7 +46,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.ListType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MockTCKValueTranslatorTest {
     static final DatatypeFactory DATATYPE_FACTORY;

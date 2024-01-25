@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.signavio.feel.lib;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class BaseSignavioLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     @Test

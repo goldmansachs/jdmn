@@ -13,14 +13,14 @@
 package com.gs.dmn.generated.null_safe_tests;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest {
     private final AllTogether decision = new AllTogether();

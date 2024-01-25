@@ -14,7 +14,7 @@ package com.gs.dmn.serialization.xstream.v1_3;
 
 import com.gs.dmn.serialization.AbstractXStreamUnmarshalMarshalTest;
 import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xmlunit.diff.DifferenceEvaluator;
 import org.xmlunit.diff.DifferenceEvaluators;
 

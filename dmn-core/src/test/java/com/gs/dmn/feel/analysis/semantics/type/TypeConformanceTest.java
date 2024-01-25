@@ -16,7 +16,7 @@ import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.Pair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -31,7 +31,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MON
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TypeConformanceTest {
     public final Map<Pair<Type, Type>, Boolean> dataTypesTable = new LinkedHashMap<Pair<Type, Type>, Boolean>() {{
@@ -196,6 +196,6 @@ public class TypeConformanceTest {
     }
 
     private void checkConformsTo(boolean expected, Type left, Type right) {
-        assertEquals(String.format("'%s'.conformsTo('%s') mismatch ", left, right), expected, com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(left, right));
+        assertEquals(expected, com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(left, right), String.format("'%s'.conformsTo('%s') mismatch ", left, right));
     }
 }

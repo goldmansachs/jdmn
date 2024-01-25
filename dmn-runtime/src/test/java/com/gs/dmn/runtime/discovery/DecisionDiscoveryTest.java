@@ -12,11 +12,11 @@
  */
 package com.gs.dmn.runtime.discovery;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DecisionDiscoveryTest {
     private final DecisionDiscovery decisionDiscovery = new DecisionDiscovery();

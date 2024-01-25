@@ -13,18 +13,23 @@
 package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TestLabValidatorTest {
     private final TestLabValidator validator = new TestLabValidator();
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testValidateWhenNull() {
-        validator.validate(null);
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            validator.validate(null);
+        });
     }
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testValidateWhenEmpty() {
-        validator.validate(new TestLab());
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            validator.validate(new TestLab());
+        });
     }
 }

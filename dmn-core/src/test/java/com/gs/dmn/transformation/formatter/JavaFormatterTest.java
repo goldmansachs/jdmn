@@ -18,7 +18,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class JavaFormatterTest extends AbstractTest {
     protected void doTest() throws IOException {
@@ -32,7 +32,7 @@ public abstract class JavaFormatterTest extends AbstractTest {
         JavaFormatter formatter = getFormatter();
         String actualContent = formatter.formatSource(code).replace("    \r", "\r").replace("\r", "");
         String expectedContent = readResource(getExpectedRelativePath() + fileName).replace("    \r", "\r").replace("\r", "");
-        assertEquals("Error for " + fileName, expectedContent, actualContent);
+        assertEquals(expectedContent, actualContent, "Error for " + fileName);
     }
 
     private String readResource(String actualPath) throws IOException {

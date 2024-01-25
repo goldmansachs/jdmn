@@ -14,7 +14,7 @@ package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
 import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.runtime.Executor;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;

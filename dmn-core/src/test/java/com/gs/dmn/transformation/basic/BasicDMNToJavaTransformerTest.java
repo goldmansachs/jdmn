@@ -22,16 +22,16 @@ import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class BasicDMNToJavaTransformerTest extends AbstractTest {
     private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition = new StandardDMNDialectDefinition();
@@ -39,7 +39,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     private BasicDMNToJavaTransformer dmnTransformer;
     private String href;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         String pathName = "dmn/input/1.1/0004-lending.dmn";
         DMNModelRepository repository = readDMN(pathName);

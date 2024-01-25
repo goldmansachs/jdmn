@@ -14,12 +14,12 @@ package com.gs.dmn.generated.tck.cl2_0009_invocation_arithmetic;
 
 import com.gs.dmn.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.generated.tck.cl2_0009_invocation_arithmetic.type.TLoanImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HandwrittenMonthlyPaymentTest extends AbstractHandwrittenDecisionTest {
     private final MonthlyPayment decision = new MonthlyPayment();

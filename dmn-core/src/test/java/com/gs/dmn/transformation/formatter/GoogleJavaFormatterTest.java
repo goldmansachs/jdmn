@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.transformation.formatter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class GoogleJavaFormatterTest extends JavaFormatterTest {
     @Test

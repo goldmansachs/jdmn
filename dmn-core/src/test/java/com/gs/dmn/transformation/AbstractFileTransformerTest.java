@@ -31,8 +31,8 @@ import java.util.List;
 
 import static com.gs.dmn.serialization.DMNSerializer.isDMNFile;
 import static com.gs.dmn.tck.TCKSerializer.isTCKFile;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public abstract class AbstractFileTransformerTest extends AbstractTest {
     protected static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractFileTransformerTest.class));
@@ -81,7 +81,7 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
             LOGGER.info("No diffs");
         }
         String message = String.format("XMLs %s and %s are not similar", expectedOutputFile.getPath(), actualOutputFile.getPath());
-        assertFalse(message, diff.hasDifferences());
+        assertFalse(diff.hasDifferences(), message);
     }
 
     protected Diff makeDMNDiff(File expectedOutputFile, File actualOutputFile) {
@@ -125,12 +125,12 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
     protected void compareTextFile(File expectedOutputFile, File actualOutputFile) throws IOException {
         String expectedTypeContent = FileUtils.readFileToString(expectedOutputFile, "UTF-8").replace("    \r", "\r").replace("\r", "");
         String actualTypeContent = FileUtils.readFileToString(actualOutputFile, "UTF-8").replace("    \r", "\r").replace("\r", "");
-        assertEquals(expectedOutputFile.getCanonicalPath(), expectedTypeContent, actualTypeContent);
+        assertEquals(expectedTypeContent, actualTypeContent, expectedOutputFile.getCanonicalPath());
     }
 
     protected void compareFileList(File expectedParent, List<File> expectedChildren, File actualParent, List<File> actualChildren) throws Exception {
         String message = String.format("Different number of children when comparing '%s' with '%s'", expectedParent.getCanonicalPath(), actualParent.getCanonicalPath());
-        assertEquals(message, expectedChildren.size(), actualChildren.size());
+        assertEquals(expectedChildren.size(), actualChildren.size(), message);
         expectedChildren.sort(new FileComparator());
         actualChildren.sort(new FileComparator());
         for (int i = 0; i < expectedChildren.size(); i++) {

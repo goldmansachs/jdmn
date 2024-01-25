@@ -13,8 +13,8 @@
 package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.runtime.Pair;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
@@ -295,7 +295,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doSingleModelTest("1.2", "0076-feel-external-java");
     }
 
-    @Ignore("incorrect DS type")
+    @Disabled("incorrect DS type")
     public void test_12_cl3_0082_feel_coercion() {
         doSingleModelTest("1.2", "0082-feel-coercion");
     }
@@ -305,7 +305,7 @@ public abstract class CL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURAT
         doSingleModelTest("1.2", "0085-decision-services");
     }
 
-    @Ignore("incorrect DS type")
+    @Disabled("incorrect DS type")
     public void test_12_cl3_0086_import() {
         doMultipleModelsTest("1.2", Arrays.asList("0086-import", "0086-imported-model"), new Pair<>("singletonInputData", "false"));
     }

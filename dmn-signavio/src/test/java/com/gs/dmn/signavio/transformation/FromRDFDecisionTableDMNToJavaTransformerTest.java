@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.signavio.transformation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FromRDFDecisionTableDMNToJavaTransformerTest extends AbstractSignavioDMNToJavaTest {
     @Override

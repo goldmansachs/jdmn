@@ -13,13 +13,13 @@
 package com.gs.dmn.generated.sd_feel_string_literal_expression;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private final Decision decision = new Decision();

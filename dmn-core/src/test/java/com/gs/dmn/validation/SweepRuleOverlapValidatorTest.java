@@ -15,11 +15,11 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.validation.table.RuleGroup;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
     private final SweepRuleOverlapValidator validator = new SweepRuleOverlapValidator(new StandardDMNDialectDefinition());

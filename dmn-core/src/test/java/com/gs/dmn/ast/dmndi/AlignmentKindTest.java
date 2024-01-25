@@ -12,9 +12,10 @@
  */
 package com.gs.dmn.ast.dmndi;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AlignmentKindTest {
     @Test
@@ -24,8 +25,10 @@ public class AlignmentKindTest {
         assertEquals(AlignmentKind.CENTER, AlignmentKind.fromValue("center"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFromValueWhenIncorrectName() {
-        AlignmentKind.fromValue("asd");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            AlignmentKind.fromValue("asd");
+        });
     }
 }

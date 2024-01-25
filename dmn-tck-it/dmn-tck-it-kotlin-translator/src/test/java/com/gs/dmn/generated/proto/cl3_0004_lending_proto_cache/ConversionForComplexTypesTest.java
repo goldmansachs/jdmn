@@ -16,10 +16,9 @@ import com.gs.dmn.generated.proto.cl3_0004_lending_proto_cache.proto.Adjudicatio
 import com.gs.dmn.generated.proto.cl3_0004_lending_proto_cache.proto.Monthly;
 import com.gs.dmn.generated.proto.cl3_0004_lending_proto_cache.type.TApplicantData;
 import com.gs.dmn.generated.proto.cl3_0004_lending_proto_cache.type.TApplicantDataImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ConversionForComplexTypesTest {
     @Test
@@ -33,7 +32,7 @@ public class ConversionForComplexTypesTest {
     @Test
     public void testConvertMethodsWhenNull() {
         com.gs.dmn.generated.proto.cl3_0004_lending_proto_cache.proto.TApplicantData protoApplicantData = TApplicantData.toProto((TApplicantData) null);
-        assertNotNull(null, protoApplicantData);
+        assertNotNull(protoApplicantData);
         assertEquals(0, protoApplicantData.getAge(), 0.0001);
     }
 
@@ -44,7 +43,7 @@ public class ConversionForComplexTypesTest {
         assertNotNull(protoApplicantData);
         assertEquals(0, protoApplicantData.getAge(), 0.001);
         assertEquals("", protoApplicantData.getEmploymentStatus());
-        assertEquals(false, protoApplicantData.getExistingCustomer());
+        assertFalse(protoApplicantData.getExistingCustomer());
         Monthly protoMonthly = protoApplicantData.getMonthly();
         assertNotNull(protoMonthly);
         assertEquals(0, protoMonthly.getIncome(), 0.001);

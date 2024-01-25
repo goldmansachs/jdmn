@@ -18,7 +18,7 @@ import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.PostorderTraceEventListener;
 import com.gs.dmn.runtime.listener.node.DRGElementNode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -27,7 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
     private final TotalVacationDays decision = new TotalVacationDays();

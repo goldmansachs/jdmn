@@ -16,7 +16,7 @@ import com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.GenerateOu
 import com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.GenerateOutputDataResponse;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.ExecutionContext;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

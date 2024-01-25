@@ -15,9 +15,9 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.ast.TDecisionRule;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.log.NopBuildLogger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RuleDescriptionTransformerTest extends AbstractSignavioFileTransformerTest {
     private final RuleDescriptionVisitor visitor = new RuleDescriptionVisitor(new NopErrorHandler(), new NopBuildLogger());

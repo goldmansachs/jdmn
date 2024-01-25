@@ -18,11 +18,11 @@ import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TreeTemplateProvider;
 import com.gs.dmn.validation.NopDMNValidator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DMNToKotlinMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     @Test

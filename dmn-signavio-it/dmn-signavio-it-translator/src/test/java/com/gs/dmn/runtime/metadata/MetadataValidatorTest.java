@@ -12,15 +12,15 @@
  */
 package com.gs.dmn.runtime.metadata;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MetadataValidatorTest {
     private final MetadataValidator validator = new MetadataValidator();
 
     @Test
     public void testMetadata() {
-        assertEquals("Invalid metadata", true, validator.validate("com.gs.dmn.generated.example_credit_decision", this.getClass().getClassLoader()));
+        assertTrue(validator.validate("com.gs.dmn.generated.example_credit_decision", this.getClass().getClassLoader()), "Invalid metadata");
     }
 }

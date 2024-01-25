@@ -20,14 +20,14 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.validation.AbstractValidatorTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TableFactoryTest extends AbstractValidatorTest {
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition = new StandardDMNDialectDefinition();

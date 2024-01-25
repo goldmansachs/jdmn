@@ -17,12 +17,12 @@ import com.gs.dmn.ast.Visitor;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TraversalVisitorTest {
     private final DMNMarshaller marshaller = DMNMarshallerFactory.newDefaultMarshaller();
