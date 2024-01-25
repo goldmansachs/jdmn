@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public abstract class CL2SDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     @Override

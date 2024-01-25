@@ -15,17 +15,17 @@ package com.gs.dmn.feel.analysis.syntax;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractLexerTest {
     protected void checkPosition(Token token, int beginLine, int beginColumn, int endLine, int endColumn, int beginOffset, int endOffset) {
         String message = String.format("Error when checking '%s'", token.getText());
-        assertEquals(message, beginLine, getBeginLine(token));
-        assertEquals(message, beginColumn, getBeginColumn(token));
-        assertEquals(message, endLine, getEndLine(token));
-        assertEquals(message, endColumn, getEndColumn(token));
-        assertEquals(message, beginOffset, getBeginOffset(token));
-        assertEquals(message, endOffset, getEndOffset(token));
+        assertEquals(beginLine, getBeginLine(token), message);
+        assertEquals(beginColumn, getBeginColumn(token), message);
+        assertEquals(endLine, getEndLine(token), message);
+        assertEquals(endColumn, getEndColumn(token), message);
+        assertEquals(beginOffset, getBeginOffset(token), message);
+        assertEquals(endOffset, getEndOffset(token), message);
     }
 
     private int getBeginLine(Token token) {

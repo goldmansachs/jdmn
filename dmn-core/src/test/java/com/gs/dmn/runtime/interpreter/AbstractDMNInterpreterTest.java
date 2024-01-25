@@ -38,6 +38,7 @@ import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -191,7 +192,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
                 String stackTrace = ExceptionUtils.getStackTrace(e);
                 LOGGER.error(stackTrace);
                 String errorMessage = String.format("%s ResultNode '%s' output mismatch, expected '%s' actual '%s'", testLocation, res.getName(), expectedValue, actualValue);
-                org.junit.Assert.fail(errorMessage + ". Exception thrown while testing");
+                Assertions.fail(errorMessage + ". Exception thrown while testing");
             }
         }
     }

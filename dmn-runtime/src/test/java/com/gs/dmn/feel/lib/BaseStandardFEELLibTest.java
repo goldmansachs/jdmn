@@ -15,13 +15,13 @@ package com.gs.dmn.feel.lib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.runtime.Range;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //

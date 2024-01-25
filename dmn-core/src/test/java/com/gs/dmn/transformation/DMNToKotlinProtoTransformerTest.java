@@ -13,7 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.runtime.Pair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DMNToKotlinProtoTransformerTest extends AbstractTckDMNToKotlinTransformerTest {
     @Override

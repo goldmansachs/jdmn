@@ -16,14 +16,14 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.TypeRefValidator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TypeRefValidatorTest extends AbstractSignavioFileTransformerTest {
     @Test

@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MixedJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override

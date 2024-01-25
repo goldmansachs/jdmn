@@ -16,12 +16,12 @@ import com.gs.dmn.AbstractTest;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DMNSerializerTest extends AbstractTest {
     private final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, false);

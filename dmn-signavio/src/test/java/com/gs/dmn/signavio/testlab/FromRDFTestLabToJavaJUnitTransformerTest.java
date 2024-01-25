@@ -12,9 +12,7 @@
  */
 package com.gs.dmn.signavio.testlab;
 
-import org.junit.Test;
-
-import java.net.URI;
+import org.junit.jupiter.api.Test;
 
 public class FromRDFTestLabToJavaJUnitTransformerTest extends AbstractTestLabToJavaJUnitTransformerTest {
     @Override

@@ -13,7 +13,7 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.runtime.Pair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CL3TestCasesToPythonJUnitTransformerTest extends AbstractTestCasesToPythonJUnitTransformerTest {
     @Override

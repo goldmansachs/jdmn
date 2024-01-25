@@ -23,7 +23,7 @@ import com.gs.dmn.serialization.data.AddressImpl;
 import com.gs.dmn.serialization.data.Person;
 import com.gs.dmn.serialization.data.PersonImpl;
 import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -40,7 +40,7 @@ import java.util.Set;
 import static com.gs.dmn.serialization.DefaultStandardJsonSerializerTest.DATE_TIME_TEST_DATA;
 import static com.gs.dmn.serialization.DefaultStandardJsonSerializerTest.TIME_TEST_DATA;
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DefaultSignavioJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     private final DefaultSignavioLib lib = (DefaultSignavioLib) makeFEELLib();

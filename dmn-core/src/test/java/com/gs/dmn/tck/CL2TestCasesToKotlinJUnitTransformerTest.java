@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.tck;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CL2TestCasesToKotlinJUnitTransformerTest extends AbstractTestCasesToKotlinJUnitTransformerTest {
     @Override

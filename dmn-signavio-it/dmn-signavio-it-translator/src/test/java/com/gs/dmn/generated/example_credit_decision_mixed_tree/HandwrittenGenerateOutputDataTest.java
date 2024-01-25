@@ -17,12 +17,12 @@ import com.gs.dmn.generated.example_credit_decision_mixed_tree.type.Applicant;
 import com.gs.dmn.generated.example_credit_decision_mixed_tree.type.ApplicantImpl;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.annotation.Annotation;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisionTest {
     private final GenerateOutputData decision = new GenerateOutputData();

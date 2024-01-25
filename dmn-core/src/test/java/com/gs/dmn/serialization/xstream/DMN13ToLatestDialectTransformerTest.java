@@ -2,7 +2,7 @@ package com.gs.dmn.serialization.xstream;
 
 import com.gs.dmn.serialization.DMNDialectTransformerTest;
 import com.gs.dmn.serialization.SimpleDMNDialectTransformer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DMN13ToLatestDialectTransformerTest extends DMNDialectTransformerTest {
     @Test

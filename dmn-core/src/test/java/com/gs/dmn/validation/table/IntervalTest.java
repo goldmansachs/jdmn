@@ -13,24 +13,27 @@
 package com.gs.dmn.validation.table;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class IntervalTest {
     private final Input numericInput = new Input("number");
     private final Input booleanInput = new Input("boolean", EnumerationInterval.BOOLEAN_ALLOWED_VALUES);
     private final Input enumerationInput = new Input("string", Arrays.asList("E1", "E2", "E3"));
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testSameValueWhenNull() {
-        NumericInterval n1 = new NumericInterval(0, 0, numericInput);
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            NumericInterval n1 = new NumericInterval(0, 0, numericInput);
 
-        assertTrue(Interval.sameEndValues(null, null));
-        assertTrue(Interval.sameEndValues(null, n1));
-        assertTrue(Interval.sameEndValues(n1, null));
+            assertTrue(Interval.sameEndValues(null, null));
+            assertTrue(Interval.sameEndValues(null, n1));
+            assertTrue(Interval.sameEndValues(n1, null));
+        });
     }
 
     @Test

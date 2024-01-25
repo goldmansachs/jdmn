@@ -29,15 +29,15 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Context;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +49,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTest {
     protected final ELTranslator<Type, DMNContext> feelTranslator;
@@ -420,21 +420,25 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 true);
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testEqualityWhenTypeMismatch() {
-        Boolean input = true;
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", BOOLEAN, input));
+        Assertions.assertThrows(SemanticError.class, () -> {
+            Boolean input = true;
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", BOOLEAN, input));
 
-        doUnaryTestsTest(entries, "input", "123.56", "", "TupleType(boolean)", "", null, "");
+            doUnaryTestsTest(entries, "input", "123.56", "", "TupleType(boolean)", "", null, "");
+        });
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testOperatorRangeWhenTypeMismatch() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", BOOLEAN, true));
+        Assertions.assertThrows(SemanticError.class, () -> {
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", BOOLEAN, true));
 
-        doUnaryTestsTest(entries, "input", "< 123.56", "", "TupleType(boolean)", "", null, "");
+            doUnaryTestsTest(entries, "input", "< 123.56", "", "TupleType(boolean)", "", null, "");
+        });
     }
 
     @Test
@@ -565,30 +569,34 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.number("1"));
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testIfExpressionWhenConditionIsNotBoolean() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+        Assertions.assertThrows(SemanticError.class, () -> {
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        doExpressionTest(entries, "", "if 5 then 1 else 2",
-                "",
-                "number",
-                "",
-                "",
-                "");
+            doExpressionTest(entries, "", "if 5 then 1 else 2",
+                    "",
+                    "number",
+                    "",
+                    "",
+                    "");
+        });
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testIfExpressionWhenTypesDontMatch() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+        Assertions.assertThrows(SemanticError.class, () -> {
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        doExpressionTest(entries, "", "if true then true else 2",
-                "",
-                "number",
-                "",
-                "",
-                "");
+            doExpressionTest(entries, "", "if true then true else 2",
+                    "",
+                    "number",
+                    "",
+                    "",
+                    "");
+        });
     }
 
     @Test
@@ -1407,17 +1415,19 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 true);
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testInExpressionWhenOperatorRangeAndTypeMismatch() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+        Assertions.assertThrows(SemanticError.class, () -> {
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        doExpressionTest(entries, "", "1 in (true)",
-                "",
-                "boolean",
-                "",
-                "",
-                "");
+            doExpressionTest(entries, "", "1 in (true)",
+                    "",
+                    "boolean",
+                    "",
+                    "",
+                    "");
+        });
     }
 
     @Test
@@ -1878,25 +1888,27 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.number("-1"));
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testArithmeticNegationOnIncorrectOperands() {
-        String yearsAndMonthsDuration = "duration(\"P1Y1M\")";
-        String daysAndTimeDuration = "duration(\"P1DT1H\")";
+        Assertions.assertThrows(SemanticError.class, () -> {
+            String yearsAndMonthsDuration = "duration(\"P1Y1M\")";
+            String daysAndTimeDuration = "duration(\"P1DT1H\")";
 
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
-        doExpressionTest(entries, "", String.format("- %s", yearsAndMonthsDuration),
-                "ArithmeticNegation(DateTimeLiteral(duration, \"P1Y1M\"))",
-                "years and months duration",
-                "numericUnaryMinus(duration(\"P1Y1M\"))",
-                null,
-                null);
-        doExpressionTest(entries, "", String.format("- %s", daysAndTimeDuration),
-                "ArithmeticNegation(DateTimeLiteral(duration, \"P1DT1H\"))",
-                "days and time duration",
-                "numericUnaryMinus(duration(\"P1DT1H\"))",
-                null,
-                null);
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+            doExpressionTest(entries, "", String.format("- %s", yearsAndMonthsDuration),
+                    "ArithmeticNegation(DateTimeLiteral(duration, \"P1Y1M\"))",
+                    "years and months duration",
+                    "numericUnaryMinus(duration(\"P1Y1M\"))",
+                    null,
+                    null);
+            doExpressionTest(entries, "", String.format("- %s", daysAndTimeDuration),
+                    "ArithmeticNegation(DateTimeLiteral(duration, \"P1DT1H\"))",
+                    "days and time duration",
+                    "numericUnaryMinus(duration(\"P1DT1H\"))",
+                    null,
+                    null);
+        });
     }
 
     @Test
@@ -2139,8 +2151,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("P1DT1H"));
     }
 
-    @Ignore
-    @Test(expected = DMNRuntimeException.class)
+    @Disabled
+    @Test
     public void testFunctionInvocationWhenMultipleMatch() {
         List<EnvironmentEntry> entries = Arrays.asList();
 
@@ -2585,8 +2597,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         Expression<Type> actual = (Expression<Type>) this.feelTranslator.analyzeExpression(expressionText, expressionContext);
 
         // Check expression
-        assertEquals("Augmented AST mismatch", expectedAST, actual.toString());
-        assertEquals("Type mismatch", expectedType, (actual.getType() == null ? null : actual.getType().toString()));
+        assertEquals(expectedAST, actual.toString(), "Augmented AST mismatch");
+        assertEquals(expectedType, (actual.getType() == null ? null : actual.getType().toString()), "Type mismatch");
 
         // Generate code and check
         doCodeGenerationTest(actual, expressionContext, expectedJavaCode);
@@ -2639,7 +2651,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     private void checkGeneratedAndEvaluatedValue(Object expectedGeneratedValue, Object expectedEvaluatedValue) {
-        assertEquals("Evaluated and generated value mismatch", expectedEvaluatedValue, expectedGeneratedValue);
+        assertEquals(expectedEvaluatedValue, expectedGeneratedValue, "Evaluated and generated value mismatch");
     }
 
     private Result evaluateInputEntry(Expression<Type> inputExpression, DMNContext inputExpressionContext, UnaryTests<Type> inputEntryTest, DMNContext inputEntryContext) {
@@ -2654,14 +2666,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     private void doCodeGenerationTest(UnaryTests<Type> inputEntry, DMNContext inputEntryContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
             String javaCode = this.feelTranslator.expressionToNative(inputEntry, inputEntryContext);
-            assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
+            assertEquals(expectedJavaCode, javaCode, "Generated code mismatch");
         }
     }
 
     private void doCodeGenerationTest(Expression<Type> expression, DMNContext expressionContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
             String javaCode = this.feelTranslator.expressionToNative(expression, expressionContext);
-            assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
+            assertEquals(expectedJavaCode, javaCode, "Generated code mismatch");
         }
     }
 
@@ -2669,7 +2681,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         if (expectedEvaluatedValue != null) {
             Result actualResult = evaluateInputEntry(inputExpression, inputExpressionContext, inputEntry, inputEntryContext);
             Object actualValue = Result.value(actualResult);
-            assertEquals("Evaluated value mismatch", expectedEvaluatedValue, actualValue);
+            assertEquals(expectedEvaluatedValue, actualValue, "Evaluated value mismatch");
         }
     }
 

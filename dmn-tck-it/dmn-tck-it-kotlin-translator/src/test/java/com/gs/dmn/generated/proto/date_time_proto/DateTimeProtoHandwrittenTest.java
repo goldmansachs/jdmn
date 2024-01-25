@@ -1,11 +1,13 @@
 package com.gs.dmn.generated.proto.date_time_proto;
 
+import org.junit.jupiter.api.Test;
+
 public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     private final Date dateDecision = new Date();
     private final Time timeDecision = new Time();
     private final DateTime dateTimeDecision = new DateTime();
 
-    @org.junit.Test
+    @Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
@@ -22,7 +24,7 @@ public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNB
         checkValues("2020-09-10", dateDecision.applyProto(dateRequest_, context_).getDate());
     }
 
-    @org.junit.Test
+    @Test
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
@@ -39,7 +41,7 @@ public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNB
         checkValues("12:10:10", timeDecision.applyProto(timeRequest_, context_).getTime());
     }
 
-    @org.junit.Test
+    @Test
     public void testCase3() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data

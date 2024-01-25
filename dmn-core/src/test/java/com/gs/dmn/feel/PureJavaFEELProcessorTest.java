@@ -15,7 +15,7 @@ package com.gs.dmn.feel;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.PureJavaTimeDMNDialectDefinition;
 import com.gs.dmn.tck.ast.TestCases;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -32,6 +32,7 @@ public class PureJavaFEELProcessorTest extends AbstractStandardFEELProcessorTest
     }
 
     @Override
+    @Test
     public void testConversionFunctions() {
         super.testConversionFunctions();
 

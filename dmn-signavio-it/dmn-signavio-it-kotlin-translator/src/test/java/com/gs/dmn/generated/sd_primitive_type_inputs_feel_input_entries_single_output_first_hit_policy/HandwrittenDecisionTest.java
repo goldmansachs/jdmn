@@ -13,12 +13,12 @@
 package com.gs.dmn.generated.sd_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private final Decision decision = new Decision();

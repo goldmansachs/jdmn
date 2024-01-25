@@ -1,6 +1,6 @@
 package com.gs.dmn.feel.analysis.semantics;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PositionalBuiltinFunctionsResolutionTest extends AbstractStandardBuiltinFunctionsResolutionTest {
     @Test

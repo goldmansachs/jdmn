@@ -16,7 +16,7 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;

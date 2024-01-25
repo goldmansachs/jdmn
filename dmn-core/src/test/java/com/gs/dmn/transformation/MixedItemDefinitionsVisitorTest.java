@@ -15,11 +15,11 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.ast.TDMNElement;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.error.NopErrorHandler;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.namespace.QName;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MixedItemDefinitionsVisitorTest {
     private final MixedItemDefinitionsVisitor<?> visitor = new MixedItemDefinitionsVisitor<>(new NopErrorHandler());

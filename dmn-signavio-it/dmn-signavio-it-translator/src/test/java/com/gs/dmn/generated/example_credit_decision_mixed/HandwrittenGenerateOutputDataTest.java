@@ -16,7 +16,7 @@ import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.generated.example_credit_decision_mixed.type.Applicant;
 import com.gs.dmn.generated.example_credit_decision_mixed.type.ApplicantImpl;
 import com.gs.dmn.runtime.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;

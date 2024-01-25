@@ -21,8 +21,8 @@ import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -31,8 +31,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.signavio.transformation.InferMissingItemDefinitionsTransformer.DMN_DIALECT_NAME;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavioFileTransformerTest {
     @Test
@@ -161,7 +161,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
     private void assertExpectedTransformResult(RepositoryTransformResult transformResult,
                                                List<Pair<String, String>> expectedNewDefinitions, List<String> expectedRemovedDefinitions) {
         List<TItemDefinition> newDefinitions = identifyNewDefinitions(transformResult.getBeforeTransform(), transformResult.getAfterTransform());
-        assertEquals("Incorrect number of new definitions", expectedNewDefinitions.size(), newDefinitions.size());
+        assertEquals(expectedNewDefinitions.size(), newDefinitions.size(), "Incorrect number of new definitions");
         for (int i=0; i<expectedNewDefinitions.size(); i++) {
             Pair<String, String> expectedPair = expectedNewDefinitions.get(i);
             TItemDefinition actualItemDefinition = newDefinitions.get(i);
@@ -170,8 +170,8 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
         }
 
         List<TItemDefinition> removedDefinitions = identifyNewDefinitions(transformResult.getAfterTransform(), transformResult.getBeforeTransform());
-        Assert.assertTrue("Expected removed definition is still present", removedDefinitions.containsAll(expectedRemovedDefinitions));
-        assertEquals("Incorrect number of removed definitions", expectedRemovedDefinitions.size(), removedDefinitions.size());
+        Assertions.assertTrue(removedDefinitions.containsAll(expectedRemovedDefinitions), "Expected removed definition is still present");
+        assertEquals(expectedRemovedDefinitions.size(), removedDefinitions.size(), "Incorrect number of removed definitions");
     }
 
     private String toType(TItemDefinition itemDefinition) {

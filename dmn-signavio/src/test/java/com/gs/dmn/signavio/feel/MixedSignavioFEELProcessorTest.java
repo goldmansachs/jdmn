@@ -16,7 +16,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.feel.EnvironmentEntry;
 import com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;

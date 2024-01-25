@@ -5,10 +5,9 @@ import com.gs.dmn.signavio.testlab.OutputParameterDefinition;
 import com.gs.dmn.signavio.testlab.TestCase;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.testlab.expression.*;
-import com.gs.dmn.signavio.testlab.visitor.NopTestLabVisitor;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class NopTestLabVisitorTest {
     private final NopTestLabVisitor<Object> visitor = new NopTestLabVisitor<>();

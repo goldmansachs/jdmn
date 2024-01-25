@@ -1,16 +1,18 @@
 package com.gs.dmn.generated.type_interface_deserialization;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private final EsmaEquityOptionIndicator decision = new EsmaEquityOptionIndicator();
 
-    @org.junit.Test
+    @Test
     public void testDeserializedDecisionInput() {
         com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfiles marginEquityOptionTradableProfiles = new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfilesImpl(decision.asList(new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfileImpl(Boolean.TRUE, "abc")));
 
@@ -19,7 +21,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         checkValues("Yes", esmaEquityOptionIndicator);
     }
 
-    @org.junit.Test
+    @Test
     public void testSerializedDecisionInput() throws Exception {
         com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfiles marginEquityOptionTradableProfiles = new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfilesImpl(decision.asList(new com.gs.dmn.generated.type_interface_deserialization.type.MarginEquityOptionTradableProfileImpl(Boolean.TRUE, "abc")));
         String serializedInput = com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.writeValueAsString(marginEquityOptionTradableProfiles);
@@ -44,6 +46,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     }
 
     private void checkValues(Object expected, Object actual) {
-        Assert.assertEquals(expected == null ? null : expected.toString(), actual == null ? null : actual.toString());
+        assertEquals(expected == null ? null : expected.toString(), actual == null ? null : actual.toString());
     }
 }

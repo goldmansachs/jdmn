@@ -18,11 +18,11 @@ import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EnvironmentTest {
     private final EnvironmentFactory environmentFactory = StandardEnvironmentFactory.instance();

@@ -21,7 +21,7 @@ import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.serialization.xstream.extensions.MyTestRegister;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xmlunit.diff.DifferenceEvaluator;
 import org.xmlunit.diff.DifferenceEvaluators;
 
@@ -30,7 +30,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test

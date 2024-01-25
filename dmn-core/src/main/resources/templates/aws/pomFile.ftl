@@ -70,10 +70,16 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
+           <groupId>org.junit.jupiter</groupId>
+           <artifactId>junit-jupiter-api</artifactId>
+           <version>5.10.1</version>
+           <scope>test</scope>
+        </dependency>
+        <dependency>
+           <groupId>org.junit.vintage</groupId>
+           <artifactId>junit-vintage-engine</artifactId>
+           <version>5.10.1</version>
+           <scope>test</scope>
         </dependency>
     </dependencies>
 

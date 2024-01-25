@@ -15,8 +15,8 @@ package com.gs.dmn;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URI;
@@ -26,13 +26,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DMNModelRepositoryTest extends AbstractTest {
     private DMNModelRepository dmnModelRepository;
     private final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, false);
 
-    @Before
+    @BeforeEach
     public void setUp() {
         String pathName = "tck/1.1/cl3/0004-lending/0004-lending.dmn";
         this.dmnModelRepository = readDMN(pathName);

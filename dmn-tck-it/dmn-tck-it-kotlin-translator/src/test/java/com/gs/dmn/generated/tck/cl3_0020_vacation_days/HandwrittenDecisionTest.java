@@ -14,13 +14,13 @@ package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
 import com.gs.dmn.generated.tck.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.runtime.ExecutionContext;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     private final TotalVacationDays decision = new TotalVacationDays();

@@ -19,7 +19,7 @@ import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.NopEventListener;
 import com.gs.dmn.serialization.JsonSerializer;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class AbstractHandwrittenDecisionTest {
     protected AnnotationSet annotationSet;
@@ -35,7 +35,7 @@ public abstract class AbstractHandwrittenDecisionTest {
 
     protected abstract void applyDecision();
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.annotationSet = new AnnotationSet();
         this.context = new ExecutionContext(annotationSet, new NopEventListener(), new DefaultExternalFunctionExecutor(), new DefaultCache());

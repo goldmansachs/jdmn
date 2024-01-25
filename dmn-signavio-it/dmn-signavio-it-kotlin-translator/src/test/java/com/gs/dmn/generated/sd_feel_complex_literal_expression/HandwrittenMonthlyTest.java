@@ -14,15 +14,15 @@ package com.gs.dmn.generated.sd_feel_complex_literal_expression;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.generated.sd_feel_complex_literal_expression.type.LoanImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class HandwrittenMonthlyTest extends AbstractHandwrittenDecisionTest {
     private final Monthly decision = new Monthly();

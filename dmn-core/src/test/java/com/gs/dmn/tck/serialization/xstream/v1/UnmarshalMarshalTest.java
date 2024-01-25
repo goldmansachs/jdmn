@@ -16,8 +16,8 @@ import com.gs.dmn.tck.TCKSerializer;
 import com.gs.dmn.tck.serialization.AbstractTCKUnmarshalMarshalTest;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
 import com.gs.dmn.tck.serialization.xstream.TCKMarshallerFactory;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
@@ -25,7 +25,7 @@ public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
     private final TCKMarshaller marshaller = TCKMarshallerFactory.newDefaultMarshaller();
     private final String rootOutputPath = "target/";
 
-    @Ignore("Integration all TCK files")
+    @Disabled("Integration all TCK files")
     public void testTCKTests() throws Exception {
         testRoundTrip(STANDARD_FOLDER);
     }

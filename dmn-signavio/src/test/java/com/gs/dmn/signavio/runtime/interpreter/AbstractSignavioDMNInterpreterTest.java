@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.gs.dmn.signavio.SignavioTestConstants.SIG_EXT_NAMESPACE;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractSignavioDMNInterpreterTest.class));
@@ -67,7 +67,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
             Result actualResult = interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeDecisionEvaluationContext(inputRequirements));
             Object actualValue = Result.value(actualResult);
 
-            assertEquals(errorMessage, expectedResult, actualValue);
+            assertEquals(expectedResult, actualValue, errorMessage);
         } catch (Exception e) {
             throw e;
         }

@@ -12,13 +12,13 @@
  */
 package com.gs.dmn.feel.lib;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public abstract class BaseStandardFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends BaseFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     @Test

@@ -14,15 +14,15 @@ package com.gs.dmn.generated.example_credit_decision_mixed;
 
 import com.gs.dmn.runtime.metadata.*;
 import com.gs.dmn.serialization.JsonSerializer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DMNMetadataTest {
     @Test

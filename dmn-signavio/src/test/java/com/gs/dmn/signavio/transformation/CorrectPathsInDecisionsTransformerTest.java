@@ -24,7 +24,7 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.config.Correction;
 import com.gs.dmn.signavio.transformation.config.DecisionTableCorrection;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +34,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFileTransformerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();

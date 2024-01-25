@@ -16,7 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.tck.ast.TestCases;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
