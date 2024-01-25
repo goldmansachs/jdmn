@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.ast.dmndi;
 
+
 public enum AlignmentKind {
     START("start"),
     END("end"),
