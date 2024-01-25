@@ -507,6 +507,12 @@ specific language governing permissions and limitations under the License.]]></i
                 </plugin>
 
                 <plugin>
+                    <groupId>com.mycila</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>4.1</version>
+                </plugin>
+
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>3.3.0</version>
@@ -518,17 +524,28 @@ specific language governing permissions and limitations under the License.]]></i
                     <!-- See https://docs.openrewrite.org/ https://docs.openrewrite.org/recipes/java/migrate/upgradetojava17 -->
                     <groupId>org.openrewrite.maven</groupId>
                     <artifactId>rewrite-maven-plugin</artifactId>
-                    <version>5.16.0</version>
+                    <version>5.20.0</version>
                     <configuration>
                         <activeRecipes>
 <!--                            <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>-->
-                            <recipe>org.openrewrite.java.testing.junit5.JUnit5BestPractices</recipe>                        </activeRecipes>
+                            <recipe>org.openrewrite.java.testing.junit5.JUnit4to5Migration</recipe>
+<!--                            <recipe>org.openrewrite.java.testing.junit5.JUnit5BestPractices</recipe>-->
+                        </activeRecipes>
+                        <exclusions>
+                            <exclude>**/target/**</exclude>
+                            <exclude>docs/**</exclude>
+                        </exclusions>
                     </configuration>
                     <dependencies>
                         <dependency>
                             <groupId>org.openrewrite.recipe</groupId>
                             <artifactId>rewrite-migrate-java</artifactId>
-                            <version>2.4.2</version>
+                            <version>2.7.0</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.openrewrite.recipe</groupId>
+                            <artifactId>rewrite-testing-frameworks</artifactId>
+                            <version>2.3.0</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -712,6 +729,11 @@ specific language governing permissions and limitations under the License.]]></i
         </pluginManagement>
 
         <plugins>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>

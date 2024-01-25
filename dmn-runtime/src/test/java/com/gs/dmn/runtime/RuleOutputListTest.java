@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RuleOutputListTest {
     public static final DefaultSimpleOutput STRING_1 = new DefaultSimpleOutput("value1", 2);

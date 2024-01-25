@@ -21,7 +21,7 @@ import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DecisionTableToJavaTransformerTest extends AbstractTest {
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect = new StandardDMNDialectDefinition();

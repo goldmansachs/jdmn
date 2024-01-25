@@ -23,7 +23,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class UniqueInformationRequirementTransformerTest extends AbstractSignavioFileTransformerTest {
     private final DMNTransformer<TestLab> transformer = new UniqueInformationRequirementTransformer(LOGGER);

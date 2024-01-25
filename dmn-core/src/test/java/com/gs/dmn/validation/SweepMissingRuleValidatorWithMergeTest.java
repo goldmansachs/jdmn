@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SweepMissingRuleValidatorWithMergeTest extends AbstractValidatorTest {
     private final SweepMissingRuleValidator validator = new SweepMissingRuleValidator(new StandardDMNDialectDefinition(), true);

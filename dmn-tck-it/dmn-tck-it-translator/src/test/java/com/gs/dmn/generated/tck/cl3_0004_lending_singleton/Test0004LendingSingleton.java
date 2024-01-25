@@ -1,8 +1,5 @@
 package com.gs.dmn.generated.tck.cl3_0004_lending_singleton;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 public class Test0004LendingSingleton extends AbstractTest0004Lending {
     @Override
     protected Routing makeRouting() {

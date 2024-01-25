@@ -25,7 +25,7 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractFileTransformerTest {
     protected Path path(String path) {

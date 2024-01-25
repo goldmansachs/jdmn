@@ -20,7 +20,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
 import static com.gs.dmn.tck.ast.AnySimpleType.DATATYPE_FACTORY;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AnySimpleTypeTest {
     @Test

@@ -31,6 +31,7 @@ public class DefaultStandardFEELProcessorTest extends AbstractStandardFEELProces
     }
 
     @Override
+    @Test
     public void testConversionFunctions() {
         super.testConversionFunctions();
 

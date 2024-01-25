@@ -14,13 +14,13 @@ package com.gs.dmn.runtime.metadata;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MetadataValidatorTest {
     private final MetadataValidator validator = new MetadataValidator();
 
     @Test
     public void testMetadata() {
-        assertEquals("Invalid metadata", false, validator.validate("com.gs.dmn.runtime.metadata", this.getClass().getClassLoader()));
+        assertEquals(false, validator.validate("com.gs.dmn.runtime.metadata", this.getClass().getClassLoader()), "Invalid metadata");
     }
 }

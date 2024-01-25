@@ -23,7 +23,7 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TypeRefValidatorTest extends AbstractSignavioFileTransformerTest {
     @Test

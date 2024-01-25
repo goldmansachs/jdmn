@@ -31,7 +31,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MON
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TypeEquivalenceTest {
     public final Map<Pair<Type, Type>, Boolean> dataTypeTable = new LinkedHashMap<Pair<Type, Type>, Boolean>() {{
@@ -194,6 +194,6 @@ public class TypeEquivalenceTest {
     }
 
     private void checkEquivalentTo(boolean expected, Type left, Type right) {
-        assertEquals(String.format("'%s'.equivalentTo('%s') mismatch ", left, right), expected, com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(left, right));
+        assertEquals(expected, com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(left, right), String.format("'%s'.equivalentTo('%s') mismatch ", left, right));
     }
 }

@@ -34,6 +34,7 @@ public class MixedJavaFEELProcessorTest extends AbstractStandardFEELProcessorTes
     }
 
     @Override
+    @Test
     public void testConversionFunctions() {
         super.testConversionFunctions();
 

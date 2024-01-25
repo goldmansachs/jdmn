@@ -20,7 +20,7 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TCKValueTranslatorTest {
     private final StandardDMNDialectDefinition dialect = new StandardDMNDialectDefinition();

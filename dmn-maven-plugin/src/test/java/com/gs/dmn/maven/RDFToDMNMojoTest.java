@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RDFToDMNMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractMojoTest {
     private final RDFToDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> mojo = new RDFToDMNMojo<>();

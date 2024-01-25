@@ -19,8 +19,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ConversionForComplexTypesTest {
     @Test
@@ -33,7 +33,7 @@ public class ConversionForComplexTypesTest {
     @Test
     public void testConvertMethodsWhenNull() {
         com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.Applicant protoApplicant = Applicant.toProto((Applicant) null);
-        assertNotNull(null, protoApplicant);
+        assertNotNull(protoApplicant);
         assertEquals(0, protoApplicant.getAge(), 0.0001);
     }
 

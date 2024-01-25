@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public abstract class BaseFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     @Test

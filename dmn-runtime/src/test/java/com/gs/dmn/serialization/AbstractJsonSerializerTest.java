@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = makeFEELLib();
@@ -138,7 +138,7 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
     }
 
     private void checkSerialization(String literal, String expectedSerialization, String actualSerialization) {
-        assertEquals(literal, expectedSerialization, actualSerialization);
+        assertEquals(expectedSerialization, actualSerialization, literal);
     }
 
     protected abstract FEELLib<NUMBER,DATE,TIME,DATE_TIME,DURATION> makeFEELLib();

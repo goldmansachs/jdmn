@@ -7,7 +7,7 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.testlab.expression.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class NopTestLabVisitorTest {
     private final NopTestLabVisitor<Object> visitor = new NopTestLabVisitor<>();

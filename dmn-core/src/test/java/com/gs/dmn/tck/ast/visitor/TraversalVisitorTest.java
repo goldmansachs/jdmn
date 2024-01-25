@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.FileReader;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TraversalVisitorTest {
     private final TraversalVisitor<?> visitor = new TraversalVisitor<>(new NopErrorHandler());

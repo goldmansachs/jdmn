@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MethodsRDF2DMNTransformerTest extends AbstractTest {
     private final RDFToDMNTransformer transformer = new RDFToDMNTransformer(new InputParameters(makeInputParametersMap()), null);

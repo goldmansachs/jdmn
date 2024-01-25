@@ -23,7 +23,7 @@ import com.gs.dmn.runtime.listener.NopEventListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class AbstractHandwrittenDecisionTest {
     protected AnnotationSet annotationSet;
@@ -39,7 +39,7 @@ public abstract class AbstractHandwrittenDecisionTest {
         long before = System.currentTimeMillis();
         applyDecision();
         long after = System.currentTimeMillis();
-        assertTrue("Takes longer than 500ms", after - before < 500);
+        assertTrue( after - before < 500, "Takes longer than 500ms");
     }
 
     @BeforeEach

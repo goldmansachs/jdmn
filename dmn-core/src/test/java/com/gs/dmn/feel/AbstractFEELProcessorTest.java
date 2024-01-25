@@ -49,7 +49,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTest {
     protected final ELTranslator<Type, DMNContext> feelTranslator;
@@ -2597,8 +2597,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         Expression<Type> actual = (Expression<Type>) this.feelTranslator.analyzeExpression(expressionText, expressionContext);
 
         // Check expression
-        assertEquals("Augmented AST mismatch", expectedAST, actual.toString());
-        assertEquals("Type mismatch", expectedType, (actual.getType() == null ? null : actual.getType().toString()));
+        assertEquals(expectedAST, actual.toString(), "Augmented AST mismatch");
+        assertEquals(expectedType, (actual.getType() == null ? null : actual.getType().toString()), "Type mismatch");
 
         // Generate code and check
         doCodeGenerationTest(actual, expressionContext, expectedJavaCode);
@@ -2651,7 +2651,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     private void checkGeneratedAndEvaluatedValue(Object expectedGeneratedValue, Object expectedEvaluatedValue) {
-        assertEquals("Evaluated and generated value mismatch", expectedEvaluatedValue, expectedGeneratedValue);
+        assertEquals(expectedEvaluatedValue, expectedGeneratedValue, "Evaluated and generated value mismatch");
     }
 
     private Result evaluateInputEntry(Expression<Type> inputExpression, DMNContext inputExpressionContext, UnaryTests<Type> inputEntryTest, DMNContext inputEntryContext) {
@@ -2666,14 +2666,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     private void doCodeGenerationTest(UnaryTests<Type> inputEntry, DMNContext inputEntryContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
             String javaCode = this.feelTranslator.expressionToNative(inputEntry, inputEntryContext);
-            assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
+            assertEquals(expectedJavaCode, javaCode, "Generated code mismatch");
         }
     }
 
     private void doCodeGenerationTest(Expression<Type> expression, DMNContext expressionContext, String expectedJavaCode) {
         if (expectedJavaCode != null) {
             String javaCode = this.feelTranslator.expressionToNative(expression, expressionContext);
-            assertEquals("Generated code mismatch", expectedJavaCode, javaCode);
+            assertEquals(expectedJavaCode, javaCode, "Generated code mismatch");
         }
     }
 
@@ -2681,7 +2681,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         if (expectedEvaluatedValue != null) {
             Result actualResult = evaluateInputEntry(inputExpression, inputExpressionContext, inputEntry, inputEntryContext);
             Object actualValue = Result.value(actualResult);
-            assertEquals("Evaluated value mismatch", expectedEvaluatedValue, actualValue);
+            assertEquals(expectedEvaluatedValue, actualValue, "Evaluated value mismatch");
         }
     }
 

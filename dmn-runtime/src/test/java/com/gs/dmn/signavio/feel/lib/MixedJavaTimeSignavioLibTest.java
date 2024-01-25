@@ -21,8 +21,8 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class MixedJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override

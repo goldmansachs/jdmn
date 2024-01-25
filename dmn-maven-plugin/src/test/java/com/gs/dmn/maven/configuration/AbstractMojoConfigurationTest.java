@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.codehaus.plexus.component.configurator.ComponentConfigurationException;
 import org.codehaus.plexus.configuration.DefaultPlexusConfiguration;
 import org.codehaus.plexus.configuration.PlexusConfiguration;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 public abstract class AbstractMojoConfigurationTest {
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -44,6 +44,6 @@ public abstract class AbstractMojoConfigurationTest {
     protected void assertEquivalentConfiguration(OptionallyConfigurableMojoComponent component, String serialisedExpected) throws Exception {
         Object expected = mapper.readValue(serialisedExpected, Object.class);
 
-        Assert.assertEquals("Component configuration does not match expected values", expected, component.getConfiguration());
+        Assertions.assertEquals(expected, component.getConfiguration(), "Component configuration does not match expected values");
     }
 }

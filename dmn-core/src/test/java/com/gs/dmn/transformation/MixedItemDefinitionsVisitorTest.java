@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.xml.namespace.QName;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MixedItemDefinitionsVisitorTest {
     private final MixedItemDefinitionsVisitor<?> visitor = new MixedItemDefinitionsVisitor<>(new NopErrorHandler());

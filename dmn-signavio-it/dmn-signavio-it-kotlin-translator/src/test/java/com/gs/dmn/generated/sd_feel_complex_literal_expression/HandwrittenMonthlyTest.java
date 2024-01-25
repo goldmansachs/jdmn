@@ -21,8 +21,8 @@ import java.math.MathContext;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class HandwrittenMonthlyTest extends AbstractHandwrittenDecisionTest {
     private final Monthly decision = new Monthly();

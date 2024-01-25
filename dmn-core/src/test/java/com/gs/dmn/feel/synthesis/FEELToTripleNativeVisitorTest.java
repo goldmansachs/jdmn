@@ -30,7 +30,7 @@ import java.util.List;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FEELToTripleNativeVisitorTest extends AbstractTest {
     private final EnvironmentFactory environmentFactory;

@@ -32,6 +32,7 @@ public class PureJavaFEELProcessorTest extends AbstractStandardFEELProcessorTest
     }
 
     @Override
+    @Test
     public void testConversionFunctions() {
         super.testConversionFunctions();
 

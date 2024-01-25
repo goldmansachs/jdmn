@@ -16,7 +16,6 @@ import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import org.codehaus.plexus.component.configurator.ComponentConfigurationException;
 import org.codehaus.plexus.configuration.DefaultPlexusConfiguration;
 import org.codehaus.plexus.configuration.PlexusConfiguration;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -57,7 +56,7 @@ public class DMNTransformerComponentConfigurationTest extends AbstractMojoConfig
             PlexusConfiguration configuration = generateComponentConfiguration(null, ELEMENT_NAME, config);
             parseConfiguration(configuration, DMNTransformerComponent.class);
 
-            Assert.fail("Test is expected to fail; mandatory component name was not provided");
+            Assertions.fail("Test is expected to fail; mandatory component name was not provided");
         });
     }
 

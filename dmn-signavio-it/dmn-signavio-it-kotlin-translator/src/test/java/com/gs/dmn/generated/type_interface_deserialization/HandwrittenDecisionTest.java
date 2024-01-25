@@ -1,11 +1,12 @@
 package com.gs.dmn.generated.type_interface_deserialization;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
@@ -45,6 +46,6 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     }
 
     private void checkValues(Object expected, Object actual) {
-        Assert.assertEquals(expected == null ? null : expected.toString(), actual == null ? null : actual.toString());
+        assertEquals(expected == null ? null : expected.toString(), actual == null ? null : actual.toString());
     }
 }

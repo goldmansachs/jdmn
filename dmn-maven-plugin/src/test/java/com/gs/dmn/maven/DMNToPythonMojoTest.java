@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DMNToPythonMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     @Test

@@ -16,7 +16,7 @@ import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Range;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractDefaultRangeLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     protected abstract StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> getLib();

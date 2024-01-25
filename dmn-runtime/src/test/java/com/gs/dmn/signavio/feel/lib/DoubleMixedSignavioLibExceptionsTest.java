@@ -37,7 +37,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override

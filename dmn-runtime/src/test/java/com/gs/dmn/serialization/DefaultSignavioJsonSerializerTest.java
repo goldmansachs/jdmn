@@ -40,7 +40,7 @@ import java.util.Set;
 import static com.gs.dmn.serialization.DefaultStandardJsonSerializerTest.DATE_TIME_TEST_DATA;
 import static com.gs.dmn.serialization.DefaultStandardJsonSerializerTest.TIME_TEST_DATA;
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DefaultSignavioJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     private final DefaultSignavioLib lib = (DefaultSignavioLib) makeFEELLib();

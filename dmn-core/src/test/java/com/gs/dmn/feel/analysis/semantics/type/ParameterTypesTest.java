@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -23,14 +23,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class ParameterTypesTest {
     private int count;
 
     @Test
     public void testSize() {
-        Assert.assertEquals(0, makeParameterTypes(new ArrayList<>()).size());
+        Assertions.assertEquals(0, makeParameterTypes(new ArrayList<>()).size());
     }
 
     @Test

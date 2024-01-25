@@ -23,7 +23,7 @@ import java.io.File;
 import java.net.URI;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractValidatorTest extends AbstractTest {
     protected final DMNSerializer serializer = new XMLDMNSerializer(LOGGER, false);

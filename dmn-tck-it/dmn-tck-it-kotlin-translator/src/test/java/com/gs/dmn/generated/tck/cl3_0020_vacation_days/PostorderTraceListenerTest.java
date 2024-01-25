@@ -27,7 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
     private final TotalVacationDays decision = new TotalVacationDays();

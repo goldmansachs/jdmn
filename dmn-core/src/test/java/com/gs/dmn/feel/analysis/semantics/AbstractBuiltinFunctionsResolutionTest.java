@@ -8,7 +8,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionInvocatio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.SimpleLiteral;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractBuiltinFunctionsResolutionTest {
     protected final String numberString = "\"123.00\"";
@@ -70,7 +70,7 @@ public abstract class AbstractBuiltinFunctionsResolutionTest {
             assertFalse(error);
         } catch (Exception e) {
             e.printStackTrace();
-            assertTrue(text, error);
+            assertTrue(error, text);
         }
     }
 

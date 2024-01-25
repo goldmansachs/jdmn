@@ -15,7 +15,7 @@ package com.gs.dmn.maven;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class AbstractDMNMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractMojoTest {
     protected abstract AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> getMojo();

@@ -21,8 +21,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class JsonSerializerTest {
     private final GenerateOutputData decision = new GenerateOutputData();

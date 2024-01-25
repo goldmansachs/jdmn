@@ -22,7 +22,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.FileInputStream;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class AbstractUnmarshalMarshalTest<D, M> extends AbstractFileTransformerTest {
     protected void testRoundTrip(String inputFilePath) throws Exception {
@@ -72,7 +72,7 @@ public abstract class AbstractUnmarshalMarshalTest<D, M> extends AbstractFileTra
                 LOGGER.error("" + p);
             }
         }
-        assertTrue(outputDMNFile.getAbsolutePath(), validateOutputResult.isValid());
+        assertTrue(validateOutputResult.isValid(), outputDMNFile.getAbsolutePath());
     }
 
     protected abstract M getMarshaller();
