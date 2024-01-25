@@ -14,7 +14,7 @@ package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDecision;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;

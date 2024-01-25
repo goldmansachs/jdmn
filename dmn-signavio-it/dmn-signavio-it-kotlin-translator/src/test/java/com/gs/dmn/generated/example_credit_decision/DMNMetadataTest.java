@@ -14,7 +14,7 @@ package com.gs.dmn.generated.example_credit_decision;
 
 import com.gs.dmn.runtime.metadata.*;
 import com.gs.dmn.serialization.JsonSerializer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.Arrays;

@@ -15,7 +15,7 @@ package com.gs.dmn.feel;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.tck.ast.TestCases;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;

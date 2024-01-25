@@ -15,7 +15,7 @@ package com.gs.dmn.generated.example_credit_decision_mixed_proto;
 import com.gs.dmn.generated.example_credit_decision_mixed_proto.proto.GenerateOutputDataRequest;
 import com.gs.dmn.generated.example_credit_decision_mixed_proto.type.Applicant;
 import com.gs.dmn.generated.example_credit_decision_mixed_proto.type.ApplicantImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 

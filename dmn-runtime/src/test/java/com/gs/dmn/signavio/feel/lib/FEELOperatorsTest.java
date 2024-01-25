@@ -16,7 +16,7 @@ import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.Range;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;

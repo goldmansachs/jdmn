@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import java.time.LocalDate;

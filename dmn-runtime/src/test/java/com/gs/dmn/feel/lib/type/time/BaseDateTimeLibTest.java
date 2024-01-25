@@ -13,7 +13,8 @@
 package com.gs.dmn.feel.lib.type.time;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
@@ -118,9 +119,11 @@ public class BaseDateTimeLibTest {
         assertEquals("-999999999-01-01", this.dateTimeLib.makeLocalDate("-999999999-01-01").format(BaseDateTimeLib.FEEL_DATE));
     }
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testMakeLocalDateWhenSign() {
-        assertNotNull(this.dateTimeLib.makeLocalDate("+999999999-01-01"));
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            this.dateTimeLib.makeLocalDate("+999999999-01-01");
+        });
     }
 
     @Test

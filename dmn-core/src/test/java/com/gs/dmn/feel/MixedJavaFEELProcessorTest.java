@@ -16,7 +16,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.MixedJavaTimeDMNDialectDefinition;
 import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
 import com.gs.dmn.tck.ast.TestCases;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
@@ -26,8 +26,6 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 
 public class MixedJavaFEELProcessorTest extends AbstractStandardFEELProcessorTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override

@@ -13,7 +13,8 @@
 package com.gs.dmn.validation.table;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,11 +22,13 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class BoundTest {
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testSameValueWhenNull() {
-        assertTrue(Bound.sameValue(null, null));
-        assertTrue(Bound.sameValue(new Bound(null, true, false, 4), null));
-        assertTrue(Bound.sameValue(null, new Bound(null, true, false, 4)));
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            assertTrue(Bound.sameValue(null, null));
+            assertTrue(Bound.sameValue(new Bound(null, true, false, 4), null));
+            assertTrue(Bound.sameValue(null, new Bound(null, true, false, 4)));
+        });
     }
 
     @Test
@@ -35,11 +38,13 @@ public class BoundTest {
         assertFalse(Bound.sameValue(new Bound(null, true, false, 4), new Bound(null, true, false, 5)));
     }
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testSameEndpointWhenNull() {
-        assertTrue(Bound.sameEnd(null, null));
-        assertTrue(Bound.sameEnd(new Bound(null, true, false, 4), null));
-        assertTrue(Bound.sameEnd(null, new Bound(null, true, false, 4)));
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            assertTrue(Bound.sameEnd(null, null));
+            assertTrue(Bound.sameEnd(new Bound(null, true, false, 4), null));
+            assertTrue(Bound.sameEnd(null, new Bound(null, true, false, 4)));
+        });
     }
 
     @Test
@@ -49,11 +54,13 @@ public class BoundTest {
         assertFalse(Bound.sameEnd(new Bound(null, true, false, 4), new Bound(null, true, false, 5)));
     }
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testAreAdjacentWhenNull() {
-        assertTrue(Bound.areAdjacent(null, null));
-        assertTrue(Bound.areAdjacent(new Bound(null, true, false, 4), null));
-        assertTrue(Bound.areAdjacent(null, new Bound(null, true, false, 4)));
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            assertTrue(Bound.areAdjacent(null, null));
+            assertTrue(Bound.areAdjacent(new Bound(null, true, false, 4), null));
+            assertTrue(Bound.areAdjacent(null, new Bound(null, true, false, 4)));
+        });
     }
 
     @Test

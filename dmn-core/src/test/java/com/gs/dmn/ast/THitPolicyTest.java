@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.ast;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,9 +29,11 @@ public class THitPolicyTest {
         assertEquals(THitPolicy.OUTPUT_ORDER, THitPolicy.fromValue("OUTPUT ORDER"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFromValueWhenIncorrectName() {
-        THitPolicy.fromValue("asd");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            THitPolicy.fromValue("asd");
+        });
     }
 
 }

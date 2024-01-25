@@ -13,7 +13,7 @@
 package com.gs.dmn.runtime;
 
 import com.gs.dmn.runtime.annotation.HitPolicy;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;

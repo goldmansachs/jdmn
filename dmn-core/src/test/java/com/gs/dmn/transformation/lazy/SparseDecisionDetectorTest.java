@@ -21,8 +21,8 @@ import com.gs.dmn.ast.TExpression;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.transformation.InputParameters;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class SparseDecisionDetectorTest extends AbstractTest {
     private DMNModelRepository dmnModelRepository;
     private final DMNSerializer dmnReader = new XMLDMNSerializer(LOGGER, false);
 
-    @Before
+    @BeforeEach
     public void setUp() {
         String pathName = "dmn/input/1.1/0004-lending.dmn";
         this.dmnModelRepository = readDMN(pathName);

@@ -14,7 +14,7 @@ package com.gs.dmn.feel.lib.type.range;
 
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.Range;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 

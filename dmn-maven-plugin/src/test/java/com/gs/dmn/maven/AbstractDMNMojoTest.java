@@ -12,17 +12,20 @@
  */
 package com.gs.dmn.maven;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractDMNMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractMojoTest {
     protected abstract AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> getMojo();
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testExecuteWhenMissingInput() throws Exception {
-        getMojo().inputParameters = makeParams();
-        getMojo().execute();
-        assertTrue(true);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            getMojo().inputParameters = makeParams();
+            getMojo().execute();
+            assertTrue(true);
+        });
     }
 }

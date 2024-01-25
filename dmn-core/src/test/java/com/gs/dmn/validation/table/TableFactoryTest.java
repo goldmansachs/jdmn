@@ -20,7 +20,7 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.validation.AbstractValidatorTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 import java.util.ArrayList;

@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.ast;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,8 +25,10 @@ public class TAssociationDirectionTest {
         assertEquals(TAssociationDirection.BOTH, TAssociationDirection.fromValue("Both"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFromValueWhenIncorrectName() {
-        TAssociationDirection.fromValue("asd");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            TAssociationDirection.fromValue("asd");
+        });
     }
 }

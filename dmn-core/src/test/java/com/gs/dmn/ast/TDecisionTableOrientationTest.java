@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.ast;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,8 +25,10 @@ public class TDecisionTableOrientationTest {
         assertEquals(TDecisionTableOrientation.CROSS_TABLE, TDecisionTableOrientation.fromValue("CrossTable"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFromValueWhenIncorrectName() {
-        TDecisionTableOrientation.fromValue("asd");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            TDecisionTableOrientation.fromValue("asd");
+        });
     }
 }

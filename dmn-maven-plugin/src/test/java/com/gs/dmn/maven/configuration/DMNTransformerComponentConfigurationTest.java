@@ -17,7 +17,8 @@ import org.codehaus.plexus.component.configurator.ComponentConfigurationExceptio
 import org.codehaus.plexus.configuration.DefaultPlexusConfiguration;
 import org.codehaus.plexus.configuration.PlexusConfiguration;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class DMNTransformerComponentConfigurationTest extends AbstractMojoConfigurationTest {
     private static final String ELEMENT_NAME = (new DMNTransformerComponent().getElementName());
@@ -46,16 +47,18 @@ public class DMNTransformerComponentConfigurationTest extends AbstractMojoConfig
         assertEquivalentConfiguration(component, "{ }");
     }
 
-    @Test(expected = ComponentConfigurationException.class)
+    @Test
     public void testMissingComponentName() throws Exception {
-        PlexusConfiguration config = new DefaultPlexusConfiguration(OptionallyConfigurableMojoComponent.ELEMENT_CONFIGURATION)
-                .addChild("key1", "value1")
-                .addChild("key2", "value2");
+        Assertions.assertThrows(ComponentConfigurationException.class, () -> {
+            PlexusConfiguration config = new DefaultPlexusConfiguration(OptionallyConfigurableMojoComponent.ELEMENT_CONFIGURATION)
+                    .addChild("key1", "value1")
+                    .addChild("key2", "value2");
 
-        PlexusConfiguration configuration = generateComponentConfiguration(null, ELEMENT_NAME, config);
-        parseConfiguration(configuration, DMNTransformerComponent.class);
+            PlexusConfiguration configuration = generateComponentConfiguration(null, ELEMENT_NAME, config);
+            parseConfiguration(configuration, DMNTransformerComponent.class);
 
-        Assert.fail("Test is expected to fail; mandatory component name was not provided");
+            Assert.fail("Test is expected to fail; mandatory component name was not provided");
+        });
     }
 
     @Test

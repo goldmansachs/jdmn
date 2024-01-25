@@ -16,7 +16,7 @@ import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
 import com.gs.dmn.tck.serialization.xstream.TCKMarshallerFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileReader;

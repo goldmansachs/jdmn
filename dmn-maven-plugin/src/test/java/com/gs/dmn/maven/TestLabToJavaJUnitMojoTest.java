@@ -17,7 +17,7 @@ import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.NopDMNTransformer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 

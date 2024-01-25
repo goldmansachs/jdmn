@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.ast.dmndi;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -39,8 +40,10 @@ public class KnownColorTest {
         assertEquals(KnownColor.GRAY, KnownColor.fromValue("gray"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFromValueWhenIncorrectName() {
-        KnownColor.fromValue("asd");
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            KnownColor.fromValue("asd");
+        });
     }
 }

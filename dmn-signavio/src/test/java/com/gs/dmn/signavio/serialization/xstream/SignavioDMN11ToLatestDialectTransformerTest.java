@@ -17,7 +17,8 @@ import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.xstream.DMN11ToLatestDialectTransformerTest;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.signavio.SignavioTestConstants;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
@@ -28,9 +29,11 @@ public class SignavioDMN11ToLatestDialectTransformerTest extends DMN11ToLatestDi
         doTest("Example credit decision.dmn");
     }
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testTransformWithBKM() throws Exception {
-        doTest("simple-decision-with-bkm.dmn");
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            doTest("simple-decision-with-bkm.dmn");
+        });
     }
 
     @Test

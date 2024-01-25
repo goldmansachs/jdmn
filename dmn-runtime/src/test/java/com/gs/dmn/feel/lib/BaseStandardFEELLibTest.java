@@ -15,7 +15,7 @@ package com.gs.dmn.feel.lib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.runtime.Range;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;

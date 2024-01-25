@@ -13,7 +13,7 @@
 package com.gs.dmn.generated.npe_validation_2;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;

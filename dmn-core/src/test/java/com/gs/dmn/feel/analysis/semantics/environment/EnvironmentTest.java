@@ -18,7 +18,7 @@ import com.gs.dmn.context.environment.Environment;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 

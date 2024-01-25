@@ -31,7 +31,7 @@ import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.SignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.string.SignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

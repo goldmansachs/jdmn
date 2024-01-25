@@ -15,7 +15,7 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.tck.ast.TestCases;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;

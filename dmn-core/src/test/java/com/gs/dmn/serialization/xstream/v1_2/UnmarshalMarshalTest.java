@@ -21,7 +21,7 @@ import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.serialization.xstream.extensions.MyTestRegister;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xmlunit.diff.DifferenceEvaluator;
 import org.xmlunit.diff.DifferenceEvaluators;
 

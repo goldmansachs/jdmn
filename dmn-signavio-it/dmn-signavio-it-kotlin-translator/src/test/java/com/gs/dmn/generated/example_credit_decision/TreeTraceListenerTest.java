@@ -21,7 +21,7 @@ import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.TreeTraceEventListener;
 import com.gs.dmn.runtime.listener.node.DRGElementNode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.math.BigDecimal;

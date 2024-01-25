@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.validation.DMNValidator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;

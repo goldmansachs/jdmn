@@ -22,7 +22,7 @@ import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.math.BigDecimal;

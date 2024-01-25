@@ -29,15 +29,15 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Context;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -420,21 +420,25 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 true);
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testEqualityWhenTypeMismatch() {
-        Boolean input = true;
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", BOOLEAN, input));
+        Assertions.assertThrows(SemanticError.class, () -> {
+            Boolean input = true;
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", BOOLEAN, input));
 
-        doUnaryTestsTest(entries, "input", "123.56", "", "TupleType(boolean)", "", null, "");
+            doUnaryTestsTest(entries, "input", "123.56", "", "TupleType(boolean)", "", null, "");
+        });
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testOperatorRangeWhenTypeMismatch() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", BOOLEAN, true));
+        Assertions.assertThrows(SemanticError.class, () -> {
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", BOOLEAN, true));
 
-        doUnaryTestsTest(entries, "input", "< 123.56", "", "TupleType(boolean)", "", null, "");
+            doUnaryTestsTest(entries, "input", "< 123.56", "", "TupleType(boolean)", "", null, "");
+        });
     }
 
     @Test
@@ -565,30 +569,34 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.number("1"));
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testIfExpressionWhenConditionIsNotBoolean() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+        Assertions.assertThrows(SemanticError.class, () -> {
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        doExpressionTest(entries, "", "if 5 then 1 else 2",
-                "",
-                "number",
-                "",
-                "",
-                "");
+            doExpressionTest(entries, "", "if 5 then 1 else 2",
+                    "",
+                    "number",
+                    "",
+                    "",
+                    "");
+        });
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testIfExpressionWhenTypesDontMatch() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+        Assertions.assertThrows(SemanticError.class, () -> {
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        doExpressionTest(entries, "", "if true then true else 2",
-                "",
-                "number",
-                "",
-                "",
-                "");
+            doExpressionTest(entries, "", "if true then true else 2",
+                    "",
+                    "number",
+                    "",
+                    "",
+                    "");
+        });
     }
 
     @Test
@@ -1407,17 +1415,19 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 true);
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testInExpressionWhenOperatorRangeAndTypeMismatch() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+        Assertions.assertThrows(SemanticError.class, () -> {
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        doExpressionTest(entries, "", "1 in (true)",
-                "",
-                "boolean",
-                "",
-                "",
-                "");
+            doExpressionTest(entries, "", "1 in (true)",
+                    "",
+                    "boolean",
+                    "",
+                    "",
+                    "");
+        });
     }
 
     @Test
@@ -1878,25 +1888,27 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.number("-1"));
     }
 
-    @Test(expected = SemanticError.class)
+    @Test
     public void testArithmeticNegationOnIncorrectOperands() {
-        String yearsAndMonthsDuration = "duration(\"P1Y1M\")";
-        String daysAndTimeDuration = "duration(\"P1DT1H\")";
+        Assertions.assertThrows(SemanticError.class, () -> {
+            String yearsAndMonthsDuration = "duration(\"P1Y1M\")";
+            String daysAndTimeDuration = "duration(\"P1DT1H\")";
 
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
-        doExpressionTest(entries, "", String.format("- %s", yearsAndMonthsDuration),
-                "ArithmeticNegation(DateTimeLiteral(duration, \"P1Y1M\"))",
-                "years and months duration",
-                "numericUnaryMinus(duration(\"P1Y1M\"))",
-                null,
-                null);
-        doExpressionTest(entries, "", String.format("- %s", daysAndTimeDuration),
-                "ArithmeticNegation(DateTimeLiteral(duration, \"P1DT1H\"))",
-                "days and time duration",
-                "numericUnaryMinus(duration(\"P1DT1H\"))",
-                null,
-                null);
+            List<EnvironmentEntry> entries = Arrays.asList(
+                    new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+            doExpressionTest(entries, "", String.format("- %s", yearsAndMonthsDuration),
+                    "ArithmeticNegation(DateTimeLiteral(duration, \"P1Y1M\"))",
+                    "years and months duration",
+                    "numericUnaryMinus(duration(\"P1Y1M\"))",
+                    null,
+                    null);
+            doExpressionTest(entries, "", String.format("- %s", daysAndTimeDuration),
+                    "ArithmeticNegation(DateTimeLiteral(duration, \"P1DT1H\"))",
+                    "days and time duration",
+                    "numericUnaryMinus(duration(\"P1DT1H\"))",
+                    null,
+                    null);
+        });
     }
 
     @Test
@@ -2139,8 +2151,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("P1DT1H"));
     }
 
-    @Ignore
-    @Test(expected = DMNRuntimeException.class)
+    @Disabled
+    @Test
     public void testFunctionInvocationWhenMultipleMatch() {
         List<EnvironmentEntry> entries = Arrays.asList();
 

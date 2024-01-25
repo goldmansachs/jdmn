@@ -21,7 +21,8 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URI;
@@ -64,14 +65,16 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
                 "creditIssueType", "assessApplicantAge", "priorIssue", "makeCreditDecision", "assessIssueRisk"), Collections.emptyList());
     }
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testTransformerForExistingConflictingDefinition() throws Exception {
-        executeTransformation(
-                signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
-                signavioResource("dmn/dmn2java/configuration/credit-decision-existing-conflicting-definition-config.json")
-        );
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            executeTransformation(
+                    signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
+                    signavioResource("dmn/dmn2java/configuration/credit-decision-existing-conflicting-definition-config.json")
+            );
 
-        Assert.fail("Test is expected to fail; attempted to replace existing conflicting definition");
+            Assert.fail("Test is expected to fail; attempted to replace existing conflicting definition");
+        });
     }
 
     @Test
@@ -86,14 +89,16 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
                 "currentRiskAppetite", "processPriorIssues"), Collections.emptyList());
     }
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testTransformerForDuplicateConflictingNewDefinitions() throws Exception {
-        executeTransformation(
-                signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
-                signavioResource("dmn/dmn2java/configuration/credit-decision-duplicate-conflicting-definition-config.json")
-        );
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            executeTransformation(
+                    signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
+                    signavioResource("dmn/dmn2java/configuration/credit-decision-duplicate-conflicting-definition-config.json")
+            );
 
-        Assert.fail("Test is expected to fail; attempted to insert duplicate, conflicting new definitions");
+            Assert.fail("Test is expected to fail; attempted to insert duplicate, conflicting new definitions");
+        });
     }
 
     @Test

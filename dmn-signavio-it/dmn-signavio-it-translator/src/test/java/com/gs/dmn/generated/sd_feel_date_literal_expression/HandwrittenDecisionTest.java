@@ -13,7 +13,8 @@
 package com.gs.dmn.generated.sd_feel_date_literal_expression;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -30,10 +31,14 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         assertEquals("29", output.toString());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testApplyWhenNull() {
-        BigDecimal output = applyDecision(null, null, null, null, null);
-        assertEquals(29, output.intValue());
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            Assertions.assertThrows(NullPointerException.class, () -> {
+                BigDecimal output = applyDecision(null, null, null, null, null);
+                assertEquals(29, output.intValue());
+            });
+        });
     }
 
     @Override

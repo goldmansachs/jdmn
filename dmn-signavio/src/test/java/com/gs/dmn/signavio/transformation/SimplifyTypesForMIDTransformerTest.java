@@ -18,7 +18,7 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 

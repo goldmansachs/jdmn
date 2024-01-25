@@ -16,7 +16,7 @@ import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.Pair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;

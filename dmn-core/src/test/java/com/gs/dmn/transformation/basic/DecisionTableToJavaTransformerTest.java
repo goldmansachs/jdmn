@@ -19,7 +19,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 

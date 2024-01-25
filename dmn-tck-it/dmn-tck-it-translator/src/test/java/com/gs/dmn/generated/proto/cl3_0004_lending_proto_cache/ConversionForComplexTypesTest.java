@@ -16,7 +16,7 @@ import com.gs.dmn.generated.proto.cl3_0004_lending_proto_cache.proto.Adjudicatio
 import com.gs.dmn.generated.proto.cl3_0004_lending_proto_cache.proto.Monthly;
 import com.gs.dmn.generated.proto.cl3_0004_lending_proto_cache.type.TApplicantData;
 import com.gs.dmn.generated.proto.cl3_0004_lending_proto_cache.type.TApplicantDataImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

@@ -13,19 +13,24 @@
 package com.gs.dmn.transformation.proto;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class FieldTypeTest {
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testConstructorWhenModifierIsNull() {
-        new FieldType(null, "ab");
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            new FieldType(null, "ab");
+        });
     }
 
-    @Test(expected = DMNRuntimeException.class)
+    @Test
     public void testConstructorWhenTypeIsNull() {
-        new FieldType("optional", null);
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            new FieldType("optional", null);
+        });
     }
 
     @Test

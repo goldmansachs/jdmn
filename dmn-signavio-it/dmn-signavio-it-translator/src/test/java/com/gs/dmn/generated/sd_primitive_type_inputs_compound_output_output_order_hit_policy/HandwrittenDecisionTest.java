@@ -13,7 +13,7 @@
 package com.gs.dmn.generated.sd_primitive_type_inputs_compound_output_output_order_hit_policy;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
 import java.util.List;

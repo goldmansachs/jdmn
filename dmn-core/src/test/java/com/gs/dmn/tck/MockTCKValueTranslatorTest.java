@@ -28,7 +28,7 @@ import com.gs.dmn.tck.ast.ValueType;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.DatatypeFactory;
 import java.math.BigDecimal;

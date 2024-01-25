@@ -18,7 +18,7 @@ import com.gs.dmn.generated.example_credit_decision.type.ApplicantImpl;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.annotation.Annotation;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;

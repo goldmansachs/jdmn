@@ -14,7 +14,7 @@ package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.Pair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

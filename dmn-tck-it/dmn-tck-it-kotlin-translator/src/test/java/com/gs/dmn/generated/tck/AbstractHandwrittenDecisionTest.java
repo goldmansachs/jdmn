@@ -20,8 +20,8 @@ import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.NopEventListener;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertTrue;
 
@@ -42,7 +42,7 @@ public abstract class AbstractHandwrittenDecisionTest {
         assertTrue("Takes longer than 500ms", after - before < 500);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.annotationSet = new AnnotationSet();
         this.eventListener = new NopEventListener();

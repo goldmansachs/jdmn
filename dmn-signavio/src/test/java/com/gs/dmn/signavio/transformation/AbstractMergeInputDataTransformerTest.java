@@ -19,7 +19,7 @@ import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;

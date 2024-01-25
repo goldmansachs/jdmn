@@ -14,8 +14,9 @@ package com.gs.jpa.example_credit_decision;
 
 import com.gs.dmn.generated.example_credit_decision.GenerateOutputData;
 import com.gs.dmn.generated.example_credit_decision.type.Applicant;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,20 +27,20 @@ public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.MixedJavaTi
     protected static EntityManagerFactory emf;
     protected static EntityManager em;
 
-    @BeforeClass
+    @BeforeAll
     public static void init() {
         emf = Persistence.createEntityManagerFactory("example-pu-test");
         em = emf.createEntityManager();
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDown(){
         em.clear();
         em.close();
         emf.close();
     }
 
-    @org.junit.Test
+    @Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
@@ -52,7 +53,7 @@ public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.MixedJavaTi
         checkValues(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(number("27.5"), "Accept", number("-7.5")), generateOutputDataOutput);
     }
 
-    @org.junit.Test
+    @Test
     public void testCase002() {
         com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
@@ -65,7 +66,7 @@ public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.MixedJavaTi
         checkValues(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(number("-10"), "Reject", number("-25")), generateOutputDataOutput);
     }
 
-    @org.junit.Test
+    @Test
     public void testCase003() {
         com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data

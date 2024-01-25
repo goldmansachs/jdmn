@@ -15,7 +15,7 @@ package com.gs.dmn.feel.analysis.scanner;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.Token;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;

@@ -13,7 +13,7 @@
 package com.gs.dmn.serialization.jackson;
 
 import com.gs.dmn.serialization.AbstractJacksonUnmarshalMarshalTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UnmarshalMarshalTest extends AbstractJacksonUnmarshalMarshalTest {
     @Test

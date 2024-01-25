@@ -16,7 +16,7 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;

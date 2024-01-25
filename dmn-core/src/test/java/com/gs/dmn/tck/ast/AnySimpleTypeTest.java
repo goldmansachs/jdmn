@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.tck.ast;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;

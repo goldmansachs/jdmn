@@ -16,7 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.TypeRefValidator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URI;

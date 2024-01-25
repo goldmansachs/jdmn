@@ -14,7 +14,7 @@ package com.gs.dmn.generated.sd_feel_complex_literal_expression;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.generated.sd_feel_complex_literal_expression.type.LoanImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

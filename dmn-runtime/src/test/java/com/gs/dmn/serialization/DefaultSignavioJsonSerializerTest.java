@@ -23,7 +23,7 @@ import com.gs.dmn.serialization.data.AddressImpl;
 import com.gs.dmn.serialization.data.Person;
 import com.gs.dmn.serialization.data.PersonImpl;
 import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;

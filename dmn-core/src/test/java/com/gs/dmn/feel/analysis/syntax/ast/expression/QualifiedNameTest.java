@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.analysis.syntax.ast.expression;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;

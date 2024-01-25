@@ -17,8 +17,8 @@ import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.serialization.xstream.extensions.MyTestRegister;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.xmlunit.diff.DifferenceEvaluator;
 import org.xmlunit.diff.DifferenceEvaluators;
 
@@ -93,7 +93,7 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
         testRoundTrip("xstream/v1_1/semantic-namespace.dmn");
     }
 
-    @Ignore("The current file cannot marshal back extension elements because they don't provide converters.")
+    @Disabled("The current file cannot marshal back extension elements because they don't provide converters.")
     @Test
     public void test20161014() throws Exception {
         testRoundTrip("xstream/v1_1/test20161014.dmn");

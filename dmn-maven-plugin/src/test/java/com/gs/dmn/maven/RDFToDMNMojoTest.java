@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.maven;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -23,11 +24,13 @@ import static org.junit.Assert.assertTrue;
 public class RDFToDMNMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractMojoTest {
     private final RDFToDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> mojo = new RDFToDMNMojo<>();
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testExecuteWhenMissingInput() throws Exception {
-        mojo.inputParameters = makeParams();
-        mojo.execute();
-        assertTrue(true);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            mojo.inputParameters = makeParams();
+            mojo.execute();
+            assertTrue(true);
+        });
     }
 
     @Test

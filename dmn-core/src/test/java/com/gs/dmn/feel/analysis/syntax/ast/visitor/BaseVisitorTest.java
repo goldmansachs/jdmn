@@ -38,7 +38,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.type.FunctionTypeExpressio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.ListTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.NamedTypeExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertNull;
 

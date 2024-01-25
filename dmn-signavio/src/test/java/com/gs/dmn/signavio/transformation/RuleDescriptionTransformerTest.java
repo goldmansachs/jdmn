@@ -15,7 +15,7 @@ package com.gs.dmn.signavio.transformation;
 import com.gs.dmn.ast.TDecisionRule;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.log.NopBuildLogger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 

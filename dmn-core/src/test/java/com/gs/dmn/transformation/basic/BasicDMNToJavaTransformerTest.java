@@ -22,8 +22,8 @@ import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -39,7 +39,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     private BasicDMNToJavaTransformer dmnTransformer;
     private String href;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         String pathName = "dmn/input/1.1/0004-lending.dmn";
         DMNModelRepository repository = readDMN(pathName);

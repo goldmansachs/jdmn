@@ -12,9 +12,9 @@
  */
 package com.gs.dmn.runtime.listener;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ArgumentsTest {
 

@@ -17,7 +17,7 @@ import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.error.NopErrorHandler;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 

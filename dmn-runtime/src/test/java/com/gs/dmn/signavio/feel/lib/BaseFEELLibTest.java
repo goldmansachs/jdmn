@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.feel.lib;
 
 import com.gs.dmn.runtime.Context;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 

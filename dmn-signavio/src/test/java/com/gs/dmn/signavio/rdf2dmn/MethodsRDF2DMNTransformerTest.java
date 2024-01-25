@@ -15,7 +15,7 @@ package com.gs.dmn.signavio.rdf2dmn;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.transformation.InputParameters;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 

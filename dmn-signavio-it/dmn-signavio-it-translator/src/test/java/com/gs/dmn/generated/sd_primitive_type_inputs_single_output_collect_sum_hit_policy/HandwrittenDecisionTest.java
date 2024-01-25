@@ -13,7 +13,7 @@
 package com.gs.dmn.generated.sd_primitive_type_inputs_single_output_collect_sum_hit_policy;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
