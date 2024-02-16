@@ -95,3 +95,4 @@ public class InOutCorrectPathsInDecisionsTransformerTest extends AbstractSignavi
         return transformer.transform(repository);
     }
 }
+
