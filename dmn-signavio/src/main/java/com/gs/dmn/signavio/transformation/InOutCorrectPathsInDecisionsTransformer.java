@@ -16,17 +16,13 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.signavio.transformation.config.Correction;
-import com.gs.dmn.signavio.transformation.config.DecisionTableCorrection;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class InOutCorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<TestLab> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(InOutCorrectPathsInDecisionsTransformer.class);
@@ -114,14 +110,16 @@ public class InOutCorrectPathsInDecisionsTransformer extends SimpleDMNTransforme
         for (int i=0; i<ruleList.size(); i++) {
             TDecisionRule rule = ruleList.get(i);
             for (TLiteralExpression outputEntry: rule.getOutputEntry()) {
-                updateLiteralExpression(outputEntry, oldValue, newValue, decision);
+                if (oldValue.equals(outputEntry.getText().trim())) {
+                    updateLiteralExpression(outputEntry, oldValue, newValue, decision);
+                }
             }
         }
     }
 
     private void updateLiteralExpression(TLiteralExpression expression, String oldValue, String newValue, TDecision decision) {
         String oldText = expression.getText();
-        String newText = oldText.replaceAll("\\b"+oldValue+"\\b", newValue);
+        String newText = oldText.replace(oldValue, newValue);
 
         logger.info(String.format("Replacing expression '%s' with '%s' in decision '%s'", oldText, newText, decision.getName()));
 
