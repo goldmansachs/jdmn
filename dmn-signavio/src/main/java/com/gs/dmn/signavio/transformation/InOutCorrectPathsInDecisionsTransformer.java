@@ -121,7 +121,7 @@ public class InOutCorrectPathsInDecisionsTransformer extends SimpleDMNTransforme
 
     private void updateLiteralExpression(TLiteralExpression expression, String oldValue, String newValue, TDecision decision) {
         String oldText = expression.getText();
-        String newText = oldText.replace(oldValue, newValue);
+        String newText = oldText.replaceAll("\\b"+oldValue+"\\b", newValue);
 
         logger.info(String.format("Replacing expression '%s' with '%s' in decision '%s'", oldText, newText, decision.getName()));
 
