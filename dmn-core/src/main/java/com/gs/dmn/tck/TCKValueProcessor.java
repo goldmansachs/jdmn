@@ -38,7 +38,7 @@ public class TCKValueProcessor<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     protected String getTextContent(Object value) {
         if (value instanceof String string) {
-            returnstring;
+            return string;
         } else if (value instanceof Number) {
             return this.feelLib.string(value);
         } else if (value instanceof Boolean) {

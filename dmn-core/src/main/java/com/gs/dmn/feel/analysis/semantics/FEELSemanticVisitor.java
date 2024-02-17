@@ -51,6 +51,7 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
@@ -140,11 +141,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         } else {
             Type inputExpressionType = context.getInputExpressionType();
             element.setType(new RangeType(endpoint.getType()));
-            if (operator == null) {
-                checkType(element, "=", inputExpressionType, endpoint.getType(), context);
-            } else {
-                checkType(element, operator, inputExpressionType, endpoint.getType(), context);
-            }
+            checkType(element, Objects.requireNonNullElse(operator, "="), inputExpressionType, endpoint.getType(), context);
         }
 
         return element;
@@ -283,7 +280,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
 
         // Derive type
         ContextType type = new ContextType();
-        entries.forEach(e -> type.addMember(e.getKey().getKey(), Arrays.asList(), e.getExpression().getType()));
+        entries.forEach(e -> type.addMember(e.getKey().getKey(), List.of(), e.getExpression().getType()));
         element.setType(type);
 
         return element;
@@ -708,8 +705,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             }
             listExpression.accept(this, context);
             Type listType = listExpression.getType();
-            if (listType instanceof ListType type) {
-                Type elementType = type.getElementType();
+            if (listType instanceof ListType listTypeInstance) {
+                Type elementType = listTypeInstance.getElementType();
                 if (lambdaExpression instanceof FunctionDefinition) {
                     List<FormalParameter<Type>> formalParameters = ((FunctionDefinition<Type>) lambdaExpression).getFormalParameters();
                     formalParameters.forEach(p -> p.setType(elementType));
@@ -875,9 +872,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     private void checkListElementTypes(ListLiteral<Type> element) {
-        List<Type> types = element.getExpressionList().stream().map(Expression::getType).collect(Collectors.toList());
+        List<Type> types = element.getExpressionList().stream().map(Expression::getType).toList();
         // Find root type if possible
-        if (types.size() == 0) {
+        if (types.isEmpty()) {
             element.setType(ListType.ANY_LIST);
         } else {
             Type rooType = types.get(0);
@@ -996,7 +993,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         element.getReturnType().accept(this, context);
 
         // Derive type
-        List<FormalParameter<Type>> parameters = element.getParameters().stream().map(e -> new FormalParameter<Type>(null, e.getType())).collect(Collectors.toList());
+        List<FormalParameter<Type>> parameters = element.getParameters().stream().map(e -> new FormalParameter<>(null, e.getType())).collect(Collectors.toList());
         Type returnType = element.getReturnType().getType();
         FunctionType functionType = new FEELFunctionType(parameters, returnType, false);
         element.setType(functionType);

@@ -985,8 +985,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         }
         if (expectedType instanceof ListType type && expressionType instanceof ListType) {
             Type expectedElementType = type.getElementType();
-            if (expectedElementType instanceof ItemDefinitionType type) {
-                String conversionText = this.nativeFactory.makeListConversion(javaExpression, type);
+            if (expectedElementType instanceof ItemDefinitionType itemDefinitionType) {
+                String conversionText = this.nativeFactory.makeListConversion(javaExpression, itemDefinitionType);
                 return this.nativeFactory.makeExpressionStatement(conversionText, expectedType);
             }
         } else if (expectedType instanceof ListType) {
@@ -1597,7 +1597,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public Statement serviceToNative(TDecisionService element) {
         List<DRGElementReference<TDecision>> outputDecisions = this.dmnModelRepository.directSubDecisions(element);
-        if (outputDecisions.size() == 0) {
+        if (outputDecisions.isEmpty()) {
             return this.nativeFactory.makeExpressionStatement(this.nativeFactory.nullLiteral(), NullType.NULL);
         } else if (outputDecisions.size() == 1) {
             TDecision decision = outputDecisions.get(0).getElement();
@@ -2036,11 +2036,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String nativeRootPackageName() {
         String javaRootPackage = this.inputParameters.getJavaRootPackage();
-        if (javaRootPackage == null) {
-            return "";
-        } else {
-            return javaRootPackage;
-        }
+        return Objects.requireNonNullElse(javaRootPackage, "");
     }
 
     @Override
