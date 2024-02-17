@@ -28,7 +28,7 @@ public class List extends Expression {
     @Override
     public String toString() {
         String list = value.stream().map(Object::toString).collect(Collectors.joining(", "));
-        return String.format("%s(%s)", this.getClass().getSimpleName(), list);
+        return "%s(%s)".formatted(this.getClass().getSimpleName(), list);
     }
 
     @Override

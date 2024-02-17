@@ -25,11 +25,11 @@ public class MetadataValidator {
     public boolean validate(String pkg, ClassLoader classLoader) {
         String metadataPath = pkg.replace('.', '/');
         String fileName = DMNMetadata.class.getSimpleName();
-        try (InputStream metadataStream = classLoader.getResourceAsStream(String.format("%s/%s.json", metadataPath, fileName))) {
+        try (InputStream metadataStream = classLoader.getResourceAsStream("%s/%s.json".formatted(metadataPath, fileName))) {
             DMNMetadata dmnMetadata = JsonSerializer.OBJECT_MAPPER.readValue(metadataStream, DMNMetadata.class);
             List<DRGElement> decisions = dmnMetadata.getDecisions();
             for (DRGElement decision : decisions) {
-                String className = String.format("%s", decision.getJavaTypeName());
+                String className = "%s".formatted(decision.getJavaTypeName());
                 Class<?> aClass = Class.forName(className, true, classLoader);
                 boolean isGenerated = isGenerated(aClass);
                 if (!isGenerated) {

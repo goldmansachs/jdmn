@@ -54,6 +54,6 @@ public class FunctionInvocation<T> extends Expression<T> {
 
     @Override
     public String toString() {
-        return String.format("FunctionInvocation(%s -> %s)", this.function.toString(), this.parameters.toString());
+        return "FunctionInvocation(%s -> %s)".formatted(this.function.toString(), this.parameters.toString());
     }
 }

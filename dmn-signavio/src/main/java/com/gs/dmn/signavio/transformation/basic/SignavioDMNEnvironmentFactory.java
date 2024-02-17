@@ -43,8 +43,8 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
             Expression<Type> feelExpression = analyzeExpression(element);
             if (feelExpression instanceof FunctionDefinition) {
                 Type type = feelExpression.getType();
-                if (type instanceof FEELFunctionType) {
-                    type = ((FEELFunctionType) type).getReturnType();
+                if (type instanceof FEELFunctionType functionType) {
+                    type = functionType.getReturnType();
                 }
                 return type;
             }
@@ -67,8 +67,8 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
                     return externalFunctionReturnFEELType(element, body);
                 } else {
                     Type type = feelExpression.getType();
-                    if (type instanceof FEELFunctionType) {
-                        type = ((FEELFunctionType) type).getReturnType();
+                    if (type instanceof FEELFunctionType functionType) {
+                        type = functionType.getReturnType();
                     }
                     return type;
                 }
@@ -104,10 +104,9 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
     public Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child) {
         TDefinitions childModel = this.dmnModelRepository.getModel(child);
         Declaration declaration;
-        if (child instanceof TInputData) {
-            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable());
-        } else if (child instanceof TBusinessKnowledgeModel) {
-            TBusinessKnowledgeModel bkm = (TBusinessKnowledgeModel) child;
+        if (child instanceof TInputData data) {
+            declaration = makeVariableDeclaration(child, data.getVariable());
+        } else if (child instanceof TBusinessKnowledgeModel bkm) {
             if (this.dmnModelRepository.isBKMLinkedToDecision(bkm)) {
                 TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
                 declaration = makeVariableDeclaration(child, outputDecision.getVariable());
@@ -117,12 +116,12 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
                         p -> parentEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), this.dmnTransformer.toFEELType(childModel, QualifiedName.toQualifiedName(childModel, p.getTypeRef())))));
                 declaration = makeInvocableDeclaration(bkm);
             }
-        } else if (child instanceof TDecision) {
-            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable());
-        } else if (child instanceof TDecisionService) {
-            declaration = makeInvocableDeclaration((TDecisionService) child);
+        } else if (child instanceof TDecision decision) {
+            declaration = makeVariableDeclaration(child, decision.getVariable());
+        } else if (child instanceof TDecisionService service) {
+            declaration = makeInvocableDeclaration(service);
         } else {
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("'%s' is not supported yet".formatted(child.getClass().getSimpleName()));
         }
         return declaration;
     }

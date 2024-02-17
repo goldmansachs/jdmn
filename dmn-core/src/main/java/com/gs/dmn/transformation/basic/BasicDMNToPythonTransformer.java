@@ -110,7 +110,7 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
 
     @Override
     public String drgElementSignatureWithMap(TDRGElement element) {
-        return String.format("%s: %s, %s: %s", inputVariableName(), inputClassName(), executionContextVariableName(), executionContextClassName());
+        return "%s: %s, %s: %s".formatted(inputVariableName(), inputClassName(), executionContextVariableName(), executionContextClassName());
     }
 
     @Override
@@ -137,12 +137,12 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     //
     @Override
     public String lazyEvaluationType(TDRGElement input, String inputNativeType) {
-        return isLazyEvaluated(input) ? String.format("%s", lazyEvalClassName()) : inputNativeType;
+        return isLazyEvaluated(input) ? "%s".formatted(lazyEvalClassName()) : inputNativeType;
     }
 
     @Override
     public String lazyEvaluation(String elementName, String nativeName) {
-        return isLazyEvaluated(elementName) ? String.format("%s.getOrCompute()", nativeName) : nativeName;
+        return isLazyEvaluated(elementName) ? "%s.getOrCompute()".formatted(nativeName) : nativeName;
     }
 
     @Override
@@ -155,7 +155,7 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     //
     @Override
     public String singletonInvocableInstance(TInvocable invocable) {
-        return String.format("%s.%s", qualifiedName(invocable), "instance()");
+        return "%s.%s".formatted(qualifiedName(invocable), "instance()");
     }
 
     //
@@ -164,9 +164,9 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     @Override
     public String makeListType(String listType, String elementType) {
         if (DMNToJavaTransformer.LIST_TYPE.equals(listType)) {
-            listType = String.format("typing.%s", listType);
+            listType = "typing.%s".formatted(listType);
         }
-        return this.nativeTypeFactory.nullableType(String.format("%s[%s]", listType, this.nativeTypeFactory.nullableType(elementType)));
+        return this.nativeTypeFactory.nullableType("%s[%s]".formatted(listType, this.nativeTypeFactory.nullableType(elementType)));
     }
 
     @Override
@@ -184,8 +184,8 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
         String type = param.getLeft().getLeft();
         String varName = param.getLeft().getRight();
         String propertyName = param.getRight();
-        return String.format("%s: %s = None if %s is None else %s.%s",
-                varName, type, executionContextVariableName(), executionContextVariableName(), getter(propertyName));
+        return "%s: %s = None if %s is None else %s.%s".formatted(
+            varName, type, executionContextVariableName(), executionContextVariableName(), getter(propertyName));
     }
 
     @Override
@@ -195,17 +195,17 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
 
     @Override
     public String qualifiedName(String pkg, String clsName) {
-        String pythonClsPath = String.format("%s.%s", clsName, clsName);
+        String pythonClsPath = "%s.%s".formatted(clsName, clsName);
         if (StringUtils.isBlank(pkg)) {
             return pythonClsPath;
         } else {
-            return String.format("%s.%s", pkg, pythonClsPath);
+            return "%s.%s".formatted(pkg, pythonClsPath);
         }
     }
 
     @Override
     public String qualifiedName(Class<?> cls) {
-        String qName = String.format("%s.%s", cls.getName(), cls.getSimpleName());
+        String qName = "%s.%s".formatted(cls.getName(), cls.getSimpleName());
         String superRoot = super.jdmnRootPackage();
         qName = qName.replace(superRoot, jdmnRootPackage());
         return qName;
@@ -229,13 +229,13 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
         if (StringUtils.isBlank(pkg)) {
             return moduleName;
         } else {
-            return String.format("%s.%s", pkg, moduleName);
+            return "%s.%s".formatted(pkg, moduleName);
         }
     }
 
     @Override
     public String getter(String name) {
-        return String.format("%s", lowerCaseFirst(name));
+        return "%s".formatted(lowerCaseFirst(name));
     }
 
     @Override
@@ -253,7 +253,7 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
         if (StringUtils.isBlank(result)) {
             return "self";
         } else {
-            return String.format("self, %s", result);
+            return "self, %s".formatted(result);
         }
     }
 
@@ -262,11 +262,11 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     //
     @Override
     public String makeIntegerForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(int(\"%s\"))", text));
+        return this.nativeFactory.constructor(getNativeNumberType(), "str(int(\"%s\"))".formatted(text));
     }
 
     @Override
     public String makeDecimalForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(float(\"%s\"))", text));
+        return this.nativeFactory.constructor(getNativeNumberType(), "str(float(\"%s\"))".formatted(text));
     }
 }

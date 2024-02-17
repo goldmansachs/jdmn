@@ -92,9 +92,9 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
             int seconds = offset.getSeconds();
             String zoneId;
             if (seconds == 0) {
-                zoneId = String.format("%s%02d:%02d", sign, offset.getHours(), offset.getMinutes());
+                zoneId = "%s%02d:%02d".formatted(sign, offset.getHours(), offset.getMinutes());
             } else {
-                zoneId = String.format("%s%02d:%02d:%02d", sign, offset.getHours(), offset.getMinutes(), seconds);
+                zoneId = "%s%02d:%02d:%02d".formatted(sign, offset.getHours(), offset.getMinutes(), seconds);
             }
             calendar = FEELXMLGregorianCalendar.makeTime(hour.intValue(), minute.intValue(), second.intValue(), secondFraction, zoneId);
         } else {
@@ -369,7 +369,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
                     result = x;
                 }
             } else {
-                throw new DMNRuntimeException(String.format("Cannot compare '%s' and '%s'", result, x));
+                throw new DMNRuntimeException("Cannot compare '%s' and '%s'".formatted(result, x));
             }
         }
         return result;
@@ -381,7 +381,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         }
 
         if (!BEGIN_YEAR.matcher(literal).find()) {
-            throw new DMNRuntimeException(String.format("Illegal year in '%s'", literal));
+            throw new DMNRuntimeException("Illegal year in '%s'".formatted(literal));
         }
         try {
             return LocalDate.from(FEEL_DATE.parse(literal));
@@ -396,7 +396,7 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         }
 
         if (this.hasZoneOffset(literal) && this.hasZoneId(literal)) {
-            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", literal));
+            throw new DMNRuntimeException("Time literal '%s' has both a zone offset and zone id".formatted(literal));
         }
         try {
             TemporalAccessor parsed = FEEL_TIME.parse(literal);
@@ -419,10 +419,10 @@ public class DefaultDateTimeLib extends BaseDateTimeLib implements DateTimeLib<B
         }
 
         if (!BaseDateTimeLib.BEGIN_YEAR.matcher(literal).find()) {
-            throw new DMNRuntimeException(String.format("Illegal year in '%s'", literal));
+            throw new DMNRuntimeException("Illegal year in '%s'".formatted(literal));
         }
         if (this.hasZoneOffset(literal) && this.hasZoneId(literal)) {
-            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", literal));
+            throw new DMNRuntimeException("Time literal '%s' has both a zone offset and zone id".formatted(literal));
         }
         try {
             if (literal.contains("T")) {

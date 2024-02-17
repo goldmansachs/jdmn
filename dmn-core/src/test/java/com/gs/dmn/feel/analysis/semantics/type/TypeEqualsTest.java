@@ -194,6 +194,6 @@ public class TypeEqualsTest {
     }
 
     private void checkEquals(boolean expected, Type left, Type right) {
-        assertEquals(expected, left.equals(right), String.format("'%s'.equals('%s') mismatch ", left, right));
+        assertEquals(expected, left.equals(right), "'%s'.equals('%s') mismatch ".formatted(left, right));
     }
 }

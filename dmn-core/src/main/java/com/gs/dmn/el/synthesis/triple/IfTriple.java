@@ -42,6 +42,6 @@ public class IfTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("If(%s, %s, %s)", condition, thenExp, elseExp);
+        return "If(%s, %s, %s)".formatted(condition, thenExp, elseExp);
     }
 }

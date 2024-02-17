@@ -53,6 +53,6 @@ public class PositiveUnaryTests<T> extends UnaryTests<T> {
     @Override
     public String toString() {
         String tests = this.positiveUnaryTests.stream().map(Object::toString).collect(Collectors.joining(","));
-        return String.format("%s(%s)", getClass().getSimpleName(), tests);
+        return "%s(%s)".formatted(getClass().getSimpleName(), tests);
     }
 }

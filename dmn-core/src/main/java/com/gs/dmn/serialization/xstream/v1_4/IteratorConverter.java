@@ -33,8 +33,8 @@ public abstract class IteratorConverter extends ExpressionConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         TIterator i = (TIterator) parent;
 
-        if (IN.equals(nodeName) && child instanceof TTypedChildExpression) {
-            i.setIn((TTypedChildExpression) child);
+        if (IN.equals(nodeName) && child instanceof TTypedChildExpression expression) {
+            i.setIn(expression);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }

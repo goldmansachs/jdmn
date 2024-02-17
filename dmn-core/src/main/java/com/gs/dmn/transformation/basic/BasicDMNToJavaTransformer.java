@@ -214,13 +214,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String itemDefinitionNativeSimpleInterfaceName(TItemDefinition itemDefinition) {
         Type type = toFEELType(itemDefinition);
         // ItemDefinition can be a complex type with isCollection = true
-        if (type instanceof ListType && ((ListType) type).getElementType() instanceof ItemDefinitionType) {
-            type = ((ListType) type).getElementType();
+        if (type instanceof ListType listType && listType.getElementType() instanceof ItemDefinitionType) {
+            type = listType.getElementType();
         }
-        if (type instanceof ItemDefinitionType) {
-            return upperCaseFirst(((ItemDefinitionType) type).getName());
+        if (type instanceof ItemDefinitionType definitionType) {
+            return upperCaseFirst(definitionType.getName());
         } else {
-            throw new IllegalArgumentException(String.format("Unexpected type '%s' for ItemDefinition '%s'", type, itemDefinition.getName()));
+            throw new IllegalArgumentException("Unexpected type '%s' for ItemDefinition '%s'".formatted(type, itemDefinition.getName()));
         }
     }
 
@@ -343,7 +343,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String drgElementReferenceVariableName(DRGElementReference<? extends TDRGElement> reference) {
         String name = reference.getElementName();
         if (name == null) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null. Decision id '%s'", reference.getElement().getId()));
+            throw new DMNRuntimeException("Variable name cannot be null. Decision id '%s'".formatted(reference.getElement().getId()));
         }
         return drgReferenceQualifiedName(reference);
     }
@@ -362,8 +362,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String drgElementOutputInterfaceName(TDRGElement element) {
         Type type = drgElementOutputFEELType(element);
-        if (type instanceof ListType) {
-            type = ((ListType) type).getElementType();
+        if (type instanceof ListType listType) {
+            type = listType.getElementType();
         }
         return toNativeType(type);
     }
@@ -371,8 +371,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String drgElementOutputClassName(TDRGElement element) {
         Type type = drgElementOutputFEELType(element);
-        if (type instanceof ListType) {
-            type = ((ListType) type).getElementType();
+        if (type instanceof ListType listType) {
+            type = listType.getElementType();
         }
         String interfaceName = toNativeType(type);
         return type instanceof ItemDefinitionType ? itemDefinitionNativeClassName(interfaceName) : interfaceName;
@@ -408,8 +408,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, description, context);
             return statement.getText();
         } catch (Exception e) {
-            LOGGER.warn(String.format("Cannot process description '%s' for element '%s'", description, element == null ? "" : element.getName()));
-            return String.format("\"%s\"", description.replaceAll("\"", "\\\\\""));
+            LOGGER.warn("Cannot process description '%s' for element '%s'".formatted(description, element == null ? "" : element.getName()));
+            return "\"%s\"".formatted(description.replaceAll("\"", "\\\\\""));
         }
     }
 
@@ -422,13 +422,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             List<Pair<String, Type>> parameters = drgElementTypeSignature(element);
             return parameters.stream().allMatch(p -> this.nativeFactory.isSerializable(p.getRight()));
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException("No supported yet '%s'".formatted(element.getClass().getSimpleName()));
         }
     }
 
     @Override
     public String drgElementSignatureWithMap(TDRGElement element) {
-        return String.format("%s %s, %s %s", inputClassName(), inputVariableName(), executionContextClassName(), executionContextVariableName());
+        return "%s %s, %s %s".formatted(inputClassName(), inputVariableName(), executionContextClassName(), executionContextVariableName());
     }
 
     @Override
@@ -467,7 +467,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (element instanceof TDecision) {
             return inputDataParametersClosure((DRGElementReference<TDecision>) reference, nameProducer);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported yet '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException("Not supported yet '%s'".formatted(element.getClass().getSimpleName()));
         }
     }
 
@@ -494,17 +494,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             String arguments = parameters.stream().map(this::extractAndConvertInputMember).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported yet for '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException("Not supported yet for '%s'".formatted(element.getClass().getSimpleName()));
         }
     }
 
     private String extractInputMember(String name) {
-        return String.format("%s.%s", inputVariableName(), contextGetter(name));
+        return "%s.%s".formatted(inputVariableName(), contextGetter(name));
     }
 
     private String extractAndConvertInputMember(Pair<String, Type> pair) {
         String member = extractInputMember(pair.getLeft());
-        return String.format("%s", this.nativeFactory.convertArgumentFromString(member, pair.getRight()));
+        return "%s".formatted(this.nativeFactory.convertArgumentFromString(member, pair.getRight()));
     }
 
     @Override
@@ -532,8 +532,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         while (type instanceof ListType) {
             type = ((ListType) type).getElementType();
         }
-        if (type instanceof ItemDefinitionType) {
-            ItemDefinitionType itemType = (ItemDefinitionType) type;
+        if (type instanceof ItemDefinitionType itemType) {
             Set<ItemDefinitionType> types = new LinkedHashSet<>();
             collect(itemType, types);
             for (ItemDefinitionType node: types) {
@@ -554,8 +553,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             while (memberType instanceof ListType) {
                 memberType = ((ListType) memberType).getElementType();
             }
-            if (memberType instanceof ItemDefinitionType && !types.contains(memberType)) {
-                collect((ItemDefinitionType) memberType, types);
+            if (memberType instanceof ItemDefinitionType type && !types.contains(memberType)) {
+                collect(type, types);
             }
         }
     }
@@ -575,7 +574,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String drgElementArgumentList(DRGElementReference<? extends TDRGElement> reference) {
         List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::nativeName);
-        String arguments = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
+        String arguments = parameters.stream().map(p -> "%s".formatted(p.getLeft())).collect(Collectors.joining(", "));
         return augmentArgumentList(arguments);
     }
 
@@ -588,7 +587,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String drgElementConvertedArgumentList(DRGElementReference<? extends TDRGElement> reference) {
         List<Pair<String, Type>> parameters = drgElementTypeSignature(reference, this::nativeName);
-        String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgument(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
+        String arguments = parameters.stream().map(p -> "%s".formatted(convertDecisionArgument(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
         return augmentArgumentList(arguments);
     }
 
@@ -621,36 +620,34 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String elementName(Object obj) {
-        if (obj instanceof DRGElementReference) {
-            DRGElementReference<? extends TDRGElement> reference = (DRGElementReference<? extends TDRGElement>) obj;
+        if (obj instanceof DRGElementReference reference) {
             String elementName = this.dmnModelRepository.name(reference.getElement());
             return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
-        } else if (obj instanceof TNamedElement) {
-            return this.dmnModelRepository.name((TNamedElement) obj);
+        } else if (obj instanceof TNamedElement element) {
+            return this.dmnModelRepository.name(element);
         }
-        throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
+        throw new DMNRuntimeException("Variable name cannot be null for '%s'".formatted(obj));
     }
 
     @Override
     public String displayName(Object obj) {
-        if (obj instanceof DRGElementReference) {
-            DRGElementReference<? extends TDRGElement> reference = (DRGElementReference<? extends TDRGElement>) obj;
+        if (obj instanceof DRGElementReference reference) {
             String elementName = this.dmnModelRepository.displayName(reference.getElement());
             return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
-        } else if (obj instanceof TNamedElement) {
-            return this.dmnModelRepository.displayName((TNamedElement) obj);
+        } else if (obj instanceof TNamedElement element) {
+            return this.dmnModelRepository.displayName(element);
         }
-        throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
+        throw new DMNRuntimeException("Variable name cannot be null for '%s'".formatted(obj));
     }
 
     @Override
     public String nativeName(Object obj) {
-        if (obj instanceof DRGElementReference) {
-            return drgElementReferenceVariableName((DRGElementReference<? extends TDRGElement>) obj);
-        } else if (obj instanceof TNamedElement) {
-            return namedElementVariableName((TNamedElement) obj);
+        if (obj instanceof DRGElementReference reference) {
+            return drgElementReferenceVariableName(reference);
+        } else if (obj instanceof TNamedElement element) {
+            return namedElementVariableName(element);
         }
-        throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
+        throw new DMNRuntimeException("Variable name cannot be null for '%s'".formatted(obj));
     }
 
     @Override
@@ -665,35 +662,35 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public boolean shouldGenerateApplyWithConversionFromString(TDRGElement element) {
-        if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
+        if (element instanceof TDecision decision) {
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference(decision));
             return parameters.stream().anyMatch(p -> p.getRight() != StringType.STRING) && parameters.stream().allMatch(p -> this.nativeFactory.isSerializable(p.getRight()));
         } else if (element instanceof TInvocable) {
             return false;
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException("No supported yet '%s'".formatted(element.getClass().getSimpleName()));
         }
     }
 
     @Override
     public String drgElementSignatureWithConversionFromString(TDRGElement element) {
-        if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
+        if (element instanceof TDecision decision) {
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference(decision));
             String decisionSignature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(toStringNativeType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException("No supported yet '%s'".formatted(element.getClass().getSimpleName()));
         }
     }
 
     @Override
     public String drgElementArgumentListWithConversionFromString(TDRGElement element) {
-        if (element instanceof TDecision) {
-            List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
-            String arguments = parameters.stream().map(p -> String.format("%s", this.nativeFactory.convertArgumentFromString(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
+        if (element instanceof TDecision decision) {
+            List<Pair<String, Type>> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference(decision));
+            String arguments = parameters.stream().map(p -> "%s".formatted(this.nativeFactory.convertArgumentFromString(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException("No supported yet '%s'".formatted(element.getClass().getSimpleName()));
         }
     }
 
@@ -725,7 +722,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
         return directSubDecisionReferences
                 .stream()
-                .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
+                .map(d -> "%s".formatted(defaultConstructor(qualifiedName(d))))
                 .collect(Collectors.joining(", "));
     }
 
@@ -751,7 +748,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String singletonDecisionInstance(String decisionQName) {
-        return String.format("%s.instance()", decisionQName);
+        return "%s.instance()".formatted(decisionQName);
     }
 
     //
@@ -761,7 +758,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String namedElementVariableName(TNamedElement element) {
         String name = element.getName();
         if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null. ItemDefinition id '%s'", element.getId()));
+            throw new DMNRuntimeException("Variable name cannot be null. ItemDefinition id '%s'".formatted(element.getId()));
         }
         return lowerCaseFirst(name);
     }
@@ -772,39 +769,39 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String startElementCommentText(TDRGElement element) {
         if (element instanceof TDecision) {
-            return String.format("Start decision '%s'", element.getName());
+            return "Start decision '%s'".formatted(element.getName());
         } else if (element instanceof TBusinessKnowledgeModel) {
-            return String.format("Start BKM '%s'", element.getName());
+            return "Start BKM '%s'".formatted(element.getName());
         } else if (element instanceof TDecisionService) {
-            return String.format("Start DS '%s'", element.getName());
+            return "Start DS '%s'".formatted(element.getName());
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException("No supported yet '%s'".formatted(element.getClass().getSimpleName()));
         }
     }
 
     @Override
     public String endElementCommentText(TDRGElement element) {
         if (element instanceof TDecision) {
-            return String.format("End decision '%s'", element.getName());
+            return "End decision '%s'".formatted(element.getName());
         } else if (element instanceof TBusinessKnowledgeModel) {
-            return String.format("End BKM '%s'", element.getName());
+            return "End BKM '%s'".formatted(element.getName());
         } else if (element instanceof TDecisionService) {
-            return String.format("End DS '%s'", element.getName());
+            return "End DS '%s'".formatted(element.getName());
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException("No supported yet '%s'".formatted(element.getClass().getSimpleName()));
         }
     }
 
     @Override
     public String evaluateElementCommentText(TDRGElement element) {
         if (element instanceof TDecision) {
-            return String.format("Evaluate decision '%s'", element.getName());
+            return "Evaluate decision '%s'".formatted(element.getName());
         } else if (element instanceof TBusinessKnowledgeModel) {
-            return String.format("Evaluate BKM '%s'", element.getName());
+            return "Evaluate BKM '%s'".formatted(element.getName());
         } else if (element instanceof TDecisionService) {
-            return String.format("Evaluate DS '%s'", element.getName());
+            return "Evaluate DS '%s'".formatted(element.getName());
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException("No supported yet '%s'".formatted(element.getClass().getSimpleName()));
         }
     }
 
@@ -813,7 +810,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
         if (this.dmnModelRepository.isNull(typeRef)) {
-            throw new DMNRuntimeException(String.format("Cannot infer return type for BKM '%s'", element.getName()));
+            throw new DMNRuntimeException("Cannot infer return type for BKM '%s'".formatted(element.getName()));
         }
         return typeRef;
     }
@@ -841,23 +838,23 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public List<FormalParameter<Type>> invocableFEELParameters(TDRGElement invocable) {
-        if (invocable instanceof TBusinessKnowledgeModel) {
-            return bkmFEELParameters((TBusinessKnowledgeModel) invocable);
-        } else if (invocable instanceof TDecisionService) {
-            return dsFEELParameters((TDecisionService) invocable);
+        if (invocable instanceof TBusinessKnowledgeModel model) {
+            return bkmFEELParameters(model);
+        } else if (invocable instanceof TDecisionService service) {
+            return dsFEELParameters(service);
         } else {
-            throw new DMNRuntimeException(String.format("Illegal invocable '%s'", invocable.getClass().getSimpleName()));
+            throw new DMNRuntimeException("Illegal invocable '%s'".formatted(invocable.getClass().getSimpleName()));
         }
     }
 
     @Override
     public List<String> invocableFEELParameterNames(TDRGElement invocable) {
-        if (invocable instanceof TBusinessKnowledgeModel) {
-            return bkmFEELParameterNames((TBusinessKnowledgeModel) invocable);
-        } else if (invocable instanceof TDecisionService) {
-            return dsFEELParameterNames((TDecisionService) invocable);
+        if (invocable instanceof TBusinessKnowledgeModel model) {
+            return bkmFEELParameterNames(model);
+        } else if (invocable instanceof TDecisionService service) {
+            return dsFEELParameterNames(service);
         } else {
-            throw new DMNRuntimeException(String.format("Illegal invocable '%s'", invocable.getClass().getSimpleName()));
+            throw new DMNRuntimeException("Illegal invocable '%s'".formatted(invocable.getClass().getSimpleName()));
         }
     }
 
@@ -871,12 +868,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         QName bkmTypeRef = bkm.getVariable().getTypeRef();
         if (bkmTypeRef != null) {
             Type type = toFEELType(model, bkmTypeRef.getLocalPart());
-            if (type instanceof DMNFunctionType) {
-                return ((DMNFunctionType) type).getParameters();
+            if (type instanceof DMNFunctionType functionType) {
+                return functionType.getParameters();
             } else if (Type.isNullOrAny(type)) {
                 // infer from inputs
             } else {
-                throw new SemanticError(String.format("Expected DMN function type, found '%s'", type));
+                throw new SemanticError("Expected DMN function type, found '%s'".formatted(type));
             }
         }
         // Infer from expression
@@ -920,12 +917,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         QName invocableTypeRef = service.getVariable().getTypeRef();
         if (invocableTypeRef != null) {
             Type type = toFEELType(model, invocableTypeRef.getLocalPart());
-            if (type instanceof DMNFunctionType) {
-                return ((DMNFunctionType) type).getParameters();
+            if (type instanceof DMNFunctionType functionType) {
+                return functionType.getParameters();
             } else if (Type.isNullOrAny(type)) {
                 // infer from inputs
             } else {
-                throw new SemanticError(String.format("Expected DMN function type, found '%s'", type));
+                throw new SemanticError("Expected DMN function type, found '%s'".formatted(type));
             }
         }
         // Infer from inputs
@@ -970,8 +967,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     // Decision related functions
     //
     protected String convertDecisionArgument(String paramName, Type type) {
-        if (type instanceof ItemDefinitionType) {
-            return this.nativeFactory.convertToItemDefinitionType(paramName, (ItemDefinitionType) type);
+        if (type instanceof ItemDefinitionType definitionType) {
+            return this.nativeFactory.convertToItemDefinitionType(paramName, definitionType);
         } else {
             return paramName;
         }
@@ -986,18 +983,18 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if ("null".equals(javaExpression)) {
             return this.nativeFactory.makeExpressionStatement(javaExpression, expectedType);
         }
-        if (expectedType instanceof ListType && expressionType instanceof ListType) {
-            Type expectedElementType = ((ListType) expectedType).getElementType();
-            if (expectedElementType instanceof ItemDefinitionType) {
-                String conversionText = this.nativeFactory.makeListConversion(javaExpression, (ItemDefinitionType) expectedElementType);
+        if (expectedType instanceof ListType type && expressionType instanceof ListType) {
+            Type expectedElementType = type.getElementType();
+            if (expectedElementType instanceof ItemDefinitionType type) {
+                String conversionText = this.nativeFactory.makeListConversion(javaExpression, type);
                 return this.nativeFactory.makeExpressionStatement(conversionText, expectedType);
             }
         } else if (expectedType instanceof ListType) {
             return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertElementToList(javaExpression, expectedType), expectedType);
         } else if (expressionType instanceof ListType) {
             return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertListToElement(javaExpression, expectedType), expectedType);
-        } else if (expectedType instanceof ItemDefinitionType) {
-            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
+        } else if (expectedType instanceof ItemDefinitionType type) {
+            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertToItemDefinitionType(javaExpression, type), expectedType);
         }
         return statement;
     }
@@ -1011,9 +1008,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String augmentSignature(String signature) {
         String contextParameter = this.nativeFactory.parameter(executionContextClassName(), executionContextVariableName());
         if (StringUtils.isBlank(signature)) {
-            return String.format("%s", contextParameter);
+            return "%s".formatted(contextParameter);
         } else {
-            return String.format("%s, %s", signature, contextParameter);
+            return "%s, %s".formatted(signature, contextParameter);
         }
     }
 
@@ -1028,9 +1025,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String augmentArgumentList(String arguments) {
         String contextVar = executionContextVariableName();
         if (StringUtils.isBlank(arguments)) {
-            return String.format("%s", contextVar);
+            return "%s".formatted(contextVar);
         } else {
-            return String.format("%s, %s", arguments, contextVar);
+            return "%s, %s".formatted(arguments, contextVar);
         }
     }
 
@@ -1049,8 +1046,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         String type = param.getLeft().getLeft();
         String varName = param.getLeft().getRight();
         String propertyName = param.getRight();
-        return String.format("%s %s = %s != null ? %s.%s : null;",
-                type, varName, executionContextVariableName(), executionContextVariableName(), getter(propertyName));
+        return "%s %s = %s != null ? %s.%s : null;".formatted(
+            type, varName, executionContextVariableName(), executionContextVariableName(), getter(propertyName));
     }
 
     @Override
@@ -1090,7 +1087,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (StringUtils.isBlank(javaPrefix)) {
             return javaName;
         } else {
-            return String.format("%s_%s", javaPrefix, javaName);
+            return "%s_%s".formatted(javaPrefix, javaName);
         }
     }
 
@@ -1102,7 +1099,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (StringUtils.isBlank(modelPrefix)) {
             return localName;
         } else {
-            return String.format("%s.%s", modelPrefix, localName);
+            return "%s.%s".formatted(modelPrefix, localName);
         }
     }
 
@@ -1114,7 +1111,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (StringUtils.isBlank(prefix)) {
             return qName.getRight();
         } else {
-            return String.format("%s.%s", prefix, qName.getRight());
+            return "%s.%s".formatted(prefix, qName.getRight());
         }
     }
 
@@ -1138,7 +1135,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else {
             TDefinitions model = this.dmnModelRepository.getModel(element);
             String modelId = model.getNamespace();
-            return String.format("%s#%s", modelId, displayName(element));
+            return "%s#%s".formatted(modelId, displayName(element));
         }
     }
 
@@ -1150,12 +1147,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String parameterNativeType(TDRGElement element) {
         String parameterNativeType;
-        if (element instanceof TInputData) {
-            parameterNativeType = inputDataType((TInputData) element);
+        if (element instanceof TInputData data) {
+            parameterNativeType = inputDataType(data);
         } else if (element instanceof TDecision) {
             parameterNativeType = drgElementOutputType(element);
         } else {
-            throw new UnsupportedOperationException(String.format("'%s' is not supported", element.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("'%s' is not supported".formatted(element.getClass().getSimpleName()));
         }
         return parameterNativeType;
     }
@@ -1164,14 +1161,14 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String extractParameterFromArgs(Pair<String, String> parameter, int index) {
         String type = parameter.getLeft();
         String name = parameter.getRight();
-        return String.format("%s %s = %s < %s.length ? (%s) %s[%s] : null;",
-                type, name, index, lambdaArgsVariableName(), type, lambdaArgsVariableName(), index);
+        return "%s %s = %s < %s.length ? (%s) %s[%s] : null;".formatted(
+            type, name, index, lambdaArgsVariableName(), type, lambdaArgsVariableName(), index);
     }
 
     private String parameterType(TDefinitions model, TInformationItem element) {
         QualifiedName typeRef = this.dmnModelRepository.variableTypeRef(model, element);
         if (this.dmnModelRepository.isNull(typeRef)) {
-            throw new IllegalArgumentException(String.format("Cannot resolve typeRef for element '%s'", element.getName()));
+            throw new IllegalArgumentException("Cannot resolve typeRef for element '%s'".formatted(element.getName()));
         }
         Type type = toFEELType(model, typeRef);
         return toNativeType(type);
@@ -1194,12 +1191,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String lazyEvaluationType(TDRGElement input, String inputNativeType) {
-        return isLazyEvaluated(input) ? String.format("%s<%s>", lazyEvalClassName(), inputNativeType) : inputNativeType;
+        return isLazyEvaluated(input) ? "%s<%s>".formatted(lazyEvalClassName(), inputNativeType) : inputNativeType;
     }
 
     @Override
     public String lazyEvaluation(String elementName, String nativeName) {
-        return isLazyEvaluated(elementName) ? String.format("%s.getOrCompute()", nativeName) : nativeName;
+        return isLazyEvaluated(elementName) ? "%s.getOrCompute()".formatted(nativeName) : nativeName;
     }
 
     @Override
@@ -1219,7 +1216,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String argumentsVariableName(TDRGElement element) {
-        return String.format("%sArguments_", namedElementVariableName(element));
+        return "%sArguments_".formatted(namedElementVariableName(element));
     }
 
     @Override
@@ -1629,57 +1626,57 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public Statement expressionToNative(TDRGElement element) {
         TExpression expression = this.dmnModelRepository.expression(element);
-        if (expression instanceof TContext) {
-            return this.expressionToNativeTransformer.contextExpressionToNative(element, (TContext) expression);
-        } else if (expression instanceof TFunctionDefinition) {
-            return this.expressionToNativeTransformer.functionDefinitionToNative(element, (TFunctionDefinition) expression);
-        } else if (expression instanceof TInvocation) {
-            return this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression);
-        } else if (expression instanceof TLiteralExpression) {
-            Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText());
+        if (expression instanceof TContext context) {
+            return this.expressionToNativeTransformer.contextExpressionToNative(element, context);
+        } else if (expression instanceof TFunctionDefinition definition) {
+            return this.expressionToNativeTransformer.functionDefinitionToNative(element, definition);
+        } else if (expression instanceof TInvocation invocation) {
+            return this.expressionToNativeTransformer.invocationExpressionToNative(element, invocation);
+        } else if (expression instanceof TLiteralExpression literalExpression) {
+            Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, literalExpression.getText());
             Type expectedType = drgElementOutputFEELType(element);
             return convertExpression(statement, expectedType);
-        } else if (expression instanceof TRelation) {
-            return this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression);
-        } else if (expression instanceof TConditional) {
-            return this.expressionToNativeTransformer.conditionalExpressionToNative(element, (TConditional) expression);
-        } else if (expression instanceof TFilter) {
-            return this.expressionToNativeTransformer.filterExpressionToNative(element, (TFilter) expression);
-        } else if (expression instanceof TFor) {
-            return this.expressionToNativeTransformer.forExpressionToNative(element, (TFor) expression);
-        } else if (expression instanceof TSome) {
-            return this.expressionToNativeTransformer.someExpressionToNative(element, (TSome) expression);
-        } else if (expression instanceof TEvery) {
-            return this.expressionToNativeTransformer.everyExpressionToNative(element, (TEvery) expression);
+        } else if (expression instanceof TRelation relation) {
+            return this.expressionToNativeTransformer.relationExpressionToNative(element, relation);
+        } else if (expression instanceof TConditional conditional) {
+            return this.expressionToNativeTransformer.conditionalExpressionToNative(element, conditional);
+        } else if (expression instanceof TFilter filter) {
+            return this.expressionToNativeTransformer.filterExpressionToNative(element, filter);
+        } else if (expression instanceof TFor for1) {
+            return this.expressionToNativeTransformer.forExpressionToNative(element, for1);
+        } else if (expression instanceof TSome some) {
+            return this.expressionToNativeTransformer.someExpressionToNative(element, some);
+        } else if (expression instanceof TEvery every) {
+            return this.expressionToNativeTransformer.everyExpressionToNative(element, every);
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("Not supported '%s'".formatted(expression.getClass().getSimpleName()));
         }
     }
 
     @Override
     public Statement expressionToNative(TDRGElement element, TExpression expression, DMNContext context) {
-        if (expression instanceof TContext) {
-            return this.expressionToNativeTransformer.contextExpressionToNative(element, (TContext) expression, context);
-        } else if (expression instanceof TFunctionDefinition) {
-            return this.expressionToNativeTransformer.functionDefinitionToNative(element, (TFunctionDefinition) expression, context);
-        } else if (expression instanceof TInvocation) {
-            return this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression, context);
-        } else if (expression instanceof TLiteralExpression) {
-            return this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText(), context);
-        } else if (expression instanceof TRelation) {
-            return this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression, context);
-        } else if (expression instanceof TConditional) {
-            return this.expressionToNativeTransformer.conditionalExpressionToNative(element, (TConditional) expression, context);
-        } else if (expression instanceof TFilter) {
-            return this.expressionToNativeTransformer.filterExpressionToNative(element, (TFilter) expression, context);
-        } else if (expression instanceof TFor) {
-            return this.expressionToNativeTransformer.forExpressionToNative(element, (TFor) expression, context);
-        } else if (expression instanceof TSome) {
-            return this.expressionToNativeTransformer.someExpressionToNative(element, (TSome) expression, context);
-        } else if (expression instanceof TEvery) {
-            return this.expressionToNativeTransformer.everyExpressionToNative(element, (TEvery) expression, context);
+        if (expression instanceof TContext tContext) {
+            return this.expressionToNativeTransformer.contextExpressionToNative(element, tContext, context);
+        } else if (expression instanceof TFunctionDefinition definition) {
+            return this.expressionToNativeTransformer.functionDefinitionToNative(element, definition, context);
+        } else if (expression instanceof TInvocation invocation) {
+            return this.expressionToNativeTransformer.invocationExpressionToNative(element, invocation, context);
+        } else if (expression instanceof TLiteralExpression literalExpression) {
+            return this.expressionToNativeTransformer.literalExpressionToNative(element, literalExpression.getText(), context);
+        } else if (expression instanceof TRelation relation) {
+            return this.expressionToNativeTransformer.relationExpressionToNative(element, relation, context);
+        } else if (expression instanceof TConditional conditional) {
+            return this.expressionToNativeTransformer.conditionalExpressionToNative(element, conditional, context);
+        } else if (expression instanceof TFilter filter) {
+            return this.expressionToNativeTransformer.filterExpressionToNative(element, filter, context);
+        } else if (expression instanceof TFor for1) {
+            return this.expressionToNativeTransformer.forExpressionToNative(element, for1, context);
+        } else if (expression instanceof TSome some) {
+            return this.expressionToNativeTransformer.someExpressionToNative(element, some, context);
+        } else if (expression instanceof TEvery every) {
+            return this.expressionToNativeTransformer.everyExpressionToNative(element, every, context);
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("Not supported '%s'".formatted(expression.getClass().getSimpleName()));
         }
     }
 
@@ -1705,12 +1702,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public boolean isComplexType(Type type) {
         return type instanceof ItemDefinitionType
-                || type instanceof ListType && ((ListType) type).getElementType() instanceof ItemDefinitionType;
+                || type instanceof ListType lt && lt.getElementType() instanceof ItemDefinitionType;
     }
 
     @Override
     public boolean isDateTimeType(Type type) {
-        return isSimpleDateTimeType(type) || (type instanceof ListType && isSimpleDateTimeType(((ListType) type).getElementType()));
+        return isSimpleDateTimeType(type) || (type instanceof ListType lt && isSimpleDateTimeType(lt.getElementType()));
     }
 
     private boolean isSimpleDateTimeType(Type type) {
@@ -1785,64 +1782,64 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         type = Type.extractTypeFromConstraint(type);
         if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             if (isStrongTyping()) {
-                throw new DMNRuntimeException(String.format("Cannot infer native type for '%s' type", type));
+                throw new DMNRuntimeException("Cannot infer native type for '%s' type".formatted(type));
             } else {
                 return this.nativeTypeFactory.toNativeType(ANY.getName());
             }
         }
 
-        if (type instanceof com.gs.dmn.el.analysis.semantics.type.NamedType) {
-            String typeName = ((com.gs.dmn.el.analysis.semantics.type.NamedType) type).getName();
+        if (type instanceof com.gs.dmn.el.analysis.semantics.type.NamedType namedType) {
+            String typeName = namedType.getName();
             if (StringUtils.isBlank(typeName)) {
-                throw new DMNRuntimeException(String.format("Missing type name in '%s'", type));
+                throw new DMNRuntimeException("Missing type name in '%s'".formatted(type));
             }
             String primitiveType = this.nativeTypeFactory.toNativeType(typeName);
             if (!StringUtils.isBlank(primitiveType)) {
                 return primitiveType;
             } else {
-                if (type instanceof ItemDefinitionType) {
-                    String modelName = ((ItemDefinitionType) type).getModelName();
+                if (type instanceof ItemDefinitionType definitionType) {
+                    String modelName = definitionType.getModelName();
                     return qualifiedName(nativeTypePackageName(modelName), upperCaseFirst(typeName));
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot infer native type for '%s' type", type));
+                    throw new DMNRuntimeException("Cannot infer native type for '%s' type".formatted(type));
                 }
             }
         } else if (type instanceof ContextType) {
             return contextClassName();
-        } else if (type instanceof ListType) {
-            if (((ListType) type).getElementType() instanceof AnyType) {
+        } else if (type instanceof ListType listType) {
+            if (listType.getElementType() instanceof AnyType) {
                 return makeListType(DMNToJavaTransformer.LIST_TYPE);
             } else {
-                String elementType = toNativeType(((ListType) type).getElementType());
+                String elementType = toNativeType(listType.getElementType());
                 return makeListType(DMNToJavaTransformer.LIST_TYPE, elementType);
             }
         } else if (type instanceof FunctionType) {
-            if (type instanceof FEELFunctionType) {
-                String returnType = toNativeType(((FunctionType) type).getReturnType());
-                if (((FEELFunctionType) type).isExternal()) {
+            if (type instanceof FEELFunctionType functionType) {
+                String returnType = toNativeType(functionType.getReturnType());
+                if (functionType.isExternal()) {
                     return makeFunctionType(javaExternalFunctionClassName(), returnType);
                 } else {
                     return makeFunctionType(lambdaExpressionClassName(), returnType);
                 }
-            } else if (type instanceof DMNFunctionType) {
-                TFunctionKind kind = ((DMNFunctionType) type).getKind();
+            } else if (type instanceof DMNFunctionType functionType) {
+                TFunctionKind kind = functionType.getKind();
                 if (isFEELFunction(kind)) {
-                    String returnType = toNativeType(((FunctionType) type).getReturnType());
+                    String returnType = toNativeType(functionType.getReturnType());
                     return makeFunctionType(lambdaExpressionClassName(), returnType);
                 } else if (isJavaFunction(kind)) {
-                    String returnType = toNativeType(((FunctionType) type).getReturnType());
+                    String returnType = toNativeType(functionType.getReturnType());
                     return makeFunctionType(javaExternalFunctionClassName(), returnType);
                 }
-                throw new DMNRuntimeException(String.format("Type %s is not supported yet", type));
+                throw new DMNRuntimeException("Type %s is not supported yet".formatted(type));
             }
-            throw new DMNRuntimeException(String.format("Type %s is not supported yet", type));
+            throw new DMNRuntimeException("Type %s is not supported yet".formatted(type));
         }
-        throw new IllegalArgumentException(String.format("Type '%s' is not supported yet", type));
+        throw new IllegalArgumentException("Type '%s' is not supported yet".formatted(type));
     }
 
     @Override
     public String makeListType(String listType, String elementType) {
-        return String.format("%s<%s>", listType, elementType);
+        return "%s<%s>".formatted(listType, elementType);
     }
 
     @Override
@@ -1856,7 +1853,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     protected String makeFunctionType(String name, String returnType) {
-        return String.format("%s<%s>", name, returnType);
+        return "%s<%s>".formatted(name, returnType);
     }
 
     @Override
@@ -1869,7 +1866,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (StringUtils.isBlank(pkg)) {
             return clsName;
         } else {
-            return String.format("%s.%s", pkg, clsName);
+            return "%s.%s".formatted(pkg, clsName);
         }
     }
 
@@ -1908,27 +1905,27 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String getterName(String name) {
-        return String.format("get%s", this.upperCaseFirst(name));
+        return "get%s".formatted(this.upperCaseFirst(name));
     }
 
     @Override
     public String getter(String name) {
-        return String.format("%s()", getterName(name));
+        return "%s()".formatted(getterName(name));
     }
 
     @Override
     public String setter(String name, String args) {
-        return String.format("set%s(%s)", this.upperCaseFirst(name), args);
+        return "set%s(%s)".formatted(this.upperCaseFirst(name), args);
     }
 
     @Override
     public String contextGetter(String name) {
-        return String.format("get(\"%s\")", name);
+        return "get(\"%s\")".formatted(name);
     }
 
     @Override
     public String contextSetter(String name) {
-        return String.format("put(\"%s\", ", name);
+        return "put(\"%s\", ".formatted(name);
     }
 
     @Override
@@ -2073,10 +2070,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String asEmptyList(TDRGElement element) {
         Type type = drgElementOutputFEELType(element);
-        if (type instanceof ListType) {
-            return this.nativeFactory.asList(((ListType) type).getElementType(), "");
+        if (type instanceof ListType listType) {
+            return this.nativeFactory.asList(listType.getElementType(), "");
         }
-        throw new DMNRuntimeException(String.format("Expected List Type found '%s' instead", type));
+        throw new DMNRuntimeException("Expected List Type found '%s' instead".formatted(type));
     }
 
     @Override
@@ -2141,7 +2138,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if ("proto3".equals(protoVersion)) {
             return protoVersion;
         }
-        throw new DMNRuntimeException(String.format("Illegal proto version '%s'", protoVersion));
+        throw new DMNRuntimeException("Illegal proto version '%s'".formatted(protoVersion));
     }
 
     @Override
@@ -2347,12 +2344,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String makeIntegerForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("java.lang.Integer.toString(%s)", text));
+        return this.nativeFactory.constructor(getNativeNumberType(), "java.lang.Integer.toString(%s)".formatted(text));
     }
 
     @Override
     public String makeDecimalForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("java.lang.Double.toString(%s)", text));
+        return this.nativeFactory.constructor(getNativeNumberType(), "java.lang.Double.toString(%s)".formatted(text));
     }
 
     @Override
@@ -2416,7 +2413,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     private String makeDateTimeLiteral(String constructor, String text) {
         if (!text.startsWith(constructor)) {
-            text = String.format("%s(\"%s\")", constructor, text);
+            text = "%s(\"%s\")".formatted(constructor, text);
         }
         return this.nativeFactory.prefixWithSelf(text);
     }

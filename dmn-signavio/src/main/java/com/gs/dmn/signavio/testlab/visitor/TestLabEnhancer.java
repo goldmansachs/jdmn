@@ -58,7 +58,7 @@ public class TestLabEnhancer extends NopTestLabVisitor<EnhancerContext> {
                         expression.accept(this, context.withType(itemDefinition));
                     } catch (Exception e) {
                         String requirementName = parameterDefinition.getRequirementName();
-                        throw new DMNRuntimeException(String.format("Error in TestCase '%d' for '%s'", testCaseIndex + 1, requirementName), e);
+                        throw new DMNRuntimeException("Error in TestCase '%d' for '%s'".formatted(testCaseIndex + 1, requirementName), e);
                     }
                 }
             }

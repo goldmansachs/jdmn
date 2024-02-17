@@ -156,23 +156,23 @@ public abstract class ProtoBufferFactory {
         type = Type.extractTypeFromConstraint(type);
         if (type instanceof AnyType) {
             return "Object";
-        } else if (type instanceof NamedType) {
-            String typeName = ((NamedType) type).getName();
+        } else if (type instanceof NamedType namedType) {
+            String typeName = namedType.getName();
             if (StringUtils.isBlank(typeName)) {
-                throw new DMNRuntimeException(String.format("Missing type name in '%s'", type));
+                throw new DMNRuntimeException("Missing type name in '%s'".formatted(type));
             }
             String primitiveType = this.toNativeProtoType(typeName);
             if (!StringUtils.isBlank(primitiveType)) {
                 return primitiveType;
             } else {
-                if (type instanceof ItemDefinitionType) {
-                    return qualifiedProtoMessageName((ItemDefinitionType) type);
+                if (type instanceof ItemDefinitionType definitionType) {
+                    return qualifiedProtoMessageName(definitionType);
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot infer platform type for '%s'", type));
+                    throw new DMNRuntimeException("Cannot infer platform type for '%s'".formatted(type));
                 }
             }
-        }  else if (type instanceof ListType) {
-            Type elementType = ((ListType) type).getElementType();
+        }  else if (type instanceof ListType listType) {
+            Type elementType = listType.getElementType();
             if (elementType instanceof AnyType) {
                 return this.transformer.makeListType(DMNToJavaTransformer.LIST_TYPE);
             } else {
@@ -180,7 +180,7 @@ public abstract class ProtoBufferFactory {
                 return this.transformer.makeListType(DMNToJavaTransformer.LIST_TYPE, fieldType);
             }
         }
-        throw new IllegalArgumentException(String.format("Type '%s' is not supported yet", type));
+        throw new IllegalArgumentException("Type '%s' is not supported yet".formatted(type));
     }
 
     private FieldType protoType(TItemDefinition itemDefinition) {
@@ -193,24 +193,24 @@ public abstract class ProtoBufferFactory {
         String modifier = OPTIONAL;
         if (type instanceof AnyType) {
             return new FieldType(modifier, "Any");
-        } else if (type instanceof NamedType) {
-            String typeName = ((NamedType) type).getName();
+        } else if (type instanceof NamedType namedType) {
+            String typeName = namedType.getName();
             if (StringUtils.isBlank(typeName)) {
-                throw new DMNRuntimeException(String.format("Missing type name in '%s'", type));
+                throw new DMNRuntimeException("Missing type name in '%s'".formatted(type));
             }
             String primitiveType = toProtoType(typeName);
             if (!StringUtils.isBlank(primitiveType)) {
                 return new FieldType(modifier, primitiveType);
             } else {
-                if (type instanceof ItemDefinitionType) {
-                    String qType = qualifiedProtoMessageName((ItemDefinitionType) type);
+                if (type instanceof ItemDefinitionType definitionType) {
+                    String qType = qualifiedProtoMessageName(definitionType);
                     return new FieldType(modifier, qType);
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot infer platform type for '%s'", type));
+                    throw new DMNRuntimeException("Cannot infer platform type for '%s'".formatted(type));
                 }
             }
-        }  else if (type instanceof ListType) {
-            Type elementType = ((ListType) type).getElementType();
+        }  else if (type instanceof ListType listType) {
+            Type elementType = listType.getElementType();
             if (elementType instanceof AnyType) {
                 return new FieldType(REPEATED, "Any");
             } else {
@@ -218,7 +218,7 @@ public abstract class ProtoBufferFactory {
                 return new FieldType(REPEATED, fieldType.getType());
             }
         }
-        throw new IllegalArgumentException(String.format("Type '%s' is not supported yet", type));
+        throw new IllegalArgumentException("Type '%s' is not supported yet".formatted(type));
     }
 
     private String toProtoType(String feelType) {
@@ -233,7 +233,7 @@ public abstract class ProtoBufferFactory {
     public String protoGetter(String name, Type type) {
         String protoName = protoName(name);
         if (type instanceof ListType) {
-            return String.format("%sList()", this.transformer.getterName(protoName));
+            return "%sList()".formatted(this.transformer.getterName(protoName));
         } else {
             return this.transformer.getter(protoName);
         }
@@ -242,7 +242,7 @@ public abstract class ProtoBufferFactory {
     public String protoSetter(String name, Type type, String args) {
         String protoName = protoName(name);
         if (type instanceof ListType) {
-            return String.format("addAll%s(%s)", StringUtils.capitalize(protoName), args);
+            return "addAll%s(%s)".formatted(StringUtils.capitalize(protoName), args);
         } else {
             return this.transformer.setter(protoName, args);
         }

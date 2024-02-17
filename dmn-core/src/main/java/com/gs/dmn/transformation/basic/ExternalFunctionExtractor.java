@@ -33,18 +33,18 @@ public class ExternalFunctionExtractor {
         String methodName = null;
         List<String> paramTypes = new ArrayList<>();
         TExpression body = functionDefinition.getExpression();
-        if (body instanceof TContext) {
-            for (TContextEntry entry: ((TContext) body).getContextEntry()) {
+        if (body instanceof TContext context) {
+            for (TContextEntry entry: context.getContextEntry()) {
                 String name = entry.getVariable().getName();
                 if ("class".equals(name)) {
                     TExpression value = entry.getExpression();
-                    if (value instanceof TLiteralExpression) {
-                        className = ((TLiteralExpression) value).getText().replaceAll("\"", "");
+                    if (value instanceof TLiteralExpression expression) {
+                        className = expression.getText().replaceAll("\"", "");
                     }
                 } else if (isMethodSignature(name)) {
                     TExpression value = entry.getExpression();
-                    if (value instanceof TLiteralExpression) {
-                        String signature = ((TLiteralExpression) value).getText().replaceAll("\"", "");
+                    if (value instanceof TLiteralExpression expression) {
+                        String signature = expression.getText().replaceAll("\"", "");
                         int lpIndex = signature.indexOf('(');
                         int rpIndex = signature.indexOf(')');
                         methodName = signature.substring(0, lpIndex);
@@ -59,7 +59,7 @@ public class ExternalFunctionExtractor {
         if (className != null && methodName != null) {
             return new JavaFunctionInfo(className, methodName, paramTypes);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot extract Java function info for element '%s'", element.getName()));
+            throw new DMNRuntimeException("Cannot extract Java function info for element '%s'".formatted(element.getName()));
         }
     }
 
@@ -100,7 +100,7 @@ public class ExternalFunctionExtractor {
         if (className != null && methodName != null) {
             return new JavaFunctionInfo(className, methodName, paramTypes);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot extract Java function info for element '%s'", element.getName()));
+            throw new DMNRuntimeException("Cannot extract Java function info for element '%s'".formatted(element.getName()));
         }
     }
 

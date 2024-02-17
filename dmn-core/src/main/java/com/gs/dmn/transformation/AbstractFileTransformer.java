@@ -61,7 +61,7 @@ public abstract class AbstractFileTransformer implements FileTransformer {
             outputFolder.mkdirs();
             return outputFolder;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot compute output folder for child '%s' and root '%s'", child.getCanonicalPath(), root.getCanonicalPath()));
+            throw new DMNRuntimeException("Cannot compute output folder for child '%s' and root '%s'".formatted(child.getCanonicalPath(), root.getCanonicalPath()));
         }
     }
 
@@ -79,7 +79,7 @@ public abstract class AbstractFileTransformer implements FileTransformer {
             String relativePath = childPath.substring(parentPath.length());
             return relativePath.startsWith("/") ? relativePath.substring(1) : relativePath;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot compute relative path for parent '%s' and child '%s'", parentPath, childPath));
+            throw new DMNRuntimeException("Cannot compute relative path for parent '%s' and child '%s'".formatted(parentPath, childPath));
         }
     }
 

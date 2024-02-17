@@ -28,7 +28,7 @@ public abstract class LabelDuplicationValidator extends SimpleDMNValidator {
         for(TDMNElement decision: elements) {
             String label = decision.getLabel();
             if (label == null) {
-                throw new RuntimeException(String.format("%s has no label", decision.getId()));
+                throw new RuntimeException("%s has no label".formatted(decision.getId()));
             }
             List<TDMNElement> elementList = map.computeIfAbsent(label, k -> new ArrayList<>());
             elementList.add(decision);
@@ -38,10 +38,10 @@ public abstract class LabelDuplicationValidator extends SimpleDMNValidator {
             List<TDMNElement> elementList = entry.getValue();
             if (!StringUtils.isBlank(key) && elementList.size() > 1) {
                 String elementKind = elementList.get(0).getClass().getSimpleName().substring(1);
-                errors.add(String.format("Found %d %s with duplicated label '%s'", elementList.size(), elementKind, key));
+                errors.add("Found %d %s with duplicated label '%s'".formatted(elementList.size(), elementKind, key));
                 for(TDMNElement e: elementList) {
                     if (e instanceof TDRGElement) {
-                        errors.add(String.format("Label = '%s' Id = '%s' kind = '%s'", key, e.getId(), e.getClass().getSimpleName()));
+                        errors.add("Label = '%s' Id = '%s' kind = '%s'".formatted(key, e.getId(), e.getClass().getSimpleName()));
                     }
                 }
             }

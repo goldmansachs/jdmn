@@ -54,12 +54,12 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (from instanceof LocalDate) {
-            return (LocalDate) from;
-        } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).toLocalDate();
+        if (from instanceof LocalDate date) {
+            return date;
+        } else if (from instanceof ZonedDateTime time) {
+            return time.toLocalDate();
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException("Cannot convert '%s' to date".formatted(from.getClass().getSimpleName()));
     }
 
     @Override
@@ -80,7 +80,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         if (offset != null) {
             // Make ZoneOffset
             String sign = offset.getSign() < 0 ? "-" : "+";
-            String offsetString = String.format("%s%02d:%02d:%02d", sign, (long) offset.getHours(), (long) offset.getMinutes(), offset.getSeconds());
+            String offsetString = "%s%02d:%02d:%02d".formatted(sign, (long) offset.getHours(), (long) offset.getMinutes(), offset.getSeconds());
             ZoneOffset zoneOffset = ZoneOffset.of(offsetString);
 
             // Make OffsetTime and add nanos
@@ -103,7 +103,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         if (offset != null) {
             // Make ZoneOffset
             String sign = offset.getSign() < 0 ? "-" : "+";
-            String offsetString = String.format("%s%02d:%02d:%02d", sign, (long) offset.getHours(), (long) offset.getMinutes(), offset.getSeconds());
+            String offsetString = "%s%02d:%02d:%02d".formatted(sign, (long) offset.getHours(), (long) offset.getMinutes(), offset.getSeconds());
             ZoneOffset zoneOffset = ZoneOffset.of(offsetString);
 
             // Make OffsetTime and add nanos
@@ -128,14 +128,14 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (from instanceof LocalDate) {
-            return ((LocalDate) from).atStartOfDay(ZoneOffset.UTC).toOffsetDateTime().toOffsetTime();
-        } else if (from instanceof OffsetTime) {
-            return (OffsetTime) from;
-        } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).toOffsetDateTime().toOffsetTime();
+        if (from instanceof LocalDate date) {
+            return date.atStartOfDay(ZoneOffset.UTC).toOffsetDateTime().toOffsetTime();
+        } else if (from instanceof OffsetTime time) {
+            return time;
+        } else if (from instanceof ZonedDateTime time) {
+            return time.toOffsetDateTime().toOffsetTime();
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException("Cannot convert '%s' to time".formatted(from.getClass().getSimpleName()));
     }
 
     @Override
@@ -145,10 +145,10 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         }
 
         if (this.hasZoneId(from) && this.hasZoneOffset(from)) {
-            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", from));
+            throw new DMNRuntimeException("Time literal '%s' has both a zone offset and zone id".formatted(from));
         }
         if (!BEGIN_YEAR.matcher(from).find()) {
-            throw new DMNRuntimeException(String.format("Illegal year in '%s'", from));
+            throw new DMNRuntimeException("Illegal year in '%s'".formatted(from));
         }
         return makeZonedDateTime(from);
     }
@@ -159,19 +159,16 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (timeObj instanceof OffsetTime) {
-            OffsetTime time = (OffsetTime) timeObj;
-            if (dateObj instanceof LocalDate) {
-                LocalDate date = (LocalDate) dateObj;
+        if (timeObj instanceof OffsetTime time) {
+            if (dateObj instanceof LocalDate date) {
                 ZoneOffset offset = time.getOffset();
                 LocalDateTime localDateTime = LocalDateTime.of(date, time.toLocalTime());
                 return ZonedDateTime.ofInstant(localDateTime, offset, ZoneId.of(offset.getId()));
-            } else if (dateObj instanceof ZonedDateTime) {
-                ZonedDateTime date = (ZonedDateTime) dateObj;
+            } else if (dateObj instanceof ZonedDateTime date) {
                 return dateAndTime(date.toLocalDate(), time);
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' and '%s' to date and time", dateObj.getClass().getSimpleName(), timeObj.getClass().getSimpleName()));
+        throw new DMNRuntimeException("Cannot convert '%s' and '%s' to date and time".formatted(dateObj.getClass().getSimpleName(), timeObj.getClass().getSimpleName()));
     }
 
     //
@@ -183,12 +180,12 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (date instanceof LocalDate) {
-            return ((LocalDate) date).getYear();
-        } else if (date instanceof ZonedDateTime) {
-            return ((ZonedDateTime) date).getYear();
+        if (date instanceof LocalDate localDate) {
+            return localDate.getYear();
+        } else if (date instanceof ZonedDateTime time) {
+            return time.getYear();
         }
-        throw new RuntimeException(String.format("Cannot extract 'year' from %s", date));
+        throw new RuntimeException("Cannot extract 'year' from %s".formatted(date));
     }
 
     @Override
@@ -197,12 +194,12 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (date instanceof LocalDate) {
-            return ((LocalDate) date).getMonth().getValue();
-        } else if (date instanceof ZonedDateTime) {
-            return ((ZonedDateTime) date).getMonth().getValue();
+        if (date instanceof LocalDate localDate) {
+            return localDate.getMonth().getValue();
+        } else if (date instanceof ZonedDateTime time) {
+            return time.getMonth().getValue();
         }
-        throw new RuntimeException(String.format("Cannot extract 'month' from %s", date));
+        throw new RuntimeException("Cannot extract 'month' from %s".formatted(date));
     }
 
     @Override
@@ -211,12 +208,12 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (date instanceof LocalDate) {
-            return ((LocalDate) date).getDayOfMonth();
-        } else if (date instanceof ZonedDateTime) {
-            return ((ZonedDateTime) date).getDayOfMonth();
+        if (date instanceof LocalDate localDate) {
+            return localDate.getDayOfMonth();
+        } else if (date instanceof ZonedDateTime time) {
+            return time.getDayOfMonth();
         }
-        throw new RuntimeException(String.format("Cannot extract 'day' from %s", date));
+        throw new RuntimeException("Cannot extract 'day' from %s".formatted(date));
     }
 
     @Override
@@ -234,12 +231,12 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (time instanceof OffsetTime) {
-            return ((OffsetTime) time).getHour();
-        } else if (time instanceof ZonedDateTime) {
-            return ((ZonedDateTime) time).getHour();
+        if (time instanceof OffsetTime offsetTime) {
+            return offsetTime.getHour();
+        } else if (time instanceof ZonedDateTime dateTime) {
+            return dateTime.getHour();
         }
-        throw new RuntimeException(String.format("Cannot extract 'hour' from %s", time));
+        throw new RuntimeException("Cannot extract 'hour' from %s".formatted(time));
     }
 
     @Override
@@ -248,12 +245,12 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (time instanceof OffsetTime) {
-            return ((OffsetTime) time).getMinute();
-        } else if (time instanceof ZonedDateTime) {
-            return ((ZonedDateTime) time).getMinute();
+        if (time instanceof OffsetTime offsetTime) {
+            return offsetTime.getMinute();
+        } else if (time instanceof ZonedDateTime dateTime) {
+            return dateTime.getMinute();
         }
-        throw new RuntimeException(String.format("Cannot extract 'minute' from %s", time));
+        throw new RuntimeException("Cannot extract 'minute' from %s".formatted(time));
     }
 
     //
@@ -265,12 +262,12 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (time instanceof OffsetTime) {
-            return ((OffsetTime) time).getSecond();
-        } else if (time instanceof ZonedDateTime) {
-            return ((ZonedDateTime) time).getSecond();
+        if (time instanceof OffsetTime offsetTime) {
+            return offsetTime.getSecond();
+        } else if (time instanceof ZonedDateTime dateTime) {
+            return dateTime.getSecond();
         }
-        throw new RuntimeException(String.format("Cannot extract 'second' from %s", time));
+        throw new RuntimeException("Cannot extract 'second' from %s".formatted(time));
     }
 
     @Override
@@ -280,14 +277,14 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
         }
 
         // timezone offset in seconds
-        if (time instanceof OffsetTime) {
-            int secondsOffset = ((OffsetTime) time).getOffset().getTotalSeconds();
+        if (time instanceof OffsetTime offsetTime) {
+            int secondsOffset = offsetTime.getOffset().getTotalSeconds();
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
-        } else if (time instanceof ZonedDateTime) {
-            int secondsOffset = ((ZonedDateTime) time).getOffset().getTotalSeconds();
+        } else if (time instanceof ZonedDateTime dateTime) {
+            int secondsOffset = dateTime.getOffset().getTotalSeconds();
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(secondsOffset);
         }
-        throw new RuntimeException(String.format("Cannot extract 'timeOffset' from %s", time));
+        throw new RuntimeException("Cannot extract 'timeOffset' from %s".formatted(time));
     }
 
     @Override
@@ -296,12 +293,12 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (time instanceof OffsetTime) {
-            return ((OffsetTime) time).getOffset().getId();
-        } else if (time instanceof ZonedDateTime) {
-            return ((ZonedDateTime) time).getZone().getId();
+        if (time instanceof OffsetTime offsetTime) {
+            return offsetTime.getOffset().getId();
+        } else if (time instanceof ZonedDateTime dateTime) {
+            return dateTime.getZone().getId();
         }
-        throw new RuntimeException(String.format("Cannot extract 'timeOffset' from %s", time));
+        throw new RuntimeException("Cannot extract 'timeOffset' from %s".formatted(time));
     }
 
     @Override
@@ -364,14 +361,14 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (from instanceof LocalDate) {
-            return (LocalDate) from;
+        if (from instanceof LocalDate date) {
+            return date;
         } else if (from instanceof OffsetTime) {
             return null;
         } else if (from instanceof ZonedDateTime) {
             return date(from);
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException("Cannot convert '%s' to date".formatted(from.getClass().getSimpleName()));
     }
 
     @Override
@@ -382,12 +379,12 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
 
         if (from instanceof LocalDate) {
             return time(from);
-        } else if (from instanceof OffsetTime) {
-            return (OffsetTime) from;
+        } else if (from instanceof OffsetTime time) {
+            return time;
         } else if (from instanceof ZonedDateTime) {
             return time(from);
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException("Cannot convert '%s' to time".formatted(from.getClass().getSimpleName()));
     }
 
     @Override
@@ -396,16 +393,16 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
             return null;
         }
 
-        if (from instanceof LocalDate) {
-            return ((LocalDate) from).atStartOfDay(UTC);
-        } else if (from instanceof LocalDateTime) {
-            return ((LocalDateTime) from).atZone(UTC);
-        } else if (from instanceof OffsetDateTime) {
-            return ((OffsetDateTime) from).atZoneSameInstant(UTC);
-        } else if (from instanceof ZonedDateTime) {
-            return (ZonedDateTime) from;
+        if (from instanceof LocalDate date) {
+            return date.atStartOfDay(UTC);
+        } else if (from instanceof LocalDateTime time) {
+            return time.atZone(UTC);
+        } else if (from instanceof OffsetDateTime time) {
+            return time.atZoneSameInstant(UTC);
+        } else if (from instanceof ZonedDateTime time) {
+            return time;
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date time", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException("Cannot convert '%s' to date time".formatted(from.getClass().getSimpleName()));
     }
 
     @Override
@@ -447,7 +444,7 @@ public class MixedDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Num
                     result = x;
                 }
             } else {
-                throw new DMNRuntimeException(String.format("Cannot compare '%s' and '%s'", result, x));
+                throw new DMNRuntimeException("Cannot compare '%s' and '%s'".formatted(result, x));
             }
         }
         return result;

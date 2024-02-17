@@ -53,7 +53,7 @@ public abstract class DMNSerializer {
                     TDefinitions definitions = readModel(file);
                     definitionsList.add(definitions);
                 } else {
-                    this.logger.warn(String.format("Skipping file '%s", file == null ? null: file.getAbsoluteFile()));
+                    this.logger.warn("Skipping file '%s".formatted(file == null ? null : file.getAbsoluteFile()));
                 }
             }
             return definitionsList;
@@ -77,58 +77,58 @@ public abstract class DMNSerializer {
             }
             return definitionsList;
         } else {
-            throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
+            throw new DMNRuntimeException("Invalid DMN file %s".formatted(file.getAbsoluteFile()));
         }
     }
 
     public TDefinitions readModel(File input) {
         try {
-            this.logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
+            this.logger.info("Reading DMN '%s' ...".formatted(input.getAbsolutePath()));
 
             TDefinitions definitions = transform(unmarshall(input));
             this.logger.info("DMN read.");
             return definitions;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.getAbsolutePath()), e);
+            throw new DMNRuntimeException("Cannot read DMN from '%s'".formatted(input.getAbsolutePath()), e);
         }
     }
 
     public TDefinitions readModel(InputStream input) {
         try {
-            this.logger.info(String.format("Reading DMN '%s' ...", input.toString()));
+            this.logger.info("Reading DMN '%s' ...".formatted(input.toString()));
 
             TDefinitions definitions = transform(unmarshall(input));
 
             this.logger.info("DMN read.");
             return definitions;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
+            throw new DMNRuntimeException("Cannot read DMN from '%s'".formatted(input.toString()), e);
         }
     }
 
     public TDefinitions readModel(URL input) {
         try {
-            this.logger.info(String.format("Reading DMN '%s' ...", input.toString()));
+            this.logger.info("Reading DMN '%s' ...".formatted(input.toString()));
 
             TDefinitions definitions = transform(unmarshall(input));
 
             this.logger.info("DMN read.");
             return definitions;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
+            throw new DMNRuntimeException("Cannot read DMN from '%s'".formatted(input.toString()), e);
         }
     }
 
     public TDefinitions readModel(Reader input) {
         try {
-            this.logger.info(String.format("Reading DMN '%s' ...", input.toString()));
+            this.logger.info("Reading DMN '%s' ...".formatted(input.toString()));
 
             TDefinitions result = transform(unmarshall(input));
 
             this.logger.info("DMN read.");
             return result;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
+            throw new DMNRuntimeException("Cannot read DMN from '%s'".formatted(input.toString()), e);
         }
     }
 
@@ -136,7 +136,7 @@ public abstract class DMNSerializer {
         try (FileOutputStream fos = new FileOutputStream(output)) {
             this.dmnMarshaller.marshal(definitions, fos);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output.getPath()), e);
+            throw new DMNRuntimeException("Cannot write DMN to '%s'".formatted(output.getPath()), e);
         }
     }
 
@@ -155,7 +155,7 @@ public abstract class DMNSerializer {
         } else if (dmnVersion == DMNVersion.DMN_14) {
             return this.dmnTransformer.transform14ToLatestDefinitions(definitions);
         } else {
-            throw new DMNRuntimeException(String.format("'%s' is not supported", definitions.getClass()));
+            throw new DMNRuntimeException("'%s' is not supported".formatted(definitions.getClass()));
         }
     }
 

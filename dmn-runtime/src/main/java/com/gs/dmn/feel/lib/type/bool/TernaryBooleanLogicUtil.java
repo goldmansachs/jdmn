@@ -30,8 +30,8 @@ public class TernaryBooleanLogicUtil {
     }
 
     public Boolean not(Object operand) {
-        if (operand instanceof Boolean) {
-            return !(Boolean) operand;
+        if (operand instanceof Boolean boolean1) {
+            return !boolean1;
         } else {
             return null;
         }
@@ -58,10 +58,10 @@ public class TernaryBooleanLogicUtil {
     }
 
     private boolean isBooleanTrue(Object obj) {
-        return obj instanceof Boolean && (Boolean )obj;
+        return obj instanceof Boolean b && b;
     }
 
     private boolean isBooleanFalse(Object obj) {
-        return obj instanceof Boolean && ! (Boolean )obj;
+        return obj instanceof Boolean b && ! b;
     }
 }

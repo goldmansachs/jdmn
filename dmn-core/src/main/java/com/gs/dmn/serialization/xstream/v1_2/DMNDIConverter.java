@@ -45,10 +45,10 @@ public class DMNDIConverter extends DMNBaseElementConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         DMNDI list = (DMNDI) parent;
 
-        if (child instanceof DMNDiagram) {
-            list.getDMNDiagram().add((DMNDiagram) child);
-        } else if (child instanceof DMNStyle) {
-            list.getDMNStyle().add((DMNStyle) child);
+        if (child instanceof DMNDiagram diagram) {
+            list.getDMNDiagram().add(diagram);
+        } else if (child instanceof DMNStyle style) {
+            list.getDMNStyle().add(style);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }

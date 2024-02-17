@@ -52,6 +52,6 @@ public class FunctionDefinitionTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("FunctionDefinition(%s, %s, %s)", element, functionDefinition, body);
+        return "FunctionDefinition(%s, %s, %s)".formatted(element, functionDefinition, body);
     }
 }

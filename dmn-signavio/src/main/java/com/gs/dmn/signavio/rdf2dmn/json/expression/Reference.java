@@ -37,7 +37,7 @@ public class Reference extends Expression {
     @Override
     public String toString() {
         String list = String.join(", ", pathElements);
-        return String.format("%s(%s, %s, %s)", this.getClass().getSimpleName(), id, shapeId, list);
+        return "%s(%s, %s, %s)".formatted(this.getClass().getSimpleName(), id, shapeId, list);
     }
 
     @Override

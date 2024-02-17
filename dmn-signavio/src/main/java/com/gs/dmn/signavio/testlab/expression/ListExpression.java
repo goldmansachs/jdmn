@@ -47,7 +47,7 @@ public class ListExpression extends Expression {
                 }
             }
             String elements = String.join(", ", elementsList);
-            return String.format("[%s]", elements);
+            return "[%s]".formatted(elements);
         }
     }
 
@@ -68,7 +68,7 @@ public class ListExpression extends Expression {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", this.getClass().getSimpleName(), value);
+        return "%s(%s)".formatted(this.getClass().getSimpleName(), value);
     }
 
     @Override

@@ -38,6 +38,6 @@ public class InstanceOfTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("InstanceOf(%s, %s)", leftOperand, rightOperandType);
+        return "InstanceOf(%s, %s)".formatted(leftOperand, rightOperandType);
     }
 }

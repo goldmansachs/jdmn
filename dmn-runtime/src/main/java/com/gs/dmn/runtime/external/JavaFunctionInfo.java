@@ -75,68 +75,68 @@ public class JavaFunctionInfo {
             Object arg = argList.get(i);
             String javaParamType = javaParamTypes.get(i);
             if ("double".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
-                    convertedArgList.add(((BigDecimal) arg).doubleValue());
+                if (arg instanceof BigDecimal decimal) {
+                    convertedArgList.add(decimal.doubleValue());
                 } else if (arg instanceof Double) {
                     convertedArgList.add(arg);
                 } else {
-                    throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
+                    throw new DMNRuntimeException("Conversion from '%s' to '%s' is not supported yet".formatted(arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("float".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
-                    convertedArgList.add((float) ((BigDecimal) arg).doubleValue());
-                } else if (arg instanceof Double) {
-                    convertedArgList.add((float) ((Double) arg).doubleValue());
+                if (arg instanceof BigDecimal decimal) {
+                    convertedArgList.add((float) decimal.doubleValue());
+                } else if (arg instanceof Double double1) {
+                    convertedArgList.add((float) double1.doubleValue());
                 } else {
-                    throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
+                    throw new DMNRuntimeException("Conversion from '%s' to '%s' is not supported yet".formatted(arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("long".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
-                    convertedArgList.add((long)((BigDecimal) arg).intValue());
-                } else if (arg instanceof Double) {
-                    convertedArgList.add(((Double) arg).intValue());
+                if (arg instanceof BigDecimal decimal) {
+                    convertedArgList.add((long)decimal.intValue());
+                } else if (arg instanceof Double double1) {
+                    convertedArgList.add(double1.intValue());
                 } else {
-                    throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
+                    throw new DMNRuntimeException("Conversion from '%s' to '%s' is not supported yet".formatted(arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("int".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
-                    convertedArgList.add(((BigDecimal) arg).intValue());
-                } else if (arg instanceof Double) {
-                    convertedArgList.add(((Double) arg).intValue());
+                if (arg instanceof BigDecimal decimal) {
+                    convertedArgList.add(decimal.intValue());
+                } else if (arg instanceof Double double1) {
+                    convertedArgList.add(double1.intValue());
                 } else {
-                    throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
+                    throw new DMNRuntimeException("Conversion from '%s' to '%s' is not supported yet".formatted(arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("short".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
-                    convertedArgList.add((short)((BigDecimal) arg).intValue());
-                } else if (arg instanceof Double) {
-                    convertedArgList.add((short)((Double) arg).intValue());
+                if (arg instanceof BigDecimal decimal) {
+                    convertedArgList.add((short)decimal.intValue());
+                } else if (arg instanceof Double double1) {
+                    convertedArgList.add((short)double1.intValue());
                 } else {
-                    throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
+                    throw new DMNRuntimeException("Conversion from '%s' to '%s' is not supported yet".formatted(arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("byte".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
-                    convertedArgList.add((byte)((BigDecimal) arg).intValue());
-                } else if (arg instanceof Double) {
-                    convertedArgList.add((byte)((Double) arg).intValue());
+                if (arg instanceof BigDecimal decimal) {
+                    convertedArgList.add((byte)decimal.intValue());
+                } else if (arg instanceof Double double1) {
+                    convertedArgList.add((byte)double1.intValue());
                 } else {
-                    throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
+                    throw new DMNRuntimeException("Conversion from '%s' to '%s' is not supported yet".formatted(arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("char".equals(javaParamType)) {
-                if (arg instanceof String) {
-                    if (((String) arg).length() == 1) {
-                        convertedArgList.add(((String) arg).charAt(0));
+                if (arg instanceof String string) {
+                    if (string.length() == 1) {
+                        convertedArgList.add(string.charAt(0));
                     } else {
-                        throw new DMNRuntimeException(String.format("Cannot convert string '%s' to 'char'", arg));
+                        throw new DMNRuntimeException("Cannot convert string '%s' to 'char'".formatted(arg));
                     }
                 } else {
-                    throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
+                    throw new DMNRuntimeException("Conversion from '%s' to '%s' is not supported yet".formatted(arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("java.lang.String".equals(javaParamType)) {
                 if (arg instanceof String) {
                     convertedArgList.add(arg);
                 } else {
-                    throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
+                    throw new DMNRuntimeException("Conversion from '%s' to '%s' is not supported yet".formatted(arg.getClass().getSimpleName(), javaParamType));
                 }
             } else {
                 convertedArgList.add(arg);

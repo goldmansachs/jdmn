@@ -35,7 +35,7 @@ public class DatetimeLiteral extends SimpleExpression {
         if (value == null) {
             return "null";
         } else {
-            return String.format("date and time(\"%s\")", value);
+            return "date and time(\"%s\")".formatted(value);
         }
     }
 
@@ -56,7 +56,7 @@ public class DatetimeLiteral extends SimpleExpression {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", this.getClass().getSimpleName(), value);
+        return "%s(%s)".formatted(this.getClass().getSimpleName(), value);
     }
 
     @Override

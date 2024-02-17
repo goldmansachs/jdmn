@@ -53,19 +53,19 @@ public class DRGElementReference<T extends TDRGElement> {
 
     public String getQualifiedHref() {
         String id = this.element.getId();
-        return String.format("%s#%s", this.namespace, id);
+        return "%s#%s".formatted(this.namespace, id);
     }
 
     public String getQualifiedImportName() {
         if (ImportPath.isEmpty(this.importPath)) {
             return getElementName();
         } else {
-            return String.format("%s.%s", String.join(".", this.importPath.getPathElements()), getElementName());
+            return "%s.%s".formatted(String.join(".", this.importPath.getPathElements()), getElementName());
         }
     }
 
     @Override
     public String toString() {
-        return String.format("DMNReference(import='%s', namespace='%s', model='%s', element='%s')", this.importPath, this.namespace, this.modelName, this.element.getName());
+        return "DMNReference(import='%s', namespace='%s', model='%s', element='%s')".formatted(this.importPath, this.namespace, this.modelName, this.element.getName());
     }
 }

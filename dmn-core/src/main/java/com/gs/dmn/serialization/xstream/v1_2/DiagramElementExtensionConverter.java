@@ -68,9 +68,9 @@ public class DiagramElementExtensionConverter extends DMNBaseElementConverter {
             String nodeName = reader.getNodeName();
             try {
                 Object object = readObject(reader, context, obj);
-                if (object instanceof DMNBaseElement) {
-                    ((DMNBaseElement) object).setParent(obj);
-                    obj.addChildren((DMNBaseElement) object);
+                if (object instanceof DMNBaseElement element) {
+                    element.setParent(obj);
+                    obj.addChildren(element);
                 }
                 assignChildElement(obj, nodeName, object);
             } catch (CannotResolveClassException e) {

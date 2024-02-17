@@ -90,7 +90,7 @@ public class Context implements Serializable {
             for(int i=0; i<orderedKeys.size(); i++) {
                 Object key = orderedKeys.get(i);
                 Object member = this.get(key);
-                result.append(String.format("%s%s=%s", (i != 0 ? ", " : ""), key, member));
+                result.append("%s%s=%s".formatted((i != 0 ? ", " : ""), key, member));
             }
             result.append("}");
             return result.toString();

@@ -23,6 +23,6 @@ public class Any extends UnaryTest {
 
     @Override
     public String toString() {
-        return String.format("%s()", this.getClass().getSimpleName());
+        return "%s()".formatted(this.getClass().getSimpleName());
     }
 }

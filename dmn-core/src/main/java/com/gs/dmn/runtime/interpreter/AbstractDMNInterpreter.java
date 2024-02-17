@@ -104,12 +104,12 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     public Result evaluateDecision(String namespace, String decisionName, EvaluationContext context) {
         try {
             TDRGElement element = this.repository.findDRGElementByName(namespace, decisionName);
-            if (element instanceof TDecision) {
+            if (element instanceof TDecision decision) {
                 // Infer types for InputData
                 Map<String, Object> informationRequirements = ((DecisionEvaluationContext) context).getInformationRequirements();
                 Map<TInputData, Pair<String, String>> inferredTypes = inferInputDataType(element, informationRequirements);
                 // Make context
-                DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference((TDecision) element);
+                DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference(decision);
                 DMNContext decisionContext = makeDecisionGlobalContext(element, informationRequirements);
                 // Evaluate decision
                 Result result = this.visitor.visitDecisionReference(reference, decisionContext);
@@ -117,7 +117,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 restoreOriginalTypes(inferredTypes);
                 return result;
             } else {
-                throw new DMNRuntimeException(String.format("Cannot find decision namespace='%s' name='%s'", namespace, decisionName));
+                throw new DMNRuntimeException("Cannot find decision namespace='%s' name='%s'".formatted(namespace, decisionName));
             }
         } catch (Exception e) {
             return handleEvaluationError(namespace, "decision", decisionName, e);
@@ -132,8 +132,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 String inputDataName = entry.getKey();
                 Object value = entry.getValue();
                 TDRGElement drgElementByName = findInputData(model, inputDataName);
-                if (drgElementByName instanceof TInputData) {
-                    TInputData inputData = (TInputData) drgElementByName;
+                if (drgElementByName instanceof TInputData inputData) {
                     TInformationItem variable = inputData.getVariable();
                     String originalTypeRef = QualifiedName.toName(variable.getTypeRef());
                     if (Type.isNullOrAny(originalTypeRef)) {
@@ -189,14 +188,14 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         List<Object> argList = ((FunctionInvocationContext) context).getArgList();
         try {
             TDRGElement element = this.repository.findDRGElementByName(namespace, invocableName);
-            if (element instanceof TInvocable) {
+            if (element instanceof TInvocable invocable) {
                 // Make context
-                DRGElementReference<? extends TInvocable> reference = this.repository.makeDRGElementReference((TInvocable) element);
+                DRGElementReference<? extends TInvocable> reference = this.repository.makeDRGElementReference(invocable);
                 DMNContext invocableContext = makeInvocableGlobalContext(reference.getElement(), argList);
                 // Evaluate invocable
                 return this.visitor.visitInvocable(reference, invocableContext);
             } else {
-                throw new DMNRuntimeException(String.format("Cannot find invocable namespace='%s' name='%s'", namespace, invocableName));
+                throw new DMNRuntimeException("Cannot find invocable namespace='%s' name='%s'".formatted(namespace, invocableName));
             }
         } catch (Exception e) {
             return handleEvaluationError(namespace, "invocable", invocableName, e);
@@ -214,7 +213,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             DRGElementReference<TInvocable> reference = this.repository.makeDRGElementReference(invocable);
             return this.visitor.visitInvocable(reference, makeInvocableGlobalContext(((DRGElementReference<? extends TInvocable>) reference).getElement(), argList, parentContext));
         } catch (Exception e) {
-            String errorMessage = String.format("Evaluation error in invocable '%s' in context of element of '%s'", invocable.getName(), parentContext.getElementName());
+            String errorMessage = "Evaluation error in invocable '%s' in context of element of '%s'".formatted(invocable.getName(), parentContext.getElementName());
             this.errorHandler.reportError(errorMessage, e);
             Result result = Result.of(null, NullType.NULL);
             result.addError(errorMessage, e);
@@ -248,7 +247,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
             return output;
         } catch (Exception e) {
-            String errorMessage = String.format("Evaluation error in function definition in context of element '%s'", parentContext.getElementName());
+            String errorMessage = "Evaluation error in function definition in context of element '%s'".formatted(parentContext.getElementName());
             this.errorHandler.reportError(errorMessage, e);
             Result result = Result.of(null, NullType.NULL);
             result.addError(errorMessage, e);
@@ -268,12 +267,12 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             ImportPath invocableImportPath = new ImportPath(importPath, importName);
 
             // Evaluate invocable
-            if (invocable instanceof TBusinessKnowledgeModel) {
-                applyBKM(this.repository.makeDRGElementReference(invocableImportPath, (TBusinessKnowledgeModel) invocable), context);
-            } else if (invocable instanceof TDecisionService) {
-                applyDecisionService(this.repository.makeDRGElementReference(invocableImportPath, (TDecisionService) invocable), context);
+            if (invocable instanceof TBusinessKnowledgeModel model) {
+                applyBKM(this.repository.makeDRGElementReference(invocableImportPath, model), context);
+            } else if (invocable instanceof TDecisionService service) {
+                applyDecisionService(this.repository.makeDRGElementReference(invocableImportPath, service), context);
             } else {
-                throw new DMNRuntimeException(String.format("Not supported invocable '%s'", invocable.getClass().getSimpleName()));
+                throw new DMNRuntimeException("Not supported invocable '%s'".formatted(invocable.getClass().getSimpleName()));
             }
         }
     }
@@ -359,12 +358,12 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     private void bindArguments(TInvocable invocable, List<Object> argList, DMNContext invocableContext) {
-        if (invocable instanceof TBusinessKnowledgeModel) {
-            bindArguments((TBusinessKnowledgeModel) invocable, argList, invocableContext);
-        } else if (invocable instanceof TDecisionService) {
-            bindArguments((TDecisionService) invocable, argList, invocableContext);
+        if (invocable instanceof TBusinessKnowledgeModel model) {
+            bindArguments(model, argList, invocableContext);
+        } else if (invocable instanceof TDecisionService service) {
+            bindArguments(service, argList, invocableContext);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported invocable '%s'", invocable.getClass().getSimpleName()));
+            throw new DMNRuntimeException("Not supported invocable '%s'".formatted(invocable.getClass().getSimpleName()));
         }
     }
 
@@ -426,9 +425,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 // Lookup root context
                 String rootName = pathElements.get(0);
                 Object obj = context.lookupBinding(rootName);
-                if (obj instanceof Context) {
-                    // Lookup inner contexts
-                    Context parentContext = (Context) obj;
+                if (obj instanceof Context parentContext) {
                     for (int i = 1; i < pathElements.size(); i++) {
                         String childName = pathElements.get(i);
                         Context childContext = (Context) parentContext.get(childName);
@@ -441,7 +438,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                     // lookup name
                     return parentContext.get(name);
                 } else {
-                    throw new DMNRuntimeException(String.format("Context value expected, found '%s'", obj.getClass().getSimpleName()));
+                    throw new DMNRuntimeException("Context value expected, found '%s'".formatted(obj.getClass().getSimpleName()));
                 }
             }
         }
@@ -479,7 +476,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                     // bind name -> value
                     parentContext.put(name, value);
                 } catch (Exception e) {
-                    throw new DMNRuntimeException(String.format("cannot bind value to '%s.%s'", importPath.asString(), name), e);
+                    throw new DMNRuntimeException("cannot bind value to '%s.%s'".formatted(importPath.asString(), name), e);
                 }
             }
         }
@@ -651,7 +648,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             TDRGElement element = ((ExpressionEvaluationContext) evaluationContext).getElement();
             Result result = null;
             if (expression == null) {
-                String message = String.format("Missing expression for element '%s'", element == null ? null : element.getName());
+                String message = "Missing expression for element '%s'".formatted(element == null ? null : element.getName());
                 this.errorHandler.reportError(message);
             } else {
                 result = expression.accept(this, evaluationContext);
@@ -694,28 +691,28 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             TExpression functionExp = invocation.getExpression();
             Result functionResult = this.visit(functionExp, EvaluationContext.makeExpressionEvaluationContext(element, parentContext, elementAnnotation));
             Type functionType = Result.type(functionResult);
-            if (functionType instanceof FunctionType) {
+            if (functionType instanceof FunctionType type) {
                 // Make args
                 List<Object> argList = new ArrayList<>();
-                for (FormalParameter<Type> param : ((FunctionType) functionType).getParameters()) {
+                for (FormalParameter<Type> param : type.getParameters()) {
                     String paramName = param.getName();
                     if (argBinding.containsKey(paramName)) {
                         Object argValue = argBinding.get(paramName);
                         argList.add(argValue);
                     } else {
-                        throw new DMNRuntimeException(String.format("Cannot find binding for parameter '%s' in in element '%s'", paramName, element));
+                        throw new DMNRuntimeException("Cannot find binding for parameter '%s' in in element '%s'".formatted(paramName, element));
                     }
                 }
 
                 // Evaluate function invocation
                 Object function = Result.value(functionResult);
-                Result returnResult = elInterpreter.evaluateFunctionInvocation((Function) function, (FunctionType) functionType, argList);
+                Result returnResult = elInterpreter.evaluateFunctionInvocation((Function) function, type, argList);
 
                 // Check result
-                returnResult = typeChecker.checkResult(returnResult, ((FunctionType) functionType).getReturnType());
+                returnResult = typeChecker.checkResult(returnResult, type.getReturnType());
                 return returnResult;
             } else {
-                throw new DMNRuntimeException(String.format("Expecting function type found '%s' in element '%s'", functionType, element));
+                throw new DMNRuntimeException("Expecting function type found '%s' in element '%s'".formatted(functionType, element));
             }
         }
 
@@ -942,7 +939,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             // Evaluate
             Result source = this.visit(expression.getIn().getExpression(), EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
             Object sourceValue = Result.value(source);
-            sourceValue = checkSource(sourceValue, String.format("Expected list in filter boxed expression found '%s' in element '%s'", sourceValue, element.getName()));
+            sourceValue = checkSource(sourceValue, "Expected list in filter boxed expression found '%s' in element '%s'".formatted(sourceValue, element.getName()));
             List<Object> resultValue = new ArrayList<>();
             for (Object item : (List) sourceValue) {
                 String filterParameterName = FilterExpression.FILTER_PARAMETER_NAME;
@@ -969,7 +966,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             // Evaluate
             Result source = this.visit(expression.getIn().getExpression(), EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
             Object sourceValue = Result.value(source);
-            sourceValue = checkSource(sourceValue, String.format("Expected list in filter boxed expression found '%s' in element '%s'", sourceValue, element.getName()));
+            sourceValue = checkSource(sourceValue, "Expected list in filter boxed expression found '%s' in element '%s'".formatted(sourceValue, element.getName()));
             List<Object> resultValue = new ArrayList<>();
             for (Object item : (List) sourceValue) {
                 DMNContext iteratorContext = dmnTransformer.makeIteratorContext(context);
@@ -996,7 +993,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             // Evaluate
             Result source = this.visit(expression.getIn().getExpression(), EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
             Object sourceValue = Result.value(source);
-            sourceValue = checkSource(sourceValue, String.format("Expected list in some boxed expression found '%s' in element '%s'", sourceValue, element.getName()));
+            sourceValue = checkSource(sourceValue, "Expected list in some boxed expression found '%s' in element '%s'".formatted(sourceValue, element.getName()));
             Boolean resultValue = Boolean.FALSE;
             for (Object item : (List) sourceValue) {
                 DMNContext iteratorContext = dmnTransformer.makeIteratorContext(context);
@@ -1026,7 +1023,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             // Evaluate
             Result source = this.visit(expression.getIn().getExpression(), EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
             Object sourceValue = Result.value(source);
-            sourceValue = checkSource(sourceValue, String.format("Expected list in every boxed expression found '%s' in element '%s'", sourceValue, element.getName()));
+            sourceValue = checkSource(sourceValue, "Expected list in every boxed expression found '%s' in element '%s'".formatted(sourceValue, element.getName()));
             Boolean resultValue = Boolean.TRUE;
             for (Object item : (List) sourceValue) {
                 DMNContext iteratorContext = dmnTransformer.makeIteratorContext(context);
@@ -1045,8 +1042,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         }
 
         private List checkSource(Object sourceValue, String errorMessage) {
-            if (sourceValue instanceof List) {
-                return (List) sourceValue;
+            if (sourceValue instanceof List list) {
+                return list;
             } else {
                 throw new DMNRuntimeException(errorMessage);
             }
@@ -1181,8 +1178,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         }
 
         private boolean isFalse(Object o) {
-            if (o instanceof List) {
-                if (((List<Object>) o).stream().anyMatch(t -> t == null || Boolean.FALSE.equals(o))) {
+            if (o instanceof List list) {
+                if (list.stream().anyMatch(t -> t == null || Boolean.FALSE.equals(o))) {
                     return false;
                 }
             }
@@ -1214,18 +1211,18 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                             } else if (aggregation == TBuiltinAggregator.MAX) {
                                 return feelLib.max(decisionOutput);
                             } else if (aggregation == TBuiltinAggregator.COUNT) {
-                                return feelLib.number(String.format("%d", decisionOutput.size()));
+                                return feelLib.number("%d".formatted(decisionOutput.size()));
                             } else if (aggregation == TBuiltinAggregator.SUM) {
                                 return feelLib.sum(decisionOutput);
                             } else {
-                                throw new DMNRuntimeException(String.format("Not supported '%s' aggregation.", aggregation));
+                                throw new DMNRuntimeException("Not supported '%s' aggregation.".formatted(aggregation));
                             }
                         } else {
                             return decisionOutput;
                         }
                     }
                 } else {
-                    throw new DMNRuntimeException(String.format("Hit policy '%s' not supported ", hitPolicy));
+                    throw new DMNRuntimeException("Hit policy '%s' not supported ".formatted(hitPolicy));
                 }
             }
         }
@@ -1268,15 +1265,15 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             }
             Object result = ruleOutput.getResult();
             // Compound decision
-            if (result instanceof Context) {
+            if (result instanceof Context context) {
                 Context newContext = new Context();
-                for (Object key : ((Context) result).keySet()) {
-                    newContext.put(key, ((Pair) ((Context) result).get(key)).getLeft());
+                for (Object key : context.keySet()) {
+                    newContext.put(key, ((Pair) context.get(key)).getLeft());
                 }
                 return newContext;
                 // Simple decision
-            } else if (result instanceof Pair) {
-                return ((Pair) result).getLeft();
+            } else if (result instanceof Pair pair) {
+                return pair.getLeft();
             } else {
                 return result;
             }
@@ -1314,7 +1311,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     Result handleEvaluationError(String namespace, String type, String name, Exception e) {
-        String errorMessage = String.format("Cannot evaluate %s namespace='%s' name='%s'", type, namespace, name);
+        String errorMessage = "Cannot evaluate %s namespace='%s' name='%s'".formatted(type, namespace, name);
         this.errorHandler.reportError(errorMessage, e);
         Result result = Result.of(null, NullType.NULL);
         result.addError(errorMessage, e);

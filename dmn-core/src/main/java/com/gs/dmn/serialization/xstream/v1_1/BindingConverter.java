@@ -46,8 +46,8 @@ public class BindingConverter extends DMNBaseElementConverter {
 
         if (PARAMETER.equals(nodeName)) {
             b.setParameter((TInformationItem) child);
-        } else if (child instanceof TExpression) {
-            b.setExpression((TExpression) child);
+        } else if (child instanceof TExpression expression) {
+            b.setExpression(expression);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }

@@ -39,6 +39,6 @@ public class ConvertArgument extends ConversionTriple {
 
     @Override
     public String toString() {
-        return String.format("ConvertArgument(%s, %s)", param, conversion);
+        return "ConvertArgument(%s, %s)".formatted(param, conversion);
     }
 }

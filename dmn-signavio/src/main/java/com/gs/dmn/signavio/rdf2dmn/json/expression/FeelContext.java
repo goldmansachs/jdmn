@@ -52,8 +52,8 @@ public class FeelContext extends Context {
         InputClause clause = decisionTable.getInputClauses().get(entryIndex);
         Expression expression = clause.getExpression();
         try {
-            if (expression instanceof Reference) {
-                String resourceId = ((Reference) expression).getShapeId();
+            if (expression instanceof Reference reference) {
+                String resourceId = reference.getShapeId();
                 Element resource = rdfModel.findDescriptionById(resourceId);
                 String enumItemsString = rdfModel.getEnumItems(resource);
                 String relationsString = rdfModel.getRelations(resource);
@@ -62,16 +62,16 @@ public class FeelContext extends Context {
                     return findEnumItem(enumItemList, enumeratorIndex);
                 } else if (!StringUtils.isBlank(relationsString)) {
                     java.util.List<Relation> relationList = rdfModel.getRelationList(relationsString);
-                    String relationIndex = ((Reference) expression).getPathElements().get(0);
+                    String relationIndex = reference.getPathElements().get(0);
                     return findEnumItem(relationList, relationIndex, enumeratorIndex);
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot find enumerator at index '%s' in inputEntry '%s'", enumeratorIndex, expression.toString()));
+                    throw new DMNRuntimeException("Cannot find enumerator at index '%s' in inputEntry '%s'".formatted(enumeratorIndex, expression.toString()));
                 }
             } else {
                 throw new UnsupportedOperationException(expression.getClass().getSimpleName() + " not supported");
             }
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find enumerator at index '%s' in inputEntry '%s'", enumeratorIndex, expression.toString()), e);
+            throw new DMNRuntimeException("Cannot find enumerator at index '%s' in inputEntry '%s'".formatted(enumeratorIndex, expression.toString()), e);
         }
     }
 
@@ -84,16 +84,16 @@ public class FeelContext extends Context {
             List<EnumItem> enumItemsList = itemDefinition.getEnumItems();
             return findEnumItem(enumItemsList, enumeratorIndex);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find enumerator at index '%s' in itemDefinition '%s'", enumeratorIndex, itemDefinitionName), e);
+            throw new DMNRuntimeException("Cannot find enumerator at index '%s' in itemDefinition '%s'".formatted(enumeratorIndex, itemDefinitionName), e);
         }
     }
 
     private String findEnumItem(List<EnumItem> enumItemsList, String enumeratorIndex) {
         List<EnumItem> enumItems = enumItemsList.stream().filter(ei -> enumeratorIndex.equals(ei.getId())).collect(Collectors.toList());
         if (enumItems.size() == 1) {
-            return String.format("\"%s\"", enumItems.get(0).getTitle().trim());
+            return "\"%s\"".formatted(enumItems.get(0).getTitle().trim());
         } else {
-            throw new DMNRuntimeException(String.format("Cannot find enumerator at index '%s'", enumeratorIndex));
+            throw new DMNRuntimeException("Cannot find enumerator at index '%s'".formatted(enumeratorIndex));
         }
     }
 
@@ -103,11 +103,11 @@ public class FeelContext extends Context {
             if (relation.getRelationId() == index) {
                 for(EnumItem enumItem: ((EnumerationProperty)relation.getValue()).getEnumItems()) {
                     if (enumItem.getId().equals(enumeratorIndex)) {
-                        return String.format("\"%s\"", enumItem.getTitle());
+                        return "\"%s\"".formatted(enumItem.getTitle());
                     }
                 }
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot find enumerator at index '%s' in relation at index '%s'", enumeratorIndex, relationIndex));
+        throw new DMNRuntimeException("Cannot find enumerator at index '%s' in relation at index '%s'".formatted(enumeratorIndex, relationIndex));
     }
 }

@@ -31,16 +31,16 @@ public class MergeInputDataByLabelAndDiagramIdTransformer extends AbstractMergeI
     @Override
     protected String equivalenceKey(TInputData inputData, DMNModelRepository repository) {
         if (isIterator(inputData, repository)) {
-            return String.format("%s-%s", diagramId(inputData, repository), shapeId(inputData, repository));
+            return "%s-%s".formatted(diagramId(inputData, repository), shapeId(inputData, repository));
         } else {
-            return String.format("%s-%s", diagramId(inputData, repository), inputData.getLabel().trim());
+            return "%s-%s".formatted(diagramId(inputData, repository), inputData.getLabel().trim());
         }
     }
 
     @Override
     protected String equivalenceKey(InputParameterDefinition parameter) {
         // requirement name is the label of corresponding InputData
-        return String.format("%s-%s", parameter.getDiagramId(), parameter.getRequirementName().trim());
+        return "%s-%s".formatted(parameter.getDiagramId(), parameter.getRequirementName().trim());
     }
 
     private String diagramId(TInputData inputData, DMNModelRepository repository) {

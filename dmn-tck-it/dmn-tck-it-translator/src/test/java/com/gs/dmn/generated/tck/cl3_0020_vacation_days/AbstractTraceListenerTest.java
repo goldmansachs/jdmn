@@ -29,7 +29,7 @@ public class AbstractTraceListenerTest {
         try {
             URL url = this.getClass().getClassLoader().getResource(path);
             if (url == null) {
-                throw new DMNRuntimeException(String.format("Cannot find resource '%s'", path));
+                throw new DMNRuntimeException("Cannot find resource '%s'".formatted(path));
             }
             return url.toURI();
         } catch (URISyntaxException e) {

@@ -110,7 +110,7 @@ public class PureJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDa
         try {
             return this.dateTimeLib.dayAddDateTime(dateTime, daysToAdd);
         } catch (Exception e) {
-            String message = String.format("dayAdd(%s, %s)", dateTime, daysToAdd);
+            String message = "dayAdd(%s, %s)".formatted(dateTime, daysToAdd);
             logError(message, e);
             return null;
         }
@@ -120,7 +120,7 @@ public class PureJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDa
         try {
             return this.dateTimeLib.monthAddDateTime(dateTime, monthsToAdd);
         } catch (Exception e) {
-            String message = String.format("monthAdd(%s, %s)", dateTime, monthsToAdd);
+            String message = "monthAdd(%s, %s)".formatted(dateTime, monthsToAdd);
             logError(message, e);
             return null;
         }
@@ -130,7 +130,7 @@ public class PureJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDa
         try {
             return this.dateTimeLib.yearAddDateTime(dateTime, yearsToAdd);
         } catch (Exception e) {
-            String message = String.format("yearAdd(%s, %s)", dateTime, yearsToAdd);
+            String message = "yearAdd(%s, %s)".formatted(dateTime, yearsToAdd);
             logError(message, e);
             return null;
         }

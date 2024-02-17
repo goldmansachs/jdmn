@@ -34,7 +34,7 @@ public class ModelElementRegistry {
         if (value == null) {
             map.put(qName, className);
         } else if (!value.equals(className)) {
-            throw new DMNRuntimeException(String.format("Name '%s' is not unique", qName));
+            throw new DMNRuntimeException("Name '%s' is not unique".formatted(qName));
         } else {
             LOGGER.warn("Name {} and value {} were already registered", qName, className);
         }

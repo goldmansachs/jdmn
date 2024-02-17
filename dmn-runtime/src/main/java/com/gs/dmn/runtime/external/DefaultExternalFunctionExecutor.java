@@ -39,9 +39,9 @@ public class DefaultExternalFunctionExecutor implements ExternalFunctionExecutor
                     return m.invoke(instance, args);
                 }
             }
-            throw new DMNRuntimeException(String.format("Cannot execute external function '%s.%s(%s)'", className, methodName, argsToString(args)));
+            throw new DMNRuntimeException("Cannot execute external function '%s.%s(%s)'".formatted(className, methodName, argsToString(args)));
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot execute external function '%s.%s(%s)'", className, methodName, argsToString(args)), e);
+            throw new DMNRuntimeException("Cannot execute external function '%s.%s(%s)'".formatted(className, methodName, argsToString(args)), e);
         }
     }
 
@@ -83,7 +83,7 @@ public class DefaultExternalFunctionExecutor implements ExternalFunctionExecutor
                 }
             }
             if (declaredMethod == null) {
-                throw new DMNRuntimeException(String.format("Cannot resolve '%s.%s(%s)", className, methodName, String.join(", ", paramTypes)));
+                throw new DMNRuntimeException("Cannot resolve '%s.%s(%s)".formatted(className, methodName, String.join(", ", paramTypes)));
             }
             Object[] args = JavaFunctionInfo.makeArgs(declaredMethod, convertedArgList);
 
@@ -95,7 +95,7 @@ public class DefaultExternalFunctionExecutor implements ExternalFunctionExecutor
                 return declaredMethod.invoke(obj, args);
             }
         } catch (Exception e) {
-            LOGGER.error(String.format("Cannot evaluate function '%s(%s)'", methodName, String.join(", ", paramTypes)), e);
+            LOGGER.error("Cannot evaluate function '%s(%s)'".formatted(methodName, String.join(", ", paramTypes)), e);
             return null;
         }
     }

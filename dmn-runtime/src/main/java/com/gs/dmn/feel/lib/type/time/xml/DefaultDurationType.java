@@ -59,7 +59,7 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
             Long secondValue = secondsValue(second);
             return divideNumbers(secondValue, firstValue);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            throw new DMNRuntimeException("Cannot divide '%s' by '%s'".formatted(first, second));
         }
     }
 
@@ -78,7 +78,7 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
             BigDecimal seconds = multiplyNumbers(firstValue, second);
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
         } else {
-            throw new DMNRuntimeException(String.format("Cannot multiply '%s' by '%s'", first, second));
+            throw new DMNRuntimeException("Cannot multiply '%s' by '%s'".formatted(first, second));
         }
     }
 
@@ -100,7 +100,7 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
             BigDecimal seconds = divideNumbers(firstValue, second);
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
         } else {
-            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            throw new DMNRuntimeException("Cannot divide '%s' by '%s'".formatted(first, second));
         }
     }
 

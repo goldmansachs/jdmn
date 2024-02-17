@@ -53,10 +53,10 @@ public class TestCaseConverter extends DMNBaseElementConverter {
         TestCase element = (TestCase) parent;
         if (DESCRIPTION.equals(nodeName)) {
             element.setDescription((String) child);
-        } else if (child instanceof InputNode) {
-            element.getInputNode().add((InputNode) child);
-        } else if (child instanceof ResultNode) {
-            element.getResultNode().add((ResultNode) child);
+        } else if (child instanceof InputNode node) {
+            element.getInputNode().add(node);
+        } else if (child instanceof ResultNode node) {
+            element.getResultNode().add(node);
         } else {
             super.assignChildElement(element, nodeName, child);
         }

@@ -758,8 +758,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     default DMNContext makeFilterContext(Type sourceType, String filterParameterName, DMNContext parentContext) {
         Type itemType = AnyType.ANY;
-        if (sourceType instanceof ListType) {
-            itemType = ((ListType) sourceType).getElementType();
+        if (sourceType instanceof ListType type) {
+            itemType = type.getElementType();
         }
         DMNContext filterContext = DMNContext.of(
                 parentContext,

@@ -87,6 +87,6 @@ public class Table {
 
     @Override
     public String toString() {
-        return String.format("[%s]", rules.stream().map(i -> i == null ? null : i.toString()).collect(Collectors.joining(", ")));
+        return "[%s]".formatted(rules.stream().map(i -> i == null ? null : i.toString()).collect(Collectors.joining(", ")));
     }
 }

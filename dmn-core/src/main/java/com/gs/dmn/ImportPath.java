@@ -64,6 +64,6 @@ public class ImportPath {
 
     @Override
     public String toString() {
-        return String.format("%s", this.pathElements);
+        return "%s".formatted(this.pathElements);
     }
 }

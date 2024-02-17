@@ -74,7 +74,7 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
                 return qname.toString();
             }
         } else {
-            throw new DMNRuntimeException(String.format("Unknown DMN version '%s'", version));
+            throw new DMNRuntimeException("Unknown DMN version '%s'".formatted(version));
         }
     }
 
@@ -116,9 +116,9 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
             reader.moveDown();
             String nodeName = reader.getNodeName();
             Object object = readBareItem(reader, context, null);
-            if (object instanceof DMNBaseElement) {
-                ((DMNBaseElement) object).setParent((DMNBaseElement) parent);
-                ((DMNBaseElement) parent).addChildren((DMNBaseElement) object);
+            if (object instanceof DMNBaseElement element) {
+                element.setParent((DMNBaseElement) parent);
+                ((DMNBaseElement) parent).addChildren(element);
             }
             reader.moveUp();
             assignChildElement(parent, nodeName, object);
@@ -160,9 +160,9 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
         String nodeName = reader.getNodeName();
         if (!expectedNodeName.equals(nodeName)) throw new IllegalStateException();
         Object object = context.convertAnother(null, type);
-        if (object instanceof DMNBaseElement) {
-            ((DMNBaseElement) object).setParent((DMNBaseElement) parent);
-            ((DMNBaseElement) parent).addChildren((DMNBaseElement) object);
+        if (object instanceof DMNBaseElement element) {
+            element.setParent((DMNBaseElement) parent);
+            ((DMNBaseElement) parent).addChildren(element);
         }
         reader.moveUp();
         assignChildElement(parent, nodeName, object);

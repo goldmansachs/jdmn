@@ -97,14 +97,14 @@ public class TemporalDateTimeType extends BasePureCalendarType implements DateTi
             return null;
         }
 
-        if (dateTime instanceof ZonedDateTime) {
-            return ((ZonedDateTime) dateTime).plus(duration);
-        } else if (dateTime instanceof OffsetDateTime) {
-            return ((OffsetDateTime) dateTime).plus(duration);
-        } else if (dateTime instanceof LocalDateTime) {
-            return ((LocalDateTime) dateTime).plus(duration);
+        if (dateTime instanceof ZonedDateTime time) {
+            return time.plus(duration);
+        } else if (dateTime instanceof OffsetDateTime time) {
+            return time.plus(duration);
+        } else if (dateTime instanceof LocalDateTime time) {
+            return time.plus(duration);
         }
-        throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", dateTime, duration));
+        throw new DMNRuntimeException("Cannot add '%s' and '%s'".formatted(dateTime, duration));
     }
 
     @Override
@@ -113,13 +113,13 @@ public class TemporalDateTimeType extends BasePureCalendarType implements DateTi
             return null;
         }
 
-        if (dateTime instanceof LocalDateTime) {
-            return ((LocalDateTime) dateTime).minus(duration);
-        } else if (dateTime instanceof OffsetDateTime) {
-            return ((OffsetDateTime) dateTime).minus(duration);
-        } else if (dateTime instanceof ZonedDateTime) {
-            return ((ZonedDateTime) dateTime).minus(duration);
+        if (dateTime instanceof LocalDateTime time) {
+            return time.minus(duration);
+        } else if (dateTime instanceof OffsetDateTime time) {
+            return time.minus(duration);
+        } else if (dateTime instanceof ZonedDateTime time) {
+            return time.minus(duration);
         }
-        throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", dateTime, duration));
+        throw new DMNRuntimeException("Cannot subtract '%s' and '%s'".formatted(dateTime, duration));
     }
 }

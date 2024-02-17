@@ -42,6 +42,6 @@ public class ItemDefinitionAccessor extends PathTriple {
 
     @Override
     public String toString() {
-        return String.format("ItemDefinitionAccessor(%s, %s, %s)", javaType, source, memberName);
+        return "ItemDefinitionAccessor(%s, %s, %s)".formatted(javaType, source, memberName);
     }
 }

@@ -77,6 +77,6 @@ public class EndpointsRange<T> extends Range<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s,%s,%s,%s)", getClass().getSimpleName(), this.openStart, this.start.toString(), this.openEnd, this.end.toString());
+        return "%s(%s,%s,%s,%s)".formatted(getClass().getSimpleName(), this.openStart, this.start.toString(), this.openEnd, this.end.toString());
     }
 }

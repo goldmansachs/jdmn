@@ -45,10 +45,10 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
     public void configure(Map<String, Object> configuration) {
         if (!(configuration == null || configuration.isEmpty())) {
             Object forceMergeStr = configuration.get(FORCE_MERGE);
-            if (forceMergeStr instanceof String && configuration.size() == 1) {
-                this.forceMerge = Boolean.parseBoolean((String) forceMergeStr);
+            if (forceMergeStr instanceof String string && configuration.size() == 1) {
+                this.forceMerge = Boolean.parseBoolean(string);
             } else {
-                throw new DMNRuntimeException(String.format("Invalid transformer configuration: %s. Configuration does not have expected structure (expecting \"%s\" node)", configuration, FORCE_MERGE));
+                throw new DMNRuntimeException("Invalid transformer configuration: %s. Configuration does not have expected structure (expecting \"%s\" node)".formatted(configuration, FORCE_MERGE));
             }
         }
     }
@@ -101,7 +101,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
                         if (firstRequirementName.equals(secondRequirementName)) {
                             Expression secondExpression = inputValues.get(j);
                             if (!Objects.equals(firstExpression, secondExpression)) {
-                                throw new DMNRuntimeException(String.format("Cannot merge, incompatible values for InputData '%s' '%s' and '%s'", firstRequirementName, firstExpression, secondExpression));
+                                throw new DMNRuntimeException("Cannot merge, incompatible values for InputData '%s' '%s' and '%s'".formatted(firstRequirementName, firstExpression, secondExpression));
                             }
                         }
                     }
@@ -123,7 +123,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
                 labels.add(requirementName);
                 Pair<TInputData, List<TInputData>> pair = this.inputDataClasses.get(requirementName);
                 if (pair == null) {
-                    throw new DMNRuntimeException(String.format("Cannot find InputData for input parameter with requirementName='%s'", requirementName));
+                    throw new DMNRuntimeException("Cannot find InputData for input parameter with requirementName='%s'".formatted(requirementName));
                 }
                 TInputData representative = pair.getLeft();
                 String representativeDiagramId = repository.getDiagramId(representative);
@@ -173,15 +173,13 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
                             if (inputDataInClass.contains(referencedInputData) && referencedInputData != representative) {
                                 String oldInputDataName = referencedInputData.getName();
                                 String newInputDataName = representative.getName();
-                                logger.info(String.format("Replacing input '%s' with '%s' in decision '%s'", oldInputDataName, newInputDataName, decision.getName()));
+                                logger.info("Replacing input '%s' with '%s' in decision '%s'".formatted(oldInputDataName, newInputDataName, decision.getName()));
 
                                 ir.getRequiredInput().setHref("#" + representative.getId());
 
                                 // Replace in body
                                 TExpression expression = decision.getExpression();
-                                if (expression instanceof TDecisionTable) {
-                                    // For each InputClause
-                                    TDecisionTable decisionTable = (TDecisionTable) expression;
+                                if (expression instanceof TDecisionTable decisionTable) {
                                     List<TInputClause> inputClauselist = decisionTable.getInput();
                                     for(TInputClause ic: inputClauselist) {
                                         replace(oldInputDataName, newInputDataName, ic.getInputExpression());
@@ -204,8 +202,8 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
                                             replace(oldInputDataName, newInputDataName, literalExpression);
                                         }
                                     }
-                                } else if (expression instanceof TLiteralExpression) {
-                                    replace(oldInputDataName, newInputDataName, (TLiteralExpression) expression);
+                                } else if (expression instanceof TLiteralExpression literalExpression) {
+                                    replace(oldInputDataName, newInputDataName, literalExpression);
                                 }
                             }
                         }
@@ -282,7 +280,7 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
     }
 
     protected boolean isIterator(TInputData inputData, DMNModelRepository repository) {
-        return repository instanceof SignavioDMNModelRepository && ((SignavioDMNModelRepository) repository).isIterator(inputData);
+        return repository instanceof SignavioDMNModelRepository sdmnmr && sdmnmr.isIterator(inputData);
     }
 
     protected abstract String equivalenceKey(TInputData inputData, DMNModelRepository repository);

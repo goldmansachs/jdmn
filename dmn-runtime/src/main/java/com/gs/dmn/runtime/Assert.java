@@ -41,7 +41,7 @@ public class Assert {
                 Assertions.assertEquals(expected, actual, message);
             } else {
                 boolean condition = expectedBD.subtract(actualBD).abs().compareTo(NUMBER_COMPARISON_PRECISION) < 0;
-                Assertions.assertTrue(condition, String.format(message + ". Expected '%s' found '%s'", expectedBD, actualBD));
+                Assertions.assertTrue(condition, (message + ". Expected '%s' found '%s'").formatted(expectedBD, actualBD));
             }
         } else if (isBoolean(expected)) {
             Assertions.assertEquals(expected, actual, message);
@@ -58,14 +58,14 @@ public class Assert {
                     assertEquals(message, ((List) expected).get(i), ((List) actual).get(i));
                 }
             }
-        } else if (expected instanceof Context) {
+        } else if (expected instanceof Context context) {
             if (actual == null) {
                 actual = new Context();
             }
-            for(Object key: ((Context) expected).getBindings().keySet()) {
-                Object expectedMember = ((Context) expected).get(key);
+            for(Object key: context.getBindings().keySet()) {
+                Object expectedMember = context.get(key);
                 Object actualMember = ((Context) actual).get(key);
-                assertEquals(message + String.format(" for member '%s'", key), expectedMember, actualMember);
+                assertEquals(message + " for member '%s'".formatted(key), expectedMember, actualMember);
             }
         } else if (isComplex(expected)) {
             if (actual == null) {
@@ -75,7 +75,7 @@ public class Assert {
                         Object expectedProperty = getProperty(expected, expectedGetter);
                         assertEquals(message, expectedProperty, null);
                     } catch (Exception e) {
-                        throw new DMNRuntimeException(String.format("Error in '%s.%s()' ", expected.getClass().getSimpleName(), expectedGetter.getName()), e);
+                        throw new DMNRuntimeException("Error in '%s.%s()' ".formatted(expected.getClass().getSimpleName(), expectedGetter.getName()), e);
                     }
                 }
             } else {
@@ -87,7 +87,7 @@ public class Assert {
                         Object actualProperty = getProperty(actual, actualGetter);
                         assertEquals(message, expectedProperty, actualProperty);
                     } catch (Exception e) {
-                        throw new DMNRuntimeException(String.format("Error in '%s.%s()' ", expected.getClass().getSimpleName(), expectedGetter.getName()), e);
+                        throw new DMNRuntimeException("Error in '%s.%s()' ".formatted(expected.getClass().getSimpleName(), expectedGetter.getName()), e);
                     }
                 }
             }
@@ -147,14 +147,14 @@ public class Assert {
         if (object == null) {
             return null;
         }
-        if (object instanceof OffsetTime) {
-            return ((OffsetTime) object).withOffsetSameInstant(ZoneOffset.UTC);
-        } else if (object instanceof ZonedDateTime) {
-            return ((ZonedDateTime) object).withZoneSameInstant(BaseType.UTC);
-        } else if (object instanceof Duration) {
-            return BaseDefaultDurationType.normalize((Duration) object);
-        } else if (object instanceof java.time.Period) {
-            return ((Period) object).normalized();
+        if (object instanceof OffsetTime time) {
+            return time.withOffsetSameInstant(ZoneOffset.UTC);
+        } else if (object instanceof ZonedDateTime time) {
+            return time.withZoneSameInstant(BaseType.UTC);
+        } else if (object instanceof Duration duration) {
+            return BaseDefaultDurationType.normalize(duration);
+        } else if (object instanceof java.time.Period period) {
+            return period.normalized();
         }
         return object;
     }

@@ -25,7 +25,7 @@ public abstract class JavaTypeFactory implements NativeTypeFactory {
 
     @Override
     public String javaClass(String className) {
-        return String.format("%s.class", className);
+        return "%s.class".formatted(className);
     }
 
 }

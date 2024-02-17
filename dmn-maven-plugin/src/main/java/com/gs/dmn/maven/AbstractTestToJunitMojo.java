@@ -66,7 +66,7 @@ public abstract class AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DUR
             this.getLog().warn("Use 'onePackage' carefully, names must be unique across all the DMs.");
         }
         if (!singletonInputData && caching) {
-            this.getLog().error(String.format("Incompatible 'singletonInputData=%s' and 'caching=%s'", singletonInputData, caching));
+            this.getLog().error("Incompatible 'singletonInputData=%s' and 'caching=%s'".formatted(singletonInputData, caching));
         }
     }
 

@@ -75,8 +75,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
             // Add DSs
             List<Object> elementList = this.extension.findExtensions(definitions.getExtensionElements(), LATEST.getNamespace(), "decisionService");
             for (Object element: elementList) {
-                if (element instanceof TDecisionService) {
-                    this.addElementMap((TDecisionService) element, definitions);
+                if (element instanceof TDecisionService service) {
+                    this.addElementMap(service, definitions);
                 }
             }
             // Populate MID iterators
@@ -93,11 +93,11 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     protected void addModelCoordinates(TDefinitions definitions, TDMNElement element, List<String> locationParts) {
         String diagramId = getDiagramId(element);
         if (!StringUtils.isBlank(diagramId)) {
-            locationParts.add(String.format("model='%s'", diagramId));
+            locationParts.add("model='%s'".formatted(diagramId));
         } else {
             String modelName = definitions.getName();
             if (!StringUtils.isBlank(modelName)) {
-                locationParts.add(String.format("model='%s'", modelName));
+                locationParts.add("model='%s'".formatted(modelName));
             }
         }
     }
@@ -146,8 +146,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     public boolean isBKMLinkedToDecision(TNamedElement element) {
-        return element instanceof TBusinessKnowledgeModel
-                && getOutputDecision((TBusinessKnowledgeModel) element) != null;
+        return element instanceof TBusinessKnowledgeModel tbkm
+                && getOutputDecision(tbkm) != null;
     }
 
     public TDecision getOutputDecision(TBusinessKnowledgeModel element) {
@@ -190,7 +190,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
                 List<DRGElementReference<TInputData>> inputReferences = collectTransitiveInputDatas(childReference);
                 result.addAll(inputReferences);
             } else {
-                throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+                throw new DMNRuntimeException("Cannot find Decision for '%s' in parent '%s'".formatted(reference.getHref(), parent.getName()));
             }
         }
         return result;
@@ -251,10 +251,10 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
                 QName diagramQName = getDiagramIdQName();
                 String newDiagramID = elements.stream().filter(e -> sameShapeId(e, shapeId)).map(e -> e.getOtherAttributes().get(diagramQName)).collect(Collectors.joining(", "));
                 if (sameShapeIdElements.size() == 1) {
-                    LOGGER.warn(String.format("Incorrect diagramId for test input with label '%s' diagramId='%s' shapeId='%s'. DiagramId should be '%s'", label, diagramId, shapeId, newDiagramID));
+                    LOGGER.warn("Incorrect diagramId for test input with label '%s' diagramId='%s' shapeId='%s'. DiagramId should be '%s'".formatted(label, diagramId, shapeId, newDiagramID));
                     result = sameShapeIdElements.get(0);
                 } else {
-                    throw new DMNRuntimeException(String.format("Multiple DRGElements for label '%s' with diagramId='%s' shapeId='%s'. Diagram ID should be one of '%s'", label, diagramId, shapeId, newDiagramID));
+                    throw new DMNRuntimeException("Multiple DRGElements for label '%s' with diagramId='%s' shapeId='%s'. Diagram ID should be one of '%s'".formatted(label, diagramId, shapeId, newDiagramID));
                 }
             }
             if (result != null) {
@@ -297,14 +297,14 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     private String makeKey(String id) {
-        return String.format("%s::", id);
+        return "%s::".formatted(id);
     }
 
     private String makeKey(String diagramId, String shapeId) {
-        return String.format("%s:%s:", diagramId, shapeId);
+        return "%s:%s:".formatted(diagramId, shapeId);
     }
 
     private String makeKey(String label, String diagramId, String shapeId) {
-        return String.format("%s:%s:%s", label, diagramId, shapeId);
+        return "%s:%s:%s".formatted(label, diagramId, shapeId);
     }
 }

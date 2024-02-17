@@ -39,6 +39,6 @@ public class ApplyInvocation extends FunctionInvocationTriple {
 
     @Override
     public String toString() {
-        return String.format("ApplyInvocation(%s, %s)", nameOperand, arguments);
+        return "ApplyInvocation(%s, %s)".formatted(nameOperand, arguments);
     }
 }

@@ -42,6 +42,6 @@ public class CollectionLogicFilter extends FilterTriple {
 
     @Override
     public String toString() {
-        return String.format("CollectionLogicFilter(%s, %s, %s)", source, newParameterName, filter);
+        return "CollectionLogicFilter(%s, %s, %s)".formatted(source, newParameterName, filter);
     }
 }

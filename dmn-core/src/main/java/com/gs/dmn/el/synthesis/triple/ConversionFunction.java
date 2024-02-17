@@ -39,6 +39,6 @@ public class ConversionFunction extends ConversionTriple {
 
     @Override
     public String toString() {
-        return String.format("ConversionFunction(%s, %s)", conversion, toNativeType);
+        return "ConversionFunction(%s, %s)".formatted(conversion, toNativeType);
     }
 }

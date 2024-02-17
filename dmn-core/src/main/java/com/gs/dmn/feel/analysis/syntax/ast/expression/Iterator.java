@@ -39,6 +39,6 @@ public class Iterator<T> extends Element<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s in %s)", getClass().getSimpleName(), this.name, this.domain.toString());
+        return "%s(%s in %s)".formatted(getClass().getSimpleName(), this.name, this.domain.toString());
     }
 }

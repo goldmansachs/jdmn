@@ -60,6 +60,6 @@ public class QualifiedName<T> extends NamedExpression<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %d)", getClass().getSimpleName(), String.join(".", this.names), this.names.size());
+        return "%s(%s, %d)".formatted(getClass().getSimpleName(), String.join(".", this.names), this.names.size());
     }
 }

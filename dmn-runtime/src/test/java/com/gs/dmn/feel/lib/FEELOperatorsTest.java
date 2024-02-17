@@ -1412,7 +1412,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     protected List<NUMBER> makeNumberList(Object... numbers) {
         List<NUMBER> result = new ArrayList<>();
         for (Object num: numbers) {
-            result.add(makeNumber(String.format("%s", num)));
+            result.add(makeNumber("%s".formatted(num)));
         }
         return result;
     }
@@ -1460,10 +1460,10 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     protected void assertEqualsNumber(double expected, Object actual, double precision) {
-        if (actual instanceof BigDecimal) {
-            assertEquals(expected, ((BigDecimal) actual).doubleValue(), precision);
-        } else if (actual instanceof Double) {
-            assertEquals(expected, (Double) actual, precision);
+        if (actual instanceof BigDecimal decimal) {
+            assertEquals(expected, decimal.doubleValue(), precision);
+        } else if (actual instanceof Double double1) {
+            assertEquals(expected, double1, precision);
         } else {
             assertEquals(expected, actual);
         }

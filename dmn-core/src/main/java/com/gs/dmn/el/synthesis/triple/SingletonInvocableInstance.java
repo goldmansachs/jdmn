@@ -31,6 +31,6 @@ public class SingletonInvocableInstance extends FunctionInvocationTriple {
 
     @Override
     public String toString() {
-        return String.format("SingletonInvocableInstance(%s)", exp);
+        return "SingletonInvocableInstance(%s)".formatted(exp);
     }
 }

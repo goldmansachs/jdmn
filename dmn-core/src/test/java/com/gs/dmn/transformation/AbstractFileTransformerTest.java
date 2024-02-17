@@ -52,10 +52,10 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
             } else if (expectedOutputFile.getName().equals(actualOutputFile.getName())) {
                 compareTextFile(expectedOutputFile, actualOutputFile);
             } else {
-                throw new DMNRuntimeException(String.format("Files with different names '%s' '%s' ", expectedOutputFile.getCanonicalPath(), actualOutputFile.getCanonicalPath()));
+                throw new DMNRuntimeException("Files with different names '%s' '%s' ".formatted(expectedOutputFile.getCanonicalPath(), actualOutputFile.getCanonicalPath()));
             }
         } else {
-            throw new DMNRuntimeException(String.format("Cannot compare folder with file '%s' '%s' ", expectedOutputFile.getCanonicalPath(), actualOutputFile.getCanonicalPath()));
+            throw new DMNRuntimeException("Cannot compare folder with file '%s' '%s' ".formatted(expectedOutputFile.getCanonicalPath(), actualOutputFile.getCanonicalPath()));
         }
     }
 
@@ -80,7 +80,7 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
         } else {
             LOGGER.info("No diffs");
         }
-        String message = String.format("XMLs %s and %s are not similar", expectedOutputFile.getPath(), actualOutputFile.getPath());
+        String message = "XMLs %s and %s are not similar".formatted(expectedOutputFile.getPath(), actualOutputFile.getPath());
         assertFalse(diff.hasDifferences(), message);
     }
 
@@ -118,7 +118,7 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
     protected void compareJsonFile(File expectedOutputFile, File actualOutputFile) throws Exception {
         String expectedContent = FileUtils.readFileToString(expectedOutputFile, "UTF-8");
         String actualContent = FileUtils.readFileToString(actualOutputFile, "UTF-8");
-        String message = String.format("%s vs %s", expectedOutputFile.getPath(), actualOutputFile.getPath());
+        String message = "%s vs %s".formatted(expectedOutputFile.getPath(), actualOutputFile.getPath());
         JSONAssert.assertEquals(message, expectedContent, actualContent, JSONCompareMode.STRICT);
     }
 
@@ -129,7 +129,7 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
     }
 
     protected void compareFileList(File expectedParent, List<File> expectedChildren, File actualParent, List<File> actualChildren) throws Exception {
-        String message = String.format("Different number of children when comparing '%s' with '%s'", expectedParent.getCanonicalPath(), actualParent.getCanonicalPath());
+        String message = "Different number of children when comparing '%s' with '%s'".formatted(expectedParent.getCanonicalPath(), actualParent.getCanonicalPath());
         assertEquals(expectedChildren.size(), actualChildren.size(), message);
         expectedChildren.sort(new FileComparator());
         actualChildren.sort(new FileComparator());

@@ -119,7 +119,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
         try {
             return this.durationLib.yearsAndMonthsDuration(toDate(from), toDate(to));
         } catch (Exception e) {
-            String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
+            String message = "yearsAndMonthsDuration(%s, %s)".formatted(from, to);
             logError(message, e);
             return null;
         }

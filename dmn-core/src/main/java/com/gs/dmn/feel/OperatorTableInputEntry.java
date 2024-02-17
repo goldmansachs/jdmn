@@ -73,6 +73,6 @@ class OperatorTableInputEntry {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s)", operator, leftOperandType, rightOperandType);
+        return "%s(%s, %s)".formatted(operator, leftOperandType, rightOperandType);
     }
 }

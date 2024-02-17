@@ -30,6 +30,6 @@ public class SomeTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("Some(%s)", forList);
+        return "Some(%s)".formatted(forList);
     }
 }

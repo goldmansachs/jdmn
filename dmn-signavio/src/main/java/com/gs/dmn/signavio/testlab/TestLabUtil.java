@@ -47,8 +47,8 @@ public class TestLabUtil {
 
     public TestLabUtil(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
         DMNModelRepository dmnModelRepository = transformer.getDMNModelRepository();
-        if (dmnModelRepository instanceof SignavioDMNModelRepository) {
-            this.repository = (SignavioDMNModelRepository) dmnModelRepository;
+        if (dmnModelRepository instanceof SignavioDMNModelRepository modelRepository) {
+            this.repository = modelRepository;
         } else {
             this.repository = new SignavioDMNModelRepository(dmnModelRepository.getRootDefinitions());
         }
@@ -256,7 +256,7 @@ public class TestLabUtil {
                 return "null";
             }
         } else {
-            throw new UnsupportedOperationException(String.format("%s is not supported", inputExpression.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("%s is not supported".formatted(inputExpression.getClass().getSimpleName()));
         }
     }
 
@@ -274,7 +274,7 @@ public class TestLabUtil {
                 return type;
             }
         } else {
-            throw new DMNRuntimeException(String.format("Expected list type, found '%s'", type.getName()));
+            throw new DMNRuntimeException("Expected list type, found '%s'".formatted(type.getName()));
         }
     }
 
@@ -326,9 +326,9 @@ public class TestLabUtil {
                 return memberType;
             }
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'", name, label, id, itemDefinition == null ? null : itemDefinition.getName()), e);
+            throw new DMNRuntimeException("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'".formatted(name, label, id, itemDefinition == null ? null : itemDefinition.getName()), e);
         }
-        throw new DMNRuntimeException(String.format("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'", name, label, id, itemDefinition.getName()));
+        throw new DMNRuntimeException("Cannot find member '(name='%s' label='%s' id='%s') in ItemDefinition '%s'".formatted(name, label, id, itemDefinition.getName()));
     }
 
     private boolean sameSlotId(TItemDefinition child, String id) {
@@ -337,18 +337,18 @@ public class TestLabUtil {
     }
 
     private Type elementType(Type type) {
-        if (type instanceof ListType) {
-            return ((ListType) type).getElementType();
+        if (type instanceof ListType listType) {
+            return listType.getElementType();
         } else {
-            throw new DMNRuntimeException(String.format("Expected list type, found '%s'", type));
+            throw new DMNRuntimeException("Expected list type, found '%s'".formatted(type));
         }
     }
 
     private Set<String> members(Type type) {
-        if (type instanceof ItemDefinitionType) {
-            return ((ItemDefinitionType) type).getMembers();
-        } else if (type instanceof ContextType) {
-            return ((ContextType) type).getMembers();
+        if (type instanceof ItemDefinitionType definitionType) {
+            return definitionType.getMembers();
+        } else if (type instanceof ContextType contextType) {
+            return contextType.getMembers();
         } else {
             return new LinkedHashSet<>();
         }
@@ -356,13 +356,13 @@ public class TestLabUtil {
 
     private Type memberType(Type type, String member) {
         Type memberType = null;
-        if (type instanceof ItemDefinitionType) {
-            memberType = ((ItemDefinitionType) type).getMemberType(member);
-        } else if (type instanceof ContextType) {
-            memberType = ((ContextType) type).getMemberType(member);
+        if (type instanceof ItemDefinitionType definitionType) {
+            memberType = definitionType.getMemberType(member);
+        } else if (type instanceof ContextType contextType) {
+            memberType = contextType.getMemberType(member);
         }
         if (memberType == null) {
-            throw new DMNRuntimeException(String.format("Cannot find member '%s' in type '%s'", member, type));
+            throw new DMNRuntimeException("Cannot find member '%s' in type '%s'".formatted(member, type));
         } else {
             return memberType;
         }
@@ -380,7 +380,7 @@ public class TestLabUtil {
             String typeRef = getTypeRef(parameterDefinition);
             return transformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for requirementId requirement '%s' in DM '%s'", parameterDefinition.getId(), parameterDefinition.getModelName()));
+            throw new DMNRuntimeException("Cannot resolve FEEL type for requirementId requirement '%s' in DM '%s'".formatted(parameterDefinition.getId(), parameterDefinition.getModelName()));
         }
     }
 
@@ -394,12 +394,12 @@ public class TestLabUtil {
     private String getTypeRef(ParameterDefinition parameterDefinition) {
         TDRGElement element = findDRGElement(parameterDefinition);
         String typeRef;
-        if (element instanceof TInputData) {
-            typeRef = QualifiedName.toName(((TInputData) element).getVariable().getTypeRef());
-        } else if (element instanceof TDecision) {
-            typeRef = QualifiedName.toName(((TDecision) element).getVariable().getTypeRef());
+        if (element instanceof TInputData data) {
+            typeRef = QualifiedName.toName(data.getVariable().getTypeRef());
+        } else if (element instanceof TDecision decision) {
+            typeRef = QualifiedName.toName(decision.getVariable().getTypeRef());
         } else {
-            throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for requirementId requirement '%s'. '%s' not supported", parameterDefinition.getId(), element.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("Cannot resolve FEEL type for requirementId requirement '%s'. '%s' not supported".formatted(parameterDefinition.getId(), element.getClass().getSimpleName()));
         }
         return typeRef;
     }
@@ -505,11 +505,11 @@ public class TestLabUtil {
     public String protoGetter(OutputParameterDefinition outputParameterDefinition, String memberName) {
         TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
         Type type = this.transformer.drgElementOutputFEELType(decision);
-        if (type instanceof ListType) {
-            type = ((ListType) type).getElementType();
+        if (type instanceof ListType listType) {
+            type = listType.getElementType();
         }
-        if (type instanceof CompositeDataType) {
-            Type memberType = ((CompositeDataType) type).getMemberType(memberName);
+        if (type instanceof CompositeDataType dataType) {
+            Type memberType = dataType.getMemberType(memberName);
             return this.transformer.getProtoFactory().protoGetter(memberName, memberType);
         } else {
             String protoName = this.transformer.getProtoFactory().protoName(memberName);

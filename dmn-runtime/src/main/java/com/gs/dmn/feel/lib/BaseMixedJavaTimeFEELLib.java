@@ -115,7 +115,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
         try {
             return this.dateTimeLib.date(toDate(from));
         } catch (Exception e) {
-            String message = String.format("date(%s)", from);
+            String message = "date(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -125,7 +125,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
         try {
             return this.dateTimeLib.time(toTime(from));
         } catch (Exception e) {
-            String message = String.format("time(%s)", from);
+            String message = "time(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -134,7 +134,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
         try {
             return this.dateTimeLib.time(toTime(from));
         } catch (Exception e) {
-            String message = String.format("time(%s)", from);
+            String message = "time(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -144,7 +144,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
         try {
             return this.dateTimeLib.dateAndTime(toDate(date), time);
         } catch (Exception e) {
-            String message = String.format("dateAndTime(%s, %s)", date, time);
+            String message = "dateAndTime(%s, %s)".formatted(date, time);
             logError(message, e);
             return null;
         }
@@ -154,7 +154,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
         try {
             return this.durationLib.yearsAndMonthsDuration(toDate(from), toDate(to));
         } catch (Exception e) {
-            String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
+            String message = "yearsAndMonthsDuration(%s, %s)".formatted(from, to);
             logError(message, e);
             return null;
         }
@@ -163,7 +163,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
         try {
             return this.durationLib.yearsAndMonthsDuration(toDate(from), to);
         } catch (Exception e) {
-            String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
+            String message = "yearsAndMonthsDuration(%s, %s)".formatted(from, to);
             logError(message, e);
             return null;
         }
@@ -172,7 +172,7 @@ public abstract class BaseMixedJavaTimeFEELLib<NUMBER> extends BaseStandardFEELL
         try {
             return this.durationLib.yearsAndMonthsDuration(from, toDate(to));
         } catch (Exception e) {
-            String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
+            String message = "yearsAndMonthsDuration(%s, %s)".formatted(from, to);
             logError(message, e);
             return null;
         }

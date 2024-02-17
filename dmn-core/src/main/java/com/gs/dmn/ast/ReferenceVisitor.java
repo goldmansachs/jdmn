@@ -33,7 +33,7 @@ public interface ReferenceVisitor<C, R> {
         } else if (element instanceof TKnowledgeSource) {
             result = visitSourceReference((DRGElementReference<TKnowledgeSource>) reference, context);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported for class '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException("Not supported for class '%s'".formatted(element.getClass().getSimpleName()));
         }
         return result;
     }
@@ -42,13 +42,13 @@ public interface ReferenceVisitor<C, R> {
         TInvocable element = reference.getElement();
         R result;
         if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot visit invocable '%s'", reference));
+            throw new DMNRuntimeException("Cannot visit invocable '%s'".formatted(reference));
         } else if (element instanceof TBusinessKnowledgeModel) {
             result = visitBKMReference((DRGElementReference<TBusinessKnowledgeModel>) reference, context);
         } else if (element instanceof TDecisionService) {
             result = visitDSReference((DRGElementReference<TDecisionService>) reference, context);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported type '%s'", element.getClass().getSimpleName()));
+            throw new DMNRuntimeException("Not supported type '%s'".formatted(element.getClass().getSimpleName()));
         }
         return result;
     }

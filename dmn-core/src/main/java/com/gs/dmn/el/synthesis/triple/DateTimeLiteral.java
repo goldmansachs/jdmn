@@ -32,6 +32,6 @@ public class DateTimeLiteral extends LiteralTriple {
 
     @Override
     public String toString() {
-        return String.format("DateTime(%s)", element);
+        return "DateTime(%s)".formatted(element);
     }
 }

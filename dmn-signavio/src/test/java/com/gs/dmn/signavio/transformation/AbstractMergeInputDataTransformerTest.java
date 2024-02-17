@@ -87,7 +87,7 @@ public abstract class AbstractMergeInputDataTransformerTest extends AbstractSign
                 }
             }
             if (duplicate != null) {
-                fail(String.format("Duplicate '%s' and '%s'", inputData1.getName(), duplicate.getName()));
+                fail("Duplicate '%s' and '%s'".formatted(inputData1.getName(), duplicate.getName()));
             }
         }
         // Check definitions

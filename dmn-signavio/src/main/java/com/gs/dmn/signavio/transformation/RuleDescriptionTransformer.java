@@ -95,13 +95,13 @@ class RuleDescriptionVisitor extends TraversalVisitor<TransformationContext> {
 
     @Override
     public DMNBaseElement visit(TDecision element, TransformationContext context) {
-        logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
+        logger.debug("Process decision table in decision '%s'".formatted(element.getName()));
 
         DMNModelRepository repository = context.getRepository();
         TExpression expression = repository.expression(element);
-        if (expression instanceof TDecisionTable) {
-            logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
-            ((TDecisionTable) expression).accept(this, context);
+        if (expression instanceof TDecisionTable table) {
+            logger.debug("Process decision table in decision '%s'".formatted(element.getName()));
+            table.accept(this, context);
         }
         return element;
     }

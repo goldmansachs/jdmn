@@ -50,7 +50,7 @@ public class SweepMissingIntervalValidator extends SweepValidator {
         if (element != null) {
             DMNModelRepository repository = context.getRepository();
             ELTranslator<Type, DMNContext> elTranslator = context.getElTranslator();
-            logger.debug(String.format("Validating element '%s'", element.getName()));
+            logger.debug("Validating element '%s'".formatted(element.getName()));
 
             List<Integer> ruleIndex = new ArrayList<>();
             int totalNumberOfRules = decisionTable.getRule().size();
@@ -63,7 +63,7 @@ public class SweepMissingIntervalValidator extends SweepValidator {
             if (!table.isEmpty()) {
                 findMissingIntervals(ruleIndex, totalNumberOfColumns, missingIntervals, table);
 
-                logger.debug(String.format("Found missing intervals '%s'", missingIntervals));
+                logger.debug("Found missing intervals '%s'".formatted(missingIntervals));
 
                 for (int i=0; i<totalNumberOfColumns; i++) {
                     List<Interval> intervals = missingIntervals.getIntervals(i);
@@ -80,9 +80,9 @@ public class SweepMissingIntervalValidator extends SweepValidator {
         String intervalsString = intervals.stream().map(Interval::serialize).collect(Collectors.joining(", "));
         String message;
         if (intervals.size() == 1) {
-            message = String.format("Interval '%s' is not covered for column %d in '%s' table", intervalsString, columnIndex + 1, repository.displayName(element));
+            message = "Interval '%s' is not covered for column %d in '%s' table".formatted(intervalsString, columnIndex + 1, repository.displayName(element));
         } else {
-            message = String.format("Intervals '%s' are not covered for column %d in '%s' table", intervalsString, columnIndex + 1, repository.displayName(element));
+            message = "Intervals '%s' are not covered for column %d in '%s' table".formatted(intervalsString, columnIndex + 1, repository.displayName(element));
         }
         return makeError(repository, model, element, message);
     }
@@ -125,12 +125,12 @@ public class SweepMissingIntervalValidator extends SweepValidator {
             int boundCount = sortedListAllBounds.size();
             List<Integer> lxi = new ArrayList<>();
 
-            logger.debug(String.format("%sColumn = %s Sorted bounds = '%s'", indent, columnIndex, sortedListAllBounds));
+            logger.debug("%sColumn = %s Sorted bounds = '%s'".formatted(indent, columnIndex, sortedListAllBounds));
 
             for (int i = 0; i<boundCount; i++) {
                 Bound currentBound = sortedListAllBounds.get(i);
 
-                logger.debug(String.format("%sCurrent bound = '%s'", indent, currentBound));
+                logger.debug("%sCurrent bound = '%s'".formatted(indent, currentBound));
 
                 Interval missingInterval = null;
                 if (i == 0) {
@@ -156,10 +156,10 @@ public class SweepMissingIntervalValidator extends SweepValidator {
                 // Update active rules
                 int ruleIndex = currentBound.getInterval().getRuleIndex();
                 if (currentBound.isLowerBound()) {
-                    logger.debug(String.format("%sAdd active rule %s", indent, ruleIndex));
+                    logger.debug("%sAdd active rule %s".formatted(indent, ruleIndex));
                     lxi.add(ruleIndex);
                 } else {
-                    logger.debug(String.format("%sRemove active rule %s", indent, ruleIndex));
+                    logger.debug("%sRemove active rule %s".formatted(indent, ruleIndex));
                     lxi.remove((Object) ruleIndex);
                 }
 

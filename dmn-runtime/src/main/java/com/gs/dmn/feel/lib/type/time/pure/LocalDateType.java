@@ -100,14 +100,14 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
 
         if (duration instanceof ChronoPeriod) {
             return date.plus(duration);
-        } else if (duration instanceof Duration) {
+        } else if (duration instanceof Duration duration1) {
             // Calculate with value()
             Long value1 = value(date);
-            Long value2 = secondsValue((java.time.Duration) duration);
+            Long value2 = secondsValue(duration1);
             // Invert value()
             return LocalDateTime.ofEpochSecond(value1 + value2, 0, ZoneOffset.UTC).toLocalDate();
         } else {
-            throw new DMNRuntimeException(String.format("Cannot add '%s' with '%s'", date, duration));
+            throw new DMNRuntimeException("Cannot add '%s' with '%s'".formatted(date, duration));
         }
     }
 
@@ -119,13 +119,13 @@ public class LocalDateType extends BasePureCalendarType implements DateType<Loca
 
         if (duration instanceof ChronoPeriod) {
             return date.minus(duration);
-        } else if (duration instanceof Duration) {
+        } else if (duration instanceof Duration duration1) {
             // Calculate with value()
             Long value1 = value(date);
-            Long value2 = secondsValue((java.time.Duration) duration);
+            Long value2 = secondsValue(duration1);
             // Invert value()
             return LocalDateTime.ofEpochSecond(value1 - value2, 0, ZoneOffset.UTC).toLocalDate();
         }
-        throw new DMNRuntimeException(String.format("Cannot subtract '%s' and ''%s", date, duration));
+        throw new DMNRuntimeException("Cannot subtract '%s' and ''%s".formatted(date, duration));
     }
 }

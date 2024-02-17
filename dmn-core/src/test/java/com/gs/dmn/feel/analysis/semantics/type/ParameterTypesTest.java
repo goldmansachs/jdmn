@@ -51,7 +51,7 @@ public abstract class ParameterTypesTest {
     }
 
     protected String newName() {
-        return String.format("name_%d", count++);
+        return "name_%d".formatted(count++);
     }
 
     protected abstract ParameterTypes<Type> makeParameterTypes(List<FormalParameter<Type>> parameterTypes);

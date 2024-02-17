@@ -55,10 +55,10 @@ public class XMLDurationFactory {
 
     public Duration yearMonthFromValue(long totalMonths) {
         if (totalMonths < 0) {
-            String literal = String.format("P%dM", -totalMonths);
+            String literal = "P%dM".formatted(-totalMonths);
             return this.datatypeFactory.newDurationYearMonth(literal).negate();
         } else {
-            String literal = String.format("P%dM", totalMonths);
+            String literal = "P%dM".formatted(totalMonths);
             return this.datatypeFactory.newDurationYearMonth(literal);
         }
     }

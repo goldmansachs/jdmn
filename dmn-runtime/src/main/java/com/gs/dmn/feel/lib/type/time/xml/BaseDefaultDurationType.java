@@ -80,7 +80,7 @@ public abstract class BaseDefaultDurationType extends XMLCalendarType {
             long seconds = secondsValue(first) + (long) secondsValue(second);
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", first, second));
+            throw new DMNRuntimeException("Cannot add '%s' and '%s'".formatted(first, second));
         }
     }
 

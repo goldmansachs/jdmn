@@ -46,7 +46,7 @@ public class DateTimeLiteral<T> extends SimpleLiteral<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.conversionFunction, getLexeme());
+        return "%s(%s, %s)".formatted(getClass().getSimpleName(), this.conversionFunction, getLexeme());
     }
 }
 

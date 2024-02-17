@@ -45,20 +45,20 @@ public abstract class TCKSerializer {
         try {
             return read(input.toURI().toURL());
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.getPath()), e);
+            throw new DMNRuntimeException("Cannot read DMN from '%s'".formatted(input.getPath()), e);
         }
     }
 
     public TestCases read(URL input) {
         try {
-            logger.info(String.format("Reading TCK '%s' ...", input.toString()));
+            logger.info("Reading TCK '%s' ...".formatted(input.toString()));
 
             TestCases testCases = this.marshaller.unmarshal(input, this.validateSchema);
 
             logger.info("TCK read.");
             return testCases;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read TCK from '%s'", input.toString()), e);
+            throw new DMNRuntimeException("Cannot read TCK from '%s'".formatted(input.toString()), e);
         }
     }
 
@@ -66,7 +66,7 @@ public abstract class TCKSerializer {
         try {
             this.marshaller.marshal(testCases, file);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", file.getPath()), e);
+            throw new DMNRuntimeException("Cannot write DMN to '%s'".formatted(file.getPath()), e);
         }
     }
 }

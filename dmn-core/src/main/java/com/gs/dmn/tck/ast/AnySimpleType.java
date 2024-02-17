@@ -46,9 +46,9 @@ public class AnySimpleType extends TCKBaseElement {
             result.setText("");
             result.getOtherAttributes().put(new QName(XSI_NS, "nil"), "true");
             return result;
-        } else if (value instanceof String) {
+        } else if (value instanceof String string) {
             AnySimpleType result = new AnySimpleType();
-            result.setText((String) value);
+            result.setText(string);
             result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:string");
             return result;
         } else if (value instanceof Boolean) {
@@ -71,10 +71,10 @@ public class AnySimpleType extends TCKBaseElement {
             result.setText("" + value);
             result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:decimal");
             return result;
-        } else if (value instanceof XMLGregorianCalendar) {
+        } else if (value instanceof XMLGregorianCalendar calendar) {
             AnySimpleType result = new AnySimpleType();
             result.setText(value.toString());
-            QName type = ((XMLGregorianCalendar) value).getXMLSchemaType();
+            QName type = calendar.getXMLSchemaType();
             if (type == DatatypeConstants.DATE) {
                 result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:date");
             } else if (type == DatatypeConstants.TIME) {
@@ -89,7 +89,7 @@ public class AnySimpleType extends TCKBaseElement {
             result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:duration");
             return result;
         }
-        throw new IllegalArgumentException(String.format("Not supported value '%s' yet", value.getClass().getSimpleName()));
+        throw new IllegalArgumentException("Not supported value '%s' yet".formatted(value.getClass().getSimpleName()));
     }
 
     static final DatatypeFactory DATATYPE_FACTORY;
@@ -144,7 +144,7 @@ public class AnySimpleType extends TCKBaseElement {
         } else if (type.equals("duration") || type.endsWith(":duration")) {
             return DATATYPE_FACTORY.newDuration(this.text);
         } else {
-            throw new IllegalArgumentException(String.format("XML type '%s' is not supported yet", type));
+            throw new IllegalArgumentException("XML type '%s' is not supported yet".formatted(type));
         }
     }
 

@@ -55,10 +55,10 @@ public class DMNShapeConverter extends ShapeConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         DMNShape shape = (DMNShape) parent;
 
-        if (child instanceof DMNLabel) {
-            shape.setDMNLabel((DMNLabel) child);
-        } else if (child instanceof DMNDecisionServiceDividerLine) {
-            shape.setDMNDecisionServiceDividerLine((DMNDecisionServiceDividerLine) child);
+        if (child instanceof DMNLabel label) {
+            shape.setDMNLabel(label);
+        } else if (child instanceof DMNDecisionServiceDividerLine line) {
+            shape.setDMNDecisionServiceDividerLine(line);
         } else {
             super.assignChildElement(shape, nodeName, child);
         }

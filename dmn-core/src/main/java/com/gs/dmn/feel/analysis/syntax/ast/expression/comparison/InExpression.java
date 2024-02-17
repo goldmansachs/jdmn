@@ -69,6 +69,6 @@ public class InExpression<T> extends Comparison<T> {
     @Override
     public String toString() {
         String right = this.tests.stream().map(Object::toString).collect(Collectors.joining(", "));
-        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.value.toString(), right);
+        return "%s(%s, %s)".formatted(getClass().getSimpleName(), this.value.toString(), right);
     }
 }

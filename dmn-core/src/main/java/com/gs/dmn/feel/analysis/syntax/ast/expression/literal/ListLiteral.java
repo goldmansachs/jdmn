@@ -60,7 +60,7 @@ public class ListLiteral<T> extends Expression<T> {
     @Override
     public String toString() {
         String expressions = this.expressionList.stream().map(Object::toString).collect(Collectors.joining(","));
-        return String.format("%s(%s)", getClass().getSimpleName(), expressions);
+        return "%s(%s)".formatted(getClass().getSimpleName(), expressions);
     }
 
     public boolean allTestsAreEqualityTest() {

@@ -41,7 +41,7 @@ public class PureJavaTimeSignavioBaseDecision extends PureJavaTimeSignavioLib
 
     @Override
     public Rule getRuleAnnotation(int ruleIndex) {
-        String methodName = String.format("rule%d", ruleIndex);
+        String methodName = "rule%d".formatted(ruleIndex);
         Class<? extends PureJavaTimeSignavioBaseDecision> cls = this.getClass();
         Method[] declaredMethods = cls.getDeclaredMethods();
         for (Method method : declaredMethods) {

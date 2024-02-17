@@ -36,6 +36,6 @@ public class BooleanLiteral extends LiteralTriple {
 
     @Override
     public String toString() {
-        return String.format("Boolean(%s, %s)", lexeme, value);
+        return "Boolean(%s, %s)".formatted(lexeme, value);
     }
 }

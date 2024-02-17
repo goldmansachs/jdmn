@@ -81,7 +81,7 @@ class UniqueNameValidatorVisitor extends TraversalVisitor<ValidationContext> {
 
     private void validateUnique(TDefinitions definitions, List<TNamedElement> elements, String elementType, String property, boolean isOptionalProperty, Function<TNamedElement, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
-            errorMessage = String.format("The '%s' of a '%s' must be unique.", property, elementType);
+            errorMessage = "The '%s' of a '%s' must be unique.".formatted(property, elementType);
         }
         // Create a map
         Map<String, List<TDMNElement>> map = new LinkedHashMap<>();
@@ -103,7 +103,7 @@ class UniqueNameValidatorVisitor extends TraversalVisitor<ValidationContext> {
         for (Map.Entry<String, List<TDMNElement>> entry : map.entrySet()) {
             String key = entry.getKey();
             if(entry.getValue().size() > 1){
-                context.addError(makeError(repository, definitions, null, String.format("%s Found %d duplicates for '%s'.", errorMessage, entry.getValue().size(), key)));
+                context.addError(makeError(repository, definitions, null, "%s Found %d duplicates for '%s'.".formatted(errorMessage, entry.getValue().size(), key)));
             }
         }
     }

@@ -108,7 +108,7 @@ public class DMNToManifestTransformer {
             if (import_.getName().equals(importName)) {
                 model = this.dmnModelRepository.getModel(import_.getNamespace());
                 if (model == null) {
-                    throw new DMNRuntimeException(String.format("Cannot find model for import name '%s'", importName));
+                    throw new DMNRuntimeException("Cannot find model for import name '%s'".formatted(importName));
                 }
             }
         }

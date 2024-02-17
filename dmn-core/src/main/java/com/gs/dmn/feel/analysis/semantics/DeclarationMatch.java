@@ -41,6 +41,6 @@ public class DeclarationMatch {
     }
 
     public String toString() {
-        return String.format("%s(%s, %s, %s)", getClass().getSimpleName(), this.declaration, this.parameterTypes, this.parameterConversions);
+        return "%s(%s, %s, %s)".formatted(getClass().getSimpleName(), this.declaration, this.parameterTypes, this.parameterConversions);
     }
 }

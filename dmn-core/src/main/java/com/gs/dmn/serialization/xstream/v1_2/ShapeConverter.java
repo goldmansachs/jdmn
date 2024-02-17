@@ -31,8 +31,8 @@ public abstract class ShapeConverter extends DiagramElementConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         Shape abs = (Shape) parent;
 
-        if (child instanceof Bounds) {
-            abs.setBounds((Bounds) child);
+        if (child instanceof Bounds bounds) {
+            abs.setBounds(bounds);
         } else {
             super.assignChildElement(abs, nodeName, child);
         }

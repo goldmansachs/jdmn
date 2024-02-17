@@ -43,6 +43,6 @@ public class ImportContextType extends ContextType implements CompositeDataType 
 
     @Override
     public String toString() {
-        return String.format("ImportContextType(importName='%s' %s)", this.importName, super.toString());
+        return "ImportContextType(importName='%s' %s)".formatted(this.importName, super.toString());
     }
 }

@@ -47,6 +47,6 @@ public class RangeTypeExpression<T> extends TypeExpression<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", getClass().getSimpleName(), this.elementTypeExpression.toString());
+        return "%s(%s)".formatted(getClass().getSimpleName(), this.elementTypeExpression.toString());
     }
 }

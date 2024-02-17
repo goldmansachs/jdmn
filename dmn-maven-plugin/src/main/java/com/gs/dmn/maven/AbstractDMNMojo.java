@@ -55,7 +55,7 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
         try {
             return (DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST>) dialectClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot instantiate dialect '%s'", dialectClass == null ? null : dialectClass.getName()));
+            throw new DMNRuntimeException("Cannot instantiate dialect '%s'".formatted(dialectClass == null ? null : dialectClass.getName()));
         }
     }
 
@@ -130,7 +130,7 @@ public abstract class AbstractDMNMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
         try {
             return (TemplateProvider) templateProviderClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            throw new IllegalArgumentException(String.format("Cannot build template provider '%s'", templateProviderClass));
+            throw new IllegalArgumentException("Cannot build template provider '%s'".formatted(templateProviderClass));
         }
     }
 

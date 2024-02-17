@@ -78,11 +78,10 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
             staxWriter.addAttribute(kv.getKey().getPrefix() + ":" + kv.getKey().getLocalPart(), kv.getValue());
         }
 
-        if (parent instanceof TDefinitions) {
+        if (parent instanceof TDefinitions tDefinitions) {
             if (version == DMNVersion.DMN_11) {
                 // Do nothing
             } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13 || version == DMNVersion.DMN_14) {
-                TDefinitions tDefinitions = (TDefinitions) parent;
 
                 String dmndiURI = version.getPrefixToNamespaceMap().get("dmndi");
                 String diURI = version.getPrefixToNamespaceMap().get("di");
@@ -111,30 +110,30 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
                 staxWriter.getQNameMap().registerMapping(new QName(diURI, "extension", diPrefix), "extension");
                 staxWriter.getQNameMap().registerMapping(new QName(dcURI, "Bounds", dcPrefix), "Bounds");
             } else {
-                throw new DMNRuntimeException(String.format("Unknown DMN version '%s'", version));
+                throw new DMNRuntimeException("Unknown DMN version '%s'".formatted(version));
             }
         }
     }
 
     private Map<QName, String> getOtherAttributes(Object parent) {
-        if (parent instanceof TDMNElement) {
-            return ((TDMNElement) parent).getOtherAttributes();
-        } else if (parent instanceof DiagramElement) {
-            return ((DiagramElement) parent).getOtherAttributes();
-        } else if (parent instanceof Style) {
-            return ((Style) parent).getOtherAttributes();
+        if (parent instanceof TDMNElement element) {
+            return element.getOtherAttributes();
+        } else if (parent instanceof DiagramElement element) {
+            return element.getOtherAttributes();
+        } else if (parent instanceof Style style) {
+            return style.getOtherAttributes();
         } else {
             return new LinkedHashMap<>();
         }
     }
 
     private void setAdditionalAttributes(Object parent, Map<QName, String> additionalAttributes) {
-        if (parent instanceof TDMNElement) {
-            ((TDMNElement) parent).getOtherAttributes().putAll(additionalAttributes);
-        } else if (parent instanceof DiagramElement) {
-            ((DiagramElement) parent).getOtherAttributes().putAll(additionalAttributes);
-        } else if (parent instanceof Style) {
-            ((Style) parent).getOtherAttributes().putAll(additionalAttributes);
+        if (parent instanceof TDMNElement element) {
+            element.getOtherAttributes().putAll(additionalAttributes);
+        } else if (parent instanceof DiagramElement element) {
+            element.getOtherAttributes().putAll(additionalAttributes);
+        } else if (parent instanceof Style style) {
+            style.getOtherAttributes().putAll(additionalAttributes);
         }
     }
 }

@@ -30,6 +30,6 @@ public class TextTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("Text(%s)", text);
+        return "Text(%s)".formatted(text);
     }
 }

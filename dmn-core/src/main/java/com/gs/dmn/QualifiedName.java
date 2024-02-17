@@ -71,6 +71,6 @@ public class QualifiedName {
 
     @Override
     public String toString() {
-        return String.format("QualifiedName(%s, %s)", this.namespace, this.localPart);
+        return "QualifiedName(%s, %s)".formatted(this.namespace, this.localPart);
     }
 }

@@ -31,8 +31,8 @@ public abstract class EdgeConverter extends DiagramElementConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         Edge abs = (Edge) parent;
 
-        if (child instanceof Point) {
-            abs.getWaypoint().add((Point) child);
+        if (child instanceof Point point) {
+            abs.getWaypoint().add(point);
         } else {
             super.assignChildElement(abs, nodeName, child);
         }

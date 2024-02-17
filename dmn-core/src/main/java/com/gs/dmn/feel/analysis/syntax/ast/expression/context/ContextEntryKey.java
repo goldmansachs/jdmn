@@ -38,6 +38,6 @@ public class ContextEntryKey<T> extends Element<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", getClass().getSimpleName(), this.key);
+        return "%s(%s)".formatted(getClass().getSimpleName(), this.key);
     }
 }

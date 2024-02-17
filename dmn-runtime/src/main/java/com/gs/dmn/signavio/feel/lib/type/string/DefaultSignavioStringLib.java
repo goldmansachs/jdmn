@@ -219,14 +219,14 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
             return "null";
         } else if (from instanceof Double) {
             return DECIMAL_FORMAT.get().format(from);
-        } else if (from instanceof BigDecimal) {
-            return ((BigDecimal) from).toPlainString();
-        } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE);
-        } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME);
-        } else if (from instanceof ZonedDateTime) {
-            return ((ZonedDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
+        } else if (from instanceof BigDecimal decimal) {
+            return decimal.toPlainString();
+        } else if (from instanceof LocalDate date) {
+            return date.format(BaseDateTimeLib.FEEL_DATE);
+        } else if (from instanceof OffsetTime time) {
+            return time.format(BaseDateTimeLib.FEEL_TIME);
+        } else if (from instanceof ZonedDateTime time) {
+            return time.format(BaseDateTimeLib.FEEL_DATE_TIME);
         } else if (from instanceof XMLGregorianCalendar) {
             return from.toString();
         } else {

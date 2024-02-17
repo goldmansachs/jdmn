@@ -100,10 +100,10 @@ public class DefaultContextType extends BaseType implements ContextType {
                 if (!result.keySet().contains(key)) {
                     result.put(key, value);
                 } else {
-                    throw new DMNRuntimeException(String.format("Duplicated key '%s' in context()", key));
+                    throw new DMNRuntimeException("Duplicated key '%s' in context()".formatted(key));
                 }
             } else {
-                throw new DMNRuntimeException(String.format("Illegal entry '%s' in context()", entry));
+                throw new DMNRuntimeException("Illegal entry '%s' in context()".formatted(entry));
             }
         }
         return result;
@@ -149,22 +149,22 @@ public class DefaultContextType extends BaseType implements ContextType {
         for (int i=0; i<keys.size(); i++) {
             String key = keys.get(i);
             if (key == null) {
-                throw new DMNRuntimeException(String.format("Incorrect key '%s' in context '%s'", keys, context));
+                throw new DMNRuntimeException("Incorrect key '%s' in context '%s'".formatted(keys, context));
             }
             if (i == keys.size() -1) {
                 // last key from path
                 if (currentContext != null) {
                     currentContext.put(key, value);
                 } else {
-                    throw new DMNRuntimeException(String.format("Incorrect path '%s' in context '%s'", keys, context));
+                    throw new DMNRuntimeException("Incorrect path '%s' in context '%s'".formatted(keys, context));
                 }
             } else {
                 // extract context from path
                 Object o = currentContext.get(key);
-                if (o instanceof Context) {
-                   currentContext = (Context) o;
+                if (o instanceof Context context1) {
+                   currentContext = context1;
                 } else {
-                    throw new DMNRuntimeException(String.format("Incorrect path '%s' in context '%s'", keys, context));
+                    throw new DMNRuntimeException("Incorrect path '%s' in context '%s'".formatted(keys, context));
                 }
             }
         }
@@ -179,13 +179,12 @@ public class DefaultContextType extends BaseType implements ContextType {
 
         Context context = new Context();
         for (Object o: contexts) {
-            if (o instanceof Context) {
-                Context c = (Context) o;
+            if (o instanceof Context c) {
                 for (Object key : c.keySet()) {
                     context.put(key, c.get(key));
                 }
             } else {
-                throw new DMNRuntimeException(String.format("Expected Context found '%s'", o));
+                throw new DMNRuntimeException("Expected Context found '%s'".formatted(o));
             }
         }
         return context;

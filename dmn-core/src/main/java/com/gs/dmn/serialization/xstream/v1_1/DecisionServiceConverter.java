@@ -57,9 +57,9 @@ public class DecisionServiceConverter extends NamedElementConverter {
                 // Default behaviour
                 object = readBareItem(reader, context, null);
             }
-            if (object instanceof DMNBaseElement) {
-                ((DMNBaseElement) object).setParent((DMNBaseElement) parent);
-                ((DMNBaseElement) parent).addChildren((DMNBaseElement) object);
+            if (object instanceof DMNBaseElement element) {
+                element.setParent((DMNBaseElement) parent);
+                ((DMNBaseElement) parent).addChildren(element);
             }
             reader.moveUp();
             assignChildElement(parent, nodeName, object);
