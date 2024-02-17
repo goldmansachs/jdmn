@@ -19,7 +19,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.util.List;
 
-@javax.annotation.Generated(value={"inputData.ftl", "person"})
+@jakarta.annotation.Generated(value={"inputData.ftl", "person"})
 public class PersonImpl implements Person {
     private java.math.BigDecimal id;
     private String firstName;

@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.serialization.data;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "address"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "address"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = AddressImpl.class)
 public interface Address extends com.gs.dmn.runtime.DMNType {

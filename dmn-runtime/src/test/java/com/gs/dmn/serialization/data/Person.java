@@ -18,7 +18,7 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.List;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "person"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "person"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = PersonImpl.class)
 public interface Person extends com.gs.dmn.runtime.DMNType {

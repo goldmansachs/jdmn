@@ -13,24 +13,33 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+ <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.goldmansachs.jdmn</groupId>
-        <artifactId>jdmn-signavio-integration-tests</artifactId>
-        <version>8.2.2-SNAPSHOT</version>
-    </parent>
+ <parent>
+  <groupId>com.goldmansachs.jdmn</groupId>
+  <artifactId>jdmn-signavio-integration-tests</artifactId>
+  <version>8.2.2-SNAPSHOT</version>
+ </parent>
 
-    <artifactId>jdmn-signavio-integration-tests-translator</artifactId>
-	<name>jDMN: Signavio Integration Tests Translator</name>
-    <packaging>jar</packaging>
+ <artifactId>jdmn-signavio-integration-tests-translator</artifactId>
+ <name>jDMN: Signavio Integration Tests Translator</name>
+ <packaging>jar</packaging>
 
-    <properties>
-        <java.version>17</java.version>
+ <properties>
+  <java.version>17</java.version>
 
-        <line.coverage.minimum>0.00</line.coverage.minimum>
-        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
-    </properties>
+  <line.coverage.minimum>0.00</line.coverage.minimum>
+  <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+  <!-- not deploying this module to Maven central -->
+ </properties>
+ <dependencies>
+  <dependency>
+   <groupId>org.junit.jupiter</groupId>
+   <artifactId>junit-jupiter</artifactId>
+   <version>5.10.2</version>
+   <scope>test</scope>
+  </dependency>
+ </dependencies>
 
     <build>
         <extensions>

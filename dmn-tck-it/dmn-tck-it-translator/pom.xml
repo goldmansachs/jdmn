@@ -13,33 +13,42 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+ <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.goldmansachs.jdmn</groupId>
-        <artifactId>jdmn-tck-integration-tests</artifactId>
-        <version>8.2.2-SNAPSHOT</version>
-    </parent>
+ <parent>
+  <groupId>com.goldmansachs.jdmn</groupId>
+  <artifactId>jdmn-tck-integration-tests</artifactId>
+  <version>8.2.2-SNAPSHOT</version>
+ </parent>
 
-    <artifactId>jdmn-tck-integration-tests-translator</artifactId>
-	<name>jDMN: TCK Integration Tests Translator</name>
-    <packaging>jar</packaging>
+ <artifactId>jdmn-tck-integration-tests-translator</artifactId>
+ <name>jDMN: TCK Integration Tests Translator</name>
+ <packaging>jar</packaging>
 
-    <properties>
-        <model.version>1.0</model.version>
-        <platform.version>${project.parent.version}</platform.version>
+ <properties>
+  <model.version>1.0</model.version>
+  <platform.version>${project.parent.version}</platform.version>
 
-        <generated.source.code.folder>${project.build.directory}/generated-sources/dmn</generated.source.code.folder>
-        <generated.root.package>com.gs.dmn.generated</generated.root.package>
-        <generated.test.code.folder>${project.build.directory}/generated-test-sources/tck</generated.test.code.folder>
-        <generated.grpc.folder>${project.build.directory}/generated-sources/protobuf/grpc-java</generated.grpc.folder>
-        <generated.protobuf.folder>${project.build.directory}/generated-sources/protobuf/java</generated.protobuf.folder>
+  <generated.source.code.folder>${project.build.directory}/generated-sources/dmn</generated.source.code.folder>
+  <generated.root.package>com.gs.dmn.generated</generated.root.package>
+  <generated.test.code.folder>${project.build.directory}/generated-test-sources/tck</generated.test.code.folder>
+  <generated.grpc.folder>${project.build.directory}/generated-sources/protobuf/grpc-java</generated.grpc.folder>
+  <generated.protobuf.folder>${project.build.directory}/generated-sources/protobuf/java</generated.protobuf.folder>
 
-        <java.version>17</java.version>
+  <java.version>17</java.version>
 
-        <line.coverage.minimum>0.00</line.coverage.minimum>
-        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
-    </properties>
+  <line.coverage.minimum>0.00</line.coverage.minimum>
+  <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+  <!-- not deploying this module to Maven central -->
+ </properties>
+ <dependencies>
+  <dependency>
+   <groupId>org.junit.jupiter</groupId>
+   <artifactId>junit-jupiter</artifactId>
+   <version>5.10.2</version>
+   <scope>test</scope>
+  </dependency>
+ </dependencies>
 
     <build>
         <extensions>

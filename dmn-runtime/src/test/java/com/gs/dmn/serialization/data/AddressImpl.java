@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.serialization.data;
 
-@javax.annotation.Generated(value={"inputData.ftl", "person"})
+@jakarta.annotation.Generated(value={"inputData.ftl", "person"})
 public class AddressImpl implements Address {
     private String line;
     private String postcode;

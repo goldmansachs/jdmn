@@ -42,38 +42,43 @@
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.goldmansachs.jdmn</groupId>
-            <artifactId>jdmn-core</artifactId>
-        </dependency>
+ <dependencies>
+  <dependency>
+   <groupId>com.goldmansachs.jdmn</groupId>
+   <artifactId>jdmn-core</artifactId>
+  </dependency>
+  <dependency>
+   <groupId>jakarta.persistence</groupId>
+   <artifactId>jakarta.persistence-api</artifactId>
+   <version>3.1.0</version>
+  </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>6.0.0</version>
-            <scope>test</scope>
-        </dependency>
+  <dependency>
+   <groupId>org.springframework</groupId>
+   <artifactId>spring-test</artifactId>
+   <version>6.0.0</version>
+   <scope>test</scope>
+  </dependency>
 
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>3.1.2</version>
-            <scope>test</scope>
-        </dependency>
+  <dependency>
+   <groupId>org.springframework.data</groupId>
+   <artifactId>spring-data-jpa</artifactId>
+   <version>3.1.2</version>
+   <scope>test</scope>
+  </dependency>
 
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>2.2.220</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>javax.persistence</artifactId>
-            <version>2.2.1</version>
-        </dependency>
+  <dependency>
+   <groupId>com.h2database</groupId>
+   <artifactId>h2</artifactId>
+   <version>2.2.220</version>
+   <scope>test</scope>
+  </dependency>
+  <dependency>
+   <groupId>org.junit.jupiter</groupId>
+   <artifactId>junit-jupiter</artifactId>
+   <version>5.10.2</version>
+   <scope>test</scope>
+  </dependency>
 
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
