@@ -61,7 +61,7 @@ public class Input {
     @Override
     public String toString() {
         if (isStringType() || isBooleanType()) {
-            return String.format("%s %s", typeRef, allowedValues);
+            return "%s %s".formatted(typeRef, allowedValues);
         } else {
             return typeRef;
         }

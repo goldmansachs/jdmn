@@ -66,6 +66,6 @@ public class Rule {
 
     @Override
     public String toString() {
-        return String.format("[%s]", intervals.stream().map(i -> i == null ? null : i.toString()).collect(Collectors.joining(", ")));
+        return "[%s]".formatted(intervals.stream().map(i -> i == null ? null : i.toString()).collect(Collectors.joining(", ")));
     }
 }

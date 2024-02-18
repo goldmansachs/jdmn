@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "Extra days case 1"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "Extra days case 1"})
 public class ExtraDaysCase1RuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal extraDaysCase1;
 

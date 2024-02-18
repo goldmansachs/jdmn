@@ -51,6 +51,6 @@ public class Result {
 
     @Override
     public String toString() {
-        return String.format("Result(%s, %s, %s)", value, type, errors);
+        return "Result(%s, %s, %s)".formatted(value, type, errors);
     }
 }

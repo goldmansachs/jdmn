@@ -37,7 +37,7 @@ public class TCKVersion {
                 return  version;
             }
         }
-        throw new IllegalArgumentException(String.format("Cannot find TCK version '%s'", key));
+        throw new IllegalArgumentException("Cannot find TCK version '%s'".formatted(key));
     }
 
     private final String version;

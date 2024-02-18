@@ -42,6 +42,6 @@ public class ContextSelect extends PathTriple {
 
     @Override
     public String toString() {
-        return String.format("ContextSelect(%s, %s, %s)", contextClassName, source, memberName);
+        return "ContextSelect(%s, %s, %s)".formatted(contextClassName, source, memberName);
     }
 }

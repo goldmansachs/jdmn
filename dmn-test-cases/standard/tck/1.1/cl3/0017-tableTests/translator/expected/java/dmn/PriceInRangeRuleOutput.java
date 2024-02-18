@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "priceInRange"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "priceInRange"})
 public class PriceInRangeRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String priceInRange;
     private Integer priceInRangePriority;

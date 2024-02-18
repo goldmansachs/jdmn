@@ -48,7 +48,7 @@ public class QNameConverter implements Converter {
                 try {
                     staxWriter.writeNamespace(qname.getPrefix(), qname.getNamespaceURI());
                 } catch (XMLStreamException e) {
-                    throw new DMNRuntimeException(String.format("Cannot marshall QName '%s'", object));
+                    throw new DMNRuntimeException("Cannot marshall QName '%s'".formatted(object));
                 }
             }
             writer.setValue(DMNBaseConverter.formatQName(qname, null, version));
@@ -57,7 +57,7 @@ public class QNameConverter implements Converter {
             QName qname = (QName) object;
             writer.setValue(qname.getLocalPart());
         } else {
-            throw new DMNRuntimeException(String.format("Unknown DMN version '%s'", version));
+            throw new DMNRuntimeException("Unknown DMN version '%s'".formatted(version));
         }
     }
 
@@ -77,7 +77,7 @@ public class QNameConverter implements Converter {
             QName qname = new QName(reader.getValue());
             return qname;
         } else {
-            throw new DMNRuntimeException(String.format("Unknown DMN version '%s'", version));
+            throw new DMNRuntimeException("Unknown DMN version '%s'".formatted(version));
         }
     }
 }

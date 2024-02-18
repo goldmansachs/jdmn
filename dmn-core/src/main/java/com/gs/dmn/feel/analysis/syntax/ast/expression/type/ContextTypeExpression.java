@@ -50,7 +50,7 @@ public class ContextTypeExpression<T> extends TypeExpression<T> {
 
     @Override
     public String toString() {
-        String membersStr = this.members.stream().map(e -> String.format("%s: %s", e.getLeft(), e.getRight().toString())).collect(Collectors.joining(", "));
-        return String.format("%s(%s)", getClass().getSimpleName(), membersStr);
+        String membersStr = this.members.stream().map(e -> "%s: %s".formatted(e.getLeft(), e.getRight().toString())).collect(Collectors.joining(", "));
+        return "%s(%s)".formatted(getClass().getSimpleName(), membersStr);
     }
 }

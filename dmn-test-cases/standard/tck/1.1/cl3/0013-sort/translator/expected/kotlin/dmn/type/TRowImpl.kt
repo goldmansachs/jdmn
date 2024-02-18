@@ -2,7 +2,7 @@ package type
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinition.ftl", "tRow"])
+@jakarta.annotation.Generated(value = ["itemDefinition.ftl", "tRow"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 class TRowImpl : TRow {
     @get:com.fasterxml.jackson.annotation.JsonGetter("col1")

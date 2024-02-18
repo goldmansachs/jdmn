@@ -118,7 +118,7 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
     }
 
     private void validate(TDRGElement element, TInformationItem variable, TypeRefValidationContext context) {
-        logger.debug(String.format("Validating element '%s'", element.getName()));
+        logger.debug("Validating element '%s'".formatted(element.getName()));
 
         DMNModelRepository dmnModelRepository = context.getRepository();
         BasicDMNToJavaTransformer dmnTransformer = context.getDmnTransformer();
@@ -135,7 +135,7 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
                     Type type = inferType(element, dmnTransformer, dmnModelRepository, dmnEnvironmentFactory);
                     errorReport.add(new Pair<>(element, type));
 
-                    this.logger.debug(String.format("Missing typeRef '%s'", typeRef));
+                    this.logger.debug("Missing typeRef '%s'".formatted(typeRef));
                 }
             }
         }
@@ -157,7 +157,7 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
                 type = dmnEnvironmentFactory.expressionType(element, expression, globalContext);
             }
         } catch (Exception e) {
-            logger.warn(String.format("Cannot infer type for element '%s'", element.getName()));
+            logger.warn("Cannot infer type for element '%s'".formatted(element.getName()));
         }
         return type;
     }

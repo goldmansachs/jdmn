@@ -38,6 +38,6 @@ public class Constructor extends FunctionInvocationTriple {
 
     @Override
     public String toString() {
-        return String.format("Constructor(%s, %s)", clsName, args);
+        return "Constructor(%s, %s)".formatted(clsName, args);
     }
 }

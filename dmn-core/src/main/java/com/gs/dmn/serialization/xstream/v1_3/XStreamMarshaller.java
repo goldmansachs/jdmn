@@ -101,7 +101,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
             XStream xStream = newXStream();
             return xStream.fromXML(input);
         } catch (Exception e) {
-            LOGGER.error(String.format("Error unmarshalling DMN model from file '%s'.", input.getAbsolutePath()), e);
+            LOGGER.error("Error unmarshalling DMN model from file '%s'.".formatted(input.getAbsolutePath()), e);
         }
         return null;
     }
@@ -112,7 +112,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
             XStream xStream = newXStream();
             return xStream.fromXML(input);
         } catch (Exception e) {
-            LOGGER.error(String.format("Error unmarshalling DMN model from file '%s'.", input), e);
+            LOGGER.error("Error unmarshalling DMN model from file '%s'.".formatted(input), e);
         }
         return null;
     }
@@ -146,8 +146,7 @@ public class XStreamMarshaller implements SimpleDMNMarshaller {
                 CustomStaxWriter hsWriter = (CustomStaxWriter) STAX_DRIVER.createWriter(writer)) {
 
             XStream xStream = newXStream();
-            if (o instanceof DMNBaseElement) {
-                DMNBaseElement base = (DMNBaseElement) o;
+            if (o instanceof DMNBaseElement base) {
                 String dmnPrefix = base.getElementInfo().getNsContext().entrySet().stream().filter(kv -> DMNVersion.DMN_13.getNamespace().equals(kv.getValue())).findFirst().map(Map.Entry::getKey).orElse("");
                 hsWriter.getQNameMap().setDefaultPrefix(dmnPrefix);
             }

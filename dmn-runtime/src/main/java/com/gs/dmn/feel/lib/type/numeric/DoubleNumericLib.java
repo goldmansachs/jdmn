@@ -104,7 +104,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> {
 
         double result = Math.sqrt(number);
         if (Double.isNaN(result)) {
-            throw new DMNRuntimeException(String.format("Illegal number '%s'", number));
+            throw new DMNRuntimeException("Illegal number '%s'".formatted(number));
         } else {
             return result;
         }
@@ -118,7 +118,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> {
 
         double result = Math.log(number);
         if (Double.isNaN(result)) {
-            throw new DMNRuntimeException(String.format("Illegal number '%s'", number));
+            throw new DMNRuntimeException("Illegal number '%s'".formatted(number));
         } else {
             return result;
         }
@@ -132,7 +132,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> {
 
         double result = Math.exp(number);
         if (Double.isNaN(result)) {
-            throw new DMNRuntimeException(String.format("Illegal number '%s'", number));
+            throw new DMNRuntimeException("Illegal number '%s'".formatted(number));
         } else {
             return result;
         }
@@ -326,7 +326,7 @@ public class DoubleNumericLib extends BaseNumericLib<Double> {
 
     private void checkScale(Double scale) {
         if (scale != null && (scale.intValue() < MIN_SCALE || scale.intValue() > MAX_SCALE)) {
-            throw new DMNRuntimeException(String.format("Scale '%s' not in range [%s, %s]", scale, MIN_SCALE, MAX_SCALE));
+            throw new DMNRuntimeException("Scale '%s' not in range [%s, %s]".formatted(scale, MIN_SCALE, MAX_SCALE));
         }
     }
 }

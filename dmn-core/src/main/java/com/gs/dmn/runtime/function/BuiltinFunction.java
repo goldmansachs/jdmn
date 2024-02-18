@@ -41,6 +41,6 @@ public class BuiltinFunction extends Function {
 
     @Override
     public String toString() {
-        return String.format("%s(declaration='%s')", getClass().getSimpleName(), declarations);
+        return "%s(declaration='%s')".formatted(getClass().getSimpleName(), declarations);
     }
 }

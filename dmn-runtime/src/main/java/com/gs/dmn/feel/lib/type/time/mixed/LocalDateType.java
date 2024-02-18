@@ -87,7 +87,7 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
             long durationInSeconds = dateValue(first) - (long) value(second);
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(durationInSeconds);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", first, second));
+            throw new DMNRuntimeException("Cannot subtract '%s' and '%s'".formatted(first, second));
         }
     }
 

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "ageClassification"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "ageClassification"})
 public class AgeClassificationRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String cls;
     private java.math.BigDecimal discount;

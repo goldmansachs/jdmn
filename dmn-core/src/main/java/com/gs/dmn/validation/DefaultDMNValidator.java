@@ -87,7 +87,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
 
     protected void validateUnique(TDefinitions definitions, List<? extends TDMNElement> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElement, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
-            errorMessage = String.format("The '%s' of a '%s' must be unique.", property, elementType);
+            errorMessage = "The '%s' of a '%s' must be unique.".formatted(property, elementType);
         }
         // Create a map
         Map<String, List<TDMNElement>> map = new LinkedHashMap<>();
@@ -115,13 +115,13 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         // Report error
         if (!duplicates.isEmpty()) {
             String message = String.join(", ", duplicates);
-            context.addError(makeError(context.getRepository(), definitions, null, String.format("%s Found duplicates for '%s'.", errorMessage, message)));
+            context.addError(makeError(context.getRepository(), definitions, null, "%s Found duplicates for '%s'.".formatted(errorMessage, message)));
         }
     }
 
     private void validateUniqueReferences(TDefinitions definitions, List<? extends TDMNElementReference> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElementReference, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
-            errorMessage = String.format("The '%s' of a '%s' must be unique.", property, elementType);
+            errorMessage = "The '%s' of a '%s' must be unique.".formatted(property, elementType);
         }
         // Create a map
         Map<String, List<TDMNElementReference>> map = new LinkedHashMap<>();
@@ -149,7 +149,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         // Report error
         if (!duplicates.isEmpty()) {
             String message = String.join(", ", duplicates);
-            context.addError(makeError(context.getRepository(), definitions, null, String.format("%s Found duplicates for '%s'.", errorMessage, message)));
+            context.addError(makeError(context.getRepository(), definitions, null, "%s Found duplicates for '%s'.".formatted(errorMessage, message)));
         }
     }
 
@@ -175,7 +175,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 String variableName = variable.getName();
                 String elementName = element.getName();
                 if (!elementName.equals(variableName)) {
-                    String errorMessage = String.format("DRGElement name and variable name should be the same. Found '%s' and '%s'", elementName, variableName);
+                    String errorMessage = "DRGElement name and variable name should be the same. Found '%s' and '%s'".formatted(elementName, variableName);
                     context.addError(makeError(repository, definitions, element, errorMessage));
                 }
                 // decision/variable/@typeRef is not null
@@ -227,52 +227,49 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             String errorMessage = "Missing expression";
             context.addError(makeError(repository, definitions, element, errorMessage));
         } else {
-            if (expression instanceof TDecisionTable) {
-                TDecisionTable decisionTable = (TDecisionTable) expression;
+            if (expression instanceof TDecisionTable decisionTable) {
                 validateDecisionTable(definitions, element, decisionTable, context);
-            } else if (expression instanceof TInvocation) {
-                TInvocation invocation = (TInvocation) expression;
+            } else if (expression instanceof TInvocation invocation) {
                 validateExpression(definitions, element, invocation.getExpression(), context);
-            } else if (expression instanceof TLiteralExpression) {
-                TLiteralExpression literalExpression = (TLiteralExpression) expression;
-                String expressionLanguage = ((TLiteralExpression) expression).getExpressionLanguage();
+            } else if (expression instanceof TLiteralExpression literalExpression) {
+                String expressionLanguage = literalExpression.getExpressionLanguage();
                 if (!isSupported(expressionLanguage)) {
-                    String errorMessage = String.format("Not supported expression language '%s'", expressionLanguage);
+                    String errorMessage = "Not supported expression language '%s'".formatted(expressionLanguage);
                     context.addError(makeError(repository, definitions, element, errorMessage));
                 }
                 if (StringUtils.isBlank(literalExpression.getText())) {
                     String errorMessage = "Missing text in literal expressions";
                     context.addError(makeError(repository, definitions, element, errorMessage));
                 }
-            } else if (expression instanceof TContext) {
-                List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
+            } else if (expression instanceof TContext tContext) {
+                List<TContextEntry> contextEntryList = tContext.getContextEntry();
                 if (contextEntryList.isEmpty()) {
                     String errorMessage = "Missing entries in context expression";
                     context.addError(makeError(repository, definitions, element, errorMessage));
                 }
-            } else if (expression instanceof TRelation) {
-                if (((TRelation) expression).getColumn() == null && ((TRelation) expression).getRow() == null) {
+            } else if (expression instanceof TRelation relation) {
+                if (relation.getColumn() == null && relation.getRow() == null) {
                     String errorMessage = "Empty relation";
                     context.addError(makeError(repository, definitions, element, errorMessage));
                 }
-            } else if (expression instanceof TConditional) {
-                checkChildExpression(definitions, element, ((TConditional) expression).getIf(), "conditional", "if", context);
-                checkChildExpression(definitions, element, ((TConditional) expression).getThen(), "conditional", "then", context);
-                checkChildExpression(definitions, element, ((TConditional) expression).getElse(), "conditional", "else", context);
-            } else if (expression instanceof TFilter) {
-                checkChildExpression(definitions, element, ((TFilter) expression).getIn(), "filter", "in", context);
-                checkChildExpression(definitions, element, ((TFilter) expression).getMatch(), "filter", "match", context);
-            } else if (expression instanceof TFor) {
-                checkChildExpression(definitions, element, ((TFor) expression).getIn(), "for", "in", context);
-                checkChildExpression(definitions, element, ((TFor) expression).getReturn(), "for", "return", context);
-            } else if (expression instanceof TSome) {
+            } else if (expression instanceof TConditional conditional) {
+                checkChildExpression(definitions, element, conditional.getIf(), "conditional", "if", context);
+                checkChildExpression(definitions, element, conditional.getThen(), "conditional", "then", context);
+                checkChildExpression(definitions, element, conditional.getElse(), "conditional", "else", context);
+            } else if (expression instanceof TFilter filter) {
+                checkChildExpression(definitions, element, filter.getIn(), "filter", "in", context);
+                checkChildExpression(definitions, element, filter.getMatch(), "filter", "match", context);
+            } else if (expression instanceof TFor for1) {
+                checkChildExpression(definitions, element, for1.getIn(), "for", "in", context);
+                checkChildExpression(definitions, element, for1.getReturn(), "for", "return", context);
+            } else if (expression instanceof TSome some) {
                 String parentName = "some";
-                checkChildExpression(definitions, element, ((TQuantified) expression).getIn(), parentName, "in", context);
-                checkChildExpression(definitions, element, ((TQuantified) expression).getSatisfies(), parentName, "satisfies", context);
-            } else if (expression instanceof TEvery) {
+                checkChildExpression(definitions, element, some.getIn(), parentName, "in", context);
+                checkChildExpression(definitions, element, some.getSatisfies(), parentName, "satisfies", context);
+            } else if (expression instanceof TEvery every) {
                 String parentName = "every";
-                checkChildExpression(definitions, element, ((TQuantified) expression).getIn(), parentName, "in", context);
-                checkChildExpression(definitions, element, ((TQuantified) expression).getSatisfies(), parentName, "satisfies", context);
+                checkChildExpression(definitions, element, every.getIn(), parentName, "in", context);
+                checkChildExpression(definitions, element, every.getSatisfies(), parentName, "satisfies", context);
             } else {
                 throw new UnsupportedOperationException("Not supported DMN expression type " + expression.getClass().getName());
             }
@@ -311,13 +308,13 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         THitPolicy hitPolicy = decisionTable.getHitPolicy();
         TBuiltinAggregator aggregation = decisionTable.getAggregation();
         if (hitPolicy != THitPolicy.COLLECT && aggregation != null) {
-            String errorMessage = String.format("Aggregation '%s' not allowed for hit policy '%s'", aggregation, hitPolicy);
+            String errorMessage = "Aggregation '%s' not allowed for hit policy '%s'".formatted(aggregation, hitPolicy);
             context.addError(makeError(repository, definitions, element, errorMessage));
         }
         if (output != null && output.size() > 1
                 && hitPolicy == THitPolicy.COLLECT
                 && aggregation != null) {
-            String errorMessage = String.format("Collect operator is not defined over multiple outputs for decision table '%s'", decisionTable.getId());
+            String errorMessage = "Collect operator is not defined over multiple outputs for decision table '%s'".formatted(decisionTable.getId());
             context.addError(makeError(repository, definitions, element, errorMessage));
         }
     }
@@ -341,7 +338,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     }
 
     private void checkChildExpression(TDefinitions definitions, TDRGElement element, TChildExpression childExpression, String parentName, String childName, ValidationContext context) {
-        String errorMessage = String.format("Missing '%s' expression in '%s' boxed expression in element '%s'", childName, parentName, element.getName());
+        String errorMessage = "Missing '%s' expression in '%s' boxed expression in element '%s'".formatted(childName, parentName, element.getName());
         if (childExpression == null || childExpression.getExpression() == null) {
             context.addError(makeError(context.getRepository(), definitions, element, errorMessage));
         }

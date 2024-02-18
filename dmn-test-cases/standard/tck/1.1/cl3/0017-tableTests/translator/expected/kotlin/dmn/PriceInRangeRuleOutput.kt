@@ -1,5 +1,5 @@
 
-@javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "priceInRange"])
+@jakarta.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "priceInRange"])
 class PriceInRangeRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("priceInRange")
     var priceInRange: String? = null

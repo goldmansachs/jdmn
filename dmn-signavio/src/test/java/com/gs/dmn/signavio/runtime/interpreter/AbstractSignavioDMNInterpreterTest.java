@@ -54,7 +54,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
     }
 
     protected void doTest(String decisionName, String diagramName, Map<String, Object> inputRequirements, Object expectedResult) throws Exception {
-        String errorMessage = String.format("Tested failed for diagram '%s'", diagramName);
+        String errorMessage = "Tested failed for diagram '%s'".formatted(diagramName);
         try {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
             URI uri = signavioResource(pathName);

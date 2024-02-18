@@ -49,9 +49,9 @@ public class AddMissingImportPrefixInDTTransformer extends SimpleDMNTransformer<
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             for (TDecision decision: repository.findDecisions(definitions)) {
                 TExpression expression = repository.expression(decision);
-                if (expression instanceof TDecisionTable) {
-                    logger.debug(String.format("Process decision table in decision '%s'", decision.getName()));
-                    transform(repository, decision, (TDecisionTable) expression);
+                if (expression instanceof TDecisionTable table) {
+                    logger.debug("Process decision table in decision '%s'".formatted(decision.getName()));
+                    transform(repository, decision, table);
                 }
             }
         }

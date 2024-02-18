@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "ageClassification"})
+@jakarta.annotation.Generated(value = {"decision.ftl", "ageClassification"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "ageClassification",

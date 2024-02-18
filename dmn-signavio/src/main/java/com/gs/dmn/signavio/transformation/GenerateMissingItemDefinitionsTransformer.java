@@ -98,15 +98,15 @@ public class GenerateMissingItemDefinitionsTransformer extends AbstractMissingIt
         } else {
             Object definitionsNode = configuration.get(ELEMENT_DEFINITIONS);
             if (!(definitionsNode instanceof Map)) {
-                reportInvalidConfig(String.format("Configuration does not have expected structure (expecting \"%s\" node)", ELEMENT_DEFINITIONS));
+                reportInvalidConfig("Configuration does not have expected structure (expecting \"%s\" node)".formatted(ELEMENT_DEFINITIONS));
             } else {
                 Object definitionConfig = ((Map<String, Object>) definitionsNode).get(ELEMENT_DEFINITION);
-                if (definitionConfig instanceof List) {
-                    definitionList = (List<Object>) definitionConfig;
+                if (definitionConfig instanceof List list) {
+                    definitionList = list;
                 } else if (definitionConfig instanceof Map) {
                     definitionList = Collections.singletonList(definitionConfig);
                 } else {
-                    reportInvalidConfig(String.format("Configuration does not have expected structure (expecting list of \"%s\" nodes)", ELEMENT_DEFINITION));
+                    reportInvalidConfig("Configuration does not have expected structure (expecting list of \"%s\" nodes)".formatted(ELEMENT_DEFINITION));
                 }
             }
         }

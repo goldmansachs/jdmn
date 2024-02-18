@@ -105,10 +105,10 @@ public class SignavioTemporalDateTimeLib extends SignavioBaseDateTimeLib impleme
             return null;
         }
 
-        if (dateTime instanceof Temporal) {
-            return ((Temporal) dateTime).plus(yearsToAdd.longValue(), ChronoUnit.YEARS);
+        if (dateTime instanceof Temporal temporal) {
+            return temporal.plus(yearsToAdd.longValue(), ChronoUnit.YEARS);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot add months '%s' to '%s'", yearsToAdd, dateTime));
+            throw new DMNRuntimeException("Cannot add months '%s' to '%s'".formatted(yearsToAdd, dateTime));
         }
     }
 
@@ -135,10 +135,10 @@ public class SignavioTemporalDateTimeLib extends SignavioBaseDateTimeLib impleme
             return null;
         }
 
-        if (dateTime instanceof Temporal) {
-            return ((Temporal) dateTime).plus(monthsToAdd.longValue(), ChronoUnit.MONTHS);
+        if (dateTime instanceof Temporal temporal) {
+            return temporal.plus(monthsToAdd.longValue(), ChronoUnit.MONTHS);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot add months '%s' to '%s'", monthsToAdd, dateTime));
+            throw new DMNRuntimeException("Cannot add months '%s' to '%s'".formatted(monthsToAdd, dateTime));
         }
     }
 
@@ -165,10 +165,10 @@ public class SignavioTemporalDateTimeLib extends SignavioBaseDateTimeLib impleme
             return null;
         }
 
-        if (dateTime instanceof Temporal) {
-            return ((Temporal) dateTime).plus(daysToAdd.longValue(), ChronoUnit.DAYS);
+        if (dateTime instanceof Temporal temporal) {
+            return temporal.plus(daysToAdd.longValue(), ChronoUnit.DAYS);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot add days '%s' to '%s'", daysToAdd, dateTime));
+            throw new DMNRuntimeException("Cannot add days '%s' to '%s'".formatted(daysToAdd, dateTime));
         }
     }
 
@@ -187,9 +187,9 @@ public class SignavioTemporalDateTimeLib extends SignavioBaseDateTimeLib impleme
             return null;
         }
 
-        if (time1 instanceof ZonedDateTime && time2 instanceof OffsetTime) {
+        if (time1 instanceof ZonedDateTime zonedDateTime && time2 instanceof OffsetTime offsetTime) {
             // between() is not symmetric, converts second to first
-            return - Duration.between((Temporal) time2, (Temporal) time1).toHours();
+            return - Duration.between(offsetTime, zonedDateTime).toHours();//temporal or not
         } else {
             return Duration.between((Temporal) time1, (Temporal) time2).toHours();
         }
@@ -201,9 +201,9 @@ public class SignavioTemporalDateTimeLib extends SignavioBaseDateTimeLib impleme
             return null;
         }
 
-        if (time1 instanceof ZonedDateTime && time2 instanceof OffsetTime) {
+        if (time1 instanceof ZonedDateTime zonedDateTime && time2 instanceof OffsetTime offsetTime) {
             // between() is not symmetric, converts second to first
-            return - Duration.between((Temporal) time2, (Temporal) time1).toMinutes();
+            return - Duration.between(offsetTime, zonedDateTime).toMinutes();
         } else {
             return Duration.between((Temporal) time1, (Temporal) time2).toMinutes();
         }
@@ -215,12 +215,12 @@ public class SignavioTemporalDateTimeLib extends SignavioBaseDateTimeLib impleme
             return null;
         }
 
-        if (date instanceof LocalDate) {
-            return ((LocalDate) date).getDayOfWeek().getValue();
-        } else if (date instanceof ZonedDateTime) {
-            return ((ZonedDateTime) date).getDayOfWeek().getValue();
+        if (date instanceof LocalDate localDate) {
+            return localDate.getDayOfWeek().getValue();
+        } else if (date instanceof ZonedDateTime time) {
+            return time.getDayOfWeek().getValue();
         }
-        throw new RuntimeException(String.format("Cannot extract 'weekday' from '%s'", date));
+        throw new RuntimeException("Cannot extract 'weekday' from '%s'".formatted(date));
     }
 
     @Override

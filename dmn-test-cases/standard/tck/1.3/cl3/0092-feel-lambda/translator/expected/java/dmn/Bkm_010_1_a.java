@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"bkm.ftl", "bkm_010_1_a"})
+@jakarta.annotation.Generated(value = {"bkm.ftl", "bkm_010_1_a"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "bkm_010_1_a",

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "ApplicationRiskScoreModel"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "ApplicationRiskScoreModel"})
 public class ApplicationRiskScoreModelRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal applicationRiskScoreModel;
 

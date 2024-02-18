@@ -101,10 +101,10 @@ class SweepValidatorVisitor extends TraversalVisitor<SweepValidationContext> {
     @Override
     public DMNBaseElement visit(TDecision element, SweepValidationContext context) {
         if (element != null) {
-            this.logger.debug(String.format("Validating element '%s'", element.getName()));
+            this.logger.debug("Validating element '%s'".formatted(element.getName()));
             TExpression expression = element.getExpression();
-            if (expression instanceof TDecisionTable && ((TDecisionTable) expression).getHitPolicy() == THitPolicy.UNIQUE) {
-                this.validator.validate(element, (TDecisionTable) expression, context);
+            if (expression instanceof TDecisionTable table && table.getHitPolicy() == THitPolicy.UNIQUE) {
+                this.validator.validate(element, table, context);
             }
 
         }

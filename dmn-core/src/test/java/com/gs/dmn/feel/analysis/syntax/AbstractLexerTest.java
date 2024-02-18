@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractLexerTest {
     protected void checkPosition(Token token, int beginLine, int beginColumn, int endLine, int endColumn, int beginOffset, int endOffset) {
-        String message = String.format("Error when checking '%s'", token.getText());
+        String message = "Error when checking '%s'".formatted(token.getText());
         assertEquals(beginLine, getBeginLine(token), message);
         assertEquals(beginColumn, getBeginColumn(token), message);
         assertEquals(endLine, getEndLine(token), message);

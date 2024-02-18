@@ -51,7 +51,7 @@ public class Context<T> extends Expression<T> {
                 String lexeme = ((SimpleLiteral<T>) expression).getLexeme();
                 value = StringEscapeUtil.stripQuotes(lexeme);
             } else {
-                throw new DMNRuntimeException(String.format("'%s' is not supported", expression.getClass().getSimpleName()));
+                throw new DMNRuntimeException("'%s' is not supported".formatted(expression.getClass().getSimpleName()));
             }
             result.put(key, value);
         }
@@ -79,6 +79,6 @@ public class Context<T> extends Expression<T> {
     @Override
     public String toString() {
         String expressions = this.entries.stream().map(ContextEntry::toString).collect(Collectors.joining(","));
-        return String.format("%s(%s)", getClass().getSimpleName(), expressions);
+        return "%s(%s)".formatted(getClass().getSimpleName(), expressions);
     }
 }

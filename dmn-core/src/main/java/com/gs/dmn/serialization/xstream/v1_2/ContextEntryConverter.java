@@ -48,8 +48,8 @@ public class ContextEntryConverter extends DMNElementConverter {
 
         if (VARIABLE.equals(nodeName)) {
             ce.setVariable((TInformationItem) child);
-        } else if (child instanceof TExpression) {
-            ce.setExpression((TExpression) child);
+        } else if (child instanceof TExpression expression) {
+            ce.setExpression(expression);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }

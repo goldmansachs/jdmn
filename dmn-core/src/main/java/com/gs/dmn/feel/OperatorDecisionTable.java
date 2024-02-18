@@ -197,7 +197,7 @@ public class OperatorDecisionTable {
     public static NativeOperator javaOperator(String name, Type leftType, Type rightType) {
         OperatorTableInputEntry entry = resolveOperator(name, leftType, rightType);
         if (entry == null) {
-            throw new DMNRuntimeException(String.format("Cannot infer java operator for '(%s, %s, %s)'", name, leftType, rightType));
+            throw new DMNRuntimeException("Cannot infer java operator for '(%s, %s, %s)'".formatted(name, leftType, rightType));
         } else {
             return MAPPINGS.get(entry).getRight();
         }
@@ -206,7 +206,7 @@ public class OperatorDecisionTable {
     public static Type resultType(String name, Type leftType, Type rightType) {
         OperatorTableInputEntry entry = resolveOperator(name, leftType, rightType);
         if (entry == null) {
-            throw new DMNRuntimeException(String.format("Cannot infer result type for '(%s, %s, %s)'", name, leftType, rightType));
+            throw new DMNRuntimeException("Cannot infer result type for '(%s, %s, %s)'".formatted(name, leftType, rightType));
         } else {
             Pair<Type, NativeOperator> pair = MAPPINGS.get(entry);
             return pair.getLeft();
@@ -220,7 +220,7 @@ public class OperatorDecisionTable {
 
         // Check if operator can be applied
         if (!validOperator(name, pair.getLeft(), pair.getRight())) {
-            throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s', '%s'", name, leftType, rightType));
+            throw new DMNRuntimeException("Operator '%s' cannot be applied to '%s', '%s'".formatted(name, leftType, rightType));
         }
 
         // Resolve operator

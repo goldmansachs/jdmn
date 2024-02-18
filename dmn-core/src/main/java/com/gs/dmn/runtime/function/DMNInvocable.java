@@ -46,6 +46,6 @@ public class DMNInvocable extends Function {
 
     @Override
     public String toString() {
-        return String.format("%s(invocable='%s' type='%s')", getClass().getSimpleName(), invocable, type);
+        return "%s(invocable='%s' type='%s')".formatted(getClass().getSimpleName(), invocable, type);
     }
 }

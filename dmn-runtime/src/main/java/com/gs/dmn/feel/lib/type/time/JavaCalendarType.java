@@ -33,7 +33,7 @@ public abstract class JavaCalendarType extends BaseType {
         } else if (isDateTime(object)) {
             return dateTimeValue((TemporalAccessor) object);
         }
-        throw new DMNRuntimeException(String.format("Cannot calculate value() for '%s'", object));
+        throw new DMNRuntimeException("Cannot calculate value() for '%s'".formatted(object));
     }
 
     public Long dateValue(LocalDate localDate) {
@@ -56,8 +56,8 @@ public abstract class JavaCalendarType extends BaseType {
 
         try {
             ZoneId zoneId = ZoneId.from(time);
-            if (zoneId instanceof ZoneOffset) {
-                result -= ((ZoneOffset) zoneId).getTotalSeconds();
+            if (zoneId instanceof ZoneOffset offset) {
+                result -= offset.getTotalSeconds();
             } else {
                 Instant instant = Instant.now();
                 ZoneOffset zoneOffset = zoneId.getRules().getOffset(instant);
@@ -94,12 +94,12 @@ public abstract class JavaCalendarType extends BaseType {
             return null;
         }
 
-        if (dateTime instanceof LocalDateTime) {
-            return ((LocalDateTime) dateTime).toEpochSecond(ZoneOffset.of("Z"));
-        } else if (dateTime instanceof OffsetDateTime) {
-            return ((OffsetDateTime) dateTime).toEpochSecond();
-        } else if (dateTime instanceof ZonedDateTime) {
-            return ((ZonedDateTime) dateTime).toEpochSecond();
+        if (dateTime instanceof LocalDateTime time) {
+            return time.toEpochSecond(ZoneOffset.of("Z"));
+        } else if (dateTime instanceof OffsetDateTime time) {
+            return time.toEpochSecond();
+        } else if (dateTime instanceof ZonedDateTime time) {
+            return time.toEpochSecond();
         } else {
             return null;
         }
@@ -118,10 +118,10 @@ public abstract class JavaCalendarType extends BaseType {
             return null;
         } else if (isDate(obj)) {
             return (LocalDate) obj;
-        } else if (obj instanceof ZonedDateTime) {
-            return ((ZonedDateTime) obj).toLocalDate();
+        } else if (obj instanceof ZonedDateTime time) {
+            return time.toLocalDate();
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", obj));
+        throw new DMNRuntimeException("Cannot convert '%s' to date".formatted(obj));
     }
 
     public Temporal toDateTime(Object obj) {
@@ -129,14 +129,14 @@ public abstract class JavaCalendarType extends BaseType {
             return null;
         } else if (isDate(obj)) {
             return ((LocalDate) obj).atStartOfDay(UTC);
-        } else if (obj instanceof LocalDateTime) {
-            return (LocalDateTime) obj;
-        } else if (obj instanceof OffsetDateTime) {
-            return (OffsetDateTime) obj;
-        } else if (obj instanceof ZonedDateTime) {
-            return (ZonedDateTime) obj;
+        } else if (obj instanceof LocalDateTime time) {
+            return time;
+        } else if (obj instanceof OffsetDateTime time) {
+            return time;
+        } else if (obj instanceof ZonedDateTime time) {
+            return time;
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", obj));
+        throw new DMNRuntimeException("Cannot convert '%s' to date".formatted(obj));
     }
 
     public abstract boolean isDate(Object object);

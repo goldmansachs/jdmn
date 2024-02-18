@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "Post-bureauRiskCategoryTable"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "Post-bureauRiskCategoryTable"})
 public class PostBureauRiskCategoryTableRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String postBureauRiskCategoryTable;
 

@@ -71,7 +71,7 @@ public class PythonStandardDMNDialectDefinition extends AbstractStandardDMNDiale
     }
 
     protected String qualifiedName(Class<?> cls) {
-        String qName = String.format("%s.%s", cls.getName(), cls.getSimpleName());
+        String qName = "%s.%s".formatted(cls.getName(), cls.getSimpleName());
         return qName.replace("com.gs.dmn", "jdmn");
     }
 

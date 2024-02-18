@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "incompleteDecisionTable"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "incompleteDecisionTable"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.IncompleteDecisionTableImpl.class)
 public interface IncompleteDecisionTable extends com.gs.dmn.runtime.DMNType {

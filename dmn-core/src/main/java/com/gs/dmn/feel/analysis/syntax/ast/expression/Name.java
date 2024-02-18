@@ -52,6 +52,6 @@ public class Name<T> extends NamedExpression<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", getClass().getSimpleName(), this.name);
+        return "%s(%s)".formatted(getClass().getSimpleName(), this.name);
     }
 }

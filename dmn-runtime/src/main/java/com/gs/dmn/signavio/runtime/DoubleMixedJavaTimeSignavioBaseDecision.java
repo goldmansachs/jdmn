@@ -41,7 +41,7 @@ public class DoubleMixedJavaTimeSignavioBaseDecision extends DoubleMixedJavaTime
 
     @Override
     public Rule getRuleAnnotation(int ruleIndex) {
-        String methodName = String.format("rule%d", ruleIndex);
+        String methodName = "rule%d".formatted(ruleIndex);
         Class<? extends DoubleMixedJavaTimeSignavioBaseDecision> cls = this.getClass();
         Method[] declaredMethods = cls.getDeclaredMethods();
         for (Method method : declaredMethods) {

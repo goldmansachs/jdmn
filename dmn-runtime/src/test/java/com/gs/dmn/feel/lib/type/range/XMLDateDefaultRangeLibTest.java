@@ -30,6 +30,6 @@ public class XMLDateDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigD
         if (number < 1 || number > 31) {
             throw new IllegalArgumentException("Illegal day");
         }
-        return this.getLib().date(String.format("2010-01-%02d", number));
+        return this.getLib().date("2010-01-%02d".formatted(number));
     }
 }

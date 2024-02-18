@@ -76,8 +76,8 @@ public class DecisionConverter extends DRGElementConverter {
             dec.getUsingProcess().add((TDMNElementReference) child);
         } else if (USING_TASK.equals(nodeName)) {
             dec.getUsingTask().add((TDMNElementReference) child);
-        } else if (child instanceof TExpression) {
-            dec.setExpression((TExpression) child);
+        } else if (child instanceof TExpression expression) {
+            dec.setExpression(expression);
         } else {
             super.assignChildElement(dec, nodeName, child);
         }

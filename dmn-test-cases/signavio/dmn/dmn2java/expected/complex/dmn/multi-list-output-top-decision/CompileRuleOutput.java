@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "compile"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "compile"})
 public class CompileRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String nextTrafficLight;
     private java.math.BigDecimal avgOfNumbers;

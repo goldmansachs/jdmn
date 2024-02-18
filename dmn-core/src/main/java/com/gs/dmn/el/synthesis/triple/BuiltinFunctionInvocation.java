@@ -38,6 +38,6 @@ public class BuiltinFunctionInvocation extends FunctionInvocationTriple {
 
     @Override
     public String toString() {
-        return String.format("BuiltinFunctionInvocation(%s, %s)", conversionFunction, operands);
+        return "BuiltinFunctionInvocation(%s, %s)".formatted(conversionFunction, operands);
     }
 }

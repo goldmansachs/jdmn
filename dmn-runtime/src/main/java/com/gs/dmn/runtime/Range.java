@@ -69,6 +69,6 @@ public class Range {
 
     @Override
     public String toString() {
-        return String.format("Range(%s,%s,%s,%s)", this.startIncluded, this.start.toString(), this.end.toString(), this.endIncluded);
+        return "Range(%s,%s,%s,%s)".formatted(this.startIncluded, this.start.toString(), this.end.toString(), this.endIncluded);
     }
 }

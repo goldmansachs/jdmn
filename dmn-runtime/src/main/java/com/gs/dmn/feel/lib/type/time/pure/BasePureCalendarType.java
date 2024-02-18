@@ -50,8 +50,7 @@ public abstract class BasePureCalendarType extends JavaCalendarType {
     }
 
     private boolean isTimeWithZone(Object obj) {
-        if (obj instanceof TemporalAccessor) {
-            TemporalAccessor value = (TemporalAccessor) obj;
+        if (obj instanceof TemporalAccessor value) {
             return value.isSupported(ChronoField.HOUR_OF_DAY)
                     && value.isSupported(ChronoField.MINUTE_OF_HOUR)
                     && value.isSupported(ChronoField.SECOND_OF_MINUTE)

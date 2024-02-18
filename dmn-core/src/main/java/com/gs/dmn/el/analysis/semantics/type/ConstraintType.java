@@ -42,8 +42,8 @@ public class ConstraintType implements Type {
 
     @Override
     public boolean conformsTo(Type other) {
-        if (other instanceof ConstraintType) {
-            return this.type.conformsTo(((ConstraintType) other).getType());
+        if (other instanceof ConstraintType constraintType) {
+            return this.type.conformsTo(constraintType.getType());
         } else {
             return this.type.conformsTo(other);
         }
@@ -78,6 +78,6 @@ public class ConstraintType implements Type {
 
     @Override
     public String toString() {
-        return String.format("ConstraintType(%s, %s)", this.type, getUnaryTests());
+        return "ConstraintType(%s, %s)".formatted(this.type, getUnaryTests());
     }
 }

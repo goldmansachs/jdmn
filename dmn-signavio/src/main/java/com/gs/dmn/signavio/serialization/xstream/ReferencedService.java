@@ -26,6 +26,6 @@ public class ReferencedService {
 
     @Override
     public String toString() {
-        return String.format("ReferencedService(href='%s')", href);
+        return "ReferencedService(href='%s')".formatted(href);
     }
 }

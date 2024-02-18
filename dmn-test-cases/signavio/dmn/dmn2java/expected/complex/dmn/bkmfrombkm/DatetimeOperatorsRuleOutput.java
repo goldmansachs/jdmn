@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "datetimeOperators"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "datetimeOperators"})
 public class DatetimeOperatorsRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String datetimeOperators;
 

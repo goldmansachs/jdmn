@@ -46,7 +46,7 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
         String lexeme = triple.getLexeme();
         String value = StringEscapeUtil.unescapeFEEL(lexeme);
         value = StringEscapeUtil.escapeFEEL(value);
-        value = String.format("\"%s\"", value);
+        value = "\"%s\"".formatted(value);
         return value;
     }
 
@@ -75,7 +75,7 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
     public String visit(ContextEntryTriple triple, Triples context) {
         String key = triple.getKey();
         String value = triple.getValue().accept(this, context);
-        return String.format(".add(%s, %s)", key, value);
+        return ".add(%s, %s)".formatted(key, value);
     }
 
     //
@@ -102,7 +102,7 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
     @Override
     public String visit(RangeAccessor triple, Triples context) {
         String sourceText = triple.getSource().accept(this, context);
-        return String.format("%s.%s", sourceText, triple.getRangeGetter());
+        return "%s.%s".formatted(sourceText, triple.getRangeGetter());
     }
 
     @Override
@@ -209,7 +209,7 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
         String nativeOperator = infixExpression.getNativeOperator();
         String leftOpd = infixExpression.getLeftOpd().accept(this, context);
         String rightOpd = infixExpression.getRightOpd().accept(this, context);
-        return String.format("(%s) %s (%s)", leftOpd, nativeOperator, rightOpd);
+        return "(%s) %s (%s)".formatted(leftOpd, nativeOperator, rightOpd);
     }
 
     @Override

@@ -36,6 +36,6 @@ public class RangeAccessor extends PathTriple {
 
     @Override
     public String toString() {
-        return String.format("RangeAccessor(%s, %s)", source, rangeGetter);
+        return "RangeAccessor(%s, %s)".formatted(source, rangeGetter);
     }
 }

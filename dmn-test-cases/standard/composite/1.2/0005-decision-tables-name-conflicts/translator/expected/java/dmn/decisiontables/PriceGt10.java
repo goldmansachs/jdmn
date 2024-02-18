@@ -3,7 +3,7 @@ package decisiontables;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "priceGt10"})
+@jakarta.annotation.Generated(value = {"decision.ftl", "priceGt10"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "decisiontables",
     name = "priceGt10",

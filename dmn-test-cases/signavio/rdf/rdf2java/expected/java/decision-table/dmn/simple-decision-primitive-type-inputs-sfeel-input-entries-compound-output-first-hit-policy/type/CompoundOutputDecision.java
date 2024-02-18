@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "compoundOutputDecision"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "compoundOutputDecision"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.CompoundOutputDecisionImpl.class)
 public interface CompoundOutputDecision extends com.gs.dmn.runtime.DMNType {

@@ -43,10 +43,10 @@ public class DMNDiagramConverter extends DiagramConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         DMNDiagram style = (DMNDiagram) parent;
 
-        if (child instanceof Dimension) {
-            style.setSize((Dimension) child);
-        } else if (child instanceof DiagramElement) {
-            style.getDMNDiagramElement().add((DiagramElement) child);
+        if (child instanceof Dimension dimension) {
+            style.setSize(dimension);
+        } else if (child instanceof DiagramElement element) {
+            style.getDMNDiagramElement().add(element);
         } else {
             super.assignChildElement(style, nodeName, child);
         }

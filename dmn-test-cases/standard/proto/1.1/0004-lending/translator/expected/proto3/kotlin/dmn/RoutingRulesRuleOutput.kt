@@ -1,5 +1,5 @@
 
-@javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "RoutingRules"])
+@jakarta.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "RoutingRules"])
 class RoutingRulesRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("RoutingRules")
     var routingRules: String? = null

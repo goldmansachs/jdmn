@@ -239,7 +239,7 @@ public class DefaultSignavioJsonSerializerTest extends AbstractJsonSerializerTes
             List<String> lines = Files.readAllLines(path);
             return String.join("\n", lines);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read resource '%s'", resourcePath), e);
+            throw new DMNRuntimeException("Cannot read resource '%s'".formatted(resourcePath), e);
         }
     }
 

@@ -46,7 +46,7 @@ public class FEELTypeMemoizer {
     }
 
     private String makeKey(TDefinitions model, QualifiedName qName) {
-        return String.format("%s:%s:%s", getModelNamespace(model), qName.getNamespace(), qName.getLocalPart());
+        return "%s:%s:%s".formatted(getModelNamespace(model), qName.getNamespace(), qName.getLocalPart());
     }
 
     private String getModelNamespace(TDefinitions model) {

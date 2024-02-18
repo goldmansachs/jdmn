@@ -2,7 +2,7 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["decision.ftl", "named function invocation"])
+@jakarta.annotation.Generated(value = ["decision.ftl", "named function invocation"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "named function invocation",

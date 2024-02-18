@@ -102,17 +102,17 @@ public class DMNMetadata {
 
     public DRGElement findElementByName(String name) {
         List<DRGElement> result = getElements().stream().filter(e -> e.getName().equals(name)).collect(Collectors.toList());
-        return checkFilter(result, String.format("Found multiple elements with name '%s'. Expected only one.", name));
+        return checkFilter(result, "Found multiple elements with name '%s'. Expected only one.".formatted(name));
     }
 
     public DRGElement findElementById(String id) {
         List<DRGElement> result = getElements().stream().filter(e -> e.getId().equals(id)).collect(Collectors.toList());
-        return checkFilter(result, String.format("Found multiple elements with id '%s'. Expected only one.", id));
+        return checkFilter(result, "Found multiple elements with id '%s'. Expected only one.".formatted(id));
     }
 
     public Type findTypeByName(String name) {
         List<Type> result = getTypes().stream().filter(t -> t.getName().equals(name)).collect(Collectors.toList());
-        return checkFilter(result, String.format("Found multiple types with name '%s'. Expected only one.", name));
+        return checkFilter(result, "Found multiple types with name '%s'. Expected only one.".formatted(name));
     }
 
     private <T> T checkFilter(List<T> result, String errorMessage) {

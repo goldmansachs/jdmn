@@ -17,7 +17,7 @@ package ${packageName};
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "${testCases.modelName}"})
+@jakarta.annotation.Generated(value = {"junit.ftl", "${testCases.modelName}"})
 public class ${testClassName} extends ${decisionBaseClass} {
     <#if tckUtil.isMockTesting()>
     // Default values for mock tests
@@ -36,7 +36,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
 <#macro addTestCases>
     <#list testCases.testCase>
         <#items as tc>
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase${tckUtil.testCaseId(tc)}() {
         <@initializeInputs tc/>
 

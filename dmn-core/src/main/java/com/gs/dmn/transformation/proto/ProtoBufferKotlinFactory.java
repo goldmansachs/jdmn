@@ -51,7 +51,7 @@ public class ProtoBufferKotlinFactory extends ProtoBufferFactory {
 
     @Override
     public String drgElementSignatureProto(TDRGElement element) {
-        return String.format("%s: %s", requestVariableName(element), qualifiedRequestMessageName(element));
+        return "%s: %s".formatted(requestVariableName(element), qualifiedRequestMessageName(element));
     }
 
     @Override

@@ -25,12 +25,12 @@ public abstract class KotlinTypeFactory implements NativeTypeFactory {
         if (typeParameters == null || typeParameters.length == 0) {
             return typeName;
         } else {
-            return String.format("%s<%s>", typeName, String.join(", ", Arrays.asList(typeParameters)));
+            return "%s<%s>".formatted(typeName, String.join(", ", Arrays.asList(typeParameters)));
         }
     }
 
     @Override
     public String javaClass(String className) {
-        return String.format("%s::class.java", className);
+        return "%s::class.java".formatted(className);
     }
 }

@@ -38,6 +38,6 @@ public class RangeIteratorDomain<T> extends IteratorDomain<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.start, this.end);
+        return "%s(%s, %s)".formatted(getClass().getSimpleName(), this.start, this.end);
     }
 }

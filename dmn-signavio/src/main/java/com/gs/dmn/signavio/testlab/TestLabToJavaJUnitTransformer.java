@@ -86,7 +86,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
     @Override
     protected void transformFile(File file, File root, Path outputPath) {
         try {
-            this.logger.info(String.format("Processing TestLab file '%s'", file.getPath()));
+            this.logger.info("Processing TestLab file '%s'".formatted(file.getPath()));
             StopWatch watch = new StopWatch();
             watch.start();
 
@@ -117,7 +117,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             watch.stop();
             this.logger.info("TestLab processing time: " + watch);
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Error during transforming %s.", file.getName()), e);
+            throw new DMNRuntimeException("Error during transforming %s.".formatted(file.getName()), e);
         }
     }
 
@@ -127,7 +127,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             TDefinitions result = this.dmnSerializer.readModel(file);
             return new SignavioDMNModelRepository(result, this.schemaNamespace);
         } else {
-            throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
+            throw new DMNRuntimeException("Invalid DMN file %s".formatted(file.getAbsoluteFile()));
         }
     }
 
@@ -149,7 +149,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot process TestLab template '%s' for '%s'", templateName, testLab.getRootDecisionId()), e);
+            throw new DMNRuntimeException("Cannot process TestLab template '%s' for '%s'".formatted(templateName, testLab.getRootDecisionId()), e);
         }
     }
 
@@ -165,7 +165,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             String requirementName = decision.getName();
             return dmnTransformer.upperCaseFirst(requirementName + "Test");
         } else {
-            throw new IllegalArgumentException(String.format("The DRGElement '%s' should be a decision, is output of TestLab.", outputParameterDefinition.getId()));
+            throw new IllegalArgumentException("The DRGElement '%s' should be a decision, is output of TestLab.".formatted(outputParameterDefinition.getId()));
         }
     }
 

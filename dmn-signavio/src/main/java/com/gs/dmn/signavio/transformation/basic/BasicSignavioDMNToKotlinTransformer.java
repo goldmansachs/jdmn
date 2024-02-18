@@ -61,17 +61,17 @@ public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaT
 
     @Override
     public String makeListType(String listType, String elementType) {
-        return this.nativeTypeFactory.nullableType(String.format("%s<%s>", listType, this.nativeTypeFactory.nullableType(elementType)));
+        return this.nativeTypeFactory.nullableType("%s<%s>".formatted(listType, this.nativeTypeFactory.nullableType(elementType)));
     }
 
     @Override
     public String makeListType(String listType) {
-        return this.nativeTypeFactory.nullableType(String.format("%s<Any?>", listType));
+        return this.nativeTypeFactory.nullableType("%s<Any?>".formatted(listType));
     }
 
     @Override
     protected String makeFunctionType(String name, String returnType) {
-        return this.nativeTypeFactory.nullableType(String.format("%s<%s>", name, this.nativeTypeFactory.nullableType(returnType)));
+        return this.nativeTypeFactory.nullableType("%s<%s>".formatted(name, this.nativeTypeFactory.nullableType(returnType)));
     }
 
     @Override
@@ -81,12 +81,12 @@ public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaT
 
     @Override
     public String drgElementSignatureWithMap(TDRGElement element) {
-        return String.format("%s: %s, %s: %s", inputVariableName(), inputClassName(), executionContextVariableName(), executionContextClassName());
+        return "%s: %s, %s: %s".formatted(inputVariableName(), inputClassName(), executionContextVariableName(), executionContextClassName());
     }
 
     @Override
     public String lazyEvaluation(String elementName, String nativeName) {
-        return isLazyEvaluated(elementName) ? String.format("%s?.getOrCompute()", nativeName) : nativeName;
+        return isLazyEvaluated(elementName) ? "%s?.getOrCompute()".formatted(nativeName) : nativeName;
     }
 
     @Override
@@ -99,7 +99,7 @@ public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaT
         String type = param.getLeft().getLeft();
         String varName = param.getLeft().getRight();
         String propertyName = param.getRight();
-        return String.format("var %s: %s = %s.%s",
-                varName, type, executionContextVariableName(), getter(propertyName));
+        return "var %s: %s = %s.%s".formatted(
+            varName, type, executionContextVariableName(), getter(propertyName));
     }
 }

@@ -28,11 +28,11 @@ public class NumericInterval extends Interval {
 
     @Override
     public String serialize() {
-        return String.format("%s, %s", lowerBound, upperBound);
+        return "%s, %s".formatted(lowerBound, upperBound);
     }
 
     @Override
     public String toString() {
-        return String.format("%s, %s", lowerBound, upperBound);
+        return "%s, %s".formatted(lowerBound, upperBound);
     }
 }

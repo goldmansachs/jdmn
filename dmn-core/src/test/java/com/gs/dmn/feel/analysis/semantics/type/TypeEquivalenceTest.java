@@ -194,6 +194,6 @@ public class TypeEquivalenceTest {
     }
 
     private void checkEquivalentTo(boolean expected, Type left, Type right) {
-        assertEquals(expected, com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(left, right), String.format("'%s'.equivalentTo('%s') mismatch ", left, right));
+        assertEquals(expected, com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(left, right), "'%s'.equivalentTo('%s') mismatch ".formatted(left, right));
     }
 }

@@ -40,6 +40,6 @@ public class ContextEntry<T> extends Element<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s = %s)", getClass().getSimpleName(), this.key.toString(), this.expression.toString());
+        return "%s(%s = %s)".formatted(getClass().getSimpleName(), this.key.toString(), this.expression.toString());
     }
 }

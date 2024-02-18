@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "Student"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "Student"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class StudentImpl implements Student {
         private java.math.BigDecimal age;

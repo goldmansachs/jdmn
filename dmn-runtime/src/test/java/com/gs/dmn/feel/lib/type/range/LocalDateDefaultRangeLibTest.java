@@ -32,6 +32,6 @@ public class LocalDateDefaultRangeLibTest extends AbstractDefaultRangeLibTest<Bi
         if (number < 1 || number > 31) {
             throw new IllegalArgumentException("Illegal day");
         }
-        return getLib().date(String.format("2010-01-%02d", number));
+        return getLib().date("2010-01-%02d".formatted(number));
     }
 }

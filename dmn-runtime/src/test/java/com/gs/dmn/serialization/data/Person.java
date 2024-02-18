@@ -18,7 +18,7 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.List;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "person"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "person"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = PersonImpl.class)
 public interface Person extends com.gs.dmn.runtime.DMNType {
@@ -27,23 +27,23 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
             return null;
         } else if (Person.class.isAssignableFrom(other.getClass())) {
             return (Person)other;
-        } else if (other instanceof com.gs.dmn.runtime.Context) {
+        } else if (other instanceof com.gs.dmn.runtime.Context context) {
             PersonImpl result_ = new PersonImpl();
-            result_.setDateOfBirth((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("dateOfBirth", "Date of Birth"));
-            result_.setDateTimeOfBirth((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("dateTimeOfBirth", "Date and Time of Birth"));
-            result_.setFirstName((String)((com.gs.dmn.runtime.Context)other).get("firstName", "First Name"));
-            result_.setGender((String)((com.gs.dmn.runtime.Context)other).get("gender", "Gender"));
-            result_.setId((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("id", "ID"));
-            result_.setLastName((String)((com.gs.dmn.runtime.Context)other).get("lastName", "Last Name"));
-            result_.setList((List<String>)((com.gs.dmn.runtime.Context)other).get("list", "List"));
-            result_.setMarried((Boolean)((com.gs.dmn.runtime.Context)other).get("married", "Married"));
-            result_.setTimeOfBirth((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("timeOfBirth", "Time of Birth"));
-            result_.setDateTimeList((List<XMLGregorianCalendar>)((com.gs.dmn.runtime.Context)other).get("dateTimeList", "Date and Time List"));
-            result_.setYearsAndMonthsDuration((Duration)((com.gs.dmn.runtime.Context)other).get("yearsAndMonthsDuration", "Years and Months Duration"));
-            result_.setDaysAndTimeDuration((Duration)((com.gs.dmn.runtime.Context)other).get("daysAndTimeDuration", "Days and Time Duration"));
+            result_.setDateOfBirth((javax.xml.datatype.XMLGregorianCalendar)context.get("dateOfBirth", "Date of Birth"));
+            result_.setDateTimeOfBirth((javax.xml.datatype.XMLGregorianCalendar)context.get("dateTimeOfBirth", "Date and Time of Birth"));
+            result_.setFirstName((String)context.get("firstName", "First Name"));
+            result_.setGender((String)context.get("gender", "Gender"));
+            result_.setId((java.math.BigDecimal)context.get("id", "ID"));
+            result_.setLastName((String)context.get("lastName", "Last Name"));
+            result_.setList((List<String>)context.get("list", "List"));
+            result_.setMarried((Boolean)context.get("married", "Married"));
+            result_.setTimeOfBirth((javax.xml.datatype.XMLGregorianCalendar)context.get("timeOfBirth", "Time of Birth"));
+            result_.setDateTimeList((List<XMLGregorianCalendar>)context.get("dateTimeList", "Date and Time List"));
+            result_.setYearsAndMonthsDuration((Duration)context.get("yearsAndMonthsDuration", "Years and Months Duration"));
+            result_.setDaysAndTimeDuration((Duration)context.get("daysAndTimeDuration", "Days and Time Duration"));
             return result_;
         } else {
-            throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), PersonImpl.class.getSimpleName()));
+            throw new com.gs.dmn.runtime.DMNRuntimeException("Cannot convert '%s' to '%s'".formatted(other.getClass().getSimpleName(), PersonImpl.class.getSimpleName()));
         }
     }
 

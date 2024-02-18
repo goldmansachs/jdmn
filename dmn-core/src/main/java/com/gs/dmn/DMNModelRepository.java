@@ -74,7 +74,7 @@ public class DMNModelRepository {
                 if (!this.namespaceToDefinitions.containsKey(definitions.getNamespace())) {
                     this.namespaceToDefinitions.put(definitions.getNamespace(), definitions);
                 } else {
-                    throw new DMNRuntimeException(String.format("Duplicated model namespace '%s'", definitions.getNamespace()));
+                    throw new DMNRuntimeException("Duplicated model namespace '%s'".formatted(definitions.getNamespace()));
                 }
             }
         }
@@ -173,7 +173,7 @@ public class DMNModelRepository {
         if (size == 1) {
             return this.allDefinitions.get(0);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot resolve root DM, there are '%d' DMs", size));
+            throw new DMNRuntimeException("Cannot resolve root DM, there are '%d' DMs".formatted(size));
         }
     }
 
@@ -222,14 +222,14 @@ public class DMNModelRepository {
         List<String> locationParts = new ArrayList<>();
         addModelCoordinates(definitions, element, locationParts);
         addElementCoordinates(element, locationParts);
-        return locationParts.isEmpty() ? null : String.format("(%s)", String.join(", ", locationParts));
+        return locationParts.isEmpty() ? null : "(%s)".formatted(String.join(", ", locationParts));
     }
 
     protected void addModelCoordinates(TDefinitions definitions, TDMNElement element, List<String> locationParts) {
         if (definitions != null) {
             String modelName = definitions.getName();
             if (!StringUtils.isBlank(modelName)) {
-                locationParts.add(String.format("model='%s'", modelName));
+                locationParts.add("model='%s'".formatted(modelName));
             }
         }
     }
@@ -238,15 +238,15 @@ public class DMNModelRepository {
         if (element != null) {
             String id = element.getId();
             String label = element.getLabel();
-            String name = element instanceof TNamedElement ? ((TNamedElement) element).getName() : null;
+            String name = element instanceof TNamedElement tne ? tne.getName() : null;
             if (!StringUtils.isBlank(label)) {
-                locationParts.add(String.format("label='%s'", label));
+                locationParts.add("label='%s'".formatted(label));
             }
             if (!StringUtils.isBlank(name)) {
-                locationParts.add(String.format("name='%s'", name));
+                locationParts.add("name='%s'".formatted(name));
             }
             if (!StringUtils.isBlank(id)) {
-                locationParts.add(String.format("id='%s'", id));
+                locationParts.add("id='%s'".formatted(id));
             }
         }
     }
@@ -282,7 +282,7 @@ public class DMNModelRepository {
     }
 
     public boolean isRecursiveBKM(TDRGElement element) {
-        return element instanceof TBusinessKnowledgeModel && isRecursive(((TBusinessKnowledgeModel) element).getEncapsulatedLogic().getExpression(), element.getName());
+        return element instanceof TBusinessKnowledgeModel tbkm && isRecursive(tbkm.getEncapsulatedLogic().getExpression(), element.getName());
     }
 
     public List<TDRGElement> findDRGElements(TDefinitions definitions) {
@@ -347,40 +347,40 @@ public class DMNModelRepository {
 
     protected void collectDecisions(TDefinitions definitions, List<TDecision> result) {
         for (TDRGElement element: definitions.getDrgElement()) {
-            if (element instanceof TDecision) {
-                result.add((TDecision) element);
+            if (element instanceof TDecision decision) {
+                result.add(decision);
             }
         }
     }
 
     protected void collectInputDatas(TDefinitions definitions, List<TInputData> result) {
         for (TDRGElement element: definitions.getDrgElement()) {
-            if (element instanceof TInputData) {
-                result.add((TInputData) element);
+            if (element instanceof TInputData data) {
+                result.add(data);
             }
         }
     }
 
     protected void collectBKMs(TDefinitions definitions, List<TBusinessKnowledgeModel> result) {
         for (TDRGElement element: definitions.getDrgElement()) {
-            if (element instanceof TBusinessKnowledgeModel) {
-                result.add((TBusinessKnowledgeModel) element);
+            if (element instanceof TBusinessKnowledgeModel model) {
+                result.add(model);
             }
         }
     }
 
     protected void collectDSs(TDefinitions definitions, List<TDecisionService> result) {
         for (TDRGElement element: definitions.getDrgElement()) {
-            if (element instanceof TDecisionService) {
-                result.add((TDecisionService) element);
+            if (element instanceof TDecisionService service) {
+                result.add(service);
             }
         }
     }
 
     protected void collectInvocables(TDefinitions definitions, List<TInvocable> result) {
         for (TDRGElement element: definitions.getDrgElement()) {
-            if (element instanceof TInvocable) {
-                result.add((TInvocable) element);
+            if (element instanceof TInvocable invocable) {
+                result.add(invocable);
             }
         }
     }
@@ -476,14 +476,14 @@ public class DMNModelRepository {
         if (d == null) {
             return "";
         }
-        return String.format("%s-%s", d.getName(), d.getId());
+        return "%s-%s".formatted(d.getName(), d.getId());
     }
 
     private String diagramElementKey(DiagramElement e) {
         if (e == null) {
             return "";
         }
-        return String.format("%s-%s", e.getClass().getSimpleName(), e.getId());
+        return "%s-%s".formatted(e.getClass().getSimpleName(), e.getId());
     }
 
     public void sortNamedElementReferences(List<? extends DRGElementReference<? extends TNamedElement>> references) {
@@ -494,7 +494,7 @@ public class DMNModelRepository {
         try {
             TDefinitions definitions = findChildDefinitions(parent, href);
             if (definitions == null) {
-                throw new DMNRuntimeException(String.format("Cannot find model for href='%s'", href));
+                throw new DMNRuntimeException("Cannot find model for href='%s'".formatted(href));
             }
             String key = makeRef(definitions.getNamespace(), href);
             TDRGElement result = this.drgElementByRef.get(key);
@@ -508,39 +508,39 @@ public class DMNModelRepository {
                 }
             }
             if (result == null) {
-                throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href));
+                throw new DMNRuntimeException("Cannot find DRG element for href='%s'".formatted(href));
             } else {
                 return result;
             }
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href), e);
+            throw new DMNRuntimeException("Cannot find DRG element for href='%s'".formatted(href), e);
         }
     }
 
     public TDecision findDecisionByRef(TDRGElement parent, String href) {
         TDRGElement drgElement = findDRGElementByRef(parent, href);
-        if (drgElement instanceof TDecision) {
-            return (TDecision) drgElement;
+        if (drgElement instanceof TDecision decision) {
+            return decision;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot find Decision element for href='%s'", href));
+            throw new DMNRuntimeException("Cannot find Decision element for href='%s'".formatted(href));
         }
     }
 
     public TInputData findInputDataByRef(TDRGElement parent, String href) {
         TDRGElement drgElement = findDRGElementByRef(parent, href);
-        if (drgElement instanceof TInputData) {
-            return (TInputData) drgElement;
+        if (drgElement instanceof TInputData data) {
+            return data;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot find InputData element for href='%s'", href));
+            throw new DMNRuntimeException("Cannot find InputData element for href='%s'".formatted(href));
         }
     }
 
     public TInvocable findInvocableByRef(TDRGElement parent, String href) {
         TDRGElement drgElement = findDRGElementByRef(parent, href);
-        if (drgElement instanceof TInvocable) {
-            return (TInvocable) drgElement;
+        if (drgElement instanceof TInvocable invocable) {
+            return invocable;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot find TInvocable element for href='%s'", href));
+            throw new DMNRuntimeException("Cannot find TInvocable element for href='%s'".formatted(href));
         }
     }
 
@@ -566,11 +566,11 @@ public class DMNModelRepository {
                 result = value.get(0);
                 this.invocablesByName.put(name, result);
             } else if (value.size() > 1) {
-                throw new DMNRuntimeException(String.format("Found %s business knowledge models for name='%s'", value.size(), name));
+                throw new DMNRuntimeException("Found %s business knowledge models for name='%s'".formatted(value.size(), name));
             }
         }
         if (result == null) {
-            throw new DMNRuntimeException(String.format("Cannot find business knowledge model for name='%s'", name));
+            throw new DMNRuntimeException("Cannot find business knowledge model for name='%s'".formatted(name));
         } else {
             return result;
         }
@@ -579,21 +579,21 @@ public class DMNModelRepository {
     public TDRGElement findDRGElementByName(String namespace, String name) {
         TDefinitions definitions = this.namespaceToDefinitions.get(namespace);
         if (definitions == null) {
-            throw new DMNRuntimeException(String.format("Cannot find model for namespace '%s'", namespace));
+            throw new DMNRuntimeException("Cannot find model for namespace '%s'".formatted(namespace));
         }
         return findDRGElementByName(definitions, name);
     }
 
     public TDRGElement findDRGElementByName(TDefinitions definitions, String name) {
         if (definitions == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element for name='%s'. Missing DM", name));
+            throw new DMNRuntimeException("Cannot find element for name='%s'. Missing DM".formatted(name));
         }
         for (TDRGElement element: findDRGElements(definitions)) {
             if (element.getName().equals(name)) {
                 return element;
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot find element for name='%s'", name));
+        throw new DMNRuntimeException("Cannot find element for name='%s'".formatted(name));
     }
 
     public TDRGElement findDRGElementByName(String name) {
@@ -611,11 +611,11 @@ public class DMNModelRepository {
                 result = value.get(0);
                 this.drgElementByName.put(name, result);
             } else if (value.size() > 1) {
-                throw new DMNRuntimeException(String.format("Found %s business knowledge models for name='%s'", value.size(), name));
+                throw new DMNRuntimeException("Found %s business knowledge models for name='%s'".formatted(value.size(), name));
             }
         }
         if (result == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element for name='%s'", name));
+            throw new DMNRuntimeException("Cannot find element for name='%s'".formatted(name));
         } else {
             return result;
         }
@@ -652,7 +652,7 @@ public class DMNModelRepository {
                 String importName = findImportName(parent, reference);
                 result.add(makeDRGElementReference(importName, child));
             } else {
-                throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+                throw new DMNRuntimeException("Cannot find InputData for '%s' in parent '%s'".formatted(reference.getHref(), parent.getName()));
             }
         }
         return result;
@@ -674,7 +674,7 @@ public class DMNModelRepository {
                 String importName = findImportName(parent, reference);
                 result.add(makeDRGElementReference(new ImportPath(parentImportPath, importName), child));
             } else {
-                throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+                throw new DMNRuntimeException("Cannot find InputData for '%s' in parent '%s'".formatted(reference.getHref(), parent.getName()));
             }
         }
 
@@ -688,7 +688,7 @@ public class DMNModelRepository {
                 List<DRGElementReference<TInputData>> inputReferences = collectTransitiveInputDatas(makeDRGElementReference(new ImportPath(parentImportPath, importName), child));
                 result.addAll(inputReferences);
             } else {
-                throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+                throw new DMNRuntimeException("Cannot find Decision for '%s' in parent '%s'".formatted(reference.getHref(), parent.getName()));
             }
         }
         return result;
@@ -696,9 +696,9 @@ public class DMNModelRepository {
 
     public List<DRGElementReference<TDecision>> directSubDecisions(TDRGElement parent) {
         List<DRGElementReference<TDecision>> result = new ArrayList<>();
-        if (parent instanceof TDecision) {
+        if (parent instanceof TDecision decision) {
             // Add reference for direct children
-            for (TInformationRequirement ir: ((TDecision) parent).getInformationRequirement()) {
+            for (TInformationRequirement ir: decision.getInformationRequirement()) {
                 TDMNElementReference reference = ir.getRequiredDecision();
                 if (reference != null) {
                     TDecision child = findDecisionByRef(parent, reference.getHref());
@@ -706,9 +706,9 @@ public class DMNModelRepository {
                     result.add(makeDRGElementReference(importName, child));
                 }
             }
-        } else if (parent instanceof TDecisionService) {
+        } else if (parent instanceof TDecisionService service) {
             // Add reference for direct children
-            for (TDMNElementReference outputDecisionRef: ((TDecisionService) parent).getOutputDecision()) {
+            for (TDMNElementReference outputDecisionRef: service.getOutputDecision()) {
                 TDecision child = findDecisionByRef(parent, outputDecisionRef.getHref());
                 String importName = findImportName(parent, outputDecisionRef);
                 result.add(makeDRGElementReference(importName, child));
@@ -742,7 +742,7 @@ public class DMNModelRepository {
                     String importName = findImportName(element, reference);
                     result.add(makeDRGElementReference(importName, invocable));
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot find Invocable for '%s'", reference.getHref()));
+                    throw new DMNRuntimeException("Cannot find Invocable for '%s'".formatted(reference.getHref()));
                 }
             }
         }
@@ -759,11 +759,11 @@ public class DMNModelRepository {
 
     protected List<TDMNElementReference> requiredInputDataReferences(TDRGElement parent) {
         List<TDMNElementReference> references = new ArrayList<>();
-        if (parent instanceof TDecision) {
-            List<TInformationRequirement> informationRequirements = ((TDecision) parent).getInformationRequirement();
+        if (parent instanceof TDecision decision) {
+            List<TInformationRequirement> informationRequirements = decision.getInformationRequirement();
             references.addAll(informationRequirements.stream().map(TInformationRequirement::getRequiredInput).filter(Objects::nonNull).collect(Collectors.toList()));
-        } else if (parent instanceof TDecisionService) {
-            List<TDMNElementReference> inputData = ((TDecisionService) parent).getInputData();
+        } else if (parent instanceof TDecisionService service) {
+            List<TDMNElementReference> inputData = service.getInputData();
             references.addAll(inputData.stream().filter(Objects::nonNull).collect(Collectors.toList()));
         }
         return references;
@@ -771,15 +771,15 @@ public class DMNModelRepository {
 
     protected List<TDMNElementReference> requiredDecisionReferences(TDRGElement parent) {
         List<TDMNElementReference> references = new ArrayList<>();
-        if (parent instanceof TDecision) {
-            List<TInformationRequirement> informationRequirements = ((TDecision) parent).getInformationRequirement();
+        if (parent instanceof TDecision decision) {
+            List<TInformationRequirement> informationRequirements = decision.getInformationRequirement();
             references.addAll(informationRequirements.stream().map(TInformationRequirement::getRequiredDecision).filter(Objects::nonNull).collect(Collectors.toList()));
-        } else if (parent instanceof TDecisionService) {
-            List<TDMNElementReference> inputDecisions = ((TDecisionService) parent).getInputDecision();
+        } else if (parent instanceof TDecisionService service) {
+            List<TDMNElementReference> inputDecisions = service.getInputDecision();
             references.addAll(inputDecisions.stream().filter(Objects::nonNull).collect(Collectors.toList()));
-            List<TDMNElementReference> outputDecisions = ((TDecisionService) parent).getOutputDecision();
+            List<TDMNElementReference> outputDecisions = service.getOutputDecision();
             references.addAll(outputDecisions.stream().filter(Objects::nonNull).collect(Collectors.toList()));
-            List<TDMNElementReference> encapsulatedDecision = ((TDecisionService) parent).getEncapsulatedDecision();
+            List<TDMNElementReference> encapsulatedDecision = service.getEncapsulatedDecision();
             references.addAll(encapsulatedDecision.stream().filter(Objects::nonNull).collect(Collectors.toList()));
         }
         return references;
@@ -787,10 +787,10 @@ public class DMNModelRepository {
 
     protected List<TKnowledgeRequirement> knowledgeRequirements(TDRGElement element) {
         List<TKnowledgeRequirement> knowledgeRequirements;
-        if (element instanceof TDecision) {
-            knowledgeRequirements = ((TDecision) element).getKnowledgeRequirement();
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            knowledgeRequirements = ((TBusinessKnowledgeModel) element).getKnowledgeRequirement();
+        if (element instanceof TDecision decision) {
+            knowledgeRequirements = decision.getKnowledgeRequirement();
+        } else if (element instanceof TBusinessKnowledgeModel model) {
+            knowledgeRequirements = model.getKnowledgeRequirement();
         } else {
             knowledgeRequirements = new ArrayList<>();
         }
@@ -799,10 +799,10 @@ public class DMNModelRepository {
 
     public TDecisionTable decisionTable(TDRGElement element) {
         TExpression expression = expression(element);
-        if (expression instanceof TDecisionTable) {
-            return (TDecisionTable) expression;
+        if (expression instanceof TDecisionTable table) {
+            return table;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot find decision table in element '%s'", element.getName()));
+            throw new DMNRuntimeException("Cannot find decision table in element '%s'".formatted(element.getName()));
         }
     }
 
@@ -839,7 +839,7 @@ public class DMNModelRepository {
                     String modelNamespace = import_.getNamespace();
                     model = this.getModel(modelNamespace);
                     if (model == null) {
-                        throw new DMNRuntimeException(String.format("Cannot find DM for '%s'", modelNamespace));
+                        throw new DMNRuntimeException("Cannot find DM for '%s'".formatted(modelNamespace));
                     }
                 }
             }
@@ -893,17 +893,17 @@ public class DMNModelRepository {
     }
 
     public TExpression expression(TDRGElement element) {
-        if (element instanceof TDecision) {
-            return ((TDecision) element).getExpression();
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            TFunctionDefinition encapsulatedLogic = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
+        if (element instanceof TDecision decision) {
+            return decision.getExpression();
+        } else if (element instanceof TBusinessKnowledgeModel model) {
+            TFunctionDefinition encapsulatedLogic = model.getEncapsulatedLogic();
             if (encapsulatedLogic != null) {
                 return encapsulatedLogic.getExpression();
             }
         } else if (element instanceof TDecisionService) {
             return null;
         } else {
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("'%s' is not supported yet".formatted(element.getClass().getSimpleName()));
         }
         return null;
     }
@@ -914,8 +914,8 @@ public class DMNModelRepository {
 
     public boolean isFreeTextLiteralExpression(TDRGElement element) {
         TExpression expression = expression(element);
-        return expression instanceof TLiteralExpression
-                && FREE_TEXT_LANGUAGE.equals(((TLiteralExpression) expression).getExpressionLanguage());
+        return expression instanceof TLiteralExpression tle
+                && FREE_TEXT_LANGUAGE.equals(tle.getExpressionLanguage());
     }
 
     public boolean isDecisionTableExpression(TDRGElement element) {
@@ -924,9 +924,9 @@ public class DMNModelRepository {
 
     public boolean isCompoundDecisionTable(TDRGElement element) {
         TExpression expression = expression(element);
-        return expression instanceof TDecisionTable
-                && ((TDecisionTable) expression).getOutput() != null
-                && ((TDecisionTable) expression).getOutput().size() > 1;
+        return expression instanceof TDecisionTable tdt
+                && tdt.getOutput() != null
+                && tdt.getOutput().size() > 1;
     }
 
     public boolean isInvocationExpression(TDRGElement element) {
@@ -1015,9 +1015,9 @@ public class DMNModelRepository {
         if (expression != null) {
             typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
             if (isNull(typeRef)) {
-                if (expression instanceof TContext) {
+                if (expression instanceof TContext context) {
                     // Derive from return entry
-                    List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
+                    List<TContextEntry> contextEntryList = context.getContextEntry();
                     for (TContextEntry ce: contextEntryList) {
                         if (ce.getVariable() == null) {
                             TExpression returnExp = ce.getExpression();
@@ -1026,9 +1026,7 @@ public class DMNModelRepository {
                             }
                         }
                     }
-                } else if (expression instanceof TDecisionTable) {
-                    // Derive from output clauses and rules
-                    TDecisionTable dt = (TDecisionTable) expression;
+                } else if (expression instanceof TDecisionTable dt) {
                     List<TOutputClause> outputList = dt.getOutput();
                     if (outputList.size() == 1) {
                         typeRef = QualifiedName.toQualifiedName(model, outputList.get(0).getTypeRef());
@@ -1060,7 +1058,7 @@ public class DMNModelRepository {
     public TDecision getOutputDecision(TDecisionService decisionService) {
         List<TDMNElementReference> outputDecisionList = decisionService.getOutputDecision();
         if (outputDecisionList.size() != 1) {
-            throw new DMNRuntimeException(String.format("Missing or more than one decision services in BKM '%s'", decisionService.getName()));
+            throw new DMNRuntimeException("Missing or more than one decision services in BKM '%s'".formatted(decisionService.getName()));
         }
         return this.findDecisionByRef(decisionService, outputDecisionList.get(0).getHref());
     }
@@ -1103,8 +1101,8 @@ public class DMNModelRepository {
 
     public int rulesCount(TDRGElement element) {
         TExpression expression = expression(element);
-        if (expression instanceof TDecisionTable) {
-            List<TDecisionRule> rules = ((TDecisionTable) expression).getRule();
+        if (expression instanceof TDecisionTable table) {
+            List<TDecisionRule> rules = table.getRule();
             return rules == null ? 0 : rules.size();
         } else {
             return -1;
@@ -1123,21 +1121,21 @@ public class DMNModelRepository {
                 }
             }
             if (StringUtils.isBlank(outputClauseName)) {
-                throw new DMNRuntimeException(String.format("Cannot resolve name for outputClause '%s' in element '%s'", output.getId(), element.getName()));
+                throw new DMNRuntimeException("Cannot resolve name for outputClause '%s' in element '%s'".formatted(output.getId(), element.getName()));
             }
         }
         return outputClauseName;
     }
 
     public TInformationItem variable(TNamedElement element) {
-        if (element instanceof TInputData) {
-            return ((TInputData) element).getVariable();
-        } else if (element instanceof TDecision) {
-            return ((TDecision) element).getVariable();
-        } else if (element instanceof TInvocable) {
-            return ((TInvocable) element).getVariable();
-        } else if (element instanceof TInformationItem) {
-            return (TInformationItem) element;
+        if (element instanceof TInputData data) {
+            return data.getVariable();
+        } else if (element instanceof TDecision decision) {
+            return decision.getVariable();
+        } else if (element instanceof TInvocable invocable) {
+            return invocable.getVariable();
+        } else if (element instanceof TInformationItem item) {
+            return item;
         }
         return null;
     }
@@ -1148,7 +1146,7 @@ public class DMNModelRepository {
             name = element.getName();
         }
         if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element == null ? null : element.getId()));
+            throw new DMNRuntimeException("Display name cannot be null for element '%s'".formatted(element == null ? null : element.getId()));
         }
         return name.trim();
     }
@@ -1164,7 +1162,7 @@ public class DMNModelRepository {
             name = element.getName();
         }
         if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element.getId()));
+            throw new DMNRuntimeException("Display name cannot be null for element '%s'".formatted(element.getId()));
         }
         return name.trim();
     }
@@ -1172,8 +1170,8 @@ public class DMNModelRepository {
     public String findChildImportName(TDRGElement parent, TDRGElement child) {
         // Collect references
         List<TDMNElementReference> references = new ArrayList<>();
-        if (parent instanceof TDecision) {
-            for (TInformationRequirement ir: ((TDecision) parent).getInformationRequirement()) {
+        if (parent instanceof TDecision decision) {
+            for (TInformationRequirement ir: decision.getInformationRequirement()) {
                 TDMNElementReference reference = ir.getRequiredDecision();
                 if (reference != null) {
                     references.add(reference);
@@ -1183,24 +1181,24 @@ public class DMNModelRepository {
                     references.add(reference);
                 }
             }
-            for (TKnowledgeRequirement bkr: ((TDecision) parent).getKnowledgeRequirement()) {
+            for (TKnowledgeRequirement bkr: decision.getKnowledgeRequirement()) {
                 TDMNElementReference reference = bkr.getRequiredKnowledge();
                 if (reference != null) {
                     references.add(reference);
                 }
             }
-        } else if (parent instanceof TBusinessKnowledgeModel) {
-            for (TKnowledgeRequirement bkr: ((TBusinessKnowledgeModel) parent).getKnowledgeRequirement()) {
+        } else if (parent instanceof TBusinessKnowledgeModel model) {
+            for (TKnowledgeRequirement bkr: model.getKnowledgeRequirement()) {
                 TDMNElementReference reference = bkr.getRequiredKnowledge();
                 if (reference != null) {
                     references.add(reference);
                 }
             }
-        } else if (parent instanceof TDecisionService) {
-            references.addAll(((TDecisionService) parent).getInputData());
-            references.addAll(((TDecisionService) parent).getInputDecision());
-            references.addAll(((TDecisionService) parent).getOutputDecision());
-            references.addAll(((TDecisionService) parent).getEncapsulatedDecision());
+        } else if (parent instanceof TDecisionService service) {
+            references.addAll(service.getInputData());
+            references.addAll(service.getInputDecision());
+            references.addAll(service.getOutputDecision());
+            references.addAll(service.getEncapsulatedDecision());
         }
 
         // Find reference for child
@@ -1227,7 +1225,7 @@ public class DMNModelRepository {
                     return import_.getName();
                 }
             }
-            throw new DMNRuntimeException(String.format("Cannot find import prefix for '%s' in model '%s'", reference.getHref(), parentDefinitions.getName()));
+            throw new DMNRuntimeException("Cannot find import prefix for '%s' in model '%s'".formatted(reference.getHref(), parentDefinitions.getName()));
         }
     }
 
@@ -1278,8 +1276,8 @@ public class DMNModelRepository {
     }
 
     private boolean isRecursive(TExpression exp, String bkm) {
-        if (exp instanceof TLiteralExpression) {
-            String text = ((TLiteralExpression) exp).getText();
+        if (exp instanceof TLiteralExpression expression) {
+            String text = expression.getText();
             Matcher matcher = WORD.matcher(text);
             while (matcher.find()) {
                 if (bkm.equals(matcher.group())) {

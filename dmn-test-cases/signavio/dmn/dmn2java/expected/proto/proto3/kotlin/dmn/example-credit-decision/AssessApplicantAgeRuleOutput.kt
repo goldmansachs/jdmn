@@ -1,5 +1,5 @@
 
-@javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "assessApplicantAge"])
+@jakarta.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "assessApplicantAge"])
 class AssessApplicantAgeRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("assessApplicantAge")
     var assessApplicantAge: java.math.BigDecimal? = null

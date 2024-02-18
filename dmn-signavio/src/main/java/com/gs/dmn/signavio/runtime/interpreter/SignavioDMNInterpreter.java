@@ -69,8 +69,8 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             ExpressionEvaluationContext expressionContext = (ExpressionEvaluationContext) evaluationContext;
             TDRGElement element = expressionContext.getElement();
             DMNContext context = expressionContext.getContext();
-            if (element instanceof TDecision && dmnModelRepository.isMultiInstanceDecision(element)) {
-                return evaluateMultipleInstanceDecision((TDecision) element, context);
+            if (element instanceof TDecision decision && dmnModelRepository.isMultiInstanceDecision(element)) {
+                return evaluateMultipleInstanceDecision(decision, context);
             } else {
                 return super.visit(expression, evaluationContext);
             }
@@ -120,7 +120,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                 } else if (aggregator == Aggregator.ALLFALSE) {
                     output = outputList.stream().anyMatch(o -> o == Boolean.FALSE);
                 } else {
-                    this.errorHandler.reportError(String.format("'%s' is not implemented yet", aggregator));
+                    this.errorHandler.reportError("'%s' is not implemented yet".formatted(aggregator));
                     output = null;
                 }
             }
@@ -145,12 +145,12 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
 
             // Evaluate function
             TExpression functionExp = invocation.getExpression();
-            if (functionExp instanceof TLiteralExpression) {
+            if (functionExp instanceof TLiteralExpression expression) {
                 // Find invocable
-                String invocableName = NameUtils.invocableName(((TLiteralExpression) functionExp).getText());
+                String invocableName = NameUtils.invocableName(expression.getText());
                 TInvocable invocable = dmnModelRepository.findInvocableByName(invocableName);
                 if (invocable == null) {
-                    throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", invocableName));
+                    throw new DMNRuntimeException("Cannot find BKM for '%s'".formatted(invocableName));
                 }
                 // Make args
                 List<Object> argList = new ArrayList<>();
@@ -160,7 +160,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                         Object argValue = argBinding.get(paramName);
                         argList.add(argValue);
                     } else {
-                        throw new DMNRuntimeException(String.format("Cannot find binding for parameter '%s'", paramName));
+                        throw new DMNRuntimeException("Cannot find binding for parameter '%s'".formatted(paramName));
                     }
                 }
 
@@ -168,7 +168,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                 DRGElementReference<TInvocable> reference = dmnModelRepository.makeDRGElementReference(invocable);
                 return visitor.visitInvocable(reference, makeInvocableGlobalContext(((DRGElementReference<? extends TInvocable>) reference).getElement(), argList, parentContext));
             } else {
-                throw new DMNRuntimeException(String.format("Not supported '%s'", functionExp.getClass().getSimpleName()));
+                throw new DMNRuntimeException("Not supported '%s'".formatted(functionExp.getClass().getSimpleName()));
             }
         }
     }

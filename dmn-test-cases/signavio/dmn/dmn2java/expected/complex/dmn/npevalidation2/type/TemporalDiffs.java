@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "temporalDiffs"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "temporalDiffs"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TemporalDiffsImpl.class)
 public interface TemporalDiffs extends com.gs.dmn.runtime.DMNType {

@@ -42,6 +42,6 @@ public class CollectionNumericFilter extends FilterTriple {
 
     @Override
     public String toString() {
-        return String.format("CollectionNumericFilter(%s, %s, %s)", javaElementType, source, filter);
+        return "CollectionNumericFilter(%s, %s, %s)".formatted(javaElementType, source, filter);
     }
 }

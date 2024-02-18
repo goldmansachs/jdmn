@@ -86,13 +86,13 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         } else if (element instanceof TDecision) {
             return type;
         } else if (element instanceof TInvocable) {
-            if (type instanceof FunctionType) {
-                return ((FunctionType) type).getReturnType();
+            if (type instanceof FunctionType functionType) {
+                return functionType.getReturnType();
             } else {
-                throw new DMNRuntimeException(String.format("Expected function type for element '%s'. Found '%s'", element.getName(), type));
+                throw new DMNRuntimeException("Expected function type for element '%s'. Found '%s'".formatted(element.getName(), type));
             }
         } else {
-            throw new DMNRuntimeException(String.format("'%s' is not supported yet", element.getClass().getName()));
+            throw new DMNRuntimeException("'%s' is not supported yet".formatted(element.getClass().getName()));
         }
     }
 
@@ -127,13 +127,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (declaredType == null) {
             return inferredType;
         }
-        if (declaredType instanceof ItemDefinitionType && inferredType instanceof CompositeDataType) {
-            ItemDefinitionType oldType = (ItemDefinitionType) declaredType;
+        if (declaredType instanceof ItemDefinitionType oldType && inferredType instanceof CompositeDataType type) {
             ItemDefinitionType newType = new ItemDefinitionType(oldType.getName(), oldType.getModelName());
             for (String member: oldType.getMembers()) {
                 Type oldMemberType = oldType.getMemberType(member);
                 if (oldMemberType == null || oldMemberType == AnyType.ANY) {
-                    Type newMemberType = ((CompositeDataType) inferredType).getMemberType(member);
+                    Type newMemberType = type.getMemberType(member);
                     if (newMemberType != null && newMemberType != AnyType.ANY) {
                         newType.addMember(member, oldType.getAliases(member), newMemberType);
                     } else {
@@ -148,21 +147,21 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     private Type inferDRGElementVariableFEELType(TDRGElement element, DMNContext context) {
         if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot infer type for DRG element '%s'", element));
+            throw new DMNRuntimeException("Cannot infer type for DRG element '%s'".formatted(element));
         } else if (element instanceof TInputData) {
             if (dmnTransformer.isStrongTyping()) {
-                throw new DMNRuntimeException(String.format("Cannot infer type for '%s.%s'", element.getClass().getSimpleName(), element.getName()));
+                throw new DMNRuntimeException("Cannot infer type for '%s.%s'".formatted(element.getClass().getSimpleName(), element.getName()));
             } else {
                 return null;
             }
-        } else if (element instanceof TDecision) {
-            return expressionType(element, ((TDecision) element).getExpression(), context);
-        } else if (element instanceof TBusinessKnowledgeModel) {
-            return expressionType(element, ((TBusinessKnowledgeModel) element).getEncapsulatedLogic(), context);
-        } else if (element instanceof TDecisionService) {
-            return makeDSVariableType((TDecisionService) element);
+        } else if (element instanceof TDecision decision) {
+            return expressionType(element, decision.getExpression(), context);
+        } else if (element instanceof TBusinessKnowledgeModel model) {
+            return expressionType(element, model.getEncapsulatedLogic(), context);
+        } else if (element instanceof TDecisionService service) {
+            return makeDSVariableType(service);
         } else {
-            throw new DMNRuntimeException(String.format("Type inference for '%s.%s' not supported yet", element.getClass().getSimpleName(), element.getName()));
+            throw new DMNRuntimeException("Type inference for '%s.%s' not supported yet".formatted(element.getClass().getSimpleName(), element.getName()));
         }
     }
 
@@ -185,7 +184,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, expression.getTypeRef());
-        if (expression instanceof TContext) {
+        if (expression instanceof TContext tContext) {
             if (!dmnModelRepository.isNullOrAny(typeRef)) {
                 return toFEELType(model, typeRef);
             }
@@ -194,10 +193,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             // Infer type from expression
             //
             // Collect members & return type
-            List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
+            List<TContextEntry> contextEntryList = tContext.getContextEntry();
             List<Pair<String, Type>> members = new ArrayList<>();
             Type returnType = null;
-            DMNContext localContext = this.dmnTransformer.makeLocalContext(element, (TContext) expression, context);
+            DMNContext localContext = this.dmnTransformer.makeLocalContext(element, tContext, context);
             for(TContextEntry entry: contextEntryList) {
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
@@ -219,40 +218,37 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             } else {
                 return returnType;
             }
-        } else if (expression instanceof TFunctionDefinition) {
+        } else if (expression instanceof TFunctionDefinition definition) {
             if (!dmnModelRepository.isNullOrAny(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
             // Infer type from expression
-            return functionDefinitionType(element, (TFunctionDefinition) expression, context);
-        } else if (expression instanceof TLiteralExpression) {
+            return functionDefinitionType(element, definition, context);
+        } else if (expression instanceof TLiteralExpression literalExpression) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
             // Infer type from expression
-            return literalExpressionType(element, (TLiteralExpression) expression, context);
-        } else if (expression instanceof TInvocation) {
+            return literalExpressionType(element, literalExpression, context);
+        } else if (expression instanceof TInvocation invocation) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
             // Infer type from expression
-            TExpression body = ((TInvocation) expression).getExpression();
+            TExpression body = invocation.getExpression();
             Type bodyType = expressionType(element, body, context);
-            if (bodyType instanceof FunctionType) {
-                return ((FunctionType) bodyType).getReturnType();
+            if (bodyType instanceof FunctionType type) {
+                return type.getReturnType();
             } else {
-                throw new DMNRuntimeException(String.format("Expecting function type found '%s'", bodyType));
+                throw new DMNRuntimeException("Expecting function type found '%s'".formatted(bodyType));
             }
-        } else if (expression instanceof TDecisionTable) {
+        } else if (expression instanceof TDecisionTable dt) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 return toFEELType(model, typeRef);
             }
-
-            // Derive from outputClauses clauses and rules
-            TDecisionTable dt = (TDecisionTable) expression;
             List<TOutputClause> outputClauses = dt.getOutput();
             List<TLiteralExpression> outputEntries = outputEntries(dt);
             Map<String, Type> members = new LinkedHashMap<>();
@@ -265,7 +261,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 }
                 Type expressionType;
                 if (members.isEmpty()) {
-                    throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from empty OutputClauses", element.getName()));
+                    throw new DMNRuntimeException("Cannot infer type for '%s' from empty OutputClauses".formatted(element.getName()));
                 } else if (members.size() == 1) {
                     expressionType = members.values().iterator().next();
                 } else {
@@ -273,26 +269,26 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 }
                 return applyPolicies(element, dt, expressionType);
             }
-            throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from empty OutputClauses", element.getName()));
-        } else if (expression instanceof TList) {
+            throw new DMNRuntimeException("Cannot infer type for '%s' from empty OutputClauses".formatted(element.getName()));
+        } else if (expression instanceof TList list) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 Type elementType = toFEELType(model, typeRef);
                 return new ListType(elementType);
             }
 
-            List<? extends TExpression> listExpression = ((TList) expression).getExpression();
+            List<? extends TExpression> listExpression = list.getExpression();
             Type elementType = AnyType.ANY;
             if (listExpression != null && !listExpression.isEmpty()) {
                 elementType = expressionType(element, listExpression.get(0), context);
             }
             return new ListType(elementType);
-        } else if (expression instanceof TRelation) {
+        } else if (expression instanceof TRelation relation) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 Type elementType = toFEELType(model, typeRef);
                 return new ListType(elementType);
             }
 
-            List<TInformationItem> columns = ((TRelation) expression).getColumn();
+            List<TInformationItem> columns = relation.getColumn();
             ContextType rowType = new ContextType();
             for (TInformationItem column: columns) {
                 QName columnTypeRef = column.getTypeRef();
@@ -303,24 +299,24 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 rowType.addMember(column.getName(), Arrays.asList(), columnType);
             }
             return new ListType(rowType);
-        } else if (expression instanceof TConditional) {
+        } else if (expression instanceof TConditional conditional) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
-            TChildExpression if_ = ((TConditional) expression).getIf();
-            TChildExpression then_ = ((TConditional) expression).getThen();
-            TChildExpression else_ = ((TConditional) expression).getElse();
+            TChildExpression if_ = conditional.getIf();
+            TChildExpression then_ = conditional.getThen();
+            TChildExpression else_ = conditional.getElse();
 
             // Derive type
             Type conditionType = expressionType(element, if_.getExpression(), context);
             Type thenType = expressionType(element, then_.getExpression(), context);
             Type elseType = expressionType(element, else_.getExpression(), context);
             if (conditionType != BOOLEAN) {
-                throw new DMNRuntimeException(String.format("Condition type must be boolean. Found '%s' instead in element '%s'.", conditionType, element.getName()));
+                throw new DMNRuntimeException("Condition type must be boolean. Found '%s' instead in element '%s'.".formatted(conditionType, element.getName()));
             }
             if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType) && com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
-                throw new DMNRuntimeException(String.format("Types of then and else branches are incompatible. Found '%s' and '%s' in element '%s'.", thenType, elseType, element.getName()));
+                throw new DMNRuntimeException("Types of then and else branches are incompatible. Found '%s' and '%s' in element '%s'.".formatted(thenType, elseType, element.getName()));
             } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType)) {
                 return elseType;
             } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
@@ -331,82 +327,82 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(elseType, thenType)) {
                     return thenType;
                 } else {
-                    throw new DMNRuntimeException(String.format("Types of then and else branches are incompatible. Found '%s' and '%s' in element '%s'.", thenType, elseType, element.getName()));
+                    throw new DMNRuntimeException("Types of then and else branches are incompatible. Found '%s' and '%s' in element '%s'.".formatted(thenType, elseType, element.getName()));
                 }
             }
-        } else if (expression instanceof TFilter) {
+        } else if (expression instanceof TFilter filter) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
-            TChildExpression source = ((TFilter) expression).getIn();
-            TChildExpression match = ((TFilter) expression).getMatch();
+            TChildExpression source = filter.getIn();
+            TChildExpression match = filter.getMatch();
 
             // Derive type
             Type sourceType = expressionType(element, source.getExpression(), context);
             Type matchType = expressionType(element, match.getExpression(), context);
             if (!(sourceType instanceof ListType)) {
-                throw new DMNRuntimeException(String.format("In expression in filter boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
+                throw new DMNRuntimeException("In expression in filter boxed expression should be a list. Found '%s' in element '%s'.".formatted(sourceType, element.getName()));
             }
             if (matchType != BOOLEAN) {
-                throw new DMNRuntimeException(String.format("Match condition in filter boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName()));
+                throw new DMNRuntimeException("Match condition in filter boxed expression should be boolean. Found '%s' in element '%s'.".formatted(sourceType, element.getName()));
             }
             return sourceType;
-        } else if (expression instanceof TFor) {
+        } else if (expression instanceof TFor for1) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
-            TChildExpression source = ((TFor) expression).getIn();
-            TChildExpression return_ = ((TFor) expression).getReturn();
+            TChildExpression source = for1.getIn();
+            TChildExpression return_ = for1.getReturn();
 
             // Derive type
             Type sourceType = expressionType(element, source.getExpression(), context);
             if (!(sourceType instanceof ListType)) {
-                throw new DMNRuntimeException(String.format("In expression in for boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
+                throw new DMNRuntimeException("In expression in for boxed expression should be a list. Found '%s' in element '%s'.".formatted(sourceType, element.getName()));
             }
             DMNContext iteratorContext = this.dmnTransformer.makeIteratorContext(context);
-            iteratorContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(((TFor) expression).getIteratorVariable(), ((ListType) sourceType).getElementType()));
+            iteratorContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(for1.getIteratorVariable(), ((ListType) sourceType).getElementType()));
             Type returnType = expressionType(element, return_.getExpression(), iteratorContext);
             return new ListType(returnType);
-        } else if (expression instanceof TSome) {
+        } else if (expression instanceof TSome some) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
-            TChildExpression source = ((TSome) expression).getIn();
-            TChildExpression satisfies = ((TSome) expression).getSatisfies();
+            TChildExpression source = some.getIn();
+            TChildExpression satisfies = some.getSatisfies();
 
             // Derive type
             Type sourceType = expressionType(element, source.getExpression(), context);
             Type satisfiesType = expressionType(element, satisfies.getExpression(), context);
             if (satisfiesType != BOOLEAN) {
-                throw new DMNRuntimeException(String.format("Satisfies condition in some boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName()));
+                throw new DMNRuntimeException("Satisfies condition in some boxed expression should be boolean. Found '%s' in element '%s'.".formatted(sourceType, element.getName()));
             }
             if (!(sourceType instanceof ListType)) {
-                throw new DMNRuntimeException(String.format("In expression in some boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
+                throw new DMNRuntimeException("In expression in some boxed expression should be a list. Found '%s' in element '%s'.".formatted(sourceType, element.getName()));
             }
             return BOOLEAN;
-        } else if (expression instanceof TEvery) {
+        } else if (expression instanceof TEvery every) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 return toFEELType(model, typeRef);
             }
 
-            TChildExpression source = ((TEvery) expression).getIn();
-            TChildExpression satisfies = ((TEvery) expression).getSatisfies();
+            TChildExpression source = every.getIn();
+            TChildExpression satisfies = every.getSatisfies();
 
             // Derive type
             Type sourceType = expressionType(element, source.getExpression(), context);
             Type satisfiesType = expressionType(element, satisfies.getExpression(), context);
             if (satisfiesType != BOOLEAN) {
-                throw new DMNRuntimeException(String.format("Satisfies condition in every boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName()));
+                throw new DMNRuntimeException("Satisfies condition in every boxed expression should be boolean. Found '%s' in element '%s'.".formatted(sourceType, element.getName()));
             }
             if (!(sourceType instanceof ListType)) {
-                throw new DMNRuntimeException(String.format("In expression in every boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
+                throw new DMNRuntimeException("In expression in every boxed expression should be a list. Found '%s' in element '%s'.".formatted(sourceType, element.getName()));
             }
             return BOOLEAN;
         } else {
-            throw new DMNRuntimeException(String.format("'%s' is not supported yet", expression.getClass().getSimpleName()));
+            throw new DMNRuntimeException("'%s' is not supported yet".formatted(expression.getClass().getSimpleName()));
         }
     }
 
@@ -423,7 +419,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     public Type toFEELType(TDRGElement element, TOutputClause outputClause, int index) {
         TExpression expression = this.dmnModelRepository.expression(element);
         if (!(expression instanceof TDecisionTable)) {
-            throw new DMNRuntimeException(String.format("Expected Decision Table in element '%s', found '%s'", element.getName(), expression == null ? null : expression.getClass().getName()));
+            throw new DMNRuntimeException("Expected Decision Table in element '%s', found '%s'".formatted(element.getName(), expression == null ? null : expression.getClass().getName()));
         }
 
         TDefinitions model = this.dmnModelRepository.getModel(element);
@@ -440,10 +436,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             if (index < outputEntries.size()) {
                 type = expressionType(element, outputEntries.get(index), context);
                 if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-                    throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from OutputEntries", element.getName()));
+                    throw new DMNRuntimeException("Cannot infer type for '%s' from OutputEntries".formatted(element.getName()));
                 }
             } else {
-                throw new DMNRuntimeException(String.format("Cannot infer type for '%s' from OutputEntries", element.getName()));
+                throw new DMNRuntimeException("Cannot infer type for '%s' from OutputEntries".formatted(element.getName()));
             }
         } else {
             type = toFEELType(model, outputTypeRef);
@@ -459,10 +455,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (aggregation == TBuiltinAggregator.COUNT || aggregation == TBuiltinAggregator.SUM) {
             return NumberType.NUMBER;
         } else if (aggregation == TBuiltinAggregator.MIN || aggregation == TBuiltinAggregator.MAX) {
-            if (type instanceof ListType) {
-                return ((ListType) type).getElementType();
+            if (type instanceof ListType listType) {
+                return listType.getElementType();
             } else {
-                throw new DMNRuntimeException(String.format("Expected list type, found '%s' for element '%s", type, element.getName()));
+                throw new DMNRuntimeException("Expected list type, found '%s' for element '%s".formatted(type, element.getName()));
             }
         } else {
             return type;
@@ -472,8 +468,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Type convertType(Type type, boolean convertToContext) {
         if (convertToContext) {
-            if (type instanceof ItemDefinitionType) {
-                type = ((ItemDefinitionType) type).toContextType();
+            if (type instanceof ItemDefinitionType definitionType) {
+                type = definitionType.toContextType();
             }
         }
         return type;
@@ -492,7 +488,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     public Type toFEELType(TDefinitions model, QualifiedName typeRef) {
         if (this.dmnModelRepository.isNull(typeRef)) {
             if (dmnTransformer.isStrongTyping()) {
-                throw new DMNRuntimeException(String.format("Cannot infer type for typeRef '%s'", typeRef));
+                throw new DMNRuntimeException("Cannot infer type for typeRef '%s'".formatted(typeRef));
             } else {
                 return null;
             }
@@ -518,7 +514,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (itemDefinition != null) {
             return toFEELType(itemDefinition);
         }
-        throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", typeRef));
+        throw new DMNRuntimeException("Cannot map type '%s' to FEEL".formatted(typeRef));
     }
 
     @Override
@@ -633,7 +629,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 } else if (this.dmnTransformer.isJavaFunction(kind)) {
                     bodyType = AnyType.ANY;
                 } else {
-                    throw new DMNRuntimeException(String.format("DRGElement '%s': Kind '%s' is not supported yet", element.getName(), kind));
+                    throw new DMNRuntimeException("DRGElement '%s': Kind '%s' is not supported yet".formatted(element.getName(), kind));
                 }
             }
             // Make function type
@@ -691,7 +687,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 }
             }
         }
-        throw new DMNRuntimeException(String.format("Missing returnType in '%s'", body));
+        throw new DMNRuntimeException("Missing returnType in '%s'".formatted(body));
     }
 
     @Override
@@ -730,9 +726,9 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
 
         // Add declaration for parameters
-        if (element instanceof TBusinessKnowledgeModel) {
+        if (element instanceof TBusinessKnowledgeModel model) {
             TDefinitions definitions = this.dmnModelRepository.getModel(element);
-            TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
+            TFunctionDefinition functionDefinition = model.getEncapsulatedLogic();
             if (functionDefinition != null) {
                 for (TInformationItem p: functionDefinition.getFormalParameter()) {
                     String paramTypeRef = QualifiedName.toName(p.getTypeRef());
@@ -755,16 +751,16 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
 
         Declaration declaration;
-        if (child instanceof TInputData) {
-            declaration = makeVariableDeclaration(child, ((TInputData) child).getVariable());
-        } else if (child instanceof TBusinessKnowledgeModel) {
-            declaration = makeInvocableDeclaration((TBusinessKnowledgeModel) child);
-        } else if (child instanceof TDecision) {
-            declaration = makeVariableDeclaration(child, ((TDecision) child).getVariable());
-        } else if (child instanceof TDecisionService) {
-            declaration = makeInvocableDeclaration((TDecisionService) child);
+        if (child instanceof TInputData data) {
+            declaration = makeVariableDeclaration(child, data.getVariable());
+        } else if (child instanceof TBusinessKnowledgeModel model) {
+            declaration = makeInvocableDeclaration(model);
+        } else if (child instanceof TDecision decision) {
+            declaration = makeVariableDeclaration(child, decision.getVariable());
+        } else if (child instanceof TDecisionService service) {
+            declaration = makeInvocableDeclaration(service);
         } else {
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", child.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("'%s' is not supported yet".formatted(child.getClass().getSimpleName()));
         }
         return declaration;
     }
@@ -784,14 +780,14 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 environment.addDeclaration(importDeclaration);
             } else if (importDeclaration instanceof VariableDeclaration) {
                 Type importType = importDeclaration.getType();
-                if (importType instanceof ImportContextType) {
-                    ((ImportContextType) importType).addMember(declaration.getName(), new ArrayList<>(), type);
-                    ((ImportContextType) importType).addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
+                if (importType instanceof ImportContextType contextType) {
+                    contextType.addMember(declaration.getName(), new ArrayList<>(), type);
+                    contextType.addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot process declaration for '%s.%s'", importName, declaration.getName()));
+                    throw new DMNRuntimeException("Cannot process declaration for '%s.%s'".formatted(importName, declaration.getName()));
                 }
             } else {
-                throw new DMNRuntimeException(String.format("Cannot process declaration for '%s.%s'", importName, declaration.getName()));
+                throw new DMNRuntimeException("Cannot process declaration for '%s.%s'".formatted(importName, declaration.getName()));
             }
         }
     }
@@ -834,7 +830,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             name = variable.getName();
         }
         if (StringUtils.isBlank(name) || variable == null) {
-            throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
+            throw new DMNRuntimeException("Name and variable cannot be null. Found '%s' and '%s'".formatted(name, variable));
         }
 
         Type variableType = this.dmnTransformer.drgElementVariableFEELType(element);
@@ -842,12 +838,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     protected Declaration makeInvocableDeclaration(TInvocable invocable) {
-        if (invocable instanceof TBusinessKnowledgeModel) {
-            return makeBKMDeclaration((TBusinessKnowledgeModel) invocable);
-        } else if (invocable instanceof TDecisionService) {
-            return makeDSDeclaration((TDecisionService) invocable);
+        if (invocable instanceof TBusinessKnowledgeModel model) {
+            return makeBKMDeclaration(model);
+        } else if (invocable instanceof TDecisionService service) {
+            return makeDSDeclaration(service);
         } else {
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet", invocable.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("'%s' is not supported yet".formatted(invocable.getClass().getSimpleName()));
         }
     }
 
@@ -858,7 +854,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             name = variable.getName();
         }
         if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
+            throw new DMNRuntimeException("Name and variable cannot be null. Found '%s' and '%s'".formatted(name, variable));
         }
         FunctionType serviceType = (FunctionType) this.drgElementVariableFEELType(ds);
         return this.environmentFactory.makeVariableDeclaration(name, serviceType);
@@ -871,7 +867,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             name = variable.getName();
         }
         if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable));
+            throw new DMNRuntimeException("Name and variable cannot be null. Found '%s' and '%s'".formatted(name, variable));
         }
         List<FormalParameter<Type>> parameters = this.dmnTransformer.bkmFEELParameters(bkm);
         Type returnType = this.dmnTransformer.drgElementOutputFEELType(bkm);
@@ -889,8 +885,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             TInformationItem variable = entry.getVariable();
             TExpression expression = entry.getExpression();
             Expression<Type> feelExpression = null;
-            if (expression instanceof TLiteralExpression) {
-                feelExpression = this.feelTranslator.analyzeExpression(((TLiteralExpression) expression).getText(), localContext);
+            if (expression instanceof TLiteralExpression literalExpression) {
+                feelExpression = this.feelTranslator.analyzeExpression(literalExpression.getText(), localContext);
                 literalExpressionMap.put(entry, feelExpression);
             }
             if (variable != null) {

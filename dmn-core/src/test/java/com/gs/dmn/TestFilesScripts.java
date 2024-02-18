@@ -39,12 +39,12 @@ public class TestFilesScripts {
     }
 
     private static void deleteAlienFilesFromTestFolders(File rootFolder, boolean dryRun) throws IOException {
-        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+        System.out.println("Processing folder '%s'".formatted(rootFolder.getCanonicalPath()));
 
         // Scan test folders
         for (File testFolder: rootFolder.listFiles()) {
             String testName = testFolder.getName();
-            System.out.println(String.format("Processing test '%s'", testName));
+            System.out.println("Processing test '%s'".formatted(testName));
 
             File interpreterFolder = findChild(testFolder, "interpreter", true);
             if (interpreterFolder != null) {
@@ -77,12 +77,12 @@ public class TestFilesScripts {
     }
 
     private static void deleteEmptyDialectFolders(File rootFolder, boolean dryRun) throws IOException {
-        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+        System.out.println("Processing folder '%s'".formatted(rootFolder.getCanonicalPath()));
 
         // Scan test folders
         for (File testFolder: rootFolder.listFiles()) {
             String testName = testFolder.getName();
-            System.out.println(String.format("Processing test '%s'", testName));
+            System.out.println("Processing test '%s'".formatted(testName));
 
             File interpreterFolder = findChild(testFolder, "interpreter", true);
             File translatorFolder = findChild(testFolder, "translator", true);
@@ -115,17 +115,17 @@ public class TestFilesScripts {
 
     private static void moveInputFilesFromTranslator(File rootFolder, boolean dryRun) throws IOException {
         // Scan test folders
-        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+        System.out.println("Processing folder '%s'".formatted(rootFolder.getCanonicalPath()));
 
         for (File testFolder: rootFolder.listFiles()) {
-            System.out.println(String.format("Processing test '%s'", testFolder.getName()));
+            System.out.println("Processing test '%s'".formatted(testFolder.getName()));
 
             File translatorFolder = findChild(testFolder, "translator", true);
             if (translatorFolder != null) {
-                System.out.println(String.format("Found translator '%s'", translatorFolder.getPath()));
+                System.out.println("Found translator '%s'".formatted(translatorFolder.getPath()));
                 File inputFolder = findChild(translatorFolder, "input", true);
                 if (inputFolder != null) {
-                    System.out.println(String.format("Found input '%s'", inputFolder.getPath()));
+                    System.out.println("Found input '%s'".formatted(inputFolder.getPath()));
                     // Move files from 'input' one level up
                     for (File testFile: inputFolder.listFiles()) {
                         moveFile(testFile, translatorFolder, dryRun);
@@ -145,7 +145,7 @@ public class TestFilesScripts {
     }
 
     private static void findTestsWithBothInterpreterAndTranslator(File rootFolder, boolean dryRun) throws IOException {
-        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+        System.out.println("Processing folder '%s'".formatted(rootFolder.getCanonicalPath()));
 
         // Scan test folders
         for (File testFolder: rootFolder.listFiles()) {
@@ -154,7 +154,7 @@ public class TestFilesScripts {
             File interpreterFolder = findChild(testFolder, "interpreter", true);
             File translatorFolder = findChild(testFolder, "translator", true);
             if (interpreterFolder != null && translatorFolder != null) {
-                System.out.println(String.format("Test '%s' has both interpreter and translator", testName));
+                System.out.println("Test '%s' has both interpreter and translator".formatted(testName));
             }
         }
     }
@@ -168,18 +168,18 @@ public class TestFilesScripts {
 
     private static void copyTranslatorIntoInterpreter(File rootFolder, boolean dryRun) throws IOException {
         // Scan test folders
-        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+        System.out.println("Processing folder '%s'".formatted(rootFolder.getCanonicalPath()));
 
         for (File testFolder: rootFolder.listFiles()) {
-            System.out.println(String.format("Processing test '%s'", testFolder.getName()));
+            System.out.println("Processing test '%s'".formatted(testFolder.getName()));
 
             File translatorFolder = findChild(testFolder, "translator", true);
             File interpreterFolder = findChild(testFolder, "interpreter", true);
             if (translatorFolder != null) {
-                System.out.println(String.format("Found translator '%s'", translatorFolder.getPath()));
+                System.out.println("Found translator '%s'".formatted(translatorFolder.getPath()));
                 File expectedFolder = findChild(translatorFolder, "expected", true);
                 if (expectedFolder != null) {
-                    System.out.println(String.format("Found expected '%s'", expectedFolder.getPath()));
+                    System.out.println("Found expected '%s'".formatted(expectedFolder.getPath()));
                     // Copy expected folder
                     copyFolder(expectedFolder, interpreterFolder, dryRun);
                 }
@@ -196,14 +196,14 @@ public class TestFilesScripts {
 
     private static void deleteTranslatorFolder(File rootFolder, boolean dryRun) throws IOException {
         // Scan test folders
-        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+        System.out.println("Processing folder '%s'".formatted(rootFolder.getCanonicalPath()));
 
         for (File testFolder: rootFolder.listFiles()) {
-            System.out.println(String.format("Processing test '%s'", testFolder.getName()));
+            System.out.println("Processing test '%s'".formatted(testFolder.getName()));
 
             File translatorFolder = findChild(testFolder, "translator", true);
             if (translatorFolder != null) {
-                System.out.println(String.format("Found translator '%s'", translatorFolder.getPath()));
+                System.out.println("Found translator '%s'".formatted(translatorFolder.getPath()));
                 deleteFolder(translatorFolder, dryRun);
             }
         }
@@ -220,14 +220,14 @@ public class TestFilesScripts {
 
     private static void renameInterpreterFolder(File rootFolder, boolean dryRun) throws IOException {
         // Scan test folders
-        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+        System.out.println("Processing folder '%s'".formatted(rootFolder.getCanonicalPath()));
 
         for (File testFolder: rootFolder.listFiles()) {
-            System.out.println(String.format("Processing test '%s'", testFolder.getName()));
+            System.out.println("Processing test '%s'".formatted(testFolder.getName()));
 
             File interpreterFolder = findChild(testFolder, "interpreter", true);
             if (interpreterFolder != null) {
-                System.out.println(String.format("Found interpreter '%s'", interpreterFolder.getPath()));
+                System.out.println("Found interpreter '%s'".formatted(interpreterFolder.getPath()));
                 renameFolder(interpreterFolder, dryRun);
             }
         }
@@ -243,12 +243,12 @@ public class TestFilesScripts {
     }
 
     private static void copyMissingTestFilesForDialectsFromStandard(File rootFolder, boolean dryRun) throws IOException {
-        System.out.println(String.format("Processing folder '%s'", rootFolder.getCanonicalPath()));
+        System.out.println("Processing folder '%s'".formatted(rootFolder.getCanonicalPath()));
 
         // Scan test folders
         for (File testFolder: rootFolder.listFiles()) {
             String testName = testFolder.getName();
-            System.out.println(String.format("Processing test '%s'", testName));
+            System.out.println("Processing test '%s'".formatted(testName));
 
             File translatorFolder = findChild(testFolder, "translator", true);
             if (translatorFolder != null) {
@@ -265,7 +265,7 @@ public class TestFilesScripts {
 
     private static void addTestsIfMissing(File translatorFolder, File standard, File dialect, String dialectName, boolean dryRun) throws IOException {
         if (standard != null && dialect == null) {
-            System.out.println(String.format("Add missing test file for dialect '%s' in folder '%s'", dialectName, translatorFolder.getPath()));
+            System.out.println("Add missing test file for dialect '%s' in folder '%s'".formatted(dialectName, translatorFolder.getPath()));
             if (!dryRun) {
                 dialect = new File(translatorFolder, dialectName);
                 dialect.mkdir();
@@ -290,12 +290,12 @@ public class TestFilesScripts {
                 "double-mixed"
         );
 
-        System.out.println(String.format("Copy DMN and TCK files for models '%s' and dialects '%s'", testNames, dialects));
+        System.out.println("Copy DMN and TCK files for models '%s' and dialects '%s'".formatted(testNames, dialects));
         for (String testName: testNames) {
             File sourceTestFolder = new File(sourceFolder, testName);
             File targetTestFolder = new File(targetFolder, testName);
             File targetTranslatorFolder = new File(targetTestFolder, "translator");
-            System.out.println(String.format("Processing test folder '%s'", sourceTestFolder.getCanonicalPath()));
+            System.out.println("Processing test folder '%s'".formatted(sourceTestFolder.getCanonicalPath()));
 
             for (File sourceTestFile: sourceTestFolder.listFiles()) {
                 if (isDMN(sourceTestFile) || isTCK(sourceTestFile)) {
@@ -312,7 +312,7 @@ public class TestFilesScripts {
                         } else if (isTCK(sourceTestFile)) {
                             // Copy TCK file in dialect folder
                             for (String dialect: dialects) {
-                                File targetDialectFile = new File(targetTranslatorFolder, String.format("/%s/%s", dialect, sourceTestFile.getName()));
+                                File targetDialectFile = new File(targetTranslatorFolder, "/%s/%s".formatted(dialect, sourceTestFile.getName()));
                                 copyFile(sourceTestFile, targetDialectFile, testName, dryRun);
                             }
                         }
@@ -357,7 +357,7 @@ public class TestFilesScripts {
                         jdmnFiles.add(jdmnFile);
                         // Compare TCK files in dialect folders
                         for (String dialect: dialects) {
-                            File jdmnDialectFile = new File(jdmnTestTranslatorFolder, String.format("/%s/%s", dialect, tckTestFile.getName()));
+                            File jdmnDialectFile = new File(jdmnTestTranslatorFolder, "/%s/%s".formatted(dialect, tckTestFile.getName()));
                             jdmnFiles.add(jdmnDialectFile);
                         }
                         int diffs = compareFile(tckTestFile, jdmnFiles, testName);
@@ -370,12 +370,12 @@ public class TestFilesScripts {
 
         Integer totalModelDiffs = modelDiffs.entrySet().stream().map(e -> e.getValue()).reduce(0, Integer::sum);
         Integer totalTestDiffs = testDiffs.values().stream().reduce(0, Integer::sum);
-        System.out.println(String.format("Found %d DMN diffs and %d TCK diffs", totalModelDiffs, totalTestDiffs));
+        System.out.println("Found %d DMN diffs and %d TCK diffs".formatted(totalModelDiffs, totalTestDiffs));
         for(String testName: testNames) {
             Integer mDiffs = modelDiffs.get(testName);
             Integer tDiffs = testDiffs.get(testName);
             if (mDiffs != 0 || tDiffs != 0) {
-                System.out.println(String.format("Test '%s' model diffs = '%d' test diffs = '%d'", testName, mDiffs, tDiffs));
+                System.out.println("Test '%s' model diffs = '%d' test diffs = '%d'".formatted(testName, mDiffs, tDiffs));
             }
         }
     }
@@ -390,7 +390,7 @@ public class TestFilesScripts {
 //                    System.out.println(String.format("Files '%s' and '%s' are the same", tckTestFile.getName(), jdmnTestFile.getPath()));
                 } else {
                     diffs++;
-                    System.out.println(String.format("Files '%s' and '%s' are different", tckTestFile.getName(), displayPath(jdmnTestFile.getPath(), testName)));
+                    System.out.println("Files '%s' and '%s' are different".formatted(tckTestFile.getName(), displayPath(jdmnTestFile.getPath(), testName)));
                 }
             }
         }
@@ -411,35 +411,35 @@ public class TestFilesScripts {
     }
 
     private static void moveFile(File testFile, File parentFolder, boolean dryRun) throws IOException {
-        System.out.println(String.format("Move file '%s' to folder '%s'", testFile.getPath(), parentFolder.getPath()));
+        System.out.println("Move file '%s' to folder '%s'".formatted(testFile.getPath(), parentFolder.getPath()));
         if (!dryRun) {
             FileUtils.moveFile(testFile, new File(parentFolder, testFile.getName()));
         }
     }
 
     private static void deleteFile(File file, boolean dryRun) throws IOException {
-        System.out.println(String.format("Delete file '%s'", file.getPath()));
+        System.out.println("Delete file '%s'".formatted(file.getPath()));
         if (!dryRun) {
             FileUtils.forceDelete(file);
         }
     }
 
     private static void deleteFolder(File folder, boolean dryRun) throws IOException {
-        System.out.println(String.format("Delete folder '%s'", folder.getPath()));
+        System.out.println("Delete folder '%s'".formatted(folder.getPath()));
         if (!dryRun) {
             FileUtils.deleteDirectory(folder);
         }
     }
 
     private static void renameFolder(File folder, boolean dryRun) throws IOException {
-        System.out.println(String.format("Rename folder '%s'", folder.getPath()));
+        System.out.println("Rename folder '%s'".formatted(folder.getPath()));
         if (!dryRun) {
             folder.renameTo(new File(folder.getParentFile(), "/translator"));
         }
     }
 
     private static void copyFolder(File source, File parentFolder, boolean dryRun) throws IOException {
-        System.out.println(String.format("Copy file '%s' to folder '%s'", source.getPath(), parentFolder.getPath()));
+        System.out.println("Copy file '%s' to folder '%s'".formatted(source.getPath(), parentFolder.getPath()));
         if (!dryRun) {
             File newExpectedFolder = new File(parentFolder, source.getName());
             FileUtils.copyDirectory(source, newExpectedFolder);
@@ -447,7 +447,7 @@ public class TestFilesScripts {
     }
 
     private static void copyFile(File sourceFile, File targetFile, String testName, boolean dryRun) throws IOException {
-        System.out.println(String.format("Copy test file '%s' to '%s", displayPath(sourceFile.getPath(), testName), displayPath(targetFile.getPath(), testName)));
+        System.out.println("Copy test file '%s' to '%s".formatted(displayPath(sourceFile.getPath(), testName), displayPath(targetFile.getPath(), testName)));
 
         if (!dryRun) {
             FileUtils.copyFile(sourceFile, targetFile);

@@ -2,9 +2,9 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["junit.ftl", "0010-multi-output-U.dmn"])
+@jakarta.annotation.Generated(value = ["junit.ftl", "0010-multi-output-U.dmn"])
 class _0010MultiOutputUTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase001() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
@@ -17,7 +17,7 @@ class _0010MultiOutputUTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         checkValues(type.TApproval.toTApproval(com.gs.dmn.runtime.Context().add("Rate", "Standard").add("Status", "Approved")), Approval().apply(age, riskCategory, isAffordable, context_))
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase002() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
@@ -30,7 +30,7 @@ class _0010MultiOutputUTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         checkValues(type.TApproval.toTApproval(com.gs.dmn.runtime.Context().add("Rate", "Standard").add("Status", "Declined")), Approval().apply(age, riskCategory, isAffordable, context_))
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase003() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()

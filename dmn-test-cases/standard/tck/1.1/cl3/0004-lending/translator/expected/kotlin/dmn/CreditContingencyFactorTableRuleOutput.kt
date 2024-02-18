@@ -1,5 +1,5 @@
 
-@javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "CreditContingencyFactorTable"])
+@jakarta.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "CreditContingencyFactorTable"])
 class CreditContingencyFactorTableRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("CreditContingencyFactorTable")
     var creditContingencyFactorTable: java.math.BigDecimal? = null

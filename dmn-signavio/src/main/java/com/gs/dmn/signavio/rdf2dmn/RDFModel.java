@@ -90,7 +90,7 @@ public class RDFModel {
         try {
             return MAPPER.readValue(relationsString, MAPPER.getTypeFactory().constructCollectionType(List.class, Relation.class));
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot deserialize relations '%s'", relationsString), e);
+            throw new DMNRuntimeException("Cannot deserialize relations '%s'".formatted(relationsString), e);
         }
     }
 
@@ -98,7 +98,7 @@ public class RDFModel {
         try {
             return MAPPER.readValue(enumItemsString, MAPPER.getTypeFactory().constructCollectionType(List.class, EnumItem.class));
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot deserialize enumItems '%s'", enumItemsString), e);
+            throw new DMNRuntimeException("Cannot deserialize enumItems '%s'".formatted(enumItemsString), e);
         }
     }
 
@@ -219,8 +219,8 @@ public class RDFModel {
             if (isDecision(element)) {
                 String decisionText = getDecision(element);
                 DecisionExpression expression = MAPPER.readValue(decisionText, DecisionExpression.class);
-                if (expression instanceof DecisionTable) {
-                    for (OutputClause oc : ((DecisionTable) expression).getOutputClauses()) {
+                if (expression instanceof DecisionTable table) {
+                    for (OutputClause oc : table.getOutputClauses()) {
                         ItemDefinition itemDefinition = oc.getItemDefinition();
                         if (outputId.equals(oc.getId())) {
                             return itemDefinition.getName();
@@ -236,9 +236,9 @@ public class RDFModel {
                     }
                 }
             }
-            throw new DMNRuntimeException(String.format("Cannot find output '%s' in element '%s'", outputId, element.getAttribute("id")));
+            throw new DMNRuntimeException("Cannot find output '%s' in element '%s'".formatted(outputId, element.getAttribute("id")));
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find output '%s' in element '%s'", outputId, element.getAttribute("id")), e);
+            throw new DMNRuntimeException("Cannot find output '%s' in element '%s'".formatted(outputId, element.getAttribute("id")), e);
         }
     }
 
@@ -267,8 +267,8 @@ public class RDFModel {
             String decisionText = getDecision(decision);
             DecisionExpression expression;
             expression = RDFModel.MAPPER.readValue(decisionText, DecisionExpression.class);
-            if (expression instanceof DecisionTable) {
-                List<OutputClause> outputClauses = ((DecisionTable) expression).getOutputClauses();
+            if (expression instanceof DecisionTable table) {
+                List<OutputClause> outputClauses = table.getOutputClauses();
                 if (outputClauses.size() == 1) {
                     return true;
                 }

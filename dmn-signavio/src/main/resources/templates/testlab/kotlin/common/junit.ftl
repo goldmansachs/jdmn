@@ -17,7 +17,7 @@ package ${packageName}
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["junit.ftl", "${testLab.rootDecisionId}"])
+@jakarta.annotation.Generated(value = ["junit.ftl", "${testLab.rootDecisionId}"])
 <#assign rootOutputParameter = testLab.rootOutputParameter />
 class ${testClassName} : ${decisionBaseClass}() {
     <@addDecisionField />
@@ -31,7 +31,7 @@ class ${testClassName} : ${decisionBaseClass}() {
 <#macro addTestCases>
     <#list testLab.testCases>
         <#items as testCase>
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase${(testCase?index + 1)?c}() {
         val ${testLabUtil.executionContextVariableName()} = ${testLabUtil.executionContextClassName()}()
         <@addApplyPart testCase/>

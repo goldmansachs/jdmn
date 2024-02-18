@@ -29,6 +29,6 @@ public class Negation extends UnaryTest {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", this.getClass().getSimpleName(), operand.toString());
+        return "%s(%s)".formatted(this.getClass().getSimpleName(), operand.toString());
     }
 }

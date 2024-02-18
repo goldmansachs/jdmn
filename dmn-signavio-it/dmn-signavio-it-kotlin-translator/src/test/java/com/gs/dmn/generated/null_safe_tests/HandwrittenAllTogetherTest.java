@@ -13,6 +13,7 @@
 package com.gs.dmn.generated.null_safe_tests;
 
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

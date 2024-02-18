@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "componentwise"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "componentwise"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.ComponentwiseImpl.class)
 public interface Componentwise extends com.gs.dmn.runtime.DMNType {

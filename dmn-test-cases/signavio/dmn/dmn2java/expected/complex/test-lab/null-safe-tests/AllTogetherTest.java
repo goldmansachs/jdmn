@@ -2,11 +2,11 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "7a41c638739441ef88d9fe7501233ef8/sid-2ABA9455-1BAD-4552-BE44-9FE612EA1D10"})
+@jakarta.annotation.Generated(value = {"junit.ftl", "7a41c638739441ef88d9fe7501233ef8/sid-2ABA9455-1BAD-4552-BE44-9FE612EA1D10"})
 public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final AllTogether allTogether = new AllTogether();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean booleanA = Boolean.TRUE;
@@ -25,7 +25,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
         checkValues("NotNull", allTogether);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean booleanA = Boolean.TRUE;
@@ -44,7 +44,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
         checkValues(null, allTogether);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase3() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean booleanA = Boolean.FALSE;
@@ -63,7 +63,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
         checkValues(null, allTogether);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase4() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean booleanA = Boolean.FALSE;
@@ -82,7 +82,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
         checkValues("NotNull", allTogether);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase5() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean booleanA = Boolean.FALSE;
@@ -101,7 +101,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.DefaultSignavio
         checkValues("NotNull", allTogether);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase6() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean booleanA = Boolean.TRUE;

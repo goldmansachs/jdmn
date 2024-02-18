@@ -117,7 +117,7 @@ public interface Type {
 
     default void validate() {
         if (!isFullySpecified()) {
-            throw new DMNRuntimeException(String.format("Type '%s' is partially specified", this));
+            throw new DMNRuntimeException("Type '%s' is partially specified".formatted(this));
         }
     }
 

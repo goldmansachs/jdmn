@@ -2,7 +2,7 @@ package type
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinition.ftl", "tFnInvocationComplexParamsResult"])
+@jakarta.annotation.Generated(value = ["itemDefinition.ftl", "tFnInvocationComplexParamsResult"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 class TFnInvocationComplexParamsResultImpl : TFnInvocationComplexParamsResult {
     @get:com.fasterxml.jackson.annotation.JsonGetter("functionInvocationLiteralExpressionInParameter")

@@ -2,11 +2,11 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "bd1194901b2149b8a8251ab2cc298992/sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0"})
+@jakarta.annotation.Generated(value = {"junit.ftl", "bd1194901b2149b8a8251ab2cc298992/sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0"})
 public class DecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final Decision decision = new Decision();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean employed = null;
@@ -16,7 +16,7 @@ public class DecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         checkValues(asList(), decision);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean employed = Boolean.TRUE;
@@ -26,7 +26,7 @@ public class DecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         checkValues(asList(), decision);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase3() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         Boolean employed = Boolean.TRUE;

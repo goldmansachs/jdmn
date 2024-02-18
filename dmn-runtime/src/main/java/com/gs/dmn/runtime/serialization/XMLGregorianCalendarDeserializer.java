@@ -51,7 +51,7 @@ public class XMLGregorianCalendarDeserializer extends JsonDeserializer<XMLGregor
                 }
             }
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error deserializing '%s' ", node), e);
+            throw new DMNRuntimeException("Error deserializing '%s' ".formatted(node), e);
         }
     }
 }

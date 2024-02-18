@@ -35,12 +35,12 @@ public class Executor {
         if (dmnDecision == null) {
             String clsName = registry.discover(qName);
             if (clsName == null) {
-                throw new DMNRuntimeException(String.format("Element '%s' is not registered. Registered elements are %s", qName, registry.keys()));
+                throw new DMNRuntimeException("Element '%s' is not registered. Registered elements are %s".formatted(qName, registry.keys()));
             }
             try {
                 dmnDecision = (DMNDecision) Class.forName(clsName).getConstructor().newInstance();
             } catch (Exception e) {
-                throw new DMNRuntimeException(String.format("Cannot instantiate class '%s' for name '%s'", clsName, qName));
+                throw new DMNRuntimeException("Cannot instantiate class '%s' for name '%s'".formatted(clsName, qName));
             }
             this.map.put(qName, dmnDecision);
         }

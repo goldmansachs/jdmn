@@ -35,10 +35,10 @@ public class AllowedValuesConverter {
         }
         if (expectedType instanceof ConstraintType) {
             return checkConstraint(value, expectedType, elInterpreter, dmnTransformer) ? value : null;
-        } else if (expectedType instanceof ListType) {
-            Type expectedElementType = ((ListType) expectedType).getElementType();
-            if (value instanceof List) {
-                for (Object element: (List) value) {
+        } else if (expectedType instanceof ListType type) {
+            Type expectedElementType = type.getElementType();
+            if (value instanceof List list) {
+                for (Object element: list) {
                     boolean validElement = checkConstraint(element, expectedElementType, elInterpreter, dmnTransformer);
                     if (!validElement) {
                         return null;
@@ -46,12 +46,12 @@ public class AllowedValuesConverter {
                 }
             }
             return value;
-        } else if (expectedType instanceof CompositeDataType) {
-            Set<String> members = ((CompositeDataType) expectedType).getMembers();
+        } else if (expectedType instanceof CompositeDataType type) {
+            Set<String> members = type.getMembers();
             for (String member: members) {
-                Type expectedMemeberType = ((CompositeDataType) expectedType).getMemberType(member);
-                if (value instanceof Context) {
-                    Object memberValue = ((Context) value).get(member);
+                Type expectedMemeberType = type.getMemberType(member);
+                if (value instanceof Context context) {
+                    Object memberValue = context.get(member);
                     boolean validMember =  checkConstraint(memberValue, expectedMemeberType, elInterpreter, dmnTransformer);
                     if (!validMember) {
                         return null;
@@ -70,10 +70,10 @@ public class AllowedValuesConverter {
         }
         if (expectedType instanceof ConstraintType) {
             return evaluateConstraint(value, expectedType, elInterpreter, dmnTransformer);
-        } else if (expectedType instanceof ListType) {
-            Type expectedElementType = ((ListType) expectedType).getElementType();
-            if (value instanceof List) {
-                for (Object element: (List) value) {
+        } else if (expectedType instanceof ListType type) {
+            Type expectedElementType = type.getElementType();
+            if (value instanceof List list) {
+                for (Object element: list) {
                     boolean res = checkConstraint(element, expectedElementType, elInterpreter, dmnTransformer);
                     if (!res) {
                         return false;
@@ -81,12 +81,12 @@ public class AllowedValuesConverter {
                 }
             }
             return true;
-        } else if (expectedType instanceof CompositeDataType) {
-            Set<String> members = ((CompositeDataType) expectedType).getMembers();
+        } else if (expectedType instanceof CompositeDataType type) {
+            Set<String> members = type.getMembers();
             for (String member: members) {
-                Type expectedMemeberType = ((CompositeDataType) expectedType).getMemberType(member);
-                if (value instanceof Context) {
-                    Object memberValue = ((Context) value).get(member);
+                Type expectedMemeberType = type.getMemberType(member);
+                if (value instanceof Context context) {
+                    Object memberValue = context.get(member);
                     boolean res = checkConstraint(memberValue, expectedMemeberType, elInterpreter, dmnTransformer);
                     if (!res) {
                         return false;
@@ -110,6 +110,6 @@ public class AllowedValuesConverter {
         String unaryTests = ((ConstraintType) expectedType).getUnaryTests();
         Result result = elInterpreter.evaluateUnaryTests(unaryTests, constraintContext);
         Object resultValue = Result.value(result);
-        return resultValue instanceof Boolean ? (Boolean) resultValue : true;
+        return resultValue instanceof Boolean b ? b : true;
     }
 }

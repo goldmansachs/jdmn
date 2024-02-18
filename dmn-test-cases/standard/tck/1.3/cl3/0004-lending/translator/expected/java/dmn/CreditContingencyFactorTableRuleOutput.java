@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "CreditContingencyFactorTable"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "CreditContingencyFactorTable"})
 public class CreditContingencyFactorTableRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal creditContingencyFactorTable;
 

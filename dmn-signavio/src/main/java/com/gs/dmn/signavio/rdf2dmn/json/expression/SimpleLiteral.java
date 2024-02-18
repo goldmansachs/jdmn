@@ -27,16 +27,16 @@ public class SimpleLiteral extends Expression {
 
     public Object getValue() {
         if (value instanceof String) {
-            return String.format("\"%s\"", value);
-        } else if (value instanceof Map) {
-            return ((Map)value).get("value");
+            return "\"%s\"".formatted(value);
+        } else if (value instanceof Map map) {
+            return map.get("value");
         }
         return value;
     }
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", this.getClass().getSimpleName(), value);
+        return "%s(%s)".formatted(this.getClass().getSimpleName(), value);
     }
 
     @Override

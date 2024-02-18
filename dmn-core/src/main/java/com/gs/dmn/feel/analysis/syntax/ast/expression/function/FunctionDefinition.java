@@ -82,6 +82,6 @@ public class FunctionDefinition<T> extends Expression<T> {
     @Override
     public String toString() {
         String parameters = this.formalParameters.stream().map(FormalParameter::toString).collect(Collectors.joining(","));
-        return String.format("%s(%s, %s, %s)", getClass().getSimpleName(), parameters, this.body.toString(), this.external);
+        return "%s(%s, %s, %s)".formatted(getClass().getSimpleName(), parameters, this.body.toString(), this.external);
     }
 }

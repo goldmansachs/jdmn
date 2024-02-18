@@ -175,7 +175,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
     }
 
     private String toType(TItemDefinition itemDefinition) {
-        return String.format("%s, %s", itemDefinition.getTypeRef(), itemDefinition.isIsCollection());
+        return "%s, %s".formatted(itemDefinition.getTypeRef(), itemDefinition.isIsCollection());
     }
 
     private static class RepositoryTransformResult {

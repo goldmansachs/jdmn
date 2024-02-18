@@ -104,8 +104,10 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     @Test
     public void testAnnotationWithSeveralStrings() {
         TDecision decision = this.dmnTransformer.getDMNModelRepository().findDecisionByRef(null, this.href);
-        String expected = "stringAdd(stringAdd(stringAdd(stringAdd(string(\"Rate is \"), string(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getRate() : null)))), " +
-                "string(\". And term is \")), string(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getTerm() : null)))), string(\"!\"))";
+        String expected = """
+                stringAdd(stringAdd(stringAdd(stringAdd(string("Rate is "), string(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getRate() : null)))), \
+                string(". And term is ")), string(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getTerm() : null)))), string("!"))\
+                """;
         assertEquals(expected, this.dmnTransformer.annotation(decision, "string(\"Rate is \") + string(RequestedProduct.Rate) + string(\". And term is \") + string(RequestedProduct.Term) + string(\"!\")"));
         assertEquals("asList(string(\"\"), string(\"\"), string(\"\"))", this.dmnTransformer.annotation(decision, "[string(\"\"), string(\"\"), string(\"\")]"));
     }

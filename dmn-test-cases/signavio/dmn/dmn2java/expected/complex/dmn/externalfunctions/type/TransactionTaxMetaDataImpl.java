@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "transactionTaxMetaData"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "transactionTaxMetaData"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TransactionTaxMetaDataImpl implements TransactionTaxMetaData {
         private String taxType;

@@ -1,5 +1,5 @@
 
-@javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "compareAgainstLendingThreshold"])
+@jakarta.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "compareAgainstLendingThreshold"])
 class CompareAgainstLendingThresholdRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("compareAgainstLendingThreshold")
     var compareAgainstLendingThreshold: java.math.BigDecimal? = null

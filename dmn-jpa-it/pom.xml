@@ -13,7 +13,8 @@
     specific language governing permissions and limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -39,7 +40,8 @@
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
 
-        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
+        <skipNexusStagingDeployMojo>true
+        </skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
     </properties>
 
     <dependencies>
@@ -47,6 +49,12 @@
             <groupId>com.goldmansachs.jdmn</groupId>
             <artifactId>jdmn-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -68,17 +76,22 @@
             <version>2.2.220</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>javax.persistence</artifactId>
-            <version>2.2.1</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.jpa</artifactId>
-            <version>2.7.11</version>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>${jakarta.activation-api}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.4.2.Final</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -120,8 +133,10 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/example-credit-decision-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/example-credit-decision.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/example-credit-decision-test-01.xml
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/example-credit-decision.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.example_credit_decision</javaRootPackage>
@@ -228,7 +243,7 @@
                 <executions>
                     <execution>
                         <id>default-jar</id>
-                        <phase />
+                        <phase/>
                     </execution>
                 </executions>
             </plugin>

@@ -33,7 +33,7 @@ public abstract class AbstractTest {
     protected URI tckResource(String path) {
         File file = new File(STANDARD_FOLDER, path);
         if (!file.exists()) {
-            throw new DMNRuntimeException(String.format("Cannot find file '%s'", file.getPath()));
+            throw new DMNRuntimeException("Cannot find file '%s'".formatted(file.getPath()));
         }
         return file.toURI();
     }
@@ -41,7 +41,7 @@ public abstract class AbstractTest {
     protected URI signavioResource(String path) {
         File file = new File(SIGNAVIO_FOLDER, path);
         if (!file.exists()) {
-            throw new DMNRuntimeException(String.format("Cannot find file '%s'", file.getPath()));
+            throw new DMNRuntimeException("Cannot find file '%s'".formatted(file.getPath()));
         }
         return file.toURI();
     }
@@ -50,7 +50,7 @@ public abstract class AbstractTest {
         try {
             URL url = this.getClass().getClassLoader().getResource(path);
             if (url == null) {
-                throw new DMNRuntimeException(String.format("Cannot find resource '%s'", path));
+                throw new DMNRuntimeException("Cannot find resource '%s'".formatted(path));
             }
             return url.toURI();
         } catch (URISyntaxException e) {
@@ -59,7 +59,7 @@ public abstract class AbstractTest {
     }
 
     protected String completePath(String pathFormat, String dmnVersion, String dmnFileName) {
-        return String.format(pathFormat, dmnVersion, dmnFileName);
+        return pathFormat.formatted(dmnVersion, dmnFileName);
     }
 
     protected InputParameters makeInputParameters() {

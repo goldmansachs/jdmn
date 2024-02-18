@@ -2,9 +2,9 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["junit.ftl", "0004-lending.dmn"])
+@jakarta.annotation.Generated(value = ["junit.ftl", "0004-lending.dmn"])
 class _0004LendingTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase001() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()

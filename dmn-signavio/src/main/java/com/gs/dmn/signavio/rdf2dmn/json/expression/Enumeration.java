@@ -29,6 +29,6 @@ public class Enumeration extends Expression {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", this.getClass().getSimpleName(), itemId);
+        return "%s(%s)".formatted(this.getClass().getSimpleName(), itemId);
     }
 }

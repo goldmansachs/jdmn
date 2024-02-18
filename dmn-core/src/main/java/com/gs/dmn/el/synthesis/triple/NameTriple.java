@@ -30,6 +30,6 @@ public class NameTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("Name(%s)", name);
+        return "Name(%s)".formatted(name);
     }
 }

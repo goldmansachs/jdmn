@@ -58,7 +58,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
             checkSchemaValidationFlag(validateSchema);
             return JSON_MAPPER.readValue(input, TDefinitions.class);
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input), e);
+            throw new DMNRuntimeException("Cannot read DMN from '%s'".formatted(input), e);
         }
     }
 
@@ -68,7 +68,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
             checkSchemaValidationFlag(validateSchema);
             return JSON_MAPPER.readValue(input, TDefinitions.class);
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input), e);
+            throw new DMNRuntimeException("Cannot read DMN from '%s'".formatted(input), e);
         }
     }
 
@@ -78,7 +78,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
             checkSchemaValidationFlag(validateSchema);
             return JSON_MAPPER.readValue(input, TDefinitions.class);
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input), e);
+            throw new DMNRuntimeException("Cannot read DMN from '%s'".formatted(input), e);
         }
     }
 
@@ -88,7 +88,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
             checkSchemaValidationFlag(validateSchema);
             return JSON_MAPPER.readValue(input, TDefinitions.class);
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input), e);
+            throw new DMNRuntimeException("Cannot read DMN from '%s'".formatted(input), e);
         }
     }
 
@@ -98,7 +98,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
             checkSchemaValidationFlag(validateSchema);
             return JSON_MAPPER.readValue(input, TDefinitions.class);
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input), e);
+            throw new DMNRuntimeException("Cannot read DMN from '%s'".formatted(input), e);
         }
     }
 
@@ -116,7 +116,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
         try {
             JSON_MAPPER.writeValue(output, o);
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output.getPath()), e);
+            throw new DMNRuntimeException("Cannot write DMN to '%s'".formatted(output.getPath()), e);
         }
     }
 
@@ -125,7 +125,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
         try {
             JSON_MAPPER.writeValue(output, o);
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output), e);
+            throw new DMNRuntimeException("Cannot write DMN to '%s'".formatted(output), e);
         }
     }
 
@@ -134,7 +134,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
         try {
             JSON_MAPPER.writeValue(output, o);
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output), e);
+            throw new DMNRuntimeException("Cannot write DMN to '%s'".formatted(output), e);
         }
     }
 

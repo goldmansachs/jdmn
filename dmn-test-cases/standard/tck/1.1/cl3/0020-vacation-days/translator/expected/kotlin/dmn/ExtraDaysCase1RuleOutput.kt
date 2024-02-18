@@ -1,5 +1,5 @@
 
-@javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "Extra days case 1"])
+@jakarta.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "Extra days case 1"])
 class ExtraDaysCase1RuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("Extra days case 1")
     var extraDaysCase1: java.math.BigDecimal? = null

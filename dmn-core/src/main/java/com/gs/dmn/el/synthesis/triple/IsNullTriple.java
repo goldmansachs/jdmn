@@ -30,6 +30,6 @@ public class IsNullTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("IsNull(%s)", inputExpressionToJava);
+        return "IsNull(%s)".formatted(inputExpressionToJava);
     }
 }

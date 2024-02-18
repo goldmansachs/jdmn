@@ -21,10 +21,10 @@ public class SemanticError extends RuntimeException {
     }
 
     public SemanticError(Expression<Type> expression, String errorMessage) {
-        super(String.format("'%s': %s", expression.getClass().getSimpleName(), errorMessage));
+        super("'%s': %s".formatted(expression.getClass().getSimpleName(), errorMessage));
     }
 
     public SemanticError(Expression<Type> expression, String errorMessage, Exception e) {
-        super(String.format("'%s': %s", expression.getClass().getSimpleName(), errorMessage), e);
+        super("'%s': %s".formatted(expression.getClass().getSimpleName(), errorMessage), e);
     }
 }

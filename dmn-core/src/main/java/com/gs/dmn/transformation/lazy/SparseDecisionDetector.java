@@ -38,8 +38,8 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
         for (TDefinitions definitions: modelRepository.getAllDefinitions()) {
             for (TDecision decision : modelRepository.findDecisions(definitions)) {
                 TExpression expression = decision.getExpression();
-                if (expression instanceof TDecisionTable && isSparseDecisionTable((TDecisionTable) expression, sparsityThreshold)) {
-                    logger.info(String.format("Found sparse decision '%s'", decision.getName()));
+                if (expression instanceof TDecisionTable table && isSparseDecisionTable(table, sparsityThreshold)) {
+                    logger.info("Found sparse decision '%s'".formatted(decision.getName()));
 
                     for (TInformationRequirement ir : decision.getInformationRequirement()) {
                         TDMNElementReference requiredDecision = ir.getRequiredDecision();
@@ -55,7 +55,7 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
             }
         }
 
-        logger.info(String.format("Decisions to be lazy evaluated: '%s'", String.join(", ", lazyEvaluationOptimisation.getLazyEvaluatedDecisions())));
+        logger.info("Decisions to be lazy evaluated: '%s'".formatted(String.join(", ", lazyEvaluationOptimisation.getLazyEvaluatedDecisions())));
         return lazyEvaluationOptimisation;
     }
 

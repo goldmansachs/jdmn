@@ -84,7 +84,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.string(from);
         } catch (Exception e) {
-            String message = String.format("string(%s)", from);
+            String message = "string(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -98,7 +98,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.number(text);
         } catch (Exception e) {
-            String message = String.format("number(%s)", text);
+            String message = "number(%s)".formatted(text);
             logError(message, e);
             return null;
         }
@@ -109,7 +109,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.number(text, defaultValue);
         } catch (Exception e) {
-            String message = String.format("number(%s, %s)", text, defaultValue);
+            String message = "number(%s, %s)".formatted(text, defaultValue);
             logError(message, e);
             return null;
         }
@@ -120,7 +120,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.abs(number);
         } catch (Exception e) {
-            String message = String.format("abs(%s)", number);
+            String message = "abs(%s)".formatted(number);
             logError(message, e);
             return null;
         }
@@ -131,7 +131,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.count(list);
         } catch (Exception e) {
-            String message = String.format("count(%s)", list);
+            String message = "count(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -142,7 +142,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.round(number, digits);
         } catch (Exception e) {
-            String message = String.format("round(%s, %s)", number, digits);
+            String message = "round(%s, %s)".formatted(number, digits);
             logError(message, e);
             return null;
         }
@@ -153,7 +153,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.ceiling(number);
         } catch (Exception e) {
-            String message = String.format("integer(%s)", number);
+            String message = "integer(%s)".formatted(number);
             logError(message, e);
             return null;
         }
@@ -164,7 +164,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.floor(number);
         } catch (Exception e) {
-            String message = String.format("floor(%s)", number);
+            String message = "floor(%s)".formatted(number);
             logError(message, e);
             return null;
         }
@@ -175,7 +175,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.integer(number);
         } catch (Exception e) {
-            String message = String.format("integer(%s)", number);
+            String message = "integer(%s)".formatted(number);
             logError(message, e);
             return null;
         }
@@ -186,7 +186,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.modulo(dividend, divisor);
         } catch (Exception e) {
-            String message = String.format("modulo(%s, %s)", dividend, divisor);
+            String message = "modulo(%s, %s)".formatted(dividend, divisor);
             logError(message, e);
             return null;
         }
@@ -197,7 +197,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.percent(number);
         } catch (Exception e) {
-            String message = String.format("percent(%s)", number);
+            String message = "percent(%s)".formatted(number);
             logError(message, e);
             return null;
         }
@@ -208,7 +208,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.power(base, exponent);
         } catch (Exception e) {
-            String message = String.format("power(%s, %s)", base, exponent);
+            String message = "power(%s, %s)".formatted(base, exponent);
             logError(message, e);
             return null;
         }
@@ -219,7 +219,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.product(numbers);
         } catch (Exception e) {
-            String message = String.format("product(%s)", numbers);
+            String message = "product(%s)".formatted(numbers);
             logError(message, e);
             return null;
         }
@@ -230,7 +230,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.roundDown(number, digits);
         } catch (Exception e) {
-            String message = String.format("roundDown(%s, %s)", number, digits);
+            String message = "roundDown(%s, %s)".formatted(number, digits);
             logError(message, e);
             return null;
         }
@@ -241,7 +241,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.roundUp(number, digits);
         } catch (Exception e) {
-            String message = String.format("roundUp(%s, %s)", number, digits);
+            String message = "roundUp(%s, %s)".formatted(number, digits);
             logError(message, e);
             return null;
         }
@@ -252,7 +252,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.sum(numbers);
         } catch (Exception e) {
-            String message = String.format("sum(%s)", numbers);
+            String message = "sum(%s)".formatted(numbers);
             logError(message, e);
             return null;
         }
@@ -266,7 +266,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.dateTimeLib.date(literal);
         } catch (Exception e) {
-            String message = String.format("date(%s)", literal);
+            String message = "date(%s)".formatted(literal);
             logError(message, e);
             return null;
         }
@@ -277,7 +277,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.dateTimeLib.time(literal);
         } catch (Exception e) {
-            String message = String.format("time(%s)", literal);
+            String message = "time(%s)".formatted(literal);
             logError(message, e);
             return null;
         }
@@ -288,7 +288,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.dateTimeLib.dateAndTime(literal);
         } catch (Exception e) {
-            String message = String.format("dateAndTime(%s)", literal);
+            String message = "dateAndTime(%s)".formatted(literal);
             logError(message, e);
             return null;
         }
@@ -299,7 +299,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return valueOf(this.dateTimeLib.day(date));
         } catch (Exception e) {
-            String message = String.format("day(%s)", date);
+            String message = "day(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -310,7 +310,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.dateTimeLib.dayAdd(date, daysToAdd);
         } catch (Exception e) {
-            String message = String.format("dayAdd(%s, %s)", date, daysToAdd);
+            String message = "dayAdd(%s, %s)".formatted(date, daysToAdd);
             logError(message, e);
             return null;
         }
@@ -321,7 +321,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.valueOf(this.dateTimeLib.dayDiff(date1, date2));
         } catch (Exception e) {
-            String message = String.format("dayDiff(%s, %s)", date1, date2);
+            String message = "dayDiff(%s, %s)".formatted(date1, date2);
             logError(message, e);
             return null;
         }
@@ -337,10 +337,10 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
                 return null;
             }
 
-            String literal = String.format("%04d-%02d-%02d", this.numberLib.intValue(year), this.numberLib.intValue(month), this.numberLib.intValue(day));
+            String literal = "%04d-%02d-%02d".formatted(this.numberLib.intValue(year), this.numberLib.intValue(month), this.numberLib.intValue(day));
             return this.dateTimeLib.date(literal);
         } catch (Exception e) {
-            String message = String.format("date(%s, %s, %s)", year, month, day);
+            String message = "date(%s, %s, %s)".formatted(year, month, day);
             logError(message, e);
             return null;
         }
@@ -356,11 +356,11 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
                 return null;
             }
 
-            String literal = String.format("%04d-%02d-%02dT%02d:%02d:%02dZ",
-                    this.numberLib.intValue(year), this.numberLib.intValue(month), this.numberLib.intValue(day), this.numberLib.intValue(hour), this.numberLib.intValue(minute), this.numberLib.intValue(second));
+            String literal = "%04d-%02d-%02dT%02d:%02d:%02dZ".formatted(
+                this.numberLib.intValue(year), this.numberLib.intValue(month), this.numberLib.intValue(day), this.numberLib.intValue(hour), this.numberLib.intValue(minute), this.numberLib.intValue(second));
             return this.dateTimeLib.dateAndTime(literal);
         } catch (Exception e) {
-            String message = String.format("dateTime(%s, %s, %s, %s, %s, %s)", day, month, year, hour, minute, second);
+            String message = "dateTime(%s, %s, %s, %s, %s, %s)".formatted(day, month, year, hour, minute, second);
             logError(message, e);
             return null;
         }
@@ -376,11 +376,11 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
                 return null;
             }
 
-            String literal = String.format("%04d-%02d-%02dT%02d:%02d:%02d%+03d:00",
-                    this.numberLib.intValue(year), this.numberLib.intValue(month), this.numberLib.intValue(day), this.numberLib.intValue(hour), this.numberLib.intValue(minute), this.numberLib.intValue(second), this.numberLib.intValue(hourOffset));
+            String literal = "%04d-%02d-%02dT%02d:%02d:%02d%+03d:00".formatted(
+                this.numberLib.intValue(year), this.numberLib.intValue(month), this.numberLib.intValue(day), this.numberLib.intValue(hour), this.numberLib.intValue(minute), this.numberLib.intValue(second), this.numberLib.intValue(hourOffset));
             return this.dateTimeLib.dateAndTime(literal);
         } catch (Exception e) {
-            String message = String.format("dateTime(%s, %s, %s, %s, %s, %s, %s)", day, month, year, hour, minute, second, hourOffset);
+            String message = "dateTime(%s, %s, %s, %s, %s, %s, %s)".formatted(day, month, year, hour, minute, second, hourOffset);
             logError(message, e);
             return null;
         }
@@ -391,7 +391,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.valueOf(this.dateTimeLib.hour(time));
         } catch (Exception e) {
-            String message = String.format("hour(%s)", time);
+            String message = "hour(%s)".formatted(time);
             logError(message, e);
             return null;
         }
@@ -402,7 +402,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.valueOf(this.dateTimeLib.hourDiff(time1, time2));
         } catch (Exception e) {
-            String message = String.format("hourDiff(%s, %s)", time1, time2);
+            String message = "hourDiff(%s, %s)".formatted(time1, time2);
             logError(message, e);
             return null;
         }
@@ -413,7 +413,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.valueOf(this.dateTimeLib.minute(time));
         } catch (Exception e) {
-            String message = String.format("minute(%s)", time);
+            String message = "minute(%s)".formatted(time);
             logError(message, e);
             return null;
         }
@@ -424,7 +424,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.valueOf(this.dateTimeLib.minutesDiff(time1, time2));
         } catch (Exception e) {
-            String message = String.format("minutesDiff(%s, %s)", time1, time2);
+            String message = "minutesDiff(%s, %s)".formatted(time1, time2);
             logError(message, e);
             return null;
         }
@@ -435,7 +435,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.valueOf(this.dateTimeLib.month(date));
         } catch (Exception e) {
-            String message = String.format("month(%s)", date);
+            String message = "month(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -446,7 +446,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.dateTimeLib.monthAdd(date, monthsToAdd);
         } catch (Exception e) {
-            String message = String.format("monthAdd(%s, %s)", date, monthsToAdd);
+            String message = "monthAdd(%s, %s)".formatted(date, monthsToAdd);
             logError(message, e);
             return null;
         }
@@ -457,7 +457,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.valueOf(this.dateTimeLib.monthDiff(date1, date2));
         } catch (Exception e) {
-            String message = String.format("monthDiff(%s, %s)", date1, date2);
+            String message = "monthDiff(%s, %s)".formatted(date1, date2);
             logError(message, e);
             return null;
         }
@@ -490,7 +490,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.valueOf(this.dateTimeLib.weekday(date));
         } catch (Exception e) {
-            String message = String.format("weekday(%s)", date);
+            String message = "weekday(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -501,7 +501,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.valueOf(this.dateTimeLib.year(date));
         } catch (Exception e) {
-            String message = String.format("year(%s)", date);
+            String message = "year(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -512,7 +512,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.dateTimeLib.yearAdd(localDate, yearsToAdd);
         } catch (Exception e) {
-            String message = String.format("yearAdd(%s, %s)", localDate, yearsToAdd);
+            String message = "yearAdd(%s, %s)".formatted(localDate, yearsToAdd);
             logError(message, e);
             return null;
         }
@@ -523,7 +523,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.valueOf(this.dateTimeLib.yearDiff(dateTime1, dateTime2));
         } catch (Exception e) {
-            String message = String.format("yearDiff(%s, %s)", dateTime1, dateTime2);
+            String message = "yearDiff(%s, %s)".formatted(dateTime1, dateTime2);
             logError(message, e);
             return null;
         }
@@ -534,7 +534,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.durationLib.duration(from);
         } catch (Exception e) {
-            String message = String.format("duration(%s)", from);
+            String message = "duration(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -545,7 +545,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.mid(text, this.numberLib.toNumber(start), this.numberLib.toNumber(numChar));
         } catch (Exception e) {
-            String message = String.format("mid(%s, %s, %s)", text, start, numChar);
+            String message = "mid(%s, %s, %s)".formatted(text, start, numChar);
             logError(message, e);
             return null;
         }
@@ -556,7 +556,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.left(text, this.numberLib.toNumber(numChar));
         } catch (Exception e) {
-            String message = String.format("left(%s, %s)", text, numChar);
+            String message = "left(%s, %s)".formatted(text, numChar);
             logError(message, e);
             return null;
         }
@@ -567,7 +567,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.right(text, this.numberLib.toNumber(numChar));
         } catch (Exception e) {
-            String message = String.format("right(%s, %s)", text, numChar);
+            String message = "right(%s, %s)".formatted(text, numChar);
             logError(message, e);
             return null;
         }
@@ -578,7 +578,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.text(this.numberLib.toNumber(num), formatText);
         } catch (Exception e) {
-            String message = String.format("text(%s, %s)", num, formatText);
+            String message = "text(%s, %s)".formatted(num, formatText);
             logError(message, e);
             return null;
         }
@@ -589,7 +589,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.valueOf(this.stringLib.textOccurrences(findText, withinText));
         } catch (Exception e) {
-            String message = String.format("textOccurrences(%s, %s)", findText, withinText);
+            String message = "textOccurrences(%s, %s)".formatted(findText, withinText);
             logError(message, e);
             return null;
         }
@@ -600,7 +600,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.contains(text, substring);
         } catch (Exception e) {
-            String message = String.format("contains(%s, %s)", text, substring);
+            String message = "contains(%s, %s)".formatted(text, substring);
             logError(message, e);
             return null;
         }
@@ -611,7 +611,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.startsWith(text, prefix);
         } catch (Exception e) {
-            String message = String.format("startsWith(%s, %s)", text, prefix);
+            String message = "startsWith(%s, %s)".formatted(text, prefix);
             logError(message, e);
             return null;
         }
@@ -622,7 +622,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.endsWith(text, suffix);
         } catch (Exception e) {
-            String message = String.format("endsWith(%s, %s)", text, suffix);
+            String message = "endsWith(%s, %s)".formatted(text, suffix);
             logError(message, e);
             return null;
         }
@@ -633,7 +633,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.booleanType.booleanNot(bool);
         } catch (Exception e) {
-            String message = String.format("not(%s)", bool);
+            String message = "not(%s)".formatted(bool);
             logError(message, e);
             return null;
         }
@@ -648,7 +648,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.listLib.append(list, element);
         } catch (Exception e) {
-            String message = String.format("append(%s, %s)", list, element);
+            String message = "append(%s, %s)".formatted(list, element);
             logError(message, e);
             return null;
         }
@@ -659,7 +659,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.listLib.appendAll(list1, list2);
         } catch (Exception e) {
-            String message = String.format("appendAll(%s, %s)", list1, list2);
+            String message = "appendAll(%s, %s)".formatted(list1, list2);
             logError(message, e);
             return null;
         }
@@ -670,7 +670,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.listLib.remove(list, element);
         } catch (Exception e) {
-            String message = String.format("remove(%s, %s)", list, element);
+            String message = "remove(%s, %s)".formatted(list, element);
             logError(message, e);
             return null;
         }
@@ -681,7 +681,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.listLib.removeAll(list1, list2);
         } catch (Exception e) {
-            String message = String.format("removeAll(%s, %s)", list1, list2);
+            String message = "removeAll(%s, %s)".formatted(list1, list2);
             logError(message, e);
             return null;
         }
@@ -692,7 +692,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.listLib.notContainsAny(list1, list2);
         } catch (Exception e) {
-            String message = String.format("notContainsAny(%s, %s)", list1, list2);
+            String message = "notContainsAny(%s, %s)".formatted(list1, list2);
             logError(message, e);
             return null;
         }
@@ -703,7 +703,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.listLib.containsOnly(list1, list2);
         } catch (Exception e) {
-            String message = String.format("containsOnly(%s, %s)", list1, list2);
+            String message = "containsOnly(%s, %s)".formatted(list1, list2);
             logError(message, e);
             return null;
         }
@@ -714,7 +714,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.listLib.areElementsOf(list1, list2);
         } catch (Exception e) {
-            String message = String.format("areElementsOf(%s, %s)", list1, list2);
+            String message = "areElementsOf(%s, %s)".formatted(list1, list2);
             logError(message, e);
             return null;
         }
@@ -725,7 +725,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.listLib.elementOf(list1, list2);
         } catch (Exception e) {
-            String message = String.format("elementOf(%s, %s)", list1, list2);
+            String message = "elementOf(%s, %s)".formatted(list1, list2);
             logError(message, e);
             return null;
         }
@@ -736,7 +736,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.listLib.zip(attributes, values);
         } catch (Exception e) {
-            String message = String.format("zip(%s, %s)", attributes, values);
+            String message = "zip(%s, %s)".formatted(attributes, values);
             logError(message, e);
             return null;
         }
@@ -751,7 +751,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.avg(numbers);
         } catch (Exception e) {
-            String message = String.format("avg(%s)", numbers);
+            String message = "avg(%s)".formatted(numbers);
             logError(message, e);
             return null;
         }
@@ -762,7 +762,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return (T) this.numberLib.max(numbers);
         } catch (Exception e) {
-            String message = String.format("max(%s)", numbers);
+            String message = "max(%s)".formatted(numbers);
             logError(message, e);
             return null;
         }
@@ -773,7 +773,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.median(numbers);
         } catch (Exception e) {
-            String message = String.format("median(%s)", numbers);
+            String message = "median(%s)".formatted(numbers);
             logError(message, e);
             return null;
         }
@@ -784,7 +784,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return (T) this.numberLib.min(numbers);
         } catch (Exception e) {
-            String message = String.format("min(%s)", numbers);
+            String message = "min(%s)".formatted(numbers);
             logError(message, e);
             return null;
         }
@@ -795,7 +795,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.numberLib.mode(numbers);
         } catch (Exception e) {
-            String message = String.format("mode(%s)", numbers);
+            String message = "mode(%s)".formatted(numbers);
             logError(message, e);
             return null;
         }
@@ -809,7 +809,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return valueOf(this.stringLib.len(text));
         } catch (Exception e) {
-            String message = String.format("len(%s)", text);
+            String message = "len(%s)".formatted(text);
             logError(message, e);
             return null;
         }
@@ -820,7 +820,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.stringAdd(first, second);
         } catch (Exception e) {
-            String message = String.format("+(%s, %s)", first, second);
+            String message = "+(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -831,7 +831,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.concat(texts);
         } catch (Exception e) {
-            String message = String.format("concat(%s)", texts);
+            String message = "concat(%s)".formatted(texts);
             logError(message, e);
             return null;
         }
@@ -842,7 +842,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.isAlpha(text);
         } catch (Exception e) {
-            String message = String.format("isAlpha(%s)", text);
+            String message = "isAlpha(%s)".formatted(text);
             logError(message, e);
             return null;
         }
@@ -853,7 +853,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.isAlphanumeric(text);
         } catch (Exception e) {
-            String message = String.format("isAlphanumeric(%s)", text);
+            String message = "isAlphanumeric(%s)".formatted(text);
             logError(message, e);
             return null;
         }
@@ -864,7 +864,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.isNumeric(text);
         } catch (Exception e) {
-            String message = String.format("concat(%s)", text);
+            String message = "concat(%s)".formatted(text);
             logError(message, e);
             return null;
         }
@@ -875,7 +875,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.isSpaces(text);
         } catch (Exception e) {
-            String message = String.format("isSpaces(%s)", text);
+            String message = "isSpaces(%s)".formatted(text);
             logError(message, e);
             return null;
         }
@@ -886,7 +886,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.lower(text);
         } catch (Exception e) {
-            String message = String.format("lower(%s)", text);
+            String message = "lower(%s)".formatted(text);
             logError(message, e);
             return null;
         }
@@ -897,7 +897,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.trim(text);
         } catch (Exception e) {
-            String message = String.format("trim(%s)", text);
+            String message = "trim(%s)".formatted(text);
             logError(message, e);
             return null;
         }
@@ -908,7 +908,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.stringLib.upper(text);
         } catch (Exception e) {
-            String message = String.format("upper(%s)", text);
+            String message = "upper(%s)".formatted(text);
             logError(message, e);
             return null;
         }
@@ -919,7 +919,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.booleanLib.and(list);
         } catch (Exception e) {
-            String message = String.format("and(%s)", list);
+            String message = "and(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -930,7 +930,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.booleanLib.or(list);
         } catch (Exception e) {
-            String message = String.format("or(%s)", list);
+            String message = "or(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -944,7 +944,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.dateTimeLib.toDate(from);
         } catch (Exception e) {
-            String message = String.format("toDate(%s)", from);
+            String message = "toDate(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -955,7 +955,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.dateTimeLib.toTime(from);
         } catch (Exception e) {
-            String message = String.format("toTime(%s)", from);
+            String message = "toTime(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -966,7 +966,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         try {
             return this.dateTimeLib.toDateTime(from);
         } catch (Exception e) {
-            String message = String.format("toTime(%s)", from);
+            String message = "toTime(%s)".formatted(from);
             logError(message, e);
             return null;
         }

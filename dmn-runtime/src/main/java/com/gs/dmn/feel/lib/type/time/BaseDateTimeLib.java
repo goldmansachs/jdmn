@@ -15,6 +15,7 @@ package com.gs.dmn.feel.lib.type.time;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
+
 import javax.xml.datatype.DatatypeConstants;
 import java.text.DateFormatSymbols;
 import java.time.*;
@@ -189,7 +190,7 @@ public abstract class BaseDateTimeLib {
             return null;
         }
         if (this.hasZoneOffset(literal) && this.hasZoneId(literal)) {
-            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", literal));
+            throw new DMNRuntimeException("Time literal '%s' has both a zone offset and zone id".formatted(literal));
         }
 
         if (hasZoneId(literal)) {
@@ -218,15 +219,15 @@ public abstract class BaseDateTimeLib {
 
         // Check time
         if (hasTime(literal)) {
-            throw new DMNRuntimeException(String.format("Illegal date literal '%s'", literal));
+            throw new DMNRuntimeException("Illegal date literal '%s'".formatted(literal));
         }
         if (!BEGIN_YEAR.matcher(literal).find()) {
-            throw new DMNRuntimeException(String.format("Illegal year in '%s'", literal));
+            throw new DMNRuntimeException("Illegal year in '%s'".formatted(literal));
         }
         try {
             return LocalDate.from(FEEL_DATE.parse(literal));
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", literal));
+            throw new DMNRuntimeException("Cannot convert '%s' to date".formatted(literal));
         }
     }
 
@@ -235,7 +236,7 @@ public abstract class BaseDateTimeLib {
             return null;
         }
         if (this.hasZoneOffset(literal) && this.hasZoneId(literal)) {
-            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", literal));
+            throw new DMNRuntimeException("Time literal '%s' has both a zone offset and zone id".formatted(literal));
         }
 
         literal = fixDateTimeFormat(literal);

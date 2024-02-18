@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "loan"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "loan"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class LoanImpl implements Loan {
         private java.math.BigDecimal principal;

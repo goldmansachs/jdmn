@@ -75,7 +75,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.number(literal);
         } catch (Exception e) {
-            String message = String.format("number(%s)", literal);
+            String message = "number(%s)".formatted(literal);
             logError(message, e);
             return null;
         }
@@ -86,7 +86,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.number(from, groupingSeparator, decimalSeparator);
         } catch (Exception e) {
-            String message = String.format("number(%s, %s, %s)", from, groupingSeparator, decimalSeparator);
+            String message = "number(%s, %s, %s)".formatted(from, groupingSeparator, decimalSeparator);
             logError(message, e);
             return null;
         }
@@ -97,7 +97,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.string(from);
         } catch (Exception e) {
-            String message = String.format("string(%s)", from);
+            String message = "string(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -108,7 +108,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.date(literal);
         } catch (Exception e) {
-            String message = String.format("date(%s)", literal);
+            String message = "date(%s)".formatted(literal);
             logError(message, e);
             return null;
         }
@@ -119,7 +119,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.date(year, month, day);
         } catch (Exception e) {
-            String message = String.format("date(%s, %s, %s)", year, month, day);
+            String message = "date(%s, %s, %s)".formatted(year, month, day);
             logError(message, e);
             return null;
         }
@@ -130,7 +130,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.date(from);
         } catch (Exception e) {
-            String message = String.format("date(%s)", from);
+            String message = "date(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -141,7 +141,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.time(literal);
         } catch (Exception e) {
-            String message = String.format("time(%s)", literal);
+            String message = "time(%s)".formatted(literal);
             logError(message, e);
             return null;
         }
@@ -152,7 +152,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.time(hour, minute, second, offset);
         } catch (Exception e) {
-            String message = String.format("time(%s, %s, %s, %s)", hour, minute, second, offset);
+            String message = "time(%s, %s, %s, %s)".formatted(hour, minute, second, offset);
             logError(message, e);
             return null;
         }
@@ -163,7 +163,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.time(from);
         } catch (Exception e) {
-            String message = String.format("time(%s)", from);
+            String message = "time(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -174,7 +174,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.dateAndTime(from);
         } catch (Exception e) {
-            String message = String.format("dateAndTime(%s)", from);
+            String message = "dateAndTime(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -185,7 +185,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.dateAndTime(date, time);
         } catch (Exception e) {
-            String message = String.format("dateAndTime(%s, %s)", date, time);
+            String message = "dateAndTime(%s, %s)".formatted(date, time);
             logError(message, e);
             return null;
         }
@@ -196,7 +196,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.durationLib.duration(from);
         } catch (Exception e) {
-            String message = String.format("duration(%s)", from);
+            String message = "duration(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -207,7 +207,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.durationLib.yearsAndMonthsDuration(from, to);
         } catch (Exception e) {
-            String message = String.format("yearsAndMonthsDURATION(%s, %s)", from, to);
+            String message = "yearsAndMonthsDURATION(%s, %s)".formatted(from, to);
             logError(message, e);
             return null;
         }
@@ -221,7 +221,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.toDate(from);
         } catch (Exception e) {
-            String message = String.format("toDate(%s)", from);
+            String message = "toDate(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -232,7 +232,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.toTime(from);
         } catch (Exception e) {
-            String message = String.format("toTime(%s)", from);
+            String message = "toTime(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -243,7 +243,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.toDateTime(from);
         } catch (Exception e) {
-            String message = String.format("toTime(%s)", from);
+            String message = "toTime(%s)".formatted(from);
             logError(message, e);
             return null;
         }
@@ -257,7 +257,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.decimal(n, scale);
         } catch (Exception e) {
-            String message = String.format("decimal(%s, %s)", n, scale);
+            String message = "decimal(%s, %s)".formatted(n, scale);
             logError(message, e);
             return null;
         }
@@ -268,12 +268,12 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             RoundingMode roundingMode = NumericRoundingMode.fromValue(mode);
             if (roundingMode == null) {
-                throw new DMNRuntimeException(String.format("Unknown rounding mode '%s'. Expected one of '%s'", mode, NumericRoundingMode.ALLOWED_VALUES));
+                throw new DMNRuntimeException("Unknown rounding mode '%s'. Expected one of '%s'".formatted(mode, NumericRoundingMode.ALLOWED_VALUES));
             } else {
                 return this.numberLib.round(n, scale, roundingMode);
             }
         } catch (Exception e) {
-            String message = String.format("round(%s, %s, %s)", n, scale, mode);
+            String message = "round(%s, %s, %s)".formatted(n, scale, mode);
             logError(message, e);
             return null;
         }
@@ -284,7 +284,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.round(n, scale, RoundingMode.UP);
         } catch (Exception e) {
-            String message = String.format("roundUp(%s, %s)", n, scale);
+            String message = "roundUp(%s, %s)".formatted(n, scale);
             logError(message, e);
             return null;
         }
@@ -295,7 +295,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.round(n, scale, RoundingMode.DOWN);
         } catch (Exception e) {
-            String message = String.format("roundDown(%s, %s)", n, scale);
+            String message = "roundDown(%s, %s)".formatted(n, scale);
             logError(message, e);
             return null;
         }
@@ -306,7 +306,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.round(n, scale, RoundingMode.HALF_UP);
         } catch (Exception e) {
-            String message = String.format("roundHalfUp(%s, %s)", n, scale);
+            String message = "roundHalfUp(%s, %s)".formatted(n, scale);
             logError(message, e);
             return null;
         }
@@ -317,7 +317,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.round(n, scale, RoundingMode.HALF_DOWN);
         } catch (Exception e) {
-            String message = String.format("roundHalfDown(%s, %s)", n, scale);
+            String message = "roundHalfDown(%s, %s)".formatted(n, scale);
             logError(message, e);
             return null;
         }
@@ -328,7 +328,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.floor(n, valueOf(0));
         } catch (Exception e) {
-            String message = String.format("floor(%s)", n);
+            String message = "floor(%s)".formatted(n);
             logError(message, e);
             return null;
         }
@@ -339,7 +339,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.floor(n, scale);
         } catch (Exception e) {
-            String message = String.format("floor(%s, %s)", n, scale);
+            String message = "floor(%s, %s)".formatted(n, scale);
             logError(message, e);
             return null;
         }
@@ -350,7 +350,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.ceiling(n, valueOf(0));
         } catch (Exception e) {
-            String message = String.format("ceiling(%s)", n);
+            String message = "ceiling(%s)".formatted(n);
             logError(message, e);
             return null;
         }
@@ -361,7 +361,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.ceiling(number, scale);
         } catch (Exception e) {
-            String message = String.format("ceiling(%s, %s)", number, scale);
+            String message = "ceiling(%s, %s)".formatted(number, scale);
             logError(message, e);
             return null;
         }
@@ -376,7 +376,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
                 return (T) this.durationLib.abs((DURATION) n);
             }
         } catch (Exception e) {
-            String message = String.format("abs(%s)", n);
+            String message = "abs(%s)".formatted(n);
             logError(message, e);
             return null;
         }
@@ -387,7 +387,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.intModulo(dividend, divisor);
         } catch (Exception e) {
-            String message = String.format("modulo(%s, %s)", dividend, divisor);
+            String message = "modulo(%s, %s)".formatted(dividend, divisor);
             logError(message, e);
             return null;
         }
@@ -398,7 +398,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.modulo(dividend, divisor);
         } catch (Exception e) {
-            String message = String.format("modulo(%s, %s)", dividend, divisor);
+            String message = "modulo(%s, %s)".formatted(dividend, divisor);
             logError(message, e);
             return null;
         }
@@ -409,7 +409,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.sqrt(number);
         } catch (Exception e) {
-            String message = String.format("sqrt(%s)", number);
+            String message = "sqrt(%s)".formatted(number);
             logError(message, e);
             return null;
         }
@@ -420,7 +420,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.log(number);
         } catch (Exception e) {
-            String message = String.format("log(%s)", number);
+            String message = "log(%s)".formatted(number);
             logError(message, e);
             return null;
         }
@@ -431,7 +431,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.exp(number);
         } catch (Exception e) {
-            String message = String.format("exp(%s)", number);
+            String message = "exp(%s)".formatted(number);
             logError(message, e);
             return null;
         }
@@ -442,7 +442,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.odd(number);
         } catch (Exception e) {
-            String message = String.format("odd(%s)", number);
+            String message = "odd(%s)".formatted(number);
             logError(message, e);
             return null;
         }
@@ -453,7 +453,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.even(number);
         } catch (Exception e) {
-            String message = String.format("even(%s)", number);
+            String message = "even(%s)".formatted(number);
             logError(message, e);
             return null;
         }
@@ -464,7 +464,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.mean(list);
         } catch (Exception e) {
-            String message = String.format("mean(%s)", list);
+            String message = "mean(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -475,7 +475,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.mean(args);
         } catch (Exception e) {
-            String message = String.format("mean(%s)", Arrays.toString(args));
+            String message = "mean(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -489,7 +489,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.contains(string, match);
         } catch (Exception e) {
-            String message = String.format("contains(%s, %s)", string, match);
+            String message = "contains(%s, %s)".formatted(string, match);
             logError(message, e);
             return null;
         }
@@ -500,7 +500,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.startsWith(string, match);
         } catch (Exception e) {
-            String message = String.format("startsWith(%s, %s)", string, match);
+            String message = "startsWith(%s, %s)".formatted(string, match);
             logError(message, e);
             return null;
         }
@@ -511,7 +511,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.endsWith(string, match);
         } catch (Exception e) {
-            String message = String.format("endsWith(%s, %s)", string, match);
+            String message = "endsWith(%s, %s)".formatted(string, match);
             logError(message, e);
             return null;
         }
@@ -522,7 +522,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return string == null ? null : valueOf(this.stringLib.stringLength(string));
         } catch (Exception e) {
-            String message = String.format("stringLength(%s)", string);
+            String message = "stringLength(%s)".formatted(string);
             logError(message, e);
             return null;
         }
@@ -533,7 +533,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.substring(string, this.numberLib.toNumber(startPosition));
         } catch (Exception e) {
-            String message = String.format("substring(%s, %s)", string, startPosition);
+            String message = "substring(%s, %s)".formatted(string, startPosition);
             logError(message, e);
             return null;
         }
@@ -544,7 +544,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.substring(string, this.numberLib.toNumber(startPosition), this.numberLib.toNumber(length));
         } catch (Exception e) {
-            String message = String.format("substring(%s, %s, %s)", string, startPosition, length);
+            String message = "substring(%s, %s, %s)".formatted(string, startPosition, length);
             logError(message, e);
             return null;
         }
@@ -555,7 +555,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.upperCase(string);
         } catch (Exception e) {
-            String message = String.format("upperCase(%s)", string);
+            String message = "upperCase(%s)".formatted(string);
             logError(message, e);
             return null;
         }
@@ -566,7 +566,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.lowerCase(string);
         } catch (Exception e) {
-            String message = String.format("lowerCase(%s)", string);
+            String message = "lowerCase(%s)".formatted(string);
             logError(message, e);
             return null;
         }
@@ -577,7 +577,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.substringBefore(string, match);
         } catch (Exception e) {
-            String message = String.format("substringBefore(%s, %s)", string, match);
+            String message = "substringBefore(%s, %s)".formatted(string, match);
             logError(message, e);
             return null;
         }
@@ -588,7 +588,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.substringAfter(string, match);
         } catch (Exception e) {
-            String message = String.format("substringAfter(%s, %s)", string, match);
+            String message = "substringAfter(%s, %s)".formatted(string, match);
             logError(message, e);
             return null;
         }
@@ -604,7 +604,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.replace(input, pattern, replacement, flags);
         } catch (Exception e) {
-            String message = String.format("replace(%s, %s, %s, %s)", input, pattern, replacement, flags);
+            String message = "replace(%s, %s, %s, %s)".formatted(input, pattern, replacement, flags);
             logError(message, e);
             return null;
         }
@@ -620,7 +620,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.matches(input, pattern, flags);
         } catch (Exception e) {
-            String message = String.format("matches(%s, %s, %s)", input, pattern, flags);
+            String message = "matches(%s, %s, %s)".formatted(input, pattern, flags);
             logError(message, e);
             return null;
         }
@@ -631,7 +631,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.split(string, delimiter);
         } catch (Exception e) {
-            String message = String.format("split(%s, %s)", string, delimiter);
+            String message = "split(%s, %s)".formatted(string, delimiter);
             logError(message, e);
             return null;
         }
@@ -642,7 +642,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.stringJoin(list);
         } catch (Exception e) {
-            String message = String.format("stringJoin(%s)", list);
+            String message = "stringJoin(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -653,7 +653,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.stringLib.stringJoin(list, delimiter);
         } catch (Exception e) {
-            String message = String.format("stringJoin(%s, %s)", list, delimiter);
+            String message = "stringJoin(%s, %s)".formatted(list, delimiter);
             logError(message, e);
             return null;
         }
@@ -667,7 +667,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.booleanLib.and(list);
         } catch (Exception e) {
-            String message = String.format("and(%s)", list);
+            String message = "and(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -678,7 +678,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.booleanLib.and(args);
         } catch (Exception e) {
-            String message = String.format("and(%s)", Arrays.toString(args));
+            String message = "and(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -689,7 +689,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.booleanLib.all(list);
         } catch (Exception e) {
-            String message = String.format("all(%s)", list);
+            String message = "all(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -700,7 +700,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.booleanLib.all(args);
         } catch (Exception e) {
-            String message = String.format("all(%s)", Arrays.toString(args));
+            String message = "all(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -711,7 +711,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.booleanLib.or(list);
         } catch (Exception e) {
-            String message = String.format("or(%s)", list);
+            String message = "or(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -722,7 +722,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.booleanLib.or(args);
         } catch (Exception e) {
-            String message = String.format("or(%s)", Arrays.toString(args));
+            String message = "or(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -733,7 +733,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.booleanLib.any(list);
         } catch (Exception e) {
-            String message = String.format("any(%s)", list);
+            String message = "any(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -744,7 +744,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.booleanLib.any(args);
         } catch (Exception e) {
-            String message = String.format("any(%s)", Arrays.toString(args));
+            String message = "any(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -755,7 +755,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.booleanType.booleanNot(operand);
         } catch (Exception e) {
-            String message = String.format("not(%s)", operand);
+            String message = "not(%s)".formatted(operand);
             logError(message, e);
             return null;
         }
@@ -769,7 +769,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.dateTimeLib.year(date));
         } catch (Exception e) {
-            String message = String.format("year(%s)", date);
+            String message = "year(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -780,7 +780,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.dateTimeLib.month(date));
         } catch (Exception e) {
-            String message = String.format("month(%s)", date);
+            String message = "month(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -791,7 +791,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.dateTimeLib.day(date));
         } catch (Exception e) {
-            String message = String.format("day(%s)", date);
+            String message = "day(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -802,7 +802,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.dateTimeLib.weekday(date));
         } catch (Exception e) {
-            String message = String.format("weekday(%s)", date);
+            String message = "weekday(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -816,7 +816,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.dateTimeLib.hour(time));
         } catch (Exception e) {
-            String message = String.format("hour(%s)", time);
+            String message = "hour(%s)".formatted(time);
             logError(message, e);
             return null;
         }
@@ -827,7 +827,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.dateTimeLib.minute(time));
         } catch (Exception e) {
-            String message = String.format("minute(%s)", time);
+            String message = "minute(%s)".formatted(time);
             logError(message, e);
             return null;
         }
@@ -838,7 +838,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.dateTimeLib.second(time));
         } catch (Exception e) {
-            String message = String.format("second(%s)", time);
+            String message = "second(%s)".formatted(time);
             logError(message, e);
             return null;
         }
@@ -849,7 +849,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.timeOffset(time);
         } catch (Exception e) {
-            String message = String.format("timeOffset(%s)", time);
+            String message = "timeOffset(%s)".formatted(time);
             logError(message, e);
             return null;
         }
@@ -860,7 +860,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.timezone(time);
         } catch (Exception e) {
-            String message = String.format("timezone(%s)", time);
+            String message = "timezone(%s)".formatted(time);
             logError(message, e);
             return null;
         }
@@ -874,7 +874,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.durationLib.years(duration));
         } catch (Exception e) {
-            String message = String.format("years(%s)", duration);
+            String message = "years(%s)".formatted(duration);
             logError(message, e);
             return null;
         }
@@ -885,7 +885,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.durationLib.months(duration));
         } catch (Exception e) {
-            String message = String.format("months(%s)", duration);
+            String message = "months(%s)".formatted(duration);
             logError(message, e);
             return null;
         }
@@ -896,7 +896,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.durationLib.days(duration));
         } catch (Exception e) {
-            String message = String.format("days(%s)", duration);
+            String message = "days(%s)".formatted(duration);
             logError(message, e);
             return null;
         }
@@ -907,7 +907,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.durationLib.hours(duration));
         } catch (Exception e) {
-            String message = String.format("hours(%s)", duration);
+            String message = "hours(%s)".formatted(duration);
             logError(message, e);
             return null;
         }
@@ -918,7 +918,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.durationLib.minutes(duration));
         } catch (Exception e) {
-            String message = String.format("minutes(%s)", duration);
+            String message = "minutes(%s)".formatted(duration);
             logError(message, e);
             return null;
         }
@@ -929,7 +929,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.durationLib.seconds(duration));
         } catch (Exception e) {
-            String message = String.format("seconds(%s)", duration);
+            String message = "seconds(%s)".formatted(duration);
             logError(message, e);
             return null;
         }
@@ -948,10 +948,10 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
                 return false;
             } else if (value1 instanceof Number) {
                 return this.numericType.numericIs((NUMBER) value1, (NUMBER) value2);
-            } else if (value1 instanceof Boolean) {
-                return this.booleanType.booleanIs((Boolean) value1, (Boolean) value2);
-            } else if (value1 instanceof String) {
-                return this.stringType.stringIs((String) value1, (String) value2);
+            } else if (value1 instanceof Boolean boolean1) {
+                return this.booleanType.booleanIs(boolean1, (Boolean) value2);
+            } else if (value1 instanceof String string) {
+                return this.stringType.stringIs(string, (String) value2);
             } else if (isDate(value1)) {
                 return this.dateType.dateIs((DATE) value1, (DATE) value2);
             } else if (isTime(value1)) {
@@ -960,18 +960,18 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
                 return this.dateTimeType.dateTimeIs((DATE_TIME) value1, (DATE_TIME) value2);
             } else if (isDuration(value1)) {
                 return this.durationType.durationIs((DURATION) value1, (DURATION) value2);
-            } else if (value1 instanceof List) {
-                return this.listType.listIs((List) value1, (List) value2);
-            } else if (value1 instanceof Range) {
-                return this.rangeType.rangeIs((Range) value1, (Range) value2);
-            } else if (value1 instanceof Context) {
-                return this.contextType.contextIs((Context) value1, (Context) value2);
+            } else if (value1 instanceof List list) {
+                return this.listType.listIs(list, (List) value2);
+            } else if (value1 instanceof Range range) {
+                return this.rangeType.rangeIs(range, (Range) value2);
+            } else if (value1 instanceof Context context) {
+                return this.contextType.contextIs(context, (Context) value2);
             } else {
-                logError(String.format("'%s' is not supported yet", value1.getClass().getSimpleName()));
+                logError("'%s' is not supported yet".formatted(value1.getClass().getSimpleName()));
                 return false;
             }
         } catch (Exception e) {
-            String message = String.format("is(%s, %s)", value1, value2);
+            String message = "is(%s, %s)".formatted(value1, value2);
             logError(message, e);
             return false;
         }
@@ -1007,7 +1007,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.dateTimeLib.dayOfYear(date));
         } catch (Exception e) {
-            String message = String.format("dayOfYear(%s)", date);
+            String message = "dayOfYear(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -1018,7 +1018,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.dayOfWeek(date);
         } catch (Exception e) {
-            String message = String.format("dayOfWeek(%s)", date);
+            String message = "dayOfWeek(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -1029,7 +1029,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return valueOf(this.dateTimeLib.weekOfYear(date));
         } catch (Exception e) {
-            String message = String.format("weekOfYear(%s)", date);
+            String message = "weekOfYear(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -1040,7 +1040,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.dateTimeLib.monthOfYear(date);
         } catch (Exception e) {
-            String message = String.format("weekOfYear(%s)", date);
+            String message = "weekOfYear(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -1054,7 +1054,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.listLib.append(list, items);
         } catch (Exception e) {
-            String message = String.format("append(%s, %s)", list, Arrays.toString(items));
+            String message = "append(%s, %s)".formatted(list, Arrays.toString(items));
             logError(message, e);
             return null;
         }
@@ -1065,7 +1065,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.count(list);
         } catch (Exception e) {
-            String message = String.format("count(%s)", list);
+            String message = "count(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1092,10 +1092,10 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             } else if (isDuration(first)) {
                 return (T) this.dateTimeLib.min(list);
             } else {
-                throw new DMNRuntimeException(String.format("Not supported yet for '%s'", first));
+                throw new DMNRuntimeException("Not supported yet for '%s'".formatted(first));
             }
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = "min(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1110,7 +1110,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
             return (T) min(Arrays.asList(args));
         } catch (Exception e) {
-            String message = String.format("min(%s)", Arrays.toString(args));
+            String message = "min(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -1137,10 +1137,10 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             } else if (isDuration(first)) {
                 return (T) this.dateTimeLib.max(list);
             } else {
-                throw new DMNRuntimeException(String.format("Not supported yet for '%s'", first));
+                throw new DMNRuntimeException("Not supported yet for '%s'".formatted(first));
             }
         } catch (Exception e) {
-            String message = String.format("min(%s)", list);
+            String message = "min(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1155,7 +1155,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
             return (T) max(Arrays.asList(args));
         } catch (Exception e) {
-            String message = String.format("max(%s)", Arrays.toString(args));
+            String message = "max(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -1166,7 +1166,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.sum(list);
         } catch (Exception e) {
-            String message = String.format("sum(%s)", list);
+            String message = "sum(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1177,7 +1177,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.sum(args);
         } catch (Exception e) {
-            String message = String.format("sum(%s)", Arrays.toString(args));
+            String message = "sum(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -1188,7 +1188,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.listLib.sublist(list, intValue(startPosition));
         } catch (Exception e) {
-            String message = String.format("sublist(%s)", list);
+            String message = "sublist(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1199,7 +1199,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.listLib.sublist(list, intValue(startPosition), intValue(length));
         } catch (Exception e) {
-            String message = String.format("sublist(%s, %s, %s)", list, startPosition, length);
+            String message = "sublist(%s, %s, %s)".formatted(list, startPosition, length);
             logError(message, e);
             return null;
         }
@@ -1210,7 +1210,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.listLib.concatenate(lists);
         } catch (Exception e) {
-            String message = String.format("concatenate(%s)", Arrays.toString(lists));
+            String message = "concatenate(%s)".formatted(Arrays.toString(lists));
             logError(message, e);
             return null;
         }
@@ -1221,7 +1221,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.listLib.insertBefore(list, intValue(position), newItem);
         } catch (Exception e) {
-            String message = String.format("insertBefore(%s, %s, %s)", list, position, newItem);
+            String message = "insertBefore(%s, %s, %s)".formatted(list, position, newItem);
             logError(message, e);
             return null;
         }
@@ -1232,7 +1232,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.listLib.remove(list, ((Number)position).intValue());
         } catch (Exception e) {
-            String message = String.format("remove(%s)", list);
+            String message = "remove(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1243,7 +1243,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.listLib.reverse(list);
         } catch (Exception e) {
-            String message = String.format("reverse(%s)", list);
+            String message = "reverse(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1268,7 +1268,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.listLib.union(lists);
         } catch (Exception e) {
-            String message = String.format("union(%s)", Arrays.toString(lists));
+            String message = "union(%s)".formatted(Arrays.toString(lists));
             logError(message, e);
             return null;
         }
@@ -1279,7 +1279,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.listLib.distinctValues(list);
         } catch (Exception e) {
-            String message = String.format("distinctValues(%s)", list);
+            String message = "distinctValues(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1290,7 +1290,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.listLib.flatten(list);
         } catch (Exception e) {
-            String message = String.format("flatten(%s)", list);
+            String message = "flatten(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1301,7 +1301,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.product(list);
         } catch (Exception e) {
-            String message = String.format("product(%s)", list);
+            String message = "product(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1312,7 +1312,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.product(args);
         } catch (Exception e) {
-            String message = String.format("product(%s)", Arrays.toString(args));
+            String message = "product(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -1323,7 +1323,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.median(list);
         } catch (Exception e){
-            String message = String.format("median(%s)", list);
+            String message = "median(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1334,7 +1334,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.median(args);
         } catch (Exception e) {
-            String message = String.format("median(%s)", Arrays.toString(args));
+            String message = "median(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -1345,7 +1345,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.stddev(list);
         } catch (Exception e) {
-            String message = String.format("stddev(%s)", list);
+            String message = "stddev(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1356,7 +1356,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.stddev(args);
         } catch (Exception e) {
-            String message = String.format("stddev(%s)", Arrays.toString(args));
+            String message = "stddev(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -1367,7 +1367,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.mode(list);
         } catch (Exception e) {
-            String message = String.format("mode(%s)", list);
+            String message = "mode(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1378,7 +1378,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.numberLib.mode(args);
         } catch (Exception e) {
-            String message = String.format("mode(%s)", Arrays.toString(args));
+            String message = "mode(%s)".formatted(Arrays.toString(args));
             logError(message, e);
             return null;
         }
@@ -1389,7 +1389,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             this.listLib.collect(result, list);
         } catch (Exception e) {
-            String message = String.format("collect(%s, %s)", result, list);
+            String message = "collect(%s, %s)".formatted(result, list);
             logError(message, e);
         }
     }
@@ -1399,7 +1399,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.listLib.sort(list, comparator);
         } catch (Exception e) {
-            String message = String.format("sort(%s)", list);
+            String message = "sort(%s)".formatted(list);
             logError(message, e);
             return null;
         }
@@ -1413,7 +1413,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.before(point1, point2);
         } catch (Exception e) {
-            String message = String.format("before(%s, %s)", point1, point2);
+            String message = "before(%s, %s)".formatted(point1, point2);
             logError(message, e);
             return null;
         }
@@ -1424,7 +1424,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.before(point, range);
         } catch (Exception e) {
-            String message = String.format("before(%s, %s)", point, range);
+            String message = "before(%s, %s)".formatted(point, range);
             logError(message, e);
             return null;
         }
@@ -1435,7 +1435,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.before(range, point);
         } catch (Exception e) {
-            String message = String.format("before(%s, %s)", range, point);
+            String message = "before(%s, %s)".formatted(range, point);
             logError(message, e);
             return null;
         }
@@ -1446,7 +1446,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.before(range1, range2);
         } catch (Exception e) {
-            String message = String.format("before(%s, %s)", range1, range2);
+            String message = "before(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1457,7 +1457,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.after(point1, point2);
         } catch (Exception e) {
-            String message = String.format("after(%s, %s)", point1, point2);
+            String message = "after(%s, %s)".formatted(point1, point2);
             logError(message, e);
             return null;
         }
@@ -1468,7 +1468,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.after(point, range);
         } catch (Exception e) {
-            String message = String.format("after(%s, %s)", point, range);
+            String message = "after(%s, %s)".formatted(point, range);
             logError(message, e);
             return null;
         }
@@ -1479,7 +1479,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.after(range, point);
         } catch (Exception e) {
-            String message = String.format("after(%s, %s)", range, point);
+            String message = "after(%s, %s)".formatted(range, point);
             logError(message, e);
             return null;
         }
@@ -1490,7 +1490,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.after(range1, range2);
         } catch (Exception e) {
-            String message = String.format("after(%s, %s)", range1, range2);
+            String message = "after(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1501,7 +1501,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.meets(range1, range2);
         } catch (Exception e) {
-            String message = String.format("meets(%s, %s)", range1, range2);
+            String message = "meets(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1512,7 +1512,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.metBy(range1, range2);
         } catch (Exception e) {
-            String message = String.format("metBy(%s, %s)", range1, range2);
+            String message = "metBy(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1523,7 +1523,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.overlaps(range1, range2);
         } catch (Exception e) {
-            String message = String.format("overlaps(%s, %s)", range1, range2);
+            String message = "overlaps(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1534,7 +1534,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.overlapsBefore(range1, range2);
         } catch (Exception e) {
-            String message = String.format("overlapsBefore(%s, %s)", range1, range2);
+            String message = "overlapsBefore(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1545,7 +1545,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.overlapsAfter(range1, range2);
         } catch (Exception e) {
-            String message = String.format("overlapsAfter(%s, %s)", range1, range2);
+            String message = "overlapsAfter(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1556,7 +1556,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.finishes(point, range);
         } catch (Exception e) {
-            String message = String.format("finishes(%s, %s)", point, range);
+            String message = "finishes(%s, %s)".formatted(point, range);
             logError(message, e);
             return null;
         }
@@ -1567,7 +1567,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.finishes(range1, range2);
         } catch (Exception e) {
-            String message = String.format("finishes(%s, %s)", range1, range2);
+            String message = "finishes(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1578,7 +1578,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.finishedBy(range, point);
         } catch (Exception e) {
-            String message = String.format("finishedBy(%s, %s)", range, point);
+            String message = "finishedBy(%s, %s)".formatted(range, point);
             logError(message, e);
             return null;
         }
@@ -1589,7 +1589,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.finishedBy(range1, range2);
         } catch (Exception e) {
-            String message = String.format("finishedBy(%s, %s)", range1, range2);
+            String message = "finishedBy(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1600,7 +1600,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.includes(range, point);
         } catch (Exception e) {
-            String message = String.format("includes(%s, %s)", range, point);
+            String message = "includes(%s, %s)".formatted(range, point);
             logError(message, e);
             return null;
         }
@@ -1611,7 +1611,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.includes(range1, range2);
         } catch (Exception e) {
-            String message = String.format("includes(%s, %s)", range1, range2);
+            String message = "includes(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1622,7 +1622,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.during(point, range);
         } catch (Exception e) {
-            String message = String.format("during(%s, %s)", point, range);
+            String message = "during(%s, %s)".formatted(point, range);
             logError(message, e);
             return null;
         }
@@ -1633,7 +1633,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.during(range1, range2);
         } catch (Exception e) {
-            String message = String.format("during(%s, %s)", range1, range2);
+            String message = "during(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1644,7 +1644,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.starts(point, range);
         } catch (Exception e) {
-            String message = String.format("starts(%s, %s)", point, range);
+            String message = "starts(%s, %s)".formatted(point, range);
             logError(message, e);
             return null;
         }
@@ -1655,7 +1655,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.starts(range1, range2);
         } catch (Exception e) {
-            String message = String.format("starts(%s, %s)", range1, range2);
+            String message = "starts(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1666,7 +1666,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.startedBy(range, point);
         } catch (Exception e) {
-            String message = String.format("startedBy(%s, %s)", range, point);
+            String message = "startedBy(%s, %s)".formatted(range, point);
             logError(message, e);
             return null;
         }
@@ -1677,7 +1677,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.startedBy(range1, range2);
         } catch (Exception e) {
-            String message = String.format("startedBy(%s, %s)", range1, range2);
+            String message = "startedBy(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1688,7 +1688,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.coincides(point1, point2);
         } catch (Exception e) {
-            String message = String.format("coincides(%s, %s)", point1, point2);
+            String message = "coincides(%s, %s)".formatted(point1, point2);
             logError(message, e);
             return null;
         }
@@ -1699,7 +1699,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.rangeLib.coincides(range1, range2);
         } catch (Exception e) {
-            String message = String.format("coincides(%s, %s)", range1, range2);
+            String message = "coincides(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1713,7 +1713,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
                 return conformsTo(value, type);
             }
         } catch (Exception e) {
-            String message = String.format("instance of(%s, %s)", value, type);
+            String message = "instance of(%s, %s)".formatted(value, type);
             logError(message, e);
             return null;
         }
@@ -1734,7 +1734,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             case "date and time": return this.dateTimeType.isDateTime(value);
             case "years and months duration": return this.durationType.isYearsAndMonthsDuration(value);
             case "days and time duration": return this.durationType.isDaysAndTimeDuration(value);
-            default: throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
+            default: throw new DMNRuntimeException("instance of (%s, %s) is not supported yet".formatted(value, type));
         }
     }
 }

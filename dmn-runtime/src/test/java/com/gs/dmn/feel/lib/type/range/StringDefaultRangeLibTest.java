@@ -26,6 +26,6 @@ public class StringDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDe
     }
     @Override
     protected String makePoint(int number) {
-        return String.format("%03d", number);
+        return "%03d".formatted(number);
     }
 }

@@ -2,7 +2,7 @@ package decisioninputs1.type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "tA"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "tA"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TAImpl implements TA {
         private String name;

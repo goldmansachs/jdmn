@@ -18,7 +18,7 @@ public abstract class PythonTypeFactory implements NativeTypeFactory {
         if (type.startsWith("typing.Optional[")) {
             return type;
         } else {
-            return String.format("typing.Optional[%s]", type);
+            return "typing.Optional[%s]".formatted(type);
         }
     }
 
@@ -29,6 +29,6 @@ public abstract class PythonTypeFactory implements NativeTypeFactory {
 
     @Override
     public String javaClass(String className) {
-        return String.format("%s.__class__", className);
+        return "%s.__class__".formatted(className);
     }
 }

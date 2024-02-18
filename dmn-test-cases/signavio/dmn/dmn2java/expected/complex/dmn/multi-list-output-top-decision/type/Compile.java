@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "compile"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "compile"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.CompileImpl.class)
 public interface Compile extends com.gs.dmn.runtime.DMNType {

@@ -304,7 +304,7 @@ public class ContextDependentFEELLexer {
 
     private void rewind(CharStream inputTape, int offset) {
         if (offset < 0) {
-            throw new IllegalArgumentException(String.format("Offset should be positive. Got %d", offset));
+            throw new IllegalArgumentException("Offset should be positive. Got %d".formatted(offset));
         } else if (offset > 0) {
             int rewindIndex = inputTape.index() - offset;
             inputTape.seek(rewindIndex);

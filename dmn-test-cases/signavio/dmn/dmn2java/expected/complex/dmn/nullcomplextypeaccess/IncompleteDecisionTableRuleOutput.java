@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "incompleteDecisionTable"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "incompleteDecisionTable"})
 public class IncompleteDecisionTableRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String a;
     private java.math.BigDecimal b;

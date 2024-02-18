@@ -46,6 +46,6 @@ public class FEELFunction extends Function {
 
     @Override
     public String toString() {
-        return String.format("%s(functionDefinition='%s')", getClass().getSimpleName(), functionDefinition);
+        return "%s(functionDefinition='%s')".formatted(getClass().getSimpleName(), functionDefinition);
     }
 }

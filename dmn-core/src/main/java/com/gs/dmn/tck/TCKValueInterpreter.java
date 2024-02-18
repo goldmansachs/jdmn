@@ -72,7 +72,7 @@ public class TCKValueInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
         } else if (valueType.getComponent() != null) {
             return makeContext(valueType);
         }
-        throw new DMNRuntimeException(String.format("Cannot make value for input '%s'", valueType));
+        throw new DMNRuntimeException("Cannot make value for input '%s'".formatted(valueType));
     }
 
     private List<?> makeList(ValueType valueType) {
@@ -109,24 +109,24 @@ public class TCKValueInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     }
 
     private boolean isDate(Object value) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATE;
+        if (value instanceof XMLGregorianCalendar calendar) {
+            return calendar.getXMLSchemaType() == DatatypeConstants.DATE;
         } else {
             return false;
         }
     }
 
     private boolean isTime(Object value) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.TIME;
+        if (value instanceof XMLGregorianCalendar calendar) {
+            return calendar.getXMLSchemaType() == DatatypeConstants.TIME;
         } else {
             return false;
         }
     }
 
     private boolean isDateTime(Object value) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATETIME;
+        if (value instanceof XMLGregorianCalendar calendar) {
+            return calendar.getXMLSchemaType() == DatatypeConstants.DATETIME;
         } else {
             return false;
         }

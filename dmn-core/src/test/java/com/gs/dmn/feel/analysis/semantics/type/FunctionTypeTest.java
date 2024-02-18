@@ -35,17 +35,25 @@ public abstract class FunctionTypeTest {
     public void testCalculateCandidates() {
         doTest(Arrays.asList(), Arrays.asList(), "[]");
         doTest(Arrays.asList(NUMBER), Arrays.asList(NUMBER), "[]");
-        doTest(Arrays.asList(NUMBER), Arrays.asList(NUMBER_LIST), "[" +
-                 "Pair(PositionalParameterTypes(number), PositionalParameterConversions([Conversion(SINGLETON_LIST_TO_ELEMENT, number)]))" +
-                 "]");
-        doTest(Arrays.asList(NUMBER_LIST), Arrays.asList(NUMBER), "[" +
-                "Pair(PositionalParameterTypes(ListType(number)), PositionalParameterConversions([Conversion(ELEMENT_TO_SINGLETON_LIST, ListType(number))]))" +
-                "]");
-        doTest(Arrays.asList(NUMBER), Arrays.asList(STRING), "[" +
-                "]");
-        doTest(Arrays.asList(NUMBER, DATE_AND_TIME), Arrays.asList(NUMBER, DATE), "[" +
-                "Pair(PositionalParameterTypes(number, date and time), PositionalParameterConversions([Conversion(NONE, number), Conversion(DATE_TO_UTC_MIDNIGHT, date and time)]))" +
-                "]");
+        doTest(Arrays.asList(NUMBER), Arrays.asList(NUMBER_LIST), """
+                 [\
+                 Pair(PositionalParameterTypes(number), PositionalParameterConversions([Conversion(SINGLETON_LIST_TO_ELEMENT, number)]))\
+                 ]\
+                 """);
+        doTest(Arrays.asList(NUMBER_LIST), Arrays.asList(NUMBER), """
+                [\
+                Pair(PositionalParameterTypes(ListType(number)), PositionalParameterConversions([Conversion(ELEMENT_TO_SINGLETON_LIST, ListType(number))]))\
+                ]\
+                """);
+        doTest(Arrays.asList(NUMBER), Arrays.asList(STRING), """
+                [\
+                ]\
+                """);
+        doTest(Arrays.asList(NUMBER, DATE_AND_TIME), Arrays.asList(NUMBER, DATE), """
+                [\
+                Pair(PositionalParameterTypes(number, date and time), PositionalParameterConversions([Conversion(NONE, number), Conversion(DATE_TO_UTC_MIDNIGHT, date and time)]))\
+                ]\
+                """);
     }
 
     private void doTest(List<Type> parameterTypes, List<Type> argumentTypes, String expectedCandidates) {

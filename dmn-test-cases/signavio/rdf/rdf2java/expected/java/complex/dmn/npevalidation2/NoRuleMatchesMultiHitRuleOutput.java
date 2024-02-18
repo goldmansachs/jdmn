@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "noRuleMatchesMultiHit"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "noRuleMatchesMultiHit"})
 public class NoRuleMatchesMultiHitRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private Boolean noRuleMatchesMultiHit;
 

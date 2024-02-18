@@ -49,6 +49,6 @@ public class Conversion<T> implements com.gs.dmn.el.analysis.syntax.ast.expressi
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.kind, this.targetType);
+        return "%s(%s, %s)".formatted(getClass().getSimpleName(), this.kind, this.targetType);
     }
 }

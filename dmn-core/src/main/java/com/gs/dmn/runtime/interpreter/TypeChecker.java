@@ -90,8 +90,7 @@ public class TypeChecker {
             return true;
         } else if (type == COMPARABLE && isComparable(value)) {
             return true;
-        } else if ((type instanceof ContextType || type instanceof ItemDefinitionType) && value instanceof Context) {
-            Context context = (Context) value;
+        } else if ((type instanceof ContextType || type instanceof ItemDefinitionType) && value instanceof Context context) {
             CompositeDataType contextType = (CompositeDataType) type;
             for (String member : contextType.getMembers()) {
                 if (!context.getBindings().containsKey(member) || !conformsTo(context.get(member), contextType.getMemberType(member))) {
@@ -101,25 +100,25 @@ public class TypeChecker {
             return true;
         } else if (type instanceof RangeType && value instanceof Range) {
             return true;
-        } else if (type instanceof ListType && value instanceof List) {
-            for (Object obj : (List) value) {
-                if (!conformsTo(obj, ((ListType) type).getElementType())) {
+        } else if (type instanceof ListType listType && value instanceof List list) {
+            for (Object obj : list) {
+                if (!conformsTo(obj, listType.getElementType())) {
                     return false;
                 }
             }
             return true;
-        } else if (value instanceof FEELFunction && type instanceof FunctionType) {
-            FunctionDefinition<Type> functionDefinition = ((FEELFunction) value).getFunctionDefinition();
+        } else if (value instanceof FEELFunction function && type instanceof FunctionType) {
+            FunctionDefinition<Type> functionDefinition = function.getFunctionDefinition();
             return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(functionDefinition.getType(), type);
-        } else if (value instanceof DMNInvocable && type instanceof FunctionType) {
-            Type valueType = ((DMNInvocable) value).getType();
+        } else if (value instanceof DMNInvocable invocable && type instanceof FunctionType) {
+            Type valueType = invocable.getType();
             return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(valueType, type);
-        } else if (value instanceof DMNFunction && type instanceof FunctionType) {
-            Type valueType = ((DMNFunction) value).getType();
+        } else if (value instanceof DMNFunction function && type instanceof FunctionType) {
+            Type valueType = function.getType();
             return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(valueType, type);
-        } else if (value instanceof BuiltinFunction && type instanceof FunctionType) {
+        } else if (value instanceof BuiltinFunction function && type instanceof FunctionType) {
             // At least one conforms
-            List<Declaration> declarations = ((BuiltinFunction) value).getDeclarations();
+            List<Declaration> declarations = function.getDeclarations();
             for (Declaration d: declarations) {
                 if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(d.getType(), type)) {
                     return true;
@@ -161,7 +160,7 @@ public class TypeChecker {
     }
 
     private static boolean isSingletonList(Object value) {
-        return value instanceof List && ((List) value).size() == 1;
+        return value instanceof List l && l.size() == 1;
     }
 
     public Result checkResult(Result result, Type expectedType) {
@@ -262,7 +261,7 @@ public class TypeChecker {
         }
         ConversionKind conversionKind = conversionKind(value, expectedType);
         if (throwError && conversionKind.isError()) {
-            throw new DMNRuntimeException(String.format("Value '%s' does not conform to type '%s'", value, expectedType));
+            throw new DMNRuntimeException("Value '%s' does not conform to type '%s'".formatted(value, expectedType));
         }
         Object newValue = convertValue(value, conversionKind);
         return Result.of(newValue, expectedType);
@@ -282,7 +281,7 @@ public class TypeChecker {
             return NONE;
         } else if (isSingletonList(value) && conformsTo(((List) value).get(0), expectedType)) {
             return SINGLETON_LIST_TO_ELEMENT;
-        } else if (expectedType instanceof ListType && conformsTo(value, ((ListType) expectedType).getElementType())) {
+        } else if (expectedType instanceof ListType type && conformsTo(value, type.getElementType())) {
             return ELEMENT_TO_SINGLETON_LIST;
         } else if (lib.isDate(value) && expectedType instanceof DateTimeType) {
             return DATE_TO_UTC_MIDNIGHT;
@@ -303,7 +302,7 @@ public class TypeChecker {
         } else if (kind == DATE_TO_UTC_MIDNIGHT) {
             return lib.toDate(value);
         } else {
-            throw new DMNRuntimeException(String.format("'%s' is not supported yet", kind));
+            throw new DMNRuntimeException("'%s' is not supported yet".formatted(kind));
         }
     }
 }

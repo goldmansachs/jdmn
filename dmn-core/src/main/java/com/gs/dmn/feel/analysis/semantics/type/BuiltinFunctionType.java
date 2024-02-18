@@ -164,9 +164,9 @@ public class BuiltinFunctionType extends FunctionType {
     @Override
     public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
-        return other instanceof FunctionType
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+        return other instanceof FunctionType ft
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ft.returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(ft.parameterTypes, this.parameterTypes);
     }
 
     @Override
@@ -198,6 +198,6 @@ public class BuiltinFunctionType extends FunctionType {
     @Override
     public String toString() {
         String types = this.parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
-        return String.format("BuiltinFunctionType(%s, %s)", types, this.returnType);
+        return "BuiltinFunctionType(%s, %s)".formatted(types, this.returnType);
     }
 }

@@ -15,7 +15,7 @@ package com.gs.jpa.lazy_input_model;
 import com.gs.dmn.generated.lazy_input_model.type.Person;
 import com.gs.jpa.example_credit_decision.CreditIssueTypeJPA;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity

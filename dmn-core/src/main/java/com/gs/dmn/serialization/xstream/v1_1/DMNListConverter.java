@@ -40,8 +40,8 @@ public class DMNListConverter extends ExpressionConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         TList list = (TList) parent;
 
-        if (child instanceof TExpression) {
-            list.getExpression().add((TExpression) child);
+        if (child instanceof TExpression expression) {
+            list.getExpression().add(expression);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }

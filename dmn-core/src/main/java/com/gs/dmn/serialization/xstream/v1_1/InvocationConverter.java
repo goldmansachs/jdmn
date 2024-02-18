@@ -44,8 +44,8 @@ public class InvocationConverter extends ExpressionConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         TInvocation i = (TInvocation) parent;
 
-        if (child instanceof TExpression) {
-            i.setExpression((TExpression) child);
+        if (child instanceof TExpression expression) {
+            i.setExpression(expression);
         } else if (BINDING.equals(nodeName)) {
             i.getBinding().add((TBinding) child);
         } else {

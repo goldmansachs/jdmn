@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "Monthly"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "Monthly"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class MonthlyImpl implements Monthly {
         private java.math.BigDecimal income;

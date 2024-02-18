@@ -116,9 +116,9 @@ class UniqueRequirementValidatorVisitor extends TraversalVisitor<ValidationConte
                     TDRGElement referredElement = findElementByRef(repository, element, ir);
                     String errorMessage;
                     if (referredElement == null) {
-                        errorMessage = String.format("Duplicated %s '%s'", propertyPath, id);
+                        errorMessage = "Duplicated %s '%s'".formatted(propertyPath, id);
                     } else {
-                        errorMessage = String.format("Duplicated %s %s", propertyPath, repository.makeLocation(definitions, referredElement));
+                        errorMessage = "Duplicated %s %s".formatted(propertyPath, repository.makeLocation(definitions, referredElement));
                     }
                     context.addError(makeError(repository, definitions, element, errorMessage));
                 } else {

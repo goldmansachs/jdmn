@@ -47,6 +47,6 @@ public class Pair<L, R> {
 
     @Override
     public String toString() {
-        return String.format("Pair(%s, %s)", left, right);
+        return "Pair(%s, %s)".formatted(left, right);
     }
 }

@@ -30,6 +30,6 @@ public class EveryTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("Every(%s)", forList);
+        return "Every(%s)".formatted(forList);
     }
 }

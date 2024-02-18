@@ -34,7 +34,7 @@ public class Comparison extends Expression {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s, %s)", this.getClass().getSimpleName(), operator, leftOperand, rightOperand);
+        return "%s(%s, %s, %s)".formatted(this.getClass().getSimpleName(), operator, leftOperand, rightOperand);
     }
 
     @Override

@@ -20,7 +20,7 @@ public abstract class NameElement {
 
     protected NameElement(String name) {
         if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Mandatory proto field name. Found '%s'", name));
+            throw new DMNRuntimeException("Mandatory proto field name. Found '%s'".formatted(name));
         }
         this.name = name;
     }

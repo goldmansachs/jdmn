@@ -42,6 +42,6 @@ public class QName {
 
     @Override
     public String toString() {
-        return String.format("{%s}%s", namespace, localName);
+        return "{%s}%s".formatted(namespace, localName);
     }
 }

@@ -36,6 +36,6 @@ public class Hierarchy extends UnaryTest {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", this.getClass().getSimpleName(), getPathAsString());
+        return "%s(%s)".formatted(this.getClass().getSimpleName(), getPathAsString());
     }
 }

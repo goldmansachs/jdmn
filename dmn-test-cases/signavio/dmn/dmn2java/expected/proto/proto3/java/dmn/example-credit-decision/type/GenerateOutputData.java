@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "generateOutputData"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "generateOutputData"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.GenerateOutputDataImpl.class)
 public interface GenerateOutputData extends com.gs.dmn.runtime.DMNType {

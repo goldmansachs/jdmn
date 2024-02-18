@@ -41,7 +41,7 @@ public abstract class SimpleDMNDialectTransformer {
     }
 
     public TDefinitions transformDefinitions(TDefinitions sourceDefinitions) {
-        this.logger.info(String.format("Transforming '%s' from DMN %s to DMN %s ...", sourceDefinitions.getName(), this.sourceVersion.getVersion(), this.targetVersion.getVersion()));
+        this.logger.info("Transforming '%s' from DMN %s to DMN %s ...".formatted(sourceDefinitions.getName(), this.sourceVersion.getVersion(), this.targetVersion.getVersion()));
         if (this.sourceVersion != this.targetVersion) {
             sourceDefinitions.accept(this.visitor, null);
         }
@@ -103,7 +103,7 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
                 String nsForPrefix = this.definitions.getNamespaceURI(prefix);
                 String localPart = typeRef.getLocalPart();
                 if (this.sourceVersion.getFeelNamespace().equals(namespaceURI) || this.targetVersion.getFeelNamespace().equals(nsForPrefix)) {
-                    return new QName(String.format("%s.%s", this.targetVersion.getFeelPrefix(), localPart));
+                    return new QName("%s.%s".formatted(this.targetVersion.getFeelPrefix(), localPart));
                 } else {
                     return new QName(typeRef.getLocalPart());
                 }

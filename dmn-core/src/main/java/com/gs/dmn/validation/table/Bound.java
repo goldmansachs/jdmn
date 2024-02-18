@@ -55,7 +55,7 @@ public class Bound {
 
     public static boolean sameValue(Bound b1, Bound b2) {
         if (b1 == null || b2 == null) {
-            throw new DMNRuntimeException(String.format("Unexpected null bound '%s' or '%s'", b1, b2));
+            throw new DMNRuntimeException("Unexpected null bound '%s' or '%s'".formatted(b1, b2));
         }
 
         return Objects.equals(b1.value, b2.value);
@@ -63,7 +63,7 @@ public class Bound {
 
     public static boolean sameEnd(Bound b1, Bound b2) {
         if (b1 == null || b2 == null) {
-            throw new DMNRuntimeException(String.format("Unexpected null bound '%s' or '%s'", b1, b2));
+            throw new DMNRuntimeException("Unexpected null bound '%s' or '%s'".formatted(b1, b2));
         }
 
         return sameValue(b1, b2)
@@ -72,7 +72,7 @@ public class Bound {
 
     public static boolean areAdjacent(Bound b1, Bound b2) {
         if (b1 == null || b2 == null) {
-            throw new DMNRuntimeException(String.format("Unexpected null bound '%s' or '%s'", b1, b2));
+            throw new DMNRuntimeException("Unexpected null bound '%s' or '%s'".formatted(b1, b2));
         }
 
         return b1.areAdjacent(b2);
@@ -134,9 +134,9 @@ public class Bound {
     @Override
     public String toString() {
         if (isLowerBound) {
-            return String.format("%s%s", isIncluded ? "[" : "(", serialize(value));
+            return "%s%s".formatted(isIncluded ? "[" : "(", serialize(value));
         } else {
-            return String.format("%s%s", serialize(value), isIncluded ? "]" : ")");
+            return "%s%s".formatted(serialize(value), isIncluded ? "]" : ")");
         }
     }
 

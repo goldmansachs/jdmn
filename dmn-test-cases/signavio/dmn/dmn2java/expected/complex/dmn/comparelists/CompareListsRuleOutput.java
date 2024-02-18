@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "compareLists"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "compareLists"})
 public class CompareListsRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal compareLists;
 

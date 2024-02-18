@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "generateTemporalObjects"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "generateTemporalObjects"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class GenerateTemporalObjectsImpl implements GenerateTemporalObjects {
         private javax.xml.datatype.XMLGregorianCalendar date;

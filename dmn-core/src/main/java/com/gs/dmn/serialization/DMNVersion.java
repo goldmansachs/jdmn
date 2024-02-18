@@ -77,7 +77,7 @@ public class DMNVersion {
                 return  version;
             }
         }
-        throw new IllegalArgumentException(String.format("Cannot find DMN version '%s'", key));
+        throw new IllegalArgumentException("Cannot find DMN version '%s'".formatted(key));
     }
 
     private final String version;

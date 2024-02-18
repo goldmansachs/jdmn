@@ -2,7 +2,7 @@ package decisioninputs1.type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tA"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tA"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = decisioninputs1.type.TAImpl.class)
 public interface TA extends com.gs.dmn.runtime.DMNType {

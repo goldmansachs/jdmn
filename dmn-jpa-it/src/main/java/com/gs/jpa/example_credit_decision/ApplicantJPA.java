@@ -14,7 +14,7 @@ package com.gs.jpa.example_credit_decision;
 
 import com.gs.dmn.generated.example_credit_decision.type.Applicant;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;

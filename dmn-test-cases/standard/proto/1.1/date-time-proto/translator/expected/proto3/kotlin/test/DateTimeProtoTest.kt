@@ -2,9 +2,9 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["junit.ftl", "date-time-proto.dmn"])
+@jakarta.annotation.Generated(value = ["junit.ftl", "date-time-proto.dmn"])
 class DateTimeProtoTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase1() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
@@ -22,7 +22,7 @@ class DateTimeProtoTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         checkValues(string(date("2020-09-10")), Date().applyProto(dateRequest_, context_).getDate())
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase2() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
@@ -40,7 +40,7 @@ class DateTimeProtoTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         checkValues(string(time("12:10:10")), Time().applyProto(timeRequest_, context_).getTime())
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase3() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
@@ -58,7 +58,7 @@ class DateTimeProtoTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         checkValues(string(dateAndTime("2020-09-19T12:10:10")), DateTime().applyProto(dateTimeRequest_, context_).getDateTime())
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase4() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()

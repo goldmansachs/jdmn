@@ -30,7 +30,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
         }
 
         if (text.indexOf("-") > 0) {
-            throw new DMNRuntimeException(String.format("Negative values for units are not allowed in duration '%s'", text));
+            throw new DMNRuntimeException("Negative values for units are not allowed in duration '%s'".formatted(text));
         }
         try {
             // try to parse as days/hours/minute/seconds
@@ -42,7 +42,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
             } catch (DateTimeParseException e2) {
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot parse duration '%s'", text));
+        throw new DMNRuntimeException("Cannot parse duration '%s'".formatted(text));
     }
 
     private final TemporalDateTimeLib dateTimeLib;
@@ -83,13 +83,13 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
     public Long days(TemporalAmount duration) {
        if (duration instanceof Period) {
            return duration.get(ChronoUnit.DAYS);
-       } else if (duration instanceof Duration) {
-           long seconds = ((Duration) duration).getSeconds();
+       } else if (duration instanceof Duration duration1) {
+           long seconds = duration1.getSeconds();
            long minutes = seconds / 60;
            long hours = minutes / 60;
            return hours / 24;
        } else {
-           throw new DMNRuntimeException(String.format("Cannot extract days from '%s'", duration));
+           throw new DMNRuntimeException("Cannot extract days from '%s'".formatted(duration));
        }
     }
 
@@ -97,13 +97,13 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
     public Long hours(TemporalAmount duration) {
         if (duration instanceof Period) {
             return duration.get(ChronoUnit.HOURS);
-        } else if (duration instanceof Duration) {
-            long seconds = ((Duration) duration).getSeconds();
+        } else if (duration instanceof Duration duration1) {
+            long seconds = duration1.getSeconds();
             long minutes = seconds / 60;
             long hours = minutes / 60;
             return hours % 24;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot extract hours from '%s'", duration));
+            throw new DMNRuntimeException("Cannot extract hours from '%s'".formatted(duration));
         }
     }
 
@@ -111,12 +111,12 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
     public Long minutes(TemporalAmount duration) {
         if (duration instanceof Period) {
             return duration.get(ChronoUnit.MINUTES);
-        } else if (duration instanceof Duration) {
-            long seconds = ((Duration) duration).getSeconds();
+        } else if (duration instanceof Duration duration1) {
+            long seconds = duration1.getSeconds();
             long minutes = seconds / 60;
             return minutes % 60;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot extract minutes from '%s'", duration));
+            throw new DMNRuntimeException("Cannot extract minutes from '%s'".formatted(duration));
         }
     }
 
@@ -124,12 +124,12 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
     public Long seconds(TemporalAmount duration) {
         if (duration instanceof Period) {
             return duration.get(ChronoUnit.SECONDS);
-        } else if (duration instanceof Duration) {
+        } else if (duration instanceof Duration duration1) {
             // Remove ms fraction
-            long seconds = ((Duration) duration).toMillis() / 1000;
+            long seconds = duration1.toMillis() / 1000;
             return seconds % 60;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot extract seconds from '%s'", duration));
+            throw new DMNRuntimeException("Cannot extract seconds from '%s'".formatted(duration));
         }
     }
 
@@ -139,11 +139,9 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
             return null;
         }
 
-        if (temporalAmount instanceof Period) {
-            Period period = (Period) temporalAmount;
+        if (temporalAmount instanceof Period period) {
             return (period.isNegative() ? period.negated() : period).normalized();
-        } else if (temporalAmount instanceof Duration) {
-            Duration duration = (Duration) temporalAmount;
+        } else if (temporalAmount instanceof Duration duration) {
             return duration.isNegative() ? duration.negated() : duration;
         } else {
             return null;

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "processPriorIssues"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "processPriorIssues"})
 public class ProcessPriorIssuesRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal processPriorIssues;
 

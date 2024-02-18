@@ -36,6 +36,6 @@ public class ContextEntryTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("ContextEntry(%s, %s)", key, value);
+        return "ContextEntry(%s, %s)".formatted(key, value);
     }
 }

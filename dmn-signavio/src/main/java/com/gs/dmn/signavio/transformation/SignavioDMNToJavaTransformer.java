@@ -65,7 +65,7 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             DMNModelRepository repository = new SignavioDMNModelRepository(result, this.schemaNamespace);
             return repository;
         } else {
-            throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
+            throw new DMNRuntimeException("Invalid DMN file %s".formatted(file.getAbsoluteFile()));
         }
     }
 

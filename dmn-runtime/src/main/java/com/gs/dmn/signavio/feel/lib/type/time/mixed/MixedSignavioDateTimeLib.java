@@ -173,9 +173,9 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
             return null;
         }
 
-        if (time1 instanceof ZonedDateTime && time2 instanceof OffsetTime) {
+        if (time1 instanceof ZonedDateTime firstZonedDateTime && time2 instanceof OffsetTime secondZonedDateTime) {
             // between() is not symmetric, converts second to first
-            return - Duration.between((Temporal) time2, (Temporal) time1).toHours();
+            return - Duration.between(secondZonedDateTime, firstZonedDateTime).toHours();
         } else {
             return Duration.between((Temporal) time1, (Temporal) time2).toHours();
         }
@@ -187,9 +187,9 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
             return null;
         }
 
-        if (time1 instanceof ZonedDateTime && time2 instanceof OffsetTime) {
+        if (time1 instanceof ZonedDateTime firstZonedTime && time2 instanceof OffsetTime secondOffsetTime) {
             // between() is not symmetric, converts second to first
-            return - Duration.between((Temporal) time2, (Temporal) time1).toMinutes();
+            return - Duration.between(secondOffsetTime, firstZonedTime).toMinutes();
         } else {
             return Duration.between((Temporal) time1, (Temporal) time2).toMinutes();
         }
@@ -201,12 +201,12 @@ public class MixedSignavioDateTimeLib extends SignavioBaseDateTimeLib implements
             return null;
         }
 
-        if (date instanceof LocalDate) {
-            return ((LocalDate) date).getDayOfWeek().getValue();
-        } else if (date instanceof ZonedDateTime) {
-            return ((ZonedDateTime) date).getDayOfWeek().getValue();
+        if (date instanceof LocalDate localDate) {
+            return localDate.getDayOfWeek().getValue();
+        } else if (date instanceof ZonedDateTime time) {
+            return time.getDayOfWeek().getValue();
         }
-        throw new RuntimeException(String.format("Cannot extract 'weekday' from '%s'", date));
+        throw new RuntimeException("Cannot extract 'weekday' from '%s'".formatted(date));
     }
 
     @Override

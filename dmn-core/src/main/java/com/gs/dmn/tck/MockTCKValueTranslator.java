@@ -91,20 +91,20 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                     return text;
                 }
 
-                throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
+                throw new DMNRuntimeException("Cannot make value for input '%s' with type '%s'".formatted(valueType, type));
             }
         } else if (valueType.getList() != null) {
             return toNativeExpression(valueType.getList(), (ListType) type, element, itemDefinition);
         } else if (valueType.getComponent() != null) {
-            if (type instanceof ItemDefinitionType) {
-                return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type, element, itemDefinition);
-            } else if (type instanceof ContextType) {
-                return toNativeExpression(valueType.getComponent(), (ContextType) type, element, itemDefinition);
+            if (type instanceof ItemDefinitionType definitionType) {
+                return toNativeExpression(valueType.getComponent(), definitionType, element, itemDefinition);
+            } else if (type instanceof ContextType contextType) {
+                return toNativeExpression(valueType.getComponent(), contextType, element, itemDefinition);
             } else {
-                throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
+                throw new DMNRuntimeException("Cannot make value for input '%s' with type '%s'".formatted(valueType, type));
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
+        throw new DMNRuntimeException("Cannot make value for input '%s' with type '%s'".formatted(valueType, type));
     }
 
     private String toNativeExpression(com.gs.dmn.tck.ast.List list, ListType listType, TDRGElement element, TItemDefinition itemDefinition) {
@@ -143,16 +143,16 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             }
         }
         sortParameters(memberList);
-        if (type instanceof ItemDefinitionType) {
+        if (type instanceof ItemDefinitionType definitionType) {
             // Use constructor
-            String interfaceName = this.transformer.toNativeType((ItemDefinitionType) type);
+            String interfaceName = this.transformer.toNativeType(definitionType);
             String arguments = memberList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
             return this.transformer.constructor(this.transformer.itemDefinitionNativeClassName(interfaceName), arguments);
         } else {
             // Use builder pattern in Context
             String builder = this.transformer.defaultConstructor(this.transformer.contextClassName());
-            String parts = memberList.stream().map(a -> String.format("add(\"%s\", %s)", a.getLeft(), a.getRight())).collect(Collectors.joining("."));
-            return String.format("%s.%s", builder, parts);
+            String parts = memberList.stream().map(a -> "add(\"%s\", %s)".formatted(a.getLeft(), a.getRight())).collect(Collectors.joining("."));
+            return "%s.%s".formatted(builder, parts);
         }
     }
 
@@ -222,10 +222,10 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
         String cleanText = removeWhiteSpaces(text);
         String[] parts = cleanText.split("\\.");
         StringBuilder result = new StringBuilder();
-        String root = String.format("%s.%s", TCKUtil.mockContextVariable(), this.transformer.contextGetter(parts[0]));
+        String root = "%s.%s".formatted(TCKUtil.mockContextVariable(), this.transformer.contextGetter(parts[0]));
         result.append(this.nativeFactory.makeNullCheck(root, childType));
         for (int i=1; i<parts.length; i++) {
-            result.append(String.format(".%s", this.transformer.getter(parts[i])));
+            result.append(".%s".formatted(this.transformer.getter(parts[i])));
         }
 
         return result.toString();

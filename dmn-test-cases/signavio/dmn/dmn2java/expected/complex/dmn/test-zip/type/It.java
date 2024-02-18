@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "it"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "it"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.ItImpl.class)
 public interface It extends com.gs.dmn.runtime.DMNType {

@@ -16,7 +16,7 @@ package ${javaPackageName}
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinition.ftl", "${modelRepository.name(itemDefinition)}"])
+@jakarta.annotation.Generated(value = ["itemDefinition.ftl", "${modelRepository.name(itemDefinition)}"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 class ${javaClassName} : ${transformer.itemDefinitionNativeSimpleInterfaceName(javaClassName)} {
     <@addFields itemDefinition />

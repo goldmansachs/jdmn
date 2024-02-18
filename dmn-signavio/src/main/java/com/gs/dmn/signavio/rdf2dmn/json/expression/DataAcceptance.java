@@ -29,6 +29,6 @@ public class DataAcceptance extends UnaryTest {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", this.getClass().getSimpleName(), value);
+        return "%s(%s)".formatted(this.getClass().getSimpleName(), value);
     }
 }

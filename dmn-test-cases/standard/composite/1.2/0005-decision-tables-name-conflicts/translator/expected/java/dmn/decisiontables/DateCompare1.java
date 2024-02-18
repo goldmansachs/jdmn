@@ -3,7 +3,7 @@ package decisiontables;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "dateCompare1"})
+@jakarta.annotation.Generated(value = {"decision.ftl", "dateCompare1"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "decisiontables",
     name = "dateCompare1",

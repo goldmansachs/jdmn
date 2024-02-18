@@ -14,5 +14,5 @@ This product depends on (links to) the following software:
 	EclipseLink Core under Eclipse Distribution License v. 1.0
 	EclipseLink Hermes JPQL Parser under Eclipse Distribution License v. 1.0
 	EclipseLink JPA under Eclipse Distribution License v. 1.0
-	Javax Persistence under Eclipse Distribution License v. 1.0
+	jakarta Persistence under Eclipse Distribution License v. 1.0
 	SLF4J API Module under MIT License

@@ -53,9 +53,9 @@ public class MultiInstanceDecisionLogic {
 
     @Override
     public String toString() {
-        return String.format(
-                "MultiInstanceDecisionLogic(iterationExpression='%s', iteratorShapeId='%s', aggregationFunction='%s', topLevelDecisionId='%s')",
-                iterationExpression, iteratorShapeId, aggregationFunction, topLevelDecisionId
+        return 
+            "MultiInstanceDecisionLogic(iterationExpression='%s', iteratorShapeId='%s', aggregationFunction='%s', topLevelDecisionId='%s')".formatted(
+            iterationExpression, iteratorShapeId, aggregationFunction, topLevelDecisionId
         );
     }
 }

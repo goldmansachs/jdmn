@@ -16,7 +16,7 @@ package ${javaPackageName}
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinitionInterface.ftl", "${modelRepository.name(itemDefinition)}"])
+@jakarta.annotation.Generated(value = ["itemDefinitionInterface.ftl", "${modelRepository.name(itemDefinition)}"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = ${serializationClass}::class)
 interface ${javaClassName} : ${transformer.dmnTypeClassName()} {

@@ -36,8 +36,8 @@ public class FormatUtils {
 
         if (from instanceof Double) {
             return DECIMAL_FORMAT.get().format(from);
-        } else if (from instanceof BigDecimal) {
-            return ((BigDecimal) from).toPlainString();
+        } else if (from instanceof BigDecimal decimal) {
+            return decimal.toPlainString();
         } else {
             return from.toString();
         }
@@ -46,18 +46,17 @@ public class FormatUtils {
     public static String formatTemporal(Object from) {
         if (from == null) {
             return "null";
-        } else if (from instanceof LocalDate) {
-            return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE);
-        } else if (from instanceof LocalTime) {
-            return ((LocalTime) from).format(BaseDateTimeLib.FEEL_TIME);
-        } else if (from instanceof OffsetTime) {
-            return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME);
-        } else if (from instanceof LocalDateTime) {
-            return ((LocalDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
-        } else if (from instanceof OffsetDateTime) {
-            return ((OffsetDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
-        } else if (from instanceof ZonedDateTime) {
-            TemporalAccessor accessor = (TemporalAccessor) from;
+        } else if (from instanceof LocalDate date) {
+            return date.format(BaseDateTimeLib.FEEL_DATE);
+        } else if (from instanceof LocalTime time) {
+            return time.format(BaseDateTimeLib.FEEL_TIME);
+        } else if (from instanceof OffsetTime time) {
+            return time.format(BaseDateTimeLib.FEEL_TIME);
+        } else if (from instanceof LocalDateTime time) {
+            return time.format(BaseDateTimeLib.FEEL_DATE_TIME);
+        } else if (from instanceof OffsetDateTime time) {
+            return time.format(BaseDateTimeLib.FEEL_DATE_TIME);
+        } else if (from instanceof ZonedDateTime accessor) {
             ZoneId zone = accessor.query(TemporalQueries.zone());
             if (!(zone instanceof ZoneOffset)) {
                 // it is a ZoneRegion
@@ -65,17 +64,17 @@ public class FormatUtils {
             } else {
                 return BaseDateTimeLib.FEEL_DATE_TIME.format(accessor);
             }
-        } else if (from instanceof TemporalAccessor) {
+        } else if (from instanceof TemporalAccessor accessor) {
             // Its time with zone ID
-            return BaseDateTimeLib.FEEL_TIME.format((TemporalAccessor) from);
+            return BaseDateTimeLib.FEEL_TIME.format(accessor);
         } else if (from instanceof XMLGregorianCalendar) {
             return from.toString();
         } else if (from instanceof javax.xml.datatype.Duration) {
             return from.toString();
-        } else if (from instanceof java.time.Period) {
-            return formatPeriod((Period) from);
-        } else if (from instanceof java.time.Duration) {
-            return formatDuration((Duration) from);
+        } else if (from instanceof java.time.Period period) {
+            return formatPeriod(period);
+        } else if (from instanceof java.time.Duration duration) {
+            return formatDuration(duration);
         } else {
             return from.toString();
         }

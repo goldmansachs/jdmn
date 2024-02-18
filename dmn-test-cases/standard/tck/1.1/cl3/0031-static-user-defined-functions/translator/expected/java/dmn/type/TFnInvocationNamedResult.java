@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tFnInvocationNamedResult"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tFnInvocationNamedResult"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TFnInvocationNamedResultImpl.class)
 public interface TFnInvocationNamedResult extends com.gs.dmn.runtime.DMNType {

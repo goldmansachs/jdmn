@@ -55,7 +55,7 @@ public class FunctionTypeExpression<T> extends TypeExpression<T> {
 
     @Override
     public String toString() {
-        String parametersStr = this.parameters.stream().map(e -> String.format("%s", e.toString())).collect(Collectors.joining(", "));
-        return String.format("%s(%s -> %s)", getClass().getSimpleName(), parametersStr, this.returnType.toString());
+        String parametersStr = this.parameters.stream().map(e -> "%s".formatted(e.toString())).collect(Collectors.joining(", "));
+        return "%s(%s -> %s)".formatted(getClass().getSimpleName(), parametersStr, this.returnType.toString());
     }
 }

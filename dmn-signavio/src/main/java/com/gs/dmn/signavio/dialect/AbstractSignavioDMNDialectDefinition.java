@@ -55,7 +55,7 @@ public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, D
         } else if (format == JSON) {
             return new JsonDMNSerializer(logger, inputParameters.isXsdValidation());
         } else {
-            throw new IllegalArgumentException(String.format("Format '%s' is not supported yet", format));
+            throw new IllegalArgumentException("Format '%s' is not supported yet".formatted(format));
         }
     }
 

@@ -35,7 +35,7 @@ public class TimeLiteral extends SimpleExpression {
         if (value == null) {
             return "null";
         } else {
-            return String.format("time(\"%s\")", cleanValue(value));
+            return "time(\"%s\")".formatted(cleanValue(value));
         }
     }
 
@@ -60,7 +60,7 @@ public class TimeLiteral extends SimpleExpression {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", this.getClass().getSimpleName(), value);
+        return "%s(%s)".formatted(this.getClass().getSimpleName(), value);
     }
 
     @Override

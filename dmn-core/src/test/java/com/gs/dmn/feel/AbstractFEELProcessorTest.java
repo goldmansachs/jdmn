@@ -1532,13 +1532,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         // number, number
-        doExpressionTest(entries, "", String.format("%s %s %s", number, "+", number),
+        doExpressionTest(entries, "", "%s %s %s".formatted(number, "+", number),
                 "Addition(+,NumericLiteral(1),NumericLiteral(1))",
                 "number",
                 "numericAdd(number(\"1\"), number(\"1\"))",
                 this.lib.numericAdd(this.lib.number("1"), this.lib.number("1")),
                 this.lib.number("2"));
-        doExpressionTest(entries, "", String.format("%s %s %s", number, "-", number),
+        doExpressionTest(entries, "", "%s %s %s".formatted(number, "-", number),
                 "Addition(-,NumericLiteral(1),NumericLiteral(1))",
                 "number",
                 "numericSubtract(number(\"1\"), number(\"1\"))",
@@ -1546,7 +1546,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.number("0"));
 
         // date and time, date and time
-        doExpressionTest(entries, "", String.format("%s %s %s", dateAndTime, "-", dateAndTime),
+        doExpressionTest(entries, "", "%s %s %s".formatted(dateAndTime, "-", dateAndTime),
                 "Addition(-,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"),DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"))",
                 "days and time duration",
                 "dateTimeSubtract(dateAndTime(\"2016-08-01T11:00:00Z\"), dateAndTime(\"2016-08-01T11:00:00Z\"))",
@@ -1554,7 +1554,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("P0DT0H0M0.000S"));
 
         // date, date
-        doExpressionTest(entries, "", String.format("%s %s %s", date, "-", date),
+        doExpressionTest(entries, "", "%s %s %s".formatted(date, "-", date),
                 "Addition(-,DateTimeLiteral(date, \"2016-08-01\"),DateTimeLiteral(date, \"2016-08-01\"))",
                 "days and time duration",
                 "dateSubtract(date(\"2016-08-01\"), date(\"2016-08-01\"))",
@@ -1562,7 +1562,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("P0DT0H0M0.000S"));
 
         // date and time, date
-        doExpressionTest(entries, "", String.format("%s %s %s", dateAndTime, "-", date),
+        doExpressionTest(entries, "", "%s %s %s".formatted(dateAndTime, "-", date),
                 "Addition(-,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"),DateTimeLiteral(date, \"2016-08-01\"))",
                 "days and time duration",
                 "dateTimeSubtract(dateAndTime(\"2016-08-01T11:00:00Z\"), date(\"2016-08-01\"))",
@@ -1570,7 +1570,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("P0DT11H0M0S"));
 
         // date, date and time
-        doExpressionTest(entries, "", String.format("%s %s %s", date, "-", dateAndTime),
+        doExpressionTest(entries, "", "%s %s %s".formatted(date, "-", dateAndTime),
                 "Addition(-,DateTimeLiteral(date, \"2016-08-01\"),DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"))",
                 "days and time duration",
                 "dateSubtract(date(\"2016-08-01\"), dateAndTime(\"2016-08-01T11:00:00Z\"))",
@@ -1578,7 +1578,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("-P0DT11H0M0S"));
 
         // time, time
-        doExpressionTest(entries, "", String.format("%s %s %s", time, "-", time),
+        doExpressionTest(entries, "", "%s %s %s".formatted(time, "-", time),
                 "Addition(-,DateTimeLiteral(time, \"12:00:00Z\"),DateTimeLiteral(time, \"12:00:00Z\"))",
                 "days and time duration",
                 "timeSubtract(time(\"12:00:00Z\"), time(\"12:00:00Z\"))",
@@ -1586,13 +1586,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("P0DT0H0M0.000S"));
 
         // years and months duration, years and months duration
-        doExpressionTest(entries, "", String.format("%s %s %s", yearsAndMonthsDuration, "+", yearsAndMonthsDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(yearsAndMonthsDuration, "+", yearsAndMonthsDuration),
                 "Addition(+,DateTimeLiteral(duration, \"P1Y1M\"),DateTimeLiteral(duration, \"P1Y1M\"))",
                 "years and months duration",
                 "durationAdd(duration(\"P1Y1M\"), duration(\"P1Y1M\"))",
                 this.lib.durationAdd(this.lib.duration("P1Y1M"), this.lib.duration("P1Y1M")),
                 this.lib.duration("P2Y2M"));
-        doExpressionTest(entries, "", String.format("%s %s %s", yearsAndMonthsDuration, "-", yearsAndMonthsDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(yearsAndMonthsDuration, "-", yearsAndMonthsDuration),
                 "Addition(-,DateTimeLiteral(duration, \"P1Y1M\"),DateTimeLiteral(duration, \"P1Y1M\"))",
                 "years and months duration",
                 "durationSubtract(duration(\"P1Y1M\"), duration(\"P1Y1M\"))",
@@ -1600,13 +1600,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("P0Y0M"));
 
         // days and time duration, days and time duration
-        doExpressionTest(entries, "", String.format("%s %s %s", daysAndTimeDuration, "+", daysAndTimeDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(daysAndTimeDuration, "+", daysAndTimeDuration),
                 "Addition(+,DateTimeLiteral(duration, \"P1DT1H\"),DateTimeLiteral(duration, \"P1DT1H\"))",
                 "days and time duration",
                 "durationAdd(duration(\"P1DT1H\"), duration(\"P1DT1H\"))",
                 this.lib.durationAdd(this.lib.duration("P1DT1H"), this.lib.duration("P1DT1H")),
                 this.lib.duration("P2DT2H"));
-        doExpressionTest(entries, "", String.format("%s %s %s", daysAndTimeDuration, "-", daysAndTimeDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(daysAndTimeDuration, "-", daysAndTimeDuration),
                 "Addition(-,DateTimeLiteral(duration, \"P1DT1H\"),DateTimeLiteral(duration, \"P1DT1H\"))",
                 "days and time duration",
                 "durationSubtract(duration(\"P1DT1H\"), duration(\"P1DT1H\"))",
@@ -1614,13 +1614,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("P0DT0H"));
 
         // date and time, years and months duration
-        doExpressionTest(entries, "", String.format("%s %s %s", dateAndTime, "+", yearsAndMonthsDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(dateAndTime, "+", yearsAndMonthsDuration),
                 "Addition(+,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"),DateTimeLiteral(duration, \"P1Y1M\"))",
                 "date and time",
                 "dateTimeAddDuration(dateAndTime(\"2016-08-01T11:00:00Z\"), duration(\"P1Y1M\"))",
                 this.lib.dateTimeAddDuration(this.lib.dateAndTime("2016-08-01T11:00:00Z"), this.lib.duration("P1Y1M")),
                 this.lib.dateAndTime("2017-09-01T11:00:00Z"));
-        doExpressionTest(entries, "", String.format("%s %s %s", dateAndTime, "-", yearsAndMonthsDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(dateAndTime, "-", yearsAndMonthsDuration),
                 "Addition(-,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"),DateTimeLiteral(duration, \"P1Y1M\"))",
                 "date and time",
                 "dateTimeSubtractDuration(dateAndTime(\"2016-08-01T11:00:00Z\"), duration(\"P1Y1M\"))",
@@ -1629,7 +1629,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
         // Not in standard
         // date, years and months duration
-        doExpressionTest(entries, "", String.format("%s %s %s", date, "+", yearsAndMonthsDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(date, "+", yearsAndMonthsDuration),
                 "Addition(+,DateTimeLiteral(date, \"2016-08-01\"),DateTimeLiteral(duration, \"P1Y1M\"))",
                 "date",
                 "dateAddDuration(date(\"2016-08-01\"), duration(\"P1Y1M\"))",
@@ -1637,7 +1637,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.date("2017-09-01"));
         // Not in standard
         // date, years and months duration
-        doExpressionTest(entries, "", String.format("%s %s %s", date, "-", yearsAndMonthsDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(date, "-", yearsAndMonthsDuration),
                 "Addition(-,DateTimeLiteral(date, \"2016-08-01\"),DateTimeLiteral(duration, \"P1Y1M\"))",
                 "date",
                 "dateSubtractDuration(date(\"2016-08-01\"), duration(\"P1Y1M\"))",
@@ -1645,7 +1645,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.date("2015-07-01"));
 
         // years and months duration, date and time
-        doExpressionTest(entries, "", String.format("%s %s %s", yearsAndMonthsDuration, "+", dateAndTime),
+        doExpressionTest(entries, "", "%s %s %s".formatted(yearsAndMonthsDuration, "+", dateAndTime),
                 "Addition(+,DateTimeLiteral(duration, \"P1Y1M\"),DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"))",
                 "date and time",
                 "dateTimeAddDuration(dateAndTime(\"2016-08-01T11:00:00Z\"), duration(\"P1Y1M\"))",
@@ -1653,7 +1653,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.dateAndTime("2017-09-01T11:00:00Z"));
         // Not in standard
         // years and months duration, date
-        doExpressionTest(entries, "", String.format("%s %s %s", yearsAndMonthsDuration, "+", date),
+        doExpressionTest(entries, "", "%s %s %s".formatted(yearsAndMonthsDuration, "+", date),
                 "Addition(+,DateTimeLiteral(duration, \"P1Y1M\"),DateTimeLiteral(date, \"2016-08-01\"))",
                 "date",
                 "dateAddDuration(date(\"2016-08-01\"), duration(\"P1Y1M\"))",
@@ -1661,13 +1661,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.date("2017-09-01"));
 
         // date and time, days and time duration
-        doExpressionTest(entries, "", String.format("%s %s %s", dateAndTime, "+", daysAndTimeDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(dateAndTime, "+", daysAndTimeDuration),
                 "Addition(+,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"),DateTimeLiteral(duration, \"P1DT1H\"))",
                 "date and time",
                 "dateTimeAddDuration(dateAndTime(\"2016-08-01T11:00:00Z\"), duration(\"P1DT1H\"))",
                 this.lib.dateTimeAddDuration(this.lib.dateAndTime("2016-08-01T11:00:00Z"), this.lib.duration("P1DT1H")),
                 this.lib.dateAndTime("2016-08-02T12:00:00Z"));
-        doExpressionTest(entries, "", String.format("%s %s %s", dateAndTime, "-", daysAndTimeDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(dateAndTime, "-", daysAndTimeDuration),
                 "Addition(-,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"),DateTimeLiteral(duration, \"P1DT1H\"))",
                 "date and time",
                 "dateTimeSubtractDuration(dateAndTime(\"2016-08-01T11:00:00Z\"), duration(\"P1DT1H\"))",
@@ -1675,7 +1675,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.dateAndTime("2016-07-31T10:00:00Z"));
 
         // days and time duration, date and time
-        doExpressionTest(entries, "", String.format("%s %s %s", daysAndTimeDuration, "+", dateAndTime),
+        doExpressionTest(entries, "", "%s %s %s".formatted(daysAndTimeDuration, "+", dateAndTime),
                 "Addition(+,DateTimeLiteral(duration, \"P1DT1H\"),DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"))",
                 "date and time",
                 "dateTimeAddDuration(dateAndTime(\"2016-08-01T11:00:00Z\"), duration(\"P1DT1H\"))",
@@ -1683,13 +1683,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.dateAndTime("2016-08-02T12:00:00Z"));
 
         // time, days and time duration
-        doExpressionTest(entries, "", String.format("%s %s %s", time, "+", daysAndTimeDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(time, "+", daysAndTimeDuration),
                 "Addition(+,DateTimeLiteral(time, \"12:00:00Z\"),DateTimeLiteral(duration, \"P1DT1H\"))",
                 "time",
                 "timeAddDuration(time(\"12:00:00Z\"), duration(\"P1DT1H\"))",
                 this.lib.timeAddDuration(this.lib.time("12:00:00Z"), this.lib.duration("P1DT1H")),
                 this.lib.time("13:00:00Z"));
-        doExpressionTest(entries, "", String.format("%s %s %s", time, "-", daysAndTimeDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(time, "-", daysAndTimeDuration),
                 "Addition(-,DateTimeLiteral(time, \"12:00:00Z\"),DateTimeLiteral(duration, \"P1DT1H\"))",
                 "time",
                 "timeSubtractDuration(time(\"12:00:00Z\"), duration(\"P1DT1H\"))",
@@ -1697,7 +1697,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.time("11:00:00Z"));
 
         // days and time duration, time
-        doExpressionTest(entries, "", String.format("%s %s %s", daysAndTimeDuration, "+", time),
+        doExpressionTest(entries, "", "%s %s %s".formatted(daysAndTimeDuration, "+", time),
                 "Addition(+,DateTimeLiteral(duration, \"P1DT1H\"),DateTimeLiteral(time, \"12:00:00Z\"))",
                 "time",
                 "timeAddDuration(time(\"12:00:00Z\"), duration(\"P1DT1H\"))",
@@ -1705,7 +1705,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.time("13:00:00Z"));
 
         // string, string
-        doExpressionTest(entries, "", String.format("%s %s %s", string, "+", string),
+        doExpressionTest(entries, "", "%s %s %s".formatted(string, "+", string),
                 "Addition(+,StringLiteral(\"abc\"),StringLiteral(\"abc\"))",
                 "string",
                 "stringAdd(\"abc\", \"abc\")",
@@ -1730,13 +1730,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         // number, number
-        doExpressionTest(entries, "", String.format("%s %s %s", number, "*", number),
+        doExpressionTest(entries, "", "%s %s %s".formatted(number, "*", number),
                 "Multiplication(*,NumericLiteral(1),NumericLiteral(1))",
                 "number",
                 "numericMultiply(number(\"1\"), number(\"1\"))",
                 this.lib.numericMultiply(this.lib.number("1"), this.lib.number("1")),
                 this.lib.number("1"));
-        doExpressionTest(entries, "", String.format("%s %s %s", number, "/", number),
+        doExpressionTest(entries, "", "%s %s %s".formatted(number, "/", number),
                 "Multiplication(/,NumericLiteral(1),NumericLiteral(1))",
                 "number",
                 "numericDivide(number(\"1\"), number(\"1\"))",
@@ -1744,20 +1744,20 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.number("1"));
 
         // years and months duration, number
-        doExpressionTest(entries, "", String.format("%s %s %s", yearsAndMonthsDuration, "*", number),
+        doExpressionTest(entries, "", "%s %s %s".formatted(yearsAndMonthsDuration, "*", number),
                 "Multiplication(*,DateTimeLiteral(duration, \"P1Y1M\"),NumericLiteral(1))",
                 "years and months duration",
                 "durationMultiplyNumber(duration(\"P1Y1M\"), number(\"1\"))",
                 this.lib.durationMultiplyNumber(this.lib.duration("P1Y1M"), this.lib.number("1")),
                 this.lib.duration("P1Y1M"));
-        doExpressionTest(entries, "", String.format("%s %s %s", yearsAndMonthsDuration, "/", number),
+        doExpressionTest(entries, "", "%s %s %s".formatted(yearsAndMonthsDuration, "/", number),
                 "Multiplication(/,DateTimeLiteral(duration, \"P1Y1M\"),NumericLiteral(1))",
                 "years and months duration",
                 "durationDivideNumber(duration(\"P1Y1M\"), number(\"1\"))",
                 this.lib.durationDivideNumber(this.lib.duration("P1Y1M"), this.lib.number("1")),
                 this.lib.duration("P1Y1M"));
         // number, years and months duration
-        doExpressionTest(entries, "", String.format("%s %s %s", number, "*", yearsAndMonthsDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(number, "*", yearsAndMonthsDuration),
                 "Multiplication(*,NumericLiteral(1),DateTimeLiteral(duration, \"P1Y1M\"))",
                 "years and months duration",
                 "durationMultiplyNumber(duration(\"P1Y1M\"), number(\"1\"))",
@@ -1765,7 +1765,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("P1Y1M"));
 
         // years and months duration, years and months duration
-        doExpressionTest(entries, "", String.format("%s %s %s", yearsAndMonthsDuration, "/", yearsAndMonthsDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(yearsAndMonthsDuration, "/", yearsAndMonthsDuration),
                 "Multiplication(/,DateTimeLiteral(duration, \"P1Y1M\"),DateTimeLiteral(duration, \"P1Y1M\"))",
                 "number",
                 "durationDivide(duration(\"P1Y1M\"), duration(\"P1Y1M\"))",
@@ -1773,13 +1773,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.number("1"));
 
         // days and time duration, number
-        doExpressionTest(entries, "", String.format("%s %s %s", daysAndTimeDuration, "*", number),
+        doExpressionTest(entries, "", "%s %s %s".formatted(daysAndTimeDuration, "*", number),
                 "Multiplication(*,DateTimeLiteral(duration, \"P1DT1H\"),NumericLiteral(1))",
                 "days and time duration",
                 "durationMultiplyNumber(duration(\"P1DT1H\"), number(\"1\"))",
                 this.lib.durationMultiplyNumber(this.lib.duration("P1DT1H"), this.lib.number("1")),
                 this.lib.duration("P1DT1H"));
-        doExpressionTest(entries, "", String.format("%s %s %s", daysAndTimeDuration, "/", number),
+        doExpressionTest(entries, "", "%s %s %s".formatted(daysAndTimeDuration, "/", number),
                 "Multiplication(/,DateTimeLiteral(duration, \"P1DT1H\"),NumericLiteral(1))",
                 "days and time duration",
                 "durationDivideNumber(duration(\"P1DT1H\"), number(\"1\"))",
@@ -1787,7 +1787,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("P1DT1H"));
 
         // number, days and time duration
-        doExpressionTest(entries, "", String.format("%s %s %s", number, "*", daysAndTimeDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(number, "*", daysAndTimeDuration),
                 "Multiplication(*,NumericLiteral(1),DateTimeLiteral(duration, \"P1DT1H\"))",
                 "days and time duration",
                 "durationMultiplyNumber(duration(\"P1DT1H\"), number(\"1\"))",
@@ -1795,7 +1795,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.duration("P1DT1H"));
 
         // days and time duration, days and time duration
-        doExpressionTest(entries, "", String.format("%s %s %s", daysAndTimeDuration, "/", daysAndTimeDuration),
+        doExpressionTest(entries, "", "%s %s %s".formatted(daysAndTimeDuration, "/", daysAndTimeDuration),
                 "Multiplication(/,DateTimeLiteral(duration, \"P1DT1H\"),DateTimeLiteral(duration, \"P1DT1H\"))",
                 "number",
                 "durationDivide(duration(\"P1DT1H\"), duration(\"P1DT1H\"))",
@@ -1866,21 +1866,21 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        doExpressionTest(entries, "", String.format("- %s", number),
+        doExpressionTest(entries, "", "- %s".formatted(number),
                 "ArithmeticNegation(NumericLiteral(1))",
                 "number",
                 "numericUnaryMinus(number(\"1\"))",
                 this.lib.numericUnaryMinus(this.lib.number("1")),
                 this.lib.number("-1"));
 
-        doExpressionTest(entries, "", String.format("-- %s", number),
+        doExpressionTest(entries, "", "-- %s".formatted(number),
                 "NumericLiteral(1)",
                 "number",
                 "number(\"1\")",
                 this.lib.number("1"),
                 this.lib.number("1"));
 
-        doExpressionTest(entries, "", String.format("--- %s", number),
+        doExpressionTest(entries, "", "--- %s".formatted(number),
                 "ArithmeticNegation(NumericLiteral(1))",
                 "number",
                 "numericUnaryMinus(number(\"1\"))",
@@ -1896,13 +1896,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
             List<EnvironmentEntry> entries = Arrays.asList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
-            doExpressionTest(entries, "", String.format("- %s", yearsAndMonthsDuration),
+            doExpressionTest(entries, "", "- %s".formatted(yearsAndMonthsDuration),
                     "ArithmeticNegation(DateTimeLiteral(duration, \"P1Y1M\"))",
                     "years and months duration",
                     "numericUnaryMinus(duration(\"P1Y1M\"))",
                     null,
                     null);
-            doExpressionTest(entries, "", String.format("- %s", daysAndTimeDuration),
+            doExpressionTest(entries, "", "- %s".formatted(daysAndTimeDuration),
                     "ArithmeticNegation(DateTimeLiteral(duration, \"P1DT1H\"))",
                     "days and time duration",
                     "numericUnaryMinus(duration(\"P1DT1H\"))",
@@ -2244,23 +2244,29 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 null,
                 null);
 
-        doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) external { " +
-                        "java: {class : \"name\", methodSignature: \"signature\" } }",
+        doExpressionTest(entries, "", """
+                        function (x : feel.string, y : feel.string) external { \
+                        java: {class : "name", methodSignature: "signature" } }\
+                        """,
                 "FunctionDefinition(FormalParameter(x, string, false, false),FormalParameter(y, string, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
                 "FEELFunctionType(FormalParameter(x, string, false, false), FormalParameter(y, string, false, false), Any, true)",
                 null,
                 null,
                 null);
-        doExpressionTest(entries, "", "function (x , y) external { " +
-                        "java: {class : \"name\", methodSignature: \"signature\" } }",
+        doExpressionTest(entries, "", """
+                        function (x , y) external { \
+                        java: {class : "name", methodSignature: "signature" } }\
+                        """,
                 "FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
                 "FEELFunctionType(FormalParameter(x, null, false, false), FormalParameter(y, null, false, false), Any, true)",
                 null,
                 null,
                 null);
-        doExpressionTest(entries, "", "function(a: feel.number, b: feel.number) external {" +
-                        "java: {class: \"com.gs.dmn.simple_decision_with_user_function.Sum\", methodSignature: \"add(a, b)\", returnType : \"number\"}" +
-                        "}",
+        doExpressionTest(entries, "", """
+                        function(a: feel.number, b: feel.number) external {\
+                        java: {class: "com.gs.dmn.simple_decision_with_user_function.Sum", methodSignature: "add(a, b)", returnType : "number"}\
+                        }\
+                        """,
                 "FunctionDefinition(FormalParameter(a, number, false, false),FormalParameter(b, number, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"com.gs.dmn.simple_decision_with_user_function.Sum\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"add(a, b)\")),ContextEntry(ContextEntryKey(returnType) = StringLiteral(\"number\"))))), true)",
                 "FEELFunctionType(FormalParameter(a, number, false, false), FormalParameter(b, number, false, false), Any, true)",
                 null,

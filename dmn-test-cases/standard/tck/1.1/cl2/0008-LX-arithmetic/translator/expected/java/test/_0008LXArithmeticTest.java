@@ -2,9 +2,9 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "0008-LX-arithmetic.dmn"})
+@jakarta.annotation.Generated(value = {"junit.ftl", "0008-LX-arithmetic.dmn"})
 public class _0008LXArithmeticTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -15,7 +15,7 @@ public class _0008LXArithmeticTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         checkValues(number("2778.69354943277"), new Payment().apply(loan, context_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase002() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -26,7 +26,7 @@ public class _0008LXArithmeticTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         checkValues(number("562.707359373292"), new Payment().apply(loan, context_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase003() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();

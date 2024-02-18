@@ -154,21 +154,21 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 if (operator == null) {
                     if (Type.equivalentTo(inputExpressionType, endpointType)) {
                         return evaluateOperatorRange(element, "=", self, endpoint, context);
-                    } else if (endpointType instanceof ListType && Type.equivalentTo(inputExpressionType, ((ListType) endpointType).getElementType())) {
+                    } else if (endpointType instanceof ListType type && Type.equivalentTo(inputExpressionType, type.getElementType())) {
                         List endpointValueList = (List)endpoint.accept(this, context);
                         List results = new ArrayList();
                         for(Object endpointValue: endpointValueList) {
-                            results.add(evaluateOperatorRange(element, "=", self, inputExpressionType, ((ListType) endpointType).getElementType(), endpointValue));
+                            results.add(evaluateOperatorRange(element, "=", self, inputExpressionType, type.getElementType(), endpointValue));
                         }
                         return this.lib.or(results);
                     }
-                    throw new DMNRuntimeException(String.format("Cannot evaluate test '%s'", element));
+                    throw new DMNRuntimeException("Cannot evaluate test '%s'".formatted(element));
                 } else {
                     return evaluateOperatorRange(element, operator, self, endpoint, context);
                 }
             }
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError("Cannot evaluate '%s'".formatted(element), e);
             return null;
         }
     }
@@ -187,7 +187,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             } else if (">=".equals(operator)) {
                 return new Range(true, endpointValue, false, null);
             } else {
-                throw new DMNRuntimeException(String.format("Unknown operator '%s'", operator));
+                throw new DMNRuntimeException("Unknown operator '%s'".formatted(operator));
             }
         } else {
             return evaluateOperatorRange(element, operator, self, context.getInputExpressionType(), endpointExpression.getType(), endpointValue);
@@ -197,7 +197,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     private Object evaluateOperatorRange(Expression<Type> element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue) throws IllegalAccessException, InvocationTargetException {
         NativeOperator javaOperator = javaOperator(operator, inputExpressionType, endpointType);
         if (javaOperator == null) {
-            this.errorHandler.reportError(String.format("Cannot find method for '%s' '%s'", operator, element));
+            this.errorHandler.reportError("Cannot find method for '%s' '%s'".formatted(operator, element));
             return null;
         } else {
             String methodName = javaOperator.getName();
@@ -205,14 +205,14 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 Class[] argumentTypes = {getClass(self), getClass(endpointValue)};
                 Method method = MethodUtils.resolveMethod(methodName, this.lib.getClass(), argumentTypes);
                 if (method == null) {
-                    throw new DMNRuntimeException(String.format("Cannot find method '%s' for arguments '%s' and '%s'", methodName, self, endpointValue));
+                    throw new DMNRuntimeException("Cannot find method '%s' for arguments '%s' and '%s'".formatted(methodName, self, endpointValue));
                 }
                 return method.invoke(this.lib, self, endpointValue);
             } else {
                 Class[] argumentTypes = {getClass(endpointValue), getClass(null)};
                 Method method = MethodUtils.resolveMethod(methodName, this.lib.getClass(), argumentTypes);
                 if (method == null) {
-                    throw new DMNRuntimeException(String.format("Cannot find method '%s' for arguments '%s' and '%s'", methodName, self, endpointValue));
+                    throw new DMNRuntimeException("Cannot find method '%s' for arguments '%s' and '%s'".formatted(methodName, self, endpointValue));
                 }
                 return method.invoke(this.lib, endpointValue, self);
             }
@@ -222,7 +222,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     private Object evaluateBinaryOperator(Expression<Type> element, String operator, Expression<Type> leftOperand, Expression<Type> rightOperand, DMNContext context) throws Exception {
         NativeOperator javaOperator = javaOperator(operator, leftOperand, rightOperand);
         if (javaOperator == null) {
-            this.errorHandler.reportError(String.format("Cannot find method for '%s' '%s'", operator, element));
+            this.errorHandler.reportError("Cannot find method for '%s' '%s'".formatted(operator, element));
             return null;
         } else {
             if (javaOperator.getCardinality() == 2) {
@@ -243,12 +243,12 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                     } else if (javaOperator.getName().equals("!=")) {
                         return leftValue != rightValue;
                     } else {
-                        this.errorHandler.reportError(String.format("Cannot evaluate '%s' '%s'", operator, element));
+                        this.errorHandler.reportError("Cannot evaluate '%s' '%s'".formatted(operator, element));
                         return null;
                     }
                 }
             } else {
-                this.errorHandler.reportError(String.format("Cannot evaluate '%s' '%s'", operator, element));
+                this.errorHandler.reportError("Cannot evaluate '%s' '%s'".formatted(operator, element));
                 return null;
             }
         }
@@ -293,7 +293,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 return this.lib.booleanAnd(leftCondition, rightCondition);
             }
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError("Cannot evaluate '%s'".formatted(element), e);
             return null;
         }
     }
@@ -321,7 +321,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                     List list = (List) optimizedListLiteral.accept(this, context);
                     result = this.lib.listContains(list, self);
                 } else {
-                    throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                    throw new SemanticError(element, "Cannot compare '%s', '%s'".formatted(inputExpressionType, optimizedListType));
                 }
             } else {
                 // test is list of ranges compatible with input
@@ -332,7 +332,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
 
             return result;
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError("Cannot evaluate '%s'".formatted(element), e);
             return null;
         }
     }
@@ -426,7 +426,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         if (number instanceof Number) {
             return (NUMBER) number;
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to number", number));
+        throw new DMNRuntimeException("Cannot convert '%s' to number".formatted(number));
     }
 
     @Override
@@ -462,8 +462,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         } else if (expressionDomain instanceof FunctionInvocation) {
             domain = (List) expressionDomain.accept(this, context);
         } else {
-            throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
-                    element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("FEEL '%s' is not supported yet with domain '%s'".formatted(
+                element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
         }
         return domain;
     }
@@ -572,7 +572,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             Object rightOperand = element.getRightOperand().accept(this, context);
             return this.lib.booleanOr(leftOperand, rightOperand);
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError("Cannot evaluate '%s'".formatted(element), e);
             return null;
         }
     }
@@ -586,7 +586,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             Object rightOperand = element.getRightOperand().accept(this, context);
             return this.lib.booleanAnd(Arrays.asList(leftOperand, rightOperand));
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError("Cannot evaluate '%s'".formatted(element), e);
             return null;
         }
     }
@@ -606,7 +606,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         try {
             return evaluateBinaryOperator(element, element.getOperator(), element.getLeftOperand(), element.getRightOperand(), context);
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError("Cannot evaluate '%s'".formatted(element), e);
             return null;
         }
     }
@@ -636,10 +636,10 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             } else if (leftEndpoint.getType() == DurationType.DAYS_AND_TIME_DURATION) {
                 return this.lib.booleanAnd(this.lib.durationLessEqualThan((DURATION) leftOpd, (DURATION) value), this.lib.durationLessEqualThan((DURATION) value, (DURATION) rightOpd));
             } else{
-                throw new DMNRuntimeException(String.format("Type '%s' is not supported yet", leftEndpoint.getType()));
+                throw new DMNRuntimeException("Type '%s' is not supported yet".formatted(leftEndpoint.getType()));
             }
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError("Cannot evaluate '%s'".formatted(element), e);
             return null;
         }
     }
@@ -674,7 +674,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         try {
             return evaluateBinaryOperator(element, element.getOperator(), element.getLeftOperand(), element.getRightOperand(), context);
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError("Cannot evaluate '%s'".formatted(element), e);
             return null;
         }
     }
@@ -686,7 +686,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         try {
             return evaluateBinaryOperator(element, element.getOperator(), element.getLeftOperand(), element.getRightOperand(), context);
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError("Cannot evaluate '%s'".formatted(element), e);
             return null;
         }
     }
@@ -698,7 +698,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         try {
             return evaluateBinaryOperator(element, element.getOperator(), element.getLeftOperand(), element.getRightOperand(), context);
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            this.errorHandler.reportError("Cannot evaluate '%s'".formatted(element), e);
             return null;
         }
     }
@@ -742,35 +742,34 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     Object evaluateFunctionInvocation(Object functionDefinition, FunctionType functionType, List<Object> argList) {
         if (functionType instanceof DMNFunctionType || functionType instanceof FEELFunctionType) {
             if (functionDefinition == null) {
-                throw new DMNRuntimeException(String.format("Missing function definition, expecting value of type for '%s'", functionType));
-            } if (functionDefinition instanceof DMNInvocable) {
-                return evaluateInvocableDefinition((DMNInvocable) functionDefinition, argList);
-            } else if (functionDefinition instanceof DMNFunction) {
-                return evaluateFunctionDefinition((DMNFunction) functionDefinition, argList);
-            } else if (functionDefinition instanceof FEELFunction) {
-                return evaluateFunctionDefinition((FEELFunction) functionDefinition, argList);
-            } else if (functionDefinition instanceof BuiltinFunction) {
-                return evaluateBuiltInFunction((BuiltinFunction) functionDefinition, argList);
+                throw new DMNRuntimeException("Missing function definition, expecting value of type for '%s'".formatted(functionType));
+            } if (functionDefinition instanceof DMNInvocable invocable) {
+                return evaluateInvocableDefinition(invocable, argList);
+            } else if (functionDefinition instanceof DMNFunction function) {
+                return evaluateFunctionDefinition(function, argList);
+            } else if (functionDefinition instanceof FEELFunction function) {
+                return evaluateFunctionDefinition(function, argList);
+            } else if (functionDefinition instanceof BuiltinFunction function) {
+                return evaluateBuiltInFunction(function, argList);
             } else {
-                throw new DMNRuntimeException(String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName()));
+                throw new DMNRuntimeException("Not supported yet %s".formatted(functionDefinition.getClass().getSimpleName()));
             }
         } else if (functionType instanceof BuiltinFunctionType) {
             String functionName = functionName(functionDefinition);
             String javaFunctionName = javaFunctionName(functionName);
             if ("sort".equals(javaFunctionName)) {
                 Object secondArg = argList.get(1);
-                if (secondArg instanceof Function) {
-                    Function sortFunction = (Function) secondArg;
+                if (secondArg instanceof Function sortFunction) {
                     List result = ((StandardFEELLib) lib).sort((List) argList.get(0), makeComparator(sortFunction));
                     return result;
                 } else {
-                    throw new DMNRuntimeException(String.format("'%s' is not supported yet", secondArg.getClass()));
+                    throw new DMNRuntimeException("'%s' is not supported yet".formatted(secondArg.getClass()));
                 }
             } else {
                 return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
             }
         } else {
-            throw new DMNRuntimeException(String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName()));
+            throw new DMNRuntimeException("Not supported yet %s".formatted(functionDefinition.getClass().getSimpleName()));
         }
     }
 
@@ -781,14 +780,14 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 List<Object> argList = new ArrayList<>();
                 argList.add(args[0]);
                 argList.add(args[1]);
-                if (sortFunction instanceof FEELFunction) {
-                    return (Boolean) evaluateFunctionDefinition((FEELFunction) sortFunction, argList);
-                } else if (sortFunction instanceof DMNFunction) {
-                    return (Boolean) evaluateFunctionDefinition((DMNFunction) sortFunction, argList);
-                } else if (sortFunction instanceof DMNInvocable) {
-                    return (Boolean) evaluateInvocableDefinition((DMNInvocable) sortFunction, argList);
+                if (sortFunction instanceof FEELFunction function) {
+                    return (Boolean) evaluateFunctionDefinition(function, argList);
+                } else if (sortFunction instanceof DMNFunction function) {
+                    return (Boolean) evaluateFunctionDefinition(function, argList);
+                } else if (sortFunction instanceof DMNInvocable invocable) {
+                    return (Boolean) evaluateInvocableDefinition(invocable, argList);
                 } else {
-                    throw new DMNRuntimeException(String.format("Not supported yet '%s'", sortFunction.getClass()));
+                    throw new DMNRuntimeException("Not supported yet '%s'".formatted(sortFunction.getClass()));
                 }
             }
         };
@@ -860,7 +859,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             if (isJavaFunction(functionDefinition.getBody())) {
                 return evaluateExternalJavaFunction(functionDefinition, argList, functionContext);
             } else {
-                throw new DMNRuntimeException(String.format("Not supported external function '%s'", functionDefinition));
+                throw new DMNRuntimeException("Not supported external function '%s'".formatted(functionDefinition));
             }
         } else {
             return evaluateFunctionDefinition(functionDefinition, functionContext);
@@ -879,7 +878,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         } else if (this.dmnTransformer.isJavaFunction(kind)) {
             return evaluateExternalJavaFunction(functionDefinition, argList, functionContext);
         } else {
-            throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet", kind.value()));
+            throw new DMNRuntimeException("Kind '%s' is not supported yet".formatted(kind.value()));
         }
     }
 
@@ -930,12 +929,12 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             }
             Method declaredMethod = MethodUtils.resolveMethod(functionName, cls, argTypes);
             if (declaredMethod == null) {
-                throw new DMNRuntimeException(String.format("Cannot resolve '%s.%s(%s)", cls.getName(), functionName, argList));
+                throw new DMNRuntimeException("Cannot resolve '%s.%s(%s)".formatted(cls.getName(), functionName, argList));
             }
             Object[] args = JavaFunctionInfo.makeArgs(declaredMethod, argList);
             return declaredMethod.invoke(object, args);
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot invoke function '%s.%s(%s)'", cls.getName(), functionName, argList), e);
+            this.errorHandler.reportError("Cannot invoke function '%s.%s(%s)'".formatted(cls.getName(), functionName, argList), e);
             return null;
         }
     }
@@ -992,13 +991,13 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         Object sourceValue = source.accept(this, context);
         String member = element.getMember();
 
-        if (sourceType instanceof ListType) {
+        if (sourceType instanceof ListType type) {
             List result = new ArrayList();
             if (sourceValue == null) {
                 return null;
             }
             for (Object obj : (List) sourceValue) {
-                result.add(navigate(element, ((ListType) sourceType).getElementType(), obj, member));
+                result.add(navigate(element, type.getElementType(), obj, member));
             }
             return result;
         } else {
@@ -1008,20 +1007,20 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     private Object navigate(PathExpression<Type> element, Type sourceType, Object source, String member) {
         try {
-            if (sourceType instanceof ImportContextType) {
-                List<String> aliases = ((ImportContextType) sourceType).getAliases(member);
+            if (sourceType instanceof ImportContextType type) {
+                List<String> aliases = type.getAliases(member);
                 return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
-            } else if (sourceType instanceof ItemDefinitionType) {
-                List<String> aliases = ((ItemDefinitionType) sourceType).getAliases(member);
-                if (source instanceof com.gs.dmn.runtime.Context) {
-                    return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
+            } else if (sourceType instanceof ItemDefinitionType type) {
+                List<String> aliases = type.getAliases(member);
+                if (source instanceof com.gs.dmn.runtime.Context context) {
+                    return context.get(member, aliases.toArray());
                 } else {
                     String getterName = this.dmnTransformer.getterName(member);
                     Method method = MethodUtils.resolveMethod(getterName, source.getClass(), new Class[]{});
                     return method.invoke(source);
                 }
-            } else if (sourceType instanceof ContextType) {
-                List<String> aliases = ((ContextType) sourceType).getAliases(member);
+            } else if (sourceType instanceof ContextType type) {
+                List<String> aliases = type.getAliases(member);
                 return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
             } else if (sourceType instanceof DateType) {
                 return evaluateDateTimeMember(source, member);
@@ -1038,11 +1037,11 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 List<String> aliases = Arrays.asList();
                 return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
             } else {
-                this.errorHandler.reportError(String.format("Cannot evaluate '%s'.", element));
+                this.errorHandler.reportError("Cannot evaluate '%s'.".formatted(element));
                 return null;
             }
         } catch (Exception e) {
-            this.errorHandler.reportError(String.format("Cannot evaluate '%s'.", element), e);
+            this.errorHandler.reportError("Cannot evaluate '%s'.".formatted(element), e);
             return null;
         }
     }
@@ -1059,7 +1058,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         } else if ("end included".equals(member)) {
             return ((Range) source).isEndIncluded();
         } else {
-            throw new DMNRuntimeException(String.format("Cannot resolve method '%s' for date time", member));
+            throw new DMNRuntimeException("Cannot resolve method '%s' for date time".formatted(member));
         }
     }
 
@@ -1085,7 +1084,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         } else if (type == DurationType.DAYS_AND_TIME_DURATION || type == DurationType.YEARS_AND_MONTHS_DURATION) {
             return this.lib.duration(literal);
         } else {
-            this.errorHandler.reportError(String.format("Illegal date time literal '%s'", element));
+            this.errorHandler.reportError("Illegal date time literal '%s'".formatted(element));
             return null;
         }
     }

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "comparator"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "comparator"})
 public class ComparatorRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String comparator;
 

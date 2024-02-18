@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
-                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="example-pu-test" transaction-type="RESOURCE_LOCAL">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <!-- add classes -->
-        <class>com.gs.jpa.example_credit_decision.ApplicantJPA</class>
-        <class>com.gs.jpa.example_credit_decision.CreditIssueTypeJPA</class>
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+ <persistence-unit name="mnf-pu-test" transaction-type="RESOURCE_LOCAL"/>
+ <persistence-unit name="example-pu-test" transaction-type="RESOURCE_LOCAL">
+  <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+  <!-- add classes -->
+  <class>com.gs.jpa.example_credit_decision.ApplicantJPA</class>
+  <class>com.gs.jpa.example_credit_decision.CreditIssueTypeJPA</class>
 
-        <properties>
-            <!-- Configuring JDBC properties -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:example_create.sql'\;RUNSCRIPT FROM 'classpath:example_data.sql'"/>
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+  <properties>
+   <!-- Configuring JDBC properties -->
+   <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:example_create.sql'\;RUNSCRIPT FROM 'classpath:example_data.sql'"/>
+   <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
 
-            <!-- Hibernate properties -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+   <!-- Hibernate properties -->
+   <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+   <property name="hibernate.hbm2ddl.auto" value="validate"/>
 
-            <property name="hibernate.format_sql" value="false"/>
-            <property name="hibernate.show_sql" value="false"/>
-        </properties>
-    </persistence-unit>
+   <property name="hibernate.format_sql" value="false"/>
+   <property name="hibernate.show_sql" value="false"/>
+  </properties>
+ </persistence-unit>
 
-    <persistence-unit name="lazy-pu-test" transaction-type="RESOURCE_LOCAL">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <!-- add classes -->
-        <class>com.gs.jpa.lazy_input_model.PersonJPA</class>
+ <persistence-unit name="lazy-pu-test" transaction-type="RESOURCE_LOCAL">
+  <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+  <!-- add classes -->
+  <class>com.gs.jpa.lazy_input_model.PersonJPA</class>
 
-        <properties>
-            <!-- Configuring JDBC properties -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:lazy_create.sql'\;RUNSCRIPT FROM 'classpath:lazy_data.sql'"/>
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+  <properties>
+   <!-- Configuring JDBC properties -->
+   <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:lazy_create.sql'\;RUNSCRIPT FROM 'classpath:lazy_data.sql'"/>
+   <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
 
-            <!-- Hibernate properties -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+   <!-- Hibernate properties -->
+   <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+   <property name="hibernate.hbm2ddl.auto" value="validate"/>
 
-            <property name="hibernate.format_sql" value="false"/>
-            <property name="hibernate.show_sql" value="false"/>
-        </properties>
-    </persistence-unit>
+   <property name="hibernate.format_sql" value="false"/>
+   <property name="hibernate.show_sql" value="false"/>
+  </properties>
+ </persistence-unit>
 </persistence>
+

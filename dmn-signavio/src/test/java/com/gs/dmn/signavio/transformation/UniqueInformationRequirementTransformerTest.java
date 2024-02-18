@@ -44,9 +44,9 @@ public class UniqueInformationRequirementTransformerTest extends AbstractSignavi
 
     private void checkDefinitions(TDefinitions actualDefinitions, String fileName) {
         for (TDRGElement drgElement: actualDefinitions.getDrgElement()) {
-            if (drgElement instanceof TDecision) {
+            if (drgElement instanceof TDecision decision) {
                 List<String> hrefSet = new ArrayList<>();
-                for (TInformationRequirement ir: ((TDecision) drgElement).getInformationRequirement()) {
+                for (TInformationRequirement ir: decision.getInformationRequirement()) {
                     TDMNElementReference requiredInput = ir.getRequiredInput();
                     TDMNElementReference requiredDecision = ir.getRequiredDecision();
                     if (requiredInput != null) {
@@ -62,7 +62,7 @@ public class UniqueInformationRequirementTransformerTest extends AbstractSignavi
 
     private void checkIR(TDRGElement drgElement, List<String> hrefSet, String href) {
         if (hrefSet.contains(href)) {
-            fail(String.format("Duplicated informationRequirement '%s' in '%s'", href, drgElement.getName()));
+            fail("Duplicated informationRequirement '%s' in '%s'".formatted(href, drgElement.getName()));
         } else {
             hrefSet.add(href);
         }

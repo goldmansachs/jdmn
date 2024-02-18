@@ -47,8 +47,8 @@ public class ValueTypeConverter extends DMNBaseElementConverter {
             element.setValue((AnySimpleType) child);
         } else if (LIST.equals(nodeName)) {
             element.setList((List) child);
-        } else if (child instanceof Component) {
-            element.getComponent().add((Component) child);
+        } else if (child instanceof Component component) {
+            element.getComponent().add(component);
         }
     }
 

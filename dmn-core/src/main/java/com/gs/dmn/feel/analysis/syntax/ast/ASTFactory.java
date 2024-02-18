@@ -113,7 +113,7 @@ public class ASTFactory<T, C> {
         } else if ("not".equals(kind)) {
             return new LogicNegation<>(operand);
         } else {
-            throw new SemanticError(String.format("Unknown unary operator '%s'", kind));
+            throw new SemanticError("Unknown unary operator '%s'".formatted(kind));
         }
     }
 
@@ -179,7 +179,7 @@ public class ASTFactory<T, C> {
         if (names.size() > 0) {
             return toPathExpression(names);
         } else {
-            throw new SemanticError(String.format("Illegal qualified name '%s'", names));
+            throw new SemanticError("Illegal qualified name '%s'".formatted(names));
         }
     }
 
@@ -448,7 +448,7 @@ public class ASTFactory<T, C> {
         } else if ("list".equals(typeName)) {
             return new ListTypeExpression<>(elementType);
         } else {
-            throw new SemanticError(String.format("Not supported type '%s'", typeName));
+            throw new SemanticError("Not supported type '%s'".formatted(typeName));
         }
     }
 

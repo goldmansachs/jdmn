@@ -31,6 +31,6 @@ public class TemporalDurationDefaultRangeLibTest extends AbstractDefaultRangeLib
         if (number < 0 || number > 999) {
             throw new IllegalArgumentException("Illegal duration");
         }
-        return this.getLib().duration(String.format("P%03dY", number));
+        return this.getLib().duration("P%03dY".formatted(number));
     }
 }

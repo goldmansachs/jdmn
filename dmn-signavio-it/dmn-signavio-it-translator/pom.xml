@@ -12,7 +12,8 @@
     specific language governing permissions and limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -22,15 +23,36 @@
     </parent>
 
     <artifactId>jdmn-signavio-integration-tests-translator</artifactId>
-	<name>jDMN: Signavio Integration Tests Translator</name>
+    <name>jDMN: Signavio Integration Tests Translator</name>
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
-        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
+        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+        <!-- not deploying this module to Maven central -->
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>${jakarta.activation-api}</version>
+        </dependency>
+        <!--        yet to be released in grpc v1.61.1-->
+        <!--        https://github.com/grpc/grpc-java/pull/10927-->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <extensions>
@@ -50,7 +72,8 @@
                     <dmnTransformers>
                         <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
                     </dmnTransformers>
-                    <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
+                    <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider
+                    </templateProvider>
                     <inputParameters>
                         <dmnVersion>${dmn.version}</dmnVersion>
                         <modelVersion>${model.version}</modelVersion>
@@ -80,31 +103,45 @@
                         Decision table
                     -->
                     <execution>
-                        <id>rdf-compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy</id>
+                        <id>
+                            rdf-compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy
+                        </id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>rdf-test-compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy</id>
+                        <id>
+                            rdf-test-compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy
+                        </id>
                         <phase>generate-test-sources</phase>
                         <goals>
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${xml.folder}/decision-table/compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${generated.dmn.diagram.folder}/decision-table/compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>
+                                ${xml.folder}/decision-table/compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/compound-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.cd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -116,10 +153,14 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-compound-output-output-order-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-compound-output-output-order-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_compound_output_output_order_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_compound_output_output_order_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -131,85 +172,121 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-compound-output-priority-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-compound-output-priority-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_compound_output_priority_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_compound_output_priority_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
 
                     <execution>
-                        <id>rdf-simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy</id>
+                        <id>
+                            rdf-simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy
+                        </id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>rdf-test-simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy</id>
+                        <id>
+                            rdf-test-simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy
+                        </id>
                         <phase>generate-test-sources</phase>
                         <goals>
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${xml.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>
+                                ${xml.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_feel_input_entries_single_output_first_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
 
                     <execution>
-                        <id>rdf-simple-decision-primitive-type-inputs-feel-input-entries-single-output-unique-hit-policy</id>
+                        <id>
+                            rdf-simple-decision-primitive-type-inputs-feel-input-entries-single-output-unique-hit-policy
+                        </id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-unique-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-feel-input-entries-single-output-unique-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_feel_input_entries_single_output_unique_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_feel_input_entries_single_output_unique_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
 
                     <execution>
-                        <id>rdf-simple-decision-primitive-type-inputs-sfeel-input-entries-single-output-first-hit-policy</id>
+                        <id>
+                            rdf-simple-decision-primitive-type-inputs-sfeel-input-entries-single-output-first-hit-policy
+                        </id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-sfeel-input-entries-single-output-first-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-sfeel-input-entries-single-output-first-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_sfeel_input_entries_single_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_sfeel_input_entries_single_output_first_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
 
                     <execution>
-                        <id>rdf-simple-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy</id>
+                        <id>
+                            rdf-simple-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy
+                        </id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -221,10 +298,14 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-count-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-count-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_single_output_collect_count_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_single_output_collect_count_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -236,10 +317,14 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_single_output_collect_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_single_output_collect_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -251,10 +336,14 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-min-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-min-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_single_output_collect_min_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_single_output_collect_min_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -266,10 +355,14 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-sum-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-collect-sum-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_single_output_collect_sum_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_single_output_collect_sum_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -281,25 +374,35 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-priority-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-inputs-single-output-priority-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_single_output_priority_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_single_output_priority_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
 
                     <execution>
-                        <id>rdf-simple-decision-primitive-type-list-inputs-feel-input-entries-single-output-unique-hit-policy</id>
+                        <id>
+                            rdf-simple-decision-primitive-type-list-inputs-feel-input-entries-single-output-unique-hit-policy
+                        </id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-list-inputs-feel-input-entries-single-output-unique-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/decision-table/simple-decision-primitive-type-list-inputs-feel-input-entries-single-output-unique-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_primitive_type_inputs_sfeel_input_entries_compound_output_first_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -314,10 +417,13 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-boolean-literal-expression.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/literal/simple-decision-feel-boolean-literal-expression.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_feel_boolean_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_feel_boolean_literal_expression
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -329,10 +435,13 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-complex-literal-expression.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/literal/simple-decision-feel-complex-literal-expression.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_feel_complex_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_feel_complex_literal_expression
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -344,10 +453,13 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-date-literal-expression.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/literal/simple-decision-feel-date-literal-expression.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_feel_date_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_feel_date_literal_expression
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -359,10 +471,13 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${generated.dmn.diagram.folder}/literal/simple-decision-feel-string-literal-expression.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${generated.dmn.diagram.folder}/literal/simple-decision-feel-string-literal-expression.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_feel_string_literal_expression</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.sd_feel_string_literal_expression
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -391,8 +506,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/CompareLists.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/CompareLists.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/CompareLists.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/CompareLists.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.compare_lists</javaRootPackage>
@@ -422,8 +539,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/CompareLists.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/CompareLists.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/CompareLists.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/CompareLists.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.compare_lists_parallel</javaRootPackage>
@@ -453,8 +572,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/DotProduct.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/DotProduct.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/DotProduct.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/DotProduct.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.dot_product</javaRootPackage>
@@ -486,8 +607,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/DotProduct.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/DotProduct.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/DotProduct.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/DotProduct.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.dot_product_proto</javaRootPackage>
@@ -506,9 +629,11 @@
                         </goals>
                         <configuration>
                             <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector
+                                </lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.example_credit_decision</javaRootPackage>
@@ -523,10 +648,13 @@
                         </goals>
                         <configuration>
                             <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector
+                                </lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.example_credit_decision</javaRootPackage>
@@ -541,11 +669,14 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -556,12 +687,16 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -573,12 +708,16 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider
+                            </templateProvider>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_tree</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_tree
+                                </javaRootPackage>
                                 <caching>true</caching>
                             </inputParameters>
                         </configuration>
@@ -590,13 +729,18 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider
+                            </templateProvider>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_tree</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_tree
+                                </javaRootPackage>
                                 <caching>true</caching>
                             </inputParameters>
                         </configuration>
@@ -623,8 +767,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.npe_validation_2</javaRootPackage>
@@ -653,8 +799,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Null Safe Tests.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Null Safe Tests.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Null Safe Tests.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Null Safe Tests.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.null_safe_tests</javaRootPackage>
@@ -683,8 +831,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Simple Polynomial.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple Polynomial.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Simple Polynomial.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple Polynomial.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.simple_polynomial</javaRootPackage>
@@ -699,25 +849,37 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${dmn.diagram.folder}/complex/simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>test-simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy</id>
+                        <id>
+                            test-simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy
+                        </id>
                         <phase>generate-test-sources</phase>
                         <goals>
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>
+                                ${dmn.diagram.folder}/complex/simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>
+                                ${dmn.diagram.folder}/complex/simple-decision-complex-type-inputs-feel-input-entries-single-output-collect-hit-policy.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.sd_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy</javaRootPackage>
+                                <javaRootPackage>
+                                    ${generated.root.package}.sd_complex_type_inputs_feel_input_entries_single_output_collect_hit_policy
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -744,8 +906,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/ChildLinked.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/ChildLinked.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/ChildLinked.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/ChildLinked.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.child_linked</javaRootPackage>
@@ -774,8 +938,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/ParentLinked.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/ParentLinked.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/ParentLinked.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/ParentLinked.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.parent_linked</javaRootPackage>
@@ -805,7 +971,8 @@
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/Test ZIP.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Test ZIP.dmn</inputModelFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Test ZIP.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.test_zip</javaRootPackage>
@@ -834,8 +1001,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Simple model.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple model.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Simple model.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple model.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.simple_model</javaRootPackage>
@@ -864,8 +1033,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Simple MID.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple MID.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Simple MID.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple MID.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.simple_mid</javaRootPackage>
@@ -894,8 +1065,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Simple MID Legacy.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple MID Legacy.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Simple MID Legacy.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Simple MID Legacy.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.simplemid</javaRootPackage>
@@ -911,7 +1084,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2 Test12.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2 Test12.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.model</javaRootPackage>
@@ -925,8 +1099,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2 Test12.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2 Test12.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2 Test12.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/NPEValidation2 Test12.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.model</javaRootPackage>
@@ -941,7 +1117,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/linked MID via LitExp.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/linked MID via LitExp.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.model2</javaRootPackage>
@@ -955,8 +1132,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/linked MID via LitExp.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/linked MID via LitExp.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/linked MID via LitExp.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/linked MID via LitExp.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.model2</javaRootPackage>
@@ -1003,7 +1182,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/Multi-List Output top decision.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/Multi-List Output top decision.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.model3</javaRootPackage>
@@ -1017,8 +1197,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Multi-List Output top decision.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Multi-List Output top decision.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Multi-List Output top decision.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Multi-List Output top decision.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.model3</javaRootPackage>
@@ -1033,7 +1215,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/Nulls with zip function.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/Nulls with zip function.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.model4</javaRootPackage>
@@ -1047,8 +1230,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Nulls with zip function.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Nulls with zip function.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Nulls with zip function.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Nulls with zip function.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.model4</javaRootPackage>
@@ -1077,8 +1262,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Complex MID.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Complex MID.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Complex MID.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Complex MID.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.model8</javaRootPackage>
@@ -1093,7 +1280,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/ExecutionAnalysisTestModel.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/ExecutionAnalysisTestModel.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.execution_analysis_test</javaRootPackage>
@@ -1107,8 +1295,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/ExecutionAnalysisTestModel.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/ExecutionAnalysisTestModel.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/ExecutionAnalysisTestModel.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/ExecutionAnalysisTestModel.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.execution_analysis_test</javaRootPackage>
@@ -1124,7 +1314,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-bkm.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-bkm.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.sd_with_bkm</javaRootPackage>
@@ -1138,8 +1329,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-bkm.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-bkm.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-bkm.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-bkm.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.sd_with_bkm</javaRootPackage>
@@ -1168,8 +1361,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/BKMfromBKM.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/BKMfromBKM.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/BKMfromBKM.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/BKMfromBKM.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.bkm_from_bkm</javaRootPackage>
@@ -1184,7 +1379,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/BKMimportedfromMID.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/BKMimportedfromMID.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.bkm_imported_from_mid</javaRootPackage>
@@ -1198,8 +1394,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/BKMimportedfromMID.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/BKMimportedfromMID.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/BKMimportedfromMID.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/BKMimportedfromMID.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.bkm_imported_from_mid</javaRootPackage>
@@ -1214,7 +1412,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/BKMwithLiteralExpression.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/BKMwithLiteralExpression.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.bkm_with_literal_expression</javaRootPackage>
@@ -1228,8 +1427,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/BKMwithLiteralExpression.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/BKMwithLiteralExpression.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/BKMwithLiteralExpression.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/BKMwithLiteralExpression.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.bkm_with_literal_expression</javaRootPackage>
@@ -1258,8 +1459,10 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/SimpleBKMzip.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/SimpleBKMzip.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/SimpleBKMzip.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/SimpleBKMzip.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.simple_bkm_zip</javaRootPackage>
@@ -1275,7 +1478,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-user-function.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-user-function.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.sd_with_user_function</javaRootPackage>
@@ -1290,7 +1494,9 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/simple-decision-with-external-function.dmn</inputFileDirectory>
+                            <inputFileDirectory>
+                                ${dmn.diagram.folder}/complex/simple-decision-with-external-function.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.sd_with_external_function</javaRootPackage>
@@ -1320,7 +1526,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/TestDecision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1335,9 +1542,12 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/TestDecision.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/TestDecision.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/TestDecision.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/TestDecision.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.test_decision</javaRootPackage>
@@ -1352,7 +1562,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/dmn-link-issue-1.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1367,9 +1578,12 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/dmn-link-issue-1.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/dmn-link-issue-1.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/dmn-link-issue-1.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/dmn-link-issue-1.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.dmn_link_issue_1</javaRootPackage>
@@ -1384,8 +1598,10 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/NullComplexTypeAccess.dmn</inputFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/NullComplexTypeAccess.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.null_complex_type_access</javaRootPackage>
@@ -1399,9 +1615,12 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/NullComplexTypeAccess.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/NullComplexTypeAccess.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/NullComplexTypeAccess.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/NullComplexTypeAccess.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.null_complex_type_access</javaRootPackage>
@@ -1416,7 +1635,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/StringLength.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1431,9 +1651,12 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/StringLength.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/StringLength.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/StringLength.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/StringLength.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.string_length</javaRootPackage>
@@ -1448,7 +1671,8 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/large-test-set.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1463,9 +1687,12 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/large-test-set.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/large-test-set.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/large-test-set.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/large-test-set.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.large_test_set</javaRootPackage>
@@ -1480,15 +1707,19 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/IteratorExampleReturningMultiple.dmn</inputFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/IteratorExampleReturningMultiple.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.mid_with_complex_output</javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
-                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
-                                <dmnTransformer>com.gs.dmn.signavio.transformation.SimplifyTypesForMIDTransformer</dmnTransformer>
+                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer
+                                </dmnTransformer>
+                                <dmnTransformer>com.gs.dmn.signavio.transformation.SimplifyTypesForMIDTransformer
+                                </dmnTransformer>
                             </dmnTransformers>
                         </configuration>
                     </execution>
@@ -1499,16 +1730,23 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/IteratorExampleReturningMultiple.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/IteratorExampleReturningMultiple.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputTestFileDirectory>
+                                ${dmn.diagram.folder}/complex/IteratorExampleReturningMultiple.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>
+                                ${dmn.diagram.folder}/complex/IteratorExampleReturningMultiple.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.mid_with_complex_output</javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
-                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
-                                <dmnTransformer>com.gs.dmn.signavio.transformation.SimplifyTypesForMIDTransformer</dmnTransformer>
+                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer
+                                </dmnTransformer>
+                                <dmnTransformer>com.gs.dmn.signavio.transformation.SimplifyTypesForMIDTransformer
+                                </dmnTransformer>
                             </dmnTransformers>
                         </configuration>
                     </execution>
@@ -1520,11 +1758,14 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/TypeInterfaceDeserialization.dmn</inputFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/TypeInterfaceDeserialization.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.type_interface_deserialization</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.type_interface_deserialization
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1535,12 +1776,16 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/TypeInterfaceDeserialization.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/TypeInterfaceDeserialization.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/TypeInterfaceDeserialization.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/TypeInterfaceDeserialization.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.type_interface_deserialization</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.type_interface_deserialization
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1552,14 +1797,18 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/credit-decision-missing-definitions.dmn</inputFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/credit-decision-missing-definitions.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.missing_definition_transformation</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.missing_definition_transformation
+                                </javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
-                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
+                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer
+                                </dmnTransformer>
                                 <dmnTransformer>
                                     <name>com.gs.dmn.signavio.transformation.MergeInputDataTransformer</name>
                                     <configuration>
@@ -1567,7 +1816,8 @@
                                     </configuration>
                                 </dmnTransformer>
                                 <dmnTransformer>
-                                    <name>com.gs.dmn.signavio.transformation.GenerateMissingItemDefinitionsTransformer</name>
+                                    <name>com.gs.dmn.signavio.transformation.GenerateMissingItemDefinitionsTransformer
+                                    </name>
                                     <configuration>
                                         <!-- TypeRef allows both DMN 1.1 (':') and DMN 1.2 ('.') delimiter -->
                                         <definitions>
@@ -1597,15 +1847,22 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/credit-decision-missing-definitions.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/credit-decision-missing-definitions.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputTestFileDirectory>
+                                ${dmn.diagram.folder}/complex/credit-decision-missing-definitions.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>
+                                ${dmn.diagram.folder}/complex/credit-decision-missing-definitions.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.missing_definition_transformation</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.missing_definition_transformation
+                                </javaRootPackage>
                             </inputParameters>
                             <dmnTransformers>
-                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
+                                <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer
+                                </dmnTransformer>
                                 <dmnTransformer>
                                     <name>com.gs.dmn.signavio.transformation.MergeInputDataTransformer</name>
                                     <configuration>
@@ -1613,7 +1870,8 @@
                                     </configuration>
                                 </dmnTransformer>
                                 <dmnTransformer>
-                                    <name>com.gs.dmn.signavio.transformation.GenerateMissingItemDefinitionsTransformer</name>
+                                    <name>com.gs.dmn.signavio.transformation.GenerateMissingItemDefinitionsTransformer
+                                    </name>
                                     <configuration>
                                         <definitions>
                                             <definition>
@@ -1643,8 +1901,10 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/decision-with-annotations.dmn</inputFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/decision-with-annotations.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.decision_with_annotation</javaRootPackage>
@@ -1661,12 +1921,15 @@
                         </goals>
                         <configuration>
                             <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector
+                                </lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.composite_example_credit_decision</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.composite_example_credit_decision
+                                </javaRootPackage>
                                 <samePackage>false</samePackage>
                             </inputParameters>
                         </configuration>
@@ -1679,13 +1942,17 @@
                         </goals>
                         <configuration>
                             <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector
+                                </lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.composite_example_credit_decision</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.composite_example_credit_decision
+                                </javaRootPackage>
                                 <samePackage>false</samePackage>
                             </inputParameters>
                         </configuration>
@@ -1699,12 +1966,16 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider
+                            </templateProvider>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_proto</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_proto
+                                </javaRootPackage>
                                 <generateProtoMessages>true</generateProtoMessages>
                                 <generateProtoServices>true</generateProtoServices>
                                 <protoVersion>proto3</protoVersion>
@@ -1718,13 +1989,18 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider
+                            </templateProvider>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_proto</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_proto
+                                </javaRootPackage>
                                 <generateProtoMessages>true</generateProtoMessages>
                                 <generateProtoServices>true</generateProtoServices>
                                 <protoVersion>proto3</protoVersion>
@@ -1739,8 +2015,10 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider
+                            </templateProvider>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1759,10 +2037,14 @@
                             <goal>testlab-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition</dmnDialect>
-                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.json/</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.dmn</inputModelFileDirectory>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeSignavioDMNDialectDefinition
+                            </dmnDialect>
+                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider
+                            </templateProvider>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.json/
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.date_time_proto</javaRootPackage>
@@ -1783,13 +2065,16 @@
                         </goals>
                         <configuration>
                             <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector
+                                </lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
+                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <singletonDecision>true</singletonDecision>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_singleton</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_singleton
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1801,14 +2086,18 @@
                         </goals>
                         <configuration>
                             <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector
+                                </lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json
+                            </inputTestFileDirectory>
+                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn
+                            </inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <singletonDecision>true</singletonDecision>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_singleton</javaRootPackage>
+                                <javaRootPackage>${generated.root.package}.example_credit_decision_singleton
+                                </javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>
@@ -1820,9 +2109,12 @@
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <version>0.6.1</version>
                 <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:${google.protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+                    <protocArtifact>
+                        com.google.protobuf:protoc:${google.protobuf.version}:exe:${os.detected.classifier}
+                    </protocArtifact>
                     <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${io.grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${io.grpc.version}:exe:${os.detected.classifier}
+                    </pluginArtifact>
                     <protoSourceRoot>${generated.source.code.folder}/com/gs/dmn/generated/</protoSourceRoot>
                 </configuration>
                 <executions>
@@ -1923,7 +2215,7 @@
                 <executions>
                     <execution>
                         <id>default-jar</id>
-                        <phase />
+                        <phase/>
                     </execution>
                 </executions>
             </plugin>

@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"signavio-decision.ftl", "stringHandlingComparator"})
+@jakarta.annotation.Generated(value = {"signavio-decision.ftl", "stringHandlingComparator"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "stringHandlingComparator",

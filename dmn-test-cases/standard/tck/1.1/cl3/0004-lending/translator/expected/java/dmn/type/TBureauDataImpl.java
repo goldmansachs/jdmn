@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "tBureauData"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "tBureauData"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TBureauDataImpl implements TBureauData {
         private java.math.BigDecimal creditScore;

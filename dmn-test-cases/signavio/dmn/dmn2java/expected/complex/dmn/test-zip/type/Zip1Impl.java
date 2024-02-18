@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "zip1"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "zip1"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class Zip1Impl implements Zip1 {
         private java.math.BigDecimal a;

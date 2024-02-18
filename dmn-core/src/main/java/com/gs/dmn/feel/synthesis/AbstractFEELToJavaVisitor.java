@@ -113,7 +113,7 @@ public abstract class AbstractFEELToJavaVisitor<R> extends AbstractAnalysisVisit
             List<Declaration> declarations = ((BuiltinFunction) function).getDeclarations();
             return declarations.get(0).getName();
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find name of builtin function '%s'", function));
+            throw new DMNRuntimeException("Cannot find name of builtin function '%s'".formatted(function));
         }
     }
 }

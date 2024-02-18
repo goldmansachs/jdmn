@@ -173,8 +173,8 @@ public class DefaultListLib implements ListLib {
     public void collect(List result, List list) {
         if (list != null) {
             for (Object object : list) {
-                if (object instanceof List) {
-                    collect(result, (List) object);
+                if (object instanceof List list1) {
+                    collect(result, list1);
                 } else {
                     result.add(object);
                 }

@@ -44,8 +44,8 @@ public class DMNEdgeConverter extends EdgeConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         DMNEdge concrete = (DMNEdge) parent;
 
-        if (child instanceof DMNLabel) {
-            concrete.setDMNLabel((DMNLabel) child);
+        if (child instanceof DMNLabel label) {
+            concrete.setDMNLabel(label);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }

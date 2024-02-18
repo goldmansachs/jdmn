@@ -38,6 +38,6 @@ public abstract class TNamedElement extends TDMNElement {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", this.getClass().getSimpleName(), name);
+        return "%s(%s)".formatted(this.getClass().getSimpleName(), name);
     }
 }

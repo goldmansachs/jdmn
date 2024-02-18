@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.serialization.data;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "address"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "address"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = AddressImpl.class)
 public interface Address extends com.gs.dmn.runtime.DMNType {
@@ -21,13 +21,13 @@ public interface Address extends com.gs.dmn.runtime.DMNType {
             return null;
         } else if (Address.class.isAssignableFrom(other.getClass())) {
             return (Address)other;
-        } else if (other instanceof com.gs.dmn.runtime.Context) {
+        } else if (other instanceof com.gs.dmn.runtime.Context context) {
             AddressImpl result_ = new AddressImpl();
-            result_.setLine((String)((com.gs.dmn.runtime.Context)other).get("line", "Line"));
-            result_.setPostcode((String)((com.gs.dmn.runtime.Context)other).get("postcode", "Postcode"));
+            result_.setLine((String)context.get("line", "Line"));
+            result_.setPostcode((String)context.get("postcode", "Postcode"));
             return result_;
         } else {
-            throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), AddressImpl.class.getSimpleName()));
+            throw new com.gs.dmn.runtime.DMNRuntimeException("Cannot convert '%s' to '%s'".formatted(other.getClass().getSimpleName(), AddressImpl.class.getSimpleName()));
         }
     }
 

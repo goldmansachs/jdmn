@@ -41,8 +41,8 @@ public abstract class DMNBaseElementConverter extends TCKBaseConverter {
 
     @Override
     protected void assignChildElement(Object parent, String nodeName, Object child) {
-        if (child instanceof ExtensionElements) {
-            setExtensionElements(parent, (ExtensionElements) child);
+        if (child instanceof ExtensionElements elements) {
+            setExtensionElements(parent, elements);
         }
     }
 
@@ -83,10 +83,10 @@ public abstract class DMNBaseElementConverter extends TCKBaseConverter {
     }
 
     private ExtensionElements getExtensionElements(Object parent) {
-        if (parent instanceof TestCase) {
-            return ((TestCase) parent).getExtensionElements();
-        } else if (parent instanceof ValueType) {
-            return ((ValueType) parent).getExtensionElements();
+        if (parent instanceof TestCase case1) {
+            return case1.getExtensionElements();
+        } else if (parent instanceof ValueType type) {
+            return type.getExtensionElements();
         } else {
             return null;
         }
@@ -94,41 +94,41 @@ public abstract class DMNBaseElementConverter extends TCKBaseConverter {
 
     private void setExtensionElements(Object parent, ExtensionElements extensionElements) {
         if (extensionElements != null && !extensionElements.getAny().isEmpty()) {
-            if (parent instanceof TestCase) {
-                ((TestCase) parent).getExtensionElements().getAny().addAll(extensionElements.getAny());
-            } else if (parent instanceof ValueType) {
-                ((ValueType) parent).getExtensionElements().getAny().addAll(extensionElements.getAny());
+            if (parent instanceof TestCase case1) {
+                case1.getExtensionElements().getAny().addAll(extensionElements.getAny());
+            } else if (parent instanceof ValueType type) {
+                type.getExtensionElements().getAny().addAll(extensionElements.getAny());
             }
         }
     }
 
     private Map<QName, String> getOtherAttributes(Object parent) {
-        if (parent instanceof TestCases) {
-            return ((TestCases) parent).getOtherAttributes();
-        } else if (parent instanceof TestCase) {
-            return ((TestCase) parent).getOtherAttributes();
-        } else if (parent instanceof ValueType) {
-            return ((ValueType) parent).getOtherAttributes();
-        } else if (parent instanceof ResultNode) {
-            return ((ResultNode) parent).getOtherAttributes();
-        } else if (parent instanceof AnySimpleType) {
-            return ((AnySimpleType) parent).getOtherAttributes();
+        if (parent instanceof TestCases cases) {
+            return cases.getOtherAttributes();
+        } else if (parent instanceof TestCase case1) {
+            return case1.getOtherAttributes();
+        } else if (parent instanceof ValueType type) {
+            return type.getOtherAttributes();
+        } else if (parent instanceof ResultNode node) {
+            return node.getOtherAttributes();
+        } else if (parent instanceof AnySimpleType type) {
+            return type.getOtherAttributes();
         } else {
             return new LinkedHashMap<>();
         }
     }
 
     private void setAdditionalAttributes(Object parent, Map<QName, String> additionalAttributes) {
-        if (parent instanceof TestCases) {
-            ((TestCases) parent).getOtherAttributes().putAll(additionalAttributes);
-        } else if (parent instanceof TestCase) {
-            ((TestCase) parent).getOtherAttributes().putAll(additionalAttributes);
-        } else if (parent instanceof ValueType) {
-            ((ValueType) parent).getOtherAttributes().putAll(additionalAttributes);
-        } else if (parent instanceof ResultNode) {
-            ((ResultNode) parent).getOtherAttributes().putAll(additionalAttributes);
-        } else if (parent instanceof AnySimpleType) {
-            ((AnySimpleType) parent).getOtherAttributes().putAll(additionalAttributes);
+        if (parent instanceof TestCases cases) {
+            cases.getOtherAttributes().putAll(additionalAttributes);
+        } else if (parent instanceof TestCase case1) {
+            case1.getOtherAttributes().putAll(additionalAttributes);
+        } else if (parent instanceof ValueType type) {
+            type.getOtherAttributes().putAll(additionalAttributes);
+        } else if (parent instanceof ResultNode node) {
+            node.getOtherAttributes().putAll(additionalAttributes);
+        } else if (parent instanceof AnySimpleType type) {
+            type.getOtherAttributes().putAll(additionalAttributes);
         }
     }
 }

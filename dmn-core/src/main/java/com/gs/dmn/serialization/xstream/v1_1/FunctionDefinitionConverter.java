@@ -46,8 +46,8 @@ public class FunctionDefinitionConverter extends ExpressionConverter {
 
         if (FORMAL_PARAMETER.equals(nodeName)) {
             fd.getFormalParameter().add((TInformationItem) child);
-        } else if (child instanceof TExpression) {
-            fd.setExpression((TExpression) child);
+        } else if (child instanceof TExpression expression) {
+            fd.setExpression(expression);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }

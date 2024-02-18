@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "temporalComparator"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "temporalComparator"})
 public class TemporalComparatorRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String temporalComparator;
 

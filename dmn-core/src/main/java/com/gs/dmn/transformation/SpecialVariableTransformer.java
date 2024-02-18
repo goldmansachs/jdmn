@@ -44,7 +44,7 @@ public class SpecialVariableTransformer extends SimpleDMNTransformer<TestCases> 
         }
 
         for (TDefinitions definitions: repository.getAllDefinitions()) {
-            this.logger.info(String.format("Replace inputExpressions with ? in inputEntries in model '%s'", definitions.getName()));
+            this.logger.info("Replace inputExpressions with ? in inputEntries in model '%s'".formatted(definitions.getName()));
             definitions.accept(this.visitor, null);
         }
 

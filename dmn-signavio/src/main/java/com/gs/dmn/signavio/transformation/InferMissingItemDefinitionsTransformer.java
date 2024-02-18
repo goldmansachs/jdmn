@@ -68,7 +68,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
         int iteration = 0;
         List<TItemDefinition> itemDefinitionsToAdd = new ArrayList<>();
         do {
-            logger.debug(String.format("Iteration: %d", iteration));
+            logger.debug("Iteration: %d".formatted(iteration));
 
             itemDefinitionsToAdd.clear();
             List<Pair<TDRGElement, Type>> errorReport = typeRefValidator.makeErrorReport(repository).getErrorReport();
@@ -90,7 +90,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
                         resolvedElements.add(element);
                     }
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot infer type for '%s'. '%s' is not supported yet", element.getName(), type));
+                    throw new DMNRuntimeException("Cannot infer type for '%s'. '%s' is not supported yet".formatted(element.getName(), type));
                 }
             }
             // Add new ItemDefinitions and try again
@@ -105,7 +105,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
     }
 
     private boolean isListOfPrimitive(Type type) {
-        return type instanceof ListType && isPrimitive(((ListType) type).getElementType());
+        return type instanceof ListType lt && isPrimitive(lt.getElementType());
     }
 
     private String getTypeRef(Type type) {
@@ -114,7 +114,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
         } else if (isListOfPrimitive(type)) {
             return getTypeRef(((ListType) type).getElementType());
         } else {
-            throw new DMNRuntimeException(String.format("'%s' is not supported yet", type));
+            throw new DMNRuntimeException("'%s' is not supported yet".formatted(type));
         }
     }
 
@@ -123,23 +123,23 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
         if (configuration != null && configuration.size() != 0) {
             Object dialectNode = configuration.get(DMN_DIALECT_NAME);
             if (dialectNode == null || configuration.values().size() != 1) {
-                reportInvalidConfig(String.format("Configuration does not have expected structure (expecting only '%s' node)", DMN_DIALECT_NAME));
-            } else if (dialectNode instanceof String) {
-                dialectClassName = (String) dialectNode;
+                reportInvalidConfig("Configuration does not have expected structure (expecting only '%s' node)".formatted(DMN_DIALECT_NAME));
+            } else if (dialectNode instanceof String string) {
+                dialectClassName = string;
             } else {
-                reportInvalidConfig(String.format("'%s' should be a string", DMN_DIALECT_NAME));
+                reportInvalidConfig("'%s' should be a string".formatted(DMN_DIALECT_NAME));
             }
         }
         try {
             Object object = Class.forName(dialectClassName).getDeclaredConstructor().newInstance();
-            if (object instanceof DMNDialectDefinition) {
-                this.dmnDialect = (DMNDialectDefinition) object;
+            if (object instanceof DMNDialectDefinition definition) {
+                this.dmnDialect = definition;
                 this.typeRefValidator = new TypeRefValidator(this.dmnDialect);
             } else {
-                reportInvalidConfig(String.format("Incorrect DMN dialect name '%s'", dialectClassName));
+                reportInvalidConfig("Incorrect DMN dialect name '%s'".formatted(dialectClassName));
             }
         } catch (Exception e) {
-            reportInvalidConfig(String.format("Incorrect DMN dialect name '%s'", dialectClassName));
+            reportInvalidConfig("Incorrect DMN dialect name '%s'".formatted(dialectClassName));
         }
     }
 

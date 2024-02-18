@@ -1376,7 +1376,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     protected List<NUMBER> makeNumberList(Object... numbers) {
         List result = new ArrayList();
         for(Object num: numbers) {
-            result.add(makeNumber(String.format("%s", num)));
+            result.add(makeNumber("%s".formatted(num)));
         }
         return result;
     }
@@ -1408,10 +1408,10 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     protected void assertEqualsNumber(double expected, Object actual, double precision) {
-        if (actual instanceof BigDecimal) {
-            assertEquals(expected, ((BigDecimal) actual).doubleValue(), precision);
-        } else if (actual instanceof Double) {
-            assertEquals(expected, (Double) actual, precision);
+        if (actual instanceof BigDecimal decimal) {
+            assertEquals(expected, decimal.doubleValue(), precision);
+        } else if (actual instanceof Double double1) {
+            assertEquals(expected, double1, precision);
         } else {
             assertEquals(expected, actual);
         }
@@ -1420,17 +1420,17 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     protected void assertEqualsDateTime(String expected, Object actual) {
         if (actual instanceof XMLGregorianCalendar) {
             assertEquals(expected, actual.toString());
-        } else if (actual instanceof LocalDate) {
-            String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE);
+        } else if (actual instanceof LocalDate date) {
+            String actualText = date.format(BaseDateTimeLib.FEEL_DATE);
             assertEquals(expected, actualText);
-        } else if (actual instanceof OffsetTime) {
-            String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME);
+        } else if (actual instanceof OffsetTime time) {
+            String actualText = time.format(BaseDateTimeLib.FEEL_TIME);
             assertEquals(expected, actualText);
-        } else if (actual instanceof OffsetDateTime) {
-            String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);
+        } else if (actual instanceof OffsetDateTime time) {
+            String actualText = time.format(BaseDateTimeLib.FEEL_DATE_TIME);
             assertEquals(expected, actualText);
-        } else if (actual instanceof ZonedDateTime) {
-            String actualText = ((ZonedDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);
+        } else if (actual instanceof ZonedDateTime time) {
+            String actualText = time.format(BaseDateTimeLib.FEEL_DATE_TIME);
             assertEquals(expected, actualText);
         } else if (actual instanceof Duration) {
             assertEquals(expected, actual.toString());

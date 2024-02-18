@@ -40,7 +40,7 @@ public abstract class SimpleLiteral<T> extends Literal<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", getClass().getSimpleName(), this.lexeme);
+        return "%s(%s)".formatted(getClass().getSimpleName(), this.lexeme);
     }
 }
  

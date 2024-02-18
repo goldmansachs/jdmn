@@ -2,9 +2,9 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "date-time-proto.dmn"})
+@jakarta.annotation.Generated(value = {"junit.ftl", "date-time-proto.dmn"})
 public class DateTimeProtoTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -22,7 +22,7 @@ public class DateTimeProtoTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         checkValues(string(date("2020-09-10")), new Date().applyProto(dateRequest_, context_).getDate());
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -40,7 +40,7 @@ public class DateTimeProtoTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         checkValues(string(time("12:10:10")), new Time().applyProto(timeRequest_, context_).getTime());
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase3() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -58,7 +58,7 @@ public class DateTimeProtoTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         checkValues(string(dateAndTime("2020-09-19T12:10:10")), new DateTime().applyProto(dateTimeRequest_, context_).getDateTime());
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase4() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();

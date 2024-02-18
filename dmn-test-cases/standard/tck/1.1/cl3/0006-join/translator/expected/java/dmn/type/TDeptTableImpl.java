@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "tDeptTable"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "tDeptTable"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TDeptTableImpl implements TDeptTable {
         private java.math.BigDecimal number;

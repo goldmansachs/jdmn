@@ -70,7 +70,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     @SafeVarargs
     protected final void doMultipleModelsTest(String dmnVersion, List<String> dmnFileNames, Pair<String, String>... extraInputParameters) {
-        String errorMessage = String.format("Tested failed for DM '%s'", dmnFileNames);
+        String errorMessage = "Tested failed for DM '%s'".formatted(dmnFileNames);
         try {
             // Read DMN files
             List<TDefinitions> definitionsList = readModels(dmnVersion, dmnFileNames);
@@ -98,7 +98,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     @SafeVarargs
     protected final void doMultipleModelsTest(String dmnVersion, String dmnFolderName, String testFolderName, Pair<String, String>... extraInputParameters) {
-        String errorMessage = String.format("Tested failed for diagram '%s'", dmnFolderName);
+        String errorMessage = "Tested failed for diagram '%s'".formatted(dmnFolderName);
         try {
             // Read DMN files
             File dmnInputFile = new File(tckResource(completePath(getDMNInputPath(), dmnVersion, dmnFolderName) + "/"));
@@ -177,21 +177,21 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
             Object expectedValue = null;
             Result actualResult;
             Object actualValue = null;
-            String testLocation = String.format("Unexpected result in test file '%s', TestCase.id='%s', ResultNode.name='%s'.", testCaseFileName, testCase.getId(), res.getName());
+            String testLocation = "Unexpected result in test file '%s', TestCase.id='%s', ResultNode.name='%s'.".formatted(testCaseFileName, testCase.getId(), res.getName());
             try {
                 expectedValue = tckUtil.expectedValue(testCases, testCase, res);
                 actualResult = tckUtil.evaluate(interpreter, testCases, testCase, res);
                 actualValue = Result.value(actualResult);
-                String errorMessage = String.format("%s ResultNode '%s' output mismatch, expected '%s' actual '%s'", testLocation, res.getName(), expectedValue, actualValue);
+                String errorMessage = "%s ResultNode '%s' output mismatch, expected '%s' actual '%s'".formatted(testLocation, res.getName(), expectedValue, actualValue);
                 Assert.assertEquals(errorMessage, expectedValue, actualValue);
                 if (!IGNORE_ERROR_FLAG) {
-                    String errorFlagMessage = String.format("%s ResultNode '%s' error flag mismatch", testLocation, res.getName());
+                    String errorFlagMessage = "%s ResultNode '%s' error flag mismatch".formatted(testLocation, res.getName());
                     Assert.assertEquals(errorFlagMessage, res.isErrorResult(), actualResult.hasErrors());
                 }
             } catch (Exception e) {
                 String stackTrace = ExceptionUtils.getStackTrace(e);
                 LOGGER.error(stackTrace);
-                String errorMessage = String.format("%s ResultNode '%s' output mismatch, expected '%s' actual '%s'", testLocation, res.getName(), expectedValue, actualValue);
+                String errorMessage = "%s ResultNode '%s' output mismatch, expected '%s' actual '%s'".formatted(testLocation, res.getName(), expectedValue, actualValue);
                 Assertions.fail(errorMessage + ". Exception thrown while testing");
             }
         }

@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "dotProduct"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "dotProduct"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.DotProductImpl.class)
 public interface DotProduct extends com.gs.dmn.runtime.DMNType {

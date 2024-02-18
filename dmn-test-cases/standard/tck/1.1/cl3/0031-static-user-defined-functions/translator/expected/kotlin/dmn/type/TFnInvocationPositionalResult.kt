@@ -2,7 +2,7 @@ package type
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinitionInterface.ftl", "tFnInvocationPositionalResult"])
+@jakarta.annotation.Generated(value = ["itemDefinitionInterface.ftl", "tFnInvocationPositionalResult"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TFnInvocationPositionalResultImpl::class)
 interface TFnInvocationPositionalResult : com.gs.dmn.runtime.DMNType {

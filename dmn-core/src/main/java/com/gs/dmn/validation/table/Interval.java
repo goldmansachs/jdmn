@@ -17,7 +17,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 public abstract class Interval {
     public static boolean sameEndValues(Interval i1, Interval i2) {
         if (i1 == null || i2 == null) {
-            throw new DMNRuntimeException(String.format("Unexpected null interval '%s' or '%s'", i1, i2));
+            throw new DMNRuntimeException("Unexpected null interval '%s' or '%s'".formatted(i1, i2));
         }
 
         return Bound.sameEnd(i1.lowerBound, i2.lowerBound)
@@ -70,7 +70,7 @@ public abstract class Interval {
         } else if (Bound.areAdjacent(other.upperBound, this.lowerBound)) {
             this.lowerBound = new Bound(this.lowerBound.getInterval(), this.lowerBound.isLowerBound(), other.lowerBound.isIncluded(), other.lowerBound.getValue());
         } else {
-            throw new DMNRuntimeException(String.format("Cannot merge interval '%s' to '%s'", other, this));
+            throw new DMNRuntimeException("Cannot merge interval '%s' to '%s'".formatted(other, this));
         }
     }
 }

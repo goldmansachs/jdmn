@@ -2,11 +2,11 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "5417bfd1893048bc9ca18c51aa11b7f0/sid-DB470E83-401F-4E28-BCA7-8E8FA641E93F"})
+@jakarta.annotation.Generated(value = {"junit.ftl", "5417bfd1893048bc9ca18c51aa11b7f0/sid-DB470E83-401F-4E28-BCA7-8E8FA641E93F"})
 public class ZipTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final Zip zip = new Zip();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal day = number("25");
@@ -22,7 +22,7 @@ public class ZipTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         checkValues(asList(new type.ZipImpl(number("25"), "not exactly 1 to 5", number("0"), number("0"), "Fred", number("12")), new type.ZipImpl(number("40"), "non of the numbers 1 to 5", number("0"), number("0"), "Jim", number("2016")), new type.ZipImpl(number("65"), null, number("0"), number("0"), "Tom", number("7")), new type.ZipImpl(number("80"), null, numericUnaryMinus(number("359")), numericUnaryMinus(number("8612")), "Sarah", number("25")), new type.ZipImpl(number("105"), null, null, null, "Kate", number("5"))), zip);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal day = number("1");

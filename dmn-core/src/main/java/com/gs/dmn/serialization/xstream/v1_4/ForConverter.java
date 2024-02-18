@@ -44,8 +44,8 @@ public class ForConverter extends IteratorConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         TFor i = (TFor) parent;
 
-        if (RETURN.equals(nodeName) && child instanceof TChildExpression) {
-            i.setReturn((TChildExpression) child);
+        if (RETURN.equals(nodeName) && child instanceof TChildExpression expression) {
+            i.setReturn(expression);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }

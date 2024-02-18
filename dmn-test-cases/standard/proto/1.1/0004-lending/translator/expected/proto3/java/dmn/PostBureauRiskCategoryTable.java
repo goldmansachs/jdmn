@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"bkm.ftl", "Post-bureauRiskCategoryTable"})
+@jakarta.annotation.Generated(value = {"bkm.ftl", "Post-bureauRiskCategoryTable"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "Post-bureauRiskCategoryTable",
