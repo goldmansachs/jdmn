@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "buildDateStringInAnnotation"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "buildDateStringInAnnotation"})
 public class BuildDateStringInAnnotationRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private Boolean allDefined;
 

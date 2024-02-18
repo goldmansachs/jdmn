@@ -1,5 +1,5 @@
 
-@javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "Post-bureauRiskCategoryTable"])
+@jakarta.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "Post-bureauRiskCategoryTable"])
 class PostBureauRiskCategoryTableRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("Post-bureauRiskCategoryTable")
     var postBureauRiskCategoryTable: String? = null

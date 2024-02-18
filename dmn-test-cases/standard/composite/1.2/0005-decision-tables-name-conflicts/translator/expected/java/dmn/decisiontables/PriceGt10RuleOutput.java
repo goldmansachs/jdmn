@@ -2,7 +2,7 @@ package decisiontables;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "priceGt10"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "priceGt10"})
 public class PriceGt10RuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private Boolean priceGt10;
 

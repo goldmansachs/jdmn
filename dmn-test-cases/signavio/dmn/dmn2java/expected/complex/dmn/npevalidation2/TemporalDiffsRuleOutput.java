@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "temporalDiffs"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "temporalDiffs"})
 public class TemporalDiffsRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal dateDiff;
     private java.math.BigDecimal dateTimeDiff;

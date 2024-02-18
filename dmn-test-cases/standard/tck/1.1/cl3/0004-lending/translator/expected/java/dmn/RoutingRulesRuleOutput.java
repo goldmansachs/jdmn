@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "RoutingRules"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "RoutingRules"})
 public class RoutingRulesRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String routingRules;
     private Integer routingRulesPriority;

@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "componentwise"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "componentwise"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ComponentwiseImpl implements Componentwise {
         private java.math.BigDecimal a;

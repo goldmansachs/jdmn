@@ -2,7 +2,7 @@ package type
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinitionInterface.ftl", "tRow"])
+@jakarta.annotation.Generated(value = ["itemDefinitionInterface.ftl", "tRow"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TRowImpl::class)
 interface TRow : com.gs.dmn.runtime.DMNType {

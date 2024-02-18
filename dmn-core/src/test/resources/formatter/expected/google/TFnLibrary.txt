@@ -1,6 +1,6 @@
 package com.gs.dmn.tck.cl3_0031_user_defined_functions.type;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tFnLibrary"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tFnLibrary"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public interface TFnLibrary {
   static TFnLibrary convert(Object other) {

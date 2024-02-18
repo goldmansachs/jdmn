@@ -14,7 +14,7 @@
 package ${javaPackageName}
 </#if>
 
-@javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "${modelRepository.name(drgElement)}"])
+@jakarta.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "${modelRepository.name(drgElement)}"])
 class ${javaClassName}(matched: Boolean) : ${transformer.abstractRuleOutputClassName()}(matched) {
     <#if modelRepository.isDecisionTableExpression(drgElement)>
     <@addPrivateFields drgElement />

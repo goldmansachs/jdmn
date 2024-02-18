@@ -3,7 +3,7 @@ package model_b;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"bkm.ftl", "bkm"})
+@jakarta.annotation.Generated(value = {"bkm.ftl", "bkm"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "model_b",
     name = "bkm",

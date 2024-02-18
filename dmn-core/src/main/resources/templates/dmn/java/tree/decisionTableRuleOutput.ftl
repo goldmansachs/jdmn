@@ -16,7 +16,7 @@ package ${javaPackageName};
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
 public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName()} {
     <#if modelRepository.isDecisionTableExpression(drgElement)>
     <@addPrivateFields drgElement />

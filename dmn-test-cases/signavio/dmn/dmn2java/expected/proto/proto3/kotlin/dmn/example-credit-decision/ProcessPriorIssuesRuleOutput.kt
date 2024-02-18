@@ -1,5 +1,5 @@
 
-@javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "processPriorIssues"])
+@jakarta.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "processPriorIssues"])
 class ProcessPriorIssuesRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("processPriorIssues")
     var processPriorIssues: java.math.BigDecimal? = null

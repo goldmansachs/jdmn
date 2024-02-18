@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "testNullComplexTypeAccess"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "testNullComplexTypeAccess"})
 public class TestNullComplexTypeAccessRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String testNullComplexTypeAccess;
 

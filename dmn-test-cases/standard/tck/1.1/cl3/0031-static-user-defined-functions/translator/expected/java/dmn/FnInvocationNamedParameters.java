@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "fn invocation named parameters"})
+@jakarta.annotation.Generated(value = {"decision.ftl", "fn invocation named parameters"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "fn invocation named parameters",

@@ -2,7 +2,7 @@ package type
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinitionInterface.ftl", "CompositeDateTime"])
+@jakarta.annotation.Generated(value = ["itemDefinitionInterface.ftl", "CompositeDateTime"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.CompositeDateTimeImpl::class)
 interface CompositeDateTime : com.gs.dmn.runtime.DMNType {

@@ -2,7 +2,7 @@ package type
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinition.ftl", "CompositeDateTime"])
+@jakarta.annotation.Generated(value = ["itemDefinition.ftl", "CompositeDateTime"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 class CompositeDateTimeImpl : CompositeDateTime {
     @get:com.fasterxml.jackson.annotation.JsonGetter("Date")

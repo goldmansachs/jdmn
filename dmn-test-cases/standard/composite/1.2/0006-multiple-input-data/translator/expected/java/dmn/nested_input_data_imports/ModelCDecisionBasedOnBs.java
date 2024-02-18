@@ -3,7 +3,7 @@ package nested_input_data_imports;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "Model C Decision based on Bs"})
+@jakarta.annotation.Generated(value = {"decision.ftl", "Model C Decision based on Bs"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "nested_input_data_imports",
     name = "Model C Decision based on Bs",

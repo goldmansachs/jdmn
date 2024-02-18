@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "tCompositeDateTime"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "tCompositeDateTime"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TCompositeDateTimeImpl implements TCompositeDateTime {
         private javax.xml.datatype.XMLGregorianCalendar date;

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "compareAgainstLendingThreshold"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "compareAgainstLendingThreshold"})
 public class CompareAgainstLendingThresholdRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal compareAgainstLendingThreshold;
 

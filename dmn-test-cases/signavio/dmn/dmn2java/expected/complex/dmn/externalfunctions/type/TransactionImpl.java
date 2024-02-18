@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "transaction"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "transaction"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TransactionImpl implements Transaction {
         private javax.xml.datatype.XMLGregorianCalendar tradeDate;

@@ -11,7 +11,7 @@
     specific language governing permissions and limitations under the License.
 -->
 <#macro classAnnotation templateName drgElement>
-@javax.annotation.Generated(value = {"${templateName}", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
+@jakarta.annotation.Generated(value = {"${templateName}", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
 @${transformer.drgElementAnnotationClassName()}(
     namespace = "${javaPackageName}",
     name = "${modelRepository.name(drgElement)}",

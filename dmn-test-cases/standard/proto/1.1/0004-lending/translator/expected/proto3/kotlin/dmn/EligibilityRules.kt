@@ -2,7 +2,7 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["bkm.ftl", "EligibilityRules"])
+@jakarta.annotation.Generated(value = ["bkm.ftl", "EligibilityRules"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "EligibilityRules",

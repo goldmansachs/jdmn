@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "dateCompare1"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "dateCompare1"})
 public class DateCompare1RuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private Boolean dateCompare1;
 

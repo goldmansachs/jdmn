@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tApproval"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "tApproval"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.TApprovalImpl.class)
 public interface TApproval extends com.gs.dmn.runtime.DMNType {

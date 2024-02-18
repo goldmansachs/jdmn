@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "product"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "product"})
 public class ProductRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal product;
 

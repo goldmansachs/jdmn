@@ -2,9 +2,9 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "9001-recursive-function.dmn"})
+@jakarta.annotation.Generated(value = {"junit.ftl", "9001-recursive-function.dmn"})
 public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -15,7 +15,7 @@ public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.DefaultDMNBas
         checkValues(number("1"), new Main().apply(n, context_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase002() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -26,7 +26,7 @@ public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.DefaultDMNBas
         checkValues(number("1"), new Main().apply(n, context_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase003() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -37,7 +37,7 @@ public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.DefaultDMNBas
         checkValues(number("6"), new Main().apply(n, context_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase004() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();

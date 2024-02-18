@@ -2,11 +2,11 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "af75837563be485d941eba0f9bf7a5f4/sid-268199D3-3811-4523-A39F-C24DAFA4A9AA"})
+@jakarta.annotation.Generated(value = {"junit.ftl", "af75837563be485d941eba0f9bf7a5f4/sid-268199D3-3811-4523-A39F-C24DAFA4A9AA"})
 public class DecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final Decision decision = new Decision();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         javax.xml.datatype.XMLGregorianCalendar t = time("12:00:00+01:00");

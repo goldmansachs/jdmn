@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "temporalDiffs"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "temporalDiffs"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TemporalDiffsImpl implements TemporalDiffs {
         private java.math.BigDecimal dateDiff;

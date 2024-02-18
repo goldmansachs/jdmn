@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "compile"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "compile"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CompileImpl implements Compile {
         private String nextTrafficLight;

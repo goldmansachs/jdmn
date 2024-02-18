@@ -2,11 +2,11 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "ec84b81482a64a2fbfcec8b1c831507a/sid-C13631AF-EEAB-44EE-BB39-63D825570B60"})
+@jakarta.annotation.Generated(value = {"junit.ftl", "ec84b81482a64a2fbfcec8b1c831507a/sid-C13631AF-EEAB-44EE-BB39-63D825570B60"})
 public class DecisionLitexpTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final DecisionLitexp decisionLitexp = new DecisionLitexp();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         List<java.math.BigDecimal> numz = asList(number("1"), number("43"));

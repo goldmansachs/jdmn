@@ -2,7 +2,7 @@ package type
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinition.ftl", "tA"])
+@jakarta.annotation.Generated(value = ["itemDefinition.ftl", "tA"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 class TAImpl : TA {
     @get:com.fasterxml.jackson.annotation.JsonGetter("name")

@@ -3,7 +3,7 @@ package model_c;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "c"})
+@jakarta.annotation.Generated(value = {"decision.ftl", "c"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "model_c",
     name = "c",

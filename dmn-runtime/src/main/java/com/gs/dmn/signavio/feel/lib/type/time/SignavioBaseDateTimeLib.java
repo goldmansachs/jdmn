@@ -13,7 +13,6 @@
 package com.gs.dmn.signavio.feel.lib.type.time;
 
 import com.gs.dmn.feel.lib.type.BaseType;
-
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.time.*;
 

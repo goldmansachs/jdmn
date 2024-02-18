@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"signavio-decision.ftl", "CompositeDateTime"})
+@jakarta.annotation.Generated(value = {"signavio-decision.ftl", "CompositeDateTime"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "CompositeDateTime",

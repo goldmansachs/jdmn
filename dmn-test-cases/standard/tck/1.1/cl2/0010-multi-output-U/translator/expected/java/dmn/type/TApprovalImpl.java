@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "tApproval"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "tApproval"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TApprovalImpl implements TApproval {
         private String status;

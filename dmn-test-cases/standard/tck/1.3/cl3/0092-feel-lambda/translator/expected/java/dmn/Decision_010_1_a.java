@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "decision_010_1_a"})
+@jakarta.annotation.Generated(value = {"decision.ftl", "decision_010_1_a"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "decision_010_1_a",

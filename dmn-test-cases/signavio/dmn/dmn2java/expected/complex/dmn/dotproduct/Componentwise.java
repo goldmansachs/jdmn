@@ -2,7 +2,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"signavio-decision.ftl", "componentwise"})
+@jakarta.annotation.Generated(value = {"signavio-decision.ftl", "componentwise"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "componentwise",

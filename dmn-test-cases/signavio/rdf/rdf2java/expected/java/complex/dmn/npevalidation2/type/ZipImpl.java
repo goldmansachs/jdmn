@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "zip"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "zip"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ZipImpl implements Zip {
         private String names;

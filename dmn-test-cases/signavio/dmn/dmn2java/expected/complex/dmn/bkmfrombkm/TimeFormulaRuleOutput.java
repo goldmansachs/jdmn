@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "timeFormula"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "timeFormula"})
 public class TimeFormulaRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal timeFormula;
 

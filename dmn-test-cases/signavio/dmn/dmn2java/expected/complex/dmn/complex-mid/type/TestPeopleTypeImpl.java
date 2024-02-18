@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "testPeopleType"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "testPeopleType"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TestPeopleTypeImpl implements TestPeopleType {
         private List<type.TestPersonType> testPersonType;

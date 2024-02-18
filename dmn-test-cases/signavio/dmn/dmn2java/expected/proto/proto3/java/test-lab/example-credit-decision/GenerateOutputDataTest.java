@@ -2,11 +2,11 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"junit.ftl", "9acf44f2b05343d79fc35140c493c1e0/sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6"})
+@jakarta.annotation.Generated(value = {"junit.ftl", "9acf44f2b05343d79fc35140c493c1e0/sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6"})
 public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final GenerateOutputData generateOutputData = new GenerateOutputData();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal currentRiskAppetite = number("50");
@@ -36,7 +36,7 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         checkValues(((List) (asList(new type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))) == null ? null : asList(new type.GenerateOutputDataImpl(number("27.5"), "Accept", numericUnaryMinus(number("7.5")))).stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList()))), generateOutputDataProto_);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal currentRiskAppetite = number("50");
@@ -66,7 +66,7 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
         checkValues(((List) (asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))) == null ? null : asList(new type.GenerateOutputDataImpl(numericUnaryMinus(number("10")), "Reject", numericUnaryMinus(number("25")))).stream().map(type.GenerateOutputData::toProto).collect(java.util.stream.Collectors.toList()))), generateOutputDataProto_);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase3() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal currentRiskAppetite = number("50");

@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "generateTemporalObjects"})
+@jakarta.annotation.Generated(value = {"itemDefinitionInterface.ftl", "generateTemporalObjects"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = type.GenerateTemporalObjectsImpl.class)
 public interface GenerateTemporalObjects extends com.gs.dmn.runtime.DMNType {

@@ -1,5 +1,5 @@
 
-@javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "BureauCallTypeTable"])
+@jakarta.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "BureauCallTypeTable"])
 class BureauCallTypeTableRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("BureauCallTypeTable")
     var bureauCallTypeTable: String? = null

@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "allTogether"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "allTogether"})
 public class AllTogetherRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String allTogether;
 

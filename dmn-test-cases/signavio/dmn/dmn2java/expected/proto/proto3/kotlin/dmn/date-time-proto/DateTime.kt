@@ -2,7 +2,7 @@
 import java.util.*
 import java.util.stream.Collectors
 
-@javax.annotation.Generated(value = ["signavio-decision.ftl", "DateTime"])
+@jakarta.annotation.Generated(value = ["signavio-decision.ftl", "DateTime"])
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
     name = "DateTime",

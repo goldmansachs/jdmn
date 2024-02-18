@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "tFnInvocationPositionalResult"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "tFnInvocationPositionalResult"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TFnInvocationPositionalResultImpl implements TFnInvocationPositionalResult {
         private java.math.BigDecimal sumResult;

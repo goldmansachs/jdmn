@@ -2,7 +2,7 @@ package type
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinitionInterface.ftl", "tA"])
+@jakarta.annotation.Generated(value = ["itemDefinitionInterface.ftl", "tA"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TAImpl::class)
 interface TA : com.gs.dmn.runtime.DMNType {

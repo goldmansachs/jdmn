@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "isForexRateRequired"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "isForexRateRequired"})
 public class IsForexRateRequiredRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private Boolean isForexRateRequired;
 

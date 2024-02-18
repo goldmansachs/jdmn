@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "tRow"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "tRow"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TRowImpl implements TRow {
         private java.math.BigDecimal col1;

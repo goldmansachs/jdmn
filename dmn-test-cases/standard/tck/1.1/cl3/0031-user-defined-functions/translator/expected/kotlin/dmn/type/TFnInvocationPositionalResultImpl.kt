@@ -2,7 +2,7 @@ package type
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinition.ftl", "tFnInvocationPositionalResult"])
+@jakarta.annotation.Generated(value = ["itemDefinition.ftl", "tFnInvocationPositionalResult"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 class TFnInvocationPositionalResultImpl : TFnInvocationPositionalResult {
     @get:com.fasterxml.jackson.annotation.JsonGetter("sumResult")

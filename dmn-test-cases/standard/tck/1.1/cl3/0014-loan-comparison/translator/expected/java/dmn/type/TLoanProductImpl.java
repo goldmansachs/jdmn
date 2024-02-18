@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "tLoanProduct"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "tLoanProduct"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TLoanProductImpl implements TLoanProduct {
         private String lenderName;

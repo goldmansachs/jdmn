@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "finalDecision"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "finalDecision"})
 public class FinalDecisionRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String finalDecision;
 

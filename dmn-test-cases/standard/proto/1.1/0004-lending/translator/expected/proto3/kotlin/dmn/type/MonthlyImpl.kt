@@ -2,7 +2,7 @@ package type
 
 import java.util.*
 
-@javax.annotation.Generated(value = ["itemDefinition.ftl", "Monthly"])
+@jakarta.annotation.Generated(value = ["itemDefinition.ftl", "Monthly"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 class MonthlyImpl : Monthly {
     @get:com.fasterxml.jackson.annotation.JsonGetter("Income")

@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "compoundOutputDecision"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "compoundOutputDecision"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CompoundOutputDecisionImpl implements CompoundOutputDecision {
         private String firstOutput;

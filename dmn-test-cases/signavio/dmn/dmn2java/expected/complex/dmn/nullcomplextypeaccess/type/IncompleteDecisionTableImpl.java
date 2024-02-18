@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "incompleteDecisionTable"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "incompleteDecisionTable"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class IncompleteDecisionTableImpl implements IncompleteDecisionTable {
         private String a;

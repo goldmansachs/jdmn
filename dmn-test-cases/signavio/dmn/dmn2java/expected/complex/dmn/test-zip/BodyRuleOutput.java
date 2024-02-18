@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "body"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "body"})
 public class BodyRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal body;
 

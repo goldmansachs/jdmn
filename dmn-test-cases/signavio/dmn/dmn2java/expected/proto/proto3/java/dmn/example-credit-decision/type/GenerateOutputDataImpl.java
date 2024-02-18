@@ -2,7 +2,7 @@ package type;
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"itemDefinition.ftl", "generateOutputData"})
+@jakarta.annotation.Generated(value = {"itemDefinition.ftl", "generateOutputData"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class GenerateOutputDataImpl implements GenerateOutputData {
         private String decision;

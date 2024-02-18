@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "sum"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "sum"})
 public class SumRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private java.math.BigDecimal sum;
 

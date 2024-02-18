@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-@javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "generateTemporalObjects"})
+@jakarta.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "generateTemporalObjects"})
 public class GenerateTemporalObjectsRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private javax.xml.datatype.XMLGregorianCalendar date;
     private javax.xml.datatype.XMLGregorianCalendar datetime;
