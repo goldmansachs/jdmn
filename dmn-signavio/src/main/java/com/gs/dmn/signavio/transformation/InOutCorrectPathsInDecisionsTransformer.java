@@ -14,9 +14,11 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.SimpleDMNTransformer;
 import org.slf4j.Logger;
@@ -85,11 +87,39 @@ public class InOutCorrectPathsInDecisionsTransformer extends SimpleDMNTransforme
             if (requiredDecision != null) {
                 String href = requiredDecision.getHref();
                 TDecision child = repository.findDecisionByRef(decision, href);
-                result.add(child.getName());
+                if (isPrimitiveType(child, repository))  {
+                    result.add(child.getName());
+                }
             }
         }
 
         return result;
+    }
+
+    private boolean isPrimitiveType(TDecision decision, DMNModelRepository repository) {
+        TInformationItem variable = repository.variable(decision);
+        if (variable == null || variable.getTypeRef() == null) {
+            return false;
+        }
+
+        TItemDefinition itemDefinition = repository.lookupItemDefinition(variable.getTypeRef().getLocalPart());
+        while (itemDefinition != null && itemDefinition.getTypeRef() != null) {
+            if (isPrimitiveType(itemDefinition)) {
+                return true;
+            } else {
+                itemDefinition = repository.lookupItemDefinition(itemDefinition.getTypeRef().getLocalPart());
+            }
+        }
+        return false;
+    }
+
+    private boolean isPrimitiveType(TItemDefinition itemDefinition) {
+        if (itemDefinition == null || itemDefinition.getTypeRef() == null) {
+            return false;
+        }
+
+        String name = itemDefinition.getTypeRef().getLocalPart();
+        return (FEELTypes.FEEL_TYPE_NAMES.contains(name) || name.startsWith(DMNVersion.LATEST.getFeelPrefix())) && !itemDefinition.isIsCollection();
     }
 
     private void correctDecision(TDecision decision, List<String> childNames, TDecisionTable dte) {
@@ -107,9 +137,8 @@ public class InOutCorrectPathsInDecisionsTransformer extends SimpleDMNTransforme
 
     private void correctRules(TDecision decision, String oldValue, String newValue, TDecisionTable dte) {
         List<TDecisionRule> ruleList = dte.getRule();
-        for (int i=0; i<ruleList.size(); i++) {
-            TDecisionRule rule = ruleList.get(i);
-            for (TLiteralExpression outputEntry: rule.getOutputEntry()) {
+        for (TDecisionRule rule : ruleList) {
+            for (TLiteralExpression outputEntry : rule.getOutputEntry()) {
                 if (oldValue.equals(outputEntry.getText().trim())) {
                     updateLiteralExpression(outputEntry, oldValue, newValue, decision);
                 }
