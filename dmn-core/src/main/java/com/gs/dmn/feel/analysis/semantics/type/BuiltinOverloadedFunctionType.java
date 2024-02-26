@@ -89,6 +89,6 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
 
     @Override
     public String toString() {
-        return String.format("%s%s", this.getClass().getSimpleName(), declarations);
+        return "%s%s".formatted(this.getClass().getSimpleName(), declarations);
     }
 }

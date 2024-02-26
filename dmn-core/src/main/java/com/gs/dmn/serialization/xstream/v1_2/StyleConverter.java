@@ -32,8 +32,8 @@ public abstract class StyleConverter extends DMNBaseElementConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         Style style = (Style) parent;
 
-        if (child instanceof Style.Extension) {
-            style.setExtension((Style.Extension) child);
+        if (child instanceof Style.Extension extension) {
+            style.setExtension(extension);
         } else {
             super.assignChildElement(style, nodeName, child);
         }

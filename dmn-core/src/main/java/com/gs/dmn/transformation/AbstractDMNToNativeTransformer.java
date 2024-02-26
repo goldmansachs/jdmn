@@ -66,7 +66,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
     @Override
     protected void transformFile(File file, File root, Path outputPath) {
-        this.logger.info(String.format("Processing DMN file '%s'", file.getPath()));
+        this.logger.info("Processing DMN file '%s'".formatted(file.getPath()));
         StopWatch watch = new StopWatch();
         watch.start();
 
@@ -128,7 +128,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
         // Complex type
         if (dmnTransformer.getDMNModelRepository().hasComponents(itemDefinition)) {
-            this.logger.debug(String.format("Generating code for ItemDefinition '%s'", itemDefinition.getName()));
+            this.logger.debug("Generating code for ItemDefinition '%s'".formatted(itemDefinition.getName()));
 
             String typePackageName = dmnTransformer.nativeTypePackageName(definitions.getName());
 
@@ -145,7 +145,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     private void transformItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String baseTemplatePath, String itemDefinitionTemplate, List<String> generatedClasses, Path outputPath, String typePackageName, String typeName) {
         String qualifiedName = dmnTransformer.qualifiedName(typePackageName, typeName);
         if (generatedClasses.contains(qualifiedName)) {
-            this.logger.warn(String.format("Class '%s' has already been generated", typeName));
+            this.logger.warn("Class '%s' has already been generated".formatted(typeName));
         } else {
             processTemplate(definitions, itemDefinition, baseTemplatePath, itemDefinitionTemplate, dmnTransformer, outputPath, typePackageName, typeName);
             generatedClasses.add(qualifiedName);
@@ -159,7 +159,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     }
 
     private void transformBKM(TDefinitions definitions, TBusinessKnowledgeModel bkm, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
-        this.logger.debug(String.format("Generating code for BKM '%s'", bkm.getName()));
+        this.logger.debug("Generating code for BKM '%s'".formatted(bkm.getName()));
 
         String bkmPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
         String bkmClassName = dmnTransformer.drgElementClassName(bkm);
@@ -180,7 +180,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     }
 
     private void transformDS(TDefinitions definitions, TDecisionService ds, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
-        this.logger.debug(String.format("Generating code for DS '%s'", ds.getName()));
+        this.logger.debug("Generating code for DS '%s'".formatted(ds.getName()));
 
         String dsPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
         String dsClassName = dmnTransformer.drgElementClassName(ds);
@@ -195,7 +195,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     }
 
     private void transformDecision(TDefinitions definitions, TDecision decision, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, List<String> generatedClasses, Path outputPath, String decisionBaseClass) {
-        this.logger.debug(String.format("Generating code for Decision '%s'", decision.getName()));
+        this.logger.debug("Generating code for Decision '%s'".formatted(decision.getName()));
 
         String decisionPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
         String decisionClassName = dmnTransformer.drgElementClassName(decision);
@@ -227,7 +227,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             Map<String, Object> params = makeProtoTemplateParams(pair.getLeft(), pair.getRight(), modelPackageName, dmnTransformer);
             processTemplate(this.templateProvider.baseTemplatePath(), "common/proto.ftl", params, outputFile, false);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error when generating .proto file for model '%s'", definitions.getName()), e);
+            throw new DMNRuntimeException("Error when generating .proto file for model '%s'".formatted(definitions.getName()), e);
         }
     }
 
@@ -255,7 +255,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
     private void checkDuplicate(List<String> generatedClasses, String pkg, String className, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         String qualifiedName = dmnTransformer.qualifiedName(pkg, className);
         if (generatedClasses.contains(qualifiedName)) {
-            throw new DMNRuntimeException(String.format("Class '%s' has already been generated", qualifiedName));
+            throw new DMNRuntimeException("Class '%s' has already been generated".formatted(qualifiedName));
         } else {
             generatedClasses.add(qualifiedName);
         }
@@ -274,7 +274,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, false);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot process template '%s' for itemDefinition '%s'", templateName, itemDefinition.getName()), e);
+            throw new DMNRuntimeException("Cannot process template '%s' for itemDefinition '%s'".formatted(templateName, itemDefinition.getName()), e);
         }
     }
 
@@ -291,7 +291,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot process template '%s' for BKM '%s'", templateName, in.getName()), e);
+            throw new DMNRuntimeException("Cannot process template '%s' for BKM '%s'".formatted(templateName, in.getName()), e);
         }
     }
 
@@ -308,7 +308,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot process template '%s' for decision '%s'", templateName, decision.getName()), e);
+            throw new DMNRuntimeException("Cannot process template '%s' for decision '%s'".formatted(templateName, decision.getName()), e);
         }
     }
 

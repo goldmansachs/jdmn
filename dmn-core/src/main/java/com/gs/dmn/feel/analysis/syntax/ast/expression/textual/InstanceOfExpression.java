@@ -55,6 +55,6 @@ public class InstanceOfExpression<T> extends Expression<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.leftOperand.toString(), this.rightOperand.toString());
+        return "%s(%s, %s)".formatted(getClass().getSimpleName(), this.leftOperand.toString(), this.rightOperand.toString());
     }
 }

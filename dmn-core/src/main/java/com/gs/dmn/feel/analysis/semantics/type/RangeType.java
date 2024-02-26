@@ -65,14 +65,14 @@ public class RangeType implements Type {
 
     @Override
     public boolean equivalentTo(Type other) {
-        return other instanceof RangeType
-                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.type, ((RangeType) other).type);
+        return other instanceof RangeType rt
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.type, rt.type);
     }
 
     @Override
     public boolean conformsTo(Type other) {
-        return other instanceof RangeType
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.type, ((RangeType) other).type);
+        return other instanceof RangeType rt
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.type, rt.type);
     }
 
     @Override
@@ -98,6 +98,6 @@ public class RangeType implements Type {
 
     @Override
     public String toString() {
-        return String.format("RangeType(%s)", type.toString());
+        return "RangeType(%s)".formatted(type.toString());
     }
 }

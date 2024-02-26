@@ -30,6 +30,6 @@ public class NumberLiteral extends LiteralTriple {
 
     @Override
     public String toString() {
-        return String.format("Number(%s)", lexeme);
+        return "Number(%s)".formatted(lexeme);
     }
 }

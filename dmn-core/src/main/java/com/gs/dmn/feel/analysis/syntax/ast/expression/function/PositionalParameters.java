@@ -116,7 +116,7 @@ public class PositionalParameters<T> extends Parameters<T> {
         } else {
             Expression<T> expression = this.parameters.get(position);
             if (expression == null) {
-                throw new DMNRuntimeException(String.format("Cannot find parameter '%s'", name));
+                throw new DMNRuntimeException("Cannot find parameter '%s'".formatted(name));
             }
             return expression.getType();
         }
@@ -137,6 +137,6 @@ public class PositionalParameters<T> extends Parameters<T> {
     @Override
     public String toString() {
         String opd = this.parameters.stream().map(Object::toString).collect(Collectors.joining(", "));
-        return String.format("%s(%s)", getClass().getSimpleName(), opd);
+        return "%s(%s)".formatted(getClass().getSimpleName(), opd);
     }
 }

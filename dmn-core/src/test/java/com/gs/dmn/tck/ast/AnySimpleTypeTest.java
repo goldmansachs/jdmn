@@ -61,7 +61,7 @@ public class AnySimpleTypeTest {
         assertEquals("2010-12-01", result.getText());
         assertEquals("{{http://www.w3.org/2001/XMLSchema-instance}type=date}", result.getOtherAttributes().toString());
         Object value = result.getValue();
-        assertTrue(value instanceof XMLGregorianCalendar && ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATE);
+        assertTrue(value instanceof XMLGregorianCalendar xmlgc && xmlgc.getXMLSchemaType() == DatatypeConstants.DATE);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class AnySimpleTypeTest {
         assertEquals("12:00:00", result.getText());
         assertEquals("{{http://www.w3.org/2001/XMLSchema-instance}type=time}", result.getOtherAttributes().toString());
         Object value = result.getValue();
-        assertTrue(value instanceof XMLGregorianCalendar && ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.TIME);
+        assertTrue(value instanceof XMLGregorianCalendar xmlgc && xmlgc.getXMLSchemaType() == DatatypeConstants.TIME);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class AnySimpleTypeTest {
         assertEquals("2010-01-01T12:00:00", result.getText());
         assertEquals("{{http://www.w3.org/2001/XMLSchema-instance}type=dateTime}", result.getOtherAttributes().toString());
         Object value = result.getValue();
-        assertTrue(value instanceof XMLGregorianCalendar && ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATETIME);
+        assertTrue(value instanceof XMLGregorianCalendar xmlgc && xmlgc.getXMLSchemaType() == DatatypeConstants.DATETIME);
     }
 
     @Test

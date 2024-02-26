@@ -71,10 +71,10 @@ public class AddItemFilterVisitor<T, C> extends CloneVisitor<T, C> {
     }
 
     private boolean isMember(String name, Type type) {
-        if (type instanceof ContextType) {
-            return ((ContextType) type).getMemberType(name) != null;
-        } else if (type instanceof ItemDefinitionType) {
-            return ((ItemDefinitionType) type).getMemberType(name) != null;
+        if (type instanceof ContextType contextType) {
+            return contextType.getMemberType(name) != null;
+        } else if (type instanceof ItemDefinitionType definitionType) {
+            return definitionType.getMemberType(name) != null;
         } else {
             return type instanceof AnyType;
         }

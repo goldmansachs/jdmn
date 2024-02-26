@@ -61,6 +61,6 @@ public class DecisionTableCorrection extends Correction {
 
     @Override
     public String toString() {
-        return String.format("%s('%s', '%s', '%s', '%s', '%s')", this.getClass().getSimpleName(), drgName, oldValue, newValue, inputIndexes, ruleIndexes);
+        return "%s('%s', '%s', '%s', '%s', '%s')".formatted(this.getClass().getSimpleName(), drgName, oldValue, newValue, inputIndexes, ruleIndexes);
     }
 }

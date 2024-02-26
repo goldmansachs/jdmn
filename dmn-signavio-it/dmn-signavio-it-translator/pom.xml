@@ -26,7 +26,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->

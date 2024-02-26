@@ -31,6 +31,6 @@ public class TemporalDateTimeDefaultRangeLibTest extends AbstractDefaultRangeLib
         if (number < 0 || number > 60) {
             throw new IllegalArgumentException("Illegal day");
         }
-        return this.getLib().dateAndTime(String.format("2020-01-01T12:00:%02d", number));
+        return this.getLib().dateAndTime("2020-01-01T12:00:%02d".formatted(number));
     }
 }

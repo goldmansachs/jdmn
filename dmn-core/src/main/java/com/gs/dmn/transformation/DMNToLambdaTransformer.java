@@ -56,7 +56,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         // Check if there is only one model
         List<TDefinitions> allDefinitions = repository.getAllDefinitions();
         if (allDefinitions.size() != 1) {
-            throw new DMNRuntimeException(String.format("Only one model supported at this stage, found '%s'", allDefinitions.size()));
+            throw new DMNRuntimeException("Only one model supported at this stage, found '%s'".formatted(allDefinitions.size()));
         }
         TDefinitions definitions = allDefinitions.get(0);
         BasicDMNToJavaTransformer basicTransformer = dialectDefinition.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);
@@ -101,7 +101,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
             processTemplate(baseTemplatePath, templateName, params, outputFile);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot generate from template '%s' for element '%s'", templateName, lambdaName), e);
+            throw new DMNRuntimeException("Cannot generate from template '%s' for element '%s'".formatted(templateName, lambdaName), e);
         }
     }
 
@@ -127,7 +127,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
             processTemplate(baseTemplatePath, templateName, params, outputFile);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot generate from template '%s' for element '%s'", templateName, lambdaFolderName), e);
+            throw new DMNRuntimeException("Cannot generate from template '%s' for element '%s'".formatted(templateName, lambdaFolderName), e);
         }
     }
 
@@ -154,7 +154,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
             processTemplate(baseTemplatePath, templateName, params, outputFile);
         } catch (Exception e) {
-            throw new RuntimeException(String.format("Cannot generate from template '%s' for '%s'", templateName, modelName), e);
+            throw new RuntimeException("Cannot generate from template '%s' for '%s'".formatted(templateName, modelName), e);
         }
     }
 
@@ -163,10 +163,10 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
 
         String lambdaName = lambdaName(modelName, transformer);
         String folderName = lambdaFolderName(modelName, transformer);
-        String codeUri = String.format("%s", folderName);
+        String codeUri = "%s".formatted(folderName);
         String javaPackageName = transformer.nativeModelPackageName(modelName);
         String javaClassName = transformer.upperCaseFirst(lambdaName);
-        String handler = String.format("%s.%s::handleRequest", javaPackageName, javaClassName);
+        String handler = "%s.%s::handleRequest".formatted(javaPackageName, javaClassName);
         String path = restPath(modelName);
         resources.add(new FunctionResource(javaClassName, codeUri, handler, path));
 

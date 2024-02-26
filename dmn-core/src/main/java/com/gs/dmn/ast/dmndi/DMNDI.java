@@ -59,8 +59,7 @@ public class DMNDI extends DMNBaseElement implements Visitable {
             List<? extends DiagramElement> dmnDiagramElement = diagram.getDMNDiagramElement();
             for (DiagramElement element : dmnDiagramElement) {
                 replaceSharedStyleIfStubbed(element, styleById);
-                if (element instanceof DMNShape) {
-                    DMNShape dmnShape = (DMNShape) element;
+                if (element instanceof DMNShape dmnShape) {
                     replaceSharedStyleIfStubbed(dmnShape.getDMNLabel(), styleById);
                 }
             }

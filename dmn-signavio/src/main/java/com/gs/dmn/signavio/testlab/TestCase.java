@@ -30,7 +30,7 @@ public class TestCase extends TestLabElement {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s)", this.getClass().getSimpleName(), inputValues, expectedValues);
+        return "%s(%s, %s)".formatted(this.getClass().getSimpleName(), inputValues, expectedValues);
     }
 
     @Override

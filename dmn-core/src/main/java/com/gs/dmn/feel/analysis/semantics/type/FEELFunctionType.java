@@ -47,17 +47,17 @@ public class FEELFunctionType extends FunctionType {
 
     @Override
     public boolean equivalentTo(Type other) {
-        return other instanceof FEELFunctionType
-                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
-                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
+        return other instanceof FEELFunctionType feelft
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.returnType, feelft.returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.parameterTypes, feelft.parameterTypes);
     }
 
     @Override
     public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
-        return other instanceof FunctionType
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+        return other instanceof FunctionType ft
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ft.returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(ft.parameterTypes, this.parameterTypes);
     }
 
     @Override
@@ -101,6 +101,6 @@ public class FEELFunctionType extends FunctionType {
     @Override
     public String toString() {
         String types = this.parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
-        return String.format("FEELFunctionType(%s, %s, %s)", types, this.returnType, this.external);
+        return "FEELFunctionType(%s, %s, %s)".formatted(types, this.returnType, this.external);
     }
 }

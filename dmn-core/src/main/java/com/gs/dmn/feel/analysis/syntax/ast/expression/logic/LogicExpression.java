@@ -54,6 +54,6 @@ public abstract class LogicExpression<T> extends Expression<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s,%s)", getClass().getSimpleName(), this.leftOperand, this.rightOperand);
+        return "%s(%s,%s)".formatted(getClass().getSimpleName(), this.leftOperand, this.rightOperand);
     }
 }

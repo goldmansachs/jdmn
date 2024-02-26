@@ -36,7 +36,7 @@ public class JavaExternalFunction<R> {
         } else if (returnType == BigDecimal.class) {
             return (R) new BigDecimal(result.toString());
         } else if (returnType == Double.class) {
-            return (R) new Double(result.toString());
+            return (R) Double.valueOf(result.toString());
         } else {
             return (R) result;
         }

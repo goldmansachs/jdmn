@@ -40,6 +40,6 @@ public class ForTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("For(%s, %s)", domainIterators, body);
+        return "For(%s, %s)".formatted(domainIterators, body);
     }
 }

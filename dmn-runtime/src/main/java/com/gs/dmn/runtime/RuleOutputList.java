@@ -71,7 +71,7 @@ public class RuleOutputList {
                 return null;
             }
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported single hit policy %s.", hitPolicy.name()));
+            throw new UnsupportedOperationException("Not supported single hit policy %s.".formatted(hitPolicy.name()));
         }
     }
 
@@ -84,7 +84,7 @@ public class RuleOutputList {
         } else if (hitPolicy == HitPolicy.OUTPUT_ORDER) {
             return sort(matchedRuleOutputs);
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported multiple hit policy %s.", hitPolicy.name()));
+            throw new UnsupportedOperationException("Not supported multiple hit policy %s.".formatted(hitPolicy.name()));
         }
     }
 

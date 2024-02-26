@@ -39,17 +39,17 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String constructor(String className, String arguments) {
-        return String.format("%s(%s)", className.replace("?", ""), arguments);
+        return "%s(%s)".formatted(className.replace("?", ""), arguments);
     }
 
     @Override
     public String fluentConstructor(String className, String addMethods) {
-        return String.format("%s()%s", className, addMethods);
+        return "%s()%s".formatted(className, addMethods);
     }
 
     @Override
     public String functionalInterfaceConstructor(String functionalInterface, String returnType, String applyMethod) {
-        return String.format("%s<%s> { %s -> %s }", functionalInterface, returnType, transformer.lambdaArgsVariableName(), applyMethod);
+        return "%s<%s> { %s -> %s }".formatted(functionalInterface, returnType, transformer.lambdaArgsVariableName(), applyMethod);
     }
 
     //
@@ -59,30 +59,30 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     public String makeItemDefinitionAccessor(String javaType, String source, String memberName) {
         memberName = this.transformer.lowerCaseFirst(memberName);
         String nullableType = this.typeFactory.nullableType(javaType);
-        return String.format("%s?.let({ it.%s as %s })", source, memberName, nullableType);
+        return "%s?.let({ it.%s as %s })".formatted(source, memberName, nullableType);
     }
 
     @Override
     public String makeItemDefinitionSelectExpression(String source, String memberName, String memberType) {
         String nullableType = this.typeFactory.nullableType(memberType);
-        return String.format("(%s.%s) as %s", source, memberName, nullableType);
+        return "(%s.%s) as %s".formatted(source, memberName, nullableType);
     }
 
     @Override
     public String makeContextAccessor(String javaType, String source, String memberName) {
         String contextClassName = this.transformer.contextClassName();
         String nullableType = this.typeFactory.nullableType(javaType);
-        return String.format("((%s as %s).%s as %s)", source, contextClassName, this.transformer.contextGetter(memberName), nullableType);
+        return "((%s as %s).%s as %s)".formatted(source, contextClassName, this.transformer.contextGetter(memberName), nullableType);
     }
 
     @Override
     public String makeCollectionMap(String source, String filter) {
-        return String.format("%s?.map({ x -> %s })", source, filter);
+        return "%s?.map({ x -> %s })".formatted(source, filter);
     }
 
     @Override
     public String makeContextSelectExpression(String contextClassName, String source, String memberName) {
-        return String.format("((%s) as %s).get(\"%s\", asList())", source, contextClassName, memberName);
+        return "((%s) as %s).get(\"%s\", asList())".formatted(source, contextClassName, memberName);
     }
 
     //
@@ -90,22 +90,22 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String makeCollectionLogicFilter(String source, String parameterName, String filter) {
-        return String.format("%s?.filter({ %s -> %s })", source, parameterName, filter);
+        return "%s?.filter({ %s -> %s })".formatted(source, parameterName, filter);
     }
 
     @Override
     public String makeCollectionNumericFilter(String javaElementType, String source, String filter) {
         String nullableType = this.typeFactory.nullableType(javaElementType);
-        String args = String.format("%s, %s", source, filter);
+        String args = "%s, %s".formatted(source, filter);
         String call = this.makeBuiltinFunctionInvocation("elementAt", args);
-        return String.format("(%s as %s)", call, nullableType);
+        return "(%s as %s)".formatted(call, nullableType);
     }
 
     @Override
     public String makeIfExpression(String condition, String thenExp, String elseExp) {
-        String args = String.format("%s, %s", condition, trueConstant());
+        String args = "%s, %s".formatted(condition, trueConstant());
         String call = this.makeBuiltinFunctionInvocation("booleanEqual", args);
-        return String.format("(if (%s) %s else %s)", call, thenExp, elseExp);
+        return "(if (%s) %s else %s)".formatted(call, thenExp, elseExp);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         // Add code for each iterator
         StringBuilder result = new StringBuilder();
         for (Pair<String, String> pair: domainIterators) {
-            result.append(String.format("%s?.stream()?.map({ %s -> ", pair.getLeft(), pair.getRight()));
+            result.append("%s?.stream()?.map({ %s -> ".formatted(pair.getLeft(), pair.getRight()));
         }
         // Add body
         result.append(body);
@@ -132,13 +132,13 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String makeSomeExpression(String list) {
-        String args = String.format("%s?.toList()", list);
+        String args = "%s?.toList()".formatted(list);
         return makeBuiltinFunctionInvocation("booleanOr", args);
     }
 
     @Override
     public String makeEveryExpression(String list) {
-        String args = String.format("%s?.toList()", list);
+        String args = "%s?.toList()".formatted(list);
         return makeBuiltinFunctionInvocation("booleanAnd", args);
     }
 
@@ -147,15 +147,15 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String makeMinAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("min(%s?.map({ o -> (o as %s)?.%s }))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName
+        return "min(%s?.map({ o -> (o as %s)?.%s }))".formatted(
+            ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName
         );
     }
 
     @Override
     public String makeMaxAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("max(%s?.map({ o -> (o as %s)?.%s }))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName
+        return "max(%s?.map({ o -> (o as %s)?.%s }))".formatted(
+            ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName
         );
     }
 
@@ -166,8 +166,8 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String makeSumAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("sum(%s?.map({ o -> (o as %s)?.%s }))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName
+        return "sum(%s?.map({ o -> (o as %s)?.%s }))".formatted(
+            ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName
         );
     }
 
@@ -176,7 +176,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String makeReturn(String expression) {
-        return String.format("return %s", expression);
+        return "return %s".formatted(expression);
     }
 
     //
@@ -185,17 +185,17 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     @Override
     public String makeVariableAssignment(String type, String name, String expression) {
         String nullableType = this.typeFactory.nullableType(type);
-        return String.format("val %s: %s = %s as %s", name, nullableType, expression, nullableType);
+        return "val %s: %s = %s as %s".formatted(name, nullableType, expression, nullableType);
     }
 
     @Override
     public String makeMemberAssignment(String complexTypeVariable, String memberName, String value) {
-        return String.format("%s?.%s = %s", complexTypeVariable, memberName, value);
+        return "%s?.%s = %s".formatted(complexTypeVariable, memberName, value);
     }
 
     @Override
     public String makeContextMemberAssignment(String complexTypeVariable, String memberName, String value) {
-        return String.format("%s?.%s %s);", complexTypeVariable, this.transformer.contextSetter(memberName), value);
+        return "%s?.%s %s);".formatted(complexTypeVariable, this.transformer.contextSetter(memberName), value);
     }
 
     //
@@ -203,7 +203,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String makeApplyInvocation(String javaFunctionCode, String argumentsText) {
-        return String.format("%s?.apply(%s)", javaFunctionCode, argumentsText);
+        return "%s?.apply(%s)".formatted(javaFunctionCode, argumentsText);
     }
 
     @Override
@@ -211,19 +211,19 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         if (StringUtils.isEmpty(parametersAssignment)) {
             return body;
         } else {
-            return String.format("%s %s", parametersAssignment, body);
+            return "%s %s".formatted(parametersAssignment, body);
         }
     }
 
     @Override
     protected String makeLambdaParameterAssignment(String type, String name, int i) {
         String nullableType = this.typeFactory.nullableType(type);
-        return String.format("val %s: %s = %s[%s] as %s;", name, nullableType, transformer.lambdaArgsVariableName(), i, nullableType);
+        return "val %s: %s = %s[%s] as %s;".formatted(name, nullableType, transformer.lambdaArgsVariableName(), i, nullableType);
     }
 
     @Override
     public String makeExternalExecutorCall(String externalExecutorVariableName, String className, String methodName, String arguments, String returnNativeType) {
-        return String.format("%s.execute(\"%s\", \"%s\", arrayOf(%s)) as %s", externalExecutorVariableName, className, methodName, arguments, returnNativeType);
+        return "%s.execute(\"%s\", \"%s\", arrayOf(%s)) as %s".formatted(externalExecutorVariableName, className, methodName, arguments, returnNativeType);
     }
 
     //
@@ -231,27 +231,27 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String nullableParameterType(String parameterType) {
-        return String.format("%s", this.typeFactory.nullableType(parameterType));
+        return "%s".formatted(this.typeFactory.nullableType(parameterType));
     }
 
     @Override
     public String nullableParameter(String parameterType, String parameterName) {
-        return String.format("%s: %s", parameterName, this.typeFactory.nullableType(parameterType));
+        return "%s: %s".formatted(parameterName, this.typeFactory.nullableType(parameterType));
     }
 
     @Override
     public String parameterType(String parameterType) {
-        return String.format("%s", parameterType);
+        return "%s".formatted(parameterType);
     }
 
     @Override
     public String parameter(String parameterType, String parameterName) {
-        return String.format("%s: %s", parameterName, parameterType);
+        return "%s: %s".formatted(parameterName, parameterType);
     }
 
     @Override
     public String decisionConstructorParameter(DRGElementReference<TDecision> d) {
-        return String.format("val %s : %s = %s", this.transformer.drgElementReferenceVariableName(d), this.transformer.qualifiedName(d), defaultConstructor(this.transformer.qualifiedName(d)));
+        return "val %s : %s = %s".formatted(this.transformer.drgElementReferenceVariableName(d), this.transformer.qualifiedName(d), defaultConstructor(this.transformer.qualifiedName(d)));
     }
 
     //
@@ -274,21 +274,21 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     public String asList(Type elementType, String exp) {
         if (StringUtils.isBlank(exp)) {
             String elementJavaType = this.typeFactory.nullableType(this.transformer.toNativeType(elementType));
-            return String.format("asList<%s>()", elementJavaType);
+            return "asList<%s>()".formatted(elementJavaType);
         } else {
-            return String.format("asList(%s)", exp);
+            return "asList(%s)".formatted(exp);
         }
     }
 
     @Override
     public String convertListToElement(String expression, Type type) {
-        return String.format("%s", asElement(expression));
+        return "%s".formatted(asElement(expression));
     }
 
     @Override
     public String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType) {
         String elementConversion = convertToItemDefinitionType("x", expectedElementType);
-        return String.format("%s?.map({ x -> %s })", javaExpression, elementConversion);
+        return "%s?.map({ x -> %s })".formatted(javaExpression, elementConversion);
     }
 
     @Override
@@ -296,7 +296,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         type = Type.extractTypeFromConstraint(type);
         if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
             if (transformer.isStrongTyping()) {
-                throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
+                throw new DMNRuntimeException("Cannot convert String to type '%s'".formatted(type));
             } else {
                 return paramName;
             }
@@ -305,21 +305,21 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
             if (conversionMethod != null) {
-                return String.format("%s?.let({ %s(it) })", paramName, conversionMethod);
+                return "%s?.let({ %s(it) })".formatted(paramName, conversionMethod);
             } else if (type == StringType.STRING) {
                 return paramName;
             } else if (type == BooleanType.BOOLEAN) {
-                return String.format("%s?.let({ it.toBoolean() })", paramName);
+                return "%s?.let({ it.toBoolean() })".formatted(paramName);
             } else {
-                throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
+                throw new DMNRuntimeException("Cannot convert String to type '%s'".formatted(type));
             }
         } else if (type instanceof ListType) {
             String javaType = this.typeFactory.nullableType(this.transformer.toNativeType(type));
-            return String.format("%s?.let({ %s.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<%s>() {}) })", paramName, objectMapper(), javaType);
+            return "%s?.let({ %s.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<%s>() {}) })".formatted(paramName, objectMapper(), javaType);
         } else {
             // Complex types
             String javaType = transformer.itemDefinitionNativeClassName(transformer.toNativeType(type));
-            return String.format("%s?.let({ %s.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<%s>() {}) })", paramName, objectMapper(), javaType);
+            return "%s?.let({ %s.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<%s>() {}) })".formatted(paramName, objectMapper(), javaType);
         }
     }
 
@@ -331,42 +331,42 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     @Override
     public String convertMemberToProto(String source, String sourceType, TItemDefinition member, boolean staticContext) {
         Type memberType = this.transformer.toFEELType(member);
-        String value = String.format("%s.%s", cast(sourceType, source), this.transformer.protoFieldName(member));
+        String value = "%s.%s".formatted(cast(sourceType, source), this.transformer.protoFieldName(member));
         return convertValueToProtoNativeType(value, memberType, staticContext);
     }
 
     @Override
     protected String itemDefinitionConversionLambda(String qNativeType, String convertFunction) {
-        return String.format("e -> %s.%s(e)", qNativeType, convertFunction);
+        return "e -> %s.%s(e)".formatted(qNativeType, convertFunction);
     }
 
     @Override
     protected String extractListMemberFromProto(String protoSource, String mapFunction, String qNativeType) {
-        return cast(qNativeType, String.format("%s?.stream()?.map({%s})?.collect(java.util.stream.Collectors.toList())", protoSource, mapFunction));
+        return cast(qNativeType, "%s?.stream()?.map({%s})?.collect(java.util.stream.Collectors.toList())".formatted(protoSource, mapFunction));
     }
 
     @Override
     protected String convertListMemberToProto(String protoSource, String mapFunction) {
-        return String.format("%s?.stream()?.map({%s})?.collect(java.util.stream.Collectors.toList())", protoSource, mapFunction);
+        return "%s?.stream()?.map({%s})?.collect(java.util.stream.Collectors.toList())".formatted(protoSource, mapFunction);
     }
 
     @Override
     protected String toProtoNumber(String value) {
-        return String.format("(if (%s == null) %s else %s!!.toDouble())", value, DEFAULT_PROTO_NUMBER, value);
+        return "(if (%s == null) %s else %s!!.toDouble())".formatted(value, DEFAULT_PROTO_NUMBER, value);
     }
 
     @Override
     protected String toProtoBoolean(String value) {
-        return String.format("(if (%s == null) %s else %s!!)", value, DEFAULT_PROTO_BOOLEAN, value);
+        return "(if (%s == null) %s else %s!!)".formatted(value, DEFAULT_PROTO_BOOLEAN, value);
     }
 
     @Override
     protected String toProtoString(String value) {
-        return String.format("(if (%s == null) %s else %s!!)", value, DEFAULT_PROTO_STRING, value);
+        return "(if (%s == null) %s else %s!!)".formatted(value, DEFAULT_PROTO_STRING, value);
     }
 
     @Override
     protected String cast(String type, String value) {
-        return StringUtils.isBlank(type) ? value : String.format("(%s as %s)", value, type);
+        return StringUtils.isBlank(type) ? value : "(%s as %s)".formatted(value, type);
     }
 }

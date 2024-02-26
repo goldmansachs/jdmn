@@ -48,7 +48,7 @@ public class TableFactory {
         } else if (input.isBooleanType() || input.isStringType()) {
             return new EnumerationInterval(-1, columnIndex, input, lastBound.isIncluded(), startValue, !currentBound.isIncluded(), endValue);
         }
-        throw new IllegalArgumentException(String.format("Unexpected interval type for bounds '%s' or '%s'", lastBound, currentBound));
+        throw new IllegalArgumentException("Unexpected interval type for bounds '%s' or '%s'".formatted(lastBound, currentBound));
     }
 
     public Interval makeIntervalMax(int columnIndex, Bound lastBound, Bound currentBound, Table table) {
@@ -60,7 +60,7 @@ public class TableFactory {
         } else if (input.isBooleanType() || input.isStringType()) {
             return new EnumerationInterval(-1, columnIndex, input, !lastBound.isIncluded(), startValue, currentBound.isIncluded(), endValue);
         }
-        throw new IllegalArgumentException(String.format("Unexpected interval type for bounds '%s' or '%s'", lastBound, currentBound));
+        throw new IllegalArgumentException("Unexpected interval type for bounds '%s' or '%s'".formatted(lastBound, currentBound));
     }
 
     public Interval makeInterval(int columnIndex, Bound lastBound, Bound currentBound, Table table) {
@@ -72,7 +72,7 @@ public class TableFactory {
         } else if (input.isBooleanType() || input.isStringType()) {
             return new EnumerationInterval(-1, columnIndex, input, !lastBound.isIncluded(), startValue, !currentBound.isIncluded(), endValue);
         }
-        throw new IllegalArgumentException(String.format("Unexpected interval type for bounds '%s' or '%s'", lastBound, currentBound));
+        throw new IllegalArgumentException("Unexpected interval type for bounds '%s' or '%s'".formatted(lastBound, currentBound));
     }
 
     private Double makeBoundValue(boolean isLower, Bound bound) {

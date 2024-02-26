@@ -43,8 +43,8 @@ public class ChildExpressionConverter extends DMNBaseElementConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         TChildExpression i = (TChildExpression) parent;
 
-        if (child instanceof TExpression) {
-            i.setExpression((TExpression) child);
+        if (child instanceof TExpression expression) {
+            i.setExpression(expression);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }

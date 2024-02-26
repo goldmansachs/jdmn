@@ -38,6 +38,6 @@ public class FluentConstructor extends FunctionInvocationTriple {
 
     @Override
     public String toString() {
-        return String.format("FluentConstructor(%s, %s)", contextClassName, addMethods);
+        return "FluentConstructor(%s, %s)".formatted(contextClassName, addMethods);
     }
 }

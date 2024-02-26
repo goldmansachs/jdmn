@@ -48,6 +48,6 @@ public class ExpressionTest<T> extends PositiveUnaryTest<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", getClass().getSimpleName(), this.expression);
+        return "%s(%s)".formatted(getClass().getSimpleName(), this.expression);
     }
 }

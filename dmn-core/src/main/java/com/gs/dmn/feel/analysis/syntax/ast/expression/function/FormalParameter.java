@@ -96,6 +96,6 @@ public class FormalParameter<T> extends Element<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s, %s, %s)", this.getClass().getSimpleName(), name, type, optional, varArg);
+        return "%s(%s, %s, %s, %s)".formatted(this.getClass().getSimpleName(), name, type, optional, varArg);
     }
 }

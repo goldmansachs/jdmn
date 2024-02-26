@@ -70,7 +70,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
     @Override
     protected void transformFile(File file, File root, Path outputPath) {
         try {
-            logger.info(String.format("Processing TCK file '%s'", file.getPath()));
+            logger.info("Processing TCK file '%s'".formatted(file.getPath()));
             StopWatch watch = new StopWatch();
             watch.start();
 
@@ -98,7 +98,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
             watch.stop();
             logger.info("TCK processing time: " + watch.toString());
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error during transforming %s.", file.getName()), e);
+            throw new DMNRuntimeException("Error during transforming %s.".formatted(file.getName()), e);
         }
     }
 
@@ -122,7 +122,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot process template '%s' for testCases of '%s'", templateName, testCases.getModelName()), e);
+            throw new DMNRuntimeException("Cannot process template '%s' for testCases of '%s'".formatted(templateName, testCases.getModelName()), e);
         }
     }
 

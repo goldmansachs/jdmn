@@ -21,6 +21,7 @@ import javax.xml.namespace.QName;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -852,7 +853,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         BigInteger temp = BigInteger.valueOf(startMonth).add(dMonths);
         setMonth(temp.subtract(BigInteger.ONE).mod(TWELVE).intValue() + 1);
         BigInteger carry =
-                new BigDecimal(temp.subtract(BigInteger.ONE)).divide(new BigDecimal(TWELVE), BigDecimal.ROUND_FLOOR).toBigInteger();
+                new BigDecimal(temp.subtract(BigInteger.ONE)).divide(new BigDecimal(TWELVE), RoundingMode.FLOOR).toBigInteger();
 
 
         // Years (may be modified additionally below)
@@ -885,7 +886,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
         // Duration seconds is SECONDS + FRACTIONALSECONDS.
         BigDecimal dSeconds = sanitize((BigDecimal) duration.getField(DatatypeConstants.SECONDS), signum);
         BigDecimal tempBD = startSeconds.add(dSeconds);
-        BigDecimal fQuotient = new BigDecimal(new BigDecimal(tempBD.toBigInteger()).divide(DECIMAL_SIXTY, BigDecimal.ROUND_FLOOR).toBigInteger());
+        BigDecimal fQuotient = new BigDecimal(new BigDecimal(tempBD.toBigInteger()).divide(DECIMAL_SIXTY, RoundingMode.FLOOR).toBigInteger());
         BigDecimal endSeconds = tempBD.subtract(fQuotient.multiply(DECIMAL_SIXTY));
 
         carry = fQuotient.toBigInteger();
@@ -916,7 +917,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
         temp = BigInteger.valueOf(startMinutes).add(dMinutes).add(carry);
         setMinute(temp.mod(SIXTY).intValue());
-        carry = new BigDecimal(temp).divide(DECIMAL_SIXTY, BigDecimal.ROUND_FLOOR).toBigInteger();
+        carry = new BigDecimal(temp).divide(DECIMAL_SIXTY, RoundingMode.FLOOR).toBigInteger();
 
         //  Hours
         //      temp := S[hour] + D[hour] + carry
@@ -931,7 +932,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
 
         temp = BigInteger.valueOf(startHours).add(dHours).add(carry);
         setHour(temp.mod(TWENTY_FOUR).intValue(), false);
-        carry = new BigDecimal(temp).divide(new BigDecimal(TWENTY_FOUR), BigDecimal.ROUND_FLOOR).toBigInteger();
+        carry = new BigDecimal(temp).divide(new BigDecimal(TWENTY_FOUR), RoundingMode.FLOOR).toBigInteger();
 
         //  Days
         //      if S[day] > maximumDayInMonthFor(E[year], E[month])
@@ -997,7 +998,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             int quotient;
             if (endMonth < 0) {
                 endMonth = (13 - 1) + endMonth + 1;
-                quotient = new BigDecimal(intTemp - 1).divide(new BigDecimal(TWELVE), BigDecimal.ROUND_UP).intValue();
+                quotient = new BigDecimal(intTemp - 1).divide(new BigDecimal(TWELVE), RoundingMode.UP).intValue();
             } else {
                 quotient = (intTemp - 1) / (13 - 1);
                 endMonth += 1;
@@ -1447,7 +1448,7 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             int year = this.getYear();
             int month = this.getMonth();
             int day = this.getDay();
-            return String.format("%d-%02d-%02d", year, month, day);
+            return "%d-%02d-%02d".formatted(year, month, day);
         } else if (kind == DatatypeConstants.TIME) {
             String result;
             int hour = this.getHour();
@@ -1455,9 +1456,9 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             int second = this.getSecond();
             String nanoseconds = getNanoSeconds(this.getFractionalSecond());
             if (nanoseconds == null) {
-                result = String.format("%02d:%02d:%02d", hour, minute, second);
+                result = "%02d:%02d:%02d".formatted(hour, minute, second);
             } else {
-                result = String.format("%02d:%02d:%02d%s", hour, minute, second, nanoseconds);
+                result = "%02d:%02d:%02d%s".formatted(hour, minute, second, nanoseconds);
             }
             if (zoneID != null) {
                 if (isZoneOffset(zoneID)) {
@@ -1478,9 +1479,9 @@ public class FEELXMLGregorianCalendar extends XMLGregorianCalendar implements Se
             int second = this.getSecond();
             String nanoseconds = getNanoSeconds(this.getFractionalSecond());
             if (nanoseconds == null) {
-                result = String.format("%d-%02d-%02dT%02d:%02d:%02d", year, month, day, hour, minute, second);
+                result = "%d-%02d-%02dT%02d:%02d:%02d".formatted(year, month, day, hour, minute, second);
             } else {
-                result = String.format("%d-%02d-%02dT%02d:%02d:%02d%s", year, month, day, hour, minute, second, nanoseconds);
+                result = "%d-%02d-%02dT%02d:%02d:%02d%s".formatted(year, month, day, hour, minute, second, nanoseconds);
             }
             if (zoneID != null) {
                 if (isZoneOffset(zoneID)) {

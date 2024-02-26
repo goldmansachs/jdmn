@@ -65,7 +65,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         try {
             return LocalDate.from((TemporalAccessor) from);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot convert '%s' to date", from));
+            throw new DMNRuntimeException("Cannot convert '%s' to date".formatted(from));
         }
     }
 
@@ -87,8 +87,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
 
         try {
             int nanosecs = 0;
-            if (second instanceof BigDecimal) {
-                BigDecimal secs = (BigDecimal) second;
+            if (second instanceof BigDecimal secs) {
                 nanosecs = secs.subtract(secs.setScale(0, RoundingMode.DOWN)).multiply(E9).intValue();
             }
 
@@ -98,7 +97,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
                 return OffsetTime.of(hour.intValue(), minute.intValue(), second.intValue(), nanosecs, ZoneOffset.ofTotalSeconds((int) offset.get(ChronoUnit.SECONDS)));
             }
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error in time('%s', '%s', '%s', '%s'", hour, minute, second, offset));
+            throw new DMNRuntimeException("Error in time('%s', '%s', '%s', '%s'".formatted(hour, minute, second, offset));
         }
     }
 
@@ -108,8 +107,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        if (from instanceof TemporalAccessor) {
-            TemporalAccessor date = (TemporalAccessor) from;
+        if (from instanceof TemporalAccessor date) {
             if (!date.isSupported(ChronoField.HOUR_OF_DAY)) {
                 // is LocalDate
                 return ((LocalDate) from).atStartOfDay(ZoneOffset.UTC).toOffsetDateTime().toOffsetTime();
@@ -130,7 +128,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
                 }
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to time", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException("Cannot convert '%s' to time".formatted(from.getClass().getSimpleName()));
     }
 
     @Override
@@ -158,22 +156,22 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             date = date.query(TemporalQueries.localDate());
         }
         if (date == null) {
-            throw new DMNRuntimeException(String.format("Error in dateAndTime('%s', '%s')", date, time));
+            throw new DMNRuntimeException("Error in dateAndTime('%s', '%s')".formatted(date, time));
         }
         // Check time
         if (!(time instanceof LocalTime || ((time.query(TemporalQueries.localTime()) != null && time.query(TemporalQueries.zone()) != null)))) {
-            throw new DMNRuntimeException(String.format("Error in dateAndTime('%s', '%s')", date, time));
+            throw new DMNRuntimeException("Error in dateAndTime('%s', '%s')".formatted(date, time));
         }
 
         try {
-            if (time instanceof LocalTime) {
-                return LocalDateTime.of((LocalDate) date, (LocalTime) time);
+            if (time instanceof LocalTime localTime) {
+                return LocalDateTime.of((LocalDate) date, localTime);
             } else if (time.query(TemporalQueries.localTime()) != null && time.query(TemporalQueries.zone()) != null) {
                 return ZonedDateTime.of((LocalDate) date, LocalTime.from(time), ZoneId.from(time));
             }
-            throw new DMNRuntimeException(String.format("Error in dateAndTime('%s', '%s')", date, time));
+            throw new DMNRuntimeException("Error in dateAndTime('%s', '%s')".formatted(date, time));
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error in dateAndTime('%s', '%s')", date, time));
+            throw new DMNRuntimeException("Error in dateAndTime('%s', '%s')".formatted(date, time));
         }
     }
 
@@ -182,16 +180,16 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             return null;
         }
 
-        if (from instanceof LocalDate) {
-            return ((LocalDate) from).atStartOfDay(UTC);
-        } else if (from instanceof LocalDateTime) {
-            return ((LocalDateTime) from).atZone(UTC);
-        } else if (from instanceof OffsetDateTime) {
-            return ((OffsetDateTime) from).atZoneSameInstant(UTC);
-        } else if (from instanceof ZonedDateTime) {
-            return (ZonedDateTime) from;
+        if (from instanceof LocalDate date) {
+            return date.atStartOfDay(UTC);
+        } else if (from instanceof LocalDateTime time) {
+            return time.atZone(UTC);
+        } else if (from instanceof OffsetDateTime time) {
+            return time.atZoneSameInstant(UTC);
+        } else if (from instanceof ZonedDateTime time) {
+            return time;
         }
-        throw new DMNRuntimeException(String.format("Cannot convert '%s' to date and time", from.getClass().getSimpleName()));
+        throw new DMNRuntimeException("Cannot convert '%s' to date and time".formatted(from.getClass().getSimpleName()));
     }
 
     //
@@ -402,7 +400,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
                     result = x;
                 }
             } else {
-                throw new DMNRuntimeException(String.format("Cannot compare '%s' and '%s'", result, x));
+                throw new DMNRuntimeException("Cannot compare '%s' and '%s'".formatted(result, x));
             }
         }
         return result;

@@ -21,10 +21,10 @@ public class FieldType {
 
     public FieldType(String modifier, String type) {
         if (StringUtils.isBlank(modifier)) {
-            throw new DMNRuntimeException(String.format("Mandatory proto field type modifier. Found '%s'", modifier));
+            throw new DMNRuntimeException("Mandatory proto field type modifier. Found '%s'".formatted(modifier));
         }
         if (StringUtils.isBlank(type)) {
-            throw new DMNRuntimeException(String.format("Mandatory proto field type. Found '%s'", type));
+            throw new DMNRuntimeException("Mandatory proto field type. Found '%s'".formatted(type));
         }
 
         this.modifier = modifier;

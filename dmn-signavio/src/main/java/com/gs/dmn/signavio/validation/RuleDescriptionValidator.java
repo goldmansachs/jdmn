@@ -56,8 +56,8 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             for (TDecision decision : repository.findDecisions(definitions)) {
                 TExpression expression = repository.expression(decision);
-                if (expression instanceof TDecisionTable) {
-                    List<TDecisionRule> rules = ((TDecisionTable) expression).getRule();
+                if (expression instanceof TDecisionTable table) {
+                    List<TDecisionRule> rules = table.getRule();
                     for (int i = 0; i < rules.size(); i++) {
                         TDecisionRule rule = rules.get(i);
                         validate(repository, definitions, decision, i, rule.getDescription(), errors);
@@ -73,7 +73,7 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
         if (StringUtils.isNotBlank(description)) {
             for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
                 if (description.contains(entry.getKey())) {
-                    String errorMessage = String.format("Description of rule %d in decision '%s' contains illegal sequence '%s'", ruleIndex, decision.getName(), entry.getValue());
+                    String errorMessage = "Description of rule %d in decision '%s' contains illegal sequence '%s'".formatted(ruleIndex, decision.getName(), entry.getValue());
                     errors.add(makeError(repository, definitions, decision, errorMessage));
                 }
             }

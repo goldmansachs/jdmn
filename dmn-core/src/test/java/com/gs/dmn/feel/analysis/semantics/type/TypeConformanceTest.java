@@ -196,6 +196,6 @@ public class TypeConformanceTest {
     }
 
     private void checkConformsTo(boolean expected, Type left, Type right) {
-        assertEquals(expected, com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(left, right), String.format("'%s'.conformsTo('%s') mismatch ", left, right));
+        assertEquals(expected, com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(left, right), "'%s'.conformsTo('%s') mismatch ".formatted(left, right));
     }
 }

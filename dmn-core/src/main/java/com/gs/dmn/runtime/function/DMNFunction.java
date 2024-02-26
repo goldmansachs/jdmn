@@ -46,6 +46,6 @@ public class DMNFunction extends Function {
 
     @Override
     public String toString() {
-        return String.format("%s(functionDefinition='%s' type='%s')", getClass().getSimpleName(), functionDefinition, type);
+        return "%s(functionDefinition='%s' type='%s')".formatted(getClass().getSimpleName(), functionDefinition, type);
     }
 }

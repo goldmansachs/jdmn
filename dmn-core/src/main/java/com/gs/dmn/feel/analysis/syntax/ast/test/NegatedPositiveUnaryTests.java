@@ -47,6 +47,6 @@ public class NegatedPositiveUnaryTests<T> extends UnaryTests<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", getClass().getSimpleName(), this.positiveUnaryTests.toString());
+        return "%s(%s)".formatted(getClass().getSimpleName(), this.positiveUnaryTests.toString());
     }
 }

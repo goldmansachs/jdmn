@@ -51,14 +51,14 @@ public class SignavioDMNValidator extends DefaultDMNValidator {
             if (any != null) {
                 for (Object obj : any) {
                     DMNModelRepository repository = context.getRepository();
-                    if (obj instanceof Element) {
-                        String nodeName = ((Element) obj).getNodeName();
+                    if (obj instanceof Element element) {
+                        String nodeName = element.getNodeName();
                         if (!"MultiInstanceDecisionLogic".equals(nodeName)) {
-                            String errorMessage = String.format("Extension '%s' not supported", obj);
+                            String errorMessage = "Extension '%s' not supported".formatted(obj);
                             context.addError(makeError(repository, definitions, decision, errorMessage));
                         }
                     } else {
-                        String errorMessage = String.format("Extension '%s' not supported", obj);
+                        String errorMessage = "Extension '%s' not supported".formatted(obj);
                         context.addError(makeError(repository, definitions, decision, errorMessage));
                     }
                 }

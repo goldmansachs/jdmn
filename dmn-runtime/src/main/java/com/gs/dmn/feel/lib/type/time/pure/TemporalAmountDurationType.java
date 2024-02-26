@@ -46,7 +46,7 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
         } else if (isDaysAndTimeDuration(duration)) {
             return secondsValue((Duration) duration);
         } else {
-            throw new DMNRuntimeException(String.format("value() not supported yet for '%s'", duration));
+            throw new DMNRuntimeException("value() not supported yet for '%s'".formatted(duration));
         }
     }
 
@@ -102,12 +102,12 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
             return null;
         }
 
-        if (first instanceof Period && second instanceof Period) {
-            return ((Period) first).plus(second).normalized();
-        } else if (first instanceof Duration && second instanceof Duration) {
-            return ((Duration) first).plus((Duration) second);
+        if (first instanceof Period period && second instanceof Period) {
+            return period.plus(second).normalized();
+        } else if (first instanceof Duration firstDuration && second instanceof Duration secondDuration) {
+            return firstDuration.plus(secondDuration);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", first, second));
+            throw new DMNRuntimeException("Cannot add '%s' and '%s'".formatted(first, second));
         }
     }
 
@@ -117,12 +117,12 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
             return null;
         }
 
-        if (first instanceof Period && second instanceof Period) {
-            return ((Period) first).minus(second).normalized();
-        } else if (first instanceof Duration && second instanceof Duration) {
-            return ((Duration) first).minus((Duration) second);
+        if (first instanceof Period period && second instanceof Period) {
+            return period.minus(second).normalized();
+        } else if (first instanceof Duration firstDuration && second instanceof Duration secondDuration) {
+            return firstDuration.minus(secondDuration);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", first, second));
+            throw new DMNRuntimeException("Cannot subtract '%s' and '%s'".formatted(first, second));
         }
     }
 
@@ -132,16 +132,16 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
             return null;
         }
 
-        if (first instanceof Period && second instanceof Period) {
-            Long firstValue = value((Period) first);
-            Long secondValue = value((Period) second);
+        if (first instanceof Period firstPeriod && second instanceof Period secondPeriod) {
+            Long firstValue = value(firstPeriod);
+            Long secondValue = value(secondPeriod);
             return secondValue == 0 ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
-        } else if (first instanceof Duration && second instanceof Duration) {
-            Long firstValue = value((Duration) first);
-            Long secondValue = value((Duration) second);
+        } else if (first instanceof Duration firstDuration && second instanceof Duration secondDuration) {
+            Long firstValue = value(firstDuration);
+            Long secondValue = value(secondDuration);
             return secondValue == 0 ? null : BigDecimal.valueOf(firstValue).divide(BigDecimal.valueOf(secondValue), RoundingMode.HALF_DOWN);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            throw new DMNRuntimeException("Cannot divide '%s' by '%s'".formatted(first, second));
         }
     }
 
@@ -151,14 +151,14 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
             return null;
         }
 
-        if (first instanceof Period) {
-            BigDecimal months = BigDecimal.valueOf(value((Period) first)).multiply(second);
+        if (first instanceof Period period) {
+            BigDecimal months = BigDecimal.valueOf(value(period)).multiply(second);
             return Period.of((int) (months.longValue() / 12), (int) (months.longValue() % 12), 0).normalized();
-        } else if (first instanceof Duration) {
-            BigDecimal seconds = BigDecimal.valueOf(value((Duration) first)).multiply(second);
+        } else if (first instanceof Duration duration) {
+            BigDecimal seconds = BigDecimal.valueOf(value(duration)).multiply(second);
             return Duration.ofSeconds(seconds.longValue());
         } else {
-            throw new DMNRuntimeException(String.format("Cannot multiply '%s' by '%s'", first, second));
+            throw new DMNRuntimeException("Cannot multiply '%s' by '%s'".formatted(first, second));
         }
     }
 
@@ -168,16 +168,16 @@ public class TemporalAmountDurationType extends BasePureCalendarType implements 
             return null;
         }
 
-        if (first instanceof Period) {
-            BigDecimal bdMonths = BigDecimal.valueOf(value((Period) first)).divide(second, RoundingMode.HALF_DOWN);
+        if (first instanceof Period period) {
+            BigDecimal bdMonths = BigDecimal.valueOf(value(period)).divide(second, RoundingMode.HALF_DOWN);
             int years = bdMonths.intValue() / 12;
             int months = bdMonths.intValue() % 12;
             return Period.of(years, months, 0).normalized();
-        } else if (first instanceof Duration) {
-            BigDecimal seconds = BigDecimal.valueOf(value((Duration) first)).divide(second, RoundingMode.HALF_DOWN);
+        } else if (first instanceof Duration duration) {
+            BigDecimal seconds = BigDecimal.valueOf(value(duration)).divide(second, RoundingMode.HALF_DOWN);
             return Duration.ofSeconds(seconds.longValue());
         } else {
-            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            throw new DMNRuntimeException("Cannot divide '%s' by '%s'".formatted(first, second));
         }
     }
 

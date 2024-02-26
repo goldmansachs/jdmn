@@ -308,7 +308,7 @@ public class DefaultNumericLib extends BaseNumericLib<BigDecimal> {
 
     private void checkScale(BigDecimal scale) {
         if (scale != null && (scale.intValue() < MIN_SCALE || scale.intValue() > MAX_SCALE)) {
-            throw new DMNRuntimeException(String.format("Scale '%s' not in range [%s, %s]", scale, MIN_SCALE, MAX_SCALE));
+            throw new DMNRuntimeException("Scale '%s' not in range [%s, %s]".formatted(scale, MIN_SCALE, MAX_SCALE));
         }
     }
 }

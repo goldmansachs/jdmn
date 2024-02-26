@@ -60,6 +60,6 @@ public class FilterExpression<T> extends Expression<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.source.toString(), this.filter.toString());
+        return "%s(%s, %s)".formatted(getClass().getSimpleName(), this.source.toString(), this.filter.toString());
     }
 }

@@ -36,6 +36,6 @@ public class CollectionMap extends PathTriple {
 
     @Override
     public String toString() {
-        return String.format("CollectionMap(%s, %s)", source, filter);
+        return "CollectionMap(%s, %s)".formatted(source, filter);
     }
 }

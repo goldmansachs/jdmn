@@ -37,8 +37,8 @@ public class TCKValueProcessor<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     protected String getTextContent(Object value) {
-        if (value instanceof String) {
-            return ((String) value);
+        if (value instanceof String string) {
+            return string;
         } else if (value instanceof Number) {
             return this.feelLib.string(value);
         } else if (value instanceof Boolean) {
@@ -47,18 +47,18 @@ public class TCKValueProcessor<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             return this.feelLib.string(value);
         } else if (value instanceof Duration) {
             return this.feelLib.string(value);
-        } else if (value instanceof org.w3c.dom.Element) {
-            return ((org.w3c.dom.Element) value).getTextContent();
-        } else if (value instanceof AnySimpleType) {
-            return ((AnySimpleType) value).getText();
+        } else if (value instanceof org.w3c.dom.Element element) {
+            return element.getTextContent();
+        } else if (value instanceof AnySimpleType type) {
+            return type.getText();
         } else {
             return null;
         }
     }
 
     protected Object anySimpleTypeValue(Object value) {
-        if (value instanceof AnySimpleType) {
-            return ((AnySimpleType) value).getValue();
+        if (value instanceof AnySimpleType type) {
+            return type.getValue();
         }
         return value;
     }

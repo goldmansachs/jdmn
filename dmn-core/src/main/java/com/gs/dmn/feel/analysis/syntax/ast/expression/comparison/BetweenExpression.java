@@ -60,7 +60,7 @@ public class BetweenExpression<T> extends Comparison<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s, %s)", getClass().getSimpleName(), this.value.toString(), this.leftEndpoint.toString(), this.rightEndpoint.toString());
+        return "%s(%s, %s, %s)".formatted(getClass().getSimpleName(), this.value.toString(), this.leftEndpoint.toString(), this.rightEndpoint.toString());
     }
 
 }

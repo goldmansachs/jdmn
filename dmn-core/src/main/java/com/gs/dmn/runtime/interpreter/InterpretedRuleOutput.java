@@ -51,8 +51,7 @@ public class InterpretedRuleOutput extends RuleOutput {
                 newList.add(new InterpretedRuleOutput(true, decisionPairs.get(i)));
             }
             return (List) newList;
-        } else if (listElement instanceof Context) {
-            Context skeleton = (Context) listElement;
+        } else if (listElement instanceof Context skeleton) {
             // Create new list
             List<InterpretedRuleOutput> newList = new ArrayList<>();
             for (int i = 0; i < matchedResults.size(); i++) {
@@ -94,6 +93,6 @@ public class InterpretedRuleOutput extends RuleOutput {
 
     @Override
     public String toString() {
-        return "(matched=" + isMatched() + String.format(", result='%s'", result) + ")";
+        return "(matched=" + isMatched() + ", result='%s'".formatted(result) + ")";
     }
 }

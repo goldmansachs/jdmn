@@ -69,6 +69,6 @@ public abstract class ParameterDefinition extends TestLabElement {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s, %s)", this.getClass().getSimpleName(), id, modelName, requirementName);
+        return "%s(%s, %s, %s)".formatted(this.getClass().getSimpleName(), id, modelName, requirementName);
     }
 }

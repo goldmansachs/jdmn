@@ -161,7 +161,7 @@ public class DMNContext {
 
     public void bind(String variableName, Object value) {
         if (this.parent == null || this.kind == DMNContextKind.BUILT_IN) {
-            throw new DMNRuntimeException(String.format("Cannot bind variable '%s' in built-in context", variableName));
+            throw new DMNRuntimeException("Cannot bind variable '%s' in built-in context".formatted(variableName));
         }
         this.runtimeEnvironment.bind(variableName, value);
     }

@@ -33,8 +33,8 @@ public abstract class QuantifiedConverter extends IteratorConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         TQuantified i = (TQuantified) parent;
 
-        if (SATISFIES.equals(nodeName) && child instanceof TChildExpression) {
-            i.setSatisfies((TChildExpression) child);
+        if (SATISFIES.equals(nodeName) && child instanceof TChildExpression expression) {
+            i.setSatisfies(expression);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }

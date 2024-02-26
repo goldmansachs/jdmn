@@ -97,12 +97,12 @@ public class SignavioUtil {
     }
 
     private static Boolean equalTemporal(Object o1, Object o2) {
-        if (o1 instanceof LocalDate && o2 instanceof LocalDate) {
-            return ((LocalDate) o1).isEqual((LocalDate) o2);
-        } else if (o1 instanceof OffsetTime && o2 instanceof OffsetTime) {
-            return ((OffsetTime) o1).isEqual((OffsetTime) o2);
-        } else if (o1 instanceof OffsetDateTime && o2 instanceof OffsetDateTime) {
-            return ((OffsetDateTime) o1).isEqual((OffsetDateTime) o2);
+        if (o1 instanceof LocalDate firstDate && o2 instanceof LocalDate secondDate) {
+            return firstDate.isEqual(secondDate);
+        } else if (o1 instanceof OffsetTime firstOffsetTime && o2 instanceof OffsetTime secondOffsetTime) {
+            return firstOffsetTime.isEqual(secondOffsetTime);
+        } else if (o1 instanceof OffsetDateTime firstOffsetDateTime && o2 instanceof OffsetDateTime secondOffsetDateTime) {
+            return firstOffsetDateTime.isEqual(secondOffsetDateTime);
         }
         return false;
     }
@@ -116,10 +116,10 @@ public class SignavioUtil {
     }
 
     public static BigDecimal asBigDecimal(Object e) {
-        if (e instanceof BigDecimal) {
-            return (BigDecimal) e;
+        if (e instanceof BigDecimal decimal) {
+            return decimal;
         } else {
-            throw new DMNRuntimeException(String.format("Expected number found '%s'", e));
+            throw new DMNRuntimeException("Expected number found '%s'".formatted(e));
         }
     }
 
@@ -132,10 +132,10 @@ public class SignavioUtil {
     }
 
     public static Double asDouble(Object e) {
-        if (e instanceof Double) {
-            return (Double) e;
+        if (e instanceof Double double1) {
+            return double1;
         } else {
-            throw new DMNRuntimeException(String.format("Expected number found '%s'", e));
+            throw new DMNRuntimeException("Expected number found '%s'".formatted(e));
         }
     }
 

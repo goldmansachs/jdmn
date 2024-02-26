@@ -36,6 +36,6 @@ public class LazyEvaluationTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("LazyEvaluation(%s, %s)", name, nativeName);
+        return "LazyEvaluation(%s, %s)".formatted(name, nativeName);
     }
 }

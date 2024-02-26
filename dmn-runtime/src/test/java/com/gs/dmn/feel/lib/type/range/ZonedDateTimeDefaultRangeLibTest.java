@@ -32,6 +32,6 @@ public class ZonedDateTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTes
         if (number < 0 || number > 60) {
             throw new IllegalArgumentException("Illegal second");
         }
-        return this.getLib().dateAndTime(String.format("2020-01-01T12:00:%02d", number));
+        return this.getLib().dateAndTime("2020-01-01T12:00:%02d".formatted(number));
     }
 }

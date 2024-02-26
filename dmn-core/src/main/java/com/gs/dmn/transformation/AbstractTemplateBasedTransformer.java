@@ -53,7 +53,7 @@ public abstract class AbstractTemplateBasedTransformer extends AbstractFileTrans
             }
             FileUtils.write(outputFile, text, false);
         } catch (Exception e) {
-            logger.error(String.format("Formatting error for file %s", outputFile.getName()));
+            logger.error("Formatting error for file %s".formatted(outputFile.getName()));
         }
     }
 

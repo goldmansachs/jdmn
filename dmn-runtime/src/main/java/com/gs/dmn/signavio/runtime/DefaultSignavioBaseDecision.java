@@ -40,7 +40,7 @@ public class DefaultSignavioBaseDecision extends DefaultSignavioLib
 
     @Override
     public Rule getRuleAnnotation(int ruleIndex) {
-        String methodName = String.format("rule%d", ruleIndex);
+        String methodName = "rule%d".formatted(ruleIndex);
         Class<? extends DefaultSignavioBaseDecision> cls = this.getClass();
         Method[] declaredMethods = cls.getDeclaredMethods();
         for (Method method : declaredMethods) {

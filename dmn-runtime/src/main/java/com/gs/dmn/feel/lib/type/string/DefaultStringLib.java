@@ -44,8 +44,8 @@ public class DefaultStringLib implements StringLib {
     public String string(Object from) {
         if (from == null) {
             return "null";
-        } else if (from instanceof Number) {
-            return FormatUtils.formatNumber((Number) from);
+        } else if (from instanceof Number number) {
+            return FormatUtils.formatNumber(number);
         } else if (from instanceof XMLGregorianCalendar || from instanceof Duration) {
             return FormatUtils.formatTemporal(from);
         } else if (from instanceof TemporalAccessor || from instanceof TemporalAmount) {
@@ -274,12 +274,12 @@ public class DefaultStringLib implements StringLib {
     }
 
     private String evaluateReplace(String input, String pattern, String replacement, String flags) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
-        String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
+        String expression = "replace(/root, '%s', '%s', '%s')".formatted(pattern, replacement, flags);
         return evaluateXPath(input, expression);
     }
 
     private boolean evaluateMatches(String input, String pattern, String flags) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
-        String expression = String.format("/root[matches(., '%s', '%s')]", pattern, flags);
+        String expression = "/root[matches(., '%s', '%s')]".formatted(pattern, flags);
         String value = evaluateXPath(input, expression);
         return input.equals(value);
     }

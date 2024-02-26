@@ -49,14 +49,14 @@ public class ListType implements com.gs.dmn.el.analysis.semantics.type.ListType 
 
     @Override
     public boolean equivalentTo(Type other) {
-        return other instanceof ListType
-                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.elementType, ((ListType) other).elementType);
+        return other instanceof ListType lt
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.elementType, lt.elementType);
     }
 
     @Override
     public boolean conformsTo(Type other) {
-        return other instanceof ListType
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.elementType, ((ListType) other).elementType);
+        return other instanceof ListType lt
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.elementType, lt.elementType);
     }
 
     @Override
@@ -81,6 +81,6 @@ public class ListType implements com.gs.dmn.el.analysis.semantics.type.ListType 
 
     @Override
     public String toString() {
-        return String.format("ListType(%s)", elementType);
+        return "ListType(%s)".formatted(elementType);
     }
 }

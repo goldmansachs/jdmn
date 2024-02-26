@@ -19,29 +19,29 @@ import java.util.Set;
 
 public interface CompositeDataType {
     static boolean equivalentTo(CompositeDataType self, Type other) {
-        if (other instanceof ContextType) {
+        if (other instanceof ContextType type) {
             Set<String> selfNames = self.getMembers();
-            Set<String> otherNames = ((ContextType) other).getMembers();
+            Set<String> otherNames = type.getMembers();
             if (!selfNames.equals(otherNames)) {
                 return false;
             }
             for (String name : selfNames) {
                 Type selfType = self.getMemberType(name);
-                Type otherType = ((ContextType) other).getMemberType(name);
+                Type otherType = type.getMemberType(name);
                 if (!com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(selfType, otherType)) {
                     return false;
                 }
             }
             return true;
-        } else if (other instanceof ItemDefinitionType) {
+        } else if (other instanceof ItemDefinitionType type) {
             Set<String> selfNames = self.getMembers();
-            Set<String> otherNames = ((ItemDefinitionType) other).getMembers();
+            Set<String> otherNames = type.getMembers();
             if (!selfNames.equals(otherNames)) {
                 return false;
             }
             for (String name : selfNames) {
                 Type selfType = self.getMemberType(name);
-                Type otherType = ((ItemDefinitionType) other).getMemberType(name);
+                Type otherType = type.getMemberType(name);
                 if (!com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(selfType, otherType)) {
                     return false;
                 }
@@ -53,29 +53,29 @@ public interface CompositeDataType {
     }
 
     static boolean conformsTo(CompositeDataType self, Type other) {
-        if (other instanceof ContextType) {
+        if (other instanceof ContextType type) {
             Set<String> selfNames = self.getMembers();
-            Set<String> otherNames = ((ContextType) other).getMembers();
+            Set<String> otherNames = type.getMembers();
             if (!selfNames.containsAll(otherNames)) {
                 return false;
             }
             for (String name : otherNames) {
                 Type selfType = self.getMemberType(name);
-                Type otherType = ((ContextType) other).getMemberType(name);
+                Type otherType = type.getMemberType(name);
                 if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(selfType, otherType)) {
                     return false;
                 }
             }
             return true;
-        } else if (other instanceof ItemDefinitionType) {
+        } else if (other instanceof ItemDefinitionType type) {
             Set<String> selfNames = self.getMembers();
-            Set<String> otherNames = ((ItemDefinitionType) other).getMembers();
+            Set<String> otherNames = type.getMembers();
             if (!selfNames.containsAll(otherNames)) {
                 return false;
             }
             for (String name : otherNames) {
                 Type selfType = self.getMemberType(name);
-                Type otherType = ((ItemDefinitionType) other).getMemberType(name);
+                Type otherType = type.getMemberType(name);
                 if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(selfType, otherType)) {
                     return false;
                 }

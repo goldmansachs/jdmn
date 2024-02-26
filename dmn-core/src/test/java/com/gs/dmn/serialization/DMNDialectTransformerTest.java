@@ -45,15 +45,15 @@ public abstract class DMNDialectTransformerTest extends AbstractFileTransformerT
     }
 
     protected String getInputPath() {
-        return String.format("dmn/input/%s/", getSourceVersion());
+        return "dmn/input/%s/".formatted(getSourceVersion());
     }
 
     protected String getTargetPath() {
-        return String.format("target/version/%s/%s/", getSourceVersion(), getTargetVersion());
+        return "target/version/%s/%s/".formatted(getSourceVersion(), getTargetVersion());
     }
 
     protected String getExpectedPath() {
-        return String.format("dmn/expected/%s/%s/", getSourceVersion(), getTargetVersion());
+        return "dmn/expected/%s/%s/".formatted(getSourceVersion(), getTargetVersion());
     }
 
     protected abstract SimpleDMNDialectTransformer getTransformer();

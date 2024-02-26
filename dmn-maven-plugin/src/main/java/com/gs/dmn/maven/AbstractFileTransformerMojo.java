@@ -35,7 +35,7 @@ public abstract class AbstractFileTransformerMojo<NUMBER, DATE, TIME, DATE_TIME,
             FileTransformer transformer = makeTransformer(new MavenBuildLogger(this.getLog()));
 
             // Transform
-            this.getLog().info(String.format("Transforming '%s' to '%s' ...", inputFileDirectory, outputFileDirectory));
+            this.getLog().info("Transforming '%s' to '%s' ...".formatted(inputFileDirectory, outputFileDirectory));
             transformer.transform(inputFileDirectory.toPath(), outputFileDirectory.toPath());
 
             // Add sources
@@ -47,7 +47,7 @@ public abstract class AbstractFileTransformerMojo<NUMBER, DATE, TIME, DATE_TIME,
 
     protected void checkMandatoryField(Object fieldValue, String fieldName) {
         if (fieldValue == null) {
-            throw new IllegalArgumentException(String.format("'%s' is mandatory.", fieldName));
+            throw new IllegalArgumentException("'%s' is mandatory.".formatted(fieldName));
         }
     }
 

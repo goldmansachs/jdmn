@@ -40,6 +40,6 @@ public class AsList extends ConversionTriple {
 
     @Override
     public String toString() {
-        return String.format("AsList(%s, %s)", sourceType, source);
+        return "AsList(%s, %s)".formatted(sourceType, source);
     }
 }

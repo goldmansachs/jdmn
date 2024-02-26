@@ -60,7 +60,7 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
             Long secondValue = secondsValue(second);
             return secondValue == 0 ? null : firstValue.doubleValue() / secondValue.doubleValue();
         } else {
-            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            throw new DMNRuntimeException("Cannot divide '%s' by '%s'".formatted(first, second));
         }
     }
 
@@ -77,7 +77,7 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
             Double seconds = secondsValue(first) * second;
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
         } else {
-            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            throw new DMNRuntimeException("Cannot divide '%s' by '%s'".formatted(first, second));
         }
     }
 
@@ -97,7 +97,7 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
             Double seconds = secondsValue(first).doubleValue() / second;
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
         } else {
-            throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            throw new DMNRuntimeException("Cannot divide '%s' by '%s'".formatted(first, second));
         }
     }
 }

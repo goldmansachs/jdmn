@@ -32,7 +32,7 @@ public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
 
     private void testRoundTrip(File file) throws Exception {
         if (TCKSerializer.isTCKFile(file)) {
-            LOGGER.debug(String.format("Testing '%s'", file.getPath()));
+            LOGGER.debug("Testing '%s'".formatted(file.getPath()));
             testRoundTrip(file, marshaller, rootOutputPath);
         } else if (file.isDirectory() && !file.getName().equals("expected")) {
             for (File child: file.listFiles()) {
@@ -63,11 +63,11 @@ public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
     }
 
     private String makeOutputPath(String version) {
-        return String.format("%s/xstream/tck/%s", rootOutputPath, version);
+        return "%s/xstream/tck/%s".formatted(rootOutputPath, version);
     }
 
     private File makeFile(String version, String name) {
-        String path = String.format("tck/%s/cl2/%s/%s-test-01.xml", version, name, name);
+        String path = "tck/%s/cl2/%s/%s-test-01.xml".formatted(version, name, name);
         return new File(STANDARD_FOLDER, path);
     }
 

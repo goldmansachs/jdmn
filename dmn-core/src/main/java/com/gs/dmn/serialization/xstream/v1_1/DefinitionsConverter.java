@@ -54,14 +54,14 @@ public class DefinitionsConverter extends NamedElementConverter {
             def.getImport().add((TImport) child);
         } else if (ITEM_DEFINITION.equals(nodeName)) {
             def.getItemDefinition().add((TItemDefinition) child);
-        } else if (child instanceof TDRGElement) {
-            def.getDrgElement().add((TDRGElement) child);
-        } else if (child instanceof TArtifact) {
-            def.getArtifact().add((TArtifact) child);
+        } else if (child instanceof TDRGElement element) {
+            def.getDrgElement().add(element);
+        } else if (child instanceof TArtifact artifact) {
+            def.getArtifact().add(artifact);
         } else if (ELEMENT_COLLECTION.equals(nodeName)) {
             def.getElementCollection().add((TElementCollection) child);
-        } else if (child instanceof TBusinessContextElement) {
-            def.getBusinessContextElement().add((TBusinessContextElement) child);
+        } else if (child instanceof TBusinessContextElement element) {
+            def.getBusinessContextElement().add(element);
         } else {
             super.assignChildElement(def, nodeName, child);
         }

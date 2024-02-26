@@ -68,17 +68,17 @@ public class DurationType extends ComparableDataType {
         if (YEAR_MONTH_DURATION.equivalentTo(sourceType)) {
             Type type = YEARS_AND_MONTHS_DURATION_MEMBERS.get(member);
             if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-                throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
+                throw new SemanticError("Cannot find member '%s' of type '%s'".formatted(member, sourceType.toString()));
             }
             return type;
         } else if (DAYS_AND_TIME_DURATION.equivalentTo(sourceType)) {
             Type type = DAYS_AND_TIME_DURATION_MEMBERS.get(member);
             if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-                throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
+                throw new SemanticError("Cannot find member '%s' of type '%s'".formatted(member, sourceType.toString()));
             }
             return type;
         } else {
-            throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
+            throw new SemanticError("Cannot find member '%s' of type '%s'".formatted(member, sourceType.toString()));
         }
     }
 }

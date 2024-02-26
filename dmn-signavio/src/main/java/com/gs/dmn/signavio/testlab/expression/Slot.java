@@ -57,9 +57,9 @@ public class Slot extends TestLabElement {
 
     public String toContextEntry() {
         if (value == null) {
-            return String.format("%s : null", itemComponentName);
+            return "%s : null".formatted(itemComponentName);
         } else {
-            return String.format("%s : %s", itemComponentName, value.toFEELExpression());
+            return "%s : %s".formatted(itemComponentName, value.toFEELExpression());
         }
     }
 
@@ -87,7 +87,7 @@ public class Slot extends TestLabElement {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s, %s, %s)", this.getClass().getSimpleName(), name, itemComponentName, id, value);
+        return "%s(%s, %s, %s, %s)".formatted(this.getClass().getSimpleName(), name, itemComponentName, id, value);
     }
 
     @Override

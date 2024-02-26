@@ -49,6 +49,6 @@ public class EnumerationInterval extends Interval {
 
     @Override
     public String toString() {
-        return String.format("%s, %s", lowerBound, upperBound);
+        return "%s, %s".formatted(lowerBound, upperBound);
     }
 }

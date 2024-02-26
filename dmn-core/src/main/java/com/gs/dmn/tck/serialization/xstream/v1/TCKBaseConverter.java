@@ -38,9 +38,9 @@ public abstract class TCKBaseConverter extends AbstractCollectionConverter {
             reader.moveDown();
             String nodeName = reader.getNodeName();
             Object object = readBareItem(reader, context,null);
-            if (object instanceof TCKBaseElement) {
-                ((TCKBaseElement) object).setParent((TCKBaseElement) parent);
-                ((TCKBaseElement) parent).addChildren((TCKBaseElement) object);
+            if (object instanceof TCKBaseElement element) {
+                element.setParent((TCKBaseElement) parent);
+                ((TCKBaseElement) parent).addChildren(element);
             }
             reader.moveUp();
             assignChildElement(parent, nodeName, object);

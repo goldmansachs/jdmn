@@ -36,7 +36,7 @@ public class DMNFunctionType extends FunctionType implements com.gs.dmn.el.analy
     }
 
     public DMNFunctionType(List<FormalParameter<Type>> parameters, Type returnType, TDRGElement drgElement) {
-        this(parameters, returnType, drgElement, drgElement instanceof TBusinessKnowledgeModel ? ((TBusinessKnowledgeModel) drgElement).getEncapsulatedLogic() : null);
+        this(parameters, returnType, drgElement, drgElement instanceof TBusinessKnowledgeModel tbkm ? tbkm.getEncapsulatedLogic() : null);
     }
 
     public DMNFunctionType(List<FormalParameter<Type>> parameters, Type returnType, TDRGElement drgElement, TFunctionDefinition functionDefinition) {
@@ -61,17 +61,17 @@ public class DMNFunctionType extends FunctionType implements com.gs.dmn.el.analy
 
     @Override
     public boolean equivalentTo(Type other) {
-        return other instanceof DMNFunctionType
-                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.returnType, ((FunctionType) other).returnType)
-                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.parameterTypes, ((FunctionType) other).parameterTypes);
+        return other instanceof DMNFunctionType dmnft
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.returnType, dmnft.returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.parameterTypes, dmnft.parameterTypes);
     }
 
     @Override
     public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
-        return other instanceof FunctionType
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+        return other instanceof FunctionType ft
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ft.returnType)
+                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(ft.parameterTypes, this.parameterTypes);
     }
 
     @Override
@@ -116,6 +116,6 @@ public class DMNFunctionType extends FunctionType implements com.gs.dmn.el.analy
     @Override
     public String toString() {
         String types = this.parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
-        return String.format("%s(%s, %s)", getClass().getSimpleName(), types, this.returnType);
+        return "%s(%s, %s)".formatted(getClass().getSimpleName(), types, this.returnType);
     }
 }

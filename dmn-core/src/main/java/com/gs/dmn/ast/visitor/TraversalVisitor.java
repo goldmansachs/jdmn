@@ -697,12 +697,12 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
 
     private void visitTArtifact(TArtifact  element, C context) {
         visitTDMNElementProperties(element, context);
-        if (element instanceof TAssociation) {
-            ((TAssociation) element).accept(this, context);
-        } else if (element instanceof TGroup) {
-            ((TGroup) element).accept(this, context);
-        } else if (element instanceof TTextAnnotation) {
-            ((TTextAnnotation) element).accept(this, context);
+        if (element instanceof TAssociation association) {
+            association.accept(this, context);
+        } else if (element instanceof TGroup group) {
+            group.accept(this, context);
+        } else if (element instanceof TTextAnnotation annotation) {
+            annotation.accept(this, context);
         }
     }
 
@@ -717,32 +717,32 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
         }
 
         visitTExpressionProperties(element, context);
-        if (element instanceof TContext) {
-            ((TContext) element).accept(this, context);
-        } else if (element instanceof TDecisionTable) {
-            ((TDecisionTable) element).accept(this, context);
-        } else if (element instanceof TFunctionDefinition) {
-            ((TFunctionDefinition) element).accept(this, context);
-        } else if (element instanceof TInvocation) {
-            ((TInvocation) element).accept(this, context);
-        } else if (element instanceof TList) {
-            ((TList) element).accept(this, context);
-        } else if (element instanceof TLiteralExpression) {
-            ((TLiteralExpression) element).accept(this, context);
-        } else if (element instanceof TRelation) {
-            ((TRelation) element).accept(this, context);
-        } else if (element instanceof TUnaryTests) {
-            ((TUnaryTests) element).accept(this, context);
-        } else if (element instanceof TConditional) {
-            ((TConditional) element).accept(this, context);
-        } else if (element instanceof TFor) {
-            ((TFor) element).accept(this, context);
-        } else if (element instanceof TFilter) {
-            ((TFilter) element).accept(this, context);
-        } else if (element instanceof TEvery) {
-            ((TEvery) element).accept(this, context);
-        } else if (element instanceof TSome) {
-            ((TSome) element).accept(this, context);
+        if (element instanceof TContext tContext) {
+            tContext.accept(this, context);
+        } else if (element instanceof TDecisionTable table) {
+            table.accept(this, context);
+        } else if (element instanceof TFunctionDefinition definition) {
+            definition.accept(this, context);
+        } else if (element instanceof TInvocation invocation) {
+            invocation.accept(this, context);
+        } else if (element instanceof TList list) {
+            list.accept(this, context);
+        } else if (element instanceof TLiteralExpression expression) {
+            expression.accept(this, context);
+        } else if (element instanceof TRelation relation) {
+            relation.accept(this, context);
+        } else if (element instanceof TUnaryTests tests) {
+            tests.accept(this, context);
+        } else if (element instanceof TConditional conditional) {
+            conditional.accept(this, context);
+        } else if (element instanceof TFor for1) {
+            for1.accept(this, context);
+        } else if (element instanceof TFilter filter) {
+            filter.accept(this, context);
+        } else if (element instanceof TEvery every) {
+            every.accept(this, context);
+        } else if (element instanceof TSome some) {
+            some.accept(this, context);
         }
     }
 
@@ -751,22 +751,22 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
     }
 
     private void visitTDRGElement(TDRGElement  element, C context) {
-        if (element instanceof TInputData) {
-            ((TInputData) element).accept(this, context);
-        } else if (element instanceof TDecision) {
-            ((TDecision) element).accept(this, context);
+        if (element instanceof TInputData data) {
+            data.accept(this, context);
+        } else if (element instanceof TDecision decision) {
+            decision.accept(this, context);
         } else if (element instanceof TInvocable) {
             visitInvocable(element, context);
-        } else if (element instanceof TKnowledgeSource) {
-            ((TKnowledgeSource) element).accept(this, context);
+        } else if (element instanceof TKnowledgeSource source) {
+            source.accept(this, context);
         }
     }
 
     private void visitInvocable(TDRGElement  element, C context) {
-        if (element instanceof TBusinessKnowledgeModel) {
-            ((TBusinessKnowledgeModel) element).accept(this, context);
-        } else if (element instanceof TDecisionService) {
-            ((TDecisionService) element).accept(this, context);
+        if (element instanceof TBusinessKnowledgeModel model) {
+            model.accept(this, context);
+        } else if (element instanceof TDecisionService service) {
+            service.accept(this, context);
         }
     }
 
@@ -788,16 +788,16 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
 
     private void visitDiagramElement(DiagramElement  element, C context) {
         visitDiagramElementProperties(element, context);
-        if (element instanceof DMNDiagram) {
-            ((DMNDiagram) element).accept(this, context);
-        } else if (element instanceof DMNDecisionServiceDividerLine) {
-            ((DMNDecisionServiceDividerLine) element).accept(this, context);
-        } else if (element instanceof DMNEdge) {
-            ((DMNEdge) element).accept(this, context);
-        } else if (element instanceof DMNLabel) {
-            ((DMNLabel) element).accept(this, context);
-        } else if (element instanceof DMNShape) {
-            ((DMNShape) element).accept(this, context);
+        if (element instanceof DMNDiagram diagram) {
+            diagram.accept(this, context);
+        } else if (element instanceof DMNDecisionServiceDividerLine line) {
+            line.accept(this, context);
+        } else if (element instanceof DMNEdge edge) {
+            edge.accept(this, context);
+        } else if (element instanceof DMNLabel label) {
+            label.accept(this, context);
+        } else if (element instanceof DMNShape shape) {
+            shape.accept(this, context);
         }
     }
 

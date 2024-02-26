@@ -39,7 +39,7 @@ public class ComplexExpression extends Expression {
             return "null";
         } else {
             String context = slots.stream().map(Slot::toContextEntry).collect(Collectors.joining(", "));
-            return String.format("{%s}", context);
+            return "{%s}".formatted(context);
         }
     }
 
@@ -60,7 +60,7 @@ public class ComplexExpression extends Expression {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)", this.getClass().getSimpleName(), slots);
+        return "%s(%s)".formatted(this.getClass().getSimpleName(), slots);
     }
 
     @Override

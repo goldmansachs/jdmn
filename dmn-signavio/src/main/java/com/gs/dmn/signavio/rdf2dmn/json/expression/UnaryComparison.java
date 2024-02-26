@@ -34,6 +34,6 @@ public class UnaryComparison extends UnaryTest {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s)", this.getClass().getSimpleName(), operator, operand.toString());
+        return "%s(%s, %s)".formatted(this.getClass().getSimpleName(), operator, operand.toString());
     }
 }

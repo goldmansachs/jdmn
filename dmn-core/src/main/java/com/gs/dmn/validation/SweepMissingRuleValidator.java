@@ -54,7 +54,7 @@ public class SweepMissingRuleValidator extends SweepValidator {
     @Override
     protected void validate(TDRGElement element, TDecisionTable decisionTable, SweepValidationContext context) {
         if (element != null) {
-            logger.debug(String.format("Validating element '%s'", element.getName()));
+            logger.debug("Validating element '%s'".formatted(element.getName()));
 
             DMNModelRepository repository = context.getRepository();
             ELTranslator<Type, DMNContext> feelTranslator = context.getElTranslator();
@@ -70,7 +70,7 @@ public class SweepMissingRuleValidator extends SweepValidator {
             if (!table.isEmpty()) {
                 findMissingRules(ruleIndex, 0, totalNumberOfColumns, missingIntervals, missingRuleList, table);
 
-                logger.debug(String.format("Found missing rules %s", missingRuleList));
+                logger.debug("Found missing rules %s".formatted(missingRuleList));
 
                 for (Rule rule: missingRuleList.getRules()) {
                     context.addError(makeError(element, rule, repository));
@@ -82,7 +82,7 @@ public class SweepMissingRuleValidator extends SweepValidator {
     private String makeError(TDRGElement element, Rule rule, DMNModelRepository repository) {
         TDefinitions model = repository.getModel(element);
         String intervalsString = rule.getIntervals().stream().map(Interval::serialize).collect(Collectors.joining(", "));
-        String message = String.format("Found missing rule '[%s]' in '%s' table", intervalsString, repository.displayName(element));
+        String message = "Found missing rule '[%s]' in '%s' table".formatted(intervalsString, repository.displayName(element));
         return makeError(repository, model, element, message);
     }
 
@@ -116,7 +116,7 @@ public class SweepMissingRuleValidator extends SweepValidator {
     //  return missingRuleList;
     private void findMissingRules(List<Integer> ruleList, int columnIndex, int totalNumberOfColumns, MissingIntervals missingIntervals, MissingRuleList missingRuleList, Table table) {
         String indent = StringUtils.repeat("\t", columnIndex);
-        logger.debug(String.format("%sColumn = '%s' Active rules = '%s' Missing intervals = '%s'", indent, columnIndex, ruleList, missingIntervals));
+        logger.debug("%sColumn = '%s' Active rules = '%s' Missing intervals = '%s'".formatted(indent, columnIndex, ruleList, missingIntervals));
 
         if(columnIndex < totalNumberOfColumns) {
             List<Bound> sortedListAllBounds = makeBoundList(ruleList, columnIndex, table);
@@ -126,12 +126,12 @@ public class SweepMissingRuleValidator extends SweepValidator {
             int boundCount = sortedListAllBounds.size();
             List<Integer> lxi = new ArrayList<>();
 
-            logger.debug(String.format("%sColumn = %s Sorted bounds = '%s'", indent, columnIndex, sortedListAllBounds));
+            logger.debug("%sColumn = %s Sorted bounds = '%s'".formatted(indent, columnIndex, sortedListAllBounds));
 
             for (int i = 0; i<boundCount; i++) {
                 Bound currentBound = sortedListAllBounds.get(i);
 
-                logger.debug(String.format("%sCurrent bound = '%s'", indent, currentBound));
+                logger.debug("%sCurrent bound = '%s'".formatted(indent, currentBound));
 
                 Interval missingInterval = null;
                 if (i == 0) {
@@ -167,10 +167,10 @@ public class SweepMissingRuleValidator extends SweepValidator {
 
                 int ruleIndex = currentBound.getInterval().getRuleIndex();
                 if (currentBound.isLowerBound()) {
-                    logger.debug(String.format("%sAdd active rule %s", indent, ruleIndex));
+                    logger.debug("%sAdd active rule %s".formatted(indent, ruleIndex));
                     lxi.add(ruleIndex);
                 } else {
-                    logger.debug(String.format("%sRemove active rule %s", indent, ruleIndex));
+                    logger.debug("%sRemove active rule %s".formatted(indent, ruleIndex));
                     lxi.remove((Object) ruleIndex);
                 }
                 lastBound = currentBound;

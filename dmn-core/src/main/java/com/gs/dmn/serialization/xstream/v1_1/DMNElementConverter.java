@@ -31,10 +31,10 @@ public abstract class DMNElementConverter extends DMNBaseElementConverter {
 
     @Override
     protected void assignChildElement(Object parent, String nodeName, Object child) {
-        if (DESCRIPTION.equals(nodeName) && child instanceof String) {
-            ((TDMNElement) parent).setDescription((String) child);
-        } else if (EXTENSION_ELEMENTS.equals(nodeName) && child instanceof TDMNElement.ExtensionElements) {
-            ((TDMNElement) parent).setExtensionElements((TDMNElement.ExtensionElements) child);
+        if (DESCRIPTION.equals(nodeName) && child instanceof String string) {
+            ((TDMNElement) parent).setDescription(string);
+        } else if (EXTENSION_ELEMENTS.equals(nodeName) && child instanceof TDMNElement.ExtensionElements elements) {
+            ((TDMNElement) parent).setExtensionElements(elements);
         } else {
             super.assignChildElement(parent, nodeName, child);
         }

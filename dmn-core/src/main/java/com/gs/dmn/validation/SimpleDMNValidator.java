@@ -30,7 +30,7 @@ public abstract class SimpleDMNValidator implements DMNValidator {
         if (location == null) {
             return message;
         } else {
-            return String.format("%s: error: %s", location, message);
+            return "%s: error: %s".formatted(location, message);
         }
     }
 

@@ -59,8 +59,8 @@ public class FunctionInvocationUtils {
                 String name = formalParameter.getName();
                 if ("list".equals(name)) {
                     Type inputType = parameters.getParameterType(0, "list");
-                    if (inputType instanceof ListType) {
-                        Type returnType = ((ListType) inputType).getElementType();
+                    if (inputType instanceof ListType type) {
+                        Type returnType = type.getElementType();
                         return StandardEnvironmentFactory.makeMaxMinBuiltInFunctionTypeForList(inputType, returnType);
                     }
                 } else {
@@ -184,19 +184,19 @@ public class FunctionInvocationUtils {
         ParameterTypes<Type> parameterTypes = element.getParameters().getSignature();
         List<DeclarationMatch> functionMatches = findFunctionMatches(element, context, name, parameterTypes);
         if (functionMatches.isEmpty()) {
-            throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'. No match found.", name, parameterTypes));
+            throw new DMNRuntimeException("Cannot resolve function '%s(%s)'. No match found.".formatted(name, parameterTypes));
         } else if (functionMatches.size() == 1) {
             return functionMatches.get(0);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'. Found %d matches %s", name, parameterTypes, functionMatches.size(), functionMatches));
+            throw new DMNRuntimeException("Cannot resolve function '%s(%s)'. Found %d matches %s".formatted(name, parameterTypes, functionMatches.size(), functionMatches));
         }
     }
 
     static void setInvocationType(FunctionInvocation<Type> element, Type functionType) {
-        if (functionType instanceof FunctionType) {
-            element.setType(((FunctionType) functionType).getReturnType());
+        if (functionType instanceof FunctionType type) {
+            element.setType(type.getReturnType());
         } else {
-            throw new DMNRuntimeException(String.format("Expected function type for '%s'. Found '%s'", element.getFunction(), functionType));
+            throw new DMNRuntimeException("Expected function type for '%s'. Found '%s'".formatted(element.getFunction(), functionType));
         }
     }
 

@@ -34,7 +34,7 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
         for (Pair<String, String> pair : pairs) {
             String literal = pair.getLeft();
             String serialization = pair.getRight();
-            String errorMessage = String.format("Testing '%s'", literal);
+            String errorMessage = "Testing '%s'".formatted(literal);
 
             // Serialization
             NUMBER obj1 = lib.number(literal);
@@ -55,8 +55,8 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
 
         for (Pair<String, String> pair : pairs) {
             String literal = pair.getLeft();
-            String serialization = String.format("\"%s\"", pair.getRight());
-            String errorMessage = String.format("Testing '%s'", literal);
+            String serialization = "\"%s\"".formatted(pair.getRight());
+            String errorMessage = "Testing '%s'".formatted(literal);
 
             // Serialization
             DATE obj1 = lib.date(literal);
@@ -77,8 +77,8 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
 
         for (Pair<String, String> pair : pairs) {
             String literal = pair.getLeft();
-            String serialization = String.format("\"%s\"", pair.getRight());
-            String errorMessage = String.format("Testing '%s'", literal);
+            String serialization = "\"%s\"".formatted(pair.getRight());
+            String errorMessage = "Testing '%s'".formatted(literal);
 
             // Serialization
             TIME obj1 = lib.time(literal);
@@ -99,8 +99,8 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
 
         for (Pair<String, String> pair : pairs) {
             String literal = pair.getLeft();
-            String serialization = String.format("\"%s\"", pair.getRight());
-            String errorMessage = String.format("Testing '%s'", literal);
+            String serialization = "\"%s\"".formatted(pair.getRight());
+            String errorMessage = "Testing '%s'".formatted(literal);
 
             // Serialization
             DATE_TIME obj1 = lib.dateAndTime(literal);
@@ -121,8 +121,8 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
 
         for (Pair<String, String> pair : pairs) {
             String literal = pair.getLeft();
-            String serialization = String.format("\"%s\"", pair.getRight());
-            String errorMessage = String.format("Testing '%s'", literal);
+            String serialization = "\"%s\"".formatted(pair.getRight());
+            String errorMessage = "Testing '%s'".formatted(literal);
 
             // Serialization
             DURATION obj1 = lib.duration(literal);
@@ -153,7 +153,7 @@ public abstract class AbstractJsonSerializerTest<NUMBER, DATE, TIME, DATE_TIME, 
         try {
             return OBJECT_MAPPER.writeValueAsString(obj);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot serialize '%s'", obj), e);
+            throw new DMNRuntimeException("Cannot serialize '%s'".formatted(obj), e);
         }
     }
 

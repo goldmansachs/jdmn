@@ -37,7 +37,7 @@ public class OperatorRange<T> extends Range<T> {
         } else if (">=".equals(operator)) {
             this.endpointsRange = new EndpointsRange<>(false, endpoint, true, null);
         } else {
-            throw new DMNRuntimeException(String.format("Unexpected operator '%s'", operator));
+            throw new DMNRuntimeException("Unexpected operator '%s'".formatted(operator));
         }
     }
 
@@ -78,6 +78,6 @@ public class OperatorRange<T> extends Range<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s,%s)", getClass().getSimpleName(), this.operator, this.endpoint.toString());
+        return "%s(%s,%s)".formatted(getClass().getSimpleName(), this.operator, this.endpoint.toString());
     }
 }

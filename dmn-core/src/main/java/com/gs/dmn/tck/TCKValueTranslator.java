@@ -58,26 +58,26 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
                 return makeLiteral("duration", text);
             } else if (isString(value, type)) {
                 // Last one to deal with xsd:string but different value
-                return String.format("\"%s\"", text.replace("\n", "\\n"));
+                return "\"%s\"".formatted(text.replace("\n", "\\n"));
             } else {
-                throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
+                throw new DMNRuntimeException("Cannot make value for input '%s' with type '%s'".formatted(valueType, type));
             }
         } else if (valueType.getList() != null) {
             return toNativeExpression(valueType.getList(), (ListType) type, element);
         } else if (valueType.getComponent() != null) {
-            if (type instanceof ItemDefinitionType) {
-                return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type, element);
-            } else if (type instanceof ContextType) {
-                return toNativeExpression(valueType.getComponent(), (ContextType) type, element);
+            if (type instanceof ItemDefinitionType definitionType) {
+                return toNativeExpression(valueType.getComponent(), definitionType, element);
+            } else if (type instanceof ContextType contextType) {
+                return toNativeExpression(valueType.getComponent(), contextType, element);
             } else {
-                throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
+                throw new DMNRuntimeException("Cannot make value for input '%s' with type '%s'".formatted(valueType, type));
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
+        throw new DMNRuntimeException("Cannot make value for input '%s' with type '%s'".formatted(valueType, type));
     }
 
     private String makeLiteral(String function, String text) {
-        return this.nativeFactory.makeBuiltinFunctionInvocation(function, String.format("\"%s\"", text.trim()));
+        return this.nativeFactory.makeBuiltinFunctionInvocation(function, "\"%s\"".formatted(text.trim()));
     }
 
     private String toNativeExpression(com.gs.dmn.tck.ast.List list, ListType listType, TDRGElement element) {
@@ -126,8 +126,8 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         // Use builder pattern in Context
         sortParameters(membersList);
         String builder = this.transformer.defaultConstructor(this.transformer.contextClassName());
-        String parts = membersList.stream().map(a -> String.format("add(\"%s\", %s)", a.getLeft(), a.getRight())).collect(Collectors.joining("."));
-        return String.format("%s.%s", builder, parts);
+        String parts = membersList.stream().map(a -> "add(\"%s\", %s)".formatted(a.getLeft(), a.getRight())).collect(Collectors.joining("."));
+        return "%s.%s".formatted(builder, parts);
     }
 
     protected void sortParameters(List<Pair<String, String>> parameters) {
@@ -165,8 +165,8 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     }
 
     private boolean isDate(Object value, Type type) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATE;
+        if (value instanceof XMLGregorianCalendar calendar) {
+            return calendar.getXMLSchemaType() == DatatypeConstants.DATE;
         }
         if (Type.isNull(type)) {
             return false;
@@ -175,8 +175,8 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     }
 
     private boolean isTime(Object value, Type type) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.TIME;
+        if (value instanceof XMLGregorianCalendar calendar) {
+            return calendar.getXMLSchemaType() == DatatypeConstants.TIME;
         }
         if (Type.isNull(type)) {
             return false;
@@ -185,8 +185,8 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     }
 
     private boolean isDateTime(Object value, Type type) {
-        if (value instanceof XMLGregorianCalendar) {
-            return ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATETIME;
+        if (value instanceof XMLGregorianCalendar calendar) {
+            return calendar.getXMLSchemaType() == DatatypeConstants.DATETIME;
         }
         if (Type.isNull(type)) {
             return false;

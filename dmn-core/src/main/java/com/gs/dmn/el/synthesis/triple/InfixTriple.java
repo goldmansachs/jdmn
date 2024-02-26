@@ -42,6 +42,6 @@ public class InfixTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("Infix(%s, %s, %s)", nativeOperator, leftOpd, rightOpd);
+        return "Infix(%s, %s, %s)".formatted(nativeOperator, leftOpd, rightOpd);
     }
 }

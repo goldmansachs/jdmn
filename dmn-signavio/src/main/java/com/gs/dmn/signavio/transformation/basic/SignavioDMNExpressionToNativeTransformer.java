@@ -47,11 +47,11 @@ public class SignavioDMNExpressionToNativeTransformer extends DMNExpressionToNat
         }
         // Build call
         TExpression body = invocation.getExpression();
-        if (body instanceof TLiteralExpression) {
-            String invocableName = NameUtils.invocableName(((TLiteralExpression) body).getText());
+        if (body instanceof TLiteralExpression expression) {
+            String invocableName = NameUtils.invocableName(expression.getText());
             TInvocable invocable = this.dmnModelRepository.findInvocableByName(invocableName);
             if (invocable == null) {
-                throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", invocableName));
+                throw new DMNRuntimeException("Cannot find BKM for '%s'".formatted(invocableName));
             }
             List<Statement> argList = new ArrayList<>();
             List<String> formalParameterList = this.dmnTransformer.invocableFEELParameterNames(invocable);
@@ -60,16 +60,16 @@ public class SignavioDMNExpressionToNativeTransformer extends DMNExpressionToNat
                     Statement argValue = argBinding.get(paramName);
                     argList.add(argValue);
                 } else {
-                    throw new UnsupportedOperationException(String.format("Cannot find binding for parameter '%s'", paramName));
+                    throw new UnsupportedOperationException("Cannot find binding for parameter '%s'".formatted(paramName));
                 }
             }
             String invocableInstance = this.dmnTransformer.singletonInvocableInstance(invocable);
             String argListString = argList.stream().map(Statement::getText).collect(Collectors.joining(", "));
-            String expressionText = String.format("%s.apply(%s)", invocableInstance, this.dmnTransformer.augmentArgumentList(argListString));
+            String expressionText = "%s.apply(%s)".formatted(invocableInstance, this.dmnTransformer.augmentArgumentList(argListString));
             Type expressionType = this.dmnTransformer.drgElementOutputFEELType(invocable);
             return this.nativeFactory.makeExpressionStatement(expressionText, expressionType);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
+            throw new DMNRuntimeException("Not supported '%s'".formatted(body.getClass().getSimpleName()));
         }
     }
 }

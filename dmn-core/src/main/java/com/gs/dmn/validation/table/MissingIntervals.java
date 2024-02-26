@@ -55,6 +55,6 @@ public class MissingIntervals {
 
     @Override
     public String toString() {
-        return map.entrySet().stream().map(e -> String.format("%s -> %s", e.getKey(), e.getValue())).collect(Collectors.joining(", "));
+        return map.entrySet().stream().map(e -> "%s -> %s".formatted(e.getKey(), e.getValue())).collect(Collectors.joining(", "));
     }
 }

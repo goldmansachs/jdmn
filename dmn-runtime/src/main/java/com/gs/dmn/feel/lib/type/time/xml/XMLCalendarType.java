@@ -60,36 +60,36 @@ public abstract class XMLCalendarType extends BaseType {
     }
 
     public static boolean isYearMonthDuration(Object duration) {
-        return duration instanceof Duration && getXMLSchemaType((Duration) duration) == DatatypeConstants.DURATION_YEARMONTH;
+        return duration instanceof Duration d && getXMLSchemaType(d) == DatatypeConstants.DURATION_YEARMONTH;
     }
 
     public static boolean isDayTimeDuration(Object duration) {
-        return duration instanceof Duration && getXMLSchemaType((Duration) duration) == DatatypeConstants.DURATION_DAYTIME;
+        return duration instanceof Duration d && getXMLSchemaType(d) == DatatypeConstants.DURATION_DAYTIME;
     }
 
     public boolean isDate(Object value) {
-        return value instanceof XMLGregorianCalendar
-                && ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATE;
+        return value instanceof XMLGregorianCalendar xmlgc
+                && xmlgc.getXMLSchemaType() == DatatypeConstants.DATE;
     }
 
     public boolean isTime(Object value) {
-        return value instanceof XMLGregorianCalendar
-                && ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.TIME;
+        return value instanceof XMLGregorianCalendar xmlgc
+                && xmlgc.getXMLSchemaType() == DatatypeConstants.TIME;
     }
 
     public boolean isDateTime(Object value) {
-        return value instanceof XMLGregorianCalendar
-                && ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATETIME;
+        return value instanceof XMLGregorianCalendar xmlgc
+                && xmlgc.getXMLSchemaType() == DatatypeConstants.DATETIME;
     }
 
     public boolean isYearsAndMonthsDuration(Object value) {
-        return value instanceof Duration
-                && isYearMonthDuration((Duration) value);
+        return value instanceof Duration d
+                && isYearMonthDuration(d);
     }
 
     public boolean isDaysAndTimeDuration(Object value) {
-        return value instanceof Duration
-                && isDayTimeDuration((Duration) value);
+        return value instanceof Duration d
+                && isDayTimeDuration(d);
     }
 
     public Long dateValue(XMLGregorianCalendar date) {

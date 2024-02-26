@@ -43,7 +43,7 @@ public class EnumerationLiteral extends SimpleExpression {
         if (name == null) {
             return "null";
         } else {
-            return String.format("\"%s\"", name);
+            return "\"%s\"".formatted(name);
         }
     }
 
@@ -64,7 +64,7 @@ public class EnumerationLiteral extends SimpleExpression {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s)", this.getClass().getSimpleName(), name, value);
+        return "%s(%s, %s)".formatted(this.getClass().getSimpleName(), name, value);
     }
 
     @Override

@@ -35,10 +35,10 @@ public abstract class DiagramElementConverter extends DMNBaseElementConverter {
     protected void assignChildElement(Object parent, String nodeName, Object child) {
         DiagramElement abs = (DiagramElement) parent;
 
-        if (child instanceof DiagramElement.Extension) {
-            abs.setExtension((DiagramElement.Extension) child);
-        } else if (child instanceof Style) {
-            abs.setStyle((Style) child);
+        if (child instanceof DiagramElement.Extension extension) {
+            abs.setExtension(extension);
+        } else if (child instanceof Style style) {
+            abs.setStyle(style);
         } else {
             super.assignChildElement(abs, nodeName, child);
         }

@@ -56,7 +56,7 @@ class StandardFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> ex
         } else if ("seconds".equals(member)) {
             return lib.seconds((DURATION) source);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot resolve method '%s' for date time", member));
+            throw new DMNRuntimeException("Cannot resolve method '%s' for date time".formatted(member));
         }
     }
 }

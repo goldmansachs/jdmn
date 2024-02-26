@@ -27,7 +27,7 @@ public class Exponentiation<T> extends ArithmeticExpression<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s,%s)", getClass().getSimpleName(), getLeftOperand(), getRightOperand());
+        return "%s(%s,%s)".formatted(getClass().getSimpleName(), getLeftOperand(), getRightOperand());
     }
 }
 

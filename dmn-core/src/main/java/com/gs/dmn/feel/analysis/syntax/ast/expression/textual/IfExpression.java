@@ -60,6 +60,6 @@ public class IfExpression<T> extends Expression<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s, %s)", getClass().getSimpleName(), this.condition.toString(), this.thenExpression.toString(), this.elseExpression.toString());
+        return "%s(%s, %s, %s)".formatted(getClass().getSimpleName(), this.condition.toString(), this.thenExpression.toString(), this.elseExpression.toString());
     }
 }

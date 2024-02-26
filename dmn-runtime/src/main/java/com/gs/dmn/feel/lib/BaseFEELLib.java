@@ -71,7 +71,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.isNumber(value);
         } catch (Exception e) {
-            String message = String.format("isNumber(%s)", value);
+            String message = "isNumber(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -82,7 +82,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericValue(value);
         } catch (Exception e) {
-            String message = String.format("numericValue(%s)", value);
+            String message = "numericValue(%s)".formatted(value);
             logError(message, e);
             return null;
         }
@@ -93,7 +93,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericIs(first, second);
         } catch (Exception e) {
-            String message = String.format("numericIs(%s, %s)", first, second);
+            String message = "numericIs(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -104,7 +104,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("numericEqual(%s, %s)", first, second);
+            String message = "numericEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -115,7 +115,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericNotEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("numericNotEqual(%s, %s)", first, second);
+            String message = "numericNotEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -126,7 +126,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericLessThan(first, second);
         } catch (Exception e) {
-            String message = String.format("numericLessThan(%s, %s)", first, second);
+            String message = "numericLessThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -137,7 +137,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericGreaterThan(first, second);
         } catch (Exception e) {
-            String message = String.format("numericGreaterThan(%s, %s)", first, second);
+            String message = "numericGreaterThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -148,7 +148,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericLessEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("numericLessEqualThan(%s, %s)", first, second);
+            String message = "numericLessEqualThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -159,7 +159,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericGreaterEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("numericGreaterEqualThan(%s, %s)", first, second);
+            String message = "numericGreaterEqualThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -170,7 +170,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericAdd(first, second);
         } catch (Exception e) {
-            String message = String.format("numericAdd(%s, %s)", first, second);
+            String message = "numericAdd(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -181,7 +181,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericSubtract(first, second);
         } catch (Exception e) {
-            String message = String.format("numericSubtract(%s, %s)", first, second);
+            String message = "numericSubtract(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -192,7 +192,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericMultiply(first, second);
         } catch (Exception e) {
-            String message = String.format("numericMultiply(%s, %s)", first, second);
+            String message = "numericMultiply(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -203,7 +203,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericDivide(first, second);
         } catch (Exception e) {
-            String message = String.format("numericDivide(%s, %s)", first, second);
+            String message = "numericDivide(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -214,7 +214,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericUnaryMinus(first);
         } catch (Exception e) {
-            String message = String.format("numericUnaryMinus(%s", first);
+            String message = "numericUnaryMinus(%s".formatted(first);
             logError(message, e);
             return null;
         }
@@ -225,7 +225,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return numericType.numericExponentiation(first, second);
         } catch (Exception e) {
-            String message = String.format("numericExponentiation(%s, %s)", first, second);
+            String message = "numericExponentiation(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -239,7 +239,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return this.booleanType.isBoolean(value);
         } catch (Exception e) {
-            String message = String.format("isBoolean(%s)", value);
+            String message = "isBoolean(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -250,7 +250,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanValue(value);
         } catch (Exception e) {
-            String message = String.format("booleanValue(%s)", value);
+            String message = "booleanValue(%s)".formatted(value);
             logError(message, e);
             return null;
         }
@@ -261,7 +261,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanIs(first, second);
         } catch (Exception e) {
-            String message = String.format("booleanIs(%s, %s)", first, second);
+            String message = "booleanIs(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -272,7 +272,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("booleanEqual(%s, %s)", first, second);
+            String message = "booleanEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -283,7 +283,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanNotEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("booleanNotEqual(%s, %s)", first, second);
+            String message = "booleanNotEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -294,7 +294,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanNot(operand);
         } catch (Exception e) {
-            String message = String.format("booleanNot(%s)", operand);
+            String message = "booleanNot(%s)".formatted(operand);
             logError(message, e);
             return null;
         }
@@ -305,7 +305,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanOr(operands);
         } catch (Exception e) {
-            String message = String.format("booleanOr(%s)", operands);
+            String message = "booleanOr(%s)".formatted(operands);
             logError(message, e);
             return null;
         }
@@ -316,7 +316,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanOr(operands);
         } catch (Exception e) {
-            String message = String.format("booleanOr(%s)", Arrays.toString(operands));
+            String message = "booleanOr(%s)".formatted(Arrays.toString(operands));
             logError(message, e);
             return null;
         }
@@ -327,7 +327,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.binaryBooleanOr(first, second);
         } catch (Exception e) {
-            String message = String.format("binaryBooleanOr(%s, %s)", first, second);
+            String message = "binaryBooleanOr(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -338,7 +338,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanAnd(operands);
         } catch (Exception e) {
-            String message = String.format("booleanAnd(%s)", operands);
+            String message = "booleanAnd(%s)".formatted(operands);
             logError(message, e);
             return null;
         }
@@ -349,7 +349,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanAnd(operands);
         } catch (Exception e) {
-            String message = String.format("booleanAnd(%s)", Arrays.toString(operands));
+            String message = "booleanAnd(%s)".formatted(Arrays.toString(operands));
             logError(message, e);
             return null;
         }
@@ -360,7 +360,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.binaryBooleanAnd(first, second);
         } catch (Exception e) {
-            String message = String.format("binaryBooleanAnd(%s, %s)", first, second);
+            String message = "binaryBooleanAnd(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -371,7 +371,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanNot(operand);
         } catch (Exception e) {
-            String message = String.format("booleanNot(%s)", operand);
+            String message = "booleanNot(%s)".formatted(operand);
             logError(message, e);
             return null;
         }
@@ -382,7 +382,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanOr(operands);
         } catch (Exception e) {
-            String message = String.format("booleanOr(%s)", Arrays.toString(operands));
+            String message = "booleanOr(%s)".formatted(Arrays.toString(operands));
             logError(message, e);
             return null;
         }
@@ -393,7 +393,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.binaryBooleanOr(first, second);
         } catch (Exception e) {
-            String message = String.format("binaryBooleanOr(%s, %s)", first, second);
+            String message = "binaryBooleanOr(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -404,7 +404,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.booleanAnd(operands);
         } catch (Exception e) {
-            String message = String.format("booleanAnd(%s)", Arrays.toString(operands));
+            String message = "booleanAnd(%s)".formatted(Arrays.toString(operands));
             logError(message, e);
             return null;
         }
@@ -415,7 +415,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return booleanType.binaryBooleanAnd(first, second);
         } catch (Exception e) {
-            String message = String.format("binaryBooleanAnd(%s, %s)", first, second);
+            String message = "binaryBooleanAnd(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -429,7 +429,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return stringType.isString(value);
         } catch (Exception e) {
-            String message = String.format("isString(%s)", value);
+            String message = "isString(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -440,7 +440,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return stringType.stringValue(value);
         } catch (Exception e) {
-            String message = String.format("stringValue(%s)", value);
+            String message = "stringValue(%s)".formatted(value);
             logError(message, e);
             return null;
         }
@@ -451,7 +451,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return stringType.stringIs(first, second);
         } catch (Exception e) {
-            String message = String.format("stringIs(%s, %s)", first, second);
+            String message = "stringIs(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -462,7 +462,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return stringType.stringEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("stringEqual(%s, %s)", first, second);
+            String message = "stringEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -473,7 +473,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return stringType.stringNotEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("stringNotEqual(%s, %s)", first, second);
+            String message = "stringNotEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -484,7 +484,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return stringType.stringLessThan(first, second);
         } catch (Exception e) {
-            String message = String.format("stringLessThan(%s, %s)", first, second);
+            String message = "stringLessThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -495,7 +495,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return stringType.stringGreaterThan(first, second);
         } catch (Exception e) {
-            String message = String.format("stringGreaterThan(%s, %s)", first, second);
+            String message = "stringGreaterThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -506,7 +506,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return stringType.stringLessEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("stringLessEqualThan(%s, %s)", first, second);
+            String message = "stringLessEqualThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -517,7 +517,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return stringType.stringGreaterEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("(%s, %s)", first, second);
+            String message = "(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -528,7 +528,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return stringType.stringAdd(first, second);
         } catch (Exception e) {
-            String message = String.format("stringAdd(%s, %s)", first, second);
+            String message = "stringAdd(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -542,7 +542,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return this.dateType.isDate(value);
         } catch (Exception e) {
-            String message = String.format("isDate(%s)", value);
+            String message = "isDate(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -553,7 +553,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return this.dateType.dateValue(date);
         } catch (Exception e) {
-            String message = String.format("dateValue(%s)", date);
+            String message = "dateValue(%s)".formatted(date);
             logError(message, e);
             return null;
         }
@@ -564,7 +564,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateType.dateIs(first, second);
         } catch (Exception e) {
-            String message = String.format("dateIs(%s, %s)", first, second);
+            String message = "dateIs(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -575,7 +575,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateType.dateEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("dateEqual(%s, %s)", first, second);
+            String message = "dateEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -586,7 +586,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateType.dateNotEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("dateNotEqual(%s, %s)", first, second);
+            String message = "dateNotEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -597,7 +597,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateType.dateLessThan(first, second);
         } catch (Exception e) {
-            String message = String.format("dateLessThan(%s, %s)", first, second);
+            String message = "dateLessThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -608,7 +608,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateType.dateGreaterThan(first, second);
         } catch (Exception e) {
-            String message = String.format("dateGreaterThan(%s, %s)", first, second);
+            String message = "dateGreaterThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -619,7 +619,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateType.dateLessEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("dateLessEqualThan(%s, %s)", first, second);
+            String message = "dateLessEqualThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -630,7 +630,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateType.dateGreaterEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("dateGreaterEqualThan(%s, %s)", first, second);
+            String message = "dateGreaterEqualThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -641,7 +641,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateType.dateSubtract(first, second);
         } catch (Exception e) {
-            String message = String.format("dateSubtract(%s, %s)", first, second);
+            String message = "dateSubtract(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -652,7 +652,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateType.dateAddDuration(date, duration);
         } catch (Exception e) {
-            String message = String.format("dateAddDuration(%s, %s)", date, duration);
+            String message = "dateAddDuration(%s, %s)".formatted(date, duration);
             logError(message, e);
             return null;
         }
@@ -663,7 +663,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateType.dateSubtractDuration(date, duration);
         } catch (Exception e) {
-            String message = String.format("dateSubtractDuration(%s, %s)", date, duration);
+            String message = "dateSubtractDuration(%s, %s)".formatted(date, duration);
             logError(message, e);
             return null;
         }
@@ -677,7 +677,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return this.timeType.isTime(value);
         } catch (Exception e) {
-            String message = String.format("isTime(%s)", value);
+            String message = "isTime(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -688,7 +688,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return this.timeType.timeValue(time);
         } catch (Exception e) {
-            String message = String.format("timeValue(%s)", time);
+            String message = "timeValue(%s)".formatted(time);
             logError(message, e);
             return null;
         }
@@ -699,7 +699,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return timeType.timeIs(first, second);
         } catch (Exception e) {
-            String message = String.format("timeIs(%s, %s)", first, second);
+            String message = "timeIs(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -710,7 +710,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return timeType.timeEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("timeEqual(%s, %s)", first, second);
+            String message = "timeEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -721,7 +721,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return timeType.timeNotEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("timeNotEqual(%s, %s)", first, second);
+            String message = "timeNotEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -732,7 +732,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return timeType.timeLessThan(first, second);
         } catch (Exception e) {
-            String message = String.format("timeLessThan(%s, %s)", first, second);
+            String message = "timeLessThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -743,7 +743,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return timeType.timeGreaterThan(first, second);
         } catch (Exception e) {
-            String message = String.format("timeGreaterThan(%s, %s)", first, second);
+            String message = "timeGreaterThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -754,7 +754,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return timeType.timeLessEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("timeLessEqualThan(%s, %s)", first, second);
+            String message = "timeLessEqualThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -765,7 +765,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return timeType.timeGreaterEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("timeGreaterEqualThan(%s, %s)", first, second);
+            String message = "timeGreaterEqualThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -776,7 +776,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return timeType.timeSubtract(first, second);
         } catch (Exception e) {
-            String message = String.format("timeSubtract(%s, %s)", first, second);
+            String message = "timeSubtract(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -787,7 +787,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return timeType.timeAddDuration(time, duration);
         } catch (Exception e) {
-            String message = String.format("timeAddDuration(%s, %s)", time, duration);
+            String message = "timeAddDuration(%s, %s)".formatted(time, duration);
             logError(message, e);
             return null;
         }
@@ -798,7 +798,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return timeType.timeSubtractDuration(time, duration);
         } catch (Exception e) {
-            String message = String.format("timeSubtractDuration(%s, %s)", time, duration);
+            String message = "timeSubtractDuration(%s, %s)".formatted(time, duration);
             logError(message, e);
             return null;
         }
@@ -812,7 +812,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return this.dateTimeType.isDateTime(value);
         } catch (Exception e) {
-            String message = String.format("isDateTime(%s)", value);
+            String message = "isDateTime(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -823,7 +823,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return this.dateTimeType.dateTimeValue(dateTime);
         } catch (Exception e) {
-            String message = String.format("dateTimeValue(%s)", dateTime);
+            String message = "dateTimeValue(%s)".formatted(dateTime);
             logError(message, e);
             return null;
         }
@@ -834,7 +834,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateTimeType.dateTimeIs(first, second);
         } catch (Exception e) {
-            String message = String.format("dateTimeIs(%s, %s)", first, second);
+            String message = "dateTimeIs(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -845,7 +845,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateTimeType.dateTimeEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("dateTimeEqual(%s, %s)", first, second);
+            String message = "dateTimeEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -856,7 +856,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateTimeType.dateTimeNotEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("dateTimeNotEqual(%s, %s)", first, second);
+            String message = "dateTimeNotEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -867,7 +867,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateTimeType.dateTimeLessThan(first, second);
         } catch (Exception e) {
-            String message = String.format("dateTimeLessThan(%s, %s)", first, second);
+            String message = "dateTimeLessThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -878,7 +878,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateTimeType.dateTimeGreaterThan(first, second);
         } catch (Exception e) {
-            String message = String.format("dateTimeGreaterThan(%s, %s)", first, second);
+            String message = "dateTimeGreaterThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -889,7 +889,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateTimeType.dateTimeLessEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("dateTimeLessEqualThan(%s, %s)", first, second);
+            String message = "dateTimeLessEqualThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -900,7 +900,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateTimeType.dateTimeGreaterEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("dateTimeGreaterEqualThan(%s, %s)", first, second);
+            String message = "dateTimeGreaterEqualThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -917,7 +917,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
             }
             return dateTimeType.dateTimeSubtract(first, second);
         } catch (Exception e) {
-            String message = String.format("dateTimeSubtract(%s, %s)", first, second);
+            String message = "dateTimeSubtract(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -928,7 +928,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateTimeType.dateTimeAddDuration(dateTime, duration);
         } catch (Exception e) {
-            String message = String.format("dateTimeAddDuration(%s, %s)", dateTime, duration);
+            String message = "dateTimeAddDuration(%s, %s)".formatted(dateTime, duration);
             logError(message, e);
             return null;
         }
@@ -939,7 +939,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return dateTimeType.dateTimeSubtractDuration(dateTime, duration);
         } catch (Exception e) {
-            String message = String.format("dateTimeSubtractDuration(%s, %s)", dateTime, duration);
+            String message = "dateTimeSubtractDuration(%s, %s)".formatted(dateTime, duration);
             logError(message, e);
             return null;
         }
@@ -953,7 +953,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return this.durationType.isYearsAndMonthsDuration(value);
         } catch (Exception e) {
-            String message = String.format("isYearsAndMonthsDuration(%s)", value);
+            String message = "isYearsAndMonthsDuration(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -964,7 +964,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return this.durationType.isDaysAndTimeDuration(value);
         } catch (Exception e) {
-            String message = String.format("isDaysAndTimeDuration(%s)", value);
+            String message = "isDaysAndTimeDuration(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -975,7 +975,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationIs(first, second);
         } catch (Exception e) {
-            String message = String.format("durationIs(%s, %s)", first, second);
+            String message = "durationIs(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -986,7 +986,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return this.durationType.durationValue(duration);
         } catch (Exception e) {
-            String message = String.format("durationValue(%s)", duration);
+            String message = "durationValue(%s)".formatted(duration);
             logError(message, e);
             return null;
         }
@@ -997,7 +997,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("durationEqual(%s, %s)", first, second);
+            String message = "durationEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1008,7 +1008,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationNotEqual(first, second);
         } catch (Exception e) {
-            String message = String.format("durationNotEqual(%s, %s)", first, second);
+            String message = "durationNotEqual(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1019,7 +1019,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationLessThan(first, second);
         } catch (Exception e) {
-            String message = String.format("durationLessThan(%s, %s)", first, second);
+            String message = "durationLessThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1030,7 +1030,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationGreaterThan(first, second);
         } catch (Exception e) {
-            String message = String.format("durationGreaterThan(%s, %s)", first, second);
+            String message = "durationGreaterThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1041,7 +1041,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationLessEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("durationLessEqualThan(%s, %s)", first, second);
+            String message = "durationLessEqualThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1052,7 +1052,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationGreaterEqualThan(first, second);
         } catch (Exception e) {
-            String message = String.format("durationGreaterEqualThan(%s, %s)", first, second);
+            String message = "durationGreaterEqualThan(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1063,7 +1063,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationAdd(first, second);
         } catch (Exception e) {
-            String message = String.format("durationAdd(%s, %s)", first, second);
+            String message = "durationAdd(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1074,7 +1074,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationSubtract(first, second);
         } catch (Exception e) {
-            String message = String.format("durationSubtract(%s, %s)", first, second);
+            String message = "durationSubtract(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1085,7 +1085,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationDivide(first, second);
         } catch (Exception e) {
-            String message = String.format("durationMultiply(%s, %s)", first, second);
+            String message = "durationMultiply(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1096,7 +1096,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationMultiplyNumber(first, second);
         } catch (Exception e) {
-            String message = String.format("durationMultiply(%s, %s)", first, second);
+            String message = "durationMultiply(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1107,7 +1107,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return durationType.durationDivideNumber(first, second);
         } catch (Exception e) {
-            String message = String.format("durationDivide(%s, %s)", first, second);
+            String message = "durationDivide(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1121,7 +1121,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return listType.isList(value);
         } catch (Exception e) {
-            String message = String.format("isList(%s)", value);
+            String message = "isList(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -1132,7 +1132,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return this.listType.listValue(value);
         } catch (Exception e) {
-            String message = String.format("listValue(%s)", value);
+            String message = "listValue(%s)".formatted(value);
             logError(message, e);
             return null;
         }
@@ -1143,7 +1143,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return listType.listIs(first, second);
         } catch (Exception e) {
-            String message = String.format("listIs(%s, %s)", first, second);
+            String message = "listIs(%s, %s)".formatted(first, second);
             logError(message, e);
             return null;
         }
@@ -1154,7 +1154,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return listType.listEqual(list1, list2);
         } catch (Exception e) {
-            String message = String.format("listEqual(%s, %s)", list1, list2);
+            String message = "listEqual(%s, %s)".formatted(list1, list2);
             logError(message, e);
             return null;
         }
@@ -1165,7 +1165,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return listType.listNotEqual(list1, list2);
         } catch (Exception e) {
-            String message = String.format("listNotEqual(%s, %s)", list1, list2);
+            String message = "listNotEqual(%s, %s)".formatted(list1, list2);
             logError(message, e);
             return null;
         }
@@ -1179,7 +1179,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return contextType.isContext(value);
         } catch (Exception e) {
-            String message = String.format("isContext(%s)", value);
+            String message = "isContext(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -1190,7 +1190,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return contextType.contextValue(value);
         } catch (Exception e) {
-            String message = String.format("contextValue(%s)", value);
+            String message = "contextValue(%s)".formatted(value);
             logError(message, e);
             return null;
         }
@@ -1201,7 +1201,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return contextType.contextIs(c1, c2);
         } catch (Exception e) {
-            String message = String.format("contextIs(%s, %s)", c1, c2);
+            String message = "contextIs(%s, %s)".formatted(c1, c2);
             logError(message, e);
             return null;
         }
@@ -1212,7 +1212,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return contextType.contextEqual(c1, c2);
         } catch (Exception e) {
-            String message = String.format("contextEqual(%s, %s)", c1, c2);
+            String message = "contextEqual(%s, %s)".formatted(c1, c2);
             logError(message, e);
             return null;
         }
@@ -1223,7 +1223,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return contextType.contextNotEqual(c1, c2);
         } catch (Exception e) {
-            String message = String.format("contextNotEqual(%s, %s)", c1, c2);
+            String message = "contextNotEqual(%s, %s)".formatted(c1, c2);
             logError(message, e);
             return null;
         }
@@ -1237,7 +1237,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return contextType.getEntries(m);
         } catch (Exception e) {
-            String message = String.format("getEntries(%s)", m);
+            String message = "getEntries(%s)".formatted(m);
             logError(message, e);
             return null;
         }
@@ -1248,7 +1248,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return contextType.getValue(m, key);
         } catch (Exception e) {
-            String message = String.format("getValue(%s, %s)", m, key);
+            String message = "getValue(%s, %s)".formatted(m, key);
             logError(message, e);
             return null;
         }
@@ -1259,7 +1259,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return contextType.context(entries);
         } catch (Exception e) {
-            String message = String.format("context(%s)", entries);
+            String message = "context(%s)".formatted(entries);
             logError(message, e);
             return null;
         }
@@ -1270,7 +1270,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return contextType.contextPut(context, key, value);
         } catch (Exception e) {
-            String message = String.format("contextPut(%s, %s, %s)", context, key, value);
+            String message = "contextPut(%s, %s, %s)".formatted(context, key, value);
             logError(message, e);
             return null;
         }
@@ -1281,7 +1281,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return contextType.contextPut(context, keys, value);
         } catch (Exception e) {
-            String message = String.format("contextPut(%s, %s, %s)", context, keys, value);
+            String message = "contextPut(%s, %s, %s)".formatted(context, keys, value);
             logError(message, e);
             return null;
         }
@@ -1292,7 +1292,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return contextType.contextMerge(contexts);
         } catch (Exception e) {
-            String message = String.format("contextMerge(%s)", contexts);
+            String message = "contextMerge(%s)".formatted(contexts);
             logError(message, e);
             return null;
         }
@@ -1306,7 +1306,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return rangeType.isRange(value);
         } catch (Exception e) {
-            String message = String.format("isRange(%s)", value);
+            String message = "isRange(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -1317,7 +1317,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return rangeType.rangeValue(value);
         } catch (Exception e) {
-            String message = String.format("rangeValue(%s)", value);
+            String message = "rangeValue(%s)".formatted(value);
             logError(message, e);
             return null;
         }
@@ -1328,7 +1328,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return rangeType.rangeIs(range1, range2);
         } catch (Exception e) {
-            String message = String.format("rangeIs(%s, %s)", range1, range2);
+            String message = "rangeIs(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1339,7 +1339,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return rangeType.rangeEqual(range1, range2);
         } catch (Exception e) {
-            String message = String.format("rangeEqual(%s, %s)", range1, range2);
+            String message = "rangeEqual(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1350,7 +1350,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return rangeType.rangeNotEqual(range1, range2);
         } catch (Exception e) {
-            String message = String.format("rangeNotEqual(%s, %s)", range1, range2);
+            String message = "rangeNotEqual(%s, %s)".formatted(range1, range2);
             logError(message, e);
             return null;
         }
@@ -1364,7 +1364,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return functionType.isFunction(value);
         } catch (Exception e) {
-            String message = String.format("isFunction(%s)", value);
+            String message = "isFunction(%s)".formatted(value);
             logError(message, e);
             return false;
         }
@@ -1375,7 +1375,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return functionType.functionValue(value);
         } catch (Exception e) {
-            String message = String.format("functionValue(%s)", value);
+            String message = "functionValue(%s)".formatted(value);
             logError(message, e);
             return null;
         }
@@ -1386,7 +1386,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return functionType.functionIs(function1, function2);
         } catch (Exception e) {
-            String message = String.format("functionIs(%s, %s)", function1, function2);
+            String message = "functionIs(%s, %s)".formatted(function1, function2);
             logError(message, e);
             return null;
         }
@@ -1397,7 +1397,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return functionType.functionEqual(function1, function2);
         } catch (Exception e) {
-            String message = String.format("functionEqual(%s, %s)", function1, function2);
+            String message = "functionEqual(%s, %s)".formatted(function1, function2);
             logError(message, e);
             return null;
         }
@@ -1408,7 +1408,7 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         try {
             return functionType.functionNotEqual(function1, function2);
         } catch (Exception e) {
-            String message = String.format("functionNotEqual(%s, %s)", function1, function2);
+            String message = "functionNotEqual(%s, %s)".formatted(function1, function2);
             logError(message, e);
             return null;
         }
@@ -1529,8 +1529,8 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         }
         List result = new ArrayList<>();
         for (Object object : list) {
-            if (object instanceof List) {
-                result.addAll((List) object);
+            if (object instanceof List list1) {
+                result.addAll(list1);
             } else {
                 result.add(object);
             }
@@ -1544,8 +1544,8 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         } else {
             for (int i=0; i<operands.length; i++) {
                 Object operand = operands[i];
-                if (operand instanceof LazyEval) {
-                    operand = ((LazyEval) operand).getOrCompute();
+                if (operand instanceof LazyEval eval) {
+                    operand = eval.getOrCompute();
                 }
 
                 // Column index starts first 1

@@ -95,7 +95,7 @@ public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTime
             long durationInSeconds = dateTimeValue(first) - (long) value(second);
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(durationInSeconds);
         }
-        throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", first, second));
+        throw new DMNRuntimeException("Cannot subtract '%s' and '%s'".formatted(first, second));
     }
 
     @Override

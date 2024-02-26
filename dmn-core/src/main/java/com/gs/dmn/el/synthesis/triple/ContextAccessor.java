@@ -42,6 +42,6 @@ public class ContextAccessor extends PathTriple {
 
     @Override
     public String toString() {
-        return String.format("Constructor(%s, %s, %s)", javaType, source, memberName);
+        return "Constructor(%s, %s, %s)".formatted(javaType, source, memberName);
     }
 }

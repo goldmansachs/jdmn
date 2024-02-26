@@ -86,8 +86,8 @@ public class TemporalTimeType extends BasePureCalendarType implements TimeType<T
         if (hasTimezone(first) && !hasTimezone(second) || !hasTimezone(first) && hasTimezone(second)) {
             return null;
         }
-        if (first instanceof Temporal && second instanceof Temporal) {
-            return Duration.between((Temporal) second, (Temporal) first);
+        if (first instanceof Temporal firstTemporal && second instanceof Temporal secondTemporal) {
+            return Duration.between(secondTemporal, firstTemporal);
         } else {
             Long value1 = timeValue(first);
             Long value2 = timeValue(second);
@@ -101,10 +101,10 @@ public class TemporalTimeType extends BasePureCalendarType implements TimeType<T
             return null;
         }
 
-        if (time instanceof LocalTime && duration instanceof Duration) {
-            return ((LocalTime) time).plus(duration);
-        } else if (time instanceof OffsetTime && duration instanceof Duration) {
-            return ((OffsetTime) time).plus(duration);
+        if (time instanceof LocalTime localTime && duration instanceof Duration) {
+            return localTime.plus(duration);
+        } else if (time instanceof OffsetTime offsetTime && duration instanceof Duration) {
+            return offsetTime.plus(duration);
         } else {
             // Has zone
             ZoneId zone = time.query(TemporalQueries.zoneId());
@@ -125,10 +125,10 @@ public class TemporalTimeType extends BasePureCalendarType implements TimeType<T
             return null;
         }
 
-        if (time instanceof LocalTime && duration instanceof Duration) {
-            return ((LocalTime) time).minus(duration);
-        } else if (time instanceof OffsetTime && duration instanceof Duration) {
-            return ((OffsetTime) time).minus(duration);
+        if (time instanceof LocalTime localTime && duration instanceof Duration) {
+            return localTime.minus(duration);
+        } else if (time instanceof OffsetTime offsetTime && duration instanceof Duration) {
+            return offsetTime.minus(duration);
         }
         // Has zone
         ZoneId zone = time.query(TemporalQueries.zoneId());
@@ -143,10 +143,10 @@ public class TemporalTimeType extends BasePureCalendarType implements TimeType<T
     }
 
     protected Integer compare(TemporalAccessor first, TemporalAccessor second) {
-        if (first instanceof LocalTime && second instanceof LocalTime) {
-            return ((LocalTime) first).compareTo((LocalTime) second);
-        } else if (first instanceof OffsetTime && second instanceof OffsetTime) {
-            return ((OffsetTime) first).compareTo((OffsetTime) second);
+        if (first instanceof LocalTime firstTime && second instanceof LocalTime secondTime) {
+            return firstTime.compareTo(secondTime);
+        } else if (first instanceof OffsetTime firstOffsetTime && second instanceof OffsetTime secondOffsetTime) {
+            return firstOffsetTime.compareTo(secondOffsetTime);
         }
         return  null;
     }

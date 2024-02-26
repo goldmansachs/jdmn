@@ -60,7 +60,7 @@ public class Relational<T> extends Comparison<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s,%s,%s)", getClass().getSimpleName(), getOperator(), getLeftOperand(), getRightOperand());
+        return "%s(%s,%s,%s)".formatted(getClass().getSimpleName(), getOperator(), getLeftOperand(), getRightOperand());
     }
 
 }

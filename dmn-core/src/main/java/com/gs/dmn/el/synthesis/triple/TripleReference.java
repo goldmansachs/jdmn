@@ -30,6 +30,6 @@ public class TripleReference extends Triple {
 
     @Override
     public String toString() {
-        return String.format("TripleReference(%s)", index);
+        return "TripleReference(%s)".formatted(index);
     }
 }

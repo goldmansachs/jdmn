@@ -32,10 +32,12 @@ public class DMNTransformerComponentConfigurationTest extends AbstractMojoConfig
         OptionallyConfigurableMojoComponent component = parseConfiguration(configuration, DMNTransformerComponent.class);
 
         assertEquivalentConfiguration(component,
-                "{\n" +
-                        "  \"key1\": \"value1\",\n" +
-                        "  \"key2\": \"value2\"\n" +
-                        "}");
+                """
+                {
+                  "key1": "value1",
+                  "key2": "value2"
+                }\
+                """);
     }
 
     @Test
@@ -76,15 +78,17 @@ public class DMNTransformerComponentConfigurationTest extends AbstractMojoConfig
         PlexusConfiguration configuration = generateComponentConfiguration("componentName", ELEMENT_NAME, config);
         OptionallyConfigurableMojoComponent component = parseConfiguration(configuration, DMNTransformerComponent.class);
 
-        assertEquivalentConfiguration(component, "{\n" +
-                "  \"key1\": \"value1\",\n" +
-                "  \"intermediateConfig\": {\n" +
-                "    \"intermediateKey1\": \"intermediateValue1\",\n" +
-                "    \"innerConfig\": {\n" +
-                "      \"innerKey1\": \"innerValue1\" \n" +
-                "    }\n" +
-                "  }\n" +
-                "}");
+        assertEquivalentConfiguration(component, """
+                {
+                  "key1": "value1",
+                  "intermediateConfig": {
+                    "intermediateKey1": "intermediateValue1",
+                    "innerConfig": {
+                      "innerKey1": "innerValue1"\s
+                    }
+                  }
+                }\
+                """);
     }
 
     @Test
@@ -99,11 +103,13 @@ public class DMNTransformerComponentConfigurationTest extends AbstractMojoConfig
         PlexusConfiguration configuration = generateComponentConfiguration("componentName", ELEMENT_NAME, config);
         OptionallyConfigurableMojoComponent component = parseConfiguration(configuration, DMNTransformerComponent.class);
 
-        assertEquivalentConfiguration(component, "{\n" +
-                "  \"key1\": \"value1\",\n" +
-                "  \"key2\": [ \"value2a\", \"value2b\", \"value2c\" ],\n" +
-                "  \"key3\": \"value3\"\n" +
-                "}");
+        assertEquivalentConfiguration(component, """
+                {
+                  "key1": "value1",
+                  "key2": [ "value2a", "value2b", "value2c" ],
+                  "key3": "value3"
+                }\
+                """);
     }
 
     @Test
@@ -125,17 +131,19 @@ public class DMNTransformerComponentConfigurationTest extends AbstractMojoConfig
         PlexusConfiguration configuration = generateComponentConfiguration("componentName", ELEMENT_NAME, config);
         OptionallyConfigurableMojoComponent component = parseConfiguration(configuration, DMNTransformerComponent.class);
 
-        assertEquivalentConfiguration(component, "{\n" +
-                "  \"key1\": \"value1\",\n" +
-                "  \"key2\": [\n" +
-                "    \"singleValue\",\n" +
-                "    {\n" +
-                "      \"nestedList\": { \"innerKey1\": [ \"innerValue1\", \"innerValue2\" ] },\n" +
-                "      \"nestedValue1\": \"value1\",\n" +
-                "      \"nestedValue2\": \"value2\"\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}");
+        assertEquivalentConfiguration(component, """
+                {
+                  "key1": "value1",
+                  "key2": [
+                    "singleValue",
+                    {
+                      "nestedList": { "innerKey1": [ "innerValue1", "innerValue2" ] },
+                      "nestedValue1": "value1",
+                      "nestedValue2": "value2"
+                    }
+                  ]
+                }\
+                """);
     }
 
 }

@@ -23,7 +23,7 @@ public class TestLabValidator {
         }
         List<OutputParameterDefinition> outputParameterDefinitions = testLab.getOutputParameterDefinitions();
         if (outputParameterDefinitions == null || outputParameterDefinitions.isEmpty()) {
-            throw new DMNRuntimeException(String.format("Missing or empty OutputParameterDefinitions for TestLab '%s'", testLab.getSource()));
+            throw new DMNRuntimeException("Missing or empty OutputParameterDefinitions for TestLab '%s'".formatted(testLab.getSource()));
         }
     }
 }

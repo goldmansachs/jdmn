@@ -113,7 +113,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     protected void transformFile(File inputFile, File inputRoot, Path outputPath) {
         if (inputFile.isDirectory()) {
             if (shouldTransformFile(inputFile)) {
-                this.logger.info(String.format("Scanning folder '%s'", inputFile.getPath()));
+                this.logger.info("Scanning folder '%s'".formatted(inputFile.getPath()));
                 File[] files = inputFile.listFiles();
                 if (files != null) {
                     for (File child : files) {
@@ -124,11 +124,11 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         } else {
             try {
                 if (shouldTransformFile(inputFile)) {
-                    this.logger.info(String.format("Transforming file '%s'", inputFile.getPath()));
+                    this.logger.info("Transforming file '%s'".formatted(inputFile.getPath()));
                     transformLeaf(inputFile, inputRoot, outputPath);
                 }
             } catch (Exception e) {
-                throw new DMNRuntimeException(String.format("Failed to transform diagram '%s'", inputFile.getPath()), e);
+                throw new DMNRuntimeException("Failed to transform diagram '%s'".formatted(inputFile.getPath()), e);
             }
         }
     }
@@ -138,13 +138,13 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
             File outputFolder = outputFolder(child, root, outputPath);
             File outputFile = new File(outputFolder, diagramName(child) + DMNConstants.DMN_FILE_EXTENSION);
 
-            this.logger.info(String.format("Output folder '%s' ", outputFolder.getCanonicalPath()));
-            this.logger.info(String.format("Output file %s ...", outputFile.getCanonicalPath()));
+            this.logger.info("Output folder '%s' ".formatted(outputFolder.getCanonicalPath()));
+            this.logger.info("Output file %s ...".formatted(outputFile.getCanonicalPath()));
 
             TDefinitions element = transform(diagramName(child), inputStream);
             this.dmnSerializer.writeModel(element, outputFile);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error during transforming '%s'.", child.getName()), e);
+            throw new DMNRuntimeException("Error during transforming '%s'.".formatted(child.getName()), e);
         }
     }
 
@@ -181,12 +181,12 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         try {
             String decisionText = this.rdfModel.getDecision(decision);
             DecisionExpression expression = RDFModel.MAPPER.readValue(decisionText, DecisionExpression.class);
-            if (expression instanceof DecisionTable) {
-                HitPolicy hitPolicy = ((DecisionTable) expression).getHitPolicy();
-                String aggregation = ((DecisionTable) expression).getAggregation();
-                List<OutputClause> outputClauses = ((DecisionTable) expression).getOutputClauses();
+            if (expression instanceof DecisionTable table) {
+                HitPolicy hitPolicy = table.getHitPolicy();
+                String aggregation = table.getAggregation();
+                List<OutputClause> outputClauses = table.getOutputClauses();
                 if (outputClauses.size() == 0) {
-                    throw new IllegalArgumentException(String.format("Cannot create ItemDefinition for '%s' without OutputClauses", this.rdfModel.getAboutAttribute(decision)));
+                    throw new IllegalArgumentException("Cannot create ItemDefinition for '%s' without OutputClauses".formatted(this.rdfModel.getAboutAttribute(decision)));
                 } else if (outputClauses.size() == 1) {
                     // Make ItemDefinition for decision
                     String id = makeItemDefinitionId(decision);
@@ -230,18 +230,18 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
                     // Add root to definitions
                     root.getItemDefinition().add(decisionItemDefinition);
                 }
-            } else if (expression instanceof LiteralExpression) {
+            } else if (expression instanceof LiteralExpression literalExpression) {
                 // Make ItemDefinition for decision
                 String id = makeItemDefinitionId(decision);
                 String decisionName = this.rdfModel.getName(decision);
                 boolean isList = false;
                 String name = makeItemDefinitionName(decisionName);
-                TItemDefinition decisionItemDefinition = makeItemDefinition(id, name, decisionName, isList, ((LiteralExpression) expression).getItemDefinition());
+                TItemDefinition decisionItemDefinition = makeItemDefinition(id, name, decisionName, isList, literalExpression.getItemDefinition());
 
                 // Add it to definitions
                 root.getItemDefinition().add(decisionItemDefinition);
             } else {
-                throw new IllegalArgumentException(String.format("Cannot create ItemDefinition for '%s'", this.rdfModel.getAboutAttribute(decision)));
+                throw new IllegalArgumentException("Cannot create ItemDefinition for '%s'".formatted(this.rdfModel.getAboutAttribute(decision)));
             }
         } catch (Exception e) {
             throw new DMNRuntimeException(e);
@@ -296,7 +296,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
             return decisionItemDefinition;
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported type '%s'", type));
+            throw new UnsupportedOperationException("Not supported type '%s'".formatted(type));
         }
     }
 
@@ -348,7 +348,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
                             }
                         }
                     } else {
-                        throw new UnsupportedOperationException(String.format("Not supported FEEL type '%s'", type));
+                        throw new UnsupportedOperationException("Not supported FEEL type '%s'".formatted(type));
                     }
 
                     itemComponent.setIsCollection(relation.isList());
@@ -381,20 +381,20 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
                 root.getItemDefinition().add(itemDefinition);
             }
         } else {
-            throw new IllegalArgumentException(String.format("Cannot create ItemDefinition for '%s'", this.rdfModel.getAboutAttribute(resource)));
+            throw new IllegalArgumentException("Cannot create ItemDefinition for '%s'".formatted(this.rdfModel.getAboutAttribute(resource)));
         }
     }
 
     private String makeItemDefinitionId(Element decision) {
-        return String.format("item-definition-%s", this.rdfModel.getAboutAttribute(decision));
+        return "item-definition-%s".formatted(this.rdfModel.getAboutAttribute(decision));
     }
 
     private String makeItemDefinitionId(OutputClause oc, Element decision) {
-        return String.format("item-definition-%s-%s", this.rdfModel.getAboutAttribute(decision), oc.getId());
+        return "item-definition-%s-%s".formatted(this.rdfModel.getAboutAttribute(decision), oc.getId());
     }
 
     private String makeItemDefinitionId(Relation relation) {
-        return String.format("item-definition-%s-%s", relation.getTitle().toLowerCase(), relation.getRelationId());
+        return "item-definition-%s-%s".formatted(relation.getTitle().toLowerCase(), relation.getRelationId());
     }
 
     private String makeItemDefinitionName(Element resource) {
@@ -402,7 +402,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
             String name = this.rdfModel.getName(resource);
             return makeItemDefinitionName(name);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot make ItemDefinition for resource '%s'", this.rdfModel.getAboutAttribute(resource)), e);
+            throw new DMNRuntimeException("Cannot make ItemDefinition for resource '%s'".formatted(this.rdfModel.getAboutAttribute(resource)), e);
         }
     }
 
@@ -415,7 +415,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
             String name = oc.getItemDefinition().getName();
             return makeItemDefinitionName(name);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot make ItemDefinition for output clause '%s'", oc.getId()), e);
+            throw new DMNRuntimeException("Cannot make ItemDefinition for output clause '%s'".formatted(oc.getId()), e);
         }
     }
 
@@ -491,7 +491,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     private String makeDecisionVariableId(Element resource) {
-        return String.format("decision-variable-%s", this.rdfModel.getAboutAttribute(resource));
+        return "decision-variable-%s".formatted(this.rdfModel.getAboutAttribute(resource));
     }
 
     private TExpression makeDecisionTable(TDefinitions root, Element decision, DecisionTable decisionTable) {
@@ -517,7 +517,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     private String makeDecisionExpressionId(Element decision) {
-        return String.format("decision-expression-%s", this.rdfModel.getAboutAttribute(decision));
+        return "decision-expression-%s".formatted(this.rdfModel.getAboutAttribute(decision));
     }
 
     private void setHitPolicy(DecisionTable decisionTable, TDecisionTable tDecisionTable) {
@@ -567,21 +567,18 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         List<TInputClause> tInputClauses = tDecisionTable.getInput();
         for (InputClause inputClause : decisionTable.getInputClauses()) {
             Expression expression = inputClause.getExpression();
-            if (expression instanceof Reference) {
+            if (expression instanceof Reference reference) {
                 TInputClause tInputClause = OBJECT_FACTORY.createTInputClause();
                 tInputClause.setId(makeInputClauseId(inputClause, decision));
 
                 TLiteralExpression tExpression = OBJECT_FACTORY.createTLiteralExpression();
                 tExpression.setId(makeInputClauseExpressionId(inputClause, decision));
-
-                Reference reference = (Reference) expression;
                 tExpression.setTypeRef(makeQName(reference));
                 tExpression.setText(text(reference));
                 tInputClause.setInputExpression(tExpression);
 
                 tInputClauses.add(tInputClause);
-            } else if (expression instanceof FunctionCall) {
-                FunctionCall functionCall = (FunctionCall) expression;
+            } else if (expression instanceof FunctionCall functionCall) {
 
                 TInputClause tInputClause = OBJECT_FACTORY.createTInputClause();
                 tInputClause.setId(makeInputClauseId(inputClause, decision));
@@ -594,7 +591,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
                 tInputClauses.add(tInputClause);
             } else {
-                throw new UnsupportedOperationException(String.format("'%s' not supported in decision '%s'", expression.getClass().getSimpleName(), this.rdfModel.getAboutAttribute(decision)));
+                throw new UnsupportedOperationException("'%s' not supported in decision '%s'".formatted(expression.getClass().getSimpleName(), this.rdfModel.getAboutAttribute(decision)));
             }
         }
     }
@@ -638,16 +635,16 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
             }
             return text.toString();
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot build path for reference '%s'", resourceId), e);
+            throw new DMNRuntimeException("Cannot build path for reference '%s'".formatted(resourceId), e);
         }
     }
 
     private String makeInputClauseId(InputClause inputClause, Element decision) {
-        return String.format("input-clause-%s-%s", this.rdfModel.getAboutAttribute(decision), inputClause.getId());
+        return "input-clause-%s-%s".formatted(this.rdfModel.getAboutAttribute(decision), inputClause.getId());
     }
 
     private String makeInputClauseExpressionId(InputClause inputClause, Element decision) {
-        return String.format("input-clause-exp-%s-%s", this.rdfModel.getAboutAttribute(decision), inputClause.getId());
+        return "input-clause-exp-%s-%s".formatted(this.rdfModel.getAboutAttribute(decision), inputClause.getId());
     }
 
     private void addOutputClauses(Element decision, DecisionTable decisionTable, TDecisionTable tDecisionTable) {
@@ -655,7 +652,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         List<OutputClause> outputClauses = decisionTable.getOutputClauses();
         String decisionName = this.rdfModel.getName(decision);
         if (outputClauses.size() == 0) {
-            throw new DMNRuntimeException(String.format("No OutputClauses for decision '%s'", decisionName));
+            throw new DMNRuntimeException("No OutputClauses for decision '%s'".formatted(decisionName));
         } else if (outputClauses.size() == 1) {
             OutputClause outputClause = outputClauses.get(0);
             ItemDefinition itemDefinition = outputClause.getItemDefinition();
@@ -707,7 +704,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
                     }
                     tOutputClauses.add(tOutputClause);
                 } catch (Exception e) {
-                    throw new DMNRuntimeException(String.format("Cannot process OutputClause '%s'", outputClause.getId()), e);
+                    throw new DMNRuntimeException("Cannot process OutputClause '%s'".formatted(outputClause.getId()), e);
                 }
             }
         }
@@ -718,7 +715,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     private String makeOutputClauseId(OutputClause oc, Element decision) {
-        return String.format("output-clause-%s-%s", this.rdfModel.getAboutAttribute(decision), oc.getId());
+        return "output-clause-%s-%s".formatted(this.rdfModel.getAboutAttribute(decision), oc.getId());
     }
 
     private String makeOutputClauseName(String name) {
@@ -759,7 +756,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     private String makeRuleId(Rule rule, Element decision) {
-        return String.format("rule-%s-%s", this.rdfModel.getAboutAttribute(decision), rule.getId());
+        return "rule-%s-%s".formatted(this.rdfModel.getAboutAttribute(decision), rule.getId());
     }
 
     private TInputData makeInputData(Element resource) {
@@ -787,11 +784,11 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     }
 
     private String makeInputDataVariableId(Element resource) {
-        return String.format("input-data-variable-%s", this.rdfModel.getAboutAttribute(resource));
+        return "input-data-variable-%s".formatted(this.rdfModel.getAboutAttribute(resource));
     }
 
     private String transformAllowedValues(List<EnumItem> enumItems) {
-        return enumItems.stream().map(ei -> String.format("\"%s\"", ei.getTitle())).collect(Collectors.joining(", "));
+        return enumItems.stream().map(ei -> "\"%s\"".formatted(ei.getTitle())).collect(Collectors.joining(", "));
     }
 
     private String transformAllowedValues(String enumItems) {
@@ -804,11 +801,11 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
                 if (i != 0) {
                     result.append(", ");
                 }
-                result.append(String.format("\"%s\"", allowedValue.getTitle()));
+                result.append("\"%s\"".formatted(allowedValue.getTitle()));
             }
             return result.toString();
         } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot process AllowedValues for '%s'", enumItems), e);
+            throw new DMNRuntimeException("Cannot process AllowedValues for '%s'".formatted(enumItems), e);
         }
     }
 
@@ -829,15 +826,15 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         if (!StringUtils.isBlank(decisionText)) {
             try {
                 DecisionExpression expression = RDFModel.MAPPER.readValue(decisionText, DecisionExpression.class);
-                if (expression instanceof DecisionTable) {
-                    return makeDecisionTable(root, decision, (DecisionTable) expression);
-                } else if (expression instanceof LiteralExpression) {
-                    return makeLiteralExpression(root, decision, (LiteralExpression)expression);
+                if (expression instanceof DecisionTable table) {
+                    return makeDecisionTable(root, decision, table);
+                } else if (expression instanceof LiteralExpression literalExpression) {
+                    return makeLiteralExpression(root, decision, literalExpression);
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot make expression for decision '%s'", decision.getAttribute("id")));
+                    throw new DMNRuntimeException("Cannot make expression for decision '%s'".formatted(decision.getAttribute("id")));
                 }
             } catch (IOException e) {
-                throw new DMNRuntimeException(String.format("Cannot make expression for decision %s", decision.getAttribute("id")), e);
+                throw new DMNRuntimeException("Cannot make expression for decision %s".formatted(decision.getAttribute("id")), e);
             }
         } else {
             return null;
@@ -862,7 +859,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
         if (returnType != null) {
             return makeQName(DMN_11.getFeelNamespace(), STRING_TYPE);
         }
-        throw new UnsupportedOperationException(String.format("'%s' function not supported yet", functionId));
+        throw new UnsupportedOperationException("'%s' function not supported yet".formatted(functionId));
     }
 
     private QName makeQName(Element resource) {

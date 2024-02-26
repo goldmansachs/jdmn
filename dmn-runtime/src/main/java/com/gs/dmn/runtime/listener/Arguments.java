@@ -19,6 +19,6 @@ import java.util.stream.Collectors;
 public class Arguments extends LinkedHashMap<String, Object> {
     @Override
     public String toString() {
-        return this.entrySet().stream().map(entry -> String.format("%s='%s'", entry.getKey(), entry.getValue())).collect(Collectors.joining(", "));
+        return this.entrySet().stream().map(entry -> "%s='%s'".formatted(entry.getKey(), entry.getValue())).collect(Collectors.joining(", "));
     }
 }

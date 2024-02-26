@@ -88,7 +88,7 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
         List<Object> correctionObjList = extractCorrectionConfigurations(configuration);
         for (Object correctionObj : correctionObjList) {
             if (!(correctionObj instanceof Map)) {
-                reportInvalidConfig(String.format("Incorrect or missing '%s' nodes", CORRECTION_TAG));
+                reportInvalidConfig("Incorrect or missing '%s' nodes".formatted(CORRECTION_TAG));
             } else {
                 Map<String, Object> def = (Map<String, Object>) correctionObj;
                 Object name = def.get(NAME_TAG);
@@ -108,19 +108,19 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
     private List<Object> extractCorrectionConfigurations(Map<String, Object> configuration) {
         List<Object> correctionList = null;
         if (configuration == null) {
-            reportInvalidConfig(String.format("Incorrect or missing '%s' node", CORRECTIONS_TAG));
+            reportInvalidConfig("Incorrect or missing '%s' node".formatted(CORRECTIONS_TAG));
         } else {
             Object correctionsObj = configuration.get(CORRECTIONS_TAG);
             if (!(correctionsObj instanceof Map)) {
-                reportInvalidConfig(String.format("Incorrect or missing '%s' node", CORRECTIONS_TAG));
+                reportInvalidConfig("Incorrect or missing '%s' node".formatted(CORRECTIONS_TAG));
             } else {
                 Object correctionObj = ((Map<String, Object>) correctionsObj).get(CORRECTION_TAG);
-                if (correctionObj instanceof List) {
-                    correctionList = (List<Object>) correctionObj;
+                if (correctionObj instanceof List list) {
+                    correctionList = list;
                 } else if (correctionObj instanceof Map) {
                     correctionList = Collections.singletonList(correctionObj);
                 } else {
-                    reportInvalidConfig(String.format("Incorrect or missing '%s' nodes", CORRECTION_TAG));
+                    reportInvalidConfig("Incorrect or missing '%s' nodes".formatted(CORRECTION_TAG));
                 }
             }
         }
@@ -130,7 +130,7 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
     private Correction makeCorrection(Object name, Object oldValue, Object newValue, Object inputClauseIndexes, Object ruleIndexes) {
         Correction correction = null;
         if (!(name instanceof String && oldValue instanceof String && newValue instanceof String)) {
-            reportInvalidConfig(String.format("Incorrect fields in '%s' node", CORRECTION_TAG));
+            reportInvalidConfig("Incorrect fields in '%s' node".formatted(CORRECTION_TAG));
         } else {
             // Create Correction
             List<Integer> inputIndexesList = makeIndexList(inputClauseIndexes);
@@ -143,14 +143,14 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
     private List<Integer> makeIndexList(Object object) {
         if (object == null) {
             return new ArrayList<>();
-        } else if (object instanceof String) {
-            if (((String) object).isEmpty()) {
+        } else if (object instanceof String string) {
+            if (string.isEmpty()) {
                 return new ArrayList<>();
             } else {
-                return Arrays.stream(((String) object).split(",")).map(Integer::parseInt).collect(Collectors.toList());
+                return Arrays.stream(string.split(",")).map(Integer::parseInt).collect(Collectors.toList());
             }
         } else {
-            reportInvalidConfig(String.format("Unexpected comma separated list of indexes '%s'", object));
+            reportInvalidConfig("Unexpected comma separated list of indexes '%s'".formatted(object));
             return new ArrayList<>();
         }
     }
@@ -159,31 +159,27 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
         for (Correction cor: corrections) {
             String drgName = cor.getDrgName();
             TDRGElement drgElement = repository.findDRGElementByName(drgName);
-            if (drgElement instanceof TDecision) {
-                correctDecision((TDecision) drgElement, cor, repository);
+            if (drgElement instanceof TDecision decision) {
+                correctDecision(decision, cor, repository);
             } else {
-                reportInvalidConfig(String.format("Cannot find decision '%s'", drgName));
+                reportInvalidConfig("Cannot find decision '%s'".formatted(drgName));
             }
         }
     }
 
     private void correctDecision(TDecision decision, Correction cor, DMNModelRepository repository) {
         TExpression expression = repository.expression(decision);
-        if (cor instanceof DecisionTableCorrection && expression instanceof TDecisionTable) {
-            DecisionTableCorrection dtc = (DecisionTableCorrection) cor;
+        if (cor instanceof DecisionTableCorrection dtc && expression instanceof TDecisionTable dte) {
             String oldValue = dtc.getOldValue();
             String newValue = dtc.getNewValue();
             List<Integer> inputIndexes = dtc.getInputIndexes();
             List<Integer> ruleIndexes = dtc.getRuleIndexes();
-
-            // Correct InputClauses
-            TDecisionTable dte = (TDecisionTable) expression;
             boolean correctAll = inputIndexes.isEmpty() && ruleIndexes.isEmpty();
             correctInputClauses(decision, oldValue, newValue, inputIndexes, correctAll, dte);
             // Correct Rules
             correctRules(decision, oldValue, newValue, ruleIndexes, correctAll, dte);
         } else {
-            reportInvalidConfig(String.format("Correction '%s' is not supported for decision '%s' yet", cor, decision));
+            reportInvalidConfig("Correction '%s' is not supported for decision '%s' yet".formatted(cor, decision));
         }
 
     }
@@ -214,12 +210,12 @@ public class CorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<Tes
         String oldText = expression.getText();
         String newText = oldText.replace(oldValue, newValue);
 
-        logger.info(String.format("Replacing expression '%s' with '%s' in decision '%s'", oldText, newText, decision.getName()));
+        logger.info("Replacing expression '%s' with '%s' in decision '%s'".formatted(oldText, newText, decision.getName()));
 
         expression.setText(newText);
     }
 
     protected void reportInvalidConfig(String message) {
-        throw new DMNRuntimeException(String.format("Invalid transformer configuration: %s", message));
+        throw new DMNRuntimeException("Invalid transformer configuration: %s".formatted(message));
     }
 }

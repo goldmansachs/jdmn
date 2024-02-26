@@ -38,13 +38,13 @@ public class TupleType implements Type {
 
     @Override
     public boolean equivalentTo(Type other) {
-        return other instanceof TupleType
-                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.types, ((TupleType) other).types);
+        return other instanceof TupleType tt
+                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.types, tt.types);
     }
 
     @Override
     public boolean conformsTo(Type other) {
-        return other instanceof TupleType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.types, ((TupleType) other).types)
+        return other instanceof TupleType tt && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.types, tt.types)
                 || other == ANY;
     }
 
@@ -75,6 +75,6 @@ public class TupleType implements Type {
     @Override
     public String toString() {
         String types = this.types.stream().map(Type::toString).collect(Collectors.joining(", "));
-        return String.format("TupleType(%s)", types);
+        return "TupleType(%s)".formatted(types);
     }
 }

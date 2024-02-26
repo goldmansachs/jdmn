@@ -39,6 +39,6 @@ public class UnaryTestFunctionCall extends UnaryTest {
     @Override
     public String toString() {
         String list = parameters.stream().map(Object::toString).collect(Collectors.joining(", "));
-        return String.format("%s(?, %s, %s)", this.getClass().getSimpleName(), functionId, list);
+        return "%s(?, %s, %s)".formatted(this.getClass().getSimpleName(), functionId, list);
     }
 }

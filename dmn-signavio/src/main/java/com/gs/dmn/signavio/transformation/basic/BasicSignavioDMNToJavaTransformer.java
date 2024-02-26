@@ -98,7 +98,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             return DECISION_OUTPUT_FIELD_NAME;
         } else {
             TExpression value = this.dmnModelRepository.expression(element);
-            throw new UnsupportedOperationException(String.format("'%s' is not supported yet ", value.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("'%s' is not supported yet ".formatted(value.getClass().getSimpleName()));
         }
     }
 
@@ -113,7 +113,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
                 }
             }
         }
-        throw new DMNRuntimeException(String.format("Missing class in '%s'", body));
+        throw new DMNRuntimeException("Missing class in '%s'".formatted(body));
     }
 
     public String externalFunctionMethodName(Expression<Type> body) {
@@ -133,7 +133,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
                 }
             }
         }
-        throw new DMNRuntimeException(String.format("Missing methodName in '%s'", body));
+        throw new DMNRuntimeException("Missing methodName in '%s'".formatted(body));
     }
 
     @Override
@@ -172,7 +172,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<Pair<String, Type>> parameters = inputDataParametersClosure(outputReference);
-            String arguments = parameters.stream().map(p -> String.format("%s", p.getLeft())).collect(Collectors.joining(", "));
+            String arguments = parameters.stream().map(p -> "%s".formatted(p.getLeft())).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
             return super.drgElementArgumentList(reference);
@@ -186,7 +186,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<Pair<String, Type>> parameters = inputDataParametersClosure(outputReference);
-            String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgument(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
+            String arguments = parameters.stream().map(p -> "%s".formatted(convertDecisionArgument(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
             return super.drgElementConvertedArgumentList(reference);
@@ -221,7 +221,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         List<String> argNameList = drgElementArgumentNameList(outputDecision);
         String decisionArgList = String.join(", ", argNameList);
         decisionArgList = augmentArgumentList(decisionArgList);
-        return String.format("%s.apply(%s)", defaultConstructor(decisionClassName), decisionArgList);
+        return "%s.apply(%s)".formatted(defaultConstructor(decisionClassName), decisionArgList);
     }
 
     @Override
@@ -332,8 +332,8 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             String javaCode;
             if (((FunctionDefinition<Type>) literalExpression).isExternal()) {
                 Type type = literalExpression.getType();
-                if (type instanceof FEELFunctionType) {
-                    type = ((FEELFunctionType) type).getReturnType();
+                if (type instanceof FEELFunctionType functionType) {
+                    type = functionType.getReturnType();
                 }
                 String returnNativeType = toNativeType(type);
                 String className = externalFunctionClassName(body);

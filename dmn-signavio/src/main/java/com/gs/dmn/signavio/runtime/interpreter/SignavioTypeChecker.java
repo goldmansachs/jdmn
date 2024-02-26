@@ -39,8 +39,8 @@ public class SignavioTypeChecker extends TypeChecker {
         if (value == null) {
             return null;
         }
-        if (value instanceof List && ((List) value).size() == 1 && !(expectedType instanceof ListType)) {
-            value = lib.asElement((List) value);
+        if (value instanceof List list && list.size() == 1 && !(expectedType instanceof ListType)) {
+            value = lib.asElement(list);
         }
         return Result.of(value, expectedType);
     }

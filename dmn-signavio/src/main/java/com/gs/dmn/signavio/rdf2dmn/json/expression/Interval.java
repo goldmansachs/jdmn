@@ -44,7 +44,7 @@ public class Interval extends UnaryTest {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s, %s, %s)", this.getClass().getSimpleName(), openStart, start.toString(), openEnd, end.toString());
+        return "%s(%s, %s, %s, %s)".formatted(this.getClass().getSimpleName(), openStart, start.toString(), openEnd, end.toString());
     }
 
 }

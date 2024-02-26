@@ -25,7 +25,7 @@ public class Field extends NameElement {
     public Field(String name, FieldType type, String defaultValue) {
         super(name);
         if (type == null) {
-            throw new DMNRuntimeException(String.format("Mandatory proto field type. Found '%s'", type));
+            throw new DMNRuntimeException("Mandatory proto field type. Found '%s'".formatted(type));
         }
         this.type = type;
         this.defaultValue = defaultValue;

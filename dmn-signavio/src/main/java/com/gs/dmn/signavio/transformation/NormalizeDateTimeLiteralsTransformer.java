@@ -88,16 +88,16 @@ class NormalizeDateTimeLiteralsVisitor extends TraversalVisitor<TransformationCo
 
     @Override
     public DMNBaseElement visit(TDecision element, TransformationContext context) {
-        logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
+        logger.debug("Process decision table in decision '%s'".formatted(element.getName()));
 
         DMNModelRepository repository = context.getRepository();
         TExpression expression = repository.expression(element);
-        if (expression instanceof TDecisionTable) {
-            logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
-            ((TDecisionTable) expression).accept(this, context);
-        } else if (expression instanceof TLiteralExpression) {
-            logger.debug(String.format("Process literal expression in decision '%s'", element.getName()));
-            ((TLiteralExpression) expression).accept(this, context);
+        if (expression instanceof TDecisionTable table) {
+            logger.debug("Process decision table in decision '%s'".formatted(element.getName()));
+            table.accept(this, context);
+        } else if (expression instanceof TLiteralExpression literalExpression) {
+            logger.debug("Process literal expression in decision '%s'".formatted(element.getName()));
+            literalExpression.accept(this, context);
         }
         return element;
     }
@@ -252,7 +252,7 @@ class NormalizeDateTimeLiteralsVisitor extends TraversalVisitor<TransformationCo
                 // time
                 temporal = this.feelLib.time(rawText).withOffsetSameInstant(ZoneOffset.UTC);
             }
-            return String.format("\"%s\"", this.feelLib.string(temporal));
+            return "\"%s\"".formatted(this.feelLib.string(temporal));
         } catch (Exception e) {
             return literalText;
         }

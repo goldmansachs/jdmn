@@ -58,6 +58,6 @@ public class Annotation {
 
     @Override
     public String toString() {
-        return String.format("Annotation('%s', %d, '%s')", decisionName, ruleIndex, annotation);
+        return "Annotation('%s', %d, '%s')".formatted(decisionName, ruleIndex, annotation);
     }
 }

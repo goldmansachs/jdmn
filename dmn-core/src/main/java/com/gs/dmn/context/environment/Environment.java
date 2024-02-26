@@ -65,11 +65,11 @@ public class Environment {
                     existingDeclarations.add(declaration);
                     this.variablesTable.put(name, existingDeclarations);
                 } else {
-                    throw new DMNRuntimeException(String.format("%s '%s' already exists", declaration.getClass().getSimpleName(), name));
+                    throw new DMNRuntimeException("%s '%s' already exists".formatted(declaration.getClass().getSimpleName(), name));
                 }
             }
         } else {
-            throw new DMNRuntimeException(String.format("Could not add declaration with missing name %s", declaration));
+            throw new DMNRuntimeException("Could not add declaration with missing name %s".formatted(declaration));
         }
     }
 
@@ -82,7 +82,7 @@ public class Environment {
         } else if (declarations.stream().allMatch(d -> d.getType() instanceof FunctionType)) {
             return null;
         } else {
-            throw new DMNRuntimeException(String.format("Multiple variables for 'name' in the same context %s", declarations));
+            throw new DMNRuntimeException("Multiple variables for 'name' in the same context %s".formatted(declarations));
         }
     }
 

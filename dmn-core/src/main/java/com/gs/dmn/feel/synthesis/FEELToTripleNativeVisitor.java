@@ -169,7 +169,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
                 Triple javaList = (Triple) optimizedListLiteral.accept(this, context);
                 return this.triples.makeBuiltinFunctionInvocation("listContains", javaList, inputExpressionToJava(context));
             } else {
-                throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                throw new SemanticError(element, "Cannot compare '%s', '%s'".formatted(inputExpressionType, optimizedListType));
             }
         } else {
             // test is list of ranges compatible with input
@@ -235,7 +235,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
 
     @Override
     public String visit(ContextEntryKey<Type> element, DMNContext context) {
-        return String.format("\"%s\"", element.getKey());
+        return "\"%s\"".formatted(element.getKey());
     }
 
     @Override
@@ -278,8 +278,8 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         } else if (expressionDomain instanceof FunctionInvocation) {
             domain = (Triple) expressionDomain.accept(this, context);
         } else {
-            throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
-                    element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("FEEL '%s' is not supported yet with domain '%s'".formatted(
+                element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
         }
         return domain;
     }
@@ -342,8 +342,8 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         } else if (filterType == NumberType.NUMBER) {
             // Compute element type
             Type elementType;
-            if (sourceType instanceof ListType) {
-                elementType = ((ListType) sourceType).getElementType();
+            if (sourceType instanceof ListType type) {
+                elementType = type.getElementType();
             } else {
                 elementType = sourceType;
             }
@@ -360,7 +360,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
             this.filterCount++;
             return olderParameterName;
         } else {
-            return String.format("%s_%d_", olderParameterName, ++this.filterCount);
+            return "%s_%d_".formatted(olderParameterName, ++this.filterCount);
         }
     }
 
@@ -514,11 +514,11 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         if (functionType instanceof BuiltinFunctionType) {
             List<Triple> operands = visitArgList(argList);
             return this.triples.makeBuiltinFunctionInvocation(javaFunctionCode, operands);
-        } else if (functionType instanceof DMNFunctionType) {
-            if (!dmnTransformer.isJavaFunction(((DMNFunctionType) functionType).getKind())) {
+        } else if (functionType instanceof DMNFunctionType type) {
+            if (!dmnTransformer.isJavaFunction(type.getKind())) {
                 addExtraArguments(argList);
             }
-            TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();
+            TNamedElement invocable = type.getDRGElement();
             if (invocable instanceof TInvocable) {
                 List<Triple> operands = visitArgList(argList);
                 if (function instanceof Name) {
@@ -535,22 +535,22 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
                 List<Triple> operands = visitArgList(argList);
                 return this.triples.makeApplyInvocation(javaFunctionCode, operands);
             }
-        } else if (functionType instanceof FEELFunctionType) {
-            if (!((FEELFunctionType) functionType).isExternal()) {
+        } else if (functionType instanceof FEELFunctionType type) {
+            if (!type.isExternal()) {
                 addExtraArguments(argList);
             }
             List<Triple> operands = visitArgList(argList);
             return this.triples.makeApplyInvocation(javaFunctionCode, operands);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported function type '%s' in '%s'", functionType, context.getElementName()));
+            throw new DMNRuntimeException("Not supported function type '%s' in '%s'".formatted(functionType, context.getElementName()));
         }
     }
 
     private static List<Triple> visitArgList(List<Object> argList) {
         List<Triple> operands = new ArrayList<>();
         for (Object arg : argList) {
-            if (arg instanceof Triple) {
-                operands.add((Triple) arg);
+            if (arg instanceof Triple triple) {
+                operands.add(triple);
             } else {
                 throw new DMNRuntimeException("Illegal arg, should be Operand");
             }
@@ -563,10 +563,10 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
     }
 
     protected Triple convertArgument(Object param, Conversion<Type> conversion) {
-        if (param instanceof Triple) {
-            return this.triples.makeConvertArgument((Triple) param, conversion);
+        if (param instanceof Triple triple) {
+            return this.triples.makeConvertArgument(triple, conversion);
         } else {
-            throw new DMNRuntimeException(String.format("Expected operand, found '%s'", param));
+            throw new DMNRuntimeException("Expected operand, found '%s'".formatted(param));
         }
     }
 
@@ -659,14 +659,14 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
             Declaration declaration = context.lookupVariableDeclaration(name);
             if (declaration != null) {
                 Type type = declaration.getType();
-                if (type instanceof DMNFunctionType) {
+                if (type instanceof DMNFunctionType functionType) {
                     // DRG Element names
-                    TDRGElement drgElement = ((DMNFunctionType) type).getDRGElement();
+                    TDRGElement drgElement = functionType.getDRGElement();
                     if (drgElement instanceof TInvocable) {
                         String drgElementName = drgElement.getName();
                         if (drgElementName.equals(name)) {
                             String javaQualifiedName = this.dmnTransformer.qualifiedName(drgElement);
-                            return this.triples.makeLambdaAccessor(String.format("%s.instance().lambda", javaQualifiedName));
+                            return this.triples.makeLambdaAccessor("%s.instance().lambda".formatted(javaQualifiedName));
                         }
                     }
                 }
@@ -679,7 +679,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
 
     private Triple inputExpressionToJava(DMNContext context) {
         if (context.isExpressionContext()) {
-            throw new DMNRuntimeException(String.format("Missing inputExpression in context of element '%s'", context.getElementName()));
+            throw new DMNRuntimeException("Missing inputExpression in context of element '%s'".formatted(context.getElementName()));
         } else {
             // Evaluate as test
             Expression<Type> inputExpression = (Expression) context.getInputExpression();
@@ -713,11 +713,10 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
     }
 
     protected Triple makeNavigation(Expression<Type> element, Type sourceType, Triple source, String memberName, String memberVariableName) {
-        if (sourceType instanceof ImportContextType) {
-            ImportContextType importContextType = (ImportContextType) sourceType;
+        if (sourceType instanceof ImportContextType importContextType) {
             DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
             if (memberReference == null) {
-                throw new DMNRuntimeException(String.format("Cannot find reference for '%s'", memberName));
+                throw new DMNRuntimeException("Cannot find reference for '%s'".formatted(memberName));
             }
             TDRGElement drgElement = memberReference.getElement();
             if (drgElement instanceof TInvocable) {
@@ -726,16 +725,16 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
                 String javaName = this.dmnTransformer.drgReferenceQualifiedName(memberReference);
                 return nameToTriple(memberReference.getElementName(), javaName);
             }
-        } else if (sourceType instanceof ItemDefinitionType) {
-            Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
+        } else if (sourceType instanceof ItemDefinitionType type) {
+            Type memberType = type.getMemberType(memberName);
             String javaType = this.dmnTransformer.toNativeType(memberType);
             return this.triples.makeItemDefinitionAccessor(javaType, source, memberName);
-        } else if (sourceType instanceof ContextType) {
-            Type memberType = ((ContextType) sourceType).getMemberType(memberName);
+        } else if (sourceType instanceof ContextType type) {
+            Type memberType = type.getMemberType(memberName);
             String javaType = this.dmnTransformer.toNativeType(memberType);
             return this.triples.makeContextAccessor(javaType, source, memberName);
-        } else if (sourceType instanceof ListType) {
-            Triple filter = makeNavigation(element, ((ListType) sourceType).getElementType(), triples.name("x"), memberName, memberVariableName);
+        } else if (sourceType instanceof ListType type) {
+            Triple filter = makeNavigation(element, type.getElementType(), triples.name("x"), memberName, memberVariableName);
             return this.triples.makeCollectionMap(source, filter);
         } else if (sourceType instanceof DateType) {
             return this.triples.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
@@ -751,7 +750,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
             // source is Context
             return this.triples.makeContextSelectExpression(this.dmnTransformer.contextClassName(), source, memberName);
         } else {
-            throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element));
+            throw new SemanticError(element, "Cannot generate navigation path '%s'".formatted(element));
         }
     }
 
@@ -764,7 +763,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
 
     protected Triple makeCondition(String feelOperator, Triple leftOpd, Triple rightOpd, NativeOperator javaOperator) {
         if (javaOperator == null) {
-            throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
+            throw new DMNRuntimeException("Operator '%s' cannot be applied to '%s' and '%s'".formatted(feelOperator, leftOpd, rightOpd));
         } else {
             if (javaOperator.getCardinality() == 2) {
                 if (javaOperator.getNotation() == NativeOperator.Notation.FUNCTIONAL) {
@@ -781,7 +780,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
                     }
                 }
             } else {
-                throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
+                throw new DMNRuntimeException("Operator '%s' cannot be applied to '%s' and '%s'".formatted(feelOperator, leftOpd, rightOpd));
             }
         }
     }
@@ -791,7 +790,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         if (javaOperator != null) {
             return javaOperator.getName();
         } else {
-            throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperatorName, leftOperand, rightOperand));
+            throw new DMNRuntimeException("Operator '%s' cannot be applied to '%s' and '%s'".formatted(feelOperatorName, leftOperand, rightOperand));
         }
     }
 

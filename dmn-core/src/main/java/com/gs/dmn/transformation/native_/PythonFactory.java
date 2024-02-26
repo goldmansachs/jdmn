@@ -47,7 +47,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     @Override
     public String constructor(String className, String arguments) {
         className = removeOptionalParts(className);
-        return String.format("%s(%s)", className, arguments);
+        return "%s(%s)".formatted(className, arguments);
     }
 
     protected String removeOptionalParts(String name) {
@@ -62,13 +62,13 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     @Override
     public String fluentConstructor(String className, String addMethods) {
         className = removeOptionalParts(className);
-        return String.format("%s()%s", className, addMethods);
+        return "%s()%s".formatted(className, addMethods);
     }
 
     @Override
     public String functionalInterfaceConstructor(String functionalInterface, String returnType, String applyMethod) {
         functionalInterface = removeOptionalParts(functionalInterface);
-        return String.format("%s(lambda *%s: (%s))", functionalInterface, this.transformer.lambdaArgsVariableName(), applyMethod);
+        return "%s(lambda *%s: (%s))".formatted(functionalInterface, this.transformer.lambdaArgsVariableName(), applyMethod);
     }
 
     //
@@ -77,33 +77,33 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     @Override
     public String makeItemDefinitionAccessor(String javaType, String source, String memberName) {
         memberName = this.transformer.lowerCaseFirst(memberName);
-        return String.format("%s if (%s) else (%s.%s)", this.nullLiteral(), isNull(source), source, memberName);
+        return "%s if (%s) else (%s.%s)".formatted(this.nullLiteral(), isNull(source), source, memberName);
 
     }
 
     @Override
     public String makeItemDefinitionSelectExpression(String source, String memberName, String memberType) {
-        return String.format("%s.%s", source, memberName);
+        return "%s.%s".formatted(source, memberName);
     }
 
     @Override
     public String makeContextAccessor(String javaType, String source, String memberName) {
-        return String.format("%s.%s", source, this.transformer.contextGetter(memberName));
+        return "%s.%s".formatted(source, this.transformer.contextGetter(memberName));
     }
 
     @Override
     public String makeCollectionMap(String source, String filter) {
-        return String.format("list(map(lambda x: %s, %s))", filter, source);
+        return "list(map(lambda x: %s, %s))".formatted(filter, source);
     }
 
     @Override
     public String makeContextSelectExpression(String contextClassName, String source, String memberName) {
-        return String.format("(%s).get(\"%s\", self.asList())", source, memberName);
+        return "(%s).get(\"%s\", self.asList())".formatted(source, memberName);
     }
 
     @Override
     public String prefixWithSelf(String text) {
-        return String.format("self.%s", text);
+        return "self.%s".formatted(text);
     }
 
     //
@@ -111,26 +111,26 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String makeCollectionLogicFilter(String source, String parameterName, String filter) {
-        return String.format("list(filter(lambda %s: %s, %s))", parameterName, filter, source);
+        return "list(filter(lambda %s: %s, %s))".formatted(parameterName, filter, source);
     }
 
     @Override
     public String makeCollectionNumericFilter(String javaElementType, String source, String filter) {
-        String args = String.format("%s, %s", source, filter);
+        String args = "%s, %s".formatted(source, filter);
         String call = this.makeBuiltinFunctionInvocation("elementAt", args);
-        return String.format("%s", call);
+        return "%s".formatted(call);
     }
 
     @Override
     public String makeIfExpression(String condition, String thenExp, String elseExp) {
-        String args = String.format("%s, %s", condition, trueConstant());
+        String args = "%s, %s".formatted(condition, trueConstant());
         String call = this.makeBuiltinFunctionInvocation("booleanEqual", args);
-        return String.format("(%s if %s else %s)", thenExp, call, elseExp);
+        return "(%s if %s else %s)".formatted(thenExp, call, elseExp);
     }
 
     @Override
     public String makeNullCheck(String exp, String type) {
-        return String.format("None if %s is None else %s", exp, exp);
+        return "None if %s is None else %s".formatted(exp, exp);
     }
 
     @Override
@@ -138,14 +138,14 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
         // Add code for each map
         StringBuilder nestedLists = new StringBuilder();
         for (Pair<String, String> pair: domainIterators) {
-            nestedLists.append(String.format("list(map(lambda %s: ", pair.getRight()));
+            nestedLists.append("list(map(lambda %s: ".formatted(pair.getRight()));
         }
         // Add body
         nestedLists.append(body);
         // Add source lists and close parenthesis
         for (int i = domainIterators.size() - 1; i >= 0; i--) {
             Pair<String, String> domain = domainIterators.get(i);
-            nestedLists.append(String.format(", %s))", domain.getLeft()));
+            nestedLists.append(", %s))".formatted(domain.getLeft()));
         }
         // Flatten nested lists
         StringBuilder finalResult = new StringBuilder();
@@ -174,7 +174,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     @Override
     public String makeInstanceOf(String value, Type type) {
         String nativeType = this.typeFactory.toNativeType(type.toString());
-        return String.format("isinstance(%s, %s)", value, nativeType);
+        return "isinstance(%s, %s)".formatted(value, nativeType);
     }
 
     //
@@ -182,15 +182,15 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String makeMinAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("self.min(list(map(lambda o: o.%s, %s)))",
-                outputClauseVariableName, ruleOutputListVariableName
+        return "self.min(list(map(lambda o: o.%s, %s)))".formatted(
+            outputClauseVariableName, ruleOutputListVariableName
         );
     }
 
     @Override
     public String makeMaxAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("self.max(list(map(lambda o: o.%s, %s)))",
-               outputClauseVariableName, ruleOutputListVariableName
+        return "self.max(list(map(lambda o: o.%s, %s)))".formatted(
+            outputClauseVariableName, ruleOutputListVariableName
         );
     }
 
@@ -201,8 +201,8 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String makeSumAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("self.sum(list(map(lambda o: o.%s, %s)))",
-                outputClauseVariableName, ruleOutputListVariableName
+        return "self.sum(list(map(lambda o: o.%s, %s)))".formatted(
+            outputClauseVariableName, ruleOutputListVariableName
         );
     }
 
@@ -211,7 +211,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String makeReturn(String expression) {
-        return String.format("return %s", expression);
+        return "return %s".formatted(expression);
     }
 
     //
@@ -220,17 +220,17 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     @Override
     public String makeVariableAssignment(String type, String name, String expression) {
         String nullableType = this.typeFactory.nullableType(type);
-        return String.format("%s: %s = %s", name, nullableType, expression);
+        return "%s: %s = %s".formatted(name, nullableType, expression);
     }
 
     @Override
     public String makeMemberAssignment(String complexTypeVariable, String memberName, String value) {
-        return String.format("%s.%s = %s", complexTypeVariable, memberName, value);
+        return "%s.%s = %s".formatted(complexTypeVariable, memberName, value);
     }
 
     @Override
     public String makeContextMemberAssignment(String complexTypeVariable, String memberName, String value) {
-        return String.format("%s.%s %s)", complexTypeVariable, this.transformer.contextSetter(memberName), value);
+        return "%s.%s %s)".formatted(complexTypeVariable, this.transformer.contextSetter(memberName), value);
     }
 
     //
@@ -238,7 +238,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String isNull(String exp) {
-        return String.format("%s is %s", exp, this.nullLiteral());
+        return "%s is %s".formatted(exp, this.nullLiteral());
     }
 
     //
@@ -250,7 +250,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
         if (PYTHON_KEYWORDS.contains(javaFunctionCode)) {
             javaFunctionCode += "_";
         }
-        return String.format("self.%s(%s)", javaFunctionCode, argumentsText);
+        return "self.%s(%s)".formatted(javaFunctionCode, argumentsText);
     }
 
     @Override
@@ -258,18 +258,18 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
         if (StringUtils.isEmpty(parametersAssignment)) {
             return body;
         } else {
-            return String.format("%s %s", parametersAssignment, body);
+            return "%s %s".formatted(parametersAssignment, body);
         }
     }
 
     @Override
     protected String makeLambdaParameterAssignment(String type, String name, int i) {
-        return String.format("%s := %s[%s],", name, transformer.lambdaArgsVariableName(), i);
+        return "%s := %s[%s],".formatted(name, transformer.lambdaArgsVariableName(), i);
     }
 
     @Override
     public String makeExternalExecutorCall(String externalExecutorVariableName, String className, String methodName, String arguments, String returnNativeType) {
-        return String.format("%s.execute(\"%s\", \"%s\", arrayOf(%s))", externalExecutorVariableName, className, methodName, arguments);
+        return "%s.execute(\"%s\", \"%s\", arrayOf(%s))".formatted(externalExecutorVariableName, className, methodName, arguments);
     }
 
     //
@@ -277,28 +277,28 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String nullableParameterType(String parameterType) {
-        return String.format("%s", this.typeFactory.nullableType(parameterType));
+        return "%s".formatted(this.typeFactory.nullableType(parameterType));
     }
 
     @Override
     public String nullableParameter(String parameterType, String parameterName) {
-        return String.format("%s: %s", parameterName, this.typeFactory.nullableType(parameterType));
+        return "%s: %s".formatted(parameterName, this.typeFactory.nullableType(parameterType));
     }
 
     @Override
     public String parameterType(String parameterType) {
-        return String.format("%s", parameterType);
+        return "%s".formatted(parameterType);
     }
 
     @Override
     public String parameter(String parameterType, String parameterName) {
-        return String.format("%s: %s", parameterName, parameterType);
+        return "%s: %s".formatted(parameterName, parameterType);
     }
 
     @Override
     public String decisionConstructorParameter(DRGElementReference<TDecision> d) {
         String defaultValue = "None";
-        return String.format("%s: %s = %s", this.transformer.drgElementReferenceVariableName(d), this.transformer.qualifiedName(d), defaultValue);
+        return "%s: %s = %s".formatted(this.transformer.drgElementReferenceVariableName(d), this.transformer.qualifiedName(d), defaultValue);
     }
 
     //
@@ -306,7 +306,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String numericLiteral(String lexeme) {
-        return String.format("self.number(\"%s\")", lexeme);
+        return "self.number(\"%s\")".formatted(lexeme);
     }
 
     @Override
@@ -340,18 +340,18 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     @Override
     public String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType) {
         String elementConversion = convertToItemDefinitionType("x", expectedElementType);
-        return String.format("list(map(lambda x: %s, %s))", elementConversion, javaExpression);
+        return "list(map(lambda x: %s, %s))".formatted(elementConversion, javaExpression);
     }
 
     @Override
     public String convertToItemDefinitionType(String expression, ItemDefinitionType type) {
         String convertMethodName = convertMethodName(type);
         String interfaceName = transformer.toNativeType(type);
-        return String.format("%s().%s(%s)", interfaceName, convertMethodName, expression);
+        return "%s().%s(%s)".formatted(interfaceName, convertMethodName, expression);
     }
 
     @Override
     protected String itemDefinitionConversionLambda(String qNativeType, String convertFunction) {
-        return String.format("lambda e: %s.%s(e)", qNativeType, convertFunction);
+        return "lambda e: %s.%s(e)".formatted(qNativeType, convertFunction);
     }
 }

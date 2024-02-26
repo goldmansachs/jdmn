@@ -41,16 +41,16 @@ public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDM
             TItemDefinition existingDefinition = repository.lookupItemDefinition(definition.getName());
             if (existingDefinition != null) {
                 if (definitionsAreEquivalent(definition, existingDefinition)) {
-                    logger.warn(String.format("Matching definition already exists for \"%s\"; no definition will be generated", definition.getName()));
+                    logger.warn("Matching definition already exists for \"%s\"; no definition will be generated".formatted(definition.getName()));
                     continue;
                 }
                 else {
-                    throw new DMNRuntimeException(String.format("Cannot generate item definition for \"%s\"; conflicting item definition already exists", definition.getName()));
+                    throw new DMNRuntimeException("Cannot generate item definition for \"%s\"; conflicting item definition already exists".formatted(definition.getName()));
                 }
             }
 
             ((SignavioDMNModelRepository) repository).addItemDefinition(model, definition);
-            logger.info(String.format("Generated new item definition for \"%s\"", definition.getName()));
+            logger.info("Generated new item definition for \"%s\"".formatted(definition.getName()));
         }
     }
 
@@ -71,7 +71,7 @@ public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDM
 
     protected TItemDefinition makeItemDefinition(int definitionsCount, String name, boolean isCollection, String typeRef) {
         TItemDefinition itemDefinition = new TItemDefinition();
-        itemDefinition.setId(String.format("generated-definition-%d", definitionsCount));
+        itemDefinition.setId("generated-definition-%d".formatted(definitionsCount));
         itemDefinition.setName(name);
         itemDefinition.setLabel(name);
         itemDefinition.setTypeRef(new QName(typeRef));
@@ -96,6 +96,6 @@ public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDM
     }
 
     protected void reportInvalidConfig(String message) {
-        throw new DMNRuntimeException(String.format("Invalid transformer configuration: %s", message));
+        throw new DMNRuntimeException("Invalid transformer configuration: %s".formatted(message));
     }
 }

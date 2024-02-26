@@ -31,6 +31,6 @@ public class TemporalTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest
         if (number < 0 || number > 60) {
             throw new IllegalArgumentException("Illegal second");
         }
-        return this.getLib().time(String.format("12:00:%02d", number));
+        return this.getLib().time("12:00:%02d".formatted(number));
     }
 }

@@ -19,9 +19,9 @@ public class FormatUtils {
         Objects.requireNonNull(d);
         long longValue = d.longValue();
         if (d == longValue) {
-            return String.format("%d", longValue);
+            return "%d".formatted(longValue);
         } else {
-            return String.format("%s", d);
+            return "%s".formatted(d);
         }
     }
 

@@ -82,7 +82,7 @@ class UniqueInformationRequirementVisitor extends TraversalVisitor<Transformatio
 
     @Override
     public DMNBaseElement visit(TDecision element, TransformationContext context) {
-        logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
+        logger.debug("Process decision table in decision '%s'".formatted(element.getName()));
 
         List<String> hrefs = new ArrayList<>();
         List<TInformationRequirement> newList = new ArrayList<>();

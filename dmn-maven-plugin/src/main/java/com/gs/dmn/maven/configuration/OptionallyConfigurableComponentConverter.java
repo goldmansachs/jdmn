@@ -47,19 +47,19 @@ public class OptionallyConfigurableComponentConverter extends AbstractConfigurat
         try {
             component = (OptionallyConfigurableMojoComponent) type.getDeclaredConstructor().newInstance();
         } catch (Exception ex) {
-            throw new ComponentConfigurationException(String.format(
-                    "Cannot instantiate configurable component type \"%s\" (%s)", type.getName(), ex.getMessage()), ex);
+            throw new ComponentConfigurationException(
+                "Cannot instantiate configurable component type \"%s\" (%s)".formatted(type.getName(), ex.getMessage()), ex);
         }
 
         if (component == null) {
-            throw new ComponentConfigurationException(String.format(
-                    "Failed to instantiate new configurable component type \"%s\"", type.getName()));
+            throw new ComponentConfigurationException(
+                "Failed to instantiate new configurable component type \"%s\"".formatted(type.getName()));
         }
 
         // Verify that we are deserializing the expected content type
         if (!configuration.getName().equals(component.getElementName())) {
-            throw new ComponentConfigurationException(String.format(
-                    "Invalid component element \"%s\"; component definition accepts only \"%s\" elements", configuration.getName(), component.getElementName()));
+            throw new ComponentConfigurationException(
+                "Invalid component element \"%s\"; component definition accepts only \"%s\" elements".formatted(configuration.getName(), component.getElementName()));
         }
 
         // Deserialize from either simple or compound data depending on structure of the input configuration
@@ -81,8 +81,8 @@ public class OptionallyConfigurableComponentConverter extends AbstractConfigurat
                                                                            PlexusConfiguration configuration) throws ComponentConfigurationException {
         PlexusConfiguration name = configuration.getChild(OptionallyConfigurableMojoComponent.ELEMENT_NAME, false);
         if (name == null || name.getValue() == null) {
-            throw new ComponentConfigurationException(String.format(
-                    "Cannot configure component; \"%s\" property must be provided", OptionallyConfigurableMojoComponent.ELEMENT_NAME));
+            throw new ComponentConfigurationException(
+                "Cannot configure component; \"%s\" property must be provided".formatted(OptionallyConfigurableMojoComponent.ELEMENT_NAME));
         }
 
         component.setName(name.getValue());

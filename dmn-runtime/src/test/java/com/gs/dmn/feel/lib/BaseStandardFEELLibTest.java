@@ -679,10 +679,12 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertFalse(getLib().matches("abracadabra", "^bra"));
         assertTrue(getLib().matches("abracadabra", "^abra"));
 
-        String input = "Kaum hat dies der Hahn gesehen,\n" +
-                "Fangt er auch schon an zu krahen:\n" +
-                "Kikeriki! Kikikerikih!!\n" +
-                "Tak, tak, tak! - da kommen sie.\n";
+        String input = """
+                Kaum hat dies der Hahn gesehen,
+                Fangt er auch schon an zu krahen:
+                Kikeriki! Kikikerikih!!
+                Tak, tak, tak! - da kommen sie.
+                """;
 
         assertFalse(getLib().matches(input, "Kaum.*krahen"));
         assertTrue(getLib().matches(input, "Kaum.*krahen", "s"));

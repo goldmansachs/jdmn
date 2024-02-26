@@ -112,7 +112,7 @@ public class NamedParameters<T> extends Parameters<T> {
     public T getParameterType(int position, String name) {
         Expression<T> expression = this.getParameters().get(name);
         if (expression == null) {
-            throw new DMNRuntimeException(String.format("Cannot find parameter '%s'", name));
+            throw new DMNRuntimeException("Cannot find parameter '%s'".formatted(name));
         }
         return expression.getType();
     }
@@ -131,8 +131,8 @@ public class NamedParameters<T> extends Parameters<T> {
 
     @Override
     public String toString() {
-        String opd = this.parameters.entrySet().stream().map(e -> String.format("%s : %s", e.getKey(), e.getValue().toString())).collect(Collectors.joining(", "));
-        return String.format("%s(%s)", getClass().getSimpleName(), opd);
+        String opd = this.parameters.entrySet().stream().map(e -> "%s : %s".formatted(e.getKey(), e.getValue().toString())).collect(Collectors.joining(", "));
+        return "%s(%s)".formatted(getClass().getSimpleName(), opd);
     }
 
 }

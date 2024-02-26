@@ -29,7 +29,7 @@ public class RDFReader {
     }
 
     public RDFModel readModel(String modelName, InputStream inputStream) throws Exception {
-        this.logger.info(String.format("Reading model '%s'", modelName));
+        this.logger.info("Reading model '%s'".formatted(modelName));
         StopWatch watch = new StopWatch();
         watch.start();
 

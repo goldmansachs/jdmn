@@ -22,7 +22,7 @@ public class MessageType extends NameElement {
     public MessageType(String name, List<Field> fields) {
         super(name);
         if (fields == null || fields.isEmpty()) {
-            throw new DMNRuntimeException(String.format("Mandatory proto message fields. Found '%s'", fields));
+            throw new DMNRuntimeException("Mandatory proto message fields. Found '%s'".formatted(fields));
         }
         this.fields = fields;
     }

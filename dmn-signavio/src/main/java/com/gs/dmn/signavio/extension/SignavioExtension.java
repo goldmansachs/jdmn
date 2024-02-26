@@ -47,8 +47,7 @@ public class SignavioExtension {
             return null;
         } else {
             Object extension = extensions.get(0);
-            if (extension instanceof ReferencedService) {
-                ReferencedService referencedService = (ReferencedService) extension;
+            if (extension instanceof ReferencedService referencedService) {
                 String serviceId = referencedService.getHref();
                 TDefinitions definitions = dmnModelRepository.getRootDefinitions();
                 return decisionService(definitions, serviceId);
@@ -63,16 +62,15 @@ public class SignavioExtension {
     private TDecisionService decisionService(TDefinitions definitions, String serviceId) {
         List<Object> elementList = findExtensions(definitions.getExtensionElements(), LATEST.getNamespace(), "decisionService");
         for (Object element: elementList) {
-            if (element instanceof TDecisionService && dmnModelRepository.sameId((TNamedElement) element, serviceId)) {
-                return (TDecisionService) element;
+            if (element instanceof TDecisionService service && dmnModelRepository.sameId(service, serviceId)) {
+                return service;
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot find Decision service '%s'", serviceId));
+        throw new DMNRuntimeException("Cannot find Decision service '%s'".formatted(serviceId));
     }
 
     private boolean hasName(Object extension, String namespace, String tagName) {
-        if (extension instanceof Element) {
-            Element element = (Element) extension;
+        if (extension instanceof Element element) {
             String namespaceURI = element.getNamespaceURI();
             String name = element.getLocalName();
             return tagName.equals(name) && namespace.equals(namespaceURI);
@@ -105,8 +103,7 @@ public class SignavioExtension {
         String iteratorShapeId;
         String aggregationFunction;
         String topLevelDecisionId;
-        if (extension instanceof com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic) {
-            com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic decisionElement = (com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic) extension;
+        if (extension instanceof com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic decisionElement) {
             iterationExpression = decisionElement.getIterationExpression();
             iteratorShapeId = decisionElement.getIteratorShapeId();
             aggregationFunction = decisionElement.getAggregationFunction();
@@ -171,17 +168,17 @@ public class SignavioExtension {
         if(StringUtils.isNotEmpty(attribute)) {
             return attribute;
         }
-        throw new IllegalArgumentException(String.format("Cannot find attribute name extension '%s'", attributeName));
+        throw new IllegalArgumentException("Cannot find attribute name extension '%s'".formatted(attributeName));
     }
 
     private NodeList getElementsByTagName(Element element, String tagName) {
         for (String prefix: dmnModelRepository.getSchemaPrefixes()) {
-            String qTagName = XMLConstants.DEFAULT_NS_PREFIX.equals(prefix) ? tagName : String.format("%s:%s", prefix, tagName);
+            String qTagName = XMLConstants.DEFAULT_NS_PREFIX.equals(prefix) ? tagName : "%s:%s".formatted(prefix, tagName);
             NodeList nodeList = element.getElementsByTagName(qTagName);
             if (nodeList.getLength() == 1) {
                 return nodeList;
             }
         }
-        throw new IllegalArgumentException(String.format("Cannot find Signavio extension '%s'", tagName));
+        throw new IllegalArgumentException("Cannot find Signavio extension '%s'".formatted(tagName));
     }
 }

@@ -76,7 +76,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
     @Override
     public String visit(PositiveUnaryTests<Type> element, DMNContext context) {
         List<PositiveUnaryTest<Type>> simplePositiveUnaryTests = element.getPositiveUnaryTests();
-        List<String> operands = simplePositiveUnaryTests.stream().map(t -> String.format("%s", t.accept(this, context))).collect(Collectors.toList());
+        List<String> operands = simplePositiveUnaryTests.stream().map(t -> "%s".formatted(t.accept(this, context))).collect(Collectors.toList());
         return toBooleanOr(operands);
     }
 
@@ -135,13 +135,13 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
             String end = endEndpoint == null ? this.nativeFactory.nullLiteral() : (String) endEndpoint.accept(this, context);
 
             String clsName = this.dmnTransformer.rangeClassName();
-            String args = String.format("%s, %s, %s, %s", startIncluded, start, endIncluded, end);
+            String args = "%s, %s, %s, %s".formatted(startIncluded, start, endIncluded, end);
             return this.dmnTransformer.constructor(clsName, args);
         } else {
             // Evaluate as test
             String leftCondition = makeListTestCondition(element.isOpenStart() ? ">" : ">=", inputExpressionToJava(context), startEndpoint, context);
             String rightCondition = makeListTestCondition(element.isOpenEnd() ? "<" : "<=", inputExpressionToJava(context), endEndpoint, context);
-            String args = String.format("%s, %s", leftCondition, rightCondition);
+            String args = "%s, %s".formatted(leftCondition, rightCondition);
             return this.nativeFactory.makeBuiltinFunctionInvocation("booleanAnd", args);
         }
     }
@@ -158,21 +158,21 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
             if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, optimizedListType)) {
                 // both are compatible lists
                 String javaList = (String) optimizedListLiteral.accept(this, context);
-                String args = String.format("%s, %s", inputExpressionToJava(context), javaList);
+                String args = "%s, %s".formatted(inputExpressionToJava(context), javaList);
                 return this.nativeFactory.makeBuiltinFunctionInvocation("listEqual", args);
             } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, optimizedListElementType)) {
                 // input conforms to element in the list
                 String javaList = (String) optimizedListLiteral.accept(this, context);
-                String args = String.format("%s, %s", javaList, inputExpressionToJava(context));
+                String args = "%s, %s".formatted(javaList, inputExpressionToJava(context));
                 return this.nativeFactory.makeBuiltinFunctionInvocation("listContains", args);
             } else {
-                throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                throw new SemanticError(element, "Cannot compare '%s', '%s'".formatted(inputExpressionType, optimizedListType));
             }
         } else {
             // test is list of ranges compatible with input
             ListLiteral<Type> listLiteral = element.getListLiteral();
             String javaList = (String) listLiteral.accept(this, context);
-            String args = String.format("%s, %s", javaList, "true");
+            String args = "%s, %s".formatted(javaList, "true");
             return this.nativeFactory.makeBuiltinFunctionInvocation("listContains", args);
         }
     }
@@ -228,12 +228,12 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
     public String visit(ContextEntry<Type> element, DMNContext context) {
         String key = (String) element.getKey().accept(this, context);
         String value = (String) element.getExpression().accept(this, context);
-        return String.format(".add(%s, %s)", key, value);
+        return ".add(%s, %s)".formatted(key, value);
     }
 
     @Override
     public String visit(ContextEntryKey<Type> element, DMNContext context) {
-        return String.format("\"%s\"", element.getKey());
+        return "\"%s\"".formatted(element.getKey());
     }
 
     @Override
@@ -267,7 +267,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
             EndpointsRange<Type> test = (EndpointsRange<Type>) expressionDomain;
             String start = (String) test.getStart().accept(this, context);
             String end = (String) test.getEnd().accept(this, context);
-            String args = String.format("%s, %s, %s, %s", test.isOpenStart(), start, test.isOpenEnd(), end);
+            String args = "%s, %s, %s, %s".formatted(test.isOpenStart(), start, test.isOpenEnd(), end);
             domain = this.nativeFactory.makeBuiltinFunctionInvocation("rangeToList", args);
         } else if (expressionDomain instanceof ListTest) {
             ListTest<Type> test = (ListTest<Type>) expressionDomain;
@@ -277,8 +277,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
         } else if (expressionDomain instanceof FunctionInvocation) {
             domain = (String) expressionDomain.accept(this, context);
         } else {
-            throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
-                    element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
+            throw new UnsupportedOperationException("FEEL '%s' is not supported yet with domain '%s'".formatted(
+                element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
         }
         return domain;
     }
@@ -288,7 +288,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
     public String visit(RangeIteratorDomain<Type> element, DMNContext context) {
         String start = (String) element.getStart().accept(this, context);
         String end = (String) element.getEnd().accept(this, context);
-        String args = String.format("%s, %s", start, end);
+        String args = "%s, %s".formatted(start, end);
         return this.nativeFactory.makeBuiltinFunctionInvocation("rangeToList", args);
     }
 
@@ -342,8 +342,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
         } else if (filterType == NumberType.NUMBER) {
             // Compute element type
             Type elementType;
-            if (sourceType instanceof ListType) {
-                elementType = ((ListType) sourceType).getElementType();
+            if (sourceType instanceof ListType type) {
+                elementType = type.getElementType();
             } else {
                 elementType = sourceType;
             }
@@ -360,7 +360,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
             this.filterCount++;
             return olderParameterName;
         } else {
-            return String.format("%s_%d_", olderParameterName, ++this.filterCount);
+            return "%s_%d_".formatted(olderParameterName, ++this.filterCount);
         }
     }
 
@@ -431,7 +431,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
         NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperator, leftEndpoint.getType(), rightEndpoint.getType());
         String c1 = makeCondition(feelOperator, leftOpd, value, javaOperator);
         String c2 = makeCondition(feelOperator, value, rightOpd, javaOperator);
-        String args = String.format("%s, %s", c1, c2);
+        String args = "%s, %s".formatted(c1, c2);
         return this.nativeFactory.makeBuiltinFunctionInvocation("booleanAnd", args);
     }
 
@@ -447,7 +447,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
             result.add(test);
         }
         if (result.size() == 1) {
-            return String.format("%s", result.get(0));
+            return "%s".formatted(result.get(0));
         } else {
             return this.nativeFactory.makeBuiltinFunctionInvocation("booleanOr", String.join(", ", result));
         }
@@ -476,7 +476,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
     public String visit(Exponentiation<Type> element, DMNContext context) {
         String leftOpd = (String) element.getLeftOperand().accept(this, context);
         String rightOpd = (String) element.getRightOperand().accept(this, context);
-        String args = String.format("%s, %s", leftOpd, rightOpd);
+        String args = "%s, %s".formatted(leftOpd, rightOpd);
         return this.nativeFactory.makeBuiltinFunctionInvocation("numericExponentiation", args);
     }
 
@@ -516,11 +516,11 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
         if (functionType instanceof BuiltinFunctionType) {
             String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
             return this.nativeFactory.makeBuiltinFunctionInvocation(javaFunctionCode, argumentsText);
-        } else if (functionType instanceof DMNFunctionType) {
-            if (!dmnTransformer.isJavaFunction(((DMNFunctionType) functionType).getKind())) {
+        } else if (functionType instanceof DMNFunctionType type) {
+            if (!dmnTransformer.isJavaFunction(type.getKind())) {
                 addExtraArguments(argList);
             }
-            TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();
+            TNamedElement invocable = type.getDRGElement();
             if (invocable instanceof TInvocable) {
                 String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
                 if (function instanceof Name) {
@@ -537,19 +537,19 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
                 String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
                 return this.nativeFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
             }
-        } else if (functionType instanceof FEELFunctionType) {
-            if (!((FEELFunctionType) functionType).isExternal()) {
+        } else if (functionType instanceof FEELFunctionType type) {
+            if (!type.isExternal()) {
                 addExtraArguments(argList);
             }
             String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
             return this.nativeFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported function type '%s' in '%s'", functionType, context.getElementName()));
+            throw new DMNRuntimeException("Not supported function type '%s' in '%s'".formatted(functionType, context.getElementName()));
         }
     }
 
     private void addExtraArguments(List<Object> argList) {
-        argList.add(String.format("%s", dmnTransformer.executionContextVariableName()));
+        argList.add("%s".formatted(dmnTransformer.executionContextVariableName()));
     }
 
     protected Object convertArgument(Object param, Conversion<Type> conversion) {
@@ -573,7 +573,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
         String lexeme = element.getLexeme();
         String value = StringEscapeUtil.unescapeFEEL(lexeme);
         value = StringEscapeUtil.escapeFEEL(value);
-        value = String.format("\"%s\"", value);
+        value = "\"%s\"".formatted(value);
         return value;
     }
 
@@ -652,14 +652,14 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
             Declaration declaration = context.lookupVariableDeclaration(name);
             if (declaration != null) {
                 Type type = declaration.getType();
-                if (type instanceof DMNFunctionType) {
+                if (type instanceof DMNFunctionType functionType) {
                     // DRG Element names
-                    TDRGElement drgElement = ((DMNFunctionType) type).getDRGElement();
+                    TDRGElement drgElement = functionType.getDRGElement();
                     if (drgElement instanceof TInvocable) {
                         String drgElementName = drgElement.getName();
                         if (drgElementName.equals(name)) {
                             String javaQualifiedName = this.dmnTransformer.qualifiedName(drgElement);
-                            return String.format("%s.instance().lambda", javaQualifiedName);
+                            return "%s.instance().lambda".formatted(javaQualifiedName);
                         }
                     }
                 }
@@ -672,7 +672,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
 
     private String inputExpressionToJava(DMNContext context) {
         if (context.isExpressionContext()) {
-            throw new DMNRuntimeException(String.format("Missing inputExpression in context of element '%s'", context.getElementName()));
+            throw new DMNRuntimeException("Missing inputExpression in context of element '%s'".formatted(context.getElementName()));
         } else {
             // Evaluate as test
             Expression<Type> inputExpression = (Expression) context.getInputExpression();
@@ -706,29 +706,28 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
     }
 
     protected String makeNavigation(Expression<Type> element, Type sourceType, String source, String memberName, String memberVariableName) {
-        if (sourceType instanceof ImportContextType) {
-            ImportContextType importContextType = (ImportContextType) sourceType;
+        if (sourceType instanceof ImportContextType importContextType) {
             DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
             if (memberReference == null) {
-                throw new DMNRuntimeException(String.format("Cannot find reference for '%s'", memberName));
+                throw new DMNRuntimeException("Cannot find reference for '%s'".formatted(memberName));
             }
             TDRGElement drgElement = memberReference.getElement();
-            if (drgElement instanceof TBusinessKnowledgeModel) {
-                return this.dmnTransformer.singletonInvocableInstance((TBusinessKnowledgeModel) drgElement);
+            if (drgElement instanceof TBusinessKnowledgeModel model) {
+                return this.dmnTransformer.singletonInvocableInstance(model);
             } else {
                 String javaName = this.dmnTransformer.drgReferenceQualifiedName(memberReference);
                 return this.dmnTransformer.lazyEvaluation(memberReference.getElementName(), javaName);
             }
-        } else if (sourceType instanceof ItemDefinitionType) {
-            Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
+        } else if (sourceType instanceof ItemDefinitionType type) {
+            Type memberType = type.getMemberType(memberName);
             String javaType = this.dmnTransformer.toNativeType(memberType);
             return this.nativeFactory.makeItemDefinitionAccessor(javaType, source, memberName);
-        } else if (sourceType instanceof ContextType) {
-            Type memberType = ((ContextType) sourceType).getMemberType(memberName);
+        } else if (sourceType instanceof ContextType type) {
+            Type memberType = type.getMemberType(memberName);
             String javaType = this.dmnTransformer.toNativeType(memberType);
             return this.nativeFactory.makeContextAccessor(javaType, source, memberName);
-        } else if (sourceType instanceof ListType) {
-            String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName);
+        } else if (sourceType instanceof ListType type) {
+            String filter = makeNavigation(element, type.getElementType(), "x", memberName, memberVariableName);
             return this.nativeFactory.makeCollectionMap(source, filter);
         } else if (sourceType instanceof DateType) {
             return this.nativeFactory.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
@@ -739,12 +738,12 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
         } else if (sourceType instanceof DurationType) {
             return this.nativeFactory.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
         } else if (sourceType instanceof RangeType) {
-            return String.format("%s.%s", source, rangeGetter(memberName));
+            return "%s.%s".formatted(source, rangeGetter(memberName));
         } else if (sourceType instanceof AnyType) {
             // source is Context
             return this.nativeFactory.makeContextSelectExpression(this.dmnTransformer.contextClassName(), source, memberName);
         } else {
-            throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element));
+            throw new SemanticError(element, "Cannot generate navigation path '%s'".formatted(element));
         }
     }
 
@@ -757,7 +756,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
 
     protected String makeCondition(String feelOperator, String leftOpd, String rightOpd, NativeOperator javaOperator) {
         if (javaOperator == null) {
-            throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
+            throw new DMNRuntimeException("Operator '%s' cannot be applied to '%s' and '%s'".formatted(feelOperator, leftOpd, rightOpd));
         } else {
             if (javaOperator.getCardinality() == 2) {
                 if (javaOperator.getNotation() == NativeOperator.Notation.FUNCTIONAL) {
@@ -774,7 +773,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
                     }
                 }
             } else {
-                throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
+                throw new DMNRuntimeException("Operator '%s' cannot be applied to '%s' and '%s'".formatted(feelOperator, leftOpd, rightOpd));
             }
         }
     }
@@ -784,17 +783,17 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
         if (javaOperator != null) {
             return javaOperator.getName();
         } else {
-            throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperatorName, leftOperand, rightOperand));
+            throw new DMNRuntimeException("Operator '%s' cannot be applied to '%s' and '%s'".formatted(feelOperatorName, leftOperand, rightOperand));
         }
     }
 
     protected String functionalExpression(String javaOperator, String leftOpd, String rightOpd) {
-        String args = String.format("%s, %s", leftOpd, rightOpd);
+        String args = "%s, %s".formatted(leftOpd, rightOpd);
         return this.nativeFactory.makeBuiltinFunctionInvocation(javaOperator, args);
     }
 
     protected String infixExpression(String javaOperator, String leftOpd, String rightOpd) {
-        return String.format("(%s) %s (%s)", leftOpd, javaOperator, rightOpd);
+        return "(%s) %s (%s)".formatted(leftOpd, javaOperator, rightOpd);
     }
 
     protected String rangeGetter(String memberName) {
