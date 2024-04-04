@@ -12,12 +12,15 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
+import com.gs.dmn.ast.TDRGElement;
+
 import java.util.Map;
 
 public class DecisionEvaluationContext extends EvaluationContext {
     private final Map<String, Object> informationRequirements;
 
-    public DecisionEvaluationContext(Map<String, Object> informationRequirements) {
+    public DecisionEvaluationContext(TDRGElement element, Map<String, Object> informationRequirements) {
+        super(element);
         this.informationRequirements = informationRequirements;
     }
 

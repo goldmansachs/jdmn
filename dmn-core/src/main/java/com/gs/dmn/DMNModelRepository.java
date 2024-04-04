@@ -82,7 +82,7 @@ public class DMNModelRepository {
         // Process all definitions
         for (TDefinitions definitions: this.getAllDefinitions()) {
             // Normalize
-            normalize(definitions);
+            findItemDefinitionAndAllowedValuesFor(definitions);
 
             // Set derived properties
             for (TNamedElement element: findItemDefinitions(definitions)) {
@@ -98,7 +98,7 @@ public class DMNModelRepository {
         return new DMNModelRepository(this.definitionsList);
     }
 
-    protected void normalize(TDefinitions definitions) {
+    protected void findItemDefinitionAndAllowedValuesFor(TDefinitions definitions) {
         if (definitions != null) {
             sortDRGElements(definitions.getDrgElement());
             sortNamedElements(definitions.getItemDefinition());
@@ -408,7 +408,7 @@ public class DMNModelRepository {
         return children;
     }
 
-    public Pair<TItemDefinition, TUnaryTests> normalize(TItemDefinition itemDefinition) {
+    public Pair<TItemDefinition, TUnaryTests> findItemDefinitionAndAllowedValuesFor(TItemDefinition itemDefinition) {
         // 7.3.3. ItemDefinition metamodel If an ItemDefinition element contains one or
         // more allowedValues, the allowedValues specifies the complete range of values that this
         // ItemDefinition represents. If an ItemDefinition element does not contain allowedValues, its range
@@ -432,10 +432,11 @@ public class DMNModelRepository {
 
     protected TItemDefinition next(TItemDefinition itemDefinition) {
         if (itemDefinition == null
+                || itemDefinition.getTypeRef() == null
                 || itemDefinition.isIsCollection()
                 || !isEmpty(itemDefinition.getItemComponent())
                 || itemDefinition.getFunctionItem() != null
-                || itemDefinition.getTypeRef() == null) {
+                ) {
             return null;
         }
         TDefinitions model = getModel(itemDefinition);

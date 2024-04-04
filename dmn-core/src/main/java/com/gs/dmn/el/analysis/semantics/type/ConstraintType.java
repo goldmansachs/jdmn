@@ -65,6 +65,7 @@ public class ConstraintType implements Type {
         return Objects.equals(this.allowedValues, that.allowedValues);
     }
 
+    @Override
     public String serialize() {
         return type.serialize();
     }

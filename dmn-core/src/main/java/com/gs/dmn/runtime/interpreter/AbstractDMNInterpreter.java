@@ -563,7 +563,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
                 // Check result
                 Type expectedType = dmnTransformer.drgElementOutputFEELType(decision, decisionContext);
-                result = typeChecker.checkResult(result, expectedType);
+                result = typeChecker.checkBindingResult(result, expectedType);
             }
 
             // Decision end
@@ -588,7 +588,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
             // Check result
             Type expectedType = dmnTransformer.drgElementOutputFEELType(bkm, bkmContext);
-            result = typeChecker.checkResult(result, expectedType);
+            result = typeChecker.checkBindingResult(result, expectedType);
 
             // BKM end
             EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, Result.value(result), (System.currentTimeMillis() - startTime_));
@@ -635,7 +635,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
             // Check result
             Type expectedType = dmnTransformer.drgElementOutputFEELType(service, serviceContext);
-            Result result = typeChecker.checkResult(Result.of(output, expectedType), expectedType);
+            Result result = typeChecker.checkBindingResult(Result.of(output, expectedType), expectedType);
 
             // Decision service end
             EVENT_LISTENER.endDRGElement(drgElementAnnotation, decisionArguments, Result.value(result), (System.currentTimeMillis() - startTime_));
@@ -648,7 +648,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         //
         @Override
         public Result visit(TExpression expression, EvaluationContext evaluationContext) {
-            TDRGElement element = ((ExpressionEvaluationContext) evaluationContext).getElement();
+            TDRGElement element = evaluationContext.getElement();
             Result result = null;
             if (expression == null) {
                 String message = String.format("Missing expression for element '%s'", element == null ? null : element.getName());
@@ -664,7 +664,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             ExpressionEvaluationContext expressionContext = (ExpressionEvaluationContext) evaluationContext;
             DMNContext context = expressionContext.getContext();
             String text = expression.getText();
-            return evaluateLiteralExpression(text, context);
+            Result result = evaluateLiteralExpression(text, context);
+            return typeChecker.checkExpressionResult(result, expression, dmnTransformer.getDMNModelRepository().getModel(context.getElement()));
         }
 
         @Override
@@ -712,7 +713,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 Result returnResult = elInterpreter.evaluateFunctionInvocation((Function) function, (FunctionType) functionType, argList);
 
                 // Check result
-                returnResult = typeChecker.checkResult(returnResult, ((FunctionType) functionType).getReturnType());
+                returnResult = typeChecker.checkExpressionResult(returnResult, ((FunctionType) functionType).getReturnType());
                 return returnResult;
             } else {
                 throw new DMNRuntimeException(String.format("Expecting function type found '%s' in element '%s'", functionType, element));
@@ -794,7 +795,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                     }
                 }
                 // Return value
-                return Result.of(output, type);
+                Result result = Result.of(output, type);
+                return typeChecker.checkExpressionResult(result, context, model) ;
             }
         }
 
@@ -839,7 +841,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             }
 
             // Check result
-            Result result = typeChecker.checkResult(Result.of(resultValue, listType), listType);
+            Result result = typeChecker.checkExpressionResult(Result.of(resultValue, listType), listType);
 
             // Return result
             return result;
@@ -903,7 +905,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             }
 
             // Check result
-            Result result = typeChecker.checkResult(Result.of(relationValue, relationType), relationType);
+            Result result = typeChecker.checkExpressionResult(Result.of(relationValue, relationType), relationType);
 
             // Return result
             return result;
@@ -927,7 +929,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 result = this.visit(expression.getElse().getExpression(), EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
             }
 
-            return Result.of(Result.value(result), type);
+            result = Result.of(Result.value(result), type);
+            return typeChecker.checkExpressionResult(result, type);
         }
 
         @Override
@@ -954,7 +957,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                     resultValue.add(item);
                 }
             }
-            return Result.of(resultValue, sourceType);
+            Result result = Result.of(resultValue, sourceType);
+            return typeChecker.checkExpressionResult(result, sourceType);
         }
 
         @Override
@@ -980,7 +984,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 Result iterationResult = this.visit(expression.getReturn().getExpression(), EvaluationContext.makeExpressionEvaluationContext(element, iteratorContext, elementAnnotation));
                 resultValue.add(Result.value(iterationResult));
             }
-            return Result.of(resultValue, sourceType);
+            Result result = Result.of(resultValue, sourceType);
+            return typeChecker.checkExpressionResult(result, sourceType);
         }
 
         @Override
@@ -1010,7 +1015,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                     break;
                 }
             }
-            return Result.of(resultValue, type);
+            Result result = Result.of(resultValue, type);
+            return typeChecker.checkExpressionResult(result, type);
         }
 
         @Override
@@ -1041,7 +1047,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                     break;
                 }
             }
-            return Result.of(resultValue, type);
+            Result result = Result.of(resultValue, type);
+            return typeChecker.checkExpressionResult(result, type);
         }
 
         private List checkSource(Object sourceValue, String errorMessage) {

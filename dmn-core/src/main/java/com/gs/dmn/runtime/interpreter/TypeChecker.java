@@ -164,12 +164,28 @@ public class TypeChecker {
         return value instanceof List && ((List) value).size() == 1;
     }
 
-    public Result checkResult(Result result, Type expectedType) {
+    public Result checkBindingResult(Result result, Type expectedType) {
         // Apply conversions
         Result finalResult = convertValue(Result.value(result), expectedType);
 
         // Check constraints
         return checkConstraints(finalResult, expectedType);
+    }
+
+    public Result checkExpressionResult(Result result, TExpression expression, TDefinitions model) {
+        QName typeRef = expression.getTypeRef();
+        if (typeRef == null) {
+            return result;
+        }
+
+        // Check constraints
+        Type expressionType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+        return checkConstraints(result, expressionType);
+    }
+
+    public Result checkExpressionResult(Result result, Type expectedType) {
+        // Check constraints
+        return checkConstraints(result, expectedType);
     }
 
     private Result checkConstraints(Result result, Type expectedType) {
@@ -208,6 +224,7 @@ public class TypeChecker {
     }
 
     public Object checkArgument(Object value, Conversion<Type> conversion) {
+        // Apply conversions
         ConversionKind kind = conversion.getKind();
         return convertValue(value, kind);
     }
@@ -224,7 +241,7 @@ public class TypeChecker {
     public Result checkListElement(Result elementResult, QName typeRef, TDefinitions model) {
         if (typeRef != null) {
             Type type = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
-            elementResult = checkResult(elementResult, type);
+            elementResult = checkExpressionResult(elementResult, type);
         }
         return elementResult;
     }
@@ -240,14 +257,14 @@ public class TypeChecker {
     public Object checkInputExpression(Result inputExpressionResult, TInputClause inputClause, Type type) {
         TUnaryTests inputValues = inputClause.getInputValues();
         Type inputType = inputValues == null ? type : new ConstraintType(type, inputValues);
-        Result finalResult = checkResult(inputExpressionResult, inputType);
+        Result finalResult = checkBindingResult(inputExpressionResult, inputType);
         return Result.value(finalResult);
     }
 
     public Result checkOutputClause(Result result, TOutputClause outputClause, TLiteralExpression outputExpression, TDefinitions model) {
         QName typeRef = outputClauseTypeRef(outputClause, outputExpression);
         Type paramType = typeRef == null ? null : dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
-        return checkResult(result, paramType);
+        return checkBindingResult(result, paramType);
     }
 
     private Result convertValue(Object value, Type expectedType) {

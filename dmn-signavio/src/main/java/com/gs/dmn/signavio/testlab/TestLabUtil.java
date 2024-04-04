@@ -286,7 +286,7 @@ public class TestLabUtil {
             // Locate element by name, label or id
             List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
             if (itemComponent == null || itemComponent.isEmpty()) {
-                itemDefinition = this.transformer.getDMNModelRepository().normalize(itemDefinition).getLeft();
+                itemDefinition = this.transformer.getDMNModelRepository().findItemDefinitionAndAllowedValuesFor(itemDefinition).getLeft();
                 itemComponent = itemDefinition.getItemComponent();
             }
             if (!StringUtils.isBlank(name)) {

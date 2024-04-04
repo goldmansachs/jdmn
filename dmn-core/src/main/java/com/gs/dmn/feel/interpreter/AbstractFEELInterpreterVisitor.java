@@ -847,7 +847,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         FunctionType functionType = (FunctionType) runtimeFunction.getType();
         DMNContext definitionContext = runtimeFunction.getDefinitionContext();
         DMNContext functionContext = makeFunctionContext(definitionContext, functionType.getParameters(), argList);
-        Result result = this.dmnInterpreter.evaluate(runtimeFunction.getInvocable(), EvaluationContext.makeFunctionInvocationContext(argList, functionContext));
+        TDRGElement drgElement = (TDRGElement) definitionContext.getElement();
+        Result result = this.dmnInterpreter.evaluate(runtimeFunction.getInvocable(), EvaluationContext.makeFunctionInvocationContext(drgElement, argList, functionContext));
         return Result.value(result);
     }
 
@@ -874,7 +875,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         DMNContext functionContext = makeFunctionContext(definitionContext, functionType.getParameters(), argList);
         TFunctionKind kind = functionDefinition.getKind();
         if (this.dmnTransformer.isFEELFunction(kind)) {
-            Result result = this.dmnInterpreter.evaluate(functionDefinition, EvaluationContext.makeFunctionInvocationContext(argList, functionContext));
+            TDRGElement drgElement = (TDRGElement) definitionContext.getElement();
+            Result result = this.dmnInterpreter.evaluate(functionDefinition, EvaluationContext.makeFunctionInvocationContext(drgElement, argList, functionContext));
             return Result.value(result);
         } else if (this.dmnTransformer.isJavaFunction(kind)) {
             return evaluateExternalJavaFunction(functionDefinition, argList, functionContext);

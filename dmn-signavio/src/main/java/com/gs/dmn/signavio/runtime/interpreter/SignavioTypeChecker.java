@@ -16,9 +16,9 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
-import com.gs.dmn.runtime.interpreter.TypeChecker;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.interpreter.Result;
+import com.gs.dmn.runtime.interpreter.TypeChecker;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class SignavioTypeChecker extends TypeChecker {
     }
 
     @Override
-    public Result checkResult(Result result, Type expectedType) {
+    public Result checkBindingResult(Result result, Type expectedType) {
         return convertResult(result, expectedType);
     }
 
