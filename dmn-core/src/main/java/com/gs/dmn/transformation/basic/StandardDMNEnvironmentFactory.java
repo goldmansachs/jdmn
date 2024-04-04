@@ -532,9 +532,11 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private Type toFEELTypeNoCache(TItemDefinition itemDefinition) {
-        Pair<TItemDefinition, TUnaryTests> normalized = this.dmnModelRepository.normalize(itemDefinition);
+        // Find item definition and allowed values
+        Pair<TItemDefinition, TUnaryTests> normalized = this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(itemDefinition);
         itemDefinition = normalized.getLeft();
-        TUnaryTests allowedValues = normalized.getRight();
+
+        // Check for missing type information
         TDefinitions model = this.dmnModelRepository.getModel(itemDefinition);
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, itemDefinition.getTypeRef());
         List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
@@ -542,6 +544,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (this.dmnModelRepository.isNull(typeRef) && (itemComponent == null || itemComponent.isEmpty()) && functionItem == null) {
             return AnyType.ANY;
         }
+
+        // Make FEEL type
         Type type;
         if (!this.dmnModelRepository.isNull(typeRef)) {
             type = toFEELType(model, typeRef);
@@ -557,9 +561,14 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 ((ItemDefinitionType) type).addMember(item.getName(), Collections.singletonList(item.getLabel()), toFEELType(item));
             }
         }
+
+        // Check if there are constraints
+        TUnaryTests allowedValues = normalized.getRight();
         if (type != null && allowedValues != null) {
             type = new ConstraintType(type, allowedValues);
         }
+
+        // Check if the item definition is a collection
         if (itemDefinition.isIsCollection()) {
             return new ListType(type);
         } else {
@@ -617,11 +626,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     private Type functionDefinitionType(TDRGElement element, TFunctionDefinition functionDefinition, DMNContext context) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        TExpression expressionElement = functionDefinition.getExpression();
-        if (expressionElement != null) {
+        TExpression body = functionDefinition.getExpression();
+        if (body != null) {
             // Calculate body type
             Type bodyType;
-            TExpression body = expressionElement;
             QualifiedName typeRef = QualifiedName.toQualifiedName(model, bodyTypeRef(functionDefinition));
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
                 bodyType = toFEELType(model, typeRef);

@@ -442,10 +442,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             throw new DMNRuntimeException(String.format("Cannot find DRG elements for node '%s'", info.getNodeName()));
         } else if (element instanceof TDecision) {
             Map<String, Object> informationRequirements = makeInputs(testCases, testCase);
-            return interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeDecisionEvaluationContext(informationRequirements));
+            return interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeDecisionEvaluationContext(element, informationRequirements));
         } else if (element instanceof TInvocable) {
             List<Object> arguments = makeArgs(element, testCase);
-            return interpreter.evaluateInvocable(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeFunctionInvocationContext(arguments));
+            return interpreter.evaluateInvocable(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeFunctionInvocationContext(element, arguments));
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
         }

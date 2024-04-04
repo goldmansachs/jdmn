@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.context.DMNContext;
 
 import java.util.List;
@@ -20,12 +21,14 @@ public class FunctionInvocationContext extends EvaluationContext {
     private final List<Object> argList;
     private final DMNContext context;
 
-    public FunctionInvocationContext(List<Object> argList, DMNContext context) {
+    public FunctionInvocationContext(TDRGElement element, List<Object> argList, DMNContext context) {
+        super(element);
         this.argList = argList;
         this.context = context;
     }
 
-    public FunctionInvocationContext(List<Object> argList) {
+    public FunctionInvocationContext(TDRGElement element, List<Object> argList) {
+        super(element);
         this.argList = argList;
         this.context = null;
     }

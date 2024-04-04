@@ -64,7 +64,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
 
             TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
             DRGElementReference<TDecision> reference = repository.makeDRGElementReference(decision);
-            Result actualResult = interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeDecisionEvaluationContext(inputRequirements));
+            Result actualResult = interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeDecisionEvaluationContext(decision, inputRequirements));
             Object actualValue = Result.value(actualResult);
 
             assertEquals(expectedResult, actualValue, errorMessage);

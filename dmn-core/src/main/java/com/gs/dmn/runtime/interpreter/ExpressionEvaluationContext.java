@@ -17,17 +17,12 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.runtime.listener.DRGElement;
 
 public class ExpressionEvaluationContext extends EvaluationContext {
-    private final TDRGElement element;
     private final DMNContext context;
     private final DRGElement elementAnnotation;
     public ExpressionEvaluationContext(TDRGElement element, DMNContext context, DRGElement elementAnnotation) {
-        this.element = element;
+        super(element);
         this.context = context;
         this.elementAnnotation = elementAnnotation;
-    }
-
-    public TDRGElement getElement() {
-        return element;
     }
 
     public DMNContext getContext() {

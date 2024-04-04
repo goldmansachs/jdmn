@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions" id="_pKGjoH6LEeePe9Zmt-encA" name="0030-user-defined-functions" namespace="http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401"
+             xmlns:ns1="http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions" id="_pKGjoH6LEeePe9Zmt-encA"
+             name="0030-user-defined-functions"
+             namespace="http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions">
   <itemDefinition id="_fKdL0IDJEee-MeWXoLgrYg" name="tFnLibrary">
     <itemComponent id="_gtkkYIDJEee-MeWXoLgrYg" name="sumFn"/>
     <itemComponent id="_pRj-sIDJEee-MeWXoLgrYg" name="subFn"/>
@@ -86,7 +89,7 @@
     <informationRequirement>
       <requiredInput href="#_5eBhQH6PEeePe9Zmt-encA"/>
     </informationRequirement>
-    <context id="_JvSJQX6QEeePe9Zmt-encA" typeRef="ns1:tFnInvocationResult">
+    <context id="_JvSJQX6QEeePe9Zmt-encA">
       <contextEntry>
         <variable id="_TEHYYH6VEeePe9Zmt-encA" name="sumResult"/>
         <literalExpression id="_TEHYYX6VEeePe9Zmt-encA">
@@ -159,7 +162,7 @@
     <knowledgeRequirement>
       <requiredKnowledge href="#_8xmTAIDNEee-MeWXoLgrYg"/>
     </knowledgeRequirement>
-    <context id="_eA6AcYDiEee-MeWXoLgrYg" typeRef="ns1:tFnInvocationResult">
+    <context id="_eA6AcYDiEee-MeWXoLgrYg">
       <contextEntry>
         <variable id="_eA6Aj4DiEee-MeWXoLgrYg" name="functionInvocationInParameter"/>
         <literalExpression id="_eA6AkYDiEee-MeWXoLgrYg">
