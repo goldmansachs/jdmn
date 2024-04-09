@@ -399,18 +399,25 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String annotation(TDRGElement element, String description) {
-        if (StringUtils.isBlank(description)) {
-            return "\"\"";
+    public List<String> annotations(TDRGElement element, List<String> annotationTexts) {
+        List<String> annotationStatements = new ArrayList<>();
+        DMNContext context = this.makeGlobalContext(element);
+        for (String annotationText : annotationTexts) {
+            try {
+                // Add rule annotation
+                if (StringUtils.isBlank(annotationText)) {
+                    annotationStatements.add("\"\"");
+                } else {
+                    Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, annotationText, context);
+                    annotationStatements.add(statement.getText());
+                }
+            } catch (Exception e) {
+                LOGGER.error(String.format("Cannot process annotation '%s' for element '%s'", annotationText, element == null ? "" : element.getName()));
+                // Add unevaluated annotation text
+                annotationStatements.add(String.format("\"%s\"", annotationText.replaceAll("\"", "\\\\\"")));
+            }
         }
-        try {
-            DMNContext context = this.makeGlobalContext(element);
-            Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, description, context);
-            return statement.getText();
-        } catch (Exception e) {
-            LOGGER.warn(String.format("Cannot process description '%s' for element '%s'", description, element == null ? "" : element.getName()));
-            return String.format("\"%s\"", description.replaceAll("\"", "\\\\\""));
-        }
+        return annotationStatements;
     }
 
     @Override
@@ -1512,8 +1519,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String annotation(TDRGElement element, TDecisionRule rule) {
-        return this.expressionToNativeTransformer.annotation(element, rule);
+    public List<String> annotations(TDRGElement element, TDecisionRule rule) {
+        return this.expressionToNativeTransformer.annotations(element, rule);
     }
 
     @Override

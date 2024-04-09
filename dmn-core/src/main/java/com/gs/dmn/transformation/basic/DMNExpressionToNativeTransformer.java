@@ -245,7 +245,7 @@ public class DMNExpressionToNativeTransformer {
     String qualifiedRuleOutputClassName(TDRGElement element) {
         String clsName = this.dmnTransformer.upperCaseFirst(element.getName() + DECISION_RULE_OUTPUT_CLASS_SUFFIX);
         String modelName = this.dmnModelRepository.getModelName(element);
-        String nativePackage = this.dmnTransformer.nativeModelPackageName(modelName);;
+        String nativePackage = this.dmnTransformer.nativeModelPackageName(modelName);
         return this.dmnTransformer.qualifiedName(nativePackage, clsName);
     }
 
@@ -400,9 +400,11 @@ public class DMNExpressionToNativeTransformer {
         return description == null ? "" : StringEscapeUtil.escapeInString(description);
     }
 
-    String annotation(TDRGElement element, TDecisionRule rule) {
+    List<String> annotations(TDRGElement element, TDecisionRule rule) {
+        List<String> annotations = new ArrayList<>();
         String description = rule.getDescription();
-        return this.dmnTransformer.annotation(element, description);
+        annotations.add(description);
+        return this.dmnTransformer.annotations(element, annotations);
     }
 
     String ruleAnnotationClassName() {
