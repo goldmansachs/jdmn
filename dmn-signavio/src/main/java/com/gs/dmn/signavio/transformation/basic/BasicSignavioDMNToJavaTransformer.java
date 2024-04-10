@@ -38,13 +38,10 @@ import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.statement.Statement;
-import com.gs.dmn.transformation.proto.ProtoBufferJavaFactory;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -56,11 +53,6 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     public BasicSignavioDMNToJavaTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         super(dialect, dmnModelRepository, environmentFactory, feelTypeTranslator, lazyEvaluationDetector, inputParameters);
         this.dmnModelRepository = (SignavioDMNModelRepository) super.getDMNModelRepository();
-    }
-
-    @Override
-    protected void setProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
-        this.protoFactory = new ProtoBufferJavaFactory(this);
     }
 
     @Override
@@ -156,11 +148,8 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         TBusinessKnowledgeModel bkm = reference.getElement();
         TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
         if (encapsulatedLogic == null) {
-            List<FormalParameter<Type>> parameters = new ArrayList<>();
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
-            DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
-            List<Pair<String, Type>> paramaters = this.drgElementTypeSignature(outputDecision);
-            return paramaters;
+            return this.drgElementTypeSignature(outputDecision);
         } else {
             return super.bkmParameters(reference, nameProducer);
         }
@@ -298,50 +287,6 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
 
     public String iterationExpressionToNative(TDecision decision, String iterationExpression) {
         return literalExpressionToNative(decision, iterationExpression);
-    }
-
-    private String iterationSignature(TDecision decision) {
-        List<DRGElementReference<? extends TDRGElement>> dmnReferences = collectIterationInputs(decision);
-        List<Pair<String, String>> parameters = new ArrayList<>();
-        for (DRGElementReference<? extends TDRGElement> reference : dmnReferences) {
-            TDRGElement element = reference.getElement();
-            String parameterName = iterationParameterName(element);
-            String parameterNativeType = lazyEvaluationType(element, parameterNativeType(element));
-            parameters.add(new Pair<>(parameterName, parameterNativeType));
-        }
-        String signature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(p.getRight(), p.getLeft())).collect(Collectors.joining(", "));
-        return augmentSignature(signature);
-    }
-
-    private String iterationArgumentList(TDecision decision) {
-        List<DRGElementReference<? extends TDRGElement>> dmnReferences = collectIterationInputs(decision);
-
-        List<String> arguments = new ArrayList<>();
-        for (DRGElementReference<? extends TDRGElement> reference: dmnReferences) {
-            TDRGElement element = reference.getElement();
-            String argumentName = iterationArgumentName(element);
-            arguments.add(argumentName);
-        }
-        String argumentList = String.join(", ", arguments);
-        return augmentArgumentList(argumentList);
-    }
-
-    private List<DRGElementReference<? extends TDRGElement>> collectIterationInputs(TDecision decision) {
-        Set<DRGElementReference<? extends TDRGElement>> elementSet = new LinkedHashSet<>();
-        DRGElementReference<TDecision> decisionReference = this.dmnModelRepository.makeDRGElementReference(decision);
-        elementSet.addAll(this.dmnModelRepository.inputDataClosure(decisionReference, this.drgElementFilter));
-        elementSet.addAll(this.dmnModelRepository.directSubDecisions(decision));
-        List<DRGElementReference<? extends TDRGElement>> elements = new ArrayList<>(elementSet);
-        this.dmnModelRepository.sortNamedElementReferences(elements);
-        return elements;
-    }
-
-    private String iterationParameterName(TDRGElement element) {
-        return namedElementVariableName(element);
-    }
-
-    private String iterationArgumentName(TDRGElement element) {
-        return namedElementVariableName(element);
     }
 
     //
