@@ -405,11 +405,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         for (String annotationText : annotationTexts) {
             try {
                 // Add rule annotation
-                if (StringUtils.isBlank(annotationText)) {
-                    annotationStatements.add("\"\"");
-                } else {
+                if (!StringUtils.isBlank(annotationText)) {
                     Statement statement = annotation(element, annotationText, context);
-                    annotationStatements.add(statement.getText());
+                    String code = statement.getText();
+                    if (!StringUtils.isBlank(code)) {
+                        annotationStatements.add(code);
+                    }
                 }
             } catch (Exception e) {
                 throw new DMNRuntimeException(String.format("Cannot process annotation '%s' for element '%s'", annotationText, element == null ? "" : element.getName()), e);

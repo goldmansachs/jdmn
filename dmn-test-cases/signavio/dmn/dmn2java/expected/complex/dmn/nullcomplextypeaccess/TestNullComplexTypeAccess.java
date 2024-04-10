@@ -96,10 +96,10 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(type.IncompleteDecisionTable incompleteDecisionTable, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -120,9 +120,6 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
             // Compute output
             output_.setMatched(true);
             output_.setTestNullComplexTypeAccess("NonNull/Null");
-
-            // Add annotation
-            annotationSet_.addAnnotation("testNullComplexTypeAccess", 0, "");
         }
 
         // Rule end
@@ -131,10 +128,10 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(type.IncompleteDecisionTable incompleteDecisionTable, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -155,9 +152,6 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
             // Compute output
             output_.setMatched(true);
             output_.setTestNullComplexTypeAccess("NonNull/NonNull");
-
-            // Add annotation
-            annotationSet_.addAnnotation("testNullComplexTypeAccess", 1, "");
         }
 
         // Rule end
@@ -166,10 +160,10 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(type.IncompleteDecisionTable incompleteDecisionTable, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -190,9 +184,6 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
             // Compute output
             output_.setMatched(true);
             output_.setTestNullComplexTypeAccess("Null/Null");
-
-            // Add annotation
-            annotationSet_.addAnnotation("testNullComplexTypeAccess", 2, "");
         }
 
         // Rule end
@@ -201,10 +192,10 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule3(type.IncompleteDecisionTable incompleteDecisionTable, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -225,9 +216,6 @@ public class TestNullComplexTypeAccess extends com.gs.dmn.signavio.runtime.Defau
             // Compute output
             output_.setMatched(true);
             output_.setTestNullComplexTypeAccess("Null/NonNull");
-
-            // Add annotation
-            annotationSet_.addAnnotation("testNullComplexTypeAccess", 3, "");
         }
 
         // Rule end

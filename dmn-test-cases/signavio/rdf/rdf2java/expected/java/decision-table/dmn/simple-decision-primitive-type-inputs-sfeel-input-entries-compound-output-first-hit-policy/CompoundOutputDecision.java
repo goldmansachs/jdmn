@@ -146,9 +146,6 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
             output_.setMatched(true);
             output_.setFirstOutput("r11");
             output_.setSecondOutput("r12");
-
-            // Add annotation
-            annotationSet_.addAnnotation("compoundOutputDecision", 0, "");
         }
 
         // Rule end
@@ -187,9 +184,6 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
             output_.setMatched(true);
             output_.setFirstOutput("r21");
             output_.setSecondOutput("r22");
-
-            // Add annotation
-            annotationSet_.addAnnotation("compoundOutputDecision", 1, "");
         }
 
         // Rule end
@@ -228,9 +222,6 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
             output_.setMatched(true);
             output_.setFirstOutput("r31");
             output_.setSecondOutput("r32");
-
-            // Add annotation
-            annotationSet_.addAnnotation("compoundOutputDecision", 2, "");
         }
 
         // Rule end
@@ -269,9 +260,6 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
             output_.setMatched(true);
             output_.setFirstOutput("r41");
             output_.setSecondOutput("r42");
-
-            // Add annotation
-            annotationSet_.addAnnotation("compoundOutputDecision", 3, "");
         }
 
         // Rule end
@@ -310,9 +298,6 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
             output_.setMatched(true);
             output_.setFirstOutput("r51");
             output_.setSecondOutput("r52");
-
-            // Add annotation
-            annotationSet_.addAnnotation("compoundOutputDecision", 4, "");
         }
 
         // Rule end
@@ -351,9 +336,6 @@ public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.DefaultS
             output_.setMatched(true);
             output_.setFirstOutput("r61");
             output_.setSecondOutput("r62");
-
-            // Add annotation
-            annotationSet_.addAnnotation("compoundOutputDecision", 5, "");
         }
 
         // Rule end

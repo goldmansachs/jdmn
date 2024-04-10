@@ -113,7 +113,7 @@ public class DateFormula extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             output_.setMatched(true);
             output_.setDateFormula(day(today()));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("dateFormula", 0, string("D4R1"));
         }
 
@@ -147,7 +147,7 @@ public class DateFormula extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             output_.setMatched(true);
             output_.setDateFormula(dayDiff(date, dayAdd(date, numericMultiply(day(date), numericUnaryMinus(number("1"))))));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("dateFormula", 1, string("D4R2"));
         }
 
@@ -181,7 +181,7 @@ public class DateFormula extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             output_.setMatched(true);
             output_.setDateFormula(monthDiff(monthAdd(date, day(date)), date(numericAdd(number("2000"), power(month(date), numericMultiply(number("1"), power(number("1"), numericSubtract(number("14"), day(date)))))), modulo(day(date), number("12")), modulo(year(date), number("31")))));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("dateFormula", 2, string("D4R3"));
         }
 
@@ -215,7 +215,7 @@ public class DateFormula extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             output_.setMatched(true);
             output_.setDateFormula(yearDiff(dayAdd(today(), numericMultiply(number("1"), numericUnaryMinus(number("1")))), yearAdd(date, weekday(date))));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("dateFormula", 3, string("D4R4"));
         }
 

@@ -87,10 +87,10 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -111,9 +111,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             // Compute output
             output_.setMatched(true);
             output_.setDecision("r5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("decision", 0, "");
         }
 
         // Rule end
@@ -122,10 +119,10 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -146,9 +143,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             // Compute output
             output_.setMatched(true);
             output_.setDecision("r4");
-
-            // Add annotation
-            annotationSet_.addAnnotation("decision", 1, "");
         }
 
         // Rule end
@@ -157,10 +151,10 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(java.math.BigDecimal numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -181,9 +175,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             // Compute output
             output_.setMatched(true);
             output_.setDecision("r3");
-
-            // Add annotation
-            annotationSet_.addAnnotation("decision", 2, "");
         }
 
         // Rule end
@@ -192,10 +183,10 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule3(java.math.BigDecimal numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -216,9 +207,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             // Compute output
             output_.setMatched(true);
             output_.setDecision("r2");
-
-            // Add annotation
-            annotationSet_.addAnnotation("decision", 3, "");
         }
 
         // Rule end

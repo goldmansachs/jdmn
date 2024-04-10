@@ -129,9 +129,6 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             // Compute output
             output_.setMatched(true);
             output_.setPreBureauRiskCategoryTable("HIGH");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 0, "");
         }
 
         // Rule end
@@ -164,9 +161,6 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             // Compute output
             output_.setMatched(true);
             output_.setPreBureauRiskCategoryTable("MEDIUM");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 1, "");
         }
 
         // Rule end
@@ -199,9 +193,6 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             // Compute output
             output_.setMatched(true);
             output_.setPreBureauRiskCategoryTable("LOW");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 2, "");
         }
 
         // Rule end
@@ -234,9 +225,6 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             // Compute output
             output_.setMatched(true);
             output_.setPreBureauRiskCategoryTable("VERY LOW");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 3, "");
         }
 
         // Rule end
@@ -269,9 +257,6 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             // Compute output
             output_.setMatched(true);
             output_.setPreBureauRiskCategoryTable("DECLINE");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 4, "");
         }
 
         // Rule end
@@ -304,9 +289,6 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             // Compute output
             output_.setMatched(true);
             output_.setPreBureauRiskCategoryTable("HIGH");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 5, "");
         }
 
         // Rule end
@@ -339,9 +321,6 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             // Compute output
             output_.setMatched(true);
             output_.setPreBureauRiskCategoryTable("MEDIUM");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 6, "");
         }
 
         // Rule end
@@ -374,9 +353,6 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBas
             // Compute output
             output_.setMatched(true);
             output_.setPreBureauRiskCategoryTable("LOW");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 7, "");
         }
 
         // Rule end

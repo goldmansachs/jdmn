@@ -121,9 +121,6 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.DefaultDMNB
             // Compute output
             output_.setMatched(true);
             output_.setCreditContingencyFactorTable(number("0.6"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("CreditContingencyFactorTable", 0, "");
         }
 
         // Rule end
@@ -155,9 +152,6 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.DefaultDMNB
             // Compute output
             output_.setMatched(true);
             output_.setCreditContingencyFactorTable(number("0.7"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("CreditContingencyFactorTable", 1, "");
         }
 
         // Rule end
@@ -189,9 +183,6 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.DefaultDMNB
             // Compute output
             output_.setMatched(true);
             output_.setCreditContingencyFactorTable(number("0.8"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("CreditContingencyFactorTable", 2, "");
         }
 
         // Rule end

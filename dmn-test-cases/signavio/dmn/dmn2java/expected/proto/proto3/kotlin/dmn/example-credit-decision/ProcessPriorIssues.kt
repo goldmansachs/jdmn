@@ -92,10 +92,10 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     private fun rule0(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
-        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "\"\"")
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
         // Rule start
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -115,9 +115,6 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Compute output
             output_.setMatched(true)
             output_.processPriorIssues = numericUnaryMinus(number("10"))
-
-            // Add annotation
-            annotationSet_.addAnnotation("processPriorIssues", 0, "")
         }
 
         // Rule end
@@ -126,10 +123,10 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     private fun rule1(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
-        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "\"\"")
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 
         // Rule start
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -149,9 +146,6 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Compute output
             output_.setMatched(true)
             output_.processPriorIssues = numericUnaryMinus(number("30"))
-
-            // Add annotation
-            annotationSet_.addAnnotation("processPriorIssues", 1, "")
         }
 
         // Rule end
@@ -160,10 +154,10 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     private fun rule2(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
-        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "\"\"")
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "")
 
         // Rule start
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -183,9 +177,6 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Compute output
             output_.setMatched(true)
             output_.processPriorIssues = numericUnaryMinus(number("100"))
-
-            // Add annotation
-            annotationSet_.addAnnotation("processPriorIssues", 2, "")
         }
 
         // Rule end
@@ -194,10 +185,10 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
     private fun rule3(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
-        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(3, "\"\"")
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(3, "")
 
         // Rule start
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -217,9 +208,6 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Compute output
             output_.setMatched(true)
             output_.processPriorIssues = number("50")
-
-            // Add annotation
-            annotationSet_.addAnnotation("processPriorIssues", 3, "")
         }
 
         // Rule end
@@ -228,10 +216,10 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
     private fun rule4(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
-        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(4, "\"\"")
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(4, "")
 
         // Rule start
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -251,9 +239,6 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Compute output
             output_.setMatched(true)
             output_.processPriorIssues = numericMultiply(count(applicant?.let({ it.priorIssues as List<String?>? })), numericUnaryMinus(number("5")))
-
-            // Add annotation
-            annotationSet_.addAnnotation("processPriorIssues", 4, "")
         }
 
         // Rule end

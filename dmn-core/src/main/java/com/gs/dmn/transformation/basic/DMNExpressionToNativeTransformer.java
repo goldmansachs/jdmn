@@ -409,8 +409,6 @@ public class DMNExpressionToNativeTransformer {
 
     protected List<String> collectAnnotationTexts(TDecisionRule rule) {
         List<String> annotations = new ArrayList<>();
-        String description = rule.getDescription();
-        annotations.add(description);
         for (TRuleAnnotation ruleAnnotation : rule.getAnnotationEntry()) {
             String text = ruleAnnotation.getText();
             if (!StringUtils.isBlank(text)) {

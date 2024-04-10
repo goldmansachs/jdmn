@@ -135,9 +135,6 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             output_.setMatched(True)
             output_.applicationRiskScoreModel = self.number("32")
 
-            # Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 0, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -167,9 +164,6 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             # Compute output
             output_.setMatched(True)
             output_.applicationRiskScoreModel = self.number("35")
-
-            # Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 1, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -201,9 +195,6 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             output_.setMatched(True)
             output_.applicationRiskScoreModel = self.number("40")
 
-            # Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 2, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -233,9 +224,6 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             # Compute output
             output_.setMatched(True)
             output_.applicationRiskScoreModel = self.number("43")
-
-            # Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 3, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -267,9 +255,6 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             output_.setMatched(True)
             output_.applicationRiskScoreModel = self.number("48")
 
-            # Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 4, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -299,9 +284,6 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             # Compute output
             output_.setMatched(True)
             output_.applicationRiskScoreModel = self.number("25")
-
-            # Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 5, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -333,9 +315,6 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             output_.setMatched(True)
             output_.applicationRiskScoreModel = self.number("45")
 
-            # Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 6, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -365,9 +344,6 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             # Compute output
             output_.setMatched(True)
             output_.applicationRiskScoreModel = self.number("15")
-
-            # Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 7, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -399,9 +375,6 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             output_.setMatched(True)
             output_.applicationRiskScoreModel = self.number("45")
 
-            # Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 8, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -432,9 +405,6 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             output_.setMatched(True)
             output_.applicationRiskScoreModel = self.number("36")
 
-            # Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 9, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -464,9 +434,6 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             # Compute output
             output_.setMatched(True)
             output_.applicationRiskScoreModel = self.number("18")
-
-            # Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 10, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

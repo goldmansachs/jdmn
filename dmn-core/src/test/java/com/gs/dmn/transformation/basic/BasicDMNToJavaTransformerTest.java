@@ -86,8 +86,8 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     @Test
     public void testEmptyAnnotation() {
         TDecision decision = this.dmnTransformer.getDMNModelRepository().findDecisionByRef(null, this.href);
-        assertEquals(Arrays.asList("\"\""), this.dmnTransformer.annotations(decision, Arrays.asList((String) null)));
-        assertEquals(Arrays.asList("\"\""), this.dmnTransformer.annotations(decision, Arrays.asList("")));
+        assertEquals(Arrays.asList(), this.dmnTransformer.annotations(decision, Arrays.asList((String) null)));
+        assertEquals(Arrays.asList(), this.dmnTransformer.annotations(decision, Arrays.asList("")));
     }
 
     @Test

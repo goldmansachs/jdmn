@@ -124,7 +124,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             output_.setMatched(true);
             output_.setDecide(concat(asList(pick, " ", text(sum, "0"))));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("decide", 0, string("D9R1"));
         }
 

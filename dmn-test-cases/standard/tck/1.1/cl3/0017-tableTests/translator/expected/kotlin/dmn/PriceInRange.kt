@@ -96,9 +96,6 @@ class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.setMatched(true)
             output_.priceInRange = "In range"
             output_.priceInRangePriority = 2
-
-            // Add annotation
-            annotationSet_.addAnnotation("priceInRange", 0, "")
         }
 
         // Rule end
@@ -131,9 +128,6 @@ class PriceInRange() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             output_.setMatched(true)
             output_.priceInRange = "Not in range"
             output_.priceInRangePriority = 1
-
-            // Add annotation
-            annotationSet_.addAnnotation("priceInRange", 1, "")
         }
 
         // Rule end

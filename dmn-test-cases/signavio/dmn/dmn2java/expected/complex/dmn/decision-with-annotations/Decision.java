@@ -123,7 +123,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             output_.setMatched(true);
             output_.setDecision("number");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("decision", 0, string("Rule number"));
         }
 
@@ -163,7 +163,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             output_.setMatched(true);
             output_.setDecision("string");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("decision", 1, string("Rule string"));
         }
 
@@ -203,7 +203,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             output_.setMatched(true);
             output_.setDecision("boolean");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("decision", 2, string("Rule boolean"));
         }
 
@@ -243,7 +243,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             output_.setMatched(true);
             output_.setDecision("date");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("decision", 3, string("Rule date"));
         }
 
@@ -283,7 +283,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             output_.setMatched(true);
             output_.setDecision("enumeration");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("decision", 4, string("Rule enumeration"));
         }
 
@@ -323,7 +323,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             output_.setMatched(true);
             output_.setDecision("person");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("decision", 5, string("Rule person"));
         }
 

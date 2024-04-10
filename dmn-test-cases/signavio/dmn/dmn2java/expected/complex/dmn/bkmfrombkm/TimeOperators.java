@@ -119,7 +119,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setTimeOperators("time midnight");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("timeOperators", 0, string("D2R1"));
         }
 
@@ -153,7 +153,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setTimeOperators("time not midnight");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("timeOperators", 1, string("D2R2"));
         }
 
@@ -187,7 +187,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setTimeOperators("time before noon");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("timeOperators", 2, string("D2R3"));
         }
 
@@ -221,7 +221,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setTimeOperators("time noon and before");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("timeOperators", 3, string("D2R4"));
         }
 
@@ -255,7 +255,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setTimeOperators("time afternoon");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("timeOperators", 4, string("D2R5"));
         }
 
@@ -289,7 +289,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setTimeOperators("time noon and after");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("timeOperators", 5, string("D2R6"));
         }
 
@@ -323,7 +323,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setTimeOperators("time sixes");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("timeOperators", 6, string("D2R7"));
         }
 
@@ -357,7 +357,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setTimeOperators("time not sixes");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("timeOperators", 7, string("D2R8"));
         }
 
@@ -391,7 +391,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setTimeOperators("time defined");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("timeOperators", 8, string("D2R9"));
         }
 
@@ -425,7 +425,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setTimeOperators("time not defined");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("timeOperators", 9, string("D2R10"));
         }
 

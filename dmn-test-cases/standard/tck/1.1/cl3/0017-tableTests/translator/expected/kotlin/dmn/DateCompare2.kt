@@ -94,9 +94,6 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Compute output
             output_.setMatched(true)
             output_.dateCompare2 = true
-
-            // Add annotation
-            annotationSet_.addAnnotation("dateCompare2", 0, "")
         }
 
         // Rule end
@@ -128,9 +125,6 @@ class DateCompare2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Compute output
             output_.setMatched(true)
             output_.dateCompare2 = false
-
-            // Add annotation
-            annotationSet_.addAnnotation("dateCompare2", 1, "")
         }
 
         // Rule end

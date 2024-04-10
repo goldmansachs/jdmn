@@ -119,7 +119,7 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
             output_.setMatched(true);
             output_.setDatetimeOperators("datetime new year started");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeOperators", 0, string("D3R1"));
         }
 
@@ -153,7 +153,7 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
             output_.setMatched(true);
             output_.setDatetimeOperators("datetime away from new year bonanza");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeOperators", 1, string("D3R2"));
         }
 
@@ -187,7 +187,7 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
             output_.setMatched(true);
             output_.setDatetimeOperators("datetime before daylight savings");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeOperators", 2, string("D3R3"));
         }
 
@@ -221,7 +221,7 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
             output_.setMatched(true);
             output_.setDatetimeOperators("datetime upto exact daylight savings");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeOperators", 3, string("D3R4"));
         }
 
@@ -255,7 +255,7 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
             output_.setMatched(true);
             output_.setDatetimeOperators("datetime after daylight savings");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeOperators", 4, string("D3R5"));
         }
 
@@ -289,7 +289,7 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
             output_.setMatched(true);
             output_.setDatetimeOperators("datetime daylight savings and beyond");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeOperators", 5, string("D3R6"));
         }
 
@@ -323,7 +323,7 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
             output_.setMatched(true);
             output_.setDatetimeOperators("datetime fireworks");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeOperators", 6, string("D3R7"));
         }
 
@@ -357,7 +357,7 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
             output_.setMatched(true);
             output_.setDatetimeOperators("datetime not fireworks");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeOperators", 7, string("D3R8"));
         }
 
@@ -391,7 +391,7 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
             output_.setMatched(true);
             output_.setDatetimeOperators("datetime defined");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeOperators", 8, string("D3R9"));
         }
 
@@ -425,7 +425,7 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.DefaultSignav
             output_.setMatched(true);
             output_.setDatetimeOperators("datetime not defined");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeOperators", 9, string("D3R10"));
         }
 

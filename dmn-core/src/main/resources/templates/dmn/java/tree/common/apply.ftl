@@ -406,7 +406,7 @@
 <#macro addAnnotation drgElement rule rule_index>
             <#list transformer.annotations(drgElement, rule)>
 
-            // Add annotation
+            // Add annotations
             <#items as annotation>
             ${transformer.annotationSetVariableName()}.addAnnotation("${drgElement.name}", ${rule_index}, ${annotation});
             </#items>

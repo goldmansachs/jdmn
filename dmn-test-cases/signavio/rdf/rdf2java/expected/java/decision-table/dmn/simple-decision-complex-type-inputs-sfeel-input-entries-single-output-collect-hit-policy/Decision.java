@@ -119,9 +119,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             // Compute output
             output_.setMatched(true);
             output_.setResult("3");
-
-            // Add annotation
-            annotationSet_.addAnnotation("decision", 0, "");
         }
 
         // Rule end

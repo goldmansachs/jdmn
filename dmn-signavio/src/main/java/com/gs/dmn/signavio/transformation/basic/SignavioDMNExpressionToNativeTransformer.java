@@ -20,6 +20,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.DMNExpressionToNativeTransformer;
 import com.gs.dmn.transformation.native_.statement.Statement;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -80,7 +81,9 @@ public class SignavioDMNExpressionToNativeTransformer extends DMNExpressionToNat
     protected List<String> collectAnnotationTexts(TDecisionRule rule) {
         List<String> annotations = new ArrayList<>();
         String description = rule.getDescription();
-        annotations.add(description);
+        if (!StringUtils.isBlank(description)) {
+            annotations.add(description);
+        }
         return annotations;
     }
 }

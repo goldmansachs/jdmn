@@ -276,9 +276,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
         for (String annotationText : annotationTexts) {
             try {
                 // Add rule annotation
-                if (StringUtils.isBlank(annotationText)) {
-                    annotationStatements.add("\"\"");
-                } else {
+                if (!StringUtils.isBlank(annotationText)) {
                     Statement statement = annotation(element, annotationText, context);
                     annotationStatements.add(statement.getText());
                 }

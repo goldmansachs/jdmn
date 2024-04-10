@@ -114,11 +114,15 @@ class RuleDescriptionVisitor extends TraversalVisitor<TransformationContext> {
 
     void cleanRuleDescription(TDecisionRule rule) {
         String description = rule.getDescription();
-        if (StringUtils.isNotBlank(description)) {
-            for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
-                description = description.replace(entry.getKey(), entry.getValue());
+        if ("string(-)".equals(description)) {
+            rule.setDescription("");
+        } else {
+            if (StringUtils.isNotBlank(description)) {
+                for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
+                    description = description.replace(entry.getKey(), entry.getValue());
+                }
+                rule.setDescription(description);
             }
-            rule.setDescription(description);
         }
     }
 }

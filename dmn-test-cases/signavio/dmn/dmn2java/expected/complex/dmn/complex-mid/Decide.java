@@ -86,10 +86,10 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(String properties_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -109,9 +109,6 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             // Compute output
             output_.setMatched(true);
             output_.setDecide("Accept");
-
-            // Add annotation
-            annotationSet_.addAnnotation("decide", 0, "");
         }
 
         // Rule end
@@ -120,10 +117,10 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(String properties_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -143,9 +140,6 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             // Compute output
             output_.setMatched(true);
             output_.setDecide("Warn");
-
-            // Add annotation
-            annotationSet_.addAnnotation("decide", 1, "");
         }
 
         // Rule end
@@ -154,10 +148,10 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(String properties_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -177,9 +171,6 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             // Compute output
             output_.setMatched(true);
             output_.setDecide("Reject");
-
-            // Add annotation
-            annotationSet_.addAnnotation("decide", 2, "");
         }
 
         // Rule end
@@ -188,10 +179,10 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule3(String properties_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -211,9 +202,6 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
             // Compute output
             output_.setMatched(true);
             output_.setDecide("Reject");
-
-            // Add annotation
-            annotationSet_.addAnnotation("decide", 3, "");
         }
 
         // Rule end

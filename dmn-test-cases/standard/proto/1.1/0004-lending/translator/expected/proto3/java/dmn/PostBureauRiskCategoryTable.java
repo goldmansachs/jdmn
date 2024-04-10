@@ -137,9 +137,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("HIGH");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 0, "");
         }
 
         // Rule end
@@ -173,9 +170,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("MEDIUM");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 1, "");
         }
 
         // Rule end
@@ -209,9 +203,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("LOW");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 2, "");
         }
 
         // Rule end
@@ -245,9 +236,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("HIGH");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 3, "");
         }
 
         // Rule end
@@ -281,9 +269,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("MEDIUM");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 4, "");
         }
 
         // Rule end
@@ -317,9 +302,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("LOW");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 5, "");
         }
 
         // Rule end
@@ -353,9 +335,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("VERY LOW");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 6, "");
         }
 
         // Rule end
@@ -389,9 +368,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("HIGH");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 7, "");
         }
 
         // Rule end
@@ -425,9 +401,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("MEDIUM");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 8, "");
         }
 
         // Rule end
@@ -461,9 +434,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("LOW");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 9, "");
         }
 
         // Rule end
@@ -497,9 +467,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("HIGH");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 10, "");
         }
 
         // Rule end
@@ -533,9 +500,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("MEDIUM");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 11, "");
         }
 
         // Rule end
@@ -569,9 +533,6 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.DefaultDMNBa
             // Compute output
             output_.setMatched(true);
             output_.setPostBureauRiskCategoryTable("LOW");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Post-bureauRiskCategoryTable", 12, "");
         }
 
         // Rule end

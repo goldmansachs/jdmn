@@ -135,9 +135,6 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Compute output
             output_.setMatched(true);
             output_.setApplicationRiskScoreModel(number("32"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 0, "");
         }
 
         // Rule end
@@ -171,9 +168,6 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Compute output
             output_.setMatched(true);
             output_.setApplicationRiskScoreModel(number("35"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 1, "");
         }
 
         // Rule end
@@ -207,9 +201,6 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Compute output
             output_.setMatched(true);
             output_.setApplicationRiskScoreModel(number("40"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 2, "");
         }
 
         // Rule end
@@ -243,9 +234,6 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Compute output
             output_.setMatched(true);
             output_.setApplicationRiskScoreModel(number("43"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 3, "");
         }
 
         // Rule end
@@ -279,9 +267,6 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Compute output
             output_.setMatched(true);
             output_.setApplicationRiskScoreModel(number("48"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 4, "");
         }
 
         // Rule end
@@ -315,9 +300,6 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Compute output
             output_.setMatched(true);
             output_.setApplicationRiskScoreModel(number("25"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 5, "");
         }
 
         // Rule end
@@ -351,9 +333,6 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Compute output
             output_.setMatched(true);
             output_.setApplicationRiskScoreModel(number("45"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 6, "");
         }
 
         // Rule end
@@ -387,9 +366,6 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Compute output
             output_.setMatched(true);
             output_.setApplicationRiskScoreModel(number("15"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 7, "");
         }
 
         // Rule end
@@ -423,9 +399,6 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Compute output
             output_.setMatched(true);
             output_.setApplicationRiskScoreModel(number("45"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 8, "");
         }
 
         // Rule end
@@ -459,9 +432,6 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Compute output
             output_.setMatched(true);
             output_.setApplicationRiskScoreModel(number("36"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 9, "");
         }
 
         // Rule end
@@ -495,9 +465,6 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             // Compute output
             output_.setMatched(true);
             output_.setApplicationRiskScoreModel(number("18"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 10, "");
         }
 
         // Rule end

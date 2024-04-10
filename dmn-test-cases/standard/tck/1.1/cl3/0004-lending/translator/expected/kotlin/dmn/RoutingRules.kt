@@ -105,9 +105,6 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true)
             output_.routingRules = "DECLINE"
             output_.routingRulesPriority = 3
-
-            // Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 0, "")
         }
 
         // Rule end
@@ -143,9 +140,6 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true)
             output_.routingRules = "DECLINE"
             output_.routingRulesPriority = 3
-
-            // Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 1, "")
         }
 
         // Rule end
@@ -181,9 +175,6 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true)
             output_.routingRules = "REFER"
             output_.routingRulesPriority = 2
-
-            // Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 2, "")
         }
 
         // Rule end
@@ -219,9 +210,6 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true)
             output_.routingRules = "REFER"
             output_.routingRulesPriority = 2
-
-            // Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 3, "")
         }
 
         // Rule end
@@ -257,9 +245,6 @@ class RoutingRules : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true)
             output_.routingRules = "ACCEPT"
             output_.routingRulesPriority = 1
-
-            // Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 4, "")
         }
 
         // Rule end

@@ -123,9 +123,6 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             output_.setMatched(True)
             output_.bureauCallTypeTable = "FULL"
 
-            # Add annotation
-            annotationSet_.addAnnotation("BureauCallTypeTable", 0, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -154,9 +151,6 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             output_.setMatched(True)
             output_.bureauCallTypeTable = "MINI"
 
-            # Add annotation
-            annotationSet_.addAnnotation("BureauCallTypeTable", 1, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -184,9 +178,6 @@ class BureauCallTypeTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDeci
             # Compute output
             output_.setMatched(True)
             output_.bureauCallTypeTable = "NONE"
-
-            # Add annotation
-            annotationSet_.addAnnotation("BureauCallTypeTable", 2, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

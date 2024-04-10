@@ -107,9 +107,6 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
             output_.setMatched(true);
             output_.setDD2O1("dd2o1");
             output_.setDD2O2("dd2o2");
-
-            // Add annotation
-            annotationSet_.addAnnotation("dependentDecision2", 0, "");
         }
 
         // Rule end

@@ -91,10 +91,10 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -114,9 +114,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setDescribeAgesList("exactly 1 to 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 0, "");
         }
 
         // Rule end
@@ -125,10 +122,10 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -148,9 +145,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setDescribeAgesList("not exactly 1 to 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 1, "");
         }
 
         // Rule end
@@ -159,10 +153,10 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -182,9 +176,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setDescribeAgesList("only numbers between 1 and 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 2, "");
         }
 
         // Rule end
@@ -193,10 +184,10 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule3(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -216,9 +207,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setDescribeAgesList("at least one number betwen 1 and 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 3, "");
         }
 
         // Rule end
@@ -227,10 +215,10 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule4(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -250,9 +238,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setDescribeAgesList("only numbers between 1 and 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 4, "");
         }
 
         // Rule end
@@ -261,10 +246,10 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule5(List<java.math.BigDecimal> ages, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -284,9 +269,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setDescribeAgesList("non of the numbers 1 to 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 5, "");
         }
 
         // Rule end

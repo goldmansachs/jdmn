@@ -135,7 +135,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             output_.setMatched(true);
             output_.setSum(sum(dateFormula));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("sum", 0, string("D8R1"));
         }
 
@@ -174,7 +174,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             output_.setMatched(true);
             output_.setSum(sum(timeFormula));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("sum", 1, string("D8R2"));
         }
 
@@ -213,7 +213,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             output_.setMatched(true);
             output_.setSum(sum(datetimeFormula));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("sum", 2, string("D8R3"));
         }
 
@@ -252,7 +252,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             output_.setMatched(true);
             output_.setSum(sum(dateFormula));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("sum", 3, string("D8R4"));
         }
 
@@ -291,7 +291,7 @@ public class Sum extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             output_.setMatched(true);
             output_.setSum(sum(timeFormula));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("sum", 4, string("D8R5"));
         }
 

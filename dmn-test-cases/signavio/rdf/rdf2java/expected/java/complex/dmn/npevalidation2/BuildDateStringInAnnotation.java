@@ -110,9 +110,6 @@ public class BuildDateStringInAnnotation extends com.gs.dmn.signavio.runtime.Def
             // Compute output
             output_.setMatched(true);
             output_.setAllDefined(Boolean.TRUE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("buildDateStringInAnnotation", 0, "");
         }
 
         // Rule end

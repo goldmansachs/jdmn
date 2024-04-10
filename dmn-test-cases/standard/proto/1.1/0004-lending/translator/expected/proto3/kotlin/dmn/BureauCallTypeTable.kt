@@ -96,9 +96,6 @@ class BureauCallTypeTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.bureauCallTypeTable = "FULL"
-
-            // Add annotation
-            annotationSet_.addAnnotation("BureauCallTypeTable", 0, "")
         }
 
         // Rule end
@@ -130,9 +127,6 @@ class BureauCallTypeTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.bureauCallTypeTable = "MINI"
-
-            // Add annotation
-            annotationSet_.addAnnotation("BureauCallTypeTable", 1, "")
         }
 
         // Rule end
@@ -164,9 +158,6 @@ class BureauCallTypeTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.bureauCallTypeTable = "NONE"
-
-            // Add annotation
-            annotationSet_.addAnnotation("BureauCallTypeTable", 2, "")
         }
 
         // Rule end

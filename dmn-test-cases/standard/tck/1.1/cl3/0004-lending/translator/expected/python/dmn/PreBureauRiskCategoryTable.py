@@ -130,9 +130,6 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.setMatched(True)
             output_.preBureauRiskCategoryTable = "HIGH"
 
-            # Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 0, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -161,9 +158,6 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             # Compute output
             output_.setMatched(True)
             output_.preBureauRiskCategoryTable = "MEDIUM"
-
-            # Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 1, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -194,9 +188,6 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.setMatched(True)
             output_.preBureauRiskCategoryTable = "LOW"
 
-            # Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 2, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -225,9 +216,6 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             # Compute output
             output_.setMatched(True)
             output_.preBureauRiskCategoryTable = "VERY LOW"
-
-            # Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 3, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -258,9 +246,6 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.setMatched(True)
             output_.preBureauRiskCategoryTable = "DECLINE"
 
-            # Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 4, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -289,9 +274,6 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             # Compute output
             output_.setMatched(True)
             output_.preBureauRiskCategoryTable = "HIGH"
-
-            # Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 5, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -322,9 +304,6 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             output_.setMatched(True)
             output_.preBureauRiskCategoryTable = "MEDIUM"
 
-            # Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 6, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -353,9 +332,6 @@ class PreBureauRiskCategoryTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNB
             # Compute output
             output_.setMatched(True)
             output_.preBureauRiskCategoryTable = "LOW"
-
-            # Add annotation
-            annotationSet_.addAnnotation("Pre-bureauRiskCategoryTable", 7, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

@@ -85,10 +85,10 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -108,9 +108,6 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Compute output
             output_.setMatched(true);
             output_.setAssessApplicantAge(numericUnaryMinus(number("10")));
-
-            // Add annotation
-            annotationSet_.addAnnotation("assessApplicantAge", 0, "");
         }
 
         // Rule end
@@ -119,10 +116,10 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -142,9 +139,6 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Compute output
             output_.setMatched(true);
             output_.setAssessApplicantAge(number("40"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("assessApplicantAge", 1, "");
         }
 
         // Rule end
@@ -153,10 +147,10 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -176,9 +170,6 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Compute output
             output_.setMatched(true);
             output_.setAssessApplicantAge(number("60"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("assessApplicantAge", 2, "");
         }
 
         // Rule end

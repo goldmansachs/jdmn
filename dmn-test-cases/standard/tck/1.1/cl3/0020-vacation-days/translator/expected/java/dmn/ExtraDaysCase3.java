@@ -116,9 +116,6 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true);
             output_.setExtraDaysCase3(number("2"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("Extra days case 3", 0, "");
         }
 
         // Rule end
@@ -151,9 +148,6 @@ public class ExtraDaysCase3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true);
             output_.setExtraDaysCase3(number("2"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("Extra days case 3", 1, "");
         }
 
         // Rule end

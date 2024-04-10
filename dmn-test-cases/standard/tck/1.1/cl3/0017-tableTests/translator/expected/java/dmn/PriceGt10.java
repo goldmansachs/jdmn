@@ -113,9 +113,6 @@ public class PriceGt10 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true);
             output_.setPriceGt10(Boolean.TRUE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("priceGt10", 0, "");
         }
 
         // Rule end
@@ -147,9 +144,6 @@ public class PriceGt10 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true);
             output_.setPriceGt10(Boolean.FALSE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("priceGt10", 1, "");
         }
 
         // Rule end

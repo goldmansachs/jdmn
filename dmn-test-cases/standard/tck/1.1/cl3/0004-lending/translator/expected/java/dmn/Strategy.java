@@ -130,9 +130,6 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true);
             output_.setStrategy("DECLINE");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Strategy", 0, "");
         }
 
         // Rule end
@@ -165,9 +162,6 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true);
             output_.setStrategy("BUREAU");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Strategy", 1, "");
         }
 
         // Rule end
@@ -200,9 +194,6 @@ public class Strategy extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true);
             output_.setStrategy("THROUGH");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Strategy", 2, "");
         }
 
         // Rule end

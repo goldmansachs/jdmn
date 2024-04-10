@@ -123,9 +123,6 @@ class CreditContingencyFactorTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDM
             output_.setMatched(True)
             output_.creditContingencyFactorTable = self.number("0.6")
 
-            # Add annotation
-            annotationSet_.addAnnotation("CreditContingencyFactorTable", 0, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -154,9 +151,6 @@ class CreditContingencyFactorTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDM
             output_.setMatched(True)
             output_.creditContingencyFactorTable = self.number("0.7")
 
-            # Add annotation
-            annotationSet_.addAnnotation("CreditContingencyFactorTable", 1, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -184,9 +178,6 @@ class CreditContingencyFactorTable(jdmn.runtime.DefaultDMNBaseDecision.DefaultDM
             # Compute output
             output_.setMatched(True)
             output_.creditContingencyFactorTable = self.number("0.8")
-
-            # Add annotation
-            annotationSet_.addAnnotation("CreditContingencyFactorTable", 2, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

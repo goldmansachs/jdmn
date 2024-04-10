@@ -117,9 +117,6 @@ public class GenerateTemporalObjects extends com.gs.dmn.signavio.runtime.Default
             output_.setMatched(true);
             output_.setDate(date(year, month, day));
             output_.setDatetime(dateTime(day, month, year, hour, minute, second));
-
-            // Add annotation
-            annotationSet_.addAnnotation("generateTemporalObjects", 0, "");
         }
 
         // Rule end

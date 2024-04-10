@@ -96,9 +96,6 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.creditContingencyFactorTable = number("0.6")
-
-            // Add annotation
-            annotationSet_.addAnnotation("CreditContingencyFactorTable", 0, "")
         }
 
         // Rule end
@@ -130,9 +127,6 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.creditContingencyFactorTable = number("0.7")
-
-            // Add annotation
-            annotationSet_.addAnnotation("CreditContingencyFactorTable", 1, "")
         }
 
         // Rule end
@@ -164,9 +158,6 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.creditContingencyFactorTable = number("0.8")
-
-            // Add annotation
-            annotationSet_.addAnnotation("CreditContingencyFactorTable", 2, "")
         }
 
         // Rule end

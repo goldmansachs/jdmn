@@ -83,10 +83,10 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal dd2NumberInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -107,9 +107,6 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
             output_.setMatched(true);
             output_.setDD2O1("dd2o1");
             output_.setDD2O2("dd2o2");
-
-            // Add annotation
-            annotationSet_.addAnnotation("dependentDecision2", 0, "");
         }
 
         // Rule end

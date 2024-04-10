@@ -116,9 +116,6 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true);
             output_.setDateCompare2(Boolean.TRUE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("dateCompare2", 0, "");
         }
 
         // Rule end
@@ -150,9 +147,6 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true);
             output_.setDateCompare2(Boolean.FALSE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("dateCompare2", 1, "");
         }
 
         // Rule end

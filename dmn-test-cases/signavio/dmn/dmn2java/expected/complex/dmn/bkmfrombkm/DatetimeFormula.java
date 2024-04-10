@@ -111,7 +111,7 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
             output_.setMatched(true);
             output_.setDatetimeFormula(hourDiff(datetime, dateTime(modulo(year(datetime), number("31")), numericDivide(hour(datetime), number("12")), numericAdd(number("1990"), power(day(datetime), numericMultiply(number("1"), power(number("1"), numericSubtract(number("12"), hour(datetime)))))), modulo(minute(datetime), number("24")), numericAdd(number("1"), numericMultiply(numericDivide(number("58"), number("11")), numericSubtract(month(datetime), number("1")))), number("0"))));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeFormula", 0, string("D6R1"));
         }
 
@@ -145,7 +145,7 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.DefaultSignavio
             output_.setMatched(true);
             output_.setDatetimeFormula(minutesDiff(datetime, dateTime(modulo(year(datetime), number("31")), numericDivide(hour(datetime), number("12")), numericAdd(number("1990"), power(day(datetime), numericMultiply(number("1"), power(number("1"), numericSubtract(number("12"), hour(datetime)))))), modulo(minute(datetime), number("24")), numericAdd(number("1"), numericMultiply(numericDivide(number("58"), number("11")), numericSubtract(month(datetime), number("1")))), number("0"))));
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("datetimeFormula", 1, string("D6R2"));
         }
 

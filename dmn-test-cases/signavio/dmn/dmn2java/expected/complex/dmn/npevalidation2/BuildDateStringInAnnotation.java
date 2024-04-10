@@ -111,7 +111,7 @@ public class BuildDateStringInAnnotation extends com.gs.dmn.signavio.runtime.Def
             output_.setMatched(true);
             output_.setBuildDateStringInAnnotation(Boolean.TRUE);
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("buildDateStringInAnnotation", 0, stringAdd(stringAdd(stringAdd(stringAdd(stringAdd(stringAdd(string("Today is the "), string(day)), string(".")), string(month)), string(".")), string(year)), string("!")));
         }
 

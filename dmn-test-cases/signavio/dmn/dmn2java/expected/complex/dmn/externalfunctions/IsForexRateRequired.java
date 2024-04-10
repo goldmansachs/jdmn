@@ -86,10 +86,10 @@ public class IsForexRateRequired extends com.gs.dmn.signavio.runtime.DefaultSign
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(String derivativeType, String taxChargeType, type.TransactionTaxMetaData transactionTaxMetaData, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -113,9 +113,6 @@ public class IsForexRateRequired extends com.gs.dmn.signavio.runtime.DefaultSign
             // Compute output
             output_.setMatched(true);
             output_.setIsForexRateRequired(Boolean.TRUE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("isForexRateRequired", 0, "");
         }
 
         // Rule end
@@ -124,10 +121,10 @@ public class IsForexRateRequired extends com.gs.dmn.signavio.runtime.DefaultSign
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(String derivativeType, String taxChargeType, type.TransactionTaxMetaData transactionTaxMetaData, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -151,9 +148,6 @@ public class IsForexRateRequired extends com.gs.dmn.signavio.runtime.DefaultSign
             // Compute output
             output_.setMatched(true);
             output_.setIsForexRateRequired(Boolean.FALSE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("isForexRateRequired", 1, "");
         }
 
         // Rule end

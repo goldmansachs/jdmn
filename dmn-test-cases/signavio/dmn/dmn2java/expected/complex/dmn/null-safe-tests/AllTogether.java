@@ -109,10 +109,10 @@ public class AllTogether extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(String partA, String partB, String partC, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -134,9 +134,6 @@ public class AllTogether extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             // Compute output
             output_.setMatched(true);
             output_.setAllTogether("NotNull");
-
-            // Add annotation
-            annotationSet_.addAnnotation("allTogether", 0, "");
         }
 
         // Rule end

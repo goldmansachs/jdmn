@@ -135,9 +135,6 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
             output_.setMatched(true);
             output_.setFirstOutput("r11");
             output_.setSecondOutput("r12");
-
-            // Add annotation
-            annotationSet_.addAnnotation("compoundOutputCompoundDecision", 0, "");
         }
 
         // Rule end
@@ -175,9 +172,6 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
             output_.setMatched(true);
             output_.setFirstOutput("r21");
             output_.setSecondOutput("r22");
-
-            // Add annotation
-            annotationSet_.addAnnotation("compoundOutputCompoundDecision", 1, "");
         }
 
         // Rule end

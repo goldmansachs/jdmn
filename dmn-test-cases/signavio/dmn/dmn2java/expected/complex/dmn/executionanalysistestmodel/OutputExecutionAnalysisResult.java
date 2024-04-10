@@ -119,7 +119,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             output_.setMatched(true);
             output_.setOutputExecutionAnalysisResult("Output1");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("outputExecutionAnalysisResult", 0, string("Message1"));
         }
 
@@ -153,7 +153,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             output_.setMatched(true);
             output_.setOutputExecutionAnalysisResult("Output2");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("outputExecutionAnalysisResult", 1, string("Message2"));
         }
 
@@ -187,7 +187,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             output_.setMatched(true);
             output_.setOutputExecutionAnalysisResult("Output3");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("outputExecutionAnalysisResult", 2, string("Message3"));
         }
 
@@ -221,7 +221,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             output_.setMatched(true);
             output_.setOutputExecutionAnalysisResult("Output4");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("outputExecutionAnalysisResult", 3, string("Message4"));
         }
 
@@ -255,7 +255,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             output_.setMatched(true);
             output_.setOutputExecutionAnalysisResult("Output5");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("outputExecutionAnalysisResult", 4, string("Message5"));
         }
 
@@ -289,7 +289,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             output_.setMatched(true);
             output_.setOutputExecutionAnalysisResult("Output6");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("outputExecutionAnalysisResult", 5, string("Message6"));
         }
 
@@ -323,7 +323,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             output_.setMatched(true);
             output_.setOutputExecutionAnalysisResult("Output7");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("outputExecutionAnalysisResult", 6, string("Message7"));
         }
 
@@ -357,7 +357,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             output_.setMatched(true);
             output_.setOutputExecutionAnalysisResult("Output8");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("outputExecutionAnalysisResult", 7, string("Message8"));
         }
 
@@ -391,7 +391,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             output_.setMatched(true);
             output_.setOutputExecutionAnalysisResult("Output9");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("outputExecutionAnalysisResult", 8, string("Message9"));
         }
 
@@ -425,7 +425,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.D
             output_.setMatched(true);
             output_.setOutputExecutionAnalysisResult("Output10");
 
-            // Add annotation
+            // Add annotations
             annotationSet_.addAnnotation("outputExecutionAnalysisResult", 9, string("Message10"));
         }
 
