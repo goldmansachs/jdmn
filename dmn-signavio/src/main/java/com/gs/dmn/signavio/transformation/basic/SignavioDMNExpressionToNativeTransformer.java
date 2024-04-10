@@ -72,4 +72,15 @@ public class SignavioDMNExpressionToNativeTransformer extends DMNExpressionToNat
             throw new DMNRuntimeException(String.format("Not supported '%s'", body.getClass().getSimpleName()));
         }
     }
+
+    //
+    // Annotations
+    //
+    @Override
+    protected List<String> collectAnnotationTexts(TDecisionRule rule) {
+        List<String> annotations = new ArrayList<>();
+        String description = rule.getDescription();
+        annotations.add(description);
+        return annotations;
+    }
 }

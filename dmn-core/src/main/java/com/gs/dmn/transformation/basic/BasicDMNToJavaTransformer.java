@@ -408,16 +408,18 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
                 if (StringUtils.isBlank(annotationText)) {
                     annotationStatements.add("\"\"");
                 } else {
-                    Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, annotationText, context);
+                    Statement statement = annotation(element, annotationText, context);
                     annotationStatements.add(statement.getText());
                 }
             } catch (Exception e) {
-                LOGGER.error(String.format("Cannot process annotation '%s' for element '%s'", annotationText, element == null ? "" : element.getName()));
-                // Add unevaluated annotation text
-                annotationStatements.add(String.format("\"%s\"", annotationText.replaceAll("\"", "\\\\\"")));
+                throw new DMNRuntimeException(String.format("Cannot process annotation '%s' for element '%s'", annotationText, element == null ? "" : element.getName()), e);
             }
         }
         return annotationStatements;
+    }
+
+    protected Statement annotation(TDRGElement element, String annotationText, DMNContext context) {
+        return this.expressionToNativeTransformer.literalExpressionToNative(element, annotationText, context);
     }
 
     @Override

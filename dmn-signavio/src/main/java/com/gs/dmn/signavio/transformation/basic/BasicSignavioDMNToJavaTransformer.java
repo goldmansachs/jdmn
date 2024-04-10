@@ -39,6 +39,7 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.ProtoBufferJavaFactory;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -263,6 +264,31 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             extensions.add(extensionElement);
         }
         return extensions;
+    }
+
+    //
+    // Annotations
+    //
+    @Override
+    public List<String> annotations(TDRGElement element, List<String> annotationTexts) {
+        List<String> annotationStatements = new ArrayList<>();
+        DMNContext context = this.makeGlobalContext(element);
+        for (String annotationText : annotationTexts) {
+            try {
+                // Add rule annotation
+                if (StringUtils.isBlank(annotationText)) {
+                    annotationStatements.add("\"\"");
+                } else {
+                    Statement statement = annotation(element, annotationText, context);
+                    annotationStatements.add(statement.getText());
+                }
+            } catch (Exception e) {
+                LOGGER.error(String.format("Cannot process annotation '%s' for element '%s'", annotationText, element == null ? "" : element.getName()));
+                // Add unevaluated annotation text
+                annotationStatements.add(String.format("\"%s\"", annotationText.replaceAll("\"", "\\\\\"")));
+            }
+        }
+        return annotationStatements;
     }
 
     //

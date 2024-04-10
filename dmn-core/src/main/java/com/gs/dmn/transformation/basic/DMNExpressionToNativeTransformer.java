@@ -400,11 +400,24 @@ public class DMNExpressionToNativeTransformer {
         return description == null ? "" : StringEscapeUtil.escapeInString(description);
     }
 
-    List<String> annotations(TDRGElement element, TDecisionRule rule) {
+    protected List<String> annotations(TDRGElement element, TDecisionRule rule) {
+        // Collect annotation texts
+        List<String> annotations = collectAnnotationTexts(rule);
+        // Translate annotations
+        return this.dmnTransformer.annotations(element, annotations);
+    }
+
+    protected List<String> collectAnnotationTexts(TDecisionRule rule) {
         List<String> annotations = new ArrayList<>();
         String description = rule.getDescription();
         annotations.add(description);
-        return this.dmnTransformer.annotations(element, annotations);
+        for (TRuleAnnotation ruleAnnotation : rule.getAnnotationEntry()) {
+            String text = ruleAnnotation.getText();
+            if (!StringUtils.isBlank(text)) {
+                annotations.add(text);
+            }
+        }
+        return annotations;
     }
 
     String ruleAnnotationClassName() {

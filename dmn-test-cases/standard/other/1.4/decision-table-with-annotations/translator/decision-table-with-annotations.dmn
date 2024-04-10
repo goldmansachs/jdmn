@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.35; 1.0"
+             namespace="http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6" name="tableTest"
+             triso:logoChoice="Default" id="_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
+             xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/"
+             xmlns:triso="http://www.trisotech.com/2015/triso/modeling">
+    <itemDefinition name="tA" id="tA">
+        <itemComponent name="name" id="_adf6f96a-c574-4ba7-a305-ea14ad9852b1">
+            <typeRef>string</typeRef>
+        </itemComponent>
+        <itemComponent name="price" id="_d297adac-f086-42a0-989e-04c431270f77">
+            <typeRef>number</typeRef>
+        </itemComponent>
+    </itemDefinition>
+    <inputData name="structA" id="_18b9d486-1ec0-436d-af4b-3e4567e8bca9">
+        <variable typeRef="tA" name="structA"/>
+    </inputData>
+    <decision name="priceGt10" id="_2683ec7f-fa17-4a1e-9151-8077a10c561f">
+        <variable typeRef="boolean" name="priceGt10"/>
+        <informationRequirement id="_1a34b197-0218-447f-8fa4-204517c0f851">
+            <requiredInput href="#_18b9d486-1ec0-436d-af4b-3e4567e8bca9"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE" outputLabel="priceGt10">
+            <input id="_bfb04e56-12dc-461f-a341-f5522efc7388" label="structA.price">
+                <inputExpression typeRef="number">
+                    <text>structA.price</text>
+                </inputExpression>
+            </input>
+            <output id="_89841156-1ca0-4704-9551-39205fdb7ae2"/>
+            <rule id="_543c9e93-e815-41df-8884-b40f726a847e">
+                <inputEntry id="_543c9e93-e815-41df-8884-b40f726a847e-0">
+                    <text>&gt;10</text>
+                </inputEntry>
+                <outputEntry id="_543c9e93-e815-41df-8884-b40f726a847e-1">
+                    <text>true</text>
+                </outputEntry>
+                <annotationEntry>
+                    <text>"Logging"</text>
+                </annotationEntry>
+                <annotationEntry>
+                    <text>string join(["Price ", string(structA.price), " is >= 0"], " ")</text>
+                </annotationEntry>
+            </rule>
+            <rule id="_41adf645-547d-4c65-97c1-355c297d02d6">
+                <inputEntry id="_41adf645-547d-4c65-97c1-355c297d02d6-0">
+                    <text>&lt;=10</text>
+                </inputEntry>
+                <outputEntry id="_41adf645-547d-4c65-97c1-355c297d02d6-1">
+                    <text>false</text>
+                </outputEntry>
+                <annotationEntry>
+                    <text>"Price " + string(structA.price) + " is &lt;= 0"</text>
+                </annotationEntry>
+                <annotationEntry>
+                    <text><![CDATA[
+    "Since this is a CDATA section I can use all sorts of reserved characters like > < \" and & or write things like <foo></bar> but my document is still well formed!"
+]]></text>
+                </annotationEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>
