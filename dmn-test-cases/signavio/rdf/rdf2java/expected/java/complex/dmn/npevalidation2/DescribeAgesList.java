@@ -114,9 +114,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setListDescription("exactly 1 to 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 0, "");
         }
 
         // Rule end
@@ -148,9 +145,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setListDescription("not exactly 1 to 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 1, "");
         }
 
         // Rule end
@@ -182,9 +176,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setListDescription("only numbers between 1 and 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 2, "");
         }
 
         // Rule end
@@ -216,9 +207,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setListDescription("at least one number betwen 1 and 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 3, "");
         }
 
         // Rule end
@@ -250,9 +238,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setListDescription("only numbers between 1 and 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 4, "");
         }
 
         // Rule end
@@ -284,9 +269,6 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.DefaultSignavi
             // Compute output
             output_.setMatched(true);
             output_.setListDescription("non of the numbers 1 to 5");
-
-            // Add annotation
-            annotationSet_.addAnnotation("describeAgesList", 5, "");
         }
 
         // Rule end

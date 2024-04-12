@@ -104,10 +104,10 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -129,9 +129,6 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setDateDiff(dayDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
             output_.setDateTimeDiff(minutesDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("temporalDiffs", 0, "");
         }
 
         // Rule end
@@ -140,10 +137,10 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -165,9 +162,6 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setDateDiff(monthDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
             output_.setDateTimeDiff(hourDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("temporalDiffs", 1, "");
         }
 
         // Rule end
@@ -176,10 +170,10 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -201,9 +195,6 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setDateDiff(yearDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
             output_.setDateTimeDiff(minutesDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("temporalDiffs", 2, "");
         }
 
         // Rule end
@@ -212,10 +203,10 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule3(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -237,9 +228,6 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             output_.setMatched(true);
             output_.setDateDiff(dayDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), date(number("2016"), number("1"), number("1"))));
             output_.setDateTimeDiff(hourDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), dateTime(number("1"), number("1"), number("2016"), number("11"), number("11"), number("11"))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("temporalDiffs", 3, "");
         }
 
         // Rule end

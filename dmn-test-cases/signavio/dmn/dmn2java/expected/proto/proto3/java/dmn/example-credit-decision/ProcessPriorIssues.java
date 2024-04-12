@@ -121,10 +121,10 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -144,9 +144,6 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Compute output
             output_.setMatched(true);
             output_.setProcessPriorIssues(numericUnaryMinus(number("10")));
-
-            // Add annotation
-            annotationSet_.addAnnotation("processPriorIssues", 0, "");
         }
 
         // Rule end
@@ -155,10 +152,10 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -178,9 +175,6 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Compute output
             output_.setMatched(true);
             output_.setProcessPriorIssues(numericUnaryMinus(number("30")));
-
-            // Add annotation
-            annotationSet_.addAnnotation("processPriorIssues", 1, "");
         }
 
         // Rule end
@@ -189,10 +183,10 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -212,9 +206,6 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Compute output
             output_.setMatched(true);
             output_.setProcessPriorIssues(numericUnaryMinus(number("100")));
-
-            // Add annotation
-            annotationSet_.addAnnotation("processPriorIssues", 2, "");
         }
 
         // Rule end
@@ -223,10 +214,10 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule3(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -246,9 +237,6 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Compute output
             output_.setMatched(true);
             output_.setProcessPriorIssues(number("50"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("processPriorIssues", 3, "");
         }
 
         // Rule end
@@ -257,10 +245,10 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule4(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -280,9 +268,6 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Compute output
             output_.setMatched(true);
             output_.setProcessPriorIssues(numericMultiply(count(((List<String>)(applicant != null ? applicant.getPriorIssues() : null))), numericUnaryMinus(number("5"))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("processPriorIssues", 4, "");
         }
 
         // Rule end

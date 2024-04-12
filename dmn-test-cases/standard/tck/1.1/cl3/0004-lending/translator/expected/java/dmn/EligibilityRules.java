@@ -129,9 +129,6 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
             output_.setMatched(true);
             output_.setEligibilityRules("INELIGIBLE");
             output_.setEligibilityRulesPriority(2);
-
-            // Add annotation
-            annotationSet_.addAnnotation("EligibilityRules", 0, "");
         }
 
         // Rule end
@@ -166,9 +163,6 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
             output_.setMatched(true);
             output_.setEligibilityRules("INELIGIBLE");
             output_.setEligibilityRulesPriority(2);
-
-            // Add annotation
-            annotationSet_.addAnnotation("EligibilityRules", 1, "");
         }
 
         // Rule end
@@ -203,9 +197,6 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
             output_.setMatched(true);
             output_.setEligibilityRules("INELIGIBLE");
             output_.setEligibilityRulesPriority(2);
-
-            // Add annotation
-            annotationSet_.addAnnotation("EligibilityRules", 2, "");
         }
 
         // Rule end
@@ -240,9 +231,6 @@ public class EligibilityRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision 
             output_.setMatched(true);
             output_.setEligibilityRules("ELIGIBLE");
             output_.setEligibilityRulesPriority(1);
-
-            // Add annotation
-            annotationSet_.addAnnotation("EligibilityRules", 3, "");
         }
 
         // Rule end

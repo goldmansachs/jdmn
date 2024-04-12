@@ -92,10 +92,10 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
         return output_
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     private fun rule0(compareAgainstLendingThreshold: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
-        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "\"\"")
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
         // Rule start
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -115,9 +115,6 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
             // Compute output
             output_.setMatched(true)
             output_.makeCreditDecision = "Reject"
-
-            // Add annotation
-            annotationSet_.addAnnotation("makeCreditDecision", 0, "")
         }
 
         // Rule end
@@ -126,10 +123,10 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
         return output_
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     private fun rule1(compareAgainstLendingThreshold: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
-        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "\"\"")
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 
         // Rule start
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -149,9 +146,6 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
             // Compute output
             output_.setMatched(true)
             output_.makeCreditDecision = "Recommend further assessment"
-
-            // Add annotation
-            annotationSet_.addAnnotation("makeCreditDecision", 1, "")
         }
 
         // Rule end
@@ -160,10 +154,10 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
         return output_
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     private fun rule2(compareAgainstLendingThreshold: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
-        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "\"\"")
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "")
 
         // Rule start
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -183,9 +177,6 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
             // Compute output
             output_.setMatched(true)
             output_.makeCreditDecision = "Accept"
-
-            // Add annotation
-            annotationSet_.addAnnotation("makeCreditDecision", 2, "")
         }
 
         // Rule end

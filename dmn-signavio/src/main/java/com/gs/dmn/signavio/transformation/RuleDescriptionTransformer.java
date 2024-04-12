@@ -64,6 +64,7 @@ public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
     }
 
     private DMNModelRepository cleanRuleDescription(DMNModelRepository repository, BuildLogger logger) {
+        logger.debug("Clean rule descriptions ...");
         RuleDescriptionVisitor dmnVisitor = new RuleDescriptionVisitor(this.errorHandler, this.logger);
         TransformationContext context = new TransformationContext(repository);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
@@ -101,7 +102,7 @@ class RuleDescriptionVisitor extends TraversalVisitor<TransformationContext> {
         TExpression expression = repository.expression(element);
         if (expression instanceof TDecisionTable) {
             logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
-            ((TDecisionTable) expression).accept(this, context);
+            expression.accept(this, context);
         }
         return element;
     }
@@ -114,11 +115,15 @@ class RuleDescriptionVisitor extends TraversalVisitor<TransformationContext> {
 
     void cleanRuleDescription(TDecisionRule rule) {
         String description = rule.getDescription();
-        if (StringUtils.isNotBlank(description)) {
-            for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
-                description = description.replace(entry.getKey(), entry.getValue());
+        if ("string(-)".equals(description)) {
+            rule.setDescription("");
+        } else {
+            if (StringUtils.isNotBlank(description)) {
+                for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
+                    description = description.replace(entry.getKey(), entry.getValue());
+                }
+                rule.setDescription(description);
             }
-            rule.setDescription(description);
         }
     }
 }

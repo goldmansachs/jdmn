@@ -100,10 +100,10 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(List<String> decisionDate, List<String> decisionTime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -126,9 +126,6 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             // Compute output
             output_.setMatched(true);
             output_.setFinalDecision("good");
-
-            // Add annotation
-            annotationSet_.addAnnotation("finalDecision", 0, "");
         }
 
         // Rule end
@@ -137,10 +134,10 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(List<String> decisionDate, List<String> decisionTime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -163,9 +160,6 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             // Compute output
             output_.setMatched(true);
             output_.setFinalDecision("mmm");
-
-            // Add annotation
-            annotationSet_.addAnnotation("finalDecision", 1, "");
         }
 
         // Rule end
@@ -174,10 +168,10 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(List<String> decisionDate, List<String> decisionTime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -200,9 +194,6 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             // Compute output
             output_.setMatched(true);
             output_.setFinalDecision("erhm");
-
-            // Add annotation
-            annotationSet_.addAnnotation("finalDecision", 2, "");
         }
 
         // Rule end
@@ -211,10 +202,10 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule3(List<String> decisionDate, List<String> decisionTime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -237,9 +228,6 @@ public class FinalDecision extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
             // Compute output
             output_.setMatched(true);
             output_.setFinalDecision("bad");
-
-            // Add annotation
-            annotationSet_.addAnnotation("finalDecision", 3, "");
         }
 
         // Rule end

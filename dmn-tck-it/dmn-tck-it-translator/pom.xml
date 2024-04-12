@@ -2670,6 +2670,42 @@
                         </configuration>
                     </execution>
 
+                    <!-- annotations -->
+                    <execution>
+                        <id>annotation-decision-table-with-annotations</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
+                            <lazyEvaluationDetectors>
+                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
+                            </lazyEvaluationDetectors>
+                            <inputFileDirectory>${other.14.diagram.folder}/decision-table-with-annotations/translator/decision-table-with-annotations.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.other.decision_table_with_annotations</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-annotation-decision-table-with-annotations</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <templateProvider>com.gs.dmn.transformation.template.TreeTemplateProvider</templateProvider>
+                            <inputTestFileDirectory>${other.14.diagram.folder}/decision-table-with-annotations/translator/decision-table-with-annotations-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${other.14.diagram.folder}/decision-table-with-annotations/translator/decision-table-with-annotations.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.other.decision_table_with_annotations</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
                     <!-- non-compliant-->
                     <!--
                                         <execution>

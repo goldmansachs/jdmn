@@ -123,9 +123,6 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setStatus("Approved");
             output_.setRate("Best");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Approval", 0, "");
         }
 
         // Rule end
@@ -160,9 +157,6 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setStatus("Approved");
             output_.setRate("Standard");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Approval", 1, "");
         }
 
         // Rule end
@@ -197,9 +191,6 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setStatus("Declined");
             output_.setRate("Standard");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Approval", 2, "");
         }
 
         // Rule end
@@ -234,9 +225,6 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setStatus("Declined");
             output_.setRate("Standard");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Approval", 3, "");
         }
 
         // Rule end
@@ -271,9 +259,6 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setStatus("Declined");
             output_.setRate("Standard");
-
-            // Add annotation
-            annotationSet_.addAnnotation("Approval", 4, "");
         }
 
         // Rule end

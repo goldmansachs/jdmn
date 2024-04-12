@@ -108,9 +108,6 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultS
             // Compute output
             output_.setMatched(true);
             output_.setNoRuleMatches(Boolean.TRUE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("noRuleMatchesSingleHit", 0, "");
         }
 
         // Rule end
@@ -142,9 +139,6 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultS
             // Compute output
             output_.setMatched(true);
             output_.setNoRuleMatches(Boolean.TRUE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("noRuleMatchesSingleHit", 1, "");
         }
 
         // Rule end
@@ -176,9 +170,6 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultS
             // Compute output
             output_.setMatched(true);
             output_.setNoRuleMatches(Boolean.TRUE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("noRuleMatchesSingleHit", 2, "");
         }
 
         // Rule end

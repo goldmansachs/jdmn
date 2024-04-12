@@ -85,10 +85,10 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     private fun rule0(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
-        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "\"\"")
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
         // Rule start
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -108,9 +108,6 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Compute output
             output_.setMatched(true)
             output_.assessApplicantAge = numericUnaryMinus(number("10"))
-
-            // Add annotation
-            annotationSet_.addAnnotation("assessApplicantAge", 0, "")
         }
 
         // Rule end
@@ -119,10 +116,10 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     private fun rule1(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
-        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "\"\"")
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 
         // Rule start
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -142,9 +139,6 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Compute output
             output_.setMatched(true)
             output_.assessApplicantAge = number("40")
-
-            // Add annotation
-            annotationSet_.addAnnotation("assessApplicantAge", 1, "")
         }
 
         // Rule end
@@ -153,10 +147,10 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     private fun rule2(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
-        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "\"\"")
+        val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "")
 
         // Rule start
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -176,9 +170,6 @@ class AssessApplicantAge() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Compute output
             output_.setMatched(true)
             output_.assessApplicantAge = number("60")
-
-            // Add annotation
-            annotationSet_.addAnnotation("assessApplicantAge", 2, "")
         }
 
         // Rule end

@@ -112,9 +112,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             output_.setMatched(true);
             output_.setOutput("r5");
             output_.setOutputPriority(6);
-
-            // Add annotation
-            annotationSet_.addAnnotation("decision", 0, "");
         }
 
         // Rule end
@@ -148,9 +145,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             output_.setMatched(true);
             output_.setOutput("r4");
             output_.setOutputPriority(7);
-
-            // Add annotation
-            annotationSet_.addAnnotation("decision", 1, "");
         }
 
         // Rule end
@@ -184,9 +178,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             output_.setMatched(true);
             output_.setOutput("r3");
             output_.setOutputPriority(8);
-
-            // Add annotation
-            annotationSet_.addAnnotation("decision", 2, "");
         }
 
         // Rule end
@@ -220,9 +211,6 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
             output_.setMatched(true);
             output_.setOutput("r2");
             output_.setOutputPriority(9);
-
-            // Add annotation
-            annotationSet_.addAnnotation("decision", 3, "");
         }
 
         // Rule end

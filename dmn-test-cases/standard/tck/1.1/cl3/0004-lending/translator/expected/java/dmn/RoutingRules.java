@@ -133,9 +133,6 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setRoutingRules("DECLINE");
             output_.setRoutingRulesPriority(3);
-
-            // Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 0, "");
         }
 
         // Rule end
@@ -171,9 +168,6 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setRoutingRules("DECLINE");
             output_.setRoutingRulesPriority(3);
-
-            // Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 1, "");
         }
 
         // Rule end
@@ -209,9 +203,6 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setRoutingRules("REFER");
             output_.setRoutingRulesPriority(2);
-
-            // Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 2, "");
         }
 
         // Rule end
@@ -247,9 +238,6 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setRoutingRules("REFER");
             output_.setRoutingRulesPriority(2);
-
-            // Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 3, "");
         }
 
         // Rule end
@@ -285,9 +273,6 @@ public class RoutingRules extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setRoutingRules("ACCEPT");
             output_.setRoutingRulesPriority(1);
-
-            // Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 4, "");
         }
 
         // Rule end

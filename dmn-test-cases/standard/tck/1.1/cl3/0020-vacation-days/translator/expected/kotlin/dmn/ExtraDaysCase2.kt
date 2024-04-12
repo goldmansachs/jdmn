@@ -95,9 +95,6 @@ class ExtraDaysCase2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Compute output
             output_.setMatched(true)
             output_.extraDaysCase2 = number("3")
-
-            // Add annotation
-            annotationSet_.addAnnotation("Extra days case 2", 0, "")
         }
 
         // Rule end
@@ -130,9 +127,6 @@ class ExtraDaysCase2() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             // Compute output
             output_.setMatched(true)
             output_.extraDaysCase2 = number("3")
-
-            // Add annotation
-            annotationSet_.addAnnotation("Extra days case 2", 1, "")
         }
 
         // Rule end

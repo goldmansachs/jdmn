@@ -99,10 +99,10 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(Boolean allFalseAggregation, Boolean allTrueAggregation, Boolean anyTrueAggregation, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -124,9 +124,6 @@ public class PartA extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
             // Compute output
             output_.setMatched(true);
             output_.setPartA("NotNull");
-
-            // Add annotation
-            annotationSet_.addAnnotation("partA", 0, "");
         }
 
         // Rule end

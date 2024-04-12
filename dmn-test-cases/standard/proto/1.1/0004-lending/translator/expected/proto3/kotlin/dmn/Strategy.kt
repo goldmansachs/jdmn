@@ -115,9 +115,6 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
             // Compute output
             output_.setMatched(true)
             output_.strategy = "DECLINE"
-
-            // Add annotation
-            annotationSet_.addAnnotation("Strategy", 0, "")
         }
 
         // Rule end
@@ -150,9 +147,6 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
             // Compute output
             output_.setMatched(true)
             output_.strategy = "BUREAU"
-
-            // Add annotation
-            annotationSet_.addAnnotation("Strategy", 1, "")
         }
 
         // Rule end
@@ -185,9 +179,6 @@ class Strategy(val bureauCallType : BureauCallType = BureauCallType(), val eligi
             // Compute output
             output_.setMatched(true)
             output_.strategy = "THROUGH"
-
-            // Add annotation
-            annotationSet_.addAnnotation("Strategy", 2, "")
         }
 
         // Rule end

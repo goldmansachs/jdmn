@@ -106,10 +106,10 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(Boolean booleanInput, type.DependentDecision1 dependentDecision1, type.DependentDecision2 dependentDecision2, String enumerationInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -135,9 +135,6 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
             output_.setMatched(true);
             output_.setFirstOutput("r11");
             output_.setSecondOutput("r12");
-
-            // Add annotation
-            annotationSet_.addAnnotation("compoundOutputCompoundDecision", 0, "");
         }
 
         // Rule end
@@ -146,10 +143,10 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(Boolean booleanInput, type.DependentDecision1 dependentDecision1, type.DependentDecision2 dependentDecision2, String enumerationInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -175,9 +172,6 @@ public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.
             output_.setMatched(true);
             output_.setFirstOutput("r21");
             output_.setSecondOutput("r22");
-
-            // Add annotation
-            annotationSet_.addAnnotation("compoundOutputCompoundDecision", 1, "");
         }
 
         // Rule end

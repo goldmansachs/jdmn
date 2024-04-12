@@ -85,10 +85,10 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(type.It it_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -109,9 +109,6 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             // Compute output
             output_.setMatched(true);
             output_.setBody(numericUnaryMinus(number("1")));
-
-            // Add annotation
-            annotationSet_.addAnnotation("body", 0, "");
         }
 
         // Rule end
@@ -120,10 +117,10 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(type.It it_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -144,9 +141,6 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             // Compute output
             output_.setMatched(true);
             output_.setBody(number("1"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("body", 1, "");
         }
 
         // Rule end
@@ -155,10 +149,10 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(type.It it_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -179,9 +173,6 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             // Compute output
             output_.setMatched(true);
             output_.setBody(number("0"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("body", 2, "");
         }
 
         // Rule end

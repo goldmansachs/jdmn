@@ -29,4 +29,10 @@ public class OtherDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransform
     public void testOther() throws Exception {
         doSingleModelTest("1.2","composite-decision-type-any");
     }
+
+    @Test
+    public void testAnnotations() throws Exception {
+        doSingleModelTest("1.4","decision-table-with-annotations");
+    }
+
 }

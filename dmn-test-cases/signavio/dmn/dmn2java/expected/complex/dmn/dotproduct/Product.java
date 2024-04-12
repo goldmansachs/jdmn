@@ -83,10 +83,10 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -106,9 +106,6 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             // Compute output
             output_.setMatched(true);
             output_.setProduct(numericMultiply(((java.math.BigDecimal)(componentwise4_iterator != null ? componentwise4_iterator.getA() : null)), ((java.math.BigDecimal)(componentwise4_iterator != null ? componentwise4_iterator.getB() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("product", 0, "");
         }
 
         // Rule end

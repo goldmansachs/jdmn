@@ -115,9 +115,6 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
             output_.setMatched(true);
             output_.setCls("Child");
             output_.setDiscount(number("0.1"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ageClassification", 0, "");
         }
 
         // Rule end
@@ -150,9 +147,6 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
             output_.setMatched(true);
             output_.setCls("Adult");
             output_.setDiscount(number("0.2"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ageClassification", 1, "");
         }
 
         // Rule end
@@ -185,9 +179,6 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
             output_.setMatched(true);
             output_.setCls("Senior");
             output_.setDiscount(number("0.3"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("ageClassification", 2, "");
         }
 
         // Rule end

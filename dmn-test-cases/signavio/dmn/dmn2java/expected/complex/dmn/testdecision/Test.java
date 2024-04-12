@@ -87,10 +87,10 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(String stringInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -110,9 +110,6 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             // Compute output
             output_.setMatched(true);
             output_.setTest("a");
-
-            // Add annotation
-            annotationSet_.addAnnotation("test", 0, "");
         }
 
         // Rule end
@@ -121,10 +118,10 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(String stringInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -144,9 +141,6 @@ public class Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             // Compute output
             output_.setMatched(true);
             output_.setTest("b");
-
-            // Add annotation
-            annotationSet_.addAnnotation("test", 1, "");
         }
 
         // Rule end

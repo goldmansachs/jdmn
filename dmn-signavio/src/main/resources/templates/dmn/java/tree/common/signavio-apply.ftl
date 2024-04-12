@@ -296,7 +296,6 @@
             output_.${transformer.outputClausePrioritySetter(drgElement, output, "${transformer.outputClausePriority(drgElement, rule.outputEntry[output_index], output_index)}")};
                 </#if>
             </#list>
-
             <@addAnnotation drgElement rule rule_index />
         }
 
@@ -425,6 +424,11 @@
     Annotations
 -->
 <#macro addAnnotation drgElement rule rule_index>
-            // Add annotation
-            ${transformer.annotationSetVariableName()}.addAnnotation("${drgElement.name}", ${rule_index}, ${transformer.annotation(drgElement, rule)});
+            <#list transformer.annotations(drgElement, rule)>
+
+            // Add annotations
+            <#items as annotation>
+            ${transformer.annotationSetVariableName()}.addAnnotation("${drgElement.name}", ${rule_index}, ${annotation});
+            </#items>
+            </#list>
 </#macro>

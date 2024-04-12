@@ -133,9 +133,6 @@ class Strategy(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             output_.setMatched(True)
             output_.strategy = "DECLINE"
 
-            # Add annotation
-            annotationSet_.addAnnotation("Strategy", 0, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -165,9 +162,6 @@ class Strategy(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             output_.setMatched(True)
             output_.strategy = "BUREAU"
 
-            # Add annotation
-            annotationSet_.addAnnotation("Strategy", 1, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -196,9 +190,6 @@ class Strategy(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             # Compute output
             output_.setMatched(True)
             output_.strategy = "THROUGH"
-
-            # Add annotation
-            annotationSet_.addAnnotation("Strategy", 2, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

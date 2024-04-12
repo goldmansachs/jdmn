@@ -132,9 +132,6 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             output_.routingRules = "DECLINE"
             output_.routingRulesPriority = 3
 
-            # Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 0, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -166,9 +163,6 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             output_.setMatched(True)
             output_.routingRules = "DECLINE"
             output_.routingRulesPriority = 3
-
-            # Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 1, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -202,9 +196,6 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             output_.routingRules = "REFER"
             output_.routingRulesPriority = 2
 
-            # Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 2, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -237,9 +228,6 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             output_.routingRules = "REFER"
             output_.routingRulesPriority = 2
 
-            # Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 3, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -271,9 +259,6 @@ class RoutingRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
             output_.setMatched(True)
             output_.routingRules = "ACCEPT"
             output_.routingRulesPriority = 1
-
-            # Add annotation
-            annotationSet_.addAnnotation("RoutingRules", 4, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

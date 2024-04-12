@@ -116,9 +116,6 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             output_.setMatched(True)
             output_.extraDaysCase2 = self.number("3")
 
-            # Add annotation
-            annotationSet_.addAnnotation("Extra days case 2", 0, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -147,9 +144,6 @@ class ExtraDaysCase2(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             # Compute output
             output_.setMatched(True)
             output_.extraDaysCase2 = self.number("3")
-
-            # Add annotation
-            annotationSet_.addAnnotation("Extra days case 2", 1, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

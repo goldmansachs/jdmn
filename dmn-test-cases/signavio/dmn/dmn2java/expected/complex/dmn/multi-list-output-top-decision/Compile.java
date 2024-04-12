@@ -95,10 +95,10 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -122,9 +122,6 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             output_.setNextTrafficLight("Yellow");
             output_.setAvgOfNumbers(avg(numbers));
             output_.setName(left(name, number("1")));
-
-            // Add annotation
-            annotationSet_.addAnnotation("compile", 0, "");
         }
 
         // Rule end
@@ -133,10 +130,10 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -160,9 +157,6 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             output_.setNextTrafficLight("Green");
             output_.setAvgOfNumbers(sum(numbers));
             output_.setName(lower(name));
-
-            // Add annotation
-            annotationSet_.addAnnotation("compile", 1, "");
         }
 
         // Rule end
@@ -171,10 +165,10 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -198,9 +192,6 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             output_.setNextTrafficLight("Red");
             output_.setAvgOfNumbers(count(numbers));
             output_.setName(right(name, number("1")));
-
-            // Add annotation
-            annotationSet_.addAnnotation("compile", 2, "");
         }
 
         // Rule end
@@ -209,10 +200,10 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule3(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -236,9 +227,6 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             output_.setNextTrafficLight("Yellow");
             output_.setAvgOfNumbers(max(numbers));
             output_.setName(upper(name));
-
-            // Add annotation
-            annotationSet_.addAnnotation("compile", 3, "");
         }
 
         // Rule end
@@ -247,10 +235,10 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule4(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -274,9 +262,6 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             output_.setNextTrafficLight("Yellow");
             output_.setAvgOfNumbers(median(numbers));
             output_.setName(mid(name, number("1"), number("2")));
-
-            // Add annotation
-            annotationSet_.addAnnotation("compile", 4, "");
         }
 
         // Rule end
@@ -285,10 +270,10 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule5(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -312,9 +297,6 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             output_.setNextTrafficLight("Red");
             output_.setAvgOfNumbers(min(numbers));
             output_.setName(name);
-
-            // Add annotation
-            annotationSet_.addAnnotation("compile", 5, "");
         }
 
         // Rule end
@@ -323,10 +305,10 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule6(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(6, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(6, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -350,9 +332,6 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             output_.setNextTrafficLight("Red");
             output_.setAvgOfNumbers(mode(numbers));
             output_.setName(trim(name));
-
-            // Add annotation
-            annotationSet_.addAnnotation("compile", 6, "");
         }
 
         // Rule end
@@ -361,10 +340,10 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule7(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(7, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(7, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -388,9 +367,6 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             output_.setNextTrafficLight("Green");
             output_.setAvgOfNumbers(product(numbers));
             output_.setName(text(avg(numbers), "0"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("compile", 7, "");
         }
 
         // Rule end

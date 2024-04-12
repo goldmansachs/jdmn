@@ -88,10 +88,10 @@ public class GenerateTemporalObjects extends com.gs.dmn.signavio.runtime.Default
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -117,9 +117,6 @@ public class GenerateTemporalObjects extends com.gs.dmn.signavio.runtime.Default
             output_.setMatched(true);
             output_.setDate(date(year, month, day));
             output_.setDatetime(dateTime(day, month, year, hour, minute, second));
-
-            // Add annotation
-            annotationSet_.addAnnotation("generateTemporalObjects", 0, "");
         }
 
         // Rule end

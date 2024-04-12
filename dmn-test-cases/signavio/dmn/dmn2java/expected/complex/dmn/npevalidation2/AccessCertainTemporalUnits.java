@@ -105,10 +105,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -129,9 +129,6 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             // Compute output
             output_.setMatched(true);
             output_.setAccessCertainTemporalUnits(month(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("accessCertainTemporalUnits", 0, "");
         }
 
         // Rule end
@@ -140,10 +137,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -164,9 +161,6 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             // Compute output
             output_.setMatched(true);
             output_.setAccessCertainTemporalUnits(year(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("accessCertainTemporalUnits", 1, "");
         }
 
         // Rule end
@@ -175,10 +169,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -199,9 +193,6 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             // Compute output
             output_.setMatched(true);
             output_.setAccessCertainTemporalUnits(weekday(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("accessCertainTemporalUnits", 2, "");
         }
 
         // Rule end
@@ -210,10 +201,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule3(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -234,9 +225,6 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             // Compute output
             output_.setMatched(true);
             output_.setAccessCertainTemporalUnits(day(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("accessCertainTemporalUnits", 3, "");
         }
 
         // Rule end
@@ -245,10 +233,10 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule4(type.GenerateTemporalObjects generateTemporalObjects, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -269,9 +257,6 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             // Compute output
             output_.setMatched(true);
             output_.setAccessCertainTemporalUnits(minute(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("accessCertainTemporalUnits", 4, "");
         }
 
         // Rule end

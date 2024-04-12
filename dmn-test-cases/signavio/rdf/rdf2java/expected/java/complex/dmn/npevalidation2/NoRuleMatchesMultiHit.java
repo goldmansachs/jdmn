@@ -111,9 +111,6 @@ public class NoRuleMatchesMultiHit extends com.gs.dmn.signavio.runtime.DefaultSi
             // Compute output
             output_.setMatched(true);
             output_.setNoRuleMatchesMultiHit(Boolean.TRUE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("noRuleMatchesMultiHit", 0, "");
         }
 
         // Rule end
@@ -145,9 +142,6 @@ public class NoRuleMatchesMultiHit extends com.gs.dmn.signavio.runtime.DefaultSi
             // Compute output
             output_.setMatched(true);
             output_.setNoRuleMatchesMultiHit(Boolean.TRUE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("noRuleMatchesMultiHit", 1, "");
         }
 
         // Rule end
@@ -179,9 +173,6 @@ public class NoRuleMatchesMultiHit extends com.gs.dmn.signavio.runtime.DefaultSi
             // Compute output
             output_.setMatched(true);
             output_.setNoRuleMatchesMultiHit(Boolean.TRUE);
-
-            // Add annotation
-            annotationSet_.addAnnotation("noRuleMatchesMultiHit", 2, "");
         }
 
         // Rule end

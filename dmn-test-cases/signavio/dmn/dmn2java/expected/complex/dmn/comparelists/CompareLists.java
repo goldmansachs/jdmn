@@ -85,10 +85,10 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal l12_iterator, java.math.BigDecimal l2_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -109,9 +109,6 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             // Compute output
             output_.setMatched(true);
             output_.setCompareLists(number("1"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("compareLists", 0, "");
         }
 
         // Rule end
@@ -120,10 +117,10 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal l12_iterator, java.math.BigDecimal l2_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -144,9 +141,6 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             // Compute output
             output_.setMatched(true);
             output_.setCompareLists(number("0"));
-
-            // Add annotation
-            annotationSet_.addAnnotation("compareLists", 1, "");
         }
 
         // Rule end

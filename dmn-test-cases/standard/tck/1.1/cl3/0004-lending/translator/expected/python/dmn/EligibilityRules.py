@@ -129,9 +129,6 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
             output_.eligibilityRules = "INELIGIBLE"
             output_.eligibilityRulesPriority = 2
 
-            # Add annotation
-            annotationSet_.addAnnotation("EligibilityRules", 0, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -162,9 +159,6 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
             output_.setMatched(True)
             output_.eligibilityRules = "INELIGIBLE"
             output_.eligibilityRulesPriority = 2
-
-            # Add annotation
-            annotationSet_.addAnnotation("EligibilityRules", 1, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
@@ -197,9 +191,6 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
             output_.eligibilityRules = "INELIGIBLE"
             output_.eligibilityRulesPriority = 2
 
-            # Add annotation
-            annotationSet_.addAnnotation("EligibilityRules", 2, "")
-
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)
 
@@ -230,9 +221,6 @@ class EligibilityRules(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecisio
             output_.setMatched(True)
             output_.eligibilityRules = "ELIGIBLE"
             output_.eligibilityRulesPriority = 1
-
-            # Add annotation
-            annotationSet_.addAnnotation("EligibilityRules", 3, "")
 
         # Rule end
         eventListener_.endRule(self.DRG_ELEMENT_METADATA, drgRuleMetadata, output_)

@@ -108,9 +108,6 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.applicationRiskScoreModel = number("32")
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 0, "")
         }
 
         // Rule end
@@ -144,9 +141,6 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.applicationRiskScoreModel = number("35")
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 1, "")
         }
 
         // Rule end
@@ -180,9 +174,6 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.applicationRiskScoreModel = number("40")
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 2, "")
         }
 
         // Rule end
@@ -216,9 +207,6 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.applicationRiskScoreModel = number("43")
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 3, "")
         }
 
         // Rule end
@@ -252,9 +240,6 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.applicationRiskScoreModel = number("48")
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 4, "")
         }
 
         // Rule end
@@ -288,9 +273,6 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.applicationRiskScoreModel = number("25")
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 5, "")
         }
 
         // Rule end
@@ -324,9 +306,6 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.applicationRiskScoreModel = number("45")
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 6, "")
         }
 
         // Rule end
@@ -360,9 +339,6 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.applicationRiskScoreModel = number("15")
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 7, "")
         }
 
         // Rule end
@@ -396,9 +372,6 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.applicationRiskScoreModel = number("45")
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 8, "")
         }
 
         // Rule end
@@ -432,9 +405,6 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.applicationRiskScoreModel = number("36")
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 9, "")
         }
 
         // Rule end
@@ -468,9 +438,6 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.DefaultDMNBaseDecision {
             // Compute output
             output_.setMatched(true)
             output_.applicationRiskScoreModel = number("18")
-
-            // Add annotation
-            annotationSet_.addAnnotation("ApplicationRiskScoreModel", 10, "")
         }
 
         // Rule end

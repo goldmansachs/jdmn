@@ -129,9 +129,6 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             // Compute output
             output_.setMatched(true);
             output_.setValue(month(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("accessCertainTemporalUnits", 0, "");
         }
 
         // Rule end
@@ -164,9 +161,6 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             // Compute output
             output_.setMatched(true);
             output_.setValue(year(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("accessCertainTemporalUnits", 1, "");
         }
 
         // Rule end
@@ -199,9 +193,6 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             // Compute output
             output_.setMatched(true);
             output_.setValue(weekday(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("accessCertainTemporalUnits", 2, "");
         }
 
         // Rule end
@@ -234,9 +225,6 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             // Compute output
             output_.setMatched(true);
             output_.setValue(day(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("accessCertainTemporalUnits", 3, "");
         }
 
         // Rule end
@@ -269,9 +257,6 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             // Compute output
             output_.setMatched(true);
             output_.setValue(minute(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
-
-            // Add annotation
-            annotationSet_.addAnnotation("accessCertainTemporalUnits", 4, "");
         }
 
         // Rule end

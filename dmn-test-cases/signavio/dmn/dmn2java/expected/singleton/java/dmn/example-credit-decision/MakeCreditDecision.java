@@ -104,10 +104,10 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal compareAgainstLendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -127,9 +127,6 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Compute output
             output_.setMatched(true);
             output_.setMakeCreditDecision("Reject");
-
-            // Add annotation
-            annotationSet_.addAnnotation("makeCreditDecision", 0, "");
         }
 
         // Rule end
@@ -138,10 +135,10 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal compareAgainstLendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -161,9 +158,6 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Compute output
             output_.setMatched(true);
             output_.setMakeCreditDecision("Recommend further assessment");
-
-            // Add annotation
-            annotationSet_.addAnnotation("makeCreditDecision", 1, "");
         }
 
         // Rule end
@@ -172,10 +166,10 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
         return output_;
     }
 
-    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "\"\"")
+    @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
     public com.gs.dmn.runtime.RuleOutput rule2(java.math.BigDecimal compareAgainstLendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
-        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "\"\"");
+        com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
         // Rule start
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -195,9 +189,6 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
             // Compute output
             output_.setMatched(true);
             output_.setMakeCreditDecision("Accept");
-
-            // Add annotation
-            annotationSet_.addAnnotation("makeCreditDecision", 2, "");
         }
 
         // Rule end

@@ -139,7 +139,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     Type drgElementVariableFEELType(TDRGElement element, DMNContext context);
 
-    String annotation(TDRGElement element, String description);
+    List<String> annotations(TDRGElement element, List<String> annotations);
 
     List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element, Function<Object, String> nameProducer);
 
@@ -416,7 +416,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String aggregator(TDRGElement element, TDecisionTable decisionTable, TOutputClause outputClause, String ruleOutputListVariable);
 
-    String annotation(TDRGElement element, TDecisionRule rule);
+    List<String> annotations(TDRGElement element, TDecisionRule rule);
 
     String annotationEscapedText(TDecisionRule rule);
 

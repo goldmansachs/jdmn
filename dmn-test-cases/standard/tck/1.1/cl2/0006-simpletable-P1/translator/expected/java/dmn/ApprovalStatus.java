@@ -122,9 +122,6 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setApprovalStatus("Approved");
             output_.setApprovalStatusPriority(2);
-
-            // Add annotation
-            annotationSet_.addAnnotation("Approval Status", 0, "");
         }
 
         // Rule end
@@ -159,9 +156,6 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setApprovalStatus("Declined");
             output_.setApprovalStatusPriority(1);
-
-            // Add annotation
-            annotationSet_.addAnnotation("Approval Status", 1, "");
         }
 
         // Rule end
@@ -196,9 +190,6 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setApprovalStatus("Declined");
             output_.setApprovalStatusPriority(1);
-
-            // Add annotation
-            annotationSet_.addAnnotation("Approval Status", 2, "");
         }
 
         // Rule end
@@ -233,9 +224,6 @@ public class ApprovalStatus extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             output_.setMatched(true);
             output_.setApprovalStatus("Declined");
             output_.setApprovalStatusPriority(1);
-
-            // Add annotation
-            annotationSet_.addAnnotation("Approval Status", 3, "");
         }
 
         // Rule end
