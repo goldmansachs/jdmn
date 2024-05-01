@@ -23,7 +23,7 @@
     </parent>
 
     <properties>
-        <xmlunit.version>2.9.0</xmlunit.version>
+        <xmlunit.version>2.10.0</xmlunit.version>
 
         <antlr.source.directory>${project.basedir}/src/main/resources/dmn/${dmn.version}</antlr.source.directory>
         <antlr.generated>${project.basedir}/target/generated-sources/antlrv4</antlr.generated>
