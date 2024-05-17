@@ -4,7 +4,7 @@
 
 DMN models can be executed in jDMN in two ways:
 * interpretation on JVM
-* translation to Java, followed by the execution of the generated code on JVM. 
+* translation to the target language (e.g. Java or Python), followed by the execution of the generated code on JVM. 
 
 For more information please look at the other [FAQs](index.md).
 
@@ -16,8 +16,8 @@ DMN models can be read as follows:
 ```
     BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger("logger"));
     File input = new File("model.dmn");
-    DMNReader reader = new DMNReader(LOGGER, false);
-    TDefinitions definitions = reader.read(input).getLeft();
+    DMNSerializer reader = new XMLDMNSerializer(LOGGER, false);
+    TDefinitions definitions = reader.readModel(input);
 ```
 
 ## How to validate a DMN model?
@@ -27,8 +27,8 @@ DMN models can be validated at the syntax level (XSD schema validation) as follo
 ```
     BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger("logger"));
     File input = new File("model.dmn");
-    DMNReader reader = new DMNReader(LOGGER, true);
-    TDefinitions definitions = reader.read(input).getLeft();
+    DMNSerializer reader = new XMLDMNSerializer(LOGGER, false);
+    TDefinitions definitions = reader.readModel(input);
 ```
 
 DMN models can be validated at the semantic level by implementing the ```DMNValidator``` interface. jDMN provides a default implementation.
@@ -36,11 +36,11 @@ DMN models can be validated at the semantic level by implementing the ```DMNVali
 ```
     BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger("logger"));
     File input = new File("model.dmn");
-    DMNReader reader = new DMNReader(LOGGER, false);
-    Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
+    DMNSerializer reader = new XMLDMNSerializer(LOGGER, false);
+    TDefinitions definitions = reader.readModel(input);
 
     DMNValidator validator = new DefaultDMNValidator();
-    validator.validate(new DMNModelRepository(pair));
+    validator.validate(new DMNModelRepository(definitions));
 ```
 
 ## How to transform a DMN model?
@@ -50,11 +50,11 @@ DMN models can be transformed by implementing the ```DMNTransformer``` interface
 ```
     BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger("logger"));
     File input = new File("model.dmn");
-    DMNReader reader = new DMNReader(LOGGER, false);
-    Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
+    DMNSerializer reader = new XMLDMNSerializer(LOGGER, false);
+    TDefinitions definitions = reader.readModel(input);
 
     DMNTransformer<TestCases> transformer = new ToQuotedNameTransformer(LOGGER);
-    transformer.transform(new DMNModelRepository(pair));
+    transformer.transform(new DMNModelRepository(definitions));
 ```
 
 ## What is a jDMN dialect?
