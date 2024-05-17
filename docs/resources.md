@@ -14,15 +14,11 @@
 
 ## Conferences
 
-* [DecisionCAMP 2021](https://decisioncamp2021.wordpress.com/)
-* [DecisionCAMP 2020](https://decisioncamp2020.home.blog/)
-* [DecisionCAMP 2019](https://decisioncamp2019.wordpress.com/)
-* [DecisionCAMP 2018](https://decisioncamp2018.wordpress.com/)
-* [DecisionCAMP 2017](http://2017.ruleml-rr.org/decisioncamp-2017/)
-* [DecisionCAMP 2016](http://2016.ruleml.org/decisioncamp)
+* [DecisionCAMP conferences](https://dmcommunity.org/decisioncamp/)
 
 ## Research articles
 
+* [Performance and Scalability of DMN-Based LCNC Platforms, Models 2023](https://www.computer.org/csdl/proceedings-article/models-c/2023/249800a863/1T96uSBctEI)
 * [A Modern Appraisal of Decision Tables. A CODASYL Report, 1982](articles/A%20Modern%20Appraisal%20of%20Decision%20Tables.%20A%20CODASYL%20Report.pdf)
 * [Semantics and Analysis of DMN Decision Tables, 2016](articles/Semantics%20and%20Analysis%20of%20DMN%20Decision%20Tables.pdf)
 * [Semantics, Analysis and Simplification of DMN Decision Tables](articles/Semantics,%20Analysis%20and%20Simplification%20of%20DMN%20Decision%20Tables.pdf)

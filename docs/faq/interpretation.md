@@ -11,8 +11,8 @@ Follow the steps:
     // Read DMN file
     BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger("logger"));
     File input = new File("model.dmn");
-    DMNReader reader = new DMNReader(LOGGER, true);
-    Pair<TDefinitions, PrefixNamespaceMappings> pair = reader.read(input);
+    DMNSerializer reader = new XMLDMNSerializer(LOGGER, false);
+    TDefinitions definitions = reader.readModel(input);
 
     // Create interpreter
     MixedJavaTimeDMNDialectDefinition dialect = new MixedJavaTimeDMNDialectDefinition();
@@ -21,7 +21,9 @@ Follow the steps:
     // Evaluate decision
     String namespace = "http://www.provider.com/model-id";
     String decisionName = "Decision A";
+    TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
+
     Map<String, Object> inputs = new LinkedHashMap<>();
     inputs.put("income", BigDecimal.valueOf(10000));
-    Object result = interpreter.evaluateDecision(namespace, decisionName, inputs);
+    interpreter.evaluateDecision(namespace, decisionName, EvaluationContext.makeDecisionEvaluationContext(decision, inputs));
 ```
