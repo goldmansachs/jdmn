@@ -14,6 +14,7 @@ public class SpecialVariableTransformerVisitorTest {
         // TODO Add more tests
         doTest("contains(x.y.z, \"123\")", "x.y.z", "contains(?, \"123\")");
         doTest("review.nextActionNew", "review.nextAction", "review.nextActionNew");
+        doTest("input1 == 123", "input", "input1 == 123");
     }
 
     private void doTest(String unaryTestsText, String inputExpression, String expectedValue) {

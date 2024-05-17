@@ -191,18 +191,12 @@ public class ASTFactory<T, C> {
     }
 
     public PositiveUnaryTest<T> toPositiveUnaryTest(Expression<T> expression) {
-        if (expression instanceof SimplePositiveUnaryTest) {
-            // since DMN 1.1
-            return (PositiveUnaryTest<T>) expression;
-        } else if (expression instanceof NullTest) {
+        if (expression instanceof PositiveUnaryTest) {
             // since DMN 1.1
             return (PositiveUnaryTest<T>) expression;
         } else if (expression instanceof NullLiteral) {
             // since DMN 1.1
             return toNullPositiveUnaryTest();
-        } else if (expression instanceof NamedExpression || expression instanceof PathExpression) {
-            // since DMN 1.1
-            return toOperatorRange(null, expression);
         } else if (expression instanceof SimpleLiteral) {
             // since DMN 1.1
             return toOperatorRange(null, expression);
@@ -219,9 +213,6 @@ public class ASTFactory<T, C> {
                 }
             }
             return toListTest((ListLiteral<T>) toListLiteral(puts));
-        } else if (expression instanceof ExpressionTest) {
-            // since DMN 1.2
-            return (PositiveUnaryTest<T>) expression;
         } else {
             // Since DMN 1.2
             if (containsQuestionMark(expression)) {

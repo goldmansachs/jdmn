@@ -360,7 +360,7 @@ public class DMNExpressionToNativeTransformer {
         try {
             return inputEntryToNative(element, inputExpressionText, inputEntryText);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot build condition for input clause '%s' for entry '%s' in element '%s' in rule %d", inputExpressionText, inputEntryText, element.getName(), ruleIndex + 1), e);
+            throw new DMNRuntimeException(String.format("Cannot build condition for input clause '%s' for entry '%s' in element '%s' in rule %d", inputExpressionText, inputEntryText, this.dmnModelRepository.displayName(element), ruleIndex + 1), e);
         }
     }
 
