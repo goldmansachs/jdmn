@@ -1,6 +1,6 @@
 # jDMN - Decision Model and Notation (DMN) execution engine implemented in Java
 
-[![Documentation](https://img.shields.io/badge/Documentation-online-brightgreen.svg)](https://goldmansachs.github.io/jdmn/)
+[![Documentation](https://img.shields.io/badge/Documentation-online-brightgreen.svg)](https://github.com/goldmansachs/jdmn/blob/master/docs/index.md)
 [![Build Status](https://github.com/goldmansachs/jdmn/actions/workflows/build-main.yml/badge.svg?branch=master)](https://github.com/goldmansachs/jdmn/actions/workflows/build-main.yml)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.goldmansachs.jdmn/jdmn-parent/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.goldmansachs.jdmn/jdmn-parent)
 [![Releases](https://img.shields.io/github/release/goldmansachs/jdmn.svg)](https://github.com/goldmansachs/jdmn/releases)
