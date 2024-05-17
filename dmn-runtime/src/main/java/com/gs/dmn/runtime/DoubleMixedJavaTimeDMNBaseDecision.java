@@ -24,6 +24,10 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.Map;
 
+/**
+ * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeDMNBaseDecision}
+ */
+@Deprecated
 public class DoubleMixedJavaTimeDMNBaseDecision extends DoubleMixedJavaTimeFEELLib implements DMNDecision<Double, LocalDate, OffsetTime, ZonedDateTime, Duration>, AnnotationTarget {
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {

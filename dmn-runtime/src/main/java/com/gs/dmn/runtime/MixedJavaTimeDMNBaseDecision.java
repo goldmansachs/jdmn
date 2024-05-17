@@ -13,6 +13,7 @@
 package com.gs.dmn.runtime;
 
 import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
 import com.gs.dmn.runtime.annotation.AnnotationTarget;
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.Rule;
@@ -25,6 +26,10 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.Map;
 
+/**
+ * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeDMNBaseDecision}
+ */
+@Deprecated
 public class MixedJavaTimeDMNBaseDecision extends MixedJavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration>, AnnotationTarget {
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {

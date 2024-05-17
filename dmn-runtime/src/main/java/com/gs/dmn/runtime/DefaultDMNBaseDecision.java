@@ -23,6 +23,10 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Map;
 
+/**
+ * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeDMNBaseDecision}
+ */
+@Deprecated
 public class DefaultDMNBaseDecision extends DefaultFEELLib implements DMNDecision<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration>, AnnotationTarget {
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {

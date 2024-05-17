@@ -35,6 +35,10 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
+/**
+ * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeFEELLib}
+ */
+@Deprecated
 public class MixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<BigDecimal> {
     private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
     private static final DurationType<Duration, BigDecimal> DURATION_TYPE = new DefaultDurationType();

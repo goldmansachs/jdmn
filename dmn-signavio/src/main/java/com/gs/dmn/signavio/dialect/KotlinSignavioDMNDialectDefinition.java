@@ -36,6 +36,10 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
+/**
+ * @deprecated  As of release 8.3.0, replaced by {@link com.gs.dmn.dialect.MixedJavaTimeKotlinStandardDMNDialectDefinition}
+ */
+@Deprecated
 public class KotlinSignavioDMNDialectDefinition extends AbstractSignavioDMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     //
     // DMN processors

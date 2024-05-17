@@ -28,6 +28,7 @@ import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.*;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib;
+import com.gs.dmn.runtime.PureJavaTimeDMNBaseDecision;
 import com.gs.dmn.signavio.feel.lib.type.list.DefaultSignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
@@ -43,6 +44,10 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
+/**
+ * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeSignavioLib}
+ */
+@Deprecated
 public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultSignavioNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();

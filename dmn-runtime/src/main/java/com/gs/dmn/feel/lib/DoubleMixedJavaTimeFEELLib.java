@@ -34,6 +34,10 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
+/**
+ * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeFEELLib}
+ */
+@Deprecated
 public class DoubleMixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<Double> {
     private static final NumericType<Double> NUMERIC_TYPE = new DoubleNumericType();
     private static final DurationType<Duration, Double> DURATION_TYPE = new DoubleDurationType();
