@@ -18,7 +18,7 @@
 
 ## Useful information
 
-* [Documentation](https://goldmansachs.github.io/jdmn/)
+* [Documentation](https://github.com/goldmansachs/jdmn/blob/master/docs/index.md)
 * [Getting started with jDMN](https://github.com/goldmansachs/jdmn/blob/master/docs/getting-started.md)
 * [FAQ](https://github.com/goldmansachs/jdmn/blob/master/docs/faq/index.md)
 * [Resources](https://github.com/goldmansachs/jdmn/blob/master/docs/resources.md)
