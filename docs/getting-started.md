@@ -1,5 +1,13 @@
 # Getting started with jDMN
 
+## Introduction:
+
+jDMN is an collection of processors for DMN implemented in Java:
+- interpreter
+- cross-transpilers to Java, Kotlin and Python
+
+More details are [here(https://github.com/goldmansachs/jdmn/blob/master/docs/jDMN.pdf)]
+
 ## Requirements:
 
 ### Java 8 or higher
