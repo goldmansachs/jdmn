@@ -13,15 +13,11 @@
 package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.DoubleMixedJavaTimeDMNDialectDefinition;
 import com.gs.dmn.dialect.PureJavaTimeDMNDialectDefinition;
 import com.gs.dmn.tck.ast.TestCases;
 
-import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
