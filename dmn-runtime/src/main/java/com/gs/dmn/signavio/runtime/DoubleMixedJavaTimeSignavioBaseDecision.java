@@ -25,6 +25,10 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.Map;
 
+/**
+ * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeSignavioBaseDecision}
+ */
+@Deprecated
 public class DoubleMixedJavaTimeSignavioBaseDecision extends DoubleMixedJavaTimeSignavioLib
         implements SignavioDecision<Double, LocalDate, OffsetTime, ZonedDateTime, Duration>,
         AnnotationTarget

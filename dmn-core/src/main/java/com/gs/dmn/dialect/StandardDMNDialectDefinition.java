@@ -35,6 +35,10 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
+/**
+ * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeDMNDialectDefinition}
+ */
+@Deprecated
 public class StandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     //
     // DMN Processors

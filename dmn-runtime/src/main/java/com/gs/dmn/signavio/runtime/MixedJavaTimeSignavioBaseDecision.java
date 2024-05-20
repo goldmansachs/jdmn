@@ -26,6 +26,10 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.Map;
 
+/**
+ * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeSignavioBaseDecision}
+ */
+@Deprecated
 public class MixedJavaTimeSignavioBaseDecision extends MixedJavaTimeSignavioLib
         implements SignavioDecision<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration>,
         AnnotationTarget

@@ -37,6 +37,10 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
+/**
+ * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeKotlinStandardDMNDialectDefinition}
+ */
+@Deprecated
 public class DoubleMixedJavaTimeKotlinStandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     //
     // DMN Processors
