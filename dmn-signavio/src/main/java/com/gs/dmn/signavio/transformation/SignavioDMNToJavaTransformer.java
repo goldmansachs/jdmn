@@ -62,8 +62,7 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     protected DMNModelRepository readModels(File file) {
         if (isDMNFile(file)) {
             TDefinitions result = this.dmnSerializer.readModel(file);
-            DMNModelRepository repository = new SignavioDMNModelRepository(result, this.schemaNamespace);
-            return repository;
+            return new SignavioDMNModelRepository(result, this.schemaNamespace);
         } else {
             throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
         }
@@ -90,7 +89,7 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             String modelVersion = this.inputParameters.getModelVersion();
             String platformVersion = this.inputParameters.getPlatformVersion();
             DMNMetadata manifest = dmnToManifestTransformer.toManifest(dmnNamespace, nativeNamespace, dmnVersion, modelVersion, platformVersion);
-            File resultFile = makeOutputFile(outputPath, filePath, jsonFileName, fileExtension);
+            File resultFile = this.templateProcessor.makeOutputFile(outputPath, filePath, jsonFileName, fileExtension);
             JsonSerializer.OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(resultFile, manifest);
         } catch (Exception e) {
             throw new DMNRuntimeException("Cannot process manifest file", e);

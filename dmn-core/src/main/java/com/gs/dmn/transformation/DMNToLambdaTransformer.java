@@ -25,19 +25,16 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import freemarker.template.*;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
-    private static final Version VERSION = new Version("2.3.23");
-
     public DMNToLambdaTransformer(
             DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition,
             DMNValidator dmnValidator,
@@ -90,7 +87,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             String javaPackageName = transformer.nativeModelPackageName(modelName);
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = ".java";
-            File outputFile = makeOutputFile(functionPath, relativeFilePath, outputFileName, fileExtension);
+            File outputFile = this.templateProcessor.makeOutputFile(functionPath, relativeFilePath, outputFileName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = new HashMap<>();
@@ -99,7 +96,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             params.put("javaPackageName", javaPackageName);
             params.put("javaClassName", outputFileName);
 
-            processTemplate(baseTemplatePath, templateName, params, outputFile);
+            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot generate from template '%s' for element '%s'", templateName, lambdaName), e);
         }
@@ -118,14 +115,14 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             String fileName = "pom";
             String fileExtension = ".xml";
             String relativeFilePath = "";
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, fileName, fileExtension);
+            File outputFile = this.templateProcessor.makeOutputFile(outputPath, relativeFilePath, fileName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = new HashMap<>();
             params.put("lambdaGroupId", "com.gs.dmn");
             params.put("lambdaArtifactId", lambdaFolderName);
 
-            processTemplate(baseTemplatePath, templateName, params, outputFile);
+            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot generate from template '%s' for element '%s'", templateName, lambdaFolderName), e);
         }
@@ -144,7 +141,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             String fileExtension = ".yaml";
             String relativeFilePath = "";
             Path outputPath = outputFolder.toPath();
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, fileName, fileExtension);
+            File outputFile = this.templateProcessor.makeOutputFile(outputPath, relativeFilePath, fileName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = new HashMap<>();
@@ -152,7 +149,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             params.put("stackName", stackName);
             params.put("functionResources", functionResources);
 
-            processTemplate(baseTemplatePath, templateName, params, outputFile);
+            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile);
         } catch (Exception e) {
             throw new RuntimeException(String.format("Cannot generate from template '%s' for '%s'", templateName, modelName), e);
         }
@@ -173,29 +170,6 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         return resources;
     }
 
-    protected void processTemplate(String baseTemplatePath, String templateName, Map<String, Object> params, File outputFile) throws IOException, TemplateException {
-        Configuration cfg = makeConfiguration(baseTemplatePath);
-        Template template = cfg.getTemplate("/" + templateName);
-
-        try (Writer fileWriter = new FileWriter(outputFile)) {
-            template.process(params, fileWriter);
-        }
-    }
-
-    private Configuration makeConfiguration(String basePackagePath) {
-        Configuration cfg = new Configuration(VERSION);
-
-        // Some recommended settings:
-        cfg.setIncompatibleImprovements(VERSION);
-        cfg.setDefaultEncoding("UTF-8");
-        cfg.setLocale(Locale.US);
-        cfg.setNumberFormat("#");
-        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-
-        // Where do we load the templates from:
-        cfg.setClassForTemplateLoading(this.getClass(), basePackagePath);
-        return cfg;
-    }
 
     protected String getAWSBaseTemplatePath() {
         return "/templates/aws";
