@@ -21,12 +21,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public abstract class AbstractFileTransformer implements FileTransformer {
-    protected final InputParameters inputParameters;
     protected final BuildLogger logger;
+    protected final InputParameters inputParameters;
 
-    protected AbstractFileTransformer(InputParameters inputParameters, BuildLogger logger) {
-        this.inputParameters = inputParameters;
+    protected AbstractFileTransformer(BuildLogger logger, InputParameters inputParameters) {
         this.logger = logger;
+        this.inputParameters = inputParameters;
     }
 
     @Override

@@ -20,6 +20,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.interpreter.SignavioFEELInterpreter;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.AbstractDMNInterpreter;
 import com.gs.dmn.runtime.interpreter.EvaluationContext;
@@ -44,7 +45,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
     public SignavioDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         super(dmnTransformer, feelLib);
         this.dmnModelRepository = (SignavioDMNModelRepository) this.getBasicDMNTransformer().getDMNModelRepository();
-        this.visitor = new SignavioInterpreterVisitor(this.errorHandler);
+        this.visitor = new SignavioInterpreterVisitor(this.logger, this.errorHandler);
         this.elInterpreter = new SignavioFEELInterpreter<>(this);
         this.typeChecker = new SignavioTypeChecker(dmnTransformer, this.getElInterpreter(), feelLib);
     }
@@ -60,8 +61,8 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
     }
 
     protected class SignavioInterpreterVisitor extends InterpreterVisitor {
-        public SignavioInterpreterVisitor(ErrorHandler errorHandler) {
-            super(errorHandler);
+        public SignavioInterpreterVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+            super(logger, errorHandler);
         }
 
         @Override

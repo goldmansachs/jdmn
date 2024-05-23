@@ -14,11 +14,14 @@ package com.gs.dmn.ast.visitor;
 
 import com.gs.dmn.ast.Visitor;
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.log.BuildLogger;
 
 public abstract class AbstractVisitor<C, R> implements Visitor<C, R> {
+    protected final BuildLogger logger;
     protected final ErrorHandler errorHandler;
 
-    public AbstractVisitor(ErrorHandler errorHandler) {
+    public AbstractVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        this.logger = logger;
         this.errorHandler = errorHandler;
     }
 }

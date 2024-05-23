@@ -15,12 +15,13 @@ package com.gs.dmn.ast.visitor;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.log.BuildLogger;
 
 import javax.xml.namespace.QName;
 
 public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
-    public TraversalVisitor(ErrorHandler errorHandler) {
-        super(errorHandler);
+    public TraversalVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     //

@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RuleDescriptionTransformerTest extends AbstractSignavioFileTransformerTest {
-    private final RuleDescriptionVisitor visitor = new RuleDescriptionVisitor(new NopErrorHandler(), new NopBuildLogger());
+    private final RuleDescriptionVisitor visitor = new RuleDescriptionVisitor(new NopBuildLogger(), new NopErrorHandler());
     private final RuleDescriptionTransformer transformer = new RuleDescriptionTransformer(LOGGER);
 
     @Test

@@ -15,10 +15,11 @@ package com.gs.dmn.ast.visitor;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.log.BuildLogger;
 
 public class NopVisitor<C, R> extends AbstractVisitor<C, R> {
-    public NopVisitor(ErrorHandler errorHandler) {
-        super(errorHandler);
+    public NopVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     @Override

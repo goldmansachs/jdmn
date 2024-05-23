@@ -27,7 +27,7 @@ import java.util.List;
 
 public class MixedItemDefinitionsTransformer extends SimpleDMNTransformer<TestCases> {
     private boolean transformRepository = true;
-    private final Visitor<?, Object> visitor = new MixedItemDefinitionsVisitor<>(new NopErrorHandler());
+    private final Visitor<?, Object> visitor = new MixedItemDefinitionsVisitor<>(this.logger, new NopErrorHandler());
 
     public MixedItemDefinitionsTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
@@ -69,8 +69,8 @@ public class MixedItemDefinitionsTransformer extends SimpleDMNTransformer<TestCa
 }
 
 class MixedItemDefinitionsVisitor<C> extends TraversalVisitor<C> {
-    public MixedItemDefinitionsVisitor(ErrorHandler errorHandler) {
-        super(errorHandler);
+    public MixedItemDefinitionsVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     @Override

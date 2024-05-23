@@ -34,8 +34,8 @@ public abstract class SimpleDMNValidator implements DMNValidator {
         }
     }
 
-    protected final ErrorHandler errorHandler = new LogErrorHandler(LOGGER);
     protected final BuildLogger logger;
+    protected final ErrorHandler errorHandler = new LogErrorHandler(LOGGER);
 
     protected SimpleDMNValidator() {
         this(new Slf4jBuildLogger(LOGGER));

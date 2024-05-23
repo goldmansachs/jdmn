@@ -13,7 +13,10 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.ast.*;
+import com.gs.dmn.ast.DMNBaseElement;
+import com.gs.dmn.ast.TDMNElement;
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
@@ -44,7 +47,7 @@ public class UniqueNameValidator extends SimpleDMNValidator {
         }
 
         ValidationContext context = new ValidationContext(repository);
-        UniqueNameValidatorVisitor visitor = new UniqueNameValidatorVisitor(this.errorHandler, this.logger);
+        UniqueNameValidatorVisitor visitor = new UniqueNameValidatorVisitor(this.logger, this.errorHandler);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             definitions.accept(visitor, context);
         }
@@ -54,11 +57,8 @@ public class UniqueNameValidator extends SimpleDMNValidator {
 }
 
 class UniqueNameValidatorVisitor extends TraversalVisitor<ValidationContext> {
-    private final BuildLogger logger;
-
-    public UniqueNameValidatorVisitor(ErrorHandler errorHandler, BuildLogger logger) {
-        super(errorHandler);
-        this.logger = logger;
+    public UniqueNameValidatorVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     @Override

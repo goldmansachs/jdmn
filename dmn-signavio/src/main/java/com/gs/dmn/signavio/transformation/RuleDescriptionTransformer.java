@@ -65,7 +65,7 @@ public class RuleDescriptionTransformer extends SimpleDMNTransformer<TestLab> {
 
     private DMNModelRepository cleanRuleDescription(DMNModelRepository repository, BuildLogger logger) {
         logger.debug("Clean rule descriptions ...");
-        RuleDescriptionVisitor dmnVisitor = new RuleDescriptionVisitor(this.errorHandler, this.logger);
+        RuleDescriptionVisitor dmnVisitor = new RuleDescriptionVisitor(this.logger, this.errorHandler);
         TransformationContext context = new TransformationContext(repository);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             definitions.accept(dmnVisitor, context);
@@ -87,11 +87,8 @@ class RuleDescriptionVisitor extends TraversalVisitor<TransformationContext> {
         PATTERNS.put("\u00A0", " ");
     }
 
-    private final BuildLogger logger;
-
-    public RuleDescriptionVisitor(ErrorHandler errorHandler, BuildLogger logger) {
-        super(errorHandler);
-        this.logger = logger;
+    public RuleDescriptionVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     @Override

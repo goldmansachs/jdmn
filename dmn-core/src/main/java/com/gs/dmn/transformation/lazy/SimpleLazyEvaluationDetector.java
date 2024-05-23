@@ -21,15 +21,15 @@ import org.slf4j.LoggerFactory;
 public abstract class SimpleLazyEvaluationDetector implements LazyEvaluationDetector {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SparseDecisionDetector.class);
 
-    protected final InputParameters inputParameters;
     protected final BuildLogger logger;
+    protected final InputParameters inputParameters;
 
     protected SimpleLazyEvaluationDetector() {
-        this(new InputParameters(), new Slf4jBuildLogger(LOGGER));
+        this(new Slf4jBuildLogger(LOGGER), new InputParameters());
     }
 
-    protected SimpleLazyEvaluationDetector(InputParameters inputParameters, BuildLogger logger) {
-        this.inputParameters = inputParameters;
+    protected SimpleLazyEvaluationDetector(BuildLogger logger, InputParameters inputParameters) {
         this.logger = logger;
+        this.inputParameters = inputParameters;
     }
 }

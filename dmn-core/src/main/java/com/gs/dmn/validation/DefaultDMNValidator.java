@@ -46,7 +46,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             return context.getErrors();
         }
 
-        DefaultDMNValidatorVisitor visitor = new DefaultDMNValidatorVisitor(this.errorHandler, this.logger, this);
+        DefaultDMNValidatorVisitor visitor = new DefaultDMNValidatorVisitor(this.logger, this.errorHandler, this);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             definitions.accept(visitor, context);
         }
@@ -349,12 +349,10 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
 }
 
 class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
-    private final BuildLogger logger;
     private final DefaultDMNValidator validator;
 
-    public DefaultDMNValidatorVisitor(ErrorHandler errorHandler, BuildLogger logger, DefaultDMNValidator validator) {
-        super(errorHandler);
-        this.logger = logger;
+    public DefaultDMNValidatorVisitor(BuildLogger logger, ErrorHandler errorHandler, DefaultDMNValidator validator) {
+        super(logger, errorHandler);
         this.validator = validator;
     }
 

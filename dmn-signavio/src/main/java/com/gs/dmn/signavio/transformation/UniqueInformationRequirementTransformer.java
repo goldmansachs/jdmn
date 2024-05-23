@@ -62,7 +62,7 @@ public class UniqueInformationRequirementTransformer extends SimpleDMNTransforme
     }
 
     private DMNModelRepository removeDuplicateInformationRequirements(DMNModelRepository repository) {
-        UniqueInformationRequirementVisitor dmnVisitor = new UniqueInformationRequirementVisitor(this.errorHandler, logger);
+        UniqueInformationRequirementVisitor dmnVisitor = new UniqueInformationRequirementVisitor(logger, this.errorHandler);
         TransformationContext context = new TransformationContext(repository);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             definitions.accept(dmnVisitor, context);
@@ -73,11 +73,8 @@ public class UniqueInformationRequirementTransformer extends SimpleDMNTransforme
 }
 
 class UniqueInformationRequirementVisitor extends TraversalVisitor<TransformationContext> {
-    private final BuildLogger logger;
-
-    public UniqueInformationRequirementVisitor(ErrorHandler errorHandler, BuildLogger logger) {
-        super(errorHandler);
-        this.logger = logger;
+    public UniqueInformationRequirementVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     @Override

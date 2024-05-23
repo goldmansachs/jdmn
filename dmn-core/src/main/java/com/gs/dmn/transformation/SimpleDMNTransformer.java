@@ -22,8 +22,8 @@ import org.slf4j.LoggerFactory;
 public abstract class SimpleDMNTransformer<T> implements DMNTransformer<T> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SimpleDMNTransformer.class);
 
-    protected final ErrorHandler errorHandler = new LogErrorHandler(LOGGER);
     protected final BuildLogger logger;
+    protected final ErrorHandler errorHandler = new LogErrorHandler(LOGGER);
     protected boolean transformRepository = true;
 
     public SimpleDMNTransformer() {

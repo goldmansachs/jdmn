@@ -64,7 +64,7 @@ public abstract class SweepValidator extends SimpleDMNValidator {
 
         ELTranslator<Type, DMNContext> feelTranslator = this.dmnDialectDefinition.createFEELTranslator(dmnModelRepository, this.inputParameters);
         SweepValidationContext context = new SweepValidationContext(dmnModelRepository, feelTranslator);
-        SweepValidatorVisitor visitor = new SweepValidatorVisitor(this.errorHandler, this.logger, this);
+        SweepValidatorVisitor visitor = new SweepValidatorVisitor(this.logger, this.errorHandler, this);
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             definitions.accept(visitor, context);
         }
@@ -89,12 +89,10 @@ public abstract class SweepValidator extends SimpleDMNValidator {
 }
 
 class SweepValidatorVisitor extends TraversalVisitor<SweepValidationContext> {
-    private final BuildLogger logger;
     private final SweepValidator validator;
 
-    public SweepValidatorVisitor(ErrorHandler errorHandler, BuildLogger logger, SweepValidator validator) {
-        super(errorHandler);
-        this.logger = logger;
+    public SweepValidatorVisitor(BuildLogger logger, ErrorHandler errorHandler, SweepValidator validator) {
+        super(logger, errorHandler);
         this.validator = validator;
     }
 

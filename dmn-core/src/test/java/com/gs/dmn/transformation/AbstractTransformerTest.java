@@ -79,7 +79,7 @@ public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
 class DefaultTransformer extends AbstractFileTransformer {
     public DefaultTransformer(InputParameters inputParameters, BuildLogger logger) {
-        super(inputParameters, logger);
+        super(logger, inputParameters);
     }
 
     @Override

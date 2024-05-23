@@ -51,7 +51,7 @@ public class NormalizeDateTimeLiteralsTransformer extends SimpleDMNTransformer<T
             return repository;
         }
 
-        NormalizeDateTimeLiteralsVisitor dmnVisitor = new NormalizeDateTimeLiteralsVisitor(this.errorHandler, this.logger);
+        NormalizeDateTimeLiteralsVisitor dmnVisitor = new NormalizeDateTimeLiteralsVisitor(this.logger, this.errorHandler);
         TransformationContext context = new TransformationContext(repository);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             definitions.accept(dmnVisitor, context);
@@ -79,11 +79,9 @@ public class NormalizeDateTimeLiteralsTransformer extends SimpleDMNTransformer<T
 
 class NormalizeDateTimeLiteralsVisitor extends TraversalVisitor<TransformationContext> {
     private final MixedJavaTimeFEELLib feelLib = new MixedJavaTimeFEELLib();
-    private final BuildLogger logger;
 
-    public NormalizeDateTimeLiteralsVisitor(ErrorHandler errorHandler, BuildLogger logger) {
-        super(errorHandler);
-        this.logger = logger;
+    public NormalizeDateTimeLiteralsVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     @Override
