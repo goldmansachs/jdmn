@@ -13,9 +13,7 @@
 package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
 import com.gs.dmn.runtime.ExecutionContext;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.cache.DefaultCache;
-import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
+import com.gs.dmn.runtime.ExecutionContextBuilder;
 import com.gs.dmn.runtime.listener.PostorderTraceEventListener;
 import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import org.junit.jupiter.api.Test;
@@ -35,7 +33,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
     @Test
     public void testListener() throws Exception {
         PostorderTraceEventListener listener = new PostorderTraceEventListener();
-        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        ExecutionContext context = ExecutionContextBuilder.executionContext().withEventListener(listener).build();
 
         String expectedResult = "27";
         String age = "16";
@@ -52,7 +50,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
     @Test
     public void testListenerWithFilter() throws Exception {
         PostorderTraceEventListener listener = new PostorderTraceEventListener(Arrays.asList("Extra days case 1", "Extra days case 2"));
-        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        ExecutionContext context = ExecutionContextBuilder.executionContext().withEventListener(listener).build();
 
         String expectedResult = "27";
         String age = "16";

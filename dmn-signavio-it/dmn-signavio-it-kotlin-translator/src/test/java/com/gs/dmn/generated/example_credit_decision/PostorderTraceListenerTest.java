@@ -16,9 +16,7 @@ import com.gs.dmn.generated.example_credit_decision.type.Applicant;
 import com.gs.dmn.generated.example_credit_decision.type.ApplicantImpl;
 import com.gs.dmn.runtime.Assert;
 import com.gs.dmn.runtime.ExecutionContext;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.cache.DefaultCache;
-import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
+import com.gs.dmn.runtime.ExecutionContextBuilder;
 import com.gs.dmn.runtime.listener.PostorderTraceEventListener;
 import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import org.junit.jupiter.api.Test;
@@ -68,7 +66,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
     }
 
     private List<?> applyDecision(Applicant toApplicant, BigDecimal currentRiskAppetite, BigDecimal lendingThreshold, PostorderTraceEventListener listener) {
-        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        ExecutionContext context = ExecutionContextBuilder.executionContext().withEventListener(listener).build();
 
         return decision.apply(toApplicant, currentRiskAppetite, lendingThreshold, context);
     }

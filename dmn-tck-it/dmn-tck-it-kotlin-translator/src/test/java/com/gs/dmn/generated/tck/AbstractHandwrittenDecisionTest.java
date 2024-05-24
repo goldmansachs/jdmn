@@ -13,23 +13,13 @@
 package com.gs.dmn.generated.tck;
 
 import com.gs.dmn.runtime.ExecutionContext;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.cache.Cache;
-import com.gs.dmn.runtime.cache.DefaultCache;
-import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
-import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
-import com.gs.dmn.runtime.listener.EventListener;
-import com.gs.dmn.runtime.listener.NopEventListener;
+import com.gs.dmn.runtime.ExecutionContextBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class AbstractHandwrittenDecisionTest {
-    protected AnnotationSet annotationSet;
-    protected EventListener eventListener;
-    protected ExternalFunctionExecutor externalFunctionExecutor;
-    protected Cache cache;
     protected ExecutionContext context;
 
     protected abstract void applyDecision();
@@ -44,10 +34,6 @@ public abstract class AbstractHandwrittenDecisionTest {
 
     @BeforeEach
     public void setUp() {
-        this.annotationSet = new AnnotationSet();
-        this.eventListener = new NopEventListener();
-        this.externalFunctionExecutor = new DefaultExternalFunctionExecutor();
-        this.cache = new DefaultCache();
-        this.context = new ExecutionContext(annotationSet, eventListener, externalFunctionExecutor, cache);
+        this.context = ExecutionContextBuilder.executionContext().build();
     }
 }

@@ -13,9 +13,7 @@
 package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
 import com.gs.dmn.runtime.ExecutionContext;
-import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.cache.DefaultCache;
-import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
+import com.gs.dmn.runtime.ExecutionContextBuilder;
 import com.gs.dmn.runtime.listener.TreeTraceEventListener;
 import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import org.junit.jupiter.api.Test;
@@ -34,7 +32,7 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
     @Test
     public void testTree() throws Exception {
         TreeTraceEventListener listener = new TreeTraceEventListener();
-        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        ExecutionContext context = ExecutionContextBuilder.executionContext().withEventListener(listener).build();
 
         String expectedResult = "27";
         String age = "16";
@@ -51,7 +49,7 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
     @Test
     public void testPreorder() throws Exception {
         TreeTraceEventListener listener = new TreeTraceEventListener();
-        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        ExecutionContext context = ExecutionContextBuilder.executionContext().withEventListener(listener).build();
 
         String expectedResult = "27";
         String age = "16";
@@ -68,7 +66,7 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
     @Test
     public void testPostorder() throws Exception {
         TreeTraceEventListener listener = new TreeTraceEventListener();
-        ExecutionContext context = new ExecutionContext(new AnnotationSet(), listener, new DefaultExternalFunctionExecutor(), new DefaultCache());
+        ExecutionContext context = ExecutionContextBuilder.executionContext().withEventListener(listener).build();
 
         String expectedResult = "27";
         String age = "16";

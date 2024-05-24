@@ -14,10 +14,8 @@ package com.gs.dmn.generated;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gs.dmn.runtime.ExecutionContext;
+import com.gs.dmn.runtime.ExecutionContextBuilder;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
-import com.gs.dmn.runtime.cache.DefaultCache;
-import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
-import com.gs.dmn.runtime.listener.NopEventListener;
 import com.gs.dmn.serialization.JsonSerializer;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -37,7 +35,7 @@ public abstract class AbstractHandwrittenDecisionTest {
 
     @BeforeEach
     public void setUp() {
-        this.annotationSet = new AnnotationSet();
-        this.context = new ExecutionContext(annotationSet, new NopEventListener(), new DefaultExternalFunctionExecutor(), new DefaultCache());
+        this.context = ExecutionContextBuilder.executionContext().build();
+        this.annotationSet = context.getAnnotations();
     }
 }
