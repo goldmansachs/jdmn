@@ -31,6 +31,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.*;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.runtime.function.DMNFunction;
@@ -59,6 +61,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     private final DMNModelRepository repository;
     private final EnvironmentFactory environmentFactory;
+
+    protected final BuildLogger logger;
     protected final ErrorHandler errorHandler;
 
     protected final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
@@ -69,12 +73,13 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     protected InterpreterVisitor visitor;
 
     public AbstractDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
+        this.logger = new Slf4jBuildLogger(LOGGER);
         this.errorHandler = new LogErrorHandler(LOGGER);
         this.dmnTransformer = dmnTransformer;
         this.repository = dmnTransformer.getDMNModelRepository();
         this.environmentFactory = dmnTransformer.getEnvironmentFactory();
         this.feelLib = feelLib;
-        this.visitor = new InterpreterVisitor(this.errorHandler);
+        this.visitor = new InterpreterVisitor(logger, this.errorHandler);
     }
 
     @Override
@@ -529,8 +534,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     protected class InterpreterVisitor extends NopVisitor<EvaluationContext, Result> implements ReferenceVisitor<DMNContext, Result> {
-        public InterpreterVisitor(ErrorHandler errorHandler) {
-            super(errorHandler);
+        public InterpreterVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+            super(logger, errorHandler);
         }
 
         @Override

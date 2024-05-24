@@ -10,18 +10,18 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.ast.visitor;
+package com.gs.dmn.transformation;
 
-import com.gs.dmn.ast.Visitor;
-import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.ast.TDefinitions;
 
-public abstract class AbstractVisitor<C, R> implements Visitor<C, R> {
-    protected final BuildLogger logger;
-    protected final ErrorHandler errorHandler;
+public class NativeVisitorContext {
+    public NativeVisitorContext(TDefinitions definitions) {
+        this.definitions = definitions;
+    }
 
-    public AbstractVisitor(BuildLogger logger, ErrorHandler errorHandler) {
-        this.logger = logger;
-        this.errorHandler = errorHandler;
+    private final TDefinitions definitions;
+
+    public TDefinitions getDefinitions() {
+        return definitions;
     }
 }

@@ -73,7 +73,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
         BasicDMNToJavaTransformer dmnTransformer = this.dmnDialectDefinition.createBasicTransformer(dmnModelRepository, new NopLazyEvaluationDetector(), this.inputParameters);
         List<Pair<TDRGElement, Type>> errorReport = new ArrayList<>();
         TypeRefValidationContext context = new TypeRefValidationContext(dmnModelRepository, dmnTransformer, errorReport);
-        TypeRefValidatorVisitor visitor = new TypeRefValidatorVisitor(this.errorHandler, this.logger);
+        TypeRefValidatorVisitor visitor = new TypeRefValidatorVisitor(this.logger, this.errorHandler);
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             definitions.accept(visitor, context);
         }
@@ -90,11 +90,9 @@ public class TypeRefValidator extends SimpleDMNValidator {
 }
 
 class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext> {
-    private final BuildLogger logger;
 
-    public TypeRefValidatorVisitor(ErrorHandler errorHandler, BuildLogger logger) {
-        super(errorHandler);
-        this.logger = logger;
+    public TypeRefValidatorVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     @Override

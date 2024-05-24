@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpecialVariableTransformer extends SimpleDMNTransformer<TestCases> {
-    private final Visitor<?, Object> visitor = new SpecialVariableTransformerVisitor<>(this.errorHandler);
+    private final Visitor<?, Object> visitor = new SpecialVariableTransformerVisitor<>(this.logger, this.errorHandler);
 
     public SpecialVariableTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
@@ -69,9 +69,8 @@ public class SpecialVariableTransformer extends SimpleDMNTransformer<TestCases> 
 }
 
 class SpecialVariableTransformerVisitor<C> extends TraversalVisitor<C> {
-
-    public SpecialVariableTransformerVisitor(ErrorHandler errorHandler) {
-        super(errorHandler);
+    public SpecialVariableTransformerVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     @Override

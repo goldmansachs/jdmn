@@ -15,6 +15,7 @@ package com.gs.dmn.ast.visitor;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.Visitor;
 import com.gs.dmn.error.NopErrorHandler;
+import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class NopVisitorTest {
     private final DMNMarshaller marshaller = DMNMarshallerFactory.newDefaultMarshaller();
-    private final Visitor<?, Object> visitor = new NopVisitor<>(new NopErrorHandler());
+    private final Visitor<?, Object> visitor = new NopVisitor<>(new NopBuildLogger(), new NopErrorHandler());
 
     @Test
     public void visit() throws Exception {

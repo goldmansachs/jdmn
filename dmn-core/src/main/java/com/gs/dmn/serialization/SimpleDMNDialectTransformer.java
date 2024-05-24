@@ -27,17 +27,18 @@ import java.util.Map;
 public abstract class SimpleDMNDialectTransformer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SimpleDMNDialectTransformer.class);
 
-    protected final ErrorHandler errorHandler = new LogErrorHandler(LOGGER);
     protected final BuildLogger logger;
+    protected final ErrorHandler errorHandler;
     protected final DMNVersion sourceVersion;
     protected final DMNVersion targetVersion;
     protected final DMNVersionTransformerVisitor visitor;
 
     public SimpleDMNDialectTransformer(BuildLogger logger, DMNVersion sourceVersion, DMNVersion targetVersion) {
         this.logger = logger;
+        this.errorHandler =  new LogErrorHandler(LOGGER);
         this.sourceVersion = sourceVersion;
         this.targetVersion = targetVersion;
-        this.visitor = new DMNVersionTransformerVisitor(this.errorHandler, sourceVersion, targetVersion);
+        this.visitor = new DMNVersionTransformerVisitor(logger, this.errorHandler, sourceVersion, targetVersion);
     }
 
     public TDefinitions transformDefinitions(TDefinitions sourceDefinitions) {
@@ -54,8 +55,8 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
     private final DMNVersion targetVersion;
     private TDefinitions definitions;
 
-    public DMNVersionTransformerVisitor(ErrorHandler errorHandler, DMNVersion sourceVersion, DMNVersion targetVersion) {
-        super(errorHandler);
+    public DMNVersionTransformerVisitor(BuildLogger logger, ErrorHandler errorHandler, DMNVersion sourceVersion, DMNVersion targetVersion) {
+        super(logger, errorHandler);
         this.sourceVersion = sourceVersion;
         this.targetVersion = targetVersion;
     }

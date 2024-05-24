@@ -91,7 +91,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     private final DMNSerializer dmnSerializer;
 
     public RDFToDMNTransformer(InputParameters inputParameters, BuildLogger logger) {
-        super(inputParameters, logger);
+        super(logger, inputParameters);
         this.dialectDefinition = new SignavioDMNDialectDefinition();
         this.dmnTransformer = this.dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), inputParameters);
         this.dmnSerializer = this.dialectDefinition.createDMNSerializer(logger, inputParameters);

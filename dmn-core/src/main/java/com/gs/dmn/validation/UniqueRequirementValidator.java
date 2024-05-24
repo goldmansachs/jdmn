@@ -42,7 +42,7 @@ public class UniqueRequirementValidator extends SimpleDMNValidator {
         }
 
         ValidationContext context = new ValidationContext(repository);
-        UniqueRequirementValidatorVisitor visitor = new UniqueRequirementValidatorVisitor(this.errorHandler, this.logger);
+        UniqueRequirementValidatorVisitor visitor = new UniqueRequirementValidatorVisitor(this.logger, this.errorHandler);
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             definitions.accept(visitor, context);
         }
@@ -52,11 +52,8 @@ public class UniqueRequirementValidator extends SimpleDMNValidator {
 }
 
 class UniqueRequirementValidatorVisitor extends TraversalVisitor<ValidationContext> {
-    private final BuildLogger logger;
-
-    public UniqueRequirementValidatorVisitor(ErrorHandler errorHandler, BuildLogger logger) {
-        super(errorHandler);
-        this.logger = logger;
+    public UniqueRequirementValidatorVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+        super(logger, errorHandler);
     }
 
     @Override

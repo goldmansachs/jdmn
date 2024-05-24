@@ -88,6 +88,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
             }
             testCasesList = dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testCasesList).getRight();
 
+            TemplateProvider templateProvider = templateProcessor.getTemplateProvider();
             for (TestCases testCases: testCasesList) {
                 String javaClassName = testClassName(testCases, basicTransformer);
                 processTemplate(testCases, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, outputPath, javaClassName);
@@ -96,7 +97,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
             generateExtra(basicTransformer, basicTransformer.getDMNModelRepository(), outputPath);
 
             watch.stop();
-            logger.info("TCK processing time: " + watch.toString());
+            logger.info("TCK processing time: " + watch);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Error during transforming %s.", file.getName()), e);
         }
@@ -111,16 +112,16 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
             String javaPackageName = dmnTransformer.nativeModelPackageName(testCases.getModelName());
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = getFileExtension();
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
+            File outputFile = this.templateProcessor.makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
 
             // Make parameters
-            Map<String, Object> params = makeTemplateParams(testCases, dmnTransformer);
+            Map<String, Object> params = makeTemplateParams(testCases);
             params.put("packageName", javaPackageName);
             params.put("testClassName", testClassName);
             params.put("decisionBaseClass", decisionBaseClass);
 
             // Process template
-            processTemplate(baseTemplatePath, templateName, params, outputFile, true);
+            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot process template '%s' for testCases of '%s'", templateName, testCases.getModelName()), e);
         }
@@ -139,7 +140,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         }
     }
 
-    private Map<String, Object> makeTemplateParams(TestCases testCases, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TestCases testCases) {
         Map<String, Object> params = new HashMap<>();
         params.put("testCases", testCases);
         params.put("tckUtil", tckUtil);

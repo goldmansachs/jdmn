@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class NormalizeDateTimeLiteralsTransformerTest extends AbstractSignavioFileTransformerTest {
-    private final NormalizeDateTimeLiteralsVisitor visitor = new NormalizeDateTimeLiteralsVisitor(new NopErrorHandler(), new NopBuildLogger());
+    private final NormalizeDateTimeLiteralsVisitor visitor = new NormalizeDateTimeLiteralsVisitor(new NopBuildLogger(), new NopErrorHandler());
     private final NormalizeDateTimeLiteralsTransformer transformer = new NormalizeDateTimeLiteralsTransformer(LOGGER);
 
     @Test

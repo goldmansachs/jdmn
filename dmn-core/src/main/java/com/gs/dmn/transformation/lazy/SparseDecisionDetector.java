@@ -26,7 +26,7 @@ public class SparseDecisionDetector extends SimpleLazyEvaluationDetector {
     }
 
     public SparseDecisionDetector(InputParameters inputParameters, BuildLogger logger) {
-        super(inputParameters, logger);
+        super(logger, inputParameters);
         this.sparsityThreshold = inputParameters.getSparsityThreshold();
     }
 

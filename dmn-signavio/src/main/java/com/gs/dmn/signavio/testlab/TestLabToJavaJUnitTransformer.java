@@ -111,7 +111,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
 
             for (TestLab testLab: testLabList) {
                 String javaClassName = testClassName(testLab, this.basicTransformer);
-                processTemplate(testLab, this.templateProvider.testBaseTemplatePath(), this.templateProvider.testTemplateName(), this.basicTransformer, outputPath, javaClassName);
+                transformTestLab(testLab, this.templateProcessor.getTemplateProvider().testBaseTemplatePath(), this.templateProcessor.getTemplateProvider().testTemplateName(), this.basicTransformer, outputPath, javaClassName);
             }
 
             watch.stop();
@@ -131,12 +131,12 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         }
     }
 
-    private void processTemplate(TestLab testLab, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String testClassName) {
+    private void transformTestLab(TestLab testLab, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String testClassName) {
         try {
             String javaPackageName = dmnTransformer.nativeModelPackageName(testLab.getModelName());
 
             // Make parameters
-            Map<String, Object> params = makeTemplateParams(testLab, dmnTransformer);
+            Map<String, Object> params = makeTemplateParams(testLab);
             params.put("packageName", javaPackageName);
             params.put("testClassName", testClassName);
             params.put("decisionBaseClass", this.decisionBaseClass);
@@ -144,10 +144,10 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             // Make output file
             String relativeFilePath = javaPackageName.replace('.', '/');
             String fileExtension = getFileExtension();
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
+            File outputFile = this.templateProcessor.makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
 
             // Process template
-            processTemplate(baseTemplatePath, templateName, params, outputFile, true);
+            this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile, true);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot process TestLab template '%s' for '%s'", templateName, testLab.getRootDecisionId()), e);
         }
@@ -169,7 +169,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         }
     }
 
-    private Map<String, Object> makeTemplateParams(TestLab testLab, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TestLab testLab) {
         Map<String, Object> params = new HashMap<>();
         params.put("testLab", testLab);
         params.put("testLabUtil", this.testLabUtil);
