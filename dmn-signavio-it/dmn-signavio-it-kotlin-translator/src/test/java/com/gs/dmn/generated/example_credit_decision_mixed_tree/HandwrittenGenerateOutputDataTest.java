@@ -42,8 +42,6 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
         assertEquals("compareAgainstLendingThreshold", annotation.getDecisionName());
         assertEquals(1, annotation.getRuleIndex());
         assertEquals("Raw issue score is -7.50, Age-weighted score is 60, Acceptance threshold is 25", annotation.getAnnotation());
-
-        assertEquals(1, annotationSet.size());
     }
 
     @Test

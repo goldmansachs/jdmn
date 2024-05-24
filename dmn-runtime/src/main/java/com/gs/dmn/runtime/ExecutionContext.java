@@ -30,6 +30,10 @@ public class ExecutionContext {
     private final ExternalFunctionExecutor externalFunctionExecutor;
     private final Cache cache;
 
+    /**
+     * @deprecated  As of release 8.4.0, replaced by {@link ExecutionContextBuilder}
+     */
+    @Deprecated
     public ExecutionContext() {
         this.annotations = new AnnotationSet();
         this.eventListener = new LoggingEventListener(LOGGER);
@@ -37,6 +41,10 @@ public class ExecutionContext {
         this.cache = new DefaultCache();
     }
 
+    /**
+     * @deprecated  As of release 8.4.0, replaced by {@link ExecutionContextBuilder}
+     */
+    @Deprecated
     public ExecutionContext(AnnotationSet annotations, EventListener eventListener, ExternalFunctionExecutor externalFunctionExecutor, Cache cache) {
         this.annotations = annotations;
         this.eventListener = eventListener;
