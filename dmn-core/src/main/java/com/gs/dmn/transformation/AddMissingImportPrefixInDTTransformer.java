@@ -115,6 +115,10 @@ public class AddMissingImportPrefixInDTTransformer extends SimpleDMNTransformer<
             for (TLiteralExpression exp: rule.getOutputEntry()) {
                 addMissingPrefix(exp, names);
             }
+            // Annotation
+            for (TRuleAnnotation annotation: rule.getAnnotationEntry()) {
+                addMissingPrefix(annotation, names);
+            }
         }
     }
 
@@ -129,6 +133,13 @@ public class AddMissingImportPrefixInDTTransformer extends SimpleDMNTransformer<
         if (test != null) {
             String newText = addMissingPrefix(test.getText(), names);
             test.setText(newText);
+        }
+    }
+
+    private void addMissingPrefix(TRuleAnnotation annotation, Set<String> names) {
+        if (annotation != null) {
+            String newText = addMissingPrefix(annotation.getText(), names);
+            annotation.setText(newText);
         }
     }
 

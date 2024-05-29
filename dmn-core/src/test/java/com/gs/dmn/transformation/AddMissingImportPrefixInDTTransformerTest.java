@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.runtime.Pair;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +27,79 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AddMissingImportPrefixInDTTransformerTest {
     private final AddMissingImportPrefixInDTTransformer transformer = new AddMissingImportPrefixInDTTransformer();
     private final Set<String> names = new LinkedHashSet<>(Arrays.asList("ident1", "ident2"));
+
+    @Test
+    public void testModel() {
+        String literalExpressionText = "person.age";
+        String unaryTestsText = "> person.age";
+        String annotationText = "\"rule triggered\" + person.age";
+
+        ObjectFactory objectFactory = new ObjectFactory();
+        TDefinitions definitions = objectFactory.createTDefinitions();
+
+        // Create input
+        TInputData inputData = objectFactory.createTInputData();
+        inputData.setName("person");
+        inputData.setId("person");
+        definitions.getDrgElement().add(inputData);
+
+        // Create child decision
+        TDecision child = objectFactory.createTDecision();
+        child.setName("child");
+        child.setId("child");
+        definitions.getDrgElement().add(child);
+
+        // Create decision
+        TDecision decision = objectFactory.createTDecision();
+        decision.setName("decision");
+        decision.setId("decision");
+        // Create IRs
+        TInformationRequirement inputDataRequirement = objectFactory.createTInformationRequirement();
+        TDMNElementReference inputDataReference = objectFactory.createTDMNElementReference();
+        inputDataReference.setHref("#person");
+        inputDataRequirement.setRequiredInput(inputDataReference);
+        decision.getInformationRequirement().add(inputDataRequirement);
+        TInformationRequirement childRequirement = objectFactory.createTInformationRequirement();
+        TDMNElementReference decisionReference = objectFactory.createTDMNElementReference();
+        decisionReference.setHref("#child");
+        childRequirement.setRequiredDecision(decisionReference);
+        decision.getInformationRequirement().add(childRequirement);
+        // Create decision table
+        TDecisionTable decisionTable = objectFactory.createTDecisionTable();
+        // Create input clause
+        TInputClause inputClause = objectFactory.createTInputClause();
+        TLiteralExpression inputExpression = objectFactory.createTLiteralExpression();
+        inputExpression.setText(literalExpressionText);
+        inputClause.setInputExpression(inputExpression);
+        decisionTable.getInput().add(inputClause);
+        // Create output clause
+        TOutputClause outputClause = objectFactory.createTOutputClause();
+        TUnaryTests outputClauseTest = objectFactory.createTUnaryTests();
+        outputClauseTest.setText(unaryTestsText);
+        outputClause.setOutputValues(outputClauseTest);
+        decisionTable.getOutput().add(outputClause);
+        // Create rule
+        TDecisionRule rule = objectFactory.createTDecisionRule();
+        TUnaryTests inputEntryTests = objectFactory.createTUnaryTests();
+        rule.getInputEntry().add(inputEntryTests);
+        TLiteralExpression ruleOutputExpression = objectFactory.createTLiteralExpression();
+        ruleOutputExpression.setText(literalExpressionText);
+        rule.getOutputEntry().add(ruleOutputExpression);
+        TRuleAnnotation ruleAnnotation = objectFactory.createTRuleAnnotation();
+        ruleAnnotation.setText(annotationText);
+        rule.getAnnotationEntry().add(ruleAnnotation);
+        decisionTable.getRule().add(rule);
+        decision.setExpression(decisionTable);
+        definitions.getDrgElement().add(decision);
+
+        transformer.transform(new DMNModelRepository(definitions));
+
+        // Check replacements in
+        assertEquals("person.person . age", inputClause.getInputExpression().getText());
+        assertEquals("> person.person . age", outputClause.getOutputValues().getText());
+        assertEquals("person.person . age", rule.getOutputEntry().get(0).getText());
+        assertEquals("\"rule triggered\" + person.person . age", rule.getAnnotationEntry().get(0).getText());
+    }
 
     @Test
     public void testAddMissingPrefix() {
@@ -49,5 +124,4 @@ public class AddMissingImportPrefixInDTTransformerTest {
             assertEquals(pair.getRight(), newText);
         }
     }
-
 }
