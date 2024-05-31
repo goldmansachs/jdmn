@@ -44,7 +44,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
@@ -91,7 +90,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             for (Type child : ((TupleType) type).getTypes()) {
                 if (child == BooleanType.BOOLEAN || child instanceof RangeType) {
                 } else {
-                    throw new SemanticError(element, String.format("Operator '%s' cannot be applied to '%s'", "not", child));
+                    handleError(context, element, String.format("Operator '%s' cannot be applied to '%s'", "not", child));
+                    return null;
                 }
             }
         }
@@ -155,7 +155,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         Expression<Type> start = element.getStart();
         Expression<Type> end = element.getEnd();
         if (start == null && end == null) {
-            throw new DMNRuntimeException(String.format("Illegal range, both endpoints are null in context of element '%s'", context.getElementName()));
+            handleError(String.format("Illegal range, both endpoints are null in context of element '%s'", context.getElementName()));
+            return null;
         }
 
         // Visit children
@@ -213,7 +214,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(inputExpressionType, optimizedListElementType)) {
                 // input conforms to element in the list
             } else {
-                throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                handleError(context, element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                return null;
             }
         } else {
             // test is list of ranges compatible with input
@@ -373,10 +375,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         Type thenType = thenExpression.getType();
         Type elseType = elseExpression.getType();
         if (conditionType != BOOLEAN) {
-            throw new SemanticError(element, String.format("Condition type must be boolean. Found '%s' instead.", conditionType));
-        }
-        if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType) && com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
-            throw new SemanticError(element, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));
+            handleError(context, element, String.format("Condition type must be boolean. Found '%s' instead.", conditionType));
+            return null;
+        } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType) && com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
+            handleError(context, element, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));
+            return null;
         } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType)) {
             element.setType(elseType);
         } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
@@ -387,7 +390,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(elseType, thenType)) {
                 element.setType(thenType);
             } else {
-                throw new SemanticError(element, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));
+                handleError(context, element, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));
+                return null;
             }
         }
 
@@ -431,7 +435,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             } else if (filterType == BOOLEAN) {
                 element.setType(sourceType);
             } else {
-                throw new SemanticError(element, String.format("Cannot resolve type for '%s'", element));
+                handleError(context, element, String.format("Cannot resolve type for '%s'", element));
             }
         } else {
             if (filterType == NUMBER) {
@@ -439,7 +443,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             } else if (filterType == BOOLEAN) {
                 element.setType(new ListType(sourceType));
             } else {
-                throw new SemanticError(element, String.format("Cannot resolve type for '%s'", element));
+                handleError(context, element, String.format("Cannot resolve type for '%s'", element));
             }
         }
 
@@ -633,7 +637,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         Type type = element.getLeftOperand().getType();
         element.setType(NUMBER);
         if (type != NUMBER) {
-            throw new SemanticError(element, String.format("Operator '%s' cannot be applied to '%s'", element.getOperator(), type));
+            handleError(context, element, String.format("Operator '%s' cannot be applied to '%s'", element.getOperator(), type));
         }
 
         // Derive type
@@ -727,7 +731,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             lambdaExpression.accept(this, context);
         }
         if (!success) {
-            throw new SemanticError(element, String.format("Cannot infer parameter type for lambda in sort call '%s'", element));
+            handleError(context, element, String.format("Cannot infer parameter type for lambda in sort call '%s'", element));
         }
     }
 
@@ -821,10 +825,12 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             } else if (element.isDaysAndTimeDuration(element.getLexeme())) {
                 element.setType(DurationType.DAYS_AND_TIME_DURATION);
             } else {
-                throw new SemanticError(element, String.format("Date time literal '%s(%s) is not supported", conversionFunction, element.getLexeme()));
+                handleError(context, element, String.format("Date time literal '%s(%s) is not supported", conversionFunction, element.getLexeme()));
+                return null;
             }
         } else {
-            throw new SemanticError(element, String.format("Date time literal '%s(%s)' is not supported", conversionFunction, element.getLexeme()));
+            handleError(context, element, String.format("Date time literal '%s(%s)' is not supported", conversionFunction, element.getLexeme()));
+            return null;
         }
 
         return element;
@@ -905,7 +911,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         // Derive type
         List<String> names = element.getNames();
         if (names ==  null || names.isEmpty()) {
-            throw new SemanticError(element, "Illegal qualified name.");
+            handleError(context, element, "Illegal qualified name.");
+            return null;
         } else if (names.size() == 1) {
             deriveType(element, context);
             return element;
@@ -1022,13 +1029,13 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             it.accept(visitor, qContext);
             String itName = it.getName();
             Type domainType = it.getDomain().getType();
-            Type itType;
+            Type itType = null;
             if (domainType instanceof ListType) {
                 itType = ((ListType) domainType).getElementType();
             } else if (domainType instanceof RangeType) {
                 itType = ((RangeType) domainType).getRangeType();
             } else {
-                throw new SemanticError(element, String.format("Cannot resolve iterator type for '%s'", domainType));
+                handleError(context, element, String.format("Cannot resolve iterator type for '%s'", domainType));
             }
             qContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(itName, itType));
         });
@@ -1041,10 +1048,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             if (resultType != null) {
                 element.setType(resultType);
             } else {
-                throw new SemanticError(element, String.format("Operator '%s' cannot be applied to '%s', '%s'", operator, leftOperandType, rightOperandType));
+                handleError(context, element, String.format("Operator '%s' cannot be applied to '%s', '%s'", operator, leftOperandType, rightOperandType));
             }
         } catch (Exception e) {
-            throw new SemanticError(element, String.format("Operator '%s' cannot be applied to '%s', '%s' in element '%s'", operator, leftOperandType, rightOperandType, context.getElementName()), e);
+            handleError(context, element, String.format("Operator '%s' cannot be applied to '%s', '%s'", operator, leftOperandType, rightOperandType), e);
         }
     }
 

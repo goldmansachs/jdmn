@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics;
 
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
@@ -20,11 +21,24 @@ public class SemanticError extends RuntimeException {
         super(errorMessage);
     }
 
-    public SemanticError(Expression<Type> expression, String errorMessage) {
-        super(String.format("'%s': %s", expression.getClass().getSimpleName(), errorMessage));
+    public SemanticError(DMNContext context, Expression<Type> expression, String errorMessage) {
+        super(String.format("'%s': %s", makeLocation(context, expression), errorMessage));
     }
 
-    public SemanticError(Expression<Type> expression, String errorMessage, Exception e) {
-        super(String.format("'%s': %s", expression.getClass().getSimpleName(), errorMessage), e);
+    public SemanticError(DMNContext context, Expression<Type> expression, String errorMessage, Exception e) {
+        super(String.format("'%s': %s", makeLocation(context, expression), errorMessage), e);
+    }
+
+    private static String makeLocation(DMNContext context, Expression<Type> expression) {
+        String location = null;
+        if (context != null && context.getElement() != null) {
+            location = context.getElementName();
+        }
+        if (location == null) {
+            location = expression.getClass().getSimpleName();
+        } else {
+            location += ":" + expression.getClass().getSimpleName();
+        }
+        return location;
     }
 }

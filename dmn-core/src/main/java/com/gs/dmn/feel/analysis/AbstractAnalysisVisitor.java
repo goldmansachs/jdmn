@@ -13,8 +13,12 @@
 package com.gs.dmn.feel.analysis;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.visitor.AbstractVisitor;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -53,5 +57,17 @@ public abstract class AbstractAnalysisVisitor<T, C, R> extends AbstractVisitor<T
 
     public BasicDMNToNativeTransformer<T, C> getDmnTransformer() {
         return dmnTransformer;
+    }
+
+    protected void handleError(String message) {
+        throw new SemanticError(message);
+    }
+
+    protected void handleError(DMNContext context, Expression<Type> element, String message) {
+        throw new SemanticError(context, element, message);
+    }
+
+    protected void handleError(DMNContext context, Expression<Type> element, String message, Exception e) {
+        throw new SemanticError(context, element, message, e);
     }
 }

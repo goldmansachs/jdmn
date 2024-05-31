@@ -23,7 +23,6 @@ import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.OperatorDecisionTable;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
@@ -46,7 +45,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
@@ -166,7 +164,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
                 String args = String.format("%s, %s", javaList, inputExpressionToJava(context));
                 return this.nativeFactory.makeBuiltinFunctionInvocation("listContains", args);
             } else {
-                throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                handleError(context, element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                return null;
             }
         } else {
             // test is list of ranges compatible with input
@@ -186,7 +185,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
             String body = (String)element.getBody().accept(this, context);
             return this.dmnTransformer.functionDefinitionToNative((TDRGElement) context.getElement(), element, false, body);
         } else {
-            throw new DMNRuntimeException("Dynamic typing for FEEL functions not supported yet");
+            handleError(context, element, "Dynamic typing for FEEL functions not supported yet");
+            return null;
         }
     }
 
@@ -497,7 +497,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
         String source = (String) sourceExpression.accept(this, context);
         String member = element.getMember();
 
-        return makeNavigation(element, sourceType, source, member, nativeFriendlyVariableName(member));
+        return makeNavigation(element, sourceType, source, member, nativeFriendlyVariableName(member), context);
     }
 
     @Override
@@ -544,7 +544,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
             String argumentsText = argList.stream().map(Object::toString).collect(Collectors.joining(", "));
             return this.nativeFactory.makeApplyInvocation(javaFunctionCode, argumentsText);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported function type '%s' in '%s'", functionType, context.getElementName()));
+            handleError(context, element, String.format("Not supported function type '%s' in '%s'", functionType, context.getElementName()));
+            return null;
         }
     }
 
@@ -672,7 +673,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
 
     private String inputExpressionToJava(DMNContext context) {
         if (context.isExpressionContext()) {
-            throw new DMNRuntimeException(String.format("Missing inputExpression in context of element '%s'", context.getElementName()));
+            handleError(context, null, String.format("Missing inputExpression in context of element '%s'", context.getElementName()));
+            return null;
         } else {
             // Evaluate as test
             Expression<Type> inputExpression = (Expression) context.getInputExpression();
@@ -705,12 +707,13 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
         throw new UnsupportedOperationException("FEEL '" + (element == null ? null : element.getClass().getSimpleName()) + "' is not supported in this context");
     }
 
-    protected String makeNavigation(Expression<Type> element, Type sourceType, String source, String memberName, String memberVariableName) {
+    protected String makeNavigation(Expression<Type> element, Type sourceType, String source, String memberName, String memberVariableName, DMNContext context) {
         if (sourceType instanceof ImportContextType) {
             ImportContextType importContextType = (ImportContextType) sourceType;
             DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
             if (memberReference == null) {
-                throw new DMNRuntimeException(String.format("Cannot find reference for '%s'", memberName));
+                handleError(context, element, String.format("Cannot find reference for '%s'", memberName));
+                return null;
             }
             TDRGElement drgElement = memberReference.getElement();
             if (drgElement instanceof TBusinessKnowledgeModel) {
@@ -728,7 +731,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
             String javaType = this.dmnTransformer.toNativeType(memberType);
             return this.nativeFactory.makeContextAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ListType) {
-            String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName);
+            String filter = makeNavigation(element, ((ListType) sourceType).getElementType(), "x", memberName, memberVariableName, context);
             return this.nativeFactory.makeCollectionMap(source, filter);
         } else if (sourceType instanceof DateType) {
             return this.nativeFactory.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);
@@ -744,7 +747,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
             // source is Context
             return this.nativeFactory.makeContextSelectExpression(this.dmnTransformer.contextClassName(), source, memberName);
         } else {
-            throw new SemanticError(element, String.format("Cannot generate navigation path '%s'", element));
+            handleError(context, element, String.format("Cannot generate navigation path '%s'", element));
+            return null;
         }
     }
 
@@ -757,7 +761,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
 
     protected String makeCondition(String feelOperator, String leftOpd, String rightOpd, NativeOperator javaOperator) {
         if (javaOperator == null) {
-            throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
+            handleError(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
+            return null;
         } else {
             if (javaOperator.getCardinality() == 2) {
                 if (javaOperator.getNotation() == NativeOperator.Notation.FUNCTIONAL) {
@@ -774,7 +779,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
                     }
                 }
             } else {
-                throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
+                handleError(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
+                return null;
             }
         }
     }
@@ -784,7 +790,8 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
         if (javaOperator != null) {
             return javaOperator.getName();
         } else {
-            throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperatorName, leftOperand, rightOperand));
+            handleError(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperatorName, leftOperand, rightOperand));
+            return null;
         }
     }
 

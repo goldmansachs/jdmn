@@ -13,8 +13,8 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.*;
@@ -29,12 +29,12 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
     public static final FunctionType ANY_FUNCTION = new FunctionType(Arrays.asList(), ANY) {
         @Override
         public boolean equivalentTo(Type other) {
-            return false;
+            return this == other;
         }
 
         @Override
         public boolean conformsTo(Type other) {
-            return false;
+            return equivalentTo(other);
         }
 
         @Override
@@ -114,66 +114,72 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
         ConversionKind[] candidateConversions = FUNCTION_RESOLUTION_CANDIDATES;
         int conversionSize = candidateConversions.length;
 
-        // For every sequence of conversions, not including the exact match
+        // For every sequence of conversions
         int[] conversionMap = init(argumentSize);
+        // Skip the exact match
         conversionMap = next(conversionMap, argumentSize, conversionSize);
         while (conversionMap != null) {
             // Calculate new types and conversions for every argument
             List<Type> newTypes = new ArrayList<>();
             PositionalParameterConversions<Type> conversions = new PositionalParameterConversions<>();
             boolean different = false;
+            boolean succsefulCandidate = true;
             for (int i = 0; i < argumentSize; i++) {
                 // Compute new type and conversion
                 ConversionKind kind = candidateConversions[conversionMap[i]];
                 Type argumentType = argumentTypes.get(i);
-                Type newType = argumentType;
-                Conversion<Type> conversion = new Conversion<>(NONE, newType);
+                Type newArgumentType = argumentType;
+                Conversion<Type> conversion = new Conversion<>(NONE, newArgumentType);
                 if (i < parameterTypes.size()) {
                     Type parameterType = parameterTypes.get(i);
-                    if (!com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(argumentType, parameterType)) {
-                        if (kind == NONE) {
-                            // No conversion
-                        } else if (kind == ELEMENT_TO_SINGLETON_LIST) {
-                            // When the type of the expression is T and the target type is List<T> the expression is converted to a singleton list.
-                            if (parameterType instanceof ListType) {
-                                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(argumentType, ((ListType) parameterType).getElementType())) {
-                                    newType = new ListType(argumentType);
-                                    conversion = new Conversion<>(kind, newType);
-
-                                    different = true;
-                                }
+                    if (kind == NONE) {
+                        // No conversion
+                    } else if (kind == ELEMENT_TO_SINGLETON_LIST) {
+                        // When the type of the expression is T and the target type is List<T> the expression is converted to a singleton list.
+                        if (parameterType instanceof ListType) {
+                            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(argumentType, ((ListType) parameterType).getElementType())) {
+                                newArgumentType = new ListType(argumentType);
+                                conversion = new Conversion<>(kind, newArgumentType);
+                                different = true;
                             }
-                        } else if (kind == SINGLETON_LIST_TO_ELEMENT) {
-                            // When the type of the expression is List<T>, the value of the expression is a singleton list and the target type is T,
-                            // the expression is converted by unwraping the first element.
-                            if (argumentType instanceof ListType) {
-                                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(parameterType, ((ListType) argumentType).getElementType())) {
-                                    newType = ((ListType) argumentType).getElementType();
-                                    conversion = new Conversion<>(kind, newType);
-
-                                    different = true;
-                                }
-                            }
-                        } else if (kind == DATE_TO_UTC_MIDNIGHT) {
-                            // When the type of the expression is date, the value of the expression is a date and the target type is date and time,
-                            // the expression is converted to UTC midnight data and time.
-                            if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(argumentType, DATE) && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(parameterType, DATE_AND_TIME)) {
-                                newType = DATE_AND_TIME;
-                                conversion = new Conversion<>(kind, newType);
+                        }
+                    } else if (kind == SINGLETON_LIST_TO_ELEMENT) {
+                        // When the type of the expression is List<T>, the value of the expression is a singleton list and the target type is T,
+                        // the expression is converted by unwraping the first element.
+                        if (argumentType instanceof ListType) {
+                            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(parameterType, ((ListType) argumentType).getElementType())) {
+                                newArgumentType = ((ListType) argumentType).getElementType();
+                                conversion = new Conversion<>(kind, newArgumentType);
 
                                 different = true;
                             }
-                        } else {
-                            throw new DMNRuntimeException(String.format("Conversion '%s' is not supported yet", kind));
                         }
+                    } else if (kind == DATE_TO_UTC_MIDNIGHT) {
+                        // When the type of the expression is date, the value of the expression is a date and the target type is date and time,
+                        // the expression is converted to UTC midnight data and time.
+                        if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(argumentType, DATE) && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(parameterType, DATE_AND_TIME)) {
+                            newArgumentType = DATE_AND_TIME;
+                            conversion = new Conversion<>(kind, newArgumentType);
+
+                            different = true;
+                        }
+                    } else {
+                        throw new SemanticError(String.format("Conversion '%s' is not supported yet", kind));
                     }
-                    newTypes.add(newType);
-                    conversions.add(conversion);
+                    // Check if new argument type matches
+                    boolean newArgumentTypeOk = Type.conformsTo(newArgumentType, parameterType);
+                    if (!newArgumentTypeOk) {
+                        succsefulCandidate = false;
+                        break;
+                    } else {
+                        newTypes.add(newArgumentType);
+                        conversions.add(conversion);
+                    }
                 }
             }
 
             // Add new candidate
-            if (different) {
+            if (different && succsefulCandidate) {
                 PositionalParameterTypes<Type> newSignature = new PositionalParameterTypes<>(newTypes);
                 candidates.add(new Pair<>(newSignature, conversions));
             }
