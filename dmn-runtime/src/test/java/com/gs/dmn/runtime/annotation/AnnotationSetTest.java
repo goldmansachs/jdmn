@@ -18,6 +18,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AnnotationSetTest {
     @Test
+    public void testThreshold() {
+        AnnotationSet set = new AnnotationSet(2);
+        set.addAnnotation("Name", 0, "text1");
+        set.addAnnotation("Name", 0, "text2");
+
+        assertEquals(2, set.size());
+
+        set.addAnnotation("Name", 0, "text3");
+
+        assertEquals(3, set.size());
+        assertEquals("text1", set.get(0).getAnnotation());
+        assertEquals("text2", set.get(1).getAnnotation());
+        assertEquals("Too many annotations, maximum number is 2", set.get(2).getAnnotation());
+    }
+
+    @Test
     public void testIsSet() {
         AnnotationSet set = new AnnotationSet();
         set.addAnnotation("Name", 0, "text");

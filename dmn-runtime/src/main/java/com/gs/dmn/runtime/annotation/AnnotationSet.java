@@ -20,6 +20,16 @@ import java.util.List;
 import java.util.Set;
 
 public class AnnotationSet extends LinkedList<Annotation> {
+    private final int maxAnnotations;
+
+    public AnnotationSet() {
+        this(200);
+    }
+
+    public AnnotationSet(int maxAnnotations) {
+        this.maxAnnotations = maxAnnotations;
+    }
+
     public void addAnnotation(String decisionName, int ruleIndex, List<String> annotationList) {
         if (annotationList != null && !annotationList.isEmpty()) {
             String annotation = String.join(" ", annotationList);
@@ -30,8 +40,13 @@ public class AnnotationSet extends LinkedList<Annotation> {
     public void addAnnotation(String decisionName, int ruleIndex, String annotation) {
         if (!StringUtils.isBlank(annotation)) {
             // Rules index starts from 0
-            Annotation element = new Annotation(decisionName, ruleIndex + 1, annotation);
-            this.add(element);
+            if (size() < maxAnnotations) {
+                Annotation element = new Annotation(decisionName, ruleIndex + 1, annotation);
+                this.add(element);
+            } else if (size() == maxAnnotations) {
+                Annotation element = new Annotation(decisionName, ruleIndex + 1, String.format("Too many annotations, maximum number is %s", maxAnnotations));
+                this.add(element);
+            }
         }
     }
 
