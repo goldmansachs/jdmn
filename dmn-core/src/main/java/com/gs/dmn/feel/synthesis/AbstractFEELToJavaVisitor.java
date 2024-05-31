@@ -20,7 +20,6 @@ import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.function.BuiltinFunction;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
@@ -113,7 +112,8 @@ public abstract class AbstractFEELToJavaVisitor<R> extends AbstractAnalysisVisit
             List<Declaration> declarations = ((BuiltinFunction) function).getDeclarations();
             return declarations.get(0).getName();
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find name of builtin function '%s'", function));
+            handleError(String.format("Cannot find name of builtin function '%s'", function));
+            return null;
         }
     }
 }

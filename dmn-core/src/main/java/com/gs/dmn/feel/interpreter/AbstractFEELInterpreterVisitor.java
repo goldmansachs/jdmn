@@ -23,7 +23,6 @@ import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.OperatorDecisionTable;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
@@ -321,7 +320,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                     List list = (List) optimizedListLiteral.accept(this, context);
                     result = this.lib.listContains(list, self);
                 } else {
-                    throw new SemanticError(element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                    handleError(context, element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                    return null;
                 }
             } else {
                 // test is list of ranges compatible with input
@@ -636,7 +636,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             } else if (leftEndpoint.getType() == DurationType.DAYS_AND_TIME_DURATION) {
                 return this.lib.booleanAnd(this.lib.durationLessEqualThan((DURATION) leftOpd, (DURATION) value), this.lib.durationLessEqualThan((DURATION) value, (DURATION) rightOpd));
             } else{
-                throw new DMNRuntimeException(String.format("Type '%s' is not supported yet", leftEndpoint.getType()));
+                handleError(context, element, String.format("Type '%s' is not supported yet", leftEndpoint.getType()));
+                return null;
             }
         } catch (Exception e) {
             this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
@@ -742,7 +743,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     Object evaluateFunctionInvocation(Object functionDefinition, FunctionType functionType, List<Object> argList) {
         if (functionType instanceof DMNFunctionType || functionType instanceof FEELFunctionType) {
             if (functionDefinition == null) {
-                throw new DMNRuntimeException(String.format("Missing function definition, expecting value of type for '%s'", functionType));
+                handleError(String.format("Missing function definition, expecting value of type for '%s'", functionType));
+                return null;
             } if (functionDefinition instanceof DMNInvocable) {
                 return evaluateInvocableDefinition((DMNInvocable) functionDefinition, argList);
             } else if (functionDefinition instanceof DMNFunction) {
@@ -752,7 +754,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             } else if (functionDefinition instanceof BuiltinFunction) {
                 return evaluateBuiltInFunction((BuiltinFunction) functionDefinition, argList);
             } else {
-                throw new DMNRuntimeException(String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName()));
+                handleError(String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName()));
+                return null;
             }
         } else if (functionType instanceof BuiltinFunctionType) {
             String functionName = functionName(functionDefinition);
@@ -761,20 +764,22 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 Object secondArg = argList.get(1);
                 if (secondArg instanceof Function) {
                     Function sortFunction = (Function) secondArg;
-                    List result = ((StandardFEELLib) lib).sort((List) argList.get(0), makeComparator(sortFunction));
+                    List result = ((StandardFEELLib) lib).sort((List) argList.get(0), makeLambdaExpression(sortFunction));
                     return result;
                 } else {
-                    throw new DMNRuntimeException(String.format("'%s' is not supported yet", secondArg.getClass()));
+                    handleError(String.format("'%s' is not supported yet", secondArg.getClass()));
+                    return null;
                 }
             } else {
                 return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
             }
         } else {
-            throw new DMNRuntimeException(String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName()));
+            handleError(String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName()));
+            return null;
         }
     }
 
-    private LambdaExpression<Boolean> makeComparator(Function sortFunction) {
+    private LambdaExpression<Boolean> makeLambdaExpression(Function sortFunction) {
         return new LambdaExpression<Boolean>() {
             @Override
             public Boolean apply(Object... args) {
@@ -788,7 +793,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 } else if (sortFunction instanceof DMNInvocable) {
                     return (Boolean) evaluateInvocableDefinition((DMNInvocable) sortFunction, argList);
                 } else {
-                    throw new DMNRuntimeException(String.format("Not supported yet '%s'", sortFunction.getClass()));
+                    handleError(String.format("Not supported yet '%s'", sortFunction.getClass()));
+                    return null;
                 }
             }
         };
