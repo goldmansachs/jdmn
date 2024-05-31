@@ -69,7 +69,8 @@ public class DMNFunctionType extends FunctionType implements com.gs.dmn.el.analy
     @Override
     public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
-        return other instanceof FunctionType
+        return other == FunctionType.ANY_FUNCTION ||
+                other instanceof FunctionType
                 && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
                 && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }
