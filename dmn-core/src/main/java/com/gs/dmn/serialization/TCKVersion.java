@@ -14,13 +14,15 @@ package com.gs.dmn.serialization;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TCKVersion {
     protected static final LinkedHashMap<String, String> TCK_1_OTHER_NAMESPACES = new LinkedHashMap<>();
+    static {
+        TCK_1_OTHER_NAMESPACES.put(DMNConstants.XSD_NS, DMNConstants.XSD_PREFIX);
+        TCK_1_OTHER_NAMESPACES.put(DMNConstants.XSI_NS, DMNConstants.XSI_PREFIX);
+    }
+
     public static final TCKVersion TCK_1 = new TCKVersion("1", "tck/testCases.xsd",
             "", "http://www.omg.org/spec/DMN/20160719/testcase",
             TCK_1_OTHER_NAMESPACES,
@@ -29,12 +31,12 @@ public class TCKVersion {
 
     public static final TCKVersion LATEST = TCK_1;
 
-    protected static final List<TCKVersion> VALUES = Arrays.asList(TCK_1);
+    protected static final List<TCKVersion> VALUES = Collections.singletonList(TCK_1);
 
     public static TCKVersion fromVersion(String key) {
-        for (TCKVersion version: VALUES) {
+        for (TCKVersion version : VALUES) {
             if (version.version.equals(key)) {
-                return  version;
+                return version;
             }
         }
         throw new IllegalArgumentException(String.format("Cannot find TCK version '%s'", key));
@@ -44,21 +46,25 @@ public class TCKVersion {
     private final String schemaLocation;
     private final String prefix;
     private final String namespace;
-    private final Map<String, String> otherNamespaces;
+    private final LinkedHashMap<String, String> namespaceToPrefixMap;
+    private final LinkedHashMap<String, String> prefixToNamespaceMap;
     private final String javaPackage;
-    private final LinkedHashMap<String, String> namespaceMap;
 
     TCKVersion(String version, String schemaLocation, String prefix, String namespace, Map<String, String> otherNamespaces, String javaPackage) {
         this.version = version;
         this.schemaLocation = schemaLocation;
         this.prefix = prefix;
         this.namespace = namespace;
-        this.otherNamespaces = otherNamespaces;
         this.javaPackage = javaPackage;
 
-        this.namespaceMap = new LinkedHashMap<>();
+        this.namespaceToPrefixMap = new LinkedHashMap<>();
+        this.prefixToNamespaceMap = new LinkedHashMap<>();
         addMap(namespace, prefix);
-        this.namespaceMap.putAll(otherNamespaces);
+        for (Map.Entry<String, String> entry : otherNamespaces.entrySet()) {
+            String otherNamespace = entry.getKey();
+            String otherPrefix = entry.getValue();
+            addMap(otherNamespace, otherPrefix);
+        }
     }
 
     public String getVersion() {
@@ -77,8 +83,12 @@ public class TCKVersion {
         return namespace;
     }
 
-    public Map<String, String> getNamespaceMap() {
-        return this.namespaceMap;
+    public Map<String, String> getNamespaceToPrefixMap() {
+        return this.namespaceToPrefixMap;
+    }
+
+    public LinkedHashMap<String, String> getPrefixToNamespaceMap() {
+        return prefixToNamespaceMap;
     }
 
     public String getJavaPackage() {
@@ -86,8 +96,13 @@ public class TCKVersion {
     }
 
     private void addMap(String namespace, String prefix) {
-        if (!StringUtils.isEmpty(prefix)) {
-            this.namespaceMap.put(namespace, prefix);
+        if (StringUtils.isEmpty(namespace)) {
+            throw new IllegalArgumentException("Namespace cannot be null or empty");
         }
+        if (prefix == null) {
+            prefix = "";
+        }
+        this.namespaceToPrefixMap.put(namespace, prefix);
+        this.prefixToNamespaceMap.put(prefix, namespace);
     }
 }

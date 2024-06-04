@@ -24,11 +24,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.gs.dmn.serialization.DMNConstants.XSI_NS;
+import static com.gs.dmn.serialization.DMNConstants.XSI_PREFIX;
 
 @JsonPropertyOrder({
         "test"
 })
 public class AnySimpleType extends TCKBaseElement {
+    private static final QName NILL_QNAME = new QName(XSI_NS, "nil", XSI_PREFIX);
+    private static final QName TYPE_QNAME = new QName(XSI_NS, "type", XSI_PREFIX);
+
     public static AnySimpleType from(String localPart, String value, String prefix, String text) {
         AnySimpleType anySimpleType = new AnySimpleType();
         anySimpleType.getOtherAttributes().put(new QName(XSI_NS, localPart, prefix), value);
@@ -44,49 +48,49 @@ public class AnySimpleType extends TCKBaseElement {
         if (value == null) {
             AnySimpleType result = new AnySimpleType();
             result.setText("");
-            result.getOtherAttributes().put(new QName(XSI_NS, "nil"), "true");
+            result.getOtherAttributes().put(NILL_QNAME, "true");
             return result;
         } else if (value instanceof String) {
             AnySimpleType result = new AnySimpleType();
             result.setText((String) value);
-            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:string");
+            result.getOtherAttributes().put(TYPE_QNAME, "xsd:string");
             return result;
         } else if (value instanceof Boolean) {
             AnySimpleType result = new AnySimpleType();
             result.setText("" + value);
-            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:boolean");
+            result.getOtherAttributes().put(TYPE_QNAME, "xsd:boolean");
             return result;
         } else if (value instanceof Float) {
             AnySimpleType result = new AnySimpleType();
             result.setText("" + value);
-            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:float");
+            result.getOtherAttributes().put(TYPE_QNAME, "xsd:float");
             return result;
         } else if (value instanceof Double) {
             AnySimpleType result = new AnySimpleType();
             result.setText("" + value);
-            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:double");
+            result.getOtherAttributes().put(TYPE_QNAME, "xsd:double");
             return result;
         } else if (value instanceof BigDecimal) {
             AnySimpleType result = new AnySimpleType();
             result.setText("" + value);
-            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:decimal");
+            result.getOtherAttributes().put(TYPE_QNAME, "xsd:decimal");
             return result;
         } else if (value instanceof XMLGregorianCalendar) {
             AnySimpleType result = new AnySimpleType();
             result.setText(value.toString());
             QName type = ((XMLGregorianCalendar) value).getXMLSchemaType();
             if (type == DatatypeConstants.DATE) {
-                result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:date");
+                result.getOtherAttributes().put(TYPE_QNAME, "xsd:date");
             } else if (type == DatatypeConstants.TIME) {
-                result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:time");
+                result.getOtherAttributes().put(TYPE_QNAME, "xsd:time");
             } else if (type == DatatypeConstants.DATETIME) {
-                result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:dateTime");
+                result.getOtherAttributes().put(TYPE_QNAME, "xsd:dateTime");
             }
             return result;
         } else if (value instanceof Duration) {
             AnySimpleType result = new AnySimpleType();
             result.setText(value.toString());
-            result.getOtherAttributes().put(new QName(XSI_NS, "type"), "xsd:duration");
+            result.getOtherAttributes().put(TYPE_QNAME, "xsd:duration");
             return result;
         }
         throw new IllegalArgumentException(String.format("Not supported value '%s' yet", value.getClass().getSimpleName()));
