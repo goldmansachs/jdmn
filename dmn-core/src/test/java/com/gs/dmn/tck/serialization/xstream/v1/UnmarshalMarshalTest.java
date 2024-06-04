@@ -35,7 +35,7 @@ public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
             LOGGER.debug(String.format("Testing '%s'", file.getPath()));
             testRoundTrip(file, marshaller, rootOutputPath);
         } else if (file.isDirectory() && !file.getName().equals("expected")) {
-            for (File child: file.listFiles()) {
+            for (File child : file.listFiles()) {
                 testRoundTrip(child);
             }
         }
@@ -46,6 +46,7 @@ public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
         String version = "1.1";
         testRoundTrip(makeFile(version, "0001-input-data-string"), marshaller, makeOutputPath(version));
         testRoundTrip(makeFile(version, "0002-input-data-number"), marshaller, makeOutputPath(version));
+        testRoundTrip(makeFile(version, "0105-feel-math"), marshaller, makeOutputPath(version));
     }
 
     @Test
@@ -53,6 +54,7 @@ public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
         String version = "1.2";
         testRoundTrip(makeFile(version, "0001-input-data-string"), marshaller, makeOutputPath(version));
         testRoundTrip(makeFile(version, "0002-input-data-number"), marshaller, makeOutputPath(version));
+        testRoundTrip(makeFile(version, "0105-feel-math"), marshaller, makeOutputPath(version));
     }
 
     @Test
@@ -60,6 +62,15 @@ public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
         String version = "1.3";
         testRoundTrip(makeFile(version, "0001-input-data-string"), marshaller, makeOutputPath(version));
         testRoundTrip(makeFile(version, "0002-input-data-number"), marshaller, makeOutputPath(version));
+        testRoundTrip(makeFile(version, "0105-feel-math"), marshaller, makeOutputPath(version));
+    }
+
+    @Test
+    public void testVersion14() throws Exception {
+        String version = "1.4";
+        testRoundTrip(makeFile(version, "0001-input-data-string"), marshaller, makeOutputPath(version));
+        testRoundTrip(makeFile(version, "0002-input-data-number"), marshaller, makeOutputPath(version));
+        testRoundTrip(makeFile(version, "0105-feel-math"), marshaller, makeOutputPath(version));
     }
 
     private String makeOutputPath(String version) {
@@ -70,5 +81,4 @@ public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
         String path = String.format("tck/%s/cl2/%s/%s-test-01.xml", version, name, name);
         return new File(STANDARD_FOLDER, path);
     }
-
 }

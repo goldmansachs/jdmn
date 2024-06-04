@@ -27,7 +27,7 @@ public abstract class TCKSerializer {
     public static boolean isTCKFile(File file) {
         return file != null && file.isFile() &&
                 (
-                    file.getName().endsWith(DEFAULT_TEST_CASE_FILE_EXTENSION) || file.getName().endsWith(TEST_CASE_FILE_EXTENSION)
+                        file.getName().endsWith(DEFAULT_TEST_CASE_FILE_EXTENSION) || file.getName().endsWith(TEST_CASE_FILE_EXTENSION)
                 );
     }
 
@@ -45,7 +45,7 @@ public abstract class TCKSerializer {
         try {
             return read(input.toURI().toURL());
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.getPath()), e);
+            throw new DMNRuntimeException(String.format("Cannot read TCK from '%s'", input.getPath()), e);
         }
     }
 
@@ -66,7 +66,7 @@ public abstract class TCKSerializer {
         try {
             this.marshaller.marshal(testCases, file);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", file.getPath()), e);
+            throw new DMNRuntimeException(String.format("Cannot write TCK to '%s'", file.getPath()), e);
         }
     }
 }

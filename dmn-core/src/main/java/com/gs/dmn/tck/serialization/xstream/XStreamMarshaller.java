@@ -72,7 +72,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             }
             return unmarshal(tckVersion, secondStringReader);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling TCK model from reader.", e);
+            LOGGER.error("Error unmarshalling TCK content from reader.", e);
         }
         return null;
     }
@@ -88,7 +88,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             }
             return unmarshal(tckVersion, secondStringReader);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
+            LOGGER.error("Error unmarshalling TCK content from reader.", e);
         }
         return null;
     }
@@ -104,7 +104,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             }
             return unmarshal(tckVersion, secondStringReader);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
+            LOGGER.error("Error unmarshalling TCK content from reader.", e);
         }
         return null;
     }
@@ -120,7 +120,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             }
             return unmarshal(tckVersion, secondStringReader);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
+            LOGGER.error("Error unmarshalling TCK content from reader.", e);
         }
         return null;
     }
@@ -131,7 +131,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             String xml = buffer.lines().collect(Collectors.joining("\n"));
             return unmarshal(xml, validateSchema);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
+            LOGGER.error("Error unmarshalling TCK content from reader.", e);
         }
         return null;
     }
@@ -208,8 +208,8 @@ public class XStreamMarshaller implements TCKMarshaller {
             Validator validator = schema.newValidator();
             validator.validate(source);
             return true;
-        } catch (Exception e){
-            LOGGER.error("Invalid DMN file: " + e.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("Invalid XML file: " + e.getMessage());
             return false;
         }
     }
