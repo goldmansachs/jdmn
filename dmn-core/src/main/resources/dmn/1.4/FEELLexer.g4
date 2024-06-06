@@ -56,11 +56,11 @@ WS:
 // Literals
 STRING:
     // 33. string literal = """, { character – (""" | vertical space) | string escape sequence}, """ ;
-    ('"' ( StringEscSeq | ~(["] | [\u000A-\u000D]) )*  '"' )
+    '"' ( StringEscSeq | ~(["] | [\u000A-\u000D]) )*  '"'
     { setText(convertUnicodeEscape(getText())); }
     ;
 NUMBER:
-    (Digits ('.' Digits)?) | ('.' Digits)
+    Digits ('.' Digits)? | '.' Digits
     ;
 
 TEMPORAL:
@@ -315,7 +315,7 @@ NAME:
     |
     NameStartChar ( NamePartChar )*
     |
-    ('\'' ( ~(['] | [\u000A-\u000D]) | '\'\'')*  '\'' )
+    '\'' ( ~(['] | [\u000A-\u000D]) | '\'\'')*  '\''
     { setText(com.gs.dmn.NameUtils.removeSingleQuotes(getText())); }
     ;
 
