@@ -21,10 +21,10 @@ import java.time.temporal.TemporalAmount;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PureJavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected PureJavaTimeFEELLib getLib() {
-        return new PureJavaTimeFEELLib();
+    protected JavaTimeFEELLib getLib() {
+        return new JavaTimeFEELLib();
     }
 
     //

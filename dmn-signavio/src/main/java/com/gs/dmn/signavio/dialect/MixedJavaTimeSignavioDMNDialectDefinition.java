@@ -14,7 +14,6 @@ package com.gs.dmn.signavio.dialect;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.environment.EnvironmentFactory;
-import com.gs.dmn.dialect.PureJavaTimeDMNDialectDefinition;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.MixedJavaTimeNativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
@@ -40,7 +39,7 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
 /**
- * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeSignavioDMNDialectDefinition}
+ * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeSignavioDMNDialectDefinition}
  */
 @Deprecated
 public class MixedJavaTimeSignavioDMNDialectDefinition extends AbstractSignavioDMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {

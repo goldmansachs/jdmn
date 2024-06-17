@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 /**
- * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeDMNBaseDecision}
+ * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeDMNBaseDecision}
  */
 @Deprecated
 public class DefaultDMNBaseDecision extends DefaultFEELLib implements DMNDecision<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration>, AnnotationTarget {

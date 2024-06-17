@@ -49,7 +49,7 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
 /**
- * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeSignavioLib}
+ * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeSignavioLib}
  */
 @Deprecated
 public class DoubleMixedJavaTimeSignavioLib extends BaseSignavioLib<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {

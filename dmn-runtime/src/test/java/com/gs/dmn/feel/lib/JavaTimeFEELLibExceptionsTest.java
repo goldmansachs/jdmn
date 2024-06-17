@@ -32,9 +32,9 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExceptionsTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExceptionsTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected PureJavaTimeFEELLib getLib() {
+    protected JavaTimeFEELLib getLib() {
         NumericType<BigDecimal> numericType = new NumericTypeStub<>();
         BooleanType booleanType = new BooleanTypeStub();
         StringType stringType = new StringTypeStub();
@@ -53,7 +53,7 @@ public class PureJavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExcept
         DurationLib<LocalDate, TemporalAmount> durationLib = new DurationLibStub<>();
         ListLib listLib = new ListLibStub();
         RangeLib rangeLib = new RangeLibStub();
-        return new PureJavaTimeFEELLib(
+        return new JavaTimeFEELLib(
                 numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,

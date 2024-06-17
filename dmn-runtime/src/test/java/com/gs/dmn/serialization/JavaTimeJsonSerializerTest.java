@@ -13,7 +13,7 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 
@@ -27,10 +27,10 @@ import java.util.List;
 
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 
-public class PureJavaTimeJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected FEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> makeFEELLib() {
-        return new PureJavaTimeFEELLib();
+        return new JavaTimeFEELLib();
     }
 
     @Override

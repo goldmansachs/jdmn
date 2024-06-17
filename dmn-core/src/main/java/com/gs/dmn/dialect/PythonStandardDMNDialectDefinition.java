@@ -15,7 +15,7 @@ package com.gs.dmn.dialect;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.StandardNativeTypeToPythonFactory;
 import com.gs.dmn.log.BuildLogger;
@@ -62,7 +62,7 @@ public class PythonStandardDMNDialectDefinition extends AbstractStandardDMNDiale
 
     @Override
     public FEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> createFEELLib() {
-        return new PureJavaTimeFEELLib();
+        return new JavaTimeFEELLib();
     }
 
     @Override

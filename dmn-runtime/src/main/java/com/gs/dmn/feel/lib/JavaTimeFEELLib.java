@@ -44,7 +44,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultStringType();
@@ -65,9 +65,9 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
     private static final ListLib LIST_LIB = new DefaultListLib();
     private static final RangeLib RANGE_LIB = new DefaultRangeLib();
 
-    public static final PureJavaTimeFEELLib INSTANCE = new PureJavaTimeFEELLib();
+    public static final JavaTimeFEELLib INSTANCE = new JavaTimeFEELLib();
 
-    public PureJavaTimeFEELLib() {
+    public JavaTimeFEELLib() {
         this(NUMERIC_TYPE,
                 BOOLEAN_TYPE,
                 STRING_TYPE,
@@ -89,7 +89,7 @@ public class PureJavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDa
         );
     }
 
-    protected PureJavaTimeFEELLib(
+    protected JavaTimeFEELLib(
             NumericType<BigDecimal> numericType,
             BooleanType booleanType,
             StringType stringType,

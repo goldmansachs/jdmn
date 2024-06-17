@@ -17,7 +17,7 @@ import com.gs.dmn.feel.lib.type.time.DateTimeComparator;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 
-public class TemporalComparator extends BasePureCalendarType implements DateTimeComparator<TemporalAccessor> {
+public class TemporalComparator extends BaseJavaTimeCalendarType implements DateTimeComparator<TemporalAccessor> {
     public static final TemporalComparator COMPARATOR = new TemporalComparator();
 
     protected TemporalComparator() {

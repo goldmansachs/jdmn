@@ -15,41 +15,43 @@ package com.gs.dmn.dialect;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.JavaTimeFEELLib;
+import com.gs.dmn.feel.synthesis.type.JavaTimeKotlinNativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.feel.synthesis.type.PureJavaTimeNativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.PureJavaTimeDMNBaseDecision;
+import com.gs.dmn.runtime.JavaTimeDMNBaseDecision;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.ast.TestCases;
-import com.gs.dmn.transformation.DMNToJavaTransformer;
+import com.gs.dmn.transformation.DMNToKotlinTransformer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToKotlinTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.temporal.Temporal;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeKotlinStandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     //
     // DMN Processors
     //
     @Override
     public DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
-        return new DMNToJavaTransformer<>(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
+        return new DMNToKotlinTransformer<>(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
     }
 
     @Override
     public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicDMNToJavaTransformer(this, repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
+        return new BasicDMNToKotlinTransformer(this, repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
     }
 
     //
@@ -57,22 +59,22 @@ public class PureJavaTimeDMNDialectDefinition extends AbstractStandardDMNDialect
     //
     @Override
     public NativeTypeFactory createNativeTypeFactory() {
-        return new PureJavaTimeNativeTypeFactory();
+        return new JavaTimeKotlinNativeTypeFactory();
     }
 
     @Override
     public FEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> createFEELLib() {
-        return new PureJavaTimeFEELLib();
+        return new JavaTimeFEELLib();
     }
 
     @Override
     public String getDecisionBaseClass() {
-        return PureJavaTimeDMNBaseDecision.class.getName();
+        return JavaTimeDMNBaseDecision.class.getName();
     }
 
     @Override
     public String getNativeNumberType() {
-        return  BigDecimal.class.getName();
+        return BigDecimal.class.getName();
     }
 
     @Override
@@ -82,12 +84,12 @@ public class PureJavaTimeDMNDialectDefinition extends AbstractStandardDMNDialect
 
     @Override
     public String getNativeTimeType() {
-        return Temporal.class.getName();
+        return OffsetTime.class.getName();
     }
 
     @Override
     public String getNativeDateAndTimeType() {
-        return Temporal.class.getName();
+        return ZonedDateTime.class.getName();
     }
 
     @Override

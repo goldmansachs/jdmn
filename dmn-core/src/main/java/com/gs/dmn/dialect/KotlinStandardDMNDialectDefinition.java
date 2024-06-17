@@ -37,7 +37,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
 /**
- * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeKotlinStandardDMNDialectDefinition}
+ * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeKotlinStandardDMNDialectDefinition}
  */
 @Deprecated
 public class KotlinStandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {

@@ -23,7 +23,7 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalDateTimeType extends BasePureCalendarType implements DateTimeType<TemporalAccessor, TemporalAmount> {
+public class TemporalDateTimeType extends BaseJavaTimeCalendarType implements DateTimeType<TemporalAccessor, TemporalAmount> {
     private final TemporalComparator comparator;
 
     public TemporalDateTimeType() {

@@ -44,7 +44,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultSignavioNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultSignavioStringType();
@@ -64,9 +64,9 @@ public class PureJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDa
     private static final DurationLib<LocalDate, TemporalAmount> DURATION_LIB = new TemporalAmountDurationLib();
     private static final SignavioListLib<BigDecimal> LIST_LIB = new DefaultSignavioListLib();
 
-    public static PureJavaTimeSignavioLib INSTANCE = new PureJavaTimeSignavioLib();
+    public static JavaTimeSignavioLib INSTANCE = new JavaTimeSignavioLib();
 
-    public PureJavaTimeSignavioLib() {
+    public JavaTimeSignavioLib() {
         this(NUMERIC_TYPE,
                 BOOLEAN_TYPE,
                 STRING_TYPE,
@@ -87,7 +87,7 @@ public class PureJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDa
         );
     }
 
-    protected PureJavaTimeSignavioLib(
+    protected JavaTimeSignavioLib(
             NumericType<BigDecimal> numericType, BooleanType booleanType, StringType stringType,
             DateType<LocalDate, TemporalAmount> dateType, TimeType<TemporalAccessor, TemporalAmount> timeType, DateTimeType<TemporalAccessor, TemporalAmount> dateTimeType, DurationType<TemporalAmount, BigDecimal> durationType,
             ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,

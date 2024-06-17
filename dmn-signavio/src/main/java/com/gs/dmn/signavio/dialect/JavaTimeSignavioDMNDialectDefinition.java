@@ -15,12 +15,12 @@ package com.gs.dmn.signavio.dialect;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.synthesis.type.JavaTimeNativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.feel.synthesis.type.PureJavaTimeNativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.signavio.feel.lib.PureJavaTimeSignavioLib;
-import com.gs.dmn.signavio.runtime.PureJavaTimeSignavioBaseDecision;
+import com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib;
+import com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.SignavioDMNToJavaTransformer;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
@@ -37,7 +37,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeSignavioDMNDialectDefinition extends AbstractSignavioDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeSignavioDMNDialectDefinition extends AbstractSignavioDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     //
     // DMN processors
     //
@@ -57,17 +57,17 @@ public class PureJavaTimeSignavioDMNDialectDefinition extends AbstractSignavioDM
     //
     @Override
     public NativeTypeFactory createNativeTypeFactory() {
-        return new PureJavaTimeNativeTypeFactory();
+        return new JavaTimeNativeTypeFactory();
     }
 
     @Override
     public FEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> createFEELLib() {
-        return new PureJavaTimeSignavioLib();
+        return new JavaTimeSignavioLib();
     }
 
     @Override
     public String getDecisionBaseClass() {
-        return PureJavaTimeSignavioBaseDecision.class.getName();
+        return JavaTimeSignavioBaseDecision.class.getName();
     }
 
     @Override

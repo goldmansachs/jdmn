@@ -18,7 +18,7 @@ import java.time.Duration;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalAmountComparator extends BasePureCalendarType implements DateTimeComparator<TemporalAmount> {
+public class TemporalAmountComparator extends BaseJavaTimeCalendarType implements DateTimeComparator<TemporalAmount> {
     public static TemporalAmountComparator COMPARATOR = new TemporalAmountComparator();
 
     protected TemporalAmountComparator() {

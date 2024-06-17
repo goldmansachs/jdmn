@@ -20,7 +20,7 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
-public class StandardCL3DMNInterpreterTest extends CL3DMNInterpreterTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public class StandardCL3DMNInterpreterTest extends AbstractCL3DMNInterpreterTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     @Override
     protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> getDialectDefinition() {
         return new StandardDMNDialectDefinition();
