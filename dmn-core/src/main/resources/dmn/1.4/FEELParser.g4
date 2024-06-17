@@ -53,20 +53,14 @@ boxedExpressionRoot returns [Expression ast] :
 
 // Tests
 unaryTests returns [UnaryTests ast] :
-    (
-        NOT PAREN_OPEN tests = positiveUnaryTests PAREN_CLOSE
-        {$ast = astFactory.toNegatedUnaryTests($tests.ast);}
-    )
+    NOT PAREN_OPEN tests = positiveUnaryTests PAREN_CLOSE
+    {$ast = astFactory.toNegatedUnaryTests($tests.ast);}
     |
-    (
-        tests = positiveUnaryTests
-        {$ast = $tests.ast;}
-    )
+    tests = positiveUnaryTests
+    {$ast = $tests.ast;}
     |
-    (
-        MINUS
-        {$ast = astFactory.toAny();}
-    )
+    MINUS
+    {$ast = astFactory.toAny();}
 ;
 
 positiveUnaryTests returns [PositiveUnaryTests ast]:
@@ -82,22 +76,16 @@ positiveUnaryTests returns [PositiveUnaryTests ast]:
 ;
 
 positiveUnaryTest returns [Expression ast]:
-    (
-        expression
-        {$ast = astFactory.toPositiveUnaryTest($expression.ast);}
-    )
+    expression
+    {$ast = astFactory.toPositiveUnaryTest($expression.ast);}
 ;
 
 simplePositiveUnaryTest returns [Expression ast] :
-    (
-        ( op = LT | op = LE | op = GT | op = GE ) opd = endpoint
-        {$ast = $op == null ? astFactory.toOperatorRange(null, $opd.ast) : astFactory.toOperatorRange($op.text, $opd.ast);}
-    )
+    ( op = LT | op = LE | op = GT | op = GE ) opd = endpoint
+    {$ast = $op == null ? astFactory.toOperatorRange(null, $opd.ast) : astFactory.toOperatorRange($op.text, $opd.ast);}
     |
-    (
-        opd2 = interval
-        {$ast = $opd2.ast;}
-    )
+    opd2 = interval
+    {$ast = $opd2.ast;}
 ;
 
 interval returns [EndpointsRange ast] :
@@ -106,54 +94,38 @@ interval returns [EndpointsRange ast] :
 ;
 
 intervalStartPar returns [String ast] :
-    (
-        token = PAREN_OPEN
-        {$ast = $token.text;}
-    )
+    token = PAREN_OPEN
+    {$ast = $token.text;}
     |
-    (
-        token = BRACKET_CLOSE
-        {$ast = $token.text;}
-    )
+    token = BRACKET_CLOSE
+    {$ast = $token.text;}
     |
-    (
-        token = BRACKET_OPEN
-        {$ast = $token.text;}
-    )
+    token = BRACKET_OPEN
+    {$ast = $token.text;}
 ;
 
 intervalEndPar returns [String ast] :
-    (
-        token = PAREN_CLOSE
-        {$ast = $token.text;}
-    )
+    token = PAREN_CLOSE
+    {$ast = $token.text;}
     |
-    (
-        token = BRACKET_OPEN
-        {$ast = $token.text;}
-    )
+    token = BRACKET_OPEN
+    {$ast = $token.text;}
     |
-    (
-        token = BRACKET_CLOSE
-        {$ast = $token.text;}
-    )
+    token = BRACKET_CLOSE
+    {$ast = $token.text;}
 ;
 
 endpoint returns [Expression ast]:
-    (
-        expression
-     	{$ast = $expression.ast;}
-    )
+    expression
+  	{$ast = $expression.ast;}
 ;
 
 //
 // Expression
 //
 expression returns [Expression ast] :
-    (
-        textualExpression
-        {$ast = $textualExpression.ast;}
-    )
+    textualExpression
+    {$ast = $textualExpression.ast;}
 ;
 
 textualExpressions returns [Expression ast] :
@@ -168,25 +140,17 @@ textualExpressions returns [Expression ast] :
 ;
 
 textualExpression returns [Expression ast] :
-    (
-        forExpression
-        {$ast = $forExpression.ast;}
-    )
+    forExpression
+    {$ast = $forExpression.ast;}
     |
-    (
-        ifExpression
-        {$ast = $ifExpression.ast;}
-    )
+    ifExpression
+    {$ast = $ifExpression.ast;}
     |
-    (
-        quantifiedExpression
-        {$ast = $quantifiedExpression.ast;}
-    )
+    quantifiedExpression
+    {$ast = $quantifiedExpression.ast;}
     |
-    (
-        disjunction
-        {$ast = $disjunction.ast;}
-    )
+    disjunction
+    {$ast = $disjunction.ast;}
 ;
 
 functionDefinition returns [Expression ast] :
@@ -271,25 +235,17 @@ comparison returns [Expression ast] :
     ae1 = arithmeticExpression
     {$ast = $ae1.ast;}
     (
-        (
-            (op = EQ | op = NE | op = LT | op = GT | op = LE | op = GE) ae2 = arithmeticExpression
-            {$ast = astFactory.toComparison($op.text, $ae1.ast, $ae2.ast);}
-        )
+        (op = EQ | op = NE | op = LT | op = GT | op = LE | op = GE) ae2 = arithmeticExpression
+        {$ast = astFactory.toComparison($op.text, $ae1.ast, $ae2.ast);}
         |
-        (
-            BETWEEN leftEndpoint = expression AND rightEndpoint = expression
-            {$ast = astFactory.toBetweenExpression($ast, $leftEndpoint.ast, $rightEndpoint.ast);}
-        )
+        BETWEEN leftEndpoint = expression AND rightEndpoint = expression
+        {$ast = astFactory.toBetweenExpression($ast, $leftEndpoint.ast, $rightEndpoint.ast);}
         |
-        (
-            IN test = positiveUnaryTest
-            {$ast = astFactory.toInExpression($ast, $test.ast);}
-        )
+        IN test = positiveUnaryTest
+        {$ast = astFactory.toInExpression($ast, $test.ast);}
         |
-        (
-            IN PAREN_OPEN tests = positiveUnaryTests PAREN_CLOSE
-            {$ast = astFactory.toInExpression($ast, $tests.ast);}
-        )
+        IN PAREN_OPEN tests = positiveUnaryTests PAREN_CLOSE
+        {$ast = astFactory.toInExpression($ast, $tests.ast);}
     )?
 ;
 
@@ -329,9 +285,9 @@ exponentiation returns [Expression ast] :
 arithmeticNegation returns [Expression ast] :
     {List<String> prefixOperators = new ArrayList<>();}
     (
-        (MINUS {prefixOperators.add("-");})
+        MINUS {prefixOperators.add("-");}
         |
-        (NOT {prefixOperators.add("not");})
+        NOT {prefixOperators.add("not");}
     )*
     opd = instanceOf
  	{$ast = astFactory.toNegation(prefixOperators, $opd.ast);}
@@ -342,79 +298,55 @@ instanceOf returns [Expression ast] :
     {$ast = $exp.ast;}
     (
         INSTANCE_OF
-        (
-            type
-            {$ast = astFactory.toInstanceOf($ast, $type.ast);}
-        )
+        type
+        {$ast = astFactory.toInstanceOf($ast, $type.ast);}
     )?
 ;
 
 type returns [TypeExpression ast] :
-    (
-        qName = qualifiedName {$ast = astFactory.toNamedTypeExpression($qName.ast);}
-    )
+    qName = qualifiedName {$ast = astFactory.toNamedTypeExpression($qName.ast);}
     |
-    (
-        typeName = identifier {"range".equals($typeName.ast.getText()) || "list".equals($typeName.ast.getText())}? LT type GT {$ast = astFactory.toTypeExpression($typeName.ast.getText(), $type.ast);}
-    )
+    typeName = identifier {"range".equals($typeName.ast.getText()) || "list".equals($typeName.ast.getText())}? LT type GT {$ast = astFactory.toTypeExpression($typeName.ast.getText(), $type.ast);}
     |
-    (
-        {List<Pair<String, TypeExpression>> members = new ArrayList<>();}
-        typeName = identifier {"context".equals($typeName.ast.getText())}? LT
-        id1 = identifier COLON t1 = type {members.add(new Pair<String, TypeExpression>($id1.ast.getText(), $t1.ast));}
-        ( COMMA id2 = identifier COLON t2 = type {members.add(new Pair<String, TypeExpression>($id2.ast.getText(), $t2.ast));})*
-        GT
-        {$ast = astFactory.toContextTypeExpression(members);}
-    )
+    {List<Pair<String, TypeExpression>> members = new ArrayList<>();}
+    typeName = identifier {"context".equals($typeName.ast.getText())}? LT
+    id1 = identifier COLON t1 = type {members.add(new Pair<String, TypeExpression>($id1.ast.getText(), $t1.ast));}
+    ( COMMA id2 = identifier COLON t2 = type {members.add(new Pair<String, TypeExpression>($id2.ast.getText(), $t2.ast));})*
+    GT
+    {$ast = astFactory.toContextTypeExpression(members);}
     |
+    {List<TypeExpression> parameters = new ArrayList<>();}
+    typeName = identifier {"function".equals($typeName.ast.getText())}? LT
     (
-        {List<TypeExpression> parameters = new ArrayList<>();}
-        typeName = identifier {"function".equals($typeName.ast.getText())}? LT
-        (
-            t1 = type {parameters.add($t1.ast);}
-            ( COMMA t2 = type )* {parameters.add($t2.ast);}
-        )?
-        GT ARROW returnType = type
-        {$ast = astFactory.toFunctionTypeExpression(parameters, $returnType.ast);}
-    )
+        t1 = type {parameters.add($t1.ast);}
+        ( COMMA t2 = type )* {parameters.add($t2.ast);}
+    )?
+    GT ARROW returnType = type
+    {$ast = astFactory.toFunctionTypeExpression(parameters, $returnType.ast);}
     ;
 
 postfixExpression returns [Expression ast] :
+    primaryExpression {$ast = $primaryExpression.ast;}
     (
-        (
-            primaryExpression {$ast = $primaryExpression.ast;}
-        )
-    )
-    (
-        (
-            BRACKET_OPEN filter = expression BRACKET_CLOSE
-            {$ast = astFactory.toFilterExpression($ast, $filter.ast);}
-        )
+        BRACKET_OPEN filter = expression BRACKET_CLOSE
+        {$ast = astFactory.toFilterExpression($ast, $filter.ast);}
         |
-        (
-            parameters
-            {$ast = astFactory.toFunctionInvocation($ast, $parameters.ast);}
-        )
+        parameters
+        {$ast = astFactory.toFunctionInvocation($ast, $parameters.ast);}
         |
-        (
-            DOT name = identifier
-            {$ast = astFactory.toPathExpression($ast, $name.text);}
-        )
+        DOT name = identifier
+        {$ast = astFactory.toPathExpression($ast, $name.text);}
     )*
 ;
 
 parameters returns [Parameters ast] :
     PAREN_OPEN
     (
-        (
-            namedParameters
-            {$ast = $namedParameters.ast;}
-        )
+        namedParameters
+        {$ast = $namedParameters.ast;}
         |
-        (
-            positionalParameters
-            {$ast = $positionalParameters.ast;}
-        )
+        positionalParameters
+        {$ast = $positionalParameters.ast;}
     )
     PAREN_CLOSE
 ;
@@ -449,42 +381,28 @@ positionalParameters returns [PositionalParameters ast]:
 ;
 
 primaryExpression returns [Expression ast] :
-    (
-        literal
-        {$ast = $literal.ast;}
-    )
+    literal
+    {$ast = $literal.ast;}
     |
-    (
-        name = identifier
-        {$ast = astFactory.toName($name.text);}
-    )
+    name = identifier
+    {$ast = astFactory.toName($name.text);}
     |
-    (
-        PAREN_OPEN exp = expression PAREN_CLOSE
-        {$ast = $exp.ast;}
-    )
+    PAREN_OPEN exp = expression PAREN_CLOSE
+    {$ast = $exp.ast;}
     |
-    (
-        boxedExpression
-        {$ast = $boxedExpression.ast;}
-    )
+    boxedExpression
+    {$ast = $boxedExpression.ast;}
     |
-    (
-        simplePositiveUnaryTest
-        {$ast = $simplePositiveUnaryTest.ast; }
-    )
+    simplePositiveUnaryTest
+    {$ast = $simplePositiveUnaryTest.ast; }
 ;
 
 simpleValue returns [Expression ast]:
-    (
-        simpleLiteral
-        {$ast = $simpleLiteral.ast;}
-    )
+    simpleLiteral
+    {$ast = $simpleLiteral.ast;}
     |
-    (
-        qualifiedName
-        {$ast = $qualifiedName.ast;}
-    )
+    qualifiedName
+    {$ast = $qualifiedName.ast;}
 ;
 
 qualifiedName returns [Expression ast] :
@@ -499,39 +417,25 @@ qualifiedName returns [Expression ast] :
 ;
 
 literal returns [Expression ast] :
-    (
-        (
-            simpleLiteral
-            {$ast = $simpleLiteral.ast;}
-        )
-        |
-        (
-            NULL
-            {$ast = astFactory.toNullLiteral();}
-        )
-    )
+    simpleLiteral
+    {$ast = $simpleLiteral.ast;}
+    |
+    NULL
+    {$ast = astFactory.toNullLiteral();}
 ;
 
 simpleLiteral returns [Expression ast]:
-    (
-        numericLiteral
-        {$ast = $numericLiteral.ast;}
-    )
+    numericLiteral
+    {$ast = $numericLiteral.ast;}
     |
-    (
-        stringLiteral
-        {$ast = $stringLiteral.ast;}
-    )
+    stringLiteral
+    {$ast = $stringLiteral.ast;}
     |
-    (
-        booleanLiteral
-        {$ast = $booleanLiteral.ast;}
-    )
+    booleanLiteral
+    {$ast = $booleanLiteral.ast;}
     |
-    (
-        dateTimeLiteral
-        {$ast = $dateTimeLiteral.ast;}
-    )
+    dateTimeLiteral
+    {$ast = $dateTimeLiteral.ast;}
 ;
 
 stringLiteral returns [Expression ast]:
@@ -550,20 +454,14 @@ numericLiteral returns [Expression ast]:
 ;
 
 boxedExpression returns [Expression ast]:
-    (
-        list
-        {$ast = $list.ast;}
-    )
+    list
+    {$ast = $list.ast;}
     |
-    (
-        functionDefinition
-        {$ast = $functionDefinition.ast;}
-    )
+    functionDefinition
+    {$ast = $functionDefinition.ast;}
     |
-    (
-        context
-        {$ast = $context.ast;}
-    )
+    context
+    {$ast = $context.ast;}
 ;
 
 list returns [Expression ast] :
@@ -602,48 +500,32 @@ contextEntry returns [ContextEntry ast] :
 ;
 
 key returns [ContextEntryKey ast] :
-    (
-        name = identifier
-        {$ast = astFactory.toContextEntryKey($name.text);}
-    )
+    name = identifier
+    {$ast = astFactory.toContextEntryKey($name.text);}
     |
-    (
-        stringLiteral
-        {$ast = astFactory.toContextEntryKey($stringLiteral.text);}
-    )
+    stringLiteral
+    {$ast = astFactory.toContextEntryKey($stringLiteral.text);}
 ;
 
 dateTimeLiteral returns [Expression ast] :
     token = TEMPORAL
-    (
-        {$ast = astFactory.toDateTimeLiteral($token.text);}
-    )
+    {$ast = astFactory.toDateTimeLiteral($token.text);}
     |
-    (
-        ( kind = identifier )
-        PAREN_OPEN expression PAREN_CLOSE
-        {$ast = astFactory.toDateTimeLiteral($kind.text, $expression.ast);}
-    )
+    kind = identifier
+    PAREN_OPEN expression PAREN_CLOSE
+    {$ast = astFactory.toDateTimeLiteral($kind.text, $expression.ast);}
 ;
 
 identifier returns [Token ast] :
-    (
-        token = NAME
-        {$ast = $token;}
-    )
+    token = NAME
+    {$ast = $token;}
     |
-    (
-        token = OR
-        {$ast = $token;}
-    )
+    token = OR
+    {$ast = $token;}
     |
-    (
-        token = AND
-        {$ast = $token;}
-    )
+    token = AND
+    {$ast = $token;}
     |
-    (
-        token = FUNCTION
-        {$ast = $token;}
-    )
+    token = FUNCTION
+    {$ast = $token;}
 ;
