@@ -13,7 +13,7 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.PythonStandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimePythonStandardDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.FileTransformer;
@@ -35,7 +35,7 @@ public abstract class AbstractTestCasesToPythonJUnitTransformerTest extends Abst
 
     @Override
     protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialectDefinition() {
-        return new PythonStandardDMNDialectDefinition();
+        return new JavaTimePythonStandardDMNDialectDefinition();
     }
 
     @Override

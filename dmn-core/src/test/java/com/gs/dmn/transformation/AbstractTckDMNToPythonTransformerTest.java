@@ -13,7 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.PythonStandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimePythonStandardDMNDialectDefinition;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.template.PythonTreeTemplateProvider;
 import com.gs.dmn.transformation.template.TemplateProvider;
@@ -26,7 +26,7 @@ import java.time.temporal.TemporalAmount;
 public abstract class AbstractTckDMNToPythonTransformerTest extends AbstractTckDMNToNativeTransformerTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialectDefinition() {
-        return new PythonStandardDMNDialectDefinition();
+        return new JavaTimePythonStandardDMNDialectDefinition();
     }
 
     @Override

@@ -37,7 +37,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PythonStandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimePythonStandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     //
     // DMN Processors
     //
