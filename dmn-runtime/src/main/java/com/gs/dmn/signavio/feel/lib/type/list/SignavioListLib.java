@@ -14,7 +14,7 @@ package com.gs.dmn.signavio.feel.lib.type.list;
 
 import java.util.List;
 
-public interface SignavioListLib<NUMBER> {
+public interface SignavioListLib {
     <T> List<T> append(List<T> list, T item);
 
     <T> List<T> appendAll(List<T> list1, List<T> list2);

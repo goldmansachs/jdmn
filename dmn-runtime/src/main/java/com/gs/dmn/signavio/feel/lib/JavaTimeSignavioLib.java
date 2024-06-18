@@ -62,7 +62,7 @@ public class JavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, 
     private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
     private static final SignavioDateTimeLib DATE_TIME_LIB = new SignavioTemporalDateTimeLib();
     private static final DurationLib<LocalDate, TemporalAmount> DURATION_LIB = new TemporalAmountDurationLib();
-    private static final SignavioListLib<BigDecimal> LIST_LIB = new DefaultSignavioListLib();
+    private static final SignavioListLib LIST_LIB = new DefaultSignavioListLib();
 
     public static JavaTimeSignavioLib INSTANCE = new JavaTimeSignavioLib();
 
@@ -96,7 +96,7 @@ public class JavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, 
             BooleanLib booleanLib,
             SignavioDateTimeLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor> dateTimeLib,
             DurationLib<LocalDate, TemporalAmount> durationLib,
-            SignavioListLib<BigDecimal> listLib) {
+            SignavioListLib listLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,

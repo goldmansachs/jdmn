@@ -60,7 +60,7 @@ public class JavaTimeSignavioLibExceptionsTest extends BaseSignavioLibExceptions
         BooleanLib booleanLib = new BooleanLibStub();
         SignavioDateTimeLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor> dateTimeLib = new SignavioDateTimeLibStub<>();
         DurationLib<LocalDate, TemporalAmount> durationLib = new TemporalAmountDurationLib();
-        SignavioListLib<BigDecimal> listLib = new SignavioListLibStub();
+        SignavioListLib listLib = new SignavioListLibStub();
         return new JavaTimeSignavioLib(
                 numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,

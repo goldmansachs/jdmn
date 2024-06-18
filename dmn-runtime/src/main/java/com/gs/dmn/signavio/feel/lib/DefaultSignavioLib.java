@@ -65,7 +65,7 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
     private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
     private static final DurationLib<XMLGregorianCalendar, Duration> DURATION_LIB = new DefaultDurationLib();
     private static final SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> DATE_TIME_LIB = new DefaultSignavioDateTimeLib();
-    private static final SignavioListLib<BigDecimal> LIST_LIB = new DefaultSignavioListLib();
+    private static final SignavioListLib LIST_LIB = new DefaultSignavioListLib();
 
     public static final DefaultSignavioLib INSTANCE = new DefaultSignavioLib();
 
@@ -100,7 +100,7 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
             BooleanLib booleanLib,
             SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> dateTimeLib,
             DurationLib<XMLGregorianCalendar, Duration> durationLib,
-            SignavioListLib<BigDecimal> listLib) {
+            SignavioListLib listLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,

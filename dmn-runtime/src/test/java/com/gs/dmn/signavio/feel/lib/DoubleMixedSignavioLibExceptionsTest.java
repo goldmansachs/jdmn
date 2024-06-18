@@ -58,7 +58,7 @@ public class DoubleMixedSignavioLibExceptionsTest extends BaseSignavioLibExcepti
         BooleanLib booleanLib = new BooleanLibStub();
         SignavioDateTimeLib<Double, LocalDate, OffsetTime, ZonedDateTime> dateTimeLib = new SignavioDateTimeLibStub<>();
         DurationLib<LocalDate, Duration> durationLib = new DurationLibStub<>();
-        SignavioListLib<?> listLib = new SignavioListLibStub();
+        SignavioListLib listLib = new SignavioListLibStub();
         return new DoubleMixedJavaTimeSignavioLib(
                 numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,

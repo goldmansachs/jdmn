@@ -71,7 +71,7 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
     private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
     private static final SignavioDateTimeLib DATE_TIME_LIB = new MixedSignavioDateTimeLib();
     private static final DurationLib<LocalDate, Duration> DURATION_LIB = new MixedDurationLib();
-    private static final SignavioListLib<BigDecimal> LIST_LIB = new DefaultSignavioListLib();
+    private static final SignavioListLib LIST_LIB = new DefaultSignavioListLib();
 
     public static MixedJavaTimeSignavioLib INSTANCE = new MixedJavaTimeSignavioLib();
 
@@ -105,7 +105,7 @@ public class MixedJavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalD
             BooleanLib booleanLib,
             SignavioDateTimeLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime> dateTimeLib,
             DurationLib<LocalDate, Duration> durationLib,
-            SignavioListLib<BigDecimal> listLib) {
+            SignavioListLib listLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,
