@@ -17,7 +17,6 @@ import com.gs.dmn.runtime.annotation.AnnotationTarget;
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.Rule;
 import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
-import com.gs.dmn.signavio.feel.lib.PureJavaTimeSignavioLib;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -26,7 +25,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 /**
- * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeSignavioBaseDecision}
+ * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeSignavioBaseDecision}
  */
 @Deprecated
 public class DefaultSignavioBaseDecision extends DefaultSignavioLib

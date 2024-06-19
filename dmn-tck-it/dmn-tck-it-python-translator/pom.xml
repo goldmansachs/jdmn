@@ -134,7 +134,7 @@
                 <artifactId>jdmn-maven-plugin</artifactId>
                 <version>${project.parent.version}</version>
                 <configuration>
-                    <dmnDialect>com.gs.dmn.dialect.PythonStandardDMNDialectDefinition</dmnDialect>
+                    <dmnDialect>com.gs.dmn.dialect.JavaTimePythonStandardDMNDialectDefinition</dmnDialect>
                     <dmnTransformers>
                         <dmnTransformer>com.gs.dmn.transformation.ToQuotedNameTransformer</dmnTransformer>
                     </dmnTransformers>

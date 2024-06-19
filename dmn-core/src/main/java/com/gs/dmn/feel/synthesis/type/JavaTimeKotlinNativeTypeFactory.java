@@ -27,10 +27,10 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-public class PureJavaTimeNativeTypeFactory extends JavaTypeFactory {
+public class JavaTimeKotlinNativeTypeFactory extends KotlinTypeFactory {
     private static final Map<String, String> FEEL_TYPE_TO_JAVA_TYPE = new LinkedHashMap<>();
     static {
-        FEEL_TYPE_TO_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getSimpleName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getName());
         FEEL_TYPE_TO_JAVA_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), java.time.temporal.TemporalAmount.class.getName());
         FEEL_TYPE_TO_JAVA_TYPE.put(DAYS_AND_TIME_DURATION.getName(), java.time.temporal.TemporalAmount.class.getName());
         FEEL_TYPE_TO_JAVA_TYPE.put(DATE_AND_TIME.getName(), java.time.temporal.TemporalAccessor.class.getName());
@@ -39,8 +39,8 @@ public class PureJavaTimeNativeTypeFactory extends JavaTypeFactory {
         FEEL_TYPE_TO_JAVA_TYPE.put(STRING.getName(), String.class.getSimpleName());
         FEEL_TYPE_TO_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getSimpleName());
         FEEL_TYPE_TO_JAVA_TYPE.put(NUMBER.getName(), java.math.BigDecimal.class.getName());
-        FEEL_TYPE_TO_JAVA_TYPE.put(ANY.getName(), Object.class.getSimpleName());
-        FEEL_TYPE_TO_JAVA_TYPE.put(NULL.getName(), Object.class.getSimpleName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(ANY.getName(), "kotlin.Any");
+        FEEL_TYPE_TO_JAVA_TYPE.put(NULL.getName(), "kotlin.Any");
     }
 
     private static final Map<String, String> FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE = new LinkedHashMap<>();
@@ -54,8 +54,8 @@ public class PureJavaTimeNativeTypeFactory extends JavaTypeFactory {
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(STRING.getName(), String.class.getName());
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getName());
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), java.math.BigDecimal.class.getName());
-        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(ANY.getName(), Object.class.getName());
-        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NULL.getName(), Object.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(ANY.getName(), "kotlin.Any");
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NULL.getName(), "kotlin.Any");
     }
 
     @Override

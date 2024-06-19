@@ -21,7 +21,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-public class DoubleMixedCL2DMNInterpreterTest extends CL2SDMNInterpreterTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public class DoubleMixedCL2DMNInterpreterTest extends AbstractCL2SDMNInterpreterTest<Double, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
     protected DMNDialectDefinition<Double, LocalDate, OffsetTime, ZonedDateTime, Duration, TestCases> getDialectDefinition() {
         return new DoubleMixedJavaTimeDMNDialectDefinition();

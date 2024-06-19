@@ -22,7 +22,7 @@ import java.time.temporal.TemporalQueries;
 
 import static com.gs.dmn.feel.lib.type.time.BaseDateTimeLib.FEEL_TIME;
 
-public class TemporalTimeType extends BasePureCalendarType implements TimeType<TemporalAccessor, TemporalAmount> {
+public class TemporalTimeType extends BaseJavaTimeCalendarType implements TimeType<TemporalAccessor, TemporalAmount> {
     private final TemporalComparator comparator;
 
     public TemporalTimeType() {

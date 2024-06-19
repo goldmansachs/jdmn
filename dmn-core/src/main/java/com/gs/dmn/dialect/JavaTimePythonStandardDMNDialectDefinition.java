@@ -10,24 +10,24 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.dialect;
+package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.feel.synthesis.type.PureJavaTimeNativeTypeFactory;
+import com.gs.dmn.feel.synthesis.type.StandardNativeTypeToPythonFactory;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.signavio.feel.lib.PureJavaTimeSignavioLib;
-import com.gs.dmn.signavio.runtime.PureJavaTimeSignavioBaseDecision;
-import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.signavio.transformation.SignavioDMNToJavaTransformer;
-import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
+import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
+import com.gs.dmn.transformation.DMNToPythonTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToPythonTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
@@ -37,61 +37,66 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeSignavioDMNDialectDefinition extends AbstractSignavioDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimePythonStandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     //
-    // DMN processors
+    // DMN Processors
     //
     @Override
-    public DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
-        return new SignavioDMNToJavaTransformer<>(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
+    public DMNToNativeTransformer createDMNToNativeTransformer(DMNValidator dmnValidator, DMNTransformer<TestCases> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
+        return new DMNToPythonTransformer<>(this, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
     }
 
     @Override
     public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicSignavioDMNToJavaTransformer(this, repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
+        return new BasicDMNToPythonTransformer(this, repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
     }
 
     //
-    // Execution engine
+    // DMN execution
     //
     @Override
     public NativeTypeFactory createNativeTypeFactory() {
-        return new PureJavaTimeNativeTypeFactory();
+        return new StandardNativeTypeToPythonFactory();
     }
 
     @Override
     public FEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> createFEELLib() {
-        return new PureJavaTimeSignavioLib();
+        return new JavaTimeFEELLib();
     }
 
     @Override
     public String getDecisionBaseClass() {
-        return PureJavaTimeSignavioBaseDecision.class.getName();
+        return qualifiedName(DefaultDMNBaseDecision.class);
+    }
+
+    protected String qualifiedName(Class<?> cls) {
+        String qName = String.format("%s.%s", cls.getName(), cls.getSimpleName());
+        return qName.replace("com.gs.dmn", "jdmn");
     }
 
     @Override
     public String getNativeNumberType() {
-        return  BigDecimal.class.getName();
+        return "decimal.Decimal";
     }
 
     @Override
     public String getNativeDateType() {
-        return LocalDate.class.getName();
+        return "datetime.date";
     }
 
     @Override
     public String getNativeTimeType() {
-        return TemporalAccessor.class.getName();
+        return "datetime.time";
     }
 
     @Override
     public String getNativeDateAndTimeType() {
-        return TemporalAccessor.class.getName();
+        return "datetime.datetime";
     }
 
     @Override
     public String getNativeDurationType() {
-        return TemporalAmount.class.getName();
+        return "isodate.Duration";
     }
 }

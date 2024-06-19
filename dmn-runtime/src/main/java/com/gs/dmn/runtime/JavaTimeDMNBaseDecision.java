@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.runtime;
 
-import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 import com.gs.dmn.runtime.annotation.AnnotationTarget;
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.Rule;
@@ -24,7 +24,7 @@ import java.time.LocalDate;
 import java.time.temporal.Temporal;
 import java.util.Map;
 
-public class PureJavaTimeDMNBaseDecision extends PureJavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, Temporal, Temporal, Duration>, AnnotationTarget {
+public class JavaTimeDMNBaseDecision extends JavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, Temporal, Temporal, Duration>, AnnotationTarget {
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;
@@ -38,7 +38,7 @@ public class PureJavaTimeDMNBaseDecision extends PureJavaTimeFEELLib implements 
     @Override
     public Rule getRuleAnnotation(int ruleIndex) {
         String methodName = String.format("rule%d", ruleIndex);
-        Class<? extends PureJavaTimeDMNBaseDecision> cls = this.getClass();
+        Class<? extends JavaTimeDMNBaseDecision> cls = this.getClass();
         Method[] declaredMethods = cls.getDeclaredMethods();
         for (Method method : declaredMethods) {
             if (methodName.equals(method.getName())) {

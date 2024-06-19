@@ -22,7 +22,7 @@ import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.*;
-import com.gs.dmn.feel.lib.type.time.mixed.MixedDurationLib;
+import com.gs.dmn.feel.lib.type.time.pure.TemporalAmountDurationLib;
 import com.gs.dmn.signavio.feel.lib.stub.SignavioDateTimeLibStub;
 import com.gs.dmn.signavio.feel.lib.stub.SignavioListLibStub;
 import com.gs.dmn.signavio.feel.lib.stub.SignavioNumberLibStub;
@@ -33,24 +33,24 @@ import com.gs.dmn.signavio.feel.lib.type.string.SignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.OffsetTime;
 import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class MixedSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public class JavaTimeSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected MixedJavaTimeSignavioLib getLib() {
+    protected JavaTimeSignavioLib getLib() {
         NumericType<BigDecimal> numericType = new NumericTypeStub<>();
         BooleanType booleanType = new BooleanTypeStub();
         StringType stringType = new StringTypeStub();
-        DateType<LocalDate, Duration> dateType = new DateTypeStub<>();
-        TimeType<OffsetTime, Duration> timeType = new TimeTypeStub<>();
-        DateTimeType<ZonedDateTime, Duration> dateTimeType = new DateTimeTypeStub<>();
-        DurationType<Duration, BigDecimal> durationType = new DurationTypeStub<>();
+        DateType<LocalDate, TemporalAmount> dateType = new DateTypeStub<>();
+        TimeType<TemporalAccessor, TemporalAmount> timeType = new TimeTypeStub<>();
+        DateTimeType<TemporalAccessor, TemporalAmount> dateTimeType = new DateTimeTypeStub<>();
+        DurationType<TemporalAmount, BigDecimal> durationType = new DurationTypeStub<>();
         ListType listType = new ListTypeStub();
         ContextType contextType = new ContextTypeStub();
         RangeType rangeType = new RangeTypeStub();
@@ -58,10 +58,10 @@ public class MixedSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTes
         SignavioNumberLib<BigDecimal> numberLib = new SignavioNumberLibStub<>();
         SignavioStringLib stringLib = new SignavioStringLibStub();
         BooleanLib booleanLib = new BooleanLibStub();
-        SignavioDateTimeLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime> dateTimeLib = new SignavioDateTimeLibStub<>();
-        DurationLib<LocalDate, Duration> durationLib = new MixedDurationLib();
+        SignavioDateTimeLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor> dateTimeLib = new SignavioDateTimeLibStub<>();
+        DurationLib<LocalDate, TemporalAmount> durationLib = new TemporalAmountDurationLib();
         SignavioListLib listLib = new SignavioListLibStub();
-        return new MixedJavaTimeSignavioLib(
+        return new JavaTimeSignavioLib(
                 numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,

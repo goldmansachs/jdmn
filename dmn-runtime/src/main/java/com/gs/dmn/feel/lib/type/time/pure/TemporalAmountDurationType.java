@@ -21,7 +21,7 @@ import java.time.Duration;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalAmountDurationType extends BasePureCalendarType implements DurationType<TemporalAmount, BigDecimal> {
+public class TemporalAmountDurationType extends BaseJavaTimeCalendarType implements DurationType<TemporalAmount, BigDecimal> {
     private final TemporalAmountComparator comparator;
 
     public TemporalAmountDurationType() {

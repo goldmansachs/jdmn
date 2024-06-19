@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.range;
 
-import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 
 import java.math.BigDecimal;
@@ -23,7 +23,7 @@ import java.time.temporal.TemporalAmount;
 public class TemporalDateTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected StandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> getLib() {
-        return new PureJavaTimeFEELLib();
+        return new JavaTimeFEELLib();
     }
 
     @Override

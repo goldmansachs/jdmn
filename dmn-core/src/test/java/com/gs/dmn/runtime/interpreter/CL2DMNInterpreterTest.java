@@ -13,26 +13,17 @@
 package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.DoubleMixedJavaTimeDMNDialectDefinition;
-import com.gs.dmn.dialect.PureJavaTimeDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.tck.ast.TestCases;
 
-import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureCL3DMNInterpreterTest extends CL3DMNInterpreterTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class CL2DMNInterpreterTest extends AbstractCL2SDMNInterpreterTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> getDialectDefinition() {
-        return new PureJavaTimeDMNDialectDefinition();
-    }
-
-    @Override
-    protected String getTestCasesInputPath() {
-        return getDMNInputPath() + "/pure";
+        return new JavaTimeDMNDialectDefinition();
     }
 }

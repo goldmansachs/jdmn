@@ -18,8 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class PureJavaTimeSignavioBaseDecisionTest {
-    private final PureJavaTimeSignavioBaseDecision baseDecision = new PureJavaTimeSignavioBaseDecision();
+public class JavaTimeSignavioBaseDecisionTest {
+    private final JavaTimeSignavioBaseDecision baseDecision = new JavaTimeSignavioBaseDecision();
 
     @Test
     public void testGetDRGElementAnnotation() throws Exception {

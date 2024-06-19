@@ -12,23 +12,23 @@
  */
 package com.gs.dmn.dialect;
 
-import com.gs.dmn.feel.lib.PureJavaTimeFEELLib;
-import com.gs.dmn.feel.synthesis.type.PureJavaTimeNativeTypeFactory;
-import com.gs.dmn.runtime.PureJavaTimeDMNBaseDecision;
+import com.gs.dmn.feel.lib.JavaTimeFEELLib;
+import com.gs.dmn.feel.synthesis.type.JavaTimeKotlinNativeTypeFactory;
+import com.gs.dmn.runtime.JavaTimeDMNBaseDecision;
 import com.gs.dmn.runtime.interpreter.StandardDMNInterpreter;
 import com.gs.dmn.tck.ast.TestCases;
-import com.gs.dmn.transformation.DMNToJavaTransformer;
-import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
+import com.gs.dmn.transformation.DMNToKotlinTransformer;
+import com.gs.dmn.transformation.basic.BasicDMNToKotlinTransformer;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class PureJavaTimeDMNDialectDefinitionTest extends AbstractStandardDMNDialectDefinitionTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeKotlinStandardDMNDialectDefinitionTest extends AbstractStandardDMNDialectDefinitionTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialect() {
-        return new PureJavaTimeDMNDialectDefinition();
+        return new JavaTimeKotlinStandardDMNDialectDefinition();
     }
 
     @Override
@@ -38,26 +38,26 @@ public class PureJavaTimeDMNDialectDefinitionTest extends AbstractStandardDMNDia
 
     @Override
     protected String getExpectedDMNToNativeTransformerClass() {
-        return DMNToJavaTransformer.class.getName();
+        return DMNToKotlinTransformer.class.getName();
     }
 
     @Override
     protected String getBasicTransformerClass() {
-        return BasicDMNToJavaTransformer.class.getName();
+        return BasicDMNToKotlinTransformer.class.getName();
     }
 
     @Override
     protected String getExpectedNativeTypeFactoryClass() {
-        return PureJavaTimeNativeTypeFactory.class.getName();
+        return JavaTimeKotlinNativeTypeFactory.class.getName();
     }
 
     @Override
     protected String getExpectedFEELLibClass() {
-        return PureJavaTimeFEELLib.class.getName();
+        return JavaTimeFEELLib.class.getName();
     }
 
     @Override
     protected String getExpectedDecisionBaseClass() {
-        return PureJavaTimeDMNBaseDecision.class.getName();
+        return JavaTimeDMNBaseDecision.class.getName();
     }
 }

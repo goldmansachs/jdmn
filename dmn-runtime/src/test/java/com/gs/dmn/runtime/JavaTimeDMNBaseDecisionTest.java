@@ -18,8 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class PureJavaTimeDMNBaseDecisionTest {
-    private final PureJavaTimeDMNBaseDecision baseDecision = new PureJavaTimeDMNBaseDecision();
+public class JavaTimeDMNBaseDecisionTest {
+    private final JavaTimeDMNBaseDecision baseDecision = new JavaTimeDMNBaseDecision();
 
     @Test
     public void testGetDRGElementAnnotation() {

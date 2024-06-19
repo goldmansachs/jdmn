@@ -15,12 +15,11 @@ package com.gs.dmn.signavio.feel.lib.type.list;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.signavio.feel.lib.SignavioUtil;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class DefaultSignavioListLib implements SignavioListLib<BigDecimal> {
+public class DefaultSignavioListLib implements SignavioListLib {
     @Override
     public <T> List<T> append(List<T> list, T element) {
         if (!SignavioUtil.areNullSafe(list)) {

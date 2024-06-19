@@ -35,7 +35,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     private final BooleanLib booleanLib;
     protected final SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> dateTimeLib;
     protected final DurationLib<DATE, DURATION> durationLib;
-    private final SignavioListLib<NUMBER> listLib;
+    private final SignavioListLib listLib;
 
     protected BaseSignavioLib(
             NumericType<NUMBER> numericType, BooleanType booleanType, StringType stringType,
@@ -46,7 +46,7 @@ public abstract class BaseSignavioLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
             BooleanLib booleanLib,
             SignavioDateTimeLib<NUMBER, DATE, TIME, DATE_TIME> dateTimeLib,
             DurationLib<DATE, DURATION> durationLib,
-            SignavioListLib<NUMBER> listLib) {
+            SignavioListLib listLib) {
         super(numericType, booleanType, stringType, dateType, timeType, dateTimeType, durationType, listType, contextType, rangeType, functionType);
         this.numberLib = numberLib;
         this.stringLib = stringLib;

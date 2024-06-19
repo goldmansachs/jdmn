@@ -7,7 +7,7 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.DMNContextKind;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.context.environment.RuntimeEnvironment;
-import com.gs.dmn.dialect.PureJavaTimeDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.el.synthesis.triple.Triple;
@@ -40,7 +40,7 @@ public class FEELToTripleNativeVisitorTest extends AbstractTest {
     private FEELToTripleNativeVisitor nativeVisitor;
 
     public FEELToTripleNativeVisitorTest() {
-        PureJavaTimeDMNDialectDefinition dialectDefinition = new PureJavaTimeDMNDialectDefinition();
+        JavaTimeDMNDialectDefinition dialectDefinition = new JavaTimeDMNDialectDefinition();
         DMNModelRepository repository = makeRepository();
         InputParameters inputParameters = makeInputParameters();
 

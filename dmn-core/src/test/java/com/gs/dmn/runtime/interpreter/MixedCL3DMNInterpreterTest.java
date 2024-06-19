@@ -22,7 +22,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
-public class MixedCL3DMNInterpreterTest extends CL3DMNInterpreterTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public class MixedCL3DMNInterpreterTest extends AbstractCL3DMNInterpreterTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
     protected DMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration, TestCases> getDialectDefinition() {
         return new MixedJavaTimeDMNDialectDefinition();

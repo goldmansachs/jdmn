@@ -27,7 +27,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 
 /**
- * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeSignavioBaseDecision}
+ * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeSignavioBaseDecision}
  */
 @Deprecated
 public class MixedJavaTimeSignavioBaseDecision extends MixedJavaTimeSignavioLib

@@ -35,7 +35,7 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
 /**
- * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeFEELLib}
+ * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeFEELLib}
  */
 @Deprecated
 public class DoubleMixedJavaTimeFEELLib extends BaseMixedJavaTimeFEELLib<Double> {

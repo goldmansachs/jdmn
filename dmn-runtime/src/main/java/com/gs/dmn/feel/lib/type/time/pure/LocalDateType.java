@@ -23,7 +23,7 @@ import java.time.chrono.ChronoPeriod;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 
-public class LocalDateType extends BasePureCalendarType implements DateType<LocalDate, TemporalAmount> {
+public class LocalDateType extends BaseJavaTimeCalendarType implements DateType<LocalDate, TemporalAmount> {
     private final TemporalComparator comparator;
 
     public LocalDateType() {

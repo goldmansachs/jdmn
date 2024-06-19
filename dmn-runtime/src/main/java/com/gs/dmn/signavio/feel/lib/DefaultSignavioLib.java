@@ -28,7 +28,6 @@ import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.*;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib;
-import com.gs.dmn.runtime.PureJavaTimeDMNBaseDecision;
 import com.gs.dmn.signavio.feel.lib.type.list.DefaultSignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
@@ -45,7 +44,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
 /**
- * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeSignavioLib}
+ * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeSignavioLib}
  */
 @Deprecated
 public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
@@ -66,7 +65,7 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
     private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
     private static final DurationLib<XMLGregorianCalendar, Duration> DURATION_LIB = new DefaultDurationLib();
     private static final SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> DATE_TIME_LIB = new DefaultSignavioDateTimeLib();
-    private static final SignavioListLib<BigDecimal> LIST_LIB = new DefaultSignavioListLib();
+    private static final SignavioListLib LIST_LIB = new DefaultSignavioListLib();
 
     public static final DefaultSignavioLib INSTANCE = new DefaultSignavioLib();
 
@@ -101,7 +100,7 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
             BooleanLib booleanLib,
             SignavioDateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar> dateTimeLib,
             DurationLib<XMLGregorianCalendar, Duration> durationLib,
-            SignavioListLib<BigDecimal> listLib) {
+            SignavioListLib listLib) {
         super(numericType, booleanType, stringType,
                 dateType, timeType, dateTimeType, durationType,
                 listType, contextType, rangeType, functionType,

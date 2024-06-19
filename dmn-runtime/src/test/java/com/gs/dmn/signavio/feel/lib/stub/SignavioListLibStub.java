@@ -15,10 +15,9 @@ package com.gs.dmn.signavio.feel.lib.stub;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-public class SignavioListLibStub implements SignavioListLib<BigDecimal> {
+public class SignavioListLibStub implements SignavioListLib {
     @Override
     public <T> List<T> append(List<T> list, T item) {
         throw new DMNRuntimeException("Not supported yet");

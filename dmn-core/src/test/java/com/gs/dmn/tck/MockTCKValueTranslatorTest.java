@@ -16,7 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TInputData;
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.dialect.PureJavaTimeDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
@@ -58,7 +58,7 @@ public class MockTCKValueTranslatorTest {
         }
     }
 
-    private final PureJavaTimeDMNDialectDefinition dialect = new PureJavaTimeDMNDialectDefinition();
+    private final JavaTimeDMNDialectDefinition dialect = new JavaTimeDMNDialectDefinition();
     private final DMNModelRepository repository = new DMNModelRepository();
     private final BasicDMNToNativeTransformer<Type, DMNContext> transformer = dialect.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new InputParameters());
     private final StandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> lib = (StandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount>) dialect.createFEELLib();

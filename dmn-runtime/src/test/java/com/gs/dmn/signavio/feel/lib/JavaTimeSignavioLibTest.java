@@ -24,10 +24,10 @@ import java.util.Calendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class PureJavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected PureJavaTimeSignavioLib getLib() {
-        return new PureJavaTimeSignavioLib();
+    protected JavaTimeSignavioLib getLib() {
+        return new JavaTimeSignavioLib();
     }
 
     //

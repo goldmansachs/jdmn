@@ -17,11 +17,10 @@ import com.gs.dmn.feel.lib.type.time.JavaCalendarType;
 import java.time.*;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
-import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalQueries;
 import java.util.Optional;
 
-public abstract class BasePureCalendarType extends JavaCalendarType {
+public abstract class BaseJavaTimeCalendarType extends JavaCalendarType {
     @Override
     public boolean isDate(Object object) {
         return object instanceof LocalDate;

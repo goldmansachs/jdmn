@@ -38,7 +38,7 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 
 /**
- * @deprecated  As of release 8.3.0, replaced by {@link PureJavaTimeDMNDialectDefinition}
+ * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeDMNDialectDefinition}
  */
 @Deprecated
 public class MixedJavaTimeDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
