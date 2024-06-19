@@ -2,7 +2,10 @@ package com.gs.dmn.generated.proto.date_time_proto;
 
 import org.junit.jupiter.api.Test;
 
-public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+
+public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     private final Date dateDecision = new Date();
     private final Time timeDecision = new Time();
     private final DateTime dateTimeDecision = new DateTime();
@@ -11,7 +14,7 @@ public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNB
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
-        javax.xml.datatype.XMLGregorianCalendar inputDate = date("2020-09-10");
+        LocalDate inputDate = date("2020-09-10");
 
         // Check Date
         checkValues(date("2020-09-10"), dateDecision.apply(inputDate, context_));
@@ -28,7 +31,7 @@ public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNB
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
-        javax.xml.datatype.XMLGregorianCalendar inputTime = time("12:10:10");
+        TemporalAccessor inputTime = time("12:10:10");
 
         // Check Time
         checkValues(time("12:10:10"), timeDecision.apply(inputTime, context_));
@@ -45,7 +48,7 @@ public class DateTimeProtoHandwrittenTest extends com.gs.dmn.runtime.DefaultDMNB
     public void testCase3() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
-        javax.xml.datatype.XMLGregorianCalendar inputDateTime = dateAndTime("2020-09-19T12:10:10");
+        TemporalAccessor inputDateTime = dateAndTime("2020-09-19T12:10:10");
 
         // Check DateTime
         checkValues(dateAndTime("2020-09-19T12:10:10"), dateTimeDecision.apply(inputDateTime, context_));

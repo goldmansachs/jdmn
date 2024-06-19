@@ -84,12 +84,12 @@ public class JavaTimeKotlinStandardDMNDialectDefinition extends AbstractStandard
 
     @Override
     public String getNativeTimeType() {
-        return OffsetTime.class.getName();
+        return TemporalAccessor.class.getName();
     }
 
     @Override
     public String getNativeDateAndTimeType() {
-        return ZonedDateTime.class.getName();
+        return TemporalAccessor.class.getName();
     }
 
     @Override

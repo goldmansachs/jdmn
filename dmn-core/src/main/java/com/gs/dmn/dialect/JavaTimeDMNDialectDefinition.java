@@ -82,12 +82,12 @@ public class JavaTimeDMNDialectDefinition extends AbstractStandardDMNDialectDefi
 
     @Override
     public String getNativeTimeType() {
-        return Temporal.class.getName();
+        return TemporalAccessor.class.getName();
     }
 
     @Override
     public String getNativeDateAndTimeType() {
-        return Temporal.class.getName();
+        return TemporalAccessor.class.getName();
     }
 
     @Override
