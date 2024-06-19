@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
+class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): type.TRankedProducts? {
         try {
             return apply(input_.get("RequestedAmt")?.let({ number(it) }), context_)

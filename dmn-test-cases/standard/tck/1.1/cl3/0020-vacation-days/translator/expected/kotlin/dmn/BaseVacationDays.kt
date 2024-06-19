@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-class BaseVacationDays() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
+class BaseVacationDays() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
             return apply(context_)

@@ -14,17 +14,17 @@ public interface TLoan extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TLoanImpl result_ = new TLoanImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("principal")) {
-                result_.setPrincipal((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("principal"));
+                result_.setPrincipal((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("principal"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("rate")) {
-                result_.setRate((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("rate"));
+                result_.setRate((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("rate"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("termMonths")) {
-                result_.setTermMonths((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("termMonths"));
+                result_.setTermMonths((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("termMonths"));
             } else {
                 return  null;
             }
@@ -37,13 +37,13 @@ public interface TLoan extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("principal")
-    java.math.BigDecimal getPrincipal();
+    java.lang.Number getPrincipal();
 
     @com.fasterxml.jackson.annotation.JsonGetter("rate")
-    java.math.BigDecimal getRate();
+    java.lang.Number getRate();
 
     @com.fasterxml.jackson.annotation.JsonGetter("termMonths")
-    java.math.BigDecimal getTermMonths();
+    java.lang.Number getTermMonths();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

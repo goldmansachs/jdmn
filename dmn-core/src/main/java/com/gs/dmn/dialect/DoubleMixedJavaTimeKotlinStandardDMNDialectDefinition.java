@@ -73,29 +73,4 @@ public class DoubleMixedJavaTimeKotlinStandardDMNDialectDefinition extends Abstr
     public String getDecisionBaseClass() {
         return DoubleMixedJavaTimeDMNBaseDecision.class.getName();
     }
-
-    @Override
-    public String getNativeNumberType() {
-        return Double.class.getName();
-    }
-
-    @Override
-    public String getNativeDateType() {
-        return LocalDate.class.getName();
-    }
-
-    @Override
-    public String getNativeTimeType() {
-        return OffsetTime.class.getName();
-    }
-
-    @Override
-    public String getNativeDateAndTimeType() {
-        return ZonedDateTime.class.getName();
-    }
-
-    @Override
-    public String getNativeDurationType() {
-        return Duration.class.getName();
-    }
 }

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Bkm_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class Bkm_013_1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "bkm_013_1",
@@ -34,11 +34,11 @@ public class Bkm_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         throw new com.gs.dmn.runtime.DMNRuntimeException("Not all arguments can be serialized");
     }
 
-    public java.math.BigDecimal apply(com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> fn1, com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> fn2, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn1, com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn2, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'bkm_013_1'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -52,7 +52,7 @@ public class Bkm_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bkm_013_1Arguments_);
 
             // Evaluate BKM 'bkm_013_1'
-            java.math.BigDecimal output_ = lambda.apply(fn1, fn2, context_);
+            java.lang.Number output_ = lambda.apply(fn1, fn2, context_);
 
             // End BKM 'bkm_013_1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bkm_013_1Arguments_, output_, (System.currentTimeMillis() - bkm_013_1StartTime_));
@@ -64,11 +64,11 @@ public class Bkm_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
-                com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> fn1 = 0 < args_.length ? (com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>) args_[0] : null;
-                com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> fn2 = 1 < args_.length ? (com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>) args_[1] : null;
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
+                com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn1 = 0 < args_.length ? (com.gs.dmn.runtime.LambdaExpression<java.lang.Number>) args_[0] : null;
+                com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn2 = 1 < args_.length ? (com.gs.dmn.runtime.LambdaExpression<java.lang.Number>) args_[1] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;

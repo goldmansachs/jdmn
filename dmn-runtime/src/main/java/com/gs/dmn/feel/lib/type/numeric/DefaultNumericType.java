@@ -12,151 +12,100 @@
  */
 package com.gs.dmn.feel.lib.type.numeric;
 
-import com.gs.dmn.feel.lib.type.ComparableComparator;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 
-public class DefaultNumericType extends BaseNumericType implements NumericType<BigDecimal> {
-    public static final MathContext MATH_CONTEXT = MathContext.DECIMAL128;
+public class DefaultNumericType extends BaseNumericType implements NumericType<Number> {
+    private static final DecimalNumericType DECIMAL_NUMERIC_TYPE = new DecimalNumericType();
 
-    public static BigDecimal decimalNumericDivide(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
+    public static BigDecimal toDecimal(Number number) {
+        if (number == null) {
             return null;
+        } else if (number instanceof BigDecimal) {
+            return (BigDecimal) number;
+        } else if (number instanceof Short || number instanceof Integer) {
+            return BigDecimal.valueOf(number.intValue());
+        } else if (number instanceof Long) {
+            return BigDecimal.valueOf(number.longValue());
+        } else if (number instanceof Double) {
+            return BigDecimal.valueOf(number.doubleValue());
         }
-        if (BigDecimal.ZERO.equals(second)) {
-            return null;
-        }
-
-        return first.divide(second, MATH_CONTEXT);
-    }
-
-    private final ComparableComparator<BigDecimal> comparator;
-
-    public DefaultNumericType() {
-        this(new ComparableComparator<>());
-    }
-
-    public DefaultNumericType(ComparableComparator<BigDecimal> comparator) {
-        this.comparator = comparator;
+        throw new DMNRuntimeException(String.format("Not supported conversion of '%s' to decimal", number));
     }
 
     @Override
     public boolean isNumber(Object value) {
-        return value instanceof BigDecimal;
+        return DECIMAL_NUMERIC_TYPE.isNumber(value);
     }
 
     @Override
-    public BigDecimal numericValue(BigDecimal value) {
-        return value;
+    public Number numericValue(Number value) {
+        return DECIMAL_NUMERIC_TYPE.numericValue(toDecimal(value));
     }
 
     @Override
-    public Boolean numericIs(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
-            return first == second;
-        }
-
-        return first.unscaledValue().equals(second.unscaledValue())
-                && first.scale() == second.scale();
+    public Boolean numericIs(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericIs(toDecimal(first), toDecimal(second));
     }
 
     @Override
-    public Boolean numericEqual(BigDecimal first, BigDecimal second) {
-        return this.comparator.equalTo(first, second);
+    public Boolean numericEqual(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericEqual(toDecimal(first), toDecimal(second));
     }
 
     @Override
-    public Boolean numericNotEqual(BigDecimal first, BigDecimal second) {
-        return this.comparator.notEqualTo(first, second);
+    public Boolean numericNotEqual(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericNotEqual(toDecimal(first), toDecimal(second));
     }
 
     @Override
-    public Boolean numericLessThan(BigDecimal first, BigDecimal second) {
-        return this.comparator.lessThan(first, second);
+    public Boolean numericLessThan(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericLessThan(toDecimal(first), toDecimal(second));
     }
 
     @Override
-    public Boolean numericGreaterThan(BigDecimal first, BigDecimal second) {
-        return this.comparator.greaterThan(first, second);
+    public Boolean numericGreaterThan(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericGreaterThan(toDecimal(first), toDecimal(second));
     }
 
     @Override
-    public Boolean numericLessEqualThan(BigDecimal first, BigDecimal second) {
-        return this.comparator.lessEqualThan(first, second);
+    public Boolean numericLessEqualThan(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericLessEqualThan(toDecimal(first), toDecimal(second));
     }
 
     @Override
-    public Boolean numericGreaterEqualThan(BigDecimal first, BigDecimal second) {
-        return this.comparator.greaterEqualThan(first, second);
+    public Boolean numericGreaterEqualThan(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericGreaterEqualThan(toDecimal(first), toDecimal(second));
     }
 
     @Override
-    public BigDecimal numericAdd(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
-            return null;
-        }
-
-        return first.add(second, MATH_CONTEXT);
+    public Number numericAdd(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericAdd(toDecimal(first), toDecimal(second));
     }
 
     @Override
-    public BigDecimal numericSubtract(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
-            return null;
-        }
-
-        return first.subtract(second, MATH_CONTEXT);
+    public Number numericSubtract(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericSubtract(toDecimal(first), toDecimal(second));
     }
 
     @Override
-    public BigDecimal numericMultiply(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
-            return null;
-        }
-
-        return first.multiply(second, MATH_CONTEXT);
+    public Number numericMultiply(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericMultiply(toDecimal(first), toDecimal(second));
     }
 
     @Override
-    public BigDecimal numericDivide(BigDecimal first, BigDecimal second) {
-        return decimalNumericDivide(first, second);
+    public Number numericDivide(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericDivide(toDecimal(first), toDecimal(second));
     }
 
     @Override
-    public BigDecimal numericUnaryMinus(BigDecimal first) {
-        if (first == null) {
-            return null;
-        }
-
-        return first.negate(MATH_CONTEXT);
+    public Number numericUnaryMinus(Number first) {
+        return DECIMAL_NUMERIC_TYPE.numericUnaryMinus(toDecimal(first));
     }
 
     @Override
-    public BigDecimal numericExponentiation(BigDecimal first, BigDecimal second) {
-        if (first == null || second == null) {
-            return null;
-        }
-
-        if (second.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0) {
-            return numericExponentiation(first, second.intValue());
-        } else {
-            return BigDecimal.valueOf(Math.pow(first.doubleValue(), second.doubleValue()));
-        }
-    }
-
-    public BigDecimal numericExponentiation(BigDecimal first, int second) {
-        if (first == null) {
-            return null;
-        }
-
-        if (second < 0) {
-            return first.pow(second, MATH_CONTEXT);
-        } else if (second == 0) {
-            return BigDecimal.ONE;
-        } else {
-            BigDecimal temp = first.pow(-second, MATH_CONTEXT);
-            return BigDecimal.ONE.divide(temp, MATH_CONTEXT);
-        }
+    public Number numericExponentiation(Number first, Number second) {
+        return DECIMAL_NUMERIC_TYPE.numericExponentiation(toDecimal(first), toDecimal(second));
     }
 }

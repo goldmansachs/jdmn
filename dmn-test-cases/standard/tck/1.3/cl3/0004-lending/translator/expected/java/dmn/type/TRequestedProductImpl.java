@@ -6,14 +6,14 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TRequestedProductImpl implements TRequestedProduct {
         private String productType;
-        private java.math.BigDecimal amount;
-        private java.math.BigDecimal rate;
-        private java.math.BigDecimal term;
+        private java.lang.Number amount;
+        private java.lang.Number rate;
+        private java.lang.Number term;
 
     public TRequestedProductImpl() {
     }
 
-    public TRequestedProductImpl(java.math.BigDecimal amount, String productType, java.math.BigDecimal rate, java.math.BigDecimal term) {
+    public TRequestedProductImpl(java.lang.Number amount, String productType, java.lang.Number rate, java.lang.Number term) {
         this.setAmount(amount);
         this.setProductType(productType);
         this.setRate(rate);
@@ -21,12 +21,12 @@ public class TRequestedProductImpl implements TRequestedProduct {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Amount")
-    public java.math.BigDecimal getAmount() {
+    public java.lang.Number getAmount() {
         return this.amount;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Amount")
-    public void setAmount(java.math.BigDecimal amount) {
+    public void setAmount(java.lang.Number amount) {
         this.amount = amount;
     }
 
@@ -41,22 +41,22 @@ public class TRequestedProductImpl implements TRequestedProduct {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Rate")
-    public java.math.BigDecimal getRate() {
+    public java.lang.Number getRate() {
         return this.rate;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Rate")
-    public void setRate(java.math.BigDecimal rate) {
+    public void setRate(java.lang.Number rate) {
         this.rate = rate;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Term")
-    public java.math.BigDecimal getTerm() {
+    public java.lang.Number getTerm() {
         return this.term;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Term")
-    public void setTerm(java.math.BigDecimal term) {
+    public void setTerm(java.lang.Number term) {
         this.term = term;
     }
 

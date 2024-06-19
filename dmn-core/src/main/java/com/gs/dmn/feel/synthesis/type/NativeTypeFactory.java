@@ -12,6 +12,10 @@
  */
 package com.gs.dmn.feel.synthesis.type;
 
+import com.gs.dmn.feel.analysis.semantics.type.*;
+
+import java.math.BigDecimal;
+
 public interface NativeTypeFactory {
     String toNativeType(String feelType);
 
@@ -22,4 +26,30 @@ public interface NativeTypeFactory {
     String constructorOfGenericType(String typeName, String... typeParameters);
 
     String javaClass(String type);
+
+    //
+    // Types
+    //
+    default String getNativeNumberType() {
+        return toNativeType(NumberType.NUMBER.getName());
+    }
+    default String getNativeNumberConcreteType() {
+        return BigDecimal.class.getName();
+    }
+
+    default String getNativeDateType() {
+        return toNativeType(DateType.DATE.getName());
+    }
+
+    default String getNativeTimeType() {
+        return toNativeType(TimeType.TIME.getName());
+    }
+
+    default String getNativeDateAndTimeType() {
+        return toNativeType(DateTimeType.DATE_AND_TIME.getName());
+    }
+
+    default String getNativeDurationType() {
+        return toNativeType(DurationType.DAYS_AND_TIME_DURATION.getName());
+    }
 }

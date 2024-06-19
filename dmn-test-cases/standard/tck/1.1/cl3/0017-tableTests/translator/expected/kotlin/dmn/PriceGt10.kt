@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 2
 )
-class PriceGt10() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
+class PriceGt10() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
             return apply(input_.get("structA")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TAImpl>() {}) }), context_)

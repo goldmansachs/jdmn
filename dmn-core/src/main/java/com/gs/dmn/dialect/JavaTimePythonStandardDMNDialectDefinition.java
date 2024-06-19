@@ -32,12 +32,11 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class JavaTimePythonStandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimePythonStandardDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     //
     // DMN Processors
     //
@@ -61,7 +60,7 @@ public class JavaTimePythonStandardDMNDialectDefinition extends AbstractStandard
     }
 
     @Override
-    public FEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> createFEELLib() {
+    public FEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> createFEELLib() {
         return new JavaTimeFEELLib();
     }
 
@@ -73,30 +72,5 @@ public class JavaTimePythonStandardDMNDialectDefinition extends AbstractStandard
     protected String qualifiedName(Class<?> cls) {
         String qName = String.format("%s.%s", cls.getName(), cls.getSimpleName());
         return qName.replace("com.gs.dmn", "jdmn");
-    }
-
-    @Override
-    public String getNativeNumberType() {
-        return "decimal.Decimal";
-    }
-
-    @Override
-    public String getNativeDateType() {
-        return "datetime.date";
-    }
-
-    @Override
-    public String getNativeTimeType() {
-        return "datetime.time";
-    }
-
-    @Override
-    public String getNativeDateAndTimeType() {
-        return "datetime.datetime";
-    }
-
-    @Override
-    public String getNativeDurationType() {
-        return "isodate.Duration";
     }
 }

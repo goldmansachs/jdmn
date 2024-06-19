@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class PostBureauAffordability extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "Post-bureauAffordability",
@@ -86,9 +86,9 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.DefaultDMNBaseDe
 
                 // Apply child decisions
                 String postBureauRiskCategory = PostBureauAffordability.this.postBureauRiskCategory.apply(applicantData, bureauData, context_);
-                java.math.BigDecimal requiredMonthlyInstallment = PostBureauAffordability.this.requiredMonthlyInstallment.apply(requestedProduct, context_);
+                java.lang.Number requiredMonthlyInstallment = PostBureauAffordability.this.requiredMonthlyInstallment.apply(requestedProduct, context_);
 
-                return AffordabilityCalculation.instance().apply(((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getIncome() : null)), ((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getRepayments() : null)), ((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getExpenses() : null)), postBureauRiskCategory, requiredMonthlyInstallment, context_);
+                return AffordabilityCalculation.instance().apply(((java.lang.Number)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getIncome() : null)), ((java.lang.Number)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getRepayments() : null)), ((java.lang.Number)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getExpenses() : null)), postBureauRiskCategory, requiredMonthlyInstallment, context_);
             }
         };
 }

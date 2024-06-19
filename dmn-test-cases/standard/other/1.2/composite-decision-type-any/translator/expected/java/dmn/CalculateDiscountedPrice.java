@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class CalculateDiscountedPrice extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class CalculateDiscountedPrice extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "calculateDiscountedPrice",
@@ -34,7 +34,7 @@ public class CalculateDiscountedPrice extends com.gs.dmn.runtime.DefaultDMNBaseD
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("price") != null ? number(input_.get("price")) : null), (input_.get("student") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("student"), new com.fasterxml.jackson.core.type.TypeReference<type.StudentImpl>() {}) : null), context_);
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class CalculateDiscountedPrice extends com.gs.dmn.runtime.DefaultDMNBaseD
         }
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal price, type.Student student, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(java.lang.Number price, type.Student student, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'calculateDiscountedPrice'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -57,7 +57,7 @@ public class CalculateDiscountedPrice extends com.gs.dmn.runtime.DefaultDMNBaseD
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, calculateDiscountedPriceArguments_);
 
             // Evaluate decision 'calculateDiscountedPrice'
-            java.math.BigDecimal output_ = lambda.apply(price, student, context_);
+            java.lang.Number output_ = lambda.apply(price, student, context_);
 
             // End decision 'calculateDiscountedPrice'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, calculateDiscountedPriceArguments_, output_, (System.currentTimeMillis() - calculateDiscountedPriceStartTime_));
@@ -69,10 +69,10 @@ public class CalculateDiscountedPrice extends com.gs.dmn.runtime.DefaultDMNBaseD
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
-                java.math.BigDecimal price = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
+                java.lang.Number price = 0 < args_.length ? (java.lang.Number) args_[0] : null;
                 type.Student student = 1 < args_.length ? (type.Student) args_[1] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -83,7 +83,7 @@ public class CalculateDiscountedPrice extends com.gs.dmn.runtime.DefaultDMNBaseD
                 // Apply child decisions
                 com.gs.dmn.runtime.Context ageClassification = CalculateDiscountedPrice.this.ageClassification.apply(student, context_);
 
-                return numericMultiply(price, ((java.math.BigDecimal)((com.gs.dmn.runtime.Context)ageClassification).get("discount")));
+                return numericMultiply(price, ((java.lang.Number)((com.gs.dmn.runtime.Context)ageClassification).get("discount")));
             }
         };
 }

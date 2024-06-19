@@ -19,7 +19,7 @@ public interface TA extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("price")) {
-                result_.setPrice((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("price"));
+                result_.setPrice((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("price"));
             } else {
                 return  null;
             }
@@ -35,7 +35,7 @@ public interface TA extends com.gs.dmn.runtime.DMNType {
     String getName();
 
     @com.fasterxml.jackson.annotation.JsonGetter("price")
-    java.math.BigDecimal getPrice();
+    java.lang.Number getPrice();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

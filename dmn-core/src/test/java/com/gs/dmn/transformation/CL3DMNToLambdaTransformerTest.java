@@ -30,6 +30,9 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -47,7 +50,7 @@ public class CL3DMNToLambdaTransformerTest extends AbstractTckDMNToJavaTransform
     @Override
     protected FileTransformer makeTransformer(InputParameters inputParameters, BuildLogger logger) {
         // Create transformer
-        DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dmnDialect = makeDialectDefinition();
+        DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> dmnDialect = makeDialectDefinition();
         DMNValidator dmnValidator = makeDMNValidator(logger);
         DMNTransformer<TestCases> dmnTransformer = makeDMNTransformer(logger);
         TemplateProvider templateProvider = makeTemplateProvider();

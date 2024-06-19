@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class AffordabilityCalculation extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "AffordabilityCalculation",
@@ -43,7 +43,7 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
         }
     }
 
-    public Boolean apply(java.math.BigDecimal monthlyIncome, java.math.BigDecimal monthlyRepayments, java.math.BigDecimal monthlyExpenses, String riskCategory, java.math.BigDecimal requiredMonthlyInstallment, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean apply(java.lang.Number monthlyIncome, java.lang.Number monthlyRepayments, java.lang.Number monthlyExpenses, String riskCategory, java.lang.Number requiredMonthlyInstallment, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'AffordabilityCalculation'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -75,19 +75,19 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.DefaultDMNBaseD
     public com.gs.dmn.runtime.LambdaExpression<Boolean> lambda =
         new com.gs.dmn.runtime.LambdaExpression<Boolean>() {
             public Boolean apply(Object... args_) {
-                java.math.BigDecimal monthlyIncome = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
-                java.math.BigDecimal monthlyRepayments = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
-                java.math.BigDecimal monthlyExpenses = 2 < args_.length ? (java.math.BigDecimal) args_[2] : null;
+                java.lang.Number monthlyIncome = 0 < args_.length ? (java.lang.Number) args_[0] : null;
+                java.lang.Number monthlyRepayments = 1 < args_.length ? (java.lang.Number) args_[1] : null;
+                java.lang.Number monthlyExpenses = 2 < args_.length ? (java.lang.Number) args_[2] : null;
                 String riskCategory = 3 < args_.length ? (String) args_[3] : null;
-                java.math.BigDecimal requiredMonthlyInstallment = 4 < args_.length ? (java.math.BigDecimal) args_[4] : null;
+                java.lang.Number requiredMonthlyInstallment = 4 < args_.length ? (java.lang.Number) args_[4] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 5 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[5] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
                 com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
-                java.math.BigDecimal disposableIncome = numericSubtract(monthlyIncome, numericAdd(monthlyExpenses, monthlyRepayments));
-                java.math.BigDecimal creditContingencyFactor = CreditContingencyFactorTable.instance().apply(riskCategory, context_);
+                java.lang.Number disposableIncome = numericSubtract(monthlyIncome, numericAdd(monthlyExpenses, monthlyRepayments));
+                java.lang.Number creditContingencyFactor = CreditContingencyFactorTable.instance().apply(riskCategory, context_);
                 Boolean affordability = (booleanEqual(numericGreaterThan(numericMultiply(disposableIncome, creditContingencyFactor), requiredMonthlyInstallment), Boolean.TRUE)) ? Boolean.TRUE : Boolean.FALSE;
                 return affordability;
             }

@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-class ApplicationRiskScore() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
+class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
         try {
             return apply(input_.get("ApplicantData")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) }), context_)

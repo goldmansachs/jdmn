@@ -3,19 +3,19 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "Extra days case 3"})
 public class ExtraDaysCase3RuleOutput extends com.gs.dmn.runtime.RuleOutput {
-    private java.math.BigDecimal extraDaysCase3;
+    private java.lang.Number extraDaysCase3;
 
     public ExtraDaysCase3RuleOutput(boolean matched) {
         super(matched);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Extra days case 3")
-    public java.math.BigDecimal getExtraDaysCase3() {
+    public java.lang.Number getExtraDaysCase3() {
         return this.extraDaysCase3;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Extra days case 3")
-    public void setExtraDaysCase3(java.math.BigDecimal extraDaysCase3) {
+    public void setExtraDaysCase3(java.lang.Number extraDaysCase3) {
         this.extraDaysCase3 = extraDaysCase3;
     }
 

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.PRIORITY,
     rulesCount = 2
 )
-public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "decisiontables",
         "priceInRange",
@@ -37,7 +37,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public String apply(java.math.BigDecimal decisioninputs_numB, java.math.BigDecimal decisioninputs_numC, decisioninputs.type.TA decisioninputs_structA, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(java.lang.Number decisioninputs_numB, java.lang.Number decisioninputs_numC, decisioninputs.type.TA decisioninputs_structA, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'priceInRange'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -67,8 +67,8 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<String> lambda =
         new com.gs.dmn.runtime.LambdaExpression<String>() {
             public String apply(Object... args_) {
-                java.math.BigDecimal decisioninputs_numB = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
-                java.math.BigDecimal decisioninputs_numC = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+                java.lang.Number decisioninputs_numB = 0 < args_.length ? (java.lang.Number) args_[0] : null;
+                java.lang.Number decisioninputs_numC = 1 < args_.length ? (java.lang.Number) args_[1] : null;
                 decisioninputs.type.TA decisioninputs_structA = 2 < args_.length ? (decisioninputs.type.TA) args_[2] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 3 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[3] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -96,7 +96,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal decisioninputs_numB, java.math.BigDecimal decisioninputs_numC, decisioninputs.type.TA decisioninputs_structA, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number decisioninputs_numB, java.lang.Number decisioninputs_numC, decisioninputs.type.TA decisioninputs_structA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -110,7 +110,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         PriceInRangeRuleOutput output_ = new PriceInRangeRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), decisioninputs_numB), numericLessEqualThan(((java.math.BigDecimal)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), decisioninputs_numC))
+            booleanAnd(numericGreaterEqualThan(((java.lang.Number)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), decisioninputs_numB), numericLessEqualThan(((java.lang.Number)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), decisioninputs_numC))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -128,7 +128,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal decisioninputs_numB, java.math.BigDecimal decisioninputs_numC, decisioninputs.type.TA decisioninputs_structA, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.lang.Number decisioninputs_numB, java.lang.Number decisioninputs_numC, decisioninputs.type.TA decisioninputs_structA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 

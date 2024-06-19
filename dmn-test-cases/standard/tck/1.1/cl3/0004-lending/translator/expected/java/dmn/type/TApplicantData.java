@@ -19,7 +19,7 @@ public interface TApplicantData extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("Age")) {
-                result_.setAge((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Age"));
+                result_.setAge((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Age"));
             } else {
                 return  null;
             }
@@ -50,7 +50,7 @@ public interface TApplicantData extends com.gs.dmn.runtime.DMNType {
     type.Monthly getMonthly();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Age")
-    java.math.BigDecimal getAge();
+    java.lang.Number getAge();
 
     @com.fasterxml.jackson.annotation.JsonGetter("ExistingCustomer")
     Boolean getExistingCustomer();

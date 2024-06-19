@@ -50,6 +50,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MockTCKValueTranslatorTest {
     static final DatatypeFactory DATATYPE_FACTORY;
+
     static {
         try {
             DATATYPE_FACTORY = DatatypeFactory.newInstance();
@@ -61,8 +62,8 @@ public class MockTCKValueTranslatorTest {
     private final JavaTimeDMNDialectDefinition dialect = new JavaTimeDMNDialectDefinition();
     private final DMNModelRepository repository = new DMNModelRepository();
     private final BasicDMNToNativeTransformer<Type, DMNContext> transformer = dialect.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new InputParameters());
-    private final StandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> lib = (StandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount>) dialect.createFEELLib();
-    private final MockTCKValueTranslator<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> translator = new MockTCKValueTranslator<>(transformer, lib);
+    private final StandardFEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> lib = (StandardFEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount>) dialect.createFEELLib();
+    private final MockTCKValueTranslator<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> translator = new MockTCKValueTranslator<>(transformer, lib);
 
     @Test
     public void testWhenValueIsNil() {
@@ -166,7 +167,7 @@ public class MockTCKValueTranslatorTest {
 
     private ValueType makeListValue(Object... values) {
         ValueType result = new ValueType();
-        List value  = new List();
+        List value = new List();
         for (Object v: values) {
             value.getItem().add(makeSimpleValue(v));
         }

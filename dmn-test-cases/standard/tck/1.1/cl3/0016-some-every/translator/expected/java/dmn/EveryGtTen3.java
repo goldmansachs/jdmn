@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class EveryGtTen3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class EveryGtTen3 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "everyGtTen3",
@@ -79,7 +79,7 @@ public class EveryGtTen3 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
                 // Apply child decisions
                 List<type.TItemPrice> priceTable1 = EveryGtTen3.this.priceTable1.apply(context_);
 
-                return booleanAnd((List)priceTable1.stream().map(i -> booleanEqual(GtTen.instance().apply(((java.math.BigDecimal)(i != null ? i.getPrice() : null)), context_), Boolean.TRUE)).collect(Collectors.toList()));
+                return booleanAnd((List)priceTable1.stream().map(i -> booleanEqual(GtTen.instance().apply(((java.lang.Number)(i != null ? i.getPrice() : null)), context_), Boolean.TRUE)).collect(Collectors.toList()));
             }
         };
 }

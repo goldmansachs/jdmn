@@ -24,7 +24,7 @@ public interface TEmployeeTable extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("deptNum")) {
-                result_.setDeptNum((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("deptNum"));
+                result_.setDeptNum((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("deptNum"));
             } else {
                 return  null;
             }
@@ -43,7 +43,7 @@ public interface TEmployeeTable extends com.gs.dmn.runtime.DMNType {
     String getName();
 
     @com.fasterxml.jackson.annotation.JsonGetter("deptNum")
-    java.math.BigDecimal getDeptNum();
+    java.lang.Number getDeptNum();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

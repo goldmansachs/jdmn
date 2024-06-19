@@ -3,19 +3,19 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "ApplicationRiskScoreModel"})
 public class ApplicationRiskScoreModelRuleOutput extends com.gs.dmn.runtime.RuleOutput {
-    private java.math.BigDecimal applicationRiskScoreModel;
+    private java.lang.Number applicationRiskScoreModel;
 
     public ApplicationRiskScoreModelRuleOutput(boolean matched) {
         super(matched);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("ApplicationRiskScoreModel")
-    public java.math.BigDecimal getApplicationRiskScoreModel() {
+    public java.lang.Number getApplicationRiskScoreModel() {
         return this.applicationRiskScoreModel;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("ApplicationRiskScoreModel")
-    public void setApplicationRiskScoreModel(java.math.BigDecimal applicationRiskScoreModel) {
+    public void setApplicationRiskScoreModel(java.lang.Number applicationRiskScoreModel) {
         this.applicationRiskScoreModel = applicationRiskScoreModel;
     }
 

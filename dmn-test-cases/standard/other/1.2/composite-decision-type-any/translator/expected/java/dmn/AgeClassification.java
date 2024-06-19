@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 3
 )
-public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class AgeClassification extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "ageClassification",
@@ -106,7 +106,7 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         // Apply rule
         AgeClassificationRuleOutput output_ = new AgeClassificationRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericLessThan(((java.math.BigDecimal)(student != null ? student.getAge() : null)), number("18"))
+            numericLessThan(((java.lang.Number)(student != null ? student.getAge() : null)), number("18"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -138,7 +138,7 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         // Apply rule
         AgeClassificationRuleOutput output_ = new AgeClassificationRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(student != null ? student.getAge() : null)), number("18")), numericLessThan(((java.math.BigDecimal)(student != null ? student.getAge() : null)), number("65")))
+            booleanAnd(numericGreaterEqualThan(((java.lang.Number)(student != null ? student.getAge() : null)), number("18")), numericLessThan(((java.lang.Number)(student != null ? student.getAge() : null)), number("65")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -170,7 +170,7 @@ public class AgeClassification extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         // Apply rule
         AgeClassificationRuleOutput output_ = new AgeClassificationRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericGreaterEqualThan(((java.math.BigDecimal)(student != null ? student.getAge() : null)), number("65"))
+            numericGreaterEqualThan(((java.lang.Number)(student != null ? student.getAge() : null)), number("65"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

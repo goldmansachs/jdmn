@@ -6,12 +6,12 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TItemPriceImpl implements TItemPrice {
         private String itemName;
-        private java.math.BigDecimal price;
+        private java.lang.Number price;
 
     public TItemPriceImpl() {
     }
 
-    public TItemPriceImpl(String itemName, java.math.BigDecimal price) {
+    public TItemPriceImpl(String itemName, java.lang.Number price) {
         this.setItemName(itemName);
         this.setPrice(price);
     }
@@ -27,12 +27,12 @@ public class TItemPriceImpl implements TItemPrice {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("price")
-    public java.math.BigDecimal getPrice() {
+    public java.lang.Number getPrice() {
         return this.price;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("price")
-    public void setPrice(java.math.BigDecimal price) {
+    public void setPrice(java.lang.Number price) {
         this.price = price;
     }
 

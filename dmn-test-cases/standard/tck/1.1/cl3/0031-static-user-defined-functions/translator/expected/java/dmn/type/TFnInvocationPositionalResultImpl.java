@@ -5,46 +5,46 @@ import java.util.*;
 @javax.annotation.Generated(value = {"itemDefinition.ftl", "tFnInvocationPositionalResult"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TFnInvocationPositionalResultImpl implements TFnInvocationPositionalResult {
-        private java.math.BigDecimal sumResult;
-        private java.math.BigDecimal divisionResultPositional;
-        private java.math.BigDecimal multiplicationResultPositional;
+        private java.lang.Number sumResult;
+        private java.lang.Number divisionResultPositional;
+        private java.lang.Number multiplicationResultPositional;
 
     public TFnInvocationPositionalResultImpl() {
     }
 
-    public TFnInvocationPositionalResultImpl(java.math.BigDecimal divisionResultPositional, java.math.BigDecimal multiplicationResultPositional, java.math.BigDecimal sumResult) {
+    public TFnInvocationPositionalResultImpl(java.lang.Number divisionResultPositional, java.lang.Number multiplicationResultPositional, java.lang.Number sumResult) {
         this.setDivisionResultPositional(divisionResultPositional);
         this.setMultiplicationResultPositional(multiplicationResultPositional);
         this.setSumResult(sumResult);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("divisionResultPositional")
-    public java.math.BigDecimal getDivisionResultPositional() {
+    public java.lang.Number getDivisionResultPositional() {
         return this.divisionResultPositional;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("divisionResultPositional")
-    public void setDivisionResultPositional(java.math.BigDecimal divisionResultPositional) {
+    public void setDivisionResultPositional(java.lang.Number divisionResultPositional) {
         this.divisionResultPositional = divisionResultPositional;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("multiplicationResultPositional")
-    public java.math.BigDecimal getMultiplicationResultPositional() {
+    public java.lang.Number getMultiplicationResultPositional() {
         return this.multiplicationResultPositional;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("multiplicationResultPositional")
-    public void setMultiplicationResultPositional(java.math.BigDecimal multiplicationResultPositional) {
+    public void setMultiplicationResultPositional(java.lang.Number multiplicationResultPositional) {
         this.multiplicationResultPositional = multiplicationResultPositional;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("sumResult")
-    public java.math.BigDecimal getSumResult() {
+    public java.lang.Number getSumResult() {
         return this.sumResult;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("sumResult")
-    public void setSumResult(java.math.BigDecimal sumResult) {
+    public void setSumResult(java.lang.Number sumResult) {
         this.sumResult = sumResult;
     }
 

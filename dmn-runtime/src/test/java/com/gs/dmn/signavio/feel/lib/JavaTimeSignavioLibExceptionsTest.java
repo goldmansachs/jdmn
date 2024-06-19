@@ -33,7 +33,6 @@ import com.gs.dmn.signavio.feel.lib.type.string.SignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAccessor;
@@ -41,24 +40,24 @@ import java.time.temporal.TemporalAmount;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class JavaTimeSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeSignavioLibExceptionsTest extends BaseSignavioLibExceptionsTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected JavaTimeSignavioLib getLib() {
-        NumericType<BigDecimal> numericType = new NumericTypeStub<>();
+        NumericType<Number> numericType = new NumericTypeStub<>();
         BooleanType booleanType = new BooleanTypeStub();
         StringType stringType = new StringTypeStub();
         DateType<LocalDate, TemporalAmount> dateType = new DateTypeStub<>();
         TimeType<TemporalAccessor, TemporalAmount> timeType = new TimeTypeStub<>();
         DateTimeType<TemporalAccessor, TemporalAmount> dateTimeType = new DateTimeTypeStub<>();
-        DurationType<TemporalAmount, BigDecimal> durationType = new DurationTypeStub<>();
+        DurationType<TemporalAmount, Number> durationType = new DurationTypeStub<>();
         ListType listType = new ListTypeStub();
         ContextType contextType = new ContextTypeStub();
         RangeType rangeType = new RangeTypeStub();
         FunctionType functionType = new FunctionTypeStub();
-        SignavioNumberLib<BigDecimal> numberLib = new SignavioNumberLibStub<>();
+        SignavioNumberLib<Number> numberLib = new SignavioNumberLibStub<>();
         SignavioStringLib stringLib = new SignavioStringLibStub();
         BooleanLib booleanLib = new BooleanLibStub();
-        SignavioDateTimeLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor> dateTimeLib = new SignavioDateTimeLibStub<>();
+        SignavioDateTimeLib<Number, LocalDate, TemporalAccessor, TemporalAccessor> dateTimeLib = new SignavioDateTimeLibStub<>();
         DurationLib<LocalDate, TemporalAmount> durationLib = new TemporalAmountDurationLib();
         SignavioListLib listLib = new SignavioListLibStub();
         return new JavaTimeSignavioLib(

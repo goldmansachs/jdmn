@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class GtTen extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class GtTen extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "gtTen",
@@ -43,7 +43,7 @@ public class GtTen extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public Boolean apply(java.math.BigDecimal theNumber, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean apply(java.lang.Number theNumber, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'gtTen'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -71,7 +71,7 @@ public class GtTen extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<Boolean> lambda =
         new com.gs.dmn.runtime.LambdaExpression<Boolean>() {
             public Boolean apply(Object... args_) {
-                java.math.BigDecimal theNumber = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
+                java.lang.Number theNumber = 0 < args_.length ? (java.lang.Number) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;

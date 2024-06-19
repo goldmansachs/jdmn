@@ -30,8 +30,8 @@ import com.gs.dmn.feel.lib.type.time.*;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationLib;
 import com.gs.dmn.signavio.feel.lib.type.list.DefaultSignavioListLib;
 import com.gs.dmn.signavio.feel.lib.type.list.SignavioListLib;
-import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumberLib;
-import com.gs.dmn.signavio.feel.lib.type.numeric.DefaultSignavioNumericType;
+import com.gs.dmn.signavio.feel.lib.type.numeric.DecimalSignavioNumberLib;
+import com.gs.dmn.signavio.feel.lib.type.numeric.DecimalSignavioNumericType;
 import com.gs.dmn.signavio.feel.lib.type.numeric.SignavioNumberLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringLib;
 import com.gs.dmn.signavio.feel.lib.type.string.DefaultSignavioStringType;
@@ -44,11 +44,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
 /**
- * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeSignavioLib}
+ * @deprecated As of release 8.3.0, replaced by {@link JavaTimeSignavioLib}
  */
 @Deprecated
 public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
-    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultSignavioNumericType();
+    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DecimalSignavioNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultSignavioStringType();
     private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultSignavioDateType();
@@ -60,7 +60,7 @@ public class DefaultSignavioLib extends BaseSignavioLib<BigDecimal, XMLGregorian
     private static final RangeType RANGE_TYPE = new DefaultRangeType();
     private static final FunctionType FUNCTION_TYPE = new DefaultFunctionType();
 
-    private static final SignavioNumberLib<BigDecimal> NUMBER_LIB = new DefaultSignavioNumberLib();
+    private static final SignavioNumberLib<BigDecimal> NUMBER_LIB = new DecimalSignavioNumberLib();
     private static final SignavioStringLib STRING_LIB = new DefaultSignavioStringLib();
     private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
     private static final DurationLib<XMLGregorianCalendar, Duration> DURATION_LIB = new DefaultDurationLib();

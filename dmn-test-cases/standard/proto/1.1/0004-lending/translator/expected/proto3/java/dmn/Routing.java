@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class Routing extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "Routing",
@@ -123,7 +123,7 @@ public class Routing extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
                 Boolean postBureauAffordability = Routing.this.postBureauAffordability.apply(applicantData, bureauData, requestedProduct, context_);
                 String postBureauRiskCategory = Routing.this.postBureauRiskCategory.apply(applicantData, bureauData, context_);
 
-                return RoutingRules.instance().apply(postBureauRiskCategory, postBureauAffordability, ((Boolean)(bureauData != null ? bureauData.getBankrupt() : null)), ((java.math.BigDecimal)(bureauData != null ? bureauData.getCreditScore() : null)), context_);
+                return RoutingRules.instance().apply(postBureauRiskCategory, postBureauAffordability, ((Boolean)(bureauData != null ? bureauData.getBankrupt() : null)), ((java.lang.Number)(bureauData != null ? bureauData.getCreditScore() : null)), context_);
             }
         };
 }

@@ -31,13 +31,11 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class JavaTimeDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeDMNDialectDefinition extends AbstractStandardDMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     //
     // DMN Processors
     //
@@ -61,37 +59,12 @@ public class JavaTimeDMNDialectDefinition extends AbstractStandardDMNDialectDefi
     }
 
     @Override
-    public FEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> createFEELLib() {
+    public FEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> createFEELLib() {
         return new JavaTimeFEELLib();
     }
 
     @Override
     public String getDecisionBaseClass() {
         return JavaTimeDMNBaseDecision.class.getName();
-    }
-
-    @Override
-    public String getNativeNumberType() {
-        return  BigDecimal.class.getName();
-    }
-
-    @Override
-    public String getNativeDateType() {
-        return LocalDate.class.getName();
-    }
-
-    @Override
-    public String getNativeTimeType() {
-        return TemporalAccessor.class.getName();
-    }
-
-    @Override
-    public String getNativeDateAndTimeType() {
-        return TemporalAccessor.class.getName();
-    }
-
-    @Override
-    public String getNativeDurationType() {
-        return TemporalAmount.class.getName();
     }
 }

@@ -14,7 +14,6 @@ package com.gs.dmn.signavio.feel.lib;
 
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAccessor;
@@ -24,7 +23,7 @@ import java.util.Calendar;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class JavaTimeSignavioLibTest extends BaseSignavioLibTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeSignavioLibTest extends BaseSignavioLibTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected JavaTimeSignavioLib getLib() {
         return new JavaTimeSignavioLib();

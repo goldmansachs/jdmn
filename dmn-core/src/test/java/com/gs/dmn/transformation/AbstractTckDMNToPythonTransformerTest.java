@@ -18,14 +18,13 @@ import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.template.PythonTreeTemplateProvider;
 import com.gs.dmn.transformation.template.TemplateProvider;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public abstract class AbstractTckDMNToPythonTransformerTest extends AbstractTckDMNToNativeTransformerTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public abstract class AbstractTckDMNToPythonTransformerTest extends AbstractTckDMNToNativeTransformerTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialectDefinition() {
+    protected DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialectDefinition() {
         return new JavaTimePythonStandardDMNDialectDefinition();
     }
 

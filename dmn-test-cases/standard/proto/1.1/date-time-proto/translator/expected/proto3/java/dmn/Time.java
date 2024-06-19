@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Time extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class Time extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "Time",
@@ -25,7 +25,7 @@ public class Time extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public static java.util.Map<String, Object> requestToMap(proto.TimeRequest timeRequest_) {
         // Create arguments from Request Message
-        javax.xml.datatype.XMLGregorianCalendar inputTime = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.time(timeRequest_.getInputTime());
+        java.time.temporal.TemporalAccessor inputTime = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.time(timeRequest_.getInputTime());
 
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
@@ -33,16 +33,16 @@ public class Time extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return map_;
     }
 
-    public static javax.xml.datatype.XMLGregorianCalendar responseToOutput(proto.TimeResponse timeResponse_) {
+    public static java.time.temporal.TemporalAccessor responseToOutput(proto.TimeResponse timeResponse_) {
         // Extract and convert output
-        return com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.time(timeResponse_.getTime());
+        return com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.time(timeResponse_.getTime());
     }
 
     public Time() {
     }
 
     @java.lang.Override()
-    public javax.xml.datatype.XMLGregorianCalendar applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.time.temporal.TemporalAccessor applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("InputTime") != null ? time(input_.get("InputTime")) : null), context_);
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class Time extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public javax.xml.datatype.XMLGregorianCalendar apply(javax.xml.datatype.XMLGregorianCalendar inputTime, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.time.temporal.TemporalAccessor apply(java.time.temporal.TemporalAccessor inputTime, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Time'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -64,7 +64,7 @@ public class Time extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, timeArguments_);
 
             // Evaluate decision 'Time'
-            javax.xml.datatype.XMLGregorianCalendar output_ = lambda.apply(inputTime, context_);
+            java.time.temporal.TemporalAccessor output_ = lambda.apply(inputTime, context_);
 
             // End decision 'Time'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, timeArguments_, output_, (System.currentTimeMillis() - timeStartTime_));
@@ -78,10 +78,10 @@ public class Time extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public proto.TimeResponse applyProto(proto.TimeRequest timeRequest_, com.gs.dmn.runtime.ExecutionContext context_) {
         // Create arguments from Request Message
-        javax.xml.datatype.XMLGregorianCalendar inputTime = time(timeRequest_.getInputTime());
+        java.time.temporal.TemporalAccessor inputTime = time(timeRequest_.getInputTime());
 
         // Invoke apply method
-        javax.xml.datatype.XMLGregorianCalendar output_ = apply(inputTime, context_);
+        java.time.temporal.TemporalAccessor output_ = apply(inputTime, context_);
 
         // Convert output to Response Message
         proto.TimeResponse.Builder builder_ = proto.TimeResponse.newBuilder();
@@ -90,10 +90,10 @@ public class Time extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return builder_.build();
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<javax.xml.datatype.XMLGregorianCalendar> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<javax.xml.datatype.XMLGregorianCalendar>() {
-            public javax.xml.datatype.XMLGregorianCalendar apply(Object... args_) {
-                javax.xml.datatype.XMLGregorianCalendar inputTime = 0 < args_.length ? (javax.xml.datatype.XMLGregorianCalendar) args_[0] : null;
+    public com.gs.dmn.runtime.LambdaExpression<java.time.temporal.TemporalAccessor> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.time.temporal.TemporalAccessor>() {
+            public java.time.temporal.TemporalAccessor apply(Object... args_) {
+                java.time.temporal.TemporalAccessor inputTime = 0 < args_.length ? (java.time.temporal.TemporalAccessor) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;

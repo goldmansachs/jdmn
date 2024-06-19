@@ -6,14 +6,14 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TLoanProductImpl implements TLoanProduct {
         private String lenderName;
-        private java.math.BigDecimal rate;
-        private java.math.BigDecimal points;
-        private java.math.BigDecimal fee;
+        private java.lang.Number rate;
+        private java.lang.Number points;
+        private java.lang.Number fee;
 
     public TLoanProductImpl() {
     }
 
-    public TLoanProductImpl(java.math.BigDecimal fee, String lenderName, java.math.BigDecimal points, java.math.BigDecimal rate) {
+    public TLoanProductImpl(java.lang.Number fee, String lenderName, java.lang.Number points, java.lang.Number rate) {
         this.setFee(fee);
         this.setLenderName(lenderName);
         this.setPoints(points);
@@ -21,12 +21,12 @@ public class TLoanProductImpl implements TLoanProduct {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("fee")
-    public java.math.BigDecimal getFee() {
+    public java.lang.Number getFee() {
         return this.fee;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("fee")
-    public void setFee(java.math.BigDecimal fee) {
+    public void setFee(java.lang.Number fee) {
         this.fee = fee;
     }
 
@@ -41,22 +41,22 @@ public class TLoanProductImpl implements TLoanProduct {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("points")
-    public java.math.BigDecimal getPoints() {
+    public java.lang.Number getPoints() {
         return this.points;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("points")
-    public void setPoints(java.math.BigDecimal points) {
+    public void setPoints(java.lang.Number points) {
         this.points = points;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("rate")
-    public java.math.BigDecimal getRate() {
+    public java.lang.Number getRate() {
         return this.rate;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("rate")
-    public void setRate(java.math.BigDecimal rate) {
+    public void setRate(java.lang.Number rate) {
         this.rate = rate;
     }
 

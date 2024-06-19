@@ -14,7 +14,7 @@ public interface TBureauData extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TBureauDataImpl result_ = new TBureauDataImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("CreditScore")) {
-                result_.setCreditScore((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("CreditScore"));
+                result_.setCreditScore((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("CreditScore"));
             } else {
                 return  null;
             }
@@ -56,7 +56,7 @@ public interface TBureauData extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("CreditScore")
-    java.math.BigDecimal getCreditScore();
+    java.lang.Number getCreditScore();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Bankrupt")
     Boolean getBankrupt();

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
     rulesCount = 11
 )
-public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "ApplicationRiskScoreModel",
@@ -34,7 +34,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("Age") != null ? number(input_.get("Age")) : null), input_.get("MaritalStatus"), input_.get("EmploymentStatus"), context_);
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
         }
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'ApplicationRiskScoreModel'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -58,7 +58,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_);
 
             // Evaluate BKM 'ApplicationRiskScoreModel'
-            java.math.BigDecimal output_ = lambda.apply(age, maritalStatus, employmentStatus, context_);
+            java.lang.Number output_ = lambda.apply(age, maritalStatus, employmentStatus, context_);
 
             // End BKM 'ApplicationRiskScoreModel'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_, output_, (System.currentTimeMillis() - applicationRiskScoreModelStartTime_));
@@ -70,10 +70,10 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
-                java.math.BigDecimal age = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
+                java.lang.Number age = 0 < args_.length ? (java.lang.Number) args_[0] : null;
                 String maritalStatus = 1 < args_.length ? (String) args_[1] : null;
                 String employmentStatus = 2 < args_.length ? (String) args_[2] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 3 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[3] : null;
@@ -97,7 +97,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
                 ruleOutputList_.add(rule10(age, maritalStatus, employmentStatus, context_));
 
                 // Return results based on hit policy
-                java.math.BigDecimal output_;
+                java.lang.Number output_;
                 if (ruleOutputList_.noMatchedRules()) {
                     // Default value
                     output_ = null;
@@ -111,7 +111,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -144,7 +144,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
@@ -177,7 +177,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
@@ -210,7 +210,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule3(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
@@ -243,7 +243,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule4(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 
@@ -276,7 +276,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule5(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule5(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "");
 
@@ -309,7 +309,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule6(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule6(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(6, "");
 
@@ -342,7 +342,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule7(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule7(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(7, "");
 
@@ -375,7 +375,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 8, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule8(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule8(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(8, "");
 
@@ -408,7 +408,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 9, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule9(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule9(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(9, "");
 
@@ -441,7 +441,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.DefaultDMNBase
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 10, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule10(java.math.BigDecimal age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule10(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(10, "");
 

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class DecisionService_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class DecisionService_013_1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "decisionService_013_1",
@@ -41,7 +41,7 @@ public class DecisionService_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDeci
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("input_013_1") != null ? number(input_.get("input_013_1")) : null), context_);
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public class DecisionService_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         }
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal input_013_1, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(java.lang.Number input_013_1, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start DS 'decisionService_013_1'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -63,7 +63,7 @@ public class DecisionService_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDeci
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decisionService_013_1Arguments_);
 
             // Evaluate DS 'decisionService_013_1'
-            java.math.BigDecimal output_ = lambda.apply(input_013_1, context_);
+            java.lang.Number output_ = lambda.apply(input_013_1, context_);
 
             // End DS 'decisionService_013_1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decisionService_013_1Arguments_, output_, (System.currentTimeMillis() - decisionService_013_1StartTime_));
@@ -75,10 +75,10 @@ public class DecisionService_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
-                java.math.BigDecimal input_013_1 = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
+                java.lang.Number input_013_1 = 0 < args_.length ? (java.lang.Number) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
@@ -86,7 +86,7 @@ public class DecisionService_013_1 extends com.gs.dmn.runtime.DefaultDMNBaseDeci
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply child decisions
-                java.math.BigDecimal decision_013_2 = DecisionService_013_1.this.decision_013_2.apply(input_013_1, context_);
+                java.lang.Number decision_013_2 = DecisionService_013_1.this.decision_013_2.apply(input_013_1, context_);
 
                 return decision_013_2;
             }

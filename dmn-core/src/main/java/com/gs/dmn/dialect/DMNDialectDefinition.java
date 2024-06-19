@@ -64,17 +64,4 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
     FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> createFEELLib();
 
     String getDecisionBaseClass();
-
-    //
-    // Types
-    //
-    String getNativeNumberType();
-
-    String getNativeDateType();
-
-    String getNativeTimeType();
-
-    String getNativeDateAndTimeType();
-
-    String getNativeDurationType();
 }

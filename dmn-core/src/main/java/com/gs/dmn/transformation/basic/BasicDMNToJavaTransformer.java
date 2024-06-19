@@ -2277,27 +2277,27 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String getNativeNumberType() {
-        return this.getDialect().getNativeNumberType();
+        return this.nativeTypeFactory.getNativeNumberType();
     }
 
     @Override
     public String getNativeDateType() {
-        return this.getDialect().getNativeDateType();
+        return this.nativeTypeFactory.getNativeDateType();
     }
 
     @Override
     public String getNativeTimeType() {
-        return this.getDialect().getNativeTimeType();
+        return this.nativeTypeFactory.getNativeTimeType();
     }
 
     @Override
     public String getNativeDateAndTimeType() {
-        return this.getDialect().getNativeDateAndTimeType();
+        return this.nativeTypeFactory.getNativeDateAndTimeType();
     }
 
     @Override
     public String getNativeDurationType() {
-        return this.getDialect().getNativeDurationType();
+        return this.nativeTypeFactory.getNativeDurationType();
     }
 
     @Override
@@ -2357,12 +2357,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String makeIntegerForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("java.lang.Integer.toString(%s)", text));
+        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), String.format("java.lang.Integer.toString(%s)", text));
     }
 
     @Override
     public String makeDecimalForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("java.lang.Double.toString(%s)", text));
+        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), String.format("java.lang.Double.toString(%s)", text));
     }
 
     @Override
@@ -2370,7 +2370,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (StringUtils.isBlank(text)) {
             return this.nativeFactory.nullLiteral();
         } else {
-            return this.nativeFactory.constructor(getNativeNumberType(), text);
+            return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), text);
         }
     }
 

@@ -24,8 +24,8 @@ import com.gs.dmn.feel.lib.type.list.DefaultListLib;
 import com.gs.dmn.feel.lib.type.list.DefaultListType;
 import com.gs.dmn.feel.lib.type.list.ListLib;
 import com.gs.dmn.feel.lib.type.list.ListType;
-import com.gs.dmn.feel.lib.type.numeric.DefaultNumericLib;
-import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
+import com.gs.dmn.feel.lib.type.numeric.DecimalNumericLib;
+import com.gs.dmn.feel.lib.type.numeric.DecimalNumericType;
 import com.gs.dmn.feel.lib.type.numeric.NumericLib;
 import com.gs.dmn.feel.lib.type.numeric.NumericType;
 import com.gs.dmn.feel.lib.type.range.DefaultRangeLib;
@@ -44,11 +44,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 
 /**
- * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeFEELLib}
+ * @deprecated As of release 8.3.0, replaced by {@link JavaTimeFEELLib}
  */
 @Deprecated
 public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
-    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
+    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DecimalNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultStringType();
     private static final DateType<XMLGregorianCalendar, Duration> DATE_TYPE = new DefaultDateType();
@@ -60,7 +60,7 @@ public class DefaultFEELLib extends BaseStandardFEELLib<BigDecimal, XMLGregorian
     private static final RangeType RANGE_TYPE = new DefaultRangeType();
     private static final FunctionType FUNCTION_TYPE = new DefaultFunctionType();
 
-    private static final NumericLib<BigDecimal> NUMERIC_LIB = new DefaultNumericLib();
+    private static final NumericLib<BigDecimal> NUMERIC_LIB = new DecimalNumericLib();
     private static final StringLib STRING_LIB = new DefaultStringLib();
     private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
     private static final DateTimeLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> DATE_TIME_LIB = new DefaultDateTimeLib();

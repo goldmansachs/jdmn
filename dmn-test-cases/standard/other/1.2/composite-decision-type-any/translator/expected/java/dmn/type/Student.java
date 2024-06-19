@@ -14,7 +14,7 @@ public interface Student extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             StudentImpl result_ = new StudentImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("age")) {
-                result_.setAge((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("age"));
+                result_.setAge((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("age"));
             } else {
                 return  null;
             }
@@ -32,7 +32,7 @@ public interface Student extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("age")
-    java.math.BigDecimal getAge();
+    java.lang.Number getAge();
 
     @com.fasterxml.jackson.annotation.JsonGetter("classification")
     String getClassification();

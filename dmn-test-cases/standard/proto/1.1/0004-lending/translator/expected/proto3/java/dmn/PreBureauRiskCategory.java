@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class PreBureauRiskCategory extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "Pre-bureauRiskCategory",
@@ -119,7 +119,7 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.DefaultDMNBaseDeci
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply child decisions
-                java.math.BigDecimal applicationRiskScore = PreBureauRiskCategory.this.applicationRiskScore.apply(applicantData, context_);
+                java.lang.Number applicationRiskScore = PreBureauRiskCategory.this.applicationRiskScore.apply(applicantData, context_);
 
                 return PreBureauRiskCategoryTable.instance().apply(((Boolean)(applicantData != null ? applicantData.getExistingCustomer() : null)), applicationRiskScore, context_);
             }

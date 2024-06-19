@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class ApplicationRiskScore extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "ApplicationRiskScore",
@@ -27,7 +27,7 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("ApplicantData") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("ApplicantData"), new com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) : null), context_);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         }
     }
 
-    public java.math.BigDecimal apply(type.TApplicantData applicantData, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(type.TApplicantData applicantData, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'ApplicationRiskScore'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -49,7 +49,7 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreArguments_);
 
             // Evaluate decision 'ApplicationRiskScore'
-            java.math.BigDecimal output_ = lambda.apply(applicantData, context_);
+            java.lang.Number output_ = lambda.apply(applicantData, context_);
 
             // End decision 'ApplicationRiskScore'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreArguments_, output_, (System.currentTimeMillis() - applicationRiskScoreStartTime_));
@@ -61,9 +61,9 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
                 type.TApplicantData applicantData = 0 < args_.length ? (type.TApplicantData) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -71,7 +71,7 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.DefaultDMNBaseDecis
                 com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
-                return ApplicationRiskScoreModel.instance().apply(((java.math.BigDecimal)(applicantData != null ? applicantData.getAge() : null)), ((String)(applicantData != null ? applicantData.getMaritalStatus() : null)), ((String)(applicantData != null ? applicantData.getEmploymentStatus() : null)), context_);
+                return ApplicationRiskScoreModel.instance().apply(((java.lang.Number)(applicantData != null ? applicantData.getAge() : null)), ((String)(applicantData != null ? applicantData.getMaritalStatus() : null)), ((String)(applicantData != null ? applicantData.getEmploymentStatus() : null)), context_);
             }
         };
 }

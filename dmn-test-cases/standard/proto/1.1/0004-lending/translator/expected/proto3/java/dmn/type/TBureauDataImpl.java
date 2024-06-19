@@ -5,13 +5,13 @@ import java.util.*;
 @javax.annotation.Generated(value = {"itemDefinition.ftl", "tBureauData"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TBureauDataImpl implements TBureauData {
-        private java.math.BigDecimal creditScore;
+        private java.lang.Number creditScore;
         private Boolean bankrupt;
 
     public TBureauDataImpl() {
     }
 
-    public TBureauDataImpl(Boolean bankrupt, java.math.BigDecimal creditScore) {
+    public TBureauDataImpl(Boolean bankrupt, java.lang.Number creditScore) {
         this.setBankrupt(bankrupt);
         this.setCreditScore(creditScore);
     }
@@ -27,12 +27,12 @@ public class TBureauDataImpl implements TBureauData {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("CreditScore")
-    public java.math.BigDecimal getCreditScore() {
+    public java.lang.Number getCreditScore() {
         return this.creditScore;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("CreditScore")
-    public void setCreditScore(java.math.BigDecimal creditScore) {
+    public void setCreditScore(java.lang.Number creditScore) {
         this.creditScore = creditScore;
     }
 

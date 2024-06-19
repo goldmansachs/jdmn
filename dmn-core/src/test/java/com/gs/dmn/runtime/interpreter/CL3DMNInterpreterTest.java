@@ -16,14 +16,13 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.tck.ast.TestCases;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class CL3DMNInterpreterTest extends AbstractCL3DMNInterpreterTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class CL3DMNInterpreterTest extends AbstractCL3DMNInterpreterTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> getDialectDefinition() {
+    protected DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> getDialectDefinition() {
         return new JavaTimeDMNDialectDefinition();
     }
 

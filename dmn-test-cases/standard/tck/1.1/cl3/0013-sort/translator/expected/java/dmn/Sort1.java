@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class Sort1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "sort1",
@@ -27,16 +27,16 @@ public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public List<java.math.BigDecimal> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<java.lang.Number> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("listA") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("listA"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), context_);
+            return apply((input_.get("listA") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("listA"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Sort1'", e);
             return null;
         }
     }
 
-    public List<java.math.BigDecimal> apply(List<java.math.BigDecimal> listA, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<java.lang.Number> apply(List<java.lang.Number> listA, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'sort1'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -49,7 +49,7 @@ public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_);
 
             // Evaluate decision 'sort1'
-            List<java.math.BigDecimal> output_ = lambda.apply(listA, context_);
+            List<java.lang.Number> output_ = lambda.apply(listA, context_);
 
             // End decision 'sort1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_, output_, (System.currentTimeMillis() - sort1StartTime_));
@@ -61,17 +61,17 @@ public class Sort1 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<List<java.math.BigDecimal>> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<List<java.math.BigDecimal>>() {
-            public List<java.math.BigDecimal> apply(Object... args_) {
-                List<java.math.BigDecimal> listA = 0 < args_.length ? (List<java.math.BigDecimal>) args_[0] : null;
+    public com.gs.dmn.runtime.LambdaExpression<List<java.lang.Number>> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<List<java.lang.Number>>() {
+            public List<java.lang.Number> apply(Object... args_) {
+                List<java.lang.Number> listA = 0 < args_.length ? (List<java.lang.Number>) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
                 com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
-                return sort(listA, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args_) {java.math.BigDecimal x = (java.math.BigDecimal)args_[0]; java.math.BigDecimal y = (java.math.BigDecimal)args_[1];return numericGreaterThan(x, y);}});
+                return sort(listA, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args_) {java.lang.Number x = (java.lang.Number)args_[0]; java.lang.Number y = (java.lang.Number)args_[1];return numericGreaterThan(x, y);}});
             }
         };
 }

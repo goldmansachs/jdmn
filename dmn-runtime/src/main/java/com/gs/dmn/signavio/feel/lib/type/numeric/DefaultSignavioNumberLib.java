@@ -12,264 +12,125 @@
  */
 package com.gs.dmn.signavio.feel.lib.type.numeric;
 
-import com.gs.dmn.signavio.feel.lib.SignavioUtil;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
-import static com.gs.dmn.feel.lib.type.numeric.DefaultNumericType.MATH_CONTEXT;
+import static com.gs.dmn.feel.lib.type.numeric.DefaultNumericType.toDecimal;
 
-public class DefaultSignavioNumberLib implements SignavioNumberLib<BigDecimal> {
+public class DefaultSignavioNumberLib implements SignavioNumberLib<Number> {
+    private static final DecimalSignavioNumberLib DECIMAL_SIGNAVIO_NUMBER_LIB = new DecimalSignavioNumberLib();
+
     @Override
-    public BigDecimal number(String literal) {
-        if (!SignavioUtil.areNullSafe(literal)) {
-            return null;
-        }
-
-        return new BigDecimal(literal, MATH_CONTEXT);
+    public Number number(String literal) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.number(literal);
     }
 
     @Override
-    public BigDecimal number(String text, BigDecimal defaultValue) {
-        if (!SignavioUtil.areNullSafe(text, defaultValue)) {
-            return null;
-        }
-
-        BigDecimal number = null;
-        try {
-            number = number(text);
-        } catch (Exception e) {
-        }
-        return number != null ? number : defaultValue;
+    public Number number(String text, Number defaultValue) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.number(text, toDecimal(defaultValue));
     }
 
     @Override
-    public BigDecimal abs(BigDecimal number) {
-        if (!SignavioUtil.areNullSafe(number)) {
-            return null;
-        }
-
-        return number.abs();
+    public Number abs(Number number) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.abs(toDecimal(number));
     }
 
     @Override
-    public BigDecimal count(List<?> list) {
-        if (!SignavioUtil.areNullSafe(list)) {
-            return null;
-        }
-
-        return BigDecimal.valueOf(list.size());
+    public Number count(List<?> list) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.count(list);
     }
 
     @Override
-    public BigDecimal round(BigDecimal number, BigDecimal digits) {
-        if (!SignavioUtil.areNullSafe(number, digits)) {
-            return null;
-        }
-
-        return number.setScale(digits.intValue(), RoundingMode.HALF_EVEN);
+    public Number round(Number number, Number digits) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.round(toDecimal(number), toDecimal(digits));
     }
 
     @Override
-    public BigDecimal ceiling(BigDecimal number) {
-        if (!SignavioUtil.areNullSafe(number)) {
-            return null;
-        }
-
-        return number.setScale(0, RoundingMode.CEILING);
+    public Number ceiling(Number number) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.ceiling(toDecimal(number));
     }
 
     @Override
-    public BigDecimal floor(BigDecimal number) {
-        if (!SignavioUtil.areNullSafe(number)) {
-            return null;
-        }
-
-        return number.setScale(0, RoundingMode.FLOOR);
+    public Number floor(Number number) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.floor(toDecimal(number));
     }
 
     @Override
-    public BigDecimal integer(BigDecimal number) {
-        if (!SignavioUtil.areNullSafe(number)) {
-            return null;
-        }
-
-        return BigDecimal.valueOf(number.intValue());
+    public Number integer(Number number) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.integer(toDecimal(number));
     }
 
     @Override
-    public BigDecimal modulo(BigDecimal dividend, BigDecimal divisor) {
-        if (!SignavioUtil.areNullSafe(dividend, divisor) || divisor.compareTo(BigDecimal.ZERO) == 0) {
-            return null;
-        }
-
-        return dividend.remainder(divisor, MATH_CONTEXT);
+    public Number modulo(Number dividend, Number divisor) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.modulo(toDecimal(dividend), toDecimal(divisor));
     }
 
     @Override
-    public BigDecimal power(BigDecimal base, BigDecimal exponent) {
-        if (!SignavioUtil.areNullSafe(base, exponent)) {
-            return null;
-        }
-
-        return base.pow(exponent.intValue(), MATH_CONTEXT);
+    public Number power(Number base, Number exponent) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.power(toDecimal(base), toDecimal(exponent));
     }
 
     @Override
-    public BigDecimal percent(BigDecimal number) {
-        if (!SignavioUtil.areNullSafe(number)) {
-            return null;
-        }
-
-        return number.divide(BigDecimal.valueOf(100), MATH_CONTEXT);
+    public Number percent(Number number) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.percent(toDecimal(number));
     }
 
     @Override
-    public BigDecimal product(List<?> numbers) {
-        if (!SignavioUtil.verifyValidityOfListArgument(numbers)) {
-            return null;
-        }
-
-        BigDecimal result = BigDecimal.valueOf(1);
-        for (BigDecimal number : SignavioUtil.asBigDecimals(numbers)) {
-            result = result.multiply(number);
-        }
-        return result;
+    public Number product(List<?> numbers) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.product(numbers);
     }
 
     @Override
-    public BigDecimal roundDown(BigDecimal number, BigDecimal digits) {
-        if (!SignavioUtil.areNullSafe(number, digits)) {
-            return null;
-        }
-
-        return number.setScale(digits.intValue(), RoundingMode.DOWN);
+    public Number roundDown(Number number, Number digits) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.roundDown(toDecimal(number), toDecimal(digits));
     }
 
     @Override
-    public BigDecimal roundUp(BigDecimal number, BigDecimal digits) {
-        if (!SignavioUtil.areNullSafe(number, digits)) {
-            return null;
-        }
-
-        return number.setScale(digits.intValue(), RoundingMode.UP);
+    public Number roundUp(Number number, Number digits) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.roundUp(toDecimal(number), toDecimal(digits));
     }
 
     @Override
-    public BigDecimal sum(List<?> numbers) {
-        if (!SignavioUtil.verifyValidityOfListArgument(numbers)) {
-            return null;
-        }
-
-        BigDecimal result = BigDecimal.ZERO;
-        for (BigDecimal number : SignavioUtil.asBigDecimals(numbers)) {
-            result = result.add(number);
-        }
-        return result;
+    public Number sum(List<?> numbers) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.sum(numbers);
     }
 
     @Override
-    public BigDecimal avg(List<?> numbers) {
-        if (!SignavioUtil.verifyValidityOfListArgument(numbers)) {
-            return null;
-        }
-
-        return this.sum(numbers).divide(BigDecimal.valueOf(numbers.size()), MATH_CONTEXT);
+    public Number avg(List<?> numbers) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.avg(numbers);
     }
 
     @Override
-    public BigDecimal max(List<?> numbers) {
-        if (!SignavioUtil.verifyValidityOfListArgument(numbers)) {
-            return null;
-        }
-
-        List<BigDecimal> decimals = SignavioUtil.asBigDecimals(numbers);
-        BigDecimal result = decimals.get(0);
-        for (BigDecimal number: decimals) {
-            if (number.compareTo(result) > 0) {
-                result = number;
-            }
-        }
-        return result;
+    public Number max(List<?> numbers) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.max(numbers);
     }
 
     @Override
-    public BigDecimal median(List<?> numbers) {
-        if (!SignavioUtil.verifyValidityOfListArgument(numbers)) {
-            return null;
-        }
-
-        List<BigDecimal> decimals = SignavioUtil.asBigDecimals(numbers);
-        if (decimals.size() == 1) {
-            return decimals.get(0);
-        } else {
-            Collections.sort(decimals);
-            int size = decimals.size();
-            int index = size / 2;
-            if (size % 2 == 0) {
-                BigDecimal lowerMedian = decimals.get(index - 1);
-                BigDecimal upperMedian = decimals.get(index);
-                return lowerMedian.add(upperMedian).divide(new BigDecimal(2), MATH_CONTEXT);
-            } else {
-                return decimals.get(index);
-            }
-        }
+    public Number median(List<?> numbers) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.median(numbers);
     }
 
     @Override
-    public BigDecimal min(List<?> list) {
-        if (!SignavioUtil.verifyValidityOfListArgument(list)) {
-            return null;
-        }
-
-        List<BigDecimal> decimals = SignavioUtil.asBigDecimals(list);
-        BigDecimal result = decimals.get(0);
-        for (BigDecimal number: decimals) {
-            if (number.compareTo(result) < 0) {
-                result = number;
-            }
-        }
-        return result;
+    public Number min(List<?> list) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.min(list);
     }
 
     @Override
-    public BigDecimal mode(List<?> numbers) {
-        if (!SignavioUtil.verifyValidityOfListArgument(numbers)) {
-            return null;
-        }
-
-        Map<Object, Integer> map = new LinkedHashMap<>();
-        int top = -1;
-        List<BigDecimal> decimals = SignavioUtil.asBigDecimals(numbers);
-        BigDecimal returnValue = decimals.get(0);
-        for (BigDecimal value : decimals) {
-            Integer count = map.get(value);
-            int currentCount = count == null ? 1 : count + 1;
-            map.put(value, currentCount);
-            if (currentCount > top) {
-                top = currentCount;
-                returnValue = value;
-            }
-        }
-        return returnValue;
+    public Number mode(List<?> numbers) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.mode(numbers);
     }
 
     @Override
-    public BigDecimal valueOf(long number) {
-        return BigDecimal.valueOf(number);
+    public Number valueOf(long number) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.valueOf(number);
     }
 
     @Override
-    public int intValue(BigDecimal number) {
-        return number.intValue();
+    public int intValue(Number number) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.intValue(toDecimal(number));
     }
 
     @Override
-    public Number toNumber(BigDecimal number) {
-        return number;
+    public Number toNumber(Number number) {
+        return DECIMAL_SIGNAVIO_NUMBER_LIB.toNumber(toDecimal(number));
     }
 }

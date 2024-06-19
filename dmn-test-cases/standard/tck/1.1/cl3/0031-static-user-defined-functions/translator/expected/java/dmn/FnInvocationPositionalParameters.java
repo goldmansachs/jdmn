@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "fn invocation positional parameters",
@@ -43,7 +43,7 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
         }
     }
 
-    public type.TFnInvocationPositionalResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.TFnInvocationPositionalResult apply(java.lang.Number inputA, java.lang.Number inputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'fn invocation positional parameters'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -72,8 +72,8 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
     public com.gs.dmn.runtime.LambdaExpression<type.TFnInvocationPositionalResult> lambda =
         new com.gs.dmn.runtime.LambdaExpression<type.TFnInvocationPositionalResult>() {
             public type.TFnInvocationPositionalResult apply(Object... args_) {
-                java.math.BigDecimal inputA = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
-                java.math.BigDecimal inputB = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+                java.lang.Number inputA = 0 < args_.length ? (java.lang.Number) args_[0] : null;
+                java.lang.Number inputB = 1 < args_.length ? (java.lang.Number) args_[1] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
@@ -83,9 +83,9 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.Default
                 // Apply child decisions
                 type.TFnLibrary fnLibrary = FnInvocationPositionalParameters.this.fnLibrary.apply(context_);
 
-                java.math.BigDecimal sumResult = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSumFn() : null)).apply(inputA, inputB, context_);
-                java.math.BigDecimal multiplicationResultPositional = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(inputA, inputB, context_);
-                java.math.BigDecimal divisionResultPositional = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getDivideFn() : null)).apply(inputA, inputB, context_);
+                java.lang.Number sumResult = ((com.gs.dmn.runtime.LambdaExpression<java.lang.Number>)(fnLibrary != null ? fnLibrary.getSumFn() : null)).apply(inputA, inputB, context_);
+                java.lang.Number multiplicationResultPositional = ((com.gs.dmn.runtime.LambdaExpression<java.lang.Number>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(inputA, inputB, context_);
+                java.lang.Number divisionResultPositional = ((com.gs.dmn.runtime.LambdaExpression<java.lang.Number>)(fnLibrary != null ? fnLibrary.getDivideFn() : null)).apply(inputA, inputB, context_);
                 type.TFnInvocationPositionalResultImpl fnInvocationPositionalParameters = new type.TFnInvocationPositionalResultImpl();
                 fnInvocationPositionalParameters.setSumResult(sumResult);
                 fnInvocationPositionalParameters.setMultiplicationResultPositional(multiplicationResultPositional);

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.PRIORITY,
     rulesCount = 2
 )
-public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "priceInRange",
@@ -36,7 +36,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public String apply(java.math.BigDecimal numB, java.math.BigDecimal numC, type.TA structA, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(java.lang.Number numB, java.lang.Number numC, type.TA structA, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'priceInRange'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -66,8 +66,8 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<String> lambda =
         new com.gs.dmn.runtime.LambdaExpression<String>() {
             public String apply(Object... args_) {
-                java.math.BigDecimal numB = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
-                java.math.BigDecimal numC = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+                java.lang.Number numB = 0 < args_.length ? (java.lang.Number) args_[0] : null;
+                java.lang.Number numC = 1 < args_.length ? (java.lang.Number) args_[1] : null;
                 type.TA structA = 2 < args_.length ? (type.TA) args_[2] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 3 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[3] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -95,7 +95,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal numB, java.math.BigDecimal numC, type.TA structA, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number numB, java.lang.Number numC, type.TA structA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -109,7 +109,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         // Apply rule
         PriceInRangeRuleOutput output_ = new PriceInRangeRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(structA != null ? structA.getPrice() : null)), numB), numericLessEqualThan(((java.math.BigDecimal)(structA != null ? structA.getPrice() : null)), numC))
+            booleanAnd(numericGreaterEqualThan(((java.lang.Number)(structA != null ? structA.getPrice() : null)), numB), numericLessEqualThan(((java.lang.Number)(structA != null ? structA.getPrice() : null)), numC))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -127,7 +127,7 @@ public class PriceInRange extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal numB, java.math.BigDecimal numC, type.TA structA, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.lang.Number numB, java.lang.Number numC, type.TA structA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 

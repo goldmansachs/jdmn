@@ -30,9 +30,9 @@ public class HandwrittenMonthlyPaymentTest extends AbstractHandwrittenDecisionTe
         loan.setAmount(decision.number("600000"));
         loan.setRate(decision.number("0.0375"));
         loan.setTerm(decision.number("360"));
-        BigDecimal fee = decision.number("100");
-        BigDecimal output = applyDecision(loan, fee);
-        assertEquals("2878.69", output.setScale(2, RoundingMode.FLOOR).toPlainString());
+        Number fee = decision.number("100");
+        Number output = applyDecision(loan, fee);
+        assertEquals("2878.69", ((BigDecimal) output).setScale(2, RoundingMode.FLOOR).toPlainString());
     }
 
     @Test
@@ -41,9 +41,9 @@ public class HandwrittenMonthlyPaymentTest extends AbstractHandwrittenDecisionTe
         loan.setAmount(decision.number("30000"));
         loan.setRate(decision.number("0.0475"));
         loan.setTerm(decision.number("60"));
-        BigDecimal fee = decision.number("100");
-        BigDecimal output = applyDecision(loan, fee);
-        assertEquals("662.70", output.setScale(2, RoundingMode.FLOOR).toPlainString());
+        Number fee = decision.number("100");
+        Number output = applyDecision(loan, fee);
+        assertEquals("662.70", ((BigDecimal) output).setScale(2, RoundingMode.FLOOR).toPlainString());
     }
 
     @Override
@@ -51,7 +51,7 @@ public class HandwrittenMonthlyPaymentTest extends AbstractHandwrittenDecisionTe
         applyDecision(null, null);
     }
 
-    private BigDecimal applyDecision(TLoanImpl loan, BigDecimal fee) {
+    private Number applyDecision(TLoanImpl loan, Number fee) {
         return decision.apply(loan, fee, context);
     }
 }

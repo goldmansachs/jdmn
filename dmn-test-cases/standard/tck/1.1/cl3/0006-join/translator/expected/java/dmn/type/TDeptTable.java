@@ -14,7 +14,7 @@ public interface TDeptTable extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TDeptTableImpl result_ = new TDeptTableImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("number")) {
-                result_.setNumber((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("number"));
+                result_.setNumber((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("number"));
             } else {
                 return  null;
             }
@@ -37,7 +37,7 @@ public interface TDeptTable extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("number")
-    java.math.BigDecimal getNumber();
+    java.lang.Number getNumber();
 
     @com.fasterxml.jackson.annotation.JsonGetter("name")
     String getName();

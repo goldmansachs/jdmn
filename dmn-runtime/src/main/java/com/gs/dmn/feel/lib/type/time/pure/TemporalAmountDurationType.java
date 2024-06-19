@@ -21,7 +21,9 @@ import java.time.Duration;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalAmountDurationType extends BaseJavaTimeCalendarType implements DurationType<TemporalAmount, BigDecimal> {
+import static com.gs.dmn.feel.lib.type.numeric.DefaultNumericType.toDecimal;
+
+public class TemporalAmountDurationType extends BaseJavaTimeCalendarType implements DurationType<TemporalAmount, Number> {
     private final TemporalAmountComparator comparator;
 
     public TemporalAmountDurationType() {
@@ -146,16 +148,17 @@ public class TemporalAmountDurationType extends BaseJavaTimeCalendarType impleme
     }
 
     @Override
-    public TemporalAmount durationMultiplyNumber(TemporalAmount first, BigDecimal second) {
+    public TemporalAmount durationMultiplyNumber(TemporalAmount first, Number second) {
         if (first == null || second == null) {
             return null;
         }
 
+        BigDecimal secondDecimal = toDecimal(second);
         if (first instanceof Period) {
-            BigDecimal months = BigDecimal.valueOf(value((Period) first)).multiply(second);
+            BigDecimal months = BigDecimal.valueOf(value((Period) first)).multiply(secondDecimal);
             return Period.of((int) (months.longValue() / 12), (int) (months.longValue() % 12), 0).normalized();
         } else if (first instanceof Duration) {
-            BigDecimal seconds = BigDecimal.valueOf(value((Duration) first)).multiply(second);
+            BigDecimal seconds = BigDecimal.valueOf(value((Duration) first)).multiply(secondDecimal);
             return Duration.ofSeconds(seconds.longValue());
         } else {
             throw new DMNRuntimeException(String.format("Cannot multiply '%s' by '%s'", first, second));
@@ -163,18 +166,19 @@ public class TemporalAmountDurationType extends BaseJavaTimeCalendarType impleme
     }
 
     @Override
-    public TemporalAmount durationDivideNumber(TemporalAmount first, BigDecimal second) {
+    public TemporalAmount durationDivideNumber(TemporalAmount first, Number second) {
         if (first == null || second == null) {
             return null;
         }
 
+        BigDecimal secondDecimal = toDecimal(second);
         if (first instanceof Period) {
-            BigDecimal bdMonths = BigDecimal.valueOf(value((Period) first)).divide(second, RoundingMode.HALF_DOWN);
+            BigDecimal bdMonths = BigDecimal.valueOf(value((Period) first)).divide(secondDecimal, RoundingMode.HALF_DOWN);
             int years = bdMonths.intValue() / 12;
             int months = bdMonths.intValue() % 12;
             return Period.of(years, months, 0).normalized();
         } else if (first instanceof Duration) {
-            BigDecimal seconds = BigDecimal.valueOf(value((Duration) first)).divide(second, RoundingMode.HALF_DOWN);
+            BigDecimal seconds = BigDecimal.valueOf(value((Duration) first)).divide(secondDecimal, RoundingMode.HALF_DOWN);
             return Duration.ofSeconds(seconds.longValue());
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));

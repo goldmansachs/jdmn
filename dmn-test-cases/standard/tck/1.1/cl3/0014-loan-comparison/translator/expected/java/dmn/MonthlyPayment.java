@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class MonthlyPayment extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "monthlyPayment",
@@ -34,7 +34,7 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("p") != null ? number(input_.get("p")) : null), (input_.get("r") != null ? number(input_.get("r")) : null), (input_.get("n") != null ? number(input_.get("n")) : null), context_);
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal p, java.math.BigDecimal r, java.math.BigDecimal n, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(java.lang.Number p, java.lang.Number r, java.lang.Number n, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'monthlyPayment'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -58,7 +58,7 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, monthlyPaymentArguments_);
 
             // Evaluate BKM 'monthlyPayment'
-            java.math.BigDecimal output_ = lambda.apply(p, r, n, context_);
+            java.lang.Number output_ = lambda.apply(p, r, n, context_);
 
             // End BKM 'monthlyPayment'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, monthlyPaymentArguments_, output_, (System.currentTimeMillis() - monthlyPaymentStartTime_));
@@ -70,12 +70,12 @@ public class MonthlyPayment extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
-                java.math.BigDecimal p = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
-                java.math.BigDecimal r = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
-                java.math.BigDecimal n = 2 < args_.length ? (java.math.BigDecimal) args_[2] : null;
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
+                java.lang.Number p = 0 < args_.length ? (java.lang.Number) args_[0] : null;
+                java.lang.Number r = 1 < args_.length ? (java.lang.Number) args_[1] : null;
+                java.lang.Number n = 2 < args_.length ? (java.lang.Number) args_[2] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 3 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[3] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;

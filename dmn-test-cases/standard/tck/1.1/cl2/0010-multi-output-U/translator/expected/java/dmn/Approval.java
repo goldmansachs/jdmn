@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 5
 )
-public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class Approval extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "Approval",
@@ -36,7 +36,7 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public type.TApproval apply(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.TApproval apply(java.lang.Number age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Approval'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -66,7 +66,7 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<type.TApproval> lambda =
         new com.gs.dmn.runtime.LambdaExpression<type.TApproval>() {
             public type.TApproval apply(Object... args_) {
-                java.math.BigDecimal age = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
+                java.lang.Number age = 0 < args_.length ? (java.lang.Number) args_[0] : null;
                 String riskCategory = 1 < args_.length ? (String) args_[1] : null;
                 Boolean isAffordable = 2 < args_.length ? (Boolean) args_[2] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 3 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[3] : null;
@@ -98,7 +98,7 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -132,7 +132,7 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.lang.Number age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
@@ -166,7 +166,7 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(java.lang.Number age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
@@ -200,7 +200,7 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule3(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(java.lang.Number age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
@@ -234,7 +234,7 @@ public class Approval extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule4(java.math.BigDecimal age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(java.lang.Number age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 

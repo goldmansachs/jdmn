@@ -19,17 +19,17 @@ public interface TLoanProduct extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("rate")) {
-                result_.setRate((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("rate"));
+                result_.setRate((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("rate"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("points")) {
-                result_.setPoints((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("points"));
+                result_.setPoints((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("points"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("fee")) {
-                result_.setFee((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("fee"));
+                result_.setFee((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("fee"));
             } else {
                 return  null;
             }
@@ -45,13 +45,13 @@ public interface TLoanProduct extends com.gs.dmn.runtime.DMNType {
     String getLenderName();
 
     @com.fasterxml.jackson.annotation.JsonGetter("rate")
-    java.math.BigDecimal getRate();
+    java.lang.Number getRate();
 
     @com.fasterxml.jackson.annotation.JsonGetter("points")
-    java.math.BigDecimal getPoints();
+    java.lang.Number getPoints();
 
     @com.fasterxml.jackson.annotation.JsonGetter("fee")
-    java.math.BigDecimal getFee();
+    java.lang.Number getFee();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

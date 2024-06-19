@@ -27,14 +27,14 @@ import java.util.List;
 
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 
-public class JavaTimeJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeJsonSerializerTest extends AbstractJsonSerializerTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected FEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> makeFEELLib() {
+    protected FEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> makeFEELLib() {
         return new JavaTimeFEELLib();
     }
 
     @Override
-    protected BigDecimal readNumber(String literal) throws Exception {
+    protected Number readNumber(String literal) throws Exception {
         return OBJECT_MAPPER.readValue(literal, BigDecimal.class);
     }
 

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class Eligibility extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "Eligibility",
@@ -93,7 +93,7 @@ public class Eligibility extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
                 Boolean preBureauAffordability = Eligibility.this.preBureauAffordability.apply(applicantData, requestedProduct, context_);
                 String preBureauRiskCategory = Eligibility.this.preBureauRiskCategory.apply(applicantData, context_);
 
-                return EligibilityRules.instance().apply(preBureauRiskCategory, preBureauAffordability, ((java.math.BigDecimal)(applicantData != null ? applicantData.getAge() : null)), context_);
+                return EligibilityRules.instance().apply(preBureauRiskCategory, preBureauAffordability, ((java.lang.Number)(applicantData != null ? applicantData.getAge() : null)), context_);
             }
         };
 }

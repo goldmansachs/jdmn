@@ -7,19 +7,19 @@ import java.util.*
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.CompositeDateTimeImpl::class)
 interface CompositeDateTime : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("Date")
-    val date: javax.xml.datatype.XMLGregorianCalendar?
+    val date: java.time.LocalDate?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Time")
-    val time: javax.xml.datatype.XMLGregorianCalendar?
+    val time: java.time.temporal.TemporalAccessor?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("DateTime")
-    val dateTime: javax.xml.datatype.XMLGregorianCalendar?
+    val dateTime: java.time.temporal.TemporalAccessor?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("YearMonthDuration")
-    val yearMonthDuration: javax.xml.datatype.Duration?
+    val yearMonthDuration: java.time.temporal.TemporalAmount?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("DayTimeDuration")
-    val dayTimeDuration: javax.xml.datatype.Duration?
+    val dayTimeDuration: java.time.temporal.TemporalAmount?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -75,21 +75,21 @@ interface CompositeDateTime : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = CompositeDateTimeImpl()
-                result_.date = other.get("Date") as javax.xml.datatype.XMLGregorianCalendar?
-                result_.time = other.get("Time") as javax.xml.datatype.XMLGregorianCalendar?
-                result_.dateTime = other.get("DateTime") as javax.xml.datatype.XMLGregorianCalendar?
-                result_.yearMonthDuration = other.get("YearMonthDuration") as javax.xml.datatype.Duration?
-                result_.dayTimeDuration = other.get("DayTimeDuration") as javax.xml.datatype.Duration?
+                result_.date = other.get("Date") as java.time.LocalDate?
+                result_.time = other.get("Time") as java.time.temporal.TemporalAccessor?
+                result_.dateTime = other.get("DateTime") as java.time.temporal.TemporalAccessor?
+                result_.yearMonthDuration = other.get("YearMonthDuration") as java.time.temporal.TemporalAmount?
+                result_.dayTimeDuration = other.get("DayTimeDuration") as java.time.temporal.TemporalAmount?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toCompositeDateTime(other.toContext())
             } else if (other is proto.CompositeDateTime) {
                 var result_: CompositeDateTimeImpl = CompositeDateTimeImpl()
-                result_.date = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date((other as proto.CompositeDateTime).getDate())
-                result_.time = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.time((other as proto.CompositeDateTime).getTime())
-                result_.dateTime = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.dateAndTime((other as proto.CompositeDateTime).getDateTime())
-                result_.yearMonthDuration = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.duration((other as proto.CompositeDateTime).getYearMonthDuration())
-                result_.dayTimeDuration = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.duration((other as proto.CompositeDateTime).getDayTimeDuration())
+                result_.date = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.date((other as proto.CompositeDateTime).getDate())
+                result_.time = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.time((other as proto.CompositeDateTime).getTime())
+                result_.dateTime = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.dateAndTime((other as proto.CompositeDateTime).getDateTime())
+                result_.yearMonthDuration = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.duration((other as proto.CompositeDateTime).getYearMonthDuration())
+                result_.dayTimeDuration = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.duration((other as proto.CompositeDateTime).getDayTimeDuration())
                 return result_
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), CompositeDateTime::class.java.getSimpleName()))
@@ -100,15 +100,15 @@ interface CompositeDateTime : com.gs.dmn.runtime.DMNType {
         fun toProto(other: CompositeDateTime?): proto.CompositeDateTime {
             var result_: proto.CompositeDateTime.Builder = proto.CompositeDateTime.newBuilder()
             if (other != null) {
-                var dateProto_: String = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.string((other as CompositeDateTime).date)
+                var dateProto_: String = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.string((other as CompositeDateTime).date)
                 result_.setDate(dateProto_)
-                var timeProto_: String = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.string((other as CompositeDateTime).time)
+                var timeProto_: String = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.string((other as CompositeDateTime).time)
                 result_.setTime(timeProto_)
-                var dateTimeProto_: String = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.string((other as CompositeDateTime).dateTime)
+                var dateTimeProto_: String = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.string((other as CompositeDateTime).dateTime)
                 result_.setDateTime(dateTimeProto_)
-                var yearMonthDurationProto_: String = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.string((other as CompositeDateTime).yearMonthDuration)
+                var yearMonthDurationProto_: String = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.string((other as CompositeDateTime).yearMonthDuration)
                 result_.setYearMonthDuration(yearMonthDurationProto_)
-                var dayTimeDurationProto_: String = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.string((other as CompositeDateTime).dayTimeDuration)
+                var dayTimeDurationProto_: String = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.string((other as CompositeDateTime).dayTimeDuration)
                 result_.setDayTimeDuration(dayTimeDurationProto_)
             }
             return result_.build()
