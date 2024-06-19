@@ -5,16 +5,16 @@ import java.util.*;
 @javax.annotation.Generated(value = {"itemDefinition.ftl", "CompositeDateTime"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CompositeDateTimeImpl implements CompositeDateTime {
-        private javax.xml.datatype.XMLGregorianCalendar date;
-        private javax.xml.datatype.XMLGregorianCalendar time;
-        private javax.xml.datatype.XMLGregorianCalendar dateTime;
-        private javax.xml.datatype.Duration yearMonthDuration;
-        private javax.xml.datatype.Duration dayTimeDuration;
+        private java.time.LocalDate date;
+        private java.time.temporal.TemporalAccessor time;
+        private java.time.temporal.TemporalAccessor dateTime;
+        private java.time.temporal.TemporalAmount yearMonthDuration;
+        private java.time.temporal.TemporalAmount dayTimeDuration;
 
     public CompositeDateTimeImpl() {
     }
 
-    public CompositeDateTimeImpl(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.Duration dayTimeDuration, javax.xml.datatype.XMLGregorianCalendar time, javax.xml.datatype.Duration yearMonthDuration) {
+    public CompositeDateTimeImpl(java.time.LocalDate date, java.time.temporal.TemporalAccessor dateTime, java.time.temporal.TemporalAmount dayTimeDuration, java.time.temporal.TemporalAccessor time, java.time.temporal.TemporalAmount yearMonthDuration) {
         this.setDate(date);
         this.setDateTime(dateTime);
         this.setDayTimeDuration(dayTimeDuration);
@@ -23,52 +23,52 @@ public class CompositeDateTimeImpl implements CompositeDateTime {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Date")
-    public javax.xml.datatype.XMLGregorianCalendar getDate() {
+    public java.time.LocalDate getDate() {
         return this.date;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Date")
-    public void setDate(javax.xml.datatype.XMLGregorianCalendar date) {
+    public void setDate(java.time.LocalDate date) {
         this.date = date;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("DateTime")
-    public javax.xml.datatype.XMLGregorianCalendar getDateTime() {
+    public java.time.temporal.TemporalAccessor getDateTime() {
         return this.dateTime;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("DateTime")
-    public void setDateTime(javax.xml.datatype.XMLGregorianCalendar dateTime) {
+    public void setDateTime(java.time.temporal.TemporalAccessor dateTime) {
         this.dateTime = dateTime;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("DayTimeDuration")
-    public javax.xml.datatype.Duration getDayTimeDuration() {
+    public java.time.temporal.TemporalAmount getDayTimeDuration() {
         return this.dayTimeDuration;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("DayTimeDuration")
-    public void setDayTimeDuration(javax.xml.datatype.Duration dayTimeDuration) {
+    public void setDayTimeDuration(java.time.temporal.TemporalAmount dayTimeDuration) {
         this.dayTimeDuration = dayTimeDuration;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Time")
-    public javax.xml.datatype.XMLGregorianCalendar getTime() {
+    public java.time.temporal.TemporalAccessor getTime() {
         return this.time;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Time")
-    public void setTime(javax.xml.datatype.XMLGregorianCalendar time) {
+    public void setTime(java.time.temporal.TemporalAccessor time) {
         this.time = time;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("YearMonthDuration")
-    public javax.xml.datatype.Duration getYearMonthDuration() {
+    public java.time.temporal.TemporalAmount getYearMonthDuration() {
         return this.yearMonthDuration;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("YearMonthDuration")
-    public void setYearMonthDuration(javax.xml.datatype.Duration yearMonthDuration) {
+    public void setYearMonthDuration(java.time.temporal.TemporalAmount yearMonthDuration) {
         this.yearMonthDuration = yearMonthDuration;
     }
 

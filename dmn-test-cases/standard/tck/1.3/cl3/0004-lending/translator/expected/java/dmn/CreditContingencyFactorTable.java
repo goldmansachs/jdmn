@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 3
 )
-public class CreditContingencyFactorTable extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class CreditContingencyFactorTable extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "CreditContingencyFactorTable",

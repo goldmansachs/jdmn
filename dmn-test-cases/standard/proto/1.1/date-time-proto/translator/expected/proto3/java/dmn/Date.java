@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Date extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class Date extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "Date",
@@ -25,7 +25,7 @@ public class Date extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public static java.util.Map<String, Object> requestToMap(proto.DateRequest dateRequest_) {
         // Create arguments from Request Message
-        javax.xml.datatype.XMLGregorianCalendar inputDate = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date(dateRequest_.getInputDate());
+        java.time.LocalDate inputDate = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.date(dateRequest_.getInputDate());
 
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
@@ -33,16 +33,16 @@ public class Date extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return map_;
     }
 
-    public static javax.xml.datatype.XMLGregorianCalendar responseToOutput(proto.DateResponse dateResponse_) {
+    public static java.time.LocalDate responseToOutput(proto.DateResponse dateResponse_) {
         // Extract and convert output
-        return com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date(dateResponse_.getDate());
+        return com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.date(dateResponse_.getDate());
     }
 
     public Date() {
     }
 
     @java.lang.Override()
-    public javax.xml.datatype.XMLGregorianCalendar applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.time.LocalDate applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("InputDate") != null ? date(input_.get("InputDate")) : null), context_);
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class Date extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public javax.xml.datatype.XMLGregorianCalendar apply(javax.xml.datatype.XMLGregorianCalendar inputDate, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.time.LocalDate apply(java.time.LocalDate inputDate, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Date'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -64,7 +64,7 @@ public class Date extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateArguments_);
 
             // Evaluate decision 'Date'
-            javax.xml.datatype.XMLGregorianCalendar output_ = lambda.apply(inputDate, context_);
+            java.time.LocalDate output_ = lambda.apply(inputDate, context_);
 
             // End decision 'Date'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dateArguments_, output_, (System.currentTimeMillis() - dateStartTime_));
@@ -78,10 +78,10 @@ public class Date extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
 
     public proto.DateResponse applyProto(proto.DateRequest dateRequest_, com.gs.dmn.runtime.ExecutionContext context_) {
         // Create arguments from Request Message
-        javax.xml.datatype.XMLGregorianCalendar inputDate = date(dateRequest_.getInputDate());
+        java.time.LocalDate inputDate = date(dateRequest_.getInputDate());
 
         // Invoke apply method
-        javax.xml.datatype.XMLGregorianCalendar output_ = apply(inputDate, context_);
+        java.time.LocalDate output_ = apply(inputDate, context_);
 
         // Convert output to Response Message
         proto.DateResponse.Builder builder_ = proto.DateResponse.newBuilder();
@@ -90,10 +90,10 @@ public class Date extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         return builder_.build();
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<javax.xml.datatype.XMLGregorianCalendar> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<javax.xml.datatype.XMLGregorianCalendar>() {
-            public javax.xml.datatype.XMLGregorianCalendar apply(Object... args_) {
-                javax.xml.datatype.XMLGregorianCalendar inputDate = 0 < args_.length ? (javax.xml.datatype.XMLGregorianCalendar) args_[0] : null;
+    public com.gs.dmn.runtime.LambdaExpression<java.time.LocalDate> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.time.LocalDate>() {
+            public java.time.LocalDate apply(Object... args_) {
+                java.time.LocalDate inputDate = 0 < args_.length ? (java.time.LocalDate) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;

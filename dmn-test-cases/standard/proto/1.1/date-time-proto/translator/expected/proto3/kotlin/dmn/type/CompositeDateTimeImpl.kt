@@ -7,28 +7,28 @@ import java.util.*
 class CompositeDateTimeImpl : CompositeDateTime {
     @get:com.fasterxml.jackson.annotation.JsonGetter("Date")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Date")
-    override var date: javax.xml.datatype.XMLGregorianCalendar? = null
+    override var date: java.time.LocalDate? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Time")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Time")
-    override var time: javax.xml.datatype.XMLGregorianCalendar? = null
+    override var time: java.time.temporal.TemporalAccessor? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("DateTime")
     @set:com.fasterxml.jackson.annotation.JsonGetter("DateTime")
-    override var dateTime: javax.xml.datatype.XMLGregorianCalendar? = null
+    override var dateTime: java.time.temporal.TemporalAccessor? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("YearMonthDuration")
     @set:com.fasterxml.jackson.annotation.JsonGetter("YearMonthDuration")
-    override var yearMonthDuration: javax.xml.datatype.Duration? = null
+    override var yearMonthDuration: java.time.temporal.TemporalAmount? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("DayTimeDuration")
     @set:com.fasterxml.jackson.annotation.JsonGetter("DayTimeDuration")
-    override var dayTimeDuration: javax.xml.datatype.Duration? = null
+    override var dayTimeDuration: java.time.temporal.TemporalAmount? = null
 
     constructor() {
     }
 
-    constructor (date: javax.xml.datatype.XMLGregorianCalendar?, dateTime: javax.xml.datatype.XMLGregorianCalendar?, dayTimeDuration: javax.xml.datatype.Duration?, time: javax.xml.datatype.XMLGregorianCalendar?, yearMonthDuration: javax.xml.datatype.Duration?) {
+    constructor (date: java.time.LocalDate?, dateTime: java.time.temporal.TemporalAccessor?, dayTimeDuration: java.time.temporal.TemporalAmount?, time: java.time.temporal.TemporalAccessor?, yearMonthDuration: java.time.temporal.TemporalAmount?) {
         this.date = date
         this.dateTime = dateTime
         this.dayTimeDuration = dayTimeDuration

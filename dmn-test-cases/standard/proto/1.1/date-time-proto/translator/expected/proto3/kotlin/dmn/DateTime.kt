@@ -12,8 +12,8 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+class DateTime() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.time.temporal.TemporalAccessor? {
         try {
             return apply(input_.get("InputDateTime")?.let({ dateAndTime(it) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    fun apply(inputDateTime: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+    fun apply(inputDateTime: java.time.temporal.TemporalAccessor?, context_: com.gs.dmn.runtime.ExecutionContext): java.time.temporal.TemporalAccessor? {
         try {
             // Start decision 'DateTime'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -35,7 +35,7 @@ class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateTimeArguments_)
 
             // Evaluate decision 'DateTime'
-            val output_: javax.xml.datatype.XMLGregorianCalendar? = evaluate(inputDateTime, context_)
+            val output_: java.time.temporal.TemporalAccessor? = evaluate(inputDateTime, context_)
 
             // End decision 'DateTime'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dateTimeArguments_, output_, (System.currentTimeMillis() - dateTimeStartTime_))
@@ -49,10 +49,10 @@ class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun applyProto(dateTimeRequest_: proto.DateTimeRequest, context_: com.gs.dmn.runtime.ExecutionContext): proto.DateTimeResponse {
         // Create arguments from Request Message
-        val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = dateAndTime(dateTimeRequest_.getInputDateTime())
+        val inputDateTime: java.time.temporal.TemporalAccessor? = dateAndTime(dateTimeRequest_.getInputDateTime())
 
         // Invoke apply method
-        val output_: javax.xml.datatype.XMLGregorianCalendar? = apply(inputDateTime, context_)
+        val output_: java.time.temporal.TemporalAccessor? = apply(inputDateTime, context_)
 
         // Convert output to Response Message
         val builder_: proto.DateTimeResponse.Builder = proto.DateTimeResponse.newBuilder()
@@ -61,12 +61,12 @@ class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         return builder_.build()
     }
 
-    private inline fun evaluate(inputDateTime: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+    private inline fun evaluate(inputDateTime: java.time.temporal.TemporalAccessor?, context_: com.gs.dmn.runtime.ExecutionContext): java.time.temporal.TemporalAccessor? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return inputDateTime as javax.xml.datatype.XMLGregorianCalendar?
+        return inputDateTime as java.time.temporal.TemporalAccessor?
     }
 
     companion object {
@@ -83,7 +83,7 @@ class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         @JvmStatic
         fun requestToMap(dateTimeRequest_: proto.DateTimeRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.dateAndTime(dateTimeRequest_.getInputDateTime())
+            val inputDateTime: java.time.temporal.TemporalAccessor? = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.dateAndTime(dateTimeRequest_.getInputDateTime())
 
             // Create map
             val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
@@ -92,9 +92,9 @@ class DateTime() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
 
         @JvmStatic
-        fun responseToOutput(dateTimeResponse_: proto.DateTimeResponse): javax.xml.datatype.XMLGregorianCalendar? {
+        fun responseToOutput(dateTimeResponse_: proto.DateTimeResponse): java.time.temporal.TemporalAccessor? {
             // Extract and convert output
-            return com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.dateAndTime(dateTimeResponse_.getDateTime())
+            return com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.dateAndTime(dateTimeResponse_.getDateTime())
         }
     }
 }

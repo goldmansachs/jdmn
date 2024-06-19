@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 2
 )
-public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class DateCompare2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "dateCompare2",
@@ -36,7 +36,7 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
         }
     }
 
-    public Boolean apply(javax.xml.datatype.XMLGregorianCalendar dateD, javax.xml.datatype.XMLGregorianCalendar dateE, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean apply(java.time.LocalDate dateD, java.time.LocalDate dateE, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'dateCompare2'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -65,8 +65,8 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<Boolean> lambda =
         new com.gs.dmn.runtime.LambdaExpression<Boolean>() {
             public Boolean apply(Object... args_) {
-                javax.xml.datatype.XMLGregorianCalendar dateD = 0 < args_.length ? (javax.xml.datatype.XMLGregorianCalendar) args_[0] : null;
-                javax.xml.datatype.XMLGregorianCalendar dateE = 1 < args_.length ? (javax.xml.datatype.XMLGregorianCalendar) args_[1] : null;
+                java.time.LocalDate dateD = 0 < args_.length ? (java.time.LocalDate) args_[0] : null;
+                java.time.LocalDate dateE = 1 < args_.length ? (java.time.LocalDate) args_[1] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
@@ -93,7 +93,7 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(javax.xml.datatype.XMLGregorianCalendar dateD, javax.xml.datatype.XMLGregorianCalendar dateE, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.time.LocalDate dateD, java.time.LocalDate dateE, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -124,7 +124,7 @@ public class DateCompare2 extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(javax.xml.datatype.XMLGregorianCalendar dateD, javax.xml.datatype.XMLGregorianCalendar dateE, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.time.LocalDate dateD, java.time.LocalDate dateE, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 

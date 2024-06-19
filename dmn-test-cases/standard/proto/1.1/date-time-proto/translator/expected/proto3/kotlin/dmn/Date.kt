@@ -12,8 +12,8 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+class Date() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.time.LocalDate? {
         try {
             return apply(input_.get("InputDate")?.let({ date(it) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
     }
 
-    fun apply(inputDate: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+    fun apply(inputDate: java.time.LocalDate?, context_: com.gs.dmn.runtime.ExecutionContext): java.time.LocalDate? {
         try {
             // Start decision 'Date'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -35,7 +35,7 @@ class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, dateArguments_)
 
             // Evaluate decision 'Date'
-            val output_: javax.xml.datatype.XMLGregorianCalendar? = evaluate(inputDate, context_)
+            val output_: java.time.LocalDate? = evaluate(inputDate, context_)
 
             // End decision 'Date'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, dateArguments_, output_, (System.currentTimeMillis() - dateStartTime_))
@@ -49,10 +49,10 @@ class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
 
     fun applyProto(dateRequest_: proto.DateRequest, context_: com.gs.dmn.runtime.ExecutionContext): proto.DateResponse {
         // Create arguments from Request Message
-        val inputDate: javax.xml.datatype.XMLGregorianCalendar? = date(dateRequest_.getInputDate())
+        val inputDate: java.time.LocalDate? = date(dateRequest_.getInputDate())
 
         // Invoke apply method
-        val output_: javax.xml.datatype.XMLGregorianCalendar? = apply(inputDate, context_)
+        val output_: java.time.LocalDate? = apply(inputDate, context_)
 
         // Convert output to Response Message
         val builder_: proto.DateResponse.Builder = proto.DateResponse.newBuilder()
@@ -61,12 +61,12 @@ class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         return builder_.build()
     }
 
-    private inline fun evaluate(inputDate: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+    private inline fun evaluate(inputDate: java.time.LocalDate?, context_: com.gs.dmn.runtime.ExecutionContext): java.time.LocalDate? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return inputDate as javax.xml.datatype.XMLGregorianCalendar?
+        return inputDate as java.time.LocalDate?
     }
 
     companion object {
@@ -83,7 +83,7 @@ class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         @JvmStatic
         fun requestToMap(dateRequest_: proto.DateRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
-            val inputDate: javax.xml.datatype.XMLGregorianCalendar? = com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date(dateRequest_.getInputDate())
+            val inputDate: java.time.LocalDate? = com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.date(dateRequest_.getInputDate())
 
             // Create map
             val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
@@ -92,9 +92,9 @@ class Date() : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         }
 
         @JvmStatic
-        fun responseToOutput(dateResponse_: proto.DateResponse): javax.xml.datatype.XMLGregorianCalendar? {
+        fun responseToOutput(dateResponse_: proto.DateResponse): java.time.LocalDate? {
             // Extract and convert output
-            return com.gs.dmn.feel.lib.DefaultFEELLib.INSTANCE.date(dateResponse_.getDate())
+            return com.gs.dmn.feel.lib.JavaTimeFEELLib.INSTANCE.date(dateResponse_.getDate())
         }
     }
 }

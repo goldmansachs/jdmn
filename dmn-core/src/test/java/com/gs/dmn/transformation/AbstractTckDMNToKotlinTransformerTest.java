@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeKotlinStandardDMNDialectDefinition;
 import com.gs.dmn.dialect.KotlinStandardDMNDialectDefinition;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.template.KotlinTreeTemplateProvider;
@@ -21,11 +22,14 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 
-public abstract class AbstractTckDMNToKotlinTransformerTest extends AbstractTckDMNToNativeTransformerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public abstract class AbstractTckDMNToKotlinTransformerTest extends AbstractTckDMNToNativeTransformerTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> makeDialectDefinition() {
-        return new KotlinStandardDMNDialectDefinition();
+    protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialectDefinition() {
+        return new JavaTimeKotlinStandardDMNDialectDefinition();
     }
 
     @Override
