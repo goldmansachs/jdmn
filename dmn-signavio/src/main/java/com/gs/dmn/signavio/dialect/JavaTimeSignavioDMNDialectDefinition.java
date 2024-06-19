@@ -69,29 +69,4 @@ public class JavaTimeSignavioDMNDialectDefinition extends AbstractSignavioDMNDia
     public String getDecisionBaseClass() {
         return JavaTimeSignavioBaseDecision.class.getName();
     }
-
-    @Override
-    public String getNativeNumberType() {
-        return  BigDecimal.class.getName();
-    }
-
-    @Override
-    public String getNativeDateType() {
-        return LocalDate.class.getName();
-    }
-
-    @Override
-    public String getNativeTimeType() {
-        return TemporalAccessor.class.getName();
-    }
-
-    @Override
-    public String getNativeDateAndTimeType() {
-        return TemporalAccessor.class.getName();
-    }
-
-    @Override
-    public String getNativeDurationType() {
-        return TemporalAmount.class.getName();
-    }
 }

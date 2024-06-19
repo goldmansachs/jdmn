@@ -74,29 +74,4 @@ public class JavaTimePythonStandardDMNDialectDefinition extends AbstractStandard
         String qName = String.format("%s.%s", cls.getName(), cls.getSimpleName());
         return qName.replace("com.gs.dmn", "jdmn");
     }
-
-    @Override
-    public String getNativeNumberType() {
-        return "decimal.Decimal";
-    }
-
-    @Override
-    public String getNativeDateType() {
-        return "datetime.date";
-    }
-
-    @Override
-    public String getNativeTimeType() {
-        return "datetime.time";
-    }
-
-    @Override
-    public String getNativeDateAndTimeType() {
-        return "datetime.datetime";
-    }
-
-    @Override
-    public String getNativeDurationType() {
-        return "isodate.Duration";
-    }
 }

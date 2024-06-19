@@ -2277,27 +2277,27 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String getNativeNumberType() {
-        return this.getDialect().getNativeNumberType();
+        return this.nativeTypeFactory.getNativeNumberType();
     }
 
     @Override
     public String getNativeDateType() {
-        return this.getDialect().getNativeDateType();
+        return this.nativeTypeFactory.getNativeDateType();
     }
 
     @Override
     public String getNativeTimeType() {
-        return this.getDialect().getNativeTimeType();
+        return this.nativeTypeFactory.getNativeTimeType();
     }
 
     @Override
     public String getNativeDateAndTimeType() {
-        return this.getDialect().getNativeDateAndTimeType();
+        return this.nativeTypeFactory.getNativeDateAndTimeType();
     }
 
     @Override
     public String getNativeDurationType() {
-        return this.getDialect().getNativeDurationType();
+        return this.nativeTypeFactory.getNativeDurationType();
     }
 
     @Override

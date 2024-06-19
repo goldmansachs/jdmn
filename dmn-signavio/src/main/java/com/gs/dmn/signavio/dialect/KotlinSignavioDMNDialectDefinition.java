@@ -72,29 +72,4 @@ public class KotlinSignavioDMNDialectDefinition extends AbstractSignavioDMNDiale
     public String getDecisionBaseClass() {
         return DefaultSignavioBaseDecision.class.getName();
     }
-
-    @Override
-    public String getNativeNumberType() {
-        return BigDecimal.class.getName();
-    }
-
-    @Override
-    public String getNativeDateType() {
-        return XMLGregorianCalendar.class.getName();
-    }
-
-    @Override
-    public String getNativeTimeType() {
-        return XMLGregorianCalendar.class.getName();
-    }
-
-    @Override
-    public String getNativeDateAndTimeType() {
-        return XMLGregorianCalendar.class.getName();
-    }
-
-    @Override
-    public String getNativeDurationType() {
-        return Duration.class.getName();
-    }
 }

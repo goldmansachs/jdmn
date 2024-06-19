@@ -73,29 +73,4 @@ public class MixedJavaTimeDMNDialectDefinition extends AbstractStandardDMNDialec
     public String getDecisionBaseClass() {
         return MixedJavaTimeDMNBaseDecision.class.getName();
     }
-
-    @Override
-    public String getNativeNumberType() {
-        return  BigDecimal.class.getName();
-    }
-
-    @Override
-    public String getNativeDateType() {
-        return LocalDate.class.getName();
-    }
-
-    @Override
-    public String getNativeTimeType() {
-        return OffsetTime.class.getName();
-    }
-
-    @Override
-    public String getNativeDateAndTimeType() {
-        return ZonedDateTime.class.getName();
-    }
-
-    @Override
-    public String getNativeDurationType() {
-        return Duration.class.getName();
-    }
 }
