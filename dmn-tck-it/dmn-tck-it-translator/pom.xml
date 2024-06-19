@@ -56,7 +56,7 @@
                 <artifactId>jdmn-maven-plugin</artifactId>
                 <version>${project.parent.version}</version>
                 <configuration>
-                    <dmnDialect>com.gs.dmn.dialect.StandardDMNDialectDefinition</dmnDialect>
+                    <dmnDialect>com.gs.dmn.dialect.JavaTimeDMNDialectDefinition</dmnDialect>
                     <dmnTransformers>
                         <dmnTransformer>com.gs.dmn.transformation.ToQuotedNameTransformer</dmnTransformer>
                     </dmnTransformers>
