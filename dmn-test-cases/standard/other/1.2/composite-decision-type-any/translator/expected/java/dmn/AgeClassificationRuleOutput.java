@@ -4,7 +4,7 @@ import java.util.*;
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "ageClassification"})
 public class AgeClassificationRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String cls;
-    private java.math.BigDecimal discount;
+    private java.lang.Number discount;
 
     public AgeClassificationRuleOutput(boolean matched) {
         super(matched);
@@ -20,12 +20,12 @@ public class AgeClassificationRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         this.cls = cls;
     }
     @com.fasterxml.jackson.annotation.JsonGetter("discount")
-    public java.math.BigDecimal getDiscount() {
+    public java.lang.Number getDiscount() {
         return this.discount;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("discount")
-    public void setDiscount(java.math.BigDecimal discount) {
+    public void setDiscount(java.lang.Number discount) {
         this.discount = discount;
     }
 

@@ -43,7 +43,7 @@ public class FinancialMetrics extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
         }
     }
 
-    public type.TMetric apply(type.TLoanProduct product, java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.TMetric apply(type.TLoanProduct product, java.lang.Number requestedAmt, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'FinancialMetrics'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -73,7 +73,7 @@ public class FinancialMetrics extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
         new com.gs.dmn.runtime.LambdaExpression<type.TMetric>() {
             public type.TMetric apply(Object... args_) {
                 type.TLoanProduct product = 0 < args_.length ? (type.TLoanProduct) args_[0] : null;
-                java.math.BigDecimal requestedAmt = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+                java.lang.Number requestedAmt = 1 < args_.length ? (java.lang.Number) args_[1] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
@@ -81,13 +81,13 @@ public class FinancialMetrics extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 String lenderName = ((String)(product != null ? product.getLenderName() : null));
-                java.math.BigDecimal rate = ((java.math.BigDecimal)(product != null ? product.getRate() : null));
-                java.math.BigDecimal points = ((java.math.BigDecimal)(product != null ? product.getPoints() : null));
-                java.math.BigDecimal fee = ((java.math.BigDecimal)(product != null ? product.getFee() : null));
-                java.math.BigDecimal loanAmt = numericAdd(numericMultiply(requestedAmt, numericAdd(number("1"), numericDivide(points, number("100")))), fee);
-                java.math.BigDecimal downPmtAmt = numericMultiply(number("0.2"), loanAmt);
-                java.math.BigDecimal paymentAmt = MonthlyPayment.instance().apply(loanAmt, rate, number("360"), context_);
-                java.math.BigDecimal equity36moPct = numericSubtract(number("1"), numericMultiply(numericDivide(Equity36Mo.instance().apply(loanAmt, rate, number("36"), paymentAmt, context_), requestedAmt), number("0.8")));
+                java.lang.Number rate = ((java.lang.Number)(product != null ? product.getRate() : null));
+                java.lang.Number points = ((java.lang.Number)(product != null ? product.getPoints() : null));
+                java.lang.Number fee = ((java.lang.Number)(product != null ? product.getFee() : null));
+                java.lang.Number loanAmt = numericAdd(numericMultiply(requestedAmt, numericAdd(number("1"), numericDivide(points, number("100")))), fee);
+                java.lang.Number downPmtAmt = numericMultiply(number("0.2"), loanAmt);
+                java.lang.Number paymentAmt = MonthlyPayment.instance().apply(loanAmt, rate, number("360"), context_);
+                java.lang.Number equity36moPct = numericSubtract(number("1"), numericMultiply(numericDivide(Equity36Mo.instance().apply(loanAmt, rate, number("36"), paymentAmt, context_), requestedAmt), number("0.8")));
                 type.TMetricImpl financialMetrics = new type.TMetricImpl();
                 financialMetrics.setLenderName(lenderName);
                 financialMetrics.setRate(rate);

@@ -6,7 +6,7 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TApplicantDataImpl implements TApplicantData {
         private type.Monthly monthly;
-        private java.math.BigDecimal age;
+        private java.lang.Number age;
         private Boolean existingCustomer;
         private String maritalStatus;
         private String employmentStatus;
@@ -14,7 +14,7 @@ public class TApplicantDataImpl implements TApplicantData {
     public TApplicantDataImpl() {
     }
 
-    public TApplicantDataImpl(java.math.BigDecimal age, String employmentStatus, Boolean existingCustomer, String maritalStatus, type.Monthly monthly) {
+    public TApplicantDataImpl(java.lang.Number age, String employmentStatus, Boolean existingCustomer, String maritalStatus, type.Monthly monthly) {
         this.setAge(age);
         this.setEmploymentStatus(employmentStatus);
         this.setExistingCustomer(existingCustomer);
@@ -23,12 +23,12 @@ public class TApplicantDataImpl implements TApplicantData {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Age")
-    public java.math.BigDecimal getAge() {
+    public java.lang.Number getAge() {
         return this.age;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Age")
-    public void setAge(java.math.BigDecimal age) {
+    public void setAge(java.lang.Number age) {
         this.age = age;
     }
 

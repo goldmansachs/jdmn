@@ -27,29 +27,28 @@ import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class JavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExceptionsTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeFEELLibExceptionsTest extends BaseStandardFEELLibExceptionsTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected JavaTimeFEELLib getLib() {
-        NumericType<BigDecimal> numericType = new NumericTypeStub<>();
+        NumericType<Number> numericType = new NumericTypeStub<>();
         BooleanType booleanType = new BooleanTypeStub();
         StringType stringType = new StringTypeStub();
         DateType<LocalDate, TemporalAmount> dateType = new DateTypeStub<>();
         TimeType<TemporalAccessor, TemporalAmount> timeType = new TimeTypeStub<>();
         DateTimeType<TemporalAccessor, TemporalAmount> dateTimeType = new DateTimeTypeStub<>();
-        DurationType<TemporalAmount, BigDecimal> durationType = new DurationTypeStub<>();
+        DurationType<TemporalAmount, Number> durationType = new DurationTypeStub<>();
         ListType listType = new ListTypeStub();
         ContextType contextType = new ContextTypeStub();
         RangeType rangeType = new RangeTypeStub();
         FunctionType functionType = new FunctionTypeStub();
-        NumericLib<BigDecimal> numericLib = new NumericLibStub<>();
+        NumericLib<Number> numericLib = new NumericLibStub<>();
         StringLib stringLib = new StringLibStub();
         BooleanLib booleanLib = new BooleanLibStub();
-        DateTimeLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> dateTimeLib = new DateTimeLibStub<>();
+        DateTimeLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> dateTimeLib = new DateTimeLibStub<>();
         DurationLib<LocalDate, TemporalAmount> durationLib = new DurationLibStub<>();
         ListLib listLib = new ListLibStub();
         RangeLib rangeLib = new RangeLibStub();

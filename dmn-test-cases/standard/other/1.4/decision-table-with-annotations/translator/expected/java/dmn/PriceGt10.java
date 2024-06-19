@@ -105,7 +105,7 @@ public class PriceGt10 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         // Apply rule
         PriceGt10RuleOutput output_ = new PriceGt10RuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericGreaterThan(((java.math.BigDecimal)(structA != null ? structA.getPrice() : null)), number("10"))
+            numericGreaterThan(((java.lang.Number)(structA != null ? structA.getPrice() : null)), number("10"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -116,7 +116,7 @@ public class PriceGt10 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
 
             // Add annotations
             annotationSet_.addAnnotation("priceGt10", 0, "Logging");
-            annotationSet_.addAnnotation("priceGt10", 0, stringJoin(asList("Price ", string(((java.math.BigDecimal)(structA != null ? structA.getPrice() : null))), " is >= 0"), " "));
+            annotationSet_.addAnnotation("priceGt10", 0, stringJoin(asList("Price ", string(((java.lang.Number)(structA != null ? structA.getPrice() : null))), " is >= 0"), " "));
         }
 
         // Rule end
@@ -140,7 +140,7 @@ public class PriceGt10 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         // Apply rule
         PriceGt10RuleOutput output_ = new PriceGt10RuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericLessEqualThan(((java.math.BigDecimal)(structA != null ? structA.getPrice() : null)), number("10"))
+            numericLessEqualThan(((java.lang.Number)(structA != null ? structA.getPrice() : null)), number("10"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -150,7 +150,7 @@ public class PriceGt10 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
             output_.setPriceGt10(Boolean.FALSE);
 
             // Add annotations
-            annotationSet_.addAnnotation("priceGt10", 1, stringAdd(stringAdd("Price ", string(((java.math.BigDecimal)(structA != null ? structA.getPrice() : null)))), " is <= 0"));
+            annotationSet_.addAnnotation("priceGt10", 1, stringAdd(stringAdd("Price ", string(((java.lang.Number)(structA != null ? structA.getPrice() : null)))), " is <= 0"));
             annotationSet_.addAnnotation("priceGt10", 1, "Since this is a CDATA section I can use all sorts of reserved characters like > < \" and & or write things like <foo></bar> but my document is still well formed!");
         }
 

@@ -17,17 +17,16 @@ import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.tck.ast.TestCases;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class JavaFEELProcessorTest extends AbstractStandardFEELProcessorTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaFEELProcessorTest extends AbstractStandardFEELProcessorTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialect() {
+    protected DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialect() {
         return new JavaTimeDMNDialectDefinition();
     }
 
@@ -36,7 +35,7 @@ public class JavaFEELProcessorTest extends AbstractStandardFEELProcessorTest<Big
     public void testConversionFunctions() {
         super.testConversionFunctions();
 
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "date and time(date and time(\"2012-03-01T13:14:15Z\"), time(\"10:11:12Z\"))",
                 "FunctionInvocation(Name(date and time) -> PositionalParameters(DateTimeLiteral(date and time, \"2012-03-01T13:14:15Z\"), DateTimeLiteral(time, \"10:11:12Z\")))",
@@ -81,8 +80,7 @@ public class JavaFEELProcessorTest extends AbstractStandardFEELProcessorTest<Big
 
     @Test
     public void testDateAndTimeProperties() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-        );
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").time offset",
                 "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), time offset)",
@@ -126,5 +124,10 @@ public class JavaFEELProcessorTest extends AbstractStandardFEELProcessorTest<Big
                 this.lib.timezone(this.lib.time("10:30:00")),
                 null
         );
+    }
+
+    @Override
+    protected String numberType() {
+        return Number.class.getName();
     }
 }

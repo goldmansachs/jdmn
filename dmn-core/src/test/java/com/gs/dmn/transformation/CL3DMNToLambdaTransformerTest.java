@@ -50,7 +50,7 @@ public class CL3DMNToLambdaTransformerTest extends AbstractTckDMNToJavaTransform
     @Override
     protected FileTransformer makeTransformer(InputParameters inputParameters, BuildLogger logger) {
         // Create transformer
-        DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> dmnDialect = makeDialectDefinition();
+        DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> dmnDialect = makeDialectDefinition();
         DMNValidator dmnValidator = makeDMNValidator(logger);
         DMNTransformer<TestCases> dmnTransformer = makeDMNTransformer(logger);
         TemplateProvider templateProvider = makeTemplateProvider();

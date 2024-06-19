@@ -43,7 +43,7 @@ public class EligibilityRules extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
         }
     }
 
-    public String apply(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(String preBureauRiskCategory, Boolean preBureauAffordability, java.lang.Number age, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'EligibilityRules'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -75,7 +75,7 @@ public class EligibilityRules extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
             public String apply(Object... args_) {
                 String preBureauRiskCategory = 0 < args_.length ? (String) args_[0] : null;
                 Boolean preBureauAffordability = 1 < args_.length ? (Boolean) args_[1] : null;
-                java.math.BigDecimal age = 2 < args_.length ? (java.math.BigDecimal) args_[2] : null;
+                java.lang.Number age = 2 < args_.length ? (java.lang.Number) args_[2] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 3 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[3] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
@@ -104,7 +104,7 @@ public class EligibilityRules extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(String preBureauRiskCategory, Boolean preBureauAffordability, java.lang.Number age, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -138,7 +138,7 @@ public class EligibilityRules extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(String preBureauRiskCategory, Boolean preBureauAffordability, java.lang.Number age, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
@@ -172,7 +172,7 @@ public class EligibilityRules extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(String preBureauRiskCategory, Boolean preBureauAffordability, java.lang.Number age, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
@@ -206,7 +206,7 @@ public class EligibilityRules extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule3(String preBureauRiskCategory, Boolean preBureauAffordability, java.math.BigDecimal age, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(String preBureauRiskCategory, Boolean preBureauAffordability, java.lang.Number age, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 

@@ -27,7 +27,7 @@ public class ExtraDaysCase2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("Age") != null ? number(input_.get("Age")) : null), (input_.get("Years of Service") != null ? number(input_.get("Years of Service")) : null), context_);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class ExtraDaysCase2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal age, java.math.BigDecimal yearsOfService, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(java.lang.Number age, java.lang.Number yearsOfService, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Extra days case 2'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -50,7 +50,7 @@ public class ExtraDaysCase2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase2Arguments_);
 
             // Evaluate decision 'Extra days case 2'
-            java.math.BigDecimal output_ = lambda.apply(age, yearsOfService, context_);
+            java.lang.Number output_ = lambda.apply(age, yearsOfService, context_);
 
             // End decision 'Extra days case 2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, extraDaysCase2Arguments_, output_, (System.currentTimeMillis() - extraDaysCase2StartTime_));
@@ -62,11 +62,11 @@ public class ExtraDaysCase2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
-                java.math.BigDecimal age = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
-                java.math.BigDecimal yearsOfService = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
+                java.lang.Number age = 0 < args_.length ? (java.lang.Number) args_[0] : null;
+                java.lang.Number yearsOfService = 1 < args_.length ? (java.lang.Number) args_[1] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
@@ -79,7 +79,7 @@ public class ExtraDaysCase2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
                 ruleOutputList_.add(rule1(age, yearsOfService, context_));
 
                 // Return results based on hit policy
-                java.math.BigDecimal output_;
+                java.lang.Number output_;
                 if (ruleOutputList_.noMatchedRules()) {
                     // Default value
                     output_ = number("0");
@@ -93,7 +93,7 @@ public class ExtraDaysCase2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal age, java.math.BigDecimal yearsOfService, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number age, java.lang.Number yearsOfService, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -125,7 +125,7 @@ public class ExtraDaysCase2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal age, java.math.BigDecimal yearsOfService, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.lang.Number age, java.lang.Number yearsOfService, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 

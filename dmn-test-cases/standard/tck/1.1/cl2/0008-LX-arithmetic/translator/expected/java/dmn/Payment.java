@@ -27,7 +27,7 @@ public class Payment extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("loan") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("loan"), new com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) : null), context_);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class Payment extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    public java.math.BigDecimal apply(type.TLoan loan, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(type.TLoan loan, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'payment'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -49,7 +49,7 @@ public class Payment extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, paymentArguments_);
 
             // Evaluate decision 'payment'
-            java.math.BigDecimal output_ = lambda.apply(loan, context_);
+            java.lang.Number output_ = lambda.apply(loan, context_);
 
             // End decision 'payment'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, paymentArguments_, output_, (System.currentTimeMillis() - paymentStartTime_));
@@ -61,9 +61,9 @@ public class Payment extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
                 type.TLoan loan = 0 < args_.length ? (type.TLoan) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -71,7 +71,7 @@ public class Payment extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
                 com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
-                return numericDivide(numericDivide(numericMultiply(((java.math.BigDecimal)(loan != null ? loan.getPrincipal() : null)), ((java.math.BigDecimal)(loan != null ? loan.getRate() : null))), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(((java.math.BigDecimal)(loan != null ? loan.getRate() : null)), number("12"))), numericUnaryMinus(((java.math.BigDecimal)(loan != null ? loan.getTermMonths() : null))))));
+                return numericDivide(numericDivide(numericMultiply(((java.lang.Number)(loan != null ? loan.getPrincipal() : null)), ((java.lang.Number)(loan != null ? loan.getRate() : null))), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(((java.lang.Number)(loan != null ? loan.getRate() : null)), number("12"))), numericUnaryMinus(((java.lang.Number)(loan != null ? loan.getTermMonths() : null))))));
             }
         };
 }

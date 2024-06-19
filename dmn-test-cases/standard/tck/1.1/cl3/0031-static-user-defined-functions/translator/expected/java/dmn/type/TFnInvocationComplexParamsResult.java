@@ -14,17 +14,17 @@ public interface TFnInvocationComplexParamsResult extends com.gs.dmn.runtime.DMN
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TFnInvocationComplexParamsResultImpl result_ = new TFnInvocationComplexParamsResultImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("functionInvocationLiteralExpressionInParameter")) {
-                result_.setFunctionInvocationLiteralExpressionInParameter((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("functionInvocationLiteralExpressionInParameter"));
+                result_.setFunctionInvocationLiteralExpressionInParameter((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("functionInvocationLiteralExpressionInParameter"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("functionInvocationInParameter")) {
-                result_.setFunctionInvocationInParameter((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("functionInvocationInParameter"));
+                result_.setFunctionInvocationInParameter((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("functionInvocationInParameter"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("circumference")) {
-                result_.setCircumference((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("circumference"));
+                result_.setCircumference((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("circumference"));
             } else {
                 return  null;
             }
@@ -37,13 +37,13 @@ public interface TFnInvocationComplexParamsResult extends com.gs.dmn.runtime.DMN
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("functionInvocationLiteralExpressionInParameter")
-    java.math.BigDecimal getFunctionInvocationLiteralExpressionInParameter();
+    java.lang.Number getFunctionInvocationLiteralExpressionInParameter();
 
     @com.fasterxml.jackson.annotation.JsonGetter("functionInvocationInParameter")
-    java.math.BigDecimal getFunctionInvocationInParameter();
+    java.lang.Number getFunctionInvocationInParameter();
 
     @com.fasterxml.jackson.annotation.JsonGetter("circumference")
-    java.math.BigDecimal getCircumference();
+    java.lang.Number getCircumference();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

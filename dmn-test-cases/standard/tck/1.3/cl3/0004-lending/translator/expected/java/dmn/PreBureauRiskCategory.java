@@ -86,7 +86,7 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
                 // Apply child decisions
-                java.math.BigDecimal applicationRiskScore = PreBureauRiskCategory.this.applicationRiskScore.apply(applicantData, context_);
+                java.lang.Number applicationRiskScore = PreBureauRiskCategory.this.applicationRiskScore.apply(applicantData, context_);
 
                 return PreBureauRiskCategoryTable.instance().apply(((Boolean)(applicantData != null ? applicantData.getExistingCustomer() : null)), applicationRiskScore, context_);
             }

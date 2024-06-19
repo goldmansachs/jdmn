@@ -34,7 +34,7 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.JavaTimeDMN
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(input_.get("RiskCategory"), context_);
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.JavaTimeDMN
         }
     }
 
-    public java.math.BigDecimal apply(String riskCategory, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(String riskCategory, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'CreditContingencyFactorTable'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -56,7 +56,7 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.JavaTimeDMN
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, creditContingencyFactorTableArguments_);
 
             // Evaluate BKM 'CreditContingencyFactorTable'
-            java.math.BigDecimal output_ = lambda.apply(riskCategory, context_);
+            java.lang.Number output_ = lambda.apply(riskCategory, context_);
 
             // End BKM 'CreditContingencyFactorTable'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, creditContingencyFactorTableArguments_, output_, (System.currentTimeMillis() - creditContingencyFactorTableStartTime_));
@@ -68,9 +68,9 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.JavaTimeDMN
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
                 String riskCategory = 0 < args_.length ? (String) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -85,7 +85,7 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.JavaTimeDMN
                 ruleOutputList_.add(rule2(riskCategory, context_));
 
                 // Return results based on hit policy
-                java.math.BigDecimal output_;
+                java.lang.Number output_;
                 if (ruleOutputList_.noMatchedRules()) {
                     // Default value
                     output_ = null;

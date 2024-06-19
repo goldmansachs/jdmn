@@ -79,7 +79,7 @@ public class SomeGtTen1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
                 // Apply child decisions
                 List<type.TItemPrice> priceTable1 = SomeGtTen1.this.priceTable1.apply(context_);
 
-                return booleanOr((List)priceTable1.stream().map(i -> numericGreaterThan(((java.math.BigDecimal)(i != null ? i.getPrice() : null)), number("10"))).collect(Collectors.toList()));
+                return booleanOr((List)priceTable1.stream().map(i -> numericGreaterThan(((java.lang.Number)(i != null ? i.getPrice() : null)), number("10"))).collect(Collectors.toList()));
             }
         };
 }

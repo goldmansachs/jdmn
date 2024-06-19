@@ -14,17 +14,17 @@ public interface TFnInvocationPositionalResult extends com.gs.dmn.runtime.DMNTyp
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TFnInvocationPositionalResultImpl result_ = new TFnInvocationPositionalResultImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("sumResult")) {
-                result_.setSumResult((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("sumResult"));
+                result_.setSumResult((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("sumResult"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("divisionResultPositional")) {
-                result_.setDivisionResultPositional((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("divisionResultPositional"));
+                result_.setDivisionResultPositional((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("divisionResultPositional"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("multiplicationResultPositional")) {
-                result_.setMultiplicationResultPositional((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("multiplicationResultPositional"));
+                result_.setMultiplicationResultPositional((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("multiplicationResultPositional"));
             } else {
                 return  null;
             }
@@ -37,13 +37,13 @@ public interface TFnInvocationPositionalResult extends com.gs.dmn.runtime.DMNTyp
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("sumResult")
-    java.math.BigDecimal getSumResult();
+    java.lang.Number getSumResult();
 
     @com.fasterxml.jackson.annotation.JsonGetter("divisionResultPositional")
-    java.math.BigDecimal getDivisionResultPositional();
+    java.lang.Number getDivisionResultPositional();
 
     @com.fasterxml.jackson.annotation.JsonGetter("multiplicationResultPositional")
-    java.math.BigDecimal getMultiplicationResultPositional();
+    java.lang.Number getMultiplicationResultPositional();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

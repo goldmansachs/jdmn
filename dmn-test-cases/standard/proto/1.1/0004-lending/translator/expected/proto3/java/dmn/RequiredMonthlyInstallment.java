@@ -33,7 +33,7 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.JavaTimeDMNBa
         return map_;
     }
 
-    public static java.math.BigDecimal responseToOutput(proto.RequiredMonthlyInstallmentResponse requiredMonthlyInstallmentResponse_) {
+    public static java.lang.Number responseToOutput(proto.RequiredMonthlyInstallmentResponse requiredMonthlyInstallmentResponse_) {
         // Extract and convert output
         return java.math.BigDecimal.valueOf(requiredMonthlyInstallmentResponse_.getRequiredMonthlyInstallment());
     }
@@ -42,7 +42,7 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("RequestedProduct") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("RequestedProduct"), new com.fasterxml.jackson.core.type.TypeReference<type.TRequestedProductImpl>() {}) : null), context_);
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.JavaTimeDMNBa
         }
     }
 
-    public java.math.BigDecimal apply(type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'RequiredMonthlyInstallment'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -65,7 +65,7 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.JavaTimeDMNBa
 
             if (cache_.contains("RequiredMonthlyInstallment")) {
                 // Retrieve value from cache
-                java.math.BigDecimal output_ = (java.math.BigDecimal)cache_.lookup("RequiredMonthlyInstallment");
+                java.lang.Number output_ = (java.lang.Number)cache_.lookup("RequiredMonthlyInstallment");
 
                 // End decision 'RequiredMonthlyInstallment'
                 eventListener_.endDRGElement(DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_, output_, (System.currentTimeMillis() - requiredMonthlyInstallmentStartTime_));
@@ -73,7 +73,7 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.JavaTimeDMNBa
                 return output_;
             } else {
                 // Evaluate decision 'RequiredMonthlyInstallment'
-                java.math.BigDecimal output_ = lambda.apply(requestedProduct, context_);
+                java.lang.Number output_ = lambda.apply(requestedProduct, context_);
                 cache_.bind("RequiredMonthlyInstallment", output_);
 
                 // End decision 'RequiredMonthlyInstallment'
@@ -92,7 +92,7 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.JavaTimeDMNBa
         type.TRequestedProduct requestedProduct = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct());
 
         // Invoke apply method
-        java.math.BigDecimal output_ = apply(requestedProduct, context_);
+        java.lang.Number output_ = apply(requestedProduct, context_);
 
         // Convert output to Response Message
         proto.RequiredMonthlyInstallmentResponse.Builder builder_ = proto.RequiredMonthlyInstallmentResponse.newBuilder();
@@ -101,9 +101,9 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.JavaTimeDMNBa
         return builder_.build();
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
                 type.TRequestedProduct requestedProduct = 0 < args_.length ? (type.TRequestedProduct) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -111,7 +111,7 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.JavaTimeDMNBa
                 com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
-                return InstallmentCalculation.instance().apply(((String)(requestedProduct != null ? requestedProduct.getProductType() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getRate() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getTerm() : null)), ((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getAmount() : null)), context_);
+                return InstallmentCalculation.instance().apply(((String)(requestedProduct != null ? requestedProduct.getProductType() : null)), ((java.lang.Number)(requestedProduct != null ? requestedProduct.getRate() : null)), ((java.lang.Number)(requestedProduct != null ? requestedProduct.getTerm() : null)), ((java.lang.Number)(requestedProduct != null ? requestedProduct.getAmount() : null)), context_);
             }
         };
 }

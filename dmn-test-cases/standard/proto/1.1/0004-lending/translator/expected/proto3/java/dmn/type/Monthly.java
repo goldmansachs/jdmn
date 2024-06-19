@@ -14,17 +14,17 @@ public interface Monthly extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             MonthlyImpl result_ = new MonthlyImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("Income")) {
-                result_.setIncome((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Income"));
+                result_.setIncome((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Income"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("Expenses")) {
-                result_.setExpenses((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Expenses"));
+                result_.setExpenses((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Expenses"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("Repayments")) {
-                result_.setRepayments((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Repayments"));
+                result_.setRepayments((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Repayments"));
             } else {
                 return  null;
             }
@@ -64,13 +64,13 @@ public interface Monthly extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Income")
-    java.math.BigDecimal getIncome();
+    java.lang.Number getIncome();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Expenses")
-    java.math.BigDecimal getExpenses();
+    java.lang.Number getExpenses();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Repayments")
-    java.math.BigDecimal getRepayments();
+    java.lang.Number getRepayments();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

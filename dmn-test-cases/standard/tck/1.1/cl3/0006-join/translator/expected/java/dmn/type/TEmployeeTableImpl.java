@@ -7,24 +7,24 @@ import java.util.*;
 public class TEmployeeTableImpl implements TEmployeeTable {
         private String id;
         private String name;
-        private java.math.BigDecimal deptNum;
+        private java.lang.Number deptNum;
 
     public TEmployeeTableImpl() {
     }
 
-    public TEmployeeTableImpl(java.math.BigDecimal deptNum, String id, String name) {
+    public TEmployeeTableImpl(java.lang.Number deptNum, String id, String name) {
         this.setDeptNum(deptNum);
         this.setId(id);
         this.setName(name);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("deptNum")
-    public java.math.BigDecimal getDeptNum() {
+    public java.lang.Number getDeptNum() {
         return this.deptNum;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("deptNum")
-    public void setDeptNum(java.math.BigDecimal deptNum) {
+    public void setDeptNum(java.lang.Number deptNum) {
         this.deptNum = deptNum;
     }
 

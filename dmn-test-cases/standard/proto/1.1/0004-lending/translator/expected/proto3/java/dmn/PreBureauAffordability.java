@@ -116,9 +116,9 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
                 // Apply child decisions
                 String preBureauRiskCategory = PreBureauAffordability.this.preBureauRiskCategory.apply(applicantData, context_);
-                java.math.BigDecimal requiredMonthlyInstallment = PreBureauAffordability.this.requiredMonthlyInstallment.apply(requestedProduct, context_);
+                java.lang.Number requiredMonthlyInstallment = PreBureauAffordability.this.requiredMonthlyInstallment.apply(requestedProduct, context_);
 
-                return AffordabilityCalculation.instance().apply(((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getIncome() : null)), ((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getRepayments() : null)), ((java.math.BigDecimal)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getExpenses() : null)), preBureauRiskCategory, requiredMonthlyInstallment, context_);
+                return AffordabilityCalculation.instance().apply(((java.lang.Number)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getIncome() : null)), ((java.lang.Number)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getRepayments() : null)), ((java.lang.Number)(((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)) != null ? ((type.Monthly)(applicantData != null ? applicantData.getMonthly() : null)).getExpenses() : null)), preBureauRiskCategory, requiredMonthlyInstallment, context_);
             }
         };
 }

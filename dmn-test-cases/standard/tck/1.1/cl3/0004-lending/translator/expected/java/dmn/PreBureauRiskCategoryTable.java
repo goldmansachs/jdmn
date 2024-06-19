@@ -43,7 +43,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNBa
         }
     }
 
-    public String apply(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(Boolean existingCustomer, java.lang.Number applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'Pre-bureauRiskCategoryTable'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -73,7 +73,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNBa
         new com.gs.dmn.runtime.LambdaExpression<String>() {
             public String apply(Object... args_) {
                 Boolean existingCustomer = 0 < args_.length ? (Boolean) args_[0] : null;
-                java.math.BigDecimal applicationRiskScore = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+                java.lang.Number applicationRiskScore = 1 < args_.length ? (java.lang.Number) args_[1] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
@@ -106,7 +106,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNBa
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(Boolean existingCustomer, java.lang.Number applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -138,7 +138,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(Boolean existingCustomer, java.lang.Number applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
@@ -170,7 +170,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(Boolean existingCustomer, java.lang.Number applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
@@ -202,7 +202,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule3(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(Boolean existingCustomer, java.lang.Number applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
@@ -234,7 +234,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule4(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(Boolean existingCustomer, java.lang.Number applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 
@@ -266,7 +266,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule5(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule5(Boolean existingCustomer, java.lang.Number applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "");
 
@@ -298,7 +298,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule6(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule6(Boolean existingCustomer, java.lang.Number applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(6, "");
 
@@ -330,7 +330,7 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNBa
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule7(Boolean existingCustomer, java.math.BigDecimal applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule7(Boolean existingCustomer, java.lang.Number applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(7, "");
 

@@ -5,14 +5,14 @@ import java.util.*;
 @javax.annotation.Generated(value = {"itemDefinition.ftl", "tDeptTable"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TDeptTableImpl implements TDeptTable {
-        private java.math.BigDecimal number;
+        private java.lang.Number number;
         private String name;
         private String manager;
 
     public TDeptTableImpl() {
     }
 
-    public TDeptTableImpl(String manager, String name, java.math.BigDecimal number) {
+    public TDeptTableImpl(String manager, String name, java.lang.Number number) {
         this.setManager(manager);
         this.setName(name);
         this.setNumber(number);
@@ -39,12 +39,12 @@ public class TDeptTableImpl implements TDeptTable {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("number")
-    public java.math.BigDecimal getNumber() {
+    public java.lang.Number getNumber() {
         return this.number;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("number")
-    public void setNumber(java.math.BigDecimal number) {
+    public void setNumber(java.lang.Number number) {
         this.number = number;
     }
 

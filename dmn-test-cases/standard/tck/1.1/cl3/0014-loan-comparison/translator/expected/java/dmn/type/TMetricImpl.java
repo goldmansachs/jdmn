@@ -6,18 +6,18 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TMetricImpl implements TMetric {
         private String lenderName;
-        private java.math.BigDecimal rate;
-        private java.math.BigDecimal points;
-        private java.math.BigDecimal fee;
-        private java.math.BigDecimal loanAmt;
-        private java.math.BigDecimal downPmtAmt;
-        private java.math.BigDecimal paymentAmt;
-        private java.math.BigDecimal equity36moPct;
+        private java.lang.Number rate;
+        private java.lang.Number points;
+        private java.lang.Number fee;
+        private java.lang.Number loanAmt;
+        private java.lang.Number downPmtAmt;
+        private java.lang.Number paymentAmt;
+        private java.lang.Number equity36moPct;
 
     public TMetricImpl() {
     }
 
-    public TMetricImpl(java.math.BigDecimal downPmtAmt, java.math.BigDecimal equity36moPct, java.math.BigDecimal fee, String lenderName, java.math.BigDecimal loanAmt, java.math.BigDecimal paymentAmt, java.math.BigDecimal points, java.math.BigDecimal rate) {
+    public TMetricImpl(java.lang.Number downPmtAmt, java.lang.Number equity36moPct, java.lang.Number fee, String lenderName, java.lang.Number loanAmt, java.lang.Number paymentAmt, java.lang.Number points, java.lang.Number rate) {
         this.setDownPmtAmt(downPmtAmt);
         this.setEquity36moPct(equity36moPct);
         this.setFee(fee);
@@ -29,32 +29,32 @@ public class TMetricImpl implements TMetric {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("downPmtAmt")
-    public java.math.BigDecimal getDownPmtAmt() {
+    public java.lang.Number getDownPmtAmt() {
         return this.downPmtAmt;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("downPmtAmt")
-    public void setDownPmtAmt(java.math.BigDecimal downPmtAmt) {
+    public void setDownPmtAmt(java.lang.Number downPmtAmt) {
         this.downPmtAmt = downPmtAmt;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("equity36moPct")
-    public java.math.BigDecimal getEquity36moPct() {
+    public java.lang.Number getEquity36moPct() {
         return this.equity36moPct;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("equity36moPct")
-    public void setEquity36moPct(java.math.BigDecimal equity36moPct) {
+    public void setEquity36moPct(java.lang.Number equity36moPct) {
         this.equity36moPct = equity36moPct;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("fee")
-    public java.math.BigDecimal getFee() {
+    public java.lang.Number getFee() {
         return this.fee;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("fee")
-    public void setFee(java.math.BigDecimal fee) {
+    public void setFee(java.lang.Number fee) {
         this.fee = fee;
     }
 
@@ -69,42 +69,42 @@ public class TMetricImpl implements TMetric {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("loanAmt")
-    public java.math.BigDecimal getLoanAmt() {
+    public java.lang.Number getLoanAmt() {
         return this.loanAmt;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("loanAmt")
-    public void setLoanAmt(java.math.BigDecimal loanAmt) {
+    public void setLoanAmt(java.lang.Number loanAmt) {
         this.loanAmt = loanAmt;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("paymentAmt")
-    public java.math.BigDecimal getPaymentAmt() {
+    public java.lang.Number getPaymentAmt() {
         return this.paymentAmt;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("paymentAmt")
-    public void setPaymentAmt(java.math.BigDecimal paymentAmt) {
+    public void setPaymentAmt(java.lang.Number paymentAmt) {
         this.paymentAmt = paymentAmt;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("points")
-    public java.math.BigDecimal getPoints() {
+    public java.lang.Number getPoints() {
         return this.points;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("points")
-    public void setPoints(java.math.BigDecimal points) {
+    public void setPoints(java.lang.Number points) {
         this.points = points;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("rate")
-    public java.math.BigDecimal getRate() {
+    public java.lang.Number getRate() {
         return this.rate;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("rate")
-    public void setRate(java.math.BigDecimal rate) {
+    public void setRate(java.lang.Number rate) {
         this.rate = rate;
     }
 

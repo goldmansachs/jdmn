@@ -19,17 +19,17 @@ public interface TRequestedProduct extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("Amount")) {
-                result_.setAmount((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Amount"));
+                result_.setAmount((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Amount"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("Rate")) {
-                result_.setRate((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Rate"));
+                result_.setRate((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Rate"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("Term")) {
-                result_.setTerm((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("Term"));
+                result_.setTerm((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Term"));
             } else {
                 return  null;
             }
@@ -45,13 +45,13 @@ public interface TRequestedProduct extends com.gs.dmn.runtime.DMNType {
     String getProductType();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Amount")
-    java.math.BigDecimal getAmount();
+    java.lang.Number getAmount();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Rate")
-    java.math.BigDecimal getRate();
+    java.lang.Number getRate();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Term")
-    java.math.BigDecimal getTerm();
+    java.lang.Number getTerm();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

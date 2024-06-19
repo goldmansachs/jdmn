@@ -15,14 +15,13 @@ package com.gs.dmn.feel.lib.type.range;
 import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class TemporalTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class TemporalTimeDefaultRangeLibTest extends AbstractDefaultRangeLibTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected StandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> getLib() {
+    protected StandardFEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> getLib() {
         return new JavaTimeFEELLib();
     }
 

@@ -37,7 +37,7 @@ public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    public String apply(java.math.BigDecimal decisioninputs1_numB, java.math.BigDecimal decisioninputs1_numC, decisioninputs1.type.TA decisioninputs1_structA, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(java.lang.Number decisioninputs1_numB, java.lang.Number decisioninputs1_numC, decisioninputs1.type.TA decisioninputs1_structA, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'priceInRange'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -67,8 +67,8 @@ public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<String> lambda =
         new com.gs.dmn.runtime.LambdaExpression<String>() {
             public String apply(Object... args_) {
-                java.math.BigDecimal decisioninputs1_numB = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
-                java.math.BigDecimal decisioninputs1_numC = 1 < args_.length ? (java.math.BigDecimal) args_[1] : null;
+                java.lang.Number decisioninputs1_numB = 0 < args_.length ? (java.lang.Number) args_[0] : null;
+                java.lang.Number decisioninputs1_numC = 1 < args_.length ? (java.lang.Number) args_[1] : null;
                 decisioninputs1.type.TA decisioninputs1_structA = 2 < args_.length ? (decisioninputs1.type.TA) args_[2] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 3 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[3] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -96,7 +96,7 @@ public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     };
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal decisioninputs1_numB, java.math.BigDecimal decisioninputs1_numC, decisioninputs1.type.TA decisioninputs1_structA, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number decisioninputs1_numB, java.lang.Number decisioninputs1_numC, decisioninputs1.type.TA decisioninputs1_structA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -110,7 +110,7 @@ public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         // Apply rule
         PriceInRangeRuleOutput output_ = new PriceInRangeRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(decisioninputs1_structA != null ? decisioninputs1_structA.getPrice() : null)), decisioninputs1_numB), numericLessEqualThan(((java.math.BigDecimal)(decisioninputs1_structA != null ? decisioninputs1_structA.getPrice() : null)), decisioninputs1_numC))
+            booleanAnd(numericGreaterEqualThan(((java.lang.Number)(decisioninputs1_structA != null ? decisioninputs1_structA.getPrice() : null)), decisioninputs1_numB), numericLessEqualThan(((java.lang.Number)(decisioninputs1_structA != null ? decisioninputs1_structA.getPrice() : null)), decisioninputs1_numC))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -128,7 +128,7 @@ public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal decisioninputs1_numB, java.math.BigDecimal decisioninputs1_numC, decisioninputs1.type.TA decisioninputs1_structA, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.lang.Number decisioninputs1_numB, java.lang.Number decisioninputs1_numC, decisioninputs1.type.TA decisioninputs1_structA, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 

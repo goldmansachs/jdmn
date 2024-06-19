@@ -21,7 +21,6 @@ import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
@@ -34,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FEELToTripleNativeVisitorTest extends AbstractTest {
     private final EnvironmentFactory environmentFactory;
-    private final FEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> lib;
+    private final FEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> lib;
     private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
     private final ELTranslator<Type, DMNContext> feelTranslator;
     private FEELToTripleNativeVisitor nativeVisitor;
@@ -53,8 +52,8 @@ public class FEELToTripleNativeVisitorTest extends AbstractTest {
 
     @Test
     public void testArithmeticExpression() {
-        BigDecimal a = this.lib.number("1");
-        BigDecimal b = this.lib.number("2");
+        Number a = this.lib.number("1");
+        Number b = this.lib.number("2");
         String s1 = "a";
         String s2 = "b";
         List<EnvironmentEntry> entries = Arrays.asList(

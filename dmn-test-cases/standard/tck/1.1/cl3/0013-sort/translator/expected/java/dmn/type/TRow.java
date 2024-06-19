@@ -14,22 +14,22 @@ public interface TRow extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TRowImpl result_ = new TRowImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("col1")) {
-                result_.setCol1((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col1"));
+                result_.setCol1((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("col1"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("col2")) {
-                result_.setCol2((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col2"));
+                result_.setCol2((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("col2"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("col3")) {
-                result_.setCol3((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col3"));
+                result_.setCol3((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("col3"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("col4")) {
-                result_.setCol4((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("col4"));
+                result_.setCol4((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("col4"));
             } else {
                 return  null;
             }
@@ -42,16 +42,16 @@ public interface TRow extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("col1")
-    java.math.BigDecimal getCol1();
+    java.lang.Number getCol1();
 
     @com.fasterxml.jackson.annotation.JsonGetter("col2")
-    java.math.BigDecimal getCol2();
+    java.lang.Number getCol2();
 
     @com.fasterxml.jackson.annotation.JsonGetter("col3")
-    java.math.BigDecimal getCol3();
+    java.lang.Number getCol3();
 
     @com.fasterxml.jackson.annotation.JsonGetter("col4")
-    java.math.BigDecimal getCol4();
+    java.lang.Number getCol4();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

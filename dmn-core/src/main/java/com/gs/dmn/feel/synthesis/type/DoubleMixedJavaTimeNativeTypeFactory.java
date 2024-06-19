@@ -67,4 +67,9 @@ public class DoubleMixedJavaTimeNativeTypeFactory extends JavaTypeFactory {
     public String toQualifiedNativeType(String feelType) {
         return FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.get(feelType);
     }
+
+    @Override
+    public String getNativeNumberConcreteType() {
+        return Double.class.getName();
+    }
 }

@@ -27,7 +27,7 @@ public class BaseVacationDays extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply(context_);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class BaseVacationDays extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
         }
     }
 
-    public java.math.BigDecimal apply(com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Base Vacation Days'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -48,7 +48,7 @@ public class BaseVacationDays extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, baseVacationDaysArguments_);
 
             // Evaluate decision 'Base Vacation Days'
-            java.math.BigDecimal output_ = lambda.apply(context_);
+            java.lang.Number output_ = lambda.apply(context_);
 
             // End decision 'Base Vacation Days'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, baseVacationDaysArguments_, output_, (System.currentTimeMillis() - baseVacationDaysStartTime_));
@@ -60,9 +60,9 @@ public class BaseVacationDays extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
                 com.gs.dmn.runtime.ExecutionContext context_ = 0 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[0] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;

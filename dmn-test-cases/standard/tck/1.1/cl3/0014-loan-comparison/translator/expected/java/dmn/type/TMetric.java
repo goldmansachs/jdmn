@@ -19,37 +19,37 @@ public interface TMetric extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("rate")) {
-                result_.setRate((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("rate"));
+                result_.setRate((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("rate"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("points")) {
-                result_.setPoints((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("points"));
+                result_.setPoints((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("points"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("fee")) {
-                result_.setFee((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("fee"));
+                result_.setFee((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("fee"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("loanAmt")) {
-                result_.setLoanAmt((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("loanAmt"));
+                result_.setLoanAmt((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("loanAmt"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("downPmtAmt")) {
-                result_.setDownPmtAmt((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("downPmtAmt"));
+                result_.setDownPmtAmt((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("downPmtAmt"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("paymentAmt")) {
-                result_.setPaymentAmt((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("paymentAmt"));
+                result_.setPaymentAmt((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("paymentAmt"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("equity36moPct")) {
-                result_.setEquity36moPct((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("equity36moPct"));
+                result_.setEquity36moPct((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("equity36moPct"));
             } else {
                 return  null;
             }
@@ -65,25 +65,25 @@ public interface TMetric extends com.gs.dmn.runtime.DMNType {
     String getLenderName();
 
     @com.fasterxml.jackson.annotation.JsonGetter("rate")
-    java.math.BigDecimal getRate();
+    java.lang.Number getRate();
 
     @com.fasterxml.jackson.annotation.JsonGetter("points")
-    java.math.BigDecimal getPoints();
+    java.lang.Number getPoints();
 
     @com.fasterxml.jackson.annotation.JsonGetter("fee")
-    java.math.BigDecimal getFee();
+    java.lang.Number getFee();
 
     @com.fasterxml.jackson.annotation.JsonGetter("loanAmt")
-    java.math.BigDecimal getLoanAmt();
+    java.lang.Number getLoanAmt();
 
     @com.fasterxml.jackson.annotation.JsonGetter("downPmtAmt")
-    java.math.BigDecimal getDownPmtAmt();
+    java.lang.Number getDownPmtAmt();
 
     @com.fasterxml.jackson.annotation.JsonGetter("paymentAmt")
-    java.math.BigDecimal getPaymentAmt();
+    java.lang.Number getPaymentAmt();
 
     @com.fasterxml.jackson.annotation.JsonGetter("equity36moPct")
-    java.math.BigDecimal getEquity36moPct();
+    java.lang.Number getEquity36moPct();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

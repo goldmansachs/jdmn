@@ -6,12 +6,12 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TAImpl implements TA {
         private String name;
-        private java.math.BigDecimal price;
+        private java.lang.Number price;
 
     public TAImpl() {
     }
 
-    public TAImpl(String name, java.math.BigDecimal price) {
+    public TAImpl(String name, java.lang.Number price) {
         this.setName(name);
         this.setPrice(price);
     }
@@ -27,12 +27,12 @@ public class TAImpl implements TA {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("price")
-    public java.math.BigDecimal getPrice() {
+    public java.lang.Number getPrice() {
         return this.price;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("price")
-    public void setPrice(java.math.BigDecimal price) {
+    public void setPrice(java.lang.Number price) {
         this.price = price;
     }
 

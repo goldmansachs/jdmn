@@ -86,7 +86,7 @@ public class Eligibility extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
                 Boolean preBureauAffordability = Eligibility.this.preBureauAffordability.apply(applicantData, requestedProduct, context_);
                 String preBureauRiskCategory = Eligibility.this.preBureauRiskCategory.apply(applicantData, context_);
 
-                return EligibilityRules.instance().apply(preBureauRiskCategory, preBureauAffordability, ((java.math.BigDecimal)(applicantData != null ? applicantData.getAge() : null)), context_);
+                return EligibilityRules.instance().apply(preBureauRiskCategory, preBureauAffordability, ((java.lang.Number)(applicantData != null ? applicantData.getAge() : null)), context_);
             }
         };
 }

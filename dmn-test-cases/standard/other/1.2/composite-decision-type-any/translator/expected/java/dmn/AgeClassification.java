@@ -106,7 +106,7 @@ public class AgeClassification extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisio
         // Apply rule
         AgeClassificationRuleOutput output_ = new AgeClassificationRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericLessThan(((java.math.BigDecimal)(student != null ? student.getAge() : null)), number("18"))
+            numericLessThan(((java.lang.Number)(student != null ? student.getAge() : null)), number("18"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -138,7 +138,7 @@ public class AgeClassification extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisio
         // Apply rule
         AgeClassificationRuleOutput output_ = new AgeClassificationRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(student != null ? student.getAge() : null)), number("18")), numericLessThan(((java.math.BigDecimal)(student != null ? student.getAge() : null)), number("65")))
+            booleanAnd(numericGreaterEqualThan(((java.lang.Number)(student != null ? student.getAge() : null)), number("18")), numericLessThan(((java.lang.Number)(student != null ? student.getAge() : null)), number("65")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -170,7 +170,7 @@ public class AgeClassification extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisio
         // Apply rule
         AgeClassificationRuleOutput output_ = new AgeClassificationRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericGreaterEqualThan(((java.math.BigDecimal)(student != null ? student.getAge() : null)), number("65"))
+            numericGreaterEqualThan(((java.lang.Number)(student != null ? student.getAge() : null)), number("65"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

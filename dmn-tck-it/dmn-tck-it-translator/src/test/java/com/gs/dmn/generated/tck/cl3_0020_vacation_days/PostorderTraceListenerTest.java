@@ -19,7 +19,6 @@ import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -38,8 +37,8 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = applyDecision(age, yearsOfService, context);
-        assertEquals(expectedResult, actualResult.toPlainString());
+        Number actualResult = applyDecision(age, yearsOfService, context);
+        assertEquals(expectedResult, actualResult.toString());
 
         List<DRGElementNode> elementTraces = listener.postorderNodes();
         File actualOutputFile = writeNodes(elementTraces);
@@ -55,8 +54,8 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = applyDecision(age, yearsOfService, context);
-        assertEquals(expectedResult, actualResult.toPlainString());
+        Number actualResult = applyDecision(age, yearsOfService, context);
+        assertEquals(expectedResult, actualResult.toString());
 
         List<DRGElementNode> elementTraces = listener.postorderNodes();
         File actualOutputFile = writeNodes(elementTraces);
@@ -68,7 +67,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         return "traces/cl3_0020_vacation_days";
     }
 
-    private BigDecimal applyDecision(String age, String yearsOfService, ExecutionContext context) {
+    private Number applyDecision(String age, String yearsOfService, ExecutionContext context) {
         Map<String, String> result = new LinkedHashMap<>();
         result.put("Age", age);
         result.put("Years of Service", yearsOfService);

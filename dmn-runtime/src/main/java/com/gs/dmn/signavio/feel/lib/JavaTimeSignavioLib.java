@@ -44,20 +44,20 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class JavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
-    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultSignavioNumericType();
+public class JavaTimeSignavioLib extends BaseSignavioLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+    private static final NumericType<Number> NUMERIC_TYPE = new DefaultSignavioNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultSignavioStringType();
     private static final DateType<LocalDate, TemporalAmount> DATE_TYPE = new SignavioLocalDateType();
     private static final TimeType<TemporalAccessor, TemporalAmount> TIME_TYPE = new SignavioTemporalTimeType();
     private static final DateTimeType<TemporalAccessor, TemporalAmount> DATE_TIME_TYPE = new SignavioTemporalDateTimeType();
-    private static final DurationType<TemporalAmount, BigDecimal> TemporalAmount_TYPE = new SignavioTemporalAmountDurationType();
+    private static final DurationType<TemporalAmount, Number> TemporalAmount_TYPE = new SignavioTemporalAmountDurationType();
     private static final ListType LIST_TYPE = new DefaultListType();
     private static final ContextType CONTEXT_TYPE = new DefaultContextType();
     private static final RangeType RANGE_TYPE = new DefaultRangeType();
     private static final FunctionType FUNCTION_TYPE = new DefaultFunctionType();
 
-    private static final SignavioNumberLib<BigDecimal> NUMBER_LIB = new DefaultSignavioNumberLib();
+    private static final SignavioNumberLib<Number> NUMBER_LIB = new DefaultSignavioNumberLib();
     private static final SignavioStringLib STRING_LIB = new DefaultSignavioStringLib();
     private static final BooleanLib BOOLEAN_LIB = new DefaultBooleanLib();
     private static final SignavioDateTimeLib DATE_TIME_LIB = new SignavioTemporalDateTimeLib();
@@ -88,13 +88,13 @@ public class JavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, 
     }
 
     protected JavaTimeSignavioLib(
-            NumericType<BigDecimal> numericType, BooleanType booleanType, StringType stringType,
-            DateType<LocalDate, TemporalAmount> dateType, TimeType<TemporalAccessor, TemporalAmount> timeType, DateTimeType<TemporalAccessor, TemporalAmount> dateTimeType, DurationType<TemporalAmount, BigDecimal> durationType,
+            NumericType<Number> numericType, BooleanType booleanType, StringType stringType,
+            DateType<LocalDate, TemporalAmount> dateType, TimeType<TemporalAccessor, TemporalAmount> timeType, DateTimeType<TemporalAccessor, TemporalAmount> dateTimeType, DurationType<TemporalAmount, Number> durationType,
             ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
-            SignavioNumberLib<BigDecimal> numberLib,
+            SignavioNumberLib<Number> numberLib,
             SignavioStringLib stringLib,
             BooleanLib booleanLib,
-            SignavioDateTimeLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor> dateTimeLib,
+            SignavioDateTimeLib<Number, LocalDate, TemporalAccessor, TemporalAccessor> dateTimeLib,
             DurationLib<LocalDate, TemporalAmount> durationLib,
             SignavioListLib listLib) {
         super(numericType, booleanType, stringType,
@@ -106,7 +106,7 @@ public class JavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, 
     //
     // Date and time operations
     //
-    public TemporalAccessor dayAdd(TemporalAccessor dateTime, BigDecimal daysToAdd) {
+    public TemporalAccessor dayAdd(TemporalAccessor dateTime, Number daysToAdd) {
         try {
             return this.dateTimeLib.dayAddDateTime(dateTime, daysToAdd);
         } catch (Exception e) {
@@ -116,7 +116,7 @@ public class JavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, 
         }
     }
 
-    public TemporalAccessor monthAdd(TemporalAccessor dateTime, BigDecimal monthsToAdd) {
+    public TemporalAccessor monthAdd(TemporalAccessor dateTime, Number monthsToAdd) {
         try {
             return this.dateTimeLib.monthAddDateTime(dateTime, monthsToAdd);
         } catch (Exception e) {
@@ -126,7 +126,7 @@ public class JavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, 
         }
     }
 
-    public TemporalAccessor yearAdd(TemporalAccessor dateTime, BigDecimal yearsToAdd) {
+    public TemporalAccessor yearAdd(TemporalAccessor dateTime, Number yearsToAdd) {
         try {
             return this.dateTimeLib.yearAddDateTime(dateTime, yearsToAdd);
         } catch (Exception e) {
@@ -140,12 +140,12 @@ public class JavaTimeSignavioLib extends BaseSignavioLib<BigDecimal, LocalDate, 
     // Extra conversion functions
     //
     @Override
-    protected BigDecimal valueOf(long number) {
+    protected Number valueOf(long number) {
         return BigDecimal.valueOf(number);
     }
 
     @Override
-    protected int intValue(BigDecimal number) {
+    protected int intValue(Number number) {
         return number.intValue();
     }
 }

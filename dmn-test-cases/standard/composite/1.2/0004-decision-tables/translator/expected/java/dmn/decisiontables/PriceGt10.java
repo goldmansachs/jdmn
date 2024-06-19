@@ -106,7 +106,7 @@ public class PriceGt10 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         // Apply rule
         PriceGt10RuleOutput output_ = new PriceGt10RuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericGreaterThan(((java.math.BigDecimal)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), number("10"))
+            numericGreaterThan(((java.lang.Number)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), number("10"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -137,7 +137,7 @@ public class PriceGt10 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         // Apply rule
         PriceGt10RuleOutput output_ = new PriceGt10RuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericLessEqualThan(((java.math.BigDecimal)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), number("10"))
+            numericLessEqualThan(((java.lang.Number)(decisioninputs_structA != null ? decisioninputs_structA.getPrice() : null)), number("10"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

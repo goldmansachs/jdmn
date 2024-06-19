@@ -44,14 +44,14 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class JavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
-    private static final NumericType<BigDecimal> NUMERIC_TYPE = new DefaultNumericType();
+public class JavaTimeFEELLib extends BaseStandardFEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+    private static final NumericType<Number> NUMERIC_TYPE = new DefaultNumericType();
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
     private static final StringType STRING_TYPE = new DefaultStringType();
     private static final DateType<LocalDate, TemporalAmount> DATE_TYPE = new LocalDateType();
     private static final TimeType<TemporalAccessor, TemporalAmount> TIME_TYPE = new TemporalTimeType();
     private static final DateTimeType<TemporalAccessor, TemporalAmount> DATE_TIME_TYPE = new TemporalDateTimeType();
-    private static final DurationType<TemporalAmount, BigDecimal> DURATION_TYPE = new TemporalAmountDurationType();
+    private static final DurationType<TemporalAmount, Number> DURATION_TYPE = new TemporalAmountDurationType();
     private static final ListType LIST_TYPE = new DefaultListType();
     private static final ContextType CONTEXT_TYPE = new DefaultContextType();
     private static final RangeType RANGE_TYPE = new DefaultRangeType();
@@ -90,18 +90,18 @@ public class JavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDate, 
     }
 
     protected JavaTimeFEELLib(
-            NumericType<BigDecimal> numericType,
+            NumericType<Number> numericType,
             BooleanType booleanType,
             StringType stringType,
             DateType<LocalDate, TemporalAmount> dateType,
             TimeType<TemporalAccessor, TemporalAmount> timeType,
             DateTimeType<TemporalAccessor, TemporalAmount> dateTimeType,
-            DurationType<TemporalAmount, BigDecimal> durationType,
+            DurationType<TemporalAmount, Number> durationType,
             ListType listType, ContextType contextType, RangeType rangeType, FunctionType functionType,
-            NumericLib<BigDecimal> numericLib,
+            NumericLib<Number> numericLib,
             StringLib stringLib,
             BooleanLib booleanLib,
-            DateTimeLib<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> dateTimeLib,
+            DateTimeLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> dateTimeLib,
             DurationLib<LocalDate, TemporalAmount> durationLib,
             ListLib listLib,
             RangeLib rangeLib) {
@@ -129,12 +129,12 @@ public class JavaTimeFEELLib extends BaseStandardFEELLib<BigDecimal, LocalDate, 
     // Extra conversion functions
     //
     @Override
-    protected BigDecimal valueOf(long number) {
+    protected Number valueOf(long number) {
         return BigDecimal.valueOf(number);
     }
 
     @Override
-    protected int intValue(BigDecimal number) {
+    protected int intValue(Number number) {
         return number.intValue();
     }
 }

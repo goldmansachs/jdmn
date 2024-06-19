@@ -27,7 +27,7 @@ public class Decision_013_2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("input_013_1") != null ? number(input_.get("input_013_1")) : null), context_);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class Decision_013_2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal input_013_1, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(java.lang.Number input_013_1, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decision_013_2'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -49,7 +49,7 @@ public class Decision_013_2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision_013_2Arguments_);
 
             // Evaluate decision 'decision_013_2'
-            java.math.BigDecimal output_ = lambda.apply(input_013_1, context_);
+            java.lang.Number output_ = lambda.apply(input_013_1, context_);
 
             // End decision 'decision_013_2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, decision_013_2Arguments_, output_, (System.currentTimeMillis() - decision_013_2StartTime_));
@@ -61,10 +61,10 @@ public class Decision_013_2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    public com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> lambda =
-        new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {
-            public java.math.BigDecimal apply(Object... args_) {
-                java.math.BigDecimal input_013_1 = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {
+            public java.lang.Number apply(Object... args_) {
+                java.lang.Number input_013_1 = 0 < args_.length ? (java.lang.Number) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;

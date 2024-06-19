@@ -14,14 +14,13 @@ package com.gs.dmn.feel.lib;
 
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected JavaTimeFEELLib getLib() {
         return new JavaTimeFEELLib();

@@ -3,19 +3,19 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "CreditContingencyFactorTable"})
 public class CreditContingencyFactorTableRuleOutput extends com.gs.dmn.runtime.RuleOutput {
-    private java.math.BigDecimal creditContingencyFactorTable;
+    private java.lang.Number creditContingencyFactorTable;
 
     public CreditContingencyFactorTableRuleOutput(boolean matched) {
         super(matched);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("CreditContingencyFactorTable")
-    public java.math.BigDecimal getCreditContingencyFactorTable() {
+    public java.lang.Number getCreditContingencyFactorTable() {
         return this.creditContingencyFactorTable;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("CreditContingencyFactorTable")
-    public void setCreditContingencyFactorTable(java.math.BigDecimal creditContingencyFactorTable) {
+    public void setCreditContingencyFactorTable(java.lang.Number creditContingencyFactorTable) {
         this.creditContingencyFactorTable = creditContingencyFactorTable;
     }
 

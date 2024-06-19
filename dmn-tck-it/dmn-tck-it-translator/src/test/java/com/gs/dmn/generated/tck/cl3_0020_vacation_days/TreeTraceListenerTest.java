@@ -19,7 +19,6 @@ import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +36,8 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = applyDecision(age, yearsOfService, context);
-        assertEquals(expectedResult, actualResult.toPlainString());
+        Number actualResult = applyDecision(age, yearsOfService, context);
+        assertEquals(expectedResult, actualResult.toString());
 
         DRGElementNode root = listener.getRoot();
         File actualOutputFile = writeNodes(root);
@@ -54,8 +53,8 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = applyDecision(age, yearsOfService, context);
-        assertEquals(expectedResult, actualResult.toPlainString());
+        Number actualResult = applyDecision(age, yearsOfService, context);
+        assertEquals(expectedResult, actualResult.toString());
 
         List<DRGElementNode> nodes = listener.preorderNodes();
         File actualOutputFile = writeNodes(nodes);
@@ -71,8 +70,8 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
         String expectedResult = "27";
         String age = "16";
         String yearsOfService = "1";
-        BigDecimal actualResult = applyDecision(age, yearsOfService, context);
-        assertEquals(expectedResult, actualResult.toPlainString());
+        Number actualResult = applyDecision(age, yearsOfService, context);
+        assertEquals(expectedResult, actualResult.toString());
 
         List<DRGElementNode> nodes = listener.postorderNodes();
         File actualOutputFile = writeNodes(nodes);
@@ -80,7 +79,7 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
         checkTrace(expectedOutputFile, actualOutputFile);
     }
 
-    private BigDecimal applyDecision(String age, String yearsOfService, ExecutionContext context) {
+    private Number applyDecision(String age, String yearsOfService, ExecutionContext context) {
         Map<String, String> result = new LinkedHashMap<>();
         result.put("Age", age);
         result.put("Years of Service", yearsOfService);

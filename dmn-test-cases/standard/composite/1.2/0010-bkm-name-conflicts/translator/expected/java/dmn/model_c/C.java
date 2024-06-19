@@ -37,7 +37,7 @@ public class C extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    public String apply(java.math.BigDecimal aa, String ba, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(java.lang.Number aa, String ba, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'c'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -66,7 +66,7 @@ public class C extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<String> lambda =
         new com.gs.dmn.runtime.LambdaExpression<String>() {
             public String apply(Object... args_) {
-                java.math.BigDecimal aa = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
+                java.lang.Number aa = 0 < args_.length ? (java.lang.Number) args_[0] : null;
                 String ba = 1 < args_.length ? (String) args_[1] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;

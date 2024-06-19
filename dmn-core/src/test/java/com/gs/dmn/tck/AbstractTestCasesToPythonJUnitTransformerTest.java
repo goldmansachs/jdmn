@@ -21,25 +21,24 @@ import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.template.PythonTreeTemplateProvider;
 import com.gs.dmn.transformation.template.TemplateProvider;
 
-import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public abstract class AbstractTestCasesToPythonJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public abstract class AbstractTestCasesToPythonJUnitTransformerTest extends AbstractTCKTestCasesToJUnitTransformerTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected FileTransformer makeTransformer(Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
         return new TCKTestCasesToPythonJUnitTransformer<>(makeDialectDefinition(), makeDMNValidator(logger), makeDMNTransformer(logger), makeTemplateProvider(), makeLazyEvaluationDetector(inputParameters, LOGGER), makeTypeDeserializationConfigurer(logger), inputModelPath, inputParameters, logger);
     }
 
     @Override
-    protected DMNDialectDefinition<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialectDefinition() {
+    protected DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialectDefinition() {
         return new JavaTimePythonStandardDMNDialectDefinition();
     }
 
     @Override
-    protected TemplateProvider makeTemplateProvider(){
+    protected TemplateProvider makeTemplateProvider() {
         return new PythonTreeTemplateProvider();
     }
 }

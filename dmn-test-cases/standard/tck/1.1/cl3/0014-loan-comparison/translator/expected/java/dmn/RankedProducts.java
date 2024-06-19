@@ -43,7 +43,7 @@ public class RankedProducts extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    public type.TRankedProducts apply(java.math.BigDecimal requestedAmt, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.TRankedProducts apply(java.lang.Number requestedAmt, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'RankedProducts'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -71,7 +71,7 @@ public class RankedProducts extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public com.gs.dmn.runtime.LambdaExpression<type.TRankedProducts> lambda =
         new com.gs.dmn.runtime.LambdaExpression<type.TRankedProducts>() {
             public type.TRankedProducts apply(Object... args_) {
-                java.math.BigDecimal requestedAmt = 0 < args_.length ? (java.math.BigDecimal) args_[0] : null;
+                java.lang.Number requestedAmt = 0 < args_.length ? (java.lang.Number) args_[0] : null;
                 com.gs.dmn.runtime.ExecutionContext context_ = 1 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[1] : null;
                 com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
                 com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
@@ -82,10 +82,10 @@ public class RankedProducts extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
                 List<type.TLoanProduct> bankrates = RankedProducts.this.bankrates.apply(context_);
 
                 List<type.TMetric> metricsTable = bankrates.stream().map(i -> FinancialMetrics.instance().apply(i, requestedAmt, context_)).collect(Collectors.toList());
-                List<type.TMetric> rankByRate = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args_) {type.TMetric x = (type.TMetric)args_[0]; type.TMetric y = (type.TMetric)args_[1];return numericLessThan(((java.math.BigDecimal)(x != null ? x.getRate() : null)), ((java.math.BigDecimal)(y != null ? y.getRate() : null)));}});
-                List<type.TMetric> rankByDownPmt = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args_) {type.TMetric x = (type.TMetric)args_[0]; type.TMetric y = (type.TMetric)args_[1];return numericLessThan(((java.math.BigDecimal)(x != null ? x.getDownPmtAmt() : null)), ((java.math.BigDecimal)(y != null ? y.getDownPmtAmt() : null)));}});
-                List<type.TMetric> rankByMonthlyPmt = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args_) {type.TMetric x = (type.TMetric)args_[0]; type.TMetric y = (type.TMetric)args_[1];return numericLessThan(((java.math.BigDecimal)(x != null ? x.getPaymentAmt() : null)), ((java.math.BigDecimal)(y != null ? y.getPaymentAmt() : null)));}});
-                List<type.TMetric> rankByEquityPct = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args_) {type.TMetric x = (type.TMetric)args_[0]; type.TMetric y = (type.TMetric)args_[1];return numericGreaterThan(((java.math.BigDecimal)(x != null ? x.getEquity36moPct() : null)), ((java.math.BigDecimal)(y != null ? y.getEquity36moPct() : null)));}});
+                List<type.TMetric> rankByRate = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args_) {type.TMetric x = (type.TMetric)args_[0]; type.TMetric y = (type.TMetric)args_[1];return numericLessThan(((java.lang.Number)(x != null ? x.getRate() : null)), ((java.lang.Number)(y != null ? y.getRate() : null)));}});
+                List<type.TMetric> rankByDownPmt = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args_) {type.TMetric x = (type.TMetric)args_[0]; type.TMetric y = (type.TMetric)args_[1];return numericLessThan(((java.lang.Number)(x != null ? x.getDownPmtAmt() : null)), ((java.lang.Number)(y != null ? y.getDownPmtAmt() : null)));}});
+                List<type.TMetric> rankByMonthlyPmt = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args_) {type.TMetric x = (type.TMetric)args_[0]; type.TMetric y = (type.TMetric)args_[1];return numericLessThan(((java.lang.Number)(x != null ? x.getPaymentAmt() : null)), ((java.lang.Number)(y != null ? y.getPaymentAmt() : null)));}});
+                List<type.TMetric> rankByEquityPct = sort(metricsTable, new com.gs.dmn.runtime.LambdaExpression<Boolean>() {public Boolean apply(Object... args_) {type.TMetric x = (type.TMetric)args_[0]; type.TMetric y = (type.TMetric)args_[1];return numericGreaterThan(((java.lang.Number)(x != null ? x.getEquity36moPct() : null)), ((java.lang.Number)(y != null ? y.getEquity36moPct() : null)));}});
                 type.TRankedProductsImpl rankedProducts = new type.TRankedProductsImpl();
                 rankedProducts.setMetricsTable(metricsTable);
                 rankedProducts.setRankByRate(rankByRate);

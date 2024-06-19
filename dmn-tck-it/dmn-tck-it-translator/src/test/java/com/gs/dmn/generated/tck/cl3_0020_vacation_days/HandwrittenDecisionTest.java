@@ -16,7 +16,6 @@ import com.gs.dmn.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.runtime.ExecutionContext;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -27,25 +26,25 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void applyCompiler() {
-        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
 
-        assertEquals("27", applyDecision("16", "1", context).toPlainString());
-        assertEquals("22", applyDecision("25", "5", context).toPlainString());
-        assertEquals("24", applyDecision("25", "20", context).toPlainString());
-        assertEquals("30", applyDecision("44", "30", context).toPlainString());
-        assertEquals("24", applyDecision("50", "20", context).toPlainString());
-        assertEquals("30", applyDecision("50", "30", context).toPlainString());
-        assertEquals("30", applyDecision("60", "20", context).toPlainString());
+        assertEquals("27", applyDecision("16", "1", context).toString());
+        assertEquals("22", applyDecision("25", "5", context).toString());
+        assertEquals("24", applyDecision("25", "20", context).toString());
+        assertEquals("30", applyDecision("44", "30", context).toString());
+        assertEquals("24", applyDecision("50", "20", context).toString());
+        assertEquals("30", applyDecision("50", "30", context).toString());
+        assertEquals("30", applyDecision("60", "20", context).toString());
     }
 
     @Override
     protected void applyDecision() {
-        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
 
         applyDecision(null, null, context);
     }
 
-    private BigDecimal applyDecision(String age, String yearsOfService, ExecutionContext context) {
+    private Number applyDecision(String age, String yearsOfService, ExecutionContext context) {
         Map<String, String> result = new LinkedHashMap<>();
         result.put("Age", age);
         result.put("Years of Service", yearsOfService);
