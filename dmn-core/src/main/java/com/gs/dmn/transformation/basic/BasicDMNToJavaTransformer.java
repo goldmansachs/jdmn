@@ -2302,12 +2302,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String getDefaultIntegerValue() {
-        return this.nativeFactory.constructor(getNativeNumberType(), "\"0\"");
+        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), "\"0\"");
     }
 
     @Override
     public String getDefaultDecimalValue() {
-        return this.nativeFactory.constructor(getNativeNumberType(), "\"0.0\"");
+        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), "\"0.0\"");
     }
 
     @Override

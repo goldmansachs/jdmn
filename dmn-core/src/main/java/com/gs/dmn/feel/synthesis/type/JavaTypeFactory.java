@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.synthesis.type;
 
+import java.math.BigDecimal;
+
 public abstract class JavaTypeFactory implements NativeTypeFactory {
     @Override
     public String nullableType(String type) {
@@ -24,8 +26,12 @@ public abstract class JavaTypeFactory implements NativeTypeFactory {
     }
 
     @Override
-    public String javaClass(String className) {
+    public String classOf(String className) {
         return String.format("%s.class", className);
     }
 
+    @Override
+    public String getNativeNumberConcreteType() {
+        return BigDecimal.class.getName();
+    }
 }
