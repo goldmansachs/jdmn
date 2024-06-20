@@ -7,24 +7,24 @@ import java.util.*
 class TRowImpl : TRow {
     @get:com.fasterxml.jackson.annotation.JsonGetter("col1")
     @set:com.fasterxml.jackson.annotation.JsonGetter("col1")
-    override var col1: java.math.BigDecimal? = null
+    override var col1: java.lang.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("col2")
     @set:com.fasterxml.jackson.annotation.JsonGetter("col2")
-    override var col2: java.math.BigDecimal? = null
+    override var col2: java.lang.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("col3")
     @set:com.fasterxml.jackson.annotation.JsonGetter("col3")
-    override var col3: java.math.BigDecimal? = null
+    override var col3: java.lang.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("col4")
     @set:com.fasterxml.jackson.annotation.JsonGetter("col4")
-    override var col4: java.math.BigDecimal? = null
+    override var col4: java.lang.Number? = null
 
     constructor() {
     }
 
-    constructor (col1: java.math.BigDecimal?, col2: java.math.BigDecimal?, col3: java.math.BigDecimal?, col4: java.math.BigDecimal?) {
+    constructor (col1: java.lang.Number?, col2: java.lang.Number?, col3: java.lang.Number?, col4: java.lang.Number?) {
         this.col1 = col1
         this.col2 = col2
         this.col3 = col3

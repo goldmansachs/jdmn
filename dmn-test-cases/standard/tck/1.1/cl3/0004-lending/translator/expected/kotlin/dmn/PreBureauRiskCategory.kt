@@ -53,7 +53,7 @@ class PreBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = Ap
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply child decisions
-        val applicationRiskScore: java.math.BigDecimal? = this@PreBureauRiskCategory.applicationRiskScore.apply(applicantData, context_)
+        val applicationRiskScore: java.lang.Number? = this@PreBureauRiskCategory.applicationRiskScore.apply(applicantData, context_)
 
         return PreBureauRiskCategoryTable.instance().apply(applicantData?.let({ it.existingCustomer as Boolean? }), applicationRiskScore, context_) as String?
     }

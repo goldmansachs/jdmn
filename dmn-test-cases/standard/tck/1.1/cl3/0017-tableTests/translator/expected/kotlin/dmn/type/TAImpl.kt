@@ -11,12 +11,12 @@ class TAImpl : TA {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("price")
     @set:com.fasterxml.jackson.annotation.JsonGetter("price")
-    override var price: java.math.BigDecimal? = null
+    override var price: java.lang.Number? = null
 
     constructor() {
     }
 
-    constructor (name: String?, price: java.math.BigDecimal?) {
+    constructor (name: String?, price: java.lang.Number?) {
         this.name = name
         this.price = price
     }

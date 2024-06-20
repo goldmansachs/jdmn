@@ -13,7 +13,7 @@ interface TEmployeeTable : com.gs.dmn.runtime.DMNType {
     val name: String?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("deptNum")
-    val deptNum: java.math.BigDecimal?
+    val deptNum: java.lang.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -63,7 +63,7 @@ interface TEmployeeTable : com.gs.dmn.runtime.DMNType {
                 var result_ = TEmployeeTableImpl()
                 result_.id = other.get("id") as String?
                 result_.name = other.get("name") as String?
-                result_.deptNum = other.get("deptNum") as java.math.BigDecimal?
+                result_.deptNum = other.get("deptNum") as java.lang.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTEmployeeTable(other.toContext())

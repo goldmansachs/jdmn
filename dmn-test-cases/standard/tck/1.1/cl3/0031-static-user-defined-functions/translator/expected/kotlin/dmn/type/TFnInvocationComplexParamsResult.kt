@@ -7,13 +7,13 @@ import java.util.*
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TFnInvocationComplexParamsResultImpl::class)
 interface TFnInvocationComplexParamsResult : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("functionInvocationLiteralExpressionInParameter")
-    val functionInvocationLiteralExpressionInParameter: java.math.BigDecimal?
+    val functionInvocationLiteralExpressionInParameter: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("functionInvocationInParameter")
-    val functionInvocationInParameter: java.math.BigDecimal?
+    val functionInvocationInParameter: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("circumference")
-    val circumference: java.math.BigDecimal?
+    val circumference: java.lang.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -61,9 +61,9 @@ interface TFnInvocationComplexParamsResult : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TFnInvocationComplexParamsResultImpl()
-                result_.functionInvocationLiteralExpressionInParameter = other.get("functionInvocationLiteralExpressionInParameter") as java.math.BigDecimal?
-                result_.functionInvocationInParameter = other.get("functionInvocationInParameter") as java.math.BigDecimal?
-                result_.circumference = other.get("circumference") as java.math.BigDecimal?
+                result_.functionInvocationLiteralExpressionInParameter = other.get("functionInvocationLiteralExpressionInParameter") as java.lang.Number?
+                result_.functionInvocationInParameter = other.get("functionInvocationInParameter") as java.lang.Number?
+                result_.circumference = other.get("circumference") as java.lang.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTFnInvocationComplexParamsResult(other.toContext())

@@ -7,20 +7,20 @@ import java.util.*
 class TLoanImpl : TLoan {
     @get:com.fasterxml.jackson.annotation.JsonGetter("amount")
     @set:com.fasterxml.jackson.annotation.JsonGetter("amount")
-    override var amount: java.math.BigDecimal? = null
+    override var amount: java.lang.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("rate")
     @set:com.fasterxml.jackson.annotation.JsonGetter("rate")
-    override var rate: java.math.BigDecimal? = null
+    override var rate: java.lang.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("term")
     @set:com.fasterxml.jackson.annotation.JsonGetter("term")
-    override var term: java.math.BigDecimal? = null
+    override var term: java.lang.Number? = null
 
     constructor() {
     }
 
-    constructor (amount: java.math.BigDecimal?, rate: java.math.BigDecimal?, term: java.math.BigDecimal?) {
+    constructor (amount: java.lang.Number?, rate: java.lang.Number?, term: java.lang.Number?) {
         this.amount = amount
         this.rate = rate
         this.term = term

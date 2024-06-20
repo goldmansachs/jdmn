@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Circumference : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     private constructor() {}
 
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             return apply(input_.get("radius")?.let({ number(it) }), context_)
         } catch (e: Exception) {
@@ -24,7 +24,7 @@ class Circumference : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    fun apply(radius: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    fun apply(radius: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             // Start BKM 'Circumference'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -37,7 +37,7 @@ class Circumference : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, circumferenceArguments_)
 
             // Evaluate BKM 'Circumference'
-            val output_: java.math.BigDecimal? = evaluate(radius, context_)
+            val output_: java.lang.Number? = evaluate(radius, context_)
 
             // End BKM 'Circumference'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, circumferenceArguments_, output_, (System.currentTimeMillis() - circumferenceStartTime_))
@@ -49,12 +49,12 @@ class Circumference : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(radius: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    private inline fun evaluate(radius: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return numericMultiply(numericMultiply(number("2"), number("3.141592")), radius) as java.math.BigDecimal?
+        return numericMultiply(numericMultiply(number("2"), number("3.141592")), radius) as java.lang.Number?
     }
 
     companion object {

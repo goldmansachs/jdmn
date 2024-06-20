@@ -7,16 +7,16 @@ import java.util.*
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TFnInvocationNamedResultImpl::class)
 interface TFnInvocationNamedResult : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("subResult")
-    val subResult: java.math.BigDecimal?
+    val subResult: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("subResultMixed")
-    val subResultMixed: java.math.BigDecimal?
+    val subResultMixed: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("divisionResultNamed")
-    val divisionResultNamed: java.math.BigDecimal?
+    val divisionResultNamed: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("multiplicationResultNamed")
-    val multiplicationResultNamed: java.math.BigDecimal?
+    val multiplicationResultNamed: java.lang.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -68,10 +68,10 @@ interface TFnInvocationNamedResult : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TFnInvocationNamedResultImpl()
-                result_.subResult = other.get("subResult") as java.math.BigDecimal?
-                result_.subResultMixed = other.get("subResultMixed") as java.math.BigDecimal?
-                result_.divisionResultNamed = other.get("divisionResultNamed") as java.math.BigDecimal?
-                result_.multiplicationResultNamed = other.get("multiplicationResultNamed") as java.math.BigDecimal?
+                result_.subResult = other.get("subResult") as java.lang.Number?
+                result_.subResultMixed = other.get("subResultMixed") as java.lang.Number?
+                result_.divisionResultNamed = other.get("divisionResultNamed") as java.lang.Number?
+                result_.multiplicationResultNamed = other.get("multiplicationResultNamed") as java.lang.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTFnInvocationNamedResult(other.toContext())

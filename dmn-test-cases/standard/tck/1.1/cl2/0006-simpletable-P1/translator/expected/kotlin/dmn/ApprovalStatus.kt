@@ -22,7 +22,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    fun apply(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+    fun apply(age: java.lang.Number?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
             // Start decision 'Approval Status'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -49,7 +49,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+    private inline fun evaluate(age: java.lang.Number?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -75,7 +75,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    private fun rule0(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule0(age: java.lang.Number?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
@@ -109,7 +109,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    private fun rule1(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule1(age: java.lang.Number?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 
@@ -143,7 +143,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    private fun rule2(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule2(age: java.lang.Number?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "")
 
@@ -177,7 +177,7 @@ class ApprovalStatus() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    private fun rule3(age: java.math.BigDecimal?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule3(age: java.lang.Number?, riskCategory: String?, isAffordable: Boolean?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(3, "")
 

@@ -72,9 +72,9 @@ class PostBureauAffordability(val postBureauRiskCategory : PostBureauRiskCategor
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply child decisions
         val postBureauRiskCategory: String? = this@PostBureauAffordability.postBureauRiskCategory.apply(applicantData, bureauData, context_)
-        val requiredMonthlyInstallment: java.math.BigDecimal? = this@PostBureauAffordability.requiredMonthlyInstallment.apply(requestedProduct, context_)
+        val requiredMonthlyInstallment: java.lang.Number? = this@PostBureauAffordability.requiredMonthlyInstallment.apply(requestedProduct, context_)
 
-        return AffordabilityCalculation.instance().apply(applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.income as java.math.BigDecimal? }), applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.repayments as java.math.BigDecimal? }), applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.expenses as java.math.BigDecimal? }), postBureauRiskCategory, requiredMonthlyInstallment, context_) as Boolean?
+        return AffordabilityCalculation.instance().apply(applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.income as java.lang.Number? }), applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.repayments as java.lang.Number? }), applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.expenses as java.lang.Number? }), postBureauRiskCategory, requiredMonthlyInstallment, context_) as Boolean?
     }
 
     companion object {

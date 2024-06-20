@@ -13,7 +13,7 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class BaseVacationDays() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             return apply(context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class BaseVacationDays() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    fun apply(context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    fun apply(context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             // Start decision 'Base Vacation Days'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -34,7 +34,7 @@ class BaseVacationDays() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, baseVacationDaysArguments_)
 
             // Evaluate decision 'Base Vacation Days'
-            val output_: java.math.BigDecimal? = evaluate(context_)
+            val output_: java.lang.Number? = evaluate(context_)
 
             // End decision 'Base Vacation Days'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, baseVacationDaysArguments_, output_, (System.currentTimeMillis() - baseVacationDaysStartTime_))
@@ -46,12 +46,12 @@ class BaseVacationDays() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    private inline fun evaluate(context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return number("22") as java.math.BigDecimal?
+        return number("22") as java.lang.Number?
     }
 
     companion object {

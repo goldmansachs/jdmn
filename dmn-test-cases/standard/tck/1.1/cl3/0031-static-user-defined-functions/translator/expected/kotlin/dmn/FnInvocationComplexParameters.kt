@@ -22,7 +22,7 @@ class FnInvocationComplexParameters(val fnLibrary : FnLibrary = FnLibrary()) : c
         }
     }
 
-    fun apply(inputA: java.math.BigDecimal?, inputB: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationComplexParamsResult? {
+    fun apply(inputA: java.lang.Number?, inputB: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationComplexParamsResult? {
         try {
             // Start decision 'fn invocation complex parameters'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -48,7 +48,7 @@ class FnInvocationComplexParameters(val fnLibrary : FnLibrary = FnLibrary()) : c
         }
     }
 
-    private inline fun evaluate(inputA: java.math.BigDecimal?, inputB: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationComplexParamsResult? {
+    private inline fun evaluate(inputA: java.lang.Number?, inputB: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationComplexParamsResult? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -56,9 +56,9 @@ class FnInvocationComplexParameters(val fnLibrary : FnLibrary = FnLibrary()) : c
         // Apply child decisions
         val fnLibrary: type.TFnLibrary? = this@FnInvocationComplexParameters.fnLibrary.apply(context_)
 
-        val functionInvocationInParameter: java.math.BigDecimal? = fnLibrary?.let({ it.multiplyFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(fnLibrary?.let({ it.sumFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputA, context_), fnLibrary?.let({ it.sumFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputB, inputB, context_), context_) as java.math.BigDecimal?
-        val functionInvocationLiteralExpressionInParameter: java.math.BigDecimal? = fnLibrary?.let({ it.multiplyFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(numericMultiply(inputA, inputA), (if (booleanEqual(booleanAnd(numericGreaterEqualThan(fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB, context_), number("0")), numericLessEqualThan(fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB, context_), number("10"))), true)) number("5") else number("10")), context_) as java.math.BigDecimal?
-        val circumference: java.math.BigDecimal? = Circumference.instance()?.apply(numericAdd(inputA, inputB), context_) as java.math.BigDecimal?
+        val functionInvocationInParameter: java.lang.Number? = fnLibrary?.let({ it.multiplyFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(fnLibrary?.let({ it.sumFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(inputA, inputA, context_), fnLibrary?.let({ it.sumFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(inputB, inputB, context_), context_) as java.lang.Number?
+        val functionInvocationLiteralExpressionInParameter: java.lang.Number? = fnLibrary?.let({ it.multiplyFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(numericMultiply(inputA, inputA), (if (booleanEqual(booleanAnd(numericGreaterEqualThan(fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(inputA, inputB, context_), number("0")), numericLessEqualThan(fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(inputA, inputB, context_), number("10"))), true)) number("5") else number("10")), context_) as java.lang.Number?
+        val circumference: java.lang.Number? = Circumference.instance()?.apply(numericAdd(inputA, inputB), context_) as java.lang.Number?
         val fnInvocationComplexParameters: type.TFnInvocationComplexParamsResultImpl? = type.TFnInvocationComplexParamsResultImpl() as type.TFnInvocationComplexParamsResultImpl?
         fnInvocationComplexParameters?.functionInvocationInParameter = functionInvocationInParameter
         fnInvocationComplexParameters?.functionInvocationLiteralExpressionInParameter = functionInvocationLiteralExpressionInParameter

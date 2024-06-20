@@ -13,7 +13,7 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class MonthlyPayment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             return apply(input_.get("Loan")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) }), input_.get("fee")?.let({ number(it) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class MonthlyPayment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    fun apply(loan: type.TLoan?, fee: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    fun apply(loan: type.TLoan?, fee: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             // Start decision 'MonthlyPayment'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -36,7 +36,7 @@ class MonthlyPayment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, monthlyPaymentArguments_)
 
             // Evaluate decision 'MonthlyPayment'
-            val output_: java.math.BigDecimal? = evaluate(loan, fee, context_)
+            val output_: java.lang.Number? = evaluate(loan, fee, context_)
 
             // End decision 'MonthlyPayment'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, monthlyPaymentArguments_, output_, (System.currentTimeMillis() - monthlyPaymentStartTime_))
@@ -48,12 +48,12 @@ class MonthlyPayment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(loan: type.TLoan?, fee: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    private inline fun evaluate(loan: type.TLoan?, fee: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return numericAdd(PMT.instance()?.apply(loan?.let({ it.amount as java.math.BigDecimal? }), loan?.let({ it.rate as java.math.BigDecimal? }), loan?.let({ it.term as java.math.BigDecimal? }), context_), fee) as java.math.BigDecimal?
+        return numericAdd(PMT.instance()?.apply(loan?.let({ it.amount as java.lang.Number? }), loan?.let({ it.rate as java.lang.Number? }), loan?.let({ it.term as java.lang.Number? }), context_), fee) as java.lang.Number?
     }
 
     companion object {

@@ -52,7 +52,7 @@ class SomeGtTen2() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return booleanOr(priceTable2?.stream()?.map({ i -> numericGreaterThan(i?.let({ it.price as java.math.BigDecimal? }), number("10")) })?.collect(Collectors.toList())?.toList()) as Boolean?
+        return booleanOr(priceTable2?.stream()?.map({ i -> numericGreaterThan(i?.let({ it.price as java.lang.Number? }), number("10")) })?.collect(Collectors.toList())?.toList()) as Boolean?
     }
 
     companion object {

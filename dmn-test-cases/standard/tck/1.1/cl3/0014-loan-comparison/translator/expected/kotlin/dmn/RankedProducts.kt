@@ -22,7 +22,7 @@ class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runti
         }
     }
 
-    fun apply(requestedAmt: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): type.TRankedProducts? {
+    fun apply(requestedAmt: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TRankedProducts? {
         try {
             // Start decision 'RankedProducts'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -47,7 +47,7 @@ class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runti
         }
     }
 
-    private inline fun evaluate(requestedAmt: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): type.TRankedProducts? {
+    private inline fun evaluate(requestedAmt: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TRankedProducts? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -56,10 +56,10 @@ class RankedProducts(val bankrates : Bankrates = Bankrates()) : com.gs.dmn.runti
         val bankrates: List<type.TLoanProduct?>? = this@RankedProducts.bankrates.apply(context_)
 
         val metricsTable: List<type.TMetric?>? = bankrates?.stream()?.map({ i -> FinancialMetrics.instance()?.apply(i, requestedAmt, context_) })?.collect(Collectors.toList()) as List<type.TMetric?>?
-        val rankByRate: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TMetric? = args_[0] as type.TMetric?; val y: type.TMetric? = args_[1] as type.TMetric?; numericLessThan(x?.let({ it.rate as java.math.BigDecimal? }), y?.let({ it.rate as java.math.BigDecimal? })) }) as List<type.TMetric?>?
-        val rankByDownPmt: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TMetric? = args_[0] as type.TMetric?; val y: type.TMetric? = args_[1] as type.TMetric?; numericLessThan(x?.let({ it.downPmtAmt as java.math.BigDecimal? }), y?.let({ it.downPmtAmt as java.math.BigDecimal? })) }) as List<type.TMetric?>?
-        val rankByMonthlyPmt: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TMetric? = args_[0] as type.TMetric?; val y: type.TMetric? = args_[1] as type.TMetric?; numericLessThan(x?.let({ it.paymentAmt as java.math.BigDecimal? }), y?.let({ it.paymentAmt as java.math.BigDecimal? })) }) as List<type.TMetric?>?
-        val rankByEquityPct: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TMetric? = args_[0] as type.TMetric?; val y: type.TMetric? = args_[1] as type.TMetric?; numericGreaterThan(x?.let({ it.equity36moPct as java.math.BigDecimal? }), y?.let({ it.equity36moPct as java.math.BigDecimal? })) }) as List<type.TMetric?>?
+        val rankByRate: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TMetric? = args_[0] as type.TMetric?; val y: type.TMetric? = args_[1] as type.TMetric?; numericLessThan(x?.let({ it.rate as java.lang.Number? }), y?.let({ it.rate as java.lang.Number? })) }) as List<type.TMetric?>?
+        val rankByDownPmt: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TMetric? = args_[0] as type.TMetric?; val y: type.TMetric? = args_[1] as type.TMetric?; numericLessThan(x?.let({ it.downPmtAmt as java.lang.Number? }), y?.let({ it.downPmtAmt as java.lang.Number? })) }) as List<type.TMetric?>?
+        val rankByMonthlyPmt: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TMetric? = args_[0] as type.TMetric?; val y: type.TMetric? = args_[1] as type.TMetric?; numericLessThan(x?.let({ it.paymentAmt as java.lang.Number? }), y?.let({ it.paymentAmt as java.lang.Number? })) }) as List<type.TMetric?>?
+        val rankByEquityPct: List<type.TMetric?>? = sort(metricsTable, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TMetric? = args_[0] as type.TMetric?; val y: type.TMetric? = args_[1] as type.TMetric?; numericGreaterThan(x?.let({ it.equity36moPct as java.lang.Number? }), y?.let({ it.equity36moPct as java.lang.Number? })) }) as List<type.TMetric?>?
         val rankedProducts: type.TRankedProductsImpl? = type.TRankedProductsImpl() as type.TRankedProductsImpl?
         rankedProducts?.metricsTable = metricsTable
         rankedProducts?.rankByRate = rankByRate

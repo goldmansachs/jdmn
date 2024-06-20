@@ -15,12 +15,12 @@ class TEmployeeTableImpl : TEmployeeTable {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("deptNum")
     @set:com.fasterxml.jackson.annotation.JsonGetter("deptNum")
-    override var deptNum: java.math.BigDecimal? = null
+    override var deptNum: java.lang.Number? = null
 
     constructor() {
     }
 
-    constructor (deptNum: java.math.BigDecimal?, id: String?, name: String?) {
+    constructor (deptNum: java.lang.Number?, id: String?, name: String?) {
         this.deptNum = deptNum
         this.id = id
         this.name = name

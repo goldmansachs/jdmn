@@ -74,7 +74,7 @@ class Routing(val postBureauAffordability : PostBureauAffordability = PostBureau
         val postBureauAffordability: Boolean? = this@Routing.postBureauAffordability.apply(applicantData, bureauData, requestedProduct, context_)
         val postBureauRiskCategory: String? = this@Routing.postBureauRiskCategory.apply(applicantData, bureauData, context_)
 
-        return RoutingRules.instance().apply(postBureauRiskCategory, postBureauAffordability, bureauData?.let({ it.bankrupt as Boolean? }), bureauData?.let({ it.creditScore as java.math.BigDecimal? }), context_) as String?
+        return RoutingRules.instance().apply(postBureauRiskCategory, postBureauAffordability, bureauData?.let({ it.bankrupt as Boolean? }), bureauData?.let({ it.creditScore as java.lang.Number? }), context_) as String?
     }
 
     companion object {

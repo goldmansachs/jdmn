@@ -10,13 +10,13 @@ interface TLoanProduct : com.gs.dmn.runtime.DMNType {
     val lenderName: String?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("rate")
-    val rate: java.math.BigDecimal?
+    val rate: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("points")
-    val points: java.math.BigDecimal?
+    val points: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("fee")
-    val fee: java.math.BigDecimal?
+    val fee: java.lang.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -69,9 +69,9 @@ interface TLoanProduct : com.gs.dmn.runtime.DMNType {
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TLoanProductImpl()
                 result_.lenderName = other.get("lenderName") as String?
-                result_.rate = other.get("rate") as java.math.BigDecimal?
-                result_.points = other.get("points") as java.math.BigDecimal?
-                result_.fee = other.get("fee") as java.math.BigDecimal?
+                result_.rate = other.get("rate") as java.lang.Number?
+                result_.points = other.get("points") as java.lang.Number?
+                result_.fee = other.get("fee") as java.lang.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTLoanProduct(other.toContext())

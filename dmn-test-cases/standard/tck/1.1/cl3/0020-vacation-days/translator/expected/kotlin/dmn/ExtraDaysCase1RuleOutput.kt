@@ -2,7 +2,7 @@
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "Extra days case 1"])
 class ExtraDaysCase1RuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("Extra days case 1")
-    var extraDaysCase1: java.math.BigDecimal? = null
+    var extraDaysCase1: java.lang.Number? = null
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
