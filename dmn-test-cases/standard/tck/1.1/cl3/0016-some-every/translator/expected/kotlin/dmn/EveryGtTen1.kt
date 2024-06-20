@@ -54,7 +54,7 @@ class EveryGtTen1(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.ru
         // Apply child decisions
         val priceTable1: List<type.TItemPrice?>? = this@EveryGtTen1.priceTable1.apply(context_)
 
-        return booleanAnd(priceTable1?.stream()?.map({ i -> numericGreaterThan(i?.let({ it.price as java.math.BigDecimal? }), number("10")) })?.collect(Collectors.toList())?.toList()) as Boolean?
+        return booleanAnd(priceTable1?.stream()?.map({ i -> numericGreaterThan(i?.let({ it.price as java.lang.Number? }), number("10")) })?.collect(Collectors.toList())?.toList()) as Boolean?
     }
 
     companion object {

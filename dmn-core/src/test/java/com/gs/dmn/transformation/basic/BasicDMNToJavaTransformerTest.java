@@ -17,7 +17,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.InputParameters;
@@ -25,10 +25,10 @@ import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class BasicDMNToJavaTransformerTest extends AbstractTest {
-    private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition = new StandardDMNDialectDefinition();
+    private final DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> dialectDefinition = new JavaTimeDMNDialectDefinition();
     private final DMNSerializer serializer = this.dialectDefinition.createDMNSerializer(LOGGER, new InputParameters(makeInputParametersMap()));
     private BasicDMNToJavaTransformer dmnTransformer;
     private String href;
@@ -94,22 +94,22 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     public void testAnnotationWithOneString() {
         TDecision decision = this.dmnTransformer.getDMNModelRepository().findDecisionByRef(null, this.href);
         assertEquals(Arrays.asList("string(\"plain text\")"), this.dmnTransformer.annotations(decision, Arrays.asList("string(\"plain text\")")));
-        assertEquals(Arrays.asList("string(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getTerm() : null)))"), this.dmnTransformer.annotations(decision, Arrays.asList("string(RequestedProduct.Term)")));
+        assertEquals(Arrays.asList("string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getTerm() : null)))"), this.dmnTransformer.annotations(decision, Arrays.asList("string(RequestedProduct.Term)")));
         assertEquals(Arrays.asList("string(\"\")"), this.dmnTransformer.annotations(decision,Arrays.asList( "string(\"\")")));
     }
 
     @Test
     public void testAnnotationWithExpression() {
         TDecision decision = this.dmnTransformer.getDMNModelRepository().findDecisionByRef(null, this.href);
-        assertEquals(Arrays.asList("string(numericAdd(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getRate() : null)), number(\"2\")))"), this.dmnTransformer.annotations(decision, Arrays.asList("string(RequestedProduct.Rate + 2)")));
+        assertEquals(Arrays.asList("string(numericAdd(((java.lang.Number)(requestedProduct != null ? requestedProduct.getRate() : null)), number(\"2\")))"), this.dmnTransformer.annotations(decision, Arrays.asList("string(RequestedProduct.Rate + 2)")));
     }
 
     @Test
     public void testAnnotationWithSeveralStrings() {
         TDecision decision = this.dmnTransformer.getDMNModelRepository().findDecisionByRef(null, this.href);
         List<String> expected = Arrays.asList(
-                "stringAdd(stringAdd(stringAdd(stringAdd(string(\"Rate is \"), string(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getRate() : null)))), " +
-                "string(\". And term is \")), string(((java.math.BigDecimal)(requestedProduct != null ? requestedProduct.getTerm() : null)))), string(\"!\"))");
+                "stringAdd(stringAdd(stringAdd(stringAdd(string(\"Rate is \"), string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getRate() : null)))), " +
+                "string(\". And term is \")), string(((java.lang.Number)(requestedProduct != null ? requestedProduct.getTerm() : null)))), string(\"!\"))");
         assertEquals(expected, this.dmnTransformer.annotations(decision, Arrays.asList("string(\"Rate is \") + string(RequestedProduct.Rate) + string(\". And term is \") + string(RequestedProduct.Term) + string(\"!\")")));
         assertEquals(Arrays.asList("asList(string(\"\"), string(\"\"), string(\"\"))"), this.dmnTransformer.annotations(decision, Arrays.asList("[string(\"\"), string(\"\"), string(\"\")]")));
     }
@@ -139,6 +139,17 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         assertEquals("abc", this.dmnTransformer.javaModelName("aBc"));
         assertEquals("p_123abc", this.dmnTransformer.javaModelName("123aBc"));
         assertEquals("literal_arithmetic", this.dmnTransformer.javaModelName("literal - arithmetic"));
+    }
+
+    @Test
+    public void testDefaultValues() {
+        assertEquals("new java.math.BigDecimal(\"0\")", this.dmnTransformer.getDefaultIntegerValue());
+        assertEquals("new java.math.BigDecimal(\"0.0\")", this.dmnTransformer.getDefaultDecimalValue());
+        assertEquals("Boolean.FALSE", this.dmnTransformer.getDefaultBooleanValue());
+        assertEquals("null", this.dmnTransformer.getDefaultStringValue());
+        assertEquals("null", this.dmnTransformer.getDefaultDateValue());
+        assertEquals("null", this.dmnTransformer.getDefaultTimeValue());
+        assertEquals("null", this.dmnTransformer.getDefaultDateAndTimeValue());
     }
 
     private DMNModelRepository readDMN(String pathName) {

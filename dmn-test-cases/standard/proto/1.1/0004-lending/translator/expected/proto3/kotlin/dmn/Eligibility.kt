@@ -72,7 +72,7 @@ class Eligibility(val preBureauAffordability : PreBureauAffordability = PreBurea
         val preBureauAffordability: Boolean? = this@Eligibility.preBureauAffordability.apply(applicantData, requestedProduct, context_)
         val preBureauRiskCategory: String? = this@Eligibility.preBureauRiskCategory.apply(applicantData, context_)
 
-        return EligibilityRules.instance().apply(preBureauRiskCategory, preBureauAffordability, applicantData?.let({ it.age as java.math.BigDecimal? }), context_) as String?
+        return EligibilityRules.instance().apply(preBureauRiskCategory, preBureauAffordability, applicantData?.let({ it.age as java.lang.Number? }), context_) as String?
     }
 
     companion object {

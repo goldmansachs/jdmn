@@ -7,16 +7,16 @@ import java.util.*
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TRowImpl::class)
 interface TRow : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("col1")
-    val col1: java.math.BigDecimal?
+    val col1: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("col2")
-    val col2: java.math.BigDecimal?
+    val col2: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("col3")
-    val col3: java.math.BigDecimal?
+    val col3: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("col4")
-    val col4: java.math.BigDecimal?
+    val col4: java.lang.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -68,10 +68,10 @@ interface TRow : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TRowImpl()
-                result_.col1 = other.get("col1") as java.math.BigDecimal?
-                result_.col2 = other.get("col2") as java.math.BigDecimal?
-                result_.col3 = other.get("col3") as java.math.BigDecimal?
-                result_.col4 = other.get("col4") as java.math.BigDecimal?
+                result_.col1 = other.get("col1") as java.lang.Number?
+                result_.col2 = other.get("col2") as java.lang.Number?
+                result_.col3 = other.get("col3") as java.lang.Number?
+                result_.col4 = other.get("col4") as java.lang.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTRow(other.toContext())

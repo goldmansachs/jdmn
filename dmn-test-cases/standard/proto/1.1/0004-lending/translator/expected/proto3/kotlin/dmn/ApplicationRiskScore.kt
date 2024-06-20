@@ -13,7 +13,7 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             return apply(input_.get("ApplicantData")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    fun apply(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    fun apply(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             // Start decision 'ApplicationRiskScore'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -36,7 +36,7 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
 
             if (cache_.contains("ApplicationRiskScore")) {
                 // Retrieve value from cache
-                var output_:java.math.BigDecimal? = cache_.lookup("ApplicationRiskScore") as java.math.BigDecimal?
+                var output_:java.lang.Number? = cache_.lookup("ApplicationRiskScore") as java.lang.Number?
 
                 // End decision 'ApplicationRiskScore'
                 eventListener_.endDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreArguments_, output_, (System.currentTimeMillis() - applicationRiskScoreStartTime_))
@@ -44,7 +44,7 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
                 return output_
             } else {
                 // Evaluate decision 'ApplicationRiskScore'
-                val output_: java.math.BigDecimal? = evaluate(applicantData, context_)
+                val output_: java.lang.Number? = evaluate(applicantData, context_)
                 cache_.bind("ApplicationRiskScore", output_)
 
                 // End decision 'ApplicationRiskScore'
@@ -63,7 +63,7 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         val applicantData: type.TApplicantData? = type.TApplicantData.toTApplicantData(applicationRiskScoreRequest_.getApplicantData())
 
         // Invoke apply method
-        val output_: java.math.BigDecimal? = apply(applicantData, context_)
+        val output_: java.lang.Number? = apply(applicantData, context_)
 
         // Convert output to Response Message
         val builder_: proto.ApplicationRiskScoreResponse.Builder = proto.ApplicationRiskScoreResponse.newBuilder()
@@ -72,12 +72,12 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         return builder_.build()
     }
 
-    private inline fun evaluate(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    private inline fun evaluate(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return ApplicationRiskScoreModel.instance().apply(applicantData?.let({ it.age as java.math.BigDecimal? }), applicantData?.let({ it.maritalStatus as String? }), applicantData?.let({ it.employmentStatus as String? }), context_) as java.math.BigDecimal?
+        return ApplicationRiskScoreModel.instance().apply(applicantData?.let({ it.age as java.lang.Number? }), applicantData?.let({ it.maritalStatus as String? }), applicantData?.let({ it.employmentStatus as String? }), context_) as java.lang.Number?
     }
 
     companion object {
@@ -103,7 +103,7 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
 
         @JvmStatic
-        fun responseToOutput(applicationRiskScoreResponse_: proto.ApplicationRiskScoreResponse): java.math.BigDecimal? {
+        fun responseToOutput(applicationRiskScoreResponse_: proto.ApplicationRiskScoreResponse): java.lang.Number? {
             // Extract and convert output
             return java.math.BigDecimal.valueOf(applicationRiskScoreResponse_.getApplicationRiskScore())
         }

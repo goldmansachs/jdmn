@@ -7,24 +7,24 @@ import java.util.*
 class TFnInvocationNamedResultImpl : TFnInvocationNamedResult {
     @get:com.fasterxml.jackson.annotation.JsonGetter("subResult")
     @set:com.fasterxml.jackson.annotation.JsonGetter("subResult")
-    override var subResult: java.math.BigDecimal? = null
+    override var subResult: java.lang.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("subResultMixed")
     @set:com.fasterxml.jackson.annotation.JsonGetter("subResultMixed")
-    override var subResultMixed: java.math.BigDecimal? = null
+    override var subResultMixed: java.lang.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("divisionResultNamed")
     @set:com.fasterxml.jackson.annotation.JsonGetter("divisionResultNamed")
-    override var divisionResultNamed: java.math.BigDecimal? = null
+    override var divisionResultNamed: java.lang.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("multiplicationResultNamed")
     @set:com.fasterxml.jackson.annotation.JsonGetter("multiplicationResultNamed")
-    override var multiplicationResultNamed: java.math.BigDecimal? = null
+    override var multiplicationResultNamed: java.lang.Number? = null
 
     constructor() {
     }
 
-    constructor (divisionResultNamed: java.math.BigDecimal?, multiplicationResultNamed: java.math.BigDecimal?, subResult: java.math.BigDecimal?, subResultMixed: java.math.BigDecimal?) {
+    constructor (divisionResultNamed: java.lang.Number?, multiplicationResultNamed: java.lang.Number?, subResult: java.lang.Number?, subResultMixed: java.lang.Number?) {
         this.divisionResultNamed = divisionResultNamed
         this.multiplicationResultNamed = multiplicationResultNamed
         this.subResult = subResult

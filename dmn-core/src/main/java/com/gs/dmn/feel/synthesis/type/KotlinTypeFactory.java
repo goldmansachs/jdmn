@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.synthesis.type;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 public abstract class KotlinTypeFactory implements NativeTypeFactory {
@@ -30,7 +31,12 @@ public abstract class KotlinTypeFactory implements NativeTypeFactory {
     }
 
     @Override
-    public String javaClass(String className) {
+    public String classOf(String className) {
         return String.format("%s::class.java", className);
+    }
+
+    @Override
+    public String getNativeNumberConcreteType() {
+        return BigDecimal.class.getName();
     }
 }

@@ -28,7 +28,12 @@ public abstract class PythonTypeFactory implements NativeTypeFactory {
     }
 
     @Override
-    public String javaClass(String className) {
+    public String classOf(String className) {
         return String.format("%s.__class__", className);
+    }
+
+    @Override
+    public String getNativeNumberConcreteType() {
+        return getNativeNumberType();
     }
 }

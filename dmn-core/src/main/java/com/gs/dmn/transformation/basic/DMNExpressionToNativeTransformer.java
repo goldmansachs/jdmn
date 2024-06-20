@@ -564,7 +564,7 @@ public class DMNExpressionToNativeTransformer {
         String javaInfoArg = this.dmnTransformer.constructor(this.dmnTransformer.javaFunctionInfoClassName(), javaInfoArgs);
         String returnType = this.dmnTransformer.toNativeType(functionType.getReturnType());
         String className = this.nativeTypeFactory.constructorOfGenericType(this.dmnTransformer.javaExternalFunctionClassName(), returnType);
-        String javaClassOfReturnType = this.nativeTypeFactory.javaClass(returnType);
+        String javaClassOfReturnType = this.nativeTypeFactory.classOf(returnType);
         return this.dmnTransformer.constructor(className, String.format("%s, %s, %s", javaInfoArg, this.dmnTransformer.externalExecutorVariableName(), javaClassOfReturnType));
     }
 

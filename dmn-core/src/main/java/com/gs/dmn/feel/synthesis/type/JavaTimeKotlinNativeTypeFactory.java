@@ -38,7 +38,7 @@ public class JavaTimeKotlinNativeTypeFactory extends KotlinTypeFactory {
         FEEL_TYPE_TO_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
         FEEL_TYPE_TO_JAVA_TYPE.put(STRING.getName(), String.class.getSimpleName());
         FEEL_TYPE_TO_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getSimpleName());
-        FEEL_TYPE_TO_JAVA_TYPE.put(NUMBER.getName(), java.math.BigDecimal.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(NUMBER.getName(), java.lang.Number.class.getName());
         FEEL_TYPE_TO_JAVA_TYPE.put(ANY.getName(), "kotlin.Any");
         FEEL_TYPE_TO_JAVA_TYPE.put(NULL.getName(), "kotlin.Any");
     }
@@ -53,7 +53,7 @@ public class JavaTimeKotlinNativeTypeFactory extends KotlinTypeFactory {
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(STRING.getName(), String.class.getName());
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getName());
-        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), java.math.BigDecimal.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), java.lang.Number.class.getName());
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(ANY.getName(), "kotlin.Any");
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NULL.getName(), "kotlin.Any");
     }

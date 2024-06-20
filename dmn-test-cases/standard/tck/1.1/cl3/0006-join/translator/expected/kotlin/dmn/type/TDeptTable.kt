@@ -7,7 +7,7 @@ import java.util.*
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TDeptTableImpl::class)
 interface TDeptTable : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("number")
-    val number: java.math.BigDecimal?
+    val number: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("name")
     val name: String?
@@ -61,7 +61,7 @@ interface TDeptTable : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TDeptTableImpl()
-                result_.number = other.get("number") as java.math.BigDecimal?
+                result_.number = other.get("number") as java.lang.Number?
                 result_.name = other.get("name") as String?
                 result_.manager = other.get("manager") as String?
                 return result_

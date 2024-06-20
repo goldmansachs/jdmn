@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class PMT : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     private constructor() {}
 
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             return apply(input_.get("p")?.let({ number(it) }), input_.get("r")?.let({ number(it) }), input_.get("n")?.let({ number(it) }), context_)
         } catch (e: Exception) {
@@ -24,7 +24,7 @@ class PMT : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    fun apply(p: java.math.BigDecimal?, r: java.math.BigDecimal?, n: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    fun apply(p: java.lang.Number?, r: java.lang.Number?, n: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             // Start BKM 'PMT'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -39,7 +39,7 @@ class PMT : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, pMTArguments_)
 
             // Evaluate BKM 'PMT'
-            val output_: java.math.BigDecimal? = evaluate(p, r, n, context_)
+            val output_: java.lang.Number? = evaluate(p, r, n, context_)
 
             // End BKM 'PMT'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, pMTArguments_, output_, (System.currentTimeMillis() - pMTStartTime_))
@@ -51,12 +51,12 @@ class PMT : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(p: java.math.BigDecimal?, r: java.math.BigDecimal?, n: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    private inline fun evaluate(p: java.lang.Number?, r: java.lang.Number?, n: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return numericDivide(numericDivide(numericMultiply(p, r), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), numericUnaryMinus(n)))) as java.math.BigDecimal?
+        return numericDivide(numericDivide(numericMultiply(p, r), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), numericUnaryMinus(n)))) as java.lang.Number?
     }
 
     companion object {

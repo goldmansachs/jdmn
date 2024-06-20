@@ -7,13 +7,13 @@ import java.util.*
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TLoanImpl::class)
 interface TLoan : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("amount")
-    val amount: java.math.BigDecimal?
+    val amount: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("rate")
-    val rate: java.math.BigDecimal?
+    val rate: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("term")
-    val term: java.math.BigDecimal?
+    val term: java.lang.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -61,9 +61,9 @@ interface TLoan : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TLoanImpl()
-                result_.amount = other.get("amount") as java.math.BigDecimal?
-                result_.rate = other.get("rate") as java.math.BigDecimal?
-                result_.term = other.get("term") as java.math.BigDecimal?
+                result_.amount = other.get("amount") as java.lang.Number?
+                result_.rate = other.get("rate") as java.lang.Number?
+                result_.term = other.get("term") as java.lang.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTLoan(other.toContext())

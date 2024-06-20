@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     private constructor() {}
 
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             return apply(input_.get("Age")?.let({ number(it) }), input_.get("MaritalStatus"), input_.get("EmploymentStatus"), context_)
         } catch (e: Exception) {
@@ -24,7 +24,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    fun apply(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    fun apply(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             // Start BKM 'ApplicationRiskScoreModel'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -39,7 +39,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_)
 
             // Evaluate BKM 'ApplicationRiskScoreModel'
-            val output_: java.math.BigDecimal? = evaluate(age, maritalStatus, employmentStatus, context_)
+            val output_: java.lang.Number? = evaluate(age, maritalStatus, employmentStatus, context_)
 
             // End BKM 'ApplicationRiskScoreModel'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreModelArguments_, output_, (System.currentTimeMillis() - applicationRiskScoreModelStartTime_))
@@ -51,7 +51,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    private inline fun evaluate(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -71,7 +71,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         ruleOutputList_.add(rule10(age, maritalStatus, employmentStatus, context_))
 
         // Return results based on hit policy
-        var output_: java.math.BigDecimal?
+        var output_: java.lang.Number?
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = null
@@ -84,7 +84,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    private fun rule0(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule0(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
@@ -117,7 +117,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    private fun rule1(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule1(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 
@@ -150,7 +150,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    private fun rule2(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule2(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "")
 
@@ -183,7 +183,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    private fun rule3(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule3(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(3, "")
 
@@ -216,7 +216,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
-    private fun rule4(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule4(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(4, "")
 
@@ -249,7 +249,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "")
-    private fun rule5(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule5(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(5, "")
 
@@ -282,7 +282,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "")
-    private fun rule6(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule6(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(6, "")
 
@@ -315,7 +315,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "")
-    private fun rule7(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule7(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(7, "")
 
@@ -348,7 +348,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 8, annotation = "")
-    private fun rule8(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule8(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(8, "")
 
@@ -381,7 +381,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 9, annotation = "")
-    private fun rule9(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule9(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(9, "")
 
@@ -414,7 +414,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 10, annotation = "")
-    private fun rule10(age: java.math.BigDecimal?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule10(age: java.lang.Number?, maritalStatus: String?, employmentStatus: String?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(10, "")
 

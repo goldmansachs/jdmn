@@ -14,8 +14,6 @@ package com.gs.dmn.feel.synthesis.type;
 
 import com.gs.dmn.feel.analysis.semantics.type.*;
 
-import java.math.BigDecimal;
-
 public interface NativeTypeFactory {
     String toNativeType(String feelType);
 
@@ -25,7 +23,7 @@ public interface NativeTypeFactory {
 
     String constructorOfGenericType(String typeName, String... typeParameters);
 
-    String javaClass(String type);
+    String classOf(String type);
 
     //
     // Types
@@ -33,9 +31,7 @@ public interface NativeTypeFactory {
     default String getNativeNumberType() {
         return toNativeType(NumberType.NUMBER.getName());
     }
-    default String getNativeNumberConcreteType() {
-        return BigDecimal.class.getName();
-    }
+    String getNativeNumberConcreteType();
 
     default String getNativeDateType() {
         return toNativeType(DateType.DATE.getName());

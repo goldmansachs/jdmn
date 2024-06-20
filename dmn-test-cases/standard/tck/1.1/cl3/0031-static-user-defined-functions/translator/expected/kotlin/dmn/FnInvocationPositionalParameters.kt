@@ -22,7 +22,7 @@ class FnInvocationPositionalParameters(val fnLibrary : FnLibrary = FnLibrary()) 
         }
     }
 
-    fun apply(inputA: java.math.BigDecimal?, inputB: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationPositionalResult? {
+    fun apply(inputA: java.lang.Number?, inputB: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationPositionalResult? {
         try {
             // Start decision 'fn invocation positional parameters'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -48,7 +48,7 @@ class FnInvocationPositionalParameters(val fnLibrary : FnLibrary = FnLibrary()) 
         }
     }
 
-    private inline fun evaluate(inputA: java.math.BigDecimal?, inputB: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationPositionalResult? {
+    private inline fun evaluate(inputA: java.lang.Number?, inputB: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationPositionalResult? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -56,9 +56,9 @@ class FnInvocationPositionalParameters(val fnLibrary : FnLibrary = FnLibrary()) 
         // Apply child decisions
         val fnLibrary: type.TFnLibrary? = this@FnInvocationPositionalParameters.fnLibrary.apply(context_)
 
-        val sumResult: java.math.BigDecimal? = fnLibrary?.let({ it.sumFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB, context_) as java.math.BigDecimal?
-        val multiplicationResultPositional: java.math.BigDecimal? = fnLibrary?.let({ it.multiplyFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB, context_) as java.math.BigDecimal?
-        val divisionResultPositional: java.math.BigDecimal? = fnLibrary?.let({ it.divideFn as com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal?>? })?.apply(inputA, inputB, context_) as java.math.BigDecimal?
+        val sumResult: java.lang.Number? = fnLibrary?.let({ it.sumFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(inputA, inputB, context_) as java.lang.Number?
+        val multiplicationResultPositional: java.lang.Number? = fnLibrary?.let({ it.multiplyFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(inputA, inputB, context_) as java.lang.Number?
+        val divisionResultPositional: java.lang.Number? = fnLibrary?.let({ it.divideFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(inputA, inputB, context_) as java.lang.Number?
         val fnInvocationPositionalParameters: type.TFnInvocationPositionalResultImpl? = type.TFnInvocationPositionalResultImpl() as type.TFnInvocationPositionalResultImpl?
         fnInvocationPositionalParameters?.sumResult = sumResult
         fnInvocationPositionalParameters?.multiplicationResultPositional = multiplicationResultPositional

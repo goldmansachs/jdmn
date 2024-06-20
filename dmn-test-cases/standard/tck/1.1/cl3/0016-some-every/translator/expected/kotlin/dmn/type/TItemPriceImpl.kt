@@ -11,12 +11,12 @@ class TItemPriceImpl : TItemPrice {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("price")
     @set:com.fasterxml.jackson.annotation.JsonGetter("price")
-    override var price: java.math.BigDecimal? = null
+    override var price: java.lang.Number? = null
 
     constructor() {
     }
 
-    constructor (itemName: String?, price: java.math.BigDecimal?) {
+    constructor (itemName: String?, price: java.lang.Number?) {
         this.itemName = itemName
         this.price = price
     }

@@ -13,16 +13,16 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class Sort1() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<java.math.BigDecimal?>? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<java.lang.Number?>? {
         try {
-            return apply(input_.get("listA")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal?>?>() {}) }), context_)
+            return apply(input_.get("listA")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number?>?>() {}) }), context_)
         } catch (e: Exception) {
             logError("Cannot apply decision 'Sort1'", e)
             return null
         }
     }
 
-    fun apply(listA: List<java.math.BigDecimal?>?, context_: com.gs.dmn.runtime.ExecutionContext): List<java.math.BigDecimal?>? {
+    fun apply(listA: List<java.lang.Number?>?, context_: com.gs.dmn.runtime.ExecutionContext): List<java.lang.Number?>? {
         try {
             // Start decision 'sort1'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -35,7 +35,7 @@ class Sort1() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_)
 
             // Evaluate decision 'sort1'
-            val output_: List<java.math.BigDecimal?>? = evaluate(listA, context_)
+            val output_: List<java.lang.Number?>? = evaluate(listA, context_)
 
             // End decision 'sort1'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, sort1Arguments_, output_, (System.currentTimeMillis() - sort1StartTime_))
@@ -47,12 +47,12 @@ class Sort1() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(listA: List<java.math.BigDecimal?>?, context_: com.gs.dmn.runtime.ExecutionContext): List<java.math.BigDecimal?>? {
+    private inline fun evaluate(listA: List<java.lang.Number?>?, context_: com.gs.dmn.runtime.ExecutionContext): List<java.lang.Number?>? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return sort(listA, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: java.math.BigDecimal? = args_[0] as java.math.BigDecimal?; val y: java.math.BigDecimal? = args_[1] as java.math.BigDecimal?; numericGreaterThan(x, y) }) as List<java.math.BigDecimal?>?
+        return sort(listA, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: java.lang.Number? = args_[0] as java.lang.Number?; val y: java.lang.Number? = args_[1] as java.lang.Number?; numericGreaterThan(x, y) }) as List<java.lang.Number?>?
     }
 
     companion object {

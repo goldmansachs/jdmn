@@ -13,7 +13,7 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDays(), val extraDaysCase1 : ExtraDaysCase1 = ExtraDaysCase1(), val extraDaysCase2 : ExtraDaysCase2 = ExtraDaysCase2(), val extraDaysCase3 : ExtraDaysCase3 = ExtraDaysCase3()) : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             return apply(input_.get("Age")?.let({ number(it) }), input_.get("Years of Service")?.let({ number(it) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDa
         }
     }
 
-    fun apply(age: java.math.BigDecimal?, yearsOfService: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    fun apply(age: java.lang.Number?, yearsOfService: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         try {
             // Start decision 'Total Vacation Days'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -36,7 +36,7 @@ class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDa
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_)
 
             // Evaluate decision 'Total Vacation Days'
-            val output_: java.math.BigDecimal? = evaluate(age, yearsOfService, context_)
+            val output_: java.lang.Number? = evaluate(age, yearsOfService, context_)
 
             // End decision 'Total Vacation Days'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, totalVacationDaysArguments_, output_, (System.currentTimeMillis() - totalVacationDaysStartTime_))
@@ -48,18 +48,18 @@ class TotalVacationDays(val baseVacationDays : BaseVacationDays = BaseVacationDa
         }
     }
 
-    private inline fun evaluate(age: java.math.BigDecimal?, yearsOfService: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): java.math.BigDecimal? {
+    private inline fun evaluate(age: java.lang.Number?, yearsOfService: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply child decisions
-        val baseVacationDays: java.math.BigDecimal? = this@TotalVacationDays.baseVacationDays.apply(context_)
-        val extraDaysCase1: java.math.BigDecimal? = this@TotalVacationDays.extraDaysCase1.apply(age, yearsOfService, context_)
-        val extraDaysCase2: java.math.BigDecimal? = this@TotalVacationDays.extraDaysCase2.apply(age, yearsOfService, context_)
-        val extraDaysCase3: java.math.BigDecimal? = this@TotalVacationDays.extraDaysCase3.apply(age, yearsOfService, context_)
+        val baseVacationDays: java.lang.Number? = this@TotalVacationDays.baseVacationDays.apply(context_)
+        val extraDaysCase1: java.lang.Number? = this@TotalVacationDays.extraDaysCase1.apply(age, yearsOfService, context_)
+        val extraDaysCase2: java.lang.Number? = this@TotalVacationDays.extraDaysCase2.apply(age, yearsOfService, context_)
+        val extraDaysCase3: java.lang.Number? = this@TotalVacationDays.extraDaysCase3.apply(age, yearsOfService, context_)
 
-        return numericAdd(numericAdd(baseVacationDays, max(extraDaysCase1, extraDaysCase3)), extraDaysCase2) as java.math.BigDecimal?
+        return numericAdd(numericAdd(baseVacationDays, max(extraDaysCase1, extraDaysCase3)), extraDaysCase2) as java.lang.Number?
     }
 
     companion object {

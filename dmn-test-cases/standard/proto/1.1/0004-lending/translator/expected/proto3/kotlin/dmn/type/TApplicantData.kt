@@ -10,7 +10,7 @@ interface TApplicantData : com.gs.dmn.runtime.DMNType {
     val monthly: type.Monthly?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Age")
-    val age: java.math.BigDecimal?
+    val age: java.lang.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("ExistingCustomer")
     val existingCustomer: Boolean?
@@ -76,7 +76,7 @@ interface TApplicantData : com.gs.dmn.runtime.DMNType {
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TApplicantDataImpl()
                 result_.monthly = other.get("Monthly") as type.Monthly?
-                result_.age = other.get("Age") as java.math.BigDecimal?
+                result_.age = other.get("Age") as java.lang.Number?
                 result_.existingCustomer = other.get("ExistingCustomer") as Boolean?
                 result_.maritalStatus = other.get("MaritalStatus") as String?
                 result_.employmentStatus = other.get("EmploymentStatus") as String?
