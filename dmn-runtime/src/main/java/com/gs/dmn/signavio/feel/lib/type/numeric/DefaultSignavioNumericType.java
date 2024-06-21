@@ -16,5 +16,6 @@ import com.gs.dmn.feel.lib.type.numeric.DefaultNumericType;
 
 public class DefaultSignavioNumericType extends DefaultNumericType {
     public DefaultSignavioNumericType() {
+        super(new DecimalSignavioNumericType());
     }
 }

@@ -17,7 +17,15 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import java.math.BigDecimal;
 
 public class DefaultNumericType extends BaseNumericType implements NumericType<Number> {
-    private static final DecimalNumericType DECIMAL_NUMERIC_TYPE = new DecimalNumericType();
+    private final DecimalNumericType decimalNumericType;
+
+    public DefaultNumericType() {
+        this(new DecimalNumericType());
+    }
+
+    public DefaultNumericType(DecimalNumericType decimalNumericType) {
+        this.decimalNumericType = decimalNumericType;
+    }
 
     public static BigDecimal toDecimal(Number number) {
         if (number == null) {
@@ -36,76 +44,76 @@ public class DefaultNumericType extends BaseNumericType implements NumericType<N
 
     @Override
     public boolean isNumber(Object value) {
-        return DECIMAL_NUMERIC_TYPE.isNumber(value);
+        return decimalNumericType.isNumber(value);
     }
 
     @Override
     public Number numericValue(Number value) {
-        return DECIMAL_NUMERIC_TYPE.numericValue(toDecimal(value));
+        return decimalNumericType.numericValue(toDecimal(value));
     }
 
     @Override
     public Boolean numericIs(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericIs(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericIs(toDecimal(first), toDecimal(second));
     }
 
     @Override
     public Boolean numericEqual(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericEqual(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericEqual(toDecimal(first), toDecimal(second));
     }
 
     @Override
     public Boolean numericNotEqual(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericNotEqual(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericNotEqual(toDecimal(first), toDecimal(second));
     }
 
     @Override
     public Boolean numericLessThan(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericLessThan(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericLessThan(toDecimal(first), toDecimal(second));
     }
 
     @Override
     public Boolean numericGreaterThan(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericGreaterThan(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericGreaterThan(toDecimal(first), toDecimal(second));
     }
 
     @Override
     public Boolean numericLessEqualThan(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericLessEqualThan(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericLessEqualThan(toDecimal(first), toDecimal(second));
     }
 
     @Override
     public Boolean numericGreaterEqualThan(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericGreaterEqualThan(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericGreaterEqualThan(toDecimal(first), toDecimal(second));
     }
 
     @Override
     public Number numericAdd(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericAdd(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericAdd(toDecimal(first), toDecimal(second));
     }
 
     @Override
     public Number numericSubtract(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericSubtract(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericSubtract(toDecimal(first), toDecimal(second));
     }
 
     @Override
     public Number numericMultiply(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericMultiply(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericMultiply(toDecimal(first), toDecimal(second));
     }
 
     @Override
     public Number numericDivide(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericDivide(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericDivide(toDecimal(first), toDecimal(second));
     }
 
     @Override
     public Number numericUnaryMinus(Number first) {
-        return DECIMAL_NUMERIC_TYPE.numericUnaryMinus(toDecimal(first));
+        return decimalNumericType.numericUnaryMinus(toDecimal(first));
     }
 
     @Override
     public Number numericExponentiation(Number first, Number second) {
-        return DECIMAL_NUMERIC_TYPE.numericExponentiation(toDecimal(first), toDecimal(second));
+        return decimalNumericType.numericExponentiation(toDecimal(first), toDecimal(second));
     }
 }
