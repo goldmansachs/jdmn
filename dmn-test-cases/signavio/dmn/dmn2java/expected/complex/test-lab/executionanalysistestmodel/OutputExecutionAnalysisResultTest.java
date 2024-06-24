@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final OutputExecutionAnalysisResult outputExecutionAnalysisResult = new OutputExecutionAnalysisResult();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal inputValue = number("0");
@@ -15,7 +15,7 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
         checkValues(asList(), outputExecutionAnalysisResult);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal inputValue = number("2");
@@ -24,7 +24,7 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
         checkValues(asList("Output1", "Output2"), outputExecutionAnalysisResult);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase3() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal inputValue = number("5");
@@ -33,7 +33,7 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
         checkValues(asList("Output1", "Output2", "Output3", "Output4", "Output5"), outputExecutionAnalysisResult);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase4() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal inputValue = number("8");
@@ -42,7 +42,7 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
         checkValues(asList("Output1", "Output2", "Output3", "Output4", "Output5", "Output6", "Output7", "Output8"), outputExecutionAnalysisResult);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase5() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal inputValue = number("10");

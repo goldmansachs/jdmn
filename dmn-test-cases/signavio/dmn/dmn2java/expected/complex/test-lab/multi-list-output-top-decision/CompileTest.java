@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class CompileTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final Compile compile = new Compile();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         List<java.math.BigDecimal> numbers = asList(number("1"), number("2"));

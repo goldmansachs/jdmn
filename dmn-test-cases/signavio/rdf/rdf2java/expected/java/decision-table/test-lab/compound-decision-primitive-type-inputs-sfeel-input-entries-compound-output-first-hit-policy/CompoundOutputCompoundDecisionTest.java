@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class CompoundOutputCompoundDecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final CompoundOutputCompoundDecision compoundOutputCompoundDecision = new CompoundOutputCompoundDecision();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         java.math.BigDecimal dD2NumberInput = number("1");

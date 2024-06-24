@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class BigMidTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final BigMid bigMid = new BigMid();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         type.TestPeopleType testPeopleType = new type.TestPeopleTypeImpl(asList(new type.TestPersonTypeImpl(number("23"), "a", asList("Sad", "Quiet"))));
@@ -15,7 +15,7 @@ public class BigMidTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         checkValues(asList(Boolean.TRUE), bigMid);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         type.TestPeopleType testPeopleType = new type.TestPeopleTypeImpl(asList(new type.TestPersonTypeImpl(number("43"), "g", asList("Happy", "Tall")), new type.TestPersonTypeImpl(number("5"), "l", asList("Short", "Loud", "Happy"))));

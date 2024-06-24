@@ -77,7 +77,7 @@
         {
           "rule": {
             "index": 2,
-            "annotation": "\"\""
+            "annotation": ""
           },
           "matched": false,
           "result": {
@@ -94,7 +94,7 @@
         {
           "rule": {
             "index": 3,
-            "annotation": "\"\""
+            "annotation": ""
           },
           "matched": true,
           "result": {
@@ -137,7 +137,7 @@
             {
               "rule": {
                 "index": 3,
-                "annotation": "\"\""
+                "annotation": ""
               },
               "matched": true,
               "result": {
@@ -226,7 +226,7 @@
                     {
                       "rule": {
                         "index": 1,
-                        "annotation": "\"\""
+                        "annotation": ""
                       },
                       "matched": true,
                       "result": {
@@ -243,7 +243,7 @@
                     {
                       "rule": {
                         "index": 2,
-                        "annotation": "\"\""
+                        "annotation": ""
                       },
                       "matched": false,
                       "result": {
@@ -260,7 +260,7 @@
                     {
                       "rule": {
                         "index": 3,
-                        "annotation": "\"\""
+                        "annotation": ""
                       },
                       "matched": false,
                       "result": {
@@ -277,7 +277,7 @@
                     {
                       "rule": {
                         "index": 4,
-                        "annotation": "\"\""
+                        "annotation": ""
                       },
                       "matched": false,
                       "result": {
@@ -294,7 +294,7 @@
                     {
                       "rule": {
                         "index": 5,
-                        "annotation": "\"\""
+                        "annotation": ""
                       },
                       "matched": true,
                       "result": {
@@ -374,7 +374,7 @@
                 {
                   "rule": {
                     "index": 1,
-                    "annotation": "\"\""
+                    "annotation": ""
                   },
                   "matched": false,
                   "result": {
@@ -391,7 +391,7 @@
                 {
                   "rule": {
                     "index": 2,
-                    "annotation": "\"\""
+                    "annotation": ""
                   },
                   "matched": false,
                   "result": {
@@ -408,7 +408,7 @@
                 {
                   "rule": {
                     "index": 3,
-                    "annotation": "\"\""
+                    "annotation": ""
                   },
                   "matched": true,
                   "result": {
@@ -456,7 +456,7 @@
         {
           "rule": {
             "index": 3,
-            "annotation": "\"\""
+            "annotation": ""
           },
           "matched": true,
           "result": {
@@ -541,7 +541,7 @@
                 {
                   "rule": {
                     "index": 1,
-                    "annotation": "\"\""
+                    "annotation": ""
                   },
                   "matched": true,
                   "result": {
@@ -558,7 +558,7 @@
                 {
                   "rule": {
                     "index": 2,
-                    "annotation": "\"\""
+                    "annotation": ""
                   },
                   "matched": false,
                   "result": {
@@ -575,7 +575,7 @@
                 {
                   "rule": {
                     "index": 3,
-                    "annotation": "\"\""
+                    "annotation": ""
                   },
                   "matched": false,
                   "result": {
@@ -592,7 +592,7 @@
                 {
                   "rule": {
                     "index": 4,
-                    "annotation": "\"\""
+                    "annotation": ""
                   },
                   "matched": false,
                   "result": {
@@ -609,7 +609,7 @@
                 {
                   "rule": {
                     "index": 5,
-                    "annotation": "\"\""
+                    "annotation": ""
                   },
                   "matched": true,
                   "result": {
@@ -689,7 +689,7 @@
             {
               "rule": {
                 "index": 1,
-                "annotation": "\"\""
+                "annotation": ""
               },
               "matched": false,
               "result": {
@@ -706,7 +706,7 @@
             {
               "rule": {
                 "index": 2,
-                "annotation": "\"\""
+                "annotation": ""
               },
               "matched": false,
               "result": {
@@ -723,7 +723,7 @@
             {
               "rule": {
                 "index": 3,
-                "annotation": "\"\""
+                "annotation": ""
               },
               "matched": true,
               "result": {
@@ -794,7 +794,7 @@
             {
               "rule": {
                 "index": 1,
-                "annotation": "\"\""
+                "annotation": ""
               },
               "matched": true,
               "result": {
@@ -811,7 +811,7 @@
             {
               "rule": {
                 "index": 2,
-                "annotation": "\"\""
+                "annotation": ""
               },
               "matched": false,
               "result": {
@@ -828,7 +828,7 @@
             {
               "rule": {
                 "index": 3,
-                "annotation": "\"\""
+                "annotation": ""
               },
               "matched": false,
               "result": {
@@ -845,7 +845,7 @@
             {
               "rule": {
                 "index": 4,
-                "annotation": "\"\""
+                "annotation": ""
               },
               "matched": false,
               "result": {
@@ -862,7 +862,7 @@
             {
               "rule": {
                 "index": 5,
-                "annotation": "\"\""
+                "annotation": ""
               },
               "matched": true,
               "result": {

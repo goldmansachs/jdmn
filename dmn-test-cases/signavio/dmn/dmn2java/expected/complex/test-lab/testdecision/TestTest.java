@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class TestTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final Test test = new Test();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         String stringInput = "a";
@@ -15,7 +15,7 @@ public class TestTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         checkValues(asList("a", "b"), test);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         String stringInput = "c";

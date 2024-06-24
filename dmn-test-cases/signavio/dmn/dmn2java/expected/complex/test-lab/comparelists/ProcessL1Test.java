@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class ProcessL1Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final ProcessL1 processL1 = new ProcessL1();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         List<java.math.BigDecimal> l1 = asList(number("1"), number("2"), number("3"), number("4"));
@@ -16,7 +16,7 @@ public class ProcessL1Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         checkValues(asList(number("2"), number("1"), number("1"), number("0")), processL1);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         List<java.math.BigDecimal> l1 = asList(number("10"), number("20"), number("30"));
@@ -26,7 +26,7 @@ public class ProcessL1Test extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         checkValues(asList(number("1"), number("1"), number("0")), processL1);
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase3() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         List<java.math.BigDecimal> l1 = asList(numericUnaryMinus(number("1")), number("0"), number("1"));

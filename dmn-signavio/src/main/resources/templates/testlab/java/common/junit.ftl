@@ -37,7 +37,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
 <#macro addTestCases>
     <#list testLab.testCases>
         <#items as testCase>
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase${(testCase?index + 1)?c}() {
         ${testLabUtil.executionContextClassName()} ${testLabUtil.executionContextVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.executionContextClassName())};
         <@addApplyPart testCase/>

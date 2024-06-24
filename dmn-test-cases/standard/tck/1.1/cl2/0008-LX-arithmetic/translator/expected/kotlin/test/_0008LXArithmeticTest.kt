@@ -4,7 +4,7 @@ import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["junit.ftl", "0008-LX-arithmetic.dmn"])
 class _0008LXArithmeticTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase001() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
@@ -15,7 +15,7 @@ class _0008LXArithmeticTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         checkValues(number("2778.69354943277"), Payment().apply(loan, context_))
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase002() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
@@ -26,7 +26,7 @@ class _0008LXArithmeticTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         checkValues(number("562.707359373292"), Payment().apply(loan, context_))
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase003() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()

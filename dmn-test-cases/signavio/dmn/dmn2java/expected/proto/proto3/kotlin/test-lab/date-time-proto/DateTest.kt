@@ -6,7 +6,7 @@ import java.util.stream.Collectors
 class DateTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
     private val date = Date()
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase1() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val inputDate: javax.xml.datatype.XMLGregorianCalendar? = date("2020-09-21")

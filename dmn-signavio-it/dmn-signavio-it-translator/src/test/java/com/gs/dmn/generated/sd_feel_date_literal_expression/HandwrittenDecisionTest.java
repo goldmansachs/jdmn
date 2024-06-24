@@ -34,10 +34,8 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
     @Test
     public void testApplyWhenNull() {
         Assertions.assertThrows(NullPointerException.class, () -> {
-            Assertions.assertThrows(NullPointerException.class, () -> {
-                BigDecimal output = applyDecision(null, null, null, null, null);
-                assertEquals(29, output.intValue());
-            });
+            BigDecimal output = applyDecision(null, null, null, null, null);
+            assertEquals(29, output.intValue());
         });
     }
 
