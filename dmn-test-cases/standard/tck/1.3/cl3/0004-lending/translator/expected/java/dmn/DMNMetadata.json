@@ -1,0 +1,989 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"DECLINE\", \"ACCEPT\"",
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tAdjudication",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tApplicantData",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "Age",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : "\"EMPLOYED\",\"SELF-EMPLOYED\",\"STUDENT\",\"UNEMPLOYED\"",
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "EmploymentStatus",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "ExistingCustomer",
+      "typeRef" : {
+        "localName" : "boolean",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : "\"S\",\"M\"",
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "MaritalStatus",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "compositeType",
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "Monthly",
+      "types" : [ {
+        "@kind" : "referenceType",
+        "allowedValues" : null,
+        "id" : null,
+        "isCollection" : false,
+        "label" : null,
+        "name" : "Expenses",
+        "typeRef" : {
+          "localName" : "number",
+          "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+        }
+      }, {
+        "@kind" : "referenceType",
+        "allowedValues" : null,
+        "id" : null,
+        "isCollection" : false,
+        "label" : null,
+        "name" : "Income",
+        "typeRef" : {
+          "localName" : "number",
+          "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+        }
+      }, {
+        "@kind" : "referenceType",
+        "allowedValues" : null,
+        "id" : null,
+        "isCollection" : false,
+        "label" : null,
+        "name" : "Repayments",
+        "typeRef" : {
+          "localName" : "number",
+          "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+        }
+      } ]
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"FULL\", \"MINI\", \"NONE\"",
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tBureauCallType",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tBureauData",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "Bankrupt",
+      "typeRef" : {
+        "localName" : "boolean",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : "[0..999], null",
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "CreditScore",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"INELIGIBLE\", \"ELIGIBLE\"",
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tEligibility",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tRequestedProduct",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "Amount",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : "\"STANDARD LOAN\", \"SPECIAL LOAN\"",
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "ProductType",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "Rate",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "Term",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"DECLINE\", \"HIGH\", \"MEDIUM\", \"LOW\", \"VERY LOW\"",
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tRiskCategory",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"DECLINE\", \"REFER\", \"ACCEPT\"",
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tRouting",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : "\"DECLINE\", \"BUREAU\", \"THROUGH\"",
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tStrategy",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "i_ApplicantData",
+    "javaParameterName" : "applicantData",
+    "javaTypeName" : "type.TApplicantData",
+    "label" : null,
+    "name" : "ApplicantData",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "tApplicantData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "i_BureauData",
+    "javaParameterName" : "bureauData",
+    "javaTypeName" : "type.TBureauData",
+    "label" : null,
+    "name" : "BureauData",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "tBureauData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "i_RequestedProduct",
+    "javaParameterName" : "requestedProduct",
+    "javaTypeName" : "type.TRequestedProduct",
+    "label" : null,
+    "name" : "RequestedProduct",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "tRequestedProduct",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "i_SupportingDocuments",
+    "javaParameterName" : "supportingDocuments",
+    "javaTypeName" : "String",
+    "label" : null,
+    "name" : "SupportingDocuments",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "b_AffordabilityCalculation",
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "affordabilityCalculation",
+    "javaTypeName" : "AffordabilityCalculation",
+    "knowledgeReferences" : [ {
+      "reference" : "b_CreditContingencyFactorTable"
+    }, {
+      "reference" : "b_CreditContingencyFactorTable"
+    } ],
+    "label" : null,
+    "name" : "AffordabilityCalculation",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "b_ApplicationRiskScoreModel",
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "applicationRiskScoreModel",
+    "javaTypeName" : "ApplicationRiskScoreModel",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "ApplicationRiskScoreModel",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "b_BureauCallTypeTable",
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "bureauCallTypeTable",
+    "javaTypeName" : "BureauCallTypeTable",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "BureauCallTypeTable",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "b_CreditContingencyFactorTable",
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "creditContingencyFactorTable",
+    "javaTypeName" : "CreditContingencyFactorTable",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "CreditContingencyFactorTable",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "b_EligibilityRules",
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "eligibilityRules",
+    "javaTypeName" : "EligibilityRules",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "EligibilityRules",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "b_InstallmentCalculation",
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "installmentCalculation",
+    "javaTypeName" : "InstallmentCalculation",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "InstallmentCalculation",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "b_Post-bureauRiskCategoryTable",
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "postBureauRiskCategoryTable",
+    "javaTypeName" : "PostBureauRiskCategoryTable",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Post-bureauRiskCategoryTable",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "b_Pre-bureauRiskCategoryTable",
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "preBureauRiskCategoryTable",
+    "javaTypeName" : "PreBureauRiskCategoryTable",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Pre-bureauRiskCategoryTable",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "b_RoutingRules",
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "routingRules",
+    "javaTypeName" : "RoutingRules",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "RoutingRules",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Adjudication",
+    "informationReferences" : [ {
+      "reference" : "i_BureauData"
+    }, {
+      "reference" : "i_SupportingDocuments"
+    }, {
+      "reference" : "i_ApplicantData"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "adjudication",
+    "javaTypeName" : "Adjudication",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Adjudication",
+    "protoRequestName" : "proto.AdjudicationRequest",
+    "protoResponseName" : "proto.AdjudicationResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_ApplicantData",
+      "javaParameterName" : "applicantData",
+      "javaTypeName" : "type.TApplicantData",
+      "label" : null,
+      "name" : "ApplicantData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tApplicantData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_BureauData",
+      "javaParameterName" : "bureauData",
+      "javaTypeName" : "type.TBureauData",
+      "label" : null,
+      "name" : "BureauData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tBureauData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_SupportingDocuments",
+      "javaParameterName" : "supportingDocuments",
+      "javaTypeName" : "String",
+      "label" : null,
+      "name" : "SupportingDocuments",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tAdjudication",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_ApplicationRiskScore",
+    "informationReferences" : [ {
+      "reference" : "i_ApplicantData"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "applicationRiskScore",
+    "javaTypeName" : "ApplicationRiskScore",
+    "knowledgeReferences" : [ {
+      "reference" : "b_ApplicationRiskScoreModel"
+    }, {
+      "reference" : "b_ApplicationRiskScoreModel"
+    } ],
+    "label" : null,
+    "name" : "ApplicationRiskScore",
+    "protoRequestName" : "proto.ApplicationRiskScoreRequest",
+    "protoResponseName" : "proto.ApplicationRiskScoreResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_ApplicantData",
+      "javaParameterName" : "applicantData",
+      "javaTypeName" : "type.TApplicantData",
+      "label" : null,
+      "name" : "ApplicantData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tApplicantData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_BureauCallType",
+    "informationReferences" : [ {
+      "reference" : "d_Pre-bureauRiskCategory"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "bureauCallType",
+    "javaTypeName" : "BureauCallType",
+    "knowledgeReferences" : [ {
+      "reference" : "b_BureauCallTypeTable"
+    }, {
+      "reference" : "b_BureauCallTypeTable"
+    } ],
+    "label" : null,
+    "name" : "BureauCallType",
+    "protoRequestName" : "proto.BureauCallTypeRequest",
+    "protoResponseName" : "proto.BureauCallTypeResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_ApplicantData",
+      "javaParameterName" : "applicantData",
+      "javaTypeName" : "type.TApplicantData",
+      "label" : null,
+      "name" : "ApplicantData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tApplicantData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tBureauCallType",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Eligibility",
+    "informationReferences" : [ {
+      "reference" : "d_Pre-bureauAffordability"
+    }, {
+      "reference" : "d_Pre-bureauRiskCategory"
+    }, {
+      "reference" : "i_ApplicantData"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "eligibility",
+    "javaTypeName" : "Eligibility",
+    "knowledgeReferences" : [ {
+      "reference" : "b_EligibilityRules"
+    }, {
+      "reference" : "b_EligibilityRules"
+    } ],
+    "label" : null,
+    "name" : "Eligibility",
+    "protoRequestName" : "proto.EligibilityRequest",
+    "protoResponseName" : "proto.EligibilityResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_ApplicantData",
+      "javaParameterName" : "applicantData",
+      "javaTypeName" : "type.TApplicantData",
+      "label" : null,
+      "name" : "ApplicantData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tApplicantData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_RequestedProduct",
+      "javaParameterName" : "requestedProduct",
+      "javaTypeName" : "type.TRequestedProduct",
+      "label" : null,
+      "name" : "RequestedProduct",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tRequestedProduct",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tEligibility",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Post-bureauAffordability",
+    "informationReferences" : [ {
+      "reference" : "d_RequiredMonthlyInstallment"
+    }, {
+      "reference" : "d_Post-bureauRiskCategory"
+    }, {
+      "reference" : "i_ApplicantData"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "postBureauAffordability",
+    "javaTypeName" : "PostBureauAffordability",
+    "knowledgeReferences" : [ {
+      "reference" : "b_AffordabilityCalculation"
+    }, {
+      "reference" : "b_AffordabilityCalculation"
+    } ],
+    "label" : null,
+    "name" : "Post-bureauAffordability",
+    "protoRequestName" : "proto.PostBureauAffordabilityRequest",
+    "protoResponseName" : "proto.PostBureauAffordabilityResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_ApplicantData",
+      "javaParameterName" : "applicantData",
+      "javaTypeName" : "type.TApplicantData",
+      "label" : null,
+      "name" : "ApplicantData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tApplicantData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_BureauData",
+      "javaParameterName" : "bureauData",
+      "javaTypeName" : "type.TBureauData",
+      "label" : null,
+      "name" : "BureauData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tBureauData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_RequestedProduct",
+      "javaParameterName" : "requestedProduct",
+      "javaTypeName" : "type.TRequestedProduct",
+      "label" : null,
+      "name" : "RequestedProduct",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tRequestedProduct",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Post-bureauRiskCategory",
+    "informationReferences" : [ {
+      "reference" : "d_ApplicationRiskScore"
+    }, {
+      "reference" : "i_BureauData"
+    }, {
+      "reference" : "i_ApplicantData"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "postBureauRiskCategory",
+    "javaTypeName" : "PostBureauRiskCategory",
+    "knowledgeReferences" : [ {
+      "reference" : "b_Post-bureauRiskCategoryTable"
+    }, {
+      "reference" : "b_Post-bureauRiskCategoryTable"
+    } ],
+    "label" : null,
+    "name" : "Post-bureauRiskCategory",
+    "protoRequestName" : "proto.PostBureauRiskCategoryRequest",
+    "protoResponseName" : "proto.PostBureauRiskCategoryResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_ApplicantData",
+      "javaParameterName" : "applicantData",
+      "javaTypeName" : "type.TApplicantData",
+      "label" : null,
+      "name" : "ApplicantData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tApplicantData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_BureauData",
+      "javaParameterName" : "bureauData",
+      "javaTypeName" : "type.TBureauData",
+      "label" : null,
+      "name" : "BureauData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tBureauData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tRiskCategory",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Pre-bureauAffordability",
+    "informationReferences" : [ {
+      "reference" : "d_RequiredMonthlyInstallment"
+    }, {
+      "reference" : "d_Pre-bureauRiskCategory"
+    }, {
+      "reference" : "i_ApplicantData"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "preBureauAffordability",
+    "javaTypeName" : "PreBureauAffordability",
+    "knowledgeReferences" : [ {
+      "reference" : "b_AffordabilityCalculation"
+    }, {
+      "reference" : "b_AffordabilityCalculation"
+    } ],
+    "label" : null,
+    "name" : "Pre-bureauAffordability",
+    "protoRequestName" : "proto.PreBureauAffordabilityRequest",
+    "protoResponseName" : "proto.PreBureauAffordabilityResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_ApplicantData",
+      "javaParameterName" : "applicantData",
+      "javaTypeName" : "type.TApplicantData",
+      "label" : null,
+      "name" : "ApplicantData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tApplicantData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_RequestedProduct",
+      "javaParameterName" : "requestedProduct",
+      "javaTypeName" : "type.TRequestedProduct",
+      "label" : null,
+      "name" : "RequestedProduct",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tRequestedProduct",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Pre-bureauRiskCategory",
+    "informationReferences" : [ {
+      "reference" : "d_ApplicationRiskScore"
+    }, {
+      "reference" : "i_ApplicantData"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "preBureauRiskCategory",
+    "javaTypeName" : "PreBureauRiskCategory",
+    "knowledgeReferences" : [ {
+      "reference" : "b_Pre-bureauRiskCategoryTable"
+    }, {
+      "reference" : "b_Pre-bureauRiskCategoryTable"
+    } ],
+    "label" : null,
+    "name" : "Pre-bureauRiskCategory",
+    "protoRequestName" : "proto.PreBureauRiskCategoryRequest",
+    "protoResponseName" : "proto.PreBureauRiskCategoryResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_ApplicantData",
+      "javaParameterName" : "applicantData",
+      "javaTypeName" : "type.TApplicantData",
+      "label" : null,
+      "name" : "ApplicantData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tApplicantData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tRiskCategory",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_RequiredMonthlyInstallment",
+    "informationReferences" : [ {
+      "reference" : "i_RequestedProduct"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "requiredMonthlyInstallment",
+    "javaTypeName" : "RequiredMonthlyInstallment",
+    "knowledgeReferences" : [ {
+      "reference" : "b_InstallmentCalculation"
+    }, {
+      "reference" : "b_InstallmentCalculation"
+    } ],
+    "label" : null,
+    "name" : "RequiredMonthlyInstallment",
+    "protoRequestName" : "proto.RequiredMonthlyInstallmentRequest",
+    "protoResponseName" : "proto.RequiredMonthlyInstallmentResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_RequestedProduct",
+      "javaParameterName" : "requestedProduct",
+      "javaTypeName" : "type.TRequestedProduct",
+      "label" : null,
+      "name" : "RequestedProduct",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tRequestedProduct",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Routing",
+    "informationReferences" : [ {
+      "reference" : "d_Post-bureauAffordability"
+    }, {
+      "reference" : "d_Post-bureauRiskCategory"
+    }, {
+      "reference" : "i_BureauData"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "routing",
+    "javaTypeName" : "Routing",
+    "knowledgeReferences" : [ {
+      "reference" : "b_RoutingRules"
+    }, {
+      "reference" : "b_RoutingRules"
+    } ],
+    "label" : null,
+    "name" : "Routing",
+    "protoRequestName" : "proto.RoutingRequest",
+    "protoResponseName" : "proto.RoutingResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_ApplicantData",
+      "javaParameterName" : "applicantData",
+      "javaTypeName" : "type.TApplicantData",
+      "label" : null,
+      "name" : "ApplicantData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tApplicantData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_BureauData",
+      "javaParameterName" : "bureauData",
+      "javaTypeName" : "type.TBureauData",
+      "label" : null,
+      "name" : "BureauData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tBureauData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_RequestedProduct",
+      "javaParameterName" : "requestedProduct",
+      "javaTypeName" : "type.TRequestedProduct",
+      "label" : null,
+      "name" : "RequestedProduct",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tRequestedProduct",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tRouting",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Strategy",
+    "informationReferences" : [ {
+      "reference" : "d_BureauCallType"
+    }, {
+      "reference" : "d_Eligibility"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "strategy",
+    "javaTypeName" : "Strategy",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Strategy",
+    "protoRequestName" : "proto.StrategyRequest",
+    "protoResponseName" : "proto.StrategyResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_ApplicantData",
+      "javaParameterName" : "applicantData",
+      "javaTypeName" : "type.TApplicantData",
+      "label" : null,
+      "name" : "ApplicantData",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tApplicantData",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_RequestedProduct",
+      "javaParameterName" : "requestedProduct",
+      "javaTypeName" : "type.TRequestedProduct",
+      "label" : null,
+      "name" : "RequestedProduct",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tRequestedProduct",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tStrategy",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
+    }
+  } ]
+}

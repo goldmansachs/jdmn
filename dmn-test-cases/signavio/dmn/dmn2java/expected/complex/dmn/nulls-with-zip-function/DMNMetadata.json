@@ -2,7 +2,7 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
-  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
+  "dmnNamespaces" : [ "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml" ],
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
@@ -149,7 +149,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7bf105649e8445b39cb4d936497fbc1c",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-187b2eb75bfbb6c127a12941ba205766",
     "informationReferences" : [ {
       "reference" : "id-d4987419a2b1fc654221251bbec3102e"
@@ -184,13 +184,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7bf105649e8445b39cb4d936497fbc1c",
-    "extensions" : [ {
-      "@kind" : "multiInstanceDecisionLogic",
-      "aggregationFunction" : "COLLECT",
-      "iterationExpression" : "zip",
-      "iteratorShapeId" : "id-d4987419a2b1fc654221251bbec3102e",
-      "topLevelDecisionId" : "id-187b2eb75bfbb6c127a12941ba205766"
-    } ],
+    "extensions" : null,
     "id" : "id-98462c7836419969c81cf315b2ac7d43",
     "informationReferences" : [ {
       "reference" : "id-2541b6ae8c42dcbb7520840fa5766842"
@@ -238,7 +232,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7bf105649e8445b39cb4d936497fbc1c",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-2541b6ae8c42dcbb7520840fa5766842",
     "informationReferences" : [ {
       "reference" : "id-58adb0c8c137e2f5cdd9c6b8672cde12"

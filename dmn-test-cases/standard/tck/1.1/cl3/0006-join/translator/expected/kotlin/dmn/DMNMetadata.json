@@ -1,0 +1,193 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "tDeptTable",
+    "isCollection" : true,
+    "label" : null,
+    "name" : "tDeptTable",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_ee4e552c-4e8d-4a0c-8451-bae3eb2d4bd9",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "manager",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_fd0110de-a09b-4167-a5fe-103308ad6d0b",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "name",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_f7e37827-f9ab-4fb1-b07e-9e4367242e65",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "number",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "tEmployeeTable",
+    "isCollection" : true,
+    "label" : null,
+    "name" : "tEmployeeTable",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_fa7afb54-265e-4244-97bf-4789c48e3629",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "deptNum",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_008f96e5-b82b-4105-ab8f-52673390c75f",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "id",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_657371a7-e0a9-4f4c-987d-35cd10e2918b",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "name",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_35b4f57c-e574-4963-a149-83cc0030e809",
+    "javaParameterName" : "deptTable",
+    "javaTypeName" : "List<type.TDeptTable?>?",
+    "label" : null,
+    "name" : "DeptTable",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "tDeptTable",
+      "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_7985579c-554c-4d98-aad6-c9dbacff726b",
+    "javaParameterName" : "employeeTable",
+    "javaTypeName" : "List<type.TEmployeeTable?>?",
+    "label" : null,
+    "name" : "EmployeeTable",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "tEmployeeTable",
+      "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_7b08bda2-fcf4-44e8-8022-08d9043e1dee",
+    "javaParameterName" : "lastName",
+    "javaTypeName" : "String?",
+    "label" : null,
+    "name" : "LastName",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_24c9e583-a87c-462d-ade3-be545e228abd",
+    "informationReferences" : [ {
+      "reference" : "_7985579c-554c-4d98-aad6-c9dbacff726b"
+    }, {
+      "reference" : "_35b4f57c-e574-4963-a149-83cc0030e809"
+    }, {
+      "reference" : "_7b08bda2-fcf4-44e8-8022-08d9043e1dee"
+    } ],
+    "javaOutputTypeName" : "String?",
+    "javaParameterName" : "join",
+    "javaTypeName" : "Join",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Join",
+    "protoRequestName" : "proto.JoinRequest",
+    "protoResponseName" : "proto.JoinResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_35b4f57c-e574-4963-a149-83cc0030e809",
+      "javaParameterName" : "deptTable",
+      "javaTypeName" : "List<type.TDeptTable?>?",
+      "label" : null,
+      "name" : "DeptTable",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tDeptTable",
+        "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_7985579c-554c-4d98-aad6-c9dbacff726b",
+      "javaParameterName" : "employeeTable",
+      "javaTypeName" : "List<type.TEmployeeTable?>?",
+      "label" : null,
+      "name" : "EmployeeTable",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tEmployeeTable",
+        "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_7b08bda2-fcf4-44e8-8022-08d9043e1dee",
+      "javaParameterName" : "lastName",
+      "javaTypeName" : "String?",
+      "label" : null,
+      "name" : "LastName",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ]
+}

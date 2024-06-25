@@ -2,7 +2,7 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
-  "dmnNamespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
+  "dmnNamespaces" : [ "http://www.omg.org/spec/DMN/20151101/dmn.xsd" ],
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
@@ -162,7 +162,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : null,
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0",
     "informationReferences" : [ {
       "reference" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264"

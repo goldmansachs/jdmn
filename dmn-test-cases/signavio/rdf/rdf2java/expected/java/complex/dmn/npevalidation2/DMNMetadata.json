@@ -2,7 +2,7 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
-  "dmnNamespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
+  "dmnNamespaces" : [ "http://www.omg.org/spec/DMN/20151101/dmn.xsd" ],
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
@@ -397,7 +397,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : null,
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "sid-613407DB-766F-458F-8430-6F31DDFD82B1",
     "informationReferences" : [ {
       "reference" : "sid-6BEA84C5-B6D6-4823-B145-CC9039E79767"
@@ -497,7 +497,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : null,
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "sid-FE7B81A7-CACD-434C-BE9D-81FF98769536",
     "informationReferences" : [ {
       "reference" : "sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125"
@@ -562,7 +562,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : null,
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B",
     "informationReferences" : [ {
       "reference" : "sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D"
@@ -597,7 +597,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : null,
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "sid-6BEA84C5-B6D6-4823-B145-CC9039E79767",
     "informationReferences" : [ {
       "reference" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"
@@ -707,7 +707,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : null,
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "sid-955F0BB7-C215-4403-B055-AC3814C6764E",
     "informationReferences" : [ {
       "reference" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"
@@ -742,7 +742,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : null,
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "sid-AEACF1C7-512D-4230-96A8-AC49528D080C",
     "informationReferences" : [ {
       "reference" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"
@@ -777,7 +777,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : null,
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "sid-DEE756F7-83CB-4493-9004-F943DB18EF5D",
     "informationReferences" : [ {
       "reference" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9"
@@ -812,7 +812,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : null,
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12",
     "informationReferences" : [ {
       "reference" : "sid-6BEA84C5-B6D6-4823-B145-CC9039E79767"
@@ -912,7 +912,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : null,
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "sid-DB470E83-401F-4E28-BCA7-8E8FA641E93F",
     "informationReferences" : [ {
       "reference" : "sid-9C64E736-E1EB-4344-93B5-79722CEB6D89"

@@ -1,0 +1,237 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "tNumList",
+    "isCollection" : true,
+    "label" : null,
+    "name" : "tNumList",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "tRow",
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tRow",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_bed80fb2-293a-4db0-b261-e58a1311dfd0",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "col1",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_88c1de9d-6c23-4ea2-9bf9-f7cb06d43ebe",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "col2",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_a63e8581-e650-47e5-bd6a-b8cb0f5b3fb7",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "col3",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_fed04cbf-6aee-43ed-b218-d0fffca51693",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "col4",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "tStringList",
+    "isCollection" : true,
+    "label" : null,
+    "name" : "tStringList",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "tTable",
+    "isCollection" : true,
+    "label" : null,
+    "name" : "tTable",
+    "typeRef" : {
+      "localName" : "tRow",
+      "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_d8747cda-26be-46c8-98ee-78f64efbf730",
+    "javaParameterName" : "listA",
+    "javaTypeName" : "List<java.lang.Number?>?",
+    "label" : null,
+    "name" : "listA",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "tNumList",
+      "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_7471008b-e8c7-4205-8e17-586ff41e7205",
+    "javaParameterName" : "stringList",
+    "javaTypeName" : "List<String?>?",
+    "label" : null,
+    "name" : "stringList",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "tStringList",
+      "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_f8197899-44af-4ec5-9453-26da073a2be3",
+    "javaParameterName" : "tableB",
+    "javaTypeName" : "List<type.TRow?>?",
+    "label" : null,
+    "name" : "tableB",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "tTable",
+      "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_c6416c42-328a-410c-a083-859b82771690",
+    "informationReferences" : [ {
+      "reference" : "_d8747cda-26be-46c8-98ee-78f64efbf730"
+    } ],
+    "javaOutputTypeName" : "List<java.lang.Number?>?",
+    "javaParameterName" : "sort1",
+    "javaTypeName" : "Sort1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "sort1",
+    "protoRequestName" : "proto.Sort1Request",
+    "protoResponseName" : "proto.Sort1Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_d8747cda-26be-46c8-98ee-78f64efbf730",
+      "javaParameterName" : "listA",
+      "javaTypeName" : "List<java.lang.Number?>?",
+      "label" : null,
+      "name" : "listA",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tNumList",
+        "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tNumList",
+      "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_d8ef1de9-9387-4389-ab83-cbf9dafc419b",
+    "informationReferences" : [ {
+      "reference" : "_f8197899-44af-4ec5-9453-26da073a2be3"
+    } ],
+    "javaOutputTypeName" : "List<type.TRow?>?",
+    "javaParameterName" : "sort2",
+    "javaTypeName" : "Sort2",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "sort2",
+    "protoRequestName" : "proto.Sort2Request",
+    "protoResponseName" : "proto.Sort2Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_f8197899-44af-4ec5-9453-26da073a2be3",
+      "javaParameterName" : "tableB",
+      "javaTypeName" : "List<type.TRow?>?",
+      "label" : null,
+      "name" : "tableB",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tTable",
+        "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tTable",
+      "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_4ff4b8ff-4379-477a-a016-f7d1741d2036",
+    "informationReferences" : [ {
+      "reference" : "_7471008b-e8c7-4205-8e17-586ff41e7205"
+    } ],
+    "javaOutputTypeName" : "List<String?>?",
+    "javaParameterName" : "sort3",
+    "javaTypeName" : "Sort3",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "sort3",
+    "protoRequestName" : "proto.Sort3Request",
+    "protoResponseName" : "proto.Sort3Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_7471008b-e8c7-4205-8e17-586ff41e7205",
+      "javaParameterName" : "stringList",
+      "javaTypeName" : "List<String?>?",
+      "label" : null,
+      "name" : "stringList",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tStringList",
+        "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tStringList",
+      "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217"
+    }
+  } ]
+}

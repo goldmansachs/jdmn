@@ -2,7 +2,7 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
-  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
+  "dmnNamespaces" : [ "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" ],
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
@@ -575,13 +575,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ {
-      "@kind" : "multiInstanceDecisionLogic",
-      "aggregationFunction" : "ALLFALSE",
-      "iterationExpression" : "booleanList",
-      "iteratorShapeId" : "id-79ac9fb1afa596bbb0db5c6a5257a8b6",
-      "topLevelDecisionId" : "id-21fa2a4ecb92ec37652f13671be694a2"
-    } ],
+    "extensions" : null,
     "id" : "id-12f8c62e129adc2b235f1819817022ec",
     "informationReferences" : [ {
       "reference" : "id-963dd1faff03c460abb0bb16855be442"
@@ -616,7 +610,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-26dd50ab439aa5d5392f972084733182",
     "informationReferences" : [ {
       "reference" : "id-aa6192796546dfbb201e1a17f1711b12"
@@ -785,13 +779,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ {
-      "@kind" : "multiInstanceDecisionLogic",
-      "aggregationFunction" : "ALLTRUE",
-      "iterationExpression" : "booleanList",
-      "iteratorShapeId" : "id-0999a54b4e2887b6404fe10e4639a1d6",
-      "topLevelDecisionId" : "id-4396518e644ea96eb89ee72817af5157"
-    } ],
+    "extensions" : null,
     "id" : "id-990fc1682febe5e206a9e367470fa4b5",
     "informationReferences" : [ {
       "reference" : "id-963dd1faff03c460abb0bb16855be442"
@@ -826,13 +814,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ {
-      "@kind" : "multiInstanceDecisionLogic",
-      "aggregationFunction" : "ANYTRUE",
-      "iterationExpression" : "booleanList",
-      "iteratorShapeId" : "id-4b393744e05965a1928ecb455ab42308",
-      "topLevelDecisionId" : "id-87919f1fc05a6c8813d8c16a2851de23"
-    } ],
+    "extensions" : null,
     "id" : "id-499a1aeffa9f16f776cba221110df81a",
     "informationReferences" : [ {
       "reference" : "id-963dd1faff03c460abb0bb16855be442"
@@ -867,7 +849,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-6ae008320d1d55b977bc3dd10a3725eb",
     "informationReferences" : [ {
       "reference" : "id-f444fe9b45d132962058826c7ce0e254"
@@ -932,7 +914,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-9f6598201a6d97e53905786b994d3523",
     "informationReferences" : [ {
       "reference" : "id-c736af77b66969d175933720059dec48"
@@ -967,7 +949,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-f6f0c41b65035466a4cbaafab2e35265",
     "informationReferences" : [ {
       "reference" : "id-1c122325d0f516d01f33e3c10ec7bf61"
@@ -1017,7 +999,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-21fa2a4ecb92ec37652f13671be694a2",
     "informationReferences" : [ {
       "reference" : "id-79ac9fb1afa596bbb0db5c6a5257a8b6"
@@ -1052,7 +1034,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-4396518e644ea96eb89ee72817af5157",
     "informationReferences" : [ {
       "reference" : "id-0999a54b4e2887b6404fe10e4639a1d6"
@@ -1087,7 +1069,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-87919f1fc05a6c8813d8c16a2851de23",
     "informationReferences" : [ {
       "reference" : "id-4b393744e05965a1928ecb455ab42308"
@@ -1122,7 +1104,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-68e1bf98ec7c27a9dd0b29b04c5479bb",
     "informationReferences" : [ {
       "reference" : "id-f444fe9b45d132962058826c7ce0e254"
@@ -1172,7 +1154,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-d844337c47e4efb641f61e447347b1a9",
     "informationReferences" : [ {
       "reference" : "id-e266bf27f575f63084511773f3a737c6"
@@ -1222,7 +1204,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-c766b420761d4a1c594e4caabdd5d4be",
     "informationReferences" : [ {
       "reference" : "id-499a1aeffa9f16f776cba221110df81a"
@@ -1261,7 +1243,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-7db1ff2909dfa8e87829969a4f2b0bee",
     "informationReferences" : [ {
       "reference" : "id-5b07c9711db6376713296511215c7644"
@@ -1358,7 +1340,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-aa6192796546dfbb201e1a17f1711b12",
     "informationReferences" : [ {
       "reference" : "id-e531076a8bd1457bfe3bcc7cdf1a2637"
@@ -1451,7 +1433,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-5b07c9711db6376713296511215c7644",
     "informationReferences" : [ {
       "reference" : "id-f444fe9b45d132962058826c7ce0e254"
@@ -1486,7 +1468,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-a7895d8e6af939a1e7cafb3317d8a423",
     "informationReferences" : [ {
       "reference" : "id-b9fd8fd2303ab43c6c19e8ba30a50116"
@@ -1551,7 +1533,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-d5f34819daa731749e8a2e610010899d",
     "informationReferences" : [ {
       "reference" : "id-a7895d8e6af939a1e7cafb3317d8a423"
@@ -1612,7 +1594,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-e531076a8bd1457bfe3bcc7cdf1a2637",
     "informationReferences" : [ {
       "reference" : "id-de95e2868799a862ed04920c276bffa1"
@@ -1647,7 +1629,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-72c343df36c2e2018dae168097967162",
     "informationReferences" : [ {
       "reference" : "id-de95e2868799a862ed04920c276bffa1"
@@ -1682,7 +1664,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-29cf8a82fee3b01a2e0f13fa89ecb697",
     "informationReferences" : [ {
       "reference" : "id-5d1954e864444e9ebb079558da384758"

@@ -1,0 +1,310 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.provider.com/definitions/decision-inputs-1", "http://www.provider.com/definitions/decision-inputs-2", "http://www.provider.com/definitions/decisions" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "tA",
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tA",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_adf6f96a-c574-4ba7-a305-ea14ad9852b1",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "name",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_d297adac-f086-42a0-989e-04c431270f77",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "price",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "tNumList",
+    "isCollection" : true,
+    "label" : null,
+    "name" : "tNumList",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "tStringList",
+    "isCollection" : true,
+    "label" : null,
+    "name" : "tStringList",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_fabdbafc-f28a-466d-ae08-86c5b928dad5",
+    "javaParameterName" : "dateD",
+    "javaTypeName" : "java.time.LocalDate",
+    "label" : null,
+    "name" : "dateD",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_3b175722-5f96-49e4-a50d-0bf9588c901c",
+    "javaParameterName" : "numB",
+    "javaTypeName" : "java.lang.Number",
+    "label" : null,
+    "name" : "numB",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_25cdd674-9b3f-47b1-bace-1d4e3ce50d5d",
+    "javaParameterName" : "numC",
+    "javaTypeName" : "java.lang.Number",
+    "label" : null,
+    "name" : "numC",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
+    "javaParameterName" : "structA",
+    "javaTypeName" : "decisioninputs1.type.TA",
+    "label" : null,
+    "name" : "structA",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "tA",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_4926f78e-5df0-4d88-8ee7-1a418b08562f",
+    "javaParameterName" : "dateD",
+    "javaTypeName" : "java.time.LocalDate",
+    "label" : null,
+    "name" : "dateD",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs-2"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_ca5e0efd-3fff-4bf8-8939-85fc3b9c20b8",
+    "informationReferences" : [ {
+      "reference" : "http://www.provider.com/definitions/decision-inputs-1#_fabdbafc-f28a-466d-ae08-86c5b928dad5"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "dateCompare1",
+    "javaTypeName" : "decisiontables.DateCompare1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "dateCompare1",
+    "protoRequestName" : "decisiontables.proto.DateCompare1Request",
+    "protoResponseName" : "decisiontables.proto.DateCompare1Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_fabdbafc-f28a-466d-ae08-86c5b928dad5",
+      "javaParameterName" : "dateD",
+      "javaTypeName" : "java.time.LocalDate",
+      "label" : null,
+      "name" : "dateD",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.provider.com/definitions/decisions"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_bf3c3a79-9fa2-491f-8065-a990c70b50de",
+    "informationReferences" : [ {
+      "reference" : "http://www.provider.com/definitions/decision-inputs-1#_fabdbafc-f28a-466d-ae08-86c5b928dad5"
+    }, {
+      "reference" : "http://www.provider.com/definitions/decision-inputs-2#_4926f78e-5df0-4d88-8ee7-1a418b08562f"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "dateCompare2",
+    "javaTypeName" : "decisiontables.DateCompare2",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "dateCompare2",
+    "protoRequestName" : "decisiontables.proto.DateCompare2Request",
+    "protoResponseName" : "decisiontables.proto.DateCompare2Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_fabdbafc-f28a-466d-ae08-86c5b928dad5",
+      "javaParameterName" : "dateD",
+      "javaTypeName" : "java.time.LocalDate",
+      "label" : null,
+      "name" : "dateD",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_4926f78e-5df0-4d88-8ee7-1a418b08562f",
+      "javaParameterName" : "dateD",
+      "javaTypeName" : "java.time.LocalDate",
+      "label" : null,
+      "name" : "dateD",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.provider.com/definitions/decision-inputs-2"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.provider.com/definitions/decisions"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_2683ec7f-fa17-4a1e-9151-8077a10c561f",
+    "informationReferences" : [ {
+      "reference" : "http://www.provider.com/definitions/decision-inputs-1#_18b9d486-1ec0-436d-af4b-3e4567e8bca9"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "priceGt10",
+    "javaTypeName" : "decisiontables.PriceGt10",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "priceGt10",
+    "protoRequestName" : "decisiontables.proto.PriceGt10Request",
+    "protoResponseName" : "decisiontables.proto.PriceGt10Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
+      "javaParameterName" : "structA",
+      "javaTypeName" : "decisioninputs1.type.TA",
+      "label" : null,
+      "name" : "structA",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tA",
+        "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.provider.com/definitions/decisions"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_98e08c9d-66de-4f67-8bd9-cc667be27eb3",
+    "informationReferences" : [ {
+      "reference" : "http://www.provider.com/definitions/decision-inputs-1#_3b175722-5f96-49e4-a50d-0bf9588c901c"
+    }, {
+      "reference" : "http://www.provider.com/definitions/decision-inputs-1#_25cdd674-9b3f-47b1-bace-1d4e3ce50d5d"
+    }, {
+      "reference" : "http://www.provider.com/definitions/decision-inputs-1#_18b9d486-1ec0-436d-af4b-3e4567e8bca9"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "priceInRange",
+    "javaTypeName" : "decisiontables.PriceInRange",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "priceInRange",
+    "protoRequestName" : "decisiontables.proto.PriceInRangeRequest",
+    "protoResponseName" : "decisiontables.proto.PriceInRangeResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_3b175722-5f96-49e4-a50d-0bf9588c901c",
+      "javaParameterName" : "numB",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "numB",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_25cdd674-9b3f-47b1-bace-1d4e3ce50d5d",
+      "javaParameterName" : "numC",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "numC",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
+      "javaParameterName" : "structA",
+      "javaTypeName" : "decisioninputs1.type.TA",
+      "label" : null,
+      "name" : "structA",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tA",
+        "namespace" : "http://www.provider.com/definitions/decision-inputs-1"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.provider.com/definitions/decisions"
+    }
+  } ]
+}

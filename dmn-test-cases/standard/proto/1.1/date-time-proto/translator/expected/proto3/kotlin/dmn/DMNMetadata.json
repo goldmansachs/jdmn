@@ -1,0 +1,263 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.provider.com/spec/DMN/proto-date-time-function" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "CompositeDateTime",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "Date",
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "DateTime",
+      "typeRef" : {
+        "localName" : "dateTime",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "DayTimeDuration",
+      "typeRef" : {
+        "localName" : "dayTimeDuration",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "Time",
+      "typeRef" : {
+        "localName" : "time",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : null,
+      "isCollection" : false,
+      "label" : null,
+      "name" : "YearMonthDuration",
+      "typeRef" : {
+        "localName" : "yearMonthDuration",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "c-date-time",
+    "javaParameterName" : "compositeInputDateTime",
+    "javaTypeName" : "type.CompositeDateTime?",
+    "label" : null,
+    "name" : "CompositeInputDateTime",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "CompositeDateTime",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "i-date",
+    "javaParameterName" : "inputDate",
+    "javaTypeName" : "java.time.LocalDate?",
+    "label" : null,
+    "name" : "InputDate",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "i-date-time",
+    "javaParameterName" : "inputDateTime",
+    "javaTypeName" : "java.time.temporal.TemporalAccessor?",
+    "label" : null,
+    "name" : "InputDateTime",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "dateTime",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "i-time",
+    "javaParameterName" : "inputTime",
+    "javaTypeName" : "java.time.temporal.TemporalAccessor?",
+    "label" : null,
+    "name" : "InputTime",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "c-DateTime",
+    "informationReferences" : [ {
+      "reference" : "c-date-time"
+    } ],
+    "javaOutputTypeName" : "type.CompositeDateTime?",
+    "javaParameterName" : "compositeDateTime",
+    "javaTypeName" : "CompositeDateTime",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "CompositeDateTime",
+    "protoRequestName" : "proto.CompositeDateTimeRequest",
+    "protoResponseName" : "proto.CompositeDateTimeResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "c-date-time",
+      "javaParameterName" : "compositeInputDateTime",
+      "javaTypeName" : "type.CompositeDateTime?",
+      "label" : null,
+      "name" : "CompositeInputDateTime",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "CompositeDateTime",
+        "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "CompositeDateTime",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d-Date",
+    "informationReferences" : [ {
+      "reference" : "i-date"
+    } ],
+    "javaOutputTypeName" : "java.time.LocalDate?",
+    "javaParameterName" : "date",
+    "javaTypeName" : "Date",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Date",
+    "protoRequestName" : "proto.DateRequest",
+    "protoResponseName" : "proto.DateResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i-date",
+      "javaParameterName" : "inputDate",
+      "javaTypeName" : "java.time.LocalDate?",
+      "label" : null,
+      "name" : "InputDate",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d-DateTime",
+    "informationReferences" : [ {
+      "reference" : "i-date-time"
+    } ],
+    "javaOutputTypeName" : "java.time.temporal.TemporalAccessor?",
+    "javaParameterName" : "dateTime",
+    "javaTypeName" : "DateTime",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "DateTime",
+    "protoRequestName" : "proto.DateTimeRequest",
+    "protoResponseName" : "proto.DateTimeResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i-date-time",
+      "javaParameterName" : "inputDateTime",
+      "javaTypeName" : "java.time.temporal.TemporalAccessor?",
+      "label" : null,
+      "name" : "InputDateTime",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "dateTime",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "dateTime",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d-Time",
+    "informationReferences" : [ {
+      "reference" : "i-time"
+    } ],
+    "javaOutputTypeName" : "java.time.temporal.TemporalAccessor?",
+    "javaParameterName" : "time",
+    "javaTypeName" : "Time",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Time",
+    "protoRequestName" : "proto.TimeRequest",
+    "protoResponseName" : "proto.TimeResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i-time",
+      "javaParameterName" : "inputTime",
+      "javaTypeName" : "java.time.temporal.TemporalAccessor?",
+      "label" : null,
+      "name" : "InputTime",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "time",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ]
+}

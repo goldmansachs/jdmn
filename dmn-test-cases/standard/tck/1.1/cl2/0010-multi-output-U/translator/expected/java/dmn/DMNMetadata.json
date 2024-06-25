@@ -1,0 +1,142 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "tApproval",
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tApproval",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_858ef6e6-69ca-4b50-a654-10f4b981f43c",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "Rate",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_20dfeb44-1c36-43cf-8819-63ce36819e90",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "Status",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_41effb45-b3c4-46ac-b1da-122b3e428a98",
+    "javaParameterName" : "age",
+    "javaTypeName" : "java.lang.Number",
+    "label" : null,
+    "name" : "Age",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_5a4bdb64-f0ef-4978-9e03-6f1ae64a1f17",
+    "javaParameterName" : "riskCategory",
+    "javaTypeName" : "String",
+    "label" : null,
+    "name" : "RiskCategory",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_8ff18665-84e9-49f2-a8df-8981b1844549",
+    "javaParameterName" : "isAffordable",
+    "javaTypeName" : "Boolean",
+    "label" : null,
+    "name" : "isAffordable",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_3b2953a3-745f-4d2e-b55d-75c8c5ae653c",
+    "informationReferences" : [ {
+      "reference" : "_5a4bdb64-f0ef-4978-9e03-6f1ae64a1f17"
+    }, {
+      "reference" : "_41effb45-b3c4-46ac-b1da-122b3e428a98"
+    }, {
+      "reference" : "_8ff18665-84e9-49f2-a8df-8981b1844549"
+    } ],
+    "javaOutputTypeName" : "type.TApproval",
+    "javaParameterName" : "approval",
+    "javaTypeName" : "Approval",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Approval",
+    "protoRequestName" : "proto.ApprovalRequest",
+    "protoResponseName" : "proto.ApprovalResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_41effb45-b3c4-46ac-b1da-122b3e428a98",
+      "javaParameterName" : "age",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "Age",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_5a4bdb64-f0ef-4978-9e03-6f1ae64a1f17",
+      "javaParameterName" : "riskCategory",
+      "javaTypeName" : "String",
+      "label" : null,
+      "name" : "RiskCategory",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_8ff18665-84e9-49f2-a8df-8981b1844549",
+      "javaParameterName" : "isAffordable",
+      "javaTypeName" : "Boolean",
+      "label" : null,
+      "name" : "isAffordable",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "boolean",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tApproval",
+      "namespace" : "http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54"
+    }
+  } ]
+}

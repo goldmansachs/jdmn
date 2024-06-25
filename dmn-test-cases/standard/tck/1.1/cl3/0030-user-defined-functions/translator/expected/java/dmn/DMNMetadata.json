@@ -1,0 +1,135 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions" ],
+  "nativeNamespace" : "",
+  "types" : [ ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_Aq8u4IDpEee-MeWXoLgrYg",
+    "javaParameterName" : "stringInputA",
+    "javaTypeName" : "String",
+    "label" : null,
+    "name" : "stringInputA",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_vfL7kIDqEeehqsf_bU54Lw",
+    "javaParameterName" : "stringInputB",
+    "javaTypeName" : "String",
+    "label" : null,
+    "name" : "stringInputB",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_GNiCIIDzEeehqsf_bU54Lw",
+    "informationReferences" : [ {
+      "reference" : "_vfL7kIDqEeehqsf_bU54Lw"
+    }, {
+      "reference" : "_Aq8u4IDpEee-MeWXoLgrYg"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "namedFunctionInvocation",
+    "javaTypeName" : "NamedFunctionInvocation",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "named function invocation",
+    "protoRequestName" : "proto.NamedFunctionInvocationRequest",
+    "protoResponseName" : "proto.NamedFunctionInvocationResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_Aq8u4IDpEee-MeWXoLgrYg",
+      "javaParameterName" : "stringInputA",
+      "javaTypeName" : "String",
+      "label" : null,
+      "name" : "stringInputA",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_vfL7kIDqEeehqsf_bU54Lw",
+      "javaParameterName" : "stringInputB",
+      "javaTypeName" : "String",
+      "label" : null,
+      "name" : "stringInputB",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_WdFa8IDoEee-MeWXoLgrYg",
+    "informationReferences" : [ {
+      "reference" : "_Aq8u4IDpEee-MeWXoLgrYg"
+    }, {
+      "reference" : "_vfL7kIDqEeehqsf_bU54Lw"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "simpleFunctionInvocation",
+    "javaTypeName" : "SimpleFunctionInvocation",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "simple function invocation",
+    "protoRequestName" : "proto.SimpleFunctionInvocationRequest",
+    "protoResponseName" : "proto.SimpleFunctionInvocationResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_Aq8u4IDpEee-MeWXoLgrYg",
+      "javaParameterName" : "stringInputA",
+      "javaTypeName" : "String",
+      "label" : null,
+      "name" : "stringInputA",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_vfL7kIDqEeehqsf_bU54Lw",
+      "javaParameterName" : "stringInputB",
+      "javaTypeName" : "String",
+      "label" : null,
+      "name" : "stringInputB",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ]
+}

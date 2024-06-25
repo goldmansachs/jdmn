@@ -1,0 +1,118 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.provider.com/definitions/model-a", "http://www.provider.com/definitions/model-b", "http://www.provider.com/definitions/model-c" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "A",
+    "isCollection" : false,
+    "label" : null,
+    "name" : "A",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.provider.com/definitions/model-a"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "my-string",
+    "isCollection" : false,
+    "label" : null,
+    "name" : "MyString",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.provider.com/definitions/model-a"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "A",
+    "isCollection" : false,
+    "label" : null,
+    "name" : "A",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.provider.com/definitions/model-b"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "input-a-a",
+    "javaParameterName" : "aa",
+    "javaTypeName" : "java.lang.Number",
+    "label" : "AA",
+    "name" : "aa",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "A",
+      "namespace" : "http://www.provider.com/definitions/model-a"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "input-b-a",
+    "javaParameterName" : "ba",
+    "javaTypeName" : "String",
+    "label" : "BA",
+    "name" : "ba",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "A",
+      "namespace" : "http://www.provider.com/definitions/model-b"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "decision-c",
+    "informationReferences" : [ {
+      "reference" : "input-a-a"
+    }, {
+      "reference" : "input-b-a"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "c",
+    "javaTypeName" : "C",
+    "knowledgeReferences" : [ ],
+    "label" : "C",
+    "name" : "c",
+    "protoRequestName" : "proto.CRequest",
+    "protoResponseName" : "proto.CResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "input-a-a",
+      "javaParameterName" : "aa",
+      "javaTypeName" : "java.lang.Number",
+      "label" : "AA",
+      "name" : "aa",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "A",
+        "namespace" : "http://www.provider.com/definitions/model-a"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "input-b-a",
+      "javaParameterName" : "ba",
+      "javaTypeName" : "String",
+      "label" : "BA",
+      "name" : "ba",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "A",
+        "namespace" : "http://www.provider.com/definitions/model-b"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "MyString",
+      "namespace" : "http://www.provider.com/definitions/model-a"
+    }
+  } ]
+}

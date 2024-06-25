@@ -1,0 +1,259 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "https://www.drools.org/kie-dmn" ],
+  "nativeNamespace" : "",
+  "types" : [ ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "i_Age",
+    "javaParameterName" : "age",
+    "javaTypeName" : "java.lang.Number",
+    "label" : null,
+    "name" : "Age",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "i_Years_of_Service",
+    "javaParameterName" : "yearsOfService",
+    "javaTypeName" : "java.lang.Number",
+    "label" : null,
+    "name" : "Years of Service",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Base_Vacation_Days",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "baseVacationDays",
+    "javaTypeName" : "BaseVacationDays",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Base Vacation Days",
+    "protoRequestName" : "proto.BaseVacationDaysRequest",
+    "protoResponseName" : "proto.BaseVacationDaysResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Extra_days_case_1",
+    "informationReferences" : [ {
+      "reference" : "i_Age"
+    }, {
+      "reference" : "i_Years_of_Service"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "extraDaysCase1",
+    "javaTypeName" : "ExtraDaysCase1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Extra days case 1",
+    "protoRequestName" : "proto.ExtraDaysCase1Request",
+    "protoResponseName" : "proto.ExtraDaysCase1Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_Age",
+      "javaParameterName" : "age",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "Age",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_Years_of_Service",
+      "javaParameterName" : "yearsOfService",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "Years of Service",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Extra_days_case_2",
+    "informationReferences" : [ {
+      "reference" : "i_Age"
+    }, {
+      "reference" : "i_Years_of_Service"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "extraDaysCase2",
+    "javaTypeName" : "ExtraDaysCase2",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Extra days case 2",
+    "protoRequestName" : "proto.ExtraDaysCase2Request",
+    "protoResponseName" : "proto.ExtraDaysCase2Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_Age",
+      "javaParameterName" : "age",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "Age",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_Years_of_Service",
+      "javaParameterName" : "yearsOfService",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "Years of Service",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Extra_days_case_3",
+    "informationReferences" : [ {
+      "reference" : "i_Age"
+    }, {
+      "reference" : "i_Years_of_Service"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "extraDaysCase3",
+    "javaTypeName" : "ExtraDaysCase3",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Extra days case 3",
+    "protoRequestName" : "proto.ExtraDaysCase3Request",
+    "protoResponseName" : "proto.ExtraDaysCase3Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_Age",
+      "javaParameterName" : "age",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "Age",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_Years_of_Service",
+      "javaParameterName" : "yearsOfService",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "Years of Service",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "d_Total_Vacation_Days",
+    "informationReferences" : [ {
+      "reference" : "d_Base_Vacation_Days"
+    }, {
+      "reference" : "d_Extra_days_case_1"
+    }, {
+      "reference" : "d_Extra_days_case_2"
+    }, {
+      "reference" : "d_Extra_days_case_3"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "totalVacationDays",
+    "javaTypeName" : "TotalVacationDays",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "Total Vacation Days",
+    "protoRequestName" : "proto.TotalVacationDaysRequest",
+    "protoResponseName" : "proto.TotalVacationDaysResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_Age",
+      "javaParameterName" : "age",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "Age",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "i_Years_of_Service",
+      "javaParameterName" : "yearsOfService",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "Years of Service",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ]
+}

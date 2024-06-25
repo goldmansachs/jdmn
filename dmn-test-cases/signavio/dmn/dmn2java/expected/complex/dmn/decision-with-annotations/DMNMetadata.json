@@ -2,7 +2,7 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
-  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
+  "dmnNamespaces" : [ "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml" ],
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
@@ -181,7 +181,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "decc8a26dfaa47dc87eea384f5598ffd",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "id-0f0801a66fe697bff21186134406da6e",
     "informationReferences" : [ {
       "reference" : "id-22ae16971705e9cc9b1251061f15b3c6"

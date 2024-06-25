@@ -2,7 +2,7 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
-  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+  "dmnNamespaces" : [ "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" ],
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "compositeType",
@@ -133,7 +133,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "c-DateTime",
     "informationReferences" : [ {
       "reference" : "i-date"
@@ -213,7 +213,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "d-Date",
     "informationReferences" : [ {
       "reference" : "i-date"
@@ -293,7 +293,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "d-DateTime",
     "informationReferences" : [ {
       "reference" : "i-date"
@@ -373,7 +373,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : [ ],
+    "extensions" : null,
     "id" : "d-Time",
     "informationReferences" : [ {
       "reference" : "i-date"

@@ -1,0 +1,800 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.montera.com.au/spec/DMN/0092-feel-lambda" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "lambda_list_number_returns_number",
+    "typeRef" : null
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "lambda_number_number_returns_number",
+    "typeRef" : null
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "lambda_number_returns_number",
+    "typeRef" : null
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : null,
+    "isCollection" : false,
+    "label" : null,
+    "name" : "lambda_string_string_returns_bool",
+    "typeRef" : null
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : null,
+    "isCollection" : true,
+    "label" : null,
+    "name" : "list_of_number",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : null,
+    "isCollection" : true,
+    "label" : null,
+    "name" : "list_of_string",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_input_007_1",
+    "javaParameterName" : "input_007_1",
+    "javaTypeName" : "java.lang.Number",
+    "label" : null,
+    "name" : "input_007_1",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_input_011_1",
+    "javaParameterName" : "input_011_1",
+    "javaTypeName" : "java.lang.Number",
+    "label" : null,
+    "name" : "input_011_1",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_input_013_1",
+    "javaParameterName" : "input_013_1",
+    "javaTypeName" : "java.lang.Number",
+    "label" : null,
+    "name" : "input_013_1",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+    }
+  }, {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_input_017_1",
+    "javaParameterName" : "input_017_1",
+    "javaTypeName" : "String",
+    "label" : null,
+    "name" : "input_017_1",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+    }
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_003_1",
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<java.lang.Number>",
+    "javaParameterName" : "bkm_003_1",
+    "javaTypeName" : "Bkm_003_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_003_1",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_004_1",
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<java.lang.Number>",
+    "javaParameterName" : "bkm_004_1",
+    "javaTypeName" : "Bkm_004_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_004_1",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_005_1",
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<java.lang.Number>",
+    "javaParameterName" : "bkm_005_1",
+    "javaTypeName" : "Bkm_005_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_005_1",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_006_1",
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<java.lang.Number>",
+    "javaParameterName" : "bkm_006_1",
+    "javaTypeName" : "Bkm_006_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_006_1",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_008_1",
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<java.lang.Number>",
+    "javaParameterName" : "bkm_008_1",
+    "javaTypeName" : "Bkm_008_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_008_1",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_009_1",
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<java.lang.Number>",
+    "javaParameterName" : "bkm_009_1",
+    "javaTypeName" : "Bkm_009_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_009_1",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_010_1",
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<com.gs.dmn.runtime.LambdaExpression<com.gs.dmn.runtime.LambdaExpression<java.lang.Number>>>",
+    "javaParameterName" : "bkm_010_1",
+    "javaTypeName" : "Bkm_010_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_010_1",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_010_1_a",
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<com.gs.dmn.runtime.LambdaExpression<com.gs.dmn.runtime.LambdaExpression<java.lang.Number>>>",
+    "javaParameterName" : "bkm_010_1_a",
+    "javaTypeName" : "Bkm_010_1_a",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_010_1_a",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_011_1",
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "bkm_011_1",
+    "javaTypeName" : "Bkm_011_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_011_1",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_012_1",
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "bkm_012_1",
+    "javaTypeName" : "Bkm_012_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_012_1",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_012_2",
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "bkm_012_2",
+    "javaTypeName" : "Bkm_012_2",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_012_2",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_013_1",
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "bkm_013_1",
+    "javaTypeName" : "Bkm_013_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_013_1",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_017_1",
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "bkm_017_1",
+    "javaTypeName" : "Bkm_017_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_017_1",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_bkm_018",
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "bkm_018",
+    "javaTypeName" : "Bkm_018",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "bkm_018",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_001_1",
+    "informationReferences" : [ {
+      "reference" : "_decision_001_2"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_001_1",
+    "javaTypeName" : "Decision_001_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "decision_001_1",
+    "protoRequestName" : "proto.Decision0011Request",
+    "protoResponseName" : "proto.Decision0011Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_001_2",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<java.lang.Number>",
+    "javaParameterName" : "decision_001_2",
+    "javaTypeName" : "Decision_001_2",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "decision_001_2",
+    "protoRequestName" : "proto.Decision0012Request",
+    "protoResponseName" : "proto.Decision0012Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_002_1",
+    "informationReferences" : [ {
+      "reference" : "_decision_002_2"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_002_1",
+    "javaTypeName" : "Decision_002_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "decision_002_1",
+    "protoRequestName" : "proto.Decision0021Request",
+    "protoResponseName" : "proto.Decision0021Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_002_2",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<java.lang.Number>",
+    "javaParameterName" : "decision_002_2",
+    "javaTypeName" : "Decision_002_2",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "decision_002_2",
+    "protoRequestName" : "proto.Decision0022Request",
+    "protoResponseName" : "proto.Decision0022Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_003_1",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_003_1",
+    "javaTypeName" : "Decision_003_1",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_003_1"
+    }, {
+      "reference" : "_bkm_003_1"
+    } ],
+    "label" : null,
+    "name" : "decision_003_1",
+    "protoRequestName" : "proto.Decision0031Request",
+    "protoResponseName" : "proto.Decision0031Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_004_1",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_004_1",
+    "javaTypeName" : "Decision_004_1",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_004_1"
+    }, {
+      "reference" : "_bkm_004_1"
+    } ],
+    "label" : null,
+    "name" : "decision_004_1",
+    "protoRequestName" : "proto.Decision0041Request",
+    "protoResponseName" : "proto.Decision0041Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_005_1",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_005_1",
+    "javaTypeName" : "Decision_005_1",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_005_1"
+    }, {
+      "reference" : "_bkm_005_1"
+    } ],
+    "label" : null,
+    "name" : "decision_005_1",
+    "protoRequestName" : "proto.Decision0051Request",
+    "protoResponseName" : "proto.Decision0051Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_006_1",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_006_1",
+    "javaTypeName" : "Decision_006_1",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_006_1"
+    }, {
+      "reference" : "_bkm_006_1"
+    } ],
+    "label" : null,
+    "name" : "decision_006_1",
+    "protoRequestName" : "proto.Decision0061Request",
+    "protoResponseName" : "proto.Decision0061Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_007_1",
+    "informationReferences" : [ {
+      "reference" : "_decision_007_2"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_007_1",
+    "javaTypeName" : "Decision_007_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "decision_007_1",
+    "protoRequestName" : "proto.Decision0071Request",
+    "protoResponseName" : "proto.Decision0071Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_input_007_1",
+      "javaParameterName" : "input_007_1",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "input_007_1",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+      }
+    } ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_007_2",
+    "informationReferences" : [ {
+      "reference" : "_input_007_1"
+    } ],
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<java.lang.Number>",
+    "javaParameterName" : "decision_007_2",
+    "javaTypeName" : "Decision_007_2",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "decision_007_2",
+    "protoRequestName" : "proto.Decision0072Request",
+    "protoResponseName" : "proto.Decision0072Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_input_007_1",
+      "javaParameterName" : "input_007_1",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "input_007_1",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+      }
+    } ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_008_1",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_008_1",
+    "javaTypeName" : "Decision_008_1",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_008_1"
+    }, {
+      "reference" : "_bkm_008_1"
+    } ],
+    "label" : null,
+    "name" : "decision_008_1",
+    "protoRequestName" : "proto.Decision0081Request",
+    "protoResponseName" : "proto.Decision0081Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_009_1",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_009_1",
+    "javaTypeName" : "Decision_009_1",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_009_1"
+    }, {
+      "reference" : "_bkm_009_1"
+    } ],
+    "label" : null,
+    "name" : "decision_009_1",
+    "protoRequestName" : "proto.Decision0091Request",
+    "protoResponseName" : "proto.Decision0091Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_010_1",
+    "informationReferences" : [ {
+      "reference" : "_decision_010_2"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_010_1",
+    "javaTypeName" : "Decision_010_1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "decision_010_1",
+    "protoRequestName" : "proto.Decision0101Request",
+    "protoResponseName" : "proto.Decision0101Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_010_1_a",
+    "informationReferences" : [ {
+      "reference" : "_decision_010_2_a"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_010_1_a",
+    "javaTypeName" : "Decision_010_1_a",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "decision_010_1_a",
+    "protoRequestName" : "proto.Decision0101ARequest",
+    "protoResponseName" : "proto.Decision0101AResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_010_2",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<java.lang.Number>",
+    "javaParameterName" : "decision_010_2",
+    "javaTypeName" : "Decision_010_2",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_010_1"
+    }, {
+      "reference" : "_bkm_010_1"
+    } ],
+    "label" : null,
+    "name" : "decision_010_2",
+    "protoRequestName" : "proto.Decision0102Request",
+    "protoResponseName" : "proto.Decision0102Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_010_2_a",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "com.gs.dmn.runtime.LambdaExpression<java.lang.Number>",
+    "javaParameterName" : "decision_010_2_a",
+    "javaTypeName" : "Decision_010_2_a",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_010_1_a"
+    }, {
+      "reference" : "_bkm_010_1_a"
+    } ],
+    "label" : null,
+    "name" : "decision_010_2_a",
+    "protoRequestName" : "proto.Decision0102ARequest",
+    "protoResponseName" : "proto.Decision0102AResponse",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_011_1",
+    "informationReferences" : [ {
+      "reference" : "_input_011_1"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_011_1",
+    "javaTypeName" : "Decision_011_1",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_011_1"
+    }, {
+      "reference" : "_bkm_011_1"
+    } ],
+    "label" : null,
+    "name" : "decision_011_1",
+    "protoRequestName" : "proto.Decision0111Request",
+    "protoResponseName" : "proto.Decision0111Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_input_011_1",
+      "javaParameterName" : "input_011_1",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "input_011_1",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+      }
+    } ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_012_1",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_012_1",
+    "javaTypeName" : "Decision_012_1",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_012_1"
+    }, {
+      "reference" : "_bkm_012_1"
+    }, {
+      "reference" : "_bkm_012_2"
+    }, {
+      "reference" : "_bkm_012_2"
+    } ],
+    "label" : null,
+    "name" : "decision_012_1",
+    "protoRequestName" : "proto.Decision0121Request",
+    "protoResponseName" : "proto.Decision0121Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_013_1",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_013_1",
+    "javaTypeName" : "Decision_013_1",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_013_1"
+    }, {
+      "reference" : "_bkm_013_1"
+    }, {
+      "reference" : "_decisionService_013_1"
+    }, {
+      "reference" : "_decisionService_013_1"
+    } ],
+    "label" : null,
+    "name" : "decision_013_1",
+    "protoRequestName" : "proto.Decision0131Request",
+    "protoResponseName" : "proto.Decision0131Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_013_2",
+    "informationReferences" : [ {
+      "reference" : "_input_013_1"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision_013_2",
+    "javaTypeName" : "Decision_013_2",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "decision_013_2",
+    "protoRequestName" : "proto.Decision0132Request",
+    "protoResponseName" : "proto.Decision0132Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_input_013_1",
+      "javaParameterName" : "input_013_1",
+      "javaTypeName" : "java.lang.Number",
+      "label" : null,
+      "name" : "input_013_1",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+      }
+    } ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_017_1",
+    "informationReferences" : [ {
+      "reference" : "_input_017_1"
+    } ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "decision_017_1",
+    "javaTypeName" : "Decision_017_1",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_017_1"
+    }, {
+      "reference" : "_bkm_017_1"
+    } ],
+    "label" : null,
+    "name" : "decision_017_1",
+    "protoRequestName" : "proto.Decision0171Request",
+    "protoResponseName" : "proto.Decision0171Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_input_017_1",
+      "javaParameterName" : "input_017_1",
+      "javaTypeName" : "String",
+      "label" : null,
+      "name" : "input_017_1",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda"
+      }
+    } ],
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_decision_018",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "decision_018",
+    "javaTypeName" : "Decision_018",
+    "knowledgeReferences" : [ {
+      "reference" : "_bkm_018"
+    }, {
+      "reference" : "_bkm_018"
+    } ],
+    "label" : null,
+    "name" : "decision_018",
+    "protoRequestName" : "proto.Decision018Request",
+    "protoResponseName" : "proto.Decision018Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : null
+  } ]
+}

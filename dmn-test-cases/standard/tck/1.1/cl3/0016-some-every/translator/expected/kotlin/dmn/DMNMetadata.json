@@ -1,0 +1,234 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "tItemPrice",
+    "isCollection" : false,
+    "label" : null,
+    "name" : "tItemPrice",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_de166af3-e625-4572-bc70-cb3c3aa01ca8",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "itemName",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "allowedValues" : null,
+      "id" : "_d68f500e-3997-409e-8152-d454c34487d8",
+      "isCollection" : false,
+      "label" : null,
+      "name" : "price",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "allowedValues" : null,
+    "id" : "tPriceTable",
+    "isCollection" : true,
+    "label" : null,
+    "name" : "tPriceTable",
+    "typeRef" : {
+      "localName" : "tItemPrice",
+      "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "diagramId" : null,
+    "id" : "_87bb4ba6-43bb-4fc5-a120-0c15c3901278",
+    "javaParameterName" : "priceTable2",
+    "javaTypeName" : "List<type.TItemPrice?>?",
+    "label" : null,
+    "name" : "priceTable2",
+    "shapeId" : null,
+    "typeRef" : {
+      "localName" : "tPriceTable",
+      "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70"
+    }
+  }, {
+    "@kind" : "bkm",
+    "diagramId" : null,
+    "id" : "_d59cc17d-7f21-4706-8d10-47f7ee297b15",
+    "javaOutputTypeName" : "Boolean?",
+    "javaParameterName" : "gtTen",
+    "javaTypeName" : "GtTen",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "gtTen",
+    "shapeId" : null,
+    "typeRef" : null
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_a747d388-e0c0-41e1-b3ef-2904ba1a5d63",
+    "informationReferences" : [ {
+      "reference" : "_a471e76a-64b1-44af-9ede-623f6c15b72e"
+    } ],
+    "javaOutputTypeName" : "Boolean?",
+    "javaParameterName" : "everyGtTen1",
+    "javaTypeName" : "EveryGtTen1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "everyGtTen1",
+    "protoRequestName" : "proto.EveryGtTen1Request",
+    "protoResponseName" : "proto.EveryGtTen1Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_e5194b4c-2191-45c3-a78c-723d04197dc6",
+    "informationReferences" : [ {
+      "reference" : "_87bb4ba6-43bb-4fc5-a120-0c15c3901278"
+    } ],
+    "javaOutputTypeName" : "Boolean?",
+    "javaParameterName" : "everyGtTen2",
+    "javaTypeName" : "EveryGtTen2",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "everyGtTen2",
+    "protoRequestName" : "proto.EveryGtTen2Request",
+    "protoResponseName" : "proto.EveryGtTen2Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_87bb4ba6-43bb-4fc5-a120-0c15c3901278",
+      "javaParameterName" : "priceTable2",
+      "javaTypeName" : "List<type.TItemPrice?>?",
+      "label" : null,
+      "name" : "priceTable2",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tPriceTable",
+        "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_72422ed3-5088-4ed0-9ab6-dbcfe3a6cf48",
+    "informationReferences" : [ {
+      "reference" : "_a471e76a-64b1-44af-9ede-623f6c15b72e"
+    } ],
+    "javaOutputTypeName" : "Boolean?",
+    "javaParameterName" : "everyGtTen3",
+    "javaTypeName" : "EveryGtTen3",
+    "knowledgeReferences" : [ {
+      "reference" : "_d59cc17d-7f21-4706-8d10-47f7ee297b15"
+    }, {
+      "reference" : "_d59cc17d-7f21-4706-8d10-47f7ee297b15"
+    } ],
+    "label" : null,
+    "name" : "everyGtTen3",
+    "protoRequestName" : "proto.EveryGtTen3Request",
+    "protoResponseName" : "proto.EveryGtTen3Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_a471e76a-64b1-44af-9ede-623f6c15b72e",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "List<type.TItemPrice?>?",
+    "javaParameterName" : "priceTable1",
+    "javaTypeName" : "PriceTable1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "priceTable1",
+    "protoRequestName" : "proto.PriceTable1Request",
+    "protoResponseName" : "proto.PriceTable1Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "tPriceTable",
+      "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_655236ba-669a-4a80-a07c-ec051f57a529",
+    "informationReferences" : [ {
+      "reference" : "_a471e76a-64b1-44af-9ede-623f6c15b72e"
+    } ],
+    "javaOutputTypeName" : "Boolean?",
+    "javaParameterName" : "someGtTen1",
+    "javaTypeName" : "SomeGtTen1",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "someGtTen1",
+    "protoRequestName" : "proto.SomeGtTen1Request",
+    "protoResponseName" : "proto.SomeGtTen1Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "diagramId" : null,
+    "extensions" : null,
+    "id" : "_41ed4571-ad86-4c9d-9d3b-7b813ae5cd28",
+    "informationReferences" : [ {
+      "reference" : "_87bb4ba6-43bb-4fc5-a120-0c15c3901278"
+    } ],
+    "javaOutputTypeName" : "Boolean?",
+    "javaParameterName" : "someGtTen2",
+    "javaTypeName" : "SomeGtTen2",
+    "knowledgeReferences" : [ ],
+    "label" : null,
+    "name" : "someGtTen2",
+    "protoRequestName" : "proto.SomeGtTen2Request",
+    "protoResponseName" : "proto.SomeGtTen2Response",
+    "shapeId" : null,
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "diagramId" : null,
+      "id" : "_87bb4ba6-43bb-4fc5-a120-0c15c3901278",
+      "javaParameterName" : "priceTable2",
+      "javaTypeName" : "List<type.TItemPrice?>?",
+      "label" : null,
+      "name" : "priceTable2",
+      "shapeId" : null,
+      "typeRef" : {
+        "localName" : "tPriceTable",
+        "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ]
+}
