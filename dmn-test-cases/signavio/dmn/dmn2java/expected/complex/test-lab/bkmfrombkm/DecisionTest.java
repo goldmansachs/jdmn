@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class DecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final Decision decision = new Decision();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         javax.xml.datatype.XMLGregorianCalendar t = time("12:00:00+01:00");

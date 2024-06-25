@@ -36,7 +36,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
 <#macro addTestCases>
     <#list testCases.testCase>
         <#items as tc>
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase${tckUtil.testCaseId(tc)}() {
         <@initializeInputs tc/>
 

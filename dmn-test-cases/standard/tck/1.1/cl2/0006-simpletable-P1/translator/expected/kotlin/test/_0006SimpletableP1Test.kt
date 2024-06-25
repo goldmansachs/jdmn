@@ -4,7 +4,7 @@ import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["junit.ftl", "0006-simpletable-P1.dmn"])
 class _0006SimpletableP1Test : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase001() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
@@ -17,7 +17,7 @@ class _0006SimpletableP1Test : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         checkValues("Approved", ApprovalStatus().apply(age, riskCategory, isAffordable, context_))
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase002() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
@@ -30,7 +30,7 @@ class _0006SimpletableP1Test : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         checkValues("Declined", ApprovalStatus().apply(age, riskCategory, isAffordable, context_))
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase003() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()

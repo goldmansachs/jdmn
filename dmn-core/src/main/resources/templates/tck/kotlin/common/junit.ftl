@@ -24,7 +24,7 @@ class ${testClassName} : ${decisionBaseClass}() {
 <#macro addTestCases>
     <#list testCases.testCase>
         <#items as tc>
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     fun testCase${tc.id}() {
         <@initializeInputs tc/>
 

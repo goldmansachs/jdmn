@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class DateTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
     private final Date date = new Date();
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         javax.xml.datatype.XMLGregorianCalendar inputDate = date("2020-09-21");

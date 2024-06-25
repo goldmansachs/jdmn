@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "Model B1"})
 public class ModelB1Test extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();

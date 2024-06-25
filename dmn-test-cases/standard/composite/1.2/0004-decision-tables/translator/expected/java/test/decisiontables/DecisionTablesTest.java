@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "decisionTables"})
 public class DecisionTablesTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -16,7 +16,7 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         checkValues(Boolean.TRUE, new decisiontables.PriceGt10().apply(decisioninputs_structA, context_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase002() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -29,7 +29,7 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         checkValues("Not in range", new decisiontables.PriceInRange().apply(decisioninputs_numB, decisioninputs_numC, decisioninputs_structA, context_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase003() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -40,7 +40,7 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisio
         checkValues(Boolean.TRUE, new decisiontables.DateCompare1().apply(decisioninputs_dateD, context_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase004() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();

@@ -47,7 +47,7 @@
       {
         "rule": {
           "index": 2,
-          "annotation": "\"\""
+          "annotation": ""
         },
         "matched": false,
         "result": {
@@ -64,7 +64,7 @@
       {
         "rule": {
           "index": 3,
-          "annotation": "\"\""
+          "annotation": ""
         },
         "matched": true,
         "result": {

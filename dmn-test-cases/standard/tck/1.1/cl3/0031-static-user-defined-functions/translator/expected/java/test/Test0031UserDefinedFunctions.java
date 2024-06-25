@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0031-user-defined-functions.dmn"})
 public class Test0031UserDefinedFunctions extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase001() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
@@ -18,7 +18,7 @@ public class Test0031UserDefinedFunctions extends com.gs.dmn.runtime.DefaultDMNB
         checkValues(new type.TFnInvocationPositionalResultImpl(number("2"), number("50"), number("15")), new FnInvocationPositionalParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase002() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();
@@ -32,7 +32,7 @@ public class Test0031UserDefinedFunctions extends com.gs.dmn.runtime.DefaultDMNB
         checkValues(new type.TFnInvocationNamedResultImpl(number("2"), number("50"), number("5"), number("-5")), new FnInvocationNamedParameters().apply(inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase003() {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
         com.gs.dmn.runtime.listener.EventListener eventListener_ = new com.gs.dmn.runtime.listener.NopEventListener();

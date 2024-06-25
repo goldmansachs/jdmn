@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0004-simpletable-U.dmn"})
 public class _0004SimpletableUTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -17,7 +17,7 @@ public class _0004SimpletableUTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         checkValues("Approved", new ApprovalStatus().apply(age, riskCategory, isAffordable, context_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase002() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
@@ -30,7 +30,7 @@ public class _0004SimpletableUTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         checkValues("Declined", new ApprovalStatus().apply(age, riskCategory, isAffordable, context_));
     }
 
-    @org.junit.Test
+    @org.junit.jupiter.api.Test
     public void testCase003() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
