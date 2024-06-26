@@ -6,7 +6,6 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-b44e259629dcec308db23011ab8ac3d0",
     "isCollection" : false,
     "label" : "BooleanInput",
@@ -17,7 +16,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-f3470367f2f5354c448fd2551e889508",
     "isCollection" : false,
     "label" : "DateInput",
@@ -28,7 +26,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-71dbbea6c716212dcc667644c5b7487a",
     "isCollection" : false,
     "label" : "Decision",
@@ -50,7 +47,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-91d1a0779c6062d480c5944150aab8e2",
     "isCollection" : false,
     "label" : "NumberInput",
@@ -67,7 +63,6 @@
     "name" : "person",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-10edc449ea7a601271d9bdea97cf4d59-relation-1",
       "isCollection" : false,
       "label" : "age",
@@ -78,7 +73,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-10edc449ea7a601271d9bdea97cf4d59-relation-0",
       "isCollection" : false,
       "label" : "name",
@@ -90,7 +84,6 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-97edc0210ca71740e7606073aaf27a5f",
     "isCollection" : false,
     "label" : "StringInput",
@@ -181,7 +174,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "decc8a26dfaa47dc87eea384f5598ffd",
-    "extensions" : null,
     "id" : "id-0f0801a66fe697bff21186134406da6e",
     "informationReferences" : [ {
       "reference" : "id-22ae16971705e9cc9b1251061f15b3c6"

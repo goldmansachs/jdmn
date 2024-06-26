@@ -6,7 +6,6 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-d8d2409326ca95ebc06b54a4f32d82b9",
     "isCollection" : false,
     "label" : "A",
@@ -17,7 +16,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-7529a16fb8fb3ac44ab132893d08aabc",
     "isCollection" : false,
     "label" : "A",
@@ -28,7 +26,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-5c3a857c933c219de1462d611ecf644b",
     "isCollection" : false,
     "label" : "B",
@@ -39,7 +36,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-bbd21642e140be5214da01c35869ad84",
     "isCollection" : false,
     "label" : "B",
@@ -50,7 +46,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-b8bf75fc98d4d6a0e0e8cb2ce9fcfee8",
     "isCollection" : false,
     "label" : "SUM",
@@ -114,20 +109,15 @@
     }
   }, {
     "@kind" : "bkm",
-    "diagramId" : null,
     "id" : "id-74659018eb94601d9ccd8bcb2443688e",
     "javaOutputTypeName" : "java.math.BigDecimal",
     "javaParameterName" : "bKM",
     "javaTypeName" : "BKM",
     "knowledgeReferences" : [ ],
-    "label" : null,
-    "name" : "bKM",
-    "shapeId" : null,
-    "typeRef" : null
+    "name" : "bKM"
   }, {
     "@kind" : "decision",
     "diagramId" : "0cad6eb96bfc4b638250c73ff90f439b",
-    "extensions" : null,
     "id" : "id-806148ab1843f34bf4e461a8ed442b97",
     "informationReferences" : [ {
       "reference" : "id-6941daac7dedcf760459bef259f2b83c"
@@ -177,7 +167,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "2521256910f54d44b0a90fa88a1aa917",
-    "extensions" : null,
     "id" : "id-c9af84da6920472f7e8311c719099aac",
     "informationReferences" : [ {
       "reference" : "id-f1336e666ce4588d576ac630e3a0935c"

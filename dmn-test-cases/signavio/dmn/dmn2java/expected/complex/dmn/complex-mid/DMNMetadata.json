@@ -6,7 +6,6 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-106c441cd62367c88758962cff427424",
     "isCollection" : true,
     "label" : "Big mid",
@@ -56,7 +55,6 @@
     "name" : "testPeopleType",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-509d57e00a823edb6857ed145d1f0b4b-relation-0",
       "isCollection" : true,
       "label" : "TestPersonType",
@@ -85,7 +83,6 @@
     "name" : "testPersonType",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-9187b71a2091ed5d0030ddaaf4b0b07d-relation-1",
       "isCollection" : false,
       "label" : "Age",
@@ -96,7 +93,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-9187b71a2091ed5d0030ddaaf4b0b07d-relation-0",
       "isCollection" : false,
       "label" : "Name",
@@ -107,7 +103,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-9187b71a2091ed5d0030ddaaf4b0b07d-relation-2",
       "isCollection" : true,
       "label" : "Properties",
@@ -119,7 +114,6 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-9da1e1e3140d3a13da9fbd3b77d85666",
     "isCollection" : false,
     "label" : "top decision",
@@ -171,7 +165,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
-    "extensions" : null,
     "id" : "id-519b91fe7a0fd84ede349e72ff1344e8",
     "informationReferences" : [ {
       "reference" : "id-76acfc10261ddc2fe0ac3081483133ad"
@@ -206,7 +199,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
-    "extensions" : null,
     "id" : "id-54e777f1b3e48362bf9e79c6d305e91d",
     "informationReferences" : [ {
       "reference" : "id-66be7cc5d14947682f8a060a30da5fa0"
@@ -241,7 +233,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
-    "extensions" : null,
     "id" : "id-db8a303073ca6775c192503c81230235",
     "informationReferences" : [ {
       "reference" : "id-e801f20a6a898682c3b5e22db82de47b"
@@ -276,7 +267,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
-    "extensions" : null,
     "id" : "id-dfce3b29b4d620c67860613f0681a5c0",
     "informationReferences" : [ {
       "reference" : "id-e801f20a6a898682c3b5e22db82de47b"
@@ -311,7 +301,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
-    "extensions" : null,
     "id" : "id-b4717b9aa316e3d6266365a4ae6cf873",
     "informationReferences" : [ {
       "reference" : "id-db8a303073ca6775c192503c81230235"

@@ -8,14 +8,11 @@
     "@kind" : "compositeType",
     "id" : "tA",
     "isCollection" : false,
-    "label" : null,
     "name" : "tA",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_adf6f96a-c574-4ba7-a305-ea14ad9852b1",
       "isCollection" : false,
-      "label" : null,
       "name" : "name",
       "typeRef" : {
         "localName" : "string",
@@ -23,10 +20,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_d297adac-f086-42a0-989e-04c431270f77",
       "isCollection" : false,
-      "label" : null,
       "name" : "price",
       "typeRef" : {
         "localName" : "number",
@@ -36,21 +31,16 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
     "javaParameterName" : "structA",
     "javaTypeName" : "type.TA",
-    "label" : null,
     "name" : "structA",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "tA",
       "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_2683ec7f-fa17-4a1e-9151-8077a10c561f",
     "informationReferences" : [ {
       "reference" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9"
@@ -59,20 +49,15 @@
     "javaParameterName" : "priceGt10",
     "javaTypeName" : "PriceGt10",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "priceGt10",
     "protoRequestName" : "proto.PriceGt10Request",
     "protoResponseName" : "proto.PriceGt10Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
       "javaParameterName" : "structA",
       "javaTypeName" : "type.TA",
-      "label" : null,
       "name" : "structA",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "tA",
         "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"

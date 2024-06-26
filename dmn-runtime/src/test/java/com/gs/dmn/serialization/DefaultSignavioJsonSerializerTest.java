@@ -40,12 +40,14 @@ import java.util.Set;
 import static com.gs.dmn.serialization.DefaultStandardJsonSerializerTest.DATE_TIME_TEST_DATA;
 import static com.gs.dmn.serialization.DefaultStandardJsonSerializerTest.TIME_TEST_DATA;
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DefaultSignavioJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
     private final DefaultSignavioLib lib = (DefaultSignavioLib) makeFEELLib();
     private final String numberListListText = "[ [ 1, 2 ] ]";
     private final List<Range> rangeList = new ArrayList<>(Collections.singletonList(new Range(true, 0, false, 1)));
+    private final List<Address> addressList = new ArrayList<>(Collections.singletonList(new AddressImpl("line", "post code")));
 
     @Test
     public void testPersonSerialization() throws Exception {
@@ -65,6 +67,7 @@ public class DefaultSignavioJsonSerializerTest extends AbstractJsonSerializerTes
         person.setAT("AT");
         person.setAt("at");
         person.setRanges(rangeList);
+        person.setAddresses(addressList);
 
         String personText = readJson("expected/json/person.json");
         compareJson(personText, prettyPrinter().writeValueAsString(person));
@@ -89,7 +92,7 @@ public class DefaultSignavioJsonSerializerTest extends AbstractJsonSerializerTes
         assertTrue(lib.durationEqual(lib.duration("P2DT20H"), person.getDaysAndTimeDuration()));
         assertTrue(lib.stringEqual("AT", person.getAT()));
         assertTrue(lib.stringEqual("at", person.getAt()));
-        assertNull(person.getAddresses());
+        assertEquals(this.addressList, person.getAddresses());
         assertEquals(this.rangeList, person.getRanges());
     }
 

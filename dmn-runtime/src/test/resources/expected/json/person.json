@@ -1,7 +1,10 @@
 {
   "514 AT" : "at",
   "AT" : "AT",
-  "Addresses" : null,
+  "Addresses" : [ {
+    "Line" : "line",
+    "Postcode" : "line"
+  } ],
   "Date and Time List" : [ "2016-08-01T12:00:00Z" ],
   "Date and Time of Birth" : "2016-08-01T12:00:00Z",
   "Date of Birth" : "2017-01-03",

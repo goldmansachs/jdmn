@@ -7,8 +7,6 @@
   "types" : [ ],
   "elements" : [ {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_96df766e-23e1-4aa6-9d5d-545fbe2f1e23",
     "informationReferences" : [ {
       "reference" : "_f7fdaec4-d669-4797-b3b4-12b860de2eb5"
@@ -21,16 +19,13 @@
     "name" : "evaluatingB1SayHello",
     "protoRequestName" : "model_b1.proto.EvaluatingB1SayHelloRequest",
     "protoResponseName" : "model_b1.proto.EvaluatingB1SayHelloResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
       "javaParameterName" : "personName",
       "javaTypeName" : "String",
       "label" : "Person Name",
       "name" : "personName",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/definitions/model-a"
@@ -42,8 +37,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_f7fdaec4-d669-4797-b3b4-12b860de2eb5",
     "informationReferences" : [ {
       "reference" : "http://www.provider.com/definitions/model-a#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063"
@@ -56,16 +49,13 @@
     "name" : "greetThePerson",
     "protoRequestName" : "model_b1.proto.GreetThePersonRequest",
     "protoResponseName" : "model_b1.proto.GreetThePersonResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
       "javaParameterName" : "personName",
       "javaTypeName" : "String",
       "label" : "Person Name",
       "name" : "personName",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/definitions/model-a"
@@ -77,8 +67,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_96df766e-23e1-4aa6-9d5d-545fbe2f1e23",
     "informationReferences" : [ {
       "reference" : "http://www.provider.com/definitions/model-b1#_f7fdaec4-d669-4797-b3b4-12b860de2eb5"
@@ -91,16 +79,13 @@
     "name" : "evaluatingB2SayHello",
     "protoRequestName" : "model_b2.proto.EvaluatingB2SayHelloRequest",
     "protoResponseName" : "model_b2.proto.EvaluatingB2SayHelloResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
       "javaParameterName" : "personName",
       "javaTypeName" : "String",
       "label" : "Person Name",
       "name" : "personName",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/definitions/model-a"
@@ -112,8 +97,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_fc1bff6c-b1ca-4a10-ba9a-23b8f5e86e6a",
     "informationReferences" : [ {
       "reference" : "http://www.provider.com/definitions/model-b1#_96df766e-23e1-4aa6-9d5d-545fbe2f1e23"
@@ -128,16 +111,13 @@
     "name" : "modelCDecisionBasedOnBs",
     "protoRequestName" : "model_c.proto.ModelCDecisionBasedOnBsRequest",
     "protoResponseName" : "model_c.proto.ModelCDecisionBasedOnBsResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
       "javaParameterName" : "personName",
       "javaTypeName" : "String",
       "label" : "Person Name",
       "name" : "personName",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/definitions/model-a"
@@ -149,13 +129,11 @@
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
     "javaParameterName" : "personName",
     "javaTypeName" : "String",
     "label" : "Person Name",
     "name" : "personName",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.provider.com/definitions/model-a"

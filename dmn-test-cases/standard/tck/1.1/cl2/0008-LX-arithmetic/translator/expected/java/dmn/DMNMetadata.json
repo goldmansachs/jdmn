@@ -8,14 +8,11 @@
     "@kind" : "compositeType",
     "id" : "tLoan",
     "isCollection" : false,
-    "label" : null,
     "name" : "tLoan",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_561947e6-180a-416e-aa22-5e8e5d650624",
       "isCollection" : false,
-      "label" : null,
       "name" : "principal",
       "typeRef" : {
         "localName" : "number",
@@ -23,10 +20,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_c1751fa0-4da6-4cb5-a234-45765d6b35ac",
       "isCollection" : false,
-      "label" : null,
       "name" : "rate",
       "typeRef" : {
         "localName" : "number",
@@ -34,10 +29,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_006e0a06-26a6-42e1-9b3c-4b2502a567fe",
       "isCollection" : false,
-      "label" : null,
       "name" : "termMonths",
       "typeRef" : {
         "localName" : "number",
@@ -47,21 +40,16 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_1f4ae444-2e4e-4d26-b1f7-87a645c3f50a",
     "javaParameterName" : "loan",
     "javaTypeName" : "type.TLoan",
-    "label" : null,
     "name" : "loan",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "tLoan",
       "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a"
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_ebf02591-49c6-448d-9f76-6358b0e011c3",
     "informationReferences" : [ {
       "reference" : "_1f4ae444-2e4e-4d26-b1f7-87a645c3f50a"
@@ -70,20 +58,15 @@
     "javaParameterName" : "payment",
     "javaTypeName" : "Payment",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "payment",
     "protoRequestName" : "proto.PaymentRequest",
     "protoResponseName" : "proto.PaymentResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_1f4ae444-2e4e-4d26-b1f7-87a645c3f50a",
       "javaParameterName" : "loan",
       "javaTypeName" : "type.TLoan",
-      "label" : null,
       "name" : "loan",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "tLoan",
         "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a"

@@ -6,7 +6,6 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-83cde38cae6fb88fa2b0b60d889edc7f",
     "isCollection" : false,
     "label" : "CompareLists",
@@ -17,7 +16,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-68963481b22658309fd42c897c073179",
     "isCollection" : true,
     "label" : "L1",
@@ -28,7 +26,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-bd134e2aee1e38ec68713df525f3c803",
     "isCollection" : false,
     "label" : "L1",
@@ -39,7 +36,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-6bc6b348ba2839e23331a7b199827083",
     "isCollection" : false,
     "label" : "L2",
@@ -50,7 +46,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-3e4b1ab9080c10718b462486a8b53b10",
     "isCollection" : true,
     "label" : "L2",
@@ -61,7 +56,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-24c3c4b31f9c9b30cf6903a94a463940",
     "isCollection" : true,
     "label" : "ProcessL1",
@@ -72,7 +66,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-fffc3923579df8b2213338522a4ba887",
     "isCollection" : false,
     "label" : "ProcessL2",
@@ -137,7 +130,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "b01e263f2b324caab26b2040a56f8ed1",
-    "extensions" : null,
     "id" : "id-7ce5a28270591ab6ea62106c41a4fb00",
     "informationReferences" : [ {
       "reference" : "id-25e971f05b702ab8597bbb1f3b75cf07"
@@ -187,7 +179,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "b01e263f2b324caab26b2040a56f8ed1",
-    "extensions" : null,
     "id" : "id-02d5100f5bf2c2cd802d2113b1b69bea",
     "informationReferences" : [ {
       "reference" : "id-443c5fd59a4562199fb2274772bed1e0"
@@ -235,7 +226,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "b01e263f2b324caab26b2040a56f8ed1",
-    "extensions" : null,
     "id" : "id-a3c62ff45f0bd75a182001a4d02db12d",
     "informationReferences" : [ {
       "reference" : "id-dc4c9d01f9fbcd564f1aaf2a9d2bc649"

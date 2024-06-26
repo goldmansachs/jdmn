@@ -8,14 +8,11 @@
     "@kind" : "compositeType",
     "id" : "_A1DA0133-767A-4B7B-AEDB-6D180B561FE2",
     "isCollection" : false,
-    "label" : null,
     "name" : "Student",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_3EE4DB1C-7A07-4EA6-AC54-D85CB1A4D185",
       "isCollection" : false,
-      "label" : null,
       "name" : "age",
       "typeRef" : {
         "localName" : "number",
@@ -23,10 +20,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_13DE7BD5-6E9F-4857-86D8-F80171103D1E",
       "isCollection" : false,
-      "label" : null,
       "name" : "classification",
       "typeRef" : {
         "localName" : "string",
@@ -36,34 +31,26 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_B6F9445C-BEFD-4F96-B501-007FDF74C310",
     "javaParameterName" : "price",
     "javaTypeName" : "java.lang.Number",
-    "label" : null,
     "name" : "price",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "number",
       "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_75441BFF-84B8-4CC0-9983-5BA637381C51",
     "javaParameterName" : "student",
     "javaTypeName" : "type.Student",
-    "label" : null,
     "name" : "student",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "Student",
       "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_EA6BEC4E-BB20-4937-8080-8CAA821D5765",
     "informationReferences" : [ {
       "reference" : "_75441BFF-84B8-4CC0-9983-5BA637381C51"
@@ -72,20 +59,15 @@
     "javaParameterName" : "ageClassification",
     "javaTypeName" : "AgeClassification",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "ageClassification",
     "protoRequestName" : "proto.AgeClassificationRequest",
     "protoResponseName" : "proto.AgeClassificationResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_75441BFF-84B8-4CC0-9983-5BA637381C51",
       "javaParameterName" : "student",
       "javaTypeName" : "type.Student",
-      "label" : null,
       "name" : "student",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "Student",
         "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
@@ -97,8 +79,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_04965026-AE07-40DC-B83A-D903F13416CB",
     "informationReferences" : [ {
       "reference" : "_EA6BEC4E-BB20-4937-8080-8CAA821D5765"
@@ -109,33 +89,25 @@
     "javaParameterName" : "calculateDiscountedPrice",
     "javaTypeName" : "CalculateDiscountedPrice",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "calculateDiscountedPrice",
     "protoRequestName" : "proto.CalculateDiscountedPriceRequest",
     "protoResponseName" : "proto.CalculateDiscountedPriceResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_B6F9445C-BEFD-4F96-B501-007FDF74C310",
       "javaParameterName" : "price",
       "javaTypeName" : "java.lang.Number",
-      "label" : null,
       "name" : "price",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "number",
         "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_75441BFF-84B8-4CC0-9983-5BA637381C51",
       "javaParameterName" : "student",
       "javaTypeName" : "type.Student",
-      "label" : null,
       "name" : "student",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "Student",
         "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"

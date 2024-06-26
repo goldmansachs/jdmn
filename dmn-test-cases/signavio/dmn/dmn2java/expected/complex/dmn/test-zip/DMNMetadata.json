@@ -6,7 +6,6 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-7ed2c81605534972b0f40dd0f1f193c1",
     "isCollection" : true,
     "label" : "A",
@@ -17,7 +16,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-ae2671fcf4b52e33a1a6470d04d6a3ca",
     "isCollection" : true,
     "label" : "B",
@@ -28,7 +26,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-5acae66d9c658f02878c6bc4e0c9a5d0",
     "isCollection" : false,
     "label" : "Body ",
@@ -45,7 +42,6 @@
     "name" : "it",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-683ee4c21044b4895f6a25ba740bd9f1-relation-A",
       "isCollection" : false,
       "label" : "A",
@@ -56,7 +52,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-683ee4c21044b4895f6a25ba740bd9f1-relation-B",
       "isCollection" : false,
       "label" : "B",
@@ -68,7 +63,6 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-99d65c1ec6c81f281b2f1e6ec9d72012",
     "isCollection" : true,
     "label" : "Loop",
@@ -85,7 +79,6 @@
     "name" : "zip1",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-5ed86e2d3fa2432baa7f913f68654972-relation-A",
       "isCollection" : false,
       "label" : "A",
@@ -96,7 +89,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-5ed86e2d3fa2432baa7f913f68654972-relation-B",
       "isCollection" : false,
       "label" : "B",
@@ -149,7 +141,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
-    "extensions" : null,
     "id" : "id-ccb759d71c2477dd17e26c3a2c1c68ce",
     "informationReferences" : [ {
       "reference" : "id-ea0f03d48ef57b8e0b3fb41cf8d3212e"
@@ -184,7 +175,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
-    "extensions" : null,
     "id" : "id-448b531deda330b274727b397bcc0955",
     "informationReferences" : [ {
       "reference" : "id-fada51ce664c63874c99e6e7cf630c33"
@@ -232,7 +222,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
-    "extensions" : null,
     "id" : "id-fada51ce664c63874c99e6e7cf630c33",
     "informationReferences" : [ {
       "reference" : "id-2573b665f7d599fb9d1b8972ba3bab3a"

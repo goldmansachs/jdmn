@@ -6,7 +6,6 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-1e9e162eba639b50f06952097d940e71",
     "isCollection" : true,
     "label" : "A",
@@ -17,7 +16,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-352c907696a8ab0cc447e936250bdaf0",
     "isCollection" : true,
     "label" : "B",
@@ -28,7 +26,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-7b8af19dd27e9c0f4888173b313847dd",
     "isCollection" : false,
     "label" : "CalculateDotProduct",
@@ -45,7 +42,6 @@
     "name" : "componentwise",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-ee77256def8518b808e5146468faa79a-relation-A",
       "isCollection" : false,
       "label" : "A",
@@ -56,7 +52,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-ee77256def8518b808e5146468faa79a-relation-B",
       "isCollection" : false,
       "label" : "B",
@@ -74,7 +69,6 @@
     "name" : "componentwise3",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-3a255d41c38b03f9f153b7aee466a3d8-relation-A",
       "isCollection" : false,
       "label" : "A",
@@ -85,7 +79,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-3a255d41c38b03f9f153b7aee466a3d8-relation-B",
       "isCollection" : false,
       "label" : "B",
@@ -103,7 +96,6 @@
     "name" : "dotProduct",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-db4a017c02c6d05e82a4ec69018994e5-relation-33D4DAAE-6A47-4341-A786-0FDBCFDE69B9",
       "isCollection" : false,
       "label" : "DotProduct",
@@ -114,7 +106,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-db4a017c02c6d05e82a4ec69018994e5-relation-EF300D73-8FDC-477B-AB45-3D7C5377C4D3",
       "isCollection" : false,
       "label" : "Output Message",
@@ -126,7 +117,6 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-a7af705c8200b580a7a8dc0019f5e4c0",
     "isCollection" : false,
     "label" : "Product",
@@ -178,7 +168,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "8a7911e71e72444995f084b28688a37d",
-    "extensions" : null,
     "id" : "id-e000d735a85c259cf896f9950c114272",
     "informationReferences" : [ {
       "reference" : "id-7df618c5da17b151ff28d2fd28831a50"
@@ -226,7 +215,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "8a7911e71e72444995f084b28688a37d",
-    "extensions" : null,
     "id" : "id-7df618c5da17b151ff28d2fd28831a50",
     "informationReferences" : [ {
       "reference" : "id-bc00e56f88a2f91ed150a0b28b321f86"
@@ -276,7 +264,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "8a7911e71e72444995f084b28688a37d",
-    "extensions" : null,
     "id" : "id-a437bbbbccd004f9881b74dc21fa058c",
     "informationReferences" : [ {
       "reference" : "id-bc00e56f88a2f91ed150a0b28b321f86"
@@ -328,7 +315,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "8a7911e71e72444995f084b28688a37d",
-    "extensions" : null,
     "id" : "id-f81df5fbf8c656c93161473592b57cd7",
     "informationReferences" : [ {
       "reference" : "id-54f8e155f1f2006935392fe9388aecd8"

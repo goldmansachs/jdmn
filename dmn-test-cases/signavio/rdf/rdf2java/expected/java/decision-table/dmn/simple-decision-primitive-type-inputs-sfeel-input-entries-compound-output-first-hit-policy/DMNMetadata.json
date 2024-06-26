@@ -6,7 +6,6 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "item-definition-sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
     "isCollection" : false,
     "label" : "BooleanInput",
@@ -23,7 +22,6 @@
     "name" : "compoundOutputDecision",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-4F178C17-6132-475B-BB01-FCF62DA216F4",
       "isCollection" : false,
       "label" : "First Output",
@@ -34,7 +32,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-825839B7-47CB-4A7A-BC5F-5242E1449A2F",
       "isCollection" : false,
       "label" : "Second Output",
@@ -46,7 +43,6 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "item-definition-sid-D16E1277-6037-4066-A21B-42F761A4B427",
     "isCollection" : false,
     "label" : "DateAndTimeInput",
@@ -57,7 +53,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "item-definition-sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0",
     "isCollection" : false,
     "label" : "DateInput",
@@ -79,7 +74,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "item-definition-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
     "isCollection" : false,
     "label" : "NumberInput",
@@ -90,7 +84,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "item-definition-sid-404A0FC2-6787-4210-BB30-2E7964835E99",
     "isCollection" : false,
     "label" : "TextInput",
@@ -101,7 +94,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "item-definition-sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2",
     "isCollection" : false,
     "label" : "TimeInput",
@@ -113,99 +105,83 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
     "javaParameterName" : "booleanInput",
     "javaTypeName" : "Boolean",
     "label" : "BooleanInput",
     "name" : "booleanInput",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "booleanInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "sid-D16E1277-6037-4066-A21B-42F761A4B427",
     "javaParameterName" : "dateAndTimeInput",
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "DateAndTimeInput",
     "name" : "dateAndTimeInput",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "dateAndTimeInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0",
     "javaParameterName" : "dateInput",
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "DateInput",
     "name" : "dateInput",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "dateInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
     "javaParameterName" : "enumerationInput",
     "javaTypeName" : "String",
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "enumerationInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
     "javaParameterName" : "numberInput",
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "NumberInput",
     "name" : "numberInput",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "numberInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "sid-404A0FC2-6787-4210-BB30-2E7964835E99",
     "javaParameterName" : "textInput",
     "javaTypeName" : "String",
     "label" : "TextInput",
     "name" : "textInput",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "textInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2",
     "javaParameterName" : "timeInput",
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "TimeInput",
     "name" : "timeInput",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "timeInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
     "informationReferences" : [ {
       "reference" : "sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0"
@@ -230,94 +206,79 @@
     "name" : "compoundOutputDecision",
     "protoRequestName" : "proto.CompoundOutputDecisionRequest",
     "protoResponseName" : "proto.CompoundOutputDecisionResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
       "javaParameterName" : "booleanInput",
       "javaTypeName" : "Boolean",
       "label" : "BooleanInput",
       "name" : "booleanInput",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "booleanInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "sid-D16E1277-6037-4066-A21B-42F761A4B427",
       "javaParameterName" : "dateAndTimeInput",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "DateAndTimeInput",
       "name" : "dateAndTimeInput",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "dateAndTimeInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0",
       "javaParameterName" : "dateInput",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "DateInput",
       "name" : "dateInput",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "dateInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "sid-3247220B-9F67-48DB-8CB5-33C5FCDCEC20",
       "javaParameterName" : "enumerationInput",
       "javaTypeName" : "String",
       "label" : "EnumerationInput",
       "name" : "enumerationInput",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "enumerationInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
       "javaParameterName" : "numberInput",
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "NumberInput",
       "name" : "numberInput",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "numberInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "sid-404A0FC2-6787-4210-BB30-2E7964835E99",
       "javaParameterName" : "textInput",
       "javaTypeName" : "String",
       "label" : "TextInput",
       "name" : "textInput",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "textInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "sid-F687D89A-8FBD-4414-BCF4-BBBF353ABBC2",
       "javaParameterName" : "timeInput",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "TimeInput",
       "name" : "timeInput",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "timeInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

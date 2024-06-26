@@ -12,7 +12,6 @@
     "name" : "applicant",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-1",
       "isCollection" : false,
       "label" : "Age",
@@ -23,7 +22,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-2",
       "isCollection" : false,
       "label" : "Credit score",
@@ -34,7 +32,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-0",
       "isCollection" : false,
       "label" : "Name",
@@ -45,7 +42,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-4",
       "isCollection" : true,
       "label" : "Prior issues",
@@ -57,7 +53,6 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-747970848a049f329dae6329a0601f86",
     "isCollection" : false,
     "label" : "Assess applicant age",
@@ -68,7 +63,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-bb09635d62df507f5a1c18a6b6dbe4c2",
     "isCollection" : false,
     "label" : "Assess issue",
@@ -79,7 +73,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-886f8868546e44421c28582adfb5d720",
     "isCollection" : false,
     "label" : "Assess issue risk",
@@ -90,7 +83,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-51fbdbe450548506ab83bc067833e138",
     "isCollection" : false,
     "label" : "Compare against lending threshold",
@@ -129,7 +121,6 @@
     "name" : "generateOutputData",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-7eeb80d6a1c17ddd2de72e9c2419fa8b-relation-Assessment",
       "isCollection" : false,
       "label" : "Assessment",
@@ -140,7 +131,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-7eeb80d6a1c17ddd2de72e9c2419fa8b-relation-Decision",
       "isCollection" : false,
       "label" : "Decision",
@@ -151,7 +141,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-7eeb80d6a1c17ddd2de72e9c2419fa8b-relation-Issue",
       "isCollection" : false,
       "label" : "Issue",
@@ -163,7 +152,6 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-4cb80be6fb604151f1e9edf9c3cbe2e7",
     "isCollection" : false,
     "label" : "Lending threshold",
@@ -185,7 +173,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-6cf70bdf6bd2e4c75faf286e36bd6caf",
     "isCollection" : false,
     "label" : "Prior issue",
@@ -196,7 +183,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-8a4fb941ebc03bbe6df3c7615cb14852",
     "isCollection" : true,
     "label" : "Process prior issues",
@@ -261,7 +247,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : null,
     "id" : "id-98f1b72e74edaaae8d7fd9043f7e1bc4",
     "informationReferences" : [ {
       "reference" : "id-d2376567fde3c9400ee327ecec21e36d"
@@ -296,7 +281,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : null,
     "id" : "id-0f2f9823e96f0599d2739fda4c5b3c79",
     "informationReferences" : [ {
       "reference" : "id-5dc69eb6de3b736e08d2029ca5ae436c"
@@ -346,7 +330,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : null,
     "id" : "id-90d13f677a4e3f0f8230a12f15301f00",
     "informationReferences" : [ {
       "reference" : "id-bdfc5bfa4ce80fd221463ee66b277220"
@@ -394,7 +377,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : null,
     "id" : "id-8369770df890b566296308a9deebec47",
     "informationReferences" : [ {
       "reference" : "id-5a7daa825c6a7542e30184a94034b435"
@@ -459,7 +441,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : null,
     "id" : "id-f3dfdd3ac42c255265e190eaf50dd65d",
     "informationReferences" : [ {
       "reference" : "id-5b83918d6fc820d73123e7ca0e6d3ca6"
@@ -524,7 +505,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : null,
     "id" : "id-5b83918d6fc820d73123e7ca0e6d3ca6",
     "informationReferences" : [ {
       "reference" : "id-8369770df890b566296308a9deebec47"
@@ -585,7 +565,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : null,
     "id" : "id-bdfc5bfa4ce80fd221463ee66b277220",
     "informationReferences" : [ {
       "reference" : "id-d2376567fde3c9400ee327ecec21e36d"

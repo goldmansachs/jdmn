@@ -8,14 +8,11 @@
     "@kind" : "compositeType",
     "id" : "_f909c1d5-36e4-4f71-8392-fe3b14ddb6f7",
     "isCollection" : false,
-    "label" : null,
     "name" : "tLoan",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_579041dc-2bad-42b4-9650-b2cf39175ecc",
       "isCollection" : false,
-      "label" : null,
       "name" : "amount",
       "typeRef" : {
         "localName" : "number",
@@ -23,10 +20,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_353c0e6f-b344-451e-944e-bec76817b29a",
       "isCollection" : false,
-      "label" : null,
       "name" : "rate",
       "typeRef" : {
         "localName" : "number",
@@ -34,10 +29,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_c7b4a252-df93-4407-8bef-9d30d94125b6",
       "isCollection" : false,
-      "label" : null,
       "name" : "term",
       "typeRef" : {
         "localName" : "number",
@@ -47,46 +40,34 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "i_Loan",
     "javaParameterName" : "loan",
     "javaTypeName" : "type.TLoan?",
-    "label" : null,
     "name" : "Loan",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "tLoan",
       "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "i_fee",
     "javaParameterName" : "fee",
     "javaTypeName" : "java.lang.Number?",
-    "label" : null,
     "name" : "fee",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "bkm",
-    "diagramId" : null,
     "id" : "b_PMT",
     "javaOutputTypeName" : "java.lang.Number?",
     "javaParameterName" : "pMT",
     "javaTypeName" : "PMT",
     "knowledgeReferences" : [ ],
-    "label" : null,
-    "name" : "PMT",
-    "shapeId" : null,
-    "typeRef" : null
+    "name" : "PMT"
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "d_MonthlyPayment",
     "informationReferences" : [ {
       "reference" : "i_Loan"
@@ -101,33 +82,25 @@
     }, {
       "reference" : "b_PMT"
     } ],
-    "label" : null,
     "name" : "MonthlyPayment",
     "protoRequestName" : "proto.MonthlyPaymentRequest",
     "protoResponseName" : "proto.MonthlyPaymentResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "i_Loan",
       "javaParameterName" : "loan",
       "javaTypeName" : "type.TLoan?",
-      "label" : null,
       "name" : "Loan",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "tLoan",
         "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "i_fee",
       "javaParameterName" : "fee",
       "javaTypeName" : "java.lang.Number?",
-      "label" : null,
       "name" : "fee",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"

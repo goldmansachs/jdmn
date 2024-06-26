@@ -12,7 +12,6 @@
     "name" : "decision",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-relation-4F178C17-6132-475B-BB01-FCF62DA216F4",
       "isCollection" : false,
       "label" : "Output1",
@@ -23,7 +22,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-relation-C140B102-5EFC-445B-9E58-8DC027C0789E",
       "isCollection" : false,
       "label" : "Output2",
@@ -35,7 +33,6 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "diagram-05d196e8d5c44e038717f3ceb9d60049-itemDefinition-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
     "isCollection" : false,
     "label" : "NumberInput",
@@ -46,7 +43,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "diagram-05d196e8d5c44e038717f3ceb9d60049-itemDefinition-sid-404A0FC2-6787-4210-BB30-2E7964835E99",
     "isCollection" : false,
     "label" : "TextInput",
@@ -58,34 +54,28 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "diagram-05d196e8d5c44e038717f3ceb9d60049-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
     "javaParameterName" : "numberInput",
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "NumberInput",
     "name" : "numberInput",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "numberInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/05d196e8d5c44e038717f3ceb9d60049.xml"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "diagram-05d196e8d5c44e038717f3ceb9d60049-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99",
     "javaParameterName" : "textInput",
     "javaTypeName" : "String",
     "label" : "TextInput",
     "name" : "textInput",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "textInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/05d196e8d5c44e038717f3ceb9d60049.xml"
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "diagram-05d196e8d5c44e038717f3ceb9d60049-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
     "informationReferences" : [ {
       "reference" : "diagram-05d196e8d5c44e038717f3ceb9d60049-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9"
@@ -100,29 +90,24 @@
     "name" : "decision",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "diagram-05d196e8d5c44e038717f3ceb9d60049-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
       "javaParameterName" : "numberInput",
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "NumberInput",
       "name" : "numberInput",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "numberInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/05d196e8d5c44e038717f3ceb9d60049.xml"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "diagram-05d196e8d5c44e038717f3ceb9d60049-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99",
       "javaParameterName" : "textInput",
       "javaTypeName" : "String",
       "label" : "TextInput",
       "name" : "textInput",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "textInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/05d196e8d5c44e038717f3ceb9d60049.xml"

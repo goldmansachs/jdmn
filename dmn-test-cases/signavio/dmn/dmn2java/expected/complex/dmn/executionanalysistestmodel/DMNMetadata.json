@@ -6,7 +6,6 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-6ce42a8c0eea3bbe6ab0bada9ba7c8ee",
     "isCollection" : false,
     "label" : "InputValue",
@@ -17,7 +16,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-97fec8c8fd84bcb52ab0b71518b67b1b",
     "isCollection" : true,
     "label" : "OutputExecutionAnalysisResult",
@@ -43,7 +41,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "afb776a3dcf84f12b17e44405f5c80c5",
-    "extensions" : null,
     "id" : "id-ee3f38c075678c97d13964afb28201c0",
     "informationReferences" : [ {
       "reference" : "id-6930c8ee3021fb2c24a1d2caefc53607"

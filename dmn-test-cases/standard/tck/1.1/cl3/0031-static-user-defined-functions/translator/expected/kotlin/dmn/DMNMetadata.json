@@ -8,14 +8,11 @@
     "@kind" : "compositeType",
     "id" : "_1O2mQIJtEee4zOLdFxCBaA",
     "isCollection" : false,
-    "label" : null,
     "name" : "tFnInvocationComplexParamsResult",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_fdbr4IJuEee4zOLdFxCBaA",
       "isCollection" : false,
-      "label" : null,
       "name" : "circumference",
       "typeRef" : {
         "localName" : "number",
@@ -23,10 +20,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_fb73EIJuEee4zOLdFxCBaA",
       "isCollection" : false,
-      "label" : null,
       "name" : "functionInvocationInParameter",
       "typeRef" : {
         "localName" : "number",
@@ -34,10 +29,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_fTiwEIJuEee4zOLdFxCBaA",
       "isCollection" : false,
-      "label" : null,
       "name" : "functionInvocationLiteralExpressionInParameter",
       "typeRef" : {
         "localName" : "number",
@@ -48,14 +41,11 @@
     "@kind" : "compositeType",
     "id" : "_0BpzUIJtEee4zOLdFxCBaA",
     "isCollection" : false,
-    "label" : null,
     "name" : "tFnInvocationNamedResult",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_XKOfkIJuEee4zOLdFxCBaA",
       "isCollection" : false,
-      "label" : null,
       "name" : "divisionResultNamed",
       "typeRef" : {
         "localName" : "number",
@@ -63,10 +53,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_afyGIIJuEee4zOLdFxCBaA",
       "isCollection" : false,
-      "label" : null,
       "name" : "multiplicationResultNamed",
       "typeRef" : {
         "localName" : "number",
@@ -74,10 +62,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_Ua9c8IJuEee4zOLdFxCBaA",
       "isCollection" : false,
-      "label" : null,
       "name" : "subResult",
       "typeRef" : {
         "localName" : "number",
@@ -85,10 +71,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_XCUgwIJuEee4zOLdFxCBaA",
       "isCollection" : false,
-      "label" : null,
       "name" : "subResultMixed",
       "typeRef" : {
         "localName" : "number",
@@ -99,14 +83,11 @@
     "@kind" : "compositeType",
     "id" : "_xuQ0YIJtEee4zOLdFxCBaA",
     "isCollection" : false,
-    "label" : null,
     "name" : "tFnInvocationPositionalResult",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_IpHmkIJuEee4zOLdFxCBaA",
       "isCollection" : false,
-      "label" : null,
       "name" : "divisionResultPositional",
       "typeRef" : {
         "localName" : "number",
@@ -114,10 +95,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_OmarcIJuEee4zOLdFxCBaA",
       "isCollection" : false,
-      "label" : null,
       "name" : "multiplicationResultPositional",
       "typeRef" : {
         "localName" : "number",
@@ -125,10 +104,8 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_GDzKIIJuEee4zOLdFxCBaA",
       "isCollection" : false,
-      "label" : null,
       "name" : "sumResult",
       "typeRef" : {
         "localName" : "number",
@@ -139,84 +116,59 @@
     "@kind" : "compositeType",
     "id" : "_fKdL0IDJEee-MeWXoLgrYg",
     "isCollection" : false,
-    "label" : null,
     "name" : "tFnLibrary",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_pOrn0IDfEee-MeWXoLgrYg",
       "isCollection" : false,
-      "label" : null,
-      "name" : "divideFn",
-      "typeRef" : null
+      "name" : "divideFn"
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_l_GGYIDfEee-MeWXoLgrYg",
       "isCollection" : false,
-      "label" : null,
-      "name" : "multiplyFn",
-      "typeRef" : null
+      "name" : "multiplyFn"
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_pRj-sIDJEee-MeWXoLgrYg",
       "isCollection" : false,
-      "label" : null,
-      "name" : "subFn",
-      "typeRef" : null
+      "name" : "subFn"
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "_gtkkYIDJEee-MeWXoLgrYg",
       "isCollection" : false,
-      "label" : null,
-      "name" : "sumFn",
-      "typeRef" : null
+      "name" : "sumFn"
     } ]
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_48BAYH6PEeePe9Zmt-encA",
     "javaParameterName" : "inputA",
     "javaTypeName" : "java.lang.Number?",
-    "label" : null,
     "name" : "inputA",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_5eBhQH6PEeePe9Zmt-encA",
     "javaParameterName" : "inputB",
     "javaTypeName" : "java.lang.Number?",
-    "label" : null,
     "name" : "inputB",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "bkm",
-    "diagramId" : null,
     "id" : "_8xmTAIDNEee-MeWXoLgrYg",
     "javaOutputTypeName" : "java.lang.Number?",
     "javaParameterName" : "circumference",
     "javaTypeName" : "Circumference",
     "knowledgeReferences" : [ ],
-    "label" : null,
-    "name" : "Circumference",
-    "shapeId" : null,
-    "typeRef" : null
+    "name" : "Circumference"
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_b-gD0IDiEee-MeWXoLgrYg",
     "informationReferences" : [ {
       "reference" : "_48BAYH6PEeePe9Zmt-encA"
@@ -233,33 +185,25 @@
     }, {
       "reference" : "_8xmTAIDNEee-MeWXoLgrYg"
     } ],
-    "label" : null,
     "name" : "fn invocation complex parameters",
     "protoRequestName" : "proto.FnInvocationComplexParametersRequest",
     "protoResponseName" : "proto.FnInvocationComplexParametersResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_48BAYH6PEeePe9Zmt-encA",
       "javaParameterName" : "inputA",
       "javaTypeName" : "java.lang.Number?",
-      "label" : null,
       "name" : "inputA",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_5eBhQH6PEeePe9Zmt-encA",
       "javaParameterName" : "inputB",
       "javaTypeName" : "java.lang.Number?",
-      "label" : null,
       "name" : "inputB",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -271,8 +215,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_yHl3UIDhEee-MeWXoLgrYg",
     "informationReferences" : [ {
       "reference" : "_5eBhQH6PEeePe9Zmt-encA"
@@ -285,33 +227,25 @@
     "javaParameterName" : "fnInvocationNamedParameters",
     "javaTypeName" : "FnInvocationNamedParameters",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "fn invocation named parameters",
     "protoRequestName" : "proto.FnInvocationNamedParametersRequest",
     "protoResponseName" : "proto.FnInvocationNamedParametersResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_48BAYH6PEeePe9Zmt-encA",
       "javaParameterName" : "inputA",
       "javaTypeName" : "java.lang.Number?",
-      "label" : null,
       "name" : "inputA",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_5eBhQH6PEeePe9Zmt-encA",
       "javaParameterName" : "inputB",
       "javaTypeName" : "java.lang.Number?",
-      "label" : null,
       "name" : "inputB",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -323,8 +257,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_AfhOEH6QEeePe9Zmt-encA",
     "informationReferences" : [ {
       "reference" : "_q2qzIH6LEeePe9Zmt-encA"
@@ -337,33 +269,25 @@
     "javaParameterName" : "fnInvocationPositionalParameters",
     "javaTypeName" : "FnInvocationPositionalParameters",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "fn invocation positional parameters",
     "protoRequestName" : "proto.FnInvocationPositionalParametersRequest",
     "protoResponseName" : "proto.FnInvocationPositionalParametersResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_48BAYH6PEeePe9Zmt-encA",
       "javaParameterName" : "inputA",
       "javaTypeName" : "java.lang.Number?",
-      "label" : null,
       "name" : "inputA",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_5eBhQH6PEeePe9Zmt-encA",
       "javaParameterName" : "inputB",
       "javaTypeName" : "java.lang.Number?",
-      "label" : null,
       "name" : "inputB",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -375,19 +299,15 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_q2qzIH6LEeePe9Zmt-encA",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "type.TFnLibrary?",
     "javaParameterName" : "fnLibrary",
     "javaTypeName" : "FnLibrary",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "fn library",
     "protoRequestName" : "proto.FnLibraryRequest",
     "protoResponseName" : "proto.FnLibraryResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "tFnLibrary",

@@ -50,7 +50,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-b7a901cd8a62b411508d6009ad035fa3",
     "isCollection" : false,
     "label" : "FetchForexRate",
@@ -61,7 +60,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-3e59f08bb6f957f7a7397815e0a7e19c",
     "isCollection" : false,
     "label" : "IsForexRateRequired",
@@ -72,7 +70,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-f5d6e5f1e9501ebd74b2eaf8185d97b9",
     "isCollection" : false,
     "label" : "IsForexRateRquired",
@@ -105,7 +102,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-2abc0e3c45a66f5c63fe09aa1b7f986d",
     "isCollection" : false,
     "label" : "TaxChargeType",
@@ -133,7 +129,6 @@
     "name" : "transaction",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-1",
       "isCollection" : false,
       "label" : "buySellIndicator",
@@ -144,7 +139,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-6",
       "isCollection" : false,
       "label" : "clearingAgent",
@@ -155,7 +149,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-11",
       "isCollection" : false,
       "label" : "commision",
@@ -166,7 +159,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-13",
       "isCollection" : false,
       "label" : "currencyCode",
@@ -177,7 +169,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-7",
       "isCollection" : false,
       "label" : "deliveryInstruction",
@@ -188,7 +179,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-8",
       "isCollection" : false,
       "label" : "executionCapacity",
@@ -199,7 +189,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-12",
       "isCollection" : false,
       "label" : "executionMarket",
@@ -210,7 +199,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-4",
       "isCollection" : false,
       "label" : "exerciseAssign",
@@ -221,7 +209,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-2",
       "isCollection" : false,
       "label" : "offeringType",
@@ -232,7 +219,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-10",
       "isCollection" : false,
       "label" : "price",
@@ -243,7 +229,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-9",
       "isCollection" : false,
       "label" : "quantity",
@@ -254,7 +239,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-5",
       "isCollection" : false,
       "label" : "settlementDate",
@@ -265,7 +249,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-0",
       "isCollection" : false,
       "label" : "tradeDate",
@@ -283,7 +266,6 @@
     "name" : "transactionTaxMetaData",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-e084a745b70b5346d1e25a2ff40ffcbb-relation-4",
       "isCollection" : false,
       "label" : "assetClass",
@@ -294,7 +276,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-e084a745b70b5346d1e25a2ff40ffcbb-relation-3",
       "isCollection" : false,
       "label" : "jurisdiction",
@@ -305,7 +286,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-e084a745b70b5346d1e25a2ff40ffcbb-relation-1",
       "isCollection" : false,
       "label" : "taxType",
@@ -371,7 +351,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
-    "extensions" : null,
     "id" : "id-4f18f3443d3d744beac363432b71a024",
     "informationReferences" : [ {
       "reference" : "id-2f33ede6cf73874d2adc0c7b93b1f310"
@@ -447,7 +426,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "1b49e2cbacaf470fb5d093be73afd27e",
-    "extensions" : null,
     "id" : "id-9bc027574845882aabcbef16b9124927",
     "informationReferences" : [ {
       "reference" : "id-891be9d7cc75911daea588a9a342b6af"

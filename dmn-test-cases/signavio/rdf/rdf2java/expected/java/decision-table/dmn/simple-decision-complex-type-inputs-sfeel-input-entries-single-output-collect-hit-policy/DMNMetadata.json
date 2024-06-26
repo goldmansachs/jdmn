@@ -6,7 +6,6 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "item-definition-sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0",
     "isCollection" : true,
     "label" : "Decision",
@@ -17,7 +16,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "item-definition-sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
     "isCollection" : false,
     "label" : "Employed",
@@ -34,7 +32,6 @@
     "name" : "person",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-dateofbirth-4",
       "isCollection" : false,
       "label" : "dateOfBirth",
@@ -45,7 +42,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-datetimeofbirth-6",
       "isCollection" : false,
       "label" : "dateTimeOfBirth",
@@ -56,7 +52,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-firstname-0",
       "isCollection" : false,
       "label" : "firstName",
@@ -78,7 +73,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-id-2",
       "isCollection" : false,
       "label" : "id",
@@ -89,7 +83,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-lastname-1",
       "isCollection" : false,
       "label" : "lastName",
@@ -100,7 +93,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-list-7",
       "isCollection" : true,
       "label" : "list",
@@ -111,7 +103,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-married-8",
       "isCollection" : false,
       "label" : "married",
@@ -122,7 +113,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-timeofbirth-5",
       "isCollection" : false,
       "label" : "timeOfBirth",
@@ -135,34 +125,28 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
     "javaParameterName" : "employed",
     "javaTypeName" : "Boolean",
     "label" : "Employed",
     "name" : "employed",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "employed",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
     "javaParameterName" : "person",
     "javaTypeName" : "type.Person",
     "label" : "Person",
     "name" : "person",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "person",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0",
     "informationReferences" : [ {
       "reference" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264"
@@ -177,29 +161,24 @@
     "name" : "decision",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "sid-B180B170-4226-4CB8-B6EE-51D4307DCA61",
       "javaParameterName" : "employed",
       "javaTypeName" : "Boolean",
       "label" : "Employed",
       "name" : "employed",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "employed",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264",
       "javaParameterName" : "person",
       "javaTypeName" : "type.Person",
       "label" : "Person",
       "name" : "person",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "person",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

@@ -12,7 +12,6 @@
     "name" : "loan",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-principal-0",
       "isCollection" : false,
       "label" : "principal",
@@ -23,7 +22,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-rate-1",
       "isCollection" : false,
       "label" : "rate",
@@ -34,7 +32,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "item-definition-term-2",
       "isCollection" : false,
       "label" : "term",
@@ -46,7 +43,6 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "item-definition-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E",
     "isCollection" : false,
     "label" : "Monthly",
@@ -58,21 +54,17 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23",
     "javaParameterName" : "loan",
     "javaTypeName" : "type.Loan",
     "label" : "Loan",
     "name" : "loan",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "loan",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E",
     "informationReferences" : [ {
       "reference" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23"
@@ -85,16 +77,13 @@
     "name" : "monthly",
     "protoRequestName" : "proto.MonthlyRequest",
     "protoResponseName" : "proto.MonthlyResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23",
       "javaParameterName" : "loan",
       "javaTypeName" : "type.Loan",
       "label" : "Loan",
       "name" : "loan",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "loan",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

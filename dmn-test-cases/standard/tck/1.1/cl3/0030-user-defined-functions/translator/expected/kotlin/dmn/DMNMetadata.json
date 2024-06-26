@@ -7,34 +7,26 @@
   "types" : [ ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_Aq8u4IDpEee-MeWXoLgrYg",
     "javaParameterName" : "stringInputA",
     "javaTypeName" : "String?",
-    "label" : null,
     "name" : "stringInputA",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_vfL7kIDqEeehqsf_bU54Lw",
     "javaParameterName" : "stringInputB",
     "javaTypeName" : "String?",
-    "label" : null,
     "name" : "stringInputB",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_GNiCIIDzEeehqsf_bU54Lw",
     "informationReferences" : [ {
       "reference" : "_vfL7kIDqEeehqsf_bU54Lw"
@@ -45,33 +37,25 @@
     "javaParameterName" : "namedFunctionInvocation",
     "javaTypeName" : "NamedFunctionInvocation",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "named function invocation",
     "protoRequestName" : "proto.NamedFunctionInvocationRequest",
     "protoResponseName" : "proto.NamedFunctionInvocationResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_Aq8u4IDpEee-MeWXoLgrYg",
       "javaParameterName" : "stringInputA",
       "javaTypeName" : "String?",
-      "label" : null,
       "name" : "stringInputA",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_vfL7kIDqEeehqsf_bU54Lw",
       "javaParameterName" : "stringInputB",
       "javaTypeName" : "String?",
-      "label" : null,
       "name" : "stringInputB",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -83,8 +67,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_WdFa8IDoEee-MeWXoLgrYg",
     "informationReferences" : [ {
       "reference" : "_Aq8u4IDpEee-MeWXoLgrYg"
@@ -95,33 +77,25 @@
     "javaParameterName" : "simpleFunctionInvocation",
     "javaTypeName" : "SimpleFunctionInvocation",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "simple function invocation",
     "protoRequestName" : "proto.SimpleFunctionInvocationRequest",
     "protoResponseName" : "proto.SimpleFunctionInvocationResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_Aq8u4IDpEee-MeWXoLgrYg",
       "javaParameterName" : "stringInputA",
       "javaTypeName" : "String?",
-      "label" : null,
       "name" : "stringInputA",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_vfL7kIDqEeehqsf_bU54Lw",
       "javaParameterName" : "stringInputB",
       "javaTypeName" : "String?",
-      "label" : null,
       "name" : "stringInputB",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"

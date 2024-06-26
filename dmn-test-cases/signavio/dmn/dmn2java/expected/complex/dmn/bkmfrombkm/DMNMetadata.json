@@ -6,7 +6,6 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-d3511d979e1a6102d0ae5b5034548a79",
     "isCollection" : false,
     "label" : "d",
@@ -17,7 +16,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-625818e1d9698c8571030551007e11cd",
     "isCollection" : false,
     "label" : "date",
@@ -28,7 +26,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-8620b54ef01371b34a9b595524377df0",
     "isCollection" : true,
     "label" : "date formula",
@@ -39,7 +36,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-524d3740b1b7c6ca8d96761707be6cc2",
     "isCollection" : false,
     "label" : "date input",
@@ -50,7 +46,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-ed40fa7086eb55f685aecd4d3e967715",
     "isCollection" : true,
     "label" : "date operators",
@@ -61,7 +56,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-6c2042cac154ecdf69796fb6830f6a4d",
     "isCollection" : false,
     "label" : "datetime",
@@ -72,7 +66,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-2e86f546a454ab9c359fe81c2ae62fc9",
     "isCollection" : true,
     "label" : "datetime formula",
@@ -83,7 +76,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-b66c57221477a778ba352d6a75b5e362",
     "isCollection" : true,
     "label" : "datetime operators",
@@ -94,7 +86,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-ac984fcc92ce261ac864bc3cc578b8a0",
     "isCollection" : false,
     "label" : "decide",
@@ -105,7 +96,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-a41c25033284ed36338bbd16aa1a0c66",
     "isCollection" : false,
     "label" : "final decision",
@@ -116,7 +106,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-b1eecadc91133fbcdeafeb845a8fa18c",
     "isCollection" : false,
     "label" : "pick",
@@ -127,7 +116,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-9fa5a1c91a673bbe7d29ce8954cace64",
     "isCollection" : false,
     "label" : "sum",
@@ -138,7 +126,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-1c03bb6329adf7ed49ec1c2e43c202cb",
     "isCollection" : false,
     "label" : "t",
@@ -149,7 +136,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-0f66dfb51b4590f1bbb199c8cba31e0b",
     "isCollection" : false,
     "label" : "time",
@@ -160,7 +146,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-423de30cf97b14350a84d8adbbaa7a9a",
     "isCollection" : false,
     "label" : "time 2",
@@ -171,7 +156,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-5c3ea7caaa4392612044ad738d737916",
     "isCollection" : true,
     "label" : "time formula",
@@ -182,7 +166,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-5c16baceefdefc717204a488d2215234",
     "isCollection" : false,
     "label" : "time input",
@@ -193,7 +176,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-01b5ed4317631ed94dd66d0694d39ea3",
     "isCollection" : true,
     "label" : "time operators",
@@ -309,44 +291,31 @@
     }
   }, {
     "@kind" : "bkm",
-    "diagramId" : null,
     "id" : "id-54abdc8cd2a3bf611355cb527afdee76",
     "javaOutputTypeName" : "List<String>",
     "javaParameterName" : "importedLogicDates",
     "javaTypeName" : "ImportedLogicDates",
     "knowledgeReferences" : [ ],
-    "label" : null,
-    "name" : "importedLogicDates",
-    "shapeId" : null,
-    "typeRef" : null
+    "name" : "importedLogicDates"
   }, {
     "@kind" : "bkm",
-    "diagramId" : null,
     "id" : "id-e69096ed8b4cc8e1792af85e0354305e",
     "javaOutputTypeName" : "List<String>",
     "javaParameterName" : "importedLogicTime",
     "javaTypeName" : "ImportedLogicTime",
     "knowledgeReferences" : [ ],
-    "label" : null,
-    "name" : "importedLogicTime",
-    "shapeId" : null,
-    "typeRef" : null
+    "name" : "importedLogicTime"
   }, {
     "@kind" : "bkm",
-    "diagramId" : null,
     "id" : "id-eda600519e4faa40c5130e00f1de55da",
     "javaOutputTypeName" : "String",
     "javaParameterName" : "logic",
     "javaTypeName" : "Logic",
     "knowledgeReferences" : [ ],
-    "label" : null,
-    "name" : "logic",
-    "shapeId" : null,
-    "typeRef" : null
+    "name" : "logic"
   }, {
     "@kind" : "decision",
     "diagramId" : "49d3d4b6e9ea4843831d30152855b089",
-    "extensions" : null,
     "id" : "id-1543aa52b5d4185035045b104fa815f2",
     "informationReferences" : [ {
       "reference" : "id-dd85852f8845e2ef306e65974c8926ce"
@@ -381,7 +350,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "49d3d4b6e9ea4843831d30152855b089",
-    "extensions" : null,
     "id" : "id-87769fde5d56837ec2ee380eac24606a",
     "informationReferences" : [ {
       "reference" : "id-dd85852f8845e2ef306e65974c8926ce"
@@ -416,7 +384,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "49d3d4b6e9ea4843831d30152855b089",
-    "extensions" : null,
     "id" : "id-f620185ec9fdf81fe951dbaecaa5b0ef",
     "informationReferences" : [ {
       "reference" : "id-f6f7cf95c788b905c4a684e273c1a8cb"
@@ -451,7 +418,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "49d3d4b6e9ea4843831d30152855b089",
-    "extensions" : null,
     "id" : "id-6cbafc16177989848019c8827a9eff2b",
     "informationReferences" : [ {
       "reference" : "id-f6f7cf95c788b905c4a684e273c1a8cb"
@@ -486,7 +452,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "49d3d4b6e9ea4843831d30152855b089",
-    "extensions" : null,
     "id" : "id-5441c3b27f8f18e44d483f7b83fc2e71",
     "informationReferences" : [ {
       "reference" : "id-eea61a93f3a2d565213a29f0e7adfc35"
@@ -562,7 +527,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "af75837563be485d941eba0f9bf7a5f4",
-    "extensions" : null,
     "id" : "id-8a57c9f0da820fe8d95116c7f371000c",
     "informationReferences" : [ {
       "reference" : "id-889f4d0596091ce3a3499de047a7cda8"
@@ -616,7 +580,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "892847fc44e2440a8e88aaf72fed0acc",
-    "extensions" : null,
     "id" : "id-627d52dc77f9f49546680eea3c86ac99",
     "informationReferences" : [ {
       "reference" : "id-d377d9806b9371d4738a769442dcad86"
@@ -655,7 +618,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "892847fc44e2440a8e88aaf72fed0acc",
-    "extensions" : null,
     "id" : "id-dd9df4daf2704f1fe3ec955ae5205714",
     "informationReferences" : [ {
       "reference" : "id-a74f217c55ddf7ff6b0b3bb039b6c159"
@@ -694,7 +656,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "892847fc44e2440a8e88aaf72fed0acc",
-    "extensions" : null,
     "id" : "id-cb2b53f8a8c905a87a5ee8f5011c784f",
     "informationReferences" : [ {
       "reference" : "id-dd9df4daf2704f1fe3ec955ae5205714"
@@ -744,7 +705,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "49d3d4b6e9ea4843831d30152855b089",
-    "extensions" : null,
     "id" : "id-eea61a93f3a2d565213a29f0e7adfc35",
     "informationReferences" : [ {
       "reference" : "id-87769fde5d56837ec2ee380eac24606a"
@@ -809,7 +769,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "49d3d4b6e9ea4843831d30152855b089",
-    "extensions" : null,
     "id" : "id-74af98ad18a65d77b3516e4851bb98d5",
     "informationReferences" : [ {
       "reference" : "id-f620185ec9fdf81fe951dbaecaa5b0ef"
@@ -887,7 +846,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "49d3d4b6e9ea4843831d30152855b089",
-    "extensions" : null,
     "id" : "id-b408b591374d084218a55a6a94a6e9b2",
     "informationReferences" : [ {
       "reference" : "id-b65d014e4d3d09e33a141cb5dacf40e9"
@@ -937,7 +895,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "49d3d4b6e9ea4843831d30152855b089",
-    "extensions" : null,
     "id" : "id-61674927aa39072b58f3c83404c7afe8",
     "informationReferences" : [ {
       "reference" : "id-1c021e3eeddf5997e55573482372124e"

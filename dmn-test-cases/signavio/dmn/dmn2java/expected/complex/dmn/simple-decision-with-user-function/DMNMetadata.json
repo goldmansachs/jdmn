@@ -6,7 +6,6 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-943ec7bf40aa94e2393d76932fb16bcd",
     "isCollection" : false,
     "label" : "Age",
@@ -17,7 +16,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-45a52f4c1355c1d61f98c2af8407aa0c",
     "isCollection" : false,
     "label" : "Decision",
@@ -43,7 +41,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "de7a0645edac43999154e9b141c9d66a",
-    "extensions" : null,
     "id" : "id-bbddb8a0fd9791e12ae899b179c6eeb3",
     "informationReferences" : [ {
       "reference" : "id-8b2dfaff5fd0522dcd630c363d26c907"

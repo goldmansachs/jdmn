@@ -7,116 +7,88 @@
   "types" : [ ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_inputData_003",
     "javaParameterName" : "inputData_003",
     "javaTypeName" : "String",
-    "label" : null,
     "name" : "inputData_003",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_inputData_011_1",
     "javaParameterName" : "inputData_011_1",
     "javaTypeName" : "String",
-    "label" : null,
     "name" : "inputData_011_1",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_inputData_011_2",
     "javaParameterName" : "inputData_011_2",
     "javaTypeName" : "String",
-    "label" : null,
     "name" : "inputData_011_2",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_inputData_012_1",
     "javaParameterName" : "inputData_012_1",
     "javaTypeName" : "String",
-    "label" : null,
     "name" : "inputData_012_1",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_inputData_012_2",
     "javaParameterName" : "inputData_012_2",
     "javaTypeName" : "String",
-    "label" : null,
     "name" : "inputData_012_2",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_inputData_013_1",
     "javaParameterName" : "inputData_013_1",
     "javaTypeName" : "String",
-    "label" : null,
     "name" : "inputData_013_1",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
     }
   }, {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "_inputData_014_1",
     "javaParameterName" : "inputData_014_1",
     "javaTypeName" : "String",
-    "label" : null,
     "name" : "inputData_014_1",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_001",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_001",
     "javaTypeName" : "Decision_001",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_001",
     "protoRequestName" : "proto.Decision001Request",
     "protoResponseName" : "proto.Decision001Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_002",
     "informationReferences" : [ {
       "reference" : "_decision_002_input"
@@ -125,34 +97,24 @@
     "javaParameterName" : "decision_002",
     "javaTypeName" : "Decision_002",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_002",
     "protoRequestName" : "proto.Decision002Request",
     "protoResponseName" : "proto.Decision002Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_002_input",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_002_input",
     "javaTypeName" : "Decision_002_input",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_002_input",
     "protoRequestName" : "proto.Decision002InputRequest",
     "protoResponseName" : "proto.Decision002InputResponse",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_003",
     "informationReferences" : [ {
       "reference" : "_decision_003_input_1"
@@ -165,64 +127,46 @@
     "javaParameterName" : "decision_003",
     "javaTypeName" : "Decision_003",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_003",
     "protoRequestName" : "proto.Decision003Request",
     "protoResponseName" : "proto.Decision003Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_inputData_003",
       "javaParameterName" : "inputData_003",
       "javaTypeName" : "String",
-      "label" : null,
       "name" : "inputData_003",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
       }
-    } ],
-    "typeRef" : null
+    } ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_003_input_1",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_003_input_1",
     "javaTypeName" : "Decision_003_input_1",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_003_input_1",
     "protoRequestName" : "proto.Decision003Input1Request",
     "protoResponseName" : "proto.Decision003Input1Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_003_input_2",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_003_input_2",
     "javaTypeName" : "Decision_003_input_2",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_003_input_2",
     "protoRequestName" : "proto.Decision003Input2Request",
     "protoResponseName" : "proto.Decision003Input2Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_004_1",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
@@ -233,34 +177,24 @@
     }, {
       "reference" : "_decisionService_004"
     } ],
-    "label" : null,
     "name" : "decision_004_1",
     "protoRequestName" : "proto.Decision0041Request",
     "protoResponseName" : "proto.Decision0041Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_004_2",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_004_2",
     "javaTypeName" : "Decision_004_2",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_004_2",
     "protoRequestName" : "proto.Decision0042Request",
     "protoResponseName" : "proto.Decision0042Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_006_1",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
@@ -271,17 +205,12 @@
     }, {
       "reference" : "_decisionService_006"
     } ],
-    "label" : null,
     "name" : "decision_006_1",
     "protoRequestName" : "proto.Decision0061Request",
     "protoResponseName" : "proto.Decision0061Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_006_2",
     "informationReferences" : [ {
       "reference" : "_decision_006_3"
@@ -290,28 +219,21 @@
     "javaParameterName" : "decision_006_2",
     "javaTypeName" : "Decision_006_2",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_006_2",
     "protoRequestName" : "proto.Decision0062Request",
     "protoResponseName" : "proto.Decision0062Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_006_3",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_006_3",
     "javaTypeName" : "Decision_006_3",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_006_3",
     "protoRequestName" : "proto.Decision0063Request",
     "protoResponseName" : "proto.Decision0063Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -319,8 +241,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_007_2",
     "informationReferences" : [ {
       "reference" : "_decision_007_3"
@@ -329,28 +249,21 @@
     "javaParameterName" : "decision_007_2",
     "javaTypeName" : "Decision_007_2",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_007_2",
     "protoRequestName" : "proto.Decision0072Request",
     "protoResponseName" : "proto.Decision0072Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_007_3",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_007_3",
     "javaTypeName" : "Decision_007_3",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_007_3",
     "protoRequestName" : "proto.Decision0073Request",
     "protoResponseName" : "proto.Decision0073Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -358,8 +271,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_009_1",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
@@ -370,17 +281,12 @@
     }, {
       "reference" : "_decisionService_009"
     } ],
-    "label" : null,
     "name" : "decision_009_1",
     "protoRequestName" : "proto.Decision0091Request",
     "protoResponseName" : "proto.Decision0091Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_009_2",
     "informationReferences" : [ {
       "reference" : "_decision_009_3"
@@ -389,28 +295,21 @@
     "javaParameterName" : "decision_009_2",
     "javaTypeName" : "Decision_009_2",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_009_2",
     "protoRequestName" : "proto.Decision0092Request",
     "protoResponseName" : "proto.Decision0092Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_009_3",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_009_3",
     "javaTypeName" : "Decision_009_3",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_009_3",
     "protoRequestName" : "proto.Decision0093Request",
     "protoResponseName" : "proto.Decision0093Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -418,8 +317,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_011_1",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
@@ -430,17 +327,12 @@
     }, {
       "reference" : "_decisionService_011"
     } ],
-    "label" : null,
     "name" : "decision_011_1",
     "protoRequestName" : "proto.Decision0111Request",
     "protoResponseName" : "proto.Decision0111Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_011_2",
     "informationReferences" : [ {
       "reference" : "_decision_011_3"
@@ -455,33 +347,25 @@
     "javaParameterName" : "decision_011_2",
     "javaTypeName" : "Decision_011_2",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_011_2",
     "protoRequestName" : "proto.Decision0112Request",
     "protoResponseName" : "proto.Decision0112Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_inputData_011_1",
       "javaParameterName" : "inputData_011_1",
       "javaTypeName" : "String",
-      "label" : null,
       "name" : "inputData_011_1",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_inputData_011_2",
       "javaParameterName" : "inputData_011_2",
       "javaTypeName" : "String",
-      "label" : null,
       "name" : "inputData_011_2",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
@@ -493,19 +377,15 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_011_3",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_011_3",
     "javaTypeName" : "Decision_011_3",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_011_3",
     "protoRequestName" : "proto.Decision0113Request",
     "protoResponseName" : "proto.Decision0113Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -513,19 +393,15 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_011_4",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_011_4",
     "javaTypeName" : "Decision_011_4",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_011_4",
     "protoRequestName" : "proto.Decision0114Request",
     "protoResponseName" : "proto.Decision0114Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -533,8 +409,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_012_1",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
@@ -545,17 +419,12 @@
     }, {
       "reference" : "_decisionService_012"
     } ],
-    "label" : null,
     "name" : "decision_012_1",
     "protoRequestName" : "proto.Decision0121Request",
     "protoResponseName" : "proto.Decision0121Response",
-    "shapeId" : null,
-    "transitiveRequiredInput" : [ ],
-    "typeRef" : null
+    "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_012_2",
     "informationReferences" : [ {
       "reference" : "_decision_012_3"
@@ -570,33 +439,25 @@
     "javaParameterName" : "decision_012_2",
     "javaTypeName" : "Decision_012_2",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_012_2",
     "protoRequestName" : "proto.Decision0122Request",
     "protoResponseName" : "proto.Decision0122Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_inputData_012_1",
       "javaParameterName" : "inputData_012_1",
       "javaTypeName" : "String",
-      "label" : null,
       "name" : "inputData_012_1",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
       }
     }, {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_inputData_012_2",
       "javaParameterName" : "inputData_012_2",
       "javaTypeName" : "String",
-      "label" : null,
       "name" : "inputData_012_2",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
@@ -608,19 +469,15 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_012_3",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_012_3",
     "javaTypeName" : "Decision_012_3",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_012_3",
     "protoRequestName" : "proto.Decision0123Request",
     "protoResponseName" : "proto.Decision0123Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -628,19 +485,15 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_012_4",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_012_4",
     "javaTypeName" : "Decision_012_4",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_012_4",
     "protoRequestName" : "proto.Decision0124Request",
     "protoResponseName" : "proto.Decision0124Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -648,8 +501,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_013_1",
     "informationReferences" : [ {
       "reference" : "_decision_013_3"
@@ -664,30 +515,22 @@
     }, {
       "reference" : "_decisionService_013"
     } ],
-    "label" : null,
     "name" : "decision_013_1",
     "protoRequestName" : "proto.Decision0131Request",
     "protoResponseName" : "proto.Decision0131Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_inputData_013_1",
       "javaParameterName" : "inputData_013_1",
       "javaTypeName" : "String",
-      "label" : null,
       "name" : "inputData_013_1",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
       }
-    } ],
-    "typeRef" : null
+    } ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_013_2",
     "informationReferences" : [ {
       "reference" : "_decision_013_3"
@@ -698,20 +541,15 @@
     "javaParameterName" : "decision_013_2",
     "javaTypeName" : "Decision_013_2",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_013_2",
     "protoRequestName" : "proto.Decision0132Request",
     "protoResponseName" : "proto.Decision0132Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_inputData_013_1",
       "javaParameterName" : "inputData_013_1",
       "javaTypeName" : "String",
-      "label" : null,
       "name" : "inputData_013_1",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
@@ -723,19 +561,15 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_013_3",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_013_3",
     "javaTypeName" : "Decision_013_3",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_013_3",
     "protoRequestName" : "proto.Decision0133Request",
     "protoResponseName" : "proto.Decision0133Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -743,8 +577,6 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_014_1",
     "informationReferences" : [ {
       "reference" : "_decision_014_3"
@@ -759,30 +591,22 @@
     }, {
       "reference" : "_decisionService_014"
     } ],
-    "label" : null,
     "name" : "decision_014_1",
     "protoRequestName" : "proto.Decision0141Request",
     "protoResponseName" : "proto.Decision0141Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_inputData_014_1",
       "javaParameterName" : "inputData_014_1",
       "javaTypeName" : "String",
-      "label" : null,
       "name" : "inputData_014_1",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
       }
-    } ],
-    "typeRef" : null
+    } ]
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_014_2",
     "informationReferences" : [ {
       "reference" : "_decision_014_3"
@@ -793,20 +617,15 @@
     "javaParameterName" : "decision_014_2",
     "javaTypeName" : "Decision_014_2",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_014_2",
     "protoRequestName" : "proto.Decision0142Request",
     "protoResponseName" : "proto.Decision0142Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "_inputData_014_1",
       "javaParameterName" : "inputData_014_1",
       "javaTypeName" : "String",
-      "label" : null,
       "name" : "inputData_014_1",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.montera.com.au/spec/DMN/0085-decision-services"
@@ -818,19 +637,15 @@
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : null,
     "id" : "_decision_014_3",
     "informationReferences" : [ ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "decision_014_3",
     "javaTypeName" : "Decision_014_3",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "decision_014_3",
     "protoRequestName" : "proto.Decision0143Request",
     "protoResponseName" : "proto.Decision0143Response",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",

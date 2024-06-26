@@ -39,7 +39,7 @@ public class AbstractTraceListenerTest {
 
     protected File writeNodes(Object nodes) throws IOException {
         File actualOutputFile = File.createTempFile("trace", "trc");
-        JsonSerializer.OBJECT_MAPPER.writeValue(actualOutputFile, nodes);
+        JsonSerializer.VERBOSE_OBJECT_MAPPER.writeValue(actualOutputFile, nodes);
         return actualOutputFile;
     }
 
