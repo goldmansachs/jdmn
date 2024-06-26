@@ -1,0 +1,117 @@
+{
+  "dmnVersion" : "1.4",
+  "modelVersion" : "1.0",
+  "platformVersion" : "8.5.1-SNAPSHOT",
+  "dmnNamespaces" : [ "http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" ],
+  "nativeNamespace" : "com.gs.dmn.runtime.metadata",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763",
+    "isCollection" : false,
+    "label" : "Applicant",
+    "name" : "applicant",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-1",
+      "isCollection" : false,
+      "label" : "Age",
+      "name" : "age",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-2",
+      "isCollection" : false,
+      "label" : "Credit score",
+      "name" : "creditScore",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-0",
+      "isCollection" : false,
+      "label" : "Name",
+      "name" : "name",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-4",
+      "isCollection" : true,
+      "label" : "Prior issues",
+      "name" : "priorIssues",
+      "typeRef" : {
+        "localName" : "creditIssueType",
+        "namespace" : "http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "id" : "id-747970848a049f329dae6329a0601f86",
+    "isCollection" : false,
+    "label" : "Assess applicant age",
+    "name" : "assessApplicantAge",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "id" : "id-8a4fb941ebc03bbe6df3c7615cb14852",
+    "isCollection" : true,
+    "label" : "Process prior issues",
+    "name" : "processPriorIssues",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-d2376567fde3c9400ee327ecec21e36d",
+    "javaParameterName" : "applicant",
+    "javaTypeName" : "com.gs.dmn.runtime.metadata.type.Applicant",
+    "label" : "Applicant",
+    "name" : "applicant",
+    "typeRef" : {
+      "localName" : "applicant",
+      "namespace" : "http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "id-98f1b72e74edaaae8d7fd9043f7e1bc4",
+    "informationReferences" : [ {
+      "reference" : "id-d2376567fde3c9400ee327ecec21e36d"
+    } ],
+    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaParameterName" : "assessApplicantAge",
+    "javaTypeName" : "com.gs.dmn.runtime.metadata.AssessApplicantAge",
+    "knowledgeReferences" : [ ],
+    "label" : "Assess applicant age",
+    "name" : "assessApplicantAge",
+    "protoRequestName" : "com.gs.dmn.runtime.metadata.proto.AssessApplicantAgeRequest",
+    "protoResponseName" : "com.gs.dmn.runtime.metadata.proto.AssessApplicantAgeResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-d2376567fde3c9400ee327ecec21e36d",
+      "javaParameterName" : "applicant",
+      "javaTypeName" : "com.gs.dmn.runtime.metadata.type.Applicant",
+      "label" : "Applicant",
+      "name" : "applicant",
+      "typeRef" : {
+        "localName" : "applicant",
+        "namespace" : "http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "assessApplicantAge",
+      "namespace" : "http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
+    }
+  } ]
+}

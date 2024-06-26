@@ -15,8 +15,10 @@ package com.gs.dmn.runtime.discovery;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DecisionDiscoveryTest {
     private final DecisionDiscovery decisionDiscovery = new DecisionDiscovery();
@@ -24,8 +26,7 @@ public class DecisionDiscoveryTest {
     @Test
     public void testDiscovery() {
         Set<Class<?>> decisions = decisionDiscovery.discover("com.gs");
-        assertEquals(1, decisions.size());
-        Class<?> first = decisions.iterator().next();
-        assertEquals("com.gs.dmn.runtime.discovery.NopDecision", first.getName());
+        assertEquals(2, decisions.size());
+        assertTrue(decisions.stream().map(Class::getName).collect(Collectors.toList()).contains("com.gs.dmn.runtime.discovery.NopDecision"));
     }
 }
