@@ -1,0 +1,290 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "isCollection" : false,
+    "label" : "tLoanProduct",
+    "name" : "tLoanProduct",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_5b870440-9692-4e81-959f-f2347c1768c9",
+      "isCollection" : false,
+      "name" : "fee",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_e4e050fd-9198-4b62-8f99-15cb2a0a2373",
+      "isCollection" : false,
+      "name" : "lenderName",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_9ca2f88a-3845-4b8d-864f-b86718eaa54d",
+      "isCollection" : false,
+      "name" : "points",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_dc34919e-c7d1-4aab-b6d1-4be1174f6fd2",
+      "isCollection" : false,
+      "name" : "rate",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "isCollection" : true,
+    "label" : "tLoanTable",
+    "name" : "tLoanTable",
+    "typeRef" : {
+      "localName" : "tLoanProduct",
+      "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "isCollection" : false,
+    "label" : "tMetric",
+    "name" : "tMetric",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_790093df-4886-405a-8ad6-34de25812bdc",
+      "isCollection" : false,
+      "name" : "downPmtAmt",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_3f4568e7-be52-4ce2-8704-be14aa6cd1d5",
+      "isCollection" : false,
+      "name" : "equity36moPct",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_2a9fe07c-d72b-4f8b-9995-e1b194dd5aa9",
+      "isCollection" : false,
+      "name" : "fee",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_59994d58-3220-4cc6-8d91-783a008ac472",
+      "isCollection" : false,
+      "name" : "lenderName",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_333f9092-d8a7-4e75-973d-82f30569e432",
+      "isCollection" : false,
+      "name" : "loanAmt",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_8f37cdc9-ff7a-4b8c-8849-c0b6a6cbb960",
+      "isCollection" : false,
+      "name" : "paymentAmt",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_be9eaeb3-8d52-4d99-9d0a-325c15fa6b74",
+      "isCollection" : false,
+      "name" : "points",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_63d8c69d-2431-43f5-bfa3-a014a6d2363e",
+      "isCollection" : false,
+      "name" : "rate",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "isCollection" : true,
+    "label" : "tMetrics",
+    "name" : "tMetrics",
+    "typeRef" : {
+      "localName" : "tMetric",
+      "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "isCollection" : false,
+    "label" : "tRankedProducts",
+    "name" : "tRankedProducts",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_0ee333d1-03fc-4a77-8798-d0b351a19a36",
+      "isCollection" : false,
+      "name" : "metricsTable",
+      "typeRef" : {
+        "localName" : "tMetrics",
+        "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_d54127c6-8418-45df-89da-2f84bedae37c",
+      "isCollection" : false,
+      "name" : "rankByDownPmt",
+      "typeRef" : {
+        "localName" : "tMetrics",
+        "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_897183a6-2ca8-4437-b21d-8ba90555a9e0",
+      "isCollection" : false,
+      "name" : "rankByEquityPct",
+      "typeRef" : {
+        "localName" : "tMetrics",
+        "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_7f98fed9-552a-4b57-99de-495cb96e8484",
+      "isCollection" : false,
+      "name" : "rankByMonthlyPmt",
+      "typeRef" : {
+        "localName" : "tMetrics",
+        "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_f0790a52-d95d-466a-bc51-5766c046c717",
+      "isCollection" : false,
+      "name" : "rankByRate",
+      "typeRef" : {
+        "localName" : "tMetrics",
+        "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "_67c50a4c-3002-4d0a-9acf-4c76cb0364fa",
+    "javaParameterName" : "requestedAmt",
+    "javaTypeName" : "java.lang.Number?",
+    "name" : "RequestedAmt",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "bkm",
+    "id" : "_83059f2e-2862-45a9-97a7-71ffaa860586",
+    "javaOutputTypeName" : "type.TMetric?",
+    "javaParameterName" : "financialMetrics",
+    "javaTypeName" : "FinancialMetrics",
+    "knowledgeReferences" : [ {
+      "reference" : "_8702e1b6-213b-4f75-bf56-99ac3835cde7"
+    }, {
+      "reference" : "_8702e1b6-213b-4f75-bf56-99ac3835cde7"
+    }, {
+      "reference" : "_daec318a-135b-4d54-9e7f-85af3aa662f7"
+    }, {
+      "reference" : "_daec318a-135b-4d54-9e7f-85af3aa662f7"
+    } ],
+    "name" : "FinancialMetrics"
+  }, {
+    "@kind" : "bkm",
+    "id" : "_daec318a-135b-4d54-9e7f-85af3aa662f7",
+    "javaOutputTypeName" : "java.lang.Number?",
+    "javaParameterName" : "equity36Mo",
+    "javaTypeName" : "Equity36Mo",
+    "knowledgeReferences" : [ ],
+    "name" : "equity36Mo"
+  }, {
+    "@kind" : "bkm",
+    "id" : "_8702e1b6-213b-4f75-bf56-99ac3835cde7",
+    "javaOutputTypeName" : "java.lang.Number?",
+    "javaParameterName" : "monthlyPayment",
+    "javaTypeName" : "MonthlyPayment",
+    "knowledgeReferences" : [ ],
+    "name" : "monthlyPayment"
+  }, {
+    "@kind" : "decision",
+    "id" : "_c5dd7a17-b588-4daf-8c9b-677e65ce87be",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "List<type.TLoanProduct?>?",
+    "javaParameterName" : "bankrates",
+    "javaTypeName" : "Bankrates",
+    "knowledgeReferences" : [ ],
+    "name" : "Bankrates",
+    "protoRequestName" : "proto.BankratesRequest",
+    "protoResponseName" : "proto.BankratesResponse",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "tLoanTable",
+      "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_715940be-0f5d-4701-8155-fcba85874aa1",
+    "informationReferences" : [ {
+      "reference" : "_67c50a4c-3002-4d0a-9acf-4c76cb0364fa"
+    }, {
+      "reference" : "_c5dd7a17-b588-4daf-8c9b-677e65ce87be"
+    } ],
+    "javaOutputTypeName" : "type.TRankedProducts?",
+    "javaParameterName" : "rankedProducts",
+    "javaTypeName" : "RankedProducts",
+    "knowledgeReferences" : [ {
+      "reference" : "_83059f2e-2862-45a9-97a7-71ffaa860586"
+    }, {
+      "reference" : "_83059f2e-2862-45a9-97a7-71ffaa860586"
+    } ],
+    "name" : "RankedProducts",
+    "protoRequestName" : "proto.RankedProductsRequest",
+    "protoResponseName" : "proto.RankedProductsResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_67c50a4c-3002-4d0a-9acf-4c76cb0364fa",
+      "javaParameterName" : "requestedAmt",
+      "javaTypeName" : "java.lang.Number?",
+      "name" : "RequestedAmt",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tRankedProducts",
+      "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719"
+    }
+  } ]
+}

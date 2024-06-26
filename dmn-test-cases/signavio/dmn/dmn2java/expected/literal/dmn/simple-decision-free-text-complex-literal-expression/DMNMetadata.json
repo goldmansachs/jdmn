@@ -2,7 +2,7 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
-  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/701a4e318a6d4d4f823018c5feaa8f81.xml",
+  "dmnNamespaces" : [ "http://www.provider.com/dmn/1.1/diagram/701a4e318a6d4d4f823018c5feaa8f81.xml" ],
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "compositeType",
@@ -12,7 +12,6 @@
     "name" : "loan",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23-relation-0",
       "isCollection" : false,
       "label" : "principal",
@@ -23,7 +22,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23-relation-1",
       "isCollection" : false,
       "label" : "rate",
@@ -34,7 +32,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23-relation-2",
       "isCollection" : false,
       "label" : "term",
@@ -46,7 +43,6 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-itemDefinition-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E",
     "isCollection" : false,
     "label" : "Monthly",
@@ -58,21 +54,17 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "diagramId" : null,
     "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-inputdata-sid-AD811598-1741-4206-A9FC-280EF77B0B23",
     "javaParameterName" : "loan",
     "javaTypeName" : "type.Loan",
     "label" : "Loan",
     "name" : "loan",
-    "shapeId" : null,
     "typeRef" : {
       "localName" : "loan",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/701a4e318a6d4d4f823018c5feaa8f81.xml"
     }
   }, {
     "@kind" : "decision",
-    "diagramId" : null,
-    "extensions" : [ ],
     "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-decision-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E",
     "informationReferences" : [ {
       "reference" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-inputdata-sid-AD811598-1741-4206-A9FC-280EF77B0B23"
@@ -85,16 +77,13 @@
     "name" : "monthly",
     "protoRequestName" : "proto.MonthlyRequest",
     "protoResponseName" : "proto.MonthlyResponse",
-    "shapeId" : null,
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "diagramId" : null,
       "id" : "diagram-701a4e318a6d4d4f823018c5feaa8f81-inputdata-sid-AD811598-1741-4206-A9FC-280EF77B0B23",
       "javaParameterName" : "loan",
       "javaTypeName" : "type.Loan",
       "label" : "Loan",
       "name" : "loan",
-      "shapeId" : null,
       "typeRef" : {
         "localName" : "loan",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/701a4e318a6d4d4f823018c5feaa8f81.xml"

@@ -2,7 +2,7 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
-  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
+  "dmnNamespaces" : [ "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml" ],
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "compositeType",
@@ -12,7 +12,6 @@
     "name" : "compile",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-38d39468f927e30338568ce127ca32ce-relation-FB2519CA-D8C5-4B12-95A3-459DE0620707",
       "isCollection" : false,
       "label" : "avg of numbers",
@@ -23,7 +22,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-38d39468f927e30338568ce127ca32ce-relation-23505F12-A51D-4951-8043-CB7FEABACB2A",
       "isCollection" : false,
       "label" : "name",
@@ -34,7 +32,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
       "id" : "id-38d39468f927e30338568ce127ca32ce-relation-7A604A9E-F65E-4397-9F48-7DFEA129340B",
       "isCollection" : false,
       "label" : "Next traffic light",
@@ -46,7 +43,6 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-35d74b55c04d0bf1caaa7dfdfc3b897a",
     "isCollection" : false,
     "label" : "name",
@@ -57,7 +53,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-26e02236d62542bd188c0240077d40e7",
     "isCollection" : true,
     "label" : "numbers",
@@ -120,7 +115,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "6776bb215482477ba041c80c9c559985",
-    "extensions" : [ ],
     "id" : "id-c234d0eaf09115adcd0ae840adeb1055",
     "informationReferences" : [ {
       "reference" : "id-c0237273c0ebfd8069dc25efc55db05a"

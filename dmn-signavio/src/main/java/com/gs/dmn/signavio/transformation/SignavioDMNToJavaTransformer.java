@@ -35,12 +35,14 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.gs.dmn.serialization.DMNSerializer.isDMNFile;
 import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
+import static com.gs.dmn.transformation.DMNToJavaTransformer.DMN_METADATA_FILE_NAME;
 
 public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
-    private static final String DMN_METADATA_FILE_NAME = "DMNMetadata";
     private final String schemaNamespace;
 
     public SignavioDMNToJavaTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
@@ -82,17 +84,25 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         String fileExtension = ".json";
 
         try {
-            DMNToManifestTransformer dmnToManifestTransformer = new DMNToManifestTransformer(dmnTransformer);
-            String dmnNamespace = dmnTransformer.getDMNModelRepository().getRootDefinitions().getNamespace();
+            SignavioDMNToManifestTransformer dmnToManifestTransformer = new SignavioDMNToManifestTransformer(dmnTransformer, logger);
+            List<String> dmnNamespaces = getNamespaces(dmnTransformer.getDMNModelRepository().getAllDefinitions());
             String nativeNamespace = dmnTransformer.nativeRootPackageName();
             String dmnVersion = this.inputParameters.getDmnVersion();
             String modelVersion = this.inputParameters.getModelVersion();
             String platformVersion = this.inputParameters.getPlatformVersion();
-            DMNMetadata manifest = dmnToManifestTransformer.toManifest(dmnNamespace, nativeNamespace, dmnVersion, modelVersion, platformVersion);
+            DMNMetadata manifest = dmnToManifestTransformer.toManifest(dmnNamespaces, nativeNamespace, dmnVersion, modelVersion, platformVersion);
             File resultFile = this.templateProcessor.makeOutputFile(outputPath, filePath, jsonFileName, fileExtension);
             JsonSerializer.OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(resultFile, manifest);
         } catch (Exception e) {
             throw new DMNRuntimeException("Cannot process manifest file", e);
+        }
+    }
+
+    private List<String> getNamespaces(List<TDefinitions> allDefinitions) {
+        if (allDefinitions == null) {
+            return null;
+        } else {
+            return allDefinitions.stream().map(TDefinitions::getNamespace).collect(Collectors.toList());
         }
     }
 }

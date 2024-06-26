@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 public class MetadataValidator {
@@ -44,6 +45,12 @@ public class MetadataValidator {
     }
 
     private boolean isGenerated(Class<?> aClass) {
-        return aClass.getAnnotation(com.gs.dmn.runtime.annotation.DRGElement.class) != null;
+        for (Annotation annotation : aClass.getAnnotations()) {
+            String name = annotation.annotationType().getName();
+            if (name.endsWith(com.gs.dmn.runtime.annotation.DRGElement.class.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

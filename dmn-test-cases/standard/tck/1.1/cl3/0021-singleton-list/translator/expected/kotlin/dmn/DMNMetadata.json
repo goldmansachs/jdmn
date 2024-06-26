@@ -1,0 +1,168 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "id" : "tStringList",
+    "isCollection" : true,
+    "name" : "tStringList",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "_Employees",
+    "javaParameterName" : "employees",
+    "javaTypeName" : "List<String?>?",
+    "name" : "Employees",
+    "typeRef" : {
+      "localName" : "tStringList",
+      "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "decision1",
+    "informationReferences" : [ {
+      "reference" : "_Employees"
+    } ],
+    "javaOutputTypeName" : "List<String?>?",
+    "javaParameterName" : "decision1",
+    "javaTypeName" : "Decision1",
+    "knowledgeReferences" : [ ],
+    "name" : "decision1",
+    "protoRequestName" : "proto.Decision1Request",
+    "protoResponseName" : "proto.Decision1Response",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_Employees",
+      "javaParameterName" : "employees",
+      "javaTypeName" : "List<String?>?",
+      "name" : "Employees",
+      "typeRef" : {
+        "localName" : "tStringList",
+        "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tStringList",
+      "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "decision2",
+    "informationReferences" : [ {
+      "reference" : "_Employees"
+    } ],
+    "javaOutputTypeName" : "String?",
+    "javaParameterName" : "decision2",
+    "javaTypeName" : "Decision2",
+    "knowledgeReferences" : [ ],
+    "name" : "decision2",
+    "protoRequestName" : "proto.Decision2Request",
+    "protoResponseName" : "proto.Decision2Response",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_Employees",
+      "javaParameterName" : "employees",
+      "javaTypeName" : "List<String?>?",
+      "name" : "Employees",
+      "typeRef" : {
+        "localName" : "tStringList",
+        "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "decision3",
+    "informationReferences" : [ {
+      "reference" : "_Employees"
+    } ],
+    "javaOutputTypeName" : "List<String?>?",
+    "javaParameterName" : "decision3",
+    "javaTypeName" : "Decision3",
+    "knowledgeReferences" : [ ],
+    "name" : "decision3",
+    "protoRequestName" : "proto.Decision3Request",
+    "protoResponseName" : "proto.Decision3Response",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_Employees",
+      "javaParameterName" : "employees",
+      "javaTypeName" : "List<String?>?",
+      "name" : "Employees",
+      "typeRef" : {
+        "localName" : "tStringList",
+        "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tStringList",
+      "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "decision4",
+    "informationReferences" : [ {
+      "reference" : "_Employees"
+    } ],
+    "javaOutputTypeName" : "String?",
+    "javaParameterName" : "decision4",
+    "javaTypeName" : "Decision4",
+    "knowledgeReferences" : [ ],
+    "name" : "decision4",
+    "protoRequestName" : "proto.Decision4Request",
+    "protoResponseName" : "proto.Decision4Response",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_Employees",
+      "javaParameterName" : "employees",
+      "javaTypeName" : "List<String?>?",
+      "name" : "Employees",
+      "typeRef" : {
+        "localName" : "tStringList",
+        "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "decision5",
+    "informationReferences" : [ {
+      "reference" : "_Employees"
+    } ],
+    "javaOutputTypeName" : "String?",
+    "javaParameterName" : "decision5",
+    "javaTypeName" : "Decision5",
+    "knowledgeReferences" : [ ],
+    "name" : "decision5",
+    "protoRequestName" : "proto.Decision5Request",
+    "protoResponseName" : "proto.Decision5Response",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_Employees",
+      "javaParameterName" : "employees",
+      "javaTypeName" : "List<String?>?",
+      "name" : "Employees",
+      "typeRef" : {
+        "localName" : "tStringList",
+        "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ]
+}

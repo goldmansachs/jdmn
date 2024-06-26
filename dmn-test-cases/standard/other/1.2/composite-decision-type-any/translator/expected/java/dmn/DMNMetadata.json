@@ -1,0 +1,121 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "_A1DA0133-767A-4B7B-AEDB-6D180B561FE2",
+    "isCollection" : false,
+    "name" : "Student",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_3EE4DB1C-7A07-4EA6-AC54-D85CB1A4D185",
+      "isCollection" : false,
+      "name" : "age",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_13DE7BD5-6E9F-4857-86D8-F80171103D1E",
+      "isCollection" : false,
+      "name" : "classification",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "_B6F9445C-BEFD-4F96-B501-007FDF74C310",
+    "javaParameterName" : "price",
+    "javaTypeName" : "java.lang.Number",
+    "name" : "price",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "_75441BFF-84B8-4CC0-9983-5BA637381C51",
+    "javaParameterName" : "student",
+    "javaTypeName" : "type.Student",
+    "name" : "student",
+    "typeRef" : {
+      "localName" : "Student",
+      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_EA6BEC4E-BB20-4937-8080-8CAA821D5765",
+    "informationReferences" : [ {
+      "reference" : "_75441BFF-84B8-4CC0-9983-5BA637381C51"
+    } ],
+    "javaOutputTypeName" : "com.gs.dmn.runtime.Context",
+    "javaParameterName" : "ageClassification",
+    "javaTypeName" : "AgeClassification",
+    "knowledgeReferences" : [ ],
+    "name" : "ageClassification",
+    "protoRequestName" : "proto.AgeClassificationRequest",
+    "protoResponseName" : "proto.AgeClassificationResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_75441BFF-84B8-4CC0-9983-5BA637381C51",
+      "javaParameterName" : "student",
+      "javaTypeName" : "type.Student",
+      "name" : "student",
+      "typeRef" : {
+        "localName" : "Student",
+        "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "Any",
+      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_04965026-AE07-40DC-B83A-D903F13416CB",
+    "informationReferences" : [ {
+      "reference" : "_EA6BEC4E-BB20-4937-8080-8CAA821D5765"
+    }, {
+      "reference" : "_B6F9445C-BEFD-4F96-B501-007FDF74C310"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "calculateDiscountedPrice",
+    "javaTypeName" : "CalculateDiscountedPrice",
+    "knowledgeReferences" : [ ],
+    "name" : "calculateDiscountedPrice",
+    "protoRequestName" : "proto.CalculateDiscountedPriceRequest",
+    "protoResponseName" : "proto.CalculateDiscountedPriceResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_B6F9445C-BEFD-4F96-B501-007FDF74C310",
+      "javaParameterName" : "price",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "price",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "_75441BFF-84B8-4CC0-9983-5BA637381C51",
+      "javaParameterName" : "student",
+      "javaTypeName" : "type.Student",
+      "name" : "student",
+      "typeRef" : {
+        "localName" : "Student",
+        "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+    }
+  } ]
+}

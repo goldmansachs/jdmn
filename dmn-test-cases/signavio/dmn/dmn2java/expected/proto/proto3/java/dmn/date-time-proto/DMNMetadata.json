@@ -2,18 +2,14 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
-  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+  "dmnNamespaces" : [ "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" ],
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "compositeType",
-    "id" : null,
     "isCollection" : false,
-    "label" : null,
     "name" : "tCompositeDateTime",
     "types" : [ {
       "@kind" : "referenceType",
-      "allowedValues" : null,
-      "id" : null,
       "isCollection" : false,
       "label" : "Date",
       "name" : "Date",
@@ -23,8 +19,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
-      "id" : null,
       "isCollection" : false,
       "label" : "DateTime",
       "name" : "DateTime",
@@ -34,8 +28,6 @@
       }
     }, {
       "@kind" : "referenceType",
-      "allowedValues" : null,
-      "id" : null,
       "isCollection" : false,
       "label" : "Time",
       "name" : "Time",
@@ -46,10 +38,7 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
-    "id" : null,
     "isCollection" : false,
-    "label" : null,
     "name" : "tDate",
     "typeRef" : {
       "localName" : "date",
@@ -57,10 +46,7 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
-    "id" : null,
     "isCollection" : false,
-    "label" : null,
     "name" : "tDateTime",
     "typeRef" : {
       "localName" : "date and time",
@@ -68,10 +54,7 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
-    "id" : null,
     "isCollection" : false,
-    "label" : null,
     "name" : "tTime",
     "typeRef" : {
       "localName" : "time",
@@ -84,7 +67,6 @@
     "id" : "c-date-time",
     "javaParameterName" : "compositeInputDateTime",
     "javaTypeName" : "type.TCompositeDateTime",
-    "label" : null,
     "name" : "CompositeInputDateTime",
     "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
     "typeRef" : {
@@ -97,7 +79,6 @@
     "id" : "i-date",
     "javaParameterName" : "inputDate",
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-    "label" : null,
     "name" : "InputDate",
     "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
     "typeRef" : {
@@ -110,7 +91,6 @@
     "id" : "i-date-time",
     "javaParameterName" : "inputDateTime",
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-    "label" : null,
     "name" : "InputDateTime",
     "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
     "typeRef" : {
@@ -123,7 +103,6 @@
     "id" : "i-time",
     "javaParameterName" : "inputTime",
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-    "label" : null,
     "name" : "InputTime",
     "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
     "typeRef" : {
@@ -133,7 +112,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : [ ],
     "id" : "c-DateTime",
     "informationReferences" : [ {
       "reference" : "i-date"
@@ -148,7 +126,6 @@
     "javaParameterName" : "compositeDateTime",
     "javaTypeName" : "CompositeDateTime",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "CompositeDateTime",
     "protoRequestName" : "proto.CompositeDateTimeRequest",
     "protoResponseName" : "proto.CompositeDateTimeResponse",
@@ -159,7 +136,6 @@
       "id" : "c-date-time",
       "javaParameterName" : "compositeInputDateTime",
       "javaTypeName" : "type.TCompositeDateTime",
-      "label" : null,
       "name" : "CompositeInputDateTime",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
       "typeRef" : {
@@ -172,7 +148,6 @@
       "id" : "i-date",
       "javaParameterName" : "inputDate",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputDate",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
@@ -185,7 +160,6 @@
       "id" : "i-date-time",
       "javaParameterName" : "inputDateTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputDateTime",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
@@ -198,7 +172,6 @@
       "id" : "i-time",
       "javaParameterName" : "inputTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputTime",
       "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
@@ -213,7 +186,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : [ ],
     "id" : "d-Date",
     "informationReferences" : [ {
       "reference" : "i-date"
@@ -228,7 +200,6 @@
     "javaParameterName" : "date",
     "javaTypeName" : "Date",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "Date",
     "protoRequestName" : "proto.DateRequest",
     "protoResponseName" : "proto.DateResponse",
@@ -239,7 +210,6 @@
       "id" : "c-date-time",
       "javaParameterName" : "compositeInputDateTime",
       "javaTypeName" : "type.TCompositeDateTime",
-      "label" : null,
       "name" : "CompositeInputDateTime",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
       "typeRef" : {
@@ -252,7 +222,6 @@
       "id" : "i-date",
       "javaParameterName" : "inputDate",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputDate",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
@@ -265,7 +234,6 @@
       "id" : "i-date-time",
       "javaParameterName" : "inputDateTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputDateTime",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
@@ -278,7 +246,6 @@
       "id" : "i-time",
       "javaParameterName" : "inputTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputTime",
       "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
@@ -293,7 +260,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : [ ],
     "id" : "d-DateTime",
     "informationReferences" : [ {
       "reference" : "i-date"
@@ -308,7 +274,6 @@
     "javaParameterName" : "dateTime",
     "javaTypeName" : "DateTime",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "DateTime",
     "protoRequestName" : "proto.DateTimeRequest",
     "protoResponseName" : "proto.DateTimeResponse",
@@ -319,7 +284,6 @@
       "id" : "c-date-time",
       "javaParameterName" : "compositeInputDateTime",
       "javaTypeName" : "type.TCompositeDateTime",
-      "label" : null,
       "name" : "CompositeInputDateTime",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
       "typeRef" : {
@@ -332,7 +296,6 @@
       "id" : "i-date",
       "javaParameterName" : "inputDate",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputDate",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
@@ -345,7 +308,6 @@
       "id" : "i-date-time",
       "javaParameterName" : "inputDateTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputDateTime",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
@@ -358,7 +320,6 @@
       "id" : "i-time",
       "javaParameterName" : "inputTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputTime",
       "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
@@ -373,7 +334,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
-    "extensions" : [ ],
     "id" : "d-Time",
     "informationReferences" : [ {
       "reference" : "i-date"
@@ -388,7 +348,6 @@
     "javaParameterName" : "time",
     "javaTypeName" : "Time",
     "knowledgeReferences" : [ ],
-    "label" : null,
     "name" : "Time",
     "protoRequestName" : "proto.TimeRequest",
     "protoResponseName" : "proto.TimeResponse",
@@ -399,7 +358,6 @@
       "id" : "c-date-time",
       "javaParameterName" : "compositeInputDateTime",
       "javaTypeName" : "type.TCompositeDateTime",
-      "label" : null,
       "name" : "CompositeInputDateTime",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
       "typeRef" : {
@@ -412,7 +370,6 @@
       "id" : "i-date",
       "javaParameterName" : "inputDate",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputDate",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
@@ -425,7 +382,6 @@
       "id" : "i-date-time",
       "javaParameterName" : "inputDateTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputDateTime",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
@@ -438,7 +394,6 @@
       "id" : "i-time",
       "javaParameterName" : "inputTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
-      "label" : null,
       "name" : "InputTime",
       "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {

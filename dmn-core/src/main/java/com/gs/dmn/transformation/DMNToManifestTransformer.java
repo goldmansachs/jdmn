@@ -10,16 +10,15 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.transformation;
+package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.metadata.*;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import java.util.ArrayList;
@@ -29,20 +28,22 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.serialization.DMNVersion.DMN_11;
 
 public class DMNToManifestTransformer {
-    private final BasicDMNToNativeTransformer<com.gs.dmn.el.analysis.semantics.type.Type, DMNContext> dmnTransformer;
-    private final DMNModelRepository dmnModelRepository;
+    protected final BasicDMNToNativeTransformer<com.gs.dmn.el.analysis.semantics.type.Type, DMNContext> dmnTransformer;
+    protected final DMNModelRepository dmnModelRepository;
+    private final BuildLogger logger;
 
-    public DMNToManifestTransformer(BasicDMNToNativeTransformer<com.gs.dmn.el.analysis.semantics.type.Type, DMNContext> dmnTransformer) {
+    public DMNToManifestTransformer(BasicDMNToNativeTransformer<com.gs.dmn.el.analysis.semantics.type.Type, DMNContext> dmnTransformer, BuildLogger logger) {
         this.dmnModelRepository = dmnTransformer.getDMNModelRepository();
         this.dmnTransformer = dmnTransformer;
+        this.logger = logger;
     }
 
-    public DMNMetadata toManifest(String dmnNamespace, String nativeNamespace, String dmnVersion, String modelVersion, String platformVersion) {
-        DMNMetadata manifest = new DMNMetadata(dmnNamespace, nativeNamespace, dmnVersion, modelVersion, platformVersion);
+    public DMNMetadata toManifest(List<String> dmnNamespaces, String nativeNamespace, String dmnVersion, String modelVersion, String platformVersion) {
+        DMNMetadata manifest = new DMNMetadata(dmnNamespaces, nativeNamespace, dmnVersion, modelVersion, platformVersion);
         for (TDefinitions definitions: this.dmnModelRepository.getAllDefinitions()) {
             // Add types
             for (TItemDefinition itemDefinition : this.dmnModelRepository.findItemDefinitions(definitions)) {
-                com.gs.dmn.runtime.metadata.Type type = makeMetadataType(definitions, itemDefinition);
+                Type type = makeMetadataType(definitions, itemDefinition);
                 manifest.addType(type);
             }
             // Add elements
@@ -51,11 +52,11 @@ public class DMNToManifestTransformer {
                 manifest.addElement(element);
             }
             for (TBusinessKnowledgeModel bkm : this.dmnModelRepository.findBKMs(definitions)) {
-                com.gs.dmn.runtime.metadata.BKM element = makeMetadataBKM(definitions, bkm);
+                BKM element = makeMetadataBKM(definitions, bkm);
                 manifest.addElement(element);
             }
             for (TDecision decision : this.dmnModelRepository.findDecisions(definitions)) {
-                com.gs.dmn.runtime.metadata.Decision element = makeMetadataDecision(definitions, decision);
+                Decision element = makeMetadataDecision(definitions, decision);
                 manifest.addElement(element);
             }
         }
@@ -65,20 +66,20 @@ public class DMNToManifestTransformer {
     //
     // Types
     //
-    private com.gs.dmn.runtime.metadata.Type makeMetadataType(TDefinitions model, TItemDefinition itemDefinition) {
+    private Type makeMetadataType(TDefinitions model, TItemDefinition itemDefinition) {
         String id = itemDefinition.getId();
         String name = itemDefinition.getName();
         String label = itemDefinition.getLabel();
         boolean isCollection = itemDefinition.isIsCollection();
-        com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(model, QualifiedName.toQualifiedName(model, itemDefinition.getTypeRef()));
+        QName typeRef = makeMetadataTypeRef(model, QualifiedName.toQualifiedName(model, itemDefinition.getTypeRef()));
         String allowedValues = makeMetadataAllowedValues(itemDefinition.getAllowedValues());
 
         List<TItemDefinition> children = itemDefinition.getItemComponent();
-        com.gs.dmn.runtime.metadata.Type type;
+        Type type;
         if (children == null || children.isEmpty()) {
             type = new TypeReference(id, name, label, isCollection, typeRef, allowedValues);
         } else {
-            List<com.gs.dmn.runtime.metadata.Type> subTypes = new ArrayList<>();
+            List<Type> subTypes = new ArrayList<>();
             for (TItemDefinition child : children) {
                 subTypes.add(makeMetadataType(model, child));
             }
@@ -87,13 +88,13 @@ public class DMNToManifestTransformer {
         return type;
     }
 
-    private com.gs.dmn.runtime.metadata.QName makeMetadataTypeRef(TDefinitions model, QualifiedName typeRef) {
+    protected QName makeMetadataTypeRef(TDefinitions model, QualifiedName typeRef) {
         if (this.dmnModelRepository.isNull(typeRef)) {
             return null;
         }
         String importName = typeRef.getNamespace();
         String namespace = findNamespace(model, importName);
-        return new com.gs.dmn.runtime.metadata.QName(namespace, typeRef.getLocalPart());
+        return new QName(namespace, typeRef.getLocalPart());
     }
 
     private String makeMetadataAllowedValues(TUnaryTests allowedValues) {
@@ -124,56 +125,72 @@ public class DMNToManifestTransformer {
         return makeMetadataInputData(definitions, inputData);
     }
 
-    private InputData makeMetadataInputData(TDefinitions definitions, TInputData inputData) {
+    protected InputData makeMetadataInputData(TDefinitions definitions, TInputData inputData) {
         String id = inputData.getId();
         String name = inputData.getName();
         String label = inputData.getLabel();
-        String diagramId = ((SignavioDMNModelRepository) this.dmnModelRepository).getDiagramId(inputData);
-        String shapeId = ((SignavioDMNModelRepository) this.dmnModelRepository).getShapeId(inputData);
+        String diagramId = getDiagramId(inputData);
+        String shapeId = getShapeId(inputData);
         String javaParameterName = this.dmnTransformer.namedElementVariableName(inputData);
-        String javaTypeName = this.dmnTransformer.drgElementOutputType(inputData);
-        com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, inputData.getVariable().getTypeRef()));
+        String javaTypeName = getJavaTypeName(inputData);
+        QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, inputData.getVariable().getTypeRef()));
         return new InputData(id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, typeRef);
     }
 
-    private BKM makeMetadataBKM(TDefinitions definitions, TBusinessKnowledgeModel bkm) {
+    protected BKM makeMetadataBKM(TDefinitions definitions, TBusinessKnowledgeModel bkm) {
         String id = bkm.getId();
         String name = bkm.getName();
         String label = bkm.getLabel();
-        String diagramId = ((SignavioDMNModelRepository) this.dmnModelRepository).getDiagramId(bkm);
-        String shapeId = ((SignavioDMNModelRepository) this.dmnModelRepository).getShapeId(bkm);
+        String diagramId = getDiagramId(bkm);
+        String shapeId = getShapeId(bkm);
         String javaParameterName = this.dmnTransformer.namedElementVariableName(bkm);
         String javaTypeName = this.dmnTransformer.qualifiedName(this.dmnTransformer.nativeModelPackageName(definitions.getName()), this.dmnTransformer.drgElementClassName(bkm));
-        String javaOutputTypeName = this.dmnTransformer.drgElementOutputType(bkm);
-        com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, this.dmnTransformer.drgElementOutputTypeRef(bkm));
+        String javaOutputTypeName = getJavaTypeName(bkm);
+        QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, bkm.getVariable().getTypeRef()));
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement());
         return new BKM(id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
     }
 
-    private Decision makeMetadataDecision(TDefinitions definitions, TDecision decision) {
+    protected Decision makeMetadataDecision(TDefinitions definitions, TDecision decision) {
         String id = decision.getId();
-        String diagramId = ((SignavioDMNModelRepository) this.dmnModelRepository).getDiagramId(decision);
-        String shapeId = ((SignavioDMNModelRepository) this.dmnModelRepository).getShapeId(decision);
+        String diagramId = getDiagramId(decision);
+        String shapeId = getShapeId(decision);
         String name = decision.getName();
         String label = decision.getLabel();
         String nativeParameterName = this.dmnTransformer.namedElementVariableName(decision);
         String nativeTypeName = this.dmnTransformer.qualifiedName(this.dmnTransformer.nativeModelPackageName(definitions.getName()), this.dmnTransformer.drgElementClassName(decision));
-        String nativeOutputTypeName = this.dmnTransformer.drgElementOutputType(decision);
-        com.gs.dmn.runtime.metadata.QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, decision.getVariable().getTypeRef()));
+        String nativeOutputTypeName = getJavaTypeName(decision);
+        QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, decision.getVariable().getTypeRef()));
         List<DRGElementReference> references = makeMetadataInformationReferences(decision);
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(decision.getKnowledgeRequirement());
-        List<ExtensionElement> extensions = ((BasicSignavioDMNToJavaTransformer) this.dmnTransformer).makeMetadataExtensions(decision);
+        List<ExtensionElement> extensions = null;
         List<InputData> transitiveRequiredInputs = makeTransitiveRequiredInputs(decision);
         String protoRequestName = this.dmnTransformer.qualifiedRequestMessageName(decision);
         String protoResponseName = this.dmnTransformer.qualifiedResponseMessageName(decision);
         return new Decision(id, name, label, diagramId, shapeId, nativeParameterName, nativeTypeName, nativeOutputTypeName, typeRef, references, knowledgeReferences, extensions, transitiveRequiredInputs, protoRequestName, protoResponseName);
     }
 
+    protected String getDiagramId(TDRGElement element) {
+        return null;
+    }
+
+    protected String getShapeId(TDRGElement element) {
+        return null;
+    }
+
+    private String getJavaTypeName(TDRGElement element) {
+        try {
+            return this.dmnTransformer.drgElementOutputType(element);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return Object.class.getName();
+        }
+    }
 
     //
     // References
     //
-    private List<DRGElementReference> makeMetadataKnowledgeReferences(List<TKnowledgeRequirement> knowledgeRequirementList) {
+    protected List<DRGElementReference> makeMetadataKnowledgeReferences(List<TKnowledgeRequirement> knowledgeRequirementList) {
         List<DRGElementReference> references = new ArrayList<>();
         for (TKnowledgeRequirement knowledgeRequirement : knowledgeRequirementList) {
             addMetadataReference(references, knowledgeRequirement.getRequiredKnowledge());
@@ -182,7 +199,7 @@ public class DMNToManifestTransformer {
         return references;
     }
 
-    private List<DRGElementReference> makeMetadataInformationReferences(TDecision decision) {
+    protected List<DRGElementReference> makeMetadataInformationReferences(TDecision decision) {
         List<DRGElementReference> references = new ArrayList<>();
         List<TInformationRequirement> informationRequirementList = decision.getInformationRequirement();
         for (TInformationRequirement informationRequirement : informationRequirementList) {
@@ -192,7 +209,7 @@ public class DMNToManifestTransformer {
         return references;
     }
 
-    private List<InputData> makeTransitiveRequiredInputs(TDecision element) {
+    protected List<InputData> makeTransitiveRequiredInputs(TDecision element) {
         com.gs.dmn.DRGElementReference<TDecision> reference = this.dmnModelRepository.makeDRGElementReference(element);
         List<com.gs.dmn.DRGElementReference<TInputData>> drgElementReferences = this.dmnTransformer.inputDataClosure(reference);
         return drgElementReferences.stream().map(this::makeMetadataInputData).collect(Collectors.toList());

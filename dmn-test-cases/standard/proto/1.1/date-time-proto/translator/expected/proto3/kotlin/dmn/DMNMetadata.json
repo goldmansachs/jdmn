@@ -1,0 +1,206 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.provider.com/spec/DMN/proto-date-time-function" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "isCollection" : false,
+    "name" : "CompositeDateTime",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "isCollection" : false,
+      "name" : "Date",
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "isCollection" : false,
+      "name" : "DateTime",
+      "typeRef" : {
+        "localName" : "dateTime",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "isCollection" : false,
+      "name" : "DayTimeDuration",
+      "typeRef" : {
+        "localName" : "dayTimeDuration",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "isCollection" : false,
+      "name" : "Time",
+      "typeRef" : {
+        "localName" : "time",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "isCollection" : false,
+      "name" : "YearMonthDuration",
+      "typeRef" : {
+        "localName" : "yearMonthDuration",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "c-date-time",
+    "javaParameterName" : "compositeInputDateTime",
+    "javaTypeName" : "type.CompositeDateTime?",
+    "name" : "CompositeInputDateTime",
+    "typeRef" : {
+      "localName" : "CompositeDateTime",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "i-date",
+    "javaParameterName" : "inputDate",
+    "javaTypeName" : "java.time.LocalDate?",
+    "name" : "InputDate",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "i-date-time",
+    "javaParameterName" : "inputDateTime",
+    "javaTypeName" : "java.time.temporal.TemporalAccessor?",
+    "name" : "InputDateTime",
+    "typeRef" : {
+      "localName" : "dateTime",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "i-time",
+    "javaParameterName" : "inputTime",
+    "javaTypeName" : "java.time.temporal.TemporalAccessor?",
+    "name" : "InputTime",
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "c-DateTime",
+    "informationReferences" : [ {
+      "reference" : "c-date-time"
+    } ],
+    "javaOutputTypeName" : "type.CompositeDateTime?",
+    "javaParameterName" : "compositeDateTime",
+    "javaTypeName" : "CompositeDateTime",
+    "knowledgeReferences" : [ ],
+    "name" : "CompositeDateTime",
+    "protoRequestName" : "proto.CompositeDateTimeRequest",
+    "protoResponseName" : "proto.CompositeDateTimeResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "c-date-time",
+      "javaParameterName" : "compositeInputDateTime",
+      "javaTypeName" : "type.CompositeDateTime?",
+      "name" : "CompositeInputDateTime",
+      "typeRef" : {
+        "localName" : "CompositeDateTime",
+        "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "CompositeDateTime",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "d-Date",
+    "informationReferences" : [ {
+      "reference" : "i-date"
+    } ],
+    "javaOutputTypeName" : "java.time.LocalDate?",
+    "javaParameterName" : "date",
+    "javaTypeName" : "Date",
+    "knowledgeReferences" : [ ],
+    "name" : "Date",
+    "protoRequestName" : "proto.DateRequest",
+    "protoResponseName" : "proto.DateResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "i-date",
+      "javaParameterName" : "inputDate",
+      "javaTypeName" : "java.time.LocalDate?",
+      "name" : "InputDate",
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "d-DateTime",
+    "informationReferences" : [ {
+      "reference" : "i-date-time"
+    } ],
+    "javaOutputTypeName" : "java.time.temporal.TemporalAccessor?",
+    "javaParameterName" : "dateTime",
+    "javaTypeName" : "DateTime",
+    "knowledgeReferences" : [ ],
+    "name" : "DateTime",
+    "protoRequestName" : "proto.DateTimeRequest",
+    "protoResponseName" : "proto.DateTimeResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "i-date-time",
+      "javaParameterName" : "inputDateTime",
+      "javaTypeName" : "java.time.temporal.TemporalAccessor?",
+      "name" : "InputDateTime",
+      "typeRef" : {
+        "localName" : "dateTime",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "dateTime",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "d-Time",
+    "informationReferences" : [ {
+      "reference" : "i-time"
+    } ],
+    "javaOutputTypeName" : "java.time.temporal.TemporalAccessor?",
+    "javaParameterName" : "time",
+    "javaTypeName" : "Time",
+    "knowledgeReferences" : [ ],
+    "name" : "Time",
+    "protoRequestName" : "proto.TimeRequest",
+    "protoResponseName" : "proto.TimeResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "i-time",
+      "javaParameterName" : "inputTime",
+      "javaTypeName" : "java.time.temporal.TemporalAccessor?",
+      "name" : "InputTime",
+      "typeRef" : {
+        "localName" : "time",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ]
+}

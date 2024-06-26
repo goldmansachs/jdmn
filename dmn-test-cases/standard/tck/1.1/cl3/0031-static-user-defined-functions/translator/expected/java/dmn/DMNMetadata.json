@@ -1,0 +1,317 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "_1O2mQIJtEee4zOLdFxCBaA",
+    "isCollection" : false,
+    "name" : "tFnInvocationComplexParamsResult",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_fdbr4IJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "circumference",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_fb73EIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "functionInvocationInParameter",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_fTiwEIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "functionInvocationLiteralExpressionInParameter",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "_0BpzUIJtEee4zOLdFxCBaA",
+    "isCollection" : false,
+    "name" : "tFnInvocationNamedResult",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_XKOfkIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "divisionResultNamed",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_afyGIIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "multiplicationResultNamed",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_Ua9c8IJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "subResult",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_XCUgwIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "subResultMixed",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "_xuQ0YIJtEee4zOLdFxCBaA",
+    "isCollection" : false,
+    "name" : "tFnInvocationPositionalResult",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_IpHmkIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "divisionResultPositional",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_OmarcIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "multiplicationResultPositional",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_GDzKIIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "sumResult",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "_fKdL0IDJEee-MeWXoLgrYg",
+    "isCollection" : false,
+    "name" : "tFnLibrary",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_pOrn0IDfEee-MeWXoLgrYg",
+      "isCollection" : false,
+      "name" : "divideFn"
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_l_GGYIDfEee-MeWXoLgrYg",
+      "isCollection" : false,
+      "name" : "multiplyFn"
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_pRj-sIDJEee-MeWXoLgrYg",
+      "isCollection" : false,
+      "name" : "subFn"
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_gtkkYIDJEee-MeWXoLgrYg",
+      "isCollection" : false,
+      "name" : "sumFn"
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "_48BAYH6PEeePe9Zmt-encA",
+    "javaParameterName" : "inputA",
+    "javaTypeName" : "java.lang.Number",
+    "name" : "inputA",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "_5eBhQH6PEeePe9Zmt-encA",
+    "javaParameterName" : "inputB",
+    "javaTypeName" : "java.lang.Number",
+    "name" : "inputB",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "bkm",
+    "id" : "_8xmTAIDNEee-MeWXoLgrYg",
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "circumference",
+    "javaTypeName" : "Circumference",
+    "knowledgeReferences" : [ ],
+    "name" : "Circumference"
+  }, {
+    "@kind" : "decision",
+    "id" : "_b-gD0IDiEee-MeWXoLgrYg",
+    "informationReferences" : [ {
+      "reference" : "_48BAYH6PEeePe9Zmt-encA"
+    }, {
+      "reference" : "_5eBhQH6PEeePe9Zmt-encA"
+    }, {
+      "reference" : "_q2qzIH6LEeePe9Zmt-encA"
+    } ],
+    "javaOutputTypeName" : "type.TFnInvocationComplexParamsResult",
+    "javaParameterName" : "fnInvocationComplexParameters",
+    "javaTypeName" : "FnInvocationComplexParameters",
+    "knowledgeReferences" : [ {
+      "reference" : "_8xmTAIDNEee-MeWXoLgrYg"
+    }, {
+      "reference" : "_8xmTAIDNEee-MeWXoLgrYg"
+    } ],
+    "name" : "fn invocation complex parameters",
+    "protoRequestName" : "proto.FnInvocationComplexParametersRequest",
+    "protoResponseName" : "proto.FnInvocationComplexParametersResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_48BAYH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputA",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputA",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "_5eBhQH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputB",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputB",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tFnInvocationComplexParamsResult",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_yHl3UIDhEee-MeWXoLgrYg",
+    "informationReferences" : [ {
+      "reference" : "_5eBhQH6PEeePe9Zmt-encA"
+    }, {
+      "reference" : "_48BAYH6PEeePe9Zmt-encA"
+    }, {
+      "reference" : "_q2qzIH6LEeePe9Zmt-encA"
+    } ],
+    "javaOutputTypeName" : "type.TFnInvocationNamedResult",
+    "javaParameterName" : "fnInvocationNamedParameters",
+    "javaTypeName" : "FnInvocationNamedParameters",
+    "knowledgeReferences" : [ ],
+    "name" : "fn invocation named parameters",
+    "protoRequestName" : "proto.FnInvocationNamedParametersRequest",
+    "protoResponseName" : "proto.FnInvocationNamedParametersResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_48BAYH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputA",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputA",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "_5eBhQH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputB",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputB",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tFnInvocationNamedResult",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_AfhOEH6QEeePe9Zmt-encA",
+    "informationReferences" : [ {
+      "reference" : "_q2qzIH6LEeePe9Zmt-encA"
+    }, {
+      "reference" : "_48BAYH6PEeePe9Zmt-encA"
+    }, {
+      "reference" : "_5eBhQH6PEeePe9Zmt-encA"
+    } ],
+    "javaOutputTypeName" : "type.TFnInvocationPositionalResult",
+    "javaParameterName" : "fnInvocationPositionalParameters",
+    "javaTypeName" : "FnInvocationPositionalParameters",
+    "knowledgeReferences" : [ ],
+    "name" : "fn invocation positional parameters",
+    "protoRequestName" : "proto.FnInvocationPositionalParametersRequest",
+    "protoResponseName" : "proto.FnInvocationPositionalParametersResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_48BAYH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputA",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputA",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "_5eBhQH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputB",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputB",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tFnInvocationPositionalResult",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_q2qzIH6LEeePe9Zmt-encA",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "type.TFnLibrary",
+    "javaParameterName" : "fnLibrary",
+    "javaTypeName" : "FnLibrary",
+    "knowledgeReferences" : [ ],
+    "name" : "fn library",
+    "protoRequestName" : "proto.FnLibraryRequest",
+    "protoResponseName" : "proto.FnLibraryResponse",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "tFnLibrary",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    }
+  } ]
+}

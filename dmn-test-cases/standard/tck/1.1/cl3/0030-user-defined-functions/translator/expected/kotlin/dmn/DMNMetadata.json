@@ -1,0 +1,109 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions" ],
+  "nativeNamespace" : "",
+  "types" : [ ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "_Aq8u4IDpEee-MeWXoLgrYg",
+    "javaParameterName" : "stringInputA",
+    "javaTypeName" : "String?",
+    "name" : "stringInputA",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "_vfL7kIDqEeehqsf_bU54Lw",
+    "javaParameterName" : "stringInputB",
+    "javaTypeName" : "String?",
+    "name" : "stringInputB",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_GNiCIIDzEeehqsf_bU54Lw",
+    "informationReferences" : [ {
+      "reference" : "_vfL7kIDqEeehqsf_bU54Lw"
+    }, {
+      "reference" : "_Aq8u4IDpEee-MeWXoLgrYg"
+    } ],
+    "javaOutputTypeName" : "String?",
+    "javaParameterName" : "namedFunctionInvocation",
+    "javaTypeName" : "NamedFunctionInvocation",
+    "knowledgeReferences" : [ ],
+    "name" : "named function invocation",
+    "protoRequestName" : "proto.NamedFunctionInvocationRequest",
+    "protoResponseName" : "proto.NamedFunctionInvocationResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_Aq8u4IDpEee-MeWXoLgrYg",
+      "javaParameterName" : "stringInputA",
+      "javaTypeName" : "String?",
+      "name" : "stringInputA",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "_vfL7kIDqEeehqsf_bU54Lw",
+      "javaParameterName" : "stringInputB",
+      "javaTypeName" : "String?",
+      "name" : "stringInputB",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_WdFa8IDoEee-MeWXoLgrYg",
+    "informationReferences" : [ {
+      "reference" : "_Aq8u4IDpEee-MeWXoLgrYg"
+    }, {
+      "reference" : "_vfL7kIDqEeehqsf_bU54Lw"
+    } ],
+    "javaOutputTypeName" : "String?",
+    "javaParameterName" : "simpleFunctionInvocation",
+    "javaTypeName" : "SimpleFunctionInvocation",
+    "knowledgeReferences" : [ ],
+    "name" : "simple function invocation",
+    "protoRequestName" : "proto.SimpleFunctionInvocationRequest",
+    "protoResponseName" : "proto.SimpleFunctionInvocationResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_Aq8u4IDpEee-MeWXoLgrYg",
+      "javaParameterName" : "stringInputA",
+      "javaTypeName" : "String?",
+      "name" : "stringInputA",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "_vfL7kIDqEeehqsf_bU54Lw",
+      "javaParameterName" : "stringInputB",
+      "javaTypeName" : "String?",
+      "name" : "stringInputB",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ]
+}

@@ -1,0 +1,71 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "tA",
+    "isCollection" : false,
+    "name" : "tA",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_adf6f96a-c574-4ba7-a305-ea14ad9852b1",
+      "isCollection" : false,
+      "name" : "name",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_d297adac-f086-42a0-989e-04c431270f77",
+      "isCollection" : false,
+      "name" : "price",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
+    "javaParameterName" : "structA",
+    "javaTypeName" : "type.TA",
+    "name" : "structA",
+    "typeRef" : {
+      "localName" : "tA",
+      "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_2683ec7f-fa17-4a1e-9151-8077a10c561f",
+    "informationReferences" : [ {
+      "reference" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "priceGt10",
+    "javaTypeName" : "PriceGt10",
+    "knowledgeReferences" : [ ],
+    "name" : "priceGt10",
+    "protoRequestName" : "proto.PriceGt10Request",
+    "protoResponseName" : "proto.PriceGt10Response",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
+      "javaParameterName" : "structA",
+      "javaTypeName" : "type.TA",
+      "name" : "structA",
+      "typeRef" : {
+        "localName" : "tA",
+        "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
+    }
+  } ]
+}

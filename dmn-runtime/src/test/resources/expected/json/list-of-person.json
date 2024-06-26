@@ -1,6 +1,4 @@
 [ {
-  "514 AT" : null,
-  "AT" : null,
   "Addresses" : [ {
     "Line" : "11",
     "Postcode" : "11"
@@ -8,17 +6,5 @@
     "Line" : "12",
     "Postcode" : "12"
   } ],
-  "Date and Time List" : null,
-  "Date and Time of Birth" : null,
-  "Date of Birth" : null,
-  "Days and Time Duration" : null,
-  "First Name" : null,
-  "Gender" : null,
-  "ID" : 1,
-  "Last Name" : null,
-  "List" : null,
-  "Married" : null,
-  "Ranges" : null,
-  "Time of Birth" : null,
-  "Years and Months Duration" : null
+  "ID" : 1
 } ]

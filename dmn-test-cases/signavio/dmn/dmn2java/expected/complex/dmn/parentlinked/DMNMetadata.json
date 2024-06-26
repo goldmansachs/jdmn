@@ -2,11 +2,10 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
-  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
+  "dmnNamespaces" : [ "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml" ],
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-b06eb129b14470365f5372c2e46a27f3",
     "isCollection" : false,
     "label" : "abc",
@@ -17,7 +16,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-e49de84a20b6287cfdee3034b2107068",
     "isCollection" : false,
     "label" : "num",
@@ -28,7 +26,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-87d760e7d14455750f2b0af746d82902",
     "isCollection" : false,
     "label" : "SomethingElse",
@@ -54,7 +51,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "c3d5f975281b4d2f829ee2c77b320f01",
-    "extensions" : [ ],
     "id" : "id-cd02eb803eaf0f5bf6ae1823636939db",
     "informationReferences" : [ {
       "reference" : "id-633e1930a1ad44cae56744496cd663d3"
@@ -89,7 +85,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "80afa9e878bb4885a8f5be36b6f16abc",
-    "extensions" : [ ],
     "id" : "id-7c5358c692497488ed1b1023189410fb",
     "informationReferences" : [ {
       "reference" : "id-cd02eb803eaf0f5bf6ae1823636939db"
@@ -124,7 +119,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "80afa9e878bb4885a8f5be36b6f16abc",
-    "extensions" : [ ],
     "id" : "id-6c8cb98cfc4743b1066d1f6ed28f3f10",
     "informationReferences" : [ {
       "reference" : "id-7c5358c692497488ed1b1023189410fb"

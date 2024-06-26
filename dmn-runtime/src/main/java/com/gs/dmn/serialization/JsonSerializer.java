@@ -13,6 +13,7 @@
 package com.gs.dmn.serialization;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -26,6 +27,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 public class JsonSerializer {
     public static final ObjectMapper OBJECT_MAPPER;
+    public static final ObjectMapper VERBOSE_OBJECT_MAPPER;
 
     static {
         SimpleModule module = new SimpleModule();
@@ -33,6 +35,18 @@ public class JsonSerializer {
         module.addDeserializer(XMLGregorianCalendar.class, new XMLGregorianCalendarDeserializer());
 
         OBJECT_MAPPER = JsonMapper.builder()
+                .addModule(module)
+                .addModule(new JavaTimeModule())
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .serializationInclusion(JsonInclude.Include.NON_NULL)
+                .serializationInclusion(JsonInclude.Include.NON_ABSENT)
+                .visibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.NONE)
+                .visibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.PUBLIC_ONLY)
+                .visibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.PUBLIC_ONLY)
+                .visibility(PropertyAccessor.CREATOR, JsonAutoDetect.Visibility.NONE)
+                .build();
+
+        VERBOSE_OBJECT_MAPPER = JsonMapper.builder()
                 .addModule(module)
                 .addModule(new JavaTimeModule())
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)

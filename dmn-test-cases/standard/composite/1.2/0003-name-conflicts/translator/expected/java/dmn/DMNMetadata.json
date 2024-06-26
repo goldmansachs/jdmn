@@ -1,0 +1,142 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.provider.com/definitions/model-b1", "http://www.provider.com/definitions/model-b2", "http://www.provider.com/definitions/model-c", "http://www.provider.com/definitions/model-a" ],
+  "nativeNamespace" : "",
+  "types" : [ ],
+  "elements" : [ {
+    "@kind" : "decision",
+    "id" : "_96df766e-23e1-4aa6-9d5d-545fbe2f1e23",
+    "informationReferences" : [ {
+      "reference" : "_f7fdaec4-d669-4797-b3b4-12b860de2eb5"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "evaluatingSayHello",
+    "javaTypeName" : "model_b1.EvaluatingSayHello",
+    "knowledgeReferences" : [ ],
+    "label" : "Evaluating Say Hello",
+    "name" : "evaluatingSayHello",
+    "protoRequestName" : "model_b1.proto.EvaluatingSayHelloRequest",
+    "protoResponseName" : "model_b1.proto.EvaluatingSayHelloResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+      "javaParameterName" : "personName",
+      "javaTypeName" : "String",
+      "label" : "Person Name",
+      "name" : "personName",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.provider.com/definitions/model-a"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.provider.com/definitions/model-b1"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_f7fdaec4-d669-4797-b3b4-12b860de2eb5",
+    "informationReferences" : [ {
+      "reference" : "http://www.provider.com/definitions/model-a#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "greetThePerson",
+    "javaTypeName" : "model_b1.GreetThePerson",
+    "knowledgeReferences" : [ ],
+    "label" : "Great the person",
+    "name" : "greetThePerson",
+    "protoRequestName" : "model_b1.proto.GreetThePersonRequest",
+    "protoResponseName" : "model_b1.proto.GreetThePersonResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+      "javaParameterName" : "personName",
+      "javaTypeName" : "String",
+      "label" : "Person Name",
+      "name" : "personName",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.provider.com/definitions/model-a"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.provider.com/definitions/model-b1"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_96df766e-23e1-4aa6-9d5d-545fbe2f1e23",
+    "informationReferences" : [ {
+      "reference" : "http://www.provider.com/definitions/model-b1#_f7fdaec4-d669-4797-b3b4-12b860de2eb5"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "evaluatingSayHello",
+    "javaTypeName" : "model_b2.EvaluatingSayHello",
+    "knowledgeReferences" : [ ],
+    "label" : "Evaluating B2 Say Hello",
+    "name" : "evaluatingSayHello",
+    "protoRequestName" : "model_b2.proto.EvaluatingSayHelloRequest",
+    "protoResponseName" : "model_b2.proto.EvaluatingSayHelloResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+      "javaParameterName" : "personName",
+      "javaTypeName" : "String",
+      "label" : "Person Name",
+      "name" : "personName",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.provider.com/definitions/model-a"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.provider.com/definitions/model-b2"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_fc1bff6c-b1ca-4a10-ba9a-23b8f5e86e6a",
+    "informationReferences" : [ {
+      "reference" : "http://www.provider.com/definitions/model-b1#_96df766e-23e1-4aa6-9d5d-545fbe2f1e23"
+    }, {
+      "reference" : "http://www.provider.com/definitions/model-b2#_96df766e-23e1-4aa6-9d5d-545fbe2f1e23"
+    } ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "modelCDecisionBasedOnBs",
+    "javaTypeName" : "model_c.ModelCDecisionBasedOnBs",
+    "knowledgeReferences" : [ ],
+    "label" : "Model C Decision based on Bs",
+    "name" : "modelCDecisionBasedOnBs",
+    "protoRequestName" : "model_c.proto.ModelCDecisionBasedOnBsRequest",
+    "protoResponseName" : "model_c.proto.ModelCDecisionBasedOnBsResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+      "javaParameterName" : "personName",
+      "javaTypeName" : "String",
+      "label" : "Person Name",
+      "name" : "personName",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.provider.com/definitions/model-a"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "Any",
+      "namespace" : "http://www.provider.com/definitions/model-c"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+    "javaParameterName" : "personName",
+    "javaTypeName" : "String",
+    "label" : "Person Name",
+    "name" : "personName",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.provider.com/definitions/model-a"
+    }
+  } ]
+}

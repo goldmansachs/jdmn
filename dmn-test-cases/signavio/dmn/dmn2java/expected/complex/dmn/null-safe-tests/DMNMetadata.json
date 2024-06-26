@@ -2,11 +2,10 @@
   "dmnVersion" : "1.1",
   "modelVersion" : "2.0",
   "platformVersion" : "1.0",
-  "dmnNamespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
+  "dmnNamespaces" : [ "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" ],
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-2cc3214320632e21fa06a8e4df51a01f",
     "isCollection" : false,
     "label" : "allFalseAggregation",
@@ -17,7 +16,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-471466181fede0d84c7df0e9fe289a0e",
     "isCollection" : false,
     "label" : "allTogether",
@@ -28,7 +26,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-358fb3eef70f854067115a7957b8e757",
     "isCollection" : false,
     "label" : "allTrueAggregation",
@@ -39,7 +36,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-8834daef08074502f6114c3bbfa67ff0",
     "isCollection" : false,
     "label" : "anyTrueAggregation",
@@ -50,7 +46,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-8266402525c1150efdfd6183507e6980",
     "isCollection" : false,
     "label" : "arithmetic",
@@ -61,7 +56,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-94010e51fff3246bb81ff073cc030cbd",
     "isCollection" : false,
     "label" : "booleanA",
@@ -72,7 +66,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-ab8b01c0dd497fcde9fd1ca33e705e55",
     "isCollection" : false,
     "label" : "booleanAllFalse",
@@ -83,7 +76,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-9e082ad3b2250f1df8027ba40689b23d",
     "isCollection" : false,
     "label" : "booleanAllTrue",
@@ -94,7 +86,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-334e50482f30ae457540df3012c193da",
     "isCollection" : false,
     "label" : "booleanAnyTrue",
@@ -105,7 +96,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-cb5f8f251c78a1fa0f3c14922aa163db",
     "isCollection" : false,
     "label" : "booleanB ",
@@ -116,7 +106,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-7c2fce8ec22887bb67f15d0c4b81af86",
     "isCollection" : true,
     "label" : "booleanList",
@@ -127,7 +116,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-eabe544d9031007a7c789c332a5f01b7",
     "isCollection" : true,
     "label" : "comparator ",
@@ -138,7 +126,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-566c0c1e6205c278494e9c4fb97e6a29",
     "isCollection" : false,
     "label" : "date ",
@@ -149,7 +136,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-ede7794c2ca519e4b2483cb568d7de67",
     "isCollection" : false,
     "label" : "dateTime",
@@ -160,7 +146,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-c0a0a5abc1125fd69627af517c1b7a3b",
     "isCollection" : false,
     "label" : "formattingAndCoercing",
@@ -171,7 +156,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-05ead685d65ac4d20c5b6150cc46ca4a",
     "isCollection" : false,
     "label" : "keepInput_allFalse",
@@ -182,7 +166,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-9203cd168799b29b1e95772a8e9868fd",
     "isCollection" : false,
     "label" : "keepInput_allTrue",
@@ -193,7 +176,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-f2a735669eb978daaf9c21a6a7e6970d",
     "isCollection" : false,
     "label" : "keepInput_anyTrue",
@@ -204,7 +186,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-d6e1e7be21c12b57a61c8f97cb7d614b",
     "isCollection" : false,
     "label" : "listHandling",
@@ -215,7 +196,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-85b56ea918b2fb3cd2b9d0d11c6b7206",
     "isCollection" : false,
     "label" : "logical ",
@@ -226,7 +206,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-1faba55e4fd5e1351ff3e3332db2f2c7",
     "isCollection" : false,
     "label" : "numberA",
@@ -237,7 +216,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-62a3564431596dc382ef27011f0def3e",
     "isCollection" : false,
     "label" : "numberB",
@@ -248,7 +226,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-3730312cd03e8f285381a7502e3337b6",
     "isCollection" : true,
     "label" : "numberList",
@@ -259,7 +236,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-bd26355ac1241c457f913b2bfa56e370",
     "isCollection" : false,
     "label" : "partA",
@@ -270,7 +246,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-cae5425f1c4591f8a4537d12d74ec6de",
     "isCollection" : false,
     "label" : "partB",
@@ -281,7 +256,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-d913ed2cea97609a881358d9d0cfa746",
     "isCollection" : false,
     "label" : "partC",
@@ -292,7 +266,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-03ec1b690e33459b90b16efc9685ddd2",
     "isCollection" : false,
     "label" : "statistical",
@@ -303,7 +276,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-9d843f44d8ac1071405e1cedc0d97648",
     "isCollection" : false,
     "label" : "string",
@@ -314,7 +286,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-6ccacae7c10f7ecc54a1d2c197a35221",
     "isCollection" : false,
     "label" : "stringHandling",
@@ -325,7 +296,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-37f7779f9f670999279937e94332d604",
     "isCollection" : false,
     "label" : "stringHandlingComparator",
@@ -336,7 +306,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-ef9ae8d5f1d1cd3109e72799b860b153",
     "isCollection" : true,
     "label" : "stringList",
@@ -347,7 +316,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-9dc928bec6c5c35a28acf175efb0cedc",
     "isCollection" : false,
     "label" : "temporal",
@@ -358,7 +326,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-8ffcf107aef36a1e7334d8a2d6b9b5ce",
     "isCollection" : true,
     "label" : "temporalComparator ",
@@ -369,7 +336,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-42e5206b1e875f9b9fdcabcec1bca7ae",
     "isCollection" : false,
     "label" : "temporalDiff",
@@ -380,7 +346,6 @@
     }
   }, {
     "@kind" : "referenceType",
-    "allowedValues" : null,
     "id" : "id-c3fcae69eb4b4cbbaedb71f007ba1806",
     "isCollection" : false,
     "label" : "time ",
@@ -575,13 +540,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ {
-      "@kind" : "multiInstanceDecisionLogic",
-      "aggregationFunction" : "ALLFALSE",
-      "iterationExpression" : "booleanList",
-      "iteratorShapeId" : "id-79ac9fb1afa596bbb0db5c6a5257a8b6",
-      "topLevelDecisionId" : "id-21fa2a4ecb92ec37652f13671be694a2"
-    } ],
     "id" : "id-12f8c62e129adc2b235f1819817022ec",
     "informationReferences" : [ {
       "reference" : "id-963dd1faff03c460abb0bb16855be442"
@@ -616,7 +574,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-26dd50ab439aa5d5392f972084733182",
     "informationReferences" : [ {
       "reference" : "id-aa6192796546dfbb201e1a17f1711b12"
@@ -785,13 +742,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ {
-      "@kind" : "multiInstanceDecisionLogic",
-      "aggregationFunction" : "ALLTRUE",
-      "iterationExpression" : "booleanList",
-      "iteratorShapeId" : "id-0999a54b4e2887b6404fe10e4639a1d6",
-      "topLevelDecisionId" : "id-4396518e644ea96eb89ee72817af5157"
-    } ],
     "id" : "id-990fc1682febe5e206a9e367470fa4b5",
     "informationReferences" : [ {
       "reference" : "id-963dd1faff03c460abb0bb16855be442"
@@ -826,13 +776,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ {
-      "@kind" : "multiInstanceDecisionLogic",
-      "aggregationFunction" : "ANYTRUE",
-      "iterationExpression" : "booleanList",
-      "iteratorShapeId" : "id-4b393744e05965a1928ecb455ab42308",
-      "topLevelDecisionId" : "id-87919f1fc05a6c8813d8c16a2851de23"
-    } ],
     "id" : "id-499a1aeffa9f16f776cba221110df81a",
     "informationReferences" : [ {
       "reference" : "id-963dd1faff03c460abb0bb16855be442"
@@ -867,7 +810,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-6ae008320d1d55b977bc3dd10a3725eb",
     "informationReferences" : [ {
       "reference" : "id-f444fe9b45d132962058826c7ce0e254"
@@ -932,7 +874,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-9f6598201a6d97e53905786b994d3523",
     "informationReferences" : [ {
       "reference" : "id-c736af77b66969d175933720059dec48"
@@ -967,7 +908,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-f6f0c41b65035466a4cbaafab2e35265",
     "informationReferences" : [ {
       "reference" : "id-1c122325d0f516d01f33e3c10ec7bf61"
@@ -1017,7 +957,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-21fa2a4ecb92ec37652f13671be694a2",
     "informationReferences" : [ {
       "reference" : "id-79ac9fb1afa596bbb0db5c6a5257a8b6"
@@ -1052,7 +991,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-4396518e644ea96eb89ee72817af5157",
     "informationReferences" : [ {
       "reference" : "id-0999a54b4e2887b6404fe10e4639a1d6"
@@ -1087,7 +1025,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-87919f1fc05a6c8813d8c16a2851de23",
     "informationReferences" : [ {
       "reference" : "id-4b393744e05965a1928ecb455ab42308"
@@ -1122,7 +1059,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-68e1bf98ec7c27a9dd0b29b04c5479bb",
     "informationReferences" : [ {
       "reference" : "id-f444fe9b45d132962058826c7ce0e254"
@@ -1172,7 +1108,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-d844337c47e4efb641f61e447347b1a9",
     "informationReferences" : [ {
       "reference" : "id-e266bf27f575f63084511773f3a737c6"
@@ -1222,7 +1157,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-c766b420761d4a1c594e4caabdd5d4be",
     "informationReferences" : [ {
       "reference" : "id-499a1aeffa9f16f776cba221110df81a"
@@ -1261,7 +1195,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-7db1ff2909dfa8e87829969a4f2b0bee",
     "informationReferences" : [ {
       "reference" : "id-5b07c9711db6376713296511215c7644"
@@ -1358,7 +1291,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-aa6192796546dfbb201e1a17f1711b12",
     "informationReferences" : [ {
       "reference" : "id-e531076a8bd1457bfe3bcc7cdf1a2637"
@@ -1451,7 +1383,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-5b07c9711db6376713296511215c7644",
     "informationReferences" : [ {
       "reference" : "id-f444fe9b45d132962058826c7ce0e254"
@@ -1486,7 +1417,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-a7895d8e6af939a1e7cafb3317d8a423",
     "informationReferences" : [ {
       "reference" : "id-b9fd8fd2303ab43c6c19e8ba30a50116"
@@ -1551,7 +1481,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-d5f34819daa731749e8a2e610010899d",
     "informationReferences" : [ {
       "reference" : "id-a7895d8e6af939a1e7cafb3317d8a423"
@@ -1612,7 +1541,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-e531076a8bd1457bfe3bcc7cdf1a2637",
     "informationReferences" : [ {
       "reference" : "id-de95e2868799a862ed04920c276bffa1"
@@ -1647,7 +1575,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-72c343df36c2e2018dae168097967162",
     "informationReferences" : [ {
       "reference" : "id-de95e2868799a862ed04920c276bffa1"
@@ -1682,7 +1609,6 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "7a41c638739441ef88d9fe7501233ef8",
-    "extensions" : [ ],
     "id" : "id-29cf8a82fee3b01a2e0f13fa89ecb697",
     "informationReferences" : [ {
       "reference" : "id-5d1954e864444e9ebb079558da384758"
