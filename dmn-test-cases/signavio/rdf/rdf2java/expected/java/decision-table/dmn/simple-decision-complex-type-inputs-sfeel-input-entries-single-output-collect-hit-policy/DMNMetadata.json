@@ -10,6 +10,7 @@
     "isCollection" : true,
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : false,
     "label" : "Employed",
     "name" : "employed",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,12 +32,14 @@
     "isCollection" : false,
     "label" : "Person",
     "name" : "person",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "item-definition-dateofbirth-4",
       "isCollection" : false,
       "label" : "dateOfBirth",
       "name" : "dateOfBirth",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -46,6 +50,7 @@
       "isCollection" : false,
       "label" : "dateTimeOfBirth",
       "name" : "dateTimeOfBirth",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "datetime",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -56,6 +61,7 @@
       "isCollection" : false,
       "label" : "firstName",
       "name" : "firstName",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -67,6 +73,7 @@
       "isCollection" : false,
       "label" : "gender",
       "name" : "gender",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "enumeration",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -77,6 +84,7 @@
       "isCollection" : false,
       "label" : "id",
       "name" : "id",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -87,6 +95,7 @@
       "isCollection" : false,
       "label" : "lastName",
       "name" : "lastName",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -97,6 +106,7 @@
       "isCollection" : true,
       "label" : "list",
       "name" : "list",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -107,6 +117,7 @@
       "isCollection" : false,
       "label" : "married",
       "name" : "married",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "boolean",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -117,6 +128,7 @@
       "isCollection" : false,
       "label" : "timeOfBirth",
       "name" : "timeOfBirth",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "time",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -130,6 +142,7 @@
     "javaTypeName" : "Boolean",
     "label" : "Employed",
     "name" : "employed",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "employed",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -141,6 +154,7 @@
     "javaTypeName" : "type.Person",
     "label" : "Person",
     "name" : "person",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "person",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -160,6 +174,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
@@ -169,6 +184,7 @@
       "javaTypeName" : "Boolean",
       "label" : "Employed",
       "name" : "employed",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "employed",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -180,6 +196,7 @@
       "javaTypeName" : "type.Person",
       "label" : "Person",
       "name" : "person",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "person",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

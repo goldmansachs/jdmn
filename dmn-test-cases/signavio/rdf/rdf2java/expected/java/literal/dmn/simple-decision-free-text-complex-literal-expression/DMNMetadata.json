@@ -10,12 +10,14 @@
     "isCollection" : false,
     "label" : "Loan",
     "name" : "loan",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "item-definition-principal-0",
       "isCollection" : false,
       "label" : "principal",
       "name" : "principal",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -26,6 +28,7 @@
       "isCollection" : false,
       "label" : "rate",
       "name" : "rate",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -36,6 +39,7 @@
       "isCollection" : false,
       "label" : "term",
       "name" : "term",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -47,6 +51,7 @@
     "isCollection" : false,
     "label" : "Monthly",
     "name" : "monthly",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -59,6 +64,7 @@
     "javaTypeName" : "type.Loan",
     "label" : "Loan",
     "name" : "loan",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "loan",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -76,6 +82,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Monthly",
     "name" : "monthly",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.MonthlyRequest",
     "protoResponseName" : "proto.MonthlyResponse",
     "transitiveRequiredInput" : [ {
@@ -85,6 +92,7 @@
       "javaTypeName" : "type.Loan",
       "label" : "Loan",
       "name" : "loan",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "loan",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

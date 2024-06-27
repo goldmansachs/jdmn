@@ -10,6 +10,7 @@
     "isCollection" : true,
     "label" : "A",
     "name" : "a",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : true,
     "label" : "B",
     "name" : "b",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : false,
     "label" : "CalculateDotProduct",
     "name" : "calculateDotProduct",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -40,12 +43,14 @@
     "isCollection" : true,
     "label" : "Componentwise",
     "name" : "componentwise",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-ee77256def8518b808e5146468faa79a-relation-A",
       "isCollection" : false,
       "label" : "A",
       "name" : "a",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -56,6 +61,7 @@
       "isCollection" : false,
       "label" : "B",
       "name" : "b",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -67,12 +73,14 @@
     "isCollection" : false,
     "label" : "Componentwise",
     "name" : "componentwise3",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-3a255d41c38b03f9f153b7aee466a3d8-relation-A",
       "isCollection" : false,
       "label" : "A",
       "name" : "a",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -83,6 +91,7 @@
       "isCollection" : false,
       "label" : "B",
       "name" : "b",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -94,12 +103,14 @@
     "isCollection" : false,
     "label" : "DotProduct",
     "name" : "dotProduct",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-db4a017c02c6d05e82a4ec69018994e5-relation-33D4DAAE-6A47-4341-A786-0FDBCFDE69B9",
       "isCollection" : false,
       "label" : "DotProduct",
       "name" : "dotProduct2",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -110,6 +121,7 @@
       "isCollection" : false,
       "label" : "Output Message",
       "name" : "outputMessage",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -121,6 +133,7 @@
     "isCollection" : false,
     "label" : "Product",
     "name" : "product",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -134,6 +147,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "A",
     "name" : "a",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "shapeId" : "sid-B67EB580-183A-4AF9-9647-E71E49B09AC8",
     "typeRef" : {
       "localName" : "a",
@@ -147,6 +161,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "B",
     "name" : "b",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "shapeId" : "sid-563668EB-9BF6-4849-987B-284F399A6E07",
     "typeRef" : {
       "localName" : "b",
@@ -160,6 +175,7 @@
     "javaTypeName" : "type.Componentwise3",
     "label" : "Componentwise",
     "name" : "componentwise4_iterator",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "shapeId" : "sid-EA739BF1-FE0C-4997-9781-B21453195396",
     "typeRef" : {
       "localName" : "componentwise3",
@@ -185,6 +201,7 @@
     "knowledgeReferences" : [ ],
     "label" : "CalculateDotProduct",
     "name" : "calculateDotProduct",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "protoRequestName" : "proto.CalculateDotProductRequest",
     "protoResponseName" : "proto.CalculateDotProductResponse",
     "shapeId" : "sid-340FB53B-F6C9-4CE6-B1D7-BC9DD1854EC4",
@@ -196,6 +213,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "A",
       "name" : "a",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "shapeId" : "sid-B67EB580-183A-4AF9-9647-E71E49B09AC8",
       "typeRef" : {
         "localName" : "a",
@@ -209,6 +227,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "B",
       "name" : "b",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "shapeId" : "sid-563668EB-9BF6-4849-987B-284F399A6E07",
       "typeRef" : {
         "localName" : "b",
@@ -235,6 +254,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Componentwise",
     "name" : "componentwise",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "protoRequestName" : "proto.ComponentwiseRequest",
     "protoResponseName" : "proto.ComponentwiseResponse",
     "shapeId" : "sid-59244842-A06F-4C4D-B147-9BDC97BF5FEF",
@@ -246,6 +266,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "A",
       "name" : "a",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "shapeId" : "sid-B67EB580-183A-4AF9-9647-E71E49B09AC8",
       "typeRef" : {
         "localName" : "a",
@@ -259,6 +280,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "B",
       "name" : "b",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "shapeId" : "sid-563668EB-9BF6-4849-987B-284F399A6E07",
       "typeRef" : {
         "localName" : "b",
@@ -287,6 +309,7 @@
     "knowledgeReferences" : [ ],
     "label" : "DotProduct",
     "name" : "dotProduct",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "protoRequestName" : "proto.DotProductRequest",
     "protoResponseName" : "proto.DotProductResponse",
     "shapeId" : "sid-312729E4-046A-4A9C-9D0F-7A68A9BF9523",
@@ -298,6 +321,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "A",
       "name" : "a",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "shapeId" : "sid-B67EB580-183A-4AF9-9647-E71E49B09AC8",
       "typeRef" : {
         "localName" : "a",
@@ -311,6 +335,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "B",
       "name" : "b",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "shapeId" : "sid-563668EB-9BF6-4849-987B-284F399A6E07",
       "typeRef" : {
         "localName" : "b",
@@ -335,6 +360,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Product",
     "name" : "product",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
     "protoRequestName" : "proto.ProductRequest",
     "protoResponseName" : "proto.ProductResponse",
     "shapeId" : "sid-2E5D6BEC-44B4-4F28-AE5D-15256E33F2F7",
@@ -346,6 +372,7 @@
       "javaTypeName" : "type.Componentwise3",
       "label" : "Componentwise",
       "name" : "componentwise4_iterator",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
       "shapeId" : "sid-EA739BF1-FE0C-4997-9781-B21453195396",
       "typeRef" : {
         "localName" : "componentwise3",

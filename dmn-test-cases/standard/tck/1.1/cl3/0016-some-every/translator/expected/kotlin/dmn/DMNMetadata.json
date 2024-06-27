@@ -9,11 +9,13 @@
     "id" : "tItemPrice",
     "isCollection" : false,
     "name" : "tItemPrice",
+    "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "_de166af3-e625-4572-bc70-cb3c3aa01ca8",
       "isCollection" : false,
       "name" : "itemName",
+      "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -23,6 +25,7 @@
       "id" : "_d68f500e-3997-409e-8152-d454c34487d8",
       "isCollection" : false,
       "name" : "price",
+      "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -33,6 +36,7 @@
     "id" : "tPriceTable",
     "isCollection" : true,
     "name" : "tPriceTable",
+    "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
     "typeRef" : {
       "localName" : "tItemPrice",
       "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70"
@@ -44,6 +48,7 @@
     "javaParameterName" : "priceTable2",
     "javaTypeName" : "List<type.TItemPrice?>?",
     "name" : "priceTable2",
+    "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
     "typeRef" : {
       "localName" : "tPriceTable",
       "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70"
@@ -55,7 +60,8 @@
     "javaParameterName" : "gtTen",
     "javaTypeName" : "GtTen",
     "knowledgeReferences" : [ ],
-    "name" : "gtTen"
+    "name" : "gtTen",
+    "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70"
   }, {
     "@kind" : "decision",
     "id" : "_a747d388-e0c0-41e1-b3ef-2904ba1a5d63",
@@ -67,6 +73,7 @@
     "javaTypeName" : "EveryGtTen1",
     "knowledgeReferences" : [ ],
     "name" : "everyGtTen1",
+    "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
     "protoRequestName" : "proto.EveryGtTen1Request",
     "protoResponseName" : "proto.EveryGtTen1Response",
     "transitiveRequiredInput" : [ ],
@@ -85,6 +92,7 @@
     "javaTypeName" : "EveryGtTen2",
     "knowledgeReferences" : [ ],
     "name" : "everyGtTen2",
+    "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
     "protoRequestName" : "proto.EveryGtTen2Request",
     "protoResponseName" : "proto.EveryGtTen2Response",
     "transitiveRequiredInput" : [ {
@@ -93,6 +101,7 @@
       "javaParameterName" : "priceTable2",
       "javaTypeName" : "List<type.TItemPrice?>?",
       "name" : "priceTable2",
+      "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
       "typeRef" : {
         "localName" : "tPriceTable",
         "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70"
@@ -117,6 +126,7 @@
       "reference" : "_d59cc17d-7f21-4706-8d10-47f7ee297b15"
     } ],
     "name" : "everyGtTen3",
+    "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
     "protoRequestName" : "proto.EveryGtTen3Request",
     "protoResponseName" : "proto.EveryGtTen3Response",
     "transitiveRequiredInput" : [ ],
@@ -133,6 +143,7 @@
     "javaTypeName" : "PriceTable1",
     "knowledgeReferences" : [ ],
     "name" : "priceTable1",
+    "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
     "protoRequestName" : "proto.PriceTable1Request",
     "protoResponseName" : "proto.PriceTable1Response",
     "transitiveRequiredInput" : [ ],
@@ -151,6 +162,7 @@
     "javaTypeName" : "SomeGtTen1",
     "knowledgeReferences" : [ ],
     "name" : "someGtTen1",
+    "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
     "protoRequestName" : "proto.SomeGtTen1Request",
     "protoResponseName" : "proto.SomeGtTen1Response",
     "transitiveRequiredInput" : [ ],
@@ -169,6 +181,7 @@
     "javaTypeName" : "SomeGtTen2",
     "knowledgeReferences" : [ ],
     "name" : "someGtTen2",
+    "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
     "protoRequestName" : "proto.SomeGtTen2Request",
     "protoResponseName" : "proto.SomeGtTen2Response",
     "transitiveRequiredInput" : [ {
@@ -177,6 +190,7 @@
       "javaParameterName" : "priceTable2",
       "javaTypeName" : "List<type.TItemPrice?>?",
       "name" : "priceTable2",
+      "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
       "typeRef" : {
         "localName" : "tPriceTable",
         "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70"

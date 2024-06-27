@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "A",
     "name" : "a",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : false,
     "label" : "A",
     "name" : "a2",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : false,
     "label" : "B",
     "name" : "b",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -40,6 +43,7 @@
     "isCollection" : false,
     "label" : "B",
     "name" : "b2",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -50,6 +54,7 @@
     "isCollection" : false,
     "label" : "SUM",
     "name" : "sUM",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -63,6 +68,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "A",
     "name" : "a",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
     "shapeId" : "sid-F2486B26-F187-43CA-8687-DF0893AD1D27",
     "typeRef" : {
       "localName" : "a",
@@ -76,6 +82,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "A",
     "name" : "a2",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
     "shapeId" : "sid-51423E05-DA13-44BF-9227-7AA7B88C67AC",
     "typeRef" : {
       "localName" : "a2",
@@ -89,6 +96,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "B",
     "name" : "b",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
     "shapeId" : "sid-F50F4E8B-4C8A-4CA6-81FD-A5B3AEE8DD05",
     "typeRef" : {
       "localName" : "b",
@@ -102,6 +110,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "B",
     "name" : "b3",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
     "shapeId" : "sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B",
     "typeRef" : {
       "localName" : "b2",
@@ -114,7 +123,8 @@
     "javaParameterName" : "bKM",
     "javaTypeName" : "BKM",
     "knowledgeReferences" : [ ],
-    "name" : "bKM"
+    "name" : "bKM",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
   }, {
     "@kind" : "decision",
     "diagramId" : "0cad6eb96bfc4b638250c73ff90f439b",
@@ -131,6 +141,7 @@
     "knowledgeReferences" : [ ],
     "label" : "SUM",
     "name" : "sUM",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
     "protoRequestName" : "proto.SUMRequest",
     "protoResponseName" : "proto.SUMResponse",
     "shapeId" : "sid-5B841B13-C828-4A7C-8E59-AABED865A8FA",
@@ -142,6 +153,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "A",
       "name" : "a",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
       "shapeId" : "sid-F2486B26-F187-43CA-8687-DF0893AD1D27",
       "typeRef" : {
         "localName" : "a",
@@ -155,6 +167,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "B",
       "name" : "b",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
       "shapeId" : "sid-F50F4E8B-4C8A-4CA6-81FD-A5B3AEE8DD05",
       "typeRef" : {
         "localName" : "b",
@@ -185,6 +198,7 @@
     } ],
     "label" : "Sign",
     "name" : "sign",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
     "protoRequestName" : "proto.SignRequest",
     "protoResponseName" : "proto.SignResponse",
     "shapeId" : "sid-D8E2188A-C75B-406C-85C9-3C1B2E1B149D",
@@ -196,6 +210,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "A",
       "name" : "a2",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
       "shapeId" : "sid-51423E05-DA13-44BF-9227-7AA7B88C67AC",
       "typeRef" : {
         "localName" : "a2",
@@ -209,6 +224,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "B",
       "name" : "b3",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
       "shapeId" : "sid-8D4FB4D7-6503-4FC2-B91A-A12B8C72FA3B",
       "typeRef" : {
         "localName" : "b2",

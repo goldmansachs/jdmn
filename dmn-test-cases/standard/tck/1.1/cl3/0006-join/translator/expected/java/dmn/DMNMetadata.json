@@ -9,11 +9,13 @@
     "id" : "tDeptTable",
     "isCollection" : true,
     "name" : "tDeptTable",
+    "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "_ee4e552c-4e8d-4a0c-8451-bae3eb2d4bd9",
       "isCollection" : false,
       "name" : "manager",
+      "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -23,6 +25,7 @@
       "id" : "_fd0110de-a09b-4167-a5fe-103308ad6d0b",
       "isCollection" : false,
       "name" : "name",
+      "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -32,6 +35,7 @@
       "id" : "_f7e37827-f9ab-4fb1-b07e-9e4367242e65",
       "isCollection" : false,
       "name" : "number",
+      "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -42,11 +46,13 @@
     "id" : "tEmployeeTable",
     "isCollection" : true,
     "name" : "tEmployeeTable",
+    "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "_fa7afb54-265e-4244-97bf-4789c48e3629",
       "isCollection" : false,
       "name" : "deptNum",
+      "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -56,6 +62,7 @@
       "id" : "_008f96e5-b82b-4105-ab8f-52673390c75f",
       "isCollection" : false,
       "name" : "id",
+      "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -65,6 +72,7 @@
       "id" : "_657371a7-e0a9-4f4c-987d-35cd10e2918b",
       "isCollection" : false,
       "name" : "name",
+      "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -77,6 +85,7 @@
     "javaParameterName" : "deptTable",
     "javaTypeName" : "List<type.TDeptTable>",
     "name" : "DeptTable",
+    "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
     "typeRef" : {
       "localName" : "tDeptTable",
       "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29"
@@ -87,6 +96,7 @@
     "javaParameterName" : "employeeTable",
     "javaTypeName" : "List<type.TEmployeeTable>",
     "name" : "EmployeeTable",
+    "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
     "typeRef" : {
       "localName" : "tEmployeeTable",
       "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29"
@@ -97,6 +107,7 @@
     "javaParameterName" : "lastName",
     "javaTypeName" : "String",
     "name" : "LastName",
+    "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -116,6 +127,7 @@
     "javaTypeName" : "Join",
     "knowledgeReferences" : [ ],
     "name" : "Join",
+    "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
     "protoRequestName" : "proto.JoinRequest",
     "protoResponseName" : "proto.JoinResponse",
     "transitiveRequiredInput" : [ {
@@ -124,6 +136,7 @@
       "javaParameterName" : "deptTable",
       "javaTypeName" : "List<type.TDeptTable>",
       "name" : "DeptTable",
+      "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
       "typeRef" : {
         "localName" : "tDeptTable",
         "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29"
@@ -134,6 +147,7 @@
       "javaParameterName" : "employeeTable",
       "javaTypeName" : "List<type.TEmployeeTable>",
       "name" : "EmployeeTable",
+      "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
       "typeRef" : {
         "localName" : "tEmployeeTable",
         "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29"
@@ -144,6 +158,7 @@
       "javaParameterName" : "lastName",
       "javaTypeName" : "String",
       "name" : "LastName",
+      "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"

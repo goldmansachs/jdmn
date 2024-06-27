@@ -27,6 +27,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 @JsonPropertyOrder(alphabetic=true)
 public class NamedElement {
+    @JsonProperty("namespace")
+    private String namespace;
+
     @JsonProperty("id")
     private String id;
     @JsonProperty("name")
@@ -38,10 +41,15 @@ public class NamedElement {
     NamedElement() {
     }
 
-    public NamedElement(String id, String name, String label) {
+    public NamedElement(String namespace, String id, String name, String label) {
+        this.namespace = namespace;
         this.id = id;
         this.name = name;
         this.label = label;
+    }
+
+    public String getNamespace() {
+        return namespace;
     }
 
     public String getId() {

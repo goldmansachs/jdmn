@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "abc",
     "name" : "abc",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : false,
     "label" : "num",
     "name" : "num",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : false,
     "label" : "SomethingElse",
     "name" : "somethingElse",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -43,6 +46,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "num",
     "name" : "num",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
     "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
     "typeRef" : {
       "localName" : "num",
@@ -62,6 +66,7 @@
     "knowledgeReferences" : [ ],
     "label" : "abc",
     "name" : "abc",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
     "protoRequestName" : "proto.AbcRequest",
     "protoResponseName" : "proto.AbcResponse",
     "shapeId" : "sid-A551A6AD-049D-440F-9277-A5292F4BB5ED",
@@ -73,6 +78,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "num",
       "name" : "num",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
       "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
       "typeRef" : {
         "localName" : "num",
@@ -97,6 +103,7 @@
     "knowledgeReferences" : [ ],
     "label" : "ChildObject",
     "name" : "childObject",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
     "protoRequestName" : "proto.ChildObjectRequest",
     "protoResponseName" : "proto.ChildObjectResponse",
     "shapeId" : "sid-3551B993-B042-466B-B0CD-B5EE8B6C192B",
@@ -108,6 +115,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "num",
       "name" : "num",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
       "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
       "typeRef" : {
         "localName" : "num",
@@ -132,6 +140,7 @@
     "knowledgeReferences" : [ ],
     "label" : "SomethingElse",
     "name" : "somethingElse",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
     "protoRequestName" : "proto.SomethingElseRequest",
     "protoResponseName" : "proto.SomethingElseResponse",
     "shapeId" : "sid-89A9C1A5-1701-4289-9DFE-9FF6223528C7",
@@ -143,6 +152,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "num",
       "name" : "num",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
       "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
       "typeRef" : {
         "localName" : "num",

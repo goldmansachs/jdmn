@@ -75,15 +75,16 @@ public class DMNToManifestTransformer {
         String allowedValues = makeMetadataAllowedValues(itemDefinition.getAllowedValues());
 
         List<TItemDefinition> children = itemDefinition.getItemComponent();
+        String namespace = model.getNamespace();
         Type type;
         if (children == null || children.isEmpty()) {
-            type = new TypeReference(id, name, label, isCollection, typeRef, allowedValues);
+            type = new TypeReference(namespace, id, name, label, isCollection, typeRef, allowedValues);
         } else {
             List<Type> subTypes = new ArrayList<>();
             for (TItemDefinition child : children) {
                 subTypes.add(makeMetadataType(model, child));
             }
-            type = new CompositeType(id, name, label, isCollection, subTypes);
+            type = new CompositeType(namespace, id, name, label, isCollection, subTypes);
         }
         return type;
     }
@@ -126,6 +127,7 @@ public class DMNToManifestTransformer {
     }
 
     protected InputData makeMetadataInputData(TDefinitions definitions, TInputData inputData) {
+        String namespace = definitions.getNamespace();
         String id = inputData.getId();
         String name = inputData.getName();
         String label = inputData.getLabel();
@@ -134,10 +136,11 @@ public class DMNToManifestTransformer {
         String javaParameterName = this.dmnTransformer.namedElementVariableName(inputData);
         String javaTypeName = getJavaTypeName(inputData);
         QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, inputData.getVariable().getTypeRef()));
-        return new InputData(id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, typeRef);
+        return new InputData(namespace, id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, typeRef);
     }
 
     protected BKM makeMetadataBKM(TDefinitions definitions, TBusinessKnowledgeModel bkm) {
+        String namespace = definitions.getNamespace();
         String id = bkm.getId();
         String name = bkm.getName();
         String label = bkm.getLabel();
@@ -148,10 +151,11 @@ public class DMNToManifestTransformer {
         String javaOutputTypeName = getJavaTypeName(bkm);
         QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, bkm.getVariable().getTypeRef()));
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(bkm.getKnowledgeRequirement());
-        return new BKM(id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
+        return new BKM(namespace, id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, javaOutputTypeName, typeRef, knowledgeReferences);
     }
 
     protected Decision makeMetadataDecision(TDefinitions definitions, TDecision decision) {
+        String namespace = definitions.getNamespace();
         String id = decision.getId();
         String diagramId = getDiagramId(decision);
         String shapeId = getShapeId(decision);
@@ -167,7 +171,7 @@ public class DMNToManifestTransformer {
         List<InputData> transitiveRequiredInputs = makeTransitiveRequiredInputs(decision);
         String protoRequestName = this.dmnTransformer.qualifiedRequestMessageName(decision);
         String protoResponseName = this.dmnTransformer.qualifiedResponseMessageName(decision);
-        return new Decision(id, name, label, diagramId, shapeId, nativeParameterName, nativeTypeName, nativeOutputTypeName, typeRef, references, knowledgeReferences, extensions, transitiveRequiredInputs, protoRequestName, protoResponseName);
+        return new Decision(namespace, id, name, label, diagramId, shapeId, nativeParameterName, nativeTypeName, nativeOutputTypeName, typeRef, references, knowledgeReferences, extensions, transitiveRequiredInputs, protoRequestName, protoResponseName);
     }
 
     protected List<ExtensionElement> getExtensions(TDecision decision) {

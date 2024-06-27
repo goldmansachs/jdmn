@@ -9,11 +9,13 @@
     "id" : "_f909c1d5-36e4-4f71-8392-fe3b14ddb6f7",
     "isCollection" : false,
     "name" : "tLoan",
+    "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "_579041dc-2bad-42b4-9650-b2cf39175ecc",
       "isCollection" : false,
       "name" : "amount",
+      "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -23,6 +25,7 @@
       "id" : "_353c0e6f-b344-451e-944e-bec76817b29a",
       "isCollection" : false,
       "name" : "rate",
+      "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -32,6 +35,7 @@
       "id" : "_c7b4a252-df93-4407-8bef-9d30d94125b6",
       "isCollection" : false,
       "name" : "term",
+      "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -44,6 +48,7 @@
     "javaParameterName" : "loan",
     "javaTypeName" : "type.TLoan?",
     "name" : "Loan",
+    "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
     "typeRef" : {
       "localName" : "tLoan",
       "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11"
@@ -54,6 +59,7 @@
     "javaParameterName" : "fee",
     "javaTypeName" : "java.lang.Number?",
     "name" : "fee",
+    "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -65,7 +71,8 @@
     "javaParameterName" : "pMT",
     "javaTypeName" : "PMT",
     "knowledgeReferences" : [ ],
-    "name" : "PMT"
+    "name" : "PMT",
+    "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11"
   }, {
     "@kind" : "decision",
     "id" : "d_MonthlyPayment",
@@ -83,6 +90,7 @@
       "reference" : "b_PMT"
     } ],
     "name" : "MonthlyPayment",
+    "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
     "protoRequestName" : "proto.MonthlyPaymentRequest",
     "protoResponseName" : "proto.MonthlyPaymentResponse",
     "transitiveRequiredInput" : [ {
@@ -91,6 +99,7 @@
       "javaParameterName" : "loan",
       "javaTypeName" : "type.TLoan?",
       "name" : "Loan",
+      "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
       "typeRef" : {
         "localName" : "tLoan",
         "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11"
@@ -101,6 +110,7 @@
       "javaParameterName" : "fee",
       "javaTypeName" : "java.lang.Number?",
       "name" : "fee",
+      "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"

@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "StringInput",
     "name" : "stringInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -21,6 +22,7 @@
     "isCollection" : true,
     "label" : "Test",
     "name" : "test",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -34,6 +36,7 @@
     "javaTypeName" : "String",
     "label" : "StringInput",
     "name" : "stringInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml",
     "shapeId" : "sid-FAB842DF-32D4-4495-9D58-155522650AAF",
     "typeRef" : {
       "localName" : "stringInput",
@@ -53,6 +56,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Test",
     "name" : "test",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml",
     "protoRequestName" : "proto.TestRequest",
     "protoResponseName" : "proto.TestResponse",
     "shapeId" : "sid-F141013E-DA3F-4C5C-BC0A-60C28CB995B3",
@@ -64,6 +68,7 @@
       "javaTypeName" : "String",
       "label" : "StringInput",
       "name" : "stringInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml",
       "shapeId" : "sid-FAB842DF-32D4-4495-9D58-155522650AAF",
       "typeRef" : {
         "localName" : "stringInput",

@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,12 +21,14 @@
     "isCollection" : false,
     "label" : "Compound Output Decision",
     "name" : "compoundOutputDecision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-relation-4F178C17-6132-475B-BB01-FCF62DA216F4",
       "isCollection" : false,
       "label" : "First Output",
       "name" : "firstOutput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -36,6 +39,7 @@
       "isCollection" : false,
       "label" : "Second Output",
       "name" : "secondOutput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -47,6 +51,7 @@
     "isCollection" : false,
     "label" : "DateAndTimeInput",
     "name" : "dateAndTimeInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "date and time",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -57,6 +62,7 @@
     "isCollection" : false,
     "label" : "DateInput",
     "name" : "dateInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "date",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -68,6 +74,7 @@
     "isCollection" : false,
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -78,6 +85,7 @@
     "isCollection" : false,
     "label" : "NumberInput",
     "name" : "numberInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -88,6 +96,7 @@
     "isCollection" : false,
     "label" : "TextInput",
     "name" : "textInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -98,6 +107,7 @@
     "isCollection" : false,
     "label" : "TimeInput",
     "name" : "timeInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "time",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -110,6 +120,7 @@
     "javaTypeName" : "Boolean",
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "booleanInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -121,6 +132,7 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "DateAndTimeInput",
     "name" : "dateAndTimeInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "dateAndTimeInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -132,6 +144,7 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "DateInput",
     "name" : "dateInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "dateInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -143,6 +156,7 @@
     "javaTypeName" : "String",
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "enumerationInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -154,6 +168,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "NumberInput",
     "name" : "numberInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "numberInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -165,6 +180,7 @@
     "javaTypeName" : "String",
     "label" : "TextInput",
     "name" : "textInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "textInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -176,6 +192,7 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "TimeInput",
     "name" : "timeInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "typeRef" : {
       "localName" : "timeInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -205,6 +222,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Compound Output Decision",
     "name" : "compoundOutputDecision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
     "protoRequestName" : "proto.CompoundOutputDecisionRequest",
     "protoResponseName" : "proto.CompoundOutputDecisionResponse",
     "transitiveRequiredInput" : [ {
@@ -214,6 +232,7 @@
       "javaTypeName" : "Boolean",
       "label" : "BooleanInput",
       "name" : "booleanInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
       "typeRef" : {
         "localName" : "booleanInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -225,6 +244,7 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "DateAndTimeInput",
       "name" : "dateAndTimeInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
       "typeRef" : {
         "localName" : "dateAndTimeInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -236,6 +256,7 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "DateInput",
       "name" : "dateInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
       "typeRef" : {
         "localName" : "dateInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -247,6 +268,7 @@
       "javaTypeName" : "String",
       "label" : "EnumerationInput",
       "name" : "enumerationInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
       "typeRef" : {
         "localName" : "enumerationInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -258,6 +280,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "NumberInput",
       "name" : "numberInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
       "typeRef" : {
         "localName" : "numberInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -269,6 +292,7 @@
       "javaTypeName" : "String",
       "label" : "TextInput",
       "name" : "textInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
       "typeRef" : {
         "localName" : "textInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"
@@ -280,6 +304,7 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "TimeInput",
       "name" : "timeInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
       "typeRef" : {
         "localName" : "timeInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml"

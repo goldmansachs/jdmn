@@ -10,6 +10,7 @@
     "isCollection" : true,
     "label" : "accessCertainTemporalUnits",
     "name" : "accessCertainTemporalUnits",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : true,
     "label" : "ages",
     "name" : "ages",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : false,
     "label" : "buildDateStringInAnnotation",
     "name" : "buildDateStringInAnnotation",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -40,6 +43,7 @@
     "isCollection" : false,
     "label" : "day",
     "name" : "day",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -50,6 +54,7 @@
     "isCollection" : true,
     "label" : "describeAgesList",
     "name" : "describeAgesList",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -60,12 +65,14 @@
     "isCollection" : false,
     "label" : "generateTemporalObjects",
     "name" : "generateTemporalObjects",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-9a6cde3460b63379a2b6b1975c71a962-relation-E9BD5C28-E92A-4BC5-BC7E-49327A0EE1F2",
       "isCollection" : false,
       "label" : "date",
       "name" : "date",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -76,6 +83,7 @@
       "isCollection" : false,
       "label" : "datetime",
       "name" : "datetime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "date and time",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -87,6 +95,7 @@
     "isCollection" : false,
     "label" : "hour",
     "name" : "hour",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -97,6 +106,7 @@
     "isCollection" : false,
     "label" : "minute",
     "name" : "minute",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -107,6 +117,7 @@
     "isCollection" : false,
     "label" : "month",
     "name" : "month",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -117,6 +128,7 @@
     "isCollection" : true,
     "label" : "names",
     "name" : "names",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -127,6 +139,7 @@
     "isCollection" : false,
     "label" : "negateSecond",
     "name" : "negateSecond",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -137,6 +150,7 @@
     "isCollection" : true,
     "label" : "noRuleMatchesMultiHit",
     "name" : "noRuleMatchesMultiHit",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -147,6 +161,7 @@
     "isCollection" : false,
     "label" : "noRuleMatchesSingleHit",
     "name" : "noRuleMatchesSingleHit",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -157,6 +172,7 @@
     "isCollection" : false,
     "label" : "second",
     "name" : "second",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -167,12 +183,14 @@
     "isCollection" : true,
     "label" : "temporalDiffs",
     "name" : "temporalDiffs",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-4112719dfdd7e3c70cca71905be01f13-relation-8B4B1873-E167-4850-8046-288DF48F5F0C",
       "isCollection" : false,
       "label" : "dateDiff",
       "name" : "dateDiff",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -183,6 +201,7 @@
       "isCollection" : false,
       "label" : "dateTimeDiff",
       "name" : "dateTimeDiff",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -194,6 +213,7 @@
     "isCollection" : false,
     "label" : "year",
     "name" : "year",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -204,12 +224,14 @@
     "isCollection" : true,
     "label" : "zip",
     "name" : "zip",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-e062979c36671bb3ba9768fcb54a1f4a-relation-ages",
       "isCollection" : false,
       "label" : "ages",
       "name" : "ages",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -220,6 +242,7 @@
       "isCollection" : false,
       "label" : "agesListDescription",
       "name" : "agesListDescription",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -230,6 +253,7 @@
       "isCollection" : false,
       "label" : "dateDiffs",
       "name" : "dateDiffs",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -240,6 +264,7 @@
       "isCollection" : false,
       "label" : "dateTimeDiffs",
       "name" : "dateTimeDiffs",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -250,6 +275,7 @@
       "isCollection" : false,
       "label" : "names",
       "name" : "names",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -260,6 +286,7 @@
       "isCollection" : false,
       "label" : "temporalUnits",
       "name" : "temporalUnits",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -274,6 +301,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "ages",
     "name" : "ages",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "shapeId" : "sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D",
     "typeRef" : {
       "localName" : "ages",
@@ -287,6 +315,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "day",
     "name" : "day",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "shapeId" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
     "typeRef" : {
       "localName" : "day",
@@ -300,6 +329,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "hour",
     "name" : "hour",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "shapeId" : "sid-E84C6443-C574-46D2-ACE6-7C04E9570047",
     "typeRef" : {
       "localName" : "hour",
@@ -313,6 +343,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "minute",
     "name" : "minute",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "shapeId" : "sid-63B08562-861C-40D7-BE83-710748DD1C0F",
     "typeRef" : {
       "localName" : "minute",
@@ -326,6 +357,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "month",
     "name" : "month",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "shapeId" : "sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9",
     "typeRef" : {
       "localName" : "month",
@@ -339,6 +371,7 @@
     "javaTypeName" : "List<String>",
     "label" : "names",
     "name" : "names",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "shapeId" : "sid-9C64E736-E1EB-4344-93B5-79722CEB6D89",
     "typeRef" : {
       "localName" : "names",
@@ -352,6 +385,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "second",
     "name" : "second",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "shapeId" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
     "typeRef" : {
       "localName" : "second",
@@ -365,6 +399,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "year",
     "name" : "year",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "shapeId" : "sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125",
     "typeRef" : {
       "localName" : "year",
@@ -384,6 +419,7 @@
     "knowledgeReferences" : [ ],
     "label" : "accessCertainTemporalUnits",
     "name" : "accessCertainTemporalUnits",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "protoRequestName" : "proto.AccessCertainTemporalUnitsRequest",
     "protoResponseName" : "proto.AccessCertainTemporalUnitsResponse",
     "shapeId" : "sid-613407DB-766F-458F-8430-6F31DDFD82B1",
@@ -395,6 +431,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "day",
       "name" : "day",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
       "typeRef" : {
         "localName" : "day",
@@ -408,6 +445,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "hour",
       "name" : "hour",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-E84C6443-C574-46D2-ACE6-7C04E9570047",
       "typeRef" : {
         "localName" : "hour",
@@ -421,6 +459,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "minute",
       "name" : "minute",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-63B08562-861C-40D7-BE83-710748DD1C0F",
       "typeRef" : {
         "localName" : "minute",
@@ -434,6 +473,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "month",
       "name" : "month",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9",
       "typeRef" : {
         "localName" : "month",
@@ -447,6 +487,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
       "typeRef" : {
         "localName" : "second",
@@ -460,6 +501,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "year",
       "name" : "year",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125",
       "typeRef" : {
         "localName" : "year",
@@ -488,6 +530,7 @@
     "knowledgeReferences" : [ ],
     "label" : "buildDateStringInAnnotation",
     "name" : "buildDateStringInAnnotation",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "protoRequestName" : "proto.BuildDateStringInAnnotationRequest",
     "protoResponseName" : "proto.BuildDateStringInAnnotationResponse",
     "shapeId" : "sid-FE7B81A7-CACD-434C-BE9D-81FF98769536",
@@ -499,6 +542,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "day",
       "name" : "day",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
       "typeRef" : {
         "localName" : "day",
@@ -512,6 +556,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "month",
       "name" : "month",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9",
       "typeRef" : {
         "localName" : "month",
@@ -525,6 +570,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "year",
       "name" : "year",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125",
       "typeRef" : {
         "localName" : "year",
@@ -549,6 +595,7 @@
     "knowledgeReferences" : [ ],
     "label" : "describeAgesList",
     "name" : "describeAgesList",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "protoRequestName" : "proto.DescribeAgesListRequest",
     "protoResponseName" : "proto.DescribeAgesListResponse",
     "shapeId" : "sid-646B21D4-0CD2-48E1-98EE-DF09F8F2993B",
@@ -560,6 +607,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "ages",
       "name" : "ages",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D",
       "typeRef" : {
         "localName" : "ages",
@@ -594,6 +642,7 @@
     "knowledgeReferences" : [ ],
     "label" : "generateTemporalObjects",
     "name" : "generateTemporalObjects",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "protoRequestName" : "proto.GenerateTemporalObjectsRequest",
     "protoResponseName" : "proto.GenerateTemporalObjectsResponse",
     "shapeId" : "sid-6BEA84C5-B6D6-4823-B145-CC9039E79767",
@@ -605,6 +654,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "day",
       "name" : "day",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
       "typeRef" : {
         "localName" : "day",
@@ -618,6 +668,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "hour",
       "name" : "hour",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-E84C6443-C574-46D2-ACE6-7C04E9570047",
       "typeRef" : {
         "localName" : "hour",
@@ -631,6 +682,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "minute",
       "name" : "minute",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-63B08562-861C-40D7-BE83-710748DD1C0F",
       "typeRef" : {
         "localName" : "minute",
@@ -644,6 +696,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "month",
       "name" : "month",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9",
       "typeRef" : {
         "localName" : "month",
@@ -657,6 +710,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
       "typeRef" : {
         "localName" : "second",
@@ -670,6 +724,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "year",
       "name" : "year",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125",
       "typeRef" : {
         "localName" : "year",
@@ -694,6 +749,7 @@
     "knowledgeReferences" : [ ],
     "label" : "negateSecond",
     "name" : "negateSecond",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "protoRequestName" : "proto.NegateSecondRequest",
     "protoResponseName" : "proto.NegateSecondResponse",
     "shapeId" : "sid-955F0BB7-C215-4403-B055-AC3814C6764E",
@@ -705,6 +761,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
       "typeRef" : {
         "localName" : "second",
@@ -729,6 +786,7 @@
     "knowledgeReferences" : [ ],
     "label" : "noRuleMatchesMultiHit",
     "name" : "noRuleMatchesMultiHit",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "protoRequestName" : "proto.NoRuleMatchesMultiHitRequest",
     "protoResponseName" : "proto.NoRuleMatchesMultiHitResponse",
     "shapeId" : "sid-AEACF1C7-512D-4230-96A8-AC49528D080C",
@@ -740,6 +798,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
       "typeRef" : {
         "localName" : "second",
@@ -764,6 +823,7 @@
     "knowledgeReferences" : [ ],
     "label" : "noRuleMatchesSingleHit",
     "name" : "noRuleMatchesSingleHit",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "protoRequestName" : "proto.NoRuleMatchesSingleHitRequest",
     "protoResponseName" : "proto.NoRuleMatchesSingleHitResponse",
     "shapeId" : "sid-DEE756F7-83CB-4493-9004-F943DB18EF5D",
@@ -775,6 +835,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
       "typeRef" : {
         "localName" : "second",
@@ -799,6 +860,7 @@
     "knowledgeReferences" : [ ],
     "label" : "temporalDiffs",
     "name" : "temporalDiffs",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "protoRequestName" : "proto.TemporalDiffsRequest",
     "protoResponseName" : "proto.TemporalDiffsResponse",
     "shapeId" : "sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12",
@@ -810,6 +872,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "day",
       "name" : "day",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
       "typeRef" : {
         "localName" : "day",
@@ -823,6 +886,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "hour",
       "name" : "hour",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-E84C6443-C574-46D2-ACE6-7C04E9570047",
       "typeRef" : {
         "localName" : "hour",
@@ -836,6 +900,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "minute",
       "name" : "minute",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-63B08562-861C-40D7-BE83-710748DD1C0F",
       "typeRef" : {
         "localName" : "minute",
@@ -849,6 +914,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "month",
       "name" : "month",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9",
       "typeRef" : {
         "localName" : "month",
@@ -862,6 +928,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
       "typeRef" : {
         "localName" : "second",
@@ -875,6 +942,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "year",
       "name" : "year",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125",
       "typeRef" : {
         "localName" : "year",
@@ -915,6 +983,7 @@
     "knowledgeReferences" : [ ],
     "label" : "zip",
     "name" : "zip",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     "protoRequestName" : "proto.ZipRequest",
     "protoResponseName" : "proto.ZipResponse",
     "shapeId" : "sid-DB470E83-401F-4E28-BCA7-8E8FA641E93F",
@@ -926,6 +995,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "ages",
       "name" : "ages",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D",
       "typeRef" : {
         "localName" : "ages",
@@ -939,6 +1009,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "day",
       "name" : "day",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
       "typeRef" : {
         "localName" : "day",
@@ -952,6 +1023,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "hour",
       "name" : "hour",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-E84C6443-C574-46D2-ACE6-7C04E9570047",
       "typeRef" : {
         "localName" : "hour",
@@ -965,6 +1037,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "minute",
       "name" : "minute",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-63B08562-861C-40D7-BE83-710748DD1C0F",
       "typeRef" : {
         "localName" : "minute",
@@ -978,6 +1051,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "month",
       "name" : "month",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-54C8F12C-6DF1-462C-8FF7-EE7A6C8C2BB9",
       "typeRef" : {
         "localName" : "month",
@@ -991,6 +1065,7 @@
       "javaTypeName" : "List<String>",
       "label" : "names",
       "name" : "names",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-9C64E736-E1EB-4344-93B5-79722CEB6D89",
       "typeRef" : {
         "localName" : "names",
@@ -1004,6 +1079,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
       "typeRef" : {
         "localName" : "second",
@@ -1017,6 +1093,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "year",
       "name" : "year",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
       "shapeId" : "sid-C8EE5C3A-1C1C-42D7-B596-92E4DA21A125",
       "typeRef" : {
         "localName" : "year",

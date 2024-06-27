@@ -9,11 +9,13 @@
     "id" : "tA",
     "isCollection" : false,
     "name" : "tA",
+    "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "_adf6f96a-c574-4ba7-a305-ea14ad9852b1",
       "isCollection" : false,
       "name" : "name",
+      "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
@@ -23,6 +25,7 @@
       "id" : "_d297adac-f086-42a0-989e-04c431270f77",
       "isCollection" : false,
       "name" : "price",
+      "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
@@ -35,6 +38,7 @@
     "javaParameterName" : "structA",
     "javaTypeName" : "type.TA",
     "name" : "structA",
+    "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
     "typeRef" : {
       "localName" : "tA",
       "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
@@ -50,6 +54,7 @@
     "javaTypeName" : "PriceGt10",
     "knowledgeReferences" : [ ],
     "name" : "priceGt10",
+    "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
     "protoRequestName" : "proto.PriceGt10Request",
     "protoResponseName" : "proto.PriceGt10Response",
     "transitiveRequiredInput" : [ {
@@ -58,6 +63,7 @@
       "javaParameterName" : "structA",
       "javaTypeName" : "type.TA",
       "name" : "structA",
+      "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
       "typeRef" : {
         "localName" : "tA",
         "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"

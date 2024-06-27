@@ -9,11 +9,13 @@
     "id" : "tLoan",
     "isCollection" : false,
     "name" : "tLoan",
+    "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "_561947e6-180a-416e-aa22-5e8e5d650624",
       "isCollection" : false,
       "name" : "principal",
+      "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -23,6 +25,7 @@
       "id" : "_c1751fa0-4da6-4cb5-a234-45765d6b35ac",
       "isCollection" : false,
       "name" : "rate",
+      "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -32,6 +35,7 @@
       "id" : "_006e0a06-26a6-42e1-9b3c-4b2502a567fe",
       "isCollection" : false,
       "name" : "termMonths",
+      "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -44,6 +48,7 @@
     "javaParameterName" : "loan",
     "javaTypeName" : "type.TLoan?",
     "name" : "loan",
+    "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a",
     "typeRef" : {
       "localName" : "tLoan",
       "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a"
@@ -59,6 +64,7 @@
     "javaTypeName" : "Payment",
     "knowledgeReferences" : [ ],
     "name" : "payment",
+    "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a",
     "protoRequestName" : "proto.PaymentRequest",
     "protoResponseName" : "proto.PaymentResponse",
     "transitiveRequiredInput" : [ {
@@ -67,6 +73,7 @@
       "javaParameterName" : "loan",
       "javaTypeName" : "type.TLoan?",
       "name" : "loan",
+      "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a",
       "typeRef" : {
         "localName" : "tLoan",
         "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a"

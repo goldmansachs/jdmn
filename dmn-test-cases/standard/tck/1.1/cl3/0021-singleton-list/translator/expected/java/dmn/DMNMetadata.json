@@ -9,6 +9,7 @@
     "id" : "tStringList",
     "isCollection" : true,
     "name" : "tStringList",
+    "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "javaParameterName" : "employees",
     "javaTypeName" : "List<String>",
     "name" : "Employees",
+    "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
     "typeRef" : {
       "localName" : "tStringList",
       "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
@@ -35,6 +37,7 @@
     "javaTypeName" : "Decision1",
     "knowledgeReferences" : [ ],
     "name" : "decision1",
+    "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
     "protoRequestName" : "proto.Decision1Request",
     "protoResponseName" : "proto.Decision1Response",
     "transitiveRequiredInput" : [ {
@@ -43,6 +46,7 @@
       "javaParameterName" : "employees",
       "javaTypeName" : "List<String>",
       "name" : "Employees",
+      "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
       "typeRef" : {
         "localName" : "tStringList",
         "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
@@ -63,6 +67,7 @@
     "javaTypeName" : "Decision2",
     "knowledgeReferences" : [ ],
     "name" : "decision2",
+    "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
     "protoRequestName" : "proto.Decision2Request",
     "protoResponseName" : "proto.Decision2Response",
     "transitiveRequiredInput" : [ {
@@ -71,6 +76,7 @@
       "javaParameterName" : "employees",
       "javaTypeName" : "List<String>",
       "name" : "Employees",
+      "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
       "typeRef" : {
         "localName" : "tStringList",
         "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
@@ -91,6 +97,7 @@
     "javaTypeName" : "Decision3",
     "knowledgeReferences" : [ ],
     "name" : "decision3",
+    "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
     "protoRequestName" : "proto.Decision3Request",
     "protoResponseName" : "proto.Decision3Response",
     "transitiveRequiredInput" : [ {
@@ -99,6 +106,7 @@
       "javaParameterName" : "employees",
       "javaTypeName" : "List<String>",
       "name" : "Employees",
+      "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
       "typeRef" : {
         "localName" : "tStringList",
         "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
@@ -119,6 +127,7 @@
     "javaTypeName" : "Decision4",
     "knowledgeReferences" : [ ],
     "name" : "decision4",
+    "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
     "protoRequestName" : "proto.Decision4Request",
     "protoResponseName" : "proto.Decision4Response",
     "transitiveRequiredInput" : [ {
@@ -127,6 +136,7 @@
       "javaParameterName" : "employees",
       "javaTypeName" : "List<String>",
       "name" : "Employees",
+      "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
       "typeRef" : {
         "localName" : "tStringList",
         "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"
@@ -147,6 +157,7 @@
     "javaTypeName" : "Decision5",
     "knowledgeReferences" : [ ],
     "name" : "decision5",
+    "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
     "protoRequestName" : "proto.Decision5Request",
     "protoResponseName" : "proto.Decision5Response",
     "transitiveRequiredInput" : [ {
@@ -155,6 +166,7 @@
       "javaParameterName" : "employees",
       "javaTypeName" : "List<String>",
       "name" : "Employees",
+      "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
       "typeRef" : {
         "localName" : "tStringList",
         "namespace" : "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a"

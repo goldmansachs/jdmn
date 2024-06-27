@@ -10,6 +10,7 @@
     "isCollection" : true,
     "label" : "accessCertainTemporalUnits",
     "name" : "accessCertainTemporalUnits",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : true,
     "label" : "ages",
     "name" : "ages",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : false,
     "label" : "buildDateStringInAnnotation",
     "name" : "buildDateStringInAnnotation",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -40,6 +43,7 @@
     "isCollection" : false,
     "label" : "day",
     "name" : "day",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -50,6 +54,7 @@
     "isCollection" : true,
     "label" : "describeAgesList",
     "name" : "describeAgesList",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -60,12 +65,14 @@
     "isCollection" : false,
     "label" : "generateTemporalObjects",
     "name" : "generateTemporalObjects",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "item-definition-sid-6BEA84C5-B6D6-4823-B145-CC9039E79767-E9BD5C28-E92A-4BC5-BC7E-49327A0EE1F2",
       "isCollection" : false,
       "label" : "date",
       "name" : "date",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -76,6 +83,7 @@
       "isCollection" : false,
       "label" : "datetime",
       "name" : "datetime",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "datetime",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -87,6 +95,7 @@
     "isCollection" : false,
     "label" : "hour",
     "name" : "hour",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -97,6 +106,7 @@
     "isCollection" : false,
     "label" : "minute",
     "name" : "minute",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -107,6 +117,7 @@
     "isCollection" : false,
     "label" : "month",
     "name" : "month",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -117,6 +128,7 @@
     "isCollection" : true,
     "label" : "names",
     "name" : "names",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -127,6 +139,7 @@
     "isCollection" : false,
     "label" : "negateSecond",
     "name" : "negateSecond",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -137,6 +150,7 @@
     "isCollection" : true,
     "label" : "noRuleMatchesMultiHit",
     "name" : "noRuleMatchesMultiHit",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -147,6 +161,7 @@
     "isCollection" : false,
     "label" : "noRuleMatchesSingleHit",
     "name" : "noRuleMatchesSingleHit",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -157,6 +172,7 @@
     "isCollection" : false,
     "label" : "second",
     "name" : "second",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -167,12 +183,14 @@
     "isCollection" : true,
     "label" : "temporalDiffs",
     "name" : "temporalDiffs",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "item-definition-sid-E3A0AABF-07D5-4EB5-8E11-91706DBA9E12-8B4B1873-E167-4850-8046-288DF48F5F0C",
       "isCollection" : false,
       "label" : "dateDiff",
       "name" : "dateDiff",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -183,6 +201,7 @@
       "isCollection" : false,
       "label" : "dateTimeDiff",
       "name" : "dateTimeDiff",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -194,6 +213,7 @@
     "isCollection" : false,
     "label" : "year",
     "name" : "year",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -204,12 +224,14 @@
     "isCollection" : true,
     "label" : "zip",
     "name" : "zip",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "ages",
       "isCollection" : false,
       "label" : "ages",
       "name" : "ages",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -220,6 +242,7 @@
       "isCollection" : false,
       "label" : "agesListDescription",
       "name" : "agesListDescription",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -230,6 +253,7 @@
       "isCollection" : false,
       "label" : "dateDiffs",
       "name" : "dateDiffs",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -240,6 +264,7 @@
       "isCollection" : false,
       "label" : "dateTimeDiffs",
       "name" : "dateTimeDiffs",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -250,6 +275,7 @@
       "isCollection" : false,
       "label" : "names",
       "name" : "names",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -260,6 +286,7 @@
       "isCollection" : false,
       "label" : "temporalUnits",
       "name" : "temporalUnits",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -273,6 +300,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "ages",
     "name" : "ages",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "ages",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -284,6 +312,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "day",
     "name" : "day",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "day",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -295,6 +324,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "hour",
     "name" : "hour",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "hour",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -306,6 +336,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "minute",
     "name" : "minute",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "minute",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -317,6 +348,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "month",
     "name" : "month",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "month",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -328,6 +360,7 @@
     "javaTypeName" : "List<String>",
     "label" : "names",
     "name" : "names",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "names",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -339,6 +372,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "second",
     "name" : "second",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "second",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -350,6 +384,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "year",
     "name" : "year",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "year",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -367,6 +402,7 @@
     "knowledgeReferences" : [ ],
     "label" : "accessCertainTemporalUnits",
     "name" : "accessCertainTemporalUnits",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.AccessCertainTemporalUnitsRequest",
     "protoResponseName" : "proto.AccessCertainTemporalUnitsResponse",
     "transitiveRequiredInput" : [ {
@@ -376,6 +412,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "day",
       "name" : "day",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "day",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -387,6 +424,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "hour",
       "name" : "hour",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "hour",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -398,6 +436,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "minute",
       "name" : "minute",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "minute",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -409,6 +448,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "month",
       "name" : "month",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "month",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -420,6 +460,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "second",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -431,6 +472,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "year",
       "name" : "year",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "year",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -457,6 +499,7 @@
     "knowledgeReferences" : [ ],
     "label" : "buildDateStringInAnnotation",
     "name" : "buildDateStringInAnnotation",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.BuildDateStringInAnnotationRequest",
     "protoResponseName" : "proto.BuildDateStringInAnnotationResponse",
     "transitiveRequiredInput" : [ {
@@ -466,6 +509,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "day",
       "name" : "day",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "day",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -477,6 +521,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "month",
       "name" : "month",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "month",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -488,6 +533,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "year",
       "name" : "year",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "year",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -510,6 +556,7 @@
     "knowledgeReferences" : [ ],
     "label" : "describeAgesList",
     "name" : "describeAgesList",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.DescribeAgesListRequest",
     "protoResponseName" : "proto.DescribeAgesListResponse",
     "transitiveRequiredInput" : [ {
@@ -519,6 +566,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "ages",
       "name" : "ages",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "ages",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -551,6 +599,7 @@
     "knowledgeReferences" : [ ],
     "label" : "generateTemporalObjects",
     "name" : "generateTemporalObjects",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.GenerateTemporalObjectsRequest",
     "protoResponseName" : "proto.GenerateTemporalObjectsResponse",
     "transitiveRequiredInput" : [ {
@@ -560,6 +609,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "day",
       "name" : "day",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "day",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -571,6 +621,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "hour",
       "name" : "hour",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "hour",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -582,6 +633,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "minute",
       "name" : "minute",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "minute",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -593,6 +645,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "month",
       "name" : "month",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "month",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -604,6 +657,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "second",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -615,6 +669,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "year",
       "name" : "year",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "year",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -637,6 +692,7 @@
     "knowledgeReferences" : [ ],
     "label" : "negateSecond",
     "name" : "negateSecond",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.NegateSecondRequest",
     "protoResponseName" : "proto.NegateSecondResponse",
     "transitiveRequiredInput" : [ {
@@ -646,6 +702,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "second",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -668,6 +725,7 @@
     "knowledgeReferences" : [ ],
     "label" : "noRuleMatchesMultiHit",
     "name" : "noRuleMatchesMultiHit",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.NoRuleMatchesMultiHitRequest",
     "protoResponseName" : "proto.NoRuleMatchesMultiHitResponse",
     "transitiveRequiredInput" : [ {
@@ -677,6 +735,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "second",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -699,6 +758,7 @@
     "knowledgeReferences" : [ ],
     "label" : "noRuleMatchesSingleHit",
     "name" : "noRuleMatchesSingleHit",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.NoRuleMatchesSingleHitRequest",
     "protoResponseName" : "proto.NoRuleMatchesSingleHitResponse",
     "transitiveRequiredInput" : [ {
@@ -708,6 +768,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "second",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -730,6 +791,7 @@
     "knowledgeReferences" : [ ],
     "label" : "temporalDiffs",
     "name" : "temporalDiffs",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.TemporalDiffsRequest",
     "protoResponseName" : "proto.TemporalDiffsResponse",
     "transitiveRequiredInput" : [ {
@@ -739,6 +801,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "day",
       "name" : "day",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "day",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -750,6 +813,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "hour",
       "name" : "hour",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "hour",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -761,6 +825,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "minute",
       "name" : "minute",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "minute",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -772,6 +837,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "month",
       "name" : "month",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "month",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -783,6 +849,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "second",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -794,6 +861,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "year",
       "name" : "year",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "year",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -832,6 +900,7 @@
     "knowledgeReferences" : [ ],
     "label" : "zip",
     "name" : "zip",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.ZipRequest",
     "protoResponseName" : "proto.ZipResponse",
     "transitiveRequiredInput" : [ {
@@ -841,6 +910,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "ages",
       "name" : "ages",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "ages",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -852,6 +922,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "day",
       "name" : "day",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "day",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -863,6 +934,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "hour",
       "name" : "hour",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "hour",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -874,6 +946,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "minute",
       "name" : "minute",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "minute",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -885,6 +958,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "month",
       "name" : "month",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "month",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -896,6 +970,7 @@
       "javaTypeName" : "List<String>",
       "label" : "names",
       "name" : "names",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "names",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -907,6 +982,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "second",
       "name" : "second",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "second",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -918,6 +994,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "year",
       "name" : "year",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "year",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

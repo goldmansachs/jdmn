@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "A",
     "name" : "a",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : false,
     "label" : "B",
     "name" : "b",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : false,
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -43,6 +46,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "A",
     "name" : "a",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml",
     "shapeId" : "sid-EADD432B-B8C6-4BDE-8871-A5116FD4799E",
     "typeRef" : {
       "localName" : "a",
@@ -56,6 +60,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "B",
     "name" : "b",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml",
     "shapeId" : "sid-C5197E11-164E-4B17-8B41-BFF1E70B8C7A",
     "typeRef" : {
       "localName" : "b",
@@ -77,6 +82,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
     "shapeId" : "sid-34774408-727B-4808-B8AC-5AEDDE49C190",
@@ -88,6 +94,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "A",
       "name" : "a",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml",
       "shapeId" : "sid-EADD432B-B8C6-4BDE-8871-A5116FD4799E",
       "typeRef" : {
         "localName" : "a",
@@ -101,6 +108,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "B",
       "name" : "b",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml",
       "shapeId" : "sid-C5197E11-164E-4B17-8B41-BFF1E70B8C7A",
       "typeRef" : {
         "localName" : "b",

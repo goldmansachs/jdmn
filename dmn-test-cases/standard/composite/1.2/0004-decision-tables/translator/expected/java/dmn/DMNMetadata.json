@@ -9,11 +9,13 @@
     "id" : "tA",
     "isCollection" : false,
     "name" : "tA",
+    "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "_adf6f96a-c574-4ba7-a305-ea14ad9852b1",
       "isCollection" : false,
       "name" : "name",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -23,6 +25,7 @@
       "id" : "_d297adac-f086-42a0-989e-04c431270f77",
       "isCollection" : false,
       "name" : "price",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -33,6 +36,7 @@
     "id" : "tNumList",
     "isCollection" : true,
     "name" : "tNumList",
+    "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -42,6 +46,7 @@
     "id" : "tStringList",
     "isCollection" : true,
     "name" : "tStringList",
+    "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -53,6 +58,7 @@
     "javaParameterName" : "dateD",
     "javaTypeName" : "java.time.LocalDate",
     "name" : "dateD",
+    "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "date",
       "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -63,6 +69,7 @@
     "javaParameterName" : "dateE",
     "javaTypeName" : "java.time.LocalDate",
     "name" : "dateE",
+    "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "date",
       "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -73,6 +80,7 @@
     "javaParameterName" : "numB",
     "javaTypeName" : "java.lang.Number",
     "name" : "numB",
+    "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -83,6 +91,7 @@
     "javaParameterName" : "numC",
     "javaTypeName" : "java.lang.Number",
     "name" : "numC",
+    "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -93,6 +102,7 @@
     "javaParameterName" : "structA",
     "javaTypeName" : "decisioninputs.type.TA",
     "name" : "structA",
+    "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "tA",
       "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -108,6 +118,7 @@
     "javaTypeName" : "decisiontables.DateCompare1",
     "knowledgeReferences" : [ ],
     "name" : "dateCompare1",
+    "namespace" : "http://www.provider.com/definitions/decisions",
     "protoRequestName" : "decisiontables.proto.DateCompare1Request",
     "protoResponseName" : "decisiontables.proto.DateCompare1Response",
     "transitiveRequiredInput" : [ {
@@ -116,6 +127,7 @@
       "javaParameterName" : "dateD",
       "javaTypeName" : "java.time.LocalDate",
       "name" : "dateD",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -138,6 +150,7 @@
     "javaTypeName" : "decisiontables.DateCompare2",
     "knowledgeReferences" : [ ],
     "name" : "dateCompare2",
+    "namespace" : "http://www.provider.com/definitions/decisions",
     "protoRequestName" : "decisiontables.proto.DateCompare2Request",
     "protoResponseName" : "decisiontables.proto.DateCompare2Response",
     "transitiveRequiredInput" : [ {
@@ -146,6 +159,7 @@
       "javaParameterName" : "dateD",
       "javaTypeName" : "java.time.LocalDate",
       "name" : "dateD",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -156,6 +170,7 @@
       "javaParameterName" : "dateE",
       "javaTypeName" : "java.time.LocalDate",
       "name" : "dateE",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -176,6 +191,7 @@
     "javaTypeName" : "decisiontables.PriceGt10",
     "knowledgeReferences" : [ ],
     "name" : "priceGt10",
+    "namespace" : "http://www.provider.com/definitions/decisions",
     "protoRequestName" : "decisiontables.proto.PriceGt10Request",
     "protoResponseName" : "decisiontables.proto.PriceGt10Response",
     "transitiveRequiredInput" : [ {
@@ -184,6 +200,7 @@
       "javaParameterName" : "structA",
       "javaTypeName" : "decisioninputs.type.TA",
       "name" : "structA",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "tA",
         "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -208,6 +225,7 @@
     "javaTypeName" : "decisiontables.PriceInRange",
     "knowledgeReferences" : [ ],
     "name" : "priceInRange",
+    "namespace" : "http://www.provider.com/definitions/decisions",
     "protoRequestName" : "decisiontables.proto.PriceInRangeRequest",
     "protoResponseName" : "decisiontables.proto.PriceInRangeResponse",
     "transitiveRequiredInput" : [ {
@@ -216,6 +234,7 @@
       "javaParameterName" : "numB",
       "javaTypeName" : "java.lang.Number",
       "name" : "numB",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -226,6 +245,7 @@
       "javaParameterName" : "numC",
       "javaTypeName" : "java.lang.Number",
       "name" : "numC",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.provider.com/definitions/decision-inputs"
@@ -236,6 +256,7 @@
       "javaParameterName" : "structA",
       "javaTypeName" : "decisioninputs.type.TA",
       "name" : "structA",
+      "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "tA",
         "namespace" : "http://www.provider.com/definitions/decision-inputs"

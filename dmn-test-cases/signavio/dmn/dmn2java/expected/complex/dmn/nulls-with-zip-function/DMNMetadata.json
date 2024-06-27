@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "do something",
     "name" : "doSomething",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : true,
     "label" : "inputA",
     "name" : "inputA",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : true,
     "label" : "inputB",
     "name" : "inputB",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -40,6 +43,7 @@
     "isCollection" : true,
     "label" : "mid",
     "name" : "mid",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -50,12 +54,14 @@
     "isCollection" : true,
     "label" : "zip",
     "name" : "zip",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-63ce85051c606c9854e624874392899b-relation-inputA",
       "isCollection" : false,
       "label" : "inputA",
       "name" : "inputA",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -66,6 +72,7 @@
       "isCollection" : false,
       "label" : "inputB",
       "name" : "inputB",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -77,12 +84,14 @@
     "isCollection" : false,
     "label" : "zip",
     "name" : "zip3",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-1b4b35ce9f961726ac5d267843377e53-relation-inputA",
       "isCollection" : false,
       "label" : "inputA",
       "name" : "inputA",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -93,6 +102,7 @@
       "isCollection" : false,
       "label" : "inputB",
       "name" : "inputB",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -107,6 +117,7 @@
     "javaTypeName" : "List<String>",
     "label" : "inputA",
     "name" : "inputA",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "shapeId" : "sid-90C567C5-4131-4278-95E3-1F48708C2C45",
     "typeRef" : {
       "localName" : "inputA",
@@ -120,6 +131,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "inputB",
     "name" : "inputB",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "shapeId" : "sid-9586645A-CD86-474E-9E6D-B60ED49AF61D",
     "typeRef" : {
       "localName" : "inputB",
@@ -133,6 +145,7 @@
     "javaTypeName" : "type.Zip3",
     "label" : "zip",
     "name" : "zip4_iterator",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "shapeId" : "sid-F8CF449C-BF9C-43B2-892E-B1E08B0ADC29",
     "typeRef" : {
       "localName" : "zip3",
@@ -152,6 +165,7 @@
     "knowledgeReferences" : [ ],
     "label" : "do something",
     "name" : "doSomething",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "protoRequestName" : "proto.DoSomethingRequest",
     "protoResponseName" : "proto.DoSomethingResponse",
     "shapeId" : "sid-0D903FA8-BB2E-410E-82F9-E7185B0D1B2F",
@@ -163,6 +177,7 @@
       "javaTypeName" : "type.Zip3",
       "label" : "zip",
       "name" : "zip4_iterator",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
       "shapeId" : "sid-F8CF449C-BF9C-43B2-892E-B1E08B0ADC29",
       "typeRef" : {
         "localName" : "zip3",
@@ -193,6 +208,7 @@
     "knowledgeReferences" : [ ],
     "label" : "mid",
     "name" : "mid",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "protoRequestName" : "proto.MidRequest",
     "protoResponseName" : "proto.MidResponse",
     "shapeId" : "sid-2D02F64C-925A-483C-8D24-01D2F0FBAF75",
@@ -204,6 +220,7 @@
       "javaTypeName" : "List<String>",
       "label" : "inputA",
       "name" : "inputA",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
       "shapeId" : "sid-90C567C5-4131-4278-95E3-1F48708C2C45",
       "typeRef" : {
         "localName" : "inputA",
@@ -217,6 +234,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "inputB",
       "name" : "inputB",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
       "shapeId" : "sid-9586645A-CD86-474E-9E6D-B60ED49AF61D",
       "typeRef" : {
         "localName" : "inputB",
@@ -243,6 +261,7 @@
     "knowledgeReferences" : [ ],
     "label" : "zip",
     "name" : "zip",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
     "protoRequestName" : "proto.ZipRequest",
     "protoResponseName" : "proto.ZipResponse",
     "shapeId" : "sid-2703DE56-085E-4A32-BDB9-55D7DF1E2F74",
@@ -254,6 +273,7 @@
       "javaTypeName" : "List<String>",
       "label" : "inputA",
       "name" : "inputA",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
       "shapeId" : "sid-90C567C5-4131-4278-95E3-1F48708C2C45",
       "typeRef" : {
         "localName" : "inputA",
@@ -267,6 +287,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "inputB",
       "name" : "inputB",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
       "shapeId" : "sid-9586645A-CD86-474E-9E6D-B60ED49AF61D",
       "typeRef" : {
         "localName" : "inputB",

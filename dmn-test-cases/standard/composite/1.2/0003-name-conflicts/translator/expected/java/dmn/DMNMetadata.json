@@ -17,6 +17,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Evaluating Say Hello",
     "name" : "evaluatingSayHello",
+    "namespace" : "http://www.provider.com/definitions/model-b1",
     "protoRequestName" : "model_b1.proto.EvaluatingSayHelloRequest",
     "protoResponseName" : "model_b1.proto.EvaluatingSayHelloResponse",
     "transitiveRequiredInput" : [ {
@@ -26,6 +27,7 @@
       "javaTypeName" : "String",
       "label" : "Person Name",
       "name" : "personName",
+      "namespace" : "http://www.provider.com/definitions/model-a",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/definitions/model-a"
@@ -47,6 +49,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Great the person",
     "name" : "greetThePerson",
+    "namespace" : "http://www.provider.com/definitions/model-b1",
     "protoRequestName" : "model_b1.proto.GreetThePersonRequest",
     "protoResponseName" : "model_b1.proto.GreetThePersonResponse",
     "transitiveRequiredInput" : [ {
@@ -56,6 +59,7 @@
       "javaTypeName" : "String",
       "label" : "Person Name",
       "name" : "personName",
+      "namespace" : "http://www.provider.com/definitions/model-a",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/definitions/model-a"
@@ -77,6 +81,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Evaluating B2 Say Hello",
     "name" : "evaluatingSayHello",
+    "namespace" : "http://www.provider.com/definitions/model-b2",
     "protoRequestName" : "model_b2.proto.EvaluatingSayHelloRequest",
     "protoResponseName" : "model_b2.proto.EvaluatingSayHelloResponse",
     "transitiveRequiredInput" : [ {
@@ -86,6 +91,7 @@
       "javaTypeName" : "String",
       "label" : "Person Name",
       "name" : "personName",
+      "namespace" : "http://www.provider.com/definitions/model-a",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/definitions/model-a"
@@ -109,6 +115,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Model C Decision based on Bs",
     "name" : "modelCDecisionBasedOnBs",
+    "namespace" : "http://www.provider.com/definitions/model-c",
     "protoRequestName" : "model_c.proto.ModelCDecisionBasedOnBsRequest",
     "protoResponseName" : "model_c.proto.ModelCDecisionBasedOnBsResponse",
     "transitiveRequiredInput" : [ {
@@ -118,6 +125,7 @@
       "javaTypeName" : "String",
       "label" : "Person Name",
       "name" : "personName",
+      "namespace" : "http://www.provider.com/definitions/model-a",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/definitions/model-a"
@@ -134,6 +142,7 @@
     "javaTypeName" : "String",
     "label" : "Person Name",
     "name" : "personName",
+    "namespace" : "http://www.provider.com/definitions/model-a",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.provider.com/definitions/model-a"

@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : false,
     "label" : "NumberInput",
     "name" : "numberInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : false,
     "label" : "TextInput",
     "name" : "textInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -42,6 +45,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "NumberInput",
     "name" : "numberInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml",
     "typeRef" : {
       "localName" : "numberInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml"
@@ -53,6 +57,7 @@
     "javaTypeName" : "String",
     "label" : "TextInput",
     "name" : "textInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml",
     "typeRef" : {
       "localName" : "textInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml"
@@ -72,6 +77,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
@@ -81,6 +87,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "NumberInput",
       "name" : "numberInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml",
       "typeRef" : {
         "localName" : "numberInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml"
@@ -92,6 +99,7 @@
       "javaTypeName" : "String",
       "label" : "TextInput",
       "name" : "textInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml",
       "typeRef" : {
         "localName" : "textInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml"

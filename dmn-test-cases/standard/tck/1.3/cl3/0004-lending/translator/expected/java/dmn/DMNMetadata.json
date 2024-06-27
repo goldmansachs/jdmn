@@ -9,6 +9,7 @@
     "allowedValues" : "\"DECLINE\", \"ACCEPT\"",
     "isCollection" : false,
     "name" : "tAdjudication",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -17,10 +18,12 @@
     "@kind" : "compositeType",
     "isCollection" : false,
     "name" : "tApplicantData",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "types" : [ {
       "@kind" : "referenceType",
       "isCollection" : false,
       "name" : "Age",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -30,6 +33,7 @@
       "allowedValues" : "\"EMPLOYED\",\"SELF-EMPLOYED\",\"STUDENT\",\"UNEMPLOYED\"",
       "isCollection" : false,
       "name" : "EmploymentStatus",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -38,6 +42,7 @@
       "@kind" : "referenceType",
       "isCollection" : false,
       "name" : "ExistingCustomer",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "boolean",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -47,6 +52,7 @@
       "allowedValues" : "\"S\",\"M\"",
       "isCollection" : false,
       "name" : "MaritalStatus",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -55,10 +61,12 @@
       "@kind" : "compositeType",
       "isCollection" : false,
       "name" : "Monthly",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "types" : [ {
         "@kind" : "referenceType",
         "isCollection" : false,
         "name" : "Expenses",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
         "typeRef" : {
           "localName" : "number",
           "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -67,6 +75,7 @@
         "@kind" : "referenceType",
         "isCollection" : false,
         "name" : "Income",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
         "typeRef" : {
           "localName" : "number",
           "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -75,6 +84,7 @@
         "@kind" : "referenceType",
         "isCollection" : false,
         "name" : "Repayments",
+        "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
         "typeRef" : {
           "localName" : "number",
           "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -86,6 +96,7 @@
     "allowedValues" : "\"FULL\", \"MINI\", \"NONE\"",
     "isCollection" : false,
     "name" : "tBureauCallType",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -94,10 +105,12 @@
     "@kind" : "compositeType",
     "isCollection" : false,
     "name" : "tBureauData",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "types" : [ {
       "@kind" : "referenceType",
       "isCollection" : false,
       "name" : "Bankrupt",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "boolean",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -107,6 +120,7 @@
       "allowedValues" : "[0..999], null",
       "isCollection" : false,
       "name" : "CreditScore",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -117,6 +131,7 @@
     "allowedValues" : "\"INELIGIBLE\", \"ELIGIBLE\"",
     "isCollection" : false,
     "name" : "tEligibility",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -125,10 +140,12 @@
     "@kind" : "compositeType",
     "isCollection" : false,
     "name" : "tRequestedProduct",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "types" : [ {
       "@kind" : "referenceType",
       "isCollection" : false,
       "name" : "Amount",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -138,6 +155,7 @@
       "allowedValues" : "\"STANDARD LOAN\", \"SPECIAL LOAN\"",
       "isCollection" : false,
       "name" : "ProductType",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -146,6 +164,7 @@
       "@kind" : "referenceType",
       "isCollection" : false,
       "name" : "Rate",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -154,6 +173,7 @@
       "@kind" : "referenceType",
       "isCollection" : false,
       "name" : "Term",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -164,6 +184,7 @@
     "allowedValues" : "\"DECLINE\", \"HIGH\", \"MEDIUM\", \"LOW\", \"VERY LOW\"",
     "isCollection" : false,
     "name" : "tRiskCategory",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -173,6 +194,7 @@
     "allowedValues" : "\"DECLINE\", \"REFER\", \"ACCEPT\"",
     "isCollection" : false,
     "name" : "tRouting",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -182,6 +204,7 @@
     "allowedValues" : "\"DECLINE\", \"BUREAU\", \"THROUGH\"",
     "isCollection" : false,
     "name" : "tStrategy",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -193,6 +216,7 @@
     "javaParameterName" : "applicantData",
     "javaTypeName" : "type.TApplicantData",
     "name" : "ApplicantData",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "typeRef" : {
       "localName" : "tApplicantData",
       "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -203,6 +227,7 @@
     "javaParameterName" : "bureauData",
     "javaTypeName" : "type.TBureauData",
     "name" : "BureauData",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "typeRef" : {
       "localName" : "tBureauData",
       "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -213,6 +238,7 @@
     "javaParameterName" : "requestedProduct",
     "javaTypeName" : "type.TRequestedProduct",
     "name" : "RequestedProduct",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "typeRef" : {
       "localName" : "tRequestedProduct",
       "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -223,6 +249,7 @@
     "javaParameterName" : "supportingDocuments",
     "javaTypeName" : "String",
     "name" : "SupportingDocuments",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -238,7 +265,8 @@
     }, {
       "reference" : "b_CreditContingencyFactorTable"
     } ],
-    "name" : "AffordabilityCalculation"
+    "name" : "AffordabilityCalculation",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
   }, {
     "@kind" : "bkm",
     "id" : "b_ApplicationRiskScoreModel",
@@ -246,7 +274,8 @@
     "javaParameterName" : "applicationRiskScoreModel",
     "javaTypeName" : "ApplicationRiskScoreModel",
     "knowledgeReferences" : [ ],
-    "name" : "ApplicationRiskScoreModel"
+    "name" : "ApplicationRiskScoreModel",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
   }, {
     "@kind" : "bkm",
     "id" : "b_BureauCallTypeTable",
@@ -254,7 +283,8 @@
     "javaParameterName" : "bureauCallTypeTable",
     "javaTypeName" : "BureauCallTypeTable",
     "knowledgeReferences" : [ ],
-    "name" : "BureauCallTypeTable"
+    "name" : "BureauCallTypeTable",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
   }, {
     "@kind" : "bkm",
     "id" : "b_CreditContingencyFactorTable",
@@ -262,7 +292,8 @@
     "javaParameterName" : "creditContingencyFactorTable",
     "javaTypeName" : "CreditContingencyFactorTable",
     "knowledgeReferences" : [ ],
-    "name" : "CreditContingencyFactorTable"
+    "name" : "CreditContingencyFactorTable",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
   }, {
     "@kind" : "bkm",
     "id" : "b_EligibilityRules",
@@ -270,7 +301,8 @@
     "javaParameterName" : "eligibilityRules",
     "javaTypeName" : "EligibilityRules",
     "knowledgeReferences" : [ ],
-    "name" : "EligibilityRules"
+    "name" : "EligibilityRules",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
   }, {
     "@kind" : "bkm",
     "id" : "b_InstallmentCalculation",
@@ -278,7 +310,8 @@
     "javaParameterName" : "installmentCalculation",
     "javaTypeName" : "InstallmentCalculation",
     "knowledgeReferences" : [ ],
-    "name" : "InstallmentCalculation"
+    "name" : "InstallmentCalculation",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
   }, {
     "@kind" : "bkm",
     "id" : "b_Post-bureauRiskCategoryTable",
@@ -286,7 +319,8 @@
     "javaParameterName" : "postBureauRiskCategoryTable",
     "javaTypeName" : "PostBureauRiskCategoryTable",
     "knowledgeReferences" : [ ],
-    "name" : "Post-bureauRiskCategoryTable"
+    "name" : "Post-bureauRiskCategoryTable",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
   }, {
     "@kind" : "bkm",
     "id" : "b_Pre-bureauRiskCategoryTable",
@@ -294,7 +328,8 @@
     "javaParameterName" : "preBureauRiskCategoryTable",
     "javaTypeName" : "PreBureauRiskCategoryTable",
     "knowledgeReferences" : [ ],
-    "name" : "Pre-bureauRiskCategoryTable"
+    "name" : "Pre-bureauRiskCategoryTable",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
   }, {
     "@kind" : "bkm",
     "id" : "b_RoutingRules",
@@ -302,7 +337,8 @@
     "javaParameterName" : "routingRules",
     "javaTypeName" : "RoutingRules",
     "knowledgeReferences" : [ ],
-    "name" : "RoutingRules"
+    "name" : "RoutingRules",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
   }, {
     "@kind" : "decision",
     "id" : "d_Adjudication",
@@ -318,6 +354,7 @@
     "javaTypeName" : "Adjudication",
     "knowledgeReferences" : [ ],
     "name" : "Adjudication",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "protoRequestName" : "proto.AdjudicationRequest",
     "protoResponseName" : "proto.AdjudicationResponse",
     "transitiveRequiredInput" : [ {
@@ -326,6 +363,7 @@
       "javaParameterName" : "applicantData",
       "javaTypeName" : "type.TApplicantData",
       "name" : "ApplicantData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tApplicantData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -336,6 +374,7 @@
       "javaParameterName" : "bureauData",
       "javaTypeName" : "type.TBureauData",
       "name" : "BureauData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tBureauData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -346,6 +385,7 @@
       "javaParameterName" : "supportingDocuments",
       "javaTypeName" : "String",
       "name" : "SupportingDocuments",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -370,6 +410,7 @@
       "reference" : "b_ApplicationRiskScoreModel"
     } ],
     "name" : "ApplicationRiskScore",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "protoRequestName" : "proto.ApplicationRiskScoreRequest",
     "protoResponseName" : "proto.ApplicationRiskScoreResponse",
     "transitiveRequiredInput" : [ {
@@ -378,6 +419,7 @@
       "javaParameterName" : "applicantData",
       "javaTypeName" : "type.TApplicantData",
       "name" : "ApplicantData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tApplicantData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -402,6 +444,7 @@
       "reference" : "b_BureauCallTypeTable"
     } ],
     "name" : "BureauCallType",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "protoRequestName" : "proto.BureauCallTypeRequest",
     "protoResponseName" : "proto.BureauCallTypeResponse",
     "transitiveRequiredInput" : [ {
@@ -410,6 +453,7 @@
       "javaParameterName" : "applicantData",
       "javaTypeName" : "type.TApplicantData",
       "name" : "ApplicantData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tApplicantData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -438,6 +482,7 @@
       "reference" : "b_EligibilityRules"
     } ],
     "name" : "Eligibility",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "protoRequestName" : "proto.EligibilityRequest",
     "protoResponseName" : "proto.EligibilityResponse",
     "transitiveRequiredInput" : [ {
@@ -446,6 +491,7 @@
       "javaParameterName" : "applicantData",
       "javaTypeName" : "type.TApplicantData",
       "name" : "ApplicantData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tApplicantData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -456,6 +502,7 @@
       "javaParameterName" : "requestedProduct",
       "javaTypeName" : "type.TRequestedProduct",
       "name" : "RequestedProduct",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tRequestedProduct",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -484,6 +531,7 @@
       "reference" : "b_AffordabilityCalculation"
     } ],
     "name" : "Post-bureauAffordability",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "protoRequestName" : "proto.PostBureauAffordabilityRequest",
     "protoResponseName" : "proto.PostBureauAffordabilityResponse",
     "transitiveRequiredInput" : [ {
@@ -492,6 +540,7 @@
       "javaParameterName" : "applicantData",
       "javaTypeName" : "type.TApplicantData",
       "name" : "ApplicantData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tApplicantData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -502,6 +551,7 @@
       "javaParameterName" : "bureauData",
       "javaTypeName" : "type.TBureauData",
       "name" : "BureauData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tBureauData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -512,6 +562,7 @@
       "javaParameterName" : "requestedProduct",
       "javaTypeName" : "type.TRequestedProduct",
       "name" : "RequestedProduct",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tRequestedProduct",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -540,6 +591,7 @@
       "reference" : "b_Post-bureauRiskCategoryTable"
     } ],
     "name" : "Post-bureauRiskCategory",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "protoRequestName" : "proto.PostBureauRiskCategoryRequest",
     "protoResponseName" : "proto.PostBureauRiskCategoryResponse",
     "transitiveRequiredInput" : [ {
@@ -548,6 +600,7 @@
       "javaParameterName" : "applicantData",
       "javaTypeName" : "type.TApplicantData",
       "name" : "ApplicantData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tApplicantData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -558,6 +611,7 @@
       "javaParameterName" : "bureauData",
       "javaTypeName" : "type.TBureauData",
       "name" : "BureauData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tBureauData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -586,6 +640,7 @@
       "reference" : "b_AffordabilityCalculation"
     } ],
     "name" : "Pre-bureauAffordability",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "protoRequestName" : "proto.PreBureauAffordabilityRequest",
     "protoResponseName" : "proto.PreBureauAffordabilityResponse",
     "transitiveRequiredInput" : [ {
@@ -594,6 +649,7 @@
       "javaParameterName" : "applicantData",
       "javaTypeName" : "type.TApplicantData",
       "name" : "ApplicantData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tApplicantData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -604,6 +660,7 @@
       "javaParameterName" : "requestedProduct",
       "javaTypeName" : "type.TRequestedProduct",
       "name" : "RequestedProduct",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tRequestedProduct",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -630,6 +687,7 @@
       "reference" : "b_Pre-bureauRiskCategoryTable"
     } ],
     "name" : "Pre-bureauRiskCategory",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "protoRequestName" : "proto.PreBureauRiskCategoryRequest",
     "protoResponseName" : "proto.PreBureauRiskCategoryResponse",
     "transitiveRequiredInput" : [ {
@@ -638,6 +696,7 @@
       "javaParameterName" : "applicantData",
       "javaTypeName" : "type.TApplicantData",
       "name" : "ApplicantData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tApplicantData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -662,6 +721,7 @@
       "reference" : "b_InstallmentCalculation"
     } ],
     "name" : "RequiredMonthlyInstallment",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "protoRequestName" : "proto.RequiredMonthlyInstallmentRequest",
     "protoResponseName" : "proto.RequiredMonthlyInstallmentResponse",
     "transitiveRequiredInput" : [ {
@@ -670,6 +730,7 @@
       "javaParameterName" : "requestedProduct",
       "javaTypeName" : "type.TRequestedProduct",
       "name" : "RequestedProduct",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tRequestedProduct",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -698,6 +759,7 @@
       "reference" : "b_RoutingRules"
     } ],
     "name" : "Routing",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "protoRequestName" : "proto.RoutingRequest",
     "protoResponseName" : "proto.RoutingResponse",
     "transitiveRequiredInput" : [ {
@@ -706,6 +768,7 @@
       "javaParameterName" : "applicantData",
       "javaTypeName" : "type.TApplicantData",
       "name" : "ApplicantData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tApplicantData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -716,6 +779,7 @@
       "javaParameterName" : "bureauData",
       "javaTypeName" : "type.TBureauData",
       "name" : "BureauData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tBureauData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -726,6 +790,7 @@
       "javaParameterName" : "requestedProduct",
       "javaTypeName" : "type.TRequestedProduct",
       "name" : "RequestedProduct",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tRequestedProduct",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -748,6 +813,7 @@
     "javaTypeName" : "Strategy",
     "knowledgeReferences" : [ ],
     "name" : "Strategy",
+    "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
     "protoRequestName" : "proto.StrategyRequest",
     "protoResponseName" : "proto.StrategyResponse",
     "transitiveRequiredInput" : [ {
@@ -756,6 +822,7 @@
       "javaParameterName" : "applicantData",
       "javaTypeName" : "type.TApplicantData",
       "name" : "ApplicantData",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tApplicantData",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
@@ -766,6 +833,7 @@
       "javaParameterName" : "requestedProduct",
       "javaTypeName" : "type.TRequestedProduct",
       "name" : "RequestedProduct",
+      "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
       "typeRef" : {
         "localName" : "tRequestedProduct",
         "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"

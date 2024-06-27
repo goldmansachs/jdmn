@@ -34,8 +34,8 @@ public abstract class DRGElement extends NamedElement {
     protected DRGElement() {
     }
 
-    protected DRGElement(String id, String name, String label, String diagramId, String shapeId, String javaParameterName, String javaTypeName, QName typeRef) {
-        super(id, name, label);
+    protected DRGElement(String namespace, String id, String name, String label, String diagramId, String shapeId, String javaParameterName, String javaTypeName, QName typeRef) {
+        super(namespace, id, name, label);
         this.diagramId = diagramId;
         this.shapeId = shapeId;
         this.javaParameterName = javaParameterName;

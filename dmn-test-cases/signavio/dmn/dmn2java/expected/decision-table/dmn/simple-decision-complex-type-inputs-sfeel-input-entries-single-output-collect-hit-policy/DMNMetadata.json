@@ -10,6 +10,7 @@
     "isCollection" : true,
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : false,
     "label" : "Employed",
     "name" : "employed",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,12 +32,14 @@
     "isCollection" : false,
     "label" : "Person",
     "name" : "person",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "sid-A9CCC6E7-5A99-402B-BC45-D85CC8F80264-relation-4",
       "isCollection" : false,
       "label" : "dateOfBirth",
       "name" : "dateOfBirth",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -46,6 +50,7 @@
       "isCollection" : false,
       "label" : "dateTimeOfBirth",
       "name" : "dateTimeOfBirth",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
       "typeRef" : {
         "localName" : "date and time",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -56,6 +61,7 @@
       "isCollection" : false,
       "label" : "firstName",
       "name" : "firstName",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -66,6 +72,7 @@
       "isCollection" : false,
       "label" : "gender",
       "name" : "gender",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -76,6 +83,7 @@
       "isCollection" : false,
       "label" : "id",
       "name" : "id",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -86,6 +94,7 @@
       "isCollection" : false,
       "label" : "lastName",
       "name" : "lastName",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -96,6 +105,7 @@
       "isCollection" : true,
       "label" : "list",
       "name" : "list",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -106,6 +116,7 @@
       "isCollection" : false,
       "label" : "married",
       "name" : "married",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
       "typeRef" : {
         "localName" : "boolean",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -116,6 +127,7 @@
       "isCollection" : false,
       "label" : "timeOfBirth",
       "name" : "timeOfBirth",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
       "typeRef" : {
         "localName" : "time",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -129,6 +141,7 @@
     "javaTypeName" : "Boolean",
     "label" : "Employed",
     "name" : "employed",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
     "typeRef" : {
       "localName" : "employed",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
@@ -140,6 +153,7 @@
     "javaTypeName" : "type.Person",
     "label" : "Person",
     "name" : "person",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
     "typeRef" : {
       "localName" : "person",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
@@ -159,6 +173,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
@@ -168,6 +183,7 @@
       "javaTypeName" : "Boolean",
       "label" : "Employed",
       "name" : "employed",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
       "typeRef" : {
         "localName" : "employed",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"
@@ -179,6 +195,7 @@
       "javaTypeName" : "type.Person",
       "label" : "Person",
       "name" : "person",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml",
       "typeRef" : {
         "localName" : "person",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798baf8f6de4bd3b984e599fa9ff016.xml"

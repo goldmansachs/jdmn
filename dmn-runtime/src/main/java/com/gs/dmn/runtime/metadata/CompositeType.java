@@ -25,8 +25,8 @@ public class CompositeType extends Type {
         super();
     }
 
-    public CompositeType(String id, String name, String label, boolean isCollection, List<Type> subTypes) {
-        super(id, name, label, isCollection);
+    public CompositeType(String namespace, String id, String name, String label, boolean isCollection, List<Type> subTypes) {
+        super(namespace, id, name, label, isCollection);
         this.types = subTypes;
     }
 

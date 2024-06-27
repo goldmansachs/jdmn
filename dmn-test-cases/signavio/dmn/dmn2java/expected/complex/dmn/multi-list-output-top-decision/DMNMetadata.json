@@ -10,12 +10,14 @@
     "isCollection" : true,
     "label" : "compile",
     "name" : "compile",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-38d39468f927e30338568ce127ca32ce-relation-FB2519CA-D8C5-4B12-95A3-459DE0620707",
       "isCollection" : false,
       "label" : "avg of numbers",
       "name" : "avgOfNumbers",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -26,6 +28,7 @@
       "isCollection" : false,
       "label" : "name",
       "name" : "name",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -36,6 +39,7 @@
       "isCollection" : false,
       "label" : "Next traffic light",
       "name" : "nextTrafficLight",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -47,6 +51,7 @@
     "isCollection" : false,
     "label" : "name",
     "name" : "name",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -57,6 +62,7 @@
     "isCollection" : true,
     "label" : "numbers",
     "name" : "numbers",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -68,6 +74,7 @@
     "isCollection" : true,
     "label" : "Traffic Light",
     "name" : "trafficLight",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -81,6 +88,7 @@
     "javaTypeName" : "String",
     "label" : "name",
     "name" : "name",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
     "shapeId" : "sid-835AC898-5202-4F75-AD04-7DC509955A8C",
     "typeRef" : {
       "localName" : "name",
@@ -94,6 +102,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "numbers",
     "name" : "numbers",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
     "shapeId" : "sid-289BA841-2717-49EE-9B8F-89837BC2C517",
     "typeRef" : {
       "localName" : "numbers",
@@ -107,6 +116,7 @@
     "javaTypeName" : "List<String>",
     "label" : "Traffic Light",
     "name" : "trafficLight",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
     "shapeId" : "sid-9A57F002-6DD5-4B6F-9A6E-C83BFB3E33D4",
     "typeRef" : {
       "localName" : "trafficLight",
@@ -130,6 +140,7 @@
     "knowledgeReferences" : [ ],
     "label" : "compile",
     "name" : "compile",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
     "protoRequestName" : "proto.CompileRequest",
     "protoResponseName" : "proto.CompileResponse",
     "shapeId" : "sid-78F19456-59E2-4ED8-BD1C-869E58B6D288",
@@ -141,6 +152,7 @@
       "javaTypeName" : "String",
       "label" : "name",
       "name" : "name",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
       "shapeId" : "sid-835AC898-5202-4F75-AD04-7DC509955A8C",
       "typeRef" : {
         "localName" : "name",
@@ -154,6 +166,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "numbers",
       "name" : "numbers",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
       "shapeId" : "sid-289BA841-2717-49EE-9B8F-89837BC2C517",
       "typeRef" : {
         "localName" : "numbers",
@@ -167,6 +180,7 @@
       "javaTypeName" : "List<String>",
       "label" : "Traffic Light",
       "name" : "trafficLight",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
       "shapeId" : "sid-9A57F002-6DD5-4B6F-9A6E-C83BFB3E33D4",
       "typeRef" : {
         "localName" : "trafficLight",

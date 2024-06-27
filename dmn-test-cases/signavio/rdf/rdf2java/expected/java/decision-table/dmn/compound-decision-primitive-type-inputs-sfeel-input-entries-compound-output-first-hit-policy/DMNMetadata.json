@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,12 +21,14 @@
     "isCollection" : false,
     "label" : "Compound Output Compound Decision",
     "name" : "compoundOutputCompoundDecision",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "item-definition-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D-4F178C17-6132-475B-BB01-FCF62DA216F4",
       "isCollection" : false,
       "label" : "First Output",
       "name" : "firstOutput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -36,6 +39,7 @@
       "isCollection" : false,
       "label" : "Second Output",
       "name" : "secondOutput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -47,6 +51,7 @@
     "isCollection" : false,
     "label" : "DD1 Text Input",
     "name" : "dD1TextInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -57,6 +62,7 @@
     "isCollection" : false,
     "label" : "DD2 Number Input",
     "name" : "dD2NumberInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -67,12 +73,14 @@
     "isCollection" : false,
     "label" : "Dependent Decision 1",
     "name" : "dependentDecision1",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "item-definition-sid-64E0500E-ADE8-4CB3-8E4F-894A4BD3EDE9-3919D1AE-3F5C-434F-930A-D1E350DD4B77",
       "isCollection" : false,
       "label" : "DD1O1",
       "name" : "dD1O1",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -83,6 +91,7 @@
       "isCollection" : false,
       "label" : "DD1O2",
       "name" : "dD1O2",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -94,12 +103,14 @@
     "isCollection" : false,
     "label" : "Dependent Decision 2",
     "name" : "dependentDecision2",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "item-definition-sid-957FCF3A-3662-440C-ADB4-2AEB91ED7AA8-D0794FEE-197A-47AC-9DB5-5F3786827926",
       "isCollection" : false,
       "label" : "DD2O1",
       "name" : "dD2O1",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -110,6 +121,7 @@
       "isCollection" : false,
       "label" : "DD2O2",
       "name" : "dD2O2",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -122,6 +134,7 @@
     "isCollection" : false,
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "enumeration",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -134,6 +147,7 @@
     "javaTypeName" : "Boolean",
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "booleanInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -145,6 +159,7 @@
     "javaTypeName" : "String",
     "label" : "DD1 Text Input",
     "name" : "dD1TextInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "dD1TextInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -156,6 +171,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "DD2 Number Input",
     "name" : "dD2NumberInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "dD2NumberInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -167,6 +183,7 @@
     "javaTypeName" : "String",
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "enumerationInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -190,6 +207,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Compound Output Compound Decision",
     "name" : "compoundOutputCompoundDecision",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.CompoundOutputCompoundDecisionRequest",
     "protoResponseName" : "proto.CompoundOutputCompoundDecisionResponse",
     "transitiveRequiredInput" : [ {
@@ -199,6 +217,7 @@
       "javaTypeName" : "Boolean",
       "label" : "BooleanInput",
       "name" : "booleanInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "booleanInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -210,6 +229,7 @@
       "javaTypeName" : "String",
       "label" : "DD1 Text Input",
       "name" : "dD1TextInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "dD1TextInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -221,6 +241,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "DD2 Number Input",
       "name" : "dD2NumberInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "dD2NumberInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -232,6 +253,7 @@
       "javaTypeName" : "String",
       "label" : "EnumerationInput",
       "name" : "enumerationInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "enumerationInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -254,6 +276,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Dependent Decision 1",
     "name" : "dependentDecision1",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.DependentDecision1Request",
     "protoResponseName" : "proto.DependentDecision1Response",
     "transitiveRequiredInput" : [ {
@@ -263,6 +286,7 @@
       "javaTypeName" : "String",
       "label" : "DD1 Text Input",
       "name" : "dD1TextInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "dD1TextInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -285,6 +309,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Dependent Decision 2",
     "name" : "dependentDecision2",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.DependentDecision2Request",
     "protoResponseName" : "proto.DependentDecision2Response",
     "transitiveRequiredInput" : [ {
@@ -294,6 +319,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "DD2 Number Input",
       "name" : "dD2NumberInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "dD2NumberInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

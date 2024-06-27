@@ -9,11 +9,13 @@
     "id" : "_A1DA0133-767A-4B7B-AEDB-6D180B561FE2",
     "isCollection" : false,
     "name" : "Student",
+    "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "_3EE4DB1C-7A07-4EA6-AC54-D85CB1A4D185",
       "isCollection" : false,
       "name" : "age",
+      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
@@ -23,6 +25,7 @@
       "id" : "_13DE7BD5-6E9F-4857-86D8-F80171103D1E",
       "isCollection" : false,
       "name" : "classification",
+      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
@@ -35,6 +38,7 @@
     "javaParameterName" : "price",
     "javaTypeName" : "java.lang.Number",
     "name" : "price",
+    "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
@@ -45,6 +49,7 @@
     "javaParameterName" : "student",
     "javaTypeName" : "type.Student",
     "name" : "student",
+    "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
     "typeRef" : {
       "localName" : "Student",
       "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
@@ -60,6 +65,7 @@
     "javaTypeName" : "AgeClassification",
     "knowledgeReferences" : [ ],
     "name" : "ageClassification",
+    "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
     "protoRequestName" : "proto.AgeClassificationRequest",
     "protoResponseName" : "proto.AgeClassificationResponse",
     "transitiveRequiredInput" : [ {
@@ -68,6 +74,7 @@
       "javaParameterName" : "student",
       "javaTypeName" : "type.Student",
       "name" : "student",
+      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
       "typeRef" : {
         "localName" : "Student",
         "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
@@ -90,6 +97,7 @@
     "javaTypeName" : "CalculateDiscountedPrice",
     "knowledgeReferences" : [ ],
     "name" : "calculateDiscountedPrice",
+    "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
     "protoRequestName" : "proto.CalculateDiscountedPriceRequest",
     "protoResponseName" : "proto.CalculateDiscountedPriceResponse",
     "transitiveRequiredInput" : [ {
@@ -98,6 +106,7 @@
       "javaParameterName" : "price",
       "javaTypeName" : "java.lang.Number",
       "name" : "price",
+      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
@@ -108,6 +117,7 @@
       "javaParameterName" : "student",
       "javaTypeName" : "type.Student",
       "name" : "student",
+      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
       "typeRef" : {
         "localName" : "Student",
         "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"

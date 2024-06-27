@@ -11,6 +11,7 @@
     "isCollection" : false,
     "label" : "AssetClass",
     "name" : "assetClass",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -22,6 +23,7 @@
     "isCollection" : false,
     "label" : "BuySellIndicator",
     "name" : "buySellIndicator",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -33,6 +35,7 @@
     "isCollection" : false,
     "label" : "DerivativeType",
     "name" : "derivativeType",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -44,6 +47,7 @@
     "isCollection" : false,
     "label" : "ExecutionCapacity",
     "name" : "executionCapacity",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -54,6 +58,7 @@
     "isCollection" : false,
     "label" : "FetchForexRate",
     "name" : "fetchForexRate",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -64,6 +69,7 @@
     "isCollection" : false,
     "label" : "IsForexRateRequired",
     "name" : "isForexRateRequired",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -74,6 +80,7 @@
     "isCollection" : false,
     "label" : "IsForexRateRquired",
     "name" : "isForexRateRquired",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -85,6 +92,7 @@
     "isCollection" : false,
     "label" : "Jurisdiction",
     "name" : "jurisdiction",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -96,6 +104,7 @@
     "isCollection" : false,
     "label" : "OfferingType",
     "name" : "offeringType",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -106,6 +115,7 @@
     "isCollection" : false,
     "label" : "TaxChargeType",
     "name" : "taxChargeType",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -117,6 +127,7 @@
     "isCollection" : false,
     "label" : "TaxType",
     "name" : "taxType",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -127,12 +138,14 @@
     "isCollection" : false,
     "label" : "Transaction",
     "name" : "transaction",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-be754680052cab3cbc460b9d49c26cc8-relation-1",
       "isCollection" : false,
       "label" : "buySellIndicator",
       "name" : "buySellIndicator",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "buySellIndicator",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -143,6 +156,7 @@
       "isCollection" : false,
       "label" : "clearingAgent",
       "name" : "clearingAgent",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -153,6 +167,7 @@
       "isCollection" : false,
       "label" : "commision",
       "name" : "commision",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -163,6 +178,7 @@
       "isCollection" : false,
       "label" : "currencyCode",
       "name" : "currencyCode",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -173,6 +189,7 @@
       "isCollection" : false,
       "label" : "deliveryInstruction",
       "name" : "deliveryInstruction",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "boolean",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -183,6 +200,7 @@
       "isCollection" : false,
       "label" : "executionCapacity",
       "name" : "executionCapacity",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "executionCapacity",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -193,6 +211,7 @@
       "isCollection" : false,
       "label" : "executionMarket",
       "name" : "executionMarket",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -203,6 +222,7 @@
       "isCollection" : false,
       "label" : "exerciseAssign",
       "name" : "exerciseAssign",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "boolean",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -213,6 +233,7 @@
       "isCollection" : false,
       "label" : "offeringType",
       "name" : "offeringType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "offeringType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -223,6 +244,7 @@
       "isCollection" : false,
       "label" : "price",
       "name" : "price",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -233,6 +255,7 @@
       "isCollection" : false,
       "label" : "quantity",
       "name" : "quantity",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -243,6 +266,7 @@
       "isCollection" : false,
       "label" : "settlementDate",
       "name" : "settlementDate",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -253,6 +277,7 @@
       "isCollection" : false,
       "label" : "tradeDate",
       "name" : "tradeDate",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -264,12 +289,14 @@
     "isCollection" : false,
     "label" : "TransactionTaxMetaData",
     "name" : "transactionTaxMetaData",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-e084a745b70b5346d1e25a2ff40ffcbb-relation-4",
       "isCollection" : false,
       "label" : "assetClass",
       "name" : "assetClass",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "assetClass",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -280,6 +307,7 @@
       "isCollection" : false,
       "label" : "jurisdiction",
       "name" : "jurisdiction",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "jurisdiction",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -290,6 +318,7 @@
       "isCollection" : false,
       "label" : "taxType",
       "name" : "taxType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "typeRef" : {
         "localName" : "taxType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml"
@@ -304,6 +333,7 @@
     "javaTypeName" : "String",
     "label" : "DerivativeType",
     "name" : "derivativeType",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "shapeId" : "sid-67EA63E3-0F40-42DA-BD7E-9760D9C9937C",
     "typeRef" : {
       "localName" : "derivativeType",
@@ -317,6 +347,7 @@
     "javaTypeName" : "String",
     "label" : "TaxChargeType",
     "name" : "taxChargeType",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "shapeId" : "sid-142C3BE5-CBAD-4FDE-B256-114E217FFDDC",
     "typeRef" : {
       "localName" : "taxChargeType",
@@ -330,6 +361,7 @@
     "javaTypeName" : "type.Transaction",
     "label" : "Transaction",
     "name" : "transaction",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "shapeId" : "sid-7BA09DF1-5D8E-412D-A3F3-072F5005755A",
     "typeRef" : {
       "localName" : "transaction",
@@ -343,6 +375,7 @@
     "javaTypeName" : "type.TransactionTaxMetaData",
     "label" : "TransactionTaxMetaData",
     "name" : "transactionTaxMetaData",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "shapeId" : "sid-31E24965-CB4B-4E6C-9471-64CDAF957DAF",
     "typeRef" : {
       "localName" : "transactionTaxMetaData",
@@ -364,6 +397,7 @@
     "knowledgeReferences" : [ ],
     "label" : "FetchForexRate",
     "name" : "fetchForexRate",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "protoRequestName" : "proto.FetchForexRateRequest",
     "protoResponseName" : "proto.FetchForexRateResponse",
     "shapeId" : "sid-F740C68E-AC6E-4788-9290-94F1098DEB48",
@@ -375,6 +409,7 @@
       "javaTypeName" : "String",
       "label" : "DerivativeType",
       "name" : "derivativeType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "shapeId" : "sid-67EA63E3-0F40-42DA-BD7E-9760D9C9937C",
       "typeRef" : {
         "localName" : "derivativeType",
@@ -388,6 +423,7 @@
       "javaTypeName" : "String",
       "label" : "TaxChargeType",
       "name" : "taxChargeType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "shapeId" : "sid-142C3BE5-CBAD-4FDE-B256-114E217FFDDC",
       "typeRef" : {
         "localName" : "taxChargeType",
@@ -401,6 +437,7 @@
       "javaTypeName" : "type.Transaction",
       "label" : "Transaction",
       "name" : "transaction",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "shapeId" : "sid-7BA09DF1-5D8E-412D-A3F3-072F5005755A",
       "typeRef" : {
         "localName" : "transaction",
@@ -414,6 +451,7 @@
       "javaTypeName" : "type.TransactionTaxMetaData",
       "label" : "TransactionTaxMetaData",
       "name" : "transactionTaxMetaData",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "shapeId" : "sid-31E24965-CB4B-4E6C-9471-64CDAF957DAF",
       "typeRef" : {
         "localName" : "transactionTaxMetaData",
@@ -442,6 +480,7 @@
     "knowledgeReferences" : [ ],
     "label" : "IsForexRateRequired",
     "name" : "isForexRateRequired",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     "protoRequestName" : "proto.IsForexRateRequiredRequest",
     "protoResponseName" : "proto.IsForexRateRequiredResponse",
     "shapeId" : "sid-005E834B-D602-4C88-A803-053528C9DF64",
@@ -453,6 +492,7 @@
       "javaTypeName" : "String",
       "label" : "DerivativeType",
       "name" : "derivativeType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "shapeId" : "sid-67EA63E3-0F40-42DA-BD7E-9760D9C9937C",
       "typeRef" : {
         "localName" : "derivativeType",
@@ -466,6 +506,7 @@
       "javaTypeName" : "String",
       "label" : "TaxChargeType",
       "name" : "taxChargeType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "shapeId" : "sid-142C3BE5-CBAD-4FDE-B256-114E217FFDDC",
       "typeRef" : {
         "localName" : "taxChargeType",
@@ -479,6 +520,7 @@
       "javaTypeName" : "type.TransactionTaxMetaData",
       "label" : "TransactionTaxMetaData",
       "name" : "transactionTaxMetaData",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
       "shapeId" : "sid-31E24965-CB4B-4E6C-9471-64CDAF957DAF",
       "typeRef" : {
         "localName" : "transactionTaxMetaData",

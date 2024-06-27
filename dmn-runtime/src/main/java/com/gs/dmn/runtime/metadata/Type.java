@@ -23,8 +23,8 @@ public abstract class Type extends NamedElement {
         super();
     }
 
-    protected Type(String id, String name, String label, boolean isCollection) {
-        super(id, name, label);
+    protected Type(String namespace, String id, String name, String label, boolean isCollection) {
+        super(namespace, id, name, label);
         this.isCollection = isCollection;
     }
 }

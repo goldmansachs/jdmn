@@ -8,11 +8,13 @@
     "@kind" : "compositeType",
     "isCollection" : false,
     "name" : "tCompositeDateTime",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "isCollection" : false,
       "label" : "Date",
       "name" : "Date",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "typeRef" : {
         "localName" : "tDate",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -22,6 +24,7 @@
       "isCollection" : false,
       "label" : "DateTime",
       "name" : "DateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "typeRef" : {
         "localName" : "tDateTime",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -31,6 +34,7 @@
       "isCollection" : false,
       "label" : "Time",
       "name" : "Time",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "typeRef" : {
         "localName" : "tTime",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -40,6 +44,7 @@
     "@kind" : "referenceType",
     "isCollection" : false,
     "name" : "tDate",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "date",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -48,6 +53,7 @@
     "@kind" : "referenceType",
     "isCollection" : false,
     "name" : "tDateTime",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "date and time",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -56,6 +62,7 @@
     "@kind" : "referenceType",
     "isCollection" : false,
     "name" : "tTime",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "time",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -68,6 +75,7 @@
     "javaParameterName" : "compositeInputDateTime",
     "javaTypeName" : "type.TCompositeDateTime",
     "name" : "CompositeInputDateTime",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
     "typeRef" : {
       "localName" : "tCompositeDateTime",
@@ -80,6 +88,7 @@
     "javaParameterName" : "inputDate",
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "name" : "InputDate",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
     "typeRef" : {
       "localName" : "tDate",
@@ -92,6 +101,7 @@
     "javaParameterName" : "inputDateTime",
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "name" : "InputDateTime",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
     "typeRef" : {
       "localName" : "tDateTime",
@@ -104,6 +114,7 @@
     "javaParameterName" : "inputTime",
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "name" : "InputTime",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
     "typeRef" : {
       "localName" : "tTime",
@@ -128,6 +139,7 @@
     "javaTypeName" : "CompositeDateTime",
     "knowledgeReferences" : [ ],
     "name" : "CompositeDateTime",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "protoRequestName" : "proto.CompositeDateTimeRequest",
     "protoResponseName" : "proto.CompositeDateTimeResponse",
     "shapeId" : "sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-cdt",
@@ -138,6 +150,7 @@
       "javaParameterName" : "compositeInputDateTime",
       "javaTypeName" : "type.TCompositeDateTime",
       "name" : "CompositeInputDateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
       "typeRef" : {
         "localName" : "tCompositeDateTime",
@@ -150,6 +163,7 @@
       "javaParameterName" : "inputDate",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputDate",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "tDate",
@@ -162,6 +176,7 @@
       "javaParameterName" : "inputDateTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputDateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "tDateTime",
@@ -174,6 +189,7 @@
       "javaParameterName" : "inputTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
         "localName" : "tTime",
@@ -203,6 +219,7 @@
     "javaTypeName" : "Date",
     "knowledgeReferences" : [ ],
     "name" : "Date",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "protoRequestName" : "proto.DateRequest",
     "protoResponseName" : "proto.DateResponse",
     "shapeId" : "sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-d",
@@ -213,6 +230,7 @@
       "javaParameterName" : "compositeInputDateTime",
       "javaTypeName" : "type.TCompositeDateTime",
       "name" : "CompositeInputDateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
       "typeRef" : {
         "localName" : "tCompositeDateTime",
@@ -225,6 +243,7 @@
       "javaParameterName" : "inputDate",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputDate",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "tDate",
@@ -237,6 +256,7 @@
       "javaParameterName" : "inputDateTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputDateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "tDateTime",
@@ -249,6 +269,7 @@
       "javaParameterName" : "inputTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
         "localName" : "tTime",
@@ -278,6 +299,7 @@
     "javaTypeName" : "DateTime",
     "knowledgeReferences" : [ ],
     "name" : "DateTime",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "protoRequestName" : "proto.DateTimeRequest",
     "protoResponseName" : "proto.DateTimeResponse",
     "shapeId" : "sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-dt",
@@ -288,6 +310,7 @@
       "javaParameterName" : "compositeInputDateTime",
       "javaTypeName" : "type.TCompositeDateTime",
       "name" : "CompositeInputDateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
       "typeRef" : {
         "localName" : "tCompositeDateTime",
@@ -300,6 +323,7 @@
       "javaParameterName" : "inputDate",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputDate",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "tDate",
@@ -312,6 +336,7 @@
       "javaParameterName" : "inputDateTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputDateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "tDateTime",
@@ -324,6 +349,7 @@
       "javaParameterName" : "inputTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
         "localName" : "tTime",
@@ -353,6 +379,7 @@
     "javaTypeName" : "Time",
     "knowledgeReferences" : [ ],
     "name" : "Time",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "protoRequestName" : "proto.TimeRequest",
     "protoResponseName" : "proto.TimeResponse",
     "shapeId" : "sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-t",
@@ -363,6 +390,7 @@
       "javaParameterName" : "compositeInputDateTime",
       "javaTypeName" : "type.TCompositeDateTime",
       "name" : "CompositeInputDateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D-1",
       "typeRef" : {
         "localName" : "tCompositeDateTime",
@@ -375,6 +403,7 @@
       "javaParameterName" : "inputDate",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputDate",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "tDate",
@@ -387,6 +416,7 @@
       "javaParameterName" : "inputDateTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputDateTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "tDateTime",
@@ -399,6 +429,7 @@
       "javaParameterName" : "inputTime",
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "name" : "InputTime",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
         "localName" : "tTime",

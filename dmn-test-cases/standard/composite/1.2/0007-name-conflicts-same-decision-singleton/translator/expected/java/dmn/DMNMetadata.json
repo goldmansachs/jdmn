@@ -12,6 +12,7 @@
     "javaTypeName" : "String",
     "label" : "A",
     "name" : "a",
+    "namespace" : "http://www.provider.com/definitions/model-a",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.provider.com/definitions/model-a"
@@ -23,6 +24,7 @@
     "javaTypeName" : "String",
     "label" : "A",
     "name" : "a",
+    "namespace" : "http://www.provider.com/definitions/model-b",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.provider.com/definitions/model-b"
@@ -41,6 +43,7 @@
     "knowledgeReferences" : [ ],
     "label" : "C",
     "name" : "c",
+    "namespace" : "http://www.provider.com/definitions/model-c",
     "protoRequestName" : "model_c.proto.CRequest",
     "protoResponseName" : "model_c.proto.CResponse",
     "transitiveRequiredInput" : [ {
@@ -50,6 +53,7 @@
       "javaTypeName" : "String",
       "label" : "A",
       "name" : "a",
+      "namespace" : "http://www.provider.com/definitions/model-a",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/definitions/model-a"
@@ -61,6 +65,7 @@
       "javaTypeName" : "String",
       "label" : "A",
       "name" : "a",
+      "namespace" : "http://www.provider.com/definitions/model-b",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.provider.com/definitions/model-b"

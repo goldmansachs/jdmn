@@ -25,8 +25,8 @@ public class TypeReference extends Type {
         super();
     }
 
-    public TypeReference(String id, String name, String label, boolean isCollection, QName typeRef, String allowedValues) {
-        super(id, name, label, isCollection);
+    public TypeReference(String namespace, String id, String name, String label, boolean isCollection, QName typeRef, String allowedValues) {
+        super(namespace, id, name, label, isCollection);
         this.typeRef = typeRef;
         this.allowedValues = allowedValues;
     }

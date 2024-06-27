@@ -10,6 +10,7 @@
     "isCollection" : true,
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : true,
     "label" : "DateAndTimeInput",
     "name" : "dateAndTimeInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "datetime",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : true,
     "label" : "DateInput",
     "name" : "dateInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "date",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -40,6 +43,7 @@
     "isCollection" : false,
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -51,6 +55,7 @@
     "isCollection" : true,
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "enumeration",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -61,6 +66,7 @@
     "isCollection" : true,
     "label" : "NumberInput",
     "name" : "numberInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -71,6 +77,7 @@
     "isCollection" : true,
     "label" : "TextInput",
     "name" : "textInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -81,6 +88,7 @@
     "isCollection" : true,
     "label" : "TimeInput",
     "name" : "timeInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "time",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -93,6 +101,7 @@
     "javaTypeName" : "List<Boolean>",
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "booleanInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -104,6 +113,7 @@
     "javaTypeName" : "List<javax.xml.datatype.XMLGregorianCalendar>",
     "label" : "DateAndTimeInput",
     "name" : "dateAndTimeInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "dateAndTimeInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -115,6 +125,7 @@
     "javaTypeName" : "List<javax.xml.datatype.XMLGregorianCalendar>",
     "label" : "DateInput",
     "name" : "dateInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "dateInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -126,6 +137,7 @@
     "javaTypeName" : "List<String>",
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "enumerationInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -137,6 +149,7 @@
     "javaTypeName" : "List<java.math.BigDecimal>",
     "label" : "NumberInput",
     "name" : "numberInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "numberInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -148,6 +161,7 @@
     "javaTypeName" : "List<String>",
     "label" : "TextInput",
     "name" : "textInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "textInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -159,6 +173,7 @@
     "javaTypeName" : "List<javax.xml.datatype.XMLGregorianCalendar>",
     "label" : "TimeInput",
     "name" : "timeInput",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "typeRef" : {
       "localName" : "timeInput",
       "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -188,6 +203,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
@@ -197,6 +213,7 @@
       "javaTypeName" : "List<Boolean>",
       "label" : "BooleanInput",
       "name" : "booleanInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "booleanInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -208,6 +225,7 @@
       "javaTypeName" : "List<javax.xml.datatype.XMLGregorianCalendar>",
       "label" : "DateAndTimeInput",
       "name" : "dateAndTimeInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "dateAndTimeInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -219,6 +237,7 @@
       "javaTypeName" : "List<javax.xml.datatype.XMLGregorianCalendar>",
       "label" : "DateInput",
       "name" : "dateInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "dateInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -230,6 +249,7 @@
       "javaTypeName" : "List<String>",
       "label" : "EnumerationInput",
       "name" : "enumerationInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "enumerationInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -241,6 +261,7 @@
       "javaTypeName" : "List<java.math.BigDecimal>",
       "label" : "NumberInput",
       "name" : "numberInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "numberInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -252,6 +273,7 @@
       "javaTypeName" : "List<String>",
       "label" : "TextInput",
       "name" : "textInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "textInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
@@ -263,6 +285,7 @@
       "javaTypeName" : "List<javax.xml.datatype.XMLGregorianCalendar>",
       "label" : "TimeInput",
       "name" : "timeInput",
+      "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
       "typeRef" : {
         "localName" : "timeInput",
         "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"

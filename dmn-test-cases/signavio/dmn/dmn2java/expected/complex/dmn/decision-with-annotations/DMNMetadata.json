@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : false,
     "label" : "DateInput",
     "name" : "dateInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "typeRef" : {
       "localName" : "date",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : false,
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -41,6 +44,7 @@
     "isCollection" : false,
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -51,6 +55,7 @@
     "isCollection" : false,
     "label" : "NumberInput",
     "name" : "numberInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -61,12 +66,14 @@
     "isCollection" : false,
     "label" : "Person",
     "name" : "person",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-10edc449ea7a601271d9bdea97cf4d59-relation-1",
       "isCollection" : false,
       "label" : "age",
       "name" : "age",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -77,6 +84,7 @@
       "isCollection" : false,
       "label" : "name",
       "name" : "name",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -88,6 +96,7 @@
     "isCollection" : false,
     "label" : "StringInput",
     "name" : "stringInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -101,6 +110,7 @@
     "javaTypeName" : "Boolean",
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "shapeId" : "sid-33CA99C2-492B-4066-AD8A-30B8FB9E3324",
     "typeRef" : {
       "localName" : "booleanInput",
@@ -114,6 +124,7 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "DateInput",
     "name" : "dateInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "shapeId" : "sid-57288AF0-92AD-4FED-83F0-1D002471B815",
     "typeRef" : {
       "localName" : "dateInput",
@@ -127,6 +138,7 @@
     "javaTypeName" : "String",
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "shapeId" : "sid-48647725-3095-4992-8EE5-E9A899B0D911",
     "typeRef" : {
       "localName" : "enumerationInput",
@@ -140,6 +152,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "NumberInput",
     "name" : "numberInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "shapeId" : "sid-0C7E6091-29AA-4ABD-88A1-6EB83A7E5BC6",
     "typeRef" : {
       "localName" : "numberInput",
@@ -153,6 +166,7 @@
     "javaTypeName" : "type.Person",
     "label" : "Person",
     "name" : "person",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "shapeId" : "sid-57FA93C4-FAB3-40A7-89DD-4A1DC53A3BED",
     "typeRef" : {
       "localName" : "person",
@@ -166,6 +180,7 @@
     "javaTypeName" : "String",
     "label" : "StringInput",
     "name" : "stringInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "shapeId" : "sid-79515A36-E1C8-4859-AABB-77D457ACE3AE",
     "typeRef" : {
       "localName" : "stringInput",
@@ -195,6 +210,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
     "shapeId" : "sid-308674DD-5919-4882-A296-94080B2C407B",
@@ -206,6 +222,7 @@
       "javaTypeName" : "Boolean",
       "label" : "BooleanInput",
       "name" : "booleanInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
       "shapeId" : "sid-33CA99C2-492B-4066-AD8A-30B8FB9E3324",
       "typeRef" : {
         "localName" : "booleanInput",
@@ -219,6 +236,7 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "DateInput",
       "name" : "dateInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
       "shapeId" : "sid-57288AF0-92AD-4FED-83F0-1D002471B815",
       "typeRef" : {
         "localName" : "dateInput",
@@ -232,6 +250,7 @@
       "javaTypeName" : "String",
       "label" : "EnumerationInput",
       "name" : "enumerationInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
       "shapeId" : "sid-48647725-3095-4992-8EE5-E9A899B0D911",
       "typeRef" : {
         "localName" : "enumerationInput",
@@ -245,6 +264,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "NumberInput",
       "name" : "numberInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
       "shapeId" : "sid-0C7E6091-29AA-4ABD-88A1-6EB83A7E5BC6",
       "typeRef" : {
         "localName" : "numberInput",
@@ -258,6 +278,7 @@
       "javaTypeName" : "type.Person",
       "label" : "Person",
       "name" : "person",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
       "shapeId" : "sid-57FA93C4-FAB3-40A7-89DD-4A1DC53A3BED",
       "typeRef" : {
         "localName" : "person",
@@ -271,6 +292,7 @@
       "javaTypeName" : "String",
       "label" : "StringInput",
       "name" : "stringInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/decc8a26dfaa47dc87eea384f5598ffd.xml",
       "shapeId" : "sid-79515A36-E1C8-4859-AABB-77D457ACE3AE",
       "typeRef" : {
         "localName" : "stringInput",

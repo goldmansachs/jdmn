@@ -43,8 +43,8 @@ public class Decision extends DRGElement {
         super();
     }
 
-    public Decision(String id, String name, String label, String diagramId, String shapeId, String javaParameterName, String javaTypeName, String javaOutputTypeName, QName typeRef, List<DRGElementReference> informationReferences, List<DRGElementReference> knowledgeReferences, List<ExtensionElement> extensionElements, List<InputData> transitiveRequiredInputs, String protoRequestName, String protoResponseName) {
-        super(id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, typeRef);
+    public Decision(String namespace, String id, String name, String label, String diagramId, String shapeId, String javaParameterName, String javaTypeName, String javaOutputTypeName, QName typeRef, List<DRGElementReference> informationReferences, List<DRGElementReference> knowledgeReferences, List<ExtensionElement> extensionElements, List<InputData> transitiveRequiredInputs, String protoRequestName, String protoResponseName) {
+        super(namespace, id, name, label, diagramId, shapeId, javaParameterName, javaTypeName, typeRef);
         this.javaOutputTypeName = javaOutputTypeName;
         this.informationReferences = informationReferences;
         this.knowledgeReferences = knowledgeReferences;

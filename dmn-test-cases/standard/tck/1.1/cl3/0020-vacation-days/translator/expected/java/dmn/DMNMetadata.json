@@ -11,6 +11,7 @@
     "javaParameterName" : "age",
     "javaTypeName" : "java.lang.Number",
     "name" : "Age",
+    "namespace" : "https://www.drools.org/kie-dmn",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -21,6 +22,7 @@
     "javaParameterName" : "yearsOfService",
     "javaTypeName" : "java.lang.Number",
     "name" : "Years of Service",
+    "namespace" : "https://www.drools.org/kie-dmn",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -34,6 +36,7 @@
     "javaTypeName" : "BaseVacationDays",
     "knowledgeReferences" : [ ],
     "name" : "Base Vacation Days",
+    "namespace" : "https://www.drools.org/kie-dmn",
     "protoRequestName" : "proto.BaseVacationDaysRequest",
     "protoResponseName" : "proto.BaseVacationDaysResponse",
     "transitiveRequiredInput" : [ ],
@@ -54,6 +57,7 @@
     "javaTypeName" : "ExtraDaysCase1",
     "knowledgeReferences" : [ ],
     "name" : "Extra days case 1",
+    "namespace" : "https://www.drools.org/kie-dmn",
     "protoRequestName" : "proto.ExtraDaysCase1Request",
     "protoResponseName" : "proto.ExtraDaysCase1Response",
     "transitiveRequiredInput" : [ {
@@ -62,6 +66,7 @@
       "javaParameterName" : "age",
       "javaTypeName" : "java.lang.Number",
       "name" : "Age",
+      "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -72,6 +77,7 @@
       "javaParameterName" : "yearsOfService",
       "javaTypeName" : "java.lang.Number",
       "name" : "Years of Service",
+      "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -94,6 +100,7 @@
     "javaTypeName" : "ExtraDaysCase2",
     "knowledgeReferences" : [ ],
     "name" : "Extra days case 2",
+    "namespace" : "https://www.drools.org/kie-dmn",
     "protoRequestName" : "proto.ExtraDaysCase2Request",
     "protoResponseName" : "proto.ExtraDaysCase2Response",
     "transitiveRequiredInput" : [ {
@@ -102,6 +109,7 @@
       "javaParameterName" : "age",
       "javaTypeName" : "java.lang.Number",
       "name" : "Age",
+      "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -112,6 +120,7 @@
       "javaParameterName" : "yearsOfService",
       "javaTypeName" : "java.lang.Number",
       "name" : "Years of Service",
+      "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -134,6 +143,7 @@
     "javaTypeName" : "ExtraDaysCase3",
     "knowledgeReferences" : [ ],
     "name" : "Extra days case 3",
+    "namespace" : "https://www.drools.org/kie-dmn",
     "protoRequestName" : "proto.ExtraDaysCase3Request",
     "protoResponseName" : "proto.ExtraDaysCase3Response",
     "transitiveRequiredInput" : [ {
@@ -142,6 +152,7 @@
       "javaParameterName" : "age",
       "javaTypeName" : "java.lang.Number",
       "name" : "Age",
+      "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -152,6 +163,7 @@
       "javaParameterName" : "yearsOfService",
       "javaTypeName" : "java.lang.Number",
       "name" : "Years of Service",
+      "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -178,6 +190,7 @@
     "javaTypeName" : "TotalVacationDays",
     "knowledgeReferences" : [ ],
     "name" : "Total Vacation Days",
+    "namespace" : "https://www.drools.org/kie-dmn",
     "protoRequestName" : "proto.TotalVacationDaysRequest",
     "protoResponseName" : "proto.TotalVacationDaysResponse",
     "transitiveRequiredInput" : [ {
@@ -186,6 +199,7 @@
       "javaParameterName" : "age",
       "javaTypeName" : "java.lang.Number",
       "name" : "Age",
+      "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -196,6 +210,7 @@
       "javaParameterName" : "yearsOfService",
       "javaTypeName" : "java.lang.Number",
       "name" : "Years of Service",
+      "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"

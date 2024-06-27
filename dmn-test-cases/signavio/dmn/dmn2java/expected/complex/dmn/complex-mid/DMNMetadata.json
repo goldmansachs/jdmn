@@ -10,6 +10,7 @@
     "isCollection" : true,
     "label" : "Big mid",
     "name" : "bigMid",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -21,6 +22,7 @@
     "isCollection" : false,
     "label" : "decide",
     "name" : "decide",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -32,6 +34,7 @@
     "isCollection" : false,
     "label" : "decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -43,6 +46,7 @@
     "isCollection" : true,
     "label" : "small mid",
     "name" : "smallMid",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -53,12 +57,14 @@
     "isCollection" : false,
     "label" : "TestPeopleType",
     "name" : "testPeopleType",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-509d57e00a823edb6857ed145d1f0b4b-relation-0",
       "isCollection" : true,
       "label" : "TestPersonType",
       "name" : "testPersonType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
       "typeRef" : {
         "localName" : "testPersonType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -71,6 +77,7 @@
     "isCollection" : false,
     "label" : "TestPersonProperties",
     "name" : "testPersonProperties",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -81,12 +88,14 @@
     "isCollection" : false,
     "label" : "TestPersonType",
     "name" : "testPersonType",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-9187b71a2091ed5d0030ddaaf4b0b07d-relation-1",
       "isCollection" : false,
       "label" : "Age",
       "name" : "age",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -97,6 +106,7 @@
       "isCollection" : false,
       "label" : "Name",
       "name" : "name",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -107,6 +117,7 @@
       "isCollection" : true,
       "label" : "Properties",
       "name" : "properties",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
       "typeRef" : {
         "localName" : "testPersonProperties",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml"
@@ -118,6 +129,7 @@
     "isCollection" : false,
     "label" : "top decision",
     "name" : "topDecision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -131,6 +143,7 @@
     "javaTypeName" : "String",
     "label" : "Properties",
     "name" : "properties_iterator",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "shapeId" : "sid-BBF80264-5235-438F-8233-8ADCD4E8E1C3",
     "typeRef" : {
       "localName" : "testPersonProperties",
@@ -144,6 +157,7 @@
     "javaTypeName" : "type.TestPeopleType",
     "label" : "TestPeopleType",
     "name" : "testPeopleType",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "shapeId" : "sid-1F9E0628-0D5B-46B9-8E5E-90B3BC8255E8",
     "typeRef" : {
       "localName" : "testPeopleType",
@@ -157,6 +171,7 @@
     "javaTypeName" : "type.TestPersonType",
     "label" : "TestPersonType",
     "name" : "testPersonType6_iterator",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "shapeId" : "sid-B1629015-BFF6-45BB-A86E-65573FA58D92",
     "typeRef" : {
       "localName" : "testPersonType",
@@ -182,6 +197,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Big mid",
     "name" : "bigMid",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "protoRequestName" : "proto.BigMidRequest",
     "protoResponseName" : "proto.BigMidResponse",
     "shapeId" : "sid-074482BF-264A-48BD-976A-707710B53881",
@@ -193,6 +209,7 @@
       "javaTypeName" : "type.TestPeopleType",
       "label" : "TestPeopleType",
       "name" : "testPeopleType",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
       "shapeId" : "sid-1F9E0628-0D5B-46B9-8E5E-90B3BC8255E8",
       "typeRef" : {
         "localName" : "testPeopleType",
@@ -217,6 +234,7 @@
     "knowledgeReferences" : [ ],
     "label" : "decide",
     "name" : "decide",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "protoRequestName" : "proto.DecideRequest",
     "protoResponseName" : "proto.DecideResponse",
     "shapeId" : "sid-FF023BBF-7D02-4ADE-AACE-AD23A3197B21",
@@ -228,6 +246,7 @@
       "javaTypeName" : "String",
       "label" : "Properties",
       "name" : "properties_iterator",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
       "shapeId" : "sid-BBF80264-5235-438F-8233-8ADCD4E8E1C3",
       "typeRef" : {
         "localName" : "testPersonProperties",
@@ -252,6 +271,7 @@
     "knowledgeReferences" : [ ],
     "label" : "decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
     "shapeId" : "sid-0316D03A-BE86-4BED-BB39-0DAF237F743D",
@@ -263,6 +283,7 @@
       "javaTypeName" : "type.TestPersonType",
       "label" : "TestPersonType",
       "name" : "testPersonType6_iterator",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
       "shapeId" : "sid-B1629015-BFF6-45BB-A86E-65573FA58D92",
       "typeRef" : {
         "localName" : "testPersonType",
@@ -293,6 +314,7 @@
     "knowledgeReferences" : [ ],
     "label" : "small mid",
     "name" : "smallMid",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "protoRequestName" : "proto.SmallMidRequest",
     "protoResponseName" : "proto.SmallMidResponse",
     "shapeId" : "sid-882369ED-7C1E-4966-9D43-FA127486ABB8",
@@ -304,6 +326,7 @@
       "javaTypeName" : "type.TestPersonType",
       "label" : "TestPersonType",
       "name" : "testPersonType6_iterator",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
       "shapeId" : "sid-B1629015-BFF6-45BB-A86E-65573FA58D92",
       "typeRef" : {
         "localName" : "testPersonType",
@@ -330,6 +353,7 @@
     "knowledgeReferences" : [ ],
     "label" : "top decision",
     "name" : "topDecision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
     "protoRequestName" : "proto.TopDecisionRequest",
     "protoResponseName" : "proto.TopDecisionResponse",
     "shapeId" : "sid-4B2EDB65-9657-4445-9CBE-2A41C6E8ECE1",
@@ -341,6 +365,7 @@
       "javaTypeName" : "type.TestPersonType",
       "label" : "TestPersonType",
       "name" : "testPersonType6_iterator",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/3652588c6383423c9774f4dfd4393cb1.xml",
       "shapeId" : "sid-B1629015-BFF6-45BB-A86E-65573FA58D92",
       "typeRef" : {
         "localName" : "testPersonType",

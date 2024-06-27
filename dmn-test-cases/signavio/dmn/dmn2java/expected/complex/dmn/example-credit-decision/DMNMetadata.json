@@ -10,12 +10,14 @@
     "isCollection" : false,
     "label" : "Applicant",
     "name" : "applicant",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-1",
       "isCollection" : false,
       "label" : "Age",
       "name" : "age",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -26,6 +28,7 @@
       "isCollection" : false,
       "label" : "Credit score",
       "name" : "creditScore",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -36,6 +39,7 @@
       "isCollection" : false,
       "label" : "Name",
       "name" : "name",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -46,6 +50,7 @@
       "isCollection" : true,
       "label" : "Prior issues",
       "name" : "priorIssues",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "typeRef" : {
         "localName" : "creditIssueType",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml"
@@ -57,6 +62,7 @@
     "isCollection" : false,
     "label" : "Assess applicant age",
     "name" : "assessApplicantAge",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -67,6 +73,7 @@
     "isCollection" : false,
     "label" : "Assess issue",
     "name" : "assessIssue",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -77,6 +84,7 @@
     "isCollection" : false,
     "label" : "Assess issue risk",
     "name" : "assessIssueRisk",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -87,6 +95,7 @@
     "isCollection" : false,
     "label" : "Compare against lending threshold",
     "name" : "compareAgainstLendingThreshold",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -98,6 +107,7 @@
     "isCollection" : false,
     "label" : "Credit issue type",
     "name" : "creditIssueType",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -109,6 +119,7 @@
     "isCollection" : false,
     "label" : "Current risk appetite",
     "name" : "currentRiskAppetite",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -119,12 +130,14 @@
     "isCollection" : true,
     "label" : "Generate output data",
     "name" : "generateOutputData",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-7eeb80d6a1c17ddd2de72e9c2419fa8b-relation-Assessment",
       "isCollection" : false,
       "label" : "Assessment",
       "name" : "assessment",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -135,6 +148,7 @@
       "isCollection" : false,
       "label" : "Decision",
       "name" : "decision",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -145,6 +159,7 @@
       "isCollection" : false,
       "label" : "Issue",
       "name" : "issue",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -156,6 +171,7 @@
     "isCollection" : false,
     "label" : "Lending threshold",
     "name" : "lendingThreshold",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -167,6 +183,7 @@
     "isCollection" : false,
     "label" : "Make credit decision",
     "name" : "makeCreditDecision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -177,6 +194,7 @@
     "isCollection" : false,
     "label" : "Prior issue",
     "name" : "priorIssue",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -187,6 +205,7 @@
     "isCollection" : true,
     "label" : "Process prior issues",
     "name" : "processPriorIssues",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -200,6 +219,7 @@
     "javaTypeName" : "type.Applicant",
     "label" : "Applicant",
     "name" : "applicant",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
     "typeRef" : {
       "localName" : "applicant",
@@ -213,6 +233,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "Current risk appetite",
     "name" : "currentRiskAppetite",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
     "typeRef" : {
       "localName" : "currentRiskAppetite",
@@ -226,6 +247,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "Lending threshold",
     "name" : "lendingThreshold",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
     "typeRef" : {
       "localName" : "lendingThreshold",
@@ -239,6 +261,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "Prior issue",
     "name" : "priorIssue_iterator",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "shapeId" : "sid-671C977F-DF5F-4FF5-99D9-75D98516D4CD",
     "typeRef" : {
       "localName" : "priorIssue",
@@ -258,6 +281,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess applicant age",
     "name" : "assessApplicantAge",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "protoRequestName" : "proto.AssessApplicantAgeRequest",
     "protoResponseName" : "proto.AssessApplicantAgeResponse",
     "shapeId" : "sid-0C363FE4-468D-4273-9416-D1BCACB6248A",
@@ -269,6 +293,7 @@
       "javaTypeName" : "type.Applicant",
       "label" : "Applicant",
       "name" : "applicant",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",
@@ -295,6 +320,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess issue",
     "name" : "assessIssue",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "protoRequestName" : "proto.AssessIssueRequest",
     "protoResponseName" : "proto.AssessIssueResponse",
     "shapeId" : "sid-A4BAB8ED-94DC-48C4-8C4C-7C81DB1D8B9D",
@@ -306,6 +332,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "Current risk appetite",
       "name" : "currentRiskAppetite",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "currentRiskAppetite",
@@ -319,6 +346,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "Prior issue",
       "name" : "priorIssue_iterator",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-671C977F-DF5F-4FF5-99D9-75D98516D4CD",
       "typeRef" : {
         "localName" : "priorIssue",
@@ -349,6 +377,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess issue risk",
     "name" : "assessIssueRisk",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "protoRequestName" : "proto.AssessIssueRiskRequest",
     "protoResponseName" : "proto.AssessIssueRiskResponse",
     "shapeId" : "sid-CB938C3D-5F0A-427B-83A7-94DDDD5E8FC6",
@@ -360,6 +389,7 @@
       "javaTypeName" : "type.Applicant",
       "label" : "Applicant",
       "name" : "applicant",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",
@@ -373,6 +403,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "Current risk appetite",
       "name" : "currentRiskAppetite",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "currentRiskAppetite",
@@ -401,6 +432,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Compare against lending threshold",
     "name" : "compareAgainstLendingThreshold",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "protoRequestName" : "proto.CompareAgainstLendingThresholdRequest",
     "protoResponseName" : "proto.CompareAgainstLendingThresholdResponse",
     "shapeId" : "sid-9E6EC21D-3D3D-4038-8D76-94613B753F13",
@@ -412,6 +444,7 @@
       "javaTypeName" : "type.Applicant",
       "label" : "Applicant",
       "name" : "applicant",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",
@@ -425,6 +458,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "Current risk appetite",
       "name" : "currentRiskAppetite",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "currentRiskAppetite",
@@ -438,6 +472,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "Lending threshold",
       "name" : "lendingThreshold",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
         "localName" : "lendingThreshold",
@@ -466,6 +501,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Generate output data",
     "name" : "generateOutputData",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "protoRequestName" : "proto.GenerateOutputDataRequest",
     "protoResponseName" : "proto.GenerateOutputDataResponse",
     "shapeId" : "sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6",
@@ -477,6 +513,7 @@
       "javaTypeName" : "type.Applicant",
       "label" : "Applicant",
       "name" : "applicant",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",
@@ -490,6 +527,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "Current risk appetite",
       "name" : "currentRiskAppetite",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "currentRiskAppetite",
@@ -503,6 +541,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "Lending threshold",
       "name" : "lendingThreshold",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
         "localName" : "lendingThreshold",
@@ -527,6 +566,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Make credit decision",
     "name" : "makeCreditDecision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "protoRequestName" : "proto.MakeCreditDecisionRequest",
     "protoResponseName" : "proto.MakeCreditDecisionResponse",
     "shapeId" : "sid-31214799-6743-4B69-98A5-8C4D9C1BE010",
@@ -538,6 +578,7 @@
       "javaTypeName" : "type.Applicant",
       "label" : "Applicant",
       "name" : "applicant",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",
@@ -551,6 +592,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "Current risk appetite",
       "name" : "currentRiskAppetite",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-56EEB8E1-BEBB-4E33-8939-E722B7F68038",
       "typeRef" : {
         "localName" : "currentRiskAppetite",
@@ -564,6 +606,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "Lending threshold",
       "name" : "lendingThreshold",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-6CFB0C31-B181-4606-BE51-1960E8B86487",
       "typeRef" : {
         "localName" : "lendingThreshold",
@@ -588,6 +631,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Process prior issues",
     "name" : "processPriorIssues",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
     "protoRequestName" : "proto.ProcessPriorIssuesRequest",
     "protoResponseName" : "proto.ProcessPriorIssuesResponse",
     "shapeId" : "sid-F7FAA264-FA92-4952-A302-2BEADD9DCC59",
@@ -599,6 +643,7 @@
       "javaTypeName" : "type.Applicant",
       "label" : "Applicant",
       "name" : "applicant",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "shapeId" : "sid-A71A32D5-3771-47F1-95D3-56D4223FBF6D",
       "typeRef" : {
         "localName" : "applicant",

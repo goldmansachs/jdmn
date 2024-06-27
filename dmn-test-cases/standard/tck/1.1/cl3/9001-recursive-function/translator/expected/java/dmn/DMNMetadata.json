@@ -11,6 +11,7 @@
     "javaParameterName" : "n",
     "javaTypeName" : "java.lang.Number",
     "name" : "n",
+    "namespace" : "http://www.gs.com/spec/DMN/9001-recursive-function",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -22,7 +23,8 @@
     "javaParameterName" : "fACT",
     "javaTypeName" : "FACT",
     "knowledgeReferences" : [ ],
-    "name" : "FACT"
+    "name" : "FACT",
+    "namespace" : "http://www.gs.com/spec/DMN/9001-recursive-function"
   }, {
     "@kind" : "decision",
     "id" : "d_main",
@@ -38,6 +40,7 @@
       "reference" : "b_FACT"
     } ],
     "name" : "main",
+    "namespace" : "http://www.gs.com/spec/DMN/9001-recursive-function",
     "protoRequestName" : "proto.MainRequest",
     "protoResponseName" : "proto.MainResponse",
     "transitiveRequiredInput" : [ {
@@ -46,6 +49,7 @@
       "javaParameterName" : "n",
       "javaTypeName" : "java.lang.Number",
       "name" : "n",
+      "namespace" : "http://www.gs.com/spec/DMN/9001-recursive-function",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"

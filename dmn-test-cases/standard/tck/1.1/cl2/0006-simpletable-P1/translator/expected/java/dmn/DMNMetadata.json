@@ -11,6 +11,7 @@
     "javaParameterName" : "age",
     "javaTypeName" : "java.lang.Number",
     "name" : "Age",
+    "namespace" : "http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -21,6 +22,7 @@
     "javaParameterName" : "riskCategory",
     "javaTypeName" : "String",
     "name" : "RiskCategory",
+    "namespace" : "http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -31,6 +33,7 @@
     "javaParameterName" : "isAffordable",
     "javaTypeName" : "Boolean",
     "name" : "isAffordable",
+    "namespace" : "http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -50,6 +53,7 @@
     "javaTypeName" : "ApprovalStatus",
     "knowledgeReferences" : [ ],
     "name" : "Approval Status",
+    "namespace" : "http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340",
     "protoRequestName" : "proto.ApprovalStatusRequest",
     "protoResponseName" : "proto.ApprovalStatusResponse",
     "transitiveRequiredInput" : [ {
@@ -58,6 +62,7 @@
       "javaParameterName" : "age",
       "javaTypeName" : "java.lang.Number",
       "name" : "Age",
+      "namespace" : "http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340",
       "typeRef" : {
         "localName" : "number",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -68,6 +73,7 @@
       "javaParameterName" : "riskCategory",
       "javaTypeName" : "String",
       "name" : "RiskCategory",
+      "namespace" : "http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -78,6 +84,7 @@
       "javaParameterName" : "isAffordable",
       "javaTypeName" : "Boolean",
       "name" : "isAffordable",
+      "namespace" : "http://www.trisotech.com/definitions/_791b8e95-b7a7-40e7-9dd1-5ff12364f340",
       "typeRef" : {
         "localName" : "boolean",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"

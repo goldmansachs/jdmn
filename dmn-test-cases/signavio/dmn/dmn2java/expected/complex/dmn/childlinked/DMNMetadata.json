@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "abc",
     "name" : "abc",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/e514b8c455264f77addcb9d04c542a78.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : false,
     "label" : "num",
     "name" : "num",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/e514b8c455264f77addcb9d04c542a78.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -33,6 +35,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "num",
     "name" : "num",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/e514b8c455264f77addcb9d04c542a78.xml",
     "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
     "typeRef" : {
       "localName" : "num",
@@ -52,6 +55,7 @@
     "knowledgeReferences" : [ ],
     "label" : "abc",
     "name" : "abc",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/e514b8c455264f77addcb9d04c542a78.xml",
     "protoRequestName" : "proto.AbcRequest",
     "protoResponseName" : "proto.AbcResponse",
     "shapeId" : "sid-A551A6AD-049D-440F-9277-A5292F4BB5ED",
@@ -63,6 +67,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "num",
       "name" : "num",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/e514b8c455264f77addcb9d04c542a78.xml",
       "shapeId" : "sid-5839E07F-9439-46C5-B92F-7588F17E0A7C",
       "typeRef" : {
         "localName" : "num",

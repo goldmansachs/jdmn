@@ -11,6 +11,7 @@
     "javaParameterName" : "stringInputA",
     "javaTypeName" : "String",
     "name" : "stringInputA",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -21,6 +22,7 @@
     "javaParameterName" : "stringInputB",
     "javaTypeName" : "String",
     "name" : "stringInputB",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -38,6 +40,7 @@
     "javaTypeName" : "NamedFunctionInvocation",
     "knowledgeReferences" : [ ],
     "name" : "named function invocation",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
     "protoRequestName" : "proto.NamedFunctionInvocationRequest",
     "protoResponseName" : "proto.NamedFunctionInvocationResponse",
     "transitiveRequiredInput" : [ {
@@ -46,6 +49,7 @@
       "javaParameterName" : "stringInputA",
       "javaTypeName" : "String",
       "name" : "stringInputA",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -56,6 +60,7 @@
       "javaParameterName" : "stringInputB",
       "javaTypeName" : "String",
       "name" : "stringInputB",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -78,6 +83,7 @@
     "javaTypeName" : "SimpleFunctionInvocation",
     "knowledgeReferences" : [ ],
     "name" : "simple function invocation",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
     "protoRequestName" : "proto.SimpleFunctionInvocationRequest",
     "protoResponseName" : "proto.SimpleFunctionInvocationResponse",
     "transitiveRequiredInput" : [ {
@@ -86,6 +92,7 @@
       "javaParameterName" : "stringInputA",
       "javaTypeName" : "String",
       "name" : "stringInputA",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -96,6 +103,7 @@
       "javaParameterName" : "stringInputB",
       "javaTypeName" : "String",
       "name" : "stringInputB",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
       "typeRef" : {
         "localName" : "string",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"

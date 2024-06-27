@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "typeRef" : {
       "localName" : "boolean",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : false,
     "label" : "DateInput",
     "name" : "dateInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "typeRef" : {
       "localName" : "date",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : false,
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -41,6 +44,7 @@
     "isCollection" : false,
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -51,6 +55,7 @@
     "isCollection" : false,
     "label" : "NumberInput",
     "name" : "numberInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -61,6 +66,7 @@
     "isCollection" : false,
     "label" : "StringInput",
     "name" : "stringInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -73,6 +79,7 @@
     "javaTypeName" : "Boolean",
     "label" : "BooleanInput",
     "name" : "booleanInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "typeRef" : {
       "localName" : "booleanInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml"
@@ -84,6 +91,7 @@
     "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
     "label" : "DateInput",
     "name" : "dateInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "typeRef" : {
       "localName" : "dateInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml"
@@ -95,6 +103,7 @@
     "javaTypeName" : "String",
     "label" : "EnumerationInput",
     "name" : "enumerationInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "typeRef" : {
       "localName" : "enumerationInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml"
@@ -106,6 +115,7 @@
     "javaTypeName" : "java.math.BigDecimal",
     "label" : "NumberInput",
     "name" : "numberInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "typeRef" : {
       "localName" : "numberInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml"
@@ -117,6 +127,7 @@
     "javaTypeName" : "String",
     "label" : "StringInput",
     "name" : "stringInput",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "typeRef" : {
       "localName" : "stringInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml"
@@ -142,6 +153,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Decision",
     "name" : "decision",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
     "protoRequestName" : "proto.DecisionRequest",
     "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
@@ -151,6 +163,7 @@
       "javaTypeName" : "Boolean",
       "label" : "BooleanInput",
       "name" : "booleanInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
       "typeRef" : {
         "localName" : "booleanInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml"
@@ -162,6 +175,7 @@
       "javaTypeName" : "javax.xml.datatype.XMLGregorianCalendar",
       "label" : "DateInput",
       "name" : "dateInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
       "typeRef" : {
         "localName" : "dateInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml"
@@ -173,6 +187,7 @@
       "javaTypeName" : "String",
       "label" : "EnumerationInput",
       "name" : "enumerationInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
       "typeRef" : {
         "localName" : "enumerationInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml"
@@ -184,6 +199,7 @@
       "javaTypeName" : "java.math.BigDecimal",
       "label" : "NumberInput",
       "name" : "numberInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
       "typeRef" : {
         "localName" : "numberInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml"
@@ -195,6 +211,7 @@
       "javaTypeName" : "String",
       "label" : "StringInput",
       "name" : "stringInput",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml",
       "typeRef" : {
         "localName" : "stringInput",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/5503c01b88e64e5989b2e49c8ab14b49.xml"

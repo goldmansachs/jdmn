@@ -8,10 +8,12 @@
     "@kind" : "compositeType",
     "isCollection" : false,
     "name" : "CompositeDateTime",
+    "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
     "types" : [ {
       "@kind" : "referenceType",
       "isCollection" : false,
       "name" : "Date",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +22,7 @@
       "@kind" : "referenceType",
       "isCollection" : false,
       "name" : "DateTime",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
       "typeRef" : {
         "localName" : "dateTime",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -28,6 +31,7 @@
       "@kind" : "referenceType",
       "isCollection" : false,
       "name" : "DayTimeDuration",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
       "typeRef" : {
         "localName" : "dayTimeDuration",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -36,6 +40,7 @@
       "@kind" : "referenceType",
       "isCollection" : false,
       "name" : "Time",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
       "typeRef" : {
         "localName" : "time",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -44,6 +49,7 @@
       "@kind" : "referenceType",
       "isCollection" : false,
       "name" : "YearMonthDuration",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
       "typeRef" : {
         "localName" : "yearMonthDuration",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -56,6 +62,7 @@
     "javaParameterName" : "compositeInputDateTime",
     "javaTypeName" : "type.CompositeDateTime",
     "name" : "CompositeInputDateTime",
+    "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
     "typeRef" : {
       "localName" : "CompositeDateTime",
       "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function"
@@ -66,6 +73,7 @@
     "javaParameterName" : "inputDate",
     "javaTypeName" : "java.time.LocalDate",
     "name" : "InputDate",
+    "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
     "typeRef" : {
       "localName" : "date",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -76,6 +84,7 @@
     "javaParameterName" : "inputDateTime",
     "javaTypeName" : "java.time.temporal.TemporalAccessor",
     "name" : "InputDateTime",
+    "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
     "typeRef" : {
       "localName" : "dateTime",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -86,6 +95,7 @@
     "javaParameterName" : "inputTime",
     "javaTypeName" : "java.time.temporal.TemporalAccessor",
     "name" : "InputTime",
+    "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
     "typeRef" : {
       "localName" : "time",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -101,6 +111,7 @@
     "javaTypeName" : "CompositeDateTime",
     "knowledgeReferences" : [ ],
     "name" : "CompositeDateTime",
+    "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
     "protoRequestName" : "proto.CompositeDateTimeRequest",
     "protoResponseName" : "proto.CompositeDateTimeResponse",
     "transitiveRequiredInput" : [ {
@@ -109,6 +120,7 @@
       "javaParameterName" : "compositeInputDateTime",
       "javaTypeName" : "type.CompositeDateTime",
       "name" : "CompositeInputDateTime",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
       "typeRef" : {
         "localName" : "CompositeDateTime",
         "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function"
@@ -129,6 +141,7 @@
     "javaTypeName" : "Date",
     "knowledgeReferences" : [ ],
     "name" : "Date",
+    "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
     "protoRequestName" : "proto.DateRequest",
     "protoResponseName" : "proto.DateResponse",
     "transitiveRequiredInput" : [ {
@@ -137,6 +150,7 @@
       "javaParameterName" : "inputDate",
       "javaTypeName" : "java.time.LocalDate",
       "name" : "InputDate",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
       "typeRef" : {
         "localName" : "date",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -157,6 +171,7 @@
     "javaTypeName" : "DateTime",
     "knowledgeReferences" : [ ],
     "name" : "DateTime",
+    "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
     "protoRequestName" : "proto.DateTimeRequest",
     "protoResponseName" : "proto.DateTimeResponse",
     "transitiveRequiredInput" : [ {
@@ -165,6 +180,7 @@
       "javaParameterName" : "inputDateTime",
       "javaTypeName" : "java.time.temporal.TemporalAccessor",
       "name" : "InputDateTime",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
       "typeRef" : {
         "localName" : "dateTime",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -185,6 +201,7 @@
     "javaTypeName" : "Time",
     "knowledgeReferences" : [ ],
     "name" : "Time",
+    "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
     "protoRequestName" : "proto.TimeRequest",
     "protoResponseName" : "proto.TimeResponse",
     "transitiveRequiredInput" : [ {
@@ -193,6 +210,7 @@
       "javaParameterName" : "inputTime",
       "javaTypeName" : "java.time.temporal.TemporalAccessor",
       "name" : "InputTime",
+      "namespace" : "http://www.provider.com/spec/DMN/proto-date-time-function",
       "typeRef" : {
         "localName" : "time",
         "namespace" : "http://www.omg.org/spec/FEEL/20140401"

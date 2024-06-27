@@ -10,6 +10,7 @@
     "isCollection" : false,
     "label" : "a",
     "name" : "a",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -20,6 +21,7 @@
     "isCollection" : false,
     "label" : "b",
     "name" : "b",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -30,6 +32,7 @@
     "isCollection" : false,
     "label" : "bb",
     "name" : "bb",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -40,12 +43,14 @@
     "isCollection" : false,
     "label" : "IncompleteDecisionTable",
     "name" : "incompleteDecisionTable",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
     "types" : [ {
       "@kind" : "referenceType",
       "id" : "id-03a762b8be79b9820f82ca915536cabb-relation-3611E9FC-EF9C-4B4A-A32B-CFD57AE625A8",
       "isCollection" : false,
       "label" : "a",
       "name" : "a",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
       "typeRef" : {
         "localName" : "a",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"
@@ -56,6 +61,7 @@
       "isCollection" : false,
       "label" : "b",
       "name" : "b",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
       "typeRef" : {
         "localName" : "b",
         "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml"
@@ -67,6 +73,7 @@
     "isCollection" : false,
     "label" : "InputString",
     "name" : "inputString",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -77,6 +84,7 @@
     "isCollection" : false,
     "label" : "TestNullComplexTypeAccess",
     "name" : "testNullComplexTypeAccess",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.omg.org/spec/FEEL/20140401"
@@ -90,6 +98,7 @@
     "javaTypeName" : "String",
     "label" : "InputString",
     "name" : "inputString",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
     "shapeId" : "sid-18C7D99D-F0A7-4228-8615-F9FF27604213",
     "typeRef" : {
       "localName" : "inputString",
@@ -109,6 +118,7 @@
     "knowledgeReferences" : [ ],
     "label" : "IncompleteDecisionTable",
     "name" : "incompleteDecisionTable",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
     "protoRequestName" : "proto.IncompleteDecisionTableRequest",
     "protoResponseName" : "proto.IncompleteDecisionTableResponse",
     "shapeId" : "sid-1243D7F1-7725-481C-9417-6F55A9FCDF50",
@@ -120,6 +130,7 @@
       "javaTypeName" : "String",
       "label" : "InputString",
       "name" : "inputString",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
       "shapeId" : "sid-18C7D99D-F0A7-4228-8615-F9FF27604213",
       "typeRef" : {
         "localName" : "inputString",
@@ -144,6 +155,7 @@
     "knowledgeReferences" : [ ],
     "label" : "TestNullComplexTypeAccess",
     "name" : "testNullComplexTypeAccess",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
     "protoRequestName" : "proto.TestNullComplexTypeAccessRequest",
     "protoResponseName" : "proto.TestNullComplexTypeAccessResponse",
     "shapeId" : "sid-9AFA723A-58D5-44B3-AD54-4197AF705A18",
@@ -155,6 +167,7 @@
       "javaTypeName" : "String",
       "label" : "InputString",
       "name" : "inputString",
+      "namespace" : "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
       "shapeId" : "sid-18C7D99D-F0A7-4228-8615-F9FF27604213",
       "typeRef" : {
         "localName" : "inputString",

@@ -9,6 +9,7 @@
     "id" : "A",
     "isCollection" : false,
     "name" : "A",
+    "namespace" : "http://www.provider.com/definitions/model-a",
     "typeRef" : {
       "localName" : "number",
       "namespace" : "http://www.provider.com/definitions/model-a"
@@ -18,6 +19,7 @@
     "id" : "my-string",
     "isCollection" : false,
     "name" : "MyString",
+    "namespace" : "http://www.provider.com/definitions/model-a",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.provider.com/definitions/model-a"
@@ -27,6 +29,7 @@
     "id" : "A",
     "isCollection" : false,
     "name" : "A",
+    "namespace" : "http://www.provider.com/definitions/model-b",
     "typeRef" : {
       "localName" : "string",
       "namespace" : "http://www.provider.com/definitions/model-b"
@@ -39,6 +42,7 @@
     "javaTypeName" : "java.lang.Number",
     "label" : "AA",
     "name" : "aa",
+    "namespace" : "http://www.provider.com/definitions/model-c",
     "typeRef" : {
       "localName" : "A",
       "namespace" : "http://www.provider.com/definitions/model-a"
@@ -50,6 +54,7 @@
     "javaTypeName" : "String",
     "label" : "BA",
     "name" : "ba",
+    "namespace" : "http://www.provider.com/definitions/model-c",
     "typeRef" : {
       "localName" : "A",
       "namespace" : "http://www.provider.com/definitions/model-b"
@@ -68,6 +73,7 @@
     "knowledgeReferences" : [ ],
     "label" : "C",
     "name" : "c",
+    "namespace" : "http://www.provider.com/definitions/model-c",
     "protoRequestName" : "proto.CRequest",
     "protoResponseName" : "proto.CResponse",
     "transitiveRequiredInput" : [ {
@@ -77,6 +83,7 @@
       "javaTypeName" : "java.lang.Number",
       "label" : "AA",
       "name" : "aa",
+      "namespace" : "http://www.provider.com/definitions/model-c",
       "typeRef" : {
         "localName" : "A",
         "namespace" : "http://www.provider.com/definitions/model-a"
@@ -88,6 +95,7 @@
       "javaTypeName" : "String",
       "label" : "BA",
       "name" : "ba",
+      "namespace" : "http://www.provider.com/definitions/model-c",
       "typeRef" : {
         "localName" : "A",
         "namespace" : "http://www.provider.com/definitions/model-b"
