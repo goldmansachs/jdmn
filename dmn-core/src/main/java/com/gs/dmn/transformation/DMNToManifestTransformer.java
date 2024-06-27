@@ -163,11 +163,15 @@ public class DMNToManifestTransformer {
         QName typeRef = makeMetadataTypeRef(definitions, QualifiedName.toQualifiedName(definitions, decision.getVariable().getTypeRef()));
         List<DRGElementReference> references = makeMetadataInformationReferences(decision);
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(decision.getKnowledgeRequirement());
-        List<ExtensionElement> extensions = null;
+        List<ExtensionElement> extensions = getExtensions(decision);
         List<InputData> transitiveRequiredInputs = makeTransitiveRequiredInputs(decision);
         String protoRequestName = this.dmnTransformer.qualifiedRequestMessageName(decision);
         String protoResponseName = this.dmnTransformer.qualifiedResponseMessageName(decision);
         return new Decision(id, name, label, diagramId, shapeId, nativeParameterName, nativeTypeName, nativeOutputTypeName, typeRef, references, knowledgeReferences, extensions, transitiveRequiredInputs, protoRequestName, protoResponseName);
+    }
+
+    protected List<ExtensionElement> getExtensions(TDecision decision) {
+        return null;
     }
 
     protected String getDiagramId(TDRGElement element) {

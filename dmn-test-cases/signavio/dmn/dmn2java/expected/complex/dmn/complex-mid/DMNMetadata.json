@@ -165,6 +165,13 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
+    "extensions" : [ {
+      "@kind" : "multiInstanceDecisionLogic",
+      "aggregationFunction" : "COLLECT",
+      "iterationExpression" : "testPeopleType.testPersonType",
+      "iteratorShapeId" : "id-e801f20a6a898682c3b5e22db82de47b",
+      "topLevelDecisionId" : "id-b4717b9aa316e3d6266365a4ae6cf873"
+    } ],
     "id" : "id-519b91fe7a0fd84ede349e72ff1344e8",
     "informationReferences" : [ {
       "reference" : "id-76acfc10261ddc2fe0ac3081483133ad"
@@ -199,6 +206,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
+    "extensions" : [ ],
     "id" : "id-54e777f1b3e48362bf9e79c6d305e91d",
     "informationReferences" : [ {
       "reference" : "id-66be7cc5d14947682f8a060a30da5fa0"
@@ -233,6 +241,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
+    "extensions" : [ ],
     "id" : "id-db8a303073ca6775c192503c81230235",
     "informationReferences" : [ {
       "reference" : "id-e801f20a6a898682c3b5e22db82de47b"
@@ -267,6 +276,13 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
+    "extensions" : [ {
+      "@kind" : "multiInstanceDecisionLogic",
+      "aggregationFunction" : "COLLECT",
+      "iterationExpression" : "testPersonType6_iterator.properties",
+      "iteratorShapeId" : "id-66be7cc5d14947682f8a060a30da5fa0",
+      "topLevelDecisionId" : "id-54e777f1b3e48362bf9e79c6d305e91d"
+    } ],
     "id" : "id-dfce3b29b4d620c67860613f0681a5c0",
     "informationReferences" : [ {
       "reference" : "id-e801f20a6a898682c3b5e22db82de47b"
@@ -301,6 +317,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "3652588c6383423c9774f4dfd4393cb1",
+    "extensions" : [ ],
     "id" : "id-b4717b9aa316e3d6266365a4ae6cf873",
     "informationReferences" : [ {
       "reference" : "id-db8a303073ca6775c192503c81230235"

@@ -373,6 +373,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "5417bfd1893048bc9ca18c51aa11b7f0",
+    "extensions" : [ ],
     "id" : "id-33b38ba8b896a9204958529ad488d8ac",
     "informationReferences" : [ {
       "reference" : "id-3ca7d494cdd72647ecd98949e80d821e"
@@ -472,6 +473,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "5417bfd1893048bc9ca18c51aa11b7f0",
+    "extensions" : [ ],
     "id" : "id-0720f23b4aa8e0e34802e93c84775319",
     "informationReferences" : [ {
       "reference" : "id-9ca60c7d715a2606bbd2efb76548af3b"
@@ -536,6 +538,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "5417bfd1893048bc9ca18c51aa11b7f0",
+    "extensions" : [ ],
     "id" : "id-7535944522df431ce0f2814e96991193",
     "informationReferences" : [ {
       "reference" : "id-6d8d1e429666b8ff1897bf3f6ac82986"
@@ -570,6 +573,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "5417bfd1893048bc9ca18c51aa11b7f0",
+    "extensions" : [ ],
     "id" : "id-3ca7d494cdd72647ecd98949e80d821e",
     "informationReferences" : [ {
       "reference" : "id-9ca60c7d715a2606bbd2efb76548af3b"
@@ -679,6 +683,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "5417bfd1893048bc9ca18c51aa11b7f0",
+    "extensions" : [ ],
     "id" : "id-28993e328332eed1a055cf5d390c813c",
     "informationReferences" : [ {
       "reference" : "id-5ca7d94b08d7732cd963c2a10e2488b5"
@@ -713,6 +718,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "5417bfd1893048bc9ca18c51aa11b7f0",
+    "extensions" : [ ],
     "id" : "id-2a03a3567af4c8c0c2a3ece074212d8e",
     "informationReferences" : [ {
       "reference" : "id-5ca7d94b08d7732cd963c2a10e2488b5"
@@ -747,6 +753,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "5417bfd1893048bc9ca18c51aa11b7f0",
+    "extensions" : [ ],
     "id" : "id-40a629b73fd6d126e856925937ad32e0",
     "informationReferences" : [ {
       "reference" : "id-5ca7d94b08d7732cd963c2a10e2488b5"
@@ -781,6 +788,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "5417bfd1893048bc9ca18c51aa11b7f0",
+    "extensions" : [ ],
     "id" : "id-993ac52eeceddf3affb202a39903c2c8",
     "informationReferences" : [ {
       "reference" : "id-3ca7d494cdd72647ecd98949e80d821e"
@@ -880,6 +888,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "5417bfd1893048bc9ca18c51aa11b7f0",
+    "extensions" : [ ],
     "id" : "id-149048fe2cdc6e00767dc7404c469504",
     "informationReferences" : [ {
       "reference" : "id-6d8d1e429666b8ff1897bf3f6ac82986"

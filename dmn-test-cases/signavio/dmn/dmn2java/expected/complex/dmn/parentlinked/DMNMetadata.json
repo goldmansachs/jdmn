@@ -51,6 +51,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "c3d5f975281b4d2f829ee2c77b320f01",
+    "extensions" : [ ],
     "id" : "id-cd02eb803eaf0f5bf6ae1823636939db",
     "informationReferences" : [ {
       "reference" : "id-633e1930a1ad44cae56744496cd663d3"
@@ -85,6 +86,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "80afa9e878bb4885a8f5be36b6f16abc",
+    "extensions" : [ ],
     "id" : "id-7c5358c692497488ed1b1023189410fb",
     "informationReferences" : [ {
       "reference" : "id-cd02eb803eaf0f5bf6ae1823636939db"
@@ -119,6 +121,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "80afa9e878bb4885a8f5be36b6f16abc",
+    "extensions" : [ ],
     "id" : "id-6c8cb98cfc4743b1066d1f6ed28f3f10",
     "informationReferences" : [ {
       "reference" : "id-7c5358c692497488ed1b1023189410fb"

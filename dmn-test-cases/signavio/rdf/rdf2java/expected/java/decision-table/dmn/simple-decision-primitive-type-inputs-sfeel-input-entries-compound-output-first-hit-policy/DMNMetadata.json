@@ -182,6 +182,7 @@
     }
   }, {
     "@kind" : "decision",
+    "extensions" : [ ],
     "id" : "sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
     "informationReferences" : [ {
       "reference" : "sid-6E98EF23-49A8-44BE-82BB-06CF5AC860A0"

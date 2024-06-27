@@ -60,6 +60,7 @@
     }
   }, {
     "@kind" : "decision",
+    "extensions" : [ ],
     "id" : "diagram-fcaf60c07a9d42d6a179ce045ae2ea48-decision-sid-4A7C793A-882C-4867-94B9-AD88D6D6970D",
     "informationReferences" : [ {
       "reference" : "diagram-fcaf60c07a9d42d6a179ce045ae2ea48-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9"

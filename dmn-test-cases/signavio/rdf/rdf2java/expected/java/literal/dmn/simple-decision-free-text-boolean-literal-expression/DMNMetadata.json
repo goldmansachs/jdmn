@@ -123,6 +123,7 @@
     }
   }, {
     "@kind" : "decision",
+    "extensions" : [ ],
     "id" : "sid-499DBFB1-F584-4B70-8B41-F00CC0810584",
     "informationReferences" : [ {
       "reference" : "sid-4657A97A-419B-4840-B8CA-9EA10827657F"

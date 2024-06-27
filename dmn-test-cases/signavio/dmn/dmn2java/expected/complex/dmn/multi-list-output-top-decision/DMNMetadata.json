@@ -115,6 +115,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "6776bb215482477ba041c80c9c559985",
+    "extensions" : [ ],
     "id" : "id-c234d0eaf09115adcd0ae840adeb1055",
     "informationReferences" : [ {
       "reference" : "id-c0237273c0ebfd8069dc25efc55db05a"

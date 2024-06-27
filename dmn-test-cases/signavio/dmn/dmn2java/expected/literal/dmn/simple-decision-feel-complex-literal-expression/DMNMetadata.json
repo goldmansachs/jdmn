@@ -65,6 +65,7 @@
     }
   }, {
     "@kind" : "decision",
+    "extensions" : [ ],
     "id" : "diagram-364e3a8fdb6f4466977ac99ee9564f12-decision-sid-60E9B6E8-6251-4E45-86C4-4E46A3D9F64E",
     "informationReferences" : [ {
       "reference" : "diagram-364e3a8fdb6f4466977ac99ee9564f12-inputdata-sid-AD811598-1741-4206-A9FC-280EF77B0B23"

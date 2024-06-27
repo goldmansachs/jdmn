@@ -112,6 +112,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
+    "extensions" : [ ],
     "id" : "c-DateTime",
     "informationReferences" : [ {
       "reference" : "i-date"
@@ -186,6 +187,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
+    "extensions" : [ ],
     "id" : "d-Date",
     "informationReferences" : [ {
       "reference" : "i-date"
@@ -260,6 +262,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
+    "extensions" : [ ],
     "id" : "d-DateTime",
     "informationReferences" : [ {
       "reference" : "i-date"
@@ -334,6 +337,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
+    "extensions" : [ ],
     "id" : "d-Time",
     "informationReferences" : [ {
       "reference" : "i-date"

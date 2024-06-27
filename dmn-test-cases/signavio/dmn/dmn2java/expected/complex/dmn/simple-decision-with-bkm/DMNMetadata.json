@@ -118,6 +118,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "0cad6eb96bfc4b638250c73ff90f439b",
+    "extensions" : [ ],
     "id" : "id-806148ab1843f34bf4e461a8ed442b97",
     "informationReferences" : [ {
       "reference" : "id-6941daac7dedcf760459bef259f2b83c"
@@ -167,6 +168,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "2521256910f54d44b0a90fa88a1aa917",
+    "extensions" : [ ],
     "id" : "id-c9af84da6920472f7e8311c719099aac",
     "informationReferences" : [ {
       "reference" : "id-f1336e666ce4588d576ac630e3a0935c"

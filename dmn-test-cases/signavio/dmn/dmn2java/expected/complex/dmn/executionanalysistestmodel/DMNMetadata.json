@@ -41,6 +41,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "afb776a3dcf84f12b17e44405f5c80c5",
+    "extensions" : [ ],
     "id" : "id-ee3f38c075678c97d13964afb28201c0",
     "informationReferences" : [ {
       "reference" : "id-6930c8ee3021fb2c24a1d2caefc53607"

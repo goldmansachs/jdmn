@@ -141,6 +141,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
+    "extensions" : [ ],
     "id" : "id-ccb759d71c2477dd17e26c3a2c1c68ce",
     "informationReferences" : [ {
       "reference" : "id-ea0f03d48ef57b8e0b3fb41cf8d3212e"
@@ -175,6 +176,13 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
+    "extensions" : [ {
+      "@kind" : "multiInstanceDecisionLogic",
+      "aggregationFunction" : "COLLECT",
+      "iterationExpression" : "zip1",
+      "iteratorShapeId" : "id-ea0f03d48ef57b8e0b3fb41cf8d3212e",
+      "topLevelDecisionId" : "id-ccb759d71c2477dd17e26c3a2c1c68ce"
+    } ],
     "id" : "id-448b531deda330b274727b397bcc0955",
     "informationReferences" : [ {
       "reference" : "id-fada51ce664c63874c99e6e7cf630c33"
@@ -222,6 +230,7 @@
   }, {
     "@kind" : "decision",
     "diagramId" : "2798610dcc0f4068861fcb0f4af25ac7",
+    "extensions" : [ ],
     "id" : "id-fada51ce664c63874c99e6e7cf630c33",
     "informationReferences" : [ {
       "reference" : "id-2573b665f7d599fb9d1b8972ba3bab3a"

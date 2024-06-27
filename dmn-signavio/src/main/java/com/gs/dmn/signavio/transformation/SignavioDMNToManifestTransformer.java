@@ -13,15 +13,25 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.ast.TDRGElement;
+import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.metadata.ExtensionElement;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
+import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToJavaTransformer;
 import com.gs.dmn.transformation.DMNToManifestTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+
+import java.util.List;
 
 public class SignavioDMNToManifestTransformer extends DMNToManifestTransformer {
     public SignavioDMNToManifestTransformer(BasicDMNToNativeTransformer<com.gs.dmn.el.analysis.semantics.type.Type, DMNContext> dmnTransformer, BuildLogger logger) {
         super(dmnTransformer, logger);
+    }
+
+    @Override
+    protected List<ExtensionElement> getExtensions(TDecision decision) {
+        return ((BasicSignavioDMNToJavaTransformer) this.dmnTransformer).makeMetadataExtensions(decision);
     }
 
     @Override

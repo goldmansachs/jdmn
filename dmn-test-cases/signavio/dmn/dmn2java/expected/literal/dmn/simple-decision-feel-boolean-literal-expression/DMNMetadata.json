@@ -123,6 +123,7 @@
     }
   }, {
     "@kind" : "decision",
+    "extensions" : [ ],
     "id" : "diagram-d01479ef8b18467d9e4ce7eb7d03f7dc-decision-sid-499DBFB1-F584-4B70-8B41-F00CC0810584",
     "informationReferences" : [ {
       "reference" : "diagram-d01479ef8b18467d9e4ce7eb7d03f7dc-inputdata-sid-8D942955-A64E-461F-A4A7-41487C9F6D7A"
