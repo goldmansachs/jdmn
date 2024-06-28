@@ -6,13 +6,13 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "compositeType",
-    "id" : "tA",
+    "id" : "http://www.provider.com/definitions/decision-inputs-1#tA",
     "isCollection" : false,
     "name" : "tA",
     "namespace" : "http://www.provider.com/definitions/decision-inputs-1",
     "types" : [ {
       "@kind" : "referenceType",
-      "id" : "_adf6f96a-c574-4ba7-a305-ea14ad9852b1",
+      "id" : "http://www.provider.com/definitions/decision-inputs-1#_adf6f96a-c574-4ba7-a305-ea14ad9852b1",
       "isCollection" : false,
       "name" : "name",
       "namespace" : "http://www.provider.com/definitions/decision-inputs-1",
@@ -22,7 +22,7 @@
       }
     }, {
       "@kind" : "referenceType",
-      "id" : "_d297adac-f086-42a0-989e-04c431270f77",
+      "id" : "http://www.provider.com/definitions/decision-inputs-1#_d297adac-f086-42a0-989e-04c431270f77",
       "isCollection" : false,
       "name" : "price",
       "namespace" : "http://www.provider.com/definitions/decision-inputs-1",
@@ -33,7 +33,7 @@
     } ]
   }, {
     "@kind" : "referenceType",
-    "id" : "tNumList",
+    "id" : "http://www.provider.com/definitions/decision-inputs-1#tNumList",
     "isCollection" : true,
     "name" : "tNumList",
     "namespace" : "http://www.provider.com/definitions/decision-inputs-1",
@@ -43,7 +43,7 @@
     }
   }, {
     "@kind" : "referenceType",
-    "id" : "tStringList",
+    "id" : "http://www.provider.com/definitions/decision-inputs-1#tStringList",
     "isCollection" : true,
     "name" : "tStringList",
     "namespace" : "http://www.provider.com/definitions/decision-inputs-1",
@@ -54,7 +54,7 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "id" : "_fabdbafc-f28a-466d-ae08-86c5b928dad5",
+    "id" : "http://www.provider.com/definitions/decision-inputs-1#_fabdbafc-f28a-466d-ae08-86c5b928dad5",
     "javaParameterName" : "dateD",
     "javaTypeName" : "java.time.LocalDate",
     "name" : "dateD",
@@ -65,7 +65,7 @@
     }
   }, {
     "@kind" : "inputData",
-    "id" : "_3b175722-5f96-49e4-a50d-0bf9588c901c",
+    "id" : "http://www.provider.com/definitions/decision-inputs-1#_3b175722-5f96-49e4-a50d-0bf9588c901c",
     "javaParameterName" : "numB",
     "javaTypeName" : "java.lang.Number",
     "name" : "numB",
@@ -76,7 +76,7 @@
     }
   }, {
     "@kind" : "inputData",
-    "id" : "_25cdd674-9b3f-47b1-bace-1d4e3ce50d5d",
+    "id" : "http://www.provider.com/definitions/decision-inputs-1#_25cdd674-9b3f-47b1-bace-1d4e3ce50d5d",
     "javaParameterName" : "numC",
     "javaTypeName" : "java.lang.Number",
     "name" : "numC",
@@ -87,7 +87,7 @@
     }
   }, {
     "@kind" : "inputData",
-    "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
+    "id" : "http://www.provider.com/definitions/decision-inputs-1#_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
     "javaParameterName" : "structA",
     "javaTypeName" : "decisioninputs1.type.TA",
     "name" : "structA",
@@ -98,7 +98,7 @@
     }
   }, {
     "@kind" : "inputData",
-    "id" : "_4926f78e-5df0-4d88-8ee7-1a418b08562f",
+    "id" : "http://www.provider.com/definitions/decision-inputs-2#_4926f78e-5df0-4d88-8ee7-1a418b08562f",
     "javaParameterName" : "dateD",
     "javaTypeName" : "java.time.LocalDate",
     "name" : "dateD",
@@ -109,7 +109,7 @@
     }
   }, {
     "@kind" : "decision",
-    "id" : "_ca5e0efd-3fff-4bf8-8939-85fc3b9c20b8",
+    "id" : "http://www.provider.com/definitions/decisions#_ca5e0efd-3fff-4bf8-8939-85fc3b9c20b8",
     "informationReferences" : [ {
       "reference" : "http://www.provider.com/definitions/decision-inputs-1#_fabdbafc-f28a-466d-ae08-86c5b928dad5"
     } ],
@@ -123,7 +123,7 @@
     "protoResponseName" : "decisiontables.proto.DateCompare1Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "id" : "_fabdbafc-f28a-466d-ae08-86c5b928dad5",
+      "id" : "http://www.provider.com/definitions/decision-inputs-1#_fabdbafc-f28a-466d-ae08-86c5b928dad5",
       "javaParameterName" : "dateD",
       "javaTypeName" : "java.time.LocalDate",
       "name" : "dateD",
@@ -139,7 +139,7 @@
     }
   }, {
     "@kind" : "decision",
-    "id" : "_bf3c3a79-9fa2-491f-8065-a990c70b50de",
+    "id" : "http://www.provider.com/definitions/decisions#_bf3c3a79-9fa2-491f-8065-a990c70b50de",
     "informationReferences" : [ {
       "reference" : "http://www.provider.com/definitions/decision-inputs-1#_fabdbafc-f28a-466d-ae08-86c5b928dad5"
     }, {
@@ -155,7 +155,7 @@
     "protoResponseName" : "decisiontables.proto.DateCompare2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "id" : "_fabdbafc-f28a-466d-ae08-86c5b928dad5",
+      "id" : "http://www.provider.com/definitions/decision-inputs-1#_fabdbafc-f28a-466d-ae08-86c5b928dad5",
       "javaParameterName" : "dateD",
       "javaTypeName" : "java.time.LocalDate",
       "name" : "dateD",
@@ -166,7 +166,7 @@
       }
     }, {
       "@kind" : "inputData",
-      "id" : "_4926f78e-5df0-4d88-8ee7-1a418b08562f",
+      "id" : "http://www.provider.com/definitions/decision-inputs-2#_4926f78e-5df0-4d88-8ee7-1a418b08562f",
       "javaParameterName" : "dateD",
       "javaTypeName" : "java.time.LocalDate",
       "name" : "dateD",
@@ -182,7 +182,7 @@
     }
   }, {
     "@kind" : "decision",
-    "id" : "_2683ec7f-fa17-4a1e-9151-8077a10c561f",
+    "id" : "http://www.provider.com/definitions/decisions#_2683ec7f-fa17-4a1e-9151-8077a10c561f",
     "informationReferences" : [ {
       "reference" : "http://www.provider.com/definitions/decision-inputs-1#_18b9d486-1ec0-436d-af4b-3e4567e8bca9"
     } ],
@@ -196,7 +196,7 @@
     "protoResponseName" : "decisiontables.proto.PriceGt10Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
+      "id" : "http://www.provider.com/definitions/decision-inputs-1#_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
       "javaParameterName" : "structA",
       "javaTypeName" : "decisioninputs1.type.TA",
       "name" : "structA",
@@ -212,7 +212,7 @@
     }
   }, {
     "@kind" : "decision",
-    "id" : "_98e08c9d-66de-4f67-8bd9-cc667be27eb3",
+    "id" : "http://www.provider.com/definitions/decisions#_98e08c9d-66de-4f67-8bd9-cc667be27eb3",
     "informationReferences" : [ {
       "reference" : "http://www.provider.com/definitions/decision-inputs-1#_3b175722-5f96-49e4-a50d-0bf9588c901c"
     }, {
@@ -230,7 +230,7 @@
     "protoResponseName" : "decisiontables.proto.PriceInRangeResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "id" : "_3b175722-5f96-49e4-a50d-0bf9588c901c",
+      "id" : "http://www.provider.com/definitions/decision-inputs-1#_3b175722-5f96-49e4-a50d-0bf9588c901c",
       "javaParameterName" : "numB",
       "javaTypeName" : "java.lang.Number",
       "name" : "numB",
@@ -241,7 +241,7 @@
       }
     }, {
       "@kind" : "inputData",
-      "id" : "_25cdd674-9b3f-47b1-bace-1d4e3ce50d5d",
+      "id" : "http://www.provider.com/definitions/decision-inputs-1#_25cdd674-9b3f-47b1-bace-1d4e3ce50d5d",
       "javaParameterName" : "numC",
       "javaTypeName" : "java.lang.Number",
       "name" : "numC",
@@ -252,7 +252,7 @@
       }
     }, {
       "@kind" : "inputData",
-      "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
+      "id" : "http://www.provider.com/definitions/decision-inputs-1#_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
       "javaParameterName" : "structA",
       "javaTypeName" : "decisioninputs1.type.TA",
       "name" : "structA",

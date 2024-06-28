@@ -6,7 +6,7 @@
   "nativeNamespace" : "",
   "types" : [ {
     "@kind" : "referenceType",
-    "id" : "A",
+    "id" : "http://www.provider.com/definitions/model-a#A",
     "isCollection" : false,
     "name" : "A",
     "namespace" : "http://www.provider.com/definitions/model-a",
@@ -16,7 +16,7 @@
     }
   }, {
     "@kind" : "referenceType",
-    "id" : "my-string",
+    "id" : "http://www.provider.com/definitions/model-a#my-string",
     "isCollection" : false,
     "name" : "MyString",
     "namespace" : "http://www.provider.com/definitions/model-a",
@@ -26,7 +26,7 @@
     }
   }, {
     "@kind" : "referenceType",
-    "id" : "A",
+    "id" : "http://www.provider.com/definitions/model-b#A",
     "isCollection" : false,
     "name" : "A",
     "namespace" : "http://www.provider.com/definitions/model-b",
@@ -37,7 +37,7 @@
   } ],
   "elements" : [ {
     "@kind" : "inputData",
-    "id" : "input-a-a",
+    "id" : "http://www.provider.com/definitions/model-c#input-a-a",
     "javaParameterName" : "aa",
     "javaTypeName" : "java.lang.Number",
     "label" : "AA",
@@ -49,7 +49,7 @@
     }
   }, {
     "@kind" : "inputData",
-    "id" : "input-b-a",
+    "id" : "http://www.provider.com/definitions/model-c#input-b-a",
     "javaParameterName" : "ba",
     "javaTypeName" : "String",
     "label" : "BA",
@@ -61,11 +61,11 @@
     }
   }, {
     "@kind" : "decision",
-    "id" : "decision-c",
+    "id" : "http://www.provider.com/definitions/model-c#decision-c",
     "informationReferences" : [ {
-      "reference" : "input-a-a"
+      "reference" : "http://www.provider.com/definitions/model-c#input-a-a"
     }, {
-      "reference" : "input-b-a"
+      "reference" : "http://www.provider.com/definitions/model-c#input-b-a"
     } ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "c",
@@ -78,7 +78,7 @@
     "protoResponseName" : "proto.CResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "id" : "input-a-a",
+      "id" : "http://www.provider.com/definitions/model-c#input-a-a",
       "javaParameterName" : "aa",
       "javaTypeName" : "java.lang.Number",
       "label" : "AA",
@@ -90,7 +90,7 @@
       }
     }, {
       "@kind" : "inputData",
-      "id" : "input-b-a",
+      "id" : "http://www.provider.com/definitions/model-c#input-b-a",
       "javaParameterName" : "ba",
       "javaTypeName" : "String",
       "label" : "BA",

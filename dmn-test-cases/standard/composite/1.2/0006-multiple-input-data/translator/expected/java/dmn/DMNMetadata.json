@@ -7,7 +7,7 @@
   "types" : [ ],
   "elements" : [ {
     "@kind" : "inputData",
-    "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+    "id" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
     "javaParameterName" : "personName",
     "javaTypeName" : "String",
     "name" : "Person name",
@@ -18,9 +18,9 @@
     }
   }, {
     "@kind" : "decision",
-    "id" : "_f7fdaec4-d669-4797-b3b4-12b860de2eb5",
+    "id" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_f7fdaec4-d669-4797-b3b4-12b860de2eb5",
     "informationReferences" : [ {
-      "reference" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063"
+      "reference" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063"
     } ],
     "javaOutputTypeName" : "String",
     "javaParameterName" : "greetThePerson",
@@ -32,7 +32,7 @@
     "protoResponseName" : "model_a.proto.GreetThePersonResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+      "id" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
       "javaParameterName" : "personName",
       "javaTypeName" : "String",
       "name" : "Person name",
@@ -48,7 +48,7 @@
     }
   }, {
     "@kind" : "decision",
-    "id" : "_96df766e-23e1-4aa6-9d5d-545fbe2f1e23",
+    "id" : "http://www.trisotech.com/definitions/_2a1d771a-a899-4fef-abd6-fc894332337c#_96df766e-23e1-4aa6-9d5d-545fbe2f1e23",
     "informationReferences" : [ {
       "reference" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_f7fdaec4-d669-4797-b3b4-12b860de2eb5"
     } ],
@@ -62,7 +62,7 @@
     "protoResponseName" : "model_b.proto.EvaluatingSayHelloResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+      "id" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
       "javaParameterName" : "personName",
       "javaTypeName" : "String",
       "name" : "Person name",
@@ -78,7 +78,7 @@
     }
   }, {
     "@kind" : "decision",
-    "id" : "_96df766e-23e1-4aa6-9d5d-545fbe2f1e23",
+    "id" : "http://www.trisotech.com/definitions/_9d46ece4-a96c-4cb0-abc0-0ca121ac3768#_96df766e-23e1-4aa6-9d5d-545fbe2f1e23",
     "informationReferences" : [ {
       "reference" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_f7fdaec4-d669-4797-b3b4-12b860de2eb5"
     } ],
@@ -92,7 +92,7 @@
     "protoResponseName" : "model_b2.proto.EvaluatingB2SayHelloResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+      "id" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
       "javaParameterName" : "personName",
       "javaTypeName" : "String",
       "name" : "Person name",
@@ -108,7 +108,7 @@
     }
   }, {
     "@kind" : "decision",
-    "id" : "_fc1bff6c-b1ca-4a10-ba9a-23b8f5e86e6a",
+    "id" : "http://www.trisotech.com/definitions/_10435dcd-8774-4575-a338-49dd554a0928#_fc1bff6c-b1ca-4a10-ba9a-23b8f5e86e6a",
     "informationReferences" : [ {
       "reference" : "http://www.trisotech.com/definitions/_9d46ece4-a96c-4cb0-abc0-0ca121ac3768#_96df766e-23e1-4aa6-9d5d-545fbe2f1e23"
     }, {
@@ -124,7 +124,7 @@
     "protoResponseName" : "nested_input_data_imports.proto.ModelCDecisionBasedOnBsResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+      "id" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
       "javaParameterName" : "personName",
       "javaTypeName" : "String",
       "name" : "Person name",
@@ -135,7 +135,7 @@
       }
     }, {
       "@kind" : "inputData",
-      "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+      "id" : "http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
       "javaParameterName" : "personName",
       "javaTypeName" : "String",
       "name" : "Person name",

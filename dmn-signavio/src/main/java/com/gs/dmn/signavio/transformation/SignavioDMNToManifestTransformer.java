@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.metadata.ExtensionElement;
@@ -30,8 +31,8 @@ public class SignavioDMNToManifestTransformer extends DMNToManifestTransformer {
     }
 
     @Override
-    protected List<ExtensionElement> getExtensions(TDecision decision) {
-        return ((BasicSignavioDMNToJavaTransformer) this.dmnTransformer).makeMetadataExtensions(decision);
+    protected List<ExtensionElement> getExtensions(TDecision decision, TDefinitions containingModel, boolean multiModels) {
+        return ((BasicSignavioDMNToJavaTransformer) this.dmnTransformer).makeMetadataExtensions(decision, containingModel, multiModels);
     }
 
     @Override

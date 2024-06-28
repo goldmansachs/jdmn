@@ -7,7 +7,7 @@
   "types" : [ ],
   "elements" : [ {
     "@kind" : "inputData",
-    "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+    "id" : "http://www.provider.com/definitions/model-a#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
     "javaParameterName" : "a",
     "javaTypeName" : "String",
     "label" : "A",
@@ -19,7 +19,7 @@
     }
   }, {
     "@kind" : "inputData",
-    "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+    "id" : "http://www.provider.com/definitions/model-b#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
     "javaParameterName" : "a",
     "javaTypeName" : "String",
     "label" : "A",
@@ -31,7 +31,7 @@
     }
   }, {
     "@kind" : "decision",
-    "id" : "_fc1bff6c-b1ca-4a10-ba9a-23b8f5e86e6a",
+    "id" : "http://www.provider.com/definitions/model-c#_fc1bff6c-b1ca-4a10-ba9a-23b8f5e86e6a",
     "informationReferences" : [ {
       "reference" : "http://www.provider.com/definitions/model-a#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063"
     }, {
@@ -48,7 +48,7 @@
     "protoResponseName" : "model_c.proto.CResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
-      "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+      "id" : "http://www.provider.com/definitions/model-a#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
       "javaParameterName" : "a",
       "javaTypeName" : "String",
       "label" : "A",
@@ -60,7 +60,7 @@
       }
     }, {
       "@kind" : "inputData",
-      "id" : "_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
+      "id" : "http://www.provider.com/definitions/model-b#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
       "javaParameterName" : "a",
       "javaTypeName" : "String",
       "label" : "A",

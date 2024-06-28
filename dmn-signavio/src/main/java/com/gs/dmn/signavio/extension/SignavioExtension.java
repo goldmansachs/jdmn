@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.gs.dmn.serialization.DMNVersion.LATEST;
+import static com.gs.dmn.transformation.DMNToManifestTransformer.uniqueId;
 
 public class SignavioExtension {
     public static final String SIG_EXT_NAMESPACE = "http://www.signavio.com/schema/dmn/1.1/";
@@ -129,13 +130,15 @@ public class SignavioExtension {
     //
     // Manifest
     //
-    public ExtensionElement makeMultiInstanceExtension(TDecision decision) {
+    public ExtensionElement makeMultiInstanceExtension(TDecision decision, TDefinitions importingModel, boolean multiModels) {
         MultiInstanceDecisionLogic multiInstanceDecisionLogic = multiInstanceDecisionLogic(decision);
         String topLevelDecisionId = multiInstanceDecisionLogic.getTopLevelDecision().getId();
+        String topLevelDecisionUniqueId = uniqueId(topLevelDecisionId, importingModel, multiModels);
         String aggregator = multiInstanceDecisionLogic.getAggregator().name();
         String iteratorId = multiInstanceDecisionLogic.getIterator().getId();
+        String iteratorUniqueId = uniqueId(iteratorId, importingModel, multiModels);
         String iterationExpression = multiInstanceDecisionLogic.getIterationExpression();
-        return new MultiInstanceDecisionLogicExtension(iterationExpression, iteratorId, aggregator, topLevelDecisionId);
+        return new MultiInstanceDecisionLogicExtension(iterationExpression, iteratorUniqueId, aggregator, topLevelDecisionUniqueId);
     }
 
     //

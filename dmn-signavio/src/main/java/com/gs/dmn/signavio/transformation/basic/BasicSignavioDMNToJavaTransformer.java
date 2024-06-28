@@ -246,10 +246,10 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     //
     // Manifest
     //
-    public List<ExtensionElement> makeMetadataExtensions(TDecision decision) {
+    public List<ExtensionElement> makeMetadataExtensions(TDecision decision, TDefinitions containingModel, boolean multiModels) {
         List<ExtensionElement> extensions = new ArrayList<>();
         if (this.dmnModelRepository.isMultiInstanceDecision(decision)) {
-            ExtensionElement extensionElement = this.dmnModelRepository.getExtension().makeMultiInstanceExtension(decision);
+            ExtensionElement extensionElement = this.dmnModelRepository.getExtension().makeMultiInstanceExtension(decision, containingModel, multiModels);
             extensions.add(extensionElement);
         }
         return extensions;
