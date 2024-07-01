@@ -18,7 +18,7 @@
       "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "referenceType",
@@ -28,7 +28,7 @@
       "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     } ]
   } ],
@@ -41,7 +41,7 @@
     "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "inputData",
@@ -82,7 +82,7 @@
     } ],
     "typeRef" : {
       "localName" : "Any",
-      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "decision",
@@ -109,7 +109,7 @@
       "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "inputData",
@@ -125,7 +125,7 @@
     } ],
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   } ]
 }

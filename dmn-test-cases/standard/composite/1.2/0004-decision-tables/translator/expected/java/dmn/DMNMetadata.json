@@ -18,7 +18,7 @@
       "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.provider.com/definitions/decision-inputs"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "referenceType",
@@ -28,7 +28,7 @@
       "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.provider.com/definitions/decision-inputs"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     } ]
   }, {
@@ -39,7 +39,7 @@
     "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.provider.com/definitions/decision-inputs"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "referenceType",
@@ -49,7 +49,7 @@
     "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.provider.com/definitions/decision-inputs"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   } ],
   "elements" : [ {
@@ -61,7 +61,7 @@
     "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "date",
-      "namespace" : "http://www.provider.com/definitions/decision-inputs"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "inputData",
@@ -72,7 +72,7 @@
     "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "date",
-      "namespace" : "http://www.provider.com/definitions/decision-inputs"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "inputData",
@@ -83,7 +83,7 @@
     "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.provider.com/definitions/decision-inputs"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "inputData",
@@ -94,7 +94,7 @@
     "namespace" : "http://www.provider.com/definitions/decision-inputs",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.provider.com/definitions/decision-inputs"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "inputData",
@@ -130,12 +130,12 @@
       "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "date",
-        "namespace" : "http://www.provider.com/definitions/decision-inputs"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     } ],
     "typeRef" : {
       "localName" : "boolean",
-      "namespace" : "http://www.provider.com/definitions/decisions"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "decision",
@@ -162,7 +162,7 @@
       "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "date",
-        "namespace" : "http://www.provider.com/definitions/decision-inputs"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "inputData",
@@ -173,12 +173,12 @@
       "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "date",
-        "namespace" : "http://www.provider.com/definitions/decision-inputs"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     } ],
     "typeRef" : {
       "localName" : "boolean",
-      "namespace" : "http://www.provider.com/definitions/decisions"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "decision",
@@ -208,7 +208,7 @@
     } ],
     "typeRef" : {
       "localName" : "boolean",
-      "namespace" : "http://www.provider.com/definitions/decisions"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "decision",
@@ -237,7 +237,7 @@
       "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.provider.com/definitions/decision-inputs"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "inputData",
@@ -248,7 +248,7 @@
       "namespace" : "http://www.provider.com/definitions/decision-inputs",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.provider.com/definitions/decision-inputs"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "inputData",
@@ -264,7 +264,7 @@
     } ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.provider.com/definitions/decisions"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   } ]
 }

@@ -30,12 +30,12 @@
       "namespace" : "http://www.provider.com/definitions/model-a",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.provider.com/definitions/model-a"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     } ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.provider.com/definitions/model-b1"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "decision",
@@ -62,12 +62,12 @@
       "namespace" : "http://www.provider.com/definitions/model-a",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.provider.com/definitions/model-a"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     } ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.provider.com/definitions/model-b1"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "decision",
@@ -94,12 +94,12 @@
       "namespace" : "http://www.provider.com/definitions/model-a",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.provider.com/definitions/model-a"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     } ],
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.provider.com/definitions/model-b2"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "decision",
@@ -128,12 +128,12 @@
       "namespace" : "http://www.provider.com/definitions/model-a",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.provider.com/definitions/model-a"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     } ],
     "typeRef" : {
       "localName" : "Any",
-      "namespace" : "http://www.provider.com/definitions/model-c"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "inputData",
@@ -145,7 +145,7 @@
     "namespace" : "http://www.provider.com/definitions/model-a",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.provider.com/definitions/model-a"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   } ]
 }
