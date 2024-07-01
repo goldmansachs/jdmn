@@ -14,6 +14,8 @@ package com.gs.dmn;
 
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TImport;
+import com.gs.dmn.ast.TItemDefinition;
+import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
 import com.gs.dmn.serialization.DMNVersion;
 
 import javax.xml.namespace.QName;
@@ -34,6 +36,7 @@ public class QualifiedName {
         if (qName == null || qName.isEmpty()) {
             return null;
         }
+        // Check the FEEL prefix
         if (qName.startsWith(DMNVersion.LATEST.getFeelPrefix() + ".")) {
             String prefix = DMNVersion.LATEST.getFeelPrefix();
             String localPart = qName.substring(qName.indexOf('.') + 1);
@@ -42,6 +45,7 @@ public class QualifiedName {
         if (model == null) {
             return new QualifiedName(null, qName);
         } else {
+            // Check the imports
             for (TImport import_: model.getImport()) {
                 String importName = import_.getName();
                 if (qName.startsWith(importName + '.')) {
@@ -49,6 +53,17 @@ public class QualifiedName {
                     return new QualifiedName(importName, localPart);
                 }
             }
+            // Check the types defined in the model
+            for (TItemDefinition itemDefinition: model.getItemDefinition()) {
+                if (itemDefinition.getName().equals(qName)) {
+                    return new QualifiedName(null, qName);
+                }
+            }
+            // Check the FEEL types
+            if (FEELTypes.FEEL_TYPE_NAMES.contains(qName)) {
+                return new QualifiedName(DMNVersion.LATEST.getFeelPrefix(), qName);
+            }
+
             return new QualifiedName(null, qName);
         }
     }

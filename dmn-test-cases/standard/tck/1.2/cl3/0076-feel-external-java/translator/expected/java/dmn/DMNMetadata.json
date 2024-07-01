@@ -16,7 +16,7 @@
       "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "referenceType",
@@ -25,7 +25,7 @@
       "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     } ]
   } ],

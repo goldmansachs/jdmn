@@ -12,7 +12,7 @@
     "namespace" : "http://www.provider.com/definitions/model-a",
     "typeRef" : {
       "localName" : "number",
-      "namespace" : "http://www.provider.com/definitions/model-a"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "referenceType",
@@ -22,7 +22,7 @@
     "namespace" : "http://www.provider.com/definitions/model-a",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.provider.com/definitions/model-a"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "referenceType",
@@ -32,7 +32,7 @@
     "namespace" : "http://www.provider.com/definitions/model-b",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.provider.com/definitions/model-b"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   } ],
   "elements" : [ {

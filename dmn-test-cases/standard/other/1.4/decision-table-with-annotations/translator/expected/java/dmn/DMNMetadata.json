@@ -18,7 +18,7 @@
       "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "referenceType",
@@ -28,7 +28,7 @@
       "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
       "typeRef" : {
         "localName" : "number",
-        "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     } ]
   } ],
@@ -71,7 +71,7 @@
     } ],
     "typeRef" : {
       "localName" : "boolean",
-      "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   } ]
 }

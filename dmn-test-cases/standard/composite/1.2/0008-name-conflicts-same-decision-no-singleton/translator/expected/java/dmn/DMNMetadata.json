@@ -15,7 +15,7 @@
     "namespace" : "http://www.provider.com/definitions/model-a",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.provider.com/definitions/model-a"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "inputData",
@@ -27,7 +27,7 @@
     "namespace" : "http://www.provider.com/definitions/model-b",
     "typeRef" : {
       "localName" : "string",
-      "namespace" : "http://www.provider.com/definitions/model-b"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   }, {
     "@kind" : "inputData",
@@ -68,7 +68,7 @@
       "namespace" : "http://www.provider.com/definitions/model-a",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.provider.com/definitions/model-a"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     }, {
       "@kind" : "inputData",
@@ -80,12 +80,12 @@
       "namespace" : "http://www.provider.com/definitions/model-b",
       "typeRef" : {
         "localName" : "string",
-        "namespace" : "http://www.provider.com/definitions/model-b"
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
       }
     } ],
     "typeRef" : {
       "localName" : "Any",
-      "namespace" : "http://www.provider.com/definitions/model-c"
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
     }
   } ]
 }
