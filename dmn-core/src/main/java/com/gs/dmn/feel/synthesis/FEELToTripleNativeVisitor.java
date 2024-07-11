@@ -439,10 +439,10 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         Expression<Type> valueExp = element.getValue();
         List<PositiveUnaryTest<Type>> positiveUnaryTests = element.getTests();
 
-        DMNContext inContext = this.dmnTransformer.makeUnaryTestContext(valueExp, context);
+        DMNContext testContext = context.isTestContext() ? context : this.dmnTransformer.makeUnaryTestContext(valueExp, context);
         List<Triple> result = new ArrayList<>();
         for (PositiveUnaryTest<Type> positiveUnaryTest : positiveUnaryTests) {
-            Triple test = (Triple) positiveUnaryTest.accept(this, inContext);
+            Triple test = (Triple) positiveUnaryTest.accept(this, testContext);
             result.add(test);
         }
         if (result.size() == 1) {

@@ -163,8 +163,9 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         DATE date = this.lib.date("2017-01-03");
         TIME time = this.lib.time("12:00:00Z");
         DATE_TIME dateTime = this.lib.dateAndTime("2017-01-03T12:00:00Z");
-        List<String> list = this.lib.asList("a", "b", "c");
+        List<NUMBER> list = this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"));
         NUMBER input = this.lib.number("1");
+        Context context = new com.gs.dmn.runtime.Context().add("a", "foo");
 
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("number", NUMBER, number),
@@ -173,8 +174,9 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("date", DateType.DATE, date),
                 new EnvironmentEntry("time", TimeType.TIME, time),
                 new EnvironmentEntry("dateTime", DateTimeType.DATE_AND_TIME, dateTime),
-                new EnvironmentEntry("list", ListType.STRING_LIST, list),
-                new EnvironmentEntry("input", NUMBER, input)
+                new EnvironmentEntry("list", ListType.NUMBER_LIST, list),
+                new EnvironmentEntry("input", NUMBER, input),
+                new EnvironmentEntry("context", ContextType.ANY_CONTEXT, context)
         );
 
         //
@@ -191,6 +193,155 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "TupleType(boolean)",
                 "numericGreaterThan(count(list), number(\"2\"))",
                 this.lib.numericGreaterThan(this.lib.count(list), this.lib.number("2")),
+                true);
+
+        // In Expressions
+        doUnaryTestsTest(entries, "input", "? in 1",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(null,NumericLiteral(1)))))",
+                "TupleType(boolean)",
+                "numericEqual(input, number(\"1\"))",
+                this.lib.numericEqual(input, this.lib.number("1")),
+                true);
+        doUnaryTestsTest(entries, "input", "? in <1",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(<,NumericLiteral(1)))))",
+                "TupleType(boolean)",
+                "numericLessThan(input, number(\"1\"))",
+                this.lib.numericLessThan(input, this.lib.number("1")),
+                false);
+        doUnaryTestsTest(entries, "input", "? in <=1",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(<=,NumericLiteral(1)))))",
+                "TupleType(boolean)",
+                "numericLessEqualThan(input, number(\"1\"))",
+                this.lib.numericLessEqualThan(this.lib.number("1"), this.lib.number("1")),
+                true);
+        doUnaryTestsTest(entries, "input", "? in >1",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(>,NumericLiteral(1)))))",
+                "TupleType(boolean)",
+                "numericGreaterThan(input, number(\"1\"))",
+                this.lib.numericGreaterThan(input, this.lib.number("1")),
+                false);
+        doUnaryTestsTest(entries, "input", "? in >=1",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(>=,NumericLiteral(1)))))",
+                "TupleType(boolean)",
+                "numericGreaterEqualThan(input, number(\"1\"))",
+                this.lib.numericGreaterEqualThan(input, this.lib.number("1")),
+                true);
+
+        // interval test
+        doUnaryTestsTest(entries, "input", "? in (1..2)",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))))",
+                "TupleType(boolean)",
+                "booleanAnd(numericGreaterThan(input, number(\"1\")), numericLessThan(input, number(\"2\")))",
+                this.lib.booleanAnd(this.lib.numericGreaterThan(input, this.lib.number("1")), this.lib.numericLessThan(input, this.lib.number("2"))),
+                false);
+        doUnaryTestsTest(entries, "input", "? in (1..2]",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), EndpointsRange(true,NumericLiteral(1),false,NumericLiteral(2)))))",
+                "TupleType(boolean)",
+                "booleanAnd(numericGreaterThan(input, number(\"1\")), numericLessEqualThan(input, number(\"2\")))",
+                this.lib.booleanAnd(this.lib.numericGreaterThan(input, this.lib.number("1")), this.lib.numericLessEqualThan(input, this.lib.number("2"))),
+                false);
+        doUnaryTestsTest(entries, "input", "? in [1..2)",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), EndpointsRange(false,NumericLiteral(1),true,NumericLiteral(2)))))",
+                "TupleType(boolean)",
+                "booleanAnd(numericGreaterEqualThan(input, number(\"1\")), numericLessThan(input, number(\"2\")))",
+                this.lib.booleanAnd(this.lib.numericGreaterEqualThan(input, this.lib.number("1")), this.lib.numericLessThan(input, this.lib.number("2"))),
+                true);
+        doUnaryTestsTest(entries, "input", "? in [1..2]",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))))",
+                "TupleType(boolean)",
+                "booleanAnd(numericGreaterEqualThan(input, number(\"1\")), numericLessEqualThan(input, number(\"2\")))",
+                this.lib.booleanAnd(this.lib.numericGreaterEqualThan(input, this.lib.number("1")), this.lib.numericLessEqualThan(input, this.lib.number("2"))),
+                true);
+
+        // list test
+        doUnaryTestsTest(entries, "input", "? in [1, 2]",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))))))",
+                "TupleType(boolean)",
+                "listContains(asList(number(\"1\"), number(\"2\")), input)",
+                this.lib.listContains(Arrays.asList(this.lib.number("1"), this.lib.number("2")), this.lib.number("1")),
+                true);
+        doUnaryTestsTest(entries, "list", "? in [1, 2, 3]",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)))))))",
+                "TupleType(boolean)",
+                "listEqual(list, asList(number(\"1\"), number(\"2\"), number(\"3\")))",
+                this.lib.listEqual(list, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
+                true);
+        doUnaryTestsTest(entries, "list", "? in ([1,2,3,4], [1,2,3])",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)),OperatorRange(null,NumericLiteral(4)))), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)))))))",
+                "TupleType(boolean)",
+                "booleanOr(listEqual(list, asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\"))), listEqual(list, asList(number(\"1\"), number(\"2\"), number(\"3\"))))",
+                this.lib.booleanOr(this.lib.listEqual(list, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4"))), this.lib.listEqual(list, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")))),
+                true);
+        doUnaryTestsTest(entries, "list", "? in ([[1,2,3,4]], [[1,2,3]])",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)))), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))))",
+                "TupleType(boolean)",
+                "booleanOr(listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\"))), list), listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"))), list))",
+                this.lib.booleanOr(this.lib.listContains(this.lib.asList(this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4"))), list), this.lib.listContains(this.lib.asList(this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))), list)),
+                true);
+        doUnaryTestsTest(entries, "list", "? in [[1,2,3,4], [1,2,3]]",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)),ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))))",
+                "TupleType(boolean)",
+                "listContains(asList(asList(number(\"1\"), number(\"2\"), number(\"3\"), number(\"4\")), asList(number(\"1\"), number(\"2\"), number(\"3\"))), list)",
+                this.lib.listContains(this.lib.asList(this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"), this.lib.number("4")), this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))), this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
+                true);
+
+        // list test containing EndpointsRange
+        doUnaryTestsTest(entries, "input", "? in [[2..4], [1..3]]",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), ListTest(ListLiteral(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(4)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(3)))))))",
+                "TupleType(boolean)",
+                "listContains(asList(booleanAnd(numericGreaterEqualThan(input, number(\"2\")), numericLessEqualThan(input, number(\"4\"))), booleanAnd(numericGreaterEqualThan(input, number(\"1\")), numericLessEqualThan(input, number(\"3\")))), true)",
+                this.lib.listContains(this.lib.asList(this.lib.booleanAnd(this.lib.numericGreaterEqualThan(input, this.lib.number("2")), this.lib.numericLessEqualThan(input, this.lib.number("4"))), this.lib.booleanAnd(this.lib.numericGreaterEqualThan(input, this.lib.number("1")), this.lib.numericLessEqualThan(input, this.lib.number("3")))), true),
+                true);
+        doUnaryTestsTest(entries, "date", "? in [[date(\"2018-12-05\") .. date(\"2018-12-07\")], [date(\"2018-12-10\") .. date(\"2018-12-12\")]]",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), ListTest(ListLiteral(EndpointsRange(false,DateTimeLiteral(date, \"2018-12-05\"),false,DateTimeLiteral(date, \"2018-12-07\")),EndpointsRange(false,DateTimeLiteral(date, \"2018-12-10\"),false,DateTimeLiteral(date, \"2018-12-12\")))))))",
+                "TupleType(boolean)",
+                "listContains(asList(booleanAnd(dateGreaterEqualThan(date, date(\"2018-12-05\")), dateLessEqualThan(date, date(\"2018-12-07\"))), booleanAnd(dateGreaterEqualThan(date, date(\"2018-12-10\")), dateLessEqualThan(date, date(\"2018-12-12\")))), true)",
+                this.lib.listContains(this.lib.asList(this.lib.booleanAnd(this.lib.dateGreaterEqualThan(date, this.lib.date("2018-12-05")), this.lib.dateLessEqualThan(date, this.lib.date("2018-12-07"))), this.lib.booleanAnd(this.lib.dateGreaterEqualThan(date, this.lib.date("2018-12-10")), this.lib.dateLessEqualThan(date, this.lib.date("2018-12-12")))), true),
+                false);
+        doUnaryTestsTest(entries, "time", "? in [[time(\"10:30:05\") .. time(\"10:30:07\")], [time(\"10:30:10\") .. time(\"10:30:12\")]]",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), ListTest(ListLiteral(EndpointsRange(false,DateTimeLiteral(time, \"10:30:05\"),false,DateTimeLiteral(time, \"10:30:07\")),EndpointsRange(false,DateTimeLiteral(time, \"10:30:10\"),false,DateTimeLiteral(time, \"10:30:12\")))))))",
+                "TupleType(boolean)",
+                "listContains(asList(booleanAnd(timeGreaterEqualThan(time, time(\"10:30:05\")), timeLessEqualThan(time, time(\"10:30:07\"))), booleanAnd(timeGreaterEqualThan(time, time(\"10:30:10\")), timeLessEqualThan(time, time(\"10:30:12\")))), true)",
+                this.lib.listContains(this.lib.asList(this.lib.booleanAnd(this.lib.timeGreaterEqualThan(time, this.lib.time("10:30:05")), this.lib.timeLessEqualThan(time, this.lib.time("10:30:07"))), this.lib.booleanAnd(this.lib.timeGreaterEqualThan(time, this.lib.time("10:30:10")), this.lib.timeLessEqualThan(time, this.lib.time("10:30:12")))), true),
+                false);
+        doUnaryTestsTest(entries, "dateTime", "? in [[date and time(\"2018-12-08T10:30:05\") .. date and time(\"2018-12-08T10:30:07\")], [date and time(\"2018-12-08T10:30:10\") .. date and time(\"2018-12-08T10:30:12\")]]",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), ListTest(ListLiteral(EndpointsRange(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:05\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:07\")),EndpointsRange(false,DateTimeLiteral(date and time, \"2018-12-08T10:30:10\"),false,DateTimeLiteral(date and time, \"2018-12-08T10:30:12\")))))))",
+                "TupleType(boolean)",
+                "listContains(asList(booleanAnd(dateTimeGreaterEqualThan(dateTime, dateAndTime(\"2018-12-08T10:30:05\")), dateTimeLessEqualThan(dateTime, dateAndTime(\"2018-12-08T10:30:07\"))), booleanAnd(dateTimeGreaterEqualThan(dateTime, dateAndTime(\"2018-12-08T10:30:10\")), dateTimeLessEqualThan(dateTime, dateAndTime(\"2018-12-08T10:30:12\")))), true)",
+                this.lib.listContains(this.lib.asList(this.lib.booleanAnd(this.lib.dateTimeGreaterEqualThan(dateTime, this.lib.dateAndTime("2018-12-08T10:30:05")), this.lib.dateTimeLessEqualThan(dateTime, this.lib.dateAndTime("2018-12-08T10:30:07"))), this.lib.booleanAnd(this.lib.dateTimeGreaterEqualThan(dateTime, this.lib.dateAndTime("2018-12-08T10:30:10")), this.lib.dateTimeLessEqualThan(dateTime, this.lib.dateAndTime("2018-12-08T10:30:12")))), true),
+                false);
+
+        doUnaryTestsTest(entries, "context", "? in [{b: \"bar\"}, {a: \"foo\"}]",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), ListTest(ListLiteral(OperatorRange(null,Context(ContextEntry(ContextEntryKey(b) = StringLiteral(\"bar\")))),OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\")))))))))",
+                "TupleType(boolean)",
+                "listContains(asList(new com.gs.dmn.runtime.Context().add(\"b\", \"bar\"), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")), context)",
+                this.lib.listContains(this.lib.asList(new com.gs.dmn.runtime.Context().add("b", "bar"), new com.gs.dmn.runtime.Context().add("a", "foo")), context),
+                true);
+
+        // compound test
+        doUnaryTestsTest(entries, "input", "? in (1)",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(null,NumericLiteral(1)))))",
+                "TupleType(boolean)",
+                "numericEqual(input, number(\"1\"))",
+                this.lib.numericEqual(input, this.lib.number("1")),
+                true);
+        doUnaryTestsTest(entries, "input", "? in (1, 2)",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(null,NumericLiteral(1)), OperatorRange(null,NumericLiteral(2)))))",
+                "TupleType(boolean)",
+                "booleanOr(numericEqual(input, number(\"1\")), numericEqual(input, number(\"2\")))",
+                this.lib.booleanOr(this.lib.numericEqual(input, this.lib.number("1")), this.lib.numericEqual(input, this.lib.number("2"))),
+                true);
+        doUnaryTestsTest(entries, "input", "? in (<1, [1..2], [1, 2])",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(<,NumericLiteral(1)), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))))))",
+                "TupleType(boolean)",
+                "booleanOr(numericLessThan(input, number(\"1\")), booleanAnd(numericGreaterEqualThan(input, number(\"1\")), numericLessEqualThan(input, number(\"2\"))), listContains(asList(number(\"1\"), number(\"2\")), input))",
+                this.lib.booleanOr(this.lib.numericLessThan(input, this.lib.number("1")), this.lib.booleanAnd(this.lib.numericGreaterEqualThan(input, this.lib.number("1")), this.lib.numericLessEqualThan(input, this.lib.number("2"))), this.lib.listContains(this.lib.asList(this.lib.number("1"), this.lib.number("2")), input)),
+                true);
+        doUnaryTestsTest(entries, "input", "? in (<1, [1..2], 3)",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(<,NumericLiteral(1)), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), OperatorRange(null,NumericLiteral(3)))))",
+                "TupleType(boolean)",
+                "booleanOr(numericLessThan(input, number(\"1\")), booleanAnd(numericGreaterEqualThan(input, number(\"1\")), numericLessEqualThan(input, number(\"2\"))), numericEqual(input, number(\"3\")))",
+                this.lib.booleanOr(this.lib.numericLessThan(input, this.lib.number("1")), this.lib.booleanAnd(this.lib.numericGreaterEqualThan(input, this.lib.number("1")), this.lib.numericLessEqualThan(input, this.lib.number("2"))), this.lib.numericEqual(input, this.lib.number("3"))),
                 true);
     }
 

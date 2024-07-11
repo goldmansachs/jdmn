@@ -652,13 +652,15 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         Expression<Type> valueExp = element.getValue();
         Object value = valueExp.accept(this, context);
 
-        DMNContext inParams = this.dmnTransformer.makeUnaryTestContext(valueExp, context);
-        inParams.bind(INPUT_ENTRY_PLACE_HOLDER, value);
+        DMNContext testContext = context.isTestContext() ? context : this.dmnTransformer.makeUnaryTestContext(valueExp, context);
+        if (context.isExpressionContext()) {
+            testContext.bind(INPUT_ENTRY_PLACE_HOLDER, value);
+        }
 
         List<Object> result = new ArrayList<>();
         List<PositiveUnaryTest<Type>> positiveUnaryTests = element.getTests();
         for (PositiveUnaryTest<Type> positiveUnaryTest : positiveUnaryTests) {
-            Object test = positiveUnaryTest.accept(this, inParams);
+            Object test = positiveUnaryTest.accept(this, testContext);
             result.add(test);
         }
         if (result.size() == 1) {
