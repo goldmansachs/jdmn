@@ -317,6 +317,18 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "listContains(asList(new com.gs.dmn.runtime.Context().add(\"b\", \"bar\"), new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")), context)",
                 this.lib.listContains(this.lib.asList(new com.gs.dmn.runtime.Context().add("b", "bar"), new com.gs.dmn.runtime.Context().add("a", "foo")), context),
                 true);
+        doUnaryTestsTest(entries, "context", "? in ({a: \"bar\"}, {a: \"foo\"})",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\")))))))",
+                "TupleType(boolean)",
+                "booleanOr(contextEqual(context, new com.gs.dmn.runtime.Context().add(\"a\", \"bar\")), contextEqual(context, new com.gs.dmn.runtime.Context().add(\"a\", \"foo\")))",
+                this.lib.booleanOr(this.lib.contextEqual(context, new com.gs.dmn.runtime.Context().add("a", "bar")), this.lib.contextEqual(context, new com.gs.dmn.runtime.Context().add("a", "foo"))),
+                true);
+        doUnaryTestsTest(entries, "context", "? in ({a: \"bar\"}, {a: \"baz\"})",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"bar\")))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"baz\")))))))",
+                "TupleType(boolean)",
+                "booleanOr(contextEqual(context, new com.gs.dmn.runtime.Context().add(\"a\", \"bar\")), contextEqual(context, new com.gs.dmn.runtime.Context().add(\"a\", \"baz\")))",
+                this.lib.booleanOr(this.lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "bar")), this.lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "baz"))),
+                false);
 
         // compound test
         doUnaryTestsTest(entries, "input", "? in (1)",
@@ -399,7 +411,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         );
 
         //
-        // OperatorRange
+        // Simple Types
         //
         doUnaryTestsTest(entries, "number", "< 123.45",
                 "PositiveUnaryTests(OperatorRange(<,NumericLiteral(123.45)))",
@@ -539,6 +551,20 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "TupleType(boolean)",
                 "dateTimeEqual(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\"))",
                 this.lib.dateTimeEqual(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z")),
+                false);
+
+        // List
+        doUnaryTestsTest(entries, "number", "1, 2, 3",
+                "PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)))",
+                "TupleType(boolean, boolean, boolean)",
+                "booleanOr(numericEqual(number, number(\"1\")), numericEqual(number, number(\"2\")), numericEqual(number, number(\"3\")))",
+                this.lib.booleanOr(this.lib.numericEqual(number, this.lib.number("1")), this.lib.numericEqual(number, this.lib.number("2")), this.lib.numericEqual(number, this.lib.number("3"))),
+                true);
+        doUnaryTestsTest(entries, "string", "list",
+                "PositiveUnaryTests(OperatorRange(null,Name(list)))",
+                "TupleType(boolean)",
+                "listContains(list, string)",
+                this.lib.listContains(list, string),
                 false);
     }
 
@@ -1403,6 +1429,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
+        // simple types
         doExpressionTest(entries, "", "1 in 1",
                 "InExpression(NumericLiteral(1), OperatorRange(null,NumericLiteral(1)))",
                 "boolean",
@@ -1541,6 +1568,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "boolean",
                 "booleanOr(contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"bar\")), contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"a\", \"baz\")))",
                 this.lib.booleanOr(this.lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "bar")), this.lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("a", "baz"))),
+                false);
+
+        // context
+        doExpressionTest(entries, "", "{a: \"foo\"} in {b: \"bar\"}",
+                "InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral(\"foo\"))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(b) = StringLiteral(\"bar\")))))",
+                "boolean",
+                "contextEqual(new com.gs.dmn.runtime.Context().add(\"a\", \"foo\"), new com.gs.dmn.runtime.Context().add(\"b\", \"bar\"))",
+                this.lib.contextEqual(new com.gs.dmn.runtime.Context().add("a", "foo"), new com.gs.dmn.runtime.Context().add("b", "bar")),
                 false);
 
         // compound test

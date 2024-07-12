@@ -109,6 +109,16 @@ public interface Type {
         return true;
     }
 
+    static boolean sameSemanticDomain(Type type1, Type type2) {
+        type1 = extractTypeFromConstraint(type1);
+        type2 = extractTypeFromConstraint(type2);
+        if (type1 == null) {
+            return type2 == null;
+        } else {
+            return type1.getClass().equals(type2.getClass());
+        }
+    }
+
     // Check only types that share the same class
     boolean equivalentTo(Type other);
 
