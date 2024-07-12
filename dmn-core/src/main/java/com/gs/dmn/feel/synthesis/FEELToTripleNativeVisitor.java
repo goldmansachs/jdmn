@@ -458,8 +458,13 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         DMNContext testContext = context.isTestContext() ? context : this.dmnTransformer.makeUnaryTestContext(valueExp, context);
         List<Triple> result = new ArrayList<>();
         for (PositiveUnaryTest<Type> positiveUnaryTest : positiveUnaryTests) {
-            Triple test = (Triple) positiveUnaryTest.accept(this, testContext);
-            result.add(test);
+            Triple condition;
+            if (positiveUnaryTest instanceof ExpressionTest) {
+                condition =  makeRangeCondition("=", valueExp, ((ExpressionTest<Type>) positiveUnaryTest).getExpression(), context);
+            } else {
+                condition = (Triple) positiveUnaryTest.accept(this, testContext);
+            }
+            result.add(condition);
         }
         if (result.size() == 1) {
             return result.get(0);

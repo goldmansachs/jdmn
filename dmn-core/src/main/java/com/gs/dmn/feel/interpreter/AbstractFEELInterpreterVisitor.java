@@ -665,16 +665,26 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         DMNContext testContext = context.isTestContext() ? context : this.dmnTransformer.makeUnaryTestContext(valueExp, context);
         testContext.bind(INPUT_ENTRY_PLACE_HOLDER, value);
 
-        List<Object> result = new ArrayList<>();
-        List<PositiveUnaryTest<Type>> positiveUnaryTests = element.getTests();
-        for (PositiveUnaryTest<Type> positiveUnaryTest : positiveUnaryTests) {
-            Object test = positiveUnaryTest.accept(this, testContext);
-            result.add(test);
-        }
-        if (result.size() == 1) {
-            return result.get(0);
-        } else {
-            return this.lib.booleanOr(result);
+        try {
+            List<Object> result = new ArrayList<>();
+            List<PositiveUnaryTest<Type>> positiveUnaryTests = element.getTests();
+            for (PositiveUnaryTest<Type> positiveUnaryTest : positiveUnaryTests) {
+                Object condition;
+                if (positiveUnaryTest instanceof ExpressionTest) {
+                    condition =  evaluateOperatorRange(element, "=", value, ((ExpressionTest<Type>) positiveUnaryTest).getExpression(), context);
+                } else {
+                    condition = positiveUnaryTest.accept(this, testContext);
+                }
+                result.add(condition);
+            }
+            if (result.size() == 1) {
+                return result.get(0);
+            } else {
+                return this.lib.booleanOr(result);
+            }
+        } catch (Exception e) {
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            return null;
         }
     }
 

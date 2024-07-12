@@ -180,7 +180,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         );
 
         //
-        // ExpressionTest
+        // Simple expressions
         //
         doUnaryTestsTest(entries, "number", "? < 2 + 3",
                 "PositiveUnaryTests(ExpressionTest(Relational(<,Name(?),Addition(+,NumericLiteral(2),NumericLiteral(3)))))",
@@ -354,6 +354,28 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "TupleType(boolean)",
                 "booleanOr(numericLessThan(input, number(\"1\")), booleanAnd(numericGreaterEqualThan(input, number(\"1\")), numericLessEqualThan(input, number(\"2\"))), numericEqual(input, number(\"3\")))",
                 this.lib.booleanOr(this.lib.numericLessThan(input, this.lib.number("1")), this.lib.booleanAnd(this.lib.numericGreaterEqualThan(input, this.lib.number("1")), this.lib.numericLessEqualThan(input, this.lib.number("2"))), this.lib.numericEqual(input, this.lib.number("3"))),
+                true);
+
+        // null test
+        doUnaryTestsTest(entries, "input", "? in null",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), NullTest())))",
+                "TupleType(boolean)",
+                "input == null",
+                input == null,
+                false);
+
+        // ? is in the right end side
+        doUnaryTestsTest(entries, "input", "1 in (?, ?)",
+                "PositiveUnaryTests(ExpressionTest(InExpression(NumericLiteral(1), ExpressionTest(Name(?)), ExpressionTest(Name(?)))))",
+                "TupleType(boolean)",
+                "booleanOr(numericEqual(number(\"1\"), input), numericEqual(number(\"1\"), input))",
+                this.lib.booleanOr(this.lib.numericEqual(this.lib.number("1"), input), this.lib.numericEqual(this.lib.number("1"), input)),
+                true);
+        doUnaryTestsTest(entries, "input", "1 in ?",
+                "PositiveUnaryTests(ExpressionTest(InExpression(NumericLiteral(1), ExpressionTest(Name(?)))))",
+                "TupleType(boolean)",
+                "numericEqual(number(\"1\"), input)",
+                this.lib.numericEqual(this.lib.number("1"), input),
                 true);
     }
 
