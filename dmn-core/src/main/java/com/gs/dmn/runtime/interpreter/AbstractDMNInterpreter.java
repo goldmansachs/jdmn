@@ -244,14 +244,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
             // Execute function body
             TExpression expression = functionDefinition.getExpression();
-            Result output;
-            if (expression == null) {
-                output = null;
-            } else {
-                output = this.visitor.visit(expression, EvaluationContext.makeExpressionEvaluationContext(null, functionContext, null));
-            }
-
-            return output;
+            return this.visitor.visit(expression, EvaluationContext.makeExpressionEvaluationContext(null, functionContext, null));
         } catch (Exception e) {
             String errorMessage = String.format("Evaluation error in function definition in context of element '%s'", parentContext.getElementName());
             this.errorHandler.reportError(errorMessage, e);
@@ -651,7 +644,6 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         //
         // Expression evaluation
         //
-        @Override
         public Result visit(TExpression expression, EvaluationContext evaluationContext) {
             TDRGElement element = evaluationContext.getElement();
             Result result = null;
