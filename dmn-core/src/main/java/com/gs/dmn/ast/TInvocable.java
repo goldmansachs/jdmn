@@ -30,9 +30,4 @@ public abstract class TInvocable extends TDRGElement implements Visitable {
     public void setVariable(TInformationItem value) {
         this.variable = value;
     }
-
-    @Override
-    public <C, R> R accept(Visitor<C, R> visitor, C context) {
-        return visitor.visit(this, context);
-    }
 }

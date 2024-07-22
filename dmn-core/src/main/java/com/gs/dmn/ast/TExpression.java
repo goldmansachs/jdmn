@@ -43,9 +43,4 @@ public abstract class TExpression extends TDMNElement implements Visitable {
     public void setTypeRef(QName value) {
         this.typeRef = value;
     }
-
-    @Override
-    public <C, R> R accept(Visitor<C, R> visitor, C context) {
-        return visitor.visit(this, context);
-    }
 }
