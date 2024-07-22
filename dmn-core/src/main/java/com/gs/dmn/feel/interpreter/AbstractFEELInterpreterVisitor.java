@@ -150,21 +150,31 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             } else {
                 // Evaluate as test
                 Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
-                if (operator == null) {
-                    if (Type.equivalentTo(inputExpressionType, endpointType)) {
-                        return evaluateOperatorRange(element, "=", self, endpoint, context);
-                    } else if (endpointType instanceof ListType && Type.equivalentTo(inputExpressionType, ((ListType) endpointType).getElementType())) {
-                        List endpointValueList = (List)endpoint.accept(this, context);
+                if (Type.sameSemanticDomain(endpointType, inputExpressionType)) {
+                    // input and endpoint are comparable
+                    Object condition;
+                    if (operator == null) {
+                        condition = evaluateOperatorRange(element, "=", self, endpoint, context);
+                    } else {
+                        condition = evaluateOperatorRange(element, operator, self, endpoint, context);
+                    }
+                    return condition;
+                } else if (endpointType instanceof ListType) {
+                    Type endpointElementType = ((ListType) endpointType).getElementType();
+                    if (Type.sameSemanticDomain(endpointElementType, inputExpressionType)) {
+                        // input and list elements are comparable
+                        List endpointValueList = (List) endpoint.accept(this, context);
                         List results = new ArrayList();
                         for(Object endpointValue: endpointValueList) {
                             results.add(evaluateOperatorRange(element, "=", self, inputExpressionType, ((ListType) endpointType).getElementType(), endpointValue));
                         }
                         return this.lib.or(results);
                     }
-                    throw new DMNRuntimeException(String.format("Cannot evaluate test '%s'", element));
-                } else {
-                    return evaluateOperatorRange(element, operator, self, endpoint, context);
                 }
+
+                // Cannot compare
+                handleError(context, element, String.format("Cannot compare '%s', '%s'", inputExpressionType, endpointType));
+                return null;
             }
         } catch (Exception e) {
             this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
@@ -652,19 +662,29 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         Expression<Type> valueExp = element.getValue();
         Object value = valueExp.accept(this, context);
 
-        DMNContext inParams = this.dmnTransformer.makeUnaryTestContext(valueExp, context);
-        inParams.bind(INPUT_ENTRY_PLACE_HOLDER, value);
+        DMNContext testContext = context.isTestContext() ? context : this.dmnTransformer.makeUnaryTestContext(valueExp, context);
+        testContext.bind(INPUT_ENTRY_PLACE_HOLDER, value);
 
-        List<Object> result = new ArrayList<>();
-        List<PositiveUnaryTest<Type>> positiveUnaryTests = element.getTests();
-        for (PositiveUnaryTest<Type> positiveUnaryTest : positiveUnaryTests) {
-            Object test = positiveUnaryTest.accept(this, inParams);
-            result.add(test);
-        }
-        if (result.size() == 1) {
-            return result.get(0);
-        } else {
-            return this.lib.booleanOr(result);
+        try {
+            List<Object> result = new ArrayList<>();
+            List<PositiveUnaryTest<Type>> positiveUnaryTests = element.getTests();
+            for (PositiveUnaryTest<Type> positiveUnaryTest : positiveUnaryTests) {
+                Object condition;
+                if (positiveUnaryTest instanceof ExpressionTest) {
+                    condition =  evaluateOperatorRange(element, "=", value, ((ExpressionTest<Type>) positiveUnaryTest).getExpression(), context);
+                } else {
+                    condition = positiveUnaryTest.accept(this, testContext);
+                }
+                result.add(condition);
+            }
+            if (result.size() == 1) {
+                return result.get(0);
+            } else {
+                return this.lib.booleanOr(result);
+            }
+        } catch (Exception e) {
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
+            return null;
         }
     }
 

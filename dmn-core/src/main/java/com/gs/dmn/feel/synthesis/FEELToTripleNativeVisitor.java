@@ -116,15 +116,31 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
             return (Triple) element.getEndpointsRange().accept(this, context);
         } else {
             // Evaluate as test
-            String operator = element.getOperator();
+            Type inputExpressionType = context.getInputExpressionType();
             Expression<Type> endpoint = element.getEndpoint();
-            Triple condition;
-            if (operator == null) {
-                condition = makeListTestCondition("=", inputExpressionToJava(context), endpoint, context);
-            } else {
-                condition = makeListTestCondition(operator, inputExpressionToJava(context), endpoint, context);
+            Type endpointType = endpoint.getType();
+            if (Type.sameSemanticDomain(endpointType, inputExpressionType)) {
+                // input and endpoint are comparable
+                Triple condition;
+                String operator = element.getOperator();
+                if (operator == null) {
+                    condition = makeRangeCondition("=", (Expression) context.getInputExpression(), endpoint, context);
+                } else {
+                    condition = makeRangeCondition(operator, (Expression) context.getInputExpression(), endpoint, context);
+                }
+                return condition;
+            } else if (endpointType instanceof ListType) {
+                Type endpointElementType = ((ListType) endpointType).getElementType();
+                if (Type.sameSemanticDomain(endpointElementType, inputExpressionType)) {
+                    // input and list elements are comparable
+                    Triple javaList = (Triple) endpoint.accept(this, context);
+                    return this.triples.makeBuiltinFunctionInvocation("listContains", javaList, inputExpressionToJava(context));
+                }
             }
-            return condition;
+
+            // Cannot compare
+            handleError(context, element, String.format("Cannot compare '%s', '%s'", inputExpressionType, endpointType));
+            return null;
         }
     }
 
@@ -143,8 +159,8 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
             return this.triples.constructor(clsName, Arrays.asList(startIncluded, start, endIncluded, end));
         } else {
             // Evaluate as test
-            Triple leftCondition = makeListTestCondition(element.isOpenStart() ? ">" : ">=", inputExpressionToJava(context), startEndpoint, context);
-            Triple rightCondition = makeListTestCondition(element.isOpenEnd() ? "<" : "<=", inputExpressionToJava(context), endEndpoint, context);
+            Triple leftCondition = makeRangeCondition(element.isOpenStart() ? ">" : ">=", (Expression) context.getInputExpression(), startEndpoint, context);
+            Triple rightCondition = makeRangeCondition(element.isOpenEnd() ? "<" : "<=", (Expression) context.getInputExpression(), endEndpoint, context);
             return this.triples.makeBuiltinFunctionInvocation("booleanAnd", leftCondition, rightCondition);
         }
     }
@@ -439,11 +455,16 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         Expression<Type> valueExp = element.getValue();
         List<PositiveUnaryTest<Type>> positiveUnaryTests = element.getTests();
 
-        DMNContext inContext = this.dmnTransformer.makeUnaryTestContext(valueExp, context);
+        DMNContext testContext = context.isTestContext() ? context : this.dmnTransformer.makeUnaryTestContext(valueExp, context);
         List<Triple> result = new ArrayList<>();
         for (PositiveUnaryTest<Type> positiveUnaryTest : positiveUnaryTests) {
-            Triple test = (Triple) positiveUnaryTest.accept(this, inContext);
-            result.add(test);
+            Triple condition;
+            if (positiveUnaryTest instanceof ExpressionTest) {
+                condition =  makeRangeCondition("=", valueExp, ((ExpressionTest<Type>) positiveUnaryTest).getExpression(), context);
+            } else {
+                condition = (Triple) positiveUnaryTest.accept(this, testContext);
+            }
+            result.add(condition);
         }
         if (result.size() == 1) {
             return result.get(0);
@@ -699,15 +720,15 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         }
     }
 
-    private Triple makeListTestCondition(String feelOperator, Triple inputExpressionText, Expression<Type> rightOperand, DMNContext context) {
+    private Triple makeRangeCondition(String feelOperator, Expression<Type> leftOperand, Expression<Type> rightOperand, DMNContext context) {
+        Triple leftOpd = (Triple) leftOperand.accept(this, context);
         Triple rightOpd = (Triple) rightOperand.accept(this, context);
         Triple condition;
-        Expression<Type> inputExpression = (Expression) context.getInputExpression();
-        String javaOperator = listTestOperator(feelOperator, inputExpression, rightOperand);
+        String javaOperator = rangeOperator(feelOperator, leftOperand, rightOperand);
         if (StringUtils.isEmpty(javaOperator)) {
-            condition = infixExpression(javaOperator, inputExpressionText, rightOpd);
+            condition = infixExpression(javaOperator, leftOpd, rightOpd);
         } else {
-            condition = functionalExpression(javaOperator, inputExpressionText, rightOpd);
+            condition = functionalExpression(javaOperator, leftOpd, rightOpd);
         }
         return condition;
     }
@@ -794,7 +815,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         }
     }
 
-    protected String listTestOperator(String feelOperatorName, Expression<Type> leftOperand, Expression<Type> rightOperand) {
+    protected String rangeOperator(String feelOperatorName, Expression<Type> leftOperand, Expression<Type> rightOperand) {
         NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperatorName, rightOperand.getType(), rightOperand.getType());
         if (javaOperator != null) {
             return javaOperator.getName();

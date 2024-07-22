@@ -571,7 +571,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         value.accept(this, parentContext);
 
         // Visit tests with value type injected in scope
-        DMNContext testContext = this.dmnTransformer.makeUnaryTestContext(value, parentContext);
+        DMNContext testContext = parentContext.isTestContext() ? parentContext : this.dmnTransformer.makeUnaryTestContext(value, parentContext);
         element.getTests().forEach(t -> t.accept(this, testContext));
 
         // Derive type

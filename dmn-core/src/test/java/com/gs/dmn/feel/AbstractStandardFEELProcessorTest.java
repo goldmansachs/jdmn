@@ -38,8 +38,8 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Override
     @Test
-    public void testUnaryTests() {
-        super.testUnaryTests();
+    public void testOperatorRange() {
+        super.testOperatorRange();
 
         NUMBER number = this.lib.number("15");
         DATE date = this.lib.date("2015-01-01");
@@ -48,18 +48,6 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 new EnvironmentEntry("date", DATE, date)
         );
 
-        doUnaryTestsTest(entries, "number", "and(> 10, < 20)",
-                "PositiveUnaryTests(ExpressionTest(FunctionInvocation(Name(and) -> PositionalParameters(OperatorRange(>,NumericLiteral(10)), OperatorRange(<,NumericLiteral(20))))))",
-                "TupleType(boolean)",
-                "and(numericGreaterThan(number, number(\"10\")), numericLessThan(number, number(\"20\")))",
-                this.lib.and(this.lib.numericGreaterThan(number, this.lib.number("10")), this.lib.numericLessThan(number, this.lib.number("20"))),
-                true);
-        doUnaryTestsTest(entries, "number", "or((1..2), [3..4])",
-                "PositiveUnaryTests(ExpressionTest(FunctionInvocation(Name(or) -> PositionalParameters(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4))))))",
-                "TupleType(boolean)",
-                "or(booleanAnd(numericGreaterThan(number, number(\"1\")), numericLessThan(number, number(\"2\"))), booleanAnd(numericGreaterEqualThan(number, number(\"3\")), numericLessEqualThan(number, number(\"4\"))))",
-                this.lib.or(this.lib.booleanAnd(this.lib.numericGreaterThan(number, this.lib.number("1")), this.lib.numericLessThan(number, this.lib.number("2"))), this.lib.booleanAnd(this.lib.numericGreaterEqualThan(number, this.lib.number("3")), this.lib.numericLessEqualThan(number, this.lib.number("4")))),
-                false);
         doUnaryTestsTest(entries, "date", "<= date(\"2020-01-01\")",
                 "PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(date, \"2020-01-01\")))",
                 "TupleType(boolean)",
@@ -79,24 +67,12 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "dateEqual(date, dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))",
                 lib.dateEqual(date, lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y"))),
                 true);
-        doUnaryTestsTest(entries, "date", "? <= date(date(\"2020-01-01\") - duration(\"P5Y\"))",
-                "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))))",
-                "TupleType(boolean)",
-                "dateLessEqualThan(date, date(dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\"))))",
-                this.lib.dateLessEqualThan(date, this.lib.date(this.lib.dateSubtractDuration(this.lib.date("2020-01-01"), this.lib.duration("P5Y")))),
-                true);
-        doUnaryTestsTest(entries, "date", "? <= date(\"2020-01-01\") - duration(\"P5Y\")",
-                "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))",
-                "TupleType(boolean)",
-                "dateLessEqualThan(date, dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))",
-                this.lib.dateLessEqualThan(date, this.lib.dateSubtractDuration(this.lib.date("2020-01-01"), this.lib.duration("P5Y"))),
-                true);
     }
 
     @Override
     @Test
-    public void testPositiveUnaryTest() {
-        super.testPositiveUnaryTest();
+    public void testExpressionTest() {
+        super.testExpressionTest();
 
         NUMBER number = this.lib.number("1");
         String string = "abc";
@@ -125,6 +101,32 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "numericGreaterThan(count(list), number(\"2\"))",
                 this.lib.numericGreaterThan(this.lib.count(list), this.lib.number("2")),
                 true);
+
+        doUnaryTestsTest(entries, "number", "and(> 10, < 20)",
+                "PositiveUnaryTests(ExpressionTest(FunctionInvocation(Name(and) -> PositionalParameters(OperatorRange(>,NumericLiteral(10)), OperatorRange(<,NumericLiteral(20))))))",
+                "TupleType(boolean)",
+                "and(numericGreaterThan(number, number(\"10\")), numericLessThan(number, number(\"20\")))",
+                this.lib.and(this.lib.numericGreaterThan(number, this.lib.number("10")), this.lib.numericLessThan(number, this.lib.number("20"))),
+                false);
+        doUnaryTestsTest(entries, "number", "or((1..2), [3..4])",
+                "PositiveUnaryTests(ExpressionTest(FunctionInvocation(Name(or) -> PositionalParameters(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4))))))",
+                "TupleType(boolean)",
+                "or(booleanAnd(numericGreaterThan(number, number(\"1\")), numericLessThan(number, number(\"2\"))), booleanAnd(numericGreaterEqualThan(number, number(\"3\")), numericLessEqualThan(number, number(\"4\"))))",
+                this.lib.or(this.lib.booleanAnd(this.lib.numericGreaterThan(number, this.lib.number("1")), this.lib.numericLessThan(number, this.lib.number("2"))), this.lib.booleanAnd(this.lib.numericGreaterEqualThan(number, this.lib.number("3")), this.lib.numericLessEqualThan(number, this.lib.number("4")))),
+                false);
+
+        doUnaryTestsTest(entries, "date", "? <= date(date(\"2020-01-01\") - duration(\"P5Y\"))",
+                "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))))",
+                "TupleType(boolean)",
+                "dateLessEqualThan(date, date(dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\"))))",
+                this.lib.dateLessEqualThan(date, this.lib.date(this.lib.dateSubtractDuration(this.lib.date("2020-01-01"), this.lib.duration("P5Y")))),
+                false);
+        doUnaryTestsTest(entries, "date", "? <= date(\"2020-01-01\") - duration(\"P5Y\")",
+                "PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\")))))",
+                "TupleType(boolean)",
+                "dateLessEqualThan(date, dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))",
+                this.lib.dateLessEqualThan(date, this.lib.dateSubtractDuration(this.lib.date("2020-01-01"), this.lib.duration("P5Y"))),
+                false);
     }
 
     @Override
