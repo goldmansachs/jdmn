@@ -24,20 +24,18 @@ import com.gs.dmn.transformation.SimpleDMNTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InOutCorrectPathsInDecisionsTransformer extends SimpleDMNTransformer<TestLab> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(InOutCorrectPathsInDecisionsTransformer.class);
-
-    protected final BuildLogger logger;
-    protected boolean transformRepository = true;
 
     public InOutCorrectPathsInDecisionsTransformer() {
         this(new Slf4jBuildLogger(LOGGER));
     }
 
     protected InOutCorrectPathsInDecisionsTransformer(BuildLogger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override

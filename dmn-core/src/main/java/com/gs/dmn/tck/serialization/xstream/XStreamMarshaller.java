@@ -37,7 +37,6 @@ import static com.gs.dmn.serialization.TCKVersion.TCK_1;
 
 public class XStreamMarshaller implements TCKMarshaller {
     private static final Logger LOGGER = LoggerFactory.getLogger(XStreamMarshaller.class);
-    private static final StaxDriver STAX_DRIVER = new StaxDriver();
 
     private static TCKVersion inferTCKVersion(Reader firstStringReader) {
         return LATEST;
@@ -72,7 +71,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             }
             return unmarshal(tckVersion, secondStringReader);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling TCK content from reader.", e);
+            LOGGER.error("Error unmarshalling TCK content from String.", e);
         }
         return null;
     }
@@ -88,7 +87,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             }
             return unmarshal(tckVersion, secondStringReader);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling TCK content from reader.", e);
+            LOGGER.error("Error unmarshalling TCK content from File.", e);
         }
         return null;
     }
@@ -104,7 +103,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             }
             return unmarshal(tckVersion, secondStringReader);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling TCK content from reader.", e);
+            LOGGER.error("Error unmarshalling TCK content from URL.", e);
         }
         return null;
     }
@@ -120,7 +119,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             }
             return unmarshal(tckVersion, secondStringReader);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling TCK content from reader.", e);
+            LOGGER.error("Error unmarshalling TCK content from InputStream.", e);
         }
         return null;
     }
@@ -131,7 +130,7 @@ public class XStreamMarshaller implements TCKMarshaller {
             String xml = buffer.lines().collect(Collectors.joining("\n"));
             return unmarshal(xml, validateSchema);
         } catch (Exception e) {
-            LOGGER.error("Error unmarshalling TCK content from reader.", e);
+            LOGGER.error("Error unmarshalling TCK content from Reader.", e);
         }
         return null;
     }
