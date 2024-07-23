@@ -791,7 +791,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
 
     protected Triple makeCondition(String feelOperator, Triple leftOpd, Triple rightOpd, NativeOperator javaOperator) {
         if (javaOperator == null) {
-            handleError(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
+            handleError(makeOperatorErrorMessage(feelOperator, leftOpd, rightOpd));
             return null;
         } else {
             if (javaOperator.getCardinality() == 2) {
@@ -809,7 +809,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
                     }
                 }
             } else {
-                handleError(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd));
+                handleError(makeOperatorErrorMessage(feelOperator, leftOpd, rightOpd));
                 return null;
             }
         }
@@ -820,7 +820,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         if (javaOperator != null) {
             return javaOperator.getName();
         } else {
-            handleError(String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperatorName, leftOperand, rightOperand));
+            handleError(makeOperatorErrorMessage(feelOperatorName, leftOperand, rightOperand));
             return null;
         }
     }
@@ -850,5 +850,9 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         } else {
             return this.triples.name(javaName);
         }
+    }
+
+    private static String makeOperatorErrorMessage(String feelOperator, Object leftOpd, Object rightOpd) {
+        return String.format("Operator '%s' cannot be applied to '%s' and '%s'", feelOperator, leftOpd, rightOpd);
     }
 }
