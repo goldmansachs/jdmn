@@ -272,7 +272,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             } catch (Exception e) {
                 LOGGER.error(String.format("Cannot process annotation '%s' for element '%s'", annotationText, element == null ? "" : element.getName()));
                 // Add unevaluated annotation text
-                annotationStatements.add(String.format("\"%s\"", annotationText.replaceAll("\"", "\\\\\"")));
+                annotationStatements.add(String.format("\"%s\"", annotationText.replace("\"", "\\\\\"")));
             }
         }
         return annotationStatements;

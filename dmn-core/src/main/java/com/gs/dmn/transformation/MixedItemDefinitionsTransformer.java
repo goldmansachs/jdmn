@@ -26,7 +26,6 @@ import javax.xml.namespace.QName;
 import java.util.List;
 
 public class MixedItemDefinitionsTransformer extends SimpleDMNTransformer<TestCases> {
-    private boolean transformRepository = true;
     private final Visitor<?, Object> visitor = new MixedItemDefinitionsVisitor<>(this.logger, new NopErrorHandler());
 
     public MixedItemDefinitionsTransformer() {
