@@ -89,5 +89,6 @@ class DefaultTransformer extends AbstractFileTransformer {
 
     @Override
     protected void transformFile(File child, File root, Path outputPath) {
+        // NOP transformer for testing
     }
 }
