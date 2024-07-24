@@ -20,7 +20,7 @@ import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.feel.analysis.semantics.type.CompositeDataType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.runtime.Context;
-import com.gs.dmn.runtime.interpreter.Result;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class AllowedValuesConverter {
         } else if (expectedType instanceof ListType) {
             Type expectedElementType = ((ListType) expectedType).getElementType();
             if (value instanceof List) {
-                for (Object element: (List) value) {
+                for (Object element: (List<?>) value) {
                     boolean validElement = checkConstraint(element, expectedElementType, elInterpreter, dmnTransformer);
                     if (!validElement) {
                         return null;
@@ -73,7 +73,7 @@ public class AllowedValuesConverter {
         } else if (expectedType instanceof ListType) {
             Type expectedElementType = ((ListType) expectedType).getElementType();
             if (value instanceof List) {
-                for (Object element: (List) value) {
+                for (Object element: (List<?>) value) {
                     boolean res = checkConstraint(element, expectedElementType, elInterpreter, dmnTransformer);
                     if (!res) {
                         return false;
@@ -110,6 +110,10 @@ public class AllowedValuesConverter {
         String unaryTests = ((ConstraintType) expectedType).getUnaryTests();
         Result result = elInterpreter.evaluateUnaryTests(unaryTests, constraintContext);
         Object resultValue = Result.value(result);
-        return resultValue instanceof Boolean ? (Boolean) resultValue : true;
+        if (resultValue instanceof Boolean) {
+            return (Boolean) resultValue;
+        } else {
+            throw new DMNRuntimeException(String.format("Unary tests '%s' evaluated to '%s', expected boolean", unaryTests, resultValue));
+        }
     }
 }

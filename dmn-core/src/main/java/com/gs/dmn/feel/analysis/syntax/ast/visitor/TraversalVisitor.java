@@ -532,6 +532,7 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
         return element;
     }
 
+    @Override
     public Element<T> visit(ListTypeExpression<T> element, C context) {
         if (element == null) {
             return null;

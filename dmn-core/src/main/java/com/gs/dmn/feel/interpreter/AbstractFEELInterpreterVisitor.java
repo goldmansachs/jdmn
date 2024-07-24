@@ -784,8 +784,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 Object secondArg = argList.get(1);
                 if (secondArg instanceof Function) {
                     Function sortFunction = (Function) secondArg;
-                    List result = ((StandardFEELLib) lib).sort((List) argList.get(0), makeLambdaExpression(sortFunction));
-                    return result;
+                    return ((StandardFEELLib) lib).sort((List) argList.get(0), makeLambdaExpression(sortFunction));
                 } else {
                     handleError(String.format("'%s' is not supported yet", secondArg.getClass()));
                     return null;

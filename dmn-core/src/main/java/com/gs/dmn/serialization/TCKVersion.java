@@ -46,8 +46,8 @@ public class TCKVersion {
     private final String schemaLocation;
     private final String prefix;
     private final String namespace;
-    private final LinkedHashMap<String, String> namespaceToPrefixMap;
-    private final LinkedHashMap<String, String> prefixToNamespaceMap;
+    private final Map<String, String> namespaceToPrefixMap;
+    private final Map<String, String> prefixToNamespaceMap;
     private final String javaPackage;
 
     TCKVersion(String version, String schemaLocation, String prefix, String namespace, Map<String, String> otherNamespaces, String javaPackage) {
@@ -87,7 +87,7 @@ public class TCKVersion {
         return this.namespaceToPrefixMap;
     }
 
-    public LinkedHashMap<String, String> getPrefixToNamespaceMap() {
+    public Map<String, String> getPrefixToNamespaceMap() {
         return prefixToNamespaceMap;
     }
 

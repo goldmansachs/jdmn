@@ -65,6 +65,7 @@ public class DefaultStandardFEELProcessorTest extends AbstractStandardFEELProces
     }
 
     @Test
+    @Override
     public void testDateTimeFunctions() {
         super.testDateTimeFunctions();
 
@@ -79,6 +80,7 @@ public class DefaultStandardFEELProcessorTest extends AbstractStandardFEELProces
     }
 
     @Test
+    @Override
     public void testDateAndTimeProperties() {
         List<EnvironmentEntry> entries = Arrays.asList(
         );

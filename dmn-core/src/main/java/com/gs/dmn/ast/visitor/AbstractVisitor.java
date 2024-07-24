@@ -20,7 +20,7 @@ public abstract class AbstractVisitor<C, R> implements Visitor<C, R> {
     protected final BuildLogger logger;
     protected final ErrorHandler errorHandler;
 
-    public AbstractVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+    protected AbstractVisitor(BuildLogger logger, ErrorHandler errorHandler) {
         this.logger = logger;
         this.errorHandler = errorHandler;
     }

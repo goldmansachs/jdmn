@@ -143,6 +143,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Test
+    @Override
     public void testSum() {
         assertNull(getLib().sum(null));
         assertNull(getLib().sum(makeNumberList()));

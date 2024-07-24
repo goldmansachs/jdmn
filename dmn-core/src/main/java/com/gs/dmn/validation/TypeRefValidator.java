@@ -19,7 +19,7 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
@@ -48,7 +48,7 @@ public class TypeRefValidator extends SimpleDMNValidator {
 
     public TypeRefValidator(BuildLogger logger) {
         super(logger);
-        this.dmnDialectDefinition = new StandardDMNDialectDefinition();
+        this.dmnDialectDefinition = new JavaTimeDMNDialectDefinition();
         this.inputParameters = new InputParameters(makeInputParametersMap());
     }
 

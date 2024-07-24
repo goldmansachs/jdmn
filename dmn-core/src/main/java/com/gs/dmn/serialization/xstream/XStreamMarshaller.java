@@ -285,7 +285,7 @@ public class XStreamMarshaller implements DMNMarshaller {
             validator.validate(source);
             return true;
         } catch (Exception e){
-            LOGGER.error("Invalid DMN file: " + e.getMessage());
+            LOGGER.error(String.format("Invalid DMN file: %s", e.getMessage()));
             throw new DMNRuntimeException(e);
         }
     }

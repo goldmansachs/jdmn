@@ -72,7 +72,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     protected InterpreterVisitor visitor;
 
-    public AbstractDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
+    protected AbstractDMNInterpreter(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         this.logger = new Slf4jBuildLogger(LOGGER);
         this.errorHandler = new LogErrorHandler(LOGGER);
         this.dmnTransformer = dmnTransformer;

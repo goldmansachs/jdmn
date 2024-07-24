@@ -99,8 +99,7 @@ public class TemplateProcessor {
 
             // Make output file
             String relativeFilePath = javaPackageName.replace('.', '/');
-            String fileExtension = this.fileExtension;
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, fileExtension);
+            File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, this.fileExtension);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, false);
@@ -116,8 +115,7 @@ public class TemplateProcessor {
 
             // Make output file
             String relativeFilePath = javaPackageName.replace('.', '/');
-            String fileExtension = this.fileExtension;
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, fileExtension);
+            File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, this.fileExtension);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
@@ -133,8 +131,7 @@ public class TemplateProcessor {
 
             // Make output file
             String relativeFilePath = javaPackageName.replace('.', '/');
-            String fileExtension = this.fileExtension;
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, fileExtension);
+            File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, this.fileExtension);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);

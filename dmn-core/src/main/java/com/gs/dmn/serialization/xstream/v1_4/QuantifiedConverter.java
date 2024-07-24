@@ -48,6 +48,7 @@ public abstract class QuantifiedConverter extends IteratorConverter {
         writeChildrenNode(writer, context, i.getSatisfies(), SATISFIES);
     }
 
+    @Override
     protected void parseElements(HierarchicalStreamReader reader, UnmarshallingContext context, Object parent) {
         mvDownConvertAnotherMvUpAssignChildElement(reader, context, parent, IN, TTypedChildExpression.class);
         mvDownConvertAnotherMvUpAssignChildElement(reader, context, parent, SATISFIES, TChildExpression.class);

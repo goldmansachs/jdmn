@@ -230,6 +230,7 @@ public class DoubleSignavioNumberLib implements SignavioNumberLib<Double> {
         return result;
     }
 
+    @Override
     public Double mode(List<?> list) {
         if (!SignavioUtil.verifyValidityOfListArgument(list)) {
             return null;

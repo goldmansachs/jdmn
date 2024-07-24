@@ -24,5 +24,6 @@ public abstract class AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DA
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
     }
 
+    @Override
     protected abstract String getFileExtension();
 }

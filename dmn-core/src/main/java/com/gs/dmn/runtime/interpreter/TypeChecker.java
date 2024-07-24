@@ -54,13 +54,14 @@ public class TypeChecker {
     private final ELInterpreter<Type, DMNContext> elInterpreter;
     protected final FEELLib<?, ?, ?, ?, ?> lib;
     private final boolean checkConstraints;
-    private final boolean throwError = true;
+    private final boolean throwError;
 
     public TypeChecker(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, ELInterpreter<Type, DMNContext> elInterpreter, FEELLib<?, ?, ?, ?, ?> lib) {
         this.dmnTransformer = dmnTransformer;
         this.elInterpreter = elInterpreter;
         this.lib = lib;
         this.checkConstraints = dmnTransformer.isCheckConstraints();
+        this.throwError = true;
     }
 
     /*

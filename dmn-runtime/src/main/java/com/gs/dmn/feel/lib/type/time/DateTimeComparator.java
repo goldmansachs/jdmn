@@ -29,6 +29,7 @@ public interface DateTimeComparator<T> extends RelationalComparator<T> {
         }
     }
 
+    @Override
     default Boolean equalTo(T first, T second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> TRUE,
@@ -38,6 +39,7 @@ public interface DateTimeComparator<T> extends RelationalComparator<T> {
         });
     }
 
+    @Override
     default Boolean lessThan(T first, T second) {
         return applyOperator(first, second, new Supplier[] {
                 () -> null,

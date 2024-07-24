@@ -70,6 +70,7 @@ public class MixedJavaFEELProcessorTest extends AbstractStandardFEELProcessorTes
     }
 
     @Test
+    @Override
     public void testDateTimeFunctions() {
         super.testDateTimeFunctions();
 
@@ -84,6 +85,7 @@ public class MixedJavaFEELProcessorTest extends AbstractStandardFEELProcessorTes
     }
 
     @Test
+    @Override
     public void testDateAndTimeProperties() {
         List<EnvironmentEntry> entries = Arrays.asList(
         );

@@ -30,6 +30,7 @@ public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<Number, LocalDa
     // Date operators
     //
     @Test
+    @Override
     public void testDateSubtract() {
         super.testDateSubtract();
 
@@ -38,6 +39,7 @@ public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<Number, LocalDa
     }
 
     @Test
+    @Override
     public void testDateAddDuration() {
         super.testDateAddDuration();
 
@@ -51,6 +53,7 @@ public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<Number, LocalDa
     }
 
     @Test
+    @Override
     public void testDateSubtractDuration() {
         super.testDateSubtractDuration();
 
@@ -82,6 +85,7 @@ public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<Number, LocalDa
     }
 
     @Test
+    @Override
     public void testTimeSubtract() {
         super.testTimeSubtract();
 
@@ -90,6 +94,7 @@ public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<Number, LocalDa
     }
 
     @Test
+    @Override
     public void testTimeAddDuration() {
         super.testTimeAddDuration();
 
@@ -113,6 +118,7 @@ public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<Number, LocalDa
     }
 
     @Test
+    @Override
     public void testDateTimeSubtract() {
         super.testDateTimeSubtract();
 

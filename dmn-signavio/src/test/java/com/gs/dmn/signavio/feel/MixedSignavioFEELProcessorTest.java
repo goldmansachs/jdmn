@@ -37,6 +37,7 @@ public class MixedSignavioFEELProcessorTest extends AbstractSignavioFEELProcesso
     }
 
     @Test
+    @Override
     public void testFunctionInvocation() {
         super.testFunctionInvocation();
 

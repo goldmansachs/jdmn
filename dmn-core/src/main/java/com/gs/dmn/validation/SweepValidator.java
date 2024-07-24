@@ -17,7 +17,7 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.error.ErrorHandler;
@@ -45,7 +45,7 @@ public abstract class SweepValidator extends SimpleDMNValidator {
 
     public SweepValidator(BuildLogger logger) {
         super(logger);
-        this.dmnDialectDefinition = new StandardDMNDialectDefinition();
+        this.dmnDialectDefinition = new JavaTimeDMNDialectDefinition();
         this.inputParameters = new InputParameters(makeInputParametersMap());
     }
 
