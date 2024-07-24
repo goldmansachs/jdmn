@@ -36,7 +36,7 @@ public abstract class DMNSerializer {
     private final boolean validateSchema;
     private final DMNDialectTransformer dmnTransformer;
 
-    public DMNSerializer(BuildLogger logger, DMNMarshaller dmnMarshaller, boolean validateSchema) {
+    protected DMNSerializer(BuildLogger logger, DMNMarshaller dmnMarshaller, boolean validateSchema) {
         this.logger = logger;
         this.dmnMarshaller = dmnMarshaller;
         this.validateSchema = validateSchema;

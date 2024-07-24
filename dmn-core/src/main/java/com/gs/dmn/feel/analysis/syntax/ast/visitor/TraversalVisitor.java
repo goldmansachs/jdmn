@@ -118,6 +118,10 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     //
     @Override
     public Element<T> visit(FunctionDefinition<T> element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         element.getBody().accept(this, context);
         element.getFormalParameters().forEach(p -> p.accept(this, context));
         return element;
