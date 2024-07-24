@@ -520,6 +520,9 @@ identifier returns [Token ast] :
     token = NAME
     {$ast = $token;}
     |
+    token = NOT
+    {$ast = $token;}
+    |
     token = OR
     {$ast = $token;}
     |
