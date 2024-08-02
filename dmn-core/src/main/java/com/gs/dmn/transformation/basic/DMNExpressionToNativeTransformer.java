@@ -354,10 +354,12 @@ public class DMNExpressionToNativeTransformer {
     }
 
     private String condition(TDRGElement element, TExpression decisionTable, TUnaryTests inputEntry, int inputEntryIndex, int ruleIndex) {
-        TInputClause tInputClause = ((TDecisionTable) decisionTable).getInput().get(inputEntryIndex);
-        String inputExpressionText = tInputClause.getInputExpression().getText();
-        String inputEntryText = inputEntry.getText();
+        String inputExpressionText = "";
+        String inputEntryText = "";
         try {
+            TInputClause tInputClause = ((TDecisionTable) decisionTable).getInput().get(inputEntryIndex);
+            inputExpressionText = tInputClause.getInputExpression().getText();
+            inputEntryText = inputEntry.getText();
             return inputEntryToNative(element, inputExpressionText, inputEntryText);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot build condition for input clause '%s' for entry '%s' in element '%s' in rule %d", inputExpressionText, inputEntryText, this.dmnModelRepository.displayName(element), ruleIndex + 1), e);
