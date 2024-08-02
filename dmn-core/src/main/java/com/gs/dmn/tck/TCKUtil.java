@@ -185,7 +185,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         List<List<String>> result = new ArrayList<>();
         for (int i=0; i<missingParameters.size(); i++) {
             Type type = parameters.get(i).getRight();
-            String defaultValue = isMockTesting() ? this.transformer.getNativeFactory().nullLiteral(): this.transformer.getDefaultValue(type, null);
+            String defaultValue = isMockTesting() ? this.transformer.getDefaultValue(type, null) : this.transformer.getNativeFactory().nullLiteral();
             List<String> triplet = new ArrayList<>();
             triplet.add(missingArgs.get(i).getLeft());
             triplet.add(missingArgs.get(i).getRight());

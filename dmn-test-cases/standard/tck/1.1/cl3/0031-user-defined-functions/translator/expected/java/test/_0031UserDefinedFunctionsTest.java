@@ -13,7 +13,7 @@ public class _0031UserDefinedFunctionsTest extends com.gs.dmn.runtime.DefaultDMN
         java.math.BigDecimal inputB = number("5");
 
         // Check 'fn invocation positional parameters'
-        checkValues(new type.TFnInvocationPositionalResultImpl(number("2"), number("50"), number("15")), new FnInvocationPositionalParameters().apply(inputA, inputB, context_));
+        checkValues(type.TFnInvocationPositionalResult.toTFnInvocationPositionalResult(new com.gs.dmn.runtime.Context().add("divisionResultPositional", number("2")).add("multiplicationResultPositional", number("50")).add("sumResult", number("15"))), new FnInvocationPositionalParameters().apply(inputA, inputB, context_));
     }
 
     @org.junit.jupiter.api.Test
@@ -25,7 +25,7 @@ public class _0031UserDefinedFunctionsTest extends com.gs.dmn.runtime.DefaultDMN
         java.math.BigDecimal inputB = number("5");
 
         // Check 'fn invocation named parameters'
-        checkValues(new type.TFnInvocationNamedResultImpl(number("2"), number("50"), number("5"), number("-5")), new FnInvocationNamedParameters().apply(inputA, inputB, context_));
+        checkValues(type.TFnInvocationNamedResult.toTFnInvocationNamedResult(new com.gs.dmn.runtime.Context().add("divisionResultNamed", number("2")).add("multiplicationResultNamed", number("50")).add("subResult", number("5")).add("subResultMixed", number("-5"))), new FnInvocationNamedParameters().apply(inputA, inputB, context_));
     }
 
     @org.junit.jupiter.api.Test
@@ -37,7 +37,7 @@ public class _0031UserDefinedFunctionsTest extends com.gs.dmn.runtime.DefaultDMN
         java.math.BigDecimal inputB = number("5");
 
         // Check 'fn invocation complex parameters'
-        checkValues(new type.TFnInvocationComplexParamsResultImpl(number("94.247760"), number("200"), number("500")), new FnInvocationComplexParameters().apply(inputA, inputB, context_));
+        checkValues(type.TFnInvocationComplexParamsResult.toTFnInvocationComplexParamsResult(new com.gs.dmn.runtime.Context().add("circumference", number("94.247760")).add("functionInvocationInParameter", number("200")).add("functionInvocationLiteralExpressionInParameter", number("500"))), new FnInvocationComplexParameters().apply(inputA, inputB, context_));
     }
 
     private void checkValues(Object expected, Object actual) {
