@@ -92,15 +92,19 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
     }
 
     protected void writeChildrenNode(HierarchicalStreamWriter writer, MarshallingContext context, Object node, String nodeAlias) {
-        writer.startNode(nodeAlias);
-        context.convertAnother(node);
-        writer.endNode();
+        if (node != null) {
+            writer.startNode(nodeAlias);
+            context.convertAnother(node);
+            writer.endNode();
+        }
     }
 
     protected void writeChildrenNodeAsValue(HierarchicalStreamWriter writer, MarshallingContext context, String nodeValue, String nodeAlias) {
-        writer.startNode(nodeAlias);
-        writer.setValue(nodeValue);
-        writer.endNode();
+        if (nodeValue != null) {
+            writer.startNode(nodeAlias);
+            writer.setValue(nodeValue);
+            writer.endNode();
+        }
     }
 
     @Override

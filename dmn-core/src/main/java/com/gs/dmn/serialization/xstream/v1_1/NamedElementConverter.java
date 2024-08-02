@@ -50,6 +50,8 @@ public abstract class NamedElementConverter extends DMNElementConverter {
         super.writeAttributes(writer, parent);
         TNamedElement ne = (TNamedElement) parent;
 
-        writer.addAttribute(NAME, ne.getName());
+        if (ne.getName() != null) {
+            writer.addAttribute(NAME, ne.getName());
+        }
     }
 }

@@ -55,13 +55,9 @@ public abstract class TCKBaseConverter extends AbstractCollectionConverter {
 
     protected void writeChildrenNode(HierarchicalStreamWriter writer, MarshallingContext context, Object node, String nodeAlias) {
         writer.startNode(nodeAlias);
-        context.convertAnother(node);
-        writer.endNode();
-    }
-
-    protected void writeChildrenNodeAsValue(HierarchicalStreamWriter writer, MarshallingContext context, String nodeValue, String nodeAlias) {
-        writer.startNode(nodeAlias);
-        writer.setValue(nodeValue);
+        if (node != null) {
+            context.convertAnother(node);
+        }
         writer.endNode();
     }
 

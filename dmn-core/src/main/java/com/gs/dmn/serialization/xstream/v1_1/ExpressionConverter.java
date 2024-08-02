@@ -13,7 +13,6 @@
 package com.gs.dmn.serialization.xstream.v1_1;
 
 import com.gs.dmn.ast.TExpression;
-import com.gs.dmn.ast.TUnaryTests;
 import com.gs.dmn.serialization.DMNVersion;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
@@ -41,7 +40,7 @@ public abstract class ExpressionConverter extends DMNElementConverter {
         super.writeAttributes(writer, parent);
         TExpression e = (TExpression) parent;
 
-        if (!(e instanceof TUnaryTests) && e.getTypeRef() != null) {
+        if (e.getTypeRef() != null) {
             writer.addAttribute(TYPE_REF, DMNBaseConverter.formatQName(e.getTypeRef(), e, version));
         }
     }

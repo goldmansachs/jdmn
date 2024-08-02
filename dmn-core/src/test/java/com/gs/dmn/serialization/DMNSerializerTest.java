@@ -19,6 +19,7 @@ import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +32,50 @@ public class DMNSerializerTest extends AbstractTest {
         File input = new File(resource("dmn/input/1.1/test-dmn.dmn"));
 
         TDefinitions definitions = this.dmnSerializer.readModel(input);
+        checkModel(definitions);
+    }
+
+    @Test
+    public void testWrite() throws IOException {
+        // Test partial objects
+        File outputFile = File.createTempFile("jdmn-", "-dmn");
+        outputFile.deleteOnExit();
+
+        assertDoesNotThrow(() -> this.dmnSerializer.writeModel(null, outputFile));
+
+        assertDoesNotThrow(() -> {
+            TDefinitions definitions = new TDefinitions();
+            definitions.getElementInfo().getNsContext().putAll(DMNVersion.LATEST.getPrefixToNamespaceMap());
+            this.dmnSerializer.writeModel(definitions, outputFile);
+        });
+
+        assertDoesNotThrow(() -> {
+            TDefinitions definitions = new TDefinitions();
+            definitions.getElementInfo().getNsContext().putAll(DMNVersion.LATEST.getPrefixToNamespaceMap());
+            TDecision decision = new TDecision();
+            TDecisionTable value = new TDecisionTable();
+            TDecisionRule rule = null;
+            value.getRule().add(rule);
+            decision.setExpression(value);
+            definitions.getDrgElement().add(decision);
+            this.dmnSerializer.writeModel(definitions, outputFile);
+        });
+    }
+
+    @Test
+    public void testRoundTrip() {
+        File input = new File(resource("dmn/input/1.1/test-dmn.dmn"));
+
+        TDefinitions definitions = this.dmnSerializer.readModel(input);
+        File outputFile = new File("target", "test-dmn.dmn");
+        this.dmnSerializer.writeModel(definitions, outputFile);
+
+        definitions = this.dmnSerializer.readModel(outputFile);
+
+        checkModel(definitions);
+    }
+
+    private void checkModel(TDefinitions definitions) {
         List<TDRGElement> drgElementList = definitions.getDrgElement();
         assertEquals(1, drgElementList.size());
 
@@ -70,6 +115,8 @@ public class DMNSerializerTest extends AbstractTest {
         assertEquals(5, inputEntryList.size());
         TUnaryTests firstUnaryTest = inputEntryList.get(0);
         assertEquals("= \"Female\"", firstUnaryTest.getText());
+        TUnaryTests secondUnaryTest = inputEntryList.get(1);
+        assertEquals("\"£ [ ] & < $  \\u20ac\"", secondUnaryTest.getText());
     }
 
     private void assertLiteralExpression(TLiteralExpression inputExpression, String stringType, String id, String text) {

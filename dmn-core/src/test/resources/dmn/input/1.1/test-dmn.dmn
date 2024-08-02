@@ -34,7 +34,7 @@
                     <text><![CDATA[= "Female"]]></text>
                 </inputEntry>
                 <inputEntry id="UnaryTests_11h9jt8">
-                    <text></text>
+                    <text>"£ [ ] &amp; &lt; $  \u20ac"</text>
                 </inputEntry>
                 <inputEntry id="UnaryTests_1oudzn9">
                     <text></text>
