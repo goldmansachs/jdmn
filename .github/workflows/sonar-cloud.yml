@@ -38,6 +38,6 @@ jobs:
       - name: Analyze with SonarCloud
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.JDMN_SONAR_TOKEN }}
         run: mvn -B -e -Dorg.slf4j.simpleLogger.showDateTime=true -Dorg.slf4j.simpleLogger.dateTimeFormat=HH:mm:ss:SSS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install sonar:sonar -Dsonar.organization=goldmansachs -Dsonar.projectKey=goldmansachs_jdmn -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=$SONAR_TOKEN -Psonar-coverage
 
