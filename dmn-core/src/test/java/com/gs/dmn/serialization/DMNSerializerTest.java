@@ -25,7 +25,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DMNSerializerTest extends AbstractTest {
-    private final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, false);
+    private final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, makeInputParameters());
 
     @Test
     public void testRead() {

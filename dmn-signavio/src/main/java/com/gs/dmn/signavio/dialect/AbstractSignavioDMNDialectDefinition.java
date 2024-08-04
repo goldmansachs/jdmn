@@ -51,9 +51,9 @@ public abstract class AbstractSignavioDMNDialectDefinition<NUMBER, DATE, TIME, D
     public DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
         SerializationFormat format = inputParameters.getFormat();
         if (format == XML) {
-            return new XMLDMNSerializer(logger, Collections.singletonList(new SignavioExtensionRegister(inputParameters.getSchemaNamespace())), inputParameters.isXsdValidation());
+            return new XMLDMNSerializer(logger, Collections.singletonList(new SignavioExtensionRegister(inputParameters.getSchemaNamespace())), inputParameters);
         } else if (format == JSON) {
-            return new JsonDMNSerializer(logger, inputParameters.isXsdValidation());
+            return new JsonDMNSerializer(logger, inputParameters);
         } else {
             throw new IllegalArgumentException(String.format("Format '%s' is not supported yet", format));
         }

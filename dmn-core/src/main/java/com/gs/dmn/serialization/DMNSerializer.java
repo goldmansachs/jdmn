@@ -16,6 +16,7 @@ import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.xstream.XStreamMarshaller;
+import com.gs.dmn.transformation.InputParameters;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,13 +34,13 @@ public abstract class DMNSerializer {
     private final BuildLogger logger;
     private final DMNMarshaller dmnMarshaller;
 
-    private final boolean validateSchema;
+    private final InputParameters inputParameters;
     private final DMNDialectTransformer dmnTransformer;
 
-    protected DMNSerializer(BuildLogger logger, DMNMarshaller dmnMarshaller, boolean validateSchema) {
+    protected DMNSerializer(BuildLogger logger, DMNMarshaller dmnMarshaller, InputParameters inputParameters) {
         this.logger = logger;
         this.dmnMarshaller = dmnMarshaller;
-        this.validateSchema = validateSchema;
+        this.inputParameters = inputParameters;
         this.dmnTransformer = new DMNDialectTransformer(logger);
     }
 
@@ -160,18 +161,18 @@ public abstract class DMNSerializer {
     }
 
     protected TDefinitions unmarshall(File input) {
-        return this.dmnMarshaller.unmarshal(input, this.validateSchema);
+        return this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation());
     }
 
     protected TDefinitions unmarshall(URL input) {
-        return this.dmnMarshaller.unmarshal(input, this.validateSchema);
+        return this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation());
     }
 
     protected TDefinitions unmarshall(InputStream input) {
-        return this.dmnMarshaller.unmarshal(input, this.validateSchema);
+        return this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation());
     }
 
     protected TDefinitions unmarshall(Reader input) {
-        return this.dmnMarshaller.unmarshal(input, this.validateSchema);
+        return this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation());
     }
 }

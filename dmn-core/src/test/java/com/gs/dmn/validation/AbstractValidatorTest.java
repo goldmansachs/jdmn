@@ -26,7 +26,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractValidatorTest extends AbstractTest {
-    protected final DMNSerializer serializer = new XMLDMNSerializer(LOGGER, false);
+    protected final DMNSerializer serializer = new XMLDMNSerializer(LOGGER, makeInputParameters());
 
     protected void validate(DMNValidator validator, URI fileURI, List<String> expectedErrors) {
         DMNModelRepository repository = makeRepository(fileURI);

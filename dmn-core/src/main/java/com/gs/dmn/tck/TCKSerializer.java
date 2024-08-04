@@ -16,6 +16,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
+import com.gs.dmn.transformation.InputParameters;
 
 import java.io.File;
 import java.net.URL;
@@ -33,12 +34,12 @@ public abstract class TCKSerializer {
 
     private final BuildLogger logger;
     private final TCKMarshaller marshaller;
-    private final boolean validateSchema;
+    private final InputParameters inputParameters;
 
-    public TCKSerializer(BuildLogger logger, TCKMarshaller marshaller, boolean validateSchema) {
+    public TCKSerializer(BuildLogger logger, TCKMarshaller marshaller, InputParameters inputParameters) {
         this.logger = logger;
         this.marshaller = marshaller;
-        this.validateSchema = validateSchema;
+        this.inputParameters = inputParameters;
     }
 
     public TestCases read(File input) {
@@ -53,7 +54,7 @@ public abstract class TCKSerializer {
         try {
             logger.info(String.format("Reading TCK '%s' ...", input.toString()));
 
-            TestCases testCases = this.marshaller.unmarshal(input, this.validateSchema);
+            TestCases testCases = this.marshaller.unmarshal(input, this.inputParameters.isXsdValidation());
 
             logger.info("TCK read.");
             return testCases;

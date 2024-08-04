@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SparseDecisionDetectorTest extends AbstractTest {
     private SparseDecisionDetector detector;
     private DMNModelRepository dmnModelRepository;
-    private final DMNSerializer dmnReader = new XMLDMNSerializer(LOGGER, false);
+    private final DMNSerializer dmnReader = new XMLDMNSerializer(LOGGER, makeInputParameters());
 
     @BeforeEach
     public void setUp() {

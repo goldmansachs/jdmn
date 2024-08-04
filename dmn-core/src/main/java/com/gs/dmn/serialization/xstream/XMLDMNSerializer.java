@@ -14,16 +14,17 @@ package com.gs.dmn.serialization.xstream;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.transformation.InputParameters;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class XMLDMNSerializer extends DMNSerializer {
-    public XMLDMNSerializer(BuildLogger logger, boolean validateSchema) {
-        this(logger, new ArrayList<>(), validateSchema);
+    public XMLDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
+        this(logger, new ArrayList<>(), inputParameters);
     }
 
-    public XMLDMNSerializer(BuildLogger logger, List<DMNExtensionRegister> registers, boolean validateSchema) {
-        super(logger, DMNMarshallerFactory.newMarshallerWithExtensions(registers), validateSchema);
+    public XMLDMNSerializer(BuildLogger logger, List<DMNExtensionRegister> registers, InputParameters inputParameters) {
+        super(logger, DMNMarshallerFactory.newMarshallerWithExtensions(registers), inputParameters);
     }
 }

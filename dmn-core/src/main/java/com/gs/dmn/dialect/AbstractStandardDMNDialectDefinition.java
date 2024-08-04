@@ -47,9 +47,9 @@ public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, D
     public DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
         SerializationFormat format = inputParameters.getFormat();
         if (XML == format) {
-            return new XMLDMNSerializer(logger, inputParameters.isXsdValidation());
+            return new XMLDMNSerializer(logger, inputParameters);
         } else if (format == JSON) {
-            return new JsonDMNSerializer(logger, inputParameters.isXsdValidation());
+            return new JsonDMNSerializer(logger, inputParameters);
         } else {
             throw new IllegalArgumentException(String.format("Format '%s' is not supported yet", format));
         }

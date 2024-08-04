@@ -56,7 +56,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     private static final boolean IGNORE_ERROR_FLAG = true;
 
     private final DMNSerializer dmnSerializer = this.getDialectDefinition().createDMNSerializer(LOGGER, makeInputParameters());
-    private final TCKSerializer tckSerializer = new XMLTCKSerializer(LOGGER, true);
+    private final TCKSerializer tckSerializer = new XMLTCKSerializer(LOGGER, makeInputParameters());
 
     protected DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter;
     private DMNTransformer<TestCases> dmnTransformer;

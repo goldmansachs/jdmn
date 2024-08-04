@@ -15,16 +15,17 @@ package com.gs.dmn.tck.serialization.xstream;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.tck.TCKSerializer;
+import com.gs.dmn.transformation.InputParameters;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class XMLTCKSerializer extends TCKSerializer {
-    public XMLTCKSerializer(BuildLogger logger, boolean validateSchema) {
-        this(logger, new ArrayList<>(), validateSchema);
+    public XMLTCKSerializer(BuildLogger logger, InputParameters inputParameters) {
+        this(logger, new ArrayList<>(), inputParameters);
     }
 
-    public XMLTCKSerializer(BuildLogger logger, List<DMNExtensionRegister> registers, boolean validateSchema) {
-        super(logger, TCKMarshallerFactory.newMarshallerWithExtensions(registers), validateSchema);
+    public XMLTCKSerializer(BuildLogger logger, List<DMNExtensionRegister> registers, InputParameters inputParameters) {
+        super(logger, TCKMarshallerFactory.newMarshallerWithExtensions(registers), inputParameters);
     }
 }

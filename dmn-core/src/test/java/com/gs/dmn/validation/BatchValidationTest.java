@@ -17,6 +17,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
+import com.gs.dmn.transformation.InputParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,7 @@ import java.util.List;
 public class BatchValidationTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchValidationTest.class);
 
-    private final DMNSerializer serializer = new XMLDMNSerializer(new Slf4jBuildLogger(LOGGER), false);
+    private final DMNSerializer serializer = new XMLDMNSerializer(new Slf4jBuildLogger(LOGGER), new InputParameters());
     private final DMNValidator validator = new CompositeDMNValidator(Arrays.asList(
             new SweepRuleOverlapValidator(),
             new SweepMissingIntervalValidator(),

@@ -14,9 +14,10 @@ package com.gs.dmn.serialization.jackson;
 
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.transformation.InputParameters;
 
 public class JsonDMNSerializer extends DMNSerializer {
-    public JsonDMNSerializer(BuildLogger logger, boolean validateSchema) {
-        super(logger, new JsonDMNMarshaller(logger), validateSchema);
+    public JsonDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
+        super(logger, new JsonDMNMarshaller(logger), inputParameters);
     }
 }

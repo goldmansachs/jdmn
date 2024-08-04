@@ -52,7 +52,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         DMNModelRepository repository = readModels(inputModelPath.toFile());
         this.basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
         handleValidationErrors(this.dmnValidator.validate(repository));
-        this.testCasesReader = new XMLTCKSerializer(logger, true);
+        this.testCasesReader = new XMLTCKSerializer(logger, inputParameters);
         this.tckUtil = new TCKUtil<>(basicTransformer, (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) dialectDefinition.createFEELLib());
     }
 
