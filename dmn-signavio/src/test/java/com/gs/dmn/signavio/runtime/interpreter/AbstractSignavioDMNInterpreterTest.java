@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.io.File;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.util.LinkedHashMap;
@@ -58,7 +59,8 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
         try {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
             URI uri = signavioResource(pathName);
-            TDefinitions definitions = this.serializer.readModel(uri.toURL());
+            File dmnFile = new File(uri.getPath());
+            TDefinitions definitions = this.serializer.readModel(dmnFile);
             DMNModelRepository repository = new SignavioDMNModelRepository(definitions, SIG_EXT_NAMESPACE);
             DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = this.dialectDefinition.createDMNInterpreter(repository, makeInputParameters());
 
@@ -75,7 +77,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
 
     protected Map<String, Object> makeInformationRequirements(List<Pair<String, ?>> pairs) {
         Map<String, Object> environment = new LinkedHashMap<>();
-        for (Pair<String, ?> pair: pairs) {
+        for (Pair<String, ?> pair : pairs) {
             environment.put(pair.getLeft(), pair.getRight());
         }
         return environment;

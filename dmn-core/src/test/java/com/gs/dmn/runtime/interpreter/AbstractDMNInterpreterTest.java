@@ -128,7 +128,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     private Pair<List<String>, List<TestCases>> findTestCasesInFolder(File testCasesInputFile) {
         List<String> testFileNames = new ArrayList<>();
         List<TestCases> testCasesList = new ArrayList<>();
-        for (File child: testCasesInputFile.listFiles()) {
+        for (File child : testCasesInputFile.listFiles()) {
             if (isTCKFile(child)) {
                 TestCases testCases = this.tckSerializer.read(child);
                 testFileNames.add(child.getName());
@@ -142,10 +142,10 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         String testName = dmnFileNames.get(0);
         List<String> testFileNames = new ArrayList<>();
         List<TestCases> testCasesList = new ArrayList<>();
-        for (String dmnFileName: dmnFileNames) {
+        for (String dmnFileName : dmnFileNames) {
             URL testInputPathURL = tckResource(completePath(getTestCasesInputPath(), dmnVersion, testName)).toURL();
             File testInputPathFolder = new File(testInputPathURL.getFile());
-            for (File child: testInputPathFolder.listFiles()) {
+            for (File child : testInputPathFolder.listFiles()) {
                 if (isTCKFile(child) && child.getName().startsWith(dmnFileName)) {
                     TestCases testCases = this.tckSerializer.read(child);
                     testFileNames.add(child.getName());
@@ -163,7 +163,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         for (int i = 0; i < actualTestCasesList.size(); i++) {
             String testCaseFileName = testCaseFileNameList.get(i);
             TestCases testCases = actualTestCasesList.get(i);
-            for (TestCase testCase: testCases.getTestCase()) {
+            for (TestCase testCase : testCases.getTestCase()) {
                 doTest(testCaseFileName, testCases, testCase, interpreter);
             }
         }
@@ -173,7 +173,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil = new TCKUtil<>(this.basicTransformer, (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.lib);
 
         List<ResultNode> resultNode = testCase.getResultNode();
-        for (ResultNode res: resultNode) {
+        for (ResultNode res : resultNode) {
             Object expectedValue = null;
             Result actualResult;
             Object actualValue = null;
@@ -200,9 +200,10 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     private List<TDefinitions> readModels(String dmnVersion, List<String> dmnFileNames) throws Exception {
         List<TDefinitions> definitionsList = new ArrayList<>();
         String testName = dmnFileNames.get(0);
-        for (String dmnFileName: dmnFileNames) {
+        for (String dmnFileName : dmnFileNames) {
             URI dmnFileURI = tckResource(completePath(getDMNInputPath(), dmnVersion, testName) + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION);
-            TDefinitions definitions = this.dmnSerializer.readModel(dmnFileURI.toURL());
+            File dmnFile = new File(dmnFileURI.getPath());
+            TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
             definitionsList.add(definitions);
         }
         return definitionsList;
@@ -214,7 +215,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     private Map<String, String> makeInputParametersMap(Pair<String, String>[] extraInputParameters) {
         Map<String, String> inputParameters = makeInputParametersMap();
-        for (Pair<String, String> params: extraInputParameters) {
+        for (Pair<String, String> params : extraInputParameters) {
             inputParameters.put(params.getLeft(), params.getRight());
         }
         return inputParameters;

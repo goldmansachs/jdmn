@@ -16,7 +16,6 @@ import com.gs.dmn.serialization.TCKVersion;
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,38 +92,6 @@ public class XStreamMarshaller implements TCKMarshaller {
     }
 
     @Override
-    public TestCases unmarshal(URL input, boolean validateSchema) {
-        try (Reader firstStringReader = new InputStreamReader(input.openStream()); Reader secondStringReader = new InputStreamReader(input.openStream())) {
-            TCKVersion tckVersion = inferTCKVersion(firstStringReader);
-            if (validateSchema) {
-                try (InputStreamReader reader = new InputStreamReader(input.openStream())) {
-                    validateXMLSchema(new StreamSource(reader), tckVersion.getSchemaLocation());
-                }
-            }
-            return unmarshal(tckVersion, secondStringReader);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling TCK content from URL.", e);
-        }
-        return null;
-    }
-
-    @Override
-    public TestCases unmarshal(InputStream input, boolean validateSchema) {
-        try (Reader firstStringReader = new InputStreamReader(input); Reader secondStringReader = new InputStreamReader(input)) {
-            TCKVersion tckVersion = inferTCKVersion(firstStringReader);
-            if (validateSchema) {
-                try (InputStreamReader reader = new InputStreamReader(input)) {
-                    validateXMLSchema(new StreamSource(reader), tckVersion.getSchemaLocation());
-                }
-            }
-            return unmarshal(tckVersion, secondStringReader);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling TCK content from InputStream.", e);
-        }
-        return null;
-    }
-
-    @Override
     public TestCases unmarshal(Reader input, boolean validateSchema) {
         try (BufferedReader buffer = new BufferedReader(input)) {
             String xml = buffer.lines().collect(Collectors.joining("\n"));
@@ -157,15 +124,6 @@ public class XStreamMarshaller implements TCKMarshaller {
     @Override
     public void marshal(TestCases o, File output) {
         try (FileWriter fileWriter = new FileWriter(output)) {
-            marshal(o, fileWriter);
-        } catch (Exception e) {
-            LOGGER.error("Error marshalling object {}", o);
-        }
-    }
-
-    @Override
-    public void marshal(TestCases o, OutputStream output) {
-        try (Writer fileWriter = new OutputStreamWriter(output)) {
             marshal(o, fileWriter);
         } catch (Exception e) {
             LOGGER.error("Error marshalling object {}", o);

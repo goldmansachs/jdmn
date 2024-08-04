@@ -152,38 +152,6 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public TDefinitions unmarshal(URL input, boolean validateSchema) {
-        try (Reader firstStringReader = new InputStreamReader(input.openStream()); Reader secondStringReader = new InputStreamReader(input.openStream())) {
-            DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
-            if (validateSchema && dmnVersion != null) {
-                try (InputStreamReader reader = new InputStreamReader(input.openStream())) {
-                    validateXMLSchema(new StreamSource(reader), dmnVersion.getSchemaLocation());
-                }
-            }
-            return unmarshal(dmnVersion, secondStringReader);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
-        }
-        return null;
-    }
-
-    @Override
-    public TDefinitions unmarshal(InputStream input, boolean validateSchema) {
-        try (Reader firstStringReader = new InputStreamReader(input); Reader secondStringReader = new InputStreamReader(input)) {
-            DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
-            if (validateSchema && dmnVersion != null) {
-                try (InputStreamReader reader = new InputStreamReader(input)) {
-                    validateXMLSchema(new StreamSource(reader), dmnVersion.getSchemaLocation());
-                }
-            }
-            return unmarshal(dmnVersion, secondStringReader);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
-        }
-        return null;
-    }
-
-    @Override
     public TDefinitions unmarshal(Reader input, boolean validateSchema) {
         try (BufferedReader buffer = new BufferedReader(input)) {
             String xml = buffer.lines().collect(Collectors.joining("\n"));
@@ -222,15 +190,6 @@ public class XStreamMarshaller implements DMNMarshaller {
     @Override
     public void marshal(TDefinitions o, File output) {
         try (FileWriter fileWriter = new FileWriter(output)) {
-            marshal(o, fileWriter);
-        } catch (Exception e) {
-            LOGGER.error("Error marshalling object {}", o);
-        }
-    }
-
-    @Override
-    public void marshal(TDefinitions o, OutputStream output) {
-        try (Writer fileWriter = new OutputStreamWriter(output)) {
             marshal(o, fileWriter);
         } catch (Exception e) {
             LOGGER.error("Error marshalling object {}", o);
@@ -284,7 +243,7 @@ public class XStreamMarshaller implements DMNMarshaller {
             Validator validator = schema.newValidator();
             validator.validate(source);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error(String.format("Invalid DMN file: %s", e.getMessage()));
             throw new DMNRuntimeException(e);
         }

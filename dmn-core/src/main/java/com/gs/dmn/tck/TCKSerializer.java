@@ -19,7 +19,6 @@ import com.gs.dmn.tck.serialization.TCKMarshaller;
 import com.gs.dmn.transformation.InputParameters;
 
 import java.io.File;
-import java.net.URL;
 
 public abstract class TCKSerializer {
     public static final String DEFAULT_TEST_CASE_FILE_EXTENSION = ".xml";
@@ -44,22 +43,14 @@ public abstract class TCKSerializer {
 
     public TestCases read(File input) {
         try {
-            return read(input.toURI().toURL());
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read TCK from '%s'", input.getPath()), e);
-        }
-    }
+            this.logger.info(String.format("Reading TCK '%s' ...", input.getPath()));
 
-    public TestCases read(URL input) {
-        try {
-            logger.info(String.format("Reading TCK '%s' ...", input.toString()));
+            TestCases testCases = this.marshaller.unmarshal(input, inputParameters.isXsdValidation());
 
-            TestCases testCases = this.marshaller.unmarshal(input, this.inputParameters.isXsdValidation());
-
-            logger.info("TCK read.");
+            this.logger.info("TCK read.");
             return testCases;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read TCK from '%s'", input.toString()), e);
+            throw new DMNRuntimeException(String.format("Cannot read TCK from '%s'", input.getPath()), e);
         }
     }
 

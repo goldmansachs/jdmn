@@ -19,10 +19,7 @@ import com.gs.dmn.serialization.xstream.XStreamMarshaller;
 import com.gs.dmn.transformation.InputParameters;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.Reader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,12 +46,12 @@ public abstract class DMNSerializer {
         if (files == null) {
             throw new DMNRuntimeException("Missing DMN files");
         } else {
-            for (File file: files) {
+            for (File file : files) {
                 if (isDMNFile(file)) {
                     TDefinitions definitions = readModel(file);
                     definitionsList.add(definitions);
                 } else {
-                    this.logger.warn(String.format("Skipping file '%s", file == null ? null: file.getAbsoluteFile()));
+                    this.logger.warn(String.format("Skipping file '%s", file == null ? null : file.getAbsoluteFile()));
                 }
             }
             return definitionsList;
@@ -70,7 +67,7 @@ public abstract class DMNSerializer {
             definitionsList.add(definitions);
             return definitionsList;
         } else if (file.isDirectory()) {
-            for (File child: file.listFiles()) {
+            for (File child : file.listFiles()) {
                 if (isDMNFile(child)) {
                     TDefinitions definitions = readModel(child);
                     definitionsList.add(definitions);
@@ -86,7 +83,8 @@ public abstract class DMNSerializer {
         try {
             this.logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
 
-            TDefinitions definitions = transform(unmarshall(input));
+            TDefinitions definitions = transform(this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation()));
+
             this.logger.info("DMN read.");
             return definitions;
         } catch (Exception e) {
@@ -94,37 +92,11 @@ public abstract class DMNSerializer {
         }
     }
 
-    public TDefinitions readModel(InputStream input) {
-        try {
-            this.logger.info(String.format("Reading DMN '%s' ...", input.toString()));
-
-            TDefinitions definitions = transform(unmarshall(input));
-
-            this.logger.info("DMN read.");
-            return definitions;
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
-        }
-    }
-
-    public TDefinitions readModel(URL input) {
-        try {
-            this.logger.info(String.format("Reading DMN '%s' ...", input.toString()));
-
-            TDefinitions definitions = transform(unmarshall(input));
-
-            this.logger.info("DMN read.");
-            return definitions;
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
-        }
-    }
-
     public TDefinitions readModel(Reader input) {
         try {
             this.logger.info(String.format("Reading DMN '%s' ...", input.toString()));
 
-            TDefinitions result = transform(unmarshall(input));
+            TDefinitions result = transform(this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation()));
 
             this.logger.info("DMN read.");
             return result;
@@ -134,8 +106,8 @@ public abstract class DMNSerializer {
     }
 
     public void writeModel(TDefinitions definitions, File output) {
-        try (FileOutputStream fos = new FileOutputStream(output)) {
-            this.dmnMarshaller.marshal(definitions, fos);
+        try {
+            this.dmnMarshaller.marshal(definitions, output);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output.getPath()), e);
         }
@@ -160,19 +132,4 @@ public abstract class DMNSerializer {
         }
     }
 
-    protected TDefinitions unmarshall(File input) {
-        return this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation());
-    }
-
-    protected TDefinitions unmarshall(URL input) {
-        return this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation());
-    }
-
-    protected TDefinitions unmarshall(InputStream input) {
-        return this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation());
-    }
-
-    protected TDefinitions unmarshall(Reader input) {
-        return this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation());
-    }
 }
