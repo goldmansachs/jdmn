@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 
 public class DMNToPythonTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
@@ -40,25 +40,25 @@ public class DMNToPythonTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
     @Override
     protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
         if (dmnTransformer.isGenerateExtra()) {
-            generateInitFiles(dmnTransformer, dmnModelRepository, outputPath, true);
+            generateInitFiles(dmnTransformer, dmnModelRepository, outputPath, inputParameters.getCharset(), true);
         }
     }
 
-    public static void generateInitFiles(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath, boolean srcFolder) {
+    public static void generateInitFiles(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath, Charset charset, boolean srcFolder) {
         for (TDefinitions definitions : dmnModelRepository.getAllDefinitions()) {
             String packageName = dmnTransformer.nativeModelPackageName(definitions.getName());
             if (srcFolder) {
-                generateInitFile(packageName.split("\\."), outputPath);
+                generateInitFile(packageName.split("\\."), outputPath, charset);
                 String typePackageName = dmnTransformer.nativeTypePackageName(definitions.getName());
-                generateInitFile(typePackageName.split("\\."), outputPath);
+                generateInitFile(typePackageName.split("\\."), outputPath, charset);
             } else {
-                createInitFile(outputPath.toFile());
-                generateInitFile(packageName.split("\\."), outputPath);
+                createInitFile(outputPath.toFile(), charset);
+                generateInitFile(packageName.split("\\."), outputPath, charset);
             }
         }
     }
 
-    private static void generateInitFile(String[] packageParts, Path outputPath) {
+    private static void generateInitFile(String[] packageParts, Path outputPath, Charset charset) {
         if (packageParts ==  null) {
             return;
         }
@@ -67,19 +67,19 @@ public class DMNToPythonTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
         for (String part : packageParts) {
             if (!StringUtils.isBlank(part)) {
                 currentDir = new File(currentDir, part);
-                createInitFile(currentDir);
+                createInitFile(currentDir, charset);
             }
         }
     }
 
-    private static void createInitFile(File currentDir) {
+    private static void createInitFile(File currentDir, Charset charset) {
         try {
             // Do not generate if folder is empty
             if (currentDir.exists()) {
                 File[] files = currentDir.listFiles();
                 if (files != null && files.length > 0) {
                     File initFile = new File(currentDir, "__init__.py");
-                    FileUtils.write(initFile, "", StandardCharsets.UTF_8);
+                    FileUtils.write(initFile, "", charset);
                 }
             }
         } catch (IOException e) {

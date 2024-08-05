@@ -42,7 +42,7 @@ public abstract class TCKSerializer {
     }
 
     public TestCases read(File input) {
-        try (FileInputStream fis = new FileInputStream(input); InputStreamReader isr = new InputStreamReader(fis)) {
+        try (FileInputStream fis = new FileInputStream(input); InputStreamReader isr = new InputStreamReader(fis, inputParameters.getCharset())) {
             this.logger.info(String.format("Reading TCK '%s' ...", input.getPath()));
 
             TestCases testCases = read(isr);
@@ -56,19 +56,14 @@ public abstract class TCKSerializer {
 
     public TestCases read(Reader input) {
         try {
-            this.logger.info(String.format("Reading TCK '%s' ...", input.toString()));
-
-            TestCases testCases = this.marshaller.unmarshal(input, this.inputParameters.isXsdValidation());
-
-            this.logger.info("TCK read.");
-            return testCases;
+            return this.marshaller.unmarshal(input, this.inputParameters.isXsdValidation());
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot read TCK from Reader '%s'", input.toString()), e);
         }
     }
 
     public void write(TestCases testCases, File output) {
-        try (FileOutputStream fos = new FileOutputStream(output); OutputStreamWriter osw = new OutputStreamWriter(fos)) {
+        try (FileOutputStream fos = new FileOutputStream(output); OutputStreamWriter osw = new OutputStreamWriter(fos, inputParameters.getCharset())) {
             write(testCases, osw);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot write TCK to File '%s'", output.getPath()), e);

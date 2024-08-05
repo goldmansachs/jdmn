@@ -5,15 +5,18 @@ import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 
 import java.io.*;
+import java.nio.charset.Charset;
 
 public abstract class DMNDialectTransformerTest extends AbstractFileTransformerTest {
     protected final DMNMarshaller dmnMarshaller = getDMNMarshaller();
 
     protected void doTest(String inputFileName) throws Exception {
+        Charset charset = makeInputParameters().getCharset();
+
         // Read
         File inputFile = new File(resource(getInputPath() + inputFileName));
         TDefinitions sourceDefinitions;
-        try (FileInputStream fis = new FileInputStream(inputFile); InputStreamReader isr = new InputStreamReader(fis)) {
+        try (FileInputStream fis = new FileInputStream(inputFile); InputStreamReader isr = new InputStreamReader(fis, charset)) {
             sourceDefinitions = dmnMarshaller.unmarshal(isr, true);
         }
 
@@ -22,7 +25,7 @@ public abstract class DMNDialectTransformerTest extends AbstractFileTransformerT
 
         // Write
         File actualOutputFile = getActualOutputFile(inputFileName);
-        try (FileOutputStream fos = new FileOutputStream(actualOutputFile); OutputStreamWriter osw = new OutputStreamWriter(fos)) {
+        try (FileOutputStream fos = new FileOutputStream(actualOutputFile); OutputStreamWriter osw = new OutputStreamWriter(fos, charset)) {
             dmnMarshaller.marshal(targetDefinitions, osw);
         }
 

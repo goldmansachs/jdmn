@@ -36,7 +36,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
@@ -75,11 +74,11 @@ public class TemplateProcessor {
     public void processTemplate(String baseTemplatePath, String templateName, Map<String, Object> params, File outputFile, boolean formatOutput) throws IOException, TemplateException {
         processTemplate(baseTemplatePath, templateName, params, outputFile);
         try {
-            String text = FileUtils.readFileToString(outputFile, Charset.defaultCharset());
+            String text = FileUtils.readFileToString(outputFile, inputParameters.getCharset());
             if (formatOutput) {
                 text = FORMATTER.formatSource(text);
             }
-            FileUtils.write(outputFile, text, Charset.defaultCharset(), false);
+            FileUtils.write(outputFile, text, inputParameters.getCharset(), false);
         } catch (Exception e) {
             logger.error(String.format("Formatting error for file %s", outputFile.getName()));
         }
@@ -150,7 +149,7 @@ public class TemplateProcessor {
 
         // Some recommended settings:
         cfg.setIncompatibleImprovements(VERSION);
-        cfg.setDefaultEncoding("UTF-8");
+        cfg.setDefaultEncoding(inputParameters.getCharset().name());
         cfg.setLocale(Locale.US);
         cfg.setNumberFormat("#");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);

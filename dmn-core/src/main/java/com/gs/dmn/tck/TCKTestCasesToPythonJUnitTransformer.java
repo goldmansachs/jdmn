@@ -37,7 +37,7 @@ public class TCKTestCasesToPythonJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME,
     @Override
     protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
         if (basicTransformer.isGenerateExtra()) {
-            DMNToPythonTransformer.generateInitFiles(basicTransformer, dmnModelRepository, outputPath, false);
+            DMNToPythonTransformer.generateInitFiles(basicTransformer, dmnModelRepository, outputPath, inputParameters.getCharset(), false);
         }
     }
 

@@ -31,7 +31,6 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Map;
 
@@ -108,7 +107,7 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFi
                 "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                 "<dmn:definitions xmlns:dmn=\"http://www.omg.org/spec/DMN/20151101/dmn.xsd\" xmlns:cip=\"http://www.gs.com/cip\" xmlns:feel=\"http://www.omg.org/spec/FEEL/20140401\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" namespace=\"http://www.omg.org/spec/DMN/20151101/dmn.xsd\" name=\"XXX\">\n" +
                 "</dmn:definitions>",
-                Charset.defaultCharset()
+                this.makeInputParameters().getCharset()
         )
         ;
     }

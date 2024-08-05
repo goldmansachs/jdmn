@@ -79,7 +79,7 @@ public abstract class DMNSerializer {
     }
 
     public TDefinitions readModel(File input) {
-        try (FileInputStream fis = new FileInputStream(input); InputStreamReader isr = new InputStreamReader(fis)) {
+        try (FileInputStream fis = new FileInputStream(input); InputStreamReader isr = new InputStreamReader(fis, this.inputParameters.getCharset())) {
             this.logger.info(String.format("Reading DMN '%s' ...", input.getAbsolutePath()));
 
             TDefinitions definitions = readModel(isr);
@@ -93,19 +93,14 @@ public abstract class DMNSerializer {
 
     public TDefinitions readModel(Reader input) {
         try {
-            this.logger.info(String.format("Reading DMN '%s' ...", input.toString()));
-
-            TDefinitions result = transform(this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation()));
-
-            this.logger.info("DMN read.");
-            return result;
+            return transform(this.dmnMarshaller.unmarshal(input, this.inputParameters.isXsdValidation()));
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input.toString()), e);
         }
     }
 
     public void writeModel(TDefinitions definitions, File output) {
-        try (FileOutputStream fos = new FileOutputStream(output); OutputStreamWriter osw = new OutputStreamWriter(fos)) {
+        try (FileOutputStream fos = new FileOutputStream(output); OutputStreamWriter osw = new OutputStreamWriter(fos, this.inputParameters.getCharset())) {
             this.dmnMarshaller.marshal(definitions, osw);
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output.getPath()), e);

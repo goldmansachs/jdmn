@@ -15,6 +15,7 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.SerializationFormat;
 
+import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -62,6 +63,7 @@ public class InputParameters {
     private final String namespace;
     private final String prefix;
     private final SerializationFormat format;
+    private final Charset charset;
 
     private final String javaRootPackage;
     private final boolean onePackage;
@@ -97,6 +99,8 @@ public class InputParameters {
         this.schemaNamespace = InputParameters.getOptionalParam(inputParameters, "signavioSchemaNamespace");
         this.prefix = InputParameters.getOptionalParam(inputParameters, "prefix");
         this.format = SerializationFormat.valueOf(InputParameters.getOptionalParam(inputParameters, "format", "XML"));
+        String charsetName = InputParameters.getOptionalParam(inputParameters, "encoding");
+        this.charset = charsetName == null ? Charset.defaultCharset() : Charset.forName(charsetName);
 
         this.javaRootPackage = InputParameters.getOptionalParam(inputParameters, "javaRootPackage");
         this.onePackage = InputParameters.getOptionalBooleanParam(inputParameters, "onePackage", "false");
@@ -150,6 +154,10 @@ public class InputParameters {
 
     public SerializationFormat getFormat() {
         return format;
+    }
+
+    public Charset getCharset() {
+        return this.charset;
     }
 
     public String getJavaRootPackage() {
