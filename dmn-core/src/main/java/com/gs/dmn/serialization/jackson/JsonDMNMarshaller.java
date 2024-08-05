@@ -24,7 +24,6 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNMarshaller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -65,16 +64,6 @@ public class JsonDMNMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public TDefinitions unmarshal(File input, boolean validateSchema) {
-        try {
-            checkSchemaValidationFlag(validateSchema);
-            return JSON_MAPPER.readValue(input, TDefinitions.class);
-        } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input), e);
-        }
-    }
-
-    @Override
     public TDefinitions unmarshal(Reader input, boolean validateSchema) {
         try {
             checkSchemaValidationFlag(validateSchema);
@@ -90,15 +79,6 @@ public class JsonDMNMarshaller implements DMNMarshaller {
             return JSON_MAPPER.writeValueAsString(o);
         } catch (IOException e) {
             throw new DMNRuntimeException("Cannot write DMN as string", e);
-        }
-    }
-
-    @Override
-    public void marshal(TDefinitions o, File output) {
-        try {
-            JSON_MAPPER.writeValue(output, o);
-        } catch (IOException e) {
-            throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output.getPath()), e);
         }
     }
 

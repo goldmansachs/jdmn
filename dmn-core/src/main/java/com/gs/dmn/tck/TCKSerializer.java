@@ -18,7 +18,7 @@ import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
 import com.gs.dmn.transformation.InputParameters;
 
-import java.io.File;
+import java.io.*;
 
 public abstract class TCKSerializer {
     public static final String DEFAULT_TEST_CASE_FILE_EXTENSION = ".xml";
@@ -42,23 +42,44 @@ public abstract class TCKSerializer {
     }
 
     public TestCases read(File input) {
-        try {
+        try (FileInputStream fis = new FileInputStream(input); InputStreamReader isr = new InputStreamReader(fis)) {
             this.logger.info(String.format("Reading TCK '%s' ...", input.getPath()));
 
-            TestCases testCases = this.marshaller.unmarshal(input, inputParameters.isXsdValidation());
+            TestCases testCases = read(isr);
 
             this.logger.info("TCK read.");
             return testCases;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot read TCK from '%s'", input.getPath()), e);
+            throw new DMNRuntimeException(String.format("Cannot read TCK from File '%s'", input.getPath()), e);
         }
     }
 
-    public void write(TestCases testCases, File file) {
+    public TestCases read(Reader input) {
         try {
-            this.marshaller.marshal(testCases, file);
+            this.logger.info(String.format("Reading TCK '%s' ...", input.toString()));
+
+            TestCases testCases = this.marshaller.unmarshal(input, this.inputParameters.isXsdValidation());
+
+            this.logger.info("TCK read.");
+            return testCases;
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot write TCK to '%s'", file.getPath()), e);
+            throw new DMNRuntimeException(String.format("Cannot read TCK from Reader '%s'", input.toString()), e);
+        }
+    }
+
+    public void write(TestCases testCases, File output) {
+        try (FileOutputStream fos = new FileOutputStream(output); OutputStreamWriter osw = new OutputStreamWriter(fos)) {
+            write(testCases, osw);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot write TCK to File '%s'", output.getPath()), e);
+        }
+    }
+
+    public void write(TestCases testCases, Writer output) {
+        try {
+            this.marshaller.marshal(testCases, output);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot write TCK to Writer '%s'", output.toString()), e);
         }
     }
 }

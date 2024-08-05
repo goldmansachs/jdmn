@@ -14,20 +14,15 @@ package com.gs.dmn.tck.serialization;
 
 import com.gs.dmn.tck.ast.TestCases;
 
-import java.io.File;
 import java.io.Reader;
 import java.io.Writer;
 
 public interface TCKMarshaller {
     TestCases unmarshal(String input, boolean validateSchema);
 
-    TestCases unmarshal(File input, boolean validateSchema);
-
     TestCases unmarshal(Reader input, boolean validateSchema);
 
     String marshal(TestCases o);
-
-    void marshal(TestCases o, File output);
 
     void marshal(TestCases o, Writer output);
 }

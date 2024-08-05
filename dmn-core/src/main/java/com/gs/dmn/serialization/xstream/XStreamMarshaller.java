@@ -29,7 +29,10 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.Writer;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -136,22 +139,6 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public TDefinitions unmarshal(File input, boolean validateSchema) {
-        try (Reader firstStringReader = new FileReader(input); Reader secondStringReader = new FileReader(input)) {
-            DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
-            if (validateSchema && dmnVersion != null) {
-                try (FileInputStream inputStream = new FileInputStream(input)) {
-                    validateXMLSchema(new StreamSource(inputStream), dmnVersion.getSchemaLocation());
-                }
-            }
-            return unmarshal(dmnVersion, secondStringReader);
-        } catch (Exception e) {
-            LOGGER.error("Error unmarshalling DMN model from reader.", e);
-        }
-        return null;
-    }
-
-    @Override
     public TDefinitions unmarshal(Reader input, boolean validateSchema) {
         try (BufferedReader buffer = new BufferedReader(input)) {
             String xml = buffer.lines().collect(Collectors.joining("\n"));
@@ -185,15 +172,6 @@ public class XStreamMarshaller implements DMNMarshaller {
             LOGGER.error("Error marshalling object {}", o);
         }
         return null;
-    }
-
-    @Override
-    public void marshal(TDefinitions o, File output) {
-        try (FileWriter fileWriter = new FileWriter(output)) {
-            marshal(o, fileWriter);
-        } catch (Exception e) {
-            LOGGER.error("Error marshalling object {}", o);
-        }
     }
 
     @Override

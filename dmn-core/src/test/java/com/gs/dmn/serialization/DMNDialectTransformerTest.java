@@ -4,7 +4,7 @@ import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 
-import java.io.File;
+import java.io.*;
 
 public abstract class DMNDialectTransformerTest extends AbstractFileTransformerTest {
     protected final DMNMarshaller dmnMarshaller = getDMNMarshaller();
@@ -12,14 +12,19 @@ public abstract class DMNDialectTransformerTest extends AbstractFileTransformerT
     protected void doTest(String inputFileName) throws Exception {
         // Read
         File inputFile = new File(resource(getInputPath() + inputFileName));
-        TDefinitions sourceDefinitions = dmnMarshaller.unmarshal(inputFile, true);
+        TDefinitions sourceDefinitions;
+        try (FileInputStream fis = new FileInputStream(inputFile); InputStreamReader isr = new InputStreamReader(fis)) {
+            sourceDefinitions = dmnMarshaller.unmarshal(isr, true);
+        }
 
         // Transform
         TDefinitions targetDefinitions = transform(sourceDefinitions);
 
         // Write
         File actualOutputFile = getActualOutputFile(inputFileName);
-        dmnMarshaller.marshal(targetDefinitions, actualOutputFile);
+        try (FileOutputStream fos = new FileOutputStream(actualOutputFile); OutputStreamWriter osw = new OutputStreamWriter(fos)) {
+            dmnMarshaller.marshal(targetDefinitions, osw);
+        }
 
         // Compare
         File expectedOutputFile = getExpectedOutputFile(inputFileName);

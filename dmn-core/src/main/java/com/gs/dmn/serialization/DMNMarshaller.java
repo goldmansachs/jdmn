@@ -14,20 +14,15 @@ package com.gs.dmn.serialization;
 
 import com.gs.dmn.ast.TDefinitions;
 
-import java.io.File;
 import java.io.Reader;
 import java.io.Writer;
 
 public interface DMNMarshaller {
     TDefinitions unmarshal(String input, boolean validateSchema);
 
-    TDefinitions unmarshal(File input, boolean validateSchema);
-
     TDefinitions unmarshal(Reader input, boolean validateSchema);
 
     String marshal(TDefinitions o);
-
-    void marshal(TDefinitions o, File output);
 
     void marshal(TDefinitions o, Writer output);
 }
