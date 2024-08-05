@@ -80,7 +80,9 @@
         <dmn.version>1.4</dmn.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
+
         <java.version>1.8</java.version>
         <maven.version>3.9.4</maven.version>
 
