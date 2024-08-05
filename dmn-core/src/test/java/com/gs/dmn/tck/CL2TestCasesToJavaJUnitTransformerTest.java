@@ -39,5 +39,6 @@ public class CL2TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
         doSingleModelTest("1.1","0008-LX-arithmetic", "0008-LX-arithmetic-test-01");
         doSingleModelTest("1.1","0009-invocation-arithmetic", "0009-invocation-arithmetic-test-01");
         doSingleModelTest("1.1","0010-multi-output-U", "0010-multi-output-U-test-01");
+        doSingleModelTest("1.1","0102-feel-constants", "0102-feel-constants-test-01");
     }
 }

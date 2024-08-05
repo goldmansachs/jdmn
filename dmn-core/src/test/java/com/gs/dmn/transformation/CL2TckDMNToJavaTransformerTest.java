@@ -27,6 +27,7 @@ public class CL2TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
 
     @Test
     public void testCL2() throws Exception {
+        // DMN 1.1
         doSingleModelTest("1.1", "0004-simpletable-U");
         doSingleModelTest("1.1", "0005-simpletable-A");
         doSingleModelTest("1.1", "0006-simpletable-P1");
@@ -34,5 +35,6 @@ public class CL2TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doSingleModelTest("1.1","0008-LX-arithmetic");
         doSingleModelTest("1.1","0009-invocation-arithmetic");
         doSingleModelTest("1.1","0010-multi-output-U");
+        doSingleModelTest("1.1","0102-feel-constants");
     }
 }

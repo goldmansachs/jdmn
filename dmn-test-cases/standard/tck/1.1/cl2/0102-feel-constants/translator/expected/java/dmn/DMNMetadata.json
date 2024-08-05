@@ -1,0 +1,77 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "https://github.com/dmn-tck/tck" ],
+  "nativeNamespace" : "",
+  "types" : [ ],
+  "elements" : [ {
+    "@kind" : "decision",
+    "id" : "d_Decision1",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision1",
+    "javaTypeName" : "Decision1",
+    "knowledgeReferences" : [ ],
+    "name" : "Decision1",
+    "namespace" : "https://github.com/dmn-tck/tck",
+    "protoRequestName" : "proto.Decision1Request",
+    "protoResponseName" : "proto.Decision1Response",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "d_Decision2",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision2",
+    "javaTypeName" : "Decision2",
+    "knowledgeReferences" : [ ],
+    "name" : "Decision2",
+    "namespace" : "https://github.com/dmn-tck/tck",
+    "protoRequestName" : "proto.Decision2Request",
+    "protoResponseName" : "proto.Decision2Response",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "d_Decision3",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision3",
+    "javaTypeName" : "Decision3",
+    "knowledgeReferences" : [ ],
+    "name" : "Decision3",
+    "namespace" : "https://github.com/dmn-tck/tck",
+    "protoRequestName" : "proto.Decision3Request",
+    "protoResponseName" : "proto.Decision3Response",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "d_Decision4",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "decision4",
+    "javaTypeName" : "Decision4",
+    "knowledgeReferences" : [ ],
+    "name" : "Decision4",
+    "namespace" : "https://github.com/dmn-tck/tck",
+    "protoRequestName" : "proto.Decision4Request",
+    "protoResponseName" : "proto.Decision4Response",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ]
+}
