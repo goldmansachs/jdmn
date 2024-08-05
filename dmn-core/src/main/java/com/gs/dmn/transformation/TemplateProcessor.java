@@ -51,12 +51,14 @@ public class TemplateProcessor {
     private final TemplateProvider templateProvider;
     private final String fileExtension;
     private final TypeDeserializationConfigurer typeDeserializationConfigurer;
+    private final InputParameters inputParameters;
 
-    public TemplateProcessor(BuildLogger logger, TemplateProvider templateProvider, String fileExtension, TypeDeserializationConfigurer typeDeserializationConfigurer) {
+    public TemplateProcessor(BuildLogger logger, TemplateProvider templateProvider, String fileExtension, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters) {
         this.logger = logger;
         this.templateProvider = templateProvider;
         this.fileExtension = fileExtension;
         this.typeDeserializationConfigurer = typeDeserializationConfigurer;
+        this.inputParameters = inputParameters;
     }
 
     public File makeOutputFile(Path outputPath, String relativeFilePath, String fileName, String fileExtension) {

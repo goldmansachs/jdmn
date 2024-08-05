@@ -21,7 +21,7 @@ public abstract class AbstractTemplateBasedTransformer extends AbstractFileTrans
 
     protected AbstractTemplateBasedTransformer(TemplateProvider templateProvider, InputParameters inputParameters, BuildLogger logger) {
         super(logger, inputParameters);
-        this.templateProcessor = new TemplateProcessor(this.logger, templateProvider, getFileExtension(), new DefaultTypeDeserializationConfigurer());
+        this.templateProcessor = new TemplateProcessor(this.logger, templateProvider, getFileExtension(), new DefaultTypeDeserializationConfigurer(), inputParameters);
     }
 
     protected abstract String getFileExtension();
