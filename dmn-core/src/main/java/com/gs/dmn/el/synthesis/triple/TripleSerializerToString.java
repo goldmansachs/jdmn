@@ -68,9 +68,10 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
 
     @Override
     public String visit(ContextEntryTriple triple, Triples context) {
-        String key = triple.getKey();
+        String keyLexeme = triple.getKey();
+        String keyLiteral = this.nativeFactory.stringLiteral(keyLexeme);
         String value = triple.getValue().accept(this, context);
-        return String.format(".add(%s, %s)", key, value);
+        return String.format(".add(%s, %s)", keyLiteral, value);
     }
 
     //

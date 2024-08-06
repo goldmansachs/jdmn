@@ -120,13 +120,14 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         for (Component c : components) {
             String name = c.getName();
             Type memberType = type.getMemberType(name);
+            String nameLiteral = this.nativeFactory.stringLiteral(name);
             String value = toNativeExpression(c, memberType, element);
-            membersList.add(new Pair<>(name, value));
+            membersList.add(new Pair<>(nameLiteral, value));
         }
         // Use builder pattern in Context
         sortParameters(membersList);
         String builder = this.transformer.defaultConstructor(this.transformer.contextClassName());
-        String parts = membersList.stream().map(a -> String.format("add(\"%s\", %s)", a.getLeft(), a.getRight())).collect(Collectors.joining("."));
+        String parts = membersList.stream().map(a -> String.format("add(%s, %s)", a.getLeft(), a.getRight())).collect(Collectors.joining("."));
         return String.format("%s.%s", builder, parts);
     }
 
