@@ -100,7 +100,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'decision_006'
-        checkValues(new com.gs.dmn.runtime.Context().add("\uD83D\uDC0E", "bar"), new Decision_006().apply(context_));
+        checkValues(new com.gs.dmn.runtime.Context().add("🐎", "bar"), new Decision_006().apply(context_));
     }
 
     @org.junit.jupiter.api.Test
@@ -109,7 +109,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.DefaultDMNBaseDecis
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'decision_007'
-        checkValues(new com.gs.dmn.runtime.Context().add("\uD83D\uDC0E", "😀"), new Decision_007().apply(context_));
+        checkValues(new com.gs.dmn.runtime.Context().add("🐎", "😀"), new Decision_007().apply(context_));
     }
 
     @org.junit.jupiter.api.Test

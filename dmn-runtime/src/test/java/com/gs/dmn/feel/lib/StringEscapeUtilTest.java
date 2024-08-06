@@ -67,10 +67,10 @@ public class StringEscapeUtilTest {
         assertEquals("\\t", StringEscapeUtil.escapeFEEL("\u0009"));
         assertEquals("\\\\u0009", StringEscapeUtil.escapeFEEL("\\u0009"));
 
-        assertEquals("\\uD83D\\uDCA9", StringEscapeUtil.escapeFEEL("\uD83D\uDCA9"));
-        assertEquals("\\uD83D\\uDCA9", StringEscapeUtil.escapeFEEL("\ud83d\udca9"));
-        assertEquals("\\uD83D\\uDC0E\\uD83D\\uDE00", StringEscapeUtil.escapeFEEL("\ud83d\udc0e\uD83D\uDE00"));
-        assertEquals("\\uD83D\\uDC0E\\uD83D\\uDE00", StringEscapeUtil.escapeFEEL("🐎😀"));
+        assertEquals("\uD83D\uDCA9", StringEscapeUtil.escapeFEEL("\uD83D\uDCA9"));
+        assertEquals("\uD83D\uDCA9", StringEscapeUtil.escapeFEEL("\ud83d\udca9"));
+        assertEquals("\uD83D\uDC0E\uD83D\uDE00", StringEscapeUtil.escapeFEEL("\ud83d\udc0e\uD83D\uDE00"));
+        assertEquals("\uD83D\uDC0E\uD83D\uDE00", StringEscapeUtil.escapeFEEL("🐎😀"));
     }
 
     @Test

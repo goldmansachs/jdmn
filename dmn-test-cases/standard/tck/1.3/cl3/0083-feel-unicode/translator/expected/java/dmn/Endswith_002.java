@@ -69,7 +69,7 @@ public class Endswith_002 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
                 com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
-                return endsWith("\uD83D\uDC0E\uD83D\uDE00", "\uD83D\uDE00");
+                return endsWith("🐎😀", "😀");
             }
         };
 }

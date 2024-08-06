@@ -343,8 +343,8 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "len(\"\\uD83D\\uDCA9\")",
                 "FunctionInvocation(Name(len) -> PositionalParameters(StringLiteral(\"\\uD83D\\uDCA9\")))",
                 "number",
-                "len(\"\\uD83D\\uDCA9\")",
-                this.lib.len("\uD83D\uDCA9"),
+                "len(\"\uD83D\uDCA9\")",
+                this.lib.len("💩"),
                 this.lib.number("2"));
         doExpressionTest(entries, "", "upper(\"abc\")",
                 "FunctionInvocation(Name(upper) -> PositionalParameters(StringLiteral(\"abc\")))",

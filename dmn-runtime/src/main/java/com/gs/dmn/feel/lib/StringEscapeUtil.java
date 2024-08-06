@@ -145,7 +145,7 @@ public class StringEscapeUtil {
                 builder.append(FEEL_ESCAPE_MAP.get(ch));
                 index++;
             } else if (Character.isSurrogate(ch)) {
-                builder.append("\\u").append(hex(ch));
+                builder.append(ch);
                 index++;
             } else {
                 builder.append(ch);

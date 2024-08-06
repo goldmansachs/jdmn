@@ -69,7 +69,7 @@ public class Substring_004 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
                 com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
-                return stringEqual(substring("\uD83D\uDC0Efoo", number("2")), "foo");
+                return stringEqual(substring("🐎foo", number("2")), "foo");
             }
         };
 }

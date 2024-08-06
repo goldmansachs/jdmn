@@ -265,8 +265,8 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "substring(\"\\U01F40Eab\", 2)",
                 "FunctionInvocation(Name(substring) -> PositionalParameters(StringLiteral(\"\uD83D\uDC0Eab\"), NumericLiteral(2)))",
                 "string",
-                "substring(\"\\uD83D\\uDC0Eab\", number(\"2\"))",
-                this.lib.substring("\uD83D\uDC0Eab", this.lib.number("2")),
+                "substring(\"\uD83D\uDC0Eab\", number(\"2\"))",
+                this.lib.substring("🐎ab", this.lib.number("2")),
                 "ab");
 
         // invocation with named arguments
@@ -673,8 +673,8 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "string length(\"\\uD83D\\uDCA9\")",
                 "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\uD83D\\uDCA9\")))",
                 "number",
-                "stringLength(\"\\uD83D\\uDCA9\")",
-                this.lib.stringLength("\uD83D\uDCA9"),
+                "stringLength(\"\uD83D\uDCA9\")",
+                this.lib.stringLength("💩"),
                 this.lib.number("1"));
         doExpressionTest(entries, "", "upper case(\"abc\")",
                 "FunctionInvocation(Name(upper case) -> PositionalParameters(StringLiteral(\"abc\")))",

@@ -69,7 +69,7 @@ public class Decision_001_b extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
                 com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
-                return stringEqual("\uD83D\uDC0E", "\uD83D\uDC0E");
+                return stringEqual("🐎", "🐎");
             }
         };
 }
