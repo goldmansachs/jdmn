@@ -1136,8 +1136,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         LOGGER.debug("Visiting element '{}'", element);
 
         String lexeme = element.getLexeme();
-        String value = StringEscapeUtil.unescapeFEEL(lexeme);
-        return value;
+        return StringEscapeUtil.unescapeFEEL(lexeme);
     }
 
     @Override

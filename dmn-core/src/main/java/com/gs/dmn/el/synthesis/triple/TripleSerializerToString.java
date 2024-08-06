@@ -15,7 +15,6 @@ package com.gs.dmn.el.synthesis.triple;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
-import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.native_.NativeFactory;
@@ -43,11 +42,7 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
 
     @Override
     public String visit(StringLiteral triple, Triples context) {
-        String lexeme = triple.getLexeme();
-        String value = StringEscapeUtil.unescapeFEEL(lexeme);
-        value = StringEscapeUtil.escapeFEEL(value);
-        value = String.format("\"%s\"", value);
-        return value;
+        return this.nativeFactory.stringLiteral(triple.getLexeme());
     }
 
     @Override

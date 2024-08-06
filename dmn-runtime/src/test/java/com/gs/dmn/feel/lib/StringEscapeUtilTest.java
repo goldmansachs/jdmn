@@ -24,7 +24,7 @@ public class StringEscapeUtilTest {
         assertEquals("", StringEscapeUtil.unescapeFEEL(""));
 
         assertEquals("abc", StringEscapeUtil.unescapeFEEL("abc"));
-        assertEquals("abc", StringEscapeUtil.unescapeFEEL("abc"));
+        assertEquals("123", StringEscapeUtil.unescapeFEEL("123"));
         assertEquals("Don't consider", StringEscapeUtil.unescapeFEEL("\"Don't consider\""));
 
         assertEquals("\n", StringEscapeUtil.unescapeFEEL("\\n"));

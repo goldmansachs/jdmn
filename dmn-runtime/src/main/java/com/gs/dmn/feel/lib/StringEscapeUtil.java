@@ -75,6 +75,12 @@ public class StringEscapeUtil {
         return value.substring(1, value.length() - 1);
     }
 
+    public static String feelLiteralToJavaLiteral(String lexeme) {
+        String value = unescapeFEEL(lexeme);
+        value = escapeFEEL(value);
+        return String.format("\"%s\"", value);
+    }
+
     // Replace the FEEL escape sequences in lexeme with their values
     public static String unescapeFEEL(String lexeme) {
         if (StringUtils.isEmpty(lexeme)) {

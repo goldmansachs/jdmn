@@ -132,6 +132,8 @@ public interface NativeExpressionFactory {
     //
     String numericLiteral(String lexeme);
 
+    String stringLiteral(String lexeme);
+
     String booleanLiteral(String lexeme);
 
     String trueConstant();

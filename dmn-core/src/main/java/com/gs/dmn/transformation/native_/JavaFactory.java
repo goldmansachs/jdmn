@@ -27,6 +27,7 @@ import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
+import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -333,6 +334,11 @@ public class JavaFactory implements NativeFactory {
     @Override
     public String numericLiteral(String lexeme) {
         return String.format("number(\"%s\")", lexeme);
+    }
+
+    @Override
+    public String stringLiteral(String lexeme) {
+        return lexeme == null ? nullLiteral() : StringEscapeUtil.feelLiteralToJavaLiteral(lexeme);
     }
 
     @Override

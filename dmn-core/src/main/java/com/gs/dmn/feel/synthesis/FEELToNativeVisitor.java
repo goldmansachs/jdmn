@@ -44,7 +44,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
-import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
@@ -571,11 +570,7 @@ public class FEELToNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
 
     @Override
     public String visit(StringLiteral<Type> element, DMNContext context) {
-        String lexeme = element.getLexeme();
-        String value = StringEscapeUtil.unescapeFEEL(lexeme);
-        value = StringEscapeUtil.escapeFEEL(value);
-        value = String.format("\"%s\"", value);
-        return value;
+        return this.nativeFactory.stringLiteral(element.getLexeme());
     }
 
     @Override
