@@ -16,6 +16,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.SerializationFormat;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -100,7 +101,7 @@ public class InputParameters {
         this.prefix = InputParameters.getOptionalParam(inputParameters, "prefix");
         this.format = SerializationFormat.valueOf(InputParameters.getOptionalParam(inputParameters, "format", "XML"));
         String charsetName = InputParameters.getOptionalParam(inputParameters, "encoding");
-        this.charset = charsetName == null ? Charset.defaultCharset() : Charset.forName(charsetName);
+        this.charset = charsetName == null ? StandardCharsets.UTF_8 : Charset.forName(charsetName);
 
         this.javaRootPackage = InputParameters.getOptionalParam(inputParameters, "javaRootPackage");
         this.onePackage = InputParameters.getOptionalBooleanParam(inputParameters, "onePackage", "false");
