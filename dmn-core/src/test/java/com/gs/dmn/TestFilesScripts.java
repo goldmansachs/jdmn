@@ -19,17 +19,17 @@ import java.io.IOException;
 import java.util.*;
 
 public class TestFilesScripts {
-    private static File LOCAL_TCK_FOLDER = new File("C:/Work/Projects/tck/TestCases/compliance-level-3/");
+    private static final File LOCAL_TCK_FOLDER = new File("C:/Work/Projects/tck/TestCases/compliance-level-3/");
 
-    private static File TEST_CASES_FOLDER = new File("dmn-test-cases/standard/");
-    private static File TCK_11_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.1/cl2/");
-    private static File TCK_11_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.1/cl3/");
-    private static File TCK_12_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.2/cl2/");
-    private static File TCK_12_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.2/cl3/");
-    private static File TCK_13_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.3/cl2/");
-    private static File TCK_13_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.3/cl3/");
-    private static File COMPOSITE_FOLDER = new File(TEST_CASES_FOLDER, "composite/1.2");
-    private static File PROTO_FOLDER = new File(TEST_CASES_FOLDER, "proto/1.1");
+    private static final File TEST_CASES_FOLDER = new File("dmn-test-cases/standard/");
+    private static final File TCK_11_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.1/cl2/");
+    private static final File TCK_11_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.1/cl3/");
+    private static final File TCK_12_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.2/cl2/");
+    private static final File TCK_12_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.2/cl3/");
+    private static final File TCK_13_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.3/cl2/");
+    private static final File TCK_13_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.3/cl3/");
+    private static final File COMPOSITE_FOLDER = new File(TEST_CASES_FOLDER, "composite/1.2");
+    private static final File PROTO_FOLDER = new File(TEST_CASES_FOLDER, "proto/1.1");
 
     private static void deleteAlienFilesFromTestFolders(boolean dryRun) throws IOException {
         deleteAlienFilesFromTestFolders(TCK_11_CL2_FOLDER, dryRun);

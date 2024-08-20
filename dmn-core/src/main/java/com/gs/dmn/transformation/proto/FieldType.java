@@ -15,6 +15,8 @@ package com.gs.dmn.transformation.proto;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Objects;
+
 public class FieldType {
     private final String modifier;
     private final String type;
@@ -46,8 +48,8 @@ public class FieldType {
 
         FieldType fieldType = (FieldType) o;
 
-        if (modifier != null ? !modifier.equals(fieldType.modifier) : fieldType.modifier != null) return false;
-        return type != null ? type.equals(fieldType.type) : fieldType.type == null;
+        if (!Objects.equals(modifier, fieldType.modifier)) return false;
+        return Objects.equals(type, fieldType.type);
     }
 
     @Override

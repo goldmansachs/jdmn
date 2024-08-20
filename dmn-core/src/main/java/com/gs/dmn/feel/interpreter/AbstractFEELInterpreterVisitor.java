@@ -526,7 +526,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         Type filterType = element.getFilter().getType();
         Object source = element.getSource().accept(this, context);
         if (!(sourceType instanceof ListType)) {
-            source = Arrays.asList(source);
+            source = Collections.singletonList(source);
         }
         if (filterType == BooleanType.BOOLEAN) {
             List<Object> result = new ArrayList<>();
@@ -1062,7 +1062,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 return evaluateRangeMember(source, member);
             } else if (sourceType instanceof AnyType) {
                 // source is Context
-                List<String> aliases = Arrays.asList();
+                List<String> aliases = Collections.emptyList();
                 return ((com.gs.dmn.runtime.Context) source).get(member, aliases.toArray());
             } else {
                 this.errorHandler.reportError(String.format("Cannot evaluate '%s'.", element));

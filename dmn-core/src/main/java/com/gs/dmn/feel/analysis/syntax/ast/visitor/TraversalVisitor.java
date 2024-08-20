@@ -155,10 +155,6 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
 
     @Override
     public Element<T> visit(ContextEntryKey<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
@@ -429,46 +425,26 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     //
     @Override
     public Element<T> visit(BooleanLiteral<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
     @Override
     public Element<T> visit(DateTimeLiteral<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
     @Override
     public Element<T> visit(NullLiteral<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
     @Override
     public Element<T> visit(NumericLiteral<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
     @Override
     public Element<T> visit(StringLiteral<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
@@ -484,64 +460,36 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
 
     @Override
     public Element<T> visit(QualifiedName<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
     @Override
     public Element<T> visit(Name<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
     @Override
     public Element<T> visit(NamedTypeExpression<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
     @Override
     public Element<T> visit(ContextTypeExpression<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
     @Override
     public Element<T> visit(RangeTypeExpression<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
     @Override
     public Element<T> visit(FunctionTypeExpression<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 
     @Override
     public Element<T> visit(ListTypeExpression<T> element, C context) {
-        if (element == null) {
-            return null;
-        }
-
         return element;
     }
 }

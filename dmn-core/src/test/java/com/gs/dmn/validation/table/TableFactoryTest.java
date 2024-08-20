@@ -25,6 +25,7 @@ import org.junit.jupiter.api.Test;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -111,7 +112,7 @@ public class TableFactoryTest extends AbstractValidatorTest {
         List<String> expectedMinList = Arrays.asList(
                 "[-Infinity", "[0"
         );
-        List<String> expectedMaxList = Arrays.asList(
+        List<String> expectedMaxList = Collections.singletonList(
                 "+Infinity], 5000]"
         );
         checkTable(resource("dmn/input/1.3/loan-grade-with-relational-operators.dmn"), expectedInputs, expectedRules, expectedMinList, expectedMaxList);

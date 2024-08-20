@@ -20,10 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -113,7 +110,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
         List<DRGElementReference<TInvocable>> references = this.dmnModelRepository.directSubInvocables(root);
 
         List<String> actual = references.stream().map(DRGElementReference::toString).collect(Collectors.toList());
-        List<String> expected = Arrays.asList(
+        List<String> expected = Collections.singletonList(
                 "DMNReference(import='[]', namespace='http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b', model='Lending1', element='BureauCallTypeTable')"
         );
         assertEquals(expected, actual);

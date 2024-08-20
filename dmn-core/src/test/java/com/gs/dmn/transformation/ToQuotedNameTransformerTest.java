@@ -18,6 +18,7 @@ import com.gs.dmn.tck.ast.TestCases;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 
 import static com.gs.dmn.runtime.Assert.assertEquals;
@@ -27,25 +28,25 @@ import static com.gs.dmn.serialization.DMNConstants.XSI_PREFIX;
 public class ToQuotedNameTransformerTest extends SimpleDMNTransformerTest {
     @Test
     public void testTransform() throws Exception {
-        doTest("1.1", Arrays.asList("0004-lending.dmn"),
+        doTest("1.1", Collections.singletonList("0004-lending.dmn"),
                 "0004-lending-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
                     put("0004-lending.dmn", new Pair<>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"));
                     put("0004-lending-test-01.xml", new Pair<>(XSI_NS, XSI_PREFIX));
                 }}
         );
-        doTest("1.1", Arrays.asList("0007-date-time.dmn"),
+        doTest("1.1", Collections.singletonList("0007-date-time.dmn"),
                 "0007-date-time-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
                     put("0007-date-time.dmn", new Pair<>("http://www.trisotech.com/definitions/_69430b3e-17b8-430d-b760-c505bf6469f9", "tns"));
                     put("0007-date-time-test-01.xml",  new Pair<>(XSI_NS, XSI_PREFIX));
                 }}
         );
-        doTest("1.1", Arrays.asList("0034-drg-scopes.dmn") ,
+        doTest("1.1", Collections.singletonList("0034-drg-scopes.dmn"),
                 "0034-drg-scopes-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
                     put("0034-drg-scopes.dmn", new Pair<>("http://www.actico.com/spec/DMN/0.1.0/0034-drg-scopes", "tns"));
                     put("0034-drg-scopes-test-01.xml", new Pair<>(XSI_NS, XSI_PREFIX));
                 }}
         );
-        doTest("1.2", Arrays.asList("0087-chapter-11-example.dmn") ,
+        doTest("1.2", Collections.singletonList("0087-chapter-11-example.dmn"),
                 "0087-chapter-11-example-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
                     put("0087-chapter-11-example.dmn", new Pair<>("http://www.trisotech.com/definitions/_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4", "tns"));
                     put("0087-chapter-11-example-test-01.xml", new Pair<>(XSI_NS, XSI_PREFIX));

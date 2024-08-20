@@ -16,14 +16,14 @@ import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.Pair;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class InterpretedRuleOutputTest {
     @Test
     public void testEquals() {
-        assertTrue(new InterpretedRuleOutput(true, "123").equals(new InterpretedRuleOutput(true, "123")));
-        assertFalse(new InterpretedRuleOutput(true, "1234").equals(new InterpretedRuleOutput(true, "123")));
+        assertEquals(new InterpretedRuleOutput(true, "123"), new InterpretedRuleOutput(true, "123"));
+        assertNotEquals(new InterpretedRuleOutput(true, "1234"), new InterpretedRuleOutput(true, "123"));
 
         Context c1 = new Context();
         c1.put("Rate", new Pair<>("Best", null));
@@ -31,6 +31,6 @@ public class InterpretedRuleOutputTest {
         Context c2 = new Context();
         c2.put("Rate", new Pair<>("Best", null));
         c2.put("Status", new Pair<>("Approved", null));
-        assertTrue(new InterpretedRuleOutput(true, c1).equals(new InterpretedRuleOutput(true, c2)));
+        assertEquals(new InterpretedRuleOutput(true, c1), new InterpretedRuleOutput(true, c2));
     }
 }

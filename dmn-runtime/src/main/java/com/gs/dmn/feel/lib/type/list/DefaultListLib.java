@@ -15,6 +15,7 @@ package com.gs.dmn.feel.lib.type.list;
 import com.gs.dmn.runtime.LambdaExpression;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -26,9 +27,7 @@ public class DefaultListLib implements ListLib {
             result.addAll(list);
         }
         if (items != null) {
-            for (T item : items) {
-                result.add(item);
-            }
+            Collections.addAll(result, items);
         } else {
             result.add(null);
         }

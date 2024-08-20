@@ -19,6 +19,7 @@ import com.gs.dmn.runtime.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
@@ -33,15 +34,15 @@ public abstract class FunctionTypeTest {
 
     @Test
     public void testCalculateCandidates() {
-        doTest(Arrays.asList(), Arrays.asList(), "[]");
-        doTest(Arrays.asList(NUMBER), Arrays.asList(NUMBER), "[]");
-        doTest(Arrays.asList(NUMBER), Arrays.asList(NUMBER_LIST), "[" +
+        doTest(Collections.emptyList(), Collections.emptyList(), "[]");
+        doTest(Collections.singletonList(NUMBER), Collections.singletonList(NUMBER), "[]");
+        doTest(Collections.singletonList(NUMBER), Collections.singletonList(NUMBER_LIST), "[" +
                  "Pair(PositionalParameterTypes(number), PositionalParameterConversions([Conversion(SINGLETON_LIST_TO_ELEMENT, number)]))" +
                  "]");
-        doTest(Arrays.asList(NUMBER_LIST), Arrays.asList(NUMBER), "[" +
+        doTest(Collections.singletonList(NUMBER_LIST), Collections.singletonList(NUMBER), "[" +
                 "Pair(PositionalParameterTypes(ListType(number)), PositionalParameterConversions([Conversion(ELEMENT_TO_SINGLETON_LIST, ListType(number))]))" +
                 "]");
-        doTest(Arrays.asList(NUMBER), Arrays.asList(STRING), "[" +
+        doTest(Collections.singletonList(NUMBER), Collections.singletonList(STRING), "[" +
                 "]");
         doTest(Arrays.asList(NUMBER, DATE_AND_TIME), Arrays.asList(NUMBER, DATE), "[" +
                 "Pair(PositionalParameterTypes(number, date and time), PositionalParameterConversions([Conversion(NONE, number), Conversion(DATE_TO_UTC_MIDNIGHT, date and time)]))" +

@@ -17,6 +17,7 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,13 +27,13 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenCorrect() {
-        List<String> expectedErrors = Arrays.asList();
+        List<String> expectedErrors = Collections.emptyList();
         validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateWhenRepositoryIsEmpty() {
-        List<String> expectedErrors = Arrays.asList();
+        List<String> expectedErrors = Collections.emptyList();
         assertEquals(expectedErrors, validator.validate(null));
         assertEquals(expectedErrors, validator.validate(new DMNModelRepository()));
     }
@@ -57,7 +58,7 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenIntervals3() {
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Interval '(1500, 1600)' is not covered for column 1 in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-3.dmn"), expectedErrors);
@@ -65,7 +66,7 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenRelationalOperators() {
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Interval '(3000, 4000)' is not covered for column 2 in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-relational-operators.dmn"), expectedErrors);
@@ -73,7 +74,7 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenAny() {
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Interval '(3000, 4000)' is not covered for column 2 in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-any.dmn"), expectedErrors);
@@ -81,21 +82,19 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenBoolean() {
-        List<String> expectedErrors = Arrays.asList(
-        );
+        List<String> expectedErrors = Collections.emptyList();
         validate(validator, resource("dmn/input/1.3/loan-grade-with-boolean.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateWhenEnumeration() {
-        List<String> expectedErrors = Arrays.asList(
-        );
+        List<String> expectedErrors = Collections.emptyList();
         validate(validator, resource("dmn/input/1.3/loan-grade-with-enumeration.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateWhenEnumerationMissing() {
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Interval '{\"E23\"}' is not covered for column 2 in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-enumeration-missing.dmn"), expectedErrors);

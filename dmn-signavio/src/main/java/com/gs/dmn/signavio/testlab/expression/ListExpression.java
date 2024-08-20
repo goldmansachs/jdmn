@@ -17,6 +17,7 @@ import com.gs.dmn.signavio.testlab.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @JsonPropertyOrder({ "type", "value" })
 public class ListExpression extends Expression {
@@ -58,7 +59,7 @@ public class ListExpression extends Expression {
 
         ListExpression that = (ListExpression) o;
 
-        return value != null ? value.equals(that.value) : that.value == null;
+        return Objects.equals(value, that.value);
     }
 
     @Override

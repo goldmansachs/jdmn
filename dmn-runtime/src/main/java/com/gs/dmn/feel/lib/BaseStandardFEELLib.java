@@ -1084,13 +1084,13 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             } else if (first instanceof String) {
                 return (T) this.stringLib.min(list);
             } else if (isDate(first)) {
-                return (T) this.dateTimeLib.min(list);
+                return this.dateTimeLib.min(list);
             } else if (isTime(first)) {
-                return (T) this.dateTimeLib.min(list);
+                return this.dateTimeLib.min(list);
             } else if (isDateTime(first)) {
-                return (T) this.dateTimeLib.min(list);
+                return this.dateTimeLib.min(list);
             } else if (isDuration(first)) {
-                return (T) this.dateTimeLib.min(list);
+                return this.dateTimeLib.min(list);
             } else {
                 throw new DMNRuntimeException(String.format("Not supported yet for '%s'", first));
             }
@@ -1129,13 +1129,13 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             } else if (first instanceof String) {
                 return (T) this.stringLib.max(list);
             } else if (isDate(first)) {
-                return (T) this.dateTimeLib.max(list);
+                return this.dateTimeLib.max(list);
             } else if (isTime(first)) {
-                return (T) this.dateTimeLib.max(list);
+                return this.dateTimeLib.max(list);
             } else if (isDateTime(first)) {
-                return (T) this.dateTimeLib.max(list);
+                return this.dateTimeLib.max(list);
             } else if (isDuration(first)) {
-                return (T) this.dateTimeLib.max(list);
+                return this.dateTimeLib.max(list);
             } else {
                 throw new DMNRuntimeException(String.format("Not supported yet for '%s'", first));
             }

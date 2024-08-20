@@ -16,7 +16,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.tck.ast.TestCases;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 
 import static com.gs.dmn.serialization.DMNConstants.XSI_NS;
@@ -25,7 +25,7 @@ import static com.gs.dmn.serialization.DMNConstants.XSI_PREFIX;
 public class AddMissingNamespaceInTestCasesTransformerTest extends SimpleDMNTransformerTest {
     @Test
     public void testTransform() throws Exception {
-        doTest("1.1", Arrays.asList("0004-lending.dmn"),
+        doTest("1.1", Collections.singletonList("0004-lending.dmn"),
                 "0004-lending-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
                     put("0004-lending.dmn", new Pair<>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"));
                     put("0004-lending-test-01.xml", new Pair<>(XSI_NS, XSI_PREFIX));

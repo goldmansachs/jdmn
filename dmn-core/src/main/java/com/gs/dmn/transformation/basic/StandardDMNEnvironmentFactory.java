@@ -300,7 +300,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 if (columnType == null) {
                     columnType = AnyType.ANY;
                 }
-                rowType.addMember(column.getName(), Arrays.asList(), columnType);
+                rowType.addMember(column.getName(), Collections.emptyList(), columnType);
             }
             return new ListType(rowType);
         } else if (expression instanceof TConditional) {

@@ -26,7 +26,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
 
 public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.type.FunctionType {
-    public static final FunctionType ANY_FUNCTION = new FunctionType(Arrays.asList(), ANY) {
+    public static final FunctionType ANY_FUNCTION = new FunctionType(Collections.emptyList(), ANY) {
         @Override
         public boolean equivalentTo(Type other) {
             return this == other;

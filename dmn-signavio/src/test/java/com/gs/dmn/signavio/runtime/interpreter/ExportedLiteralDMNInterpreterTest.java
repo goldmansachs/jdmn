@@ -22,6 +22,7 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterpreterTest {
     private final DefaultSignavioBaseDecision decision = new DefaultSignavioBaseDecision();
@@ -52,7 +53,7 @@ public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterp
         doTest(new DecisionTestConfig(
                 "monthly",
                 "simple-decision-feel-complex-literal-expression",
-                makeInformationRequirements(Arrays.asList(
+                makeInformationRequirements(Collections.singletonList(
                         new Pair<>("loan", new Context().add("principal", decision.number("1024")).add("rate", decision.number("5")).add("term", decision.number("25")))
                 )),
                 decision.number("1024"))

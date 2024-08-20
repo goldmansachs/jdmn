@@ -13,6 +13,7 @@
 package com.gs.dmn.runtime.listener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CompositeListener implements EventListener {
@@ -20,9 +21,7 @@ public class CompositeListener implements EventListener {
 
     public CompositeListener(EventListener... eventListeners) {
         if (eventListeners != null) {
-            for (EventListener eventListener : eventListeners) {
-                this.eventListeners.add(eventListener);
-            }
+            Collections.addAll(this.eventListeners, eventListeners);
         }
     }
 

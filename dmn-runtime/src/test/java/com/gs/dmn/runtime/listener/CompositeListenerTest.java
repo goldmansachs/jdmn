@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CompositeListenerTest {
-    private EventListener listener = new CompositeListener();
+    private final EventListener listener = new CompositeListener();
 
     @Test
     public void testStartDRGElement() {

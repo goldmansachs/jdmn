@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -34,7 +34,7 @@ public class JsonSerializerTest {
         applicant.setName("Amy");
         applicant.setAge(decision.number("38"));
         applicant.setCreditScore(decision.number("100"));
-        applicant.setPriorIssues(Arrays.asList("Late payment"));
+        applicant.setPriorIssues(Collections.singletonList("Late payment"));
 
         Writer writer = new StringWriter();
         JsonSerializer.OBJECT_MAPPER.writeValue(writer, applicant);
@@ -50,6 +50,6 @@ public class JsonSerializerTest {
         assertTrue(decision.stringEqual("Amy", applicant.getName()));
         assertTrue(decision.numericEqual(decision.number("38"), applicant.getAge()));
         assertTrue(decision.numericEqual(decision.number("100"), applicant.getCreditScore()));
-        assertEquals(Arrays.asList("Late payment"), applicant.getPriorIssues());
+        assertEquals(Collections.singletonList("Late payment"), applicant.getPriorIssues());
     }
 }

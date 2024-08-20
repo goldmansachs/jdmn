@@ -22,8 +22,8 @@ public class DRGElementNode {
     private final DRGElement element;
     private final Arguments arguments;
     private Object output;
-    private List<RuleNode> ruleNodes = new ArrayList<>();
-    private List<DRGElementNode> children = new ArrayList<>();
+    private final List<RuleNode> ruleNodes = new ArrayList<>();
+    private final List<DRGElementNode> children = new ArrayList<>();
 
     public DRGElementNode(DRGElement element, Arguments arguments) {
         this.element = element;

@@ -45,7 +45,7 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
             configTransformer(null);
             fail("Should throw exception");
         } catch (Exception e) {
-            assertTrue(e instanceof DMNRuntimeException);
+            assertInstanceOf(DMNRuntimeException.class, e);
             assertEquals("Invalid transformer configuration: Incorrect or missing 'corrections' node", e.getMessage());
         }
     }
@@ -58,7 +58,7 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
             );
             fail("Should throw exception");
         } catch (Exception e) {
-            assertTrue(e instanceof DMNRuntimeException);
+            assertInstanceOf(DMNRuntimeException.class, e);
             assertEquals("Invalid transformer configuration: Incorrect or missing 'corrections' node", e.getMessage());
         }
     }
@@ -71,7 +71,7 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
             );
             fail("Should throw exception");
         } catch (Exception e) {
-            assertTrue(e instanceof DMNRuntimeException);
+            assertInstanceOf(DMNRuntimeException.class, e);
             assertEquals("Invalid transformer configuration: Incorrect or missing 'correction' nodes", e.getMessage());
         }
     }
@@ -84,7 +84,7 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
             );
             fail("Should throw exception");
         } catch (Exception e) {
-            assertTrue(e instanceof DMNRuntimeException);
+            assertInstanceOf(DMNRuntimeException.class, e);
             assertEquals("Invalid transformer configuration: Incorrect or missing 'correction' nodes", e.getMessage());
         }
     }
@@ -97,7 +97,7 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
             );
             fail("Should throw exception");
         } catch (Exception e) {
-            assertTrue(e instanceof DMNRuntimeException);
+            assertInstanceOf(DMNRuntimeException.class, e);
             assertEquals("Invalid transformer configuration: Incorrect or missing 'correction' nodes", e.getMessage());
         }
     }
@@ -110,7 +110,7 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
             );
             fail("Should throw exception");
         } catch (Exception e) {
-            assertTrue(e instanceof DMNRuntimeException);
+            assertInstanceOf(DMNRuntimeException.class, e);
             assertEquals("Invalid transformer configuration: Incorrect fields in 'correction' node", e.getMessage());
         }
     }
@@ -123,7 +123,7 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
             );
             fail("Should throw exception");
         } catch (Exception e) {
-            assertTrue(e instanceof DMNRuntimeException);
+            assertInstanceOf(DMNRuntimeException.class, e);
             assertEquals("Invalid transformer configuration: Unexpected comma separated list of indexes '{abc=abc}'", e.getMessage());
         }
     }
@@ -161,10 +161,10 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
 
         String decisionName = "processPriorIssues";
         TDRGElement drgElement = repository.findDRGElementByName(decisionName);
-        assertTrue(drgElement instanceof TDecision);
+        assertInstanceOf(TDecision.class, drgElement);
         TDecision decision = (TDecision) drgElement;
         TExpression expression = repository.expression(decision);
-        assertTrue(expression instanceof TDecisionTable);
+        assertInstanceOf(TDecisionTable.class, expression);
         TDecisionTable decisionTable = (TDecisionTable) expression;
         assertEquals("applicant.priorIssues", decisionTable.getInput().get(0).getInputExpression().getText());
         assertEquals("(count(applicant.priorIssues)*(-5))", decisionTable.getRule().get(4).getOutputEntry().get(0).getText());
@@ -179,10 +179,10 @@ public class CorrectPathsInDecisionsTransformerTest extends AbstractSignavioFile
 
         String decisionName = "processPriorIssues";
         TDRGElement drgElement = repository.findDRGElementByName(decisionName);
-        assertTrue(drgElement instanceof TDecision);
+        assertInstanceOf(TDecision.class, drgElement);
         TDecision decision = (TDecision) drgElement;
         TExpression expression = repository.expression(decision);
-        assertTrue(expression instanceof TDecisionTable);
+        assertInstanceOf(TDecisionTable.class, expression);
         TDecisionTable decisionTable = (TDecisionTable) expression;
         assertEquals("applicant.priorIssues", decisionTable.getInput().get(0).getInputExpression().getText());
         assertEquals("(count(applicant.priorIssues)*(-5))", decisionTable.getRule().get(4).getOutputEntry().get(0).getText());

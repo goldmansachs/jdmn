@@ -23,7 +23,7 @@ import org.xmlunit.diff.DifferenceEvaluator;
 import org.xmlunit.diff.DifferenceEvaluators;
 
 import javax.xml.transform.stream.StreamSource;
-import java.util.Arrays;
+import java.util.Collections;
 
 public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
@@ -78,13 +78,13 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
 
     @Test
     public void testHelloWorldSemanticNamespaceWithExtensions() throws Exception {
-        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Arrays.asList(new MyTestRegister()));
+        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new MyTestRegister()));
         testRoundTrip("xstream/v1_1/Hello_World_semantic_namespace_with_extensions.dmn", marshaller);
     }
 
     @Test
     public void testHelloWorldSemanticNamespaceWithExtensionsOtherNsLocation() throws Exception {
-        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Arrays.asList(new MyTestRegister()));
+        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new MyTestRegister()));
         testRoundTrip("xstream/v1_1/Hello_World_semantic_namespace_with_extensions_other_ns_location.dmn", marshaller);
     }
 

@@ -22,6 +22,7 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMNInterpreterTest {
     private final DefaultSignavioBaseDecision decision = new DefaultSignavioBaseDecision();
@@ -50,285 +51,266 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
     @Test
     public void testSimpleDecisionComplexTypeInputsSfeelInputEntriesSingleOutputCollectHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-complex-type-inputs-sfeel-input-entries-single-output-collect-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("person", new Context("Person")
-                                        .add("firstName", "Peter")
-                                        .add("lastName", "Sellers")
-                                        .add("gender", "male")
-                                        .add("id", decision.number("4"))
-                                        .add("dateOfBirth", decision.date("2016-10-01"))
-                                        .add("timeOfBirth", decision.time("01:00:00Z"))
-                                        .add("dateTimeOfBirth", decision.dateAndTime("2016-10-01T00:00:00Z"))
-                                        .add("list", Arrays.asList("abc"))
-                                        .add("married", false)),
-                                new Pair<>("employed", true)
-                        )),
-                        Arrays.asList("3")
-                )
-        );
+                "decision",
+                "simple-decision-complex-type-inputs-sfeel-input-entries-single-output-collect-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("person", new Context("Person")
+                                .add("firstName", "Peter")
+                                .add("lastName", "Sellers")
+                                .add("gender", "male")
+                                .add("id", decision.number("4"))
+                                .add("dateOfBirth", decision.date("2016-10-01"))
+                                .add("timeOfBirth", decision.time("01:00:00Z"))
+                                .add("dateTimeOfBirth", decision.dateAndTime("2016-10-01T00:00:00Z"))
+                                .add("list", Collections.singletonList("abc"))
+                                .add("married", false)),
+                        new Pair<>("employed", true)
+                )),
+                Collections.singletonList("3")
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsCompoundOutputOutputOrderHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-compound-output-output-order-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        Arrays.asList(
-                                new Context().add("output1", "r5").add("output2", "r6"),
-                                new Context().add("output1", "r4").add("output2", "r7"),
-                                new Context().add("output1", "r3").add("output2", "r8"),
-                                new Context().add("output1", "r2").add("output2", "r9")
-                        )
+                "decision",
+                "simple-decision-primitive-type-inputs-compound-output-output-order-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                Arrays.asList(
+                        new Context().add("output1", "r5").add("output2", "r6"),
+                        new Context().add("output1", "r4").add("output2", "r7"),
+                        new Context().add("output1", "r3").add("output2", "r8"),
+                        new Context().add("output1", "r2").add("output2", "r9")
                 )
-        );
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsCompoundOutputPriorityHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-compound-output-priority-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        new Context().add("output1", "r5").add("output2", "r6")
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-compound-output-priority-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                new Context().add("output1", "r5").add("output2", "r6")
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsFeelInputEntriesSingleOutputFirstHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("booleanInput", true),
-                                new Pair<>("numberInput", decision.number("-1")),
-                                new Pair<>("textInput", "abc"),
-                                new Pair<>("enumerationInput", "e1"),
-                                new Pair<>("dateInput", decision.date("2016-08-01")),
-                                new Pair<>("timeInput", decision.time("12:00:00Z")),
-                                new Pair<>("dateAndTimeInput", decision.dateAndTime("2016-08-01T11:00:00Z"))
-                        )),
-                        "r1"
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-feel-input-entries-single-output-first-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("booleanInput", true),
+                        new Pair<>("numberInput", decision.number("-1")),
+                        new Pair<>("textInput", "abc"),
+                        new Pair<>("enumerationInput", "e1"),
+                        new Pair<>("dateInput", decision.date("2016-08-01")),
+                        new Pair<>("timeInput", decision.time("12:00:00Z")),
+                        new Pair<>("dateAndTimeInput", decision.dateAndTime("2016-08-01T11:00:00Z"))
+                )),
+                "r1"
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsFeelInputEntriesSingleOutputUniqueHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-feel-input-entries-single-output-unique-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("booleanInput", true),
-                                new Pair<>("numberInput", decision.number("-1")),
-                                new Pair<>("textInput", "abc"),
-                                new Pair<>("enumerationInput", "e1"),
-                                new Pair<>("dateInput", decision.date("2016-08-01")),
-                                new Pair<>("timeInput", decision.time("12:00:00Z")),
-                                new Pair<>("dateAndTimeInput", decision.dateAndTime("2016-08-01T11:00:00Z"))
-                        )),
-                        null
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-feel-input-entries-single-output-unique-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("booleanInput", true),
+                        new Pair<>("numberInput", decision.number("-1")),
+                        new Pair<>("textInput", "abc"),
+                        new Pair<>("enumerationInput", "e1"),
+                        new Pair<>("dateInput", decision.date("2016-08-01")),
+                        new Pair<>("timeInput", decision.time("12:00:00Z")),
+                        new Pair<>("dateAndTimeInput", decision.dateAndTime("2016-08-01T11:00:00Z"))
+                )),
+                null
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSfeelInputEntriesCompoundOutputFirstHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "compoundOutputDecision",
-                        "simple-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("booleanInput", true),
-                                new Pair<>("numberInput", decision.number("-1")),
-                                new Pair<>("textInput", "abc"),
-                                new Pair<>("enumerationInput", "e1"),
-                                new Pair<>("dateInput", decision.date("2016-08-01")),
-                                new Pair<>("timeInput", decision.time("12:00:00Z")),
-                                new Pair<>("dateAndTimeInput", decision.dateAndTime("2016-08-01T11:00:00Z"))
-                        )),
-                        new Context().add("firstOutput", "r11").add("secondOutput", "r12")
-                )
-        );
+                "compoundOutputDecision",
+                "simple-decision-primitive-type-inputs-sfeel-input-entries-compound-output-first-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("booleanInput", true),
+                        new Pair<>("numberInput", decision.number("-1")),
+                        new Pair<>("textInput", "abc"),
+                        new Pair<>("enumerationInput", "e1"),
+                        new Pair<>("dateInput", decision.date("2016-08-01")),
+                        new Pair<>("timeInput", decision.time("12:00:00Z")),
+                        new Pair<>("dateAndTimeInput", decision.dateAndTime("2016-08-01T11:00:00Z"))
+                )),
+                new Context().add("firstOutput", "r11").add("secondOutput", "r12")
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSfeelInputEntriesSingleOutputFirstHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-sfeel-input-entries-single-output-first-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("booleanInput", true),
-                                new Pair<>("numberInput", decision.number("-1")),
-                                new Pair<>("textInput", "abc"),
-                                new Pair<>("enumerationInput", "e1"),
-                                new Pair<>("dateInput", decision.date("2016-08-01")),
-                                new Pair<>("timeInput", decision.time("12:00:00Z")),
-                                new Pair<>("dateAndTimeInput", decision.dateAndTime("2016-08-01T11:00:00Z"))
-                        )),
-                        "r1"
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-sfeel-input-entries-single-output-first-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("booleanInput", true),
+                        new Pair<>("numberInput", decision.number("-1")),
+                        new Pair<>("textInput", "abc"),
+                        new Pair<>("enumerationInput", "e1"),
+                        new Pair<>("dateInput", decision.date("2016-08-01")),
+                        new Pair<>("timeInput", decision.time("12:00:00Z")),
+                        new Pair<>("dateAndTimeInput", decision.dateAndTime("2016-08-01T11:00:00Z"))
+                )),
+                "r1"
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSingleOutputAnyHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-single-output-any-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        null
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-single-output-any-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                null
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSingleOutputCollectCountHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-single-output-collect-count-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        decision.number("4")
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-single-output-collect-count-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                decision.number("4")
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSingleOutputCollectHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-single-output-collect-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        Arrays.asList("r5", "r4", "r3", "r2")
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-single-output-collect-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                Arrays.asList("r5", "r4", "r3", "r2")
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSingleOutputCollectMinHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-single-output-collect-min-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        decision.number("1")
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-single-output-collect-min-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                decision.number("1")
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSingleOutputCollectSumHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-single-output-collect-sum-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        decision.number("10")
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-single-output-collect-sum-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                decision.number("10")
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSingleOutputFirstHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-single-output-first-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        "r5"
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-single-output-first-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                "r5"
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSingleOutputOutputOrderHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-single-output-output-order-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        Arrays.asList("r5", "r4", "r3", "r2")
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-single-output-output-order-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                Arrays.asList("r5", "r4", "r3", "r2")
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSingleOutputPriorityHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-single-output-priority-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        "r5"
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-single-output-priority-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                "r5"
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSingleOutputRuleOrderHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-single-output-rule-order-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        Arrays.asList("r5", "r4", "r3", "r2")
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-single-output-rule-order-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                Arrays.asList("r5", "r4", "r3", "r2")
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeInputsSingleOutputUniqueHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-inputs-single-output-unique-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                        )),
-                        "r2"
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-inputs-single-output-unique-hit-policy",
+                makeInformationRequirements(Collections.emptyList()),
+                "r2"
+        ));
     }
 
     @Test
     public void testSimpleDecisionPrimitiveTypeListInputsFeelInputEntriesSingleOutputUniqueHitPolicy() throws Exception {
         doTest(new DecisionTestConfig(
-                        "decision",
-                        "simple-decision-primitive-type-list-inputs-feel-input-entries-single-output-unique-hit-policy",
-                        makeInformationRequirements(Arrays.asList(
-                                new Pair<>("textInput", "1"),
-                                new Pair<>("numberInput", decision.number("1"))
-                        )),
-                        null
-                )
-        );
+                "decision",
+                "simple-decision-primitive-type-list-inputs-feel-input-entries-single-output-unique-hit-policy",
+                makeInformationRequirements(Arrays.asList(
+                        new Pair<>("textInput", "1"),
+                        new Pair<>("numberInput", decision.number("1"))
+                )),
+                null
+        ));
     }
 
     @Override

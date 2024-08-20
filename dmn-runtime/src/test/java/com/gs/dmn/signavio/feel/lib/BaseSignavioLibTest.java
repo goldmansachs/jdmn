@@ -16,6 +16,7 @@ import com.gs.dmn.runtime.Context;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -248,7 +249,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     public void testAppend() {
         assertNull(getLib().append(null, null));
 
-        assertEquals(Arrays.asList((String) null), getLib().append(Arrays.asList(), null));
+        assertEquals(Collections.singletonList((String) null), getLib().append(Collections.emptyList(), null));
         assertEquals(Arrays.asList("1", "2", null), getLib().append(Arrays.asList("1", "2"), null));
         assertEquals(Arrays.asList("1", "2", "3"), getLib().append(Arrays.asList("1", "2"), "3"));
     }
@@ -256,38 +257,38 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testAppendAll() {
         assertNull(getLib().appendAll(null, null));
-        assertNull(getLib().appendAll(null, Arrays.asList()));
+        assertNull(getLib().appendAll(null, Collections.emptyList()));
         assertNull(getLib().appendAll(null, Arrays.asList("1", "2")));
-        assertNull(getLib().appendAll(Arrays.asList(), null));
+        assertNull(getLib().appendAll(Collections.emptyList(), null));
         assertNull(getLib().appendAll(Arrays.asList("1", "2"), null));
 
-        assertEquals(Arrays.asList(), getLib().appendAll(Arrays.asList(), Arrays.asList()));
+        assertEquals(Collections.emptyList(), getLib().appendAll(Collections.emptyList(), Collections.emptyList()));
         assertEquals(Arrays.asList("1", "2", "3", "4"), getLib().appendAll(Arrays.asList("1", "2"), Arrays.asList("3", "4")));
     }
 
     @Test
     public void testZip() {
         assertNull(getLib().zip(null, null));
-        assertNull(getLib().zip(null, Arrays.asList()));
-        assertNull(getLib().zip(Arrays.asList(), null));
-        assertNull(getLib().zip(Arrays.asList(), Arrays.asList(Arrays.asList(), Arrays.asList())));
+        assertNull(getLib().zip(null, Collections.emptyList()));
+        assertNull(getLib().zip(Collections.emptyList(), null));
+        assertNull(getLib().zip(Collections.emptyList(), Arrays.asList(Collections.emptyList(), Collections.emptyList())));
 
-        assertNull(getLib().zip(Arrays.asList(), Arrays.asList(null, null)));
-        assertNull(getLib().zip(Arrays.asList(), Arrays.asList(null, Arrays.asList())));
-        assertNull(getLib().zip(Arrays.asList(), Arrays.asList(Arrays.asList(), null)));
-        assertEquals(Arrays.asList(), getLib().zip(Arrays.asList(), Arrays.asList()));
+        assertNull(getLib().zip(Collections.emptyList(), Arrays.asList(null, null)));
+        assertNull(getLib().zip(Collections.emptyList(), Arrays.asList(null, Collections.emptyList())));
+        assertNull(getLib().zip(Collections.emptyList(), Arrays.asList(Collections.emptyList(), null)));
+        assertEquals(Collections.emptyList(), getLib().zip(Collections.emptyList(), Collections.emptyList()));
 
         List<String> attributes = Arrays.asList("k1", "k2");
         assertEquals(Arrays.asList(
                     new Context().add("k1", null).add("k2", "2"),
                     new Context().add("k1", null).add("k2", "4")
                 ),
-                getLib().zip(attributes, Arrays.asList(Arrays.asList(), Arrays.asList("2", "4"))));
+                getLib().zip(attributes, Arrays.asList(Collections.emptyList(), Arrays.asList("2", "4"))));
         assertEquals(Arrays.asList(
                     new Context().add("k1", "1").add("k2", null),
                     new Context().add("k1", "3").add("k2", null)
                 ),
-                getLib().zip(attributes, Arrays.asList(Arrays.asList("1", "3"), Arrays.asList())));
+                getLib().zip(attributes, Arrays.asList(Arrays.asList("1", "3"), Collections.emptyList())));
         assertEquals(Arrays.asList(
                     new Context().add("k1", "1").add("k2", "2"),
                     new Context().add("k1", "3").add("k2", "4")
@@ -297,12 +298,12 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
                     new Context().add("k1", "1").add("k2", "2"),
                     new Context().add("k1", "3").add("k2", null)
                 ),
-                getLib().zip(attributes, Arrays.asList(Arrays.asList("1", "3"), Arrays.asList("2"))));
+                getLib().zip(attributes, Arrays.asList(Arrays.asList("1", "3"), Collections.singletonList("2"))));
         assertEquals(Arrays.asList(
                     new Context().add("k1", "1").add("k2", "2"),
                     new Context().add("k1", null).add("k2", "4")
                     ),
-                getLib().zip(attributes, Arrays.asList(Arrays.asList("1"), Arrays.asList("2", "4"))));
+                getLib().zip(attributes, Arrays.asList(Collections.singletonList("1"), Arrays.asList("2", "4"))));
     }
 
     @Test
@@ -310,28 +311,28 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().remove(null, null));
         assertNull(getLib().remove(null, "1"));
 
-        assertEquals(Arrays.asList(), getLib().remove(Arrays.asList(), null));
-        assertEquals(Arrays.asList(), getLib().remove(Arrays.asList(), "1"));
+        assertEquals(Collections.emptyList(), getLib().remove(Collections.emptyList(), null));
+        assertEquals(Collections.emptyList(), getLib().remove(Collections.emptyList(), "1"));
 
         assertEquals(Arrays.asList("1", "2"), getLib().remove(Arrays.asList("1", "2"), null));
-        assertEquals(Arrays.asList("2"), getLib().remove(Arrays.asList("1", "2"), "1"));
-        assertEquals(Arrays.asList("1"), getLib().remove(Arrays.asList("2", "1", "2", "2"), "2"));
+        assertEquals(Collections.singletonList("2"), getLib().remove(Arrays.asList("1", "2"), "1"));
+        assertEquals(Collections.singletonList("1"), getLib().remove(Arrays.asList("2", "1", "2", "2"), "2"));
         assertEquals(Arrays.asList("1", "2"), getLib().remove(Arrays.asList("1", "2"), "3"));
     }
 
     @Test
     public void testRemoveAll() {
         assertNull(getLib().removeAll(null, null));
-        assertNull(getLib().removeAll(null, Arrays.asList()));
+        assertNull(getLib().removeAll(null, Collections.emptyList()));
         assertNull(getLib().removeAll(null, Arrays.asList("1", "2")));
-        assertNull(getLib().removeAll(Arrays.asList(), null));
+        assertNull(getLib().removeAll(Collections.emptyList(), null));
         assertNull(getLib().removeAll(Arrays.asList("1", "2"), null));
 
-        assertEquals(Arrays.asList(), getLib().removeAll(Arrays.asList(), Arrays.asList()));
-        assertEquals(Arrays.asList(), getLib().removeAll(Arrays.asList(), Arrays.asList("1", "2")));
+        assertEquals(Collections.emptyList(), getLib().removeAll(Collections.emptyList(), Collections.emptyList()));
+        assertEquals(Collections.emptyList(), getLib().removeAll(Collections.emptyList(), Arrays.asList("1", "2")));
 
-        assertEquals(Arrays.asList("1", "2"), getLib().removeAll(Arrays.asList("1", "2"), Arrays.asList()));
-        assertEquals(Arrays.asList("1", "2"), getLib().removeAll(Arrays.asList("1", "2"), Arrays.asList("3")));
+        assertEquals(Arrays.asList("1", "2"), getLib().removeAll(Arrays.asList("1", "2"), Collections.emptyList()));
+        assertEquals(Arrays.asList("1", "2"), getLib().removeAll(Arrays.asList("1", "2"), Collections.singletonList("3")));
     }
 
     @Test
@@ -340,9 +341,9 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         assertNull(getLib().notContainsAny(Arrays.asList("1", "2"), null));
         assertNull(getLib().notContainsAny(null, Arrays.asList("1", "2")));
 
-        assertTrue(getLib().notContainsAny(Arrays.asList(), Arrays.asList()));
-        assertTrue(getLib().notContainsAny(Arrays.asList("1", "2"), Arrays.asList()));
-        assertTrue(getLib().notContainsAny(Arrays.asList(), Arrays.asList("1", "2")));
+        assertTrue(getLib().notContainsAny(Collections.emptyList(), Collections.emptyList()));
+        assertTrue(getLib().notContainsAny(Arrays.asList("1", "2"), Collections.emptyList()));
+        assertTrue(getLib().notContainsAny(Collections.emptyList(), Arrays.asList("1", "2")));
 
         assertFalse(getLib().notContainsAny(Arrays.asList("1", "2"), Arrays.asList("1", "4")));
         assertTrue(getLib().notContainsAny(Arrays.asList("1", "2"), Arrays.asList("3", "4")));
@@ -351,15 +352,15 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testContainsOnly() {
         assertNull(getLib().containsOnly(null, null));
-        assertNull(getLib().containsOnly(null, Arrays.asList()));
+        assertNull(getLib().containsOnly(null, Collections.emptyList()));
         assertNull(getLib().containsOnly(null, Arrays.asList("1", "2")));
 
-        assertNull(getLib().containsOnly(Arrays.asList(), null));
-        assertTrue(getLib().containsOnly(Arrays.asList(), Arrays.asList()));
-        assertTrue(getLib().containsOnly(Arrays.asList(), Arrays.asList("1", "2")));
+        assertNull(getLib().containsOnly(Collections.emptyList(), null));
+        assertTrue(getLib().containsOnly(Collections.emptyList(), Collections.emptyList()));
+        assertTrue(getLib().containsOnly(Collections.emptyList(), Arrays.asList("1", "2")));
 
         assertNull(getLib().containsOnly(Arrays.asList("1", "2"), null));
-        assertFalse(getLib().containsOnly(Arrays.asList("1", "2"), Arrays.asList()));
+        assertFalse(getLib().containsOnly(Arrays.asList("1", "2"), Collections.emptyList()));
         assertTrue(getLib().containsOnly(Arrays.asList("1", "2"), Arrays.asList("1", "2")));
         assertFalse(getLib().containsOnly(Arrays.asList("1", "2"), Arrays.asList("3", "4")));
     }
@@ -367,15 +368,15 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testAreElementsOf() {
         assertNull(getLib().areElementsOf(null, null));
-        assertNull(getLib().areElementsOf(null, Arrays.asList()));
+        assertNull(getLib().areElementsOf(null, Collections.emptyList()));
         assertNull(getLib().areElementsOf(null, Arrays.asList("1", "2")));
 
-        assertNull(getLib().areElementsOf(Arrays.asList(), null));
-        assertTrue(getLib().areElementsOf(Arrays.asList(), Arrays.asList()));
-        assertTrue(getLib().areElementsOf(Arrays.asList(), Arrays.asList("1", "2")));
+        assertNull(getLib().areElementsOf(Collections.emptyList(), null));
+        assertTrue(getLib().areElementsOf(Collections.emptyList(), Collections.emptyList()));
+        assertTrue(getLib().areElementsOf(Collections.emptyList(), Arrays.asList("1", "2")));
 
         assertNull(getLib().areElementsOf(Arrays.asList("1", "2"), null));
-        assertFalse(getLib().areElementsOf(Arrays.asList("1", "2"), Arrays.asList()));
+        assertFalse(getLib().areElementsOf(Arrays.asList("1", "2"), Collections.emptyList()));
         assertTrue(getLib().areElementsOf(Arrays.asList("1", "2"), Arrays.asList("1", "2")));
         assertFalse(getLib().areElementsOf(Arrays.asList("1", "2"), Arrays.asList("1", "3")));
     }
@@ -383,15 +384,15 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testElementOf() {
         assertNull(getLib().elementOf(null, null));
-        assertNull(getLib().elementOf(null, Arrays.asList()));
+        assertNull(getLib().elementOf(null, Collections.emptyList()));
         assertNull(getLib().elementOf(null, Arrays.asList("1", "2")));
 
-        assertNull(getLib().elementOf(Arrays.asList(), null));
-        assertTrue(getLib().elementOf(Arrays.asList(), Arrays.asList()));
-        assertTrue(getLib().elementOf(Arrays.asList(), Arrays.asList("1", "2")));
+        assertNull(getLib().elementOf(Collections.emptyList(), null));
+        assertTrue(getLib().elementOf(Collections.emptyList(), Collections.emptyList()));
+        assertTrue(getLib().elementOf(Collections.emptyList(), Arrays.asList("1", "2")));
 
         assertNull(getLib().elementOf(Arrays.asList("1", "2"), null));
-        assertFalse(getLib().elementOf(Arrays.asList("1", "2"), Arrays.asList()));
+        assertFalse(getLib().elementOf(Arrays.asList("1", "2"), Collections.emptyList()));
         assertTrue(getLib().elementOf(Arrays.asList("1", "2"), Arrays.asList("1", "2")));
         assertFalse(getLib().elementOf(Arrays.asList("1", "2"), Arrays.asList("1", "3")));
     }
@@ -402,7 +403,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testAvg() {
         assertNull(getLib().avg(null));
-        assertNull(getLib().avg(Arrays.asList()));
+        assertNull(getLib().avg(Collections.emptyList()));
 
         assertEqualsNumber(makeNumber("2"), getLib().avg(Arrays.asList(makeNumber("1"), makeNumber("3"))));
         assertNull(getLib().avg(Arrays.asList(makeNumber("1"), null)));
@@ -411,7 +412,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testMedian() {
         assertNull(getLib().median(null));
-        assertNull(getLib().median(Arrays.asList()));
+        assertNull(getLib().median(Collections.emptyList()));
         assertNull(getLib().median(Arrays.asList(makeNumber("1"), null)));
 
         assertEqualsNumber(makeNumber("2"), getLib().median(Arrays.asList(makeNumber("1"), makeNumber("2"), makeNumber("3"))));
@@ -421,7 +422,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testMode() {
         assertNull(getLib().mode(null));
-        assertNull(getLib().mode(Arrays.asList()));
+        assertNull(getLib().mode(Collections.emptyList()));
         assertNull(getLib().mode(Arrays.asList(makeNumber("1"), null)));
 
         assertEqualsNumber(makeNumber("1"), getLib().mode(Arrays.asList(makeNumber("1"), makeNumber("3"))));
@@ -447,7 +448,7 @@ public abstract class BaseSignavioLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Test
     public void testConcat() {
         assertNull(getLib().concat(null));
-        assertNull(getLib().concat(Arrays.asList()));
+        assertNull(getLib().concat(Collections.emptyList()));
 
         assertEquals("123", getLib().concat(Arrays.asList("1", "2", "3")));
         assertNull(getLib().concat(Arrays.asList("1", null, "3")));

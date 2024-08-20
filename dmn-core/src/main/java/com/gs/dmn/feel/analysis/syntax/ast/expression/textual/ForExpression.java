@@ -16,7 +16,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -51,7 +51,7 @@ public class ForExpression<T> extends Expression<T> {
         } else {
             Expression<T> newBody = this.body;
             for(int i=this.iterators.size()-1; i>=0; i--) {
-                newBody = new ForExpression<>(Arrays.asList(this.iterators.get(i)), newBody);
+                newBody = new ForExpression<>(Collections.singletonList(this.iterators.get(i)), newBody);
             }
             return (ForExpression<T>) newBody;
         }

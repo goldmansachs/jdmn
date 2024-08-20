@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
@@ -49,7 +49,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
 
     @Test
     public void testListenerWithFilter() throws Exception {
-        PostorderTraceEventListener listener = new PostorderTraceEventListener(Arrays.asList("Make credit decision"));
+        PostorderTraceEventListener listener = new PostorderTraceEventListener(Collections.singletonList("Make credit decision"));
 
         List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expectedResult = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));
         java.math.BigDecimal currentRiskAppetite = decision.number("50");

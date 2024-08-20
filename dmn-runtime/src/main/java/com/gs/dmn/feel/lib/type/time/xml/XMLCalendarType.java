@@ -84,12 +84,12 @@ public abstract class XMLCalendarType extends BaseType {
 
     public boolean isYearsAndMonthsDuration(Object value) {
         return value instanceof Duration
-                && isYearMonthDuration((Duration) value);
+                && isYearMonthDuration(value);
     }
 
     public boolean isDaysAndTimeDuration(Object value) {
         return value instanceof Duration
-                && isDayTimeDuration((Duration) value);
+                && isDayTimeDuration(value);
     }
 
     public Long dateValue(XMLGregorianCalendar date) {

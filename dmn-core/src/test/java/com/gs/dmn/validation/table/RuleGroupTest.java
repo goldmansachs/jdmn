@@ -15,6 +15,7 @@ package com.gs.dmn.validation.table;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,17 +54,17 @@ public class RuleGroupTest {
         assertEquals(new RuleGroup(Arrays.asList(1, 2)), new RuleGroup(Arrays.asList(1, 2, 3)).minus(3));
         assertEquals(new RuleGroup(Arrays.asList(1, 2, 3)), new RuleGroup(Arrays.asList(1, 2, 3)).minus(4));
 
-        assertEquals(new RuleGroup(), new RuleGroup(Arrays.asList()).minus(3));
-        assertEquals(new RuleGroup(), new RuleGroup(Arrays.asList()).minus(4));
+        assertEquals(new RuleGroup(), new RuleGroup(Collections.emptyList()).minus(3));
+        assertEquals(new RuleGroup(), new RuleGroup(Collections.emptyList()).minus(4));
     }
 
     @Test
     public void testMinusList() {
-        assertEquals(new RuleGroup(Arrays.asList(1, 2)), new RuleGroup(Arrays.asList(1, 2, 3)).minus(Arrays.asList(3)));
-        assertEquals(new RuleGroup(Arrays.asList(1, 2, 3)), new RuleGroup(Arrays.asList(1, 2, 3)).minus(Arrays.asList(4)));
+        assertEquals(new RuleGroup(Arrays.asList(1, 2)), new RuleGroup(Arrays.asList(1, 2, 3)).minus(Collections.singletonList(3)));
+        assertEquals(new RuleGroup(Arrays.asList(1, 2, 3)), new RuleGroup(Arrays.asList(1, 2, 3)).minus(Collections.singletonList(4)));
 
-        assertEquals(new RuleGroup(), new RuleGroup(Arrays.asList()).minus(Arrays.asList(3)));
-        assertEquals(new RuleGroup(), new RuleGroup(Arrays.asList()).minus(Arrays.asList(4)));
+        assertEquals(new RuleGroup(), new RuleGroup(Collections.emptyList()).minus(Collections.singletonList(3)));
+        assertEquals(new RuleGroup(), new RuleGroup(Collections.emptyList()).minus(Collections.singletonList(4)));
     }
 
     @Test
@@ -71,16 +72,16 @@ public class RuleGroupTest {
         assertEquals(new RuleGroup(Arrays.asList(1, 2, 3)), new RuleGroup(Arrays.asList(1, 2, 3)).union(3));
         assertEquals(new RuleGroup(Arrays.asList(1, 2, 3, 4)), new RuleGroup(Arrays.asList(1, 2, 3)).union(4));
 
-        assertEquals(new RuleGroup(Arrays.asList(3)), new RuleGroup(Arrays.asList()).union(3));
-        assertEquals(new RuleGroup(Arrays.asList(4)), new RuleGroup(Arrays.asList()).union(4));
+        assertEquals(new RuleGroup(Collections.singletonList(3)), new RuleGroup(Collections.emptyList()).union(3));
+        assertEquals(new RuleGroup(Collections.singletonList(4)), new RuleGroup(Collections.emptyList()).union(4));
     }
 
     @Test
     public void intersect() {
-        assertEquals(new RuleGroup(Arrays.asList(3)), new RuleGroup(Arrays.asList(1, 2, 3)).intersect(Arrays.asList(3)));
-        assertEquals(new RuleGroup(), new RuleGroup(Arrays.asList(1, 2, 3)).intersect(Arrays.asList(4)));
+        assertEquals(new RuleGroup(Collections.singletonList(3)), new RuleGroup(Arrays.asList(1, 2, 3)).intersect(Collections.singletonList(3)));
+        assertEquals(new RuleGroup(), new RuleGroup(Arrays.asList(1, 2, 3)).intersect(Collections.singletonList(4)));
 
-        assertEquals(new RuleGroup(), new RuleGroup(Arrays.asList()).intersect(Arrays.asList(3)));
-        assertEquals(new RuleGroup(), new RuleGroup(Arrays.asList()).intersect(Arrays.asList(4)));
+        assertEquals(new RuleGroup(), new RuleGroup(Collections.emptyList()).intersect(Collections.singletonList(3)));
+        assertEquals(new RuleGroup(), new RuleGroup(Collections.emptyList()).intersect(Collections.singletonList(4)));
     }
 }

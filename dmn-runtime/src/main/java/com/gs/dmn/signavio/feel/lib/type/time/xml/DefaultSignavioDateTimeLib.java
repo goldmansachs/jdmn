@@ -49,27 +49,27 @@ public class DefaultSignavioDateTimeLib extends SignavioBaseDateTimeLib implemen
 
     @Override
     public Integer year(Object date) {
-        return DEFAULT_DATE_TIME_LIB.year((XMLGregorianCalendar) date);
+        return DEFAULT_DATE_TIME_LIB.year(date);
     }
 
     @Override
     public Integer month(Object date) {
-        return DEFAULT_DATE_TIME_LIB.month((XMLGregorianCalendar) date);
+        return DEFAULT_DATE_TIME_LIB.month(date);
     }
 
     @Override
     public Integer day(Object date) {
-        return DEFAULT_DATE_TIME_LIB.day((XMLGregorianCalendar) date);
+        return DEFAULT_DATE_TIME_LIB.day(date);
     }
 
     @Override
     public Integer hour(Object date) {
-        return DEFAULT_DATE_TIME_LIB.hour((XMLGregorianCalendar) date);
+        return DEFAULT_DATE_TIME_LIB.hour(date);
     }
 
     @Override
     public Integer minute(Object date) {
-        return DEFAULT_DATE_TIME_LIB.minute((XMLGregorianCalendar) date);
+        return DEFAULT_DATE_TIME_LIB.minute(date);
     }
 
     @Override

@@ -269,9 +269,7 @@ public class RDFModel {
             expression = RDFModel.MAPPER.readValue(decisionText, DecisionExpression.class);
             if (expression instanceof DecisionTable) {
                 List<OutputClause> outputClauses = ((DecisionTable) expression).getOutputClauses();
-                if (outputClauses.size() == 1) {
-                    return true;
-                }
+                return outputClauses.size() == 1;
             }
             return false;
         } catch (Exception e) {

@@ -21,7 +21,7 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DefaultStandardFEELProcessorTest extends AbstractStandardFEELProcessorTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
@@ -35,7 +35,7 @@ public class DefaultStandardFEELProcessorTest extends AbstractStandardFEELProces
     public void testConversionFunctions() {
         super.testConversionFunctions();
 
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "date and time(date and time(\"2012-03-01T13:14:15Z\"), time(\"10:11:12Z\"))",
                 "FunctionInvocation(Name(date and time) -> PositionalParameters(DateTimeLiteral(date and time, \"2012-03-01T13:14:15Z\"), DateTimeLiteral(time, \"10:11:12Z\")))",
@@ -82,8 +82,7 @@ public class DefaultStandardFEELProcessorTest extends AbstractStandardFEELProces
     @Test
     @Override
     public void testDateAndTimeProperties() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-        );
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").time offset",
                 "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), time offset)",

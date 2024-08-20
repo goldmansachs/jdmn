@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.runtime;
 
+import java.util.Objects;
+
 public class Range {
     private final boolean startIncluded;
     private final Object start;
@@ -54,8 +56,8 @@ public class Range {
 
         if (this.startIncluded != range.startIncluded) return false;
         if (this.endIncluded != range.endIncluded) return false;
-        if (this.start != null ? !this.start.equals(range.start) : range.start != null) return false;
-        return this.end != null ? this.end.equals(range.end) : range.end == null;
+        if (!Objects.equals(this.start, range.start)) return false;
+        return Objects.equals(this.end, range.end);
     }
 
     @Override

@@ -15,7 +15,7 @@ package com.gs.dmn.validation;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,13 +25,13 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenCorrect() {
-        List<String> expectedErrors = Arrays.asList();
+        List<String> expectedErrors = Collections.emptyList();
         validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
     public void validate() {
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(model='test-dmn', label='Applicant', name='applicant', id='id-d2376567fde3c9400ee327ecec21e36d'): error: Cannot find typeRef 'QualifiedName(null, applicant)'"
         );
         validate(validator, resource("dmn/input/1.1/test-dmn-with-missing-type-ref.dmn"), expectedErrors);

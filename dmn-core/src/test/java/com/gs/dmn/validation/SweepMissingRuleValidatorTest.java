@@ -17,6 +17,7 @@ import com.gs.dmn.dialect.StandardDMNDialectDefinition;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,13 +27,13 @@ public class SweepMissingRuleValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenCorrect() {
-        List<String> expectedErrors = Arrays.asList();
+        List<String> expectedErrors = Collections.emptyList();
         validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateWhenRepositoryIsEmpty() {
-        List<String> expectedErrors = Arrays.asList();
+        List<String> expectedErrors = Collections.emptyList();
         assertEquals(expectedErrors, validator.validate(null));
         assertEquals(expectedErrors, validator.validate(new DMNModelRepository()));
     }
@@ -95,13 +96,13 @@ public class SweepMissingRuleValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenBoolean() {
-        List<String> expectedErrors = Arrays.asList();
+        List<String> expectedErrors = Collections.emptyList();
         validate(validator, resource("dmn/input/1.3/loan-grade-with-boolean.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateWhenEnumeration() {
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Found missing rule '[{\"E11\"}, {\"E22\", \"E23\"}, {\"E32\", \"E33\"}]' in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-enumeration.dmn"), expectedErrors);

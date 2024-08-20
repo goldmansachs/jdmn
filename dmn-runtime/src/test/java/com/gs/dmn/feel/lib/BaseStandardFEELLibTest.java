@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -833,9 +834,9 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertFalse(getLib().is(makeDuration("P1Y"), makeDuration("-P1Y")));
         assertTrue(getLib().is(makeDuration("P1Y"), makeDuration("P12M")));
 
-        assertTrue(getLib().is(Arrays.asList(), Arrays.asList()));
+        assertTrue(getLib().is(Collections.emptyList(), Collections.emptyList()));
         assertTrue(getLib().is(Arrays.asList(makeNumber(1), makeNumber(3)), Arrays.asList(makeNumber(1), makeNumber(3))));
-        assertFalse(getLib().is(Arrays.asList(makeNumber(1), makeNumber(3)), Arrays.asList()));
+        assertFalse(getLib().is(Arrays.asList(makeNumber(1), makeNumber(3)), Collections.emptyList()));
 
         assertTrue(getLib().is(new Range(true, makeNumber(1), true, makeNumber(3)), new Range(true, makeNumber(1), true, makeNumber(3))));
         assertFalse(getLib().is(new Range(true, makeNumber(1), true, makeNumber(3)), new Range(true, makeNumber(2), true, makeNumber(3))));
@@ -873,7 +874,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     @Test
     public void testAppend() {
         assertEqualsList("[null]", getLib().append(null, null));
-        assertEquals(Arrays.asList("3"), getLib().append(null, "3"));
+        assertEquals(Collections.singletonList("3"), getLib().append(null, "3"));
         assertEquals(makeNumberList("1", null, "3", null, "3"), getLib().append(makeNumberList(1, null, 3), null, makeNumber(3)));
 
         assertEquals(makeNumberList("1", "2", "3", "4"), getLib().append(makeNumberList(1, 2, 3), makeNumber(4)));
@@ -908,7 +909,6 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     public void testMean() {
         assertNull(getLib().mean());
         assertNull(getLib().mean((Object) null));
-        assertNull(getLib().mean(new Object[] {}));
         assertNull(getLib().mean((List) null));
         assertNull(getLib().mean(makeNumberList()));
 
@@ -927,8 +927,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertFalse(getLib().all(Arrays.asList(null, false)));
 
         assertTrue(getLib().all());
-        assertTrue(getLib().all(new Object[] {}));
-        assertTrue(getLib().all(Arrays.asList()));
+        assertTrue(getLib().all(Collections.emptyList()));
         assertTrue(getLib().all(true, true));
         assertTrue(getLib().all(Arrays.asList(true, true)));
 
@@ -950,8 +949,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertTrue(getLib().any(Arrays.asList(null, true)));
 
         assertFalse(getLib().any());
-        assertFalse(getLib().any(new Object[] {}));
-        assertFalse(getLib().any(Arrays.asList()));
+        assertFalse(getLib().any(Collections.emptyList()));
         assertFalse(getLib().any(false, false, false));
         assertFalse(getLib().any(Arrays.asList(false, false, false)));
 
@@ -1000,14 +998,14 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Test
     public void testReverse() {
-        assertEquals(Arrays.asList(), getLib().reverse(null));
+        assertEquals(Collections.emptyList(), getLib().reverse(null));
 
         assertEquals(makeNumberList("3", "2", "1"), getLib().reverse(makeNumberList(1, 2, 3)));
     }
 
     @Test
     public void testIndexOf() {
-        assertEquals(Arrays.asList(), getLib().indexOf(null, null));
+        assertEquals(Collections.emptyList(), getLib().indexOf(null, null));
 
         assertEquals(makeNumberList("2", "4"), getLib().indexOf(Arrays.asList("1", "2", "3", "2"), "2"));
     }
@@ -1021,7 +1019,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     @Test
     public void testDistinctValues() {
-        assertEquals(Arrays.asList(), getLib().distinctValues(null));
+        assertEquals(Collections.emptyList(), getLib().distinctValues(null));
 
         assertEquals(makeNumberList("1", "2", "3"), getLib().distinctValues(makeNumberList(1, 2, 3, 2, 3)));
         assertEquals(makeNumberList("1", "2", "3"), getLib().distinctValues(makeNumberList(1, 2, 3, 2, 1)));
@@ -1032,8 +1030,8 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertNull(getLib().flatten(null));
 
         assertEqualsList("[1, 2, 3, 4]", getLib().flatten(Arrays.asList(
-                Arrays.asList(Arrays.asList("1", "2")),
-                Arrays.asList(Arrays.asList("3")),
+                Collections.singletonList(Arrays.asList("1", "2")),
+                Collections.singletonList(Collections.singletonList("3")),
                 "4"
         )));
     }
@@ -1042,7 +1040,6 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     public void testProduct() {
         assertNull(getLib().product());
         assertNull(getLib().product((Object) null));
-        assertNull(getLib().product(new Object[] {}));
         assertNull(getLib().product((List) null));
         assertNull(getLib().product((makeNumberList())));
 
@@ -1060,7 +1057,6 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     public void testMedian() {
         assertNull(getLib().median());
         assertNull(getLib().median((Object) null));
-        assertNull(getLib().median(new Object[] {}));
         assertNull(getLib().median((List) null));
         assertNull(getLib().median(makeNumberList()));
 
@@ -1077,7 +1073,6 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     public void testStddev() {
         assertNull(getLib().stddev());
         assertNull(getLib().stddev((Object) null));
-        assertNull(getLib().stddev(new Object[] {}));
         assertNull(getLib().stddev((List) null));
         assertNull(getLib().stddev(makeNumberList()));
 
@@ -1094,7 +1089,6 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertNull(getLib().mode((Object)null));
 
         assertEquals(makeNumberList(), getLib().mode());
-        assertEquals(makeNumberList(), getLib().mode(new Object[] {}));
         assertEquals(makeNumberList(), getLib().mode(makeNumberList()));
 
         assertNull(getLib().mode(makeNumber(1), null));
@@ -1109,7 +1103,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     @Test
     public void testCollect() {
         getLib().collect(null, null);
-        getLib().collect(Arrays.asList(), null);
+        getLib().collect(Collections.emptyList(), null);
 
         List<String> result = new ArrayList<>();
         getLib().collect(result, Arrays.asList(Arrays.asList("1", "2"), "3"));
@@ -1129,7 +1123,7 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
 
         assertNull(getLib().sort(null, null));
         assertNull(getLib().sort(null, comparator));
-        assertEquals(Arrays.asList(), getLib().sort(Arrays.asList(), null));
+        assertEquals(Collections.emptyList(), getLib().sort(Collections.emptyList(), null));
 
         assertEquals(Arrays.asList("1", "2", "3"), getLib().sort(Arrays.asList("3", "1", "2"), comparator));
     }

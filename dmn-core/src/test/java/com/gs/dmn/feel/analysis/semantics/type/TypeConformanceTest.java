@@ -19,6 +19,7 @@ import com.gs.dmn.runtime.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -95,8 +96,8 @@ public class TypeConformanceTest {
 
     @Test
     public void testFunctionType() {
-        FEELFunctionType type1 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p", STRING)), STRING, false);
-        FEELFunctionType type2 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p", NUMBER)), STRING, false);
+        FEELFunctionType type1 = new FEELFunctionType(Collections.singletonList(new FormalParameter<>("p", STRING)), STRING, false);
+        FEELFunctionType type2 = new FEELFunctionType(Collections.singletonList(new FormalParameter<>("p", NUMBER)), STRING, false);
         FEELFunctionType tyep3 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p1", STRING), new FormalParameter<>("p2", NUMBER)), STRING, false);
 
         checkConformsTo(true, type1, type1);
@@ -143,14 +144,14 @@ public class TypeConformanceTest {
     @Test
     public void testItemDefinitionType() {
         ItemDefinitionType type1 = new ItemDefinitionType("ID1");
-        type1.addMember("m", Arrays.asList(), NUMBER);
+        type1.addMember("m", Collections.emptyList(), NUMBER);
 
         ItemDefinitionType type2 = new ItemDefinitionType("ID2");
-        type2.addMember("m", Arrays.asList(), BOOLEAN);
+        type2.addMember("m", Collections.emptyList(), BOOLEAN);
 
         ItemDefinitionType type3 = new ItemDefinitionType("ID3");
-        type3.addMember("m", Arrays.asList(), NUMBER);
-        type3.addMember("x", Arrays.asList(), NUMBER);
+        type3.addMember("m", Collections.emptyList(), NUMBER);
+        type3.addMember("x", Collections.emptyList(), NUMBER);
 
         checkConformsTo(true, type1, ANY);
         checkConformsTo(true, type1, type1);

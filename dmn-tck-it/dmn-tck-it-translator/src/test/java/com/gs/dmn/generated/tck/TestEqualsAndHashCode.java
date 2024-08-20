@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class TestEqualsAndHashCode {
     @Test
@@ -28,9 +28,9 @@ public class TestEqualsAndHashCode {
         TLoan loan2 = new TLoanImpl(BigDecimal.ONE, BigDecimal.TEN, BigDecimal.ZERO);
         assertEquals(loan1, loan1);
         assertEquals(loan2, loan2);
-        assertFalse(loan1.equals(null));
-        assertFalse(loan1.equals(loan2));
-        assertFalse(loan2.equals(loan1));
+        assertNotEquals(null, loan1);
+        assertNotEquals(loan1, loan2);
+        assertNotEquals(loan2, loan1);
     }
 
     @Test

@@ -92,8 +92,8 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType, 
 
         ItemDefinitionType that = (ItemDefinitionType) o;
 
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (modelName != null ? !modelName.equals(that.modelName) : that.modelName != null) return false;
+        if (!Objects.equals(name, that.name)) return false;
+        if (!Objects.equals(modelName, that.modelName)) return false;
         if (!members.equals(that.members)) return false;
         return aliases.equals(that.aliases);
     }

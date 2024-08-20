@@ -26,20 +26,20 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenCorrect() {
-        List<String> expectedErrors = Arrays.asList();
+        List<String> expectedErrors = Collections.emptyList();
         validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateWhenRepositoryIsEmpty() {
-        List<String> expectedErrors = Arrays.asList();
+        List<String> expectedErrors = Collections.emptyList();
         assertEquals(expectedErrors, validator.validate(null));
         assertEquals(expectedErrors, validator.validate(new DMNModelRepository()));
     }
 
     @Test
     public void testValidateWhenIntervals1() {
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-1.dmn"), expectedErrors);
@@ -47,7 +47,7 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenIntervals2() {
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-2.dmn"), expectedErrors);
@@ -73,7 +73,7 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenAny() {
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3, 4]' overlap in decision 'Loan Grade'"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-any.dmn"), expectedErrors);
@@ -100,8 +100,7 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenEnumerationMissing() {
-        List<String> expectedErrors = Arrays.asList(
-        );
+        List<String> expectedErrors = Collections.emptyList();
         validate(validator, resource("dmn/input/1.3/loan-grade-with-enumeration-missing.dmn"), expectedErrors);
     }
 
@@ -115,7 +114,7 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
         neighbor.put(3, new HashSet<>(Arrays.asList(2, 4)));
         neighbor.put(4, new HashSet<>(Arrays.asList(3, 5, 6)));
         neighbor.put(5, new HashSet<>(Arrays.asList(1, 2, 4)));
-        neighbor.put(6, new HashSet<>(Arrays.asList(4)));
+        neighbor.put(6, new HashSet<>(Collections.singletonList(4)));
         List<RuleGroup> maxCliques = new ArrayList<>();
         this.validator.maxCliquesBronKerbosch(new RuleGroup(), nodes, new RuleGroup(), neighbor, maxCliques);
 

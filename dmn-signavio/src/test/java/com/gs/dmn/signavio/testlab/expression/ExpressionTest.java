@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,7 +46,7 @@ public class ExpressionTest {
         assertEquals("\"e1\"", new EnumerationLiteral("e1", "1").toFEELExpression());
 
         assertEquals("{null : null, null : null}", ((Expression) new ComplexExpression(Arrays.asList(new Slot(), new Slot()))).toFEELExpression());
-        assertEquals("[null]", ((Expression) new ListExpression(Arrays.asList(new NumberLiteral()))).toFEELExpression());
+        assertEquals("[null]", ((Expression) new ListExpression(Collections.singletonList(new NumberLiteral()))).toFEELExpression());
     }
 
     @Test
@@ -82,7 +83,7 @@ public class ExpressionTest {
         assertEquals("EnumerationLiteral(e1, 1)", new EnumerationLiteral("e1", "1").toString());
 
         assertEquals("ComplexExpression([Slot(null, null, null, null), Slot(null, null, null, null)])", ((Expression) new ComplexExpression(Arrays.asList(new Slot(), new Slot()))).toString());
-        assertEquals("ListExpression([NumberLiteral(null)])", ((Expression) new ListExpression(Arrays.asList(new NumberLiteral()))).toString());
+        assertEquals("ListExpression([NumberLiteral(null)])", ((Expression) new ListExpression(Collections.singletonList(new NumberLiteral()))).toString());
     }
 
     private List<Expression> makeExpressions() {

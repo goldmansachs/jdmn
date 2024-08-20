@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -279,7 +280,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().booleanOr(true));
         assertTrue(getLib().booleanOr(false, false, true));
         assertTrue(getLib().booleanOr(Arrays.asList(false, false, true)));
-        assertNull(getLib().booleanOr(Arrays.asList(Arrays.asList(false, false, true))));
+        assertNull(getLib().booleanOr(Collections.singletonList(Arrays.asList(false, false, true))));
     }
 
     @Test
@@ -324,7 +325,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         assertNull(getLib().booleanAnd(true));
         assertFalse(getLib().booleanAnd(true, true, false));
         assertFalse(getLib().booleanAnd(Arrays.asList(false, false, true)));
-        assertNull(getLib().booleanAnd(Arrays.asList(Arrays.asList(false, false, true))));
+        assertNull(getLib().booleanAnd(Collections.singletonList(Arrays.asList(false, false, true))));
     }
 
     @Test
@@ -1167,31 +1168,31 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     @Test
     public void testListIs() {
         assertTrue(getLib().listIs(null, null));
-        assertFalse(getLib().listIs(Arrays.asList("a"), null));
-        assertFalse(getLib().listIs(null, Arrays.asList("a")));
+        assertFalse(getLib().listIs(Collections.singletonList("a"), null));
+        assertFalse(getLib().listIs(null, Collections.singletonList("a")));
 
-        assertFalse(getLib().listIs(Arrays.asList("a"), Arrays.asList("b")));
-        assertTrue(getLib().listIs(Arrays.asList("a"), Arrays.asList("a")));
+        assertFalse(getLib().listIs(Collections.singletonList("a"), Collections.singletonList("b")));
+        assertTrue(getLib().listIs(Collections.singletonList("a"), Collections.singletonList("a")));
     }
 
     @Test
     public void testListEqual() {
         assertTrue(getLib().listEqual(null, null));
-        assertFalse(getLib().listEqual(Arrays.asList("a"), null));
-        assertFalse(getLib().listEqual(null, Arrays.asList("a")));
+        assertFalse(getLib().listEqual(Collections.singletonList("a"), null));
+        assertFalse(getLib().listEqual(null, Collections.singletonList("a")));
 
-        assertFalse(getLib().listEqual(Arrays.asList("a"), Arrays.asList("b")));
-        assertTrue(getLib().listEqual(Arrays.asList("a"), Arrays.asList("a")));
+        assertFalse(getLib().listEqual(Collections.singletonList("a"), Collections.singletonList("b")));
+        assertTrue(getLib().listEqual(Collections.singletonList("a"), Collections.singletonList("a")));
     }
 
     @Test
     public void testListNotEqual() {
         assertFalse(getLib().listNotEqual(null, null));
-        assertTrue(getLib().listNotEqual(Arrays.asList("a"), null));
-        assertTrue(getLib().listNotEqual(null, Arrays.asList("a")));
+        assertTrue(getLib().listNotEqual(Collections.singletonList("a"), null));
+        assertTrue(getLib().listNotEqual(null, Collections.singletonList("a")));
 
-        assertTrue(getLib().listNotEqual(Arrays.asList("a"), Arrays.asList("b")));
-        assertFalse(getLib().listNotEqual(Arrays.asList("a"), Arrays.asList("a")));
+        assertTrue(getLib().listNotEqual(Collections.singletonList("a"), Collections.singletonList("b")));
+        assertFalse(getLib().listNotEqual(Collections.singletonList("a"), Collections.singletonList("a")));
     }
 
     //
@@ -1419,9 +1420,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
 
     protected List<String> makeStringList(String... strings) {
         List<String> result = new ArrayList<>();
-        for (String str: strings) {
-            result.add(str);
-        }
+        Collections.addAll(result, strings);
         return result;
     }
 

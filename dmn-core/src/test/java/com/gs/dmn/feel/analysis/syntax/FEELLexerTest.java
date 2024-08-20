@@ -25,7 +25,7 @@ import java.util.List;
 import static com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer.*;
 
 public class FEELLexerTest extends AbstractLexerTest {
-    private static List<String> SPECIAL_NAMES = Arrays.asList(
+    private static final List<String> SPECIAL_NAMES = Arrays.asList(
             // constructors
             "date and time",
             "days and time duration",

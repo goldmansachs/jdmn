@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.runtime.annotation;
 
+import java.util.Objects;
+
 public class Annotation {
     private final String decisionName;
     // Index starts from 1
@@ -44,8 +46,8 @@ public class Annotation {
         Annotation that = (Annotation) o;
 
         if (ruleIndex != that.ruleIndex) return false;
-        if (decisionName != null ? !decisionName.equals(that.decisionName) : that.decisionName != null) return false;
-        return annotation != null ? annotation.equals(that.annotation) : that.annotation == null;
+        if (!Objects.equals(decisionName, that.decisionName)) return false;
+        return Objects.equals(annotation, that.annotation);
     }
 
     @Override

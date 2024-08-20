@@ -1253,7 +1253,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 // Return result
                 if (repository.isCompoundDecisionTable(element)) {
                     if (dmnTransformer.hasListType(element)) {
-                        return Arrays.asList(defaultValue);
+                        return Collections.singletonList(defaultValue);
                     } else {
                         return defaultValue;
                     }

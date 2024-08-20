@@ -92,10 +92,10 @@ class NormalizeDateTimeLiteralsVisitor extends TraversalVisitor<TransformationCo
         TExpression expression = repository.expression(element);
         if (expression instanceof TDecisionTable) {
             logger.debug(String.format("Process decision table in decision '%s'", element.getName()));
-            ((TDecisionTable) expression).accept(this, context);
+            expression.accept(this, context);
         } else if (expression instanceof TLiteralExpression) {
             logger.debug(String.format("Process literal expression in decision '%s'", element.getName()));
-            ((TLiteralExpression) expression).accept(this, context);
+            expression.accept(this, context);
         }
         return element;
     }

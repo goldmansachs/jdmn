@@ -22,6 +22,7 @@ import com.gs.dmn.signavio.testlab.TestLab;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,7 +42,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testBetweenExpression() {
         super.testBetweenExpression();
 
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         // Certain relational operators are not supported in Signavio (return null)
         doExpressionTest(entries, "", "\"a\" between \"b\" and \"d\"",
@@ -58,7 +59,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
         super.testInExpression();
 
         // operator test
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         // Certain relational operators are not supported in Signavio (return null)
         doExpressionTest(entries, "", "\"b\" in [[\"f\"..\"h\"], [\"a\"..\"c\"]]",
@@ -122,20 +123,19 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testFilterExpression() {
         super.testFilterExpression();
 
-        List<EnvironmentEntry> entries = Arrays.asList(
-        );
+        List<EnvironmentEntry> entries = Collections.emptyList();
         doExpressionTest(entries, "", "[ { x: \"1\", y: \"2\" }, { x: null, y: \"3\" } ][ x < \"2\" ]",
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = StringLiteral(\"1\")),ContextEntry(ContextEntryKey(y) = StringLiteral(\"2\"))),Context(ContextEntry(ContextEntryKey(x) = NullLiteral()),ContextEntry(ContextEntryKey(y) = StringLiteral(\"3\")))), Relational(<,PathExpression(Name(item), x),StringLiteral(\"2\")))",
                 "ListType(ContextType(x = string, y = string))",
                 "asList(new com.gs.dmn.runtime.Context().add(\"x\", \"1\").add(\"y\", \"2\"), new com.gs.dmn.runtime.Context().add(\"x\", null).add(\"y\", \"3\")).stream().filter(item -> stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get(\"x\")), \"2\") == Boolean.TRUE).collect(Collectors.toList())",
-                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", "1").add("y", "2"), new com.gs.dmn.runtime.Context().add("x", null).add("y", "3")).stream().filter(item -> this.lib.stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get("x")), "2") == Boolean.TRUE).collect(Collectors.toList()),
-                Arrays.asList());
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", "1").add("y", "2"), new com.gs.dmn.runtime.Context().add("x", null).add("y", "3")).stream().filter(item -> this.lib.stringLessThan(((String) item.get("x")), "2") == Boolean.TRUE).collect(Collectors.toList()),
+                Collections.emptyList());
         doExpressionTest(entries, "", "[ { x: null, y: \"2\" }, { x: \"1\", y: \"3\" } ][ x < \"2\" ]",
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NullLiteral()),ContextEntry(ContextEntryKey(y) = StringLiteral(\"2\"))),Context(ContextEntry(ContextEntryKey(x) = StringLiteral(\"1\")),ContextEntry(ContextEntryKey(y) = StringLiteral(\"3\")))), Relational(<,PathExpression(Name(item), x),StringLiteral(\"2\")))",
                 "ListType(ContextType(x = string, y = string))",
                 "asList(new com.gs.dmn.runtime.Context().add(\"x\", null).add(\"y\", \"2\"), new com.gs.dmn.runtime.Context().add(\"x\", \"1\").add(\"y\", \"3\")).stream().filter(item -> stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get(\"x\")), \"2\") == Boolean.TRUE).collect(Collectors.toList())",
-                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", null).add("y", "2"), new com.gs.dmn.runtime.Context().add("x", "1").add("y", "3")).stream().filter(item -> this.lib.stringLessThan(((String)((com.gs.dmn.runtime.Context)item).get("x")), "2") == Boolean.TRUE).collect(Collectors.toList()),
-                Arrays.asList());
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", null).add("y", "2"), new com.gs.dmn.runtime.Context().add("x", "1").add("y", "3")).stream().filter(item -> this.lib.stringLessThan(((String) item.get("x")), "2") == Boolean.TRUE).collect(Collectors.toList()),
+                Collections.emptyList());
     }
 
     @Override
@@ -143,8 +143,8 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testPathExpression() {
         super.testPathExpression();
 
-        ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Arrays.asList(), STRING);
-        List<EnvironmentEntry> entries = Arrays.asList(
+        ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Collections.emptyList(), STRING);
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("PrivateFundRequirements", type, null));
 
         doExpressionTest(entries, "", "len(PrivateFundRequirements.HierarchyNode)",
@@ -160,7 +160,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testConversionFunctions() {
         super.testConversionFunctions();
 
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "isDefined(\"2000-10-10\")",
@@ -198,7 +198,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testNumericFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "abs(100)",
@@ -277,7 +277,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testStringFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "right(\"abc\", 1)",
@@ -380,7 +380,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testListFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "containsOnly([1, 2, 3], [1])",

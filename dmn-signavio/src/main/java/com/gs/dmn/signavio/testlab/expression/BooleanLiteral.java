@@ -15,6 +15,8 @@ package com.gs.dmn.signavio.testlab.expression;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.signavio.testlab.Visitor;
 
+import java.util.Objects;
+
 @JsonPropertyOrder({ "type", "value" })
 public class BooleanLiteral extends SimpleExpression {
     private Boolean value;
@@ -46,7 +48,7 @@ public class BooleanLiteral extends SimpleExpression {
 
         BooleanLiteral that = (BooleanLiteral) o;
 
-        return value != null ? value.equals(that.value) : that.value == null;
+        return Objects.equals(value, that.value);
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -46,7 +47,7 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
     public void testCase2() {
         String dateTime = "2016-11-16T12:10:00.000+00:00";
         String time = "12:00:00";
-        String booleanList = toJson(Arrays.asList());
+        String booleanList = toJson(Collections.emptyList());
         String string = "0.0";
         String booleanB = "true";
         String numberA = "12";
@@ -80,7 +81,7 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
     public void testCase4() {
         String dateTime = "2016-11-01T01:01:01.000+00:00";
         String time = "12:12:12";
-        String booleanList = toJson(Arrays.asList(true));
+        String booleanList = toJson(Collections.singletonList(true));
         String string = "0.0##";
         String booleanB = "true";
         String numberA = "11";
@@ -114,7 +115,7 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
     public void testCase6() {
         String dateTime = "2016-11-03T04:00:00.000+00:00";
         String time = "11:11:11";
-        String booleanList = toJson(Arrays.asList(false));
+        String booleanList = toJson(Collections.singletonList(false));
         String string = "#";
         String booleanB = "true";
         String numberA = "12";
@@ -131,7 +132,7 @@ public class HandwrittenAllTogetherTest extends AbstractHandwrittenDecisionTest 
     protected void applyDecision() {
         String dateTime = "2016-11-03T04:00:00.000+00:00";
         String time = "11:11:11";
-        String booleanList = toJson(Arrays.asList(false));
+        String booleanList = toJson(Collections.singletonList(false));
         String string = "#";
         String booleanB = "true";
         String numberA = "12";

@@ -26,7 +26,7 @@ import static com.gs.dmn.runtime.Assert.assertEquals;
  * Handler for requests to Lambda function for DRG elements in model 0020-vacation-days.
  */
 public class VacationDaysLambdaTest {
-    private Executor executor = new Executor(new ModelElementRegistry());
+    private final Executor executor = new Executor(new ModelElementRegistry());
 
     @Test
     public void testExecute() {

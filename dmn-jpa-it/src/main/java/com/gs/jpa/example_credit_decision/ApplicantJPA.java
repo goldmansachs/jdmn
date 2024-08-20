@@ -16,7 +16,7 @@ import com.gs.dmn.generated.example_credit_decision.type.Applicant;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,7 +70,7 @@ public class ApplicantJPA implements Applicant {
     @Override
     public List<String> getPriorIssues() {
         if (creditIssueTypes == null) {
-            return Arrays.asList();
+            return Collections.emptyList();
         }
         return creditIssueTypes.stream().map(CreditIssueTypeJPA::getName).collect(Collectors.toList());
     }

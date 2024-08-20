@@ -24,7 +24,7 @@ import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MixedJavaFEELProcessorTest extends AbstractStandardFEELProcessorTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
@@ -40,7 +40,7 @@ public class MixedJavaFEELProcessorTest extends AbstractStandardFEELProcessorTes
 
         MixedJavaTimeFEELLib lib = (MixedJavaTimeFEELLib) this.lib;
 
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "date and time(date and time(\"2012-03-01T13:14:15Z\"), time(\"10:11:12Z\"))",
                 "FunctionInvocation(Name(date and time) -> PositionalParameters(DateTimeLiteral(date and time, \"2012-03-01T13:14:15Z\"), DateTimeLiteral(time, \"10:11:12Z\")))",
@@ -87,8 +87,7 @@ public class MixedJavaFEELProcessorTest extends AbstractStandardFEELProcessorTes
     @Test
     @Override
     public void testDateAndTimeProperties() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-        );
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").time offset",
                 "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), time offset)",

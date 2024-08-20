@@ -41,6 +41,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,7 +81,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testAny() {
         NUMBER input = this.lib.number("1");
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, input));
 
         doUnaryTestsTest(entries, "input", "-",
@@ -116,7 +117,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testNegatedPositiveUnaryTests() {
         NUMBER input = this.lib.number("1");
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, input));
 
         doUnaryTestsTest(entries, "input", "not (-1)",
@@ -140,7 +141,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     public void testNullTest() {
         NUMBER number = this.lib.number("1");
 
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("number", NUMBER, number)
         );
 
@@ -383,7 +384,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     public void testListTest() {
         NUMBER number = this.lib.number("1");
 
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("number", NUMBER, number)
         );
 
@@ -593,8 +594,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testEndpointsRange() {
         NUMBER number = this.lib.number("1");
-        List<EnvironmentEntry> entries = Arrays.asList(
-                new EnvironmentEntry("number", NUMBER,  number));
+        List<EnvironmentEntry> entries = Collections.singletonList(
+                new EnvironmentEntry("number", NUMBER, number));
 
         //
         // EndpointsRange
@@ -623,7 +624,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     public void testEqualOperatorRangeWhenTypeMismatch() {
         Assertions.assertThrows(SemanticError.class, () -> {
             Boolean input = true;
-            List<EnvironmentEntry> entries = Arrays.asList(
+            List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", BOOLEAN, input));
 
             doUnaryTestsTest(entries, "input", "123.56", "", "TupleType(boolean)", "", null, "");
@@ -633,7 +634,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testOperatorRangeWhenTypeMismatch() {
         Assertions.assertThrows(SemanticError.class, () -> {
-            List<EnvironmentEntry> entries = Arrays.asList(
+            List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", BOOLEAN, true));
 
             doUnaryTestsTest(entries, "input", "< 123.56", "", "TupleType(boolean)", "", null, "");
@@ -647,7 +648,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testTextualExpressions() {
         String input = "abc";
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, input));
 
         doTextualExpressionsTest(entries, "1 + 2",
@@ -660,7 +661,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testForExpression() {
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "for i in 0..4 return if i = 0 then 1 else i * partial[-1]",
                 "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(0), NumericLiteral(4))) -> IfExpression(Relational(=,Name(i),NumericLiteral(0)), NumericLiteral(1), Multiplication(*,Name(i),FilterExpression(Name(partial), ArithmeticNegation(NumericLiteral(1))))))",
@@ -743,7 +744,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testIfExpression() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "if true then 1 else 2",
@@ -775,7 +776,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testIfExpressionWhenConditionIsNotBoolean() {
         Assertions.assertThrows(SemanticError.class, () -> {
-            List<EnvironmentEntry> entries = Arrays.asList(
+            List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
             doExpressionTest(entries, "", "if 5 then 1 else 2",
@@ -790,7 +791,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testIfExpressionWhenTypesDontMatch() {
         Assertions.assertThrows(SemanticError.class, () -> {
-            List<EnvironmentEntry> entries = Arrays.asList(
+            List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
             doExpressionTest(entries, "", "if true then true else 2",
@@ -804,7 +805,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testQuantifiedExpression() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "some i in [1..2] j in [2..3] satisfies i + j > 1",
@@ -854,7 +855,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testRelationalExpression() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         // number
@@ -1100,7 +1101,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testNullRelationalExpression() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         // number
@@ -1448,7 +1449,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testInExpression() {
         // operator test
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         // simple types
@@ -1630,7 +1631,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testInExpressionWhenOperatorRangeAndTypeMismatch() {
         Assertions.assertThrows(SemanticError.class, () -> {
-            List<EnvironmentEntry> entries = Arrays.asList(
+            List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
             doExpressionTest(entries, "", "1 in (true)",
@@ -1740,7 +1741,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         String daysAndTimeDuration = "duration(\"P1DT1H\")";
         String string = "\"abc\"";
 
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         // number, number
@@ -1938,7 +1939,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         String yearsAndMonthsDuration = "duration(\"P1Y1M\")";
         String daysAndTimeDuration = "duration(\"P1DT1H\")";
 
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         // number, number
@@ -2061,7 +2062,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testExponentiation() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "2 ** 2",
@@ -2075,7 +2076,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testArithmeticNegation() {
         String number = "1";
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", String.format("- %s", number),
@@ -2106,7 +2107,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
             String yearsAndMonthsDuration = "duration(\"P1Y1M\")";
             String daysAndTimeDuration = "duration(\"P1DT1H\")";
 
-            List<EnvironmentEntry> entries = Arrays.asList(
+            List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
             doExpressionTest(entries, "", String.format("- %s", yearsAndMonthsDuration),
                     "ArithmeticNegation(DateTimeLiteral(duration, \"P1Y1M\"))",
@@ -2125,7 +2126,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testComplexArithmeticExpression() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "-1",
@@ -2187,14 +2188,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testPostfixExpression() {
         ItemDefinitionType employeeTableType = new ItemDefinitionType("tEmployeeTable")
-                .addMember("id", Arrays.asList(), STRING)
-                .addMember("name", Arrays.asList(), STRING)
-                .addMember("deptNum", Arrays.asList(), NUMBER)
+                .addMember("id", Collections.emptyList(), STRING)
+                .addMember("name", Collections.emptyList(), STRING)
+                .addMember("deptNum", Collections.emptyList(), NUMBER)
                 ;
         ItemDefinitionType deptTableType = new ItemDefinitionType("tDeptTable")
-                .addMember("number", Arrays.asList(), NUMBER)
-                .addMember("name", Arrays.asList(), STRING)
-                .addMember("manager", Arrays.asList(), STRING)
+                .addMember("number", Collections.emptyList(), NUMBER)
+                .addMember("name", Collections.emptyList(), STRING)
+                .addMember("manager", Collections.emptyList(), STRING)
                 ;
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("EmployeeTable", new ListType(employeeTableType), null),
@@ -2214,9 +2215,9 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     public void testFilterExpression() {
         List<NUMBER> source = Arrays.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"));
         ContextType employeeType = new ContextType();
-        employeeType.addMember("id", Arrays.asList(), NumberType.NUMBER);
-        employeeType.addMember("dept", Arrays.asList(), NumberType.NUMBER);
-        employeeType.addMember("name", Arrays.asList(), StringType.STRING);
+        employeeType.addMember("id", Collections.emptyList(), NumberType.NUMBER);
+        employeeType.addMember("dept", Collections.emptyList(), NumberType.NUMBER);
+        employeeType.addMember("name", Collections.emptyList(), StringType.STRING);
 
         Type employeeListType = new ListType(employeeType);
         List<Context> employeeValue = Arrays.asList(
@@ -2316,7 +2317,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testConversionFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "date(\"2016-03-01\")",
@@ -2366,7 +2367,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Disabled
     @Test
     public void testFunctionInvocationWhenMultipleMatch() {
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         // Multiple matches for date(null)
         doExpressionTest(entries, "", "date(null)",
@@ -2379,8 +2380,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testPathExpression() {
-        ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Arrays.asList(), STRING);
-        List<EnvironmentEntry> entries = Arrays.asList(
+        ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Collections.emptyList(), STRING);
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("PrivateFundRequirements", type, null));
 
         doExpressionTest(entries, "", "[{b: 1}, {b: [2.1, 2.2]}, {b: 3}, {b: 4}, {b: 5}].b = [1, [2.1, 2.2], 3, 4, 5]",
@@ -2393,9 +2394,9 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testQualifiedName() {
-        Type bType = new ItemDefinitionType("b").addMember("c", Arrays.asList("C"), STRING);
-        Type aType = new ItemDefinitionType("a").addMember("b", Arrays.asList("B"), bType);
-        List<EnvironmentEntry> entries = Arrays.asList(
+        Type bType = new ItemDefinitionType("b").addMember("c", Collections.singletonList("C"), STRING);
+        Type aType = new ItemDefinitionType("a").addMember("b", Collections.singletonList("B"), bType);
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("a", aType, null));
 
         doExpressionTest(entries, "", "a.b.c",
@@ -2408,7 +2409,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testPrimaryExpression() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "(123.45)",
@@ -2427,7 +2428,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testNull() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "null",
@@ -2440,7 +2441,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testFunctionDefinition() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) x + y",
@@ -2484,7 +2485,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testList() {
         NUMBER number = this.lib.number("1");
-        List<NUMBER> list = Arrays.asList(this.lib.number("1"));
+        List<NUMBER> list = Collections.singletonList(this.lib.number("1"));
 
         List<EnvironmentEntry> expressionPairs = Arrays.asList(
                 new EnvironmentEntry("number", NUMBER, number),
@@ -2498,14 +2499,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "ListLiteral()",
                 "ListType(Null)",
                 "asList()",
-                Arrays.asList(),
-                Arrays.asList());
+                Collections.emptyList(),
+                Collections.emptyList());
         doExpressionTest(expressionPairs, "", "[1]",
                 "ListLiteral(NumericLiteral(1))",
                 "ListType(number)",
                 "asList(number(\"1\"))",
-                Arrays.asList(this.lib.number("1")),
-                Arrays.asList(this.lib.number("1")));
+                Collections.singletonList(this.lib.number("1")),
+                Collections.singletonList(this.lib.number("1")));
         doExpressionTest(expressionPairs, "", "[1, 2, 3]",
                 "ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))",
                 "ListType(number)",
@@ -2552,19 +2553,19 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "PositiveUnaryTests(ListTest(ListLiteral()))",
                 "TupleType(boolean)",
                 "listContains(asList(), number)",
-                this.lib.listContains(Arrays.asList(), number),
+                this.lib.listContains(Collections.emptyList(), number),
                 false);
         doUnaryTestsTest(testPairs, "list", "[]",
                 "PositiveUnaryTests(ListTest(ListLiteral()))",
                 "TupleType(boolean)",
                 "listEqual(list, asList())",
-                this.lib.listEqual(list, Arrays.asList()),
+                this.lib.listEqual(list, Collections.emptyList()),
                 false);
         doUnaryTestsTest(testPairs, "list", "[1]",
                 "PositiveUnaryTests(ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)))))",
                 "TupleType(boolean)",
                 "listEqual(list, asList(number(\"1\")))",
-                this.lib.listEqual(list, Arrays.asList(this.lib.number("1"))),
+                this.lib.listEqual(list, Collections.singletonList(this.lib.number("1"))),
                 true);
         doUnaryTestsTest(testPairs, "list", "[1, 2, 3]",
                 "PositiveUnaryTests(ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)))))",
@@ -2649,7 +2650,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testSimpleLiterals() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "123.45",

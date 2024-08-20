@@ -83,7 +83,7 @@ public class DMNSerializerTest extends AbstractTest {
         assertNamedElement(decision, "cip-assessments", "CIP Assessments");
 
         TExpression expression = ((TDecision) decision).getExpression();
-        assertTrue(expression instanceof TDecisionTable);
+        assertInstanceOf(TDecisionTable.class, expression);
         TDecisionTable table = (TDecisionTable) expression;
         assertEquals("decisionTable", table.getId());
 

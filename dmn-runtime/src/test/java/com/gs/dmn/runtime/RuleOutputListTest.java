@@ -16,17 +16,18 @@ import com.gs.dmn.runtime.annotation.HitPolicy;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class RuleOutputListTest {
     public static final DefaultSimpleOutput STRING_1 = new DefaultSimpleOutput("value1", 2);
     public static final DefaultSimpleOutput STRING_2 = new DefaultSimpleOutput("value2", 1);
 
-    public static final DefaultCompoundOutput STRING_LIST_1 = new DefaultCompoundOutput(Arrays.asList("value1"), 2);
-    public static final DefaultCompoundOutput STRING_LIST_2 = new DefaultCompoundOutput(Arrays.asList("value2"), 1);
+    public static final DefaultCompoundOutput STRING_LIST_1 = new DefaultCompoundOutput(Collections.singletonList("value1"), 2);
+    public static final DefaultCompoundOutput STRING_LIST_2 = new DefaultCompoundOutput(Collections.singletonList("value2"), 1);
 
     private final HitPolicy UNIQUE = HitPolicy.fromValue("UNIQUE");
     private final HitPolicy FIRST = HitPolicy.fromValue("FIRST");
@@ -40,10 +41,10 @@ public class RuleOutputListTest {
     @Test
     public void testApplyUnique() {
         assertEquals(STRING_1, makeRuleResultList(STRING_1).applySingle(UNIQUE));
-        assertEquals(null, makeRuleResultList(STRING_1, STRING_1).applySingle(UNIQUE));
-        assertEquals(null, makeRuleResultList(STRING_LIST_1, STRING_LIST_1).applySingle(UNIQUE));
+        assertNull(makeRuleResultList(STRING_1, STRING_1).applySingle(UNIQUE));
+        assertNull(makeRuleResultList(STRING_LIST_1, STRING_LIST_1).applySingle(UNIQUE));
 
-        assertEquals(null, makeRuleResultList().applySingle(UNIQUE));
+        assertNull(makeRuleResultList().applySingle(UNIQUE));
     }
 
     @Test
@@ -52,21 +53,21 @@ public class RuleOutputListTest {
         assertEquals(STRING_2, makeRuleResultList(STRING_2, STRING_1).applySingle(FIRST));
         assertEquals(STRING_LIST_2, makeRuleResultList(STRING_LIST_2, STRING_LIST_1).applySingle(FIRST));
 
-        assertEquals(null, makeRuleResultList().applySingle(FIRST));
+        assertNull(makeRuleResultList().applySingle(FIRST));
     }
 
     @Test
     public void testApplyPriority() {
         assertEquals(STRING_1.getOutput(),  ((DefaultSimpleOutput)makeRuleResultList(STRING_2, STRING_1).applySingle(PRIORITY)).getOutput());
 
-        assertEquals(null, makeRuleResultList().applySingle(PRIORITY));
+        assertNull(makeRuleResultList().applySingle(PRIORITY));
     }
 
     @Test
     public void testApplyAny() {
         assertEquals(STRING_1, makeRuleResultList(STRING_1, STRING_1).applySingle(ANY));
 
-        assertEquals(null, makeRuleResultList().applySingle(ANY));
+        assertNull(makeRuleResultList().applySingle(ANY));
     }
 
     @Test

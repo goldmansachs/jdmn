@@ -27,7 +27,7 @@ import org.xmlunit.diff.DifferenceEvaluators;
 
 import javax.xml.transform.stream.StreamSource;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,7 +65,7 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
 
     @Test
     public void testDMNDIDiagramElementExtensionWithContent() throws Exception {
-        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Arrays.asList(new MyTestRegister()));
+        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new MyTestRegister()));
         testRoundTrip("xstream/v1_2/DMNDIDiagramElementExtension_withContent.dmn", marshaller);
     }
 

@@ -84,7 +84,7 @@ public class InputParameters {
     private final boolean mockTesting;
     private final boolean generateExtra;
 
-    private boolean checkConstraints;
+    private final boolean checkConstraints;
 
     public InputParameters() {
         this(new LinkedHashMap<>());

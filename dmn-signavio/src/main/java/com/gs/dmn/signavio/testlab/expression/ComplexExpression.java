@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.signavio.testlab.Visitor;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @JsonPropertyOrder({ "type", "slots" })
@@ -50,7 +51,7 @@ public class ComplexExpression extends Expression {
 
         ComplexExpression that = (ComplexExpression) o;
 
-        return slots != null ? slots.equals(that.slots) : that.slots == null;
+        return Objects.equals(slots, that.slots);
     }
 
     @Override

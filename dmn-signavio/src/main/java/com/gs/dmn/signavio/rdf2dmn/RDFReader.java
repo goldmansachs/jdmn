@@ -42,7 +42,7 @@ public class RDFReader {
         RDFModel rdfModel = new RDFModel(document);
 
         watch.stop();
-        this.logger.info("RDF reading time: " + watch.toString());
+        this.logger.info("RDF reading time: " + watch);
 
         return rdfModel;
     }

@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -134,7 +135,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testBetweenExpression() {
         super.testBetweenExpression();
 
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "\"a\" between \"b\" and \"d\"",
                 "BetweenExpression(StringLiteral(\"a\"), StringLiteral(\"b\"), StringLiteral(\"d\"))",
@@ -150,7 +151,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         super.testInExpression();
 
         // operator test
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "\"b\" in [[\"f\"..\"h\"], [\"a\"..\"c\"]]",
                 "InExpression(StringLiteral(\"b\"), ListTest(ListLiteral(EndpointsRange(false,StringLiteral(\"f\"),false,StringLiteral(\"h\")),EndpointsRange(false,StringLiteral(\"a\"),false,StringLiteral(\"c\")))))",
@@ -292,8 +293,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testFilterExpression() {
         super.testFilterExpression();
 
-        List<EnvironmentEntry> entries = Arrays.asList(
-        );
+        List<EnvironmentEntry> entries = Collections.emptyList();
         doExpressionTest(entries, "", "[ { x: \"1\", y: \"2\" }, { x: null, y: \"3\" } ][ x < \"2\" ]",
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = StringLiteral(\"1\")),ContextEntry(ContextEntryKey(y) = StringLiteral(\"2\"))),Context(ContextEntry(ContextEntryKey(x) = NullLiteral()),ContextEntry(ContextEntryKey(y) = StringLiteral(\"3\")))), Relational(<,PathExpression(Name(item), x),StringLiteral(\"2\")))",
                 "ListType(ContextType(x = string, y = string))",
@@ -313,8 +313,8 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testPathExpression() {
         super.testPathExpression();
 
-        ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Arrays.asList(), STRING);
-        List<EnvironmentEntry> entries = Arrays.asList(
+        ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Collections.emptyList(), STRING);
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("PrivateFundRequirements", type, null));
 
         doExpressionTest(entries, "", "string length(PrivateFundRequirements.HierarchyNode)",
@@ -356,7 +356,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testConversionFunctions() {
         super.testConversionFunctions();
 
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "date(\"2012-03-01\")",
                 "DateTimeLiteral(date, \"2012-03-01\")",
@@ -464,7 +464,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testNumericFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "decimal(100, 2)",
                 "FunctionInvocation(Name(decimal) -> PositionalParameters(NumericLiteral(100), NumericLiteral(2)))",
@@ -590,7 +590,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testBooleanFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "not(true)",
                 "LogicNegation(BooleanLiteral(true))",
@@ -602,7 +602,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testStringFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList();
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "substring(\"abc\", 3)",
                 "FunctionInvocation(Name(substring) -> PositionalParameters(StringLiteral(\"abc\"), NumericLiteral(3)))",
@@ -776,7 +776,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testListFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "list contains([1, 2, 3], 1)",
@@ -1124,7 +1124,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testContextFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "get entries({a: \"foo\", b: \"bar\"})",
@@ -1217,8 +1217,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testDateAndTimeProperties() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-        );
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "date and time(\"2018-12-10T10:30:00\").time offset",
                 "PathExpression(DateTimeLiteral(date and time, \"2018-12-10T10:30:00\"), time offset)",
@@ -1407,7 +1406,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     @Test
     public void testRangeLiterals() {
         DATE input = this.lib.date("2010-10-02");
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", DATE, input));
 
         doExpressionTest(entries, "", "@\"2010-10-01\"",
@@ -1462,8 +1461,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testRangeFunctions() {
-        List<EnvironmentEntry> entries = Arrays.asList(
-        );
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doExpressionTest(entries, "", "before(1, [5..8])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
@@ -1721,7 +1719,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testInstanceOfExpression() {
-        List<EnvironmentEntry> entries = Arrays.asList(
+        List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
         doExpressionTest(entries, "", "3 instance of number",

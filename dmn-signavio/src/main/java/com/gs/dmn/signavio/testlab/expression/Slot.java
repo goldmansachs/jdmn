@@ -17,6 +17,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.signavio.testlab.TestLabElement;
 import com.gs.dmn.signavio.testlab.Visitor;
 
+import java.util.Objects;
+
 @JsonPropertyOrder({ "id", "name", "value", "itemComponentName" })
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Slot extends TestLabElement {
@@ -70,10 +72,10 @@ public class Slot extends TestLabElement {
 
         Slot slot = (Slot) o;
 
-        if (id != null ? !id.equals(slot.id) : slot.id != null) return false;
-        if (name != null ? !name.equals(slot.name) : slot.name != null) return false;
-        if (value != null ? !value.equals(slot.value) : slot.value != null) return false;
-        return itemComponentName != null ? itemComponentName.equals(slot.itemComponentName) : slot.itemComponentName == null;
+        if (!Objects.equals(id, slot.id)) return false;
+        if (!Objects.equals(name, slot.name)) return false;
+        if (!Objects.equals(value, slot.value)) return false;
+        return Objects.equals(itemComponentName, slot.itemComponentName);
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.gs.dmn.runtime.Context;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -80,7 +81,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         //
         // conversion from string
         //
-        assertNull(getLib().time((String) null));
+        assertNull(getLib().time(null));
         assertNull(getLib().time(""));
         assertNull(getLib().time("xxx"));
         assertNull(getLib().time("13:20:00+01:00@Europe/Paris"));
@@ -160,17 +161,17 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     @Test
     public void testAsList() {
         assertEqualsList("[null]", getLib().asList(null));
-        assertEquals(Arrays.asList(), getLib().asList());
+        assertEquals(Collections.emptyList(), getLib().asList());
         assertEquals(Arrays.asList(null, "a"), getLib().asList(null, "a"));
     }
 
     @Test
     public void testAsElement() {
         assertNull(getLib().asElement(null));
-        assertNull(getLib().asElement(Arrays.asList()));
+        assertNull(getLib().asElement(Collections.emptyList()));
         assertNull(getLib().asElement(Arrays.asList("1", "2")));
 
-        assertEquals("1", getLib().asElement(Arrays.asList("1")));
+        assertEquals("1", getLib().asElement(Collections.singletonList("1")));
     }
 
     //
@@ -179,10 +180,10 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     @Test
     public void testToNull() {
         assertNull(getLib().toNull(null));
-        assertNull(getLib().toNull(Arrays.asList()));
+        assertNull(getLib().toNull(Collections.emptyList()));
         assertNull(getLib().toNull(Arrays.asList("1", "2")));
 
-        assertNull(getLib().toNull(Arrays.asList("1")));
+        assertNull(getLib().toNull(Collections.singletonList("1")));
     }
 
     //
@@ -202,9 +203,9 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
     @Test
     public void testRangeToListNoFlags() {
-        assertEquals(Arrays.asList(), getLib().rangeToList(null, null));
-        assertEquals(Arrays.asList(), getLib().rangeToList(makeNumber("0"), null));
-        assertEquals(Arrays.asList(), getLib().rangeToList(null, makeNumber("1")));
+        assertEquals(Collections.emptyList(), getLib().rangeToList(null, null));
+        assertEquals(Collections.emptyList(), getLib().rangeToList(makeNumber("0"), null));
+        assertEquals(Collections.emptyList(), getLib().rangeToList(null, makeNumber("1")));
 
         assertEquals(makeNumberList(1, 2, 3), getLib().rangeToList(makeNumber("1"), makeNumber("3")));
         assertEquals(makeNumberList(3, 2, 1), getLib().rangeToList(makeNumber("3"), makeNumber("1")));
@@ -246,7 +247,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     @Test
     public void testAnd() {
         assertNull(getLib().and((List) null));
-        assertTrue(getLib().and(Arrays.asList()));
+        assertTrue(getLib().and(Collections.emptyList()));
         assertNull(getLib().and(Arrays.asList(null, null)));
         assertFalse(getLib().and(Arrays.asList(null, false)));
         assertNull(getLib().and(Arrays.asList(null, true)));
@@ -265,7 +266,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     @Test
     public void testOr() {
         assertNull(getLib().or((List) null));
-        assertFalse(getLib().or(Arrays.asList()));
+        assertFalse(getLib().or(Collections.emptyList()));
         assertNull(getLib().or(Arrays.asList(null, null)));
         assertNull(getLib().or(Arrays.asList(null, false)));
         assertTrue(getLib().or(Arrays.asList(null, true)));
@@ -314,7 +315,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     public void testFlattenFirstLevel() {
         assertNull(getLib().flattenFirstLevel(null));
 
-        assertEqualsList("[]", getLib().flattenFirstLevel(Arrays.asList()));
+        assertEqualsList("[]", getLib().flattenFirstLevel(Collections.emptyList()));
         assertEqualsList("[l11, l12, l13]", getLib().flattenFirstLevel(Arrays.asList("l11", "l12", "l13")));
         assertEqualsList("[l11, l21, l22, l13]", getLib().flattenFirstLevel(Arrays.asList("l11", Arrays.asList("l21", "l22"), "l13")));
         assertEqualsList("[l11, l21, [l31, l32], l13]", getLib().flattenFirstLevel(Arrays.asList("l11", Arrays.asList("l21", Arrays.asList("l31", "l32")), "l13")));
@@ -377,8 +378,8 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
     public void testGetEntries() {
         assertNull(getLib().getEntries(null));
 
-        assertEquals(Arrays.asList(), getLib().getEntries(new Context()));
-        assertEquals(Arrays.asList(new Context().add("key", "a").add("value", makeNumber("1"))), getLib().getEntries(new Context().add("a", makeNumber("1"))));
+        assertEquals(Collections.emptyList(), getLib().getEntries(new Context()));
+        assertEquals(Collections.singletonList(new Context().add("key", "a").add("value", makeNumber("1"))), getLib().getEntries(new Context().add("a", makeNumber("1"))));
     }
 
     @Test
@@ -433,11 +434,11 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertEquals(
                 makeContext(),
-                getLib().contextMerge(Arrays.asList())
+                getLib().contextMerge(Collections.emptyList())
         );
         assertEquals(
                 makeContext(),
-                getLib().contextMerge(Arrays.asList(makeContext()))
+                getLib().contextMerge(Collections.singletonList(makeContext()))
         );
         // context merge([{x:1}, {y:2}]) = {x:1, y:2}
         assertEquals(

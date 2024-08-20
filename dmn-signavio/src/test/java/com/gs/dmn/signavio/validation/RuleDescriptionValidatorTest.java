@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -71,7 +72,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
         List<String> actualErrors = new ArrayList<>();
         validator.validate(repository, null, makeDecision(), 0, description, actualErrors);
 
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(name='Test'): error: Description of rule 0 in decision 'Test' contains illegal sequence 'string(-)'"
         );
         assertEquals(expectedErrors, actualErrors);
@@ -83,7 +84,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
         List<String> actualErrors = new ArrayList<>();
         validator.validate(repository, null, makeDecision(), 0, description, actualErrors);
 
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(name='Test'): error: Description of rule 0 in decision 'Test' contains illegal sequence 'NO-BREAK SPACE'"
         );
         assertEquals(expectedErrors, actualErrors);

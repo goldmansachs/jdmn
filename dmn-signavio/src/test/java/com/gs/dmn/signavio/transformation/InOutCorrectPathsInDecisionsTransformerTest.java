@@ -18,23 +18,17 @@ import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDecisionTable;
 import com.gs.dmn.ast.TExpression;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.signavio.transformation.config.Correction;
-import com.gs.dmn.signavio.transformation.config.DecisionTableCorrection;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class InOutCorrectPathsInDecisionsTransformerTest extends AbstractSignavioFileTransformerTest {
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -49,25 +43,25 @@ public class InOutCorrectPathsInDecisionsTransformerTest extends AbstractSignavi
 
         // Check decision with no in-out pattern
         TDRGElement firstDecision = repository.findDRGElementByName("processPriorIssues");
-        assertTrue(firstDecision instanceof TDecision);
+        assertInstanceOf(TDecision.class, firstDecision);
         TExpression firstExpression = repository.expression(firstDecision);
-        assertTrue(firstExpression instanceof TDecisionTable);
+        assertInstanceOf(TDecisionTable.class, firstExpression);
         TDecisionTable firstDecisionTable = (TDecisionTable) firstExpression;
         assertEquals("(count(applicant.priorIssues)*(-5))", firstDecisionTable.getRule().get(4).getOutputEntry().get(0).getText());
 
         // Check decision with in-out pattern for inputs
         TDRGElement secondDecision = repository.findDRGElementByName("compareAgainstLendingThreshold");
-        assertTrue(secondDecision instanceof TDecision);
+        assertInstanceOf(TDecision.class, secondDecision);
         TExpression secondExpression = repository.expression(secondDecision);
-        assertTrue(secondExpression instanceof TDecisionTable);
+        assertInstanceOf(TDecisionTable.class, secondExpression);
         TDecisionTable secondDecisionTable = (TDecisionTable) secondExpression;
         assertEquals("lendingThreshold.lendingThreshold", secondDecisionTable.getRule().get(1).getOutputEntry().get(0).getText());
 
         // Check decision with in-out pattern for inputs
         TDRGElement thirdDecision = repository.findDRGElementByName("incorrectDecision");
-        assertTrue(thirdDecision instanceof TDecision);
+        assertInstanceOf(TDecision.class, thirdDecision);
         TExpression thirdExpression = repository.expression(thirdDecision);
-        assertTrue(thirdExpression instanceof TDecisionTable);
+        assertInstanceOf(TDecisionTable.class, thirdExpression);
         TDecisionTable thirdDecisionTable = (TDecisionTable) thirdExpression;
         assertEquals("assessIssueRisk", thirdDecisionTable.getRule().get(1).getOutputEntry().get(0).getText());
     }
@@ -81,7 +75,7 @@ public class InOutCorrectPathsInDecisionsTransformerTest extends AbstractSignavi
     }
 
     @Test
-    public void testTransformationWhenEmptyConfig() {;
+    public void testTransformationWhenEmptyConfig() {
         DMNModelRepository repository = new DMNModelRepository();
         transformer.transform(repository);
         Pair<DMNModelRepository, List<TestLab>> res = transformer.transform(repository, null);

@@ -719,31 +719,31 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
 
         visitTExpressionProperties(element, context);
         if (element instanceof TContext) {
-            ((TContext) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TDecisionTable) {
-            ((TDecisionTable) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TFunctionDefinition) {
-            ((TFunctionDefinition) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TInvocation) {
-            ((TInvocation) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TList) {
-            ((TList) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TLiteralExpression) {
-            ((TLiteralExpression) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TRelation) {
-            ((TRelation) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TUnaryTests) {
-            ((TUnaryTests) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TConditional) {
-            ((TConditional) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TFor) {
-            ((TFor) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TFilter) {
-            ((TFilter) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TEvery) {
-            ((TEvery) element).accept(this, context);
+            element.accept(this, context);
         } else if (element instanceof TSome) {
-            ((TSome) element).accept(this, context);
+            element.accept(this, context);
         }
     }
 

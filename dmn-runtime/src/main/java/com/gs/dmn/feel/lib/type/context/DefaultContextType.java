@@ -118,10 +118,7 @@ public class DefaultContextType extends BaseType implements ContextType {
             return false;
         }
         Object key = ((Context) entry).get("key");
-        if (!(key instanceof String)) {
-            return false;
-        }
-        return true;
+        return key instanceof String;
     }
 
     @Override

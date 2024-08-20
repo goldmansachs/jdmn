@@ -48,7 +48,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -285,7 +285,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
 
         // Derive type
         ContextType type = new ContextType();
-        entries.forEach(e -> type.addMember(e.getKey().getKey(), Arrays.asList(), e.getExpression().getType()));
+        entries.forEach(e -> type.addMember(e.getKey().getKey(), Collections.emptyList(), e.getExpression().getType()));
         element.setType(type);
 
         return element;

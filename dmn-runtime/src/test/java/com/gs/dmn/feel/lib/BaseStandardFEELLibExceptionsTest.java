@@ -14,7 +14,7 @@ package com.gs.dmn.feel.lib;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,14 +34,14 @@ public abstract class BaseStandardFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testDate() {
-        assertNull(getLib().date((String) null));
+        assertNull(getLib().date(null));
         assertNull(getLib().date((DATE) null));
         assertNull(getLib().date(null, null, null));
     }
 
     @Test
     public void testTime() {
-        assertNull(getLib().time((String) null));
+        assertNull(getLib().time(null));
         assertNull(getLib().time((TIME) null));
         assertNull(getLib().time(null, null, null, null));
     }
@@ -380,7 +380,7 @@ public abstract class BaseStandardFEELLibExceptionsTest<NUMBER, DATE, TIME, DATE
 
     @Test
     public void testIndexOf() {
-        assertEquals(Arrays.asList(), getLib().indexOf(null, null));
+        assertEquals(Collections.emptyList(), getLib().indexOf(null, null));
     }
 
     @Test

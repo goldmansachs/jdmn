@@ -26,15 +26,15 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.PathExpression;
 import com.gs.dmn.feel.analysis.syntax.ast.visitor.BaseVisitorTest;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddItemFilterVisitorTest extends BaseVisitorTest {
     private final String parameterName = "parameterName";
     private final Type stringType = StringType.STRING;
-    private final ContextType contextType = new ContextType().addMember(this.parameterName, Arrays.asList(), this.stringType);
-    private final ItemDefinitionType itemDefinitionType = new ItemDefinitionType("personType").addMember(this.parameterName, Arrays.asList(), this.stringType);
+    private final ContextType contextType = new ContextType().addMember(this.parameterName, Collections.emptyList(), this.stringType);
+    private final ItemDefinitionType itemDefinitionType = new ItemDefinitionType("personType").addMember(this.parameterName, Collections.emptyList(), this.stringType);
 
     private final ErrorHandler errorHandler = NopErrorHandler.INSTANCE;
     private final AddItemFilterVisitor<Type, DMNContext> contextTypeVisitor = new AddItemFilterVisitor<>(this.parameterName, this.contextType, this.errorHandler);

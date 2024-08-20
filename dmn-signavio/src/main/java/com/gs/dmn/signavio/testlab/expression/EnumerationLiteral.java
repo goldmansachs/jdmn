@@ -15,6 +15,8 @@ package com.gs.dmn.signavio.testlab.expression;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.gs.dmn.signavio.testlab.Visitor;
 
+import java.util.Objects;
+
 @JsonPropertyOrder({ "type", "value", "name" })
 public class EnumerationLiteral extends SimpleExpression {
     // Enumerator name
@@ -54,7 +56,7 @@ public class EnumerationLiteral extends SimpleExpression {
 
         EnumerationLiteral that = (EnumerationLiteral) o;
 
-        return name != null ? name.equals(that.name) : that.name == null;
+        return Objects.equals(name, that.name);
     }
 
     @Override

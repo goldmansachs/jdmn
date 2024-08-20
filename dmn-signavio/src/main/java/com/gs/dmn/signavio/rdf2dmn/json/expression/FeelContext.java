@@ -65,7 +65,7 @@ public class FeelContext extends Context {
                     String relationIndex = ((Reference) expression).getPathElements().get(0);
                     return findEnumItem(relationList, relationIndex, enumeratorIndex);
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot find enumerator at index '%s' in inputEntry '%s'", enumeratorIndex, expression.toString()));
+                    throw new DMNRuntimeException(String.format("Cannot find enumerator at index '%s' in inputEntry '%s'", enumeratorIndex, expression));
                 }
             } else {
                 throw new UnsupportedOperationException(expression.getClass().getSimpleName() + " not supported");

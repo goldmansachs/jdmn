@@ -21,7 +21,7 @@ public class RuleNode {
     private final Rule rule;
     private boolean matched;
     private Object result;
-    private List<ColumnNode> columnNodes = new ArrayList<>();
+    private final List<ColumnNode> columnNodes = new ArrayList<>();
 
     public RuleNode(Rule rule) {
         this.rule = rule;

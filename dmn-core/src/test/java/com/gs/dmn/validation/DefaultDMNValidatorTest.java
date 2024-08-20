@@ -15,6 +15,7 @@ package com.gs.dmn.validation;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,7 +25,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateWhenCorrect() {
-        List<String> expectedErrors = Arrays.asList();
+        List<String> expectedErrors = Collections.emptyList();
         validate(validator, tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn"), expectedErrors);
     }
 
@@ -42,7 +43,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateDefinitionsWithError() {
-        List<String> expectedErrors = Arrays.asList(
+        List<String> expectedErrors = Collections.singletonList(
                 "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Missing variable"
         );
         validate(validator, resource("dmn/input/1.1/test-dmn.dmn"), expectedErrors);

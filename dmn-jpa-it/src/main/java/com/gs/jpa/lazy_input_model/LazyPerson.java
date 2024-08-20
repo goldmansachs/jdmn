@@ -16,11 +16,12 @@ import com.gs.dmn.generated.lazy_input_model.type.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
 
 public class LazyPerson implements Person {
-    private static Logger LOGGER = LoggerFactory.getLogger(LazyPerson.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LazyPerson.class);
 
     private final EntityManager em;
     private final int id;
