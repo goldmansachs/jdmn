@@ -16,7 +16,6 @@ import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.ast.TestCases;
@@ -42,8 +41,8 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
         String dmnPath = completePath(getDMNInputPath(), dmnVersion, dmnFileName) + "/";
         String testCasesPath = completePath(getTestCasesInputPath(), dmnVersion, dmnFileName) + "/";
         String expectedPath = completePath(getExpectedPath(), dmnVersion, dmnFileName);
-        String inputTestFilePath = testCasesPath + testFileName + TCKSerializer.DEFAULT_TEST_CASE_FILE_EXTENSION;
-        String inputModelFilePath = dmnPath + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
+        String inputTestFilePath = testCasesPath + testFileName + this.inputParameters.getTckFileExtension();
+        String inputModelFilePath = dmnPath + dmnFileName + this.inputParameters.getDmnFileExtension();
         String decodedInputTestFilePath = URLDecoder.decode(resource(inputTestFilePath).getPath(), "UTF-8");
         String decodedInputModelFilePath = URLDecoder.decode(resource(inputModelFilePath).getPath(), "UTF-8");
         super.doTest(decodedInputTestFilePath, decodedInputModelFilePath, expectedPath, extraInputParameters);

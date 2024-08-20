@@ -12,11 +12,9 @@
  */
 package com.gs.dmn.tck.serialization.xstream.v1;
 
-import com.gs.dmn.tck.TCKSerializer;
 import com.gs.dmn.tck.serialization.AbstractTCKUnmarshalMarshalTest;
 import com.gs.dmn.tck.serialization.TCKMarshaller;
 import com.gs.dmn.tck.serialization.xstream.TCKMarshallerFactory;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -24,22 +22,6 @@ import java.io.File;
 public class UnmarshalMarshalTest extends AbstractTCKUnmarshalMarshalTest {
     private final TCKMarshaller marshaller = TCKMarshallerFactory.newDefaultMarshaller();
     private final String rootOutputPath = "target/";
-
-    @Disabled("Integration all TCK files")
-    public void testTCKTests() throws Exception {
-        testRoundTrip(STANDARD_FOLDER);
-    }
-
-    private void testRoundTrip(File file) throws Exception {
-        if (TCKSerializer.isTCKFile(file)) {
-            LOGGER.debug(String.format("Testing '%s'", file.getPath()));
-            testRoundTrip(file, marshaller, rootOutputPath);
-        } else if (file.isDirectory() && !file.getName().equals("expected")) {
-            for (File child : file.listFiles()) {
-                testRoundTrip(child);
-            }
-        }
-    }
 
     @Test
     public void testVersion11() throws Exception {

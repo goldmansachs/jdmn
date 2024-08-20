@@ -47,7 +47,7 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
         DMNModelRepository repository = readDMN(pathName);
         TDefinitions definitions = repository.getRootDefinitions();
         this.href = definitions.getNamespace() + "#d_RequiredMonthlyInstallment";
-        this.dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), makeInputParameters());
+        this.dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), this.inputParameters);
     }
 
     @Test

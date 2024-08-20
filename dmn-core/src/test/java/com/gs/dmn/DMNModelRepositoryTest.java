@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DMNModelRepositoryTest extends AbstractTest {
     private DMNModelRepository dmnModelRepository;
-    private final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, makeInputParameters());
+    private final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, this.inputParameters);
 
     @BeforeEach
     public void setUp() {

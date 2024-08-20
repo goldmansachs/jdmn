@@ -34,8 +34,8 @@ import java.util.Map;
 public abstract class SimpleDMNTransformerTest extends AbstractFileTransformerTest {
     protected static final ClassLoader CLASS_LOADER = SimpleDMNTransformerTest.class.getClassLoader();
 
-    protected final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, makeInputParameters());
-    protected final TCKSerializer tckSerializer = new XMLTCKSerializer(LOGGER, makeInputParameters());
+    protected final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, this.inputParameters);
+    protected final TCKSerializer tckSerializer = new XMLTCKSerializer(LOGGER, this.inputParameters);
 
     protected void doTest(String dmmVersion, List<String> dmnFileNames, String testsFileName, Map<String, Pair<String, String>> namespacePrefixMapping) throws Exception {
         DMNTransformer<TestCases> transformer = getTransformer();

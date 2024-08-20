@@ -29,8 +29,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.gs.dmn.serialization.DMNSerializer.isDMNFile;
-import static com.gs.dmn.tck.TCKSerializer.isTCKFile;
+import static com.gs.dmn.serialization.DMNConstants.isDMNFile;
+import static com.gs.dmn.serialization.DMNConstants.isTCKFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -45,9 +45,9 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
         } else if (expectedOutputFile.isFile() && actualOutputFile.isFile()) {
             if (isJsonFile(expectedOutputFile) && isJsonFile(actualOutputFile)) {
                 compareJsonFile(expectedOutputFile, actualOutputFile);
-            } else if (isDMNFile(expectedOutputFile) && isDMNFile(actualOutputFile)) {
+            } else if (isDMNFile(expectedOutputFile, this.inputParameters.getDmnFileExtension()) && isDMNFile(actualOutputFile, this.inputParameters.getDmnFileExtension())) {
                 compareDMNFile(expectedOutputFile, actualOutputFile);
-            } else if (isTCKFile(expectedOutputFile) && isTCKFile(actualOutputFile)) {
+            } else if (isTCKFile(expectedOutputFile, this.inputParameters.getTckFileExtension()) && isTCKFile(actualOutputFile, this.inputParameters.getTckFileExtension())) {
                 compareTCKFile(expectedOutputFile, actualOutputFile);
             } else if (expectedOutputFile.getName().equals(actualOutputFile.getName())) {
                 compareTextFile(expectedOutputFile, actualOutputFile);

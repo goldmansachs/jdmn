@@ -40,7 +40,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.gs.dmn.serialization.DMNSerializer.isDMNFile;
+import static com.gs.dmn.serialization.DMNConstants.isDMNFile;
 
 public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> implements DMNToNativeTransformer {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDMNToNativeTransformer.class.getName());
@@ -67,7 +67,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         } else if (inputFile.isDirectory()) {
             return !inputFile.getName().endsWith(".svn");
         } else {
-            return isDMNFile(inputFile);
+            return isDMNFile(inputFile, inputParameters.getDmnFileExtension());
         }
     }
 

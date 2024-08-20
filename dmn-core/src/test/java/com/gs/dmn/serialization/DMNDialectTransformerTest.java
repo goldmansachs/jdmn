@@ -11,7 +11,7 @@ public abstract class DMNDialectTransformerTest extends AbstractFileTransformerT
     protected final DMNMarshaller dmnMarshaller = getDMNMarshaller();
 
     protected void doTest(String inputFileName) throws Exception {
-        Charset charset = makeInputParameters().getCharset();
+        Charset charset = this.inputParameters.getCharset();
 
         // Read
         File inputFile = new File(resource(getInputPath() + inputFileName));

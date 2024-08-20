@@ -41,10 +41,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFileTransformerTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractRDFToDMNTransformerTest.class));
 
-    private static boolean isXmlFile(File file) {
-        return file != null && file.isFile() && file.getName().endsWith(RDF_FILE_EXTENSION);
-    }
-
     private final String schemaVersion = "1.1";
 
     protected void doTestFolder() throws Exception {
@@ -107,12 +103,10 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFi
                 "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                 "<dmn:definitions xmlns:dmn=\"http://www.omg.org/spec/DMN/20151101/dmn.xsd\" xmlns:cip=\"http://www.gs.com/cip\" xmlns:feel=\"http://www.omg.org/spec/FEEL/20140401\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" namespace=\"http://www.omg.org/spec/DMN/20151101/dmn.xsd\" name=\"XXX\">\n" +
                 "</dmn:definitions>",
-                this.makeInputParameters().getCharset()
+                this.inputParameters.getCharset()
         )
         ;
     }
-
-    private final SAXBuilder builder = new SAXBuilder();
 
     private FileTransformer makeTransformer(InputParameters inputParameters, BuildLogger logger) {
         return new RDFToDMNTransformer(inputParameters, logger);

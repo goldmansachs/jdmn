@@ -12,8 +12,20 @@
  */
 package com.gs.dmn.serialization;
 
+import java.io.File;
+
 public class DMNConstants {
+    public static boolean isDMNFile(File file, String dmnFileExtension) {
+        return file != null && file.isFile() && file.getName().endsWith(dmnFileExtension);
+    }
+
+    public static boolean isTCKFile(File file, String tckFileExtension) {
+        return file != null && file.isFile() && file.getName().endsWith(tckFileExtension);
+    }
+
     public static final String DMN_FILE_EXTENSION = ".dmn";
+
+    public static final String TCK_FILE_EXTENSION = ".xml";
 
     // XSD
     public static final String XSD_NS = "http://www.w3.org/2001/XMLSchema";

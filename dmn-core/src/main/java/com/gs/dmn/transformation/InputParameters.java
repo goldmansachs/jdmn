@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.SerializationFormat;
 
 import java.nio.charset.Charset;
@@ -64,6 +65,8 @@ public class InputParameters {
     private final String namespace;
     private final String prefix;
     private final SerializationFormat format;
+    private final String dmnFileExtension;
+    private final String tckFileExtension;
     private final Charset charset;
 
     private final String javaRootPackage;
@@ -100,6 +103,8 @@ public class InputParameters {
         this.schemaNamespace = InputParameters.getOptionalParam(inputParameters, "signavioSchemaNamespace");
         this.prefix = InputParameters.getOptionalParam(inputParameters, "prefix");
         this.format = SerializationFormat.valueOf(InputParameters.getOptionalParam(inputParameters, "format", "XML"));
+        this.dmnFileExtension = InputParameters.getOptionalParam(inputParameters, "format", DMNConstants.DMN_FILE_EXTENSION);
+        this.tckFileExtension = InputParameters.getOptionalParam(inputParameters, "format", DMNConstants.TCK_FILE_EXTENSION);
         String charsetName = InputParameters.getOptionalParam(inputParameters, "encoding");
         this.charset = charsetName == null ? StandardCharsets.UTF_8 : Charset.forName(charsetName);
 
@@ -155,6 +160,14 @@ public class InputParameters {
 
     public SerializationFormat getFormat() {
         return format;
+    }
+
+    public String getDmnFileExtension() {
+        return dmnFileExtension;
+    }
+
+    public String getTckFileExtension() {
+        return tckFileExtension;
     }
 
     public Charset getCharset() {

@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.gs.dmn.serialization.DMNSerializer.isDMNFile;
+import static com.gs.dmn.serialization.DMNConstants.isDMNFile;
 import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
 import static com.gs.dmn.signavio.testlab.TestLabSerializer.isTestLabFile;
 
@@ -123,7 +123,7 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
 
     @Override
     protected DMNModelRepository readModels(File file) {
-        if (isDMNFile(file)) {
+        if (isDMNFile(file, this.inputParameters.getDmnFileExtension())) {
             TDefinitions result = this.dmnSerializer.readModel(file);
             return new SignavioDMNModelRepository(result, this.schemaNamespace);
         } else {

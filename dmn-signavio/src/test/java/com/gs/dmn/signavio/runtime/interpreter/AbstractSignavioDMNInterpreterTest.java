@@ -48,7 +48,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractSignavioDMNInterpreterTest.class));
 
     private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> dialectDefinition = new SignavioDMNDialectDefinition();
-    private final DMNSerializer serializer = this.dialectDefinition.createDMNSerializer(LOGGER, makeInputParameters());
+    private final DMNSerializer serializer = this.dialectDefinition.createDMNSerializer(LOGGER, this.inputParameters);
 
     protected void doTest(DecisionTestConfig config) throws Exception {
         doTest(config.getDecisionName(), config.getDiagramName(), config.getRuntimeContext(), config.getExpectedResult());
@@ -62,7 +62,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
             File dmnFile = new File(uri.getPath());
             TDefinitions definitions = this.serializer.readModel(dmnFile);
             DMNModelRepository repository = new SignavioDMNModelRepository(definitions, SIG_EXT_NAMESPACE);
-            DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = this.dialectDefinition.createDMNInterpreter(repository, makeInputParameters());
+            DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = this.dialectDefinition.createDMNInterpreter(repository, this.inputParameters);
 
             TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
             DRGElementReference<TDecision> reference = repository.makeDRGElementReference(decision);

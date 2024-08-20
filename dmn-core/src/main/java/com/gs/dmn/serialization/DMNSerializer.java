@@ -23,9 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DMNSerializer {
-    public static boolean isDMNFile(File file) {
-        return file != null && file.isFile() && file.getName().endsWith(DMNConstants.DMN_FILE_EXTENSION);
-    }
 
     private final BuildLogger logger;
     private final DMNMarshaller dmnMarshaller;
@@ -46,7 +43,7 @@ public abstract class DMNSerializer {
             throw new DMNRuntimeException("Missing DMN files");
         } else {
             for (File file : files) {
-                if (isDMNFile(file)) {
+                if (DMNConstants.isDMNFile(file, this.inputParameters.getDmnFileExtension())) {
                     TDefinitions definitions = readModel(file);
                     definitionsList.add(definitions);
                 } else {
@@ -61,13 +58,13 @@ public abstract class DMNSerializer {
         List<TDefinitions> definitionsList = new ArrayList<>();
         if (file == null) {
             throw new DMNRuntimeException("Missing DMN file");
-        } else if (isDMNFile(file)) {
+        } else if (DMNConstants.isDMNFile(file, this.inputParameters.getDmnFileExtension())) {
             TDefinitions definitions = readModel(file);
             definitionsList.add(definitions);
             return definitionsList;
         } else if (file.isDirectory()) {
             for (File child : file.listFiles()) {
-                if (isDMNFile(child)) {
+                if (DMNConstants.isDMNFile(child, this.inputParameters.getDmnFileExtension())) {
                     TDefinitions definitions = readModel(child);
                     definitionsList.add(definitions);
                 }

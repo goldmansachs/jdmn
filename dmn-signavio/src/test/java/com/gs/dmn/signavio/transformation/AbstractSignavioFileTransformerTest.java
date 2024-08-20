@@ -23,7 +23,7 @@ import static com.gs.dmn.signavio.SignavioTestConstants.SIG_EXT_NAMESPACE;
 
 public abstract class AbstractSignavioFileTransformerTest extends AbstractFileTransformerTest {
     protected final SignavioDMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
-    protected final DMNSerializer dmnSerializer = this.dialectDefinition.createDMNSerializer(LOGGER, makeInputParameters());
+    protected final DMNSerializer dmnSerializer = this.dialectDefinition.createDMNSerializer(LOGGER, this.inputParameters);
     protected final TestLabSerializer testReader = new TestLabSerializer();
 
     @Override

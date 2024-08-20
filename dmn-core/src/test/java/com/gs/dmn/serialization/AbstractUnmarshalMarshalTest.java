@@ -36,10 +36,6 @@ public abstract class AbstractUnmarshalMarshalTest<D, M> extends AbstractFileTra
         testRoundTrip(inputFile, marshaller,  outputPath);
     }
 
-//    private String makeOutputPath(String version) {
-//        return String.format("%s/xstream/tck/%s", rootOutputPath, version);
-//    }
-
     protected void testRoundTrip(File inputFile, M marshaller, String outputFilePath) throws Exception {
         // Validate input XML
         validateXSDSchema(inputFile);

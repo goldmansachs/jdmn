@@ -20,7 +20,6 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
@@ -136,7 +135,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
     private void transformLeaf(File child, File root, Path outputPath) {
         try (FileInputStream inputStream = new FileInputStream(child.toURI().getPath())) {
             File outputFolder = outputFolder(child, root, outputPath);
-            File outputFile = new File(outputFolder, diagramName(child) + DMNConstants.DMN_FILE_EXTENSION);
+            File outputFile = new File(outputFolder, diagramName(child) + inputParameters.getDmnFileExtension());
 
             this.logger.info(String.format("Output folder '%s' ", outputFolder.getCanonicalPath()));
             this.logger.info(String.format("Output file %s ...", outputFile.getCanonicalPath()));

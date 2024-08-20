@@ -21,7 +21,6 @@ import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
-import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.NopDMNTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -38,7 +37,6 @@ public abstract class AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_
     private final DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialect = makeDialect();
 
     private final DMNModelRepository repository = makeRepository();
-    private final InputParameters inputParameters = makeInputParameters();
 
     @Test
     public void testCreateDMNInterpreter() {
@@ -77,12 +75,12 @@ public abstract class AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_
     }
 
     @Override
-    protected InputParameters makeInputParameters() {
+    protected Map<String, String> makeInputParametersMap() {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("dmnVersion", "1.1");
         map.put("modelVersion", "1.2");
         map.put("platformVersion", "3.2");
-        return new InputParameters(map);
+        return map;
     }
 
     protected abstract DMNDialectDefinition<NUMBER,DATE,TIME,DATE_TIME,DURATION,TEST> makeDialect();

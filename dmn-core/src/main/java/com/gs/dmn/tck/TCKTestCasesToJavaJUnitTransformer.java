@@ -19,7 +19,6 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
@@ -39,7 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.gs.dmn.tck.TCKSerializer.isTCKFile;
+import static com.gs.dmn.serialization.DMNConstants.isTCKFile;
 
 public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesToJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     protected final BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer;
@@ -63,7 +62,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         } else if (inputFile.isDirectory()) {
             return !inputFile.getName().endsWith(".svn");
         } else {
-            return isTCKFile(inputFile);
+            return isTCKFile(inputFile, inputParameters.getTckFileExtension());
         }
     }
 
@@ -80,7 +79,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
                 testCasesList.add(testCases);
             } else if (file.isDirectory() && file.listFiles() != null) {
                 for (File child: file.listFiles()) {
-                    if (isTCKFile(child)) {
+                    if (isTCKFile(child, inputParameters.getTckFileExtension())) {
                         TestCases testCases = testCasesReader.read(child);
                         testCasesList.add(testCases);
                     }
@@ -129,7 +128,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
 
     protected String testClassName(TestCases testCases, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         String modelName = testCases.getModelName();
-        if (modelName.endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
+        if (modelName.endsWith(this.inputParameters.getDmnFileExtension())) {
             modelName = modelName.substring(0, modelName.length() - 4);
         }
         String testName = dmnTransformer.upperCaseFirst(modelName + "Test");

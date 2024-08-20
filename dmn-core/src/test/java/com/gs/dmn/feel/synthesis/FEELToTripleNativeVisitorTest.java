@@ -27,7 +27,6 @@ import com.gs.dmn.el.synthesis.triple.Triples;
 import com.gs.dmn.feel.EnvironmentEntry;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
@@ -53,12 +52,11 @@ public class FEELToTripleNativeVisitorTest extends AbstractTest {
     public FEELToTripleNativeVisitorTest() {
         JavaTimeDMNDialectDefinition dialectDefinition = new JavaTimeDMNDialectDefinition();
         DMNModelRepository repository = makeRepository();
-        InputParameters inputParameters = makeInputParameters();
 
         this.environmentFactory = dialectDefinition.createEnvironmentFactory();
         this.lib = dialectDefinition.createFEELLib();
-        this.feelTranslator = dialectDefinition.createFEELTranslator(repository, inputParameters);
-        this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters);
+        this.feelTranslator = dialectDefinition.createFEELTranslator(repository, this.inputParameters);
+        this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), this.inputParameters);
         this.nativeVisitor = new FEELToTripleNativeVisitor(this.dmnTransformer);
     }
 

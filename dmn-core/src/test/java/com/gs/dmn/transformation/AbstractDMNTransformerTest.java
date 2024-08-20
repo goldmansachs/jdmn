@@ -15,7 +15,6 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.NopDMNValidator;
 
@@ -30,7 +29,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
         File folder = path(inputPath).toFile();
         if (folder.listFiles() != null) {
             for(File file: folder.listFiles()) {
-                if (file.isFile() && file.getName().endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
+                if (file.isFile() && file.getName().endsWith(this.inputParameters.getDmnFileExtension())) {
                     doSingleModelTest(diagramName(file));
                 }
             }
@@ -39,7 +38,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     @SafeVarargs
     protected final void doSingleModelTest(String dmnFileName, Pair<String, String>... extraInputParameters) throws Exception {
-        String inputFilePath = getInputPath() + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
+        String inputFilePath = getInputPath() + "/" + dmnFileName + this.inputParameters.getDmnFileExtension();
         String expectedOutputPath = getExpectedPath() + "/" + friendlyFolderName(dmnFileName.toLowerCase());
         URI resource = resource(inputFilePath);
         doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
@@ -47,7 +46,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     @SafeVarargs
     protected final void doSingleModelTest(String dmnVersion, String dmnFileName, Pair<String, String>... extraInputParameters) throws Exception {
-        String inputFilePath = completePath(getInputPath(), dmnVersion, dmnFileName) + "/" + dmnFileName + DMNConstants.DMN_FILE_EXTENSION;
+        String inputFilePath = completePath(getInputPath(), dmnVersion, dmnFileName) + "/" + dmnFileName + this.inputParameters.getDmnFileExtension();
         String expectedOutputPath = completePath(getExpectedPath(), dmnVersion, dmnFileName) + "/";
         URI resource = resource(inputFilePath);
         doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
@@ -106,7 +105,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
 
     private String diagramName(File file) {
         String name = file.getName();
-        int i = name.indexOf(DMNConstants.DMN_FILE_EXTENSION);
+        int i = name.indexOf(this.inputParameters.getDmnFileExtension());
         return i == -1 ? name : name.substring(0, i);
     }
 

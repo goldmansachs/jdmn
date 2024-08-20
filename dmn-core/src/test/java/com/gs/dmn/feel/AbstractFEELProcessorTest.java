@@ -31,7 +31,6 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
-import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
@@ -65,14 +64,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     protected AbstractFEELProcessorTest() {
         DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> dialectDefinition = makeDialect();
         DMNModelRepository repository = makeRepository();
-        InputParameters inputParameters = makeInputParameters();
 
         this.environmentFactory = dialectDefinition.createEnvironmentFactory();
         this.lib = dialectDefinition.createFEELLib();
-        this.feelTranslator = dialectDefinition.createFEELTranslator(repository, inputParameters);
-        this.dmnInterpreter = dialectDefinition.createDMNInterpreter(repository, inputParameters);
-        this.feelInterpreter = dialectDefinition.createELInterpreter(repository, inputParameters);
-        this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), inputParameters);
+        this.feelTranslator = dialectDefinition.createFEELTranslator(repository, this.inputParameters);
+        this.dmnInterpreter = dialectDefinition.createDMNInterpreter(repository, this.inputParameters);
+        this.feelInterpreter = dialectDefinition.createELInterpreter(repository, this.inputParameters);
+        this.dmnTransformer = dialectDefinition.createBasicTransformer(repository, new NopLazyEvaluationDetector(), this.inputParameters);
     }
 
     //

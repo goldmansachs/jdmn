@@ -19,18 +19,19 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonDMNSerializerTest extends AbstractTest {
-    private final DMNSerializer dmnSerializer = new JsonDMNSerializer(LOGGER, makeInputParameters());
+    private final DMNSerializer dmnSerializer = new JsonDMNSerializer(LOGGER, this.inputParameters);
 
     @Test
     public void testRead() {
         File input = new File(resource("jackson/v1_3/0004-lending.dmn"));
 
-        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(Arrays.asList(input));
+        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(Collections.singletonList(input));
         assertEquals(1, definitionsList.size());
         List<TDRGElement> drgElementList = definitionsList.get(0).getDrgElement();
         assertEquals(24, drgElementList.size());
@@ -42,7 +43,7 @@ public class JsonDMNSerializerTest extends AbstractTest {
         assertEquals(1, decision.getKnowledgeRequirement().size());
 
         TExpression expression = decision.getExpression();
-        assertTrue(expression instanceof TInvocation);
+        assertInstanceOf(TInvocation.class, expression);
         TInvocation invocation = (TInvocation) expression;
         assertNotNull(invocation.getExpression(), "Missing expression");
     }

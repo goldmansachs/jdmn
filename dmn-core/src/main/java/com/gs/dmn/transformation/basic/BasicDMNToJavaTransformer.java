@@ -44,7 +44,6 @@ import com.gs.dmn.runtime.external.JavaExternalFunction;
 import com.gs.dmn.runtime.external.JavaFunctionInfo;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.*;
-import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -1997,7 +1996,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String nativeModelPackageName(String modelName) {
-        if (modelName != null && modelName.endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
+        if (modelName != null && modelName.endsWith(this.inputParameters.getDmnFileExtension())) {
             modelName = modelName.substring(0, modelName.length() - 4);
         }
         if (this.onePackage) {

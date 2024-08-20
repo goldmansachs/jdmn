@@ -21,16 +21,6 @@ import com.gs.dmn.transformation.InputParameters;
 import java.io.*;
 
 public abstract class TCKSerializer {
-    public static final String DEFAULT_TEST_CASE_FILE_EXTENSION = ".xml";
-    private static final String TEST_CASE_FILE_EXTENSION = ".tck";
-
-    public static boolean isTCKFile(File file) {
-        return file != null && file.isFile() &&
-                (
-                        file.getName().endsWith(DEFAULT_TEST_CASE_FILE_EXTENSION) || file.getName().endsWith(TEST_CASE_FILE_EXTENSION)
-                );
-    }
-
     private final BuildLogger logger;
     private final TCKMarshaller marshaller;
     private final InputParameters inputParameters;

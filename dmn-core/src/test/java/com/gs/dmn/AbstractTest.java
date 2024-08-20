@@ -30,6 +30,8 @@ public abstract class AbstractTest {
     protected static final File STANDARD_FOLDER = new File("../dmn-test-cases/standard");
     private static final File SIGNAVIO_FOLDER = new File("../dmn-test-cases/signavio");
 
+    protected InputParameters inputParameters = new InputParameters(makeInputParametersMap());
+
     protected URI tckResource(String path) {
         File file = new File(STANDARD_FOLDER, path);
         if (!file.exists()) {
@@ -60,10 +62,6 @@ public abstract class AbstractTest {
 
     protected String completePath(String pathFormat, String dmnVersion, String dmnFileName) {
         return String.format(pathFormat, dmnVersion, dmnFileName);
-    }
-
-    protected InputParameters makeInputParameters() {
-        return new InputParameters(makeInputParametersMap());
     }
 
     protected Map<String, String> makeInputParametersMap() {
