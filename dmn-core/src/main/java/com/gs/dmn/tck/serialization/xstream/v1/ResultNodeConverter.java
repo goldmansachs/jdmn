@@ -12,15 +12,15 @@
  */
 package com.gs.dmn.tck.serialization.xstream.v1;
 
-import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.ResultNode;
+import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.ValueType;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
-public class ResultNodeConverter extends DMNBaseElementConverter {
+public class ResultNodeConverter extends TCKBaseElementConverter {
     // Attributes
     private static final String TYPE = "type";
     private static final String NAMESPACE = "namespace";

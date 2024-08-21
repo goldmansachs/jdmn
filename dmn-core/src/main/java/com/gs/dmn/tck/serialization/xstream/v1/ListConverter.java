@@ -12,15 +12,15 @@
  */
 package com.gs.dmn.tck.serialization.xstream.v1;
 
-import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.List;
+import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.ValueType;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
-public class ListConverter extends DMNBaseElementConverter {
+public class ListConverter extends TCKBaseElementConverter {
     public static final String ITEM = "item";
 
     public ListConverter(XStream xstream) {

@@ -10,19 +10,16 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization;
+package com.gs.dmn.serialization.jackson;
 
-import com.gs.dmn.ast.TDefinitions;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.KeyDeserializer;
 
-import java.io.Reader;
-import java.io.Writer;
+import static com.gs.dmn.serialization.jackson.QNameDeserializer.fromKey;
 
-public interface DMNMarshaller {
-    TDefinitions unmarshal(String input, boolean validateSchema);
-
-    TDefinitions unmarshal(Reader input, boolean validateSchema);
-
-    String marshal(TDefinitions definitions);
-
-    void marshal(TDefinitions definitions, Writer output);
+public class QNameKeyDeserializer extends KeyDeserializer {
+    @Override
+    public Object deserializeKey(String value, DeserializationContext deserializationContext) {
+        return fromKey(value);
+    }
 }

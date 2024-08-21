@@ -18,12 +18,14 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNMarshaller;
 
+import javax.xml.namespace.QName;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -45,6 +47,14 @@ public class JsonDMNMarshaller implements DMNMarshaller {
 
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+
+        // Add serializers & deserializers for QName
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(QName.class, new QNameSerializer());
+        module.addDeserializer(QName.class, new QNameDeserializer());
+        module.addKeySerializer(QName.class, new QNameKeySerializer());
+        module.addKeyDeserializer(QName.class, new QNameKeyDeserializer());
+        objectMapper.registerModule(module);
 
         return objectMapper;
     }
@@ -74,18 +84,18 @@ public class JsonDMNMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public String marshal(TDefinitions o) {
+    public String marshal(TDefinitions definitions) {
         try {
-            return JSON_MAPPER.writeValueAsString(o);
+            return JSON_MAPPER.writeValueAsString(definitions);
         } catch (IOException e) {
             throw new DMNRuntimeException("Cannot write DMN as string", e);
         }
     }
 
     @Override
-    public void marshal(TDefinitions o, Writer output) {
+    public void marshal(TDefinitions definitions, Writer output) {
         try {
-            JSON_MAPPER.writeValue(output, o);
+            JSON_MAPPER.writeValue(output, definitions);
         } catch (IOException e) {
             throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output), e);
         }

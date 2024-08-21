@@ -12,14 +12,14 @@
  */
 package com.gs.dmn.tck.serialization.xstream.v1;
 
-import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.Labels;
+import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
-public class LabelsConverter extends DMNBaseElementConverter {
+public class LabelsConverter extends TCKBaseElementConverter {
     public static final String LABEL = "label";
 
     public LabelsConverter(XStream xstream) {

@@ -25,7 +25,7 @@ public abstract class TCKSerializer {
     private final TCKMarshaller marshaller;
     private final InputParameters inputParameters;
 
-    public TCKSerializer(BuildLogger logger, TCKMarshaller marshaller, InputParameters inputParameters) {
+    protected TCKSerializer(BuildLogger logger, TCKMarshaller marshaller, InputParameters inputParameters) {
         this.logger = logger;
         this.marshaller = marshaller;
         this.inputParameters = inputParameters;

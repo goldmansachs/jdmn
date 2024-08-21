@@ -20,7 +20,7 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 import java.util.List;
 
-public class TestCaseConverter extends DMNBaseElementConverter {
+public class TestCaseConverter extends TCKBaseElementConverter {
     // Attributes
     private static final String ID = "id";
     private static final String TYPE = "type";

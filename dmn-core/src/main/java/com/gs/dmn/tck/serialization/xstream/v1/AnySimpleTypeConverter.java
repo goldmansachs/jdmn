@@ -21,7 +21,7 @@ import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
-public class AnySimpleTypeConverter extends DMNBaseElementConverter {
+public class AnySimpleTypeConverter extends TCKBaseElementConverter {
     public AnySimpleTypeConverter(XStream xstream) {
         super(xstream);
     }

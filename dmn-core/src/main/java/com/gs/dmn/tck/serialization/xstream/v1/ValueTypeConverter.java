@@ -18,7 +18,7 @@ import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
-public class ValueTypeConverter extends DMNBaseElementConverter {
+public class ValueTypeConverter extends TCKBaseElementConverter {
     // Elements
     static final String VALUE = "value";
     static final String LIST = "list";

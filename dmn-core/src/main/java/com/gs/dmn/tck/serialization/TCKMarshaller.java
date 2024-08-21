@@ -22,7 +22,7 @@ public interface TCKMarshaller {
 
     TestCases unmarshal(Reader input, boolean validateSchema);
 
-    String marshal(TestCases o);
+    String marshal(TestCases testCases);
 
-    void marshal(TestCases o, Writer output);
+    void marshal(TestCases testCases, Writer output);
 }

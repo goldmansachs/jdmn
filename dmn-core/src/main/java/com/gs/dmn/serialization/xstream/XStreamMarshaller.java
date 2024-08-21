@@ -164,23 +164,23 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public String marshal(TDefinitions o) {
-        if (o != null) {
-            DMNVersion dmnVersion = inferDMNVersion(o);
-            return marshall(o, dmnVersion);
+    public String marshal(TDefinitions definitions) {
+        if (definitions != null) {
+            DMNVersion dmnVersion = inferDMNVersion(definitions);
+            return marshall(definitions, dmnVersion);
         } else {
-            LOGGER.error("Error marshalling object {}", o);
+            LOGGER.error("Error marshalling object {}", definitions);
         }
         return null;
     }
 
     @Override
-    public void marshal(TDefinitions o, Writer output) {
-        if (o != null) {
-            DMNVersion dmnVersion = inferDMNVersion(o);
-            marshall(o, output, dmnVersion);
+    public void marshal(TDefinitions definitions, Writer output) {
+        if (definitions != null) {
+            DMNVersion dmnVersion = inferDMNVersion(definitions);
+            marshall(definitions, output, dmnVersion);
         } else {
-            LOGGER.error("Error marshalling object {}", o);
+            LOGGER.error("Error marshalling object {}", definitions);
         }
     }
 
@@ -198,15 +198,15 @@ public class XStreamMarshaller implements DMNMarshaller {
         }
     }
 
-    private void marshall(TDefinitions o, Writer out, DMNVersion dmnVersion) {
+    private void marshall(TDefinitions definitions, Writer out, DMNVersion dmnVersion) {
         if (dmnVersion == DMN_14) {
-            xStream14.marshal(o, out);
+            xStream14.marshal(definitions, out);
         } else if (dmnVersion == DMN_13) {
-            xStream13.marshal(o, out);
+            xStream13.marshal(definitions, out);
         } else if (dmnVersion == DMN_12) {
-            xStream12.marshal(o, out);
+            xStream12.marshal(definitions, out);
         } else if (dmnVersion == DMN_11) {
-            xStream11.marshal(o, out);
+            xStream11.marshal(definitions, out);
         }
     }
 

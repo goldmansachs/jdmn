@@ -98,23 +98,23 @@ public class XStreamMarshaller implements TCKMarshaller {
     }
 
     @Override
-    public String marshal(TestCases o) {
-        if (o != null) {
-            TCKVersion tckVersion = inferTCKVersion(o);
-            return marshall(o, tckVersion);
+    public String marshal(TestCases testCases) {
+        if (testCases != null) {
+            TCKVersion tckVersion = inferTCKVersion(testCases);
+            return marshall(testCases, tckVersion);
         } else {
-            LOGGER.error("Error marshalling object {}", o);
+            LOGGER.error("Error marshalling object {}", testCases);
         }
         return null;
     }
 
     @Override
-    public void marshal(TestCases o, Writer output) {
-        if (o != null) {
-            TCKVersion tckVersion = inferTCKVersion(o);
-            marshall(o, output, tckVersion);
+    public void marshal(TestCases testCases, Writer output) {
+        if (testCases != null) {
+            TCKVersion tckVersion = inferTCKVersion(testCases);
+            marshall(testCases, output, tckVersion);
         } else {
-            LOGGER.error("Error marshalling object {}", o);
+            LOGGER.error("Error marshalling object {}", testCases);
         }
     }
 
@@ -126,9 +126,9 @@ public class XStreamMarshaller implements TCKMarshaller {
         }
     }
 
-    private void marshall(TestCases o, Writer out, TCKVersion tckVersion) {
+    private void marshall(TestCases testCases, Writer out, TCKVersion tckVersion) {
         if (tckVersion == TCK_1) {
-            xStream1.marshal(o, out);
+            xStream1.marshal(testCases, out);
         }
     }
 

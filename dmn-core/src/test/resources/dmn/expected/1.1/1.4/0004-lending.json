@@ -1,0 +1,5685 @@
+{
+  "@kind" : "definitions",
+  "name" : "Lending1",
+  "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
+  "expressionLanguage" : "https://www.omg.org/spec/DMN/20211108/FEEL/",
+  "typeLanguage" : "https://www.omg.org/spec/DMN/20211108/FEEL/",
+  "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
+  "exporter" : "DMN Modeler; Method and Style trisofix.xslt",
+  "exporterVersion" : "5.0.32.2; 1.0",
+  "otherAttributes" : {
+    "{http://www.trisotech.com/2015/triso/modeling}logoChoice" : "Default"
+  },
+  "itemDefinition" : [ {
+    "@kind" : "itemDefinition",
+    "name" : "tEligibility",
+    "isCollection" : false,
+    "typeRef" : "string",
+    "allowedValues" : {
+      "@kind" : "unaryTests",
+      "text" : "\"INELIGIBLE\", \"ELIGIBLE\"",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "tBureauCallType",
+    "isCollection" : false,
+    "typeRef" : "string",
+    "allowedValues" : {
+      "@kind" : "unaryTests",
+      "text" : "\"FULL\", \"MINI\", \"NONE\"",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "tStrategy",
+    "isCollection" : false,
+    "typeRef" : "string",
+    "allowedValues" : {
+      "@kind" : "unaryTests",
+      "text" : "\"DECLINE\", \"BUREAU\", \"THROUGH\"",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "tRiskCategory",
+    "isCollection" : false,
+    "typeRef" : "string",
+    "allowedValues" : {
+      "@kind" : "unaryTests",
+      "text" : "\"DECLINE\", \"HIGH\", \"MEDIUM\", \"LOW\", \"VERY LOW\"",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "tRouting",
+    "isCollection" : false,
+    "typeRef" : "string",
+    "allowedValues" : {
+      "@kind" : "unaryTests",
+      "text" : "\"DECLINE\", \"REFER\", \"ACCEPT\"",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "tBureauData",
+    "isCollection" : false,
+    "itemComponent" : [ {
+      "@kind" : "itemDefinition",
+      "name" : "CreditScore",
+      "isCollection" : false,
+      "typeRef" : "number",
+      "allowedValues" : {
+        "@kind" : "unaryTests",
+        "text" : "[0..999], null",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "Bankrupt",
+      "isCollection" : false,
+      "typeRef" : "boolean",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "tAdjudication",
+    "isCollection" : false,
+    "typeRef" : "string",
+    "allowedValues" : {
+      "@kind" : "unaryTests",
+      "text" : "\"DECLINE\", \"ACCEPT\"",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "tApplicantData",
+    "isCollection" : false,
+    "itemComponent" : [ {
+      "@kind" : "itemDefinition",
+      "name" : "Monthly",
+      "isCollection" : false,
+      "itemComponent" : [ {
+        "@kind" : "itemDefinition",
+        "name" : "Income",
+        "isCollection" : false,
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "itemDefinition",
+        "name" : "Expenses",
+        "isCollection" : false,
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "itemDefinition",
+        "name" : "Repayments",
+        "isCollection" : false,
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "Age",
+      "isCollection" : false,
+      "typeRef" : "number",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "ExistingCustomer",
+      "isCollection" : false,
+      "typeRef" : "boolean",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "MaritalStatus",
+      "isCollection" : false,
+      "typeRef" : "string",
+      "allowedValues" : {
+        "@kind" : "unaryTests",
+        "text" : "\"S\",\"M\"",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "EmploymentStatus",
+      "isCollection" : false,
+      "typeRef" : "string",
+      "allowedValues" : {
+        "@kind" : "unaryTests",
+        "text" : "\"EMPLOYED\",\"SELF-EMPLOYED\",\"STUDENT\",\"UNEMPLOYED\"",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "itemDefinition",
+    "name" : "tRequestedProduct",
+    "isCollection" : false,
+    "itemComponent" : [ {
+      "@kind" : "itemDefinition",
+      "name" : "ProductType",
+      "isCollection" : false,
+      "typeRef" : "string",
+      "allowedValues" : {
+        "@kind" : "unaryTests",
+        "text" : "\"STANDARD LOAN\", \"SPECIAL LOAN\"",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "Amount",
+      "isCollection" : false,
+      "typeRef" : "number",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "Rate",
+      "isCollection" : false,
+      "typeRef" : "number",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "itemDefinition",
+      "name" : "Term",
+      "isCollection" : false,
+      "typeRef" : "number",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  } ],
+  "drgElement" : [ {
+    "@kind" : "decision",
+    "name" : "BureauCallType",
+    "id" : "d_BureauCallType",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "BureauCallType",
+      "typeRef" : "tBureauCallType",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "id" : "_77738833-38e6-4520-8774-d907958edb38",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_Pre-bureauRiskCategory"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "id" : "_2f3951c1-e9d0-4f66-940b-21aea6bd6b6f",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#b_BureauCallTypeTable"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "invocation",
+      "expression" : {
+        "@kind" : "literalExpression",
+        "text" : "BureauCallTypeTable",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "binding" : [ {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "Pre-bureauRiskCategory",
+          "id" : "_65deeb90-626c-4cce-9485-eae9455b2194",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "Pre-bureauRiskCategory",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "Strategy",
+    "id" : "d_Strategy",
+    "question" : "Is credit bureau call required?",
+    "allowedAnswers" : "Yes (BUREAU) or No (DECLINE, THROUGH)",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "Strategy",
+      "typeRef" : "tStrategy",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "id" : "a451ac15-800a-4021-bad0-7371ceaf77a8",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_BureauCallType"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "_35e8b3c9-f9bd-4667-ad8f-4f6e08ae83da",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_Eligibility"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "decisionTable",
+      "hitPolicy" : "UNIQUE",
+      "preferredOrientation" : "RULE_AS_ROW",
+      "outputLabel" : "Strategy",
+      "input" : [ {
+        "@kind" : "inputClause",
+        "id" : "_09a4cf3d-54fa-4232-ada0-e291c67a16c0",
+        "label" : "Eligibility",
+        "inputExpression" : {
+          "@kind" : "literalExpression",
+          "text" : "Eligibility",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          },
+          "typeRef" : "string"
+        },
+        "inputValues" : {
+          "@kind" : "unaryTests",
+          "text" : "\"ELIGIBLE\", \"INELIGIBLE\"",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "inputClause",
+        "id" : "_f3816132-3cf1-4414-ab6b-0ed875a5fa1b",
+        "label" : "Bureau Call",
+        "inputExpression" : {
+          "@kind" : "literalExpression",
+          "text" : "BureauCallType",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          },
+          "typeRef" : "string"
+        },
+        "inputValues" : {
+          "@kind" : "unaryTests",
+          "text" : "\"FULL\", \"MINI\", \"NONE\"",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "output" : [ {
+        "@kind" : "outputClause",
+        "id" : "_8c01b3c4-216d-4db4-8c5b-4375e6f524be",
+        "outputValues" : {
+          "@kind" : "unaryTests",
+          "text" : "\"DECLINE\", \"THROUGH\", \"BUREAU\"",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "rule" : [ {
+        "@kind" : "decisionRule",
+        "id" : "_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661",
+        "inputEntry" : [ {
+          "@kind" : "unaryTests",
+          "id" : "_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661-0",
+          "text" : "\"INELIGIBLE\"",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "unaryTests",
+          "id" : "_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661-1",
+          "text" : "-",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "outputEntry" : [ {
+          "@kind" : "literalExpression",
+          "id" : "_cc1cbffe-d1fe-4646-bc2e-df2bf08cb661-2",
+          "text" : "\"DECLINE\"",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "decisionRule",
+        "id" : "_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12",
+        "inputEntry" : [ {
+          "@kind" : "unaryTests",
+          "id" : "_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12-0",
+          "text" : "\"ELIGIBLE\"",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "unaryTests",
+          "id" : "_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12-1",
+          "text" : "\"FULL\",\"MINI\"",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "outputEntry" : [ {
+          "@kind" : "literalExpression",
+          "id" : "_fbe095b9-b6b8-42f8-b980-3db4fb2dbe12-2",
+          "text" : "\"BUREAU\"",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "decisionRule",
+        "id" : "_9af79b26-005f-4855-a66c-88401349bb72",
+        "inputEntry" : [ {
+          "@kind" : "unaryTests",
+          "id" : "_9af79b26-005f-4855-a66c-88401349bb72-0",
+          "text" : "\"ELIGIBLE\"",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "unaryTests",
+          "id" : "_9af79b26-005f-4855-a66c-88401349bb72-1",
+          "text" : "\"NONE\"",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "outputEntry" : [ {
+          "@kind" : "literalExpression",
+          "id" : "_9af79b26-005f-4855-a66c-88401349bb72-2",
+          "text" : "\"THROUGH\"",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "Eligibility",
+    "id" : "d_Eligibility",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "Eligibility",
+      "typeRef" : "tEligibility",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "id" : "_53bb075b-376a-4062-b5c1-df7d3e5f55ca",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_Pre-bureauAffordability"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "ea46179b-d396-4d3e-a199-f921defdca0b",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_Pre-bureauRiskCategory"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "_1f8ee776-38ba-4d46-ba4a-e2b0068aa8fb",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_ApplicantData"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "id" : "ac7d9a3c-370a-413d-9e0f-6cb6aa1fb28c",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#b_EligibilityRules"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "invocation",
+      "expression" : {
+        "@kind" : "literalExpression",
+        "text" : "EligibilityRules",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "binding" : [ {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "Pre-bureauAffordability",
+          "id" : "_83d27025-44c2-4bb2-8747-ae3d40e97f25",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "Pre-bureauAffordability",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "Pre-bureauRiskCategory",
+          "id" : "_b5fe2d0c-1d71-4c98-b0c6-a821b854ffc4",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "Pre-bureauRiskCategory",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "Age",
+          "id" : "_87021512-68d6-40ba-a159-165a701c197b",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.Age",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "Pre-bureauRiskCategory",
+    "id" : "d_Pre-bureauRiskCategory",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "Pre-bureauRiskCategory",
+      "typeRef" : "tRiskCategory",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "id" : "_03407f4c-6cb9-41c4-96e5-5b55b16b2b9e",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_ApplicationRiskScore"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "_7119c0fe-e8ac-4b5f-ab67-f31765d79676",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_ApplicantData"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "id" : "_12af3f79-ac6e-40df-8354-6a8f5a6e1d99",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#b_Pre-bureauRiskCategoryTable"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "invocation",
+      "expression" : {
+        "@kind" : "literalExpression",
+        "text" : "Pre-bureauRiskCategoryTable",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "binding" : [ {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "ExistingCustomer",
+          "id" : "_a4ffd56c-aca1-4cf0-84e0-44fefecb5f48",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.ExistingCustomer",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "ApplicationRiskScore",
+          "id" : "_eb561110-cd9a-4f96-9170-f32b2e6c13f6",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicationRiskScore",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "Post-bureauRiskCategory",
+    "id" : "d_Post-bureauRiskCategory",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "Post-bureauRiskCategory",
+      "typeRef" : "tRiskCategory",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "id" : "a0a68746-9fcb-424d-82d8-a7ddfca8ef09",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_ApplicationRiskScore"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "dba7ef7a-de7c-4ae4-b51d-380bb97a02b0",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_BureauData"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "_02016e20-0b48-429c-ba23-a9813586bf10",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_ApplicantData"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "id" : "_21c8cfce-c84b-44d4-a4b2-efa8753764ad",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#b_Post-bureauRiskCategoryTable"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "invocation",
+      "expression" : {
+        "@kind" : "literalExpression",
+        "text" : "Post-bureauRiskCategoryTable",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "binding" : [ {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "ExistingCustomer",
+          "id" : "_a5eee7ca-e12f-49fe-80cb-54a7a5a7912e",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.ExistingCustomer",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "CreditScore",
+          "id" : "_980eaa9b-461d-49fd-bfc0-d115e8261b8b",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "BureauData.CreditScore",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "ApplicationRiskScore",
+          "id" : "_222a3f84-eb98-439a-8ea8-6c1460760769",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicationRiskScore",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "ApplicationRiskScore",
+    "id" : "d_ApplicationRiskScore",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "ApplicationRiskScore",
+      "typeRef" : "number",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "id" : "_5725eb58-4c7e-4eb6-81c9-26f2fcf2f11c",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_ApplicantData"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "id" : "_7c920d98-765e-46ea-bc60-b70ddff0b305",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#b_ApplicationRiskScoreModel"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "invocation",
+      "expression" : {
+        "@kind" : "literalExpression",
+        "text" : "ApplicationRiskScoreModel",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "binding" : [ {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "Age",
+          "id" : "_624532fc-b467-4118-a6d9-498d2891e654",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.Age",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "MaritalStatus",
+          "id" : "_a90e9150-f937-446c-94e3-14b13deb1aa7",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.MaritalStatus",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "EmploymentStatus",
+          "id" : "_794f4a7e-a4de-4777-b7b6-5f83df6584dd",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.EmploymentStatus",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "Pre-bureauAffordability",
+    "id" : "d_Pre-bureauAffordability",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "Pre-bureauAffordability",
+      "typeRef" : "boolean",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "id" : "aff5f966-66f8-4d24-916f-ac328d4a4909",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_RequiredMonthlyInstallment"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "b29e5047-4920-44a9-b4d6-e329e19cedff",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_Pre-bureauRiskCategory"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "ef6b94db-e806-40e5-8960-a65ecf47587a",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_ApplicantData"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "id" : "_27c5c77a-97f9-4bdb-8a1c-8882ef9a64a8",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#b_AffordabilityCalculation"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "invocation",
+      "expression" : {
+        "@kind" : "literalExpression",
+        "text" : "AffordabilityCalculation",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "binding" : [ {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "MonthlyIncome",
+          "id" : "_688a5d35-c0d1-4faa-b411-2ac96e5db3f2",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.Monthly.Income",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "MonthlyRepayments",
+          "id" : "_fe44410f-d02b-44c5-b696-0c5a53b3d965",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.Monthly.Repayments",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "MonthlyExpenses",
+          "id" : "_3542be62-0447-45db-850a-55ec1c3c59bd",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.Monthly.Expenses",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "RiskCategory",
+          "id" : "_05524e98-e76d-4109-ac99-f5090cd7bb48",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "Pre-bureauRiskCategory",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "RequiredMonthlyInstallment",
+          "id" : "_be179be3-8be2-4abc-81d9-9540abe25e06",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "RequiredMonthlyInstallment",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "Post-bureauAffordability",
+    "id" : "d_Post-bureauAffordability",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "Post-bureauAffordability",
+      "typeRef" : "boolean",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "id" : "_132b7582-01c9-4771-9aaa-5c7d094f31e3",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_RequiredMonthlyInstallment"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "d3db5abd-9b73-4954-bd1c-48cf4dbe01b5",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_Post-bureauRiskCategory"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "e3214618-2e90-4898-890e-09a361a4a1eb",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_ApplicantData"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "id" : "_7d3378c9-abb9-4920-b273-6c491ece8055",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#b_AffordabilityCalculation"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "invocation",
+      "expression" : {
+        "@kind" : "literalExpression",
+        "text" : "AffordabilityCalculation",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "binding" : [ {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "MonthlyIncome",
+          "id" : "_9ddcd6eb-0154-426f-9752-32c9d64471be",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.Monthly.Income",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "MonthlyRepayments",
+          "id" : "_2ed2cf1c-2dff-4bdc-8cc3-92d0fdc38c81",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.Monthly.Repayments",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "MonthlyExpenses",
+          "id" : "_2d0b4728-c40c-4a0c-980c-81156750bfc1",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "ApplicantData.Monthly.Expenses",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "RiskCategory",
+          "id" : "_f75ffcc3-cb93-46cc-82ae-bad3a7202e99",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "Post-bureauRiskCategory",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "RequiredMonthlyInstallment",
+          "id" : "_0f3e2756-3007-4412-b788-81d01f68399d",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "RequiredMonthlyInstallment",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "RequiredMonthlyInstallment",
+    "id" : "d_RequiredMonthlyInstallment",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "RequiredMonthlyInstallment",
+      "typeRef" : "number",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "id" : "d3d06d14-04cd-4139-96b7-b04fc496b7c1",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_RequestedProduct"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "id" : "_9a6f8182-2db4-41cd-8f69-1feff21ae045",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#b_InstallmentCalculation"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "invocation",
+      "expression" : {
+        "@kind" : "literalExpression",
+        "text" : "InstallmentCalculation",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "binding" : [ {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "ProductType",
+          "id" : "_2e65e0bd-d6d4-4d73-b806-12b4bc853a17",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "RequestedProduct.ProductType",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "Rate",
+          "id" : "_ee9f5360-cc2d-4370-b75e-6895002c1c48",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "RequestedProduct.Rate",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "Term",
+          "id" : "_b6fddc07-5494-4878-878c-3e1a96fad9fe",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "RequestedProduct.Term",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "Amount",
+          "id" : "_84755f4f-3455-4e76-b182-db4c375b9fb3",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "RequestedProduct.Amount",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "Routing",
+    "id" : "d_Routing",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "Routing",
+      "typeRef" : "tRouting",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "id" : "_215e8649-6226-457c-83cc-1a3470dee477",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_Post-bureauAffordability"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "a38af795-50e0-4933-9ab1-ed7323cb3134",
+      "requiredDecision" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#d_Post-bureauRiskCategory"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "_3baca478-66f0-444d-a24d-795815b5b512",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_BureauData"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "id" : "c79f2249-a6d1-48a1-99ce-878d05f6ae0a",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#b_RoutingRules"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "invocation",
+      "expression" : {
+        "@kind" : "literalExpression",
+        "text" : "RoutingRules",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "binding" : [ {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "Bankrupt",
+          "id" : "_c2ebec2c-0072-47af-9703-e202cf8af50b",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "BureauData.Bankrupt",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "CreditScore",
+          "id" : "_a5193c53-bd02-4579-a249-44ed95dd0c3e",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "BureauData.CreditScore",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "Post-bureauRiskCategory",
+          "id" : "_4b461288-5d18-44ab-b102-835a91946890",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "Post-bureauRiskCategory",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "parameter" : {
+          "@kind" : "informationItem",
+          "name" : "Post-bureauAffordability",
+          "id" : "_8846c6e3-65ff-4d46-87b9-7c7cad86ee67",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "expression" : {
+          "@kind" : "literalExpression",
+          "text" : "Post-bureauAffordability",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        },
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "decision",
+    "name" : "Adjudication",
+    "id" : "d_Adjudication",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "Adjudication",
+      "typeRef" : "tAdjudication",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "informationRequirement" : [ {
+      "@kind" : "informationRequirement",
+      "id" : "b6a62c51-d7e3-423b-b81b-f9d3c889cc7f",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_BureauData"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "f81697e3-1b34-4897-b68d-b68d78195d6d",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_SupportingDocuments"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    }, {
+      "@kind" : "informationRequirement",
+      "id" : "_0b6591d9-ad65-49b4-8bf0-4917536f994d",
+      "requiredInput" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#i_ApplicantData"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "expression" : {
+      "@kind" : "literalExpression",
+      "text" : "\"ACCEPT\"",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "AffordabilityCalculation",
+    "id" : "b_AffordabilityCalculation",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "AffordabilityCalculation",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "MonthlyIncome",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "MonthlyRepayments",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "MonthlyExpenses",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "RiskCategory",
+        "typeRef" : "tRiskCategory",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "RequiredMonthlyInstallment",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "context",
+        "contextEntry" : [ {
+          "@kind" : "contextEntry",
+          "variable" : {
+            "@kind" : "informationItem",
+            "name" : "DisposableIncome",
+            "typeRef" : "number",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "expression" : {
+            "@kind" : "literalExpression",
+            "text" : "MonthlyIncome - (MonthlyExpenses + MonthlyRepayments)",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "contextEntry",
+          "variable" : {
+            "@kind" : "informationItem",
+            "name" : "CreditContingencyFactor",
+            "typeRef" : "number",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "expression" : {
+            "@kind" : "invocation",
+            "expression" : {
+              "@kind" : "literalExpression",
+              "text" : "CreditContingencyFactorTable",
+              "elementInfo" : {
+                "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+              }
+            },
+            "binding" : [ {
+              "parameter" : {
+                "@kind" : "informationItem",
+                "name" : "RiskCategory",
+                "id" : "_cfbad925-5470-4165-b7f0-0945cf321889",
+                "elementInfo" : {
+                  "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+                }
+              },
+              "expression" : {
+                "@kind" : "literalExpression",
+                "text" : "RiskCategory",
+                "elementInfo" : {
+                  "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+                }
+              },
+              "elementInfo" : {
+                "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+              }
+            } ],
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "contextEntry",
+          "variable" : {
+            "@kind" : "informationItem",
+            "name" : "Affordability",
+            "typeRef" : "boolean",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "expression" : {
+            "@kind" : "literalExpression",
+            "text" : "if DisposableIncome * CreditContingencyFactor > RequiredMonthlyInstallment then true else false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "contextEntry",
+          "expression" : {
+            "@kind" : "literalExpression",
+            "text" : "Affordability",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "boolean"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "knowledgeRequirement" : [ {
+      "@kind" : "knowledgeRequirement",
+      "id" : "_4591a934-54c5-42ab-83ef-c9168f827a27",
+      "requiredKnowledge" : {
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        },
+        "href" : "#b_CreditContingencyFactorTable"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "CreditContingencyFactorTable",
+    "id" : "b_CreditContingencyFactorTable",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "CreditContingencyFactorTable",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "RiskCategory",
+        "typeRef" : "tRiskCategory",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "decisionTable",
+        "hitPolicy" : "UNIQUE",
+        "preferredOrientation" : "RULE_AS_ROW",
+        "outputLabel" : "CreditContingencyFactorTable",
+        "input" : [ {
+          "@kind" : "inputClause",
+          "id" : "_7cdd3950-9a45-41f0-bef0-dc54240fe4c2",
+          "label" : "RiskCategory",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "RiskCategory",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          },
+          "inputValues" : {
+            "@kind" : "unaryTests",
+            "text" : "\"DECLINE\", \"HIGH\", \"LOW\", \"MEDIUM\", \"VERY LOW\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "output" : [ {
+          "@kind" : "outputClause",
+          "id" : "_3f5c697d-887c-43b7-abb6-5fa3b27d0824",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "rule" : [ {
+          "@kind" : "decisionRule",
+          "id" : "_0fc85427-04a2-4796-8771-a391170b9c13",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_0fc85427-04a2-4796-8771-a391170b9c13-0",
+            "text" : "\"HIGH\", \"DECLINE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_0fc85427-04a2-4796-8771-a391170b9c13-1",
+            "text" : "0.6",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_22972ab6-af35-4be0-9bce-965e39f0c7d7",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_22972ab6-af35-4be0-9bce-965e39f0c7d7-0",
+            "text" : "\"MEDIUM\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_22972ab6-af35-4be0-9bce-965e39f0c7d7-1",
+            "text" : "0.7",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_2d46a208-d471-48eb-9ea3-02cfa105fd69",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_2d46a208-d471-48eb-9ea3-02cfa105fd69-0",
+            "text" : "\"LOW\", \"VERY LOW\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_2d46a208-d471-48eb-9ea3-02cfa105fd69-1",
+            "text" : "0.8",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "EligibilityRules",
+    "id" : "b_EligibilityRules",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "EligibilityRules",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "Pre-bureauRiskCategory",
+        "typeRef" : "tRiskCategory",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "Pre-bureauAffordability",
+        "typeRef" : "boolean",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "Age",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "decisionTable",
+        "hitPolicy" : "PRIORITY",
+        "preferredOrientation" : "RULE_AS_ROW",
+        "outputLabel" : "EligibilityRules",
+        "input" : [ {
+          "@kind" : "inputClause",
+          "id" : "_2bc2f208-6c1d-4411-8a19-c5b424fb8fa9",
+          "label" : "Pre-bureauRiskCategory",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "Pre-bureauRiskCategory",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "inputClause",
+          "id" : "_1d794320-6e6c-46bf-b86d-de073822d6f6",
+          "label" : "Pre-bureauAffordability",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "Pre-bureauAffordability",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "boolean"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "inputClause",
+          "id" : "_876096bc-7329-444a-830b-7bd2a06a7982",
+          "label" : "Age",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "Age",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "output" : [ {
+          "@kind" : "outputClause",
+          "id" : "_1beb4059-cfc5-4b79-a73d-cdd369ee308a",
+          "outputValues" : {
+            "@kind" : "unaryTests",
+            "text" : "\"INELIGIBLE\", \"ELIGIBLE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "rule" : [ {
+          "@kind" : "decisionRule",
+          "id" : "_3e475ba3-f5a5-407e-95e9-c4081a6d1479",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_3e475ba3-f5a5-407e-95e9-c4081a6d1479-0",
+            "text" : "\"DECLINE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_3e475ba3-f5a5-407e-95e9-c4081a6d1479-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_3e475ba3-f5a5-407e-95e9-c4081a6d1479-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_3e475ba3-f5a5-407e-95e9-c4081a6d1479-3",
+            "text" : "\"INELIGIBLE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_a3e0609d-0176-4920-9fd5-9cd0e51d6335",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_a3e0609d-0176-4920-9fd5-9cd0e51d6335-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_a3e0609d-0176-4920-9fd5-9cd0e51d6335-1",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_a3e0609d-0176-4920-9fd5-9cd0e51d6335-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_a3e0609d-0176-4920-9fd5-9cd0e51d6335-3",
+            "text" : "\"INELIGIBLE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-2",
+            "text" : "<18",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_20ed95e5-71f3-4b61-9bf0-b5f47a2ed3ec-3",
+            "text" : "\"INELIGIBLE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_23369b13-bf65-47ed-b0af-9f2c2c118e52",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_23369b13-bf65-47ed-b0af-9f2c2c118e52-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_23369b13-bf65-47ed-b0af-9f2c2c118e52-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_23369b13-bf65-47ed-b0af-9f2c2c118e52-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_23369b13-bf65-47ed-b0af-9f2c2c118e52-3",
+            "text" : "\"ELIGIBLE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "BureauCallTypeTable",
+    "id" : "b_BureauCallTypeTable",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "BureauCallTypeTable",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "Pre-bureauRiskCategory",
+        "typeRef" : "tRiskCategory",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "decisionTable",
+        "hitPolicy" : "UNIQUE",
+        "preferredOrientation" : "RULE_AS_ROW",
+        "outputLabel" : "BureauCallTypeTable",
+        "input" : [ {
+          "@kind" : "inputClause",
+          "id" : "_fcd1287d-7572-4523-ab27-33eff68d965b",
+          "label" : "Pre-bureauRiskCategory",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "Pre-bureauRiskCategory",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "output" : [ {
+          "@kind" : "outputClause",
+          "id" : "_89b655a2-2e07-4aec-afb4-c1a3b595da6e",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "rule" : [ {
+          "@kind" : "decisionRule",
+          "id" : "_4d8928da-71c6-4d9b-b304-a2dbdf27ad88",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_4d8928da-71c6-4d9b-b304-a2dbdf27ad88-0",
+            "text" : "\"HIGH\",\"MEDIUM\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_4d8928da-71c6-4d9b-b304-a2dbdf27ad88-1",
+            "text" : "\"FULL\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_0a9819a4-9cf0-4390-9ae5-af156c678c59",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_0a9819a4-9cf0-4390-9ae5-af156c678c59-0",
+            "text" : "\"LOW\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_0a9819a4-9cf0-4390-9ae5-af156c678c59-1",
+            "text" : "\"MINI\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_80dc65d3-b61d-401e-b8ec-bd236c47404b",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_80dc65d3-b61d-401e-b8ec-bd236c47404b-0",
+            "text" : "\"VERY LOW\",\"DECLINE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_80dc65d3-b61d-401e-b8ec-bd236c47404b-1",
+            "text" : "\"NONE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "Pre-bureauRiskCategoryTable",
+    "id" : "b_Pre-bureauRiskCategoryTable",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "Pre-bureauRiskCategoryTable",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "ExistingCustomer",
+        "typeRef" : "boolean",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "ApplicationRiskScore",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "decisionTable",
+        "hitPolicy" : "UNIQUE",
+        "preferredOrientation" : "RULE_AS_ROW",
+        "outputLabel" : "Pre-bureauRiskCategoryTable",
+        "input" : [ {
+          "@kind" : "inputClause",
+          "id" : "_6f7fbf13-3fa6-44f5-afe4-7c1e688e76a9",
+          "label" : "ExistingCustomer",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "ExistingCustomer",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "boolean"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "inputClause",
+          "id" : "_89d36bd5-03c2-4c6f-bf47-faa7d28e13a1",
+          "label" : "ApplicationRiskScore",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "ApplicationRiskScore",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "output" : [ {
+          "@kind" : "outputClause",
+          "id" : "_50a19805-7611-490b-8e92-5964a457e1e7",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "rule" : [ {
+          "@kind" : "decisionRule",
+          "id" : "_e0082937-feb0-48f9-bbf4-0611cdb620c8",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_e0082937-feb0-48f9-bbf4-0611cdb620c8-0",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_e0082937-feb0-48f9-bbf4-0611cdb620c8-1",
+            "text" : "<100",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_e0082937-feb0-48f9-bbf4-0611cdb620c8-2",
+            "text" : "\"HIGH\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_d2ecd3bd-aa41-4f52-a09e-af12156d93f4",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-0",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-1",
+            "text" : "[100..120)",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_d2ecd3bd-aa41-4f52-a09e-af12156d93f4-2",
+            "text" : "\"MEDIUM\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_f683499b-2beb-476d-ae18-90caf9eb929a",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_f683499b-2beb-476d-ae18-90caf9eb929a-0",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_f683499b-2beb-476d-ae18-90caf9eb929a-1",
+            "text" : "[120..130)",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_f683499b-2beb-476d-ae18-90caf9eb929a-2",
+            "text" : "\"LOW\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-0",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-1",
+            "text" : ">130",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_606eca29-2fb8-42c8-8eda-e3bc15c7cdf0-2",
+            "text" : "\"VERY LOW\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_ff97cf45-e2a7-43c1-9b06-1a4caadf519c",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-0",
+            "text" : "true",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-1",
+            "text" : "<80",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_ff97cf45-e2a7-43c1-9b06-1a4caadf519c-2",
+            "text" : "\"DECLINE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_3457a501-8de9-49a5-ac44-9521aa94f332",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_3457a501-8de9-49a5-ac44-9521aa94f332-0",
+            "text" : "true",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_3457a501-8de9-49a5-ac44-9521aa94f332-1",
+            "text" : "[80..90)",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_3457a501-8de9-49a5-ac44-9521aa94f332-2",
+            "text" : "\"HIGH\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-0",
+            "text" : "true",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-1",
+            "text" : "[90..110]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_e093dbcb-d26b-4124-9a1f-77bf4db3ee0e-2",
+            "text" : "\"MEDIUM\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_f1f6c928-57b4-4bed-be7e-eebec9e0400a",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_f1f6c928-57b4-4bed-be7e-eebec9e0400a-0",
+            "text" : "true",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_f1f6c928-57b4-4bed-be7e-eebec9e0400a-1",
+            "text" : ">110",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_f1f6c928-57b4-4bed-be7e-eebec9e0400a-2",
+            "text" : "\"LOW\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "Post-bureauRiskCategoryTable",
+    "id" : "b_Post-bureauRiskCategoryTable",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "Post-bureauRiskCategoryTable",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "ExistingCustomer",
+        "typeRef" : "boolean",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "ApplicationRiskScore",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "CreditScore",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "decisionTable",
+        "hitPolicy" : "UNIQUE",
+        "preferredOrientation" : "RULE_AS_ROW",
+        "outputLabel" : "Post-bureauRiskCategoryTable",
+        "input" : [ {
+          "@kind" : "inputClause",
+          "id" : "_0859d2fc-bb13-4eaa-bebf-4bf8f0866c49",
+          "label" : "ExistingCustomer",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "ExistingCustomer",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "boolean"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "inputClause",
+          "id" : "_fba27bc9-7678-4457-893e-6bc96fc69626",
+          "label" : "ApplicationRiskScore",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "ApplicationRiskScore",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "inputClause",
+          "id" : "_b54042e3-1fe7-4fb3-90d6-ec528047fafb",
+          "label" : "CreditScore",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "CreditScore",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "output" : [ {
+          "@kind" : "outputClause",
+          "id" : "_be066d93-7cda-4a46-ae37-ab508c0bd738",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "rule" : [ {
+          "@kind" : "decisionRule",
+          "id" : "_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-0",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-1",
+            "text" : "<120",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-2",
+            "text" : "<590",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_cc9cbf6c-40b2-4fae-9e93-c38718aa4c15-3",
+            "text" : "\"HIGH\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-0",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-1",
+            "text" : "<120",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-2",
+            "text" : "[590..610]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_0d6ad398-440b-4a9a-b5e7-d8331ba9e4d2-3",
+            "text" : "\"MEDIUM\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_481b8823-7ab7-4e4e-9b70-d318096dd61d",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_481b8823-7ab7-4e4e-9b70-d318096dd61d-0",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_481b8823-7ab7-4e4e-9b70-d318096dd61d-1",
+            "text" : "<120",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_481b8823-7ab7-4e4e-9b70-d318096dd61d-2",
+            "text" : ">610",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_481b8823-7ab7-4e4e-9b70-d318096dd61d-3",
+            "text" : "\"LOW\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_9b1faa6a-3036-48f6-9dc3-c9dd5730f279",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-0",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-1",
+            "text" : "[120..130]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-2",
+            "text" : "<600",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_9b1faa6a-3036-48f6-9dc3-c9dd5730f279-3",
+            "text" : "\"HIGH\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_578c86e3-e237-4dd3-bdb2-f22bc2fc748f",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-0",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-1",
+            "text" : "[120..130]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-2",
+            "text" : "[600..625]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_578c86e3-e237-4dd3-bdb2-f22bc2fc748f-3",
+            "text" : "\"MEDIUM\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-0",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-1",
+            "text" : "[120..130]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-2",
+            "text" : ">625",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_2c381fb4-ba8c-42b5-9e2a-8e7afdaa1488-3",
+            "text" : "\"LOW\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_181968ef-d435-456b-a0cd-38223ef291dc",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_181968ef-d435-456b-a0cd-38223ef291dc-0",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_181968ef-d435-456b-a0cd-38223ef291dc-1",
+            "text" : ">130",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_181968ef-d435-456b-a0cd-38223ef291dc-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_181968ef-d435-456b-a0cd-38223ef291dc-3",
+            "text" : "\"VERY LOW\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_08c84023-da86-42d4-ba49-b3e741dacbdb",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_08c84023-da86-42d4-ba49-b3e741dacbdb-0",
+            "text" : "true",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_08c84023-da86-42d4-ba49-b3e741dacbdb-1",
+            "text" : "<=100",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_08c84023-da86-42d4-ba49-b3e741dacbdb-2",
+            "text" : "<580",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_08c84023-da86-42d4-ba49-b3e741dacbdb-3",
+            "text" : "\"HIGH\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_a670400b-bded-45d4-b8b9-f9870fda8817",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_a670400b-bded-45d4-b8b9-f9870fda8817-0",
+            "text" : "true",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_a670400b-bded-45d4-b8b9-f9870fda8817-1",
+            "text" : "<=100",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_a670400b-bded-45d4-b8b9-f9870fda8817-2",
+            "text" : "[580..600]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_a670400b-bded-45d4-b8b9-f9870fda8817-3",
+            "text" : "\"MEDIUM\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_f0f466a3-0b6a-41fe-b109-d655eba844e7",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_f0f466a3-0b6a-41fe-b109-d655eba844e7-0",
+            "text" : "true",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_f0f466a3-0b6a-41fe-b109-d655eba844e7-1",
+            "text" : "<=100",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_f0f466a3-0b6a-41fe-b109-d655eba844e7-2",
+            "text" : ">600",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_f0f466a3-0b6a-41fe-b109-d655eba844e7-3",
+            "text" : "\"LOW\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_b8742c40-6ec2-4848-81a8-337e8ce7c5e1",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-0",
+            "text" : "true",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-1",
+            "text" : ">100",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-2",
+            "text" : "<590",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_b8742c40-6ec2-4848-81a8-337e8ce7c5e1-3",
+            "text" : "\"HIGH\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_2eba5777-6ff9-46b8-a445-a41afb2cdcf9",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-0",
+            "text" : "true",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-1",
+            "text" : ">100",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-2",
+            "text" : "[590..615]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_2eba5777-6ff9-46b8-a445-a41afb2cdcf9-3",
+            "text" : "\"MEDIUM\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_ba0ef1af-02b0-4a89-b75b-901d5044bbe4",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-0",
+            "text" : "true",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-1",
+            "text" : ">100",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-2",
+            "text" : ">615",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_ba0ef1af-02b0-4a89-b75b-901d5044bbe4-3",
+            "text" : "\"LOW\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "ApplicationRiskScoreModel",
+    "id" : "b_ApplicationRiskScoreModel",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "ApplicationRiskScoreModel",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "Age",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "MaritalStatus",
+        "typeRef" : "string",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "EmploymentStatus",
+        "typeRef" : "string",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "decisionTable",
+        "hitPolicy" : "COLLECT",
+        "aggregation" : "SUM",
+        "preferredOrientation" : "RULE_AS_ROW",
+        "outputLabel" : "ApplicationRiskScoreModel",
+        "input" : [ {
+          "@kind" : "inputClause",
+          "id" : "_dc6c54d5-80a0-4b78-aa83-0a33802de55c",
+          "label" : "Age",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "Age",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          },
+          "inputValues" : {
+            "@kind" : "unaryTests",
+            "text" : "[18..120]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "inputClause",
+          "id" : "_ee956a72-302e-4c89-89a5-1cae18915df9",
+          "label" : "MaritalStatus",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "MaritalStatus",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          },
+          "inputValues" : {
+            "@kind" : "unaryTests",
+            "text" : "\"S\", \"M\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "inputClause",
+          "id" : "_d6432000-3b07-465e-b31c-8576677b8d39",
+          "label" : "EmploymentStatus",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "EmploymentStatus",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          },
+          "inputValues" : {
+            "@kind" : "unaryTests",
+            "text" : "\"UNEMPLOYED\", \"EMPLOYED\", \"SELF-EMPLOYED\", \"STUDENT\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "output" : [ {
+          "@kind" : "outputClause",
+          "id" : "_79391b75-39ec-44d1-8104-c2d0b09b2523",
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "rule" : [ {
+          "@kind" : "decisionRule",
+          "id" : "_a3bbf3c8-5315-4fd9-862c-810518b2ab6d",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-0",
+            "text" : "[18..21]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_a3bbf3c8-5315-4fd9-862c-810518b2ab6d-3",
+            "text" : "32",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_cacdc480-72be-4225-b053-f066c28dbe47",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_cacdc480-72be-4225-b053-f066c28dbe47-0",
+            "text" : "[22..25]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_cacdc480-72be-4225-b053-f066c28dbe47-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_cacdc480-72be-4225-b053-f066c28dbe47-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_cacdc480-72be-4225-b053-f066c28dbe47-3",
+            "text" : "35",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_eade01fe-857d-4d41-ae69-d355b94e06bc",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_eade01fe-857d-4d41-ae69-d355b94e06bc-0",
+            "text" : "[26..35]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_eade01fe-857d-4d41-ae69-d355b94e06bc-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_eade01fe-857d-4d41-ae69-d355b94e06bc-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_eade01fe-857d-4d41-ae69-d355b94e06bc-3",
+            "text" : "40",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_31f5ffb6-d991-4f62-a050-6cd80a4b8d82",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-0",
+            "text" : "[36..49]",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_31f5ffb6-d991-4f62-a050-6cd80a4b8d82-3",
+            "text" : "43",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_b5245861-10b9-4db1-a2e6-7fbdae837a67",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_b5245861-10b9-4db1-a2e6-7fbdae837a67-0",
+            "text" : ">=50",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_b5245861-10b9-4db1-a2e6-7fbdae837a67-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_b5245861-10b9-4db1-a2e6-7fbdae837a67-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_b5245861-10b9-4db1-a2e6-7fbdae837a67-3",
+            "text" : "48",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-1",
+            "text" : "\"S\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_4caf7dc6-aa7d-4f5a-9eec-4c403083b4c5-3",
+            "text" : "25",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_4034dd3e-0366-455f-bcba-1d7a7c59ba7f",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-1",
+            "text" : "\"M\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_4034dd3e-0366-455f-bcba-1d7a7c59ba7f-3",
+            "text" : "45",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_51933974-5c70-44be-892d-20fbb6af66a9",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_51933974-5c70-44be-892d-20fbb6af66a9-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_51933974-5c70-44be-892d-20fbb6af66a9-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_51933974-5c70-44be-892d-20fbb6af66a9-2",
+            "text" : "\"UNEMPLOYED\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_51933974-5c70-44be-892d-20fbb6af66a9-3",
+            "text" : "15",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_3d3a596f-6e83-483b-96e6-715b33ba7af5",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_3d3a596f-6e83-483b-96e6-715b33ba7af5-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_3d3a596f-6e83-483b-96e6-715b33ba7af5-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_3d3a596f-6e83-483b-96e6-715b33ba7af5-2",
+            "text" : "\"EMPLOYED\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_3d3a596f-6e83-483b-96e6-715b33ba7af5-3",
+            "text" : "45",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_732fd2fe-c312-4be5-8fb4-fd6699a28ec0",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-2",
+            "text" : "\"SELF-EMPLOYED\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_732fd2fe-c312-4be5-8fb4-fd6699a28ec0-3",
+            "text" : "36",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-2",
+            "text" : "\"STUDENT\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_cea5e26e-43e0-4457-9ae8-c8c1fcbc22f1-3",
+            "text" : "18",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "InstallmentCalculation",
+    "id" : "b_InstallmentCalculation",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "InstallmentCalculation",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "ProductType",
+        "typeRef" : "string",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "Rate",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "Term",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "Amount",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "context",
+        "contextEntry" : [ {
+          "@kind" : "contextEntry",
+          "variable" : {
+            "@kind" : "informationItem",
+            "name" : "MonthlyFee",
+            "typeRef" : "number",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "expression" : {
+            "@kind" : "literalExpression",
+            "text" : "if ProductType =\"STANDARD LOAN\" then 20.00 else if ProductType =\"SPECIAL LOAN\" then 25.00 else null",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "contextEntry",
+          "variable" : {
+            "@kind" : "informationItem",
+            "name" : "MonthlyRepayment",
+            "typeRef" : "number",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "expression" : {
+            "@kind" : "literalExpression",
+            "text" : "(Amount *Rate/12) / (1 - (1 + Rate/12)**-Term)",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "contextEntry",
+          "expression" : {
+            "@kind" : "literalExpression",
+            "text" : "MonthlyRepayment+MonthlyFee",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "bkm",
+    "name" : "RoutingRules",
+    "id" : "b_RoutingRules",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "RoutingRules",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "encapsulatedLogic" : {
+      "@kind" : "functionDefinition",
+      "formalParameter" : [ {
+        "@kind" : "informationItem",
+        "name" : "Post-bureauRiskCategory",
+        "typeRef" : "tRiskCategory",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "Post-bureauAffordability",
+        "typeRef" : "boolean",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "Bankrupt",
+        "typeRef" : "boolean",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      }, {
+        "@kind" : "informationItem",
+        "name" : "CreditScore",
+        "typeRef" : "number",
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      } ],
+      "expression" : {
+        "@kind" : "decisionTable",
+        "hitPolicy" : "PRIORITY",
+        "preferredOrientation" : "RULE_AS_ROW",
+        "outputLabel" : "RoutingRules",
+        "input" : [ {
+          "@kind" : "inputClause",
+          "id" : "_e4d34fbe-9d83-4126-a268-6ff44d6d33c0",
+          "label" : "Post-bureauRiskCategory",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "Post-bureauRiskCategory",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "inputClause",
+          "id" : "_fc1055cf-ab08-44a0-91bc-2d6539df00c5",
+          "label" : "Post-bureauAffordability",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "Post-bureauAffordability",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "boolean"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "inputClause",
+          "id" : "_17cf72a2-81db-4ee3-a599-aaa70699fdf7",
+          "label" : "Bankrupt",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "Bankrupt",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "boolean"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "inputClause",
+          "id" : "_f692dbba-dc13-4076-a5ba-275041c0b944",
+          "label" : "CreditScore",
+          "inputExpression" : {
+            "@kind" : "literalExpression",
+            "text" : "CreditScore",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "number"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "output" : [ {
+          "@kind" : "outputClause",
+          "id" : "_4b478b34-a8f7-4019-a667-1c78d64154fe",
+          "outputValues" : {
+            "@kind" : "unaryTests",
+            "text" : "\"DECLINE\", \"REFER\", \"ACCEPT\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          },
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "rule" : [ {
+          "@kind" : "decisionRule",
+          "id" : "_e7e1be73-1250-49ca-ac8c-0163f4df4eaf",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-1",
+            "text" : "false",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-3",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_e7e1be73-1250-49ca-ac8c-0163f4df4eaf-4",
+            "text" : "\"DECLINE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_a905d88e-eb62-4f5f-8447-32f541ebd31a",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_a905d88e-eb62-4f5f-8447-32f541ebd31a-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_a905d88e-eb62-4f5f-8447-32f541ebd31a-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_a905d88e-eb62-4f5f-8447-32f541ebd31a-2",
+            "text" : "true",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_a905d88e-eb62-4f5f-8447-32f541ebd31a-3",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_a905d88e-eb62-4f5f-8447-32f541ebd31a-4",
+            "text" : "\"DECLINE\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_36d8f903-d158-4d18-970a-9a53d4a8c69e",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_36d8f903-d158-4d18-970a-9a53d4a8c69e-0",
+            "text" : "\"HIGH\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_36d8f903-d158-4d18-970a-9a53d4a8c69e-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_36d8f903-d158-4d18-970a-9a53d4a8c69e-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_36d8f903-d158-4d18-970a-9a53d4a8c69e-3",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_36d8f903-d158-4d18-970a-9a53d4a8c69e-4",
+            "text" : "\"REFER\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_c51cff41-6161-435b-af3b-17dcbd4591b9",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_c51cff41-6161-435b-af3b-17dcbd4591b9-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_c51cff41-6161-435b-af3b-17dcbd4591b9-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_c51cff41-6161-435b-af3b-17dcbd4591b9-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_c51cff41-6161-435b-af3b-17dcbd4591b9-3",
+            "text" : "<580",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_c51cff41-6161-435b-af3b-17dcbd4591b9-4",
+            "text" : "\"REFER\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        }, {
+          "@kind" : "decisionRule",
+          "id" : "_1bb571e8-b791-4967-9c70-77c402982e3b",
+          "inputEntry" : [ {
+            "@kind" : "unaryTests",
+            "id" : "_1bb571e8-b791-4967-9c70-77c402982e3b-0",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_1bb571e8-b791-4967-9c70-77c402982e3b-1",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_1bb571e8-b791-4967-9c70-77c402982e3b-2",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          }, {
+            "@kind" : "unaryTests",
+            "id" : "_1bb571e8-b791-4967-9c70-77c402982e3b-3",
+            "text" : "-",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            }
+          } ],
+          "outputEntry" : [ {
+            "@kind" : "literalExpression",
+            "id" : "_1bb571e8-b791-4967-9c70-77c402982e3b-4",
+            "text" : "\"ACCEPT\"",
+            "elementInfo" : {
+              "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+            },
+            "typeRef" : "string"
+          } ],
+          "elementInfo" : {
+            "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "inputData",
+    "name" : "ApplicantData",
+    "id" : "i_ApplicantData",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "ApplicantData",
+      "typeRef" : "tApplicantData",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "inputData",
+    "name" : "BureauData",
+    "id" : "i_BureauData",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "BureauData",
+      "typeRef" : "tBureauData",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "inputData",
+    "name" : "RequestedProduct",
+    "id" : "i_RequestedProduct",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "RequestedProduct",
+      "typeRef" : "tRequestedProduct",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  }, {
+    "@kind" : "inputData",
+    "name" : "SupportingDocuments",
+    "id" : "i_SupportingDocuments",
+    "variable" : {
+      "@kind" : "informationItem",
+      "name" : "SupportingDocuments",
+      "typeRef" : "string",
+      "elementInfo" : {
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+      }
+    },
+    "elementInfo" : {
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/"
+    }
+  } ],
+  "dmndi" : {
+    "dmnDiagram" : [ {
+      "@kind" : "dmnDiagram",
+      "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_D1",
+      "size" : {
+        "width" : 2226.0,
+        "height" : 1266.0,
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        }
+      },
+      "dmnDiagramElement" : [ {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s1",
+        "bounds" : {
+          "x" : 287.0,
+          "y" : 331.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d_BureauCallType",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s2",
+        "bounds" : {
+          "x" : 394.0,
+          "y" : 150.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d_Strategy",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s3",
+        "bounds" : {
+          "x" : 501.0,
+          "y" : 331.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d_Eligibility",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s4",
+        "bounds" : {
+          "x" : 298.0,
+          "y" : 693.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d_Pre-bureauRiskCategory",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s5",
+        "bounds" : {
+          "x" : 1424.0,
+          "y" : 693.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d_Post-bureauRiskCategory",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s6",
+        "bounds" : {
+          "x" : 436.0,
+          "y" : 874.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d_ApplicationRiskScore",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s7",
+        "bounds" : {
+          "x" : 711.0,
+          "y" : 512.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d_Pre-bureauAffordability",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s8",
+        "bounds" : {
+          "x" : 1286.0,
+          "y" : 512.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d_Post-bureauAffordability",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s9",
+        "bounds" : {
+          "x" : 913.0,
+          "y" : 693.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d_RequiredMonthlyInstallment",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s10",
+        "bounds" : {
+          "x" : 1424.0,
+          "y" : 331.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d_Routing",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s11",
+        "bounds" : {
+          "x" : 1638.0,
+          "y" : 693.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d_Adjudication",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s12",
+        "bounds" : {
+          "x" : 1149.0,
+          "y" : 693.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "b_AffordabilityCalculation",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s13",
+        "bounds" : {
+          "x" : 1149.0,
+          "y" : 874.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "b_CreditContingencyFactorTable",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s14",
+        "bounds" : {
+          "x" : 436.0,
+          "y" : 512.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "b_EligibilityRules",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s15",
+        "bounds" : {
+          "x" : 150.0,
+          "y" : 512.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "b_BureauCallTypeTable",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s16",
+        "bounds" : {
+          "x" : 161.0,
+          "y" : 874.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "b_Pre-bureauRiskCategoryTable",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s17",
+        "bounds" : {
+          "x" : 1435.0,
+          "y" : 874.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "b_Post-bureauRiskCategoryTable",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s18",
+        "bounds" : {
+          "x" : 436.0,
+          "y" : 1055.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "b_ApplicationRiskScoreModel",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s19",
+        "bounds" : {
+          "x" : 722.0,
+          "y" : 874.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "b_InstallmentCalculation",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s20",
+        "bounds" : {
+          "x" : 1072.0,
+          "y" : 512.0,
+          "width" : 154.0,
+          "height" : 61.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "b_RoutingRules",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s21",
+        "bounds" : {
+          "x" : 650.0,
+          "y" : 1055.0,
+          "width" : 153.0,
+          "height" : 60.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "i_ApplicantData",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s22",
+        "bounds" : {
+          "x" : 1923.0,
+          "y" : 874.0,
+          "width" : 153.0,
+          "height" : 60.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "i_BureauData",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s23",
+        "bounds" : {
+          "x" : 936.0,
+          "y" : 874.0,
+          "width" : 153.0,
+          "height" : 60.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "i_RequestedProduct",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnShape",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_s24",
+        "bounds" : {
+          "x" : 1710.0,
+          "y" : 874.0,
+          "width" : 153.0,
+          "height" : 60.0,
+          "elementInfo" : {
+            "prefix" : "dc",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DC/"
+          }
+        },
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "i_SupportingDocuments",
+        "isCollapsed" : false
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e1",
+        "waypoint" : [ {
+          "x" : 227.0,
+          "y" : 512.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 364.0,
+          "y" : 392.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_2f3951c1-e9d0-4f66-940b-21aea6bd6b6f"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e2",
+        "waypoint" : [ {
+          "x" : 364.0,
+          "y" : 331.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 471.0,
+          "y" : 211.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "a451ac15-800a-4021-bad0-7371ceaf77a8"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e3",
+        "waypoint" : [ {
+          "x" : 578.0,
+          "y" : 331.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 471.0,
+          "y" : 211.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_35e8b3c9-f9bd-4667-ad8f-4f6e08ae83da"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e4",
+        "waypoint" : [ {
+          "x" : 513.0,
+          "y" : 512.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 578.0,
+          "y" : 392.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "ac7d9a3c-370a-413d-9e0f-6cb6aa1fb28c"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e5",
+        "waypoint" : [ {
+          "x" : 788.0,
+          "y" : 512.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 578.0,
+          "y" : 392.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_53bb075b-376a-4062-b5c1-df7d3e5f55ca"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e6",
+        "waypoint" : [ {
+          "x" : 238.0,
+          "y" : 874.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 375.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_12af3f79-ac6e-40df-8354-6a8f5a6e1d99"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e7",
+        "waypoint" : [ {
+          "x" : 513.0,
+          "y" : 874.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 375.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_03407f4c-6cb9-41c4-96e5-5b55b16b2b9e"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e8",
+        "waypoint" : [ {
+          "x" : 1512.0,
+          "y" : 874.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1501.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_21c8cfce-c84b-44d4-a4b2-efa8753764ad"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e9",
+        "waypoint" : [ {
+          "x" : 513.0,
+          "y" : 874.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1501.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "a0a68746-9fcb-424d-82d8-a7ddfca8ef09"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e10",
+        "waypoint" : [ {
+          "x" : 1999.0,
+          "y" : 874.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1501.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "dba7ef7a-de7c-4ae4-b51d-380bb97a02b0"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e11",
+        "waypoint" : [ {
+          "x" : 513.0,
+          "y" : 1055.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 513.0,
+          "y" : 935.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_7c920d98-765e-46ea-bc60-b70ddff0b305"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e12",
+        "waypoint" : [ {
+          "x" : 726.0,
+          "y" : 1055.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 513.0,
+          "y" : 935.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_5725eb58-4c7e-4eb6-81c9-26f2fcf2f11c"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e13",
+        "waypoint" : [ {
+          "x" : 1226.0,
+          "y" : 693.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 788.0,
+          "y" : 573.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_27c5c77a-97f9-4bdb-8a1c-8882ef9a64a8"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e14",
+        "waypoint" : [ {
+          "x" : 990.0,
+          "y" : 693.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 788.0,
+          "y" : 573.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "aff5f966-66f8-4d24-916f-ac328d4a4909"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e15",
+        "waypoint" : [ {
+          "x" : 375.0,
+          "y" : 693.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 788.0,
+          "y" : 573.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "b29e5047-4920-44a9-b4d6-e329e19cedff"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e16",
+        "waypoint" : [ {
+          "x" : 1226.0,
+          "y" : 693.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1363.0,
+          "y" : 573.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_7d3378c9-abb9-4920-b273-6c491ece8055"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e17",
+        "waypoint" : [ {
+          "x" : 990.0,
+          "y" : 693.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1363.0,
+          "y" : 573.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_132b7582-01c9-4771-9aaa-5c7d094f31e3"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e18",
+        "waypoint" : [ {
+          "x" : 1501.0,
+          "y" : 693.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1363.0,
+          "y" : 573.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d3db5abd-9b73-4954-bd1c-48cf4dbe01b5"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e19",
+        "waypoint" : [ {
+          "x" : 799.0,
+          "y" : 874.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 990.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_9a6f8182-2db4-41cd-8f69-1feff21ae045"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e20",
+        "waypoint" : [ {
+          "x" : 1012.0,
+          "y" : 874.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 990.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "d3d06d14-04cd-4139-96b7-b04fc496b7c1"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e21",
+        "waypoint" : [ {
+          "x" : 1149.0,
+          "y" : 512.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1501.0,
+          "y" : 392.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "c79f2249-a6d1-48a1-99ce-878d05f6ae0a"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e22",
+        "waypoint" : [ {
+          "x" : 1363.0,
+          "y" : 512.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1501.0,
+          "y" : 392.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_215e8649-6226-457c-83cc-1a3470dee477"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e23",
+        "waypoint" : [ {
+          "x" : 1999.0,
+          "y" : 874.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1715.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "b6a62c51-d7e3-423b-b81b-f9d3c889cc7f"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e24",
+        "waypoint" : [ {
+          "x" : 1786.0,
+          "y" : 874.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1715.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "f81697e3-1b34-4897-b68d-b68d78195d6d"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e25",
+        "waypoint" : [ {
+          "x" : 1226.0,
+          "y" : 874.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1226.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_4591a934-54c5-42ab-83ef-c9168f827a27"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e26",
+        "waypoint" : [ {
+          "x" : 375.0,
+          "y" : 693.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 364.0,
+          "y" : 392.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_77738833-38e6-4520-8774-d907958edb38"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e27",
+        "waypoint" : [ {
+          "x" : 375.0,
+          "y" : 693.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 578.0,
+          "y" : 392.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "ea46179b-d396-4d3e-a199-f921defdca0b"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e28",
+        "waypoint" : [ {
+          "x" : 726.0,
+          "y" : 1055.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 578.0,
+          "y" : 392.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_1f8ee776-38ba-4d46-ba4a-e2b0068aa8fb"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e29",
+        "waypoint" : [ {
+          "x" : 726.0,
+          "y" : 1055.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 375.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_7119c0fe-e8ac-4b5f-ab67-f31765d79676"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e30",
+        "waypoint" : [ {
+          "x" : 726.0,
+          "y" : 1055.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1501.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_02016e20-0b48-429c-ba23-a9813586bf10"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e31",
+        "waypoint" : [ {
+          "x" : 726.0,
+          "y" : 1055.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 788.0,
+          "y" : 573.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "ef6b94db-e806-40e5-8960-a65ecf47587a"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e32",
+        "waypoint" : [ {
+          "x" : 726.0,
+          "y" : 1055.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1363.0,
+          "y" : 573.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "e3214618-2e90-4898-890e-09a361a4a1eb"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e33",
+        "waypoint" : [ {
+          "x" : 1501.0,
+          "y" : 693.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1501.0,
+          "y" : 392.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "a38af795-50e0-4933-9ab1-ed7323cb3134"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e34",
+        "waypoint" : [ {
+          "x" : 1999.0,
+          "y" : 874.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1501.0,
+          "y" : 392.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_3baca478-66f0-444d-a24d-795815b5b512"
+      }, {
+        "@kind" : "dmnEdge",
+        "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b_e35",
+        "waypoint" : [ {
+          "x" : 726.0,
+          "y" : 1055.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        }, {
+          "x" : 1715.0,
+          "y" : 754.0,
+          "elementInfo" : {
+            "prefix" : "di",
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20180521/DI/"
+          }
+        } ],
+        "elementInfo" : {
+          "prefix" : "dmndi",
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+        },
+        "dmnElementRef" : "_0b6591d9-ad65-49b4-8bf0-4917536f994d"
+      } ],
+      "elementInfo" : {
+        "prefix" : "dmndi",
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+      }
+    } ],
+    "elementInfo" : {
+      "prefix" : "dmndi",
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/DMNDI/"
+    }
+  },
+  "elementInfo" : {
+    "namespaceURI" : "https://www.omg.org/spec/DMN/20191111/MODEL/",
+    "nsContext" : {
+      "" : "https://www.omg.org/spec/DMN/20211108/MODEL/",
+      "di" : "http://www.omg.org/spec/DMN/20180521/DI/",
+      "dmndi" : "https://www.omg.org/spec/DMN/20191111/DMNDI/",
+      "dc" : "http://www.omg.org/spec/DMN/20180521/DC/",
+      "triso" : "http://www.trisotech.com/2015/triso/modeling"
+    }
+  }
+}

@@ -10,72 +10,45 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization;
+package com.gs.dmn.serialization.xstream;
 
-import com.gs.dmn.AbstractTest;
 import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
-import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
+import com.gs.dmn.serialization.AbstractDMNSerializationTest;
+import com.gs.dmn.serialization.DMNSerializer;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class XMLDMNSerializerTest extends AbstractTest {
-    private final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, this.inputParameters);
+public class XMLDMNSerializerTest extends AbstractDMNSerializationTest {
 
     @Test
     public void testRead() {
-        File input = new File(resource("dmn/input/1.1/test-dmn.dmn"));
-
-        TDefinitions definitions = this.dmnSerializer.readModel(input);
-        checkModel(definitions);
+        doReadTest("dmn/input/1.1/test-dmn.dmn");
     }
 
     @Test
     public void testWrite() throws IOException {
-        // Test partial objects
-        File outputFile = File.createTempFile("jdmn-", "-dmn");
-        outputFile.deleteOnExit();
-
-        assertDoesNotThrow(() -> this.dmnSerializer.writeModel(null, outputFile));
-
-        assertDoesNotThrow(() -> {
-            TDefinitions definitions = new TDefinitions();
-            definitions.getElementInfo().getNsContext().putAll(DMNVersion.LATEST.getPrefixToNamespaceMap());
-            this.dmnSerializer.writeModel(definitions, outputFile);
-        });
-
-        assertDoesNotThrow(() -> {
-            TDefinitions definitions = new TDefinitions();
-            definitions.getElementInfo().getNsContext().putAll(DMNVersion.LATEST.getPrefixToNamespaceMap());
-            TDecision decision = new TDecision();
-            TDecisionTable value = new TDecisionTable();
-            TDecisionRule rule = null;
-            value.getRule().add(rule);
-            decision.setExpression(value);
-            definitions.getDrgElement().add(decision);
-            this.dmnSerializer.writeModel(definitions, outputFile);
-        });
+        doWriteTest();
     }
 
     @Test
-    public void testRoundTrip() {
-        File input = new File(resource("dmn/input/1.1/test-dmn.dmn"));
+    public void testRoundTrip() throws Exception {
+        String inputPath = "dmn/input/1.1/test-dmn.dmn";
+        String expectedPath = "dmn/expected/1.1/1.4/test-dmn.dmn";
 
-        TDefinitions definitions = this.dmnSerializer.readModel(input);
-        File outputFile = new File("target", "test-dmn.dmn");
-        this.dmnSerializer.writeModel(definitions, outputFile);
-
-        definitions = this.dmnSerializer.readModel(outputFile);
-
-        checkModel(definitions);
+        doRoundTripTest(inputPath, expectedPath);
     }
 
-    private void checkModel(TDefinitions definitions) {
+    @Override
+    protected DMNSerializer makeSerializer() {
+        return new XMLDMNSerializer(LOGGER, this.inputParameters);
+    }
+
+    protected void checkModel(TDefinitions definitions) {
         List<TDRGElement> drgElementList = definitions.getDrgElement();
         assertEquals(1, drgElementList.size());
 

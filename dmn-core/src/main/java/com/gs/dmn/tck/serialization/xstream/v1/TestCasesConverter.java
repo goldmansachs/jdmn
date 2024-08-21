@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.tck.serialization.xstream.v1;
 
-import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.Labels;
+import com.gs.dmn.tck.ast.TCKBaseElement;
 import com.gs.dmn.tck.ast.TestCase;
 import com.gs.dmn.tck.ast.TestCases;
 import com.thoughtworks.xstream.XStream;
@@ -21,7 +21,7 @@ import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
-public class TestCasesConverter extends DMNBaseElementConverter {
+public class TestCasesConverter extends TCKBaseElementConverter {
     // Attributes
     static final String NAMESPACE = "namespace";
 

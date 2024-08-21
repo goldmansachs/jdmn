@@ -27,14 +27,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public abstract class DMNBaseElementConverter extends TCKBaseConverter {
-    private static final Logger LOG = LoggerFactory.getLogger(DMNBaseElementConverter.class);
+public abstract class TCKBaseElementConverter extends TCKBaseConverter {
+    private static final Logger LOG = LoggerFactory.getLogger(TCKBaseElementConverter.class);
 
     static final String EXTENSION_ELEMENTS = "extensionElements";
 
     protected XStream xstream;
 
-    public DMNBaseElementConverter(XStream xstream) {
+    public TCKBaseElementConverter(XStream xstream) {
         super(xstream.getMapper());
         this.xstream = xstream;
     }

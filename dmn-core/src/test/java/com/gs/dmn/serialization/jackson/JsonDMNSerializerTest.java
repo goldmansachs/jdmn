@@ -10,30 +10,46 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization;
+package com.gs.dmn.serialization.jackson;
 
-import com.gs.dmn.AbstractTest;
 import com.gs.dmn.ast.*;
-import com.gs.dmn.serialization.jackson.JsonDMNSerializer;
+import com.gs.dmn.serialization.AbstractDMNSerializationTest;
+import com.gs.dmn.serialization.DMNSerializer;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class JsonDMNSerializerTest extends AbstractTest {
-    private final DMNSerializer dmnSerializer = new JsonDMNSerializer(LOGGER, this.inputParameters);
+public class JsonDMNSerializerTest extends AbstractDMNSerializationTest {
 
     @Test
     public void testRead() {
-        File input = new File(resource("jackson/v1_3/0004-lending.dmn"));
+        doReadTest("jackson/v1_3/0004-lending.dmn");
+    }
 
-        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(Collections.singletonList(input));
-        assertEquals(1, definitionsList.size());
-        List<TDRGElement> drgElementList = definitionsList.get(0).getDrgElement();
+    @Test
+    public void testWrite() throws IOException {
+        doWriteTest();
+    }
+
+    @Test
+    public void testRoundTrip() throws Exception {
+        String inputPath = "jackson/v1_3/0004-lending.dmn";
+        String expectedPath = "dmn/expected/1.1/1.4/0004-lending.json";
+
+        doRoundTripTest(inputPath, expectedPath);
+    }
+
+    @Override
+    protected DMNSerializer makeSerializer() {
+        return new JsonDMNSerializer(LOGGER, this.inputParameters);
+    }
+
+    @Override
+    protected void checkModel(TDefinitions definitions) {
+        List<TDRGElement> drgElementList = definitions.getDrgElement();
         assertEquals(24, drgElementList.size());
 
         TDecision decision = (TDecision) drgElementList.get(0);
