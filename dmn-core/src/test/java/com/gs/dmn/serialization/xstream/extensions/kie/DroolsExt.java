@@ -10,24 +10,26 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization.xstream.extensions;
+package com.gs.dmn.serialization.xstream.extensions.kie;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 
-@XStreamAlias("mykieext")
-public class MyKieExt {
+@XStreamAlias("mydroolsext")
+@XStreamConverter(value = ToAttributedValueConverter.class, strings = {"content"})
+public class DroolsExt {
     @XStreamAsAttribute
-    private String a1;
+    private String b1;
 
-    @XStreamAlias("mydroolsext")
-    private MyDroolsExt content;
+    private String content;
 
-    public MyDroolsExt getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(MyDroolsExt content) {
-        this.content = content;
+    public String getB1() {
+        return b1;
     }
 }

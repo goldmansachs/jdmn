@@ -16,9 +16,11 @@ import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.serialization.AbstractDMNSerializationTest;
 import com.gs.dmn.serialization.DMNSerializer;
+import com.gs.dmn.serialization.xstream.extensions.test.TestRegister;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,16 +38,32 @@ public class XMLDMNSerializerTest extends AbstractDMNSerializationTest {
     }
 
     @Test
-    public void testRoundTrip() throws Exception {
+    public void testRoundTripWithNoExtensions() throws Exception {
         String inputPath = "dmn/input/1.1/test-dmn.dmn";
         String expectedPath = "dmn/expected/1.1/1.4/test-dmn.dmn";
 
         doRoundTripTest(inputPath, expectedPath);
     }
 
+    @Test
+    public void testRoundTripWithExtensions() throws Exception {
+        String inputPath = "xstream/v1_1/test20161014.dmn";
+        String expectedPath = "dmn/expected/1.1/1.4/test20161014.dmn";
+
+        doRoundTripTest(inputPath, expectedPath);
+    }
+
+    @Test
+    public void testRoundTripWithExtensionsNoRegistration() throws Exception {
+        String inputPath = "xstream/v1_1/test20161014.dmn";
+        String expectedPath = "dmn/expected/1.1/1.4/test20161014.dmn";
+
+        doRoundTripTest(inputPath, expectedPath, new XMLDMNSerializer(LOGGER, inputParameters));
+    }
+
     @Override
     protected DMNSerializer makeSerializer() {
-        return new XMLDMNSerializer(LOGGER, this.inputParameters);
+        return new XMLDMNSerializer(LOGGER, Collections.singletonList(new TestRegister()), this.inputParameters);
     }
 
     protected void checkModel(TDefinitions definitions) {

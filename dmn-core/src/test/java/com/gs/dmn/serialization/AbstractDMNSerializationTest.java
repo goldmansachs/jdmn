@@ -63,12 +63,16 @@ public abstract class AbstractDMNSerializationTest extends AbstractFileTransform
     }
 
     protected void doRoundTripTest(String inputPath, String expectedPath) throws Exception {
+        doRoundTripTest(inputPath, expectedPath, this.dmnSerializer);
+    }
+
+    protected void doRoundTripTest(String inputPath, String expectedPath, DMNSerializer dmnSerializer) throws Exception {
         File inputFile = new File(resource(inputPath));
-        TDefinitions definitions = this.dmnSerializer.readModel(inputFile);
+        TDefinitions definitions = dmnSerializer.readModel(inputFile);
         String extension = dmnSerializer instanceof XMLDMNSerializer ? ".dmn" : ".json";
         String outputFileName = String.format("test-" + inputFile.getName() + extension);
         File outputFile = new File("target", outputFileName);
-        this.dmnSerializer.writeModel(definitions, outputFile);
+        dmnSerializer.writeModel(definitions, outputFile);
 
         File expectedFile = new File(resource(expectedPath));
         compareFile(expectedFile, outputFile);

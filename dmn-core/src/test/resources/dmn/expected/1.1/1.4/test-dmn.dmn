@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/" id="definitions" name="test-dmn"
-             namespace="http://camunda.org/schema/1.0/dmn">
+<definitions xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="definitions" name="test-dmn" namespace="http://camunda.org/schema/1.0/dmn">
   <decision id="cip-assessments" name="CIP Assessments">
     <decisionTable id="decisionTable">
       <input id="input1" label="Gender">

@@ -16,8 +16,8 @@ import com.gs.dmn.serialization.AbstractXStreamUnmarshalMarshalTest;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
-import com.gs.dmn.serialization.xstream.extensions.MyTestRegister;
-import org.junit.jupiter.api.Disabled;
+import com.gs.dmn.serialization.xstream.extensions.kie.KieTestRegister;
+import com.gs.dmn.serialization.xstream.extensions.test.TestRegister;
 import org.junit.jupiter.api.Test;
 import org.xmlunit.diff.DifferenceEvaluator;
 import org.xmlunit.diff.DifferenceEvaluators;
@@ -78,13 +78,13 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
 
     @Test
     public void testHelloWorldSemanticNamespaceWithExtensions() throws Exception {
-        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new MyTestRegister()));
+        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new KieTestRegister()));
         testRoundTrip("xstream/v1_1/Hello_World_semantic_namespace_with_extensions.dmn", marshaller);
     }
 
     @Test
     public void testHelloWorldSemanticNamespaceWithExtensionsOtherNsLocation() throws Exception {
-        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new MyTestRegister()));
+        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new KieTestRegister()));
         testRoundTrip("xstream/v1_1/Hello_World_semantic_namespace_with_extensions_other_ns_location.dmn", marshaller);
     }
 
@@ -93,10 +93,10 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
         testRoundTrip("xstream/v1_1/semantic-namespace.dmn");
     }
 
-    @Disabled("The current file cannot marshal back extension elements because they don't provide converters.")
     @Test
     public void test20161014() throws Exception {
-        testRoundTrip("xstream/v1_1/test20161014.dmn");
+        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new TestRegister()));
+        testRoundTrip("xstream/v1_1/test20161014.dmn", marshaller);
     }
 
     @Test

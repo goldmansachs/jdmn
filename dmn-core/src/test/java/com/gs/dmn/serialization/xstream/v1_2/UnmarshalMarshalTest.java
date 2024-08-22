@@ -20,7 +20,7 @@ import com.gs.dmn.serialization.AbstractXStreamUnmarshalMarshalTest;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
-import com.gs.dmn.serialization.xstream.extensions.MyTestRegister;
+import com.gs.dmn.serialization.xstream.extensions.kie.KieTestRegister;
 import org.junit.jupiter.api.Test;
 import org.xmlunit.diff.DifferenceEvaluator;
 import org.xmlunit.diff.DifferenceEvaluators;
@@ -65,7 +65,7 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
 
     @Test
     public void testDMNDIDiagramElementExtensionWithContent() throws Exception {
-        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new MyTestRegister()));
+        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new KieTestRegister()));
         testRoundTrip("xstream/v1_2/DMNDIDiagramElementExtension_withContent.dmn", marshaller);
     }
 

@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dmn-ns:definitions xmlns:dmn-ns="http://www.omg.org/spec/DMN/20151101/dmn.xsd"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                    name=""
+                    xmlns:ext="http://dmnextension.org"
+                    name="test"
                     namespace="http://tempuri.org"
                     xmlns="http://tempuri.org"
                     xsi:schemaLocation="http://www.omg.org/spec/DMN/20151101/dmn.xsd dmn.xsd ">
     <dmn-ns:description>dmn-ns:description</dmn-ns:description>
     <dmn-ns:extensionElements>
-        <definitions myAttr="myValueOfMyAtt"/>
+        <ext:eDefinitions myAttr="myValueOfMyAtt"/>
     </dmn-ns:extensionElements>
     <dmn-ns:import importType="http://tempuri.org" namespace="http://tempuri.org"/>
     <dmn-ns:itemDefinition name="">
         <dmn-ns:description>dmn-ns:description</dmn-ns:description>
         <dmn-ns:extensionElements>
-            <itemDefinition myAttr="myValueOfMyAtt"/>
+            <ext:eItemDefinition myAttr="myValueOfMyAtt"/>
         </dmn-ns:extensionElements>
     </dmn-ns:itemDefinition>
     <dmn-ns:decision name="">
         <dmn-ns:description>dmn-ns:description</dmn-ns:description>
         <dmn-ns:extensionElements>
-            <decision myAttr="myValueOfMyAtt"/>
+            <ext:eDecision myAttr="myValueOfMyAtt"/>
         </dmn-ns:extensionElements>
         <dmn-ns:question>dmn-ns:question</dmn-ns:question>
         <dmn-ns:allowedAnswers>dmn-ns:allowedAnswers</dmn-ns:allowedAnswers>
         <dmn-ns:variable name="">
             <dmn-ns:description>dmn-ns:description</dmn-ns:description>
             <dmn-ns:extensionElements>
-                <allowedAnswer myAttr="myValueOfMyAtt"/>
+                <ext:eAllowedAnswer myAttr="myValueOfMyAtt"/>
             </dmn-ns:extensionElements>
         </dmn-ns:variable>
         <dmn-ns:informationRequirement>
@@ -47,7 +48,7 @@
         <dmn-ns:literalExpression>
             <dmn-ns:description>dmn-ns:description</dmn-ns:description>
             <dmn-ns:extensionElements>
-                <literalExpression myAttr="myValueOfMyAtt"/>
+                <ext:eLiteralExpression myAttr="myValueOfMyAtt"/>
             </dmn-ns:extensionElements>
             <dmn-ns:text>dmn-ns:text</dmn-ns:text>
         </dmn-ns:literalExpression>
@@ -55,21 +56,21 @@
     <dmn-ns:textAnnotation>
         <dmn-ns:description>dmn-ns:description</dmn-ns:description>
         <dmn-ns:extensionElements>
-            <textAnnotation myAttr="myValueOfMyAtt"/>
+            <ext:eTextAnnotation myAttr="myValueOfMyAtt"/>
         </dmn-ns:extensionElements>
         <dmn-ns:text>dmn-ns:text</dmn-ns:text>
     </dmn-ns:textAnnotation>
     <dmn-ns:elementCollection name="">
         <dmn-ns:description>dmn-ns:description</dmn-ns:description>
         <dmn-ns:extensionElements>
-            <elementCollection myAttr="myValueOfMyAtt"/>
+            <ext:eElementCollection myAttr="myValueOfMyAtt"/>
         </dmn-ns:extensionElements>
         <dmn-ns:drgElement href="http://tempuri.org"/>
     </dmn-ns:elementCollection>
     <dmn-ns:performanceIndicator name="">
         <dmn-ns:description>dmn-ns:description</dmn-ns:description>
         <dmn-ns:extensionElements>
-            <performanceIndicator myAttr="myValueOfMyAtt"/>
+            <ext:ePerformanceIndicator myAttr="myValueOfMyAtt"/>
         </dmn-ns:extensionElements>
         <dmn-ns:impactingDecision href="http://tempuri.org"/>
     </dmn-ns:performanceIndicator>

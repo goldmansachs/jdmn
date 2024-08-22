@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.serialization.xstream.extensions;
+package com.gs.dmn.serialization.xstream.extensions.kie;
 
 import com.gs.dmn.serialization.xstream.DMNExtensionRegister;
 import com.thoughtworks.xstream.XStream;
@@ -19,15 +19,15 @@ import com.thoughtworks.xstream.security.WildcardTypePermission;
 
 import javax.xml.namespace.QName;
 
-public class MyTestRegister implements DMNExtensionRegister {
+public class KieTestRegister implements DMNExtensionRegister {
     private static final String[] ALLOW_LISTED_PACKAGES = new String[] {
         "com.gs.dmn.serialization.xstream.extensions.**"
     };
 
     @Override
     public void registerExtensionConverters(XStream xStream) {
-        xStream.processAnnotations(MyKieExt.class);
-        xStream.processAnnotations(MyDroolsExt.class);
+        xStream.processAnnotations(KieExt.class);
+        xStream.processAnnotations(DroolsExt.class);
         xStream.addPermission(new WildcardTypePermission(ALLOW_LISTED_PACKAGES));
     }
 
