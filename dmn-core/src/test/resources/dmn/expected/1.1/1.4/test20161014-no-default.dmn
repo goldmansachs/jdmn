@@ -4,7 +4,7 @@
   <dmn-ns:extensionElements>
     <ext:eDefinitions myAttr="myValueOfMyAtt"/>
   </dmn-ns:extensionElements>
-  <dmn-ns:itemDefinition name="type" isCollection="false">
+  <dmn-ns:itemDefinition name="type">
     <dmn-ns:description>dmn-ns:description</dmn-ns:description>
     <dmn-ns:extensionElements>
       <ext:eItemDefinition myAttr="myValueOfMyAtt"/>

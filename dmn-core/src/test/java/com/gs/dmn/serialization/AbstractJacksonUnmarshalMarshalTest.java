@@ -13,7 +13,7 @@
 package com.gs.dmn.serialization;
 
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.serialization.jackson.JsonDMNMarshaller;
+import com.gs.dmn.serialization.jackson.DMNMarshallerFactory;
 
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
@@ -21,7 +21,7 @@ import java.io.*;
 public abstract class AbstractJacksonUnmarshalMarshalTest extends AbstractUnmarshalMarshalTest<TDefinitions, DMNMarshaller> {
     @Override
     protected DMNMarshaller getMarshaller() {
-        return new JsonDMNMarshaller(LOGGER);
+        return DMNMarshallerFactory.newDefaultMarshaller();
     }
 
     @Override

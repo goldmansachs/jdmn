@@ -52,7 +52,7 @@ public class JsonDMNSerializerTest extends AbstractDMNSerializationTest {
 
     @Override
     protected DMNSerializer makeSerializer() {
-        return new JsonDMNSerializer(LOGGER, this.inputParameters);
+        return new JsonDMNSerializer(LOGGER, EXTENSION_MAPPER, this.inputParameters);
     }
 
     @Override

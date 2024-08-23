@@ -17,17 +17,14 @@ import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.basic.*;
 import com.thoughtworks.xstream.converters.collections.*;
 import com.thoughtworks.xstream.converters.extended.*;
-import com.thoughtworks.xstream.converters.reflection.ExternalizableConverter;
-import com.thoughtworks.xstream.converters.reflection.ReflectionConverter;
-import com.thoughtworks.xstream.converters.reflection.ReflectionProvider;
-import com.thoughtworks.xstream.converters.reflection.SerializableConverter;
+import com.thoughtworks.xstream.converters.reflection.*;
 import com.thoughtworks.xstream.core.ClassLoaderReference;
 import com.thoughtworks.xstream.core.util.SelfStreamingInstanceChecker;
 import com.thoughtworks.xstream.io.HierarchicalStreamDriver;
 
 public class DMNXStream extends XStream {
     public static DMNXStream from(HierarchicalStreamDriver driver, ClassLoaderReference classLoaderReference) {
-        return new DMNXStream(null, driver, classLoaderReference);
+        return new DMNXStream(new PureJavaReflectionProvider(), driver, classLoaderReference);
     }
 
     private DMNXStream(ReflectionProvider reflectionProvider, HierarchicalStreamDriver driver, ClassLoaderReference classLoaderReference) {

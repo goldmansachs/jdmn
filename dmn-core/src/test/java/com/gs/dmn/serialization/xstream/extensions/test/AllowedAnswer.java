@@ -12,12 +12,19 @@
  */
 package com.gs.dmn.serialization.xstream.extensions.test;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-@XStreamAlias("e")
+@XStreamAlias("eAllowedAnswer")
 public class AllowedAnswer {
+    @XStreamOmitField
+    @JsonProperty("@type")
+    private final String type = AllowedAnswer.class.getName();
+
     @XStreamAsAttribute
+    @JsonProperty("myAttr")
     private String myAttr;
 
     public String getMyAttr() {

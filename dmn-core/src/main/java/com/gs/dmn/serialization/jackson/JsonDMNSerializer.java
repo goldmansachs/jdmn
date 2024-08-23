@@ -16,8 +16,15 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.transformation.InputParameters;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class JsonDMNSerializer extends DMNSerializer {
     public JsonDMNSerializer(BuildLogger logger, InputParameters inputParameters) {
-        super(logger, new JsonDMNMarshaller(logger), inputParameters);
+        this(logger, new LinkedHashMap<>(), inputParameters);
+    }
+
+    public JsonDMNSerializer(BuildLogger logger, Map<String, Class<?>> mapper, InputParameters inputParameters) {
+        super(logger, DMNMarshallerFactory.newMarshallerWithExtensions(mapper), inputParameters);
     }
 }

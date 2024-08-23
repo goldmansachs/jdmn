@@ -12,62 +12,31 @@
  */
 package com.gs.dmn.serialization.jackson;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNMarshaller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.xml.namespace.QName;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 
 public class JsonDMNMarshaller implements DMNMarshaller {
-    public static final ObjectMapper JSON_MAPPER = makeJsonMapper();
-    private final BuildLogger logger;
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonDMNMarshaller.class);
 
-    private static ObjectMapper makeJsonMapper() {
-        ObjectMapper objectMapper = JsonMapper.builder()
-                .addModule(new JavaTimeModule())
-                .visibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
-                .visibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE)
-                .visibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NONE)
-                .visibility(PropertyAccessor.CREATOR, JsonAutoDetect.Visibility.NONE)
-                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-                .enable(SerializationFeature.INDENT_OUTPUT)
-                .build();
+    private final ObjectMapper objectMapper;
 
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-
-        // Add serializers & deserializers for QName
-        SimpleModule module = new SimpleModule();
-        module.addSerializer(QName.class, new QNameSerializer());
-        module.addDeserializer(QName.class, new QNameDeserializer());
-        module.addKeySerializer(QName.class, new QNameKeySerializer());
-        module.addKeyDeserializer(QName.class, new QNameKeyDeserializer());
-        objectMapper.registerModule(module);
-
-        return objectMapper;
-    }
-
-    public JsonDMNMarshaller(BuildLogger logger) {
-        this.logger = logger;
+    JsonDMNMarshaller(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
     }
 
     @Override
     public TDefinitions unmarshal(String input, boolean validateSchema) {
         try {
             checkSchemaValidationFlag(validateSchema);
-            return JSON_MAPPER.readValue(input, TDefinitions.class);
+            return this.objectMapper.readValue(input, TDefinitions.class);
         } catch (IOException e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input), e);
         }
@@ -77,7 +46,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
     public TDefinitions unmarshal(Reader input, boolean validateSchema) {
         try {
             checkSchemaValidationFlag(validateSchema);
-            return JSON_MAPPER.readValue(input, TDefinitions.class);
+            return this.objectMapper.readValue(input, TDefinitions.class);
         } catch (IOException e) {
             throw new DMNRuntimeException(String.format("Cannot read DMN from '%s'", input), e);
         }
@@ -86,7 +55,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
     @Override
     public String marshal(TDefinitions definitions) {
         try {
-            return JSON_MAPPER.writeValueAsString(definitions);
+            return this.objectMapper.writeValueAsString(definitions);
         } catch (IOException e) {
             throw new DMNRuntimeException("Cannot write DMN as string", e);
         }
@@ -95,7 +64,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
     @Override
     public void marshal(TDefinitions definitions, Writer output) {
         try {
-            JSON_MAPPER.writeValue(output, definitions);
+            this.objectMapper.writeValue(output, definitions);
         } catch (IOException e) {
             throw new DMNRuntimeException(String.format("Cannot write DMN to '%s'", output), e);
         }
@@ -103,7 +72,7 @@ public class JsonDMNMarshaller implements DMNMarshaller {
 
     private void checkSchemaValidationFlag(boolean validateSchema) {
         if (validateSchema) {
-            logger.warn("Schema validation is not supported in Json serializers");
+            LOGGER.warn("Schema validation is not supported in Json serializers");
         }
     }
 }

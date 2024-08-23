@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dmn-ns:definitions xmlns:dmn-ns="http://www.omg.org/spec/DMN/20151101/dmn.xsd"
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xmlns:ext="http://dmnextension.org"
                     name="test"
                     namespace="http://tempuri.org"
-                    xmlns="http://tempuri.org"
-                    xsi:schemaLocation="http://www.omg.org/spec/DMN/20151101/dmn.xsd dmn.xsd ">
+                    xmlns="http://tempuri.org">
     <dmn-ns:description>dmn-ns:description</dmn-ns:description>
     <dmn-ns:extensionElements>
         <ext:eDefinitions myAttr="myValueOfMyAtt"/>
     </dmn-ns:extensionElements>
-    <dmn-ns:import importType="http://tempuri.org" namespace="http://tempuri.org"/>
-    <dmn-ns:itemDefinition name="">
+    <dmn-ns:itemDefinition name="type">
         <dmn-ns:description>dmn-ns:description</dmn-ns:description>
         <dmn-ns:extensionElements>
             <ext:eItemDefinition myAttr="myValueOfMyAtt"/>
         </dmn-ns:extensionElements>
     </dmn-ns:itemDefinition>
-    <dmn-ns:decision name="">
+    <dmn-ns:decision name="decision">
         <dmn-ns:description>dmn-ns:description</dmn-ns:description>
         <dmn-ns:extensionElements>
             <ext:eDecision myAttr="myValueOfMyAtt"/>
         </dmn-ns:extensionElements>
         <dmn-ns:question>dmn-ns:question</dmn-ns:question>
         <dmn-ns:allowedAnswers>dmn-ns:allowedAnswers</dmn-ns:allowedAnswers>
-        <dmn-ns:variable name="">
+        <dmn-ns:variable name="decision">
             <dmn-ns:description>dmn-ns:description</dmn-ns:description>
             <dmn-ns:extensionElements>
                 <ext:eAllowedAnswer myAttr="myValueOfMyAtt"/>
@@ -60,14 +57,14 @@
         </dmn-ns:extensionElements>
         <dmn-ns:text>dmn-ns:text</dmn-ns:text>
     </dmn-ns:textAnnotation>
-    <dmn-ns:elementCollection name="">
+    <dmn-ns:elementCollection name="collection">
         <dmn-ns:description>dmn-ns:description</dmn-ns:description>
         <dmn-ns:extensionElements>
             <ext:eElementCollection myAttr="myValueOfMyAtt"/>
         </dmn-ns:extensionElements>
         <dmn-ns:drgElement href="http://tempuri.org"/>
     </dmn-ns:elementCollection>
-    <dmn-ns:performanceIndicator name="">
+    <dmn-ns:performanceIndicator name="performance">
         <dmn-ns:description>dmn-ns:description</dmn-ns:description>
         <dmn-ns:extensionElements>
             <ext:ePerformanceIndicator myAttr="myValueOfMyAtt"/>

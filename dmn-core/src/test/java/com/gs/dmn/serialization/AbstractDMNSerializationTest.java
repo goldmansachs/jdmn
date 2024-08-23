@@ -17,14 +17,28 @@ import com.gs.dmn.ast.TDecisionRule;
 import com.gs.dmn.ast.TDecisionTable;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
+import com.gs.dmn.serialization.xstream.extensions.test.*;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public abstract class AbstractDMNSerializationTest extends AbstractFileTransformerTest {
+    public static Map<String, Class<?>> EXTENSION_MAPPER = new LinkedHashMap<String, Class<?>>() {{
+        put(AllowedAnswer.class.getName(), AllowedAnswer.class);
+        put(Decision.class.getName(), Decision.class);
+        put(Definitions.class.getName(), Definitions.class);
+        put(ElementCollection.class.getName(), ElementCollection.class);
+        put(ItemDefinition.class.getName(), ItemDefinition.class);
+        put(LiteralExpression.class.getName(), LiteralExpression.class);
+        put(PerformanceIndicator.class.getName(), PerformanceIndicator.class);
+        put(TextAnnotation.class.getName(), TextAnnotation.class);
+    }};
+
     private final DMNSerializer dmnSerializer = makeSerializer();
 
     protected abstract DMNSerializer makeSerializer();

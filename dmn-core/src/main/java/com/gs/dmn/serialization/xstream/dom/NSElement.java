@@ -25,6 +25,10 @@ public class NSElement implements Element {
         this.prefix = prefix;
     }
 
+    public Element getElement() {
+        return element;
+    }
+
     @Override
     public String getTagName() {
         return element.getTagName();
