@@ -70,57 +70,57 @@
     <inputNode name="SupportingDocuments">
       <value xsi:type="xsd:string">YES</value>
     </inputNode>
-    <resultNode type="decision" name="Adjudication" errorResult="false">
+    <resultNode type="decision" name="Adjudication">
       <expected>
         <value xsi:type="xsd:string">ACCEPT</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="ApplicationRiskScore" errorResult="false">
+    <resultNode type="decision" name="ApplicationRiskScore">
       <expected>
         <value xsi:type="xsd:decimal">130</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Pre-bureauRiskCategory" errorResult="false">
+    <resultNode type="decision" name="Pre-bureauRiskCategory">
       <expected>
         <value xsi:type="xsd:string">LOW</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="BureauCallType" errorResult="false">
+    <resultNode type="decision" name="BureauCallType">
       <expected>
         <value xsi:type="xsd:string">MINI</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Post-bureauRiskCategory" errorResult="false">
+    <resultNode type="decision" name="Post-bureauRiskCategory">
       <expected>
         <value xsi:type="xsd:string">LOW</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="RequiredMonthlyInstallment" errorResult="false">
+    <resultNode type="decision" name="RequiredMonthlyInstallment">
       <expected>
         <value xsi:type="xsd:decimal">1680.880325608555</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Pre-bureauAffordability" errorResult="false">
+    <resultNode type="decision" name="Pre-bureauAffordability">
       <expected>
         <value xsi:type="xsd:boolean">true</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Eligibility" errorResult="false">
+    <resultNode type="decision" name="Eligibility">
       <expected>
         <value xsi:type="xsd:string">ELIGIBLE</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Strategy" errorResult="false">
+    <resultNode type="decision" name="Strategy">
       <expected>
         <value xsi:type="xsd:string">BUREAU</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Post-bureauAffordability" errorResult="false">
+    <resultNode type="decision" name="Post-bureauAffordability">
       <expected>
         <value xsi:type="xsd:boolean">true</value>
       </expected>
     </resultNode>
-    <resultNode type="decision" name="Routing" errorResult="false">
+    <resultNode type="decision" name="Routing">
       <expected>
         <value xsi:type="xsd:string">ACCEPT</value>
       </expected>

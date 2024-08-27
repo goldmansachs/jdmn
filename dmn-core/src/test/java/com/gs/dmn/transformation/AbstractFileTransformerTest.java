@@ -89,7 +89,7 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
                 .compare(Input.fromFile(expectedOutputFile))
                 .withTest(Input.fromFile(actualOutputFile))
                 .checkForSimilar()
-                .withNodeMatcher(new DefaultNodeMatcher(ElementSelectors.byNameAndAllAttributes))
+                .withNodeMatcher(new DefaultNodeMatcher(ElementSelectors.byNameAndText))
                 .withDifferenceEvaluator(makeDMNDifferenceEvaluator())
                 .ignoreWhitespace()
                 .ignoreComments()
@@ -100,6 +100,7 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
         return DiffBuilder
                 .compare(Input.fromFile(expectedOutputFile))
                 .withTest(Input.fromFile(actualOutputFile))
+                .withNodeMatcher(new DefaultNodeMatcher(ElementSelectors.byNameAndText))
                 .withDifferenceEvaluator(makeTCKDifferenceEvaluator())
                 .checkForSimilar()
                 .ignoreWhitespace()
@@ -108,11 +109,11 @@ public abstract class AbstractFileTransformerTest extends AbstractTest {
     }
 
     protected DifferenceEvaluator makeDMNDifferenceEvaluator() {
-        return DifferenceEvaluators.Default;
+        return DifferenceEvaluators.chain(DifferenceEvaluators.Default, DefaultAttributesDifferenceEvaluator.DMN_EVALUATOR);
     }
 
     protected DifferenceEvaluator makeTCKDifferenceEvaluator() {
-        return DifferenceEvaluators.Default;
+        return DifferenceEvaluators.chain(DifferenceEvaluators.Default, DefaultAttributesDifferenceEvaluator.TCK_EVALUATOR);
     }
 
     protected void compareJsonFile(File expectedOutputFile, File actualOutputFile) throws Exception {

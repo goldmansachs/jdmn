@@ -1,97 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:feel="https://www.omg.org/spec/DMN/20211108/FEEL/" xmlns:tns="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" triso:logoChoice="Default" id="_4e0f0b70-d31c-471c-bd52-5ca709ed362b" name="Lending1" expressionLanguage="https://www.omg.org/spec/DMN/20211108/FEEL/" typeLanguage="https://www.omg.org/spec/DMN/20211108/FEEL/" namespace="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0">
-  <itemDefinition name="tEligibility" isCollection="false">
+  <itemDefinition name="tEligibility">
     <typeRef>feel.string</typeRef>
     <allowedValues>
       <text>"INELIGIBLE", "ELIGIBLE"</text>
     </allowedValues>
   </itemDefinition>
-  <itemDefinition name="tBureauCallType" isCollection="false">
+  <itemDefinition name="tBureauCallType">
     <typeRef>feel.string</typeRef>
     <allowedValues>
       <text>"FULL", "MINI", "NONE"</text>
     </allowedValues>
   </itemDefinition>
-  <itemDefinition name="tStrategy" isCollection="false">
+  <itemDefinition name="tStrategy">
     <typeRef>feel.string</typeRef>
     <allowedValues>
       <text>"DECLINE", "BUREAU", "THROUGH"</text>
     </allowedValues>
   </itemDefinition>
-  <itemDefinition name="tRiskCategory" isCollection="false">
+  <itemDefinition name="tRiskCategory">
     <typeRef>feel.string</typeRef>
     <allowedValues>
       <text>"DECLINE", "HIGH", "MEDIUM", "LOW", "VERY LOW"</text>
     </allowedValues>
   </itemDefinition>
-  <itemDefinition name="tRouting" isCollection="false">
+  <itemDefinition name="tRouting">
     <typeRef>feel.string</typeRef>
     <allowedValues>
       <text>"DECLINE", "REFER", "ACCEPT"</text>
     </allowedValues>
   </itemDefinition>
-  <itemDefinition name="tBureauData" isCollection="false">
-    <itemComponent name="CreditScore" isCollection="false">
+  <itemDefinition name="tBureauData">
+    <itemComponent name="CreditScore">
       <typeRef>feel.number</typeRef>
       <allowedValues>
         <text>[0..999], null</text>
       </allowedValues>
     </itemComponent>
-    <itemComponent name="Bankrupt" isCollection="false">
+    <itemComponent name="Bankrupt">
       <typeRef>feel.boolean</typeRef>
     </itemComponent>
   </itemDefinition>
-  <itemDefinition name="tAdjudication" isCollection="false">
+  <itemDefinition name="tAdjudication">
     <typeRef>feel.string</typeRef>
     <allowedValues>
       <text>"DECLINE", "ACCEPT"</text>
     </allowedValues>
   </itemDefinition>
-  <itemDefinition name="tApplicantData" isCollection="false">
-    <itemComponent name="Monthly" isCollection="false">
-      <itemComponent name="Income" isCollection="false">
+  <itemDefinition name="tApplicantData">
+    <itemComponent name="Monthly">
+      <itemComponent name="Income">
         <typeRef>feel.number</typeRef>
       </itemComponent>
-      <itemComponent name="Expenses" isCollection="false">
+      <itemComponent name="Expenses">
         <typeRef>feel.number</typeRef>
       </itemComponent>
-      <itemComponent name="Repayments" isCollection="false">
+      <itemComponent name="Repayments">
         <typeRef>feel.number</typeRef>
       </itemComponent>
     </itemComponent>
-    <itemComponent name="Age" isCollection="false">
+    <itemComponent name="Age">
       <typeRef>feel.number</typeRef>
     </itemComponent>
-    <itemComponent name="ExistingCustomer" isCollection="false">
+    <itemComponent name="ExistingCustomer">
       <typeRef>feel.boolean</typeRef>
     </itemComponent>
-    <itemComponent name="MaritalStatus" isCollection="false">
+    <itemComponent name="MaritalStatus">
       <typeRef>feel.string</typeRef>
       <allowedValues>
         <text>"S","M"</text>
       </allowedValues>
     </itemComponent>
-    <itemComponent name="EmploymentStatus" isCollection="false">
+    <itemComponent name="EmploymentStatus">
       <typeRef>feel.string</typeRef>
       <allowedValues>
         <text>"EMPLOYED","SELF-EMPLOYED","STUDENT","UNEMPLOYED"</text>
       </allowedValues>
     </itemComponent>
   </itemDefinition>
-  <itemDefinition name="tRequestedProduct" isCollection="false">
-    <itemComponent name="ProductType" isCollection="false">
+  <itemDefinition name="tRequestedProduct">
+    <itemComponent name="ProductType">
       <typeRef>feel.string</typeRef>
       <allowedValues>
         <text>"STANDARD LOAN", "SPECIAL LOAN"</text>
       </allowedValues>
     </itemComponent>
-    <itemComponent name="Amount" isCollection="false">
+    <itemComponent name="Amount">
       <typeRef>feel.number</typeRef>
     </itemComponent>
-    <itemComponent name="Rate" isCollection="false">
+    <itemComponent name="Rate">
       <typeRef>feel.number</typeRef>
     </itemComponent>
-    <itemComponent name="Term" isCollection="false">
+    <itemComponent name="Term">
       <typeRef>feel.number</typeRef>
     </itemComponent>
   </itemDefinition>

@@ -40,7 +40,7 @@ public class XMLTCKSerializerTest extends AbstractTCKSerializationTest {
     @Test
     public void testRoundTrip() throws Exception {
         String inputPath = "dmn/input/1.4/0004-lending-test-01.xml";
-        String expectedPath = "dmn/expected/1.4/0004-lending-test-01-no-default.xml";
+        String expectedPath = "dmn/expected/1.4/0004-lending-test-01.xml";
         doRoundTripTest(inputPath, expectedPath);
     }
 

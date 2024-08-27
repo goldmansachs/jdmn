@@ -1,92 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <semantic:definitions xmlns:semantic="https://www.omg.org/spec/DMN/20211108/MODEL/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:feel="https://www.omg.org/spec/DMN/20211108/FEEL/" id="_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4" name="Chapter 11 Example" namespace="http://www.trisotech.com/definitions/_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4" exporter="DMN Modeler" exporterVersion="6.0.7">
   <semantic:extensionElements></semantic:extensionElements>
-  <semantic:itemDefinition label="tStrategy" name="tStrategy" isCollection="false">
+  <semantic:itemDefinition label="tStrategy" name="tStrategy">
     <semantic:typeRef>string</semantic:typeRef>
     <semantic:allowedValues>
       <semantic:text>"DECLINE","BUREAU","THROUGH"</semantic:text>
     </semantic:allowedValues>
   </semantic:itemDefinition>
-  <semantic:itemDefinition label="tEligibility" name="tEligibility" isCollection="false">
+  <semantic:itemDefinition label="tEligibility" name="tEligibility">
     <semantic:typeRef>string</semantic:typeRef>
     <semantic:allowedValues>
       <semantic:text>"INELIGIBLE","ELIGIBLE"</semantic:text>
     </semantic:allowedValues>
   </semantic:itemDefinition>
-  <semantic:itemDefinition label="tBureauCallType" name="tBureauCallType" isCollection="false">
+  <semantic:itemDefinition label="tBureauCallType" name="tBureauCallType">
     <semantic:typeRef>string</semantic:typeRef>
     <semantic:allowedValues>
       <semantic:text>"FULL","MINI","NONE"</semantic:text>
     </semantic:allowedValues>
   </semantic:itemDefinition>
-  <semantic:itemDefinition label="tRiskCategory" name="tRiskCategory" isCollection="false">
+  <semantic:itemDefinition label="tRiskCategory" name="tRiskCategory">
     <semantic:typeRef>string</semantic:typeRef>
     <semantic:allowedValues>
       <semantic:text>"DECLINE","HIGH","MEDIUM","LOW","VERY LOW"</semantic:text>
     </semantic:allowedValues>
   </semantic:itemDefinition>
-  <semantic:itemDefinition label="tApplicantData" name="tApplicantData" isCollection="false">
-    <semantic:itemComponent id="_df3aab6f-1610-41fa-a407-09678a89d6da" name="Age" isCollection="false">
+  <semantic:itemDefinition label="tApplicantData" name="tApplicantData">
+    <semantic:itemComponent id="_df3aab6f-1610-41fa-a407-09678a89d6da" name="Age">
       <semantic:typeRef>number</semantic:typeRef>
     </semantic:itemComponent>
-    <semantic:itemComponent id="_d39ad810-7781-4ffb-9644-de51d1ca7f7a" name="MartitalStatus" isCollection="false">
+    <semantic:itemComponent id="_d39ad810-7781-4ffb-9644-de51d1ca7f7a" name="MartitalStatus">
       <semantic:typeRef>string</semantic:typeRef>
       <semantic:allowedValues>
         <semantic:text>"S","M"</semantic:text>
       </semantic:allowedValues>
     </semantic:itemComponent>
-    <semantic:itemComponent id="_9242f7aa-a9fc-451e-a8ee-60f1ff992664" name="EmploymentStatus" isCollection="false">
+    <semantic:itemComponent id="_9242f7aa-a9fc-451e-a8ee-60f1ff992664" name="EmploymentStatus">
       <semantic:typeRef>string</semantic:typeRef>
       <semantic:allowedValues>
         <semantic:text>"EMPLOYED","SELF-EMPLOYED","STUDENT","UNEMPLOYED"</semantic:text>
       </semantic:allowedValues>
     </semantic:itemComponent>
-    <semantic:itemComponent id="_5b4cce4a-bb99-41d5-99f2-0b2d7deeea8e" name="ExistingCustomer" isCollection="false">
+    <semantic:itemComponent id="_5b4cce4a-bb99-41d5-99f2-0b2d7deeea8e" name="ExistingCustomer">
       <semantic:typeRef>boolean</semantic:typeRef>
     </semantic:itemComponent>
-    <semantic:itemComponent id="_c3ad187d-246f-4707-aa05-b9d5d8da1f58" name="Monthly" isCollection="false">
-      <semantic:itemComponent id="_0ff9ec7c-ef0f-425a-af5c-d251135e3631" name="Income" isCollection="false">
+    <semantic:itemComponent id="_c3ad187d-246f-4707-aa05-b9d5d8da1f58" name="Monthly">
+      <semantic:itemComponent id="_0ff9ec7c-ef0f-425a-af5c-d251135e3631" name="Income">
         <semantic:typeRef>number</semantic:typeRef>
       </semantic:itemComponent>
-      <semantic:itemComponent id="_d4389c69-0a87-4db9-96fa-99674bff6b97" name="Repayments" isCollection="false">
+      <semantic:itemComponent id="_d4389c69-0a87-4db9-96fa-99674bff6b97" name="Repayments">
         <semantic:typeRef>number</semantic:typeRef>
       </semantic:itemComponent>
-      <semantic:itemComponent id="_c0bd1a20-826f-4fe4-86bc-b6cca2af06a1" name="Expenses" isCollection="false">
+      <semantic:itemComponent id="_c0bd1a20-826f-4fe4-86bc-b6cca2af06a1" name="Expenses">
         <semantic:typeRef>number</semantic:typeRef>
       </semantic:itemComponent>
     </semantic:itemComponent>
   </semantic:itemDefinition>
-  <semantic:itemDefinition label="tBureauData" name="tBureauData" isCollection="false">
-    <semantic:itemComponent id="_4b58e0c0-649b-472a-8a28-f8dde1e40068" name="Bankrupt" isCollection="false">
+  <semantic:itemDefinition label="tBureauData" name="tBureauData">
+    <semantic:itemComponent id="_4b58e0c0-649b-472a-8a28-f8dde1e40068" name="Bankrupt">
       <semantic:typeRef>boolean</semantic:typeRef>
     </semantic:itemComponent>
-    <semantic:itemComponent id="_42350ffd-8f82-4500-b9cb-696758cc287e" name="CreditScore" isCollection="false">
+    <semantic:itemComponent id="_42350ffd-8f82-4500-b9cb-696758cc287e" name="CreditScore">
       <semantic:typeRef>number</semantic:typeRef>
       <semantic:allowedValues>
         <semantic:text>[0..999], null</semantic:text>
       </semantic:allowedValues>
     </semantic:itemComponent>
   </semantic:itemDefinition>
-  <semantic:itemDefinition label="tRouting" name="tRouting" isCollection="false">
+  <semantic:itemDefinition label="tRouting" name="tRouting">
     <semantic:typeRef>string</semantic:typeRef>
     <semantic:allowedValues>
       <semantic:text>"DECLINE","REFER","ACCEPT"</semantic:text>
     </semantic:allowedValues>
   </semantic:itemDefinition>
-  <semantic:itemDefinition label="tRequestedProduct" name="tRequestedProduct" isCollection="false">
-    <semantic:itemComponent id="_c993adad-698b-477d-a395-f4021d38ef8b" name="ProductType" isCollection="false">
+  <semantic:itemDefinition label="tRequestedProduct" name="tRequestedProduct">
+    <semantic:itemComponent id="_c993adad-698b-477d-a395-f4021d38ef8b" name="ProductType">
       <semantic:typeRef>string</semantic:typeRef>
       <semantic:allowedValues>
         <semantic:text>"STANDARD LOAN","SPECIAL LOAN"</semantic:text>
       </semantic:allowedValues>
     </semantic:itemComponent>
-    <semantic:itemComponent id="_5ddc6d4c-67d2-4a00-a9c0-3614d228964b" name="Rate" isCollection="false">
+    <semantic:itemComponent id="_5ddc6d4c-67d2-4a00-a9c0-3614d228964b" name="Rate">
       <semantic:typeRef>number</semantic:typeRef>
     </semantic:itemComponent>
-    <semantic:itemComponent id="_4e47a0e8-ab4a-46a2-ae8c-209401ebdd8f" name="Term" isCollection="false">
+    <semantic:itemComponent id="_4e47a0e8-ab4a-46a2-ae8c-209401ebdd8f" name="Term">
       <semantic:typeRef>number</semantic:typeRef>
     </semantic:itemComponent>
-    <semantic:itemComponent id="_24103ee1-2867-4e01-abfc-d40b3aed0ce5" name="Amount" isCollection="false">
+    <semantic:itemComponent id="_24103ee1-2867-4e01-abfc-d40b3aed0ce5" name="Amount">
       <semantic:typeRef>number</semantic:typeRef>
     </semantic:itemComponent>
   </semantic:itemDefinition>
