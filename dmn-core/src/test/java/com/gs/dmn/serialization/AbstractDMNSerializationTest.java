@@ -41,8 +41,6 @@ public abstract class AbstractDMNSerializationTest extends AbstractFileTransform
 
     private final DMNSerializer dmnSerializer = makeSerializer();
 
-    protected abstract DMNSerializer makeSerializer();
-
     protected void doReadTest(String inputPath) {
         File input = new File(resource(inputPath));
 
@@ -91,6 +89,8 @@ public abstract class AbstractDMNSerializationTest extends AbstractFileTransform
         File expectedFile = new File(resource(expectedPath));
         compareFile(expectedFile, outputFile);
     }
+
+    protected abstract DMNSerializer makeSerializer();
 
     protected abstract void checkModel(TDefinitions definitions);
 }

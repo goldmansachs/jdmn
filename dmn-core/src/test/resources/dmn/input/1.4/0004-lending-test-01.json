@@ -1,0 +1,505 @@
+{
+  "modelName" : "0004-lending.dmn",
+  "labels" : {
+    "label" : [ "Compliance Level 3", "Literal Expression", "Item Definition", "Function Invocation", "Business Knowledge Model", "Context", "Decision Table: Single Output", "Hit Policy: UNIQUE", "Hit Policy: PRIORITY", "Hit Policy: COLLECT", "FEEL Arithmetic", "FEEL Conditionals", "Data Type: String", "Data Type: Number", "Data Type: Boolean", "Data Type: Structure" ],
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+    }
+  },
+  "testCase" : [ {
+    "id" : "001",
+    "inputNode" : [ {
+      "@kind" : "inputNode",
+      "name" : "ApplicantData",
+      "component" : [ {
+        "@kind" : "component",
+        "name" : "Monthly",
+        "component" : [ {
+          "@kind" : "component",
+          "name" : "Income",
+          "value" : {
+            "elementInfo" : {
+              "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+            },
+            "otherAttributes" : {
+              "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:decimal"
+            },
+            "text" : "6000"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          }
+        }, {
+          "@kind" : "component",
+          "name" : "Expenses",
+          "value" : {
+            "elementInfo" : {
+              "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+            },
+            "otherAttributes" : {
+              "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:decimal"
+            },
+            "text" : "2000"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          }
+        }, {
+          "@kind" : "component",
+          "name" : "Repayments",
+          "value" : {
+            "elementInfo" : {
+              "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+            },
+            "otherAttributes" : {
+              "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:decimal"
+            },
+            "text" : "0"
+          },
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          }
+        } ],
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      }, {
+        "@kind" : "component",
+        "name" : "Age",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:decimal"
+          },
+          "text" : "35"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      }, {
+        "@kind" : "component",
+        "name" : "ExistingCustomer",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:boolean"
+          },
+          "text" : "true"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      }, {
+        "@kind" : "component",
+        "name" : "MaritalStatus",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:string"
+          },
+          "text" : "M"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      }, {
+        "@kind" : "component",
+        "name" : "EmploymentStatus",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:string"
+          },
+          "text" : "EMPLOYED"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "@kind" : "inputNode",
+      "name" : "RequestedProduct",
+      "component" : [ {
+        "@kind" : "component",
+        "name" : "ProductType",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:string"
+          },
+          "text" : "STANDARD LOAN"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      }, {
+        "@kind" : "component",
+        "name" : "Amount",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:decimal"
+          },
+          "text" : "350000"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      }, {
+        "@kind" : "component",
+        "name" : "Rate",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:decimal"
+          },
+          "text" : "0.0395"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      }, {
+        "@kind" : "component",
+        "name" : "Term",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:decimal"
+          },
+          "text" : "360"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "@kind" : "inputNode",
+      "name" : "BureauData",
+      "component" : [ {
+        "@kind" : "component",
+        "name" : "CreditScore",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:decimal"
+          },
+          "text" : "649"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      }, {
+        "@kind" : "component",
+        "name" : "Bankrupt",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:boolean"
+          },
+          "text" : "false"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      } ],
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "@kind" : "inputNode",
+      "name" : "SupportingDocuments",
+      "value" : {
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        },
+        "otherAttributes" : {
+          "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:string"
+        },
+        "text" : "YES"
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    } ],
+    "resultNode" : [ {
+      "type" : "decision",
+      "name" : "Adjudication",
+      "errorResult" : false,
+      "expected" : {
+        "@kind" : "value",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:string"
+          },
+          "text" : "ACCEPT"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "type" : "decision",
+      "name" : "ApplicationRiskScore",
+      "errorResult" : false,
+      "expected" : {
+        "@kind" : "value",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:decimal"
+          },
+          "text" : "130"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "type" : "decision",
+      "name" : "Pre-bureauRiskCategory",
+      "errorResult" : false,
+      "expected" : {
+        "@kind" : "value",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:string"
+          },
+          "text" : "LOW"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "type" : "decision",
+      "name" : "BureauCallType",
+      "errorResult" : false,
+      "expected" : {
+        "@kind" : "value",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:string"
+          },
+          "text" : "MINI"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "type" : "decision",
+      "name" : "Post-bureauRiskCategory",
+      "errorResult" : false,
+      "expected" : {
+        "@kind" : "value",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:string"
+          },
+          "text" : "LOW"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "type" : "decision",
+      "name" : "RequiredMonthlyInstallment",
+      "errorResult" : false,
+      "expected" : {
+        "@kind" : "value",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:decimal"
+          },
+          "text" : "1680.880325608555"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "type" : "decision",
+      "name" : "Pre-bureauAffordability",
+      "errorResult" : false,
+      "expected" : {
+        "@kind" : "value",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:boolean"
+          },
+          "text" : "true"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "type" : "decision",
+      "name" : "Eligibility",
+      "errorResult" : false,
+      "expected" : {
+        "@kind" : "value",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:string"
+          },
+          "text" : "ELIGIBLE"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "type" : "decision",
+      "name" : "Strategy",
+      "errorResult" : false,
+      "expected" : {
+        "@kind" : "value",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:string"
+          },
+          "text" : "BUREAU"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "type" : "decision",
+      "name" : "Post-bureauAffordability",
+      "errorResult" : false,
+      "expected" : {
+        "@kind" : "value",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:boolean"
+          },
+          "text" : "true"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    }, {
+      "type" : "decision",
+      "name" : "Routing",
+      "errorResult" : false,
+      "expected" : {
+        "@kind" : "value",
+        "value" : {
+          "elementInfo" : {
+            "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+          },
+          "otherAttributes" : {
+            "http://www.w3.org/2001/XMLSchema-instance|type|xsi" : "xsd:string"
+          },
+          "text" : "ACCEPT"
+        },
+        "elementInfo" : {
+          "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+        }
+      },
+      "elementInfo" : {
+        "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+      }
+    } ],
+    "elementInfo" : {
+      "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase"
+    }
+  } ],
+  "elementInfo" : {
+    "namespaceURI" : "http://www.omg.org/spec/DMN/20160719/testcase",
+    "nsContext" : {
+      "" : "http://www.omg.org/spec/DMN/20160719/testcase",
+      "xsi" : "http://www.w3.org/2001/XMLSchema-instance",
+      "xsd" : "http://www.w3.org/2001/XMLSchema"
+    }
+  }
+}

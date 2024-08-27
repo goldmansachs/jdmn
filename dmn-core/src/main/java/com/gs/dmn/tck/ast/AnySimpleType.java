@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck.ast;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import javax.xml.datatype.DatatypeConstants;
@@ -152,6 +153,7 @@ public class AnySimpleType extends TCKBaseElement {
         }
     }
 
+    @JsonIgnore
     public boolean isNil() {
         return "nil".equals(getType());
     }
