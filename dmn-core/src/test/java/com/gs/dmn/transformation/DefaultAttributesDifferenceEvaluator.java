@@ -67,46 +67,53 @@ public class DefaultAttributesDifferenceEvaluator implements DifferenceEvaluator
     public ComparisonResult evaluate(Comparison comparison, ComparisonResult outcome) {
         ComparisonType type = comparison.getType();
         Node expectedNode = comparison.getControlDetails().getTarget();
-        if (outcome == ComparisonResult.DIFFERENT) {
-            // Check number of attributes
-            Node actualNode = comparison.getTestDetails().getTarget();
-            if (type == ComparisonType.ELEMENT_NUM_ATTRIBUTES) {
-                if (expectedNode.getNodeName().equals(actualNode.getNodeName())
-                        && nodesWithDefaultAttributes.contains(removeNameSpace(expectedNode))) {
-                    return ComparisonResult.SIMILAR;
-                }
-            }
-            // Check value of attribute
-            if (type == ComparisonType.ATTR_VALUE) {
-                // Ignore DiagramElement.documentation
-                if (expectedNode.getNodeName().equals(actualNode.getNodeName())
-                        && expectedNode.getNodeType() == Node.ATTRIBUTE_NODE
-                        && expectedNode.getLocalName().equals("documentation")) {
-                    return ComparisonResult.SIMILAR;
-                }
-            }
-            // Check value of missing attribute
-            if (comparison.getType() == ComparisonType.ATTR_NAME_LOOKUP) {
-                QName whichDefaultAttr = null;
-                if (comparison.getControlDetails().getValue() == null && attributesWithDefaultValues.containsKey(comparison.getTestDetails().getValue())) {
-                    for (QName a : attributesWithDefaultValues.keySet()) {
-                        boolean check = comparison.getTestDetails().getXPath().endsWith("@" + a);
-                        if (check) {
-                            whichDefaultAttr = a;
-                            break;
-                        }
-                    }
-                }
-                if (whichDefaultAttr != null) {
-                    String defaultValue = attributesWithDefaultValues.get(whichDefaultAttr);
-                    String actualValue = getAttributeValue(actualNode, whichDefaultAttr, defaultValue);
-                    String expectedValue = getAttributeValue(expectedNode, whichDefaultAttr, defaultValue);
-                    if (Objects.equals(expectedValue, actualValue)) {
-                        return ComparisonResult.SIMILAR;
-                    }
-                }
-            }
+        Node actualNode = comparison.getTestDetails().getTarget();
+        if (outcome == ComparisonResult.EQUAL) {
+            // evaluate only differences.
             return outcome;
+        }
+
+        // Check schema location
+        if (type == ComparisonType.SCHEMA_LOCATION || type == ComparisonType.NO_NAMESPACE_SCHEMA_LOCATION) {
+            // similar when different xsi:schemaLocation and xsi:noNamspaceSchemaLocation
+            return outcome == ComparisonResult.SIMILAR ? ComparisonResult.DIFFERENT : outcome;
+        }
+        // Check number of attributes
+        if (type == ComparisonType.ELEMENT_NUM_ATTRIBUTES) {
+            if (expectedNode.getNodeName().equals(actualNode.getNodeName())
+                    && nodesWithDefaultAttributes.contains(removeNameSpace(expectedNode))) {
+                return ComparisonResult.SIMILAR;
+            }
+        }
+        // Check value of attribute
+        if (type == ComparisonType.ATTR_VALUE) {
+            // Ignore DiagramElement.documentation
+            if (expectedNode.getNodeName().equals(actualNode.getNodeName())
+                    && expectedNode.getNodeType() == Node.ATTRIBUTE_NODE
+                    && expectedNode.getLocalName().equals("documentation")) {
+                return ComparisonResult.SIMILAR;
+            }
+        }
+        // Check value of missing attribute
+        if (comparison.getType() == ComparisonType.ATTR_NAME_LOOKUP) {
+            QName whichDefaultAttr = null;
+            if (comparison.getControlDetails().getValue() == null && attributesWithDefaultValues.containsKey(comparison.getTestDetails().getValue())) {
+                for (QName a : attributesWithDefaultValues.keySet()) {
+                    boolean check = comparison.getTestDetails().getXPath().endsWith("@" + a);
+                    if (check) {
+                        whichDefaultAttr = a;
+                        break;
+                    }
+                }
+            }
+            if (whichDefaultAttr != null) {
+                String defaultValue = attributesWithDefaultValues.get(whichDefaultAttr);
+                String actualValue = getAttributeValue(actualNode, whichDefaultAttr, defaultValue);
+                String expectedValue = getAttributeValue(expectedNode, whichDefaultAttr, defaultValue);
+                if (Objects.equals(expectedValue, actualValue)) {
+                    return ComparisonResult.SIMILAR;
+                }
+            }
         }
         return outcome;
     }

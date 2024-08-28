@@ -88,7 +88,7 @@ public class DMNSerializerConversionTest extends AbstractFileTransformerTest {
 
         Map<QName, String> otherAttributes = definitions.getOtherAttributes();
         Set<QName> qNames = otherAttributes.keySet();
-        assertEquals(2, qNames.size());
+        assertEquals(1, qNames.size());
         QName first = qNames.iterator().next();
         assertInstanceOf(QName.class, first);
         assertEquals("logoChoice", first.getLocalPart());

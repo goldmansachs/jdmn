@@ -51,6 +51,9 @@ public abstract class SimpleDMNDialectTransformer {
 }
 
 class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
+    private static final QName SCHEMA_LOCATION = new QName(DMNConstants.XSI_NS, "schemaLocation", DMNConstants.XSI_PREFIX);
+    private static final QName NO_NAMESPACE_SCHEMA_LOCATION = new QName(DMNConstants.XSI_NS, "noNamespaceSchemaLocation", DMNConstants.XSI_PREFIX);
+
     private final DMNVersion sourceVersion;
     private final DMNVersion targetVersion;
     private TDefinitions definitions;
@@ -64,6 +67,11 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
     @Override
     public DMNBaseElement visit(TDefinitions element, C context) {
         this.definitions = element;
+        // Remove 'schemaLocation'
+        if (this.sourceVersion != DMNVersion.LATEST) {
+            element.getOtherAttributes().remove(SCHEMA_LOCATION);
+            element.getOtherAttributes().remove(NO_NAMESPACE_SCHEMA_LOCATION);
+        }
         // Update expression language
         if (this.sourceVersion.getFeelNamespace().equals(element.getTypeLanguage())) {
             element.setTypeLanguage(this.targetVersion.getFeelNamespace());
@@ -77,7 +85,7 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
             // DMN namespace
             if (this.sourceVersion.getNamespace().equals(entry.getValue())) {
                 entry.setValue(this.targetVersion.getNamespace());
-                // FEEL namespace
+            // FEEL namespace
             } else if (this.sourceVersion.getFeelNamespace().equals(entry.getValue())) {
                 entry.setValue(this.targetVersion.getFeelNamespace());
             }
