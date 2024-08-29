@@ -12,7 +12,10 @@
  */
 package com.gs.dmn.serialization;
 
+import com.gs.dmn.ast.DMNBaseElement;
+import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.serialization.jackson.JsonDMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.serialization.xstream.extensions.test.TestRegister;
@@ -47,7 +50,7 @@ public class DMNSerializerConversionTest extends AbstractFileTransformerTest {
         String inputPath = "xstream/v1_1/test20161014.dmn";
         String expectedPath = "dmn/expected/1.1/1.4/test20161014.dmn";
 
-        doRoundTripTest(inputPath, expectedPath, this::noCheck);
+        doRoundTripTest(inputPath, expectedPath, this::checkElementInfo);
     }
 
     @Test
@@ -55,7 +58,7 @@ public class DMNSerializerConversionTest extends AbstractFileTransformerTest {
         String inputPath = "xstream/v1_1/test20161014.dmn";
         String expectedPath = "dmn/expected/1.1/1.4/test20161014.dmn";
 
-        doRoundTripTest(inputPath, expectedPath, this::noCheck);
+        doRoundTripTest(inputPath, expectedPath, this::checkElementInfo);
     }
 
 
@@ -96,6 +99,18 @@ public class DMNSerializerConversionTest extends AbstractFileTransformerTest {
         assertEquals("triso", first.getPrefix());
     }
 
-    private void noCheck(TDefinitions definitions) {
+    private void checkElementInfo(TDefinitions definitions) {
+        checkNamespaceURI(definitions);
+        checkNamespaceURI(definitions.getExtensionElements());
+
+        TItemDefinition itemDefinition = definitions.getItemDefinition().get(0);
+        checkNamespaceURI(itemDefinition);
+
+        TDRGElement element = definitions.getDrgElement().get(0);
+        checkNamespaceURI(element);
+    }
+
+    private static void checkNamespaceURI(DMNBaseElement element) {
+        assertEquals(DMNVersion.LATEST.getNamespace(), element.getElementInfo().getNamespaceURI());
     }
 }

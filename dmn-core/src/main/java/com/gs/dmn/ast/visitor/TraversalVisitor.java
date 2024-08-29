@@ -779,7 +779,7 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
         return qName;
     }
 
-    private DMNBaseElement visitExtensions(TDMNElement.ExtensionElements element, C context) {
+    protected DMNBaseElement visitExtensions(TDMNElement.ExtensionElements element, C context) {
         return element;
     }
 

@@ -11,7 +11,7 @@
     "extensionElements" : {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "any" : [ {
         "@type" : "com.gs.dmn.serialization.xstream.extensions.test.ItemDefinition",
@@ -20,7 +20,7 @@
     },
     "elementInfo" : {
       "prefix" : "dmn-ns",
-      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
     }
   } ],
   "drgElement" : [ {
@@ -36,7 +36,7 @@
       "extensionElements" : {
         "elementInfo" : {
           "prefix" : "dmn-ns",
-          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
         },
         "any" : [ {
           "@type" : "com.gs.dmn.serialization.xstream.extensions.test.AllowedAnswer",
@@ -45,7 +45,7 @@
       },
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       }
     },
     "informationRequirement" : [ {
@@ -53,13 +53,13 @@
       "requiredDecision" : {
         "elementInfo" : {
           "prefix" : "dmn-ns",
-          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
         },
         "href" : "http://tempuri.org"
       },
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       }
     } ],
     "knowledgeRequirement" : [ {
@@ -67,13 +67,13 @@
       "requiredKnowledge" : {
         "elementInfo" : {
           "prefix" : "dmn-ns",
-          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
         },
         "href" : "http://tempuri.org"
       },
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       }
     } ],
     "authorityRequirement" : [ {
@@ -81,54 +81,54 @@
       "requiredDecision" : {
         "elementInfo" : {
           "prefix" : "dmn-ns",
-          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
         },
         "href" : "http://tempuri.org"
       },
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       }
     } ],
     "supportedObjective" : [ {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "href" : "http://tempuri.org"
     } ],
     "impactedPerformanceIndicator" : [ {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "href" : "http://tempuri.org"
     } ],
     "decisionMaker" : [ {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "href" : "http://tempuri.org"
     } ],
     "decisionOwner" : [ {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "href" : "http://tempuri.org"
     } ],
     "usingProcess" : [ {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "href" : "http://tempuri.org"
     } ],
     "usingTask" : [ {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "href" : "http://tempuri.org"
     } ],
@@ -139,7 +139,7 @@
       "extensionElements" : {
         "elementInfo" : {
           "prefix" : "dmn-ns",
-          "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+          "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
         },
         "any" : [ {
           "@type" : "com.gs.dmn.serialization.xstream.extensions.test.LiteralExpression",
@@ -148,13 +148,13 @@
       },
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       }
     },
     "extensionElements" : {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "any" : [ {
         "@type" : "com.gs.dmn.serialization.xstream.extensions.test.Decision",
@@ -163,7 +163,7 @@
     },
     "elementInfo" : {
       "prefix" : "dmn-ns",
-      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
     }
   } ],
   "artifact" : [ {
@@ -173,7 +173,7 @@
     "extensionElements" : {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "any" : [ {
         "@type" : "com.gs.dmn.serialization.xstream.extensions.test.TextAnnotation",
@@ -182,7 +182,7 @@
     },
     "elementInfo" : {
       "prefix" : "dmn-ns",
-      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
     }
   } ],
   "elementCollection" : [ {
@@ -192,14 +192,14 @@
     "drgElement" : [ {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "href" : "http://tempuri.org"
     } ],
     "extensionElements" : {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "any" : [ {
         "@type" : "com.gs.dmn.serialization.xstream.extensions.test.ElementCollection",
@@ -208,7 +208,7 @@
     },
     "elementInfo" : {
       "prefix" : "dmn-ns",
-      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
     }
   } ],
   "businessContextElement" : [ {
@@ -218,14 +218,14 @@
     "impactingDecision" : [ {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "href" : "http://tempuri.org"
     } ],
     "extensionElements" : {
       "elementInfo" : {
         "prefix" : "dmn-ns",
-        "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+        "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
       },
       "any" : [ {
         "@type" : "com.gs.dmn.serialization.xstream.extensions.test.PerformanceIndicator",
@@ -234,13 +234,13 @@
     },
     "elementInfo" : {
       "prefix" : "dmn-ns",
-      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
     }
   } ],
   "extensionElements" : {
     "elementInfo" : {
       "prefix" : "dmn-ns",
-      "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd"
+      "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/"
     },
     "any" : [ {
       "@type" : "com.gs.dmn.serialization.xstream.extensions.test.Definitions",
@@ -249,7 +249,7 @@
   },
   "elementInfo" : {
     "prefix" : "dmn-ns",
-    "namespaceURI" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
+    "namespaceURI" : "https://www.omg.org/spec/DMN/20211108/MODEL/",
     "nsContext" : {
       "dmn-ns" : "https://www.omg.org/spec/DMN/20211108/MODEL/",
       "xsi" : "http://www.w3.org/2001/XMLSchema-instance",
