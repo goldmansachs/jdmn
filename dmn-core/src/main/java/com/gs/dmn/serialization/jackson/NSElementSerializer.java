@@ -28,10 +28,8 @@ public class NSElementSerializer extends JsonSerializer<NSElement> {
     private static String toXml(Element element) {
         try {
             TransformerFactory factory = TransformerFactory.newInstance();
-            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
             StringWriter writer = new StringWriter();
             Transformer transformer = factory.newTransformer();
             transformer.transform(new DOMSource(element), new StreamResult(writer));
