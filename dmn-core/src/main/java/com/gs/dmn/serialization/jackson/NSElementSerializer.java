@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.gs.dmn.serialization.xstream.dom.NSElement;
 import org.w3c.dom.Element;
 
+import javax.xml.XMLConstants;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -26,12 +27,13 @@ public class NSElementSerializer extends JsonSerializer<NSElement> {
 
     private static String toXml(Element element) {
         try {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            TransformerFactory factory = TransformerFactory.newInstance();
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             StringWriter writer = new StringWriter();
+            Transformer transformer = factory.newTransformer();
             transformer.transform(new DOMSource(element), new StreamResult(writer));
-            String xmlString = writer.toString();
-            return xmlString;
-//            gen.writeString(xmlString);
+            return writer.toString();
         } catch (TransformerException e) {
             throw new RuntimeException("Error serializing DOM Element", e);
         }
