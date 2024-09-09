@@ -25,10 +25,17 @@ public class DefaultAttributesDifferenceEvaluator implements DifferenceEvaluator
     //     <xsd:attribute name="isCollapsed" type="xsd:boolean" use="optional" default="false"/>
     // DMN 1.3
     //     <xsd:attribute name="kind" type="tFunctionKind" default="FEEL"/>
-    private static final List<String> dmnNodesWithDefaultAttributes = Arrays.asList(
-            "definitions", "decisionTable", "itemDefinition", "itemComponent", "encapsulatedLogic", "textAnnotation", "association", "DMNShape"
-    );
-    private static final Map<QName, String> dmnAttributesWithDefaultValues = new LinkedHashMap<QName, String>() {{
+    private static final Map<String, List<QName>> dmnNodeToAttribute = new LinkedHashMap<String, List<QName>>() {{
+        put("definitions", Arrays.asList(new QName("expressionLanguage"), new QName("typeLanguage")));
+        put("itemDefinition", Collections.singletonList(new QName("isCollection")));
+        put("itemComponent", Collections.singletonList(new QName("isCollection")));
+        put("decisionTable", Arrays.asList(new QName("hitPolicy"), new QName("preferredOrientation")));
+        put("textAnnotation", Collections.singletonList(new QName("textFormat")));
+        put("association", Collections.singletonList(new QName("associationDirection")));
+        put("DMNShape", Collections.singletonList(new QName("isCollapsed")));
+        put("encapsulatedLogic", Collections.singletonList(new QName("kind")));
+    }};
+    private static final Map<QName, String> dmnAttributeToDefaultValue = new LinkedHashMap<QName, String>() {{
            put(new QName("expressionLanguage"), DMNVersion.LATEST.getFeelNamespace());
            put(new QName("typeLanguage"), DMNVersion.LATEST.getFeelNamespace());
            put(new QName("isCollection"), "false");
@@ -43,75 +50,89 @@ public class DefaultAttributesDifferenceEvaluator implements DifferenceEvaluator
     // The following TCK attributes have default values
     //     <xs:attribute name="errorResult" type="xs:boolean" default="false"/>
     //     <xs:attribute name="type" type="testCaseType"/>
-    private static final List<String> tckNodesWithDefaultAttributes = Arrays.asList(
-            "resultNode", "testCase"
-    );
-    private static final Map<QName, String> tckAttributesWithDefaultValues = new LinkedHashMap<QName, String>() {{
+    private static final Map<String, List<QName>> tckNodesToAttributes = new LinkedHashMap<String, List<QName>>() {{
+            put("resultNode", Collections.singletonList(new QName("errorResult")));
+            put("testCase", Collections.singletonList(new QName("type")));
+    }};
+
+    private static final Map<QName, String> tckAttributeToDefaultValue = new LinkedHashMap<QName, String>() {{
         put(new QName("errorResult"), "false");
         put(new QName("type"), "decision");
     }};
 
-    public static final DifferenceEvaluator DMN_EVALUATOR = new DefaultAttributesDifferenceEvaluator(dmnNodesWithDefaultAttributes, dmnAttributesWithDefaultValues);
+    public static final DifferenceEvaluator DMN_EVALUATOR = new DefaultAttributesDifferenceEvaluator(dmnNodeToAttribute, dmnAttributeToDefaultValue);
 
-    public static final DifferenceEvaluator TCK_EVALUATOR = new DefaultAttributesDifferenceEvaluator(tckNodesWithDefaultAttributes, tckAttributesWithDefaultValues);
+    public static final DifferenceEvaluator TCK_EVALUATOR = new DefaultAttributesDifferenceEvaluator(tckNodesToAttributes, tckAttributeToDefaultValue);
 
-    private final List<String> nodesWithDefaultAttributes;
-    private final Map<QName, String> attributesWithDefaultValues;
+    private final Map<String, List<QName>> nodeToAttributes;
+    private final Map<QName, String> attributeToDefaultValue;
 
-    public DefaultAttributesDifferenceEvaluator(List<String> nodesWithDefaultAttributes, Map<QName, String> attributesWithDefaultValues) {
-        this.nodesWithDefaultAttributes = nodesWithDefaultAttributes;
-        this.attributesWithDefaultValues = attributesWithDefaultValues;
+    public DefaultAttributesDifferenceEvaluator(Map<String, List<QName>> nodeToAttributes, Map<QName, String> attributeToDefaultValue) {
+        this.nodeToAttributes = nodeToAttributes;
+        this.attributeToDefaultValue = attributeToDefaultValue;
     }
 
     @Override
     public ComparisonResult evaluate(Comparison comparison, ComparisonResult outcome) {
         ComparisonType type = comparison.getType();
         Node expectedNode = comparison.getControlDetails().getTarget();
-        if (outcome == ComparisonResult.DIFFERENT) {
-            // Check number of attributes
-            Node actualNode = comparison.getTestDetails().getTarget();
-            if (type == ComparisonType.ELEMENT_NUM_ATTRIBUTES) {
-                if (expectedNode.getNodeName().equals(actualNode.getNodeName())
-                        && nodesWithDefaultAttributes.contains(removeNameSpace(expectedNode))) {
-                    return ComparisonResult.SIMILAR;
-                }
-            }
-            // Check value of attribute
-            if (type == ComparisonType.ATTR_VALUE) {
-                // Ignore DiagramElement.documentation
-                if (expectedNode.getNodeName().equals(actualNode.getNodeName())
-                        && expectedNode.getNodeType() == Node.ATTRIBUTE_NODE
-                        && expectedNode.getLocalName().equals("documentation")) {
-                    return ComparisonResult.SIMILAR;
-                }
-            }
-            // Check value of missing attribute
-            if (comparison.getType() == ComparisonType.ATTR_NAME_LOOKUP) {
-                QName whichDefaultAttr = null;
-                if (comparison.getControlDetails().getValue() == null && attributesWithDefaultValues.containsKey(comparison.getTestDetails().getValue())) {
-                    for (QName a : attributesWithDefaultValues.keySet()) {
-                        boolean check = comparison.getTestDetails().getXPath().endsWith("@" + a);
-                        if (check) {
-                            whichDefaultAttr = a;
-                            break;
-                        }
-                    }
-                }
-                if (whichDefaultAttr != null) {
-                    String defaultValue = attributesWithDefaultValues.get(whichDefaultAttr);
-                    String actualValue = getAttributeValue(actualNode, whichDefaultAttr, defaultValue);
-                    String expectedValue = getAttributeValue(expectedNode, whichDefaultAttr, defaultValue);
-                    if (Objects.equals(expectedValue, actualValue)) {
-                        return ComparisonResult.SIMILAR;
-                    }
-                }
-            }
+        Node actualNode = comparison.getTestDetails().getTarget();
+        if (outcome == ComparisonResult.EQUAL) {
+            // evaluate only differences.
             return outcome;
+        }
+
+        // Check schema location
+        if (type == ComparisonType.SCHEMA_LOCATION || type == ComparisonType.NO_NAMESPACE_SCHEMA_LOCATION) {
+            // similar when different xsi:schemaLocation and xsi:noNamspaceSchemaLocation
+            return outcome == ComparisonResult.SIMILAR ? ComparisonResult.DIFFERENT : outcome;
+        }
+        // Check number of attributes
+        if (type == ComparisonType.ELEMENT_NUM_ATTRIBUTES) {
+            // Similar if node has attributes with default values
+            if (expectedNode.getNodeName().equals(actualNode.getNodeName())
+                    && nodeToAttributes.containsKey(removeNameSpace(expectedNode))) {
+                return ComparisonResult.SIMILAR;
+            }
+        }
+        // Check value of attribute
+        if (type == ComparisonType.ATTR_VALUE) {
+            // Ignore DiagramElement.documentation
+            if (expectedNode.getNodeName().equals(actualNode.getNodeName())
+                    && expectedNode.getNodeType() == Node.ATTRIBUTE_NODE
+                    && expectedNode.getLocalName().equals("documentation")) {
+                return ComparisonResult.SIMILAR;
+            }
+        }
+        // Check value of missing attribute
+        if (comparison.getType() == ComparisonType.ATTR_NAME_LOOKUP) {
+            // If the attribute has default value
+            QName defaultAttrQName = getDefaultAttributeQName(comparison);
+            if (defaultAttrQName != null) {
+                String defaultValue = attributeToDefaultValue.get(defaultAttrQName);
+                String actualValue = getDefaultAttributeValue(actualNode, defaultAttrQName, defaultValue);
+                String expectedValue = getDefaultAttributeValue(expectedNode, defaultAttrQName, defaultValue);
+                if (Objects.equals(expectedValue, actualValue)) {
+                    return ComparisonResult.SIMILAR;
+                }
+            }
         }
         return outcome;
     }
 
-    private String getAttributeValue(Node node, QName qName, String defaultValue) {
+    private QName getDefaultAttributeQName(Comparison comparison) {
+        QName attributeQName = null;
+        Object expectedAttribute = comparison.getControlDetails().getValue();
+        Object actualAttribute = comparison.getTestDetails().getValue();
+        if (expectedAttribute instanceof QName && attributeToDefaultValue.containsKey(expectedAttribute)) {
+            attributeQName = (QName) expectedAttribute;
+        } else if (actualAttribute instanceof QName && attributeToDefaultValue.containsKey(actualAttribute)) {
+            attributeQName = (QName) actualAttribute;
+        }
+        return attributeQName;
+    }
+
+    private String getDefaultAttributeValue(Node node, QName qName, String defaultValue) {
         Node attribute = node.getAttributes().getNamedItem(removeNameSpace(qName));
         return attribute == null ? defaultValue : attribute.getNodeValue();
     }
