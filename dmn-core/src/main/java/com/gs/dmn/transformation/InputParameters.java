@@ -103,8 +103,8 @@ public class InputParameters {
         this.schemaNamespace = InputParameters.getOptionalParam(inputParameters, "signavioSchemaNamespace");
         this.prefix = InputParameters.getOptionalParam(inputParameters, "prefix");
         this.format = SerializationFormat.valueOf(InputParameters.getOptionalParam(inputParameters, "format", "XML"));
-        this.dmnFileExtension = InputParameters.getOptionalParam(inputParameters, "format", DMNConstants.DMN_FILE_EXTENSION);
-        this.tckFileExtension = InputParameters.getOptionalParam(inputParameters, "format", DMNConstants.TCK_FILE_EXTENSION);
+        this.dmnFileExtension = InputParameters.getOptionalParam(inputParameters, "dmnFileExtension", DMNConstants.DMN_FILE_EXTENSION);
+        this.tckFileExtension = InputParameters.getOptionalParam(inputParameters, "tckFileExtension", DMNConstants.TCK_FILE_EXTENSION);
         String charsetName = InputParameters.getOptionalParam(inputParameters, "encoding");
         this.charset = charsetName == null ? StandardCharsets.UTF_8 : Charset.forName(charsetName);
 
