@@ -85,7 +85,7 @@ public class Context implements Serializable {
         Set set = this.map.keySet();
         if (set != null && !set.isEmpty() && set.iterator().next() instanceof String) {
             ArrayList<String> orderedKeys = new ArrayList<>(set);
-            Collections.sort(orderedKeys, (s1, s2) -> s1 != null && s2 != null ? s1.compareTo(s1) : -1);
+            orderedKeys.sort((s1, s2) -> s1 != null && s2 != null ? s1.compareTo(s2) : -1);
             StringBuilder result = new StringBuilder("{");
             for(int i=0; i<orderedKeys.size(); i++) {
                 Object key = orderedKeys.get(i);

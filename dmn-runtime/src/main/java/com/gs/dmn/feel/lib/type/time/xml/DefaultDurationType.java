@@ -94,10 +94,16 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
         if (isYearsAndMonthsDuration(first)) {
             Long firstValue = monthsValue(first);
             BigDecimal months = divideNumbers(firstValue, second);
+            if (months == null) {
+                throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            }
             return XMLDurationFactory.INSTANCE.yearMonthFromValue(months.longValue());
         } else if (isDaysAndTimeDuration(first)) {
             Long firstValue = secondsValue(first);
             BigDecimal seconds = divideNumbers(firstValue, second);
+            if (seconds == null) {
+                throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+            }
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
