@@ -22,7 +22,7 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
         }
     }
 
-    fun apply(inputA: java.lang.Number?, inputB: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationNamedResult? {
+    fun apply(inputA: kotlin.Number?, inputB: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationNamedResult? {
         try {
             // Start decision 'fn invocation named parameters'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -48,7 +48,7 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
         }
     }
 
-    private inline fun evaluate(inputA: java.lang.Number?, inputB: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationNamedResult? {
+    private inline fun evaluate(inputA: kotlin.Number?, inputB: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TFnInvocationNamedResult? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -56,10 +56,10 @@ class FnInvocationNamedParameters(val fnLibrary : FnLibrary = FnLibrary()) : com
         // Apply child decisions
         val fnLibrary: type.TFnLibrary? = this@FnInvocationNamedParameters.fnLibrary.apply(context_)
 
-        val subResult: java.lang.Number? = fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(inputA, inputB, context_) as java.lang.Number?
-        val multiplicationResultNamed: java.lang.Number? = fnLibrary?.let({ it.multiplyFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(inputA, inputB, context_) as java.lang.Number?
-        val subResultMixed: java.lang.Number? = fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(inputB, inputA, context_) as java.lang.Number?
-        val divisionResultNamed: java.lang.Number? = fnLibrary?.let({ it.divideFn as com.gs.dmn.runtime.LambdaExpression<java.lang.Number?>? })?.apply(inputA, inputB, context_) as java.lang.Number?
+        val subResult: kotlin.Number? = fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<kotlin.Number?>? })?.apply(inputA, inputB, context_) as kotlin.Number?
+        val multiplicationResultNamed: kotlin.Number? = fnLibrary?.let({ it.multiplyFn as com.gs.dmn.runtime.LambdaExpression<kotlin.Number?>? })?.apply(inputA, inputB, context_) as kotlin.Number?
+        val subResultMixed: kotlin.Number? = fnLibrary?.let({ it.subFn as com.gs.dmn.runtime.LambdaExpression<kotlin.Number?>? })?.apply(inputB, inputA, context_) as kotlin.Number?
+        val divisionResultNamed: kotlin.Number? = fnLibrary?.let({ it.divideFn as com.gs.dmn.runtime.LambdaExpression<kotlin.Number?>? })?.apply(inputA, inputB, context_) as kotlin.Number?
         val fnInvocationNamedParameters: type.TFnInvocationNamedResultImpl? = type.TFnInvocationNamedResultImpl() as type.TFnInvocationNamedResultImpl?
         fnInvocationNamedParameters?.subResult = subResult
         fnInvocationNamedParameters?.multiplicationResultNamed = multiplicationResultNamed

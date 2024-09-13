@@ -15,12 +15,12 @@ class TEmployeeTableImpl : TEmployeeTable {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("deptNum")
     @set:com.fasterxml.jackson.annotation.JsonGetter("deptNum")
-    override var deptNum: java.lang.Number? = null
+    override var deptNum: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (deptNum: java.lang.Number?, id: String?, name: String?) {
+    constructor (deptNum: kotlin.Number?, id: String?, name: String?) {
         this.deptNum = deptNum
         this.id = id
         this.name = name

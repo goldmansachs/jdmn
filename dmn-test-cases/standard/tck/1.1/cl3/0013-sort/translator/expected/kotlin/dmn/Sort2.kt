@@ -52,7 +52,7 @@ class Sort2() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return sort(tableB, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TRow? = args_[0] as type.TRow?; val y: type.TRow? = args_[1] as type.TRow?; numericLessThan(x?.let({ it.col2 as java.lang.Number? }), y?.let({ it.col2 as java.lang.Number? })) })?.map({ x -> type.TRow.toTRow(x) }) as List<type.TRow?>?
+        return sort(tableB, com.gs.dmn.runtime.LambdaExpression<Boolean> { args_ -> val x: type.TRow? = args_[0] as type.TRow?; val y: type.TRow? = args_[1] as type.TRow?; numericLessThan(x?.let({ it.col2 as kotlin.Number? }), y?.let({ it.col2 as kotlin.Number? })) })?.map({ x -> type.TRow.toTRow(x) }) as List<type.TRow?>?
     }
 
     companion object {

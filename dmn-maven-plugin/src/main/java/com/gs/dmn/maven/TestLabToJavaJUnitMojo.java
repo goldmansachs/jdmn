@@ -33,7 +33,7 @@ import java.io.File;
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "testlab-to-java", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
 public class TestLabToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
-    @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition")
+    @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition")
     public String dmnDialect;
 
     @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider")

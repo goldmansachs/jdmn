@@ -33,7 +33,7 @@ import java.io.File;
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "testlab-to-kotlin", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
 public class TestLabToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
-    @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.dialect.KotlinSignavioDMNDialectDefinition")
+    @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition")
     public String dmnDialect;
 
     @Parameter(required = true, defaultValue = "com.gs.dmn.signavio.transformation.template.KotlinSignavioTreeTemplateProvider")

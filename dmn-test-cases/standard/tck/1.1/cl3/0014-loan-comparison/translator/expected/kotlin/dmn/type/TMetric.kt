@@ -10,25 +10,25 @@ interface TMetric : com.gs.dmn.runtime.DMNType {
     val lenderName: String?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("rate")
-    val rate: java.lang.Number?
+    val rate: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("points")
-    val points: java.lang.Number?
+    val points: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("fee")
-    val fee: java.lang.Number?
+    val fee: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("loanAmt")
-    val loanAmt: java.lang.Number?
+    val loanAmt: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("downPmtAmt")
-    val downPmtAmt: java.lang.Number?
+    val downPmtAmt: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("paymentAmt")
-    val paymentAmt: java.lang.Number?
+    val paymentAmt: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("equity36moPct")
-    val equity36moPct: java.lang.Number?
+    val equity36moPct: kotlin.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -97,13 +97,13 @@ interface TMetric : com.gs.dmn.runtime.DMNType {
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TMetricImpl()
                 result_.lenderName = other.get("lenderName") as String?
-                result_.rate = other.get("rate") as java.lang.Number?
-                result_.points = other.get("points") as java.lang.Number?
-                result_.fee = other.get("fee") as java.lang.Number?
-                result_.loanAmt = other.get("loanAmt") as java.lang.Number?
-                result_.downPmtAmt = other.get("downPmtAmt") as java.lang.Number?
-                result_.paymentAmt = other.get("paymentAmt") as java.lang.Number?
-                result_.equity36moPct = other.get("equity36moPct") as java.lang.Number?
+                result_.rate = other.get("rate") as kotlin.Number?
+                result_.points = other.get("points") as kotlin.Number?
+                result_.fee = other.get("fee") as kotlin.Number?
+                result_.loanAmt = other.get("loanAmt") as kotlin.Number?
+                result_.downPmtAmt = other.get("downPmtAmt") as kotlin.Number?
+                result_.paymentAmt = other.get("paymentAmt") as kotlin.Number?
+                result_.equity36moPct = other.get("equity36moPct") as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTMetric(other.toContext())

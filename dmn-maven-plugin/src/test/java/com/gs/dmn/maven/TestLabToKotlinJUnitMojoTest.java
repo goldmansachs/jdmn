@@ -13,7 +13,7 @@
 package com.gs.dmn.maven;
 
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
-import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.NopDMNTransformer;
@@ -31,7 +31,7 @@ public class TestLabToKotlinJUnitMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         String inputModel = this.getClass().getClassLoader().getResource("input/NPEValidation2.dmn").getFile();
         String inputTest = this.getClass().getClassLoader().getResource("input/NPEValidation2.json").getFile();
         mojo.project = project;
-        mojo.dmnDialect = SignavioDMNDialectDefinition.class.getName();
+        mojo.dmnDialect = JavaTimeKotlinSignavioDMNDialectDefinition.class.getName();
         mojo.dmnTransformers = new DMNTransformerComponent[] { new DMNTransformerComponent(NopDMNTransformer.class.getName()) };
         mojo.templateProvider = SignavioTreeTemplateProvider.class.getName();
         mojo.inputModelFileDirectory = new File(inputModel);

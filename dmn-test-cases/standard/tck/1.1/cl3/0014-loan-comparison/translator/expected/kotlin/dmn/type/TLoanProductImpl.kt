@@ -11,20 +11,20 @@ class TLoanProductImpl : TLoanProduct {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("rate")
     @set:com.fasterxml.jackson.annotation.JsonGetter("rate")
-    override var rate: java.lang.Number? = null
+    override var rate: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("points")
     @set:com.fasterxml.jackson.annotation.JsonGetter("points")
-    override var points: java.lang.Number? = null
+    override var points: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("fee")
     @set:com.fasterxml.jackson.annotation.JsonGetter("fee")
-    override var fee: java.lang.Number? = null
+    override var fee: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (fee: java.lang.Number?, lenderName: String?, points: java.lang.Number?, rate: java.lang.Number?) {
+    constructor (fee: kotlin.Number?, lenderName: String?, points: kotlin.Number?, rate: kotlin.Number?) {
         this.fee = fee
         this.lenderName = lenderName
         this.points = points

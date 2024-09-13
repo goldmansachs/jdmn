@@ -7,20 +7,20 @@ import java.util.*
 class TLoanImpl : TLoan {
     @get:com.fasterxml.jackson.annotation.JsonGetter("principal")
     @set:com.fasterxml.jackson.annotation.JsonGetter("principal")
-    override var principal: java.lang.Number? = null
+    override var principal: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("rate")
     @set:com.fasterxml.jackson.annotation.JsonGetter("rate")
-    override var rate: java.lang.Number? = null
+    override var rate: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("termMonths")
     @set:com.fasterxml.jackson.annotation.JsonGetter("termMonths")
-    override var termMonths: java.lang.Number? = null
+    override var termMonths: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (principal: java.lang.Number?, rate: java.lang.Number?, termMonths: java.lang.Number?) {
+    constructor (principal: kotlin.Number?, rate: kotlin.Number?, termMonths: kotlin.Number?) {
         this.principal = principal
         this.rate = rate
         this.termMonths = termMonths

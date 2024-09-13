@@ -33,7 +33,7 @@ import java.io.File;
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "tck-to-kotlin", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
 public class TCKToKotlinJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
-    @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.KotlinStandardDMNDialectDefinition")
+    @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.JavaTimeKotlinStandardDMNDialectDefinition")
     public String dmnDialect;
 
     @Parameter(required = true, defaultValue = "com.gs.dmn.transformation.template.KotlinTreeTemplateProvider")

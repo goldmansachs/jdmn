@@ -10,7 +10,7 @@ interface TItemPrice : com.gs.dmn.runtime.DMNType {
     val itemName: String?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("price")
-    val price: java.lang.Number?
+    val price: kotlin.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -55,7 +55,7 @@ interface TItemPrice : com.gs.dmn.runtime.DMNType {
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TItemPriceImpl()
                 result_.itemName = other.get("itemName") as String?
-                result_.price = other.get("price") as java.lang.Number?
+                result_.price = other.get("price") as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTItemPrice(other.toContext())

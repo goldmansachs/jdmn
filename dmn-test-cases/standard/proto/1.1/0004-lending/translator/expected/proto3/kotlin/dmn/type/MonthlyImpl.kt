@@ -7,20 +7,20 @@ import java.util.*
 class MonthlyImpl : Monthly {
     @get:com.fasterxml.jackson.annotation.JsonGetter("Income")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Income")
-    override var income: java.lang.Number? = null
+    override var income: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Expenses")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Expenses")
-    override var expenses: java.lang.Number? = null
+    override var expenses: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Repayments")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Repayments")
-    override var repayments: java.lang.Number? = null
+    override var repayments: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (expenses: java.lang.Number?, income: java.lang.Number?, repayments: java.lang.Number?) {
+    constructor (expenses: kotlin.Number?, income: kotlin.Number?, repayments: kotlin.Number?) {
         this.expenses = expenses
         this.income = income
         this.repayments = repayments

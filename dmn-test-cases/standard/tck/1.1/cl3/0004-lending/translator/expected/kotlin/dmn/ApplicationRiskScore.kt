@@ -13,7 +13,7 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             return apply(input_.get("ApplicantData")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TApplicantDataImpl>() {}) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    fun apply(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    fun apply(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             // Start decision 'ApplicationRiskScore'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -35,7 +35,7 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreArguments_)
 
             // Evaluate decision 'ApplicationRiskScore'
-            val output_: java.lang.Number? = evaluate(applicantData, context_)
+            val output_: kotlin.Number? = evaluate(applicantData, context_)
 
             // End decision 'ApplicationRiskScore'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, applicationRiskScoreArguments_, output_, (System.currentTimeMillis() - applicationRiskScoreStartTime_))
@@ -47,12 +47,12 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    private inline fun evaluate(applicantData: type.TApplicantData?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return ApplicationRiskScoreModel.instance().apply(applicantData?.let({ it.age as java.lang.Number? }), applicantData?.let({ it.maritalStatus as String? }), applicantData?.let({ it.employmentStatus as String? }), context_) as java.lang.Number?
+        return ApplicationRiskScoreModel.instance().apply(applicantData?.let({ it.age as kotlin.Number? }), applicantData?.let({ it.maritalStatus as String? }), applicantData?.let({ it.employmentStatus as String? }), context_) as kotlin.Number?
     }
 
     companion object {

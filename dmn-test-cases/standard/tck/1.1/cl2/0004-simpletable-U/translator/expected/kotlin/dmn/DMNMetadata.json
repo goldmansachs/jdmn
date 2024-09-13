@@ -9,7 +9,7 @@
     "@kind" : "inputData",
     "id" : "_41effb45-b3c4-46ac-b1da-122b3e428a98",
     "javaParameterName" : "age",
-    "javaTypeName" : "java.lang.Number?",
+    "javaTypeName" : "kotlin.Number?",
     "name" : "Age",
     "namespace" : "http://www.trisotech.com/definitions/_edbd2d8e-a5a8-4660-9bb9-adaa792d900c",
     "typeRef" : {
@@ -60,7 +60,7 @@
       "@kind" : "inputData",
       "id" : "_41effb45-b3c4-46ac-b1da-122b3e428a98",
       "javaParameterName" : "age",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "Age",
       "namespace" : "http://www.trisotech.com/definitions/_edbd2d8e-a5a8-4660-9bb9-adaa792d900c",
       "typeRef" : {

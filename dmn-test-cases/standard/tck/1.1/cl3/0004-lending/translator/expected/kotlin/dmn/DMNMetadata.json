@@ -270,7 +270,7 @@
   }, {
     "@kind" : "bkm",
     "id" : "b_ApplicationRiskScoreModel",
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "applicationRiskScoreModel",
     "javaTypeName" : "ApplicationRiskScoreModel",
     "knowledgeReferences" : [ ],
@@ -288,7 +288,7 @@
   }, {
     "@kind" : "bkm",
     "id" : "b_CreditContingencyFactorTable",
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "creditContingencyFactorTable",
     "javaTypeName" : "CreditContingencyFactorTable",
     "knowledgeReferences" : [ ],
@@ -306,7 +306,7 @@
   }, {
     "@kind" : "bkm",
     "id" : "b_InstallmentCalculation",
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "installmentCalculation",
     "javaTypeName" : "InstallmentCalculation",
     "knowledgeReferences" : [ ],
@@ -401,7 +401,7 @@
     "informationReferences" : [ {
       "reference" : "i_ApplicantData"
     } ],
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "applicationRiskScore",
     "javaTypeName" : "ApplicationRiskScore",
     "knowledgeReferences" : [ {
@@ -712,7 +712,7 @@
     "informationReferences" : [ {
       "reference" : "i_RequestedProduct"
     } ],
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "requiredMonthlyInstallment",
     "javaTypeName" : "RequiredMonthlyInstallment",
     "knowledgeReferences" : [ {

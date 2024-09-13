@@ -11,12 +11,12 @@ class TAImpl : TA {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("price")
     @set:com.fasterxml.jackson.annotation.JsonGetter("price")
-    override var price: java.lang.Number? = null
+    override var price: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (name: String?, price: java.lang.Number?) {
+    constructor (name: String?, price: kotlin.Number?) {
         this.name = name
         this.price = price
     }

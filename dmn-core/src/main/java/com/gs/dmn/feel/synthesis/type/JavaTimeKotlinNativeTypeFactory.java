@@ -31,6 +31,7 @@ public class JavaTimeKotlinNativeTypeFactory extends KotlinTypeFactory {
     private static final Map<String, String> FEEL_TYPE_TO_JAVA_TYPE = new LinkedHashMap<>();
 
     public static final String KOTLIN_ANY = "kotlin.Any";
+    public static final String KOTLIN_NUMBER = "kotlin.Number";
 
     static {
         FEEL_TYPE_TO_JAVA_TYPE.put(ENUMERATION.getName(), String.class.getName());
@@ -41,7 +42,7 @@ public class JavaTimeKotlinNativeTypeFactory extends KotlinTypeFactory {
         FEEL_TYPE_TO_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
         FEEL_TYPE_TO_JAVA_TYPE.put(STRING.getName(), String.class.getSimpleName());
         FEEL_TYPE_TO_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getSimpleName());
-        FEEL_TYPE_TO_JAVA_TYPE.put(NUMBER.getName(), java.lang.Number.class.getName());
+        FEEL_TYPE_TO_JAVA_TYPE.put(NUMBER.getName(), KOTLIN_NUMBER);
         FEEL_TYPE_TO_JAVA_TYPE.put(ANY.getName(), KOTLIN_ANY);
         FEEL_TYPE_TO_JAVA_TYPE.put(NULL.getName(), KOTLIN_ANY);
     }
@@ -56,7 +57,7 @@ public class JavaTimeKotlinNativeTypeFactory extends KotlinTypeFactory {
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(DATE.getName(), java.time.LocalDate.class.getName());
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(STRING.getName(), String.class.getName());
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(BOOLEAN.getName(), Boolean.class.getName());
-        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), java.lang.Number.class.getName());
+        FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NUMBER.getName(), KOTLIN_NUMBER);
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(ANY.getName(), KOTLIN_ANY);
         FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.put(NULL.getName(), KOTLIN_ANY);
     }

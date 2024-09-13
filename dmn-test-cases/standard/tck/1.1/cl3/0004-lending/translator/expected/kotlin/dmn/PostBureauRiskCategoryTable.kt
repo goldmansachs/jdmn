@@ -24,7 +24,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    fun apply(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+    fun apply(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
             // Start BKM 'Post-bureauRiskCategoryTable'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -51,7 +51,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+    private inline fun evaluate(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -86,7 +86,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    private fun rule0(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule0(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
@@ -119,7 +119,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    private fun rule1(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule1(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 
@@ -152,7 +152,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    private fun rule2(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule2(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "")
 
@@ -185,7 +185,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    private fun rule3(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule3(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(3, "")
 
@@ -218,7 +218,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
-    private fun rule4(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule4(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(4, "")
 
@@ -251,7 +251,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "")
-    private fun rule5(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule5(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(5, "")
 
@@ -284,7 +284,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "")
-    private fun rule6(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule6(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(6, "")
 
@@ -317,7 +317,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "")
-    private fun rule7(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule7(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(7, "")
 
@@ -350,7 +350,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 8, annotation = "")
-    private fun rule8(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule8(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(8, "")
 
@@ -383,7 +383,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 9, annotation = "")
-    private fun rule9(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule9(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(9, "")
 
@@ -416,7 +416,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 10, annotation = "")
-    private fun rule10(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule10(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(10, "")
 
@@ -449,7 +449,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 11, annotation = "")
-    private fun rule11(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule11(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(11, "")
 
@@ -482,7 +482,7 @@ class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 12, annotation = "")
-    private fun rule12(existingCustomer: Boolean?, applicationRiskScore: java.lang.Number?, creditScore: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule12(existingCustomer: Boolean?, applicationRiskScore: kotlin.Number?, creditScore: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(12, "")
 

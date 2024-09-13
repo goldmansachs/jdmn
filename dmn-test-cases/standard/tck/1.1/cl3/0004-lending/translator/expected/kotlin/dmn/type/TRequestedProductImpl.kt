@@ -11,20 +11,20 @@ class TRequestedProductImpl : TRequestedProduct {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Amount")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Amount")
-    override var amount: java.lang.Number? = null
+    override var amount: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Rate")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Rate")
-    override var rate: java.lang.Number? = null
+    override var rate: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Term")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Term")
-    override var term: java.lang.Number? = null
+    override var term: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (amount: java.lang.Number?, productType: String?, rate: java.lang.Number?, term: java.lang.Number?) {
+    constructor (amount: kotlin.Number?, productType: String?, rate: kotlin.Number?, term: kotlin.Number?) {
         this.amount = amount
         this.productType = productType
         this.rate = rate

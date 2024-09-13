@@ -7,13 +7,13 @@ import java.util.*
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TFnInvocationPositionalResultImpl::class)
 interface TFnInvocationPositionalResult : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("sumResult")
-    val sumResult: java.lang.Number?
+    val sumResult: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("divisionResultPositional")
-    val divisionResultPositional: java.lang.Number?
+    val divisionResultPositional: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("multiplicationResultPositional")
-    val multiplicationResultPositional: java.lang.Number?
+    val multiplicationResultPositional: kotlin.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -61,9 +61,9 @@ interface TFnInvocationPositionalResult : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TFnInvocationPositionalResultImpl()
-                result_.sumResult = other.get("sumResult") as java.lang.Number?
-                result_.divisionResultPositional = other.get("divisionResultPositional") as java.lang.Number?
-                result_.multiplicationResultPositional = other.get("multiplicationResultPositional") as java.lang.Number?
+                result_.sumResult = other.get("sumResult") as kotlin.Number?
+                result_.divisionResultPositional = other.get("divisionResultPositional") as kotlin.Number?
+                result_.multiplicationResultPositional = other.get("multiplicationResultPositional") as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTFnInvocationPositionalResult(other.toContext())

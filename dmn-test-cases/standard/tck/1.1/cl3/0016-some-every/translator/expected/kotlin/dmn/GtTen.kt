@@ -24,7 +24,7 @@ class GtTen : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    fun apply(theNumber: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+    fun apply(theNumber: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
             // Start BKM 'gtTen'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -49,7 +49,7 @@ class GtTen : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(theNumber: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+    private inline fun evaluate(theNumber: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()

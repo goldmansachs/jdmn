@@ -17,6 +17,9 @@ import com.gs.dmn.runtime.ExecutionContextBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class AbstractHandwrittenDecisionTest {
@@ -35,5 +38,9 @@ public abstract class AbstractHandwrittenDecisionTest {
     @BeforeEach
     public void setUp() {
         this.context = ExecutionContextBuilder.executionContext().build();
+    }
+
+    protected String round(Number number, int scale) {
+        return new BigDecimal(number.toString()).setScale(scale, RoundingMode.FLOOR).toPlainString();
     }
 }

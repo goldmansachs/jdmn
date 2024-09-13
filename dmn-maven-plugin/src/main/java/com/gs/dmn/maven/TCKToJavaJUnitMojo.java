@@ -33,7 +33,7 @@ import java.io.File;
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "tck-to-java", defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES, configurator = "dmn-mojo-configurator")
 public class TCKToJavaJUnitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestToJunitMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
-    @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.StandardDMNDialectDefinition")
+    @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.JavaTimeDMNDialectDefinition")
     public String dmnDialect;
 
     @Parameter(required = true, defaultValue = "com.gs.dmn.transformation.template.TreeTemplateProvider")

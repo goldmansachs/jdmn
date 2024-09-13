@@ -9,7 +9,7 @@
     "@kind" : "inputData",
     "id" : "i_n",
     "javaParameterName" : "n",
-    "javaTypeName" : "java.lang.Number?",
+    "javaTypeName" : "kotlin.Number?",
     "name" : "n",
     "namespace" : "http://www.gs.com/spec/DMN/9001-recursive-function",
     "typeRef" : {
@@ -19,7 +19,7 @@
   }, {
     "@kind" : "bkm",
     "id" : "b_FACT",
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "fACT",
     "javaTypeName" : "FACT",
     "knowledgeReferences" : [ ],
@@ -31,7 +31,7 @@
     "informationReferences" : [ {
       "reference" : "i_n"
     } ],
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "main",
     "javaTypeName" : "Main",
     "knowledgeReferences" : [ {
@@ -47,7 +47,7 @@
       "@kind" : "inputData",
       "id" : "i_n",
       "javaParameterName" : "n",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "n",
       "namespace" : "http://www.gs.com/spec/DMN/9001-recursive-function",
       "typeRef" : {

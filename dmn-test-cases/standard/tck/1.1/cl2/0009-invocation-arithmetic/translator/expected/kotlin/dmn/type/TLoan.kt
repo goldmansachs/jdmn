@@ -7,13 +7,13 @@ import java.util.*
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TLoanImpl::class)
 interface TLoan : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("amount")
-    val amount: java.lang.Number?
+    val amount: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("rate")
-    val rate: java.lang.Number?
+    val rate: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("term")
-    val term: java.lang.Number?
+    val term: kotlin.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -61,9 +61,9 @@ interface TLoan : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TLoanImpl()
-                result_.amount = other.get("amount") as java.lang.Number?
-                result_.rate = other.get("rate") as java.lang.Number?
-                result_.term = other.get("term") as java.lang.Number?
+                result_.amount = other.get("amount") as kotlin.Number?
+                result_.rate = other.get("rate") as kotlin.Number?
+                result_.term = other.get("term") as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTLoan(other.toContext())

@@ -21,13 +21,13 @@ class KotlinNativeTypeFactoryTest {
 
     @Test
     public void testToNativeType() {
-        assertEquals("java.lang.Number", typeFactory.toNativeType("number"));
+        assertEquals("kotlin.Number", typeFactory.toNativeType("number"));
         assertEquals("String", typeFactory.toNativeType("string"));
     }
 
     @Test
     public void testToQualifiedNativeType() {
-        assertEquals("java.lang.Number", typeFactory.toQualifiedNativeType("number"));
+        assertEquals("kotlin.Number", typeFactory.toQualifiedNativeType("number"));
     }
 
     @Test
@@ -47,7 +47,7 @@ class KotlinNativeTypeFactoryTest {
 
     @Test
     public void testGetNativeNumberType() {
-        assertEquals("java.lang.Number", typeFactory.getNativeNumberType());
+        assertEquals("kotlin.Number", typeFactory.getNativeNumberType());
     }
 
     @Test

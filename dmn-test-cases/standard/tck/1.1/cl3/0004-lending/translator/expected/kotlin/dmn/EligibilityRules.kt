@@ -24,7 +24,7 @@ class EligibilityRules : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    fun apply(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+    fun apply(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
             // Start BKM 'EligibilityRules'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -51,7 +51,7 @@ class EligibilityRules : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+    private inline fun evaluate(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -77,7 +77,7 @@ class EligibilityRules : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    private fun rule0(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule0(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
@@ -111,7 +111,7 @@ class EligibilityRules : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    private fun rule1(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule1(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 
@@ -145,7 +145,7 @@ class EligibilityRules : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    private fun rule2(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule2(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "")
 
@@ -179,7 +179,7 @@ class EligibilityRules : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    private fun rule3(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule3(preBureauRiskCategory: String?, preBureauAffordability: Boolean?, age: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(3, "")
 

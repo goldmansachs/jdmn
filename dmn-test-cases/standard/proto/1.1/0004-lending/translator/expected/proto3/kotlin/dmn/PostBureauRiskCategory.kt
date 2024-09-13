@@ -80,9 +80,9 @@ class PostBureauRiskCategory(val applicationRiskScore : ApplicationRiskScore = A
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply child decisions
-        val applicationRiskScore: java.lang.Number? = this@PostBureauRiskCategory.applicationRiskScore.apply(applicantData, context_)
+        val applicationRiskScore: kotlin.Number? = this@PostBureauRiskCategory.applicationRiskScore.apply(applicantData, context_)
 
-        return PostBureauRiskCategoryTable.instance().apply(applicantData?.let({ it.existingCustomer as Boolean? }), applicationRiskScore, bureauData?.let({ it.creditScore as java.lang.Number? }), context_) as String?
+        return PostBureauRiskCategoryTable.instance().apply(applicantData?.let({ it.existingCustomer as Boolean? }), applicationRiskScore, bureauData?.let({ it.creditScore as kotlin.Number? }), context_) as String?
     }
 
     companion object {

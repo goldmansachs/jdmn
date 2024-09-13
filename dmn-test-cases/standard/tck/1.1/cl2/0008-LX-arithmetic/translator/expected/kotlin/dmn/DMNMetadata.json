@@ -59,7 +59,7 @@
     "informationReferences" : [ {
       "reference" : "_1f4ae444-2e4e-4d26-b1f7-87a645c3f50a"
     } ],
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "payment",
     "javaTypeName" : "Payment",
     "knowledgeReferences" : [ ],

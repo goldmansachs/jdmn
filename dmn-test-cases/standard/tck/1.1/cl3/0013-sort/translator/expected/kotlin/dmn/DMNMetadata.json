@@ -86,7 +86,7 @@
     "@kind" : "inputData",
     "id" : "_d8747cda-26be-46c8-98ee-78f64efbf730",
     "javaParameterName" : "listA",
-    "javaTypeName" : "List<java.lang.Number?>?",
+    "javaTypeName" : "List<kotlin.Number?>?",
     "name" : "listA",
     "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217",
     "typeRef" : {
@@ -121,7 +121,7 @@
     "informationReferences" : [ {
       "reference" : "_d8747cda-26be-46c8-98ee-78f64efbf730"
     } ],
-    "javaOutputTypeName" : "List<java.lang.Number?>?",
+    "javaOutputTypeName" : "List<kotlin.Number?>?",
     "javaParameterName" : "sort1",
     "javaTypeName" : "Sort1",
     "knowledgeReferences" : [ ],
@@ -133,7 +133,7 @@
       "@kind" : "inputData",
       "id" : "_d8747cda-26be-46c8-98ee-78f64efbf730",
       "javaParameterName" : "listA",
-      "javaTypeName" : "List<java.lang.Number?>?",
+      "javaTypeName" : "List<kotlin.Number?>?",
       "name" : "listA",
       "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217",
       "typeRef" : {

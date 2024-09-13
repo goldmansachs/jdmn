@@ -9,7 +9,7 @@
     "@kind" : "inputData",
     "id" : "i_Age",
     "javaParameterName" : "age",
-    "javaTypeName" : "java.lang.Number?",
+    "javaTypeName" : "kotlin.Number?",
     "name" : "Age",
     "namespace" : "https://www.drools.org/kie-dmn",
     "typeRef" : {
@@ -20,7 +20,7 @@
     "@kind" : "inputData",
     "id" : "i_Years_of_Service",
     "javaParameterName" : "yearsOfService",
-    "javaTypeName" : "java.lang.Number?",
+    "javaTypeName" : "kotlin.Number?",
     "name" : "Years of Service",
     "namespace" : "https://www.drools.org/kie-dmn",
     "typeRef" : {
@@ -31,7 +31,7 @@
     "@kind" : "decision",
     "id" : "d_Base_Vacation_Days",
     "informationReferences" : [ ],
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "baseVacationDays",
     "javaTypeName" : "BaseVacationDays",
     "knowledgeReferences" : [ ],
@@ -52,7 +52,7 @@
     }, {
       "reference" : "i_Years_of_Service"
     } ],
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "extraDaysCase1",
     "javaTypeName" : "ExtraDaysCase1",
     "knowledgeReferences" : [ ],
@@ -64,7 +64,7 @@
       "@kind" : "inputData",
       "id" : "i_Age",
       "javaParameterName" : "age",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "Age",
       "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
@@ -75,7 +75,7 @@
       "@kind" : "inputData",
       "id" : "i_Years_of_Service",
       "javaParameterName" : "yearsOfService",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "Years of Service",
       "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
@@ -95,7 +95,7 @@
     }, {
       "reference" : "i_Years_of_Service"
     } ],
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "extraDaysCase2",
     "javaTypeName" : "ExtraDaysCase2",
     "knowledgeReferences" : [ ],
@@ -107,7 +107,7 @@
       "@kind" : "inputData",
       "id" : "i_Age",
       "javaParameterName" : "age",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "Age",
       "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
@@ -118,7 +118,7 @@
       "@kind" : "inputData",
       "id" : "i_Years_of_Service",
       "javaParameterName" : "yearsOfService",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "Years of Service",
       "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
@@ -138,7 +138,7 @@
     }, {
       "reference" : "i_Years_of_Service"
     } ],
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "extraDaysCase3",
     "javaTypeName" : "ExtraDaysCase3",
     "knowledgeReferences" : [ ],
@@ -150,7 +150,7 @@
       "@kind" : "inputData",
       "id" : "i_Age",
       "javaParameterName" : "age",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "Age",
       "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
@@ -161,7 +161,7 @@
       "@kind" : "inputData",
       "id" : "i_Years_of_Service",
       "javaParameterName" : "yearsOfService",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "Years of Service",
       "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
@@ -185,7 +185,7 @@
     }, {
       "reference" : "d_Extra_days_case_3"
     } ],
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "totalVacationDays",
     "javaTypeName" : "TotalVacationDays",
     "knowledgeReferences" : [ ],
@@ -197,7 +197,7 @@
       "@kind" : "inputData",
       "id" : "i_Age",
       "javaParameterName" : "age",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "Age",
       "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {
@@ -208,7 +208,7 @@
       "@kind" : "inputData",
       "id" : "i_Years_of_Service",
       "javaParameterName" : "yearsOfService",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "Years of Service",
       "namespace" : "https://www.drools.org/kie-dmn",
       "typeRef" : {

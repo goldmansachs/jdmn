@@ -24,7 +24,7 @@ class FinancialMetrics : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    fun apply(product: type.TLoanProduct?, requestedAmt: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TMetric? {
+    fun apply(product: type.TLoanProduct?, requestedAmt: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TMetric? {
         try {
             // Start BKM 'FinancialMetrics'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -50,19 +50,19 @@ class FinancialMetrics : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(product: type.TLoanProduct?, requestedAmt: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TMetric? {
+    private inline fun evaluate(product: type.TLoanProduct?, requestedAmt: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): type.TMetric? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         val lenderName: String? = product?.let({ it.lenderName as String? }) as String?
-        val rate: java.lang.Number? = product?.let({ it.rate as java.lang.Number? }) as java.lang.Number?
-        val points: java.lang.Number? = product?.let({ it.points as java.lang.Number? }) as java.lang.Number?
-        val fee: java.lang.Number? = product?.let({ it.fee as java.lang.Number? }) as java.lang.Number?
-        val loanAmt: java.lang.Number? = numericAdd(numericMultiply(requestedAmt, numericAdd(number("1"), numericDivide(points, number("100")))), fee) as java.lang.Number?
-        val downPmtAmt: java.lang.Number? = numericMultiply(number("0.2"), loanAmt) as java.lang.Number?
-        val paymentAmt: java.lang.Number? = MonthlyPayment.instance()?.apply(loanAmt, rate, number("360"), context_) as java.lang.Number?
-        val equity36moPct: java.lang.Number? = numericSubtract(number("1"), numericMultiply(numericDivide(Equity36Mo.instance()?.apply(loanAmt, rate, number("36"), paymentAmt, context_), requestedAmt), number("0.8"))) as java.lang.Number?
+        val rate: kotlin.Number? = product?.let({ it.rate as kotlin.Number? }) as kotlin.Number?
+        val points: kotlin.Number? = product?.let({ it.points as kotlin.Number? }) as kotlin.Number?
+        val fee: kotlin.Number? = product?.let({ it.fee as kotlin.Number? }) as kotlin.Number?
+        val loanAmt: kotlin.Number? = numericAdd(numericMultiply(requestedAmt, numericAdd(number("1"), numericDivide(points, number("100")))), fee) as kotlin.Number?
+        val downPmtAmt: kotlin.Number? = numericMultiply(number("0.2"), loanAmt) as kotlin.Number?
+        val paymentAmt: kotlin.Number? = MonthlyPayment.instance()?.apply(loanAmt, rate, number("360"), context_) as kotlin.Number?
+        val equity36moPct: kotlin.Number? = numericSubtract(number("1"), numericMultiply(numericDivide(Equity36Mo.instance()?.apply(loanAmt, rate, number("36"), paymentAmt, context_), requestedAmt), number("0.8"))) as kotlin.Number?
         val financialMetrics: type.TMetricImpl? = type.TMetricImpl() as type.TMetricImpl?
         financialMetrics?.lenderName = lenderName
         financialMetrics?.rate = rate

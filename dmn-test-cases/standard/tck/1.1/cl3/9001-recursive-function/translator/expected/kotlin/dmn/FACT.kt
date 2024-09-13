@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class FACT : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     private constructor() {}
 
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             return apply(input_.get("n")?.let({ number(it) }), context_)
         } catch (e: Exception) {
@@ -24,7 +24,7 @@ class FACT : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    fun apply(n: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    fun apply(n: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             // Start BKM 'FACT'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -37,7 +37,7 @@ class FACT : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fACTArguments_)
 
             // Evaluate BKM 'FACT'
-            val output_: java.lang.Number? = evaluate(n, context_)
+            val output_: kotlin.Number? = evaluate(n, context_)
 
             // End BKM 'FACT'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fACTArguments_, output_, (System.currentTimeMillis() - fACTStartTime_))
@@ -49,12 +49,12 @@ class FACT : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(n: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    private inline fun evaluate(n: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return (if (booleanEqual(numericLessThan(n, number("0")), true)) null else (if (booleanEqual(numericEqual(n, number("0")), true)) number("1") else numericMultiply(n, FACT.instance()?.apply(numericSubtract(n, number("1")), context_)))) as java.lang.Number?
+        return (if (booleanEqual(numericLessThan(n, number("0")), true)) null else (if (booleanEqual(numericEqual(n, number("0")), true)) number("1") else numericMultiply(n, FACT.instance()?.apply(numericSubtract(n, number("1")), context_)))) as kotlin.Number?
     }
 
     companion object {

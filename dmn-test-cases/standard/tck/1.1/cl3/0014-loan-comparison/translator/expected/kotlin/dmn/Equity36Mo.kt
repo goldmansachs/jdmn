@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class Equity36Mo : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     private constructor() {}
 
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             return apply(input_.get("p")?.let({ number(it) }), input_.get("r")?.let({ number(it) }), input_.get("n")?.let({ number(it) }), input_.get("pmt")?.let({ number(it) }), context_)
         } catch (e: Exception) {
@@ -24,7 +24,7 @@ class Equity36Mo : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    fun apply(p: java.lang.Number?, r: java.lang.Number?, n: java.lang.Number?, pmt: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    fun apply(p: kotlin.Number?, r: kotlin.Number?, n: kotlin.Number?, pmt: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             // Start BKM 'equity36Mo'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -40,7 +40,7 @@ class Equity36Mo : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, equity36MoArguments_)
 
             // Evaluate BKM 'equity36Mo'
-            val output_: java.lang.Number? = evaluate(p, r, n, pmt, context_)
+            val output_: kotlin.Number? = evaluate(p, r, n, pmt, context_)
 
             // End BKM 'equity36Mo'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, equity36MoArguments_, output_, (System.currentTimeMillis() - equity36MoStartTime_))
@@ -52,12 +52,12 @@ class Equity36Mo : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(p: java.lang.Number?, r: java.lang.Number?, n: java.lang.Number?, pmt: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    private inline fun evaluate(p: kotlin.Number?, r: kotlin.Number?, n: kotlin.Number?, pmt: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return numericSubtract(numericMultiply(p, numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), n)), numericDivide(numericMultiply(pmt, numericAdd(numericUnaryMinus(number("1")), numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), n))), r)) as java.lang.Number?
+        return numericSubtract(numericMultiply(p, numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), n)), numericDivide(numericMultiply(pmt, numericAdd(numericUnaryMinus(number("1")), numericExponentiation(numericAdd(number("1"), numericDivide(r, number("12"))), n))), r)) as kotlin.Number?
     }
 
     companion object {

@@ -11,12 +11,12 @@ class TItemPriceImpl : TItemPrice {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("price")
     @set:com.fasterxml.jackson.annotation.JsonGetter("price")
-    override var price: java.lang.Number? = null
+    override var price: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (itemName: String?, price: java.lang.Number?) {
+    constructor (itemName: String?, price: kotlin.Number?) {
         this.itemName = itemName
         this.price = price
     }

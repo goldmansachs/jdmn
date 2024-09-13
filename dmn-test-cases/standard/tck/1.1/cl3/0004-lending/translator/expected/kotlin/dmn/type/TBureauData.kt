@@ -7,7 +7,7 @@ import java.util.*
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TBureauDataImpl::class)
 interface TBureauData : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("CreditScore")
-    val creditScore: java.lang.Number?
+    val creditScore: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Bankrupt")
     val bankrupt: Boolean?
@@ -54,7 +54,7 @@ interface TBureauData : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TBureauDataImpl()
-                result_.creditScore = other.get("CreditScore") as java.lang.Number?
+                result_.creditScore = other.get("CreditScore") as kotlin.Number?
                 result_.bankrupt = other.get("Bankrupt") as Boolean?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {

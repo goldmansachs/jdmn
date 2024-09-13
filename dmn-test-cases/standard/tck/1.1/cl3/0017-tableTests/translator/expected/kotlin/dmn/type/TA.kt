@@ -10,7 +10,7 @@ interface TA : com.gs.dmn.runtime.DMNType {
     val name: String?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("price")
-    val price: java.lang.Number?
+    val price: kotlin.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -55,7 +55,7 @@ interface TA : com.gs.dmn.runtime.DMNType {
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TAImpl()
                 result_.name = other.get("name") as String?
-                result_.price = other.get("price") as java.lang.Number?
+                result_.price = other.get("price") as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTA(other.toContext())

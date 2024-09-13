@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.maven;
 
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeKotlinStandardDMNDialectDefinition;
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
@@ -31,7 +31,7 @@ public class DMNToKotlinMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> 
 
         String input = this.getClass().getClassLoader().getResource("input/0004-lending.dmn").getFile();
         mojo.project = project;
-        mojo.dmnDialect = StandardDMNDialectDefinition.class.getName();
+        mojo.dmnDialect = JavaTimeKotlinStandardDMNDialectDefinition.class.getName();
         mojo.dmnValidators = new String[] {NopDMNValidator.class.getName()};
         mojo.dmnTransformers = new DMNTransformerComponent[] { new DMNTransformerComponent(ToQuotedNameTransformer.class.getName()) };
         mojo.lazyEvaluationDetectors = new String[] {NopLazyEvaluationDetector.class.getName()};

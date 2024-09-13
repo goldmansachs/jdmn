@@ -11,7 +11,7 @@ class TApplicantDataImpl : TApplicantData {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Age")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Age")
-    override var age: java.lang.Number? = null
+    override var age: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("ExistingCustomer")
     @set:com.fasterxml.jackson.annotation.JsonGetter("ExistingCustomer")
@@ -28,7 +28,7 @@ class TApplicantDataImpl : TApplicantData {
     constructor() {
     }
 
-    constructor (age: java.lang.Number?, employmentStatus: String?, existingCustomer: Boolean?, maritalStatus: String?, monthly: type.Monthly?) {
+    constructor (age: kotlin.Number?, employmentStatus: String?, existingCustomer: Boolean?, maritalStatus: String?, monthly: type.Monthly?) {
         this.age = age
         this.employmentStatus = employmentStatus
         this.existingCustomer = existingCustomer

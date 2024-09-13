@@ -54,7 +54,7 @@ class SomeGtTen1(val priceTable1 : PriceTable1 = PriceTable1()) : com.gs.dmn.run
         // Apply child decisions
         val priceTable1: List<type.TItemPrice?>? = this@SomeGtTen1.priceTable1.apply(context_)
 
-        return booleanOr(priceTable1?.stream()?.map({ i -> numericGreaterThan(i?.let({ it.price as java.lang.Number? }), number("10")) })?.collect(Collectors.toList())?.toList()) as Boolean?
+        return booleanOr(priceTable1?.stream()?.map({ i -> numericGreaterThan(i?.let({ it.price as kotlin.Number? }), number("10")) })?.collect(Collectors.toList())?.toList()) as Boolean?
     }
 
     companion object {

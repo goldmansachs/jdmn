@@ -21,7 +21,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 @SuppressWarnings("CanBeFinal")
 @Mojo(name = "dmn-to-java", defaultPhase = LifecyclePhase.GENERATE_SOURCES, configurator = "dmn-mojo-configurator")
 public class DMNToJavaMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNToNativeMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
-    @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.StandardDMNDialectDefinition")
+    @Parameter(required = true, defaultValue = "com.gs.dmn.dialect.JavaTimeDMNDialectDefinition")
     public String dmnDialect;
 
     @Parameter(required = true, defaultValue = "com.gs.dmn.transformation.template.TreeTemplateProvider")

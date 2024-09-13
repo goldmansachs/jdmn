@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class CreditContingencyFactorTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     private constructor() {}
 
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             return apply(input_.get("RiskCategory"), context_)
         } catch (e: Exception) {
@@ -24,7 +24,7 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision 
         }
     }
 
-    fun apply(riskCategory: String?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    fun apply(riskCategory: String?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             // Start BKM 'CreditContingencyFactorTable'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -37,7 +37,7 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision 
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, creditContingencyFactorTableArguments_)
 
             // Evaluate BKM 'CreditContingencyFactorTable'
-            val output_: java.lang.Number? = evaluate(riskCategory, context_)
+            val output_: kotlin.Number? = evaluate(riskCategory, context_)
 
             // End BKM 'CreditContingencyFactorTable'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, creditContingencyFactorTableArguments_, output_, (System.currentTimeMillis() - creditContingencyFactorTableStartTime_))
@@ -49,7 +49,7 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision 
         }
     }
 
-    private inline fun evaluate(riskCategory: String?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    private inline fun evaluate(riskCategory: String?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -61,7 +61,7 @@ class CreditContingencyFactorTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision 
         ruleOutputList_.add(rule2(riskCategory, context_))
 
         // Return results based on hit policy
-        var output_: java.lang.Number?
+        var output_: kotlin.Number?
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = null

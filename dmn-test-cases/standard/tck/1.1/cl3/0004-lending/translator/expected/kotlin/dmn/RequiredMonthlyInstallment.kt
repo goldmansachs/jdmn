@@ -13,7 +13,7 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             return apply(input_.get("RequestedProduct")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TRequestedProductImpl>() {}) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision(
         }
     }
 
-    fun apply(requestedProduct: type.TRequestedProduct?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    fun apply(requestedProduct: type.TRequestedProduct?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             // Start decision 'RequiredMonthlyInstallment'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -35,7 +35,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision(
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_)
 
             // Evaluate decision 'RequiredMonthlyInstallment'
-            val output_: java.lang.Number? = evaluate(requestedProduct, context_)
+            val output_: kotlin.Number? = evaluate(requestedProduct, context_)
 
             // End decision 'RequiredMonthlyInstallment'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_, output_, (System.currentTimeMillis() - requiredMonthlyInstallmentStartTime_))
@@ -47,12 +47,12 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision(
         }
     }
 
-    private inline fun evaluate(requestedProduct: type.TRequestedProduct?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    private inline fun evaluate(requestedProduct: type.TRequestedProduct?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return InstallmentCalculation.instance().apply(requestedProduct?.let({ it.productType as String? }), requestedProduct?.let({ it.rate as java.lang.Number? }), requestedProduct?.let({ it.term as java.lang.Number? }), requestedProduct?.let({ it.amount as java.lang.Number? }), context_) as java.lang.Number?
+        return InstallmentCalculation.instance().apply(requestedProduct?.let({ it.productType as String? }), requestedProduct?.let({ it.rate as kotlin.Number? }), requestedProduct?.let({ it.term as kotlin.Number? }), requestedProduct?.let({ it.amount as kotlin.Number? }), context_) as kotlin.Number?
     }
 
     companion object {

@@ -78,7 +78,7 @@
     "@kind" : "inputData",
     "id" : "_3b175722-5f96-49e4-a50d-0bf9588c901c",
     "javaParameterName" : "numB",
-    "javaTypeName" : "java.lang.Number?",
+    "javaTypeName" : "kotlin.Number?",
     "name" : "numB",
     "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
     "typeRef" : {
@@ -89,7 +89,7 @@
     "@kind" : "inputData",
     "id" : "_25cdd674-9b3f-47b1-bace-1d4e3ce50d5d",
     "javaParameterName" : "numC",
-    "javaTypeName" : "java.lang.Number?",
+    "javaTypeName" : "kotlin.Number?",
     "name" : "numC",
     "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
     "typeRef" : {
@@ -232,7 +232,7 @@
       "@kind" : "inputData",
       "id" : "_3b175722-5f96-49e4-a50d-0bf9588c901c",
       "javaParameterName" : "numB",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "numB",
       "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
       "typeRef" : {
@@ -243,7 +243,7 @@
       "@kind" : "inputData",
       "id" : "_25cdd674-9b3f-47b1-bace-1d4e3ce50d5d",
       "javaParameterName" : "numC",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "numC",
       "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
       "typeRef" : {

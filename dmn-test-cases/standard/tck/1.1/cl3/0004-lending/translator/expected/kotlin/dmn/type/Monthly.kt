@@ -7,13 +7,13 @@ import java.util.*
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.MonthlyImpl::class)
 interface Monthly : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("Income")
-    val income: java.lang.Number?
+    val income: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Expenses")
-    val expenses: java.lang.Number?
+    val expenses: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Repayments")
-    val repayments: java.lang.Number?
+    val repayments: kotlin.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -61,9 +61,9 @@ interface Monthly : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = MonthlyImpl()
-                result_.income = other.get("Income") as java.lang.Number?
-                result_.expenses = other.get("Expenses") as java.lang.Number?
-                result_.repayments = other.get("Repayments") as java.lang.Number?
+                result_.income = other.get("Income") as kotlin.Number?
+                result_.expenses = other.get("Expenses") as kotlin.Number?
+                result_.repayments = other.get("Repayments") as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toMonthly(other.toContext())

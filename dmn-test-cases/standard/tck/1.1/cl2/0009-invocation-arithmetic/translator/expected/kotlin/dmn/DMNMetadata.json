@@ -57,7 +57,7 @@
     "@kind" : "inputData",
     "id" : "i_fee",
     "javaParameterName" : "fee",
-    "javaTypeName" : "java.lang.Number?",
+    "javaTypeName" : "kotlin.Number?",
     "name" : "fee",
     "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
     "typeRef" : {
@@ -67,7 +67,7 @@
   }, {
     "@kind" : "bkm",
     "id" : "b_PMT",
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "pMT",
     "javaTypeName" : "PMT",
     "knowledgeReferences" : [ ],
@@ -81,7 +81,7 @@
     }, {
       "reference" : "i_fee"
     } ],
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "monthlyPayment",
     "javaTypeName" : "MonthlyPayment",
     "knowledgeReferences" : [ {
@@ -108,7 +108,7 @@
       "@kind" : "inputData",
       "id" : "i_fee",
       "javaParameterName" : "fee",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "fee",
       "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
       "typeRef" : {

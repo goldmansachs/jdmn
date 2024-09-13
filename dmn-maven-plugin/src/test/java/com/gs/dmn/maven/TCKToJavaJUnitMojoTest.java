@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.maven;
 
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.maven.configuration.components.DMNTransformerComponent;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.ToQuotedNameTransformer;
@@ -32,7 +32,7 @@ public class TCKToJavaJUnitMojoTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
         String inputModel = this.getClass().getClassLoader().getResource("input/0004-lending.dmn").getFile();
         String inputTest = this.getClass().getClassLoader().getResource("input/0004-lending-test-01.xml").getFile();
         mojo.project = project;
-        mojo.dmnDialect = StandardDMNDialectDefinition.class.getName();
+        mojo.dmnDialect = JavaTimeDMNDialectDefinition.class.getName();
         mojo.dmnValidators = new String[] {NopDMNValidator.class.getName()};
         mojo.dmnTransformers = new DMNTransformerComponent[] { new DMNTransformerComponent(ToQuotedNameTransformer.class.getName()) };
         mojo.templateProvider = TreeTemplateProvider.class.getName();

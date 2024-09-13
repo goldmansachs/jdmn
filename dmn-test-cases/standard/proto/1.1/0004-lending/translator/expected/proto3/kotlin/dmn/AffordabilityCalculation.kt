@@ -24,7 +24,7 @@ class AffordabilityCalculation : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    fun apply(monthlyIncome: java.lang.Number?, monthlyRepayments: java.lang.Number?, monthlyExpenses: java.lang.Number?, riskCategory: String?, requiredMonthlyInstallment: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+    fun apply(monthlyIncome: kotlin.Number?, monthlyRepayments: kotlin.Number?, monthlyExpenses: kotlin.Number?, riskCategory: String?, requiredMonthlyInstallment: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
             // Start BKM 'AffordabilityCalculation'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -53,13 +53,13 @@ class AffordabilityCalculation : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(monthlyIncome: java.lang.Number?, monthlyRepayments: java.lang.Number?, monthlyExpenses: java.lang.Number?, riskCategory: String?, requiredMonthlyInstallment: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
+    private inline fun evaluate(monthlyIncome: kotlin.Number?, monthlyRepayments: kotlin.Number?, monthlyExpenses: kotlin.Number?, riskCategory: String?, requiredMonthlyInstallment: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        val disposableIncome: java.lang.Number? = numericSubtract(monthlyIncome, numericAdd(monthlyExpenses, monthlyRepayments)) as java.lang.Number?
-        val creditContingencyFactor: java.lang.Number? = CreditContingencyFactorTable.instance().apply(riskCategory, context_) as java.lang.Number?
+        val disposableIncome: kotlin.Number? = numericSubtract(monthlyIncome, numericAdd(monthlyExpenses, monthlyRepayments)) as kotlin.Number?
+        val creditContingencyFactor: kotlin.Number? = CreditContingencyFactorTable.instance().apply(riskCategory, context_) as kotlin.Number?
         val affordability: Boolean? = (if (booleanEqual(numericGreaterThan(numericMultiply(disposableIncome, creditContingencyFactor), requiredMonthlyInstallment), true)) true else false) as Boolean?
         return affordability
     }

@@ -7,20 +7,20 @@ import java.util.*
 class TFnInvocationComplexParamsResultImpl : TFnInvocationComplexParamsResult {
     @get:com.fasterxml.jackson.annotation.JsonGetter("functionInvocationLiteralExpressionInParameter")
     @set:com.fasterxml.jackson.annotation.JsonGetter("functionInvocationLiteralExpressionInParameter")
-    override var functionInvocationLiteralExpressionInParameter: java.lang.Number? = null
+    override var functionInvocationLiteralExpressionInParameter: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("functionInvocationInParameter")
     @set:com.fasterxml.jackson.annotation.JsonGetter("functionInvocationInParameter")
-    override var functionInvocationInParameter: java.lang.Number? = null
+    override var functionInvocationInParameter: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("circumference")
     @set:com.fasterxml.jackson.annotation.JsonGetter("circumference")
-    override var circumference: java.lang.Number? = null
+    override var circumference: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (circumference: java.lang.Number?, functionInvocationInParameter: java.lang.Number?, functionInvocationLiteralExpressionInParameter: java.lang.Number?) {
+    constructor (circumference: kotlin.Number?, functionInvocationInParameter: kotlin.Number?, functionInvocationLiteralExpressionInParameter: kotlin.Number?) {
         this.circumference = circumference
         this.functionInvocationInParameter = functionInvocationInParameter
         this.functionInvocationLiteralExpressionInParameter = functionInvocationLiteralExpressionInParameter

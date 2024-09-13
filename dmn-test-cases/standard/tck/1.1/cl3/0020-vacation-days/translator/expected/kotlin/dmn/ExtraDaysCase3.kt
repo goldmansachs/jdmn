@@ -13,7 +13,7 @@ import java.util.stream.Collectors
     rulesCount = 2
 )
 class ExtraDaysCase3() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             return apply(input_.get("Age")?.let({ number(it) }), input_.get("Years of Service")?.let({ number(it) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    fun apply(age: java.lang.Number?, yearsOfService: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    fun apply(age: kotlin.Number?, yearsOfService: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             // Start decision 'Extra days case 3'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -36,7 +36,7 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_)
 
             // Evaluate decision 'Extra days case 3'
-            val output_: java.lang.Number? = evaluate(age, yearsOfService, context_)
+            val output_: kotlin.Number? = evaluate(age, yearsOfService, context_)
 
             // End decision 'Extra days case 3'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, extraDaysCase3Arguments_, output_, (System.currentTimeMillis() - extraDaysCase3StartTime_))
@@ -48,7 +48,7 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(age: java.lang.Number?, yearsOfService: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    private inline fun evaluate(age: kotlin.Number?, yearsOfService: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -59,7 +59,7 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         ruleOutputList_.add(rule1(age, yearsOfService, context_))
 
         // Return results based on hit policy
-        var output_: java.lang.Number?
+        var output_: kotlin.Number?
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = number("0")
@@ -72,7 +72,7 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    private fun rule0(age: java.lang.Number?, yearsOfService: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule0(age: kotlin.Number?, yearsOfService: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
@@ -104,7 +104,7 @@ class ExtraDaysCase3() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    private fun rule1(age: java.lang.Number?, yearsOfService: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule1(age: kotlin.Number?, yearsOfService: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 

@@ -55,9 +55,9 @@ class PreBureauAffordability(val preBureauRiskCategory : PreBureauRiskCategory =
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply child decisions
         val preBureauRiskCategory: String? = this@PreBureauAffordability.preBureauRiskCategory.apply(applicantData, context_)
-        val requiredMonthlyInstallment: java.lang.Number? = this@PreBureauAffordability.requiredMonthlyInstallment.apply(requestedProduct, context_)
+        val requiredMonthlyInstallment: kotlin.Number? = this@PreBureauAffordability.requiredMonthlyInstallment.apply(requestedProduct, context_)
 
-        return AffordabilityCalculation.instance().apply(applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.income as java.lang.Number? }), applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.repayments as java.lang.Number? }), applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.expenses as java.lang.Number? }), preBureauRiskCategory, requiredMonthlyInstallment, context_) as Boolean?
+        return AffordabilityCalculation.instance().apply(applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.income as kotlin.Number? }), applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.repayments as kotlin.Number? }), applicantData?.let({ it.monthly as type.Monthly? })?.let({ it.expenses as kotlin.Number? }), preBureauRiskCategory, requiredMonthlyInstallment, context_) as Boolean?
     }
 
     companion object {

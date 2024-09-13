@@ -11,36 +11,36 @@ class TMetricImpl : TMetric {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("rate")
     @set:com.fasterxml.jackson.annotation.JsonGetter("rate")
-    override var rate: java.lang.Number? = null
+    override var rate: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("points")
     @set:com.fasterxml.jackson.annotation.JsonGetter("points")
-    override var points: java.lang.Number? = null
+    override var points: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("fee")
     @set:com.fasterxml.jackson.annotation.JsonGetter("fee")
-    override var fee: java.lang.Number? = null
+    override var fee: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("loanAmt")
     @set:com.fasterxml.jackson.annotation.JsonGetter("loanAmt")
-    override var loanAmt: java.lang.Number? = null
+    override var loanAmt: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("downPmtAmt")
     @set:com.fasterxml.jackson.annotation.JsonGetter("downPmtAmt")
-    override var downPmtAmt: java.lang.Number? = null
+    override var downPmtAmt: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("paymentAmt")
     @set:com.fasterxml.jackson.annotation.JsonGetter("paymentAmt")
-    override var paymentAmt: java.lang.Number? = null
+    override var paymentAmt: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("equity36moPct")
     @set:com.fasterxml.jackson.annotation.JsonGetter("equity36moPct")
-    override var equity36moPct: java.lang.Number? = null
+    override var equity36moPct: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (downPmtAmt: java.lang.Number?, equity36moPct: java.lang.Number?, fee: java.lang.Number?, lenderName: String?, loanAmt: java.lang.Number?, paymentAmt: java.lang.Number?, points: java.lang.Number?, rate: java.lang.Number?) {
+    constructor (downPmtAmt: kotlin.Number?, equity36moPct: kotlin.Number?, fee: kotlin.Number?, lenderName: String?, loanAmt: kotlin.Number?, paymentAmt: kotlin.Number?, points: kotlin.Number?, rate: kotlin.Number?) {
         this.downPmtAmt = downPmtAmt
         this.equity36moPct = equity36moPct
         this.fee = fee

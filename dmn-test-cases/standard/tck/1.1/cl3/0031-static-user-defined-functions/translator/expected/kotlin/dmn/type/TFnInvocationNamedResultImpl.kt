@@ -7,24 +7,24 @@ import java.util.*
 class TFnInvocationNamedResultImpl : TFnInvocationNamedResult {
     @get:com.fasterxml.jackson.annotation.JsonGetter("subResult")
     @set:com.fasterxml.jackson.annotation.JsonGetter("subResult")
-    override var subResult: java.lang.Number? = null
+    override var subResult: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("subResultMixed")
     @set:com.fasterxml.jackson.annotation.JsonGetter("subResultMixed")
-    override var subResultMixed: java.lang.Number? = null
+    override var subResultMixed: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("divisionResultNamed")
     @set:com.fasterxml.jackson.annotation.JsonGetter("divisionResultNamed")
-    override var divisionResultNamed: java.lang.Number? = null
+    override var divisionResultNamed: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("multiplicationResultNamed")
     @set:com.fasterxml.jackson.annotation.JsonGetter("multiplicationResultNamed")
-    override var multiplicationResultNamed: java.lang.Number? = null
+    override var multiplicationResultNamed: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (divisionResultNamed: java.lang.Number?, multiplicationResultNamed: java.lang.Number?, subResult: java.lang.Number?, subResultMixed: java.lang.Number?) {
+    constructor (divisionResultNamed: kotlin.Number?, multiplicationResultNamed: kotlin.Number?, subResult: kotlin.Number?, subResultMixed: kotlin.Number?) {
         this.divisionResultNamed = divisionResultNamed
         this.multiplicationResultNamed = multiplicationResultNamed
         this.subResult = subResult

@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 class InstallmentCalculation : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     private constructor() {}
 
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             return apply(input_.get("ProductType"), input_.get("Rate")?.let({ number(it) }), input_.get("Term")?.let({ number(it) }), input_.get("Amount")?.let({ number(it) }), context_)
         } catch (e: Exception) {
@@ -24,7 +24,7 @@ class InstallmentCalculation : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    fun apply(productType: String?, rate: java.lang.Number?, term: java.lang.Number?, amount: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    fun apply(productType: String?, rate: kotlin.Number?, term: kotlin.Number?, amount: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             // Start BKM 'InstallmentCalculation'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -40,7 +40,7 @@ class InstallmentCalculation : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, installmentCalculationArguments_)
 
             // Evaluate BKM 'InstallmentCalculation'
-            val output_: java.lang.Number? = evaluate(productType, rate, term, amount, context_)
+            val output_: kotlin.Number? = evaluate(productType, rate, term, amount, context_)
 
             // End BKM 'InstallmentCalculation'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, installmentCalculationArguments_, output_, (System.currentTimeMillis() - installmentCalculationStartTime_))
@@ -52,13 +52,13 @@ class InstallmentCalculation : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
         }
     }
 
-    private inline fun evaluate(productType: String?, rate: java.lang.Number?, term: java.lang.Number?, amount: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    private inline fun evaluate(productType: String?, rate: kotlin.Number?, term: kotlin.Number?, amount: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        val monthlyFee: java.lang.Number? = (if (booleanEqual(stringEqual(productType, "STANDARD LOAN"), true)) number("20.00") else (if (booleanEqual(stringEqual(productType, "SPECIAL LOAN"), true)) number("25.00") else null)) as java.lang.Number?
-        val monthlyRepayment: java.lang.Number? = numericDivide(numericDivide(numericMultiply(amount, rate), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(rate, number("12"))), numericUnaryMinus(term)))) as java.lang.Number?
+        val monthlyFee: kotlin.Number? = (if (booleanEqual(stringEqual(productType, "STANDARD LOAN"), true)) number("20.00") else (if (booleanEqual(stringEqual(productType, "SPECIAL LOAN"), true)) number("25.00") else null)) as kotlin.Number?
+        val monthlyRepayment: kotlin.Number? = numericDivide(numericDivide(numericMultiply(amount, rate), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(rate, number("12"))), numericUnaryMinus(term)))) as kotlin.Number?
         return numericAdd(monthlyRepayment, monthlyFee)
     }
 

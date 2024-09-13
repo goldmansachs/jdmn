@@ -7,7 +7,7 @@ import java.util.*
 class TDeptTableImpl : TDeptTable {
     @get:com.fasterxml.jackson.annotation.JsonGetter("number")
     @set:com.fasterxml.jackson.annotation.JsonGetter("number")
-    override var number: java.lang.Number? = null
+    override var number: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("name")
     @set:com.fasterxml.jackson.annotation.JsonGetter("name")
@@ -20,7 +20,7 @@ class TDeptTableImpl : TDeptTable {
     constructor() {
     }
 
-    constructor (manager: String?, name: String?, number: java.lang.Number?) {
+    constructor (manager: String?, name: String?, number: kotlin.Number?) {
         this.manager = manager
         this.name = name
         this.number = number

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @javax.annotation.Generated(value = {"junit.ftl", "decision-table-with-annotations.dmn"})
-public class HandWrittenDecisionTableWithAnnotationsTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class HandWrittenDecisionTableWithAnnotationsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();

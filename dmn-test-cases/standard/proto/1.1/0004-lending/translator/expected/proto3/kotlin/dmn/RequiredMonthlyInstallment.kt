@@ -13,7 +13,7 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             return apply(input_.get("RequestedProduct")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TRequestedProductImpl>() {}) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision(
         }
     }
 
-    fun apply(requestedProduct: type.TRequestedProduct?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    fun apply(requestedProduct: type.TRequestedProduct?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             // Start decision 'RequiredMonthlyInstallment'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -36,7 +36,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision(
 
             if (cache_.contains("RequiredMonthlyInstallment")) {
                 // Retrieve value from cache
-                var output_:java.lang.Number? = cache_.lookup("RequiredMonthlyInstallment") as java.lang.Number?
+                var output_:kotlin.Number? = cache_.lookup("RequiredMonthlyInstallment") as kotlin.Number?
 
                 // End decision 'RequiredMonthlyInstallment'
                 eventListener_.endDRGElement(DRG_ELEMENT_METADATA, requiredMonthlyInstallmentArguments_, output_, (System.currentTimeMillis() - requiredMonthlyInstallmentStartTime_))
@@ -44,7 +44,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision(
                 return output_
             } else {
                 // Evaluate decision 'RequiredMonthlyInstallment'
-                val output_: java.lang.Number? = evaluate(requestedProduct, context_)
+                val output_: kotlin.Number? = evaluate(requestedProduct, context_)
                 cache_.bind("RequiredMonthlyInstallment", output_)
 
                 // End decision 'RequiredMonthlyInstallment'
@@ -63,7 +63,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision(
         val requestedProduct: type.TRequestedProduct? = type.TRequestedProduct.toTRequestedProduct(requiredMonthlyInstallmentRequest_.getRequestedProduct())
 
         // Invoke apply method
-        val output_: java.lang.Number? = apply(requestedProduct, context_)
+        val output_: kotlin.Number? = apply(requestedProduct, context_)
 
         // Convert output to Response Message
         val builder_: proto.RequiredMonthlyInstallmentResponse.Builder = proto.RequiredMonthlyInstallmentResponse.newBuilder()
@@ -72,12 +72,12 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision(
         return builder_.build()
     }
 
-    private inline fun evaluate(requestedProduct: type.TRequestedProduct?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    private inline fun evaluate(requestedProduct: type.TRequestedProduct?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return InstallmentCalculation.instance().apply(requestedProduct?.let({ it.productType as String? }), requestedProduct?.let({ it.rate as java.lang.Number? }), requestedProduct?.let({ it.term as java.lang.Number? }), requestedProduct?.let({ it.amount as java.lang.Number? }), context_) as java.lang.Number?
+        return InstallmentCalculation.instance().apply(requestedProduct?.let({ it.productType as String? }), requestedProduct?.let({ it.rate as kotlin.Number? }), requestedProduct?.let({ it.term as kotlin.Number? }), requestedProduct?.let({ it.amount as kotlin.Number? }), context_) as kotlin.Number?
     }
 
     companion object {
@@ -103,7 +103,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision(
         }
 
         @JvmStatic
-        fun responseToOutput(requiredMonthlyInstallmentResponse_: proto.RequiredMonthlyInstallmentResponse): java.lang.Number? {
+        fun responseToOutput(requiredMonthlyInstallmentResponse_: proto.RequiredMonthlyInstallmentResponse): kotlin.Number? {
             // Extract and convert output
             return java.math.BigDecimal.valueOf(requiredMonthlyInstallmentResponse_.getRequiredMonthlyInstallment())
         }

@@ -7,7 +7,7 @@ import java.util.*
 class TBureauDataImpl : TBureauData {
     @get:com.fasterxml.jackson.annotation.JsonGetter("CreditScore")
     @set:com.fasterxml.jackson.annotation.JsonGetter("CreditScore")
-    override var creditScore: java.lang.Number? = null
+    override var creditScore: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Bankrupt")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Bankrupt")
@@ -16,7 +16,7 @@ class TBureauDataImpl : TBureauData {
     constructor() {
     }
 
-    constructor (bankrupt: Boolean?, creditScore: java.lang.Number?) {
+    constructor (bankrupt: Boolean?, creditScore: kotlin.Number?) {
         this.bankrupt = bankrupt
         this.creditScore = creditScore
     }

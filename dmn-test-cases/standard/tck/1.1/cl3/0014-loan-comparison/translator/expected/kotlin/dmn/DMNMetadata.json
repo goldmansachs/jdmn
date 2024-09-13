@@ -220,7 +220,7 @@
     "@kind" : "inputData",
     "id" : "_67c50a4c-3002-4d0a-9acf-4c76cb0364fa",
     "javaParameterName" : "requestedAmt",
-    "javaTypeName" : "java.lang.Number?",
+    "javaTypeName" : "kotlin.Number?",
     "name" : "RequestedAmt",
     "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719",
     "typeRef" : {
@@ -247,7 +247,7 @@
   }, {
     "@kind" : "bkm",
     "id" : "_daec318a-135b-4d54-9e7f-85af3aa662f7",
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "equity36Mo",
     "javaTypeName" : "Equity36Mo",
     "knowledgeReferences" : [ ],
@@ -256,7 +256,7 @@
   }, {
     "@kind" : "bkm",
     "id" : "_8702e1b6-213b-4f75-bf56-99ac3835cde7",
-    "javaOutputTypeName" : "java.lang.Number?",
+    "javaOutputTypeName" : "kotlin.Number?",
     "javaParameterName" : "monthlyPayment",
     "javaTypeName" : "MonthlyPayment",
     "knowledgeReferences" : [ ],
@@ -303,7 +303,7 @@
       "@kind" : "inputData",
       "id" : "_67c50a4c-3002-4d0a-9acf-4c76cb0364fa",
       "javaParameterName" : "requestedAmt",
-      "javaTypeName" : "java.lang.Number?",
+      "javaTypeName" : "kotlin.Number?",
       "name" : "RequestedAmt",
       "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719",
       "typeRef" : {

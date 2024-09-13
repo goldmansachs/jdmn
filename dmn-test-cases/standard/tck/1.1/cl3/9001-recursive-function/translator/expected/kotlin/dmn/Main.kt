@@ -13,7 +13,7 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class Main() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             return apply(input_.get("n")?.let({ number(it) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class Main() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    fun apply(n: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    fun apply(n: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             // Start decision 'main'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -35,7 +35,7 @@ class Main() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, mainArguments_)
 
             // Evaluate decision 'main'
-            val output_: java.lang.Number? = evaluate(n, context_)
+            val output_: kotlin.Number? = evaluate(n, context_)
 
             // End decision 'main'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, mainArguments_, output_, (System.currentTimeMillis() - mainStartTime_))
@@ -47,12 +47,12 @@ class Main() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(n: java.lang.Number?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    private inline fun evaluate(n: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return FACT.instance()?.apply(n, context_) as java.lang.Number?
+        return FACT.instance()?.apply(n, context_) as kotlin.Number?
     }
 
     companion object {

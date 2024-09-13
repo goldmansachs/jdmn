@@ -10,13 +10,13 @@ interface TRequestedProduct : com.gs.dmn.runtime.DMNType {
     val productType: String?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Amount")
-    val amount: java.lang.Number?
+    val amount: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Rate")
-    val rate: java.lang.Number?
+    val rate: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Term")
-    val term: java.lang.Number?
+    val term: kotlin.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -69,9 +69,9 @@ interface TRequestedProduct : com.gs.dmn.runtime.DMNType {
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TRequestedProductImpl()
                 result_.productType = other.get("ProductType") as String?
-                result_.amount = other.get("Amount") as java.lang.Number?
-                result_.rate = other.get("Rate") as java.lang.Number?
-                result_.term = other.get("Term") as java.lang.Number?
+                result_.amount = other.get("Amount") as kotlin.Number?
+                result_.rate = other.get("Rate") as kotlin.Number?
+                result_.term = other.get("Term") as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTRequestedProduct(other.toContext())

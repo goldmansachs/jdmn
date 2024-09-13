@@ -7,24 +7,24 @@ import java.util.*
 class TRowImpl : TRow {
     @get:com.fasterxml.jackson.annotation.JsonGetter("col1")
     @set:com.fasterxml.jackson.annotation.JsonGetter("col1")
-    override var col1: java.lang.Number? = null
+    override var col1: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("col2")
     @set:com.fasterxml.jackson.annotation.JsonGetter("col2")
-    override var col2: java.lang.Number? = null
+    override var col2: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("col3")
     @set:com.fasterxml.jackson.annotation.JsonGetter("col3")
-    override var col3: java.lang.Number? = null
+    override var col3: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("col4")
     @set:com.fasterxml.jackson.annotation.JsonGetter("col4")
-    override var col4: java.lang.Number? = null
+    override var col4: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (col1: java.lang.Number?, col2: java.lang.Number?, col3: java.lang.Number?, col4: java.lang.Number?) {
+    constructor (col1: kotlin.Number?, col2: kotlin.Number?, col3: kotlin.Number?, col4: kotlin.Number?) {
         this.col1 = col1
         this.col2 = col2
         this.col3 = col3

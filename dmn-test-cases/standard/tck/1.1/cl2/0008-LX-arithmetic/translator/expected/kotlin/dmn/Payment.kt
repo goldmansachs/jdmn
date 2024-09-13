@@ -13,7 +13,7 @@ import java.util.stream.Collectors
     rulesCount = -1
 )
 class Payment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             return apply(input_.get("loan")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TLoanImpl>() {}) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class Payment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    fun apply(loan: type.TLoan?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    fun apply(loan: type.TLoan?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         try {
             // Start decision 'payment'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -35,7 +35,7 @@ class Payment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, paymentArguments_)
 
             // Evaluate decision 'payment'
-            val output_: java.lang.Number? = evaluate(loan, context_)
+            val output_: kotlin.Number? = evaluate(loan, context_)
 
             // End decision 'payment'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, paymentArguments_, output_, (System.currentTimeMillis() - paymentStartTime_))
@@ -47,12 +47,12 @@ class Payment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         }
     }
 
-    private inline fun evaluate(loan: type.TLoan?, context_: com.gs.dmn.runtime.ExecutionContext): java.lang.Number? {
+    private inline fun evaluate(loan: type.TLoan?, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return numericDivide(numericDivide(numericMultiply(loan?.let({ it.principal as java.lang.Number? }), loan?.let({ it.rate as java.lang.Number? })), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(loan?.let({ it.rate as java.lang.Number? }), number("12"))), numericUnaryMinus(loan?.let({ it.termMonths as java.lang.Number? }))))) as java.lang.Number?
+        return numericDivide(numericDivide(numericMultiply(loan?.let({ it.principal as kotlin.Number? }), loan?.let({ it.rate as kotlin.Number? })), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(loan?.let({ it.rate as kotlin.Number? }), number("12"))), numericUnaryMinus(loan?.let({ it.termMonths as kotlin.Number? }))))) as kotlin.Number?
     }
 
     companion object {
