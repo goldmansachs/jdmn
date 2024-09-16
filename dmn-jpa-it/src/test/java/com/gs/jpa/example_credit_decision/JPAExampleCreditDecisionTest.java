@@ -23,7 +23,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision {
+public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     protected static EntityManagerFactory emf;
     protected static EntityManager em;
 
@@ -45,8 +45,8 @@ public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.MixedJavaTi
         com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
         com.gs.dmn.generated.example_credit_decision.type.Applicant applicant = findApplicant("Amy");
-        java.math.BigDecimal currentRiskAppetite = number("50");
-        java.math.BigDecimal lendingThreshold = number("25");
+        Number currentRiskAppetite = number("50");
+        Number lendingThreshold = number("25");
 
         // Check generateOutputData
         com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData generateOutputDataOutput = new GenerateOutputData().apply(applicant, currentRiskAppetite, lendingThreshold, context);
@@ -58,8 +58,8 @@ public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.MixedJavaTi
         com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
         com.gs.dmn.generated.example_credit_decision.type.Applicant applicant = findApplicant("Bill");
-        java.math.BigDecimal currentRiskAppetite = number("50");
-        java.math.BigDecimal lendingThreshold = number("25");
+        Number currentRiskAppetite = number("50");
+        Number lendingThreshold = number("25");
 
         // Check generateOutputData
         com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData generateOutputDataOutput = new GenerateOutputData().apply(applicant, currentRiskAppetite, lendingThreshold, context);
@@ -71,8 +71,8 @@ public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.MixedJavaTi
         com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
         // Initialize input data
         com.gs.dmn.generated.example_credit_decision.type.Applicant applicant = findApplicant("Charlie");
-        java.math.BigDecimal currentRiskAppetite = number("50");
-        java.math.BigDecimal lendingThreshold = number("25");
+        Number currentRiskAppetite = number("50");
+        Number lendingThreshold = number("25");
 
         // Check generateOutputData
         com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData generateOutputDataOutput = new GenerateOutputData().apply(applicant, currentRiskAppetite, lendingThreshold, context);

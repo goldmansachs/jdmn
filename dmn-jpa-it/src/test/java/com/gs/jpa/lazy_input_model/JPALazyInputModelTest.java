@@ -21,9 +21,8 @@ import org.junit.jupiter.api.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.math.BigDecimal;
 
-public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBaseDecision {
+public class JPALazyInputModelTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     protected static EntityManagerFactory emf;
     protected static EntityManager em;
 
@@ -48,7 +47,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
         Person applicant = makeLazyPerson(1);
 
         // Check generateOutputData
-        BigDecimal score = new Decision().apply(applicant, creditRisk, context);
+        Number score = new Decision().apply(applicant, creditRisk, context);
         checkValues(number("1"), score);
     }
 
@@ -60,7 +59,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
         Person applicant = makeLazyPerson(2);
 
         // Check generateOutputData
-        BigDecimal score = new Decision().apply(applicant, creditRisk, context);
+        Number score = new Decision().apply(applicant, creditRisk, context);
         checkValues(number("2"), score);
     }
 
@@ -72,7 +71,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
         Person applicant = makeLazyPerson(3);
 
         // Check generateOutputData
-        BigDecimal score = new Decision().apply(applicant, creditRisk, context);
+        Number score = new Decision().apply(applicant, creditRisk, context);
         checkValues(number("3"), score);
     }
 
@@ -84,7 +83,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
         Person applicant = makeLazyPerson(4);
 
         // Check generateOutputData
-        BigDecimal score = new Decision().apply(applicant, creditRisk, context);
+        Number score = new Decision().apply(applicant, creditRisk, context);
         checkValues(number("4"), score);
     }
 
@@ -96,7 +95,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.MixedJavaTimeDMNBa
         Person applicant = makeLazyPerson(1);
 
         // Check generateOutputData
-        BigDecimal score = new Decision().apply(applicant, creditRisk, context);
+        Number score = new Decision().apply(applicant, creditRisk, context);
         checkValues(number("5"), score);
     }
 

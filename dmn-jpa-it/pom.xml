@@ -89,7 +89,7 @@
                 <artifactId>jdmn-maven-plugin</artifactId>
                 <version>${project.parent.version}</version>
                 <configuration>
-                    <dmnDialect>com.gs.dmn.dialect.MixedJavaTimeDMNDialectDefinition</dmnDialect>
+                    <dmnDialect>com.gs.dmn.dialect.JavaTimeDMNDialectDefinition</dmnDialect>
                     <inputParameters>
                         <dmnVersion>${dmn.version}</dmnVersion>
                         <modelVersion>${model.version}</modelVersion>

@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.math.BigDecimal;
 
 public class LazyPerson implements Person {
     private static final Logger LOGGER = LoggerFactory.getLogger(LazyPerson.class);
@@ -42,7 +41,7 @@ public class LazyPerson implements Person {
     }
 
     @Override
-    public BigDecimal getAge() {
+    public Number getAge() {
         if (personJPA == null) {
             this.personJPA = findApplicant(id);
         }
