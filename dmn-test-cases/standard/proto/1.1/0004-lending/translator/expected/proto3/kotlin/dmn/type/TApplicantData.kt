@@ -86,7 +86,7 @@ interface TApplicantData : com.gs.dmn.runtime.DMNType {
             } else if (other is proto.TApplicantData) {
                 var result_: TApplicantDataImpl = TApplicantDataImpl()
                 result_.monthly = type.Monthly.toMonthly((other as proto.TApplicantData).getMonthly())
-                result_.age = java.math.BigDecimal.valueOf((other as proto.TApplicantData).getAge())
+                result_.age = (java.math.BigDecimal.valueOf((other as proto.TApplicantData).getAge()) as kotlin.Number)
                 result_.existingCustomer = (other as proto.TApplicantData).getExistingCustomer()
                 result_.maritalStatus = (other as proto.TApplicantData).getMaritalStatus()
                 result_.employmentStatus = (other as proto.TApplicantData).getEmploymentStatus()

@@ -2,7 +2,7 @@
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "assessApplicantAge"])
 class AssessApplicantAgeRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("assessApplicantAge")
-    var assessApplicantAge: java.math.BigDecimal? = null
+    var assessApplicantAge: kotlin.Number? = null
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true

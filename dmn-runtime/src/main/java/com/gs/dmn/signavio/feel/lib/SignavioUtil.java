@@ -73,7 +73,9 @@ public class SignavioUtil {
     }
 
     private static Boolean equalNumbers(Object o1, Object o2) {
-        return ((BigDecimal) o1).compareTo((BigDecimal) o2) == 0;
+        BigDecimal b1 = asBigDecimal(o1);
+        BigDecimal b2 = asBigDecimal(o2);
+        return b1.compareTo(b2) == 0;
     }
 
     private static Boolean equalLists(Object o1, Object o2) {
@@ -118,6 +120,10 @@ public class SignavioUtil {
     public static BigDecimal asBigDecimal(Object e) {
         if (e instanceof BigDecimal) {
             return (BigDecimal) e;
+        } else if (e instanceof Integer) {
+            return BigDecimal.valueOf(((Integer) e).longValue());
+        } else if (e instanceof Double) {
+            return BigDecimal.valueOf(((Double) e).doubleValue());
         } else {
             throw new DMNRuntimeException(String.format("Expected number found '%s'", e));
         }

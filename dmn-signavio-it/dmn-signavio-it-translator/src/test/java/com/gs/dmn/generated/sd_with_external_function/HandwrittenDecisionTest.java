@@ -15,7 +15,6 @@ package com.gs.dmn.generated.sd_with_external_function;
 import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -36,7 +35,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         applyDecision(null, null);
     }
 
-    private BigDecimal applyDecision(String a, String b) {
+    private Number applyDecision(String a, String b) {
         Map<String, String> input = new LinkedHashMap<>();
         input.put("A", a);
         input.put("B", b);

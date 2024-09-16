@@ -11,11 +11,11 @@ class ApplicantImpl : Applicant {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Age")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Age")
-    override var age: java.math.BigDecimal? = null
+    override var age: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Credit score")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Credit score")
-    override var creditScore: java.math.BigDecimal? = null
+    override var creditScore: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Prior issues")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Prior issues")
@@ -24,7 +24,7 @@ class ApplicantImpl : Applicant {
     constructor() {
     }
 
-    constructor (age: java.math.BigDecimal?, creditScore: java.math.BigDecimal?, name: String?, priorIssues: List<String?>?) {
+    constructor (age: kotlin.Number?, creditScore: kotlin.Number?, name: String?, priorIssues: List<String?>?) {
         this.age = age
         this.creditScore = creditScore
         this.name = name

@@ -12,8 +12,8 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
     rulesCount = 5
 )
-class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<java.math.BigDecimal?>? {
+class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision() {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<kotlin.Number?>? {
         try {
             return apply(input_.get("Applicant")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
-    fun apply(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): List<java.math.BigDecimal?>? {
+    fun apply(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): List<kotlin.Number?>? {
         try {
             // Start decision 'processPriorIssues'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -35,7 +35,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_)
 
             // Evaluate decision 'processPriorIssues'
-            val output_: List<java.math.BigDecimal?>? = evaluate(applicant, context_)
+            val output_: List<kotlin.Number?>? = evaluate(applicant, context_)
 
             // End decision 'processPriorIssues'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_, output_, (System.currentTimeMillis() - processPriorIssuesStartTime_))
@@ -52,7 +52,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         val applicant: type.Applicant? = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant())
 
         // Invoke apply method
-        val output_: List<java.math.BigDecimal?>? = apply(applicant, context_)
+        val output_: List<kotlin.Number?>? = apply(applicant, context_)
 
         // Convert output to Response Message
         val builder_: proto.ProcessPriorIssuesResponse.Builder = proto.ProcessPriorIssuesResponse.newBuilder()
@@ -63,7 +63,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         return builder_.build()
     }
 
-    private inline fun evaluate(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): List<java.math.BigDecimal?>? {
+    private inline fun evaluate(applicant: type.Applicant?, context_: com.gs.dmn.runtime.ExecutionContext): List<kotlin.Number?>? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
@@ -77,7 +77,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         ruleOutputList_.add(rule4(applicant, context_))
 
         // Return results based on hit policy
-        var output_: List<java.math.BigDecimal?>?
+        var output_: List<kotlin.Number?>?
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = null
@@ -271,9 +271,9 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
 
         @JvmStatic
-        fun responseToOutput(processPriorIssuesResponse_: proto.ProcessPriorIssuesResponse): List<java.math.BigDecimal?>? {
+        fun responseToOutput(processPriorIssuesResponse_: proto.ProcessPriorIssuesResponse): List<kotlin.Number?>? {
             // Extract and convert output
-            return (processPriorIssuesResponse_.getProcessPriorIssuesList()?.stream()?.map({e -> java.math.BigDecimal.valueOf(e)})?.collect(java.util.stream.Collectors.toList()) as List<java.math.BigDecimal?>?)
+            return (processPriorIssuesResponse_.getProcessPriorIssuesList()?.stream()?.map({e -> (java.math.BigDecimal.valueOf(e) as kotlin.Number)})?.collect(java.util.stream.Collectors.toList()) as List<kotlin.Number?>?)
         }
     }
 }

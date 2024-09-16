@@ -66,7 +66,7 @@
                 <artifactId>jdmn-maven-plugin</artifactId>
                 <version>${project.parent.version}</version>
                 <configuration>
-                    <dmnDialect>com.gs.dmn.signavio.dialect.KotlinSignavioDMNDialectDefinition</dmnDialect>
+                    <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                     <dmnTransformers>
                         <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
                     </dmnTransformers>
@@ -529,7 +529,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -544,7 +544,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
@@ -561,7 +561,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <templateProvider>com.gs.dmn.signavio.transformation.template.KotlinSignavioTreeTemplateProvider</templateProvider>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
@@ -578,7 +578,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <templateProvider>com.gs.dmn.signavio.transformation.template.KotlinSignavioTreeTemplateProvider</templateProvider>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
@@ -1308,7 +1308,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/TestDecision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1323,7 +1323,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/TestDecision.json</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/TestDecision.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
@@ -1340,7 +1340,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/dmn-link-issue-1.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1355,7 +1355,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/dmn-link-issue-1.json</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/dmn-link-issue-1.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
@@ -1372,7 +1372,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/NullComplexTypeAccess.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1387,7 +1387,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/NullComplexTypeAccess.json</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/NullComplexTypeAccess.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
@@ -1404,7 +1404,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/StringLength.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1419,7 +1419,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/StringLength.json</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/StringLength.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
@@ -1436,7 +1436,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/large-test-set.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1451,7 +1451,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/large-test-set.json</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/large-test-set.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
@@ -1468,7 +1468,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/IteratorExampleReturningMultiple.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1487,7 +1487,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/IteratorExampleReturningMultiple.json</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/IteratorExampleReturningMultiple.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
@@ -1508,7 +1508,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/TypeInterfaceDeserialization.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1523,7 +1523,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/TypeInterfaceDeserialization.json</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/TypeInterfaceDeserialization.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
@@ -1540,7 +1540,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/credit-decision-missing-definitions.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1585,7 +1585,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/credit-decision-missing-definitions.json</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/credit-decision-missing-definitions.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
@@ -1631,7 +1631,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/decision-with-annotations.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1687,7 +1687,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
@@ -1705,7 +1705,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
@@ -1725,7 +1725,7 @@
                             <goal>dmn-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <templateProvider>com.gs.dmn.signavio.transformation.template.KotlinSignavioTreeTemplateProvider</templateProvider>
                             <inputFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
@@ -1745,7 +1745,7 @@
                             <goal>testlab-to-kotlin</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.signavio.dialect.MixedJavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition</dmnDialect>
                             <templateProvider>com.gs.dmn.signavio.transformation.template.KotlinSignavioTreeTemplateProvider</templateProvider>
                             <inputTestFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.json/</inputTestFileDirectory>
                             <inputModelFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.dmn</inputModelFileDirectory>

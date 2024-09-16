@@ -7,13 +7,13 @@ import java.util.*
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = type.TCompositeDateTimeImpl::class)
 interface TCompositeDateTime : com.gs.dmn.runtime.DMNType {
     @get:com.fasterxml.jackson.annotation.JsonGetter("Date")
-    val date: javax.xml.datatype.XMLGregorianCalendar?
+    val date: java.time.LocalDate?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Time")
-    val time: javax.xml.datatype.XMLGregorianCalendar?
+    val time: java.time.temporal.TemporalAccessor?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("DateTime")
-    val dateTime: javax.xml.datatype.XMLGregorianCalendar?
+    val dateTime: java.time.temporal.TemporalAccessor?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -61,17 +61,17 @@ interface TCompositeDateTime : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TCompositeDateTimeImpl()
-                result_.date = other.get("Date", "Date") as javax.xml.datatype.XMLGregorianCalendar?
-                result_.time = other.get("Time", "Time") as javax.xml.datatype.XMLGregorianCalendar?
-                result_.dateTime = other.get("DateTime", "DateTime") as javax.xml.datatype.XMLGregorianCalendar?
+                result_.date = other.get("Date", "Date") as java.time.LocalDate?
+                result_.time = other.get("Time", "Time") as java.time.temporal.TemporalAccessor?
+                result_.dateTime = other.get("DateTime", "DateTime") as java.time.temporal.TemporalAccessor?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTCompositeDateTime(other.toContext())
             } else if (other is proto.TCompositeDateTime) {
                 var result_: TCompositeDateTimeImpl = TCompositeDateTimeImpl()
-                result_.date = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.date((other as proto.TCompositeDateTime).getDate())
-                result_.time = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.time((other as proto.TCompositeDateTime).getTime())
-                result_.dateTime = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.dateAndTime((other as proto.TCompositeDateTime).getDateTime())
+                result_.date = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.date((other as proto.TCompositeDateTime).getDate())
+                result_.time = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.time((other as proto.TCompositeDateTime).getTime())
+                result_.dateTime = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.dateAndTime((other as proto.TCompositeDateTime).getDateTime())
                 return result_
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TCompositeDateTime::class.java.getSimpleName()))
@@ -82,11 +82,11 @@ interface TCompositeDateTime : com.gs.dmn.runtime.DMNType {
         fun toProto(other: TCompositeDateTime?): proto.TCompositeDateTime {
             var result_: proto.TCompositeDateTime.Builder = proto.TCompositeDateTime.newBuilder()
             if (other != null) {
-                var dateProto_: String = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string((other as TCompositeDateTime).date)
+                var dateProto_: String = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.string((other as TCompositeDateTime).date)
                 result_.setDate(dateProto_)
-                var timeProto_: String = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string((other as TCompositeDateTime).time)
+                var timeProto_: String = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.string((other as TCompositeDateTime).time)
                 result_.setTime(timeProto_)
-                var dateTimeProto_: String = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string((other as TCompositeDateTime).dateTime)
+                var dateTimeProto_: String = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.string((other as TCompositeDateTime).dateTime)
                 result_.setDateTime(dateTimeProto_)
             }
             return result_.build()

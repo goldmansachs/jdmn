@@ -105,7 +105,7 @@ class ApplicationRiskScore() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         @JvmStatic
         fun responseToOutput(applicationRiskScoreResponse_: proto.ApplicationRiskScoreResponse): kotlin.Number? {
             // Extract and convert output
-            return java.math.BigDecimal.valueOf(applicationRiskScoreResponse_.getApplicationRiskScore())
+            return (java.math.BigDecimal.valueOf(applicationRiskScoreResponse_.getApplicationRiskScore()) as kotlin.Number)
         }
     }
 }

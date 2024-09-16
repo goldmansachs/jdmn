@@ -33,9 +33,9 @@ public interface Monthly extends com.gs.dmn.runtime.DMNType {
             return toMonthly(((com.gs.dmn.runtime.DMNType)other).toContext());
         } else if (other instanceof proto.Monthly) {
             MonthlyImpl result_ = new MonthlyImpl();
-            result_.setIncome(java.math.BigDecimal.valueOf(((proto.Monthly) other).getIncome()));
-            result_.setExpenses(java.math.BigDecimal.valueOf(((proto.Monthly) other).getExpenses()));
-            result_.setRepayments(java.math.BigDecimal.valueOf(((proto.Monthly) other).getRepayments()));
+            result_.setIncome(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.Monthly) other).getIncome())));
+            result_.setExpenses(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.Monthly) other).getExpenses())));
+            result_.setRepayments(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.Monthly) other).getRepayments())));
             return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), Monthly.class.getSimpleName()));

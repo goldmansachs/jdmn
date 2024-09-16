@@ -39,8 +39,8 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof proto.Applicant) {
             ApplicantImpl result_ = new ApplicantImpl();
             result_.setName(((proto.Applicant) other).getName());
-            result_.setAge(java.math.BigDecimal.valueOf(((proto.Applicant) other).getAge()));
-            result_.setCreditScore(java.math.BigDecimal.valueOf(((proto.Applicant) other).getCreditScore()));
+            result_.setAge(((java.math.BigDecimal) java.math.BigDecimal.valueOf(((proto.Applicant) other).getAge())));
+            result_.setCreditScore(((java.math.BigDecimal) java.math.BigDecimal.valueOf(((proto.Applicant) other).getCreditScore())));
             result_.setPriorIssues(((List<String>) (((proto.Applicant) other).getPriorIssuesList() == null ? null : ((proto.Applicant) other).getPriorIssuesList().stream().map(e -> e).collect(java.util.stream.Collectors.toList()))));
             return result_;
         } else {

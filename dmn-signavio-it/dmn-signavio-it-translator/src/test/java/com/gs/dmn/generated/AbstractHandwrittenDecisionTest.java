@@ -19,6 +19,9 @@ import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.serialization.JsonSerializer;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public abstract class AbstractHandwrittenDecisionTest {
     protected AnnotationSet annotationSet;
     protected ExecutionContext context;
@@ -37,5 +40,9 @@ public abstract class AbstractHandwrittenDecisionTest {
     public void setUp() {
         this.context = ExecutionContextBuilder.executionContext().build();
         this.annotationSet = context.getAnnotations();
+    }
+
+    protected String round(Number number, int scale) {
+        return new BigDecimal(number.toString()).setScale(scale, RoundingMode.FLOOR).toPlainString();
     }
 }

@@ -12,8 +12,8 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-class Time() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
-    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+class Time() : com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision() {
+    override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): java.time.temporal.TemporalAccessor? {
         try {
             return apply(input_.get("CompositeInputDateTime")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.TCompositeDateTimeImpl>() {}) }), input_.get("InputDate")?.let({ date(it) }), input_.get("InputDateTime")?.let({ dateAndTime(it) }), input_.get("InputTime")?.let({ time(it) }), context_)
         } catch (e: Exception) {
@@ -22,7 +22,7 @@ class Time() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
         }
     }
 
-    fun apply(compositeInputDateTime: type.TCompositeDateTime?, inputDate: javax.xml.datatype.XMLGregorianCalendar?, inputDateTime: javax.xml.datatype.XMLGregorianCalendar?, inputTime: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+    fun apply(compositeInputDateTime: type.TCompositeDateTime?, inputDate: java.time.LocalDate?, inputDateTime: java.time.temporal.TemporalAccessor?, inputTime: java.time.temporal.TemporalAccessor?, context_: com.gs.dmn.runtime.ExecutionContext): java.time.temporal.TemporalAccessor? {
         try {
             // Start decision 'Time'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -38,7 +38,7 @@ class Time() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, timeArguments_)
 
             // Evaluate decision 'Time'
-            val output_: javax.xml.datatype.XMLGregorianCalendar? = evaluate(compositeInputDateTime, inputDate, inputDateTime, inputTime, context_)
+            val output_: java.time.temporal.TemporalAccessor? = evaluate(compositeInputDateTime, inputDate, inputDateTime, inputTime, context_)
 
             // End decision 'Time'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, timeArguments_, output_, (System.currentTimeMillis() - timeStartTime_))
@@ -53,12 +53,12 @@ class Time() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
     fun applyProto(timeRequest_: proto.TimeRequest, context_: com.gs.dmn.runtime.ExecutionContext): proto.TimeResponse {
         // Create arguments from Request Message
         val compositeInputDateTime: type.TCompositeDateTime? = type.TCompositeDateTime.toTCompositeDateTime(timeRequest_.getCompositeInputDateTime())
-        val inputDate: javax.xml.datatype.XMLGregorianCalendar? = date(timeRequest_.getInputDate())
-        val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = dateAndTime(timeRequest_.getInputDateTime())
-        val inputTime: javax.xml.datatype.XMLGregorianCalendar? = time(timeRequest_.getInputTime())
+        val inputDate: java.time.LocalDate? = date(timeRequest_.getInputDate())
+        val inputDateTime: java.time.temporal.TemporalAccessor? = dateAndTime(timeRequest_.getInputDateTime())
+        val inputTime: java.time.temporal.TemporalAccessor? = time(timeRequest_.getInputTime())
 
         // Invoke apply method
-        val output_: javax.xml.datatype.XMLGregorianCalendar? = apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, context_)
+        val output_: java.time.temporal.TemporalAccessor? = apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, context_)
 
         // Convert output to Response Message
         val builder_: proto.TimeResponse.Builder = proto.TimeResponse.newBuilder()
@@ -67,12 +67,12 @@ class Time() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
         return builder_.build()
     }
 
-    private inline fun evaluate(compositeInputDateTime: type.TCompositeDateTime?, inputDate: javax.xml.datatype.XMLGregorianCalendar?, inputDateTime: javax.xml.datatype.XMLGregorianCalendar?, inputTime: javax.xml.datatype.XMLGregorianCalendar?, context_: com.gs.dmn.runtime.ExecutionContext): javax.xml.datatype.XMLGregorianCalendar? {
+    private inline fun evaluate(compositeInputDateTime: type.TCompositeDateTime?, inputDate: java.time.LocalDate?, inputDateTime: java.time.temporal.TemporalAccessor?, inputTime: java.time.temporal.TemporalAccessor?, context_: com.gs.dmn.runtime.ExecutionContext): java.time.temporal.TemporalAccessor? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return inputTime as javax.xml.datatype.XMLGregorianCalendar?
+        return inputTime as java.time.temporal.TemporalAccessor?
     }
 
     companion object {
@@ -90,9 +90,9 @@ class Time() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
         fun requestToMap(timeRequest_: proto.TimeRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
             val compositeInputDateTime: type.TCompositeDateTime? = type.TCompositeDateTime.toTCompositeDateTime(timeRequest_.getCompositeInputDateTime())
-            val inputDate: javax.xml.datatype.XMLGregorianCalendar? = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.date(timeRequest_.getInputDate())
-            val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.dateAndTime(timeRequest_.getInputDateTime())
-            val inputTime: javax.xml.datatype.XMLGregorianCalendar? = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.time(timeRequest_.getInputTime())
+            val inputDate: java.time.LocalDate? = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.date(timeRequest_.getInputDate())
+            val inputDateTime: java.time.temporal.TemporalAccessor? = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.dateAndTime(timeRequest_.getInputDateTime())
+            val inputTime: java.time.temporal.TemporalAccessor? = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.time(timeRequest_.getInputTime())
 
             // Create map
             val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()
@@ -104,9 +104,9 @@ class Time() : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
         }
 
         @JvmStatic
-        fun responseToOutput(timeResponse_: proto.TimeResponse): javax.xml.datatype.XMLGregorianCalendar? {
+        fun responseToOutput(timeResponse_: proto.TimeResponse): java.time.temporal.TemporalAccessor? {
             // Extract and convert output
-            return com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.time(timeResponse_.getTime())
+            return com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.time(timeResponse_.getTime())
         }
     }
 }

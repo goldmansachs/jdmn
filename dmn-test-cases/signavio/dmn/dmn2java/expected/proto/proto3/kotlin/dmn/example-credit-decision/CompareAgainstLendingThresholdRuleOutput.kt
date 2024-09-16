@@ -2,7 +2,7 @@
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "compareAgainstLendingThreshold"])
 class CompareAgainstLendingThresholdRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("compareAgainstLendingThreshold")
-    var compareAgainstLendingThreshold: java.math.BigDecimal? = null
+    var compareAgainstLendingThreshold: kotlin.Number? = null
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true

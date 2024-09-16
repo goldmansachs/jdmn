@@ -3,13 +3,13 @@ import java.util.*
 import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["junit.ftl", "date-time-proto.dmn"])
-class DateTimeProtoTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
+class DateTimeProtoTest : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     @org.junit.jupiter.api.Test
     fun testCase1() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
         // Initialize input data
-        val inputDate: javax.xml.datatype.XMLGregorianCalendar? = date("2020-09-10")
+        val inputDate: java.time.LocalDate? = date("2020-09-10")
 
         // Check 'Date'
         checkValues(date("2020-09-10"), Date().apply(inputDate, context_))
@@ -27,7 +27,7 @@ class DateTimeProtoTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
         // Initialize input data
-        val inputTime: javax.xml.datatype.XMLGregorianCalendar? = time("12:10:10")
+        val inputTime: java.time.temporal.TemporalAccessor? = time("12:10:10")
 
         // Check 'Time'
         checkValues(time("12:10:10"), Time().apply(inputTime, context_))
@@ -45,7 +45,7 @@ class DateTimeProtoTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
         // Initialize input data
-        val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = dateAndTime("2020-09-19T12:10:10")
+        val inputDateTime: java.time.temporal.TemporalAccessor? = dateAndTime("2020-09-19T12:10:10")
 
         // Check 'DateTime'
         checkValues(dateAndTime("2020-09-19T12:10:10"), DateTime().apply(inputDateTime, context_))

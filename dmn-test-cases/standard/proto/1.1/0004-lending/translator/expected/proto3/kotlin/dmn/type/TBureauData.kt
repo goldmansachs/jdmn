@@ -61,7 +61,7 @@ interface TBureauData : com.gs.dmn.runtime.DMNType {
                 return toTBureauData(other.toContext())
             } else if (other is proto.TBureauData) {
                 var result_: TBureauDataImpl = TBureauDataImpl()
-                result_.creditScore = java.math.BigDecimal.valueOf((other as proto.TBureauData).getCreditScore())
+                result_.creditScore = (java.math.BigDecimal.valueOf((other as proto.TBureauData).getCreditScore()) as kotlin.Number)
                 result_.bankrupt = (other as proto.TBureauData).getBankrupt()
                 return result_
             } else {

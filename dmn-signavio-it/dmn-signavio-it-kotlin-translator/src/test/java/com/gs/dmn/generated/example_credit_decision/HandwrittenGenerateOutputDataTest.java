@@ -20,7 +20,6 @@ import com.gs.dmn.runtime.annotation.Annotation;
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,8 +29,8 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
 
     @Test
     public void testCase1() {
-        java.math.BigDecimal currentRiskAppetite = decision.number("50");
-        java.math.BigDecimal lendingThreshold = decision.number("25");
+        Number currentRiskAppetite = decision.number("50");
+        Number lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("38"), decision.number("100"), "Amy", decision.asList("Late payment"));
         List<?> generateOutputDataOutput = applyDecision(applicant, currentRiskAppetite, lendingThreshold);
 
@@ -48,8 +47,8 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
 
     @Test
     public void testCase2() {
-        java.math.BigDecimal currentRiskAppetite = decision.number("50");
-        java.math.BigDecimal lendingThreshold = decision.number("25");
+        Number currentRiskAppetite = decision.number("50");
+        Number lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("18"), decision.number("65"), "Bill", decision.asList("Card rejection", "Default on obligations"));
         List<?> output = applyDecision(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold);
 
@@ -59,8 +58,8 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
 
     @Test
     public void testCase3() {
-        java.math.BigDecimal currentRiskAppetite = decision.number("50");
-        java.math.BigDecimal lendingThreshold = decision.number("25");
+        Number currentRiskAppetite = decision.number("50");
+        Number lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("65"), decision.number("80"), "Charlie", decision.asList("Late payment", "Default on obligations", "Bankruptcy"));
         List<?> generateOutputDataOutput = applyDecision(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold);
 
@@ -80,13 +79,13 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
         applicant.setCreditScore(decision.number("80"));
         applicant.setPriorIssues(decision.asList("Late payment", "Default on obligations", "Bankruptcy"));
 
-        BigDecimal currentRiskAppetite = decision.number("50");
-        BigDecimal lendingThreshold = decision.number("25");
+        Number currentRiskAppetite = decision.number("50");
+        Number lendingThreshold = decision.number("25");
 
         applyDecision(applicant, currentRiskAppetite, lendingThreshold);
     }
 
-    private List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> applyDecision(Applicant applicant, BigDecimal currentRiskAppetite, BigDecimal lendingThreshold) {
+    private List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> applyDecision(Applicant applicant, Number currentRiskAppetite, Number lendingThreshold) {
         return decision.apply(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, context);
     }
 }

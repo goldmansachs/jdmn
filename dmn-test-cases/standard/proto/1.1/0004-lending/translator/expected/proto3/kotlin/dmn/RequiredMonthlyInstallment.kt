@@ -105,7 +105,7 @@ class RequiredMonthlyInstallment() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision(
         @JvmStatic
         fun responseToOutput(requiredMonthlyInstallmentResponse_: proto.RequiredMonthlyInstallmentResponse): kotlin.Number? {
             // Extract and convert output
-            return java.math.BigDecimal.valueOf(requiredMonthlyInstallmentResponse_.getRequiredMonthlyInstallment())
+            return (java.math.BigDecimal.valueOf(requiredMonthlyInstallmentResponse_.getRequiredMonthlyInstallment()) as kotlin.Number)
         }
     }
 }

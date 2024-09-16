@@ -16,7 +16,6 @@ import com.gs.dmn.generated.AbstractHandwrittenDecisionTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -27,14 +26,14 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
 
     @Test
     public void testApply() throws Exception {
-        BigDecimal output = applyDecision(null, "1965-03-29", null, null, null);
+        Number output = applyDecision(null, "1965-03-29", null, null, null);
         assertEquals("29", output.toString());
     }
 
     @Test
     public void testApplyWhenNull() {
         Assertions.assertThrows(NullPointerException.class, () -> {
-            BigDecimal output = applyDecision(null, null, null, null, null);
+            Number output = applyDecision(null, null, null, null, null);
             assertEquals(29, output.intValue());
         });
     }
@@ -44,7 +43,7 @@ public class HandwrittenDecisionTest extends AbstractHandwrittenDecisionTest {
         applyDecision(null, "1965-03-29", null, null, null);
     }
 
-    private BigDecimal applyDecision(String booleanInput, String dateInput, String enumerationInput, String numberInput, String stringInput) {
+    private Number applyDecision(String booleanInput, String dateInput, String enumerationInput, String numberInput, String stringInput) {
         Map<String, String> input = new LinkedHashMap<>();
         input.put("BooleanInput", booleanInput);
         input.put("DateInput", dateInput);

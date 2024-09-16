@@ -14,21 +14,21 @@ package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.signavio.dialect.KotlinSignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.JavaTimeKotlinSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.transformation.template.KotlinSignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.template.TemplateProvider;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 
-public abstract class AbstractTestLabToKotlinJUnitTransformerTest extends AbstractTestLabToJUnitTransformerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public abstract class AbstractTestLabToKotlinJUnitTransformerTest extends AbstractTestLabToJUnitTransformerTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> makeDialectDefinition() {
-        return new KotlinSignavioDMNDialectDefinition();
+    protected DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestLab> makeDialectDefinition() {
+        return new JavaTimeKotlinSignavioDMNDialectDefinition();
     }
 
     @Override

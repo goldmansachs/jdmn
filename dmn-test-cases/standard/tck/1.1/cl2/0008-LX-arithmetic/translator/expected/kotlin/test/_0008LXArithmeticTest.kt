@@ -3,7 +3,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["junit.ftl", "0008-LX-arithmetic.dmn"])
-class _0008LXArithmeticTest : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
+class _0008LXArithmeticTest : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     @org.junit.jupiter.api.Test
     fun testCase001() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()

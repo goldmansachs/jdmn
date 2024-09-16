@@ -25,8 +25,8 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
     public static java.util.Map<String, Object> requestToMap(proto.AssessIssueRequest assessIssueRequest_) {
         // Create arguments from Request Message
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite());
-        java.math.BigDecimal priorIssue_iterator = java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator());
+        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite()));
+        java.math.BigDecimal priorIssue_iterator = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator()));
 
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
@@ -37,7 +37,7 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
     public static java.math.BigDecimal responseToOutput(proto.AssessIssueResponse assessIssueResponse_) {
         // Extract and convert output
-        return java.math.BigDecimal.valueOf(assessIssueResponse_.getAssessIssue());
+        return ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueResponse_.getAssessIssue()));
     }
 
     public AssessIssue() {
@@ -81,8 +81,8 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
     public proto.AssessIssueResponse applyProto(proto.AssessIssueRequest assessIssueRequest_, com.gs.dmn.runtime.ExecutionContext context_) {
         // Create arguments from Request Message
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite());
-        java.math.BigDecimal priorIssue_iterator = java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator());
+        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite()));
+        java.math.BigDecimal priorIssue_iterator = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator()));
 
         // Invoke apply method
         java.math.BigDecimal output_ = apply(currentRiskAppetite, priorIssue_iterator, context_);

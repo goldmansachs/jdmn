@@ -10,10 +10,10 @@ interface Applicant : com.gs.dmn.runtime.DMNType {
     val name: String?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Age")
-    val age: java.math.BigDecimal?
+    val age: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Credit score")
-    val creditScore: java.math.BigDecimal?
+    val creditScore: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Prior issues")
     val priorIssues: List<String?>?
@@ -69,8 +69,8 @@ interface Applicant : com.gs.dmn.runtime.DMNType {
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = ApplicantImpl()
                 result_.name = other.get("name", "Name") as String?
-                result_.age = other.get("age", "Age") as java.math.BigDecimal?
-                result_.creditScore = other.get("creditScore", "Credit score") as java.math.BigDecimal?
+                result_.age = other.get("age", "Age") as kotlin.Number?
+                result_.creditScore = other.get("creditScore", "Credit score") as kotlin.Number?
                 result_.priorIssues = other.get("priorIssues", "Prior issues") as List<String?>?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
@@ -78,8 +78,8 @@ interface Applicant : com.gs.dmn.runtime.DMNType {
             } else if (other is proto.Applicant) {
                 var result_: ApplicantImpl = ApplicantImpl()
                 result_.name = (other as proto.Applicant).getName()
-                result_.age = java.math.BigDecimal.valueOf((other as proto.Applicant).getAge())
-                result_.creditScore = java.math.BigDecimal.valueOf((other as proto.Applicant).getCreditScore())
+                result_.age = (java.math.BigDecimal.valueOf((other as proto.Applicant).getAge()) as kotlin.Number)
+                result_.creditScore = (java.math.BigDecimal.valueOf((other as proto.Applicant).getCreditScore()) as kotlin.Number)
                 result_.priorIssues = ((other as proto.Applicant).getPriorIssuesList()?.stream()?.map({e -> e})?.collect(java.util.stream.Collectors.toList()) as List<String?>?)
                 return result_
             } else {

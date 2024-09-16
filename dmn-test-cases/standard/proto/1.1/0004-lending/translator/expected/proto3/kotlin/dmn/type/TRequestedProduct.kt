@@ -78,9 +78,9 @@ interface TRequestedProduct : com.gs.dmn.runtime.DMNType {
             } else if (other is proto.TRequestedProduct) {
                 var result_: TRequestedProductImpl = TRequestedProductImpl()
                 result_.productType = (other as proto.TRequestedProduct).getProductType()
-                result_.amount = java.math.BigDecimal.valueOf((other as proto.TRequestedProduct).getAmount())
-                result_.rate = java.math.BigDecimal.valueOf((other as proto.TRequestedProduct).getRate())
-                result_.term = java.math.BigDecimal.valueOf((other as proto.TRequestedProduct).getTerm())
+                result_.amount = (java.math.BigDecimal.valueOf((other as proto.TRequestedProduct).getAmount()) as kotlin.Number)
+                result_.rate = (java.math.BigDecimal.valueOf((other as proto.TRequestedProduct).getRate()) as kotlin.Number)
+                result_.term = (java.math.BigDecimal.valueOf((other as proto.TRequestedProduct).getTerm()) as kotlin.Number)
                 return result_
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), TRequestedProduct::class.java.getSimpleName()))

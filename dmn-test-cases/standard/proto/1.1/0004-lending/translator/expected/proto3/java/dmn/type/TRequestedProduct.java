@@ -39,9 +39,9 @@ public interface TRequestedProduct extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof proto.TRequestedProduct) {
             TRequestedProductImpl result_ = new TRequestedProductImpl();
             result_.setProductType(((proto.TRequestedProduct) other).getProductType());
-            result_.setAmount(java.math.BigDecimal.valueOf(((proto.TRequestedProduct) other).getAmount()));
-            result_.setRate(java.math.BigDecimal.valueOf(((proto.TRequestedProduct) other).getRate()));
-            result_.setTerm(java.math.BigDecimal.valueOf(((proto.TRequestedProduct) other).getTerm()));
+            result_.setAmount(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.TRequestedProduct) other).getAmount())));
+            result_.setRate(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.TRequestedProduct) other).getRate())));
+            result_.setTerm(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.TRequestedProduct) other).getTerm())));
             return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), TRequestedProduct.class.getSimpleName()));

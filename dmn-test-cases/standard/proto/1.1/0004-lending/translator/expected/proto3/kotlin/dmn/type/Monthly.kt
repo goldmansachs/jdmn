@@ -69,9 +69,9 @@ interface Monthly : com.gs.dmn.runtime.DMNType {
                 return toMonthly(other.toContext())
             } else if (other is proto.Monthly) {
                 var result_: MonthlyImpl = MonthlyImpl()
-                result_.income = java.math.BigDecimal.valueOf((other as proto.Monthly).getIncome())
-                result_.expenses = java.math.BigDecimal.valueOf((other as proto.Monthly).getExpenses())
-                result_.repayments = java.math.BigDecimal.valueOf((other as proto.Monthly).getRepayments())
+                result_.income = (java.math.BigDecimal.valueOf((other as proto.Monthly).getIncome()) as kotlin.Number)
+                result_.expenses = (java.math.BigDecimal.valueOf((other as proto.Monthly).getExpenses()) as kotlin.Number)
+                result_.repayments = (java.math.BigDecimal.valueOf((other as proto.Monthly).getRepayments()) as kotlin.Number)
                 return result_
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), Monthly::class.java.getSimpleName()))

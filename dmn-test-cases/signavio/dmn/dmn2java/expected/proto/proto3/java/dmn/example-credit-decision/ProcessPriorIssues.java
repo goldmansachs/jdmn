@@ -35,7 +35,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
 
     public static List<java.math.BigDecimal> responseToOutput(proto.ProcessPriorIssuesResponse processPriorIssuesResponse_) {
         // Extract and convert output
-        return ((List<java.math.BigDecimal>) (processPriorIssuesResponse_.getProcessPriorIssuesList() == null ? null : processPriorIssuesResponse_.getProcessPriorIssuesList().stream().map(e -> java.math.BigDecimal.valueOf(e)).collect(java.util.stream.Collectors.toList())));
+        return ((List<java.math.BigDecimal>) (processPriorIssuesResponse_.getProcessPriorIssuesList() == null ? null : processPriorIssuesResponse_.getProcessPriorIssuesList().stream().map(e -> ((java.math.BigDecimal) java.math.BigDecimal.valueOf(e))).collect(java.util.stream.Collectors.toList())));
     }
 
     public ProcessPriorIssues() {

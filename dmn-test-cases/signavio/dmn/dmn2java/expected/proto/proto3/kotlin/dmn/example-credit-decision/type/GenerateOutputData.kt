@@ -10,10 +10,10 @@ interface GenerateOutputData : com.gs.dmn.runtime.DMNType {
     val decision: String?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Assessment")
-    val assessment: java.math.BigDecimal?
+    val assessment: kotlin.Number?
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Issue")
-    val issue: java.math.BigDecimal?
+    val issue: kotlin.Number?
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
@@ -62,16 +62,16 @@ interface GenerateOutputData : com.gs.dmn.runtime.DMNType {
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = GenerateOutputDataImpl()
                 result_.decision = other.get("decision", "Decision") as String?
-                result_.assessment = other.get("assessment", "Assessment") as java.math.BigDecimal?
-                result_.issue = other.get("issue", "Issue") as java.math.BigDecimal?
+                result_.assessment = other.get("assessment", "Assessment") as kotlin.Number?
+                result_.issue = other.get("issue", "Issue") as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toGenerateOutputData(other.toContext())
             } else if (other is proto.GenerateOutputData) {
                 var result_: GenerateOutputDataImpl = GenerateOutputDataImpl()
                 result_.decision = (other as proto.GenerateOutputData).getDecision()
-                result_.assessment = java.math.BigDecimal.valueOf((other as proto.GenerateOutputData).getAssessment())
-                result_.issue = java.math.BigDecimal.valueOf((other as proto.GenerateOutputData).getIssue())
+                result_.assessment = (java.math.BigDecimal.valueOf((other as proto.GenerateOutputData).getAssessment()) as kotlin.Number)
+                result_.issue = (java.math.BigDecimal.valueOf((other as proto.GenerateOutputData).getIssue()) as kotlin.Number)
                 return result_
             } else {
                 throw com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), GenerateOutputData::class.java.getSimpleName()))

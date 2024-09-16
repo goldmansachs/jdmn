@@ -26,7 +26,7 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
     public static java.util.Map<String, Object> requestToMap(proto.AssessIssueRiskRequest assessIssueRiskRequest_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant());
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite());
+        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite()));
 
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
@@ -37,7 +37,7 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
 
     public static java.math.BigDecimal responseToOutput(proto.AssessIssueRiskResponse assessIssueRiskResponse_) {
         // Extract and convert output
-        return java.math.BigDecimal.valueOf(assessIssueRiskResponse_.getAssessIssueRisk());
+        return ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueRiskResponse_.getAssessIssueRisk()));
     }
 
     private final ProcessPriorIssues processPriorIssues;
@@ -89,7 +89,7 @@ public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.DefaultSignavio
     public proto.AssessIssueRiskResponse applyProto(proto.AssessIssueRiskRequest assessIssueRiskRequest_, com.gs.dmn.runtime.ExecutionContext context_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(assessIssueRiskRequest_.getApplicant());
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite());
+        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueRiskRequest_.getCurrentRiskAppetite()));
 
         // Invoke apply method
         java.math.BigDecimal output_ = apply(applicant, currentRiskAppetite, context_);

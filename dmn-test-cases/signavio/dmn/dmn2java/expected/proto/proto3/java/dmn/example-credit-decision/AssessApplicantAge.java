@@ -35,7 +35,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
 
     public static java.math.BigDecimal responseToOutput(proto.AssessApplicantAgeResponse assessApplicantAgeResponse_) {
         // Extract and convert output
-        return java.math.BigDecimal.valueOf(assessApplicantAgeResponse_.getAssessApplicantAge());
+        return ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessApplicantAgeResponse_.getAssessApplicantAge()));
     }
 
     public AssessApplicantAge() {

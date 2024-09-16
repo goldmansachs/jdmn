@@ -35,7 +35,7 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     public static java.lang.Number responseToOutput(proto.ApplicationRiskScoreResponse applicationRiskScoreResponse_) {
         // Extract and convert output
-        return java.math.BigDecimal.valueOf(applicationRiskScoreResponse_.getApplicationRiskScore());
+        return ((java.lang.Number) java.math.BigDecimal.valueOf(applicationRiskScoreResponse_.getApplicationRiskScore()));
     }
 
     public ApplicationRiskScore() {

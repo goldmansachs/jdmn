@@ -26,8 +26,8 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
     public static java.util.Map<String, Object> requestToMap(proto.CompareAgainstLendingThresholdRequest compareAgainstLendingThresholdRequest_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(compareAgainstLendingThresholdRequest_.getApplicant());
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite());
-        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold());
+        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite()));
+        java.math.BigDecimal lendingThreshold = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold()));
 
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
@@ -39,7 +39,7 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
 
     public static java.math.BigDecimal responseToOutput(proto.CompareAgainstLendingThresholdResponse compareAgainstLendingThresholdResponse_) {
         // Extract and convert output
-        return java.math.BigDecimal.valueOf(compareAgainstLendingThresholdResponse_.getCompareAgainstLendingThreshold());
+        return ((java.math.BigDecimal) java.math.BigDecimal.valueOf(compareAgainstLendingThresholdResponse_.getCompareAgainstLendingThreshold()));
     }
 
     private final AssessApplicantAge assessApplicantAge;
@@ -94,8 +94,8 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
     public proto.CompareAgainstLendingThresholdResponse applyProto(proto.CompareAgainstLendingThresholdRequest compareAgainstLendingThresholdRequest_, com.gs.dmn.runtime.ExecutionContext context_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(compareAgainstLendingThresholdRequest_.getApplicant());
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite());
-        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold());
+        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getCurrentRiskAppetite()));
+        java.math.BigDecimal lendingThreshold = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(compareAgainstLendingThresholdRequest_.getLendingThreshold()));
 
         // Invoke apply method
         java.math.BigDecimal output_ = apply(applicant, currentRiskAppetite, lendingThreshold, context_);

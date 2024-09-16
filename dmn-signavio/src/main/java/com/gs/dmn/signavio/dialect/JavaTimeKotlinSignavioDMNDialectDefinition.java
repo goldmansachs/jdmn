@@ -15,12 +15,12 @@ package com.gs.dmn.signavio.dialect;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.synthesis.type.JavaTimeKotlinNativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.feel.synthesis.type.StandardNativeTypeToKotlinFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
-import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
+import com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib;
+import com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.SignavioDMNToKotlinTransformer;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToKotlinTransformer;
@@ -32,15 +32,11 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 
-/**
- * @deprecated  As of release 8.3.0, replaced by {@link com.gs.dmn.dialect.MixedJavaTimeKotlinStandardDMNDialectDefinition}
- */
-@Deprecated
-public class KotlinSignavioDMNDialectDefinition extends AbstractSignavioDMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public class JavaTimeKotlinSignavioDMNDialectDefinition extends AbstractSignavioDMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     //
     // DMN processors
     //
@@ -60,16 +56,16 @@ public class KotlinSignavioDMNDialectDefinition extends AbstractSignavioDMNDiale
     //
     @Override
     public NativeTypeFactory createNativeTypeFactory() {
-        return new StandardNativeTypeToKotlinFactory();
+        return new JavaTimeKotlinNativeTypeFactory();
     }
 
     @Override
-    public FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> createFEELLib() {
-        return new DefaultSignavioLib();
+    public FEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> createFEELLib() {
+        return new JavaTimeSignavioLib();
     }
 
     @Override
     public String getDecisionBaseClass() {
-        return DefaultSignavioBaseDecision.class.getName();
+        return JavaTimeSignavioBaseDecision.class.getName();
     }
 }

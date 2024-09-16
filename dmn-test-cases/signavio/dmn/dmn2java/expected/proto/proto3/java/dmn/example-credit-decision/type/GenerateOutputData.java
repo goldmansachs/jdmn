@@ -34,8 +34,8 @@ public interface GenerateOutputData extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof proto.GenerateOutputData) {
             GenerateOutputDataImpl result_ = new GenerateOutputDataImpl();
             result_.setDecision(((proto.GenerateOutputData) other).getDecision());
-            result_.setAssessment(java.math.BigDecimal.valueOf(((proto.GenerateOutputData) other).getAssessment()));
-            result_.setIssue(java.math.BigDecimal.valueOf(((proto.GenerateOutputData) other).getIssue()));
+            result_.setAssessment(((java.math.BigDecimal) java.math.BigDecimal.valueOf(((proto.GenerateOutputData) other).getAssessment())));
+            result_.setIssue(((java.math.BigDecimal) java.math.BigDecimal.valueOf(((proto.GenerateOutputData) other).getIssue())));
             return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), GenerateOutputData.class.getSimpleName()));

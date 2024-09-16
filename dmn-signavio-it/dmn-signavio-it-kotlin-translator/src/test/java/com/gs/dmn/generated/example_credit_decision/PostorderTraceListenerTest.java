@@ -22,7 +22,6 @@ import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,8 +33,8 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         PostorderTraceEventListener listener = new PostorderTraceEventListener();
 
         List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expectedResult = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));
-        java.math.BigDecimal currentRiskAppetite = decision.number("50");
-        java.math.BigDecimal lendingThreshold = decision.number("25");
+        Number currentRiskAppetite = decision.number("50");
+        Number lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("38"), decision.number("100"), "Amy", decision.asList("Late payment"));
         List<?> actualResult = applyDecision(applicant, currentRiskAppetite, lendingThreshold, listener);
 
@@ -52,8 +51,8 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         PostorderTraceEventListener listener = new PostorderTraceEventListener(Collections.singletonList("Make credit decision"));
 
         List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expectedResult = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));
-        java.math.BigDecimal currentRiskAppetite = decision.number("50");
-        java.math.BigDecimal lendingThreshold = decision.number("25");
+        Number currentRiskAppetite = decision.number("50");
+        Number lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("38"), decision.number("100"), "Amy", decision.asList("Late payment"));
         List<?> actualResult = applyDecision(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, listener);
 
@@ -65,7 +64,7 @@ public class PostorderTraceListenerTest extends AbstractTraceListenerTest {
         checkTrace(expectedOutputFile, actualOutputFile);
     }
 
-    private List<?> applyDecision(Applicant toApplicant, BigDecimal currentRiskAppetite, BigDecimal lendingThreshold, PostorderTraceEventListener listener) {
+    private List<?> applyDecision(Applicant toApplicant, Number currentRiskAppetite, Number lendingThreshold, PostorderTraceEventListener listener) {
         ExecutionContext context = ExecutionContextBuilder.executionContext().withEventListener(listener).build();
 
         return decision.apply(toApplicant, currentRiskAppetite, lendingThreshold, context);

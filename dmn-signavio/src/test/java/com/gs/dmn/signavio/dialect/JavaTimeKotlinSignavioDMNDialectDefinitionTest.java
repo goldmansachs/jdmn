@@ -13,24 +13,22 @@
 package com.gs.dmn.signavio.dialect;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.feel.synthesis.type.MixedJavaTimeKotlinNativeTypeFactory;
-import com.gs.dmn.signavio.feel.lib.MixedJavaTimeSignavioLib;
-import com.gs.dmn.signavio.runtime.MixedJavaTimeSignavioBaseDecision;
+import com.gs.dmn.feel.synthesis.type.JavaTimeKotlinNativeTypeFactory;
+import com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib;
+import com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.interpreter.SignavioDMNInterpreter;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.SignavioDMNToKotlinTransformer;
 import com.gs.dmn.signavio.transformation.basic.BasicSignavioDMNToKotlinTransformer;
 
-import javax.xml.datatype.Duration;
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 
-public class MixedJavaTimeKotlinSignavioDMNDialectDefinitionTest extends AbstractSignavioDMNDialectDefinitionTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public class JavaTimeKotlinSignavioDMNDialectDefinitionTest extends AbstractSignavioDMNDialectDefinitionTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration, TestLab> makeDialect() {
-        return new MixedJavaTimeKotlinSignavioDMNDialectDefinition();
+    protected DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestLab> makeDialect() {
+        return new JavaTimeKotlinSignavioDMNDialectDefinition();
     }
 
     @Override
@@ -50,16 +48,16 @@ public class MixedJavaTimeKotlinSignavioDMNDialectDefinitionTest extends Abstrac
 
     @Override
     protected String getExpectedNativeTypeFactoryClass() {
-        return MixedJavaTimeKotlinNativeTypeFactory.class.getName();
+        return JavaTimeKotlinNativeTypeFactory.class.getName();
     }
 
     @Override
     protected String getExpectedFEELLibClass() {
-        return MixedJavaTimeSignavioLib.class.getName();
+        return JavaTimeSignavioLib.class.getName();
     }
 
     @Override
     protected String getExpectedDecisionBaseClass() {
-        return MixedJavaTimeSignavioBaseDecision.class.getName();
+        return JavaTimeSignavioBaseDecision.class.getName();
     }
 }

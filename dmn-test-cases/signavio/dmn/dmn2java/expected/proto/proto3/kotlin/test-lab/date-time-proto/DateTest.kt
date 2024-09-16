@@ -3,17 +3,17 @@ import java.util.*
 import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["junit.ftl", "9acf44f2b05343d79fc35140c493c1e0/sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-d"])
-class DateTest : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
+class DateTest : com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision() {
     private val date = Date()
 
     @org.junit.jupiter.api.Test
     fun testCase1() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
-        val inputDate: javax.xml.datatype.XMLGregorianCalendar? = date("2020-09-21")
-        val inputTime: javax.xml.datatype.XMLGregorianCalendar? = time("13:00:00+00:00")
-        val inputDateTime: javax.xml.datatype.XMLGregorianCalendar? = dateAndTime("2015-01-01T12:00:00+00:00")
+        val inputDate: java.time.LocalDate? = date("2020-09-21")
+        val inputTime: java.time.temporal.TemporalAccessor? = time("13:00:00+00:00")
+        val inputDateTime: java.time.temporal.TemporalAccessor? = dateAndTime("2015-01-01T12:00:00+00:00")
         val compositeInputDateTime: type.TCompositeDateTime? = type.TCompositeDateTimeImpl(date("2020-09-21"), dateAndTime("2015-01-01T12:00:00+00:00"), time("13:00:00+00:00"))
-        val date: javax.xml.datatype.XMLGregorianCalendar? = this.date.apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, context_)
+        val date: java.time.LocalDate? = this.date.apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, context_)
 
         checkValues(date("2020-09-21"), date)
 

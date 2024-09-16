@@ -3,13 +3,13 @@ import java.util.*
 import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["junit.ftl", "0007-simpletable-P2.dmn"])
-class _0007SimpletableP2Test : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
+class _0007SimpletableP2Test : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     @org.junit.jupiter.api.Test
     fun testCase001() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
         // Initialize input data
-        val age: java.math.BigDecimal? = number("18")
+        val age: kotlin.Number? = number("18")
         val riskCategory: String? = "Medium"
         val isAffordable: Boolean? = true
 
@@ -22,7 +22,7 @@ class _0007SimpletableP2Test : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
         // Initialize input data
-        val age: java.math.BigDecimal? = number("17")
+        val age: kotlin.Number? = number("17")
         val riskCategory: String? = "Medium"
         val isAffordable: Boolean? = true
 
@@ -35,7 +35,7 @@ class _0007SimpletableP2Test : com.gs.dmn.runtime.DefaultDMNBaseDecision() {
         val context_ = com.gs.dmn.runtime.ExecutionContext()
         val cache_ = context_.getCache()
         // Initialize input data
-        val age: java.math.BigDecimal? = number("18")
+        val age: kotlin.Number? = number("18")
         val riskCategory: String? = "High"
         val isAffordable: Boolean? = true
 

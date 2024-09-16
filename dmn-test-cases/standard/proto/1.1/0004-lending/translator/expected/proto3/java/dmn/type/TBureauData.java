@@ -28,7 +28,7 @@ public interface TBureauData extends com.gs.dmn.runtime.DMNType {
             return toTBureauData(((com.gs.dmn.runtime.DMNType)other).toContext());
         } else if (other instanceof proto.TBureauData) {
             TBureauDataImpl result_ = new TBureauDataImpl();
-            result_.setCreditScore(java.math.BigDecimal.valueOf(((proto.TBureauData) other).getCreditScore()));
+            result_.setCreditScore(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.TBureauData) other).getCreditScore())));
             result_.setBankrupt(((proto.TBureauData) other).getBankrupt());
             return result_;
         } else {

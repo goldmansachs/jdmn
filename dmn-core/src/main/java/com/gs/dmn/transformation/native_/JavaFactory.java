@@ -550,8 +550,9 @@ public class JavaFactory implements NativeFactory {
         type = Type.extractTypeFromConstraint(type);
         if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
-                String qNativeType = this.transformer.getNativeTypeFactory().getNativeNumberConcreteType();
-                return String.format("%s.valueOf(%s)", qNativeType, protoValue);
+                String qNativeConcreteType = this.transformer.getNativeTypeFactory().getNativeNumberConcreteType();
+                String value = String.format("%s.valueOf(%s)", qNativeConcreteType, protoValue);
+                return cast(this.transformer.getNativeTypeFactory().getNativeNumberType(), value);
             } else if (type == BooleanType.BOOLEAN) {
                 return protoValue;
             } else if (type == StringType.STRING) {
@@ -571,8 +572,10 @@ public class JavaFactory implements NativeFactory {
             String mapFunction;
             if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
                 if (elementType == NumberType.NUMBER) {
-                    String qNativeType = this.transformer.getNativeTypeFactory().getNativeNumberConcreteType();
-                    mapFunction = String.format("e -> %s.valueOf(e)", qNativeType);
+                    String qNativeType = this.transformer.getNativeTypeFactory().getNativeNumberType();
+                    String qNativeConcreteType = this.transformer.getNativeTypeFactory().getNativeNumberConcreteType();
+                    String value = String.format("%s.valueOf(e)", qNativeConcreteType);
+                    mapFunction = String.format("e -> %s", cast(qNativeType, value));
                 } else if (elementType == BooleanType.BOOLEAN) {
                     mapFunction =  "e -> e";
                 } else if (elementType == StringType.STRING) {

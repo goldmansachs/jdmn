@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 3
 )
-class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLendingThreshold = CompareAgainstLendingThreshold()) : com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision() {
+class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLendingThreshold = CompareAgainstLendingThreshold()) : com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
             return apply(input_.get("Applicant")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) }), input_.get("Current risk appetite")?.let({ number(it) }), input_.get("Lending threshold")?.let({ number(it) }), context_)
@@ -22,7 +22,7 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
         }
     }
 
-    fun apply(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, lendingThreshold: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+    fun apply(applicant: type.Applicant?, currentRiskAppetite: kotlin.Number?, lendingThreshold: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
             // Start decision 'makeCreditDecision'
             var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
@@ -52,8 +52,8 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
     fun applyProto(makeCreditDecisionRequest_: proto.MakeCreditDecisionRequest, context_: com.gs.dmn.runtime.ExecutionContext): proto.MakeCreditDecisionResponse {
         // Create arguments from Request Message
         val applicant: type.Applicant? = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant())
-        val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite())
-        val lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold())
+        val currentRiskAppetite: kotlin.Number? = (java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite()) as kotlin.Number)
+        val lendingThreshold: kotlin.Number? = (java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold()) as kotlin.Number)
 
         // Invoke apply method
         val output_: String? = apply(applicant, currentRiskAppetite, lendingThreshold, context_)
@@ -65,13 +65,13 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
         return builder_.build()
     }
 
-    private inline fun evaluate(applicant: type.Applicant?, currentRiskAppetite: java.math.BigDecimal?, lendingThreshold: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
+    private inline fun evaluate(applicant: type.Applicant?, currentRiskAppetite: kotlin.Number?, lendingThreshold: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         var annotationSet_: com.gs.dmn.runtime.annotation.AnnotationSet = context_.getAnnotations()
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
         // Apply child decisions
-        val compareAgainstLendingThreshold: java.math.BigDecimal? = this.compareAgainstLendingThreshold.apply(applicant, currentRiskAppetite, lendingThreshold, context_)
+        val compareAgainstLendingThreshold: kotlin.Number? = this.compareAgainstLendingThreshold.apply(applicant, currentRiskAppetite, lendingThreshold, context_)
 
         // Apply rules and collect results
         val ruleOutputList_ = com.gs.dmn.runtime.RuleOutputList()
@@ -93,7 +93,7 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    private fun rule0(compareAgainstLendingThreshold: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule0(compareAgainstLendingThreshold: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(0, "")
 
@@ -124,7 +124,7 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    private fun rule1(compareAgainstLendingThreshold: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule1(compareAgainstLendingThreshold: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(1, "")
 
@@ -155,7 +155,7 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    private fun rule2(compareAgainstLendingThreshold: java.math.BigDecimal?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
+    private fun rule2(compareAgainstLendingThreshold: kotlin.Number?, context_: com.gs.dmn.runtime.ExecutionContext): com.gs.dmn.runtime.RuleOutput {
         // Rule metadata
         val drgRuleMetadata: com.gs.dmn.runtime.listener.Rule = com.gs.dmn.runtime.listener.Rule(2, "")
 
@@ -201,8 +201,8 @@ class MakeCreditDecision(val compareAgainstLendingThreshold : CompareAgainstLend
         fun requestToMap(makeCreditDecisionRequest_: proto.MakeCreditDecisionRequest): kotlin.collections.Map<String, Any?> {
             // Create arguments from Request Message
             val applicant: type.Applicant? = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant())
-            val currentRiskAppetite: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite())
-            val lendingThreshold: java.math.BigDecimal? = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold())
+            val currentRiskAppetite: kotlin.Number? = (java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite()) as kotlin.Number)
+            val lendingThreshold: kotlin.Number? = (java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold()) as kotlin.Number)
 
             // Create map
             val map_: kotlin.collections.MutableMap<String, Any?> = mutableMapOf()

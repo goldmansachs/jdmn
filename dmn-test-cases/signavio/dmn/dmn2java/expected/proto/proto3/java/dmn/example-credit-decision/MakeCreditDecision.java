@@ -26,8 +26,8 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
     public static java.util.Map<String, Object> requestToMap(proto.MakeCreditDecisionRequest makeCreditDecisionRequest_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant());
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite());
-        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold());
+        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite()));
+        java.math.BigDecimal lendingThreshold = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold()));
 
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
@@ -92,8 +92,8 @@ public class MakeCreditDecision extends com.gs.dmn.signavio.runtime.DefaultSigna
     public proto.MakeCreditDecisionResponse applyProto(proto.MakeCreditDecisionRequest makeCreditDecisionRequest_, com.gs.dmn.runtime.ExecutionContext context_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(makeCreditDecisionRequest_.getApplicant());
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite());
-        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold());
+        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getCurrentRiskAppetite()));
+        java.math.BigDecimal lendingThreshold = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(makeCreditDecisionRequest_.getLendingThreshold()));
 
         // Invoke apply method
         String output_ = apply(applicant, currentRiskAppetite, lendingThreshold, context_);

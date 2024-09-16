@@ -21,7 +21,6 @@ import com.gs.dmn.runtime.listener.node.DRGElementNode;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.List;
 
 public class TreeTraceListenerTest extends AbstractTraceListenerTest {
@@ -32,8 +31,8 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
         TreeTraceEventListener listener = new TreeTraceEventListener();
 
         List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expectedResult = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));
-        java.math.BigDecimal currentRiskAppetite = decision.number("50");
-        java.math.BigDecimal lendingThreshold = decision.number("25");
+        Number currentRiskAppetite = decision.number("50");
+        Number lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("38"), decision.number("100"), "Amy", decision.asList("Late payment"));
         List<?> actualResult = applyDecision(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, listener);
 
@@ -50,8 +49,8 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
         TreeTraceEventListener listener = new TreeTraceEventListener();
 
         List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expectedResult = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));
-        java.math.BigDecimal currentRiskAppetite = decision.number("50");
-        java.math.BigDecimal lendingThreshold = decision.number("25");
+        Number currentRiskAppetite = decision.number("50");
+        Number lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("38"), decision.number("100"), "Amy", decision.asList("Late payment"));
         List<?> actualResult = applyDecision(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, listener);
 
@@ -68,8 +67,8 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
         TreeTraceEventListener listener = new TreeTraceEventListener();
 
         List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expectedResult = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.number("27.5"), "Accept", decision.numericUnaryMinus(decision.number("7.5"))));
-        java.math.BigDecimal currentRiskAppetite = decision.number("50");
-        java.math.BigDecimal lendingThreshold = decision.number("25");
+        Number currentRiskAppetite = decision.number("50");
+        Number lendingThreshold = decision.number("25");
         Applicant applicant = new ApplicantImpl(decision.number("38"), decision.number("100"), "Amy", decision.asList("Late payment"));
         List<?> actualResult = applyDecision(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold, listener);
 
@@ -81,7 +80,7 @@ public class TreeTraceListenerTest extends AbstractTraceListenerTest {
         checkTrace(expectedOutputFile, actualOutputFile);
     }
 
-    private List<?> applyDecision(Applicant applicant, BigDecimal currentRiskAppetite, BigDecimal lendingThreshold, TreeTraceEventListener listener) {
+    private List<?> applyDecision(Applicant applicant, Number currentRiskAppetite, Number lendingThreshold, TreeTraceEventListener listener) {
         return decision.apply(applicant, currentRiskAppetite, lendingThreshold, ExecutionContextBuilder.executionContext().withEventListener(listener).build());
     }
 

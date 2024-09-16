@@ -11,16 +11,16 @@ class GenerateOutputDataImpl : GenerateOutputData {
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Assessment")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Assessment")
-    override var assessment: java.math.BigDecimal? = null
+    override var assessment: kotlin.Number? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Issue")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Issue")
-    override var issue: java.math.BigDecimal? = null
+    override var issue: kotlin.Number? = null
 
     constructor() {
     }
 
-    constructor (assessment: java.math.BigDecimal?, decision: String?, issue: java.math.BigDecimal?) {
+    constructor (assessment: kotlin.Number?, decision: String?, issue: kotlin.Number?) {
         this.assessment = assessment
         this.decision = decision
         this.issue = issue

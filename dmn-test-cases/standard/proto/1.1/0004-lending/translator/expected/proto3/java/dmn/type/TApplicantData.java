@@ -44,7 +44,7 @@ public interface TApplicantData extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof proto.TApplicantData) {
             TApplicantDataImpl result_ = new TApplicantDataImpl();
             result_.setMonthly(type.Monthly.toMonthly(((proto.TApplicantData) other).getMonthly()));
-            result_.setAge(java.math.BigDecimal.valueOf(((proto.TApplicantData) other).getAge()));
+            result_.setAge(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.TApplicantData) other).getAge())));
             result_.setExistingCustomer(((proto.TApplicantData) other).getExistingCustomer());
             result_.setMaritalStatus(((proto.TApplicantData) other).getMaritalStatus());
             result_.setEmploymentStatus(((proto.TApplicantData) other).getEmploymentStatus());

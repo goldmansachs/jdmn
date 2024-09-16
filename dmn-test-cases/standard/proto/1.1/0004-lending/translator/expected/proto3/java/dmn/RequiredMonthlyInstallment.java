@@ -35,7 +35,7 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.JavaTimeDMNBa
 
     public static java.lang.Number responseToOutput(proto.RequiredMonthlyInstallmentResponse requiredMonthlyInstallmentResponse_) {
         // Extract and convert output
-        return java.math.BigDecimal.valueOf(requiredMonthlyInstallmentResponse_.getRequiredMonthlyInstallment());
+        return ((java.lang.Number) java.math.BigDecimal.valueOf(requiredMonthlyInstallmentResponse_.getRequiredMonthlyInstallment()));
     }
 
     public RequiredMonthlyInstallment() {

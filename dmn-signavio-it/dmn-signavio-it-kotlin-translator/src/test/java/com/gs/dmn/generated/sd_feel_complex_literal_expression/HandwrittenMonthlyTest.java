@@ -34,14 +34,14 @@ public class HandwrittenMonthlyTest extends AbstractHandwrittenDecisionTest {
         loan.setRate(new BigDecimal("5", MathContext.DECIMAL128));
         loan.setTerm(new BigDecimal("10", MathContext.DECIMAL128));
 
-        BigDecimal output = applyDecision(toJson(loan));
+        Number output = applyDecision(toJson(loan));
 
-        assertEquals("100.00", output.toString());
+        assertEquals("100.00", round(output, 2));
     }
 
     @Test
     public void testApplyWhenNull() {
-        BigDecimal output = applyDecision(null);
+        Number output = applyDecision(null);
         assertNull(output);
     }
 
@@ -55,7 +55,7 @@ public class HandwrittenMonthlyTest extends AbstractHandwrittenDecisionTest {
         applyDecision(toJson(loan));
     }
 
-    private BigDecimal applyDecision(String loan) {
+    private Number applyDecision(String loan) {
         Map<String, String> input = new LinkedHashMap<>();
         input.put("Loan", loan);
         return decision.applyMap(input, context);

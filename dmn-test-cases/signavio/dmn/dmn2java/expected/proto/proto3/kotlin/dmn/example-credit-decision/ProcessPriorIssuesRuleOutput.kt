@@ -2,7 +2,7 @@
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "processPriorIssues"])
 class ProcessPriorIssuesRuleOutput(matched: Boolean) : com.gs.dmn.runtime.RuleOutput(matched) {
     @com.fasterxml.jackson.annotation.JsonProperty("processPriorIssues")
-    var processPriorIssues: java.math.BigDecimal? = null
+    var processPriorIssues: kotlin.Number? = null
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true

@@ -26,8 +26,8 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
     public static java.util.Map<String, Object> requestToMap(proto.GenerateOutputDataRequest generateOutputDataRequest_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant());
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite());
-        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold());
+        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite()));
+        java.math.BigDecimal lendingThreshold = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold()));
 
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
@@ -96,8 +96,8 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
     public proto.GenerateOutputDataResponse applyProto(proto.GenerateOutputDataRequest generateOutputDataRequest_, com.gs.dmn.runtime.ExecutionContext context_) {
         // Create arguments from Request Message
         type.Applicant applicant = type.Applicant.toApplicant(generateOutputDataRequest_.getApplicant());
-        java.math.BigDecimal currentRiskAppetite = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite());
-        java.math.BigDecimal lendingThreshold = java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold());
+        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(generateOutputDataRequest_.getCurrentRiskAppetite()));
+        java.math.BigDecimal lendingThreshold = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(generateOutputDataRequest_.getLendingThreshold()));
 
         // Invoke apply method
         List<type.GenerateOutputData> output_ = apply(applicant, currentRiskAppetite, lendingThreshold, context_);

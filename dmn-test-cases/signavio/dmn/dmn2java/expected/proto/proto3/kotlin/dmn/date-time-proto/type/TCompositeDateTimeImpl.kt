@@ -7,20 +7,20 @@ import java.util.*
 class TCompositeDateTimeImpl : TCompositeDateTime {
     @get:com.fasterxml.jackson.annotation.JsonGetter("Date")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Date")
-    override var date: javax.xml.datatype.XMLGregorianCalendar? = null
+    override var date: java.time.LocalDate? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("Time")
     @set:com.fasterxml.jackson.annotation.JsonGetter("Time")
-    override var time: javax.xml.datatype.XMLGregorianCalendar? = null
+    override var time: java.time.temporal.TemporalAccessor? = null
 
     @get:com.fasterxml.jackson.annotation.JsonGetter("DateTime")
     @set:com.fasterxml.jackson.annotation.JsonGetter("DateTime")
-    override var dateTime: javax.xml.datatype.XMLGregorianCalendar? = null
+    override var dateTime: java.time.temporal.TemporalAccessor? = null
 
     constructor() {
     }
 
-    constructor (date: javax.xml.datatype.XMLGregorianCalendar?, dateTime: javax.xml.datatype.XMLGregorianCalendar?, time: javax.xml.datatype.XMLGregorianCalendar?) {
+    constructor (date: java.time.LocalDate?, dateTime: java.time.temporal.TemporalAccessor?, time: java.time.temporal.TemporalAccessor?) {
         this.date = date
         this.dateTime = dateTime
         this.time = time
