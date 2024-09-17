@@ -12,12 +12,16 @@
  */
 package com.gs.dmn.generated.tck.cl2_0009_invocation_arithmetic;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gs.dmn.AbstractHandwrittenDecisionTest;
 import com.gs.dmn.generated.tck.cl2_0009_invocation_arithmetic.type.TLoanImpl;
+import com.gs.dmn.serialization.JsonSerializer;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -43,6 +47,20 @@ public class HandwrittenMonthlyPaymentTest extends AbstractHandwrittenDecisionTe
         loan.setTerm(decision.number("60"));
         Number fee = decision.number("100");
         Number output = applyDecision(loan, fee);
+        assertEquals("662.70", ((BigDecimal) output).setScale(2, RoundingMode.FLOOR).toPlainString());
+    }
+
+    @Test
+    public void testApplyMap() throws JsonProcessingException {
+        TLoanImpl loan = new TLoanImpl();
+        loan.setAmount(decision.number("30000"));
+        loan.setRate(decision.number("0.0475"));
+        loan.setTerm(decision.number("60"));
+        Number fee = decision.number("100");
+        Map<String, String> input = new LinkedHashMap<>();
+        input.put("Loan", JsonSerializer.OBJECT_MAPPER.writeValueAsString(loan));
+        input.put("fee", JsonSerializer.OBJECT_MAPPER.writeValueAsString(fee));
+        Number output = decision.applyMap(input, context);
         assertEquals("662.70", ((BigDecimal) output).setScale(2, RoundingMode.FLOOR).toPlainString());
     }
 

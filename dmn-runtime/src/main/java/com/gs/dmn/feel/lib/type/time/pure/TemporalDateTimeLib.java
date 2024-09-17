@@ -14,13 +14,13 @@ package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.feel.lib.type.time.DateTimeLib;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultDateTimeLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.*;
 import java.util.List;
@@ -33,10 +33,8 @@ import static com.gs.dmn.feel.lib.type.BaseType.UTC;
 public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     private static final BigDecimal E9 = BigDecimal.valueOf(1000000000);
 
-    private final DefaultDateTimeLib dateTimeLib;
 
     public TemporalDateTimeLib() {
-        this.dateTimeLib = new DefaultDateTimeLib();
     }
 
     //
@@ -76,7 +74,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         }
 
         literal = this.fixDateTimeFormat(literal);
-        return this.dateTimeLib.timeTemporalAccessor(literal);
+        return this.timeTemporalAccessor(literal);
     }
 
     @Override
@@ -140,7 +138,7 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
         }
 
         literal = this.fixDateTimeFormat(literal);
-        return this.dateTimeLib.dateTimeTemporalAccessor(literal);
+        return this.dateTimeTemporalAccessor(literal);
     }
 
     @Override
@@ -406,5 +404,66 @@ public class TemporalDateTimeLib extends BaseDateTimeLib implements DateTimeLib<
             }
         }
         return result;
+    }
+
+    public TemporalAccessor dateTemporalAccessor(String literal) {
+        if (literal == null) {
+            return null;
+        }
+
+        if (!BEGIN_YEAR.matcher(literal).find()) {
+            throw new DMNRuntimeException(String.format("Illegal year in '%s'", literal));
+        }
+        try {
+            return LocalDate.from(FEEL_DATE.parse(literal));
+        } catch (DateTimeException e) {
+            throw new RuntimeException("Parsing exception in date literal", e);
+        }
+    }
+
+    public TemporalAccessor timeTemporalAccessor(String literal) {
+        if (literal == null) {
+            return null;
+        }
+
+        if (this.hasZoneOffset(literal) && this.hasZoneId(literal)) {
+            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", literal));
+        }
+        try {
+            TemporalAccessor parsed = FEEL_TIME.parse(literal);
+
+            if (parsed.query(TemporalQueries.offset()) != null) {
+                return parsed.query(OffsetTime::from);
+            } else if (parsed.query(TemporalQueries.zone()) == null) {
+                return parsed.query(LocalTime::from);
+            }
+
+            return parsed;
+        } catch (DateTimeException e) {
+            throw new DMNRuntimeException("Parsing exception in time literal", e);
+        }
+    }
+
+    private TemporalAccessor dateTimeTemporalAccessor(String literal) {
+        if (literal == null) {
+            return null;
+        }
+
+        if (!BaseDateTimeLib.BEGIN_YEAR.matcher(literal).find()) {
+            throw new DMNRuntimeException(String.format("Illegal year in '%s'", literal));
+        }
+        if (this.hasZoneOffset(literal) && this.hasZoneId(literal)) {
+            throw new DMNRuntimeException(String.format("Time literal '%s' has both a zone offset and zone id", literal));
+        }
+        try {
+            if (literal.contains("T")) {
+                return FEEL_DATE_TIME.parseBest(literal, ZonedDateTime::from, OffsetDateTime::from, LocalDateTime::from);
+            } else {
+                LocalDate value = DateTimeFormatter.ISO_DATE.parse(literal, LocalDate::from);
+                return LocalDateTime.of(value, LocalTime.of(0, 0));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Parsing exception in date and time literal", e);
+        }
     }
 }

@@ -34,7 +34,6 @@ import com.gs.dmn.signavio.feel.lib.type.time.SignavioDateTimeLib;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
@@ -84,7 +83,7 @@ public class JavaTimeSignavioLibExceptionsTest extends BaseSignavioLibExceptions
     public void testDayAdd() {
         super.testDayAdd();
 
-        assertNull(getLib().dayAdd((ZonedDateTime) null, null));
+        assertNull(getLib().dayAdd((TemporalAccessor) null, null));
     }
 
     @Override
@@ -116,7 +115,7 @@ public class JavaTimeSignavioLibExceptionsTest extends BaseSignavioLibExceptions
     public void testMonthAdd() {
         super.testMonthAdd();
 
-        assertNull(getLib().monthAdd((ZonedDateTime) null, null));
+        assertNull(getLib().monthAdd((TemporalAccessor) null, null));
     }
 
     @Override
@@ -140,6 +139,6 @@ public class JavaTimeSignavioLibExceptionsTest extends BaseSignavioLibExceptions
     public void testYearAdd() {
         super.testYearAdd();
 
-        assertNull(getLib().yearAdd((ZonedDateTime) null, null));
+        assertNull(getLib().yearAdd((TemporalAccessor) null, null));
     }
 }

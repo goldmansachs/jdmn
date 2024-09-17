@@ -14,8 +14,9 @@ package com.gs.dmn.serialization.data;
 
 import com.gs.dmn.runtime.Range;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.util.List;
 
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "person"})
@@ -29,18 +30,18 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
             return (Person)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             PersonImpl result_ = new PersonImpl();
-            result_.setDateOfBirth((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("dateOfBirth", "Date of Birth"));
-            result_.setDateTimeOfBirth((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("dateTimeOfBirth", "Date and Time of Birth"));
+            result_.setDateOfBirth((LocalDate) ((com.gs.dmn.runtime.Context)other).get("dateOfBirth", "Date of Birth"));
+            result_.setDateTimeOfBirth((TemporalAccessor) ((com.gs.dmn.runtime.Context)other).get("dateTimeOfBirth", "Date and Time of Birth"));
             result_.setFirstName((String)((com.gs.dmn.runtime.Context)other).get("firstName", "First Name"));
             result_.setGender((String)((com.gs.dmn.runtime.Context)other).get("gender", "Gender"));
-            result_.setId((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("id", "ID"));
+            result_.setId((Number)((com.gs.dmn.runtime.Context)other).get("id", "ID"));
             result_.setLastName((String)((com.gs.dmn.runtime.Context)other).get("lastName", "Last Name"));
             result_.setList((List<String>)((com.gs.dmn.runtime.Context)other).get("list", "List"));
             result_.setMarried((Boolean)((com.gs.dmn.runtime.Context)other).get("married", "Married"));
-            result_.setTimeOfBirth((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("timeOfBirth", "Time of Birth"));
-            result_.setDateTimeList((List<XMLGregorianCalendar>)((com.gs.dmn.runtime.Context)other).get("dateTimeList", "Date and Time List"));
-            result_.setYearsAndMonthsDuration((Duration)((com.gs.dmn.runtime.Context)other).get("yearsAndMonthsDuration", "Years and Months Duration"));
-            result_.setDaysAndTimeDuration((Duration)((com.gs.dmn.runtime.Context)other).get("daysAndTimeDuration", "Days and Time Duration"));
+            result_.setTimeOfBirth((TemporalAccessor)((com.gs.dmn.runtime.Context)other).get("timeOfBirth", "Time of Birth"));
+            result_.setDateTimeList((List<TemporalAccessor>)((com.gs.dmn.runtime.Context)other).get("dateTimeList", "Date and Time List"));
+            result_.setYearsAndMonthsDuration((TemporalAmount) ((com.gs.dmn.runtime.Context)other).get("yearsAndMonthsDuration", "Years and Months Duration"));
+            result_.setDaysAndTimeDuration((TemporalAmount) ((com.gs.dmn.runtime.Context)other).get("daysAndTimeDuration", "Days and Time Duration"));
             return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), PersonImpl.class.getSimpleName()));
@@ -48,7 +49,7 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("ID")
-    java.math.BigDecimal getId();
+    Number getId();
 
     @com.fasterxml.jackson.annotation.JsonGetter("First Name")
     String getFirstName();
@@ -57,13 +58,13 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
     String getLastName();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Date of Birth")
-    javax.xml.datatype.XMLGregorianCalendar getDateOfBirth();
+    LocalDate getDateOfBirth();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Time of Birth")
-    javax.xml.datatype.XMLGregorianCalendar getTimeOfBirth();
+    TemporalAccessor getTimeOfBirth();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Date and Time of Birth")
-    javax.xml.datatype.XMLGregorianCalendar getDateTimeOfBirth();
+    TemporalAccessor getDateTimeOfBirth();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Gender")
     String getGender();
@@ -75,13 +76,13 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
     List<String> getList();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Date and Time List")
-    List<XMLGregorianCalendar> getDateTimeList();
+    List<TemporalAccessor> getDateTimeList();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Years and Months Duration")
-    Duration getYearsAndMonthsDuration();
+    TemporalAmount getYearsAndMonthsDuration();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Days and Time Duration")
-    Duration getDaysAndTimeDuration();
+    TemporalAmount getDaysAndTimeDuration();
 
     @com.fasterxml.jackson.annotation.JsonGetter("514 AT")
     String getAt();

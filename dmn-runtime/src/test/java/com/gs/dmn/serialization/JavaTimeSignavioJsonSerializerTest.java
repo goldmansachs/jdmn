@@ -22,29 +22,28 @@ import com.gs.dmn.serialization.data.Address;
 import com.gs.dmn.serialization.data.AddressImpl;
 import com.gs.dmn.serialization.data.Person;
 import com.gs.dmn.serialization.data.PersonImpl;
-import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
+import com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static com.gs.dmn.serialization.DefaultStandardJsonSerializerTest.DATE_TIME_TEST_DATA;
-import static com.gs.dmn.serialization.DefaultStandardJsonSerializerTest.TIME_TEST_DATA;
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DefaultSignavioJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
-    private final DefaultSignavioLib lib = (DefaultSignavioLib) makeFEELLib();
+public class JavaTimeSignavioJsonSerializerTest extends AbstractJsonSerializerTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+    private final JavaTimeSignavioLib lib = (JavaTimeSignavioLib) makeFEELLib();
     private final String numberListListText = "[ [ 1, 2 ] ]";
     private final List<Range> rangeList = new ArrayList<>(Collections.singletonList(new Range(true, 0, false, 1)));
     private final List<Address> addressList = new ArrayList<>(Collections.singletonList(new AddressImpl("line", "post code")));
@@ -167,8 +166,8 @@ public class DefaultSignavioJsonSerializerTest extends AbstractJsonSerializerTes
     }
 
     @Override
-    protected FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> makeFEELLib() {
-        return new DefaultSignavioLib();
+    protected FEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> makeFEELLib() {
+        return new JavaTimeSignavioLib();
     }
 
     @Override
@@ -177,33 +176,33 @@ public class DefaultSignavioJsonSerializerTest extends AbstractJsonSerializerTes
     }
 
     @Override
-    protected XMLGregorianCalendar readDate(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
+    protected LocalDate readDate(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, LocalDate.class);
     }
 
     @Override
-    protected XMLGregorianCalendar readTime(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
+    protected TemporalAccessor readTime(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, TemporalAccessor.class);
     }
 
     @Override
-    protected XMLGregorianCalendar readDateTime(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
+    protected TemporalAccessor readDateTime(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, TemporalAccessor.class);
     }
 
     @Override
-    protected Duration readDuration(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, Duration.class);
+    protected TemporalAmount readDuration(String literal) throws Exception {
+        return OBJECT_MAPPER.readValue(literal, TemporalAmount.class);
     }
 
     @Override
     protected List<Pair<String, String>> getTimeTestData() {
-        return TIME_TEST_DATA;
+        return JavaTimeJsonSerializerTest.TIME_TEST_DATA;
     }
 
     @Override
     protected List<Pair<String, String>> getDateTimeTestData() {
-        return DATE_TIME_TEST_DATA;
+        return JavaTimeJsonSerializerTest.DATE_TIME_TEST_DATA;
     }
 
     private Person makePerson(String id) {
