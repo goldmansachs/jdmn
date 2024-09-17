@@ -5,24 +5,24 @@ import java.util.*;
 @javax.annotation.Generated(value = {"itemDefinition.ftl", "dotProduct"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class DotProductImpl implements DotProduct {
-        private java.math.BigDecimal dotProduct2;
+        private java.lang.Number dotProduct2;
         private String outputMessage;
 
     public DotProductImpl() {
     }
 
-    public DotProductImpl(java.math.BigDecimal dotProduct2, String outputMessage) {
+    public DotProductImpl(java.lang.Number dotProduct2, String outputMessage) {
         this.setDotProduct2(dotProduct2);
         this.setOutputMessage(outputMessage);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("DotProduct")
-    public java.math.BigDecimal getDotProduct2() {
+    public java.lang.Number getDotProduct2() {
         return this.dotProduct2;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("DotProduct")
-    public void setDotProduct2(java.math.BigDecimal dotProduct2) {
+    public void setDotProduct2(java.lang.Number dotProduct2) {
         this.dotProduct2 = dotProduct2;
     }
 

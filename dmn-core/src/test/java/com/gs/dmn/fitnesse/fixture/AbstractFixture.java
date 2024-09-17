@@ -13,18 +13,18 @@
 package com.gs.dmn.fitnesse.fixture;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.tck.ast.TestCases;
 import fit.ColumnFixture;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 
 public class AbstractFixture extends ColumnFixture {
-    protected final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> dialectDefinition;
+    protected final DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> dialectDefinition;
 
     public AbstractFixture() {
-        this.dialectDefinition = new StandardDMNDialectDefinition();
+        this.dialectDefinition = new JavaTimeDMNDialectDefinition();
     }
 }

@@ -5,14 +5,14 @@ import java.util.*;
 @javax.annotation.Generated(value = {"itemDefinition.ftl", "zip"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ZipImpl implements Zip {
-        private java.math.BigDecimal n;
+        private java.lang.Number n;
         private String e;
         private String t;
 
     public ZipImpl() {
     }
 
-    public ZipImpl(String e, java.math.BigDecimal n, String t) {
+    public ZipImpl(String e, java.lang.Number n, String t) {
         this.setE(e);
         this.setN(n);
         this.setT(t);
@@ -29,12 +29,12 @@ public class ZipImpl implements Zip {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("n")
-    public java.math.BigDecimal getN() {
+    public java.lang.Number getN() {
         return this.n;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("n")
-    public void setN(java.math.BigDecimal n) {
+    public void setN(java.lang.Number n) {
         this.n = n;
     }
 

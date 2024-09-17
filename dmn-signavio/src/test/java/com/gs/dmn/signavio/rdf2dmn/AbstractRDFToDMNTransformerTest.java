@@ -20,7 +20,6 @@ import com.gs.dmn.signavio.transformation.AbstractSignavioFileTransformerTest;
 import com.gs.dmn.transformation.FileTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import org.apache.commons.io.FileUtils;
-import org.jdom2.input.SAXBuilder;
 import org.slf4j.LoggerFactory;
 import org.xmlunit.validation.Languages;
 import org.xmlunit.validation.ValidationProblem;

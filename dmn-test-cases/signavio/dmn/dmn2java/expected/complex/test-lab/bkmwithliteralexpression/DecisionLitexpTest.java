@@ -3,13 +3,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "ec84b81482a64a2fbfcec8b1c831507a/sid-C13631AF-EEAB-44EE-BB39-63D825570B60"})
-public class DecisionLitexpTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class DecisionLitexpTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     private final DecisionLitexp decisionLitexp = new DecisionLitexp();
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
-        List<java.math.BigDecimal> numz = asList(number("1"), number("43"));
+        List<java.lang.Number> numz = asList(number("1"), number("43"));
         List<String> redgreenbluelist1 = asList("Red", "Green");
         String redgreenblue1 = "Green";
         List<String> redgreenbluelist2 = asList("Blue", "Red");

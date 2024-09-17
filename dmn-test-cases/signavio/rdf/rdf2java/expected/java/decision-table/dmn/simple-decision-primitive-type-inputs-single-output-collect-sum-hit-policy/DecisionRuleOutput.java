@@ -3,19 +3,19 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "decision"})
 public class DecisionRuleOutput extends com.gs.dmn.runtime.RuleOutput {
-    private java.math.BigDecimal output;
+    private java.lang.Number output;
 
     public DecisionRuleOutput(boolean matched) {
         super(matched);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("output")
-    public java.math.BigDecimal getOutput() {
+    public java.lang.Number getOutput() {
         return this.output;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("output")
-    public void setOutput(java.math.BigDecimal output) {
+    public void setOutput(java.lang.Number output) {
         this.output = output;
     }
 

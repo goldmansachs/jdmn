@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 1
 )
-public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "incompleteDecisionTable",

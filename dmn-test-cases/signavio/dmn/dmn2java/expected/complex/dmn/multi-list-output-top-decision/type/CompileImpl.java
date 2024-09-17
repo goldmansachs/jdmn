@@ -6,25 +6,25 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CompileImpl implements Compile {
         private String nextTrafficLight;
-        private java.math.BigDecimal avgOfNumbers;
+        private java.lang.Number avgOfNumbers;
         private String name;
 
     public CompileImpl() {
     }
 
-    public CompileImpl(java.math.BigDecimal avgOfNumbers, String name, String nextTrafficLight) {
+    public CompileImpl(java.lang.Number avgOfNumbers, String name, String nextTrafficLight) {
         this.setAvgOfNumbers(avgOfNumbers);
         this.setName(name);
         this.setNextTrafficLight(nextTrafficLight);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("avg of numbers")
-    public java.math.BigDecimal getAvgOfNumbers() {
+    public java.lang.Number getAvgOfNumbers() {
         return this.avgOfNumbers;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("avg of numbers")
-    public void setAvgOfNumbers(java.math.BigDecimal avgOfNumbers) {
+    public void setAvgOfNumbers(java.lang.Number avgOfNumbers) {
         this.avgOfNumbers = avgOfNumbers;
     }
 

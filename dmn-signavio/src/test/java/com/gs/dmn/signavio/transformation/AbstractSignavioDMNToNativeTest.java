@@ -17,7 +17,6 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.SignavioTestConstants;
-import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
@@ -70,7 +69,7 @@ public abstract class AbstractSignavioDMNToNativeTest<NUMBER, DATE, TIME, DATE_T
         inputParams.put("semanticValidation", "false");
         inputParams.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
         inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
-        inputParams.put("decisionBaseClass", DefaultSignavioBaseDecision.class.getName());
+        inputParams.put("decisionBaseClass", makeDialectDefinition().getDecisionBaseClass());
         return inputParams;
     }
 

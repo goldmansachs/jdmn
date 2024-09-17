@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Monthly extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class Monthly extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "monthly",
@@ -27,7 +27,7 @@ public class Monthly extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("Loan") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Loan"), new com.fasterxml.jackson.core.type.TypeReference<type.LoanImpl>() {}) : null), context_);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class Monthly extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
-    public java.math.BigDecimal apply(type.Loan loan, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(type.Loan loan, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'monthly'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -49,7 +49,7 @@ public class Monthly extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, monthlyArguments_);
 
             // Evaluate decision 'monthly'
-            java.math.BigDecimal output_ = evaluate(loan, context_);
+            java.lang.Number output_ = evaluate(loan, context_);
 
             // End decision 'monthly'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, monthlyArguments_, output_, (System.currentTimeMillis() - monthlyStartTime_));
@@ -61,11 +61,11 @@ public class Monthly extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
-    protected java.math.BigDecimal evaluate(type.Loan loan, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected java.lang.Number evaluate(type.Loan loan, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
         com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
-        return numericDivide(numericDivide(numericMultiply(((java.math.BigDecimal)(loan != null ? loan.getPrincipal() : null)), ((java.math.BigDecimal)(loan != null ? loan.getRate() : null))), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(((java.math.BigDecimal)(loan != null ? loan.getRate() : null)), number("12"))), numericUnaryMinus(((java.math.BigDecimal)(loan != null ? loan.getTerm() : null))))));
+        return numericDivide(numericDivide(numericMultiply(((java.lang.Number)(loan != null ? loan.getPrincipal() : null)), ((java.lang.Number)(loan != null ? loan.getRate() : null))), number("12")), numericSubtract(number("1"), numericExponentiation(numericAdd(number("1"), numericDivide(((java.lang.Number)(loan != null ? loan.getRate() : null)), number("12"))), numericUnaryMinus(((java.lang.Number)(loan != null ? loan.getTerm() : null))))));
     }
 }

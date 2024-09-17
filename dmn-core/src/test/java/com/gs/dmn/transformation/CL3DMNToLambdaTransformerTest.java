@@ -13,7 +13,7 @@
 package com.gs.dmn.transformation;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
@@ -26,10 +26,7 @@ import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.NopDMNValidator;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
@@ -68,14 +65,14 @@ public class CL3DMNToLambdaTransformerTest extends AbstractTckDMNToJavaTransform
 
     public static void main(String[] args) {
         // Create transformer
-        StandardDMNDialectDefinition dmnDialect = new StandardDMNDialectDefinition();
+        JavaTimeDMNDialectDefinition dmnDialect = new JavaTimeDMNDialectDefinition();
         DMNValidator dmnValidator = new NopDMNValidator();
         DMNTransformer<TestCases> dmnTransformer = new ToQuotedNameTransformer();
         TemplateProvider templateProvider = new TreeTemplateProvider();
         LazyEvaluationDetector lazyEvaluationDetector = new NopLazyEvaluationDetector();
         TypeDeserializationConfigurer typeDeserializationConfigurer = new DefaultTypeDeserializationConfigurer();
         InputParameters inputParameters = makeLambdaInputParameters();
-        DMNToLambdaTransformer<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> transformer = new DMNToLambdaTransformer<>(
+        DMNToLambdaTransformer<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> transformer = new DMNToLambdaTransformer<>(
                 dmnDialect, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, LOGGER
         );
 

@@ -14,11 +14,11 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TItemDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.SignavioTestConstants;
-import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.DMNTransformer;
 import org.junit.jupiter.api.Assertions;
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavioFileTransformerTest {
     @Test
     public void testWhenSignavioDialect() throws Exception {
-        Map<String, Object> config = makeConfiguration(SignavioDMNDialectDefinition.class.getName());
+        Map<String, Object> config = makeConfiguration(JavaTimeSignavioDMNDialectDefinition.class.getName());
         RepositoryTransformResult transformResult = executeTransformation(
                 signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"),
                 config
@@ -90,7 +90,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
         try {
             Map<String, Object> config = new LinkedHashMap<>();
             config.put("a", 10);
-            config.put(DMN_DIALECT_NAME, StandardDMNDialectDefinition.class.getName());
+            config.put(DMN_DIALECT_NAME, JavaTimeDMNDialectDefinition.class.getName());
 
             RepositoryTransformResult transformResult = executeTransformation(
                     signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"), config);

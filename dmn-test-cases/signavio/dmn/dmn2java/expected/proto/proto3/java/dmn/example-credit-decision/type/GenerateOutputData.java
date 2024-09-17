@@ -19,12 +19,12 @@ public interface GenerateOutputData extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("assessment") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Assessment")) {
-                result_.setAssessment((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("assessment", "Assessment"));
+                result_.setAssessment((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("assessment", "Assessment"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("issue") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Issue")) {
-                result_.setIssue((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("issue", "Issue"));
+                result_.setIssue((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("issue", "Issue"));
             } else {
                 return  null;
             }
@@ -34,8 +34,8 @@ public interface GenerateOutputData extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof proto.GenerateOutputData) {
             GenerateOutputDataImpl result_ = new GenerateOutputDataImpl();
             result_.setDecision(((proto.GenerateOutputData) other).getDecision());
-            result_.setAssessment(((java.math.BigDecimal) java.math.BigDecimal.valueOf(((proto.GenerateOutputData) other).getAssessment())));
-            result_.setIssue(((java.math.BigDecimal) java.math.BigDecimal.valueOf(((proto.GenerateOutputData) other).getIssue())));
+            result_.setAssessment(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.GenerateOutputData) other).getAssessment())));
+            result_.setIssue(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.GenerateOutputData) other).getIssue())));
             return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), GenerateOutputData.class.getSimpleName()));
@@ -67,10 +67,10 @@ public interface GenerateOutputData extends com.gs.dmn.runtime.DMNType {
     String getDecision();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Assessment")
-    java.math.BigDecimal getAssessment();
+    java.lang.Number getAssessment();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Issue")
-    java.math.BigDecimal getIssue();
+    java.lang.Number getIssue();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

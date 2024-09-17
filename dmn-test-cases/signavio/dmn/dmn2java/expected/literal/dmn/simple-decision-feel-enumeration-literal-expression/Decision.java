@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "decision",
@@ -36,7 +36,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         }
     }
 
-    public String apply(Boolean booleanInput, javax.xml.datatype.XMLGregorianCalendar dateInput, String enumerationInput, java.math.BigDecimal numberInput, String stringInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(Boolean booleanInput, java.time.LocalDate dateInput, String enumerationInput, java.lang.Number numberInput, String stringInput, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decision'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -65,7 +65,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         }
     }
 
-    protected String evaluate(Boolean booleanInput, javax.xml.datatype.XMLGregorianCalendar dateInput, String enumerationInput, java.math.BigDecimal numberInput, String stringInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected String evaluate(Boolean booleanInput, java.time.LocalDate dateInput, String enumerationInput, java.lang.Number numberInput, String stringInput, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;

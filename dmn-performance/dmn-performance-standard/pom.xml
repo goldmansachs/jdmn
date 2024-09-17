@@ -63,7 +63,7 @@
                 <artifactId>jdmn-maven-plugin</artifactId>
                 <version>${jdmn.version}</version>
                 <configuration>
-                    <dmnDialect>com.gs.dmn.dialect.StandardDMNDialectDefinition</dmnDialect>
+                    <dmnDialect>com.gs.dmn.dialect.JavaTimeDMNDialectDefinition</dmnDialect>
                     <dmnTransformers>
                         <dmnTransformer>com.gs.dmn.transformation.ToQuotedNameTransformer</dmnTransformer>
                     </dmnTransformers>
@@ -87,7 +87,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <dmnDialect>com.gs.dmn.dialect.StandardDMNDialectDefinition</dmnDialect>
+                            <dmnDialect>com.gs.dmn.dialect.JavaTimeDMNDialectDefinition</dmnDialect>
                             <lazyEvaluationDetectors>
                                 <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
                             </lazyEvaluationDetectors>

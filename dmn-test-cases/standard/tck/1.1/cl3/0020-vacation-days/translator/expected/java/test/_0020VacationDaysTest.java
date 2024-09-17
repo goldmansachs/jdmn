@@ -3,14 +3,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0020-vacation-days.dmn"})
-public class _0020VacationDaysTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class _0020VacationDaysTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal age = number("16");
-        java.math.BigDecimal yearsOfService = number("1");
+        java.lang.Number age = number("16");
+        java.lang.Number yearsOfService = number("1");
 
         // Check 'Total Vacation Days'
         checkValues(number("27"), new TotalVacationDays().apply(age, yearsOfService, context_));
@@ -21,8 +21,8 @@ public class _0020VacationDaysTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal age = number("25");
-        java.math.BigDecimal yearsOfService = number("5");
+        java.lang.Number age = number("25");
+        java.lang.Number yearsOfService = number("5");
 
         // Check 'Total Vacation Days'
         checkValues(number("22"), new TotalVacationDays().apply(age, yearsOfService, context_));
@@ -33,8 +33,8 @@ public class _0020VacationDaysTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal age = number("25");
-        java.math.BigDecimal yearsOfService = number("20");
+        java.lang.Number age = number("25");
+        java.lang.Number yearsOfService = number("20");
 
         // Check 'Total Vacation Days'
         checkValues(number("24"), new TotalVacationDays().apply(age, yearsOfService, context_));
@@ -45,8 +45,8 @@ public class _0020VacationDaysTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal age = number("44");
-        java.math.BigDecimal yearsOfService = number("30");
+        java.lang.Number age = number("44");
+        java.lang.Number yearsOfService = number("30");
 
         // Check 'Total Vacation Days'
         checkValues(number("30"), new TotalVacationDays().apply(age, yearsOfService, context_));
@@ -57,8 +57,8 @@ public class _0020VacationDaysTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal age = number("50");
-        java.math.BigDecimal yearsOfService = number("20");
+        java.lang.Number age = number("50");
+        java.lang.Number yearsOfService = number("20");
 
         // Check 'Total Vacation Days'
         checkValues(number("24"), new TotalVacationDays().apply(age, yearsOfService, context_));
@@ -69,8 +69,8 @@ public class _0020VacationDaysTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal age = number("50");
-        java.math.BigDecimal yearsOfService = number("30");
+        java.lang.Number age = number("50");
+        java.lang.Number yearsOfService = number("30");
 
         // Check 'Total Vacation Days'
         checkValues(number("30"), new TotalVacationDays().apply(age, yearsOfService, context_));
@@ -81,8 +81,8 @@ public class _0020VacationDaysTest extends com.gs.dmn.runtime.DefaultDMNBaseDeci
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal age = number("60");
-        java.math.BigDecimal yearsOfService = number("20");
+        java.lang.Number age = number("60");
+        java.lang.Number yearsOfService = number("20");
 
         // Check 'Total Vacation Days'
         checkValues(number("30"), new TotalVacationDays().apply(age, yearsOfService, context_));

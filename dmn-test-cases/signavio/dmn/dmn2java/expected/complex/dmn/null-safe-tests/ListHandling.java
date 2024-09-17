@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class ListHandling extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class ListHandling extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "listHandling",
@@ -29,14 +29,14 @@ public class ListHandling extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     @java.lang.Override()
     public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("numberB") != null ? number(input_.get("numberB")) : null), (input_.get("numberList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("numberList"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), context_);
+            return apply((input_.get("numberB") != null ? number(input_.get("numberB")) : null), (input_.get("numberList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("numberList"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'ListHandling'", e);
             return null;
         }
     }
 
-    public Boolean apply(java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean apply(java.lang.Number numberB, List<java.lang.Number> numberList, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'listHandling'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -62,7 +62,7 @@ public class ListHandling extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    protected Boolean evaluate(java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected Boolean evaluate(java.lang.Number numberB, List<java.lang.Number> numberList, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;

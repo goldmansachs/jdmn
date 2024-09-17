@@ -19,7 +19,7 @@ public interface Compile extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("avgOfNumbers") || ((com.gs.dmn.runtime.Context)other).keySet().contains("avg of numbers")) {
-                result_.setAvgOfNumbers((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("avgOfNumbers", "avg of numbers"));
+                result_.setAvgOfNumbers((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("avgOfNumbers", "avg of numbers"));
             } else {
                 return  null;
             }
@@ -40,7 +40,7 @@ public interface Compile extends com.gs.dmn.runtime.DMNType {
     String getNextTrafficLight();
 
     @com.fasterxml.jackson.annotation.JsonGetter("avg of numbers")
-    java.math.BigDecimal getAvgOfNumbers();
+    java.lang.Number getAvgOfNumbers();
 
     @com.fasterxml.jackson.annotation.JsonGetter("name")
     String getName();

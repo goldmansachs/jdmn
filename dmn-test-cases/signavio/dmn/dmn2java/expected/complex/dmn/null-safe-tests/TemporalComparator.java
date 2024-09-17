@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
     rulesCount = 6
 )
-public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class TemporalComparator extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "temporalComparator",
@@ -36,7 +36,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    public List<String> apply(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<String> apply(java.time.temporal.TemporalAccessor dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'temporalComparator'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -61,7 +61,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected List<String> evaluate(java.time.temporal.TemporalAccessor dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -92,7 +92,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.time.temporal.TemporalAccessor dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -123,7 +123,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.time.temporal.TemporalAccessor dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
@@ -154,7 +154,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(java.time.temporal.TemporalAccessor dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
@@ -185,7 +185,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule3(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(java.time.temporal.TemporalAccessor dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
@@ -216,7 +216,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule4(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(java.time.temporal.TemporalAccessor dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 
@@ -247,7 +247,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule5(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule5(java.time.temporal.TemporalAccessor dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "");
 

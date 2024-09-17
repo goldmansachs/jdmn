@@ -14,12 +14,12 @@ public interface It extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             ItImpl result_ = new ItImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("a") || ((com.gs.dmn.runtime.Context)other).keySet().contains("A")) {
-                result_.setA((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("a", "A"));
+                result_.setA((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("a", "A"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("b") || ((com.gs.dmn.runtime.Context)other).keySet().contains("B")) {
-                result_.setB((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("b", "B"));
+                result_.setB((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("b", "B"));
             } else {
                 return  null;
             }
@@ -32,10 +32,10 @@ public interface It extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("A")
-    java.math.BigDecimal getA();
+    java.lang.Number getA();
 
     @com.fasterxml.jackson.annotation.JsonGetter("B")
-    java.math.BigDecimal getB();
+    java.lang.Number getB();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

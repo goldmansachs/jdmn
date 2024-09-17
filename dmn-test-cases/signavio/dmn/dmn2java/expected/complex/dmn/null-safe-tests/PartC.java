@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 1
 )
-public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class PartC extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "partC",
@@ -49,7 +49,7 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         }
     }
 
-    public String apply(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(Boolean booleanA, Boolean booleanB, java.time.LocalDate date, java.time.temporal.TemporalAccessor dateTime, java.time.temporal.TemporalAccessor time, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'partC'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -78,7 +78,7 @@ public class PartC extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         }
     }
 
-    protected String evaluate(Boolean booleanA, Boolean booleanB, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected String evaluate(Boolean booleanA, Boolean booleanB, java.time.LocalDate date, java.time.temporal.TemporalAccessor dateTime, java.time.temporal.TemporalAccessor time, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;

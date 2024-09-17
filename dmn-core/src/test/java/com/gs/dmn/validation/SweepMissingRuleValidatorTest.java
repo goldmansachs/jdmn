@@ -13,7 +13,7 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -23,7 +23,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SweepMissingRuleValidatorTest extends AbstractValidatorTest {
-    private final SweepMissingRuleValidator validator = new SweepMissingRuleValidator(new StandardDMNDialectDefinition());
+    private final SweepMissingRuleValidator validator = new SweepMissingRuleValidator(new JavaTimeDMNDialectDefinition());
 
     @Test
     public void testValidateWhenCorrect() {

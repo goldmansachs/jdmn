@@ -38,7 +38,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -2969,9 +2968,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         return null;
     }
 
-    protected String numberType() {
-        return BigDecimal.class.getName();
-    }
+    protected abstract String numberType();
 
     protected abstract DMNModelRepository makeRepository();
 

@@ -14,7 +14,6 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.DefaultDMNBaseDecision;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
@@ -82,7 +81,7 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
     protected Map<String, String> makeInputParametersMap() {
         Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("environmentFactoryClass", StandardEnvironmentFactory.class.getName());
-        inputParams.put("decisionBaseClass", DefaultDMNBaseDecision.class.getName());
+        inputParams.put("decisionBaseClass", makeDialectDefinition().getDecisionBaseClass());
         return inputParams;
     }
 

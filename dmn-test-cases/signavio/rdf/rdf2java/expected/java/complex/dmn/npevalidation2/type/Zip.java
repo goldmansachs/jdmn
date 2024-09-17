@@ -19,22 +19,22 @@ public interface Zip extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("ages") || ((com.gs.dmn.runtime.Context)other).keySet().contains("ages")) {
-                result_.setAges((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("ages", "ages"));
+                result_.setAges((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("ages", "ages"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateDiffs") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateDiffs")) {
-                result_.setDateDiffs((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("dateDiffs", "dateDiffs"));
+                result_.setDateDiffs((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("dateDiffs", "dateDiffs"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeDiffs") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeDiffs")) {
-                result_.setDateTimeDiffs((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("dateTimeDiffs", "dateTimeDiffs"));
+                result_.setDateTimeDiffs((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("dateTimeDiffs", "dateTimeDiffs"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("temporalUnits") || ((com.gs.dmn.runtime.Context)other).keySet().contains("temporalUnits")) {
-                result_.setTemporalUnits((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("temporalUnits", "temporalUnits"));
+                result_.setTemporalUnits((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("temporalUnits", "temporalUnits"));
             } else {
                 return  null;
             }
@@ -55,16 +55,16 @@ public interface Zip extends com.gs.dmn.runtime.DMNType {
     String getNames();
 
     @com.fasterxml.jackson.annotation.JsonGetter("ages")
-    java.math.BigDecimal getAges();
+    java.lang.Number getAges();
 
     @com.fasterxml.jackson.annotation.JsonGetter("dateDiffs")
-    java.math.BigDecimal getDateDiffs();
+    java.lang.Number getDateDiffs();
 
     @com.fasterxml.jackson.annotation.JsonGetter("dateTimeDiffs")
-    java.math.BigDecimal getDateTimeDiffs();
+    java.lang.Number getDateTimeDiffs();
 
     @com.fasterxml.jackson.annotation.JsonGetter("temporalUnits")
-    java.math.BigDecimal getTemporalUnits();
+    java.lang.Number getTemporalUnits();
 
     @com.fasterxml.jackson.annotation.JsonGetter("agesListDescription")
     String getAgesListDescription();

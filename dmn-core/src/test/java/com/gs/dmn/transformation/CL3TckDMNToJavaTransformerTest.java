@@ -39,6 +39,7 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doSingleModelTest("1.1","0020-vacation-days");
         doSingleModelTest("1.1","0021-singleton-list");
         doSingleModelTest("1.1","0030-user-defined-functions");
+        doSingleModelTest("1.1","0031-user-defined-functions");
         doSingleModelTest("1.1","0031-static-user-defined-functions");
 
         // DMN 1.2

@@ -22,7 +22,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.rdf2dmn.json.Visitor;
 import com.gs.dmn.signavio.rdf2dmn.json.*;
 import com.gs.dmn.signavio.rdf2dmn.json.decision.*;
@@ -91,7 +91,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
     public RDFToDMNTransformer(InputParameters inputParameters, BuildLogger logger) {
         super(logger, inputParameters);
-        this.dialectDefinition = new SignavioDMNDialectDefinition();
+        this.dialectDefinition = new JavaTimeSignavioDMNDialectDefinition();
         this.dmnTransformer = this.dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), inputParameters);
         this.dmnSerializer = this.dialectDefinition.createDMNSerializer(logger, inputParameters);
         this.rdfReader = new RDFReader(logger);

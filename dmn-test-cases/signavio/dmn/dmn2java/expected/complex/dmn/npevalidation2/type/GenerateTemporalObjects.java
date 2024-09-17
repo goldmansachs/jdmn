@@ -14,12 +14,12 @@ public interface GenerateTemporalObjects extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             GenerateTemporalObjectsImpl result_ = new GenerateTemporalObjectsImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("date") || ((com.gs.dmn.runtime.Context)other).keySet().contains("date")) {
-                result_.setDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("date", "date"));
+                result_.setDate((java.time.LocalDate)((com.gs.dmn.runtime.Context)other).get("date", "date"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("datetime") || ((com.gs.dmn.runtime.Context)other).keySet().contains("datetime")) {
-                result_.setDatetime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("datetime", "datetime"));
+                result_.setDatetime((java.time.temporal.TemporalAccessor)((com.gs.dmn.runtime.Context)other).get("datetime", "datetime"));
             } else {
                 return  null;
             }
@@ -32,10 +32,10 @@ public interface GenerateTemporalObjects extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("date")
-    javax.xml.datatype.XMLGregorianCalendar getDate();
+    java.time.LocalDate getDate();
 
     @com.fasterxml.jackson.annotation.JsonGetter("datetime")
-    javax.xml.datatype.XMLGregorianCalendar getDatetime();
+    java.time.temporal.TemporalAccessor getDatetime();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

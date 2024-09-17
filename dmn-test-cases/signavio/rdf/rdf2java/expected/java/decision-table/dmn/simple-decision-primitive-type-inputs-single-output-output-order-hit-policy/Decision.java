@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.OUTPUT_ORDER,
     rulesCount = 4
 )
-public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "decision",
@@ -36,7 +36,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         }
     }
 
-    public List<String> apply(java.math.BigDecimal numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<String> apply(java.lang.Number numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decision'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -62,7 +62,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         }
     }
 
-    protected List<String> evaluate(java.math.BigDecimal numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected List<String> evaluate(java.lang.Number numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -91,7 +91,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -124,7 +124,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.lang.Number numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
@@ -157,7 +157,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(java.math.BigDecimal numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(java.lang.Number numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
@@ -190,7 +190,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule3(java.math.BigDecimal numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(java.lang.Number numberInput, String textInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 

@@ -6,25 +6,25 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class GenerateOutputDataImpl implements GenerateOutputData {
         private String decision;
-        private java.math.BigDecimal assessment;
-        private java.math.BigDecimal issue;
+        private java.lang.Number assessment;
+        private java.lang.Number issue;
 
     public GenerateOutputDataImpl() {
     }
 
-    public GenerateOutputDataImpl(java.math.BigDecimal assessment, String decision, java.math.BigDecimal issue) {
+    public GenerateOutputDataImpl(java.lang.Number assessment, String decision, java.lang.Number issue) {
         this.setAssessment(assessment);
         this.setDecision(decision);
         this.setIssue(issue);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Assessment")
-    public java.math.BigDecimal getAssessment() {
+    public java.lang.Number getAssessment() {
         return this.assessment;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Assessment")
-    public void setAssessment(java.math.BigDecimal assessment) {
+    public void setAssessment(java.lang.Number assessment) {
         this.assessment = assessment;
     }
 
@@ -39,12 +39,12 @@ public class GenerateOutputDataImpl implements GenerateOutputData {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Issue")
-    public java.math.BigDecimal getIssue() {
+    public java.lang.Number getIssue() {
         return this.issue;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Issue")
-    public void setIssue(java.math.BigDecimal issue) {
+    public void setIssue(java.lang.Number issue) {
         this.issue = issue;
     }
 

@@ -24,7 +24,7 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("id") || ((com.gs.dmn.runtime.Context)other).keySet().contains("id")) {
-                result_.setId((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("id", "id"));
+                result_.setId((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("id", "id"));
             } else {
                 return  null;
             }
@@ -34,17 +34,17 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateOfBirth") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateOfBirth")) {
-                result_.setDateOfBirth((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("dateOfBirth", "dateOfBirth"));
+                result_.setDateOfBirth((java.time.LocalDate)((com.gs.dmn.runtime.Context)other).get("dateOfBirth", "dateOfBirth"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("timeOfBirth") || ((com.gs.dmn.runtime.Context)other).keySet().contains("timeOfBirth")) {
-                result_.setTimeOfBirth((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("timeOfBirth", "timeOfBirth"));
+                result_.setTimeOfBirth((java.time.temporal.TemporalAccessor)((com.gs.dmn.runtime.Context)other).get("timeOfBirth", "timeOfBirth"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeOfBirth") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeOfBirth")) {
-                result_.setDateTimeOfBirth((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("dateTimeOfBirth", "dateTimeOfBirth"));
+                result_.setDateTimeOfBirth((java.time.temporal.TemporalAccessor)((com.gs.dmn.runtime.Context)other).get("dateTimeOfBirth", "dateTimeOfBirth"));
             } else {
                 return  null;
             }
@@ -73,19 +73,19 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
     String getLastName();
 
     @com.fasterxml.jackson.annotation.JsonGetter("id")
-    java.math.BigDecimal getId();
+    java.lang.Number getId();
 
     @com.fasterxml.jackson.annotation.JsonGetter("gender")
     String getGender();
 
     @com.fasterxml.jackson.annotation.JsonGetter("dateOfBirth")
-    javax.xml.datatype.XMLGregorianCalendar getDateOfBirth();
+    java.time.LocalDate getDateOfBirth();
 
     @com.fasterxml.jackson.annotation.JsonGetter("timeOfBirth")
-    javax.xml.datatype.XMLGregorianCalendar getTimeOfBirth();
+    java.time.temporal.TemporalAccessor getTimeOfBirth();
 
     @com.fasterxml.jackson.annotation.JsonGetter("dateTimeOfBirth")
-    javax.xml.datatype.XMLGregorianCalendar getDateTimeOfBirth();
+    java.time.temporal.TemporalAccessor getDateTimeOfBirth();
 
     @com.fasterxml.jackson.annotation.JsonGetter("list")
     List<String> getList();

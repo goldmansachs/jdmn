@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "bd1194901b2149b8a8251ab2cc298992/sid-C52224F3-4EC1-4AAC-88AE-F5F51F285ED0"})
-public class DecisionTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class DecisionTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     private final Decision decision = new Decision();
 
     @org.junit.jupiter.api.Test

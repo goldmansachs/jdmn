@@ -6,23 +6,23 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class PersonImpl implements Person {
         private String name;
-        private java.math.BigDecimal age;
+        private java.lang.Number age;
 
     public PersonImpl() {
     }
 
-    public PersonImpl(java.math.BigDecimal age, String name) {
+    public PersonImpl(java.lang.Number age, String name) {
         this.setAge(age);
         this.setName(name);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("age")
-    public java.math.BigDecimal getAge() {
+    public java.lang.Number getAge() {
         return this.age;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("age")
-    public void setAge(java.math.BigDecimal age) {
+    public void setAge(java.lang.Number age) {
         this.age = age;
     }
 

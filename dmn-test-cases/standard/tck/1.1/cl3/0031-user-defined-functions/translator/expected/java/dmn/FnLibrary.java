@@ -2,20 +2,20 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "fnLibrary"})
+@javax.annotation.Generated(value = {"decision.ftl", "fn library"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "fnLibrary",
+    name = "fn library",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class FnLibrary extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class FnLibrary extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "fnLibrary",
+        "fn library",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -26,40 +26,59 @@ public class FnLibrary extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
     public FnLibrary() {
     }
 
-    public type.TFnLibrary apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-    }
-
-    public type.TFnLibrary apply(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    @java.lang.Override()
+    public type.TFnLibrary applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            // Start decision 'fnLibrary'
-            long fnLibraryStartTime_ = System.currentTimeMillis();
-            com.gs.dmn.runtime.listener.Arguments fnLibraryArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_);
-
-            // Evaluate decision 'fnLibrary'
-            type.TFnLibrary output_ = evaluate(annotationSet_, eventListener_, externalExecutor_, cache_);
-
-            // End decision 'fnLibrary'
-            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_, output_, (System.currentTimeMillis() - fnLibraryStartTime_));
-
-            return output_;
+            return apply(context_);
         } catch (Exception e) {
-            logError("Exception caught in 'fnLibrary' evaluation", e);
+            logError("Cannot apply decision 'FnLibrary'", e);
             return null;
         }
     }
 
-    protected type.TFnLibrary evaluate(com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> sumFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args_) {java.math.BigDecimal a = (java.math.BigDecimal)args_[0]; java.math.BigDecimal b = (java.math.BigDecimal)args_[1];return numericAdd(a, b);}};
-        com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> subFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args_) {java.math.BigDecimal a = (java.math.BigDecimal)args_[0]; java.math.BigDecimal b = (java.math.BigDecimal)args_[1];return numericSubtract(a, b);}};
-        com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> multiplyFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args_) {java.math.BigDecimal a = (java.math.BigDecimal)args_[0]; java.math.BigDecimal b = (java.math.BigDecimal)args_[1];return numericMultiply(a, b);}};
-        com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal> divideFn = new com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>() {public java.math.BigDecimal apply(Object... args_) {java.math.BigDecimal a = (java.math.BigDecimal)args_[0]; java.math.BigDecimal b = (java.math.BigDecimal)args_[1];return (booleanEqual(numericEqual(b, number("0")), Boolean.TRUE)) ? null : numericDivide(a, b);}};
-        type.TFnLibraryImpl fnLibrary = new type.TFnLibraryImpl();
-        fnLibrary.setSumFn(sumFn);
-        fnLibrary.setSubFn(subFn);
-        fnLibrary.setMultiplyFn(multiplyFn);
-        fnLibrary.setDivideFn(divideFn);
-        return fnLibrary;
+    public type.TFnLibrary apply(com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            // Start decision 'fn library'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
+            long fnLibraryStartTime_ = System.currentTimeMillis();
+            com.gs.dmn.runtime.listener.Arguments fnLibraryArguments_ = new com.gs.dmn.runtime.listener.Arguments();
+            eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_);
+
+            // Evaluate decision 'fn library'
+            type.TFnLibrary output_ = lambda.apply(context_);
+
+            // End decision 'fn library'
+            eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnLibraryArguments_, output_, (System.currentTimeMillis() - fnLibraryStartTime_));
+
+            return output_;
+        } catch (Exception e) {
+            logError("Exception caught in 'fn library' evaluation", e);
+            return null;
+        }
     }
+
+    public com.gs.dmn.runtime.LambdaExpression<type.TFnLibrary> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<type.TFnLibrary>() {
+            public type.TFnLibrary apply(Object... args_) {
+                com.gs.dmn.runtime.ExecutionContext context_ = 0 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[0] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
+
+                com.gs.dmn.runtime.LambdaExpression<java.lang.Number> sumFn = new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {public java.lang.Number apply(Object... args_) {java.lang.Number a = (java.lang.Number)args_[0]; java.lang.Number b = (java.lang.Number)args_[1];return numericAdd(a, b);}};
+                com.gs.dmn.runtime.LambdaExpression<java.lang.Number> subFn = new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {public java.lang.Number apply(Object... args_) {java.lang.Number a = (java.lang.Number)args_[0]; java.lang.Number b = (java.lang.Number)args_[1];return numericSubtract(a, b);}};
+                com.gs.dmn.runtime.LambdaExpression<java.lang.Number> multiplyFn = new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {public java.lang.Number apply(Object... args_) {java.lang.Number a = (java.lang.Number)args_[0]; java.lang.Number b = (java.lang.Number)args_[1];return numericMultiply(a, b);}};
+                com.gs.dmn.runtime.LambdaExpression<java.lang.Number> divideFn = new com.gs.dmn.runtime.LambdaExpression<java.lang.Number>() {public java.lang.Number apply(Object... args_) {java.lang.Number a = (java.lang.Number)args_[0]; java.lang.Number b = (java.lang.Number)args_[1];return (booleanEqual(numericEqual(b, number("0")), Boolean.TRUE)) ? null : numericDivide(a, b);}};
+                type.TFnLibraryImpl fnLibrary = new type.TFnLibraryImpl();
+                fnLibrary.setSumFn(sumFn);
+                fnLibrary.setSubFn(subFn);
+                fnLibrary.setMultiplyFn(multiplyFn);
+                fnLibrary.setDivideFn(divideFn);
+                return fnLibrary;
+            }
+        };
 }

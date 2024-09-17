@@ -3,19 +3,19 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "assessApplicantAge"})
 public class AssessApplicantAgeRuleOutput extends com.gs.dmn.runtime.RuleOutput {
-    private java.math.BigDecimal assessApplicantAge;
+    private java.lang.Number assessApplicantAge;
 
     public AssessApplicantAgeRuleOutput(boolean matched) {
         super(matched);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("assessApplicantAge")
-    public java.math.BigDecimal getAssessApplicantAge() {
+    public java.lang.Number getAssessApplicantAge() {
         return this.assessApplicantAge;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("assessApplicantAge")
-    public void setAssessApplicantAge(java.math.BigDecimal assessApplicantAge) {
+    public void setAssessApplicantAge(java.lang.Number assessApplicantAge) {
         this.assessApplicantAge = assessApplicantAge;
     }
 

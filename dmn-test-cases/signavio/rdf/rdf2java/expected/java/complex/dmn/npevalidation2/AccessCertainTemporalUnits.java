@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
     rulesCount = 5
 )
-public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "accessCertainTemporalUnits",
@@ -34,7 +34,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
     }
 
     @java.lang.Override()
-    public List<java.math.BigDecimal> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<java.lang.Number> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("day") != null ? number(input_.get("day")) : null), (input_.get("hour") != null ? number(input_.get("hour")) : null), (input_.get("minute") != null ? number(input_.get("minute")) : null), (input_.get("month") != null ? number(input_.get("month")) : null), (input_.get("second") != null ? number(input_.get("second")) : null), (input_.get("year") != null ? number(input_.get("year")) : null), context_);
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
         }
     }
 
-    public List<java.math.BigDecimal> apply(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<java.lang.Number> apply(java.lang.Number day, java.lang.Number hour, java.lang.Number minute, java.lang.Number month, java.lang.Number second, java.lang.Number year, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'accessCertainTemporalUnits'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -61,7 +61,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, accessCertainTemporalUnitsArguments_);
 
             // Evaluate decision 'accessCertainTemporalUnits'
-            List<java.math.BigDecimal> output_ = evaluate(day, hour, minute, month, second, year, context_);
+            List<java.lang.Number> output_ = evaluate(day, hour, minute, month, second, year, context_);
 
             // End decision 'accessCertainTemporalUnits'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, accessCertainTemporalUnitsArguments_, output_, (System.currentTimeMillis() - accessCertainTemporalUnitsStartTime_));
@@ -73,7 +73,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
         }
     }
 
-    protected List<java.math.BigDecimal> evaluate(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected List<java.lang.Number> evaluate(java.lang.Number day, java.lang.Number hour, java.lang.Number minute, java.lang.Number month, java.lang.Number second, java.lang.Number year, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -90,7 +90,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
         ruleOutputList_.add(rule4(generateTemporalObjects, context_));
 
         // Return results based on hit policy
-        List<java.math.BigDecimal> output_;
+        List<java.lang.Number> output_;
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = null;
@@ -128,7 +128,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
 
             // Compute output
             output_.setMatched(true);
-            output_.setValue(month(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
+            output_.setValue(month(((java.time.LocalDate)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
         }
 
         // Rule end
@@ -160,7 +160,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
 
             // Compute output
             output_.setMatched(true);
-            output_.setValue(year(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
+            output_.setValue(year(((java.time.LocalDate)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
         }
 
         // Rule end
@@ -192,7 +192,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
 
             // Compute output
             output_.setMatched(true);
-            output_.setValue(weekday(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
+            output_.setValue(weekday(((java.time.LocalDate)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
         }
 
         // Rule end
@@ -224,7 +224,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
 
             // Compute output
             output_.setMatched(true);
-            output_.setValue(day(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
+            output_.setValue(day(((java.time.LocalDate)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
         }
 
         // Rule end
@@ -256,7 +256,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Defa
 
             // Compute output
             output_.setMatched(true);
-            output_.setValue(minute(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
+            output_.setValue(minute(((java.time.temporal.TemporalAccessor)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
         }
 
         // Rule end

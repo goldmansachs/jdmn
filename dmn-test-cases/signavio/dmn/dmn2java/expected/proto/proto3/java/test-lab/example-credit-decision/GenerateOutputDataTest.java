@@ -3,14 +3,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "9acf44f2b05343d79fc35140c493c1e0/sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6"})
-public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     private final GenerateOutputData generateOutputData = new GenerateOutputData();
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
-        java.math.BigDecimal currentRiskAppetite = number("50");
-        java.math.BigDecimal lendingThreshold = number("25");
+        java.lang.Number currentRiskAppetite = number("50");
+        java.lang.Number lendingThreshold = number("25");
         type.Applicant applicant = new type.ApplicantImpl(number("38"), number("100"), "Amy", asList("Late payment"));
         List<type.GenerateOutputData> generateOutputData = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, context_);
 
@@ -39,8 +39,8 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
     @org.junit.jupiter.api.Test
     public void testCase2() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
-        java.math.BigDecimal currentRiskAppetite = number("50");
-        java.math.BigDecimal lendingThreshold = number("25");
+        java.lang.Number currentRiskAppetite = number("50");
+        java.lang.Number lendingThreshold = number("25");
         type.Applicant applicant = new type.ApplicantImpl(number("18"), number("65"), "Bill", asList("Card rejection", "Default on obligations"));
         List<type.GenerateOutputData> generateOutputData = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, context_);
 
@@ -69,8 +69,8 @@ public class GenerateOutputDataTest extends com.gs.dmn.signavio.runtime.DefaultS
     @org.junit.jupiter.api.Test
     public void testCase3() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
-        java.math.BigDecimal currentRiskAppetite = number("50");
-        java.math.BigDecimal lendingThreshold = number("25");
+        java.lang.Number currentRiskAppetite = number("50");
+        java.lang.Number lendingThreshold = number("25");
         type.Applicant applicant = new type.ApplicantImpl(number("65"), number("80"), "Charlie", asList("Late payment", "Default on obligations", "Bankruptcy"));
         List<type.GenerateOutputData> generateOutputData = this.generateOutputData.apply(applicant, currentRiskAppetite, lendingThreshold, context_);
 

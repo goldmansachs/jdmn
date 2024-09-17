@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.ANY,
     rulesCount = 1
 )
-public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class Decide extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "decide",
@@ -45,7 +45,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
         }
     }
 
-    public String apply(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar datetime, javax.xml.datatype.XMLGregorianCalendar time, javax.xml.datatype.XMLGregorianCalendar time2, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(java.time.LocalDate date, java.time.temporal.TemporalAccessor datetime, java.time.temporal.TemporalAccessor time, java.time.temporal.TemporalAccessor time2, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decide'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -73,14 +73,14 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
         }
     }
 
-    protected String evaluate(javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar datetime, javax.xml.datatype.XMLGregorianCalendar time, javax.xml.datatype.XMLGregorianCalendar time2, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected String evaluate(java.time.LocalDate date, java.time.temporal.TemporalAccessor datetime, java.time.temporal.TemporalAccessor time, java.time.temporal.TemporalAccessor time2, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
         com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
         String pick = this.pick.apply(date, datetime, time, context_);
-        java.math.BigDecimal sum = this.sum.apply(date, datetime, time, time2, context_);
+        java.lang.Number sum = this.sum.apply(date, datetime, time, time2, context_);
 
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
@@ -100,7 +100,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecis
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "string(\"D9R1\")")
-    public com.gs.dmn.runtime.RuleOutput rule0(String pick, java.math.BigDecimal sum, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(String pick, java.lang.Number sum, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "string(\"D9R1\")");
 

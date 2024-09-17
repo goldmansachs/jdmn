@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.serialization.DMNSerializer;
-import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLabSerializer;
 import com.gs.dmn.transformation.AbstractFileTransformerTest;
 
@@ -22,7 +22,7 @@ import java.util.Map;
 import static com.gs.dmn.signavio.SignavioTestConstants.SIG_EXT_NAMESPACE;
 
 public abstract class AbstractSignavioFileTransformerTest extends AbstractFileTransformerTest {
-    protected final SignavioDMNDialectDefinition dialectDefinition = new SignavioDMNDialectDefinition();
+    protected final JavaTimeSignavioDMNDialectDefinition dialectDefinition = new JavaTimeSignavioDMNDialectDefinition();
     protected final DMNSerializer dmnSerializer = this.dialectDefinition.createDMNSerializer(LOGGER, this.inputParameters);
     protected final TestLabSerializer testReader = new TestLabSerializer();
 

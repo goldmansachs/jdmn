@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 1
 )
-public class AllTogether extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class AllTogether extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "allTogether",
@@ -40,14 +40,14 @@ public class AllTogether extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("booleanA") != null ? Boolean.valueOf(input_.get("booleanA")) : null), (input_.get("booleanB") != null ? Boolean.valueOf(input_.get("booleanB")) : null), (input_.get("booleanList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("booleanList"), new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), (input_.get("date") != null ? date(input_.get("date")) : null), (input_.get("dateTime") != null ? dateAndTime(input_.get("dateTime")) : null), (input_.get("numberA") != null ? number(input_.get("numberA")) : null), (input_.get("numberB") != null ? number(input_.get("numberB")) : null), (input_.get("numberList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("numberList"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), input_.get("string"), (input_.get("stringList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("stringList"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("time") != null ? time(input_.get("time")) : null), context_);
+            return apply((input_.get("booleanA") != null ? Boolean.valueOf(input_.get("booleanA")) : null), (input_.get("booleanB") != null ? Boolean.valueOf(input_.get("booleanB")) : null), (input_.get("booleanList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("booleanList"), new com.fasterxml.jackson.core.type.TypeReference<List<Boolean>>() {}) : null), (input_.get("date") != null ? date(input_.get("date")) : null), (input_.get("dateTime") != null ? dateAndTime(input_.get("dateTime")) : null), (input_.get("numberA") != null ? number(input_.get("numberA")) : null), (input_.get("numberB") != null ? number(input_.get("numberB")) : null), (input_.get("numberList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("numberList"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), input_.get("string"), (input_.get("stringList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("stringList"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("time") != null ? time(input_.get("time")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'AllTogether'", e);
             return null;
         }
     }
 
-    public String apply(Boolean booleanA, Boolean booleanB, List<Boolean> booleanList, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, String string, List<String> stringList, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(Boolean booleanA, Boolean booleanB, List<Boolean> booleanList, java.time.LocalDate date, java.time.temporal.TemporalAccessor dateTime, java.lang.Number numberA, java.lang.Number numberB, List<java.lang.Number> numberList, String string, List<String> stringList, java.time.temporal.TemporalAccessor time, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'allTogether'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -82,7 +82,7 @@ public class AllTogether extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         }
     }
 
-    protected String evaluate(Boolean booleanA, Boolean booleanB, List<Boolean> booleanList, javax.xml.datatype.XMLGregorianCalendar date, javax.xml.datatype.XMLGregorianCalendar dateTime, java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, String string, List<String> stringList, javax.xml.datatype.XMLGregorianCalendar time, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected String evaluate(Boolean booleanA, Boolean booleanB, List<Boolean> booleanList, java.time.LocalDate date, java.time.temporal.TemporalAccessor dateTime, java.lang.Number numberA, java.lang.Number numberB, List<java.lang.Number> numberList, String string, List<String> stringList, java.time.temporal.TemporalAccessor time, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 1
 )
-public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class Product extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "product",
@@ -27,7 +27,7 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("Componentwise") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Componentwise"), new com.fasterxml.jackson.core.type.TypeReference<type.Componentwise3Impl>() {}) : null), context_);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
-    public java.math.BigDecimal apply(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'product'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -49,7 +49,7 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, productArguments_);
 
             // Evaluate decision 'product'
-            java.math.BigDecimal output_ = evaluate(componentwise4_iterator, context_);
+            java.lang.Number output_ = evaluate(componentwise4_iterator, context_);
 
             // End decision 'product'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, productArguments_, output_, (System.currentTimeMillis() - productStartTime_));
@@ -61,7 +61,7 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
-    protected java.math.BigDecimal evaluate(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected java.lang.Number evaluate(type.Componentwise3 componentwise4_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -71,7 +71,7 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         ruleOutputList_.add(rule0(componentwise4_iterator, context_));
 
         // Return results based on hit policy
-        java.math.BigDecimal output_;
+        java.lang.Number output_;
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = null;
@@ -105,7 +105,7 @@ public class Product extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
 
             // Compute output
             output_.setMatched(true);
-            output_.setProduct(numericMultiply(((java.math.BigDecimal)(componentwise4_iterator != null ? componentwise4_iterator.getA() : null)), ((java.math.BigDecimal)(componentwise4_iterator != null ? componentwise4_iterator.getB() : null))));
+            output_.setProduct(numericMultiply(((java.lang.Number)(componentwise4_iterator != null ? componentwise4_iterator.getA() : null)), ((java.lang.Number)(componentwise4_iterator != null ? componentwise4_iterator.getB() : null))));
         }
 
         // Rule end

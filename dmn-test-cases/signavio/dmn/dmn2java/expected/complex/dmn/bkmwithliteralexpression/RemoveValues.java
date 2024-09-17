@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class RemoveValues extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class RemoveValues extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "removeValues",
@@ -34,16 +34,16 @@ public class RemoveValues extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     @java.lang.Override()
-    public List<java.math.BigDecimal> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<java.lang.Number> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("ListOfNumbers") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("ListOfNumbers"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), context_);
+            return apply((input_.get("ListOfNumbers") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("ListOfNumbers"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'RemoveValues'", e);
             return null;
         }
     }
 
-    public List<java.math.BigDecimal> apply(List<java.math.BigDecimal> listOfNumbers, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<java.lang.Number> apply(List<java.lang.Number> listOfNumbers, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'removeValues'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -56,7 +56,7 @@ public class RemoveValues extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, removeValuesArguments_);
 
             // Evaluate decision 'removeValues'
-            List<java.math.BigDecimal> output_ = evaluate(listOfNumbers, context_);
+            List<java.lang.Number> output_ = evaluate(listOfNumbers, context_);
 
             // End decision 'removeValues'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, removeValuesArguments_, output_, (System.currentTimeMillis() - removeValuesStartTime_));
@@ -68,13 +68,13 @@ public class RemoveValues extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    protected List<java.math.BigDecimal> evaluate(List<java.math.BigDecimal> listOfNumbers, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected List<java.lang.Number> evaluate(List<java.lang.Number> listOfNumbers, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
         com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        List<java.math.BigDecimal> addExtraValues = this.addExtraValues.apply(listOfNumbers, context_);
+        List<java.lang.Number> addExtraValues = this.addExtraValues.apply(listOfNumbers, context_);
 
         return removeAll(addExtraValues, asList(number("2"), number("4"), number("6"), number("8")));
     }

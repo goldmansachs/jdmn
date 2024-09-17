@@ -6,12 +6,12 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ZipImpl implements Zip {
         private String inputA;
-        private java.math.BigDecimal inputB;
+        private java.lang.Number inputB;
 
     public ZipImpl() {
     }
 
-    public ZipImpl(String inputA, java.math.BigDecimal inputB) {
+    public ZipImpl(String inputA, java.lang.Number inputB) {
         this.setInputA(inputA);
         this.setInputB(inputB);
     }
@@ -27,12 +27,12 @@ public class ZipImpl implements Zip {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("inputB")
-    public java.math.BigDecimal getInputB() {
+    public java.lang.Number getInputB() {
         return this.inputB;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("inputB")
-    public void setInputB(java.math.BigDecimal inputB) {
+    public void setInputB(java.lang.Number inputB) {
         this.inputB = inputB;
     }
 

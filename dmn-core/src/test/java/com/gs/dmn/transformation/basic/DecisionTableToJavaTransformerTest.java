@@ -16,14 +16,14 @@ import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDecisionRule;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DecisionTableToJavaTransformerTest extends AbstractTest {
-    private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect = new StandardDMNDialectDefinition();
+    private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect = new JavaTimeDMNDialectDefinition();
     private final DMNModelRepository repository = new DMNModelRepository();
     private final DMNExpressionToNativeTransformer transformer = new DMNExpressionToNativeTransformer(new BasicDMNToJavaTransformer(dialect, repository, null, null, new NopLazyEvaluationDetector(), inputParameters));
 

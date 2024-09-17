@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0092-feel-lambda.dmn"})
-public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
@@ -63,7 +63,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal input_007_1 = number("20");
+        java.lang.Number input_007_1 = number("20");
 
         // Check 'decision_007_1'
         checkValues(number("100"), new Decision_007_1().apply(input_007_1, context_));
@@ -110,7 +110,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.DefaultDMNBaseDecisi
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal input_011_1 = number("10");
+        java.lang.Number input_011_1 = number("10");
 
         // Check 'decision_011_1'
         checkValues(number("5000"), new Decision_011_1().apply(input_011_1, context_));

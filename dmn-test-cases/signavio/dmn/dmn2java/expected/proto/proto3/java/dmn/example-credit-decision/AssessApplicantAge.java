@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 3
 )
-public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "assessApplicantAge",
@@ -33,16 +33,16 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         return map_;
     }
 
-    public static java.math.BigDecimal responseToOutput(proto.AssessApplicantAgeResponse assessApplicantAgeResponse_) {
+    public static java.lang.Number responseToOutput(proto.AssessApplicantAgeResponse assessApplicantAgeResponse_) {
         // Extract and convert output
-        return ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessApplicantAgeResponse_.getAssessApplicantAge()));
+        return ((java.lang.Number) java.math.BigDecimal.valueOf(assessApplicantAgeResponse_.getAssessApplicantAge()));
     }
 
     public AssessApplicantAge() {
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("Applicant") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Applicant"), new com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) : null), context_);
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    public java.math.BigDecimal apply(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'assessApplicantAge'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -64,7 +64,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessApplicantAgeArguments_);
 
             // Evaluate decision 'assessApplicantAge'
-            java.math.BigDecimal output_ = evaluate(applicant, context_);
+            java.lang.Number output_ = evaluate(applicant, context_);
 
             // End decision 'assessApplicantAge'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, assessApplicantAgeArguments_, output_, (System.currentTimeMillis() - assessApplicantAgeStartTime_));
@@ -81,7 +81,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         type.Applicant applicant = type.Applicant.toApplicant(assessApplicantAgeRequest_.getApplicant());
 
         // Invoke apply method
-        java.math.BigDecimal output_ = apply(applicant, context_);
+        java.lang.Number output_ = apply(applicant, context_);
 
         // Convert output to Response Message
         proto.AssessApplicantAgeResponse.Builder builder_ = proto.AssessApplicantAgeResponse.newBuilder();
@@ -90,7 +90,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         return builder_.build();
     }
 
-    protected java.math.BigDecimal evaluate(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected java.lang.Number evaluate(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -102,7 +102,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         ruleOutputList_.add(rule2(applicant, context_));
 
         // Return results based on hit policy
-        java.math.BigDecimal output_;
+        java.lang.Number output_;
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = null;
@@ -129,7 +129,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         AssessApplicantAgeRuleOutput output_ = new AssessApplicantAgeRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericLessThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("18"))
+            numericLessThan(((java.lang.Number)(applicant != null ? applicant.getAge() : null)), number("18"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -160,7 +160,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         AssessApplicantAgeRuleOutput output_ = new AssessApplicantAgeRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanAnd(numericGreaterEqualThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("18")), numericLessEqualThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("25")))
+            booleanAnd(numericGreaterEqualThan(((java.lang.Number)(applicant != null ? applicant.getAge() : null)), number("18")), numericLessEqualThan(((java.lang.Number)(applicant != null ? applicant.getAge() : null)), number("25")))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -191,7 +191,7 @@ public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.DefaultSigna
         // Apply rule
         AssessApplicantAgeRuleOutput output_ = new AssessApplicantAgeRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericGreaterThan(((java.math.BigDecimal)(applicant != null ? applicant.getAge() : null)), number("25"))
+            numericGreaterThan(((java.lang.Number)(applicant != null ? applicant.getAge() : null)), number("25"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

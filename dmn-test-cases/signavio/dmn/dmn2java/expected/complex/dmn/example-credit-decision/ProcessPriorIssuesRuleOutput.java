@@ -3,19 +3,19 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "processPriorIssues"})
 public class ProcessPriorIssuesRuleOutput extends com.gs.dmn.runtime.RuleOutput {
-    private java.math.BigDecimal processPriorIssues;
+    private java.lang.Number processPriorIssues;
 
     public ProcessPriorIssuesRuleOutput(boolean matched) {
         super(matched);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("processPriorIssues")
-    public java.math.BigDecimal getProcessPriorIssues() {
+    public java.lang.Number getProcessPriorIssues() {
         return this.processPriorIssues;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("processPriorIssues")
-    public void setProcessPriorIssues(java.math.BigDecimal processPriorIssues) {
+    public void setProcessPriorIssues(java.lang.Number processPriorIssues) {
         this.processPriorIssues = processPriorIssues;
     }
 

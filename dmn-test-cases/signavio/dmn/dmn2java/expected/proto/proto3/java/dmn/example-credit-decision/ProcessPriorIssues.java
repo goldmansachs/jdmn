@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
     rulesCount = 5
 )
-public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "processPriorIssues",
@@ -33,16 +33,16 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         return map_;
     }
 
-    public static List<java.math.BigDecimal> responseToOutput(proto.ProcessPriorIssuesResponse processPriorIssuesResponse_) {
+    public static List<java.lang.Number> responseToOutput(proto.ProcessPriorIssuesResponse processPriorIssuesResponse_) {
         // Extract and convert output
-        return ((List<java.math.BigDecimal>) (processPriorIssuesResponse_.getProcessPriorIssuesList() == null ? null : processPriorIssuesResponse_.getProcessPriorIssuesList().stream().map(e -> ((java.math.BigDecimal) java.math.BigDecimal.valueOf(e))).collect(java.util.stream.Collectors.toList())));
+        return ((List<java.lang.Number>) (processPriorIssuesResponse_.getProcessPriorIssuesList() == null ? null : processPriorIssuesResponse_.getProcessPriorIssuesList().stream().map(e -> ((java.lang.Number) java.math.BigDecimal.valueOf(e))).collect(java.util.stream.Collectors.toList())));
     }
 
     public ProcessPriorIssues() {
     }
 
     @java.lang.Override()
-    public List<java.math.BigDecimal> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<java.lang.Number> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("Applicant") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Applicant"), new com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) : null), context_);
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    public List<java.math.BigDecimal> apply(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<java.lang.Number> apply(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'processPriorIssues'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -64,7 +64,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_);
 
             // Evaluate decision 'processPriorIssues'
-            List<java.math.BigDecimal> output_ = evaluate(applicant, context_);
+            List<java.lang.Number> output_ = evaluate(applicant, context_);
 
             // End decision 'processPriorIssues'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, processPriorIssuesArguments_, output_, (System.currentTimeMillis() - processPriorIssuesStartTime_));
@@ -81,7 +81,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         type.Applicant applicant = type.Applicant.toApplicant(processPriorIssuesRequest_.getApplicant());
 
         // Invoke apply method
-        List<java.math.BigDecimal> output_ = apply(applicant, context_);
+        List<java.lang.Number> output_ = apply(applicant, context_);
 
         // Convert output to Response Message
         proto.ProcessPriorIssuesResponse.Builder builder_ = proto.ProcessPriorIssuesResponse.newBuilder();
@@ -92,7 +92,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         return builder_.build();
     }
 
-    protected List<java.math.BigDecimal> evaluate(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected List<java.lang.Number> evaluate(type.Applicant applicant, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -106,7 +106,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.DefaultSigna
         ruleOutputList_.add(rule4(applicant, context_));
 
         // Return results based on hit policy
-        List<java.math.BigDecimal> output_;
+        List<java.lang.Number> output_;
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = null;

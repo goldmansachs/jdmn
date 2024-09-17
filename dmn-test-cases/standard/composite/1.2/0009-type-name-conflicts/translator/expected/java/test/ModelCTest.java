@@ -3,13 +3,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "Model C"})
-public class ModelCTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class ModelCTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal aa = number("1000");
+        java.lang.Number aa = number("1000");
         String ba = "$";
 
         // Check 'c'

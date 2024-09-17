@@ -5,24 +5,24 @@ import java.util.*;
 @javax.annotation.Generated(value = {"itemDefinition.ftl", "transaction"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TransactionImpl implements Transaction {
-        private javax.xml.datatype.XMLGregorianCalendar tradeDate;
+        private java.time.LocalDate tradeDate;
         private String buySellIndicator;
         private String offeringType;
         private Boolean exerciseAssign;
-        private javax.xml.datatype.XMLGregorianCalendar settlementDate;
+        private java.time.LocalDate settlementDate;
         private String clearingAgent;
         private Boolean deliveryInstruction;
         private String executionCapacity;
-        private java.math.BigDecimal quantity;
-        private java.math.BigDecimal price;
-        private java.math.BigDecimal commision;
+        private java.lang.Number quantity;
+        private java.lang.Number price;
+        private java.lang.Number commision;
         private String executionMarket;
         private String currencyCode;
 
     public TransactionImpl() {
     }
 
-    public TransactionImpl(String buySellIndicator, String clearingAgent, java.math.BigDecimal commision, String currencyCode, Boolean deliveryInstruction, String executionCapacity, String executionMarket, Boolean exerciseAssign, String offeringType, java.math.BigDecimal price, java.math.BigDecimal quantity, javax.xml.datatype.XMLGregorianCalendar settlementDate, javax.xml.datatype.XMLGregorianCalendar tradeDate) {
+    public TransactionImpl(String buySellIndicator, String clearingAgent, java.lang.Number commision, String currencyCode, Boolean deliveryInstruction, String executionCapacity, String executionMarket, Boolean exerciseAssign, String offeringType, java.lang.Number price, java.lang.Number quantity, java.time.LocalDate settlementDate, java.time.LocalDate tradeDate) {
         this.setBuySellIndicator(buySellIndicator);
         this.setClearingAgent(clearingAgent);
         this.setCommision(commision);
@@ -59,12 +59,12 @@ public class TransactionImpl implements Transaction {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("commision")
-    public java.math.BigDecimal getCommision() {
+    public java.lang.Number getCommision() {
         return this.commision;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("commision")
-    public void setCommision(java.math.BigDecimal commision) {
+    public void setCommision(java.lang.Number commision) {
         this.commision = commision;
     }
 
@@ -129,42 +129,42 @@ public class TransactionImpl implements Transaction {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("price")
-    public java.math.BigDecimal getPrice() {
+    public java.lang.Number getPrice() {
         return this.price;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("price")
-    public void setPrice(java.math.BigDecimal price) {
+    public void setPrice(java.lang.Number price) {
         this.price = price;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("quantity")
-    public java.math.BigDecimal getQuantity() {
+    public java.lang.Number getQuantity() {
         return this.quantity;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("quantity")
-    public void setQuantity(java.math.BigDecimal quantity) {
+    public void setQuantity(java.lang.Number quantity) {
         this.quantity = quantity;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("settlementDate")
-    public javax.xml.datatype.XMLGregorianCalendar getSettlementDate() {
+    public java.time.LocalDate getSettlementDate() {
         return this.settlementDate;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("settlementDate")
-    public void setSettlementDate(javax.xml.datatype.XMLGregorianCalendar settlementDate) {
+    public void setSettlementDate(java.time.LocalDate settlementDate) {
         this.settlementDate = settlementDate;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("tradeDate")
-    public javax.xml.datatype.XMLGregorianCalendar getTradeDate() {
+    public java.time.LocalDate getTradeDate() {
         return this.tradeDate;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("tradeDate")
-    public void setTradeDate(javax.xml.datatype.XMLGregorianCalendar tradeDate) {
+    public void setTradeDate(java.time.LocalDate tradeDate) {
         this.tradeDate = tradeDate;
     }
 

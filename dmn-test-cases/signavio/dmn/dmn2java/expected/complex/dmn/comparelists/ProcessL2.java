@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class ProcessL2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class ProcessL2 extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "processL2",
@@ -27,16 +27,16 @@ public class ProcessL2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("L1") != null ? number(input_.get("L1")) : null), (input_.get("L2") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("L2"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), context_);
+            return apply((input_.get("L1") != null ? number(input_.get("L1")) : null), (input_.get("L2") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("L2"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'ProcessL2'", e);
             return null;
         }
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal l12_iterator, List<java.math.BigDecimal> l23, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(java.lang.Number l12_iterator, List<java.lang.Number> l23, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'processL2'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -50,7 +50,7 @@ public class ProcessL2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, processL2Arguments_);
 
             // Iterate and aggregate
-            java.math.BigDecimal output_ = evaluate(l12_iterator, l23, context_);
+            java.lang.Number output_ = evaluate(l12_iterator, l23, context_);
 
             // End decision 'processL2'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, processL2Arguments_, output_, (System.currentTimeMillis() - processL2StartTime_));
@@ -62,7 +62,7 @@ public class ProcessL2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDe
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal l12_iterator, List<java.math.BigDecimal> l23, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected java.lang.Number evaluate(java.lang.Number l12_iterator, List<java.lang.Number> l23, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;

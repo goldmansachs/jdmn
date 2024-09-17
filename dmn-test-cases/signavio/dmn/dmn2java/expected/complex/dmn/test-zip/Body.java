@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 3
 )
-public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class Body extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "body",
@@ -27,7 +27,7 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("it") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("it"), new com.fasterxml.jackson.core.type.TypeReference<type.ItImpl>() {}) : null), context_);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         }
     }
 
-    public java.math.BigDecimal apply(type.It it_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(type.It it_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'body'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -49,7 +49,7 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, bodyArguments_);
 
             // Evaluate decision 'body'
-            java.math.BigDecimal output_ = evaluate(it_iterator, context_);
+            java.lang.Number output_ = evaluate(it_iterator, context_);
 
             // End decision 'body'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, bodyArguments_, output_, (System.currentTimeMillis() - bodyStartTime_));
@@ -61,7 +61,7 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         }
     }
 
-    protected java.math.BigDecimal evaluate(type.It it_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected java.lang.Number evaluate(type.It it_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -73,7 +73,7 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         ruleOutputList_.add(rule2(it_iterator, context_));
 
         // Return results based on hit policy
-        java.math.BigDecimal output_;
+        java.lang.Number output_;
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = null;
@@ -100,8 +100,8 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         // Apply rule
         BodyRuleOutput output_ = new BodyRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericLessThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getA() : null)), number("0")),
-            numericLessThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getB() : null)), number("0"))
+            numericLessThan(((java.lang.Number)(it_iterator != null ? it_iterator.getA() : null)), number("0")),
+            numericLessThan(((java.lang.Number)(it_iterator != null ? it_iterator.getB() : null)), number("0"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -132,8 +132,8 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         // Apply rule
         BodyRuleOutput output_ = new BodyRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericGreaterThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getA() : null)), number("0")),
-            numericGreaterThan(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getB() : null)), number("0"))
+            numericGreaterThan(((java.lang.Number)(it_iterator != null ? it_iterator.getA() : null)), number("0")),
+            numericGreaterThan(((java.lang.Number)(it_iterator != null ? it_iterator.getB() : null)), number("0"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -164,8 +164,8 @@ public class Body extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisio
         // Apply rule
         BodyRuleOutput output_ = new BodyRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numericEqual(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getA() : null)), number("0")),
-            numericEqual(((java.math.BigDecimal)(it_iterator != null ? it_iterator.getB() : null)), number("0"))
+            numericEqual(((java.lang.Number)(it_iterator != null ? it_iterator.getA() : null)), number("0")),
+            numericEqual(((java.lang.Number)(it_iterator != null ? it_iterator.getB() : null)), number("0"))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

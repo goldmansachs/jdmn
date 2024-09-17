@@ -3,17 +3,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "9acf44f2b05343d79fc35140c493c1e0/sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6-d"})
-public class DateTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class DateTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     private final Date date = new Date();
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
-        javax.xml.datatype.XMLGregorianCalendar inputDate = date("2020-09-21");
-        javax.xml.datatype.XMLGregorianCalendar inputTime = time("13:00:00+00:00");
-        javax.xml.datatype.XMLGregorianCalendar inputDateTime = dateAndTime("2015-01-01T12:00:00+00:00");
+        java.time.LocalDate inputDate = date("2020-09-21");
+        java.time.temporal.TemporalAccessor inputTime = time("13:00:00+00:00");
+        java.time.temporal.TemporalAccessor inputDateTime = dateAndTime("2015-01-01T12:00:00+00:00");
         type.TCompositeDateTime compositeInputDateTime = new type.TCompositeDateTimeImpl(date("2020-09-21"), dateAndTime("2015-01-01T12:00:00+00:00"), time("13:00:00+00:00"));
-        javax.xml.datatype.XMLGregorianCalendar date = this.date.apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, context_);
+        java.time.LocalDate date = this.date.apply(compositeInputDateTime, inputDate, inputDateTime, inputTime, context_);
 
         checkValues(date("2020-09-21"), date);
 

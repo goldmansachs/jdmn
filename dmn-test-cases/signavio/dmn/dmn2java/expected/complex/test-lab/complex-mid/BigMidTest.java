@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "3652588c6383423c9774f4dfd4393cb1/sid-074482BF-264A-48BD-976A-707710B53881"})
-public class BigMidTest extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class BigMidTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     private final BigMid bigMid = new BigMid();
 
     @org.junit.jupiter.api.Test

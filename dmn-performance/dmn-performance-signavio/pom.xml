@@ -62,7 +62,7 @@
                 <artifactId>jdmn-maven-plugin</artifactId>
                 <version>${jdmn.version}</version>
                 <configuration>
-                    <dmnDialect>com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition</dmnDialect>
+                    <dmnDialect>com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition</dmnDialect>
                     <dmnTransformers>
                         <dmnTransformer>com.gs.dmn.signavio.transformation.RuleDescriptionTransformer</dmnTransformer>
                     </dmnTransformers>

@@ -4,7 +4,7 @@ import java.util.*;
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "incompleteDecisionTable"})
 public class IncompleteDecisionTableRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String a;
-    private java.math.BigDecimal b;
+    private java.lang.Number b;
 
     public IncompleteDecisionTableRuleOutput(boolean matched) {
         super(matched);
@@ -20,12 +20,12 @@ public class IncompleteDecisionTableRuleOutput extends com.gs.dmn.runtime.RuleOu
         this.a = a;
     }
     @com.fasterxml.jackson.annotation.JsonGetter("b")
-    public java.math.BigDecimal getB() {
+    public java.lang.Number getB() {
         return this.b;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("b")
-    public void setB(java.math.BigDecimal b) {
+    public void setB(java.lang.Number b) {
         this.b = b;
     }
 

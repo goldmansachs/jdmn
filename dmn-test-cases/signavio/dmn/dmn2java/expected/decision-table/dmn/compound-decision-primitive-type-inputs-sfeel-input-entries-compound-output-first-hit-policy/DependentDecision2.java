@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.FIRST,
     rulesCount = 1
 )
-public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class DependentDecision2 extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "dependentDecision2",
@@ -36,7 +36,7 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    public type.DependentDecision2 apply(java.math.BigDecimal dd2NumberInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.DependentDecision2 apply(java.lang.Number dd2NumberInput, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'dependentDecision2'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -61,7 +61,7 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    protected type.DependentDecision2 evaluate(java.math.BigDecimal dd2NumberInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected type.DependentDecision2 evaluate(java.lang.Number dd2NumberInput, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -84,7 +84,7 @@ public class DependentDecision2 extends com.gs.dmn.signavio.runtime.DefaultSigna
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal dd2NumberInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number dd2NumberInput, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 

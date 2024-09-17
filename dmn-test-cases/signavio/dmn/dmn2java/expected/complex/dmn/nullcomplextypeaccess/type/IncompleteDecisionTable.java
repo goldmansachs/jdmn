@@ -19,7 +19,7 @@ public interface IncompleteDecisionTable extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("b") || ((com.gs.dmn.runtime.Context)other).keySet().contains("b")) {
-                result_.setB((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("b", "b"));
+                result_.setB((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("b", "b"));
             } else {
                 return  null;
             }
@@ -35,7 +35,7 @@ public interface IncompleteDecisionTable extends com.gs.dmn.runtime.DMNType {
     String getA();
 
     @com.fasterxml.jackson.annotation.JsonGetter("b")
-    java.math.BigDecimal getB();
+    java.lang.Number getB();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

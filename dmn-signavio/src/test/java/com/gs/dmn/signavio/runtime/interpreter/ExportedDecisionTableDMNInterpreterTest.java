@@ -15,17 +15,17 @@ package com.gs.dmn.signavio.runtime.interpreter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision;
+import com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.util.Arrays;
 import java.util.Collections;
 
 public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMNInterpreterTest {
-    private final DefaultSignavioBaseDecision decision = new DefaultSignavioBaseDecision();
+    private final JavaTimeSignavioBaseDecision decision = new JavaTimeSignavioBaseDecision();
 
     @Override
     protected String getInputPath() {
@@ -314,8 +314,8 @@ public class ExportedDecisionTableDMNInterpreterTest extends AbstractSignavioDMN
     }
 
     @Override
-    protected FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> getLib() {
-        return new DefaultSignavioBaseDecision();
+    protected FEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> getLib() {
+        return decision;
     }
 }
 

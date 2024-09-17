@@ -6,14 +6,14 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ApplicantImpl implements Applicant {
         private String name;
-        private java.math.BigDecimal age;
-        private java.math.BigDecimal creditScore;
+        private java.lang.Number age;
+        private java.lang.Number creditScore;
         private List<String> priorIssues;
 
     public ApplicantImpl() {
     }
 
-    public ApplicantImpl(java.math.BigDecimal age, java.math.BigDecimal creditScore, String name, List<String> priorIssues) {
+    public ApplicantImpl(java.lang.Number age, java.lang.Number creditScore, String name, List<String> priorIssues) {
         this.setAge(age);
         this.setCreditScore(creditScore);
         this.setName(name);
@@ -21,22 +21,22 @@ public class ApplicantImpl implements Applicant {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Age")
-    public java.math.BigDecimal getAge() {
+    public java.lang.Number getAge() {
         return this.age;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Age")
-    public void setAge(java.math.BigDecimal age) {
+    public void setAge(java.lang.Number age) {
         this.age = age;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Credit score")
-    public java.math.BigDecimal getCreditScore() {
+    public java.lang.Number getCreditScore() {
         return this.creditScore;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Credit score")
-    public void setCreditScore(java.math.BigDecimal creditScore) {
+    public void setCreditScore(java.lang.Number creditScore) {
         this.creditScore = creditScore;
     }
 

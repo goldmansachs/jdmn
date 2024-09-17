@@ -19,7 +19,7 @@ public interface Zip3 extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("inputB") || ((com.gs.dmn.runtime.Context)other).keySet().contains("inputB")) {
-                result_.setInputB((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("inputB", "inputB"));
+                result_.setInputB((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("inputB", "inputB"));
             } else {
                 return  null;
             }
@@ -35,7 +35,7 @@ public interface Zip3 extends com.gs.dmn.runtime.DMNType {
     String getInputA();
 
     @com.fasterxml.jackson.annotation.JsonGetter("inputB")
-    java.math.BigDecimal getInputB();
+    java.lang.Number getInputB();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

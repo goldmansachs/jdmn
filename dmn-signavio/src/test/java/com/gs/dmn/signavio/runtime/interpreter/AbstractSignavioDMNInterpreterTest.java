@@ -28,15 +28,15 @@ import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
-import java.math.BigDecimal;
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
     private static final BuildLogger LOGGER = new Slf4jBuildLogger(LoggerFactory.getLogger(AbstractSignavioDMNInterpreterTest.class));
 
-    private final DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> dialectDefinition = new SignavioDMNDialectDefinition();
+    private final DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestLab> dialectDefinition = new JavaTimeSignavioDMNDialectDefinition();
     private final DMNSerializer serializer = this.dialectDefinition.createDMNSerializer(LOGGER, this.inputParameters);
 
     protected void doTest(DecisionTestConfig config) throws Exception {
@@ -62,7 +62,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
             File dmnFile = new File(uri.getPath());
             TDefinitions definitions = this.serializer.readModel(dmnFile);
             DMNModelRepository repository = new SignavioDMNModelRepository(definitions, SIG_EXT_NAMESPACE);
-            DMNInterpreter<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> interpreter = this.dialectDefinition.createDMNInterpreter(repository, this.inputParameters);
+            DMNInterpreter<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> interpreter = this.dialectDefinition.createDMNInterpreter(repository, this.inputParameters);
 
             TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
             DRGElementReference<TDecision> reference = repository.makeDRGElementReference(decision);
@@ -95,5 +95,5 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
 
     protected abstract String getInputPath();
 
-    protected abstract FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> getLib();
+    protected abstract FEELLib<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> getLib();
 }

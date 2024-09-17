@@ -16,7 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDecisionTable;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.validation.AbstractValidatorTest;
@@ -31,7 +31,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TableFactoryTest extends AbstractValidatorTest {
-    private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition = new StandardDMNDialectDefinition();
+    private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dmnDialectDefinition = new JavaTimeDMNDialectDefinition();
     private final InputParameters inputParameters = new InputParameters();
     private final TableFactory factory = new TableFactory();
 

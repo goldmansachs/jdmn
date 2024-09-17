@@ -52,7 +52,7 @@ public class HandwrittenGenerateOutputDataTest extends AbstractHandwrittenDecisi
         Applicant applicant = new ApplicantImpl(decision.number("18"), decision.number("65"), "Bill", decision.asList("Card rejection", "Default on obligations"));
         List<?> output = applyDecision(Applicant.toApplicant(applicant), currentRiskAppetite, lendingThreshold);
 
-        List<com.gs.dmn.generated.example_credit_decision_mixed.type.GenerateOutputData> expected = decision.asList(new com.gs.dmn.generated.example_credit_decision_mixed.type.GenerateOutputDataImpl(decision.numericUnaryMinus(decision.number("10")), "Reject", decision.numericUnaryMinus(decision.number("25"))));
+        List<com.gs.dmn.generated.example_credit_decision.type.GenerateOutputData> expected = decision.asList(new com.gs.dmn.generated.example_credit_decision.type.GenerateOutputDataImpl(decision.numericUnaryMinus(decision.number("10")), "Reject", decision.numericUnaryMinus(decision.number("25"))));
         checkValues(expected, output);
     }
 

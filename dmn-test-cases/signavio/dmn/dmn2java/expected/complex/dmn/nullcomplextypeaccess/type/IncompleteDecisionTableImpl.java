@@ -6,12 +6,12 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class IncompleteDecisionTableImpl implements IncompleteDecisionTable {
         private String a;
-        private java.math.BigDecimal b;
+        private java.lang.Number b;
 
     public IncompleteDecisionTableImpl() {
     }
 
-    public IncompleteDecisionTableImpl(String a, java.math.BigDecimal b) {
+    public IncompleteDecisionTableImpl(String a, java.lang.Number b) {
         this.setA(a);
         this.setB(b);
     }
@@ -27,12 +27,12 @@ public class IncompleteDecisionTableImpl implements IncompleteDecisionTable {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("b")
-    public java.math.BigDecimal getB() {
+    public java.lang.Number getB() {
         return this.b;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("b")
-    public void setB(java.math.BigDecimal b) {
+    public void setB(java.lang.Number b) {
         this.b = b;
     }
 

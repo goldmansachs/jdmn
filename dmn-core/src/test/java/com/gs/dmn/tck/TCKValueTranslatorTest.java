@@ -2,13 +2,13 @@ package com.gs.dmn.tck;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
 import com.gs.dmn.feel.analysis.semantics.type.DateType;
 import com.gs.dmn.feel.analysis.semantics.type.NumberType;
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
-import com.gs.dmn.feel.lib.DefaultFEELLib;
+import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 import com.gs.dmn.tck.ast.AnySimpleType;
 import com.gs.dmn.tck.ast.ValueType;
 import com.gs.dmn.transformation.InputParameters;
@@ -16,17 +16,17 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TCKValueTranslatorTest {
-    private final StandardDMNDialectDefinition dialect = new StandardDMNDialectDefinition();
+    private final JavaTimeDMNDialectDefinition dialect = new JavaTimeDMNDialectDefinition();
     private final BasicDMNToNativeTransformer<Type, DMNContext> transformer = dialect.createBasicTransformer(new DMNModelRepository(), new NopLazyEvaluationDetector(), new InputParameters());
-    private final DefaultFEELLib feelLib = new DefaultFEELLib();
-    private final TCKValueTranslator<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> translator = new TCKValueTranslator<>(transformer, feelLib);
+    private final JavaTimeFEELLib feelLib = new JavaTimeFEELLib();
+    private final TCKValueTranslator<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> translator = new TCKValueTranslator<>(transformer, feelLib);
 
     @Test
     public void testToNativeExpression() {

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 1
 )
-public class PartB extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class PartB extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "partB",
@@ -46,14 +46,14 @@ public class PartB extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("numberA") != null ? number(input_.get("numberA")) : null), (input_.get("numberB") != null ? number(input_.get("numberB")) : null), (input_.get("numberList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("numberList"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), input_.get("string"), (input_.get("stringList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("stringList"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
+            return apply((input_.get("numberA") != null ? number(input_.get("numberA")) : null), (input_.get("numberB") != null ? number(input_.get("numberB")) : null), (input_.get("numberList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("numberList"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), input_.get("string"), (input_.get("stringList") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("stringList"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'PartB'", e);
             return null;
         }
     }
 
-    public String apply(java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, String string, List<String> stringList, com.gs.dmn.runtime.ExecutionContext context_) {
+    public String apply(java.lang.Number numberA, java.lang.Number numberB, List<java.lang.Number> numberList, String string, List<String> stringList, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'partB'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -82,17 +82,17 @@ public class PartB extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
         }
     }
 
-    protected String evaluate(java.math.BigDecimal numberA, java.math.BigDecimal numberB, List<java.math.BigDecimal> numberList, String string, List<String> stringList, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected String evaluate(java.lang.Number numberA, java.lang.Number numberB, List<java.lang.Number> numberList, String string, List<String> stringList, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
         com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        java.math.BigDecimal arithmetic = this.arithmetic.apply(numberA, numberB, numberList, context_);
+        java.lang.Number arithmetic = this.arithmetic.apply(numberA, numberB, numberList, context_);
         List<String> comparator = this.comparator.apply(numberA, context_);
-        java.math.BigDecimal formattingAndCoercing = this.formattingAndCoercing.apply(numberB, string, context_);
+        java.lang.Number formattingAndCoercing = this.formattingAndCoercing.apply(numberB, string, context_);
         Boolean listHandling = this.listHandling.apply(numberB, numberList, context_);
-        java.math.BigDecimal statistical = this.statistical.apply(numberList, context_);
+        java.lang.Number statistical = this.statistical.apply(numberList, context_);
         Boolean stringHandlingComparator = this.stringHandlingComparator.apply(numberA, numberB, stringList, context_);
 
         // Apply rules and collect results
@@ -113,7 +113,7 @@ public class PartB extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecisi
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal arithmetic, List<String> comparator, java.math.BigDecimal formattingAndCoercing, Boolean listHandling, java.math.BigDecimal statistical, Boolean stringHandlingComparator, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number arithmetic, List<String> comparator, java.lang.Number formattingAndCoercing, Boolean listHandling, java.lang.Number statistical, Boolean stringHandlingComparator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 

@@ -76,7 +76,7 @@
     "informationReferences" : [ {
       "reference" : "sid-AD811598-1741-4206-A9FC-280EF77B0B23"
     } ],
-    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaOutputTypeName" : "java.lang.Number",
     "javaParameterName" : "monthly",
     "javaTypeName" : "Monthly",
     "knowledgeReferences" : [ ],

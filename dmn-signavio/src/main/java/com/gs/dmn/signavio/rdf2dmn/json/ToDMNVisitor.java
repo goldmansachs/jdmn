@@ -18,7 +18,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.rdf2dmn.RDFModel;
 import com.gs.dmn.signavio.rdf2dmn.json.decision.DecisionTable;
 import com.gs.dmn.signavio.rdf2dmn.json.decision.FreeTextExpression;
@@ -64,7 +64,7 @@ public class ToDMNVisitor implements Visitor {
     private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
 
     public ToDMNVisitor(RDFModel rdfModel, InputParameters inputParameters) {
-        this.dialectDefinition = new SignavioDMNDialectDefinition();
+        this.dialectDefinition = new JavaTimeSignavioDMNDialectDefinition();
         this.dmnTransformer = dialectDefinition.createBasicTransformer(new SignavioDMNModelRepository(), new NopLazyEvaluationDetector(), inputParameters);
         this.rdfModel = rdfModel;
     }

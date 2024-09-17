@@ -14,12 +14,12 @@ public interface TemporalDiffs extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TemporalDiffsImpl result_ = new TemporalDiffsImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateDiff") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateDiff")) {
-                result_.setDateDiff((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("dateDiff", "dateDiff"));
+                result_.setDateDiff((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("dateDiff", "dateDiff"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeDiff") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeDiff")) {
-                result_.setDateTimeDiff((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("dateTimeDiff", "dateTimeDiff"));
+                result_.setDateTimeDiff((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("dateTimeDiff", "dateTimeDiff"));
             } else {
                 return  null;
             }
@@ -32,10 +32,10 @@ public interface TemporalDiffs extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("dateDiff")
-    java.math.BigDecimal getDateDiff();
+    java.lang.Number getDateDiff();
 
     @com.fasterxml.jackson.annotation.JsonGetter("dateTimeDiff")
-    java.math.BigDecimal getDateTimeDiff();
+    java.lang.Number getDateTimeDiff();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

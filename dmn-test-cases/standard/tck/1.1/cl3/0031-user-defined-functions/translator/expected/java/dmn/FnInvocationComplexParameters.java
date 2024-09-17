@@ -2,20 +2,20 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-@javax.annotation.Generated(value = {"decision.ftl", "fnInvocationComplexParameters"})
+@javax.annotation.Generated(value = {"decision.ftl", "fn invocation complex parameters"})
 @com.gs.dmn.runtime.annotation.DRGElement(
     namespace = "",
-    name = "fnInvocationComplexParameters",
+    name = "fn invocation complex parameters",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
     expressionKind = com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class FnInvocationComplexParameters extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
-        "fnInvocationComplexParameters",
+        "fn invocation complex parameters",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
         com.gs.dmn.runtime.annotation.ExpressionKind.CONTEXT,
@@ -33,61 +33,64 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.DefaultDMN
         this.fnLibrary = fnLibrary;
     }
 
-    public type.TFnInvocationComplexParamsResult apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
+    @java.lang.Override()
+    public type.TFnInvocationComplexParamsResult applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((inputA != null ? number(inputA) : null), (inputB != null ? number(inputB) : null), annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
+            return apply((input_.get("inputA") != null ? number(input_.get("inputA")) : null), (input_.get("inputB") != null ? number(input_.get("inputB")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'FnInvocationComplexParameters'", e);
             return null;
         }
     }
 
-    public type.TFnInvocationComplexParamsResult apply(String inputA, String inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
+    public type.TFnInvocationComplexParamsResult apply(java.lang.Number inputA, java.lang.Number inputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((inputA != null ? number(inputA) : null), (inputB != null ? number(inputB) : null), annotationSet_, eventListener_, externalExecutor_, cache_);
-        } catch (Exception e) {
-            logError("Cannot apply decision 'FnInvocationComplexParameters'", e);
-            return null;
-        }
-    }
-
-    public type.TFnInvocationComplexParamsResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_) {
-        return apply(inputA, inputB, annotationSet_, new com.gs.dmn.runtime.listener.LoggingEventListener(LOGGER), new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor(), new com.gs.dmn.runtime.cache.DefaultCache());
-    }
-
-    public type.TFnInvocationComplexParamsResult apply(java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        try {
-            // Start decision 'fnInvocationComplexParameters'
+            // Start decision 'fn invocation complex parameters'
+            com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+            com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+            com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+            com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long fnInvocationComplexParametersStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments fnInvocationComplexParametersArguments_ = new com.gs.dmn.runtime.listener.Arguments();
             fnInvocationComplexParametersArguments_.put("inputA", inputA);
             fnInvocationComplexParametersArguments_.put("inputB", inputB);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, fnInvocationComplexParametersArguments_);
 
-            // Apply child decisions
-            type.TFnLibrary fnLibrary = this.fnLibrary.apply(annotationSet_, eventListener_, externalExecutor_, cache_);
+            // Evaluate decision 'fn invocation complex parameters'
+            type.TFnInvocationComplexParamsResult output_ = lambda.apply(inputA, inputB, context_);
 
-            // Evaluate decision 'fnInvocationComplexParameters'
-            type.TFnInvocationComplexParamsResult output_ = evaluate(fnLibrary, inputA, inputB, annotationSet_, eventListener_, externalExecutor_, cache_);
-
-            // End decision 'fnInvocationComplexParameters'
+            // End decision 'fn invocation complex parameters'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, fnInvocationComplexParametersArguments_, output_, (System.currentTimeMillis() - fnInvocationComplexParametersStartTime_));
 
             return output_;
         } catch (Exception e) {
-            logError("Exception caught in 'fnInvocationComplexParameters' evaluation", e);
+            logError("Exception caught in 'fn invocation complex parameters' evaluation", e);
             return null;
         }
     }
 
-    protected type.TFnInvocationComplexParamsResult evaluate(type.TFnLibrary fnLibrary, java.math.BigDecimal inputA, java.math.BigDecimal inputB, com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_, com.gs.dmn.runtime.listener.EventListener eventListener_, com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_, com.gs.dmn.runtime.cache.Cache cache_) {
-        java.math.BigDecimal functionInvocationInParameter = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSumFn() : null)).apply(inputA, inputA), ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSumFn() : null)).apply(inputB, inputB));
-        java.math.BigDecimal functionInvocationLiteralExpressionInParameter = ((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(numericMultiply(inputA, inputA), (booleanEqual((booleanAnd(numericGreaterEqualThan(((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputA, inputB), number("0")), numericLessEqualThan(((com.gs.dmn.runtime.LambdaExpression<java.math.BigDecimal>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputA, inputB), number("10")))), Boolean.TRUE)) ? number("5") : number("10"));
-        java.math.BigDecimal circumference = Circumference.Circumference(numericAdd(inputA, inputB), annotationSet_, eventListener_, externalExecutor_, cache_);
-        type.TFnInvocationComplexParamsResultImpl fnInvocationComplexParameters = new type.TFnInvocationComplexParamsResultImpl();
-        fnInvocationComplexParameters.setFunctionInvocationInParameter(functionInvocationInParameter);
-        fnInvocationComplexParameters.setFunctionInvocationLiteralExpressionInParameter(functionInvocationLiteralExpressionInParameter);
-        fnInvocationComplexParameters.setCircumference(circumference);
-        return fnInvocationComplexParameters;
-    }
+    public com.gs.dmn.runtime.LambdaExpression<type.TFnInvocationComplexParamsResult> lambda =
+        new com.gs.dmn.runtime.LambdaExpression<type.TFnInvocationComplexParamsResult>() {
+            public type.TFnInvocationComplexParamsResult apply(Object... args_) {
+                java.lang.Number inputA = 0 < args_.length ? (java.lang.Number) args_[0] : null;
+                java.lang.Number inputB = 1 < args_.length ? (java.lang.Number) args_[1] : null;
+                com.gs.dmn.runtime.ExecutionContext context_ = 2 < args_.length ? (com.gs.dmn.runtime.ExecutionContext) args_[2] : null;
+                com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
+                com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
+                com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
+                com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
+
+                // Apply child decisions
+                type.TFnLibrary fnLibrary = FnInvocationComplexParameters.this.fnLibrary.apply(context_);
+
+                java.lang.Number functionInvocationInParameter = ((com.gs.dmn.runtime.LambdaExpression<java.lang.Number>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(((com.gs.dmn.runtime.LambdaExpression<java.lang.Number>)(fnLibrary != null ? fnLibrary.getSumFn() : null)).apply(inputA, inputA, context_), ((com.gs.dmn.runtime.LambdaExpression<java.lang.Number>)(fnLibrary != null ? fnLibrary.getSumFn() : null)).apply(inputB, inputB, context_), context_);
+                java.lang.Number functionInvocationLiteralExpressionInParameter = ((com.gs.dmn.runtime.LambdaExpression<java.lang.Number>)(fnLibrary != null ? fnLibrary.getMultiplyFn() : null)).apply(numericMultiply(inputA, inputA), (booleanEqual(booleanAnd(numericGreaterEqualThan(((com.gs.dmn.runtime.LambdaExpression<java.lang.Number>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputA, inputB, context_), number("0")), numericLessEqualThan(((com.gs.dmn.runtime.LambdaExpression<java.lang.Number>)(fnLibrary != null ? fnLibrary.getSubFn() : null)).apply(inputA, inputB, context_), number("10"))), Boolean.TRUE)) ? number("5") : number("10"), context_);
+                java.lang.Number circumference = Circumference.instance().apply(numericAdd(inputA, inputB), context_);
+                type.TFnInvocationComplexParamsResultImpl fnInvocationComplexParameters = new type.TFnInvocationComplexParamsResultImpl();
+                fnInvocationComplexParameters.setFunctionInvocationInParameter(functionInvocationInParameter);
+                fnInvocationComplexParameters.setFunctionInvocationLiteralExpressionInParameter(functionInvocationLiteralExpressionInParameter);
+                fnInvocationComplexParameters.setCircumference(circumference);
+                return fnInvocationComplexParameters;
+            }
+        };
 }

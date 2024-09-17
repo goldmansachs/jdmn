@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Temporal extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class Temporal extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "temporal",
@@ -36,7 +36,7 @@ public class Temporal extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         }
     }
 
-    public Boolean apply(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean apply(java.time.temporal.TemporalAccessor dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'temporal'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -61,7 +61,7 @@ public class Temporal extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDec
         }
     }
 
-    protected Boolean evaluate(javax.xml.datatype.XMLGregorianCalendar dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected Boolean evaluate(java.time.temporal.TemporalAccessor dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;

@@ -19,12 +19,12 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("age") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Age")) {
-                result_.setAge((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("age", "Age"));
+                result_.setAge((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("age", "Age"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("creditScore") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Credit score")) {
-                result_.setCreditScore((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("creditScore", "Credit score"));
+                result_.setCreditScore((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("creditScore", "Credit score"));
             } else {
                 return  null;
             }
@@ -39,8 +39,8 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof proto.Applicant) {
             ApplicantImpl result_ = new ApplicantImpl();
             result_.setName(((proto.Applicant) other).getName());
-            result_.setAge(((java.math.BigDecimal) java.math.BigDecimal.valueOf(((proto.Applicant) other).getAge())));
-            result_.setCreditScore(((java.math.BigDecimal) java.math.BigDecimal.valueOf(((proto.Applicant) other).getCreditScore())));
+            result_.setAge(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.Applicant) other).getAge())));
+            result_.setCreditScore(((java.lang.Number) java.math.BigDecimal.valueOf(((proto.Applicant) other).getCreditScore())));
             result_.setPriorIssues(((List<String>) (((proto.Applicant) other).getPriorIssuesList() == null ? null : ((proto.Applicant) other).getPriorIssuesList().stream().map(e -> e).collect(java.util.stream.Collectors.toList()))));
             return result_;
         } else {
@@ -77,10 +77,10 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
     String getName();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Age")
-    java.math.BigDecimal getAge();
+    java.lang.Number getAge();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Credit score")
-    java.math.BigDecimal getCreditScore();
+    java.lang.Number getCreditScore();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Prior issues")
     List<String> getPriorIssues();

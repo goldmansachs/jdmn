@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class DecisionDate extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class DecisionDate extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "decisionDate",
@@ -36,7 +36,7 @@ public class DecisionDate extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    public List<String> apply(javax.xml.datatype.XMLGregorianCalendar dateInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<String> apply(java.time.LocalDate dateInput, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decisionDate'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -61,7 +61,7 @@ public class DecisionDate extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    protected List<String> evaluate(javax.xml.datatype.XMLGregorianCalendar dateInput, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected List<String> evaluate(java.time.LocalDate dateInput, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;

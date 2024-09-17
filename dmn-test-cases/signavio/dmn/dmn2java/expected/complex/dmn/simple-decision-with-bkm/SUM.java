@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class SUM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class SUM extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "sUM",
@@ -27,7 +27,7 @@ public class SUM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("A") != null ? number(input_.get("A")) : null), (input_.get("B") != null ? number(input_.get("B")) : null), context_);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class SUM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         }
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(java.lang.Number a, java.lang.Number b, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'sUM'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -50,7 +50,7 @@ public class SUM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, sUMArguments_);
 
             // Evaluate decision 'sUM'
-            java.math.BigDecimal output_ = evaluate(a, b, context_);
+            java.lang.Number output_ = evaluate(a, b, context_);
 
             // End decision 'sUM'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, sUMArguments_, output_, (System.currentTimeMillis() - sUMStartTime_));
@@ -62,7 +62,7 @@ public class SUM extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal a, java.math.BigDecimal b, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected java.lang.Number evaluate(java.lang.Number a, java.lang.Number b, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;

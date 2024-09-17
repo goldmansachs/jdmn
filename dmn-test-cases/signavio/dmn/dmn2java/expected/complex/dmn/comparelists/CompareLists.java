@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 2
 )
-public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class CompareLists extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "compareLists",
@@ -27,7 +27,7 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("L1") != null ? number(input_.get("L1")) : null), (input_.get("L2") != null ? number(input_.get("L2")) : null), context_);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal l12_iterator, java.math.BigDecimal l2_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(java.lang.Number l12_iterator, java.lang.Number l2_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'compareLists'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -50,7 +50,7 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compareListsArguments_);
 
             // Evaluate decision 'compareLists'
-            java.math.BigDecimal output_ = evaluate(l12_iterator, l2_iterator, context_);
+            java.lang.Number output_ = evaluate(l12_iterator, l2_iterator, context_);
 
             // End decision 'compareLists'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, compareListsArguments_, output_, (System.currentTimeMillis() - compareListsStartTime_));
@@ -62,7 +62,7 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         }
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal l12_iterator, java.math.BigDecimal l2_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected java.lang.Number evaluate(java.lang.Number l12_iterator, java.lang.Number l2_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -73,7 +73,7 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
         ruleOutputList_.add(rule1(l12_iterator, l2_iterator, context_));
 
         // Return results based on hit policy
-        java.math.BigDecimal output_;
+        java.lang.Number output_;
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = null;
@@ -86,7 +86,7 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal l12_iterator, java.math.BigDecimal l2_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number l12_iterator, java.lang.Number l2_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -118,7 +118,7 @@ public class CompareLists extends com.gs.dmn.signavio.runtime.DefaultSignavioBas
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal l12_iterator, java.math.BigDecimal l2_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.lang.Number l12_iterator, java.lang.Number l2_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 

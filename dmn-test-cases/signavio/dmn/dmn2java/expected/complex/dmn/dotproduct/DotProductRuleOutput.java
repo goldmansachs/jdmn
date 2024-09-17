@@ -3,7 +3,7 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "dotProduct"})
 public class DotProductRuleOutput extends com.gs.dmn.runtime.RuleOutput {
-    private java.math.BigDecimal dotProduct2;
+    private java.lang.Number dotProduct2;
     private String outputMessage;
 
     public DotProductRuleOutput(boolean matched) {
@@ -11,12 +11,12 @@ public class DotProductRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("dotProduct2")
-    public java.math.BigDecimal getDotProduct2() {
+    public java.lang.Number getDotProduct2() {
         return this.dotProduct2;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("dotProduct2")
-    public void setDotProduct2(java.math.BigDecimal dotProduct2) {
+    public void setDotProduct2(java.lang.Number dotProduct2) {
         this.dotProduct2 = dotProduct2;
     }
     @com.fasterxml.jackson.annotation.JsonGetter("outputMessage")

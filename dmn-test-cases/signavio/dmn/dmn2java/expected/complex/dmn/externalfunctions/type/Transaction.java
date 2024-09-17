@@ -14,7 +14,7 @@ public interface Transaction extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TransactionImpl result_ = new TransactionImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("tradeDate") || ((com.gs.dmn.runtime.Context)other).keySet().contains("tradeDate")) {
-                result_.setTradeDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("tradeDate", "tradeDate"));
+                result_.setTradeDate((java.time.LocalDate)((com.gs.dmn.runtime.Context)other).get("tradeDate", "tradeDate"));
             } else {
                 return  null;
             }
@@ -34,7 +34,7 @@ public interface Transaction extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("settlementDate") || ((com.gs.dmn.runtime.Context)other).keySet().contains("settlementDate")) {
-                result_.setSettlementDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("settlementDate", "settlementDate"));
+                result_.setSettlementDate((java.time.LocalDate)((com.gs.dmn.runtime.Context)other).get("settlementDate", "settlementDate"));
             } else {
                 return  null;
             }
@@ -54,17 +54,17 @@ public interface Transaction extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("quantity") || ((com.gs.dmn.runtime.Context)other).keySet().contains("quantity")) {
-                result_.setQuantity((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("quantity", "quantity"));
+                result_.setQuantity((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("quantity", "quantity"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("price") || ((com.gs.dmn.runtime.Context)other).keySet().contains("price")) {
-                result_.setPrice((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("price", "price"));
+                result_.setPrice((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("price", "price"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("commision") || ((com.gs.dmn.runtime.Context)other).keySet().contains("commision")) {
-                result_.setCommision((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("commision", "commision"));
+                result_.setCommision((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("commision", "commision"));
             } else {
                 return  null;
             }
@@ -87,7 +87,7 @@ public interface Transaction extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("tradeDate")
-    javax.xml.datatype.XMLGregorianCalendar getTradeDate();
+    java.time.LocalDate getTradeDate();
 
     @com.fasterxml.jackson.annotation.JsonGetter("buySellIndicator")
     String getBuySellIndicator();
@@ -99,7 +99,7 @@ public interface Transaction extends com.gs.dmn.runtime.DMNType {
     Boolean getExerciseAssign();
 
     @com.fasterxml.jackson.annotation.JsonGetter("settlementDate")
-    javax.xml.datatype.XMLGregorianCalendar getSettlementDate();
+    java.time.LocalDate getSettlementDate();
 
     @com.fasterxml.jackson.annotation.JsonGetter("clearingAgent")
     String getClearingAgent();
@@ -111,13 +111,13 @@ public interface Transaction extends com.gs.dmn.runtime.DMNType {
     String getExecutionCapacity();
 
     @com.fasterxml.jackson.annotation.JsonGetter("quantity")
-    java.math.BigDecimal getQuantity();
+    java.lang.Number getQuantity();
 
     @com.fasterxml.jackson.annotation.JsonGetter("price")
-    java.math.BigDecimal getPrice();
+    java.lang.Number getPrice();
 
     @com.fasterxml.jackson.annotation.JsonGetter("commision")
-    java.math.BigDecimal getCommision();
+    java.lang.Number getCommision();
 
     @com.fasterxml.jackson.annotation.JsonGetter("executionMarket")
     String getExecutionMarket();

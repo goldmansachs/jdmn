@@ -5,46 +5,46 @@ import java.util.*;
 @javax.annotation.Generated(value = {"itemDefinition.ftl", "loan"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class LoanImpl implements Loan {
-        private java.math.BigDecimal principal;
-        private java.math.BigDecimal rate;
-        private java.math.BigDecimal term;
+        private java.lang.Number principal;
+        private java.lang.Number rate;
+        private java.lang.Number term;
 
     public LoanImpl() {
     }
 
-    public LoanImpl(java.math.BigDecimal principal, java.math.BigDecimal rate, java.math.BigDecimal term) {
+    public LoanImpl(java.lang.Number principal, java.lang.Number rate, java.lang.Number term) {
         this.setPrincipal(principal);
         this.setRate(rate);
         this.setTerm(term);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("principal")
-    public java.math.BigDecimal getPrincipal() {
+    public java.lang.Number getPrincipal() {
         return this.principal;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("principal")
-    public void setPrincipal(java.math.BigDecimal principal) {
+    public void setPrincipal(java.lang.Number principal) {
         this.principal = principal;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("rate")
-    public java.math.BigDecimal getRate() {
+    public java.lang.Number getRate() {
         return this.rate;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("rate")
-    public void setRate(java.math.BigDecimal rate) {
+    public void setRate(java.lang.Number rate) {
         this.rate = rate;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("term")
-    public java.math.BigDecimal getTerm() {
+    public java.lang.Number getTerm() {
         return this.term;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("term")
-    public void setTerm(java.math.BigDecimal term) {
+    public void setTerm(java.lang.Number term) {
         this.term = term;
     }
 

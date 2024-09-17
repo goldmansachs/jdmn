@@ -19,7 +19,7 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("age") || ((com.gs.dmn.runtime.Context)other).keySet().contains("age")) {
-                result_.setAge((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("age", "age"));
+                result_.setAge((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("age", "age"));
             } else {
                 return  null;
             }
@@ -35,7 +35,7 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
     String getName();
 
     @com.fasterxml.jackson.annotation.JsonGetter("age")
-    java.math.BigDecimal getAge();
+    java.lang.Number getAge();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

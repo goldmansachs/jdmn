@@ -14,7 +14,7 @@ public interface DotProduct extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             DotProductImpl result_ = new DotProductImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("dotProduct2") || ((com.gs.dmn.runtime.Context)other).keySet().contains("DotProduct")) {
-                result_.setDotProduct2((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("dotProduct2", "DotProduct"));
+                result_.setDotProduct2((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("dotProduct2", "DotProduct"));
             } else {
                 return  null;
             }
@@ -32,7 +32,7 @@ public interface DotProduct extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("DotProduct")
-    java.math.BigDecimal getDotProduct2();
+    java.lang.Number getDotProduct2();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Output Message")
     String getOutputMessage();

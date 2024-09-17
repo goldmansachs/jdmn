@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
     rulesCount = 8
 )
-public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class Compile extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "compile",
@@ -29,14 +29,14 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     @java.lang.Override()
     public List<type.Compile> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("name"), (input_.get("numbers") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("numbers"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (input_.get("Traffic Light") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Traffic Light"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
+            return apply(input_.get("name"), (input_.get("numbers") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("numbers"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), (input_.get("Traffic Light") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Traffic Light"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Compile'", e);
             return null;
         }
     }
 
-    public List<type.Compile> apply(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<type.Compile> apply(String name, List<java.lang.Number> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'compile'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -63,7 +63,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
         }
     }
 
-    protected List<type.Compile> evaluate(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected List<type.Compile> evaluate(String name, List<java.lang.Number> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -96,7 +96,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(String name, List<java.lang.Number> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -131,7 +131,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(String name, List<java.lang.Number> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
@@ -166,7 +166,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(String name, List<java.lang.Number> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 
@@ -201,7 +201,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 3, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule3(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule3(String name, List<java.lang.Number> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(3, "");
 
@@ -236,7 +236,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 4, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule4(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule4(String name, List<java.lang.Number> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(4, "");
 
@@ -271,7 +271,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 5, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule5(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule5(String name, List<java.lang.Number> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(5, "");
 
@@ -306,7 +306,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 6, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule6(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule6(String name, List<java.lang.Number> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(6, "");
 
@@ -341,7 +341,7 @@ public class Compile extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDeci
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 7, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule7(String name, List<java.math.BigDecimal> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule7(String name, List<java.lang.Number> numbers, List<String> trafficLight, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(7, "");
 

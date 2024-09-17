@@ -3,29 +3,29 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "generateTemporalObjects"})
 public class GenerateTemporalObjectsRuleOutput extends com.gs.dmn.runtime.RuleOutput {
-    private javax.xml.datatype.XMLGregorianCalendar date;
-    private javax.xml.datatype.XMLGregorianCalendar datetime;
+    private java.time.LocalDate date;
+    private java.time.temporal.TemporalAccessor datetime;
 
     public GenerateTemporalObjectsRuleOutput(boolean matched) {
         super(matched);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("date")
-    public javax.xml.datatype.XMLGregorianCalendar getDate() {
+    public java.time.LocalDate getDate() {
         return this.date;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("date")
-    public void setDate(javax.xml.datatype.XMLGregorianCalendar date) {
+    public void setDate(java.time.LocalDate date) {
         this.date = date;
     }
     @com.fasterxml.jackson.annotation.JsonGetter("datetime")
-    public javax.xml.datatype.XMLGregorianCalendar getDatetime() {
+    public java.time.temporal.TemporalAccessor getDatetime() {
         return this.datetime;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("datetime")
-    public void setDatetime(javax.xml.datatype.XMLGregorianCalendar datetime) {
+    public void setDatetime(java.time.temporal.TemporalAccessor datetime) {
         this.datetime = datetime;
     }
 

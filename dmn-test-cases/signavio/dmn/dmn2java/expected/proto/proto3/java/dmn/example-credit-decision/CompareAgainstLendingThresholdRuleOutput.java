@@ -3,19 +3,19 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "compareAgainstLendingThreshold"})
 public class CompareAgainstLendingThresholdRuleOutput extends com.gs.dmn.runtime.RuleOutput {
-    private java.math.BigDecimal compareAgainstLendingThreshold;
+    private java.lang.Number compareAgainstLendingThreshold;
 
     public CompareAgainstLendingThresholdRuleOutput(boolean matched) {
         super(matched);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("compareAgainstLendingThreshold")
-    public java.math.BigDecimal getCompareAgainstLendingThreshold() {
+    public java.lang.Number getCompareAgainstLendingThreshold() {
         return this.compareAgainstLendingThreshold;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("compareAgainstLendingThreshold")
-    public void setCompareAgainstLendingThreshold(java.math.BigDecimal compareAgainstLendingThreshold) {
+    public void setCompareAgainstLendingThreshold(java.lang.Number compareAgainstLendingThreshold) {
         this.compareAgainstLendingThreshold = compareAgainstLendingThreshold;
     }
 

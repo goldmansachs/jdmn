@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 2
 )
-public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class DotProduct extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "dotProduct",
@@ -36,14 +36,14 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     @java.lang.Override()
     public type.DotProduct applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("A") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("A"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (input_.get("B") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("B"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), context_);
+            return apply((input_.get("A") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("A"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), (input_.get("B") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("B"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'DotProduct'", e);
             return null;
         }
     }
 
-    public type.DotProduct apply(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, com.gs.dmn.runtime.ExecutionContext context_) {
+    public type.DotProduct apply(List<java.lang.Number> a, List<java.lang.Number> b, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'dotProduct'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -69,13 +69,13 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
         }
     }
 
-    protected type.DotProduct evaluate(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected type.DotProduct evaluate(List<java.lang.Number> a, List<java.lang.Number> b, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
         com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        java.math.BigDecimal calculateDotProduct = this.calculateDotProduct.apply(a, b, context_);
+        java.lang.Number calculateDotProduct = this.calculateDotProduct.apply(a, b, context_);
 
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
@@ -96,7 +96,7 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, java.math.BigDecimal calculateDotProduct, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(List<java.lang.Number> a, List<java.lang.Number> b, java.lang.Number calculateDotProduct, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -128,7 +128,7 @@ public class DotProduct extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseD
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(List<java.math.BigDecimal> a, List<java.math.BigDecimal> b, java.math.BigDecimal calculateDotProduct, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(List<java.lang.Number> a, List<java.lang.Number> b, java.lang.Number calculateDotProduct, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 

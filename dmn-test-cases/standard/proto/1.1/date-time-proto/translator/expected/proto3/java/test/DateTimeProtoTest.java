@@ -3,13 +3,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "date-time-proto.dmn"})
-public class DateTimeProtoTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class DateTimeProtoTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
     public void testCase1() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        javax.xml.datatype.XMLGregorianCalendar inputDate = date("2020-09-10");
+        java.time.LocalDate inputDate = date("2020-09-10");
 
         // Check 'Date'
         checkValues(date("2020-09-10"), new Date().apply(inputDate, context_));
@@ -27,7 +27,7 @@ public class DateTimeProtoTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        javax.xml.datatype.XMLGregorianCalendar inputTime = time("12:10:10");
+        java.time.temporal.TemporalAccessor inputTime = time("12:10:10");
 
         // Check 'Time'
         checkValues(time("12:10:10"), new Time().apply(inputTime, context_));
@@ -45,7 +45,7 @@ public class DateTimeProtoTest extends com.gs.dmn.runtime.DefaultDMNBaseDecision
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        javax.xml.datatype.XMLGregorianCalendar inputDateTime = dateAndTime("2020-09-19T12:10:10");
+        java.time.temporal.TemporalAccessor inputDateTime = dateAndTime("2020-09-19T12:10:10");
 
         // Check 'DateTime'
         checkValues(dateAndTime("2020-09-19T12:10:10"), new DateTime().apply(inputDateTime, context_));

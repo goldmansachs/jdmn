@@ -24,7 +24,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.validation.TypeRefValidator;
 
 import java.util.ArrayList;
@@ -119,7 +119,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
     }
 
     private void parseConfigurationForDialect(Map<String, Object> configuration) {
-        String dialectClassName = SignavioDMNDialectDefinition.class.getName();
+        String dialectClassName = JavaTimeSignavioDMNDialectDefinition.class.getName();
         if (configuration != null && configuration.size() != 0) {
             Object dialectNode = configuration.get(DMN_DIALECT_NAME);
             if (dialectNode == null || configuration.values().size() != 1) {

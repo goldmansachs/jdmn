@@ -14,17 +14,17 @@ public interface Loan extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             LoanImpl result_ = new LoanImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("principal") || ((com.gs.dmn.runtime.Context)other).keySet().contains("principal")) {
-                result_.setPrincipal((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("principal", "principal"));
+                result_.setPrincipal((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("principal", "principal"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("rate") || ((com.gs.dmn.runtime.Context)other).keySet().contains("rate")) {
-                result_.setRate((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("rate", "rate"));
+                result_.setRate((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("rate", "rate"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("term") || ((com.gs.dmn.runtime.Context)other).keySet().contains("term")) {
-                result_.setTerm((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("term", "term"));
+                result_.setTerm((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("term", "term"));
             } else {
                 return  null;
             }
@@ -37,13 +37,13 @@ public interface Loan extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("principal")
-    java.math.BigDecimal getPrincipal();
+    java.lang.Number getPrincipal();
 
     @com.fasterxml.jackson.annotation.JsonGetter("rate")
-    java.math.BigDecimal getRate();
+    java.lang.Number getRate();
 
     @com.fasterxml.jackson.annotation.JsonGetter("term")
-    java.math.BigDecimal getTerm();
+    java.lang.Number getTerm();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

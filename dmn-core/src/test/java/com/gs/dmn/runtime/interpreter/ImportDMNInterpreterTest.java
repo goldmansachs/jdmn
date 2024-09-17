@@ -13,16 +13,16 @@
 package com.gs.dmn.runtime.interpreter;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.dialect.StandardDMNDialectDefinition;
+import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.tck.ast.TestCases;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 
-public class ImportDMNInterpreterTest extends AbstractDMNInterpreterTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public class ImportDMNInterpreterTest extends AbstractDMNInterpreterTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected String getDMNInputPath() {
         return "composite/%s/%s/translator";
@@ -34,8 +34,8 @@ public class ImportDMNInterpreterTest extends AbstractDMNInterpreterTest<BigDeci
     }
 
     @Override
-    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestCases> getDialectDefinition() {
-        return new StandardDMNDialectDefinition();
+    protected DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> getDialectDefinition() {
+        return new JavaTimeDMNDialectDefinition();
     }
 
     @Test

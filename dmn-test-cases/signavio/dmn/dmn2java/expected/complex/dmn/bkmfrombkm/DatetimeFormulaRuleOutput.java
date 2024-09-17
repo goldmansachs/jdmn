@@ -3,19 +3,19 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "datetimeFormula"})
 public class DatetimeFormulaRuleOutput extends com.gs.dmn.runtime.RuleOutput {
-    private java.math.BigDecimal datetimeFormula;
+    private java.lang.Number datetimeFormula;
 
     public DatetimeFormulaRuleOutput(boolean matched) {
         super(matched);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("datetimeFormula")
-    public java.math.BigDecimal getDatetimeFormula() {
+    public java.lang.Number getDatetimeFormula() {
         return this.datetimeFormula;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("datetimeFormula")
-    public void setDatetimeFormula(java.math.BigDecimal datetimeFormula) {
+    public void setDatetimeFormula(java.lang.Number datetimeFormula) {
         this.datetimeFormula = datetimeFormula;
     }
 

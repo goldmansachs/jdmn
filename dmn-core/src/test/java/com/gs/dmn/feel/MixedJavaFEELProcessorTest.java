@@ -34,6 +34,11 @@ public class MixedJavaFEELProcessorTest extends AbstractStandardFEELProcessorTes
     }
 
     @Override
+    protected String numberType() {
+        return BigDecimal.class.getName();
+    }
+
+    @Override
     @Test
     public void testConversionFunctions() {
         super.testConversionFunctions();

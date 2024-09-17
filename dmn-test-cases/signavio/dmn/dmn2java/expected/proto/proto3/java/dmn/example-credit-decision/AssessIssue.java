@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class AssessIssue extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "assessIssue",
@@ -25,8 +25,8 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
     public static java.util.Map<String, Object> requestToMap(proto.AssessIssueRequest assessIssueRequest_) {
         // Create arguments from Request Message
-        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite()));
-        java.math.BigDecimal priorIssue_iterator = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator()));
+        java.lang.Number currentRiskAppetite = ((java.lang.Number) java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite()));
+        java.lang.Number priorIssue_iterator = ((java.lang.Number) java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator()));
 
         // Create map
         java.util.Map<String, Object> map_ = new java.util.LinkedHashMap<>();
@@ -35,16 +35,16 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         return map_;
     }
 
-    public static java.math.BigDecimal responseToOutput(proto.AssessIssueResponse assessIssueResponse_) {
+    public static java.lang.Number responseToOutput(proto.AssessIssueResponse assessIssueResponse_) {
         // Extract and convert output
-        return ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueResponse_.getAssessIssue()));
+        return ((java.lang.Number) java.math.BigDecimal.valueOf(assessIssueResponse_.getAssessIssue()));
     }
 
     public AssessIssue() {
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("Current risk appetite") != null ? number(input_.get("Current risk appetite")) : null), (input_.get("Prior issue") != null ? number(input_.get("Prior issue")) : null), context_);
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         }
     }
 
-    public java.math.BigDecimal apply(java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal priorIssue_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(java.lang.Number currentRiskAppetite, java.lang.Number priorIssue_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'assessIssue'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -67,7 +67,7 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, assessIssueArguments_);
 
             // Evaluate decision 'assessIssue'
-            java.math.BigDecimal output_ = evaluate(currentRiskAppetite, priorIssue_iterator, context_);
+            java.lang.Number output_ = evaluate(currentRiskAppetite, priorIssue_iterator, context_);
 
             // End decision 'assessIssue'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, assessIssueArguments_, output_, (System.currentTimeMillis() - assessIssueStartTime_));
@@ -81,11 +81,11 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
 
     public proto.AssessIssueResponse applyProto(proto.AssessIssueRequest assessIssueRequest_, com.gs.dmn.runtime.ExecutionContext context_) {
         // Create arguments from Request Message
-        java.math.BigDecimal currentRiskAppetite = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite()));
-        java.math.BigDecimal priorIssue_iterator = ((java.math.BigDecimal) java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator()));
+        java.lang.Number currentRiskAppetite = ((java.lang.Number) java.math.BigDecimal.valueOf(assessIssueRequest_.getCurrentRiskAppetite()));
+        java.lang.Number priorIssue_iterator = ((java.lang.Number) java.math.BigDecimal.valueOf(assessIssueRequest_.getPriorIssueIterator()));
 
         // Invoke apply method
-        java.math.BigDecimal output_ = apply(currentRiskAppetite, priorIssue_iterator, context_);
+        java.lang.Number output_ = apply(currentRiskAppetite, priorIssue_iterator, context_);
 
         // Convert output to Response Message
         proto.AssessIssueResponse.Builder builder_ = proto.AssessIssueResponse.newBuilder();
@@ -94,7 +94,7 @@ public class AssessIssue extends com.gs.dmn.signavio.runtime.DefaultSignavioBase
         return builder_.build();
     }
 
-    protected java.math.BigDecimal evaluate(java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal priorIssue_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected java.lang.Number evaluate(java.lang.Number currentRiskAppetite, java.lang.Number priorIssue_iterator, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;

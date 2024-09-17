@@ -3,19 +3,19 @@ import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "compareLists"})
 public class CompareListsRuleOutput extends com.gs.dmn.runtime.RuleOutput {
-    private java.math.BigDecimal compareLists;
+    private java.lang.Number compareLists;
 
     public CompareListsRuleOutput(boolean matched) {
         super(matched);
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("compareLists")
-    public java.math.BigDecimal getCompareLists() {
+    public java.lang.Number getCompareLists() {
         return this.compareLists;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("compareLists")
-    public void setCompareLists(java.math.BigDecimal compareLists) {
+    public void setCompareLists(java.lang.Number compareLists) {
         this.compareLists = compareLists;
     }
 

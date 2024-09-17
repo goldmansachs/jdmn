@@ -32,6 +32,11 @@ import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class MixedSignavioFEELProcessorTest extends AbstractSignavioFEELProcessorTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
+    protected String numberType() {
+        return BigDecimal.class.getName();
+    }
+
+    @Override
     protected DMNDialectDefinition<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration, TestLab> makeDialect() {
         return new MixedJavaTimeSignavioDMNDialectDefinition();
     }

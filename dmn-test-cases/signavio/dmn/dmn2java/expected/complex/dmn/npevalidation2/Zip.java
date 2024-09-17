@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class Zip extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "zip",
@@ -48,14 +48,14 @@ public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
     @java.lang.Override()
     public List<type.Zip> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("ages") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("ages"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), (input_.get("day") != null ? number(input_.get("day")) : null), (input_.get("hour") != null ? number(input_.get("hour")) : null), (input_.get("minute") != null ? number(input_.get("minute")) : null), (input_.get("month") != null ? number(input_.get("month")) : null), (input_.get("names") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("names"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("second") != null ? number(input_.get("second")) : null), (input_.get("year") != null ? number(input_.get("year")) : null), context_);
+            return apply((input_.get("ages") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("ages"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), (input_.get("day") != null ? number(input_.get("day")) : null), (input_.get("hour") != null ? number(input_.get("hour")) : null), (input_.get("minute") != null ? number(input_.get("minute")) : null), (input_.get("month") != null ? number(input_.get("month")) : null), (input_.get("names") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("names"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("second") != null ? number(input_.get("second")) : null), (input_.get("year") != null ? number(input_.get("year")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Zip'", e);
             return null;
         }
     }
 
-    public List<type.Zip> apply(List<java.math.BigDecimal> ages, java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, List<String> names, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<type.Zip> apply(List<java.lang.Number> ages, java.lang.Number day, java.lang.Number hour, java.lang.Number minute, java.lang.Number month, List<String> names, java.lang.Number second, java.lang.Number year, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'zip'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -87,20 +87,20 @@ public class Zip extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision
         }
     }
 
-    protected List<type.Zip> evaluate(List<java.math.BigDecimal> ages, java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, List<String> names, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected List<type.Zip> evaluate(List<java.lang.Number> ages, java.lang.Number day, java.lang.Number hour, java.lang.Number minute, java.lang.Number month, List<String> names, java.lang.Number second, java.lang.Number year, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
         com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        List<java.math.BigDecimal> accessCertainTemporalUnits = this.accessCertainTemporalUnits.apply(day, hour, minute, month, second, year, context_);
+        List<java.lang.Number> accessCertainTemporalUnits = this.accessCertainTemporalUnits.apply(day, hour, minute, month, second, year, context_);
         Boolean buildDateStringInAnnotation = this.buildDateStringInAnnotation.apply(day, month, year, context_);
         List<String> describeAgesList = this.describeAgesList.apply(ages, context_);
-        java.math.BigDecimal negateSecond = this.negateSecond.apply(second, context_);
+        java.lang.Number negateSecond = this.negateSecond.apply(second, context_);
         List<Boolean> noRuleMatchesMultiHit = this.noRuleMatchesMultiHit.apply(second, context_);
         Boolean noRuleMatchesSingleHit = this.noRuleMatchesSingleHit.apply(second, context_);
         List<type.TemporalDiffs> temporalDiffs = this.temporalDiffs.apply(day, hour, minute, month, second, year, context_);
 
-        return zip(asList("names", "ages", "dateDiffs", "dateTimeDiffs", "temporalUnits", "agesListDescription"), asList(names, ages, temporalDiffs.stream().map(x -> ((java.math.BigDecimal)(x != null ? x.getDateDiff() : null))).collect(Collectors.toList()), temporalDiffs.stream().map(x -> ((java.math.BigDecimal)(x != null ? x.getDateTimeDiff() : null))).collect(Collectors.toList()), accessCertainTemporalUnits, describeAgesList)).stream().map(x -> type.Zip.toZip(x)).collect(Collectors.toList());
+        return zip(asList("names", "ages", "dateDiffs", "dateTimeDiffs", "temporalUnits", "agesListDescription"), asList(names, ages, temporalDiffs.stream().map(x -> ((java.lang.Number)(x != null ? x.getDateDiff() : null))).collect(Collectors.toList()), temporalDiffs.stream().map(x -> ((java.lang.Number)(x != null ? x.getDateTimeDiff() : null))).collect(Collectors.toList()), accessCertainTemporalUnits, describeAgesList)).stream().map(x -> type.Zip.toZip(x)).collect(Collectors.toList());
     }
 }

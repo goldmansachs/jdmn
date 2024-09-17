@@ -101,7 +101,7 @@ parallelStream          | Flag to control the generation of parallel streams whe
 protoVersion            | Version of the Protocol Buffer used. | Default value "proto3"
 generateProtoMessages   | Flag to control the generation of Proto Messages. | Default value false
 generateProtoServices   | Flag to control the generation of Proto Services. | Default value false
-dmnDialect              | DMN dialect used to describe the decision model. | Mandatory. Default value is com.gs.dmn.dialect.StandardDMNDialectDefinition
+dmnDialect              | DMN dialect used to describe the decision model. | Mandatory. Default value is com.gs.dmn.dialect.JavaTimeDMNDialectDefinition
 dmnValidators           | DMN validators to be used to validate the model. | Optional. Default value com.gs.dmn.validation.NopDMNValidator
 dmnTransformers         | DMN transformers to be applied before translation. | Optional. Default value com.gs.dmn.transformation.NopDMNTransformer. 
 templateProvider        | The template provider to be used.                  | Mandatory. Default value is com.gs.dmn.transformation.template.TreeTemplateProvider

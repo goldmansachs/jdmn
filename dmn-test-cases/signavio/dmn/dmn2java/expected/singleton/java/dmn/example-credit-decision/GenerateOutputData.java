@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class GenerateOutputData extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "generateOutputData",
@@ -54,7 +54,7 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    public List<type.GenerateOutputData> apply(type.Applicant applicant, java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<type.GenerateOutputData> apply(type.Applicant applicant, java.lang.Number currentRiskAppetite, java.lang.Number lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'generateOutputData'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -81,14 +81,14 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.DefaultSigna
         }
     }
 
-    protected List<type.GenerateOutputData> evaluate(type.Applicant applicant, java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected List<type.GenerateOutputData> evaluate(type.Applicant applicant, java.lang.Number currentRiskAppetite, java.lang.Number lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
         com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        java.math.BigDecimal assessIssueRisk = this.assessIssueRisk.apply(applicant, currentRiskAppetite, context_);
-        java.math.BigDecimal compareAgainstLendingThreshold = this.compareAgainstLendingThreshold.apply(applicant, currentRiskAppetite, lendingThreshold, context_);
+        java.lang.Number assessIssueRisk = this.assessIssueRisk.apply(applicant, currentRiskAppetite, context_);
+        java.lang.Number compareAgainstLendingThreshold = this.compareAgainstLendingThreshold.apply(applicant, currentRiskAppetite, lendingThreshold, context_);
         String makeCreditDecision = this.makeCreditDecision.apply(applicant, currentRiskAppetite, lendingThreshold, context_);
 
         return zip(asList("Decision", "Assessment", "Issue"), asList(asList(makeCreditDecision), asList(compareAgainstLendingThreshold), asList(assessIssueRisk))).stream().map(x -> type.GenerateOutputData.toGenerateOutputData(x)).collect(Collectors.toList());

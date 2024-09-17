@@ -1,0 +1,348 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "_1O2mQIJtEee4zOLdFxCBaA",
+    "isCollection" : false,
+    "name" : "tFnInvocationComplexParamsResult",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_fdbr4IJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "circumference",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_fb73EIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "functionInvocationInParameter",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_fTiwEIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "functionInvocationLiteralExpressionInParameter",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "_0BpzUIJtEee4zOLdFxCBaA",
+    "isCollection" : false,
+    "name" : "tFnInvocationNamedResult",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_XKOfkIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "divisionResultNamed",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_afyGIIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "multiplicationResultNamed",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_Ua9c8IJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "subResult",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_XCUgwIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "subResultMixed",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "_xuQ0YIJtEee4zOLdFxCBaA",
+    "isCollection" : false,
+    "name" : "tFnInvocationPositionalResult",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_IpHmkIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "divisionResultPositional",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_OmarcIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "multiplicationResultPositional",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_GDzKIIJuEee4zOLdFxCBaA",
+      "isCollection" : false,
+      "name" : "sumResult",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "_fKdL0IDJEee-MeWXoLgrYg",
+    "isCollection" : false,
+    "name" : "tFnLibrary",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_pOrn0IDfEee-MeWXoLgrYg",
+      "isCollection" : false,
+      "name" : "divideFn",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_l_GGYIDfEee-MeWXoLgrYg",
+      "isCollection" : false,
+      "name" : "multiplyFn",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_pRj-sIDJEee-MeWXoLgrYg",
+      "isCollection" : false,
+      "name" : "subFn",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_gtkkYIDJEee-MeWXoLgrYg",
+      "isCollection" : false,
+      "name" : "sumFn",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "_48BAYH6PEeePe9Zmt-encA",
+    "javaParameterName" : "inputA",
+    "javaTypeName" : "java.lang.Number",
+    "name" : "inputA",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "_5eBhQH6PEeePe9Zmt-encA",
+    "javaParameterName" : "inputB",
+    "javaTypeName" : "java.lang.Number",
+    "name" : "inputB",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "bkm",
+    "id" : "_8xmTAIDNEee-MeWXoLgrYg",
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "circumference",
+    "javaTypeName" : "Circumference",
+    "knowledgeReferences" : [ ],
+    "name" : "Circumference",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+  }, {
+    "@kind" : "decision",
+    "id" : "_b-gD0IDiEee-MeWXoLgrYg",
+    "informationReferences" : [ {
+      "reference" : "_48BAYH6PEeePe9Zmt-encA"
+    }, {
+      "reference" : "_5eBhQH6PEeePe9Zmt-encA"
+    }, {
+      "reference" : "_q2qzIH6LEeePe9Zmt-encA"
+    } ],
+    "javaOutputTypeName" : "type.TFnInvocationComplexParamsResult",
+    "javaParameterName" : "fnInvocationComplexParameters",
+    "javaTypeName" : "FnInvocationComplexParameters",
+    "knowledgeReferences" : [ {
+      "reference" : "_8xmTAIDNEee-MeWXoLgrYg"
+    }, {
+      "reference" : "_8xmTAIDNEee-MeWXoLgrYg"
+    } ],
+    "name" : "fn invocation complex parameters",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+    "protoRequestName" : "proto.FnInvocationComplexParametersRequest",
+    "protoResponseName" : "proto.FnInvocationComplexParametersResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_48BAYH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputA",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputA",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "_5eBhQH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputB",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputB",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tFnInvocationComplexParamsResult",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_yHl3UIDhEee-MeWXoLgrYg",
+    "informationReferences" : [ {
+      "reference" : "_5eBhQH6PEeePe9Zmt-encA"
+    }, {
+      "reference" : "_48BAYH6PEeePe9Zmt-encA"
+    }, {
+      "reference" : "_q2qzIH6LEeePe9Zmt-encA"
+    } ],
+    "javaOutputTypeName" : "type.TFnInvocationNamedResult",
+    "javaParameterName" : "fnInvocationNamedParameters",
+    "javaTypeName" : "FnInvocationNamedParameters",
+    "knowledgeReferences" : [ ],
+    "name" : "fn invocation named parameters",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+    "protoRequestName" : "proto.FnInvocationNamedParametersRequest",
+    "protoResponseName" : "proto.FnInvocationNamedParametersResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_48BAYH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputA",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputA",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "_5eBhQH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputB",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputB",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tFnInvocationNamedResult",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_AfhOEH6QEeePe9Zmt-encA",
+    "informationReferences" : [ {
+      "reference" : "_q2qzIH6LEeePe9Zmt-encA"
+    }, {
+      "reference" : "_48BAYH6PEeePe9Zmt-encA"
+    }, {
+      "reference" : "_5eBhQH6PEeePe9Zmt-encA"
+    } ],
+    "javaOutputTypeName" : "type.TFnInvocationPositionalResult",
+    "javaParameterName" : "fnInvocationPositionalParameters",
+    "javaTypeName" : "FnInvocationPositionalParameters",
+    "knowledgeReferences" : [ ],
+    "name" : "fn invocation positional parameters",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+    "protoRequestName" : "proto.FnInvocationPositionalParametersRequest",
+    "protoResponseName" : "proto.FnInvocationPositionalParametersResponse",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_48BAYH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputA",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputA",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "_5eBhQH6PEeePe9Zmt-encA",
+      "javaParameterName" : "inputB",
+      "javaTypeName" : "java.lang.Number",
+      "name" : "inputB",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "tFnInvocationPositionalResult",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_q2qzIH6LEeePe9Zmt-encA",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "type.TFnLibrary",
+    "javaParameterName" : "fnLibrary",
+    "javaTypeName" : "FnLibrary",
+    "knowledgeReferences" : [ ],
+    "name" : "fn library",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+    "protoRequestName" : "proto.FnLibraryRequest",
+    "protoResponseName" : "proto.FnLibraryResponse",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "tFnLibrary",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions"
+    }
+  } ]
+}

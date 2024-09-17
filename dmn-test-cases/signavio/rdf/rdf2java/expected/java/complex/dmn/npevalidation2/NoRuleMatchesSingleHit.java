@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 3
 )
-public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "noRuleMatchesSingleHit",
@@ -36,7 +36,7 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultS
         }
     }
 
-    public Boolean apply(java.math.BigDecimal second, com.gs.dmn.runtime.ExecutionContext context_) {
+    public Boolean apply(java.lang.Number second, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'noRuleMatchesSingleHit'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -61,7 +61,7 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultS
         }
     }
 
-    protected Boolean evaluate(java.math.BigDecimal second, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected Boolean evaluate(java.lang.Number second, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -86,7 +86,7 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultS
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal second, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number second, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "");
 
@@ -117,7 +117,7 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultS
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal second, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.lang.Number second, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "");
 
@@ -148,7 +148,7 @@ public class NoRuleMatchesSingleHit extends com.gs.dmn.signavio.runtime.DefaultS
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 2, annotation = "")
-    public com.gs.dmn.runtime.RuleOutput rule2(java.math.BigDecimal second, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule2(java.lang.Number second, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(2, "");
 

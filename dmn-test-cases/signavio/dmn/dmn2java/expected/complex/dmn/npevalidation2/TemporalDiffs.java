@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
     rulesCount = 4
 )
-public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class TemporalDiffs extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "temporalDiffs",
@@ -43,7 +43,7 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         }
     }
 
-    public List<type.TemporalDiffs> apply(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<type.TemporalDiffs> apply(java.lang.Number day, java.lang.Number hour, java.lang.Number minute, java.lang.Number month, java.lang.Number second, java.lang.Number year, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'temporalDiffs'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -73,7 +73,7 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
         }
     }
 
-    protected List<type.TemporalDiffs> evaluate(java.math.BigDecimal day, java.math.BigDecimal hour, java.math.BigDecimal minute, java.math.BigDecimal month, java.math.BigDecimal second, java.math.BigDecimal year, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected List<type.TemporalDiffs> evaluate(java.lang.Number day, java.lang.Number hour, java.lang.Number minute, java.lang.Number month, java.lang.Number second, java.lang.Number year, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
@@ -127,8 +127,8 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
             // Compute output
             output_.setMatched(true);
-            output_.setDateDiff(dayDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
-            output_.setDateTimeDiff(minutesDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
+            output_.setDateDiff(dayDiff(((java.time.LocalDate)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), ((java.time.LocalDate)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
+            output_.setDateTimeDiff(minutesDiff(((java.time.temporal.TemporalAccessor)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), ((java.time.temporal.TemporalAccessor)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
         }
 
         // Rule end
@@ -160,8 +160,8 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
             // Compute output
             output_.setMatched(true);
-            output_.setDateDiff(monthDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
-            output_.setDateTimeDiff(hourDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
+            output_.setDateDiff(monthDiff(((java.time.LocalDate)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), ((java.time.LocalDate)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
+            output_.setDateTimeDiff(hourDiff(((java.time.temporal.TemporalAccessor)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), ((java.time.temporal.TemporalAccessor)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
         }
 
         // Rule end
@@ -193,8 +193,8 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
             // Compute output
             output_.setMatched(true);
-            output_.setDateDiff(yearDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
-            output_.setDateTimeDiff(minutesDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), ((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
+            output_.setDateDiff(yearDiff(((java.time.LocalDate)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), ((java.time.LocalDate)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null))));
+            output_.setDateTimeDiff(minutesDiff(((java.time.temporal.TemporalAccessor)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), ((java.time.temporal.TemporalAccessor)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null))));
         }
 
         // Rule end
@@ -226,8 +226,8 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.DefaultSignavioBa
 
             // Compute output
             output_.setMatched(true);
-            output_.setDateDiff(dayDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), date(number("2016"), number("1"), number("1"))));
-            output_.setDateTimeDiff(hourDiff(((javax.xml.datatype.XMLGregorianCalendar)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), dateTime(number("1"), number("1"), number("2016"), number("11"), number("11"), number("11"))));
+            output_.setDateDiff(dayDiff(((java.time.LocalDate)(generateTemporalObjects != null ? generateTemporalObjects.getDate() : null)), date(number("2016"), number("1"), number("1"))));
+            output_.setDateTimeDiff(hourDiff(((java.time.temporal.TemporalAccessor)(generateTemporalObjects != null ? generateTemporalObjects.getDatetime() : null)), dateTime(number("1"), number("1"), number("2016"), number("11"), number("11"), number("11"))));
         }
 
         // Rule end

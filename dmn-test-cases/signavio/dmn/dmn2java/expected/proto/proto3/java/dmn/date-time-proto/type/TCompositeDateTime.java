@@ -14,17 +14,17 @@ public interface TCompositeDateTime extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TCompositeDateTimeImpl result_ = new TCompositeDateTimeImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("Date") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Date")) {
-                result_.setDate((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Date", "Date"));
+                result_.setDate((java.time.LocalDate)((com.gs.dmn.runtime.Context)other).get("Date", "Date"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("Time") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Time")) {
-                result_.setTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("Time", "Time"));
+                result_.setTime((java.time.temporal.TemporalAccessor)((com.gs.dmn.runtime.Context)other).get("Time", "Time"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("DateTime") || ((com.gs.dmn.runtime.Context)other).keySet().contains("DateTime")) {
-                result_.setDateTime((javax.xml.datatype.XMLGregorianCalendar)((com.gs.dmn.runtime.Context)other).get("DateTime", "DateTime"));
+                result_.setDateTime((java.time.temporal.TemporalAccessor)((com.gs.dmn.runtime.Context)other).get("DateTime", "DateTime"));
             } else {
                 return  null;
             }
@@ -33,9 +33,9 @@ public interface TCompositeDateTime extends com.gs.dmn.runtime.DMNType {
             return toTCompositeDateTime(((com.gs.dmn.runtime.DMNType)other).toContext());
         } else if (other instanceof proto.TCompositeDateTime) {
             TCompositeDateTimeImpl result_ = new TCompositeDateTimeImpl();
-            result_.setDate(com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.date(((proto.TCompositeDateTime) other).getDate()));
-            result_.setTime(com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.time(((proto.TCompositeDateTime) other).getTime()));
-            result_.setDateTime(com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.dateAndTime(((proto.TCompositeDateTime) other).getDateTime()));
+            result_.setDate(com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.date(((proto.TCompositeDateTime) other).getDate()));
+            result_.setTime(com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.time(((proto.TCompositeDateTime) other).getTime()));
+            result_.setDateTime(com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.dateAndTime(((proto.TCompositeDateTime) other).getDateTime()));
             return result_;
         } else {
             throw new com.gs.dmn.runtime.DMNRuntimeException(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), TCompositeDateTime.class.getSimpleName()));
@@ -45,11 +45,11 @@ public interface TCompositeDateTime extends com.gs.dmn.runtime.DMNType {
     static proto.TCompositeDateTime toProto(TCompositeDateTime other) {
         proto.TCompositeDateTime.Builder result_ = proto.TCompositeDateTime.newBuilder();
         if (other != null) {
-            String dateProto_ = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string(((TCompositeDateTime) other).getDate());
+            String dateProto_ = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.string(((TCompositeDateTime) other).getDate());
             result_.setDate(dateProto_);
-            String timeProto_ = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string(((TCompositeDateTime) other).getTime());
+            String timeProto_ = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.string(((TCompositeDateTime) other).getTime());
             result_.setTime(timeProto_);
-            String dateTimeProto_ = com.gs.dmn.signavio.feel.lib.DefaultSignavioLib.INSTANCE.string(((TCompositeDateTime) other).getDateTime());
+            String dateTimeProto_ = com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib.INSTANCE.string(((TCompositeDateTime) other).getDateTime());
             result_.setDateTime(dateTimeProto_);
         }
         return result_.build();
@@ -64,13 +64,13 @@ public interface TCompositeDateTime extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("Date")
-    javax.xml.datatype.XMLGregorianCalendar getDate();
+    java.time.LocalDate getDate();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Time")
-    javax.xml.datatype.XMLGregorianCalendar getTime();
+    java.time.temporal.TemporalAccessor getTime();
 
     @com.fasterxml.jackson.annotation.JsonGetter("DateTime")
-    javax.xml.datatype.XMLGregorianCalendar getDateTime();
+    java.time.temporal.TemporalAccessor getDateTime();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

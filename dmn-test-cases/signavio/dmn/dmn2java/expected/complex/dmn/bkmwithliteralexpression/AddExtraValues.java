@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class AddExtraValues extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class AddExtraValues extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "addExtraValues",
@@ -27,16 +27,16 @@ public class AddExtraValues extends com.gs.dmn.signavio.runtime.DefaultSignavioB
     }
 
     @java.lang.Override()
-    public List<java.math.BigDecimal> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<java.lang.Number> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("ListOfNumbers") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("ListOfNumbers"), new com.fasterxml.jackson.core.type.TypeReference<List<java.math.BigDecimal>>() {}) : null), context_);
+            return apply((input_.get("ListOfNumbers") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("ListOfNumbers"), new com.fasterxml.jackson.core.type.TypeReference<List<java.lang.Number>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'AddExtraValues'", e);
             return null;
         }
     }
 
-    public List<java.math.BigDecimal> apply(List<java.math.BigDecimal> listOfNumbers, com.gs.dmn.runtime.ExecutionContext context_) {
+    public List<java.lang.Number> apply(List<java.lang.Number> listOfNumbers, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'addExtraValues'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -49,7 +49,7 @@ public class AddExtraValues extends com.gs.dmn.signavio.runtime.DefaultSignavioB
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, addExtraValuesArguments_);
 
             // Evaluate decision 'addExtraValues'
-            List<java.math.BigDecimal> output_ = evaluate(listOfNumbers, context_);
+            List<java.lang.Number> output_ = evaluate(listOfNumbers, context_);
 
             // End decision 'addExtraValues'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, addExtraValuesArguments_, output_, (System.currentTimeMillis() - addExtraValuesStartTime_));
@@ -61,7 +61,7 @@ public class AddExtraValues extends com.gs.dmn.signavio.runtime.DefaultSignavioB
         }
     }
 
-    protected List<java.math.BigDecimal> evaluate(List<java.math.BigDecimal> listOfNumbers, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected List<java.lang.Number> evaluate(List<java.lang.Number> listOfNumbers, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;

@@ -25,7 +25,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
-import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.InputParameters;
@@ -39,7 +39,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab> {
-    private static final DMNDialectDefinition<?, ?, ?, ?, ?, ?> SIGNAVIO_DIALECT = new SignavioDMNDialectDefinition();
+    private static final DMNDialectDefinition<?, ?, ?, ?, ?, ?> SIGNAVIO_DIALECT = new JavaTimeSignavioDMNDialectDefinition();
 
     public SimplifyTypesForMIDTransformer() {
         this(new Slf4jBuildLogger(LOGGER));

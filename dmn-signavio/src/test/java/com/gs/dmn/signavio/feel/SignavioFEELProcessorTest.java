@@ -13,16 +13,21 @@
 package com.gs.dmn.signavio.feel;
 
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.signavio.dialect.SignavioDMNDialectDefinition;
+import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
 import com.gs.dmn.signavio.testlab.TestLab;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 
-public class SignavioFEELProcessorTest extends AbstractSignavioFEELProcessorTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public class SignavioFEELProcessorTest extends AbstractSignavioFEELProcessorTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
-    protected DMNDialectDefinition<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration, TestLab> makeDialect() {
-        return new SignavioDMNDialectDefinition();
+    protected String numberType() {
+        return Number.class.getName();
+    }
+
+    @Override
+    protected DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestLab> makeDialect() {
+        return new JavaTimeSignavioDMNDialectDefinition();
     }
 }

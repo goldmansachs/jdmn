@@ -3,13 +3,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0007-simpletable-P2.dmn"})
-public class _0007SimpletableP2Test extends com.gs.dmn.runtime.DefaultDMNBaseDecision {
+public class _0007SimpletableP2Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
     public void testCase001() {
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal age = number("18");
+        java.lang.Number age = number("18");
         String riskCategory = "Medium";
         Boolean isAffordable = Boolean.TRUE;
 
@@ -22,7 +22,7 @@ public class _0007SimpletableP2Test extends com.gs.dmn.runtime.DefaultDMNBaseDec
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal age = number("17");
+        java.lang.Number age = number("17");
         String riskCategory = "Medium";
         Boolean isAffordable = Boolean.TRUE;
 
@@ -35,7 +35,7 @@ public class _0007SimpletableP2Test extends com.gs.dmn.runtime.DefaultDMNBaseDec
         com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
-        java.math.BigDecimal age = number("18");
+        java.lang.Number age = number("18");
         String riskCategory = "High";
         Boolean isAffordable = Boolean.TRUE;
 

@@ -14,7 +14,7 @@ public interface Zip extends com.gs.dmn.runtime.DMNType {
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             ZipImpl result_ = new ZipImpl();
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("n") || ((com.gs.dmn.runtime.Context)other).keySet().contains("n")) {
-                result_.setN((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("n", "n"));
+                result_.setN((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("n", "n"));
             } else {
                 return  null;
             }
@@ -37,7 +37,7 @@ public interface Zip extends com.gs.dmn.runtime.DMNType {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("n")
-    java.math.BigDecimal getN();
+    java.lang.Number getN();
 
     @com.fasterxml.jackson.annotation.JsonGetter("e")
     String getE();

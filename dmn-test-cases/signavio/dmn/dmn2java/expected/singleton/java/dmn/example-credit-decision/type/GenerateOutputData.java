@@ -19,12 +19,12 @@ public interface GenerateOutputData extends com.gs.dmn.runtime.DMNType {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("assessment") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Assessment")) {
-                result_.setAssessment((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("assessment", "Assessment"));
+                result_.setAssessment((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("assessment", "Assessment"));
             } else {
                 return  null;
             }
             if (((com.gs.dmn.runtime.Context)other).keySet().contains("issue") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Issue")) {
-                result_.setIssue((java.math.BigDecimal)((com.gs.dmn.runtime.Context)other).get("issue", "Issue"));
+                result_.setIssue((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("issue", "Issue"));
             } else {
                 return  null;
             }
@@ -40,10 +40,10 @@ public interface GenerateOutputData extends com.gs.dmn.runtime.DMNType {
     String getDecision();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Assessment")
-    java.math.BigDecimal getAssessment();
+    java.lang.Number getAssessment();
 
     @com.fasterxml.jackson.annotation.JsonGetter("Issue")
-    java.math.BigDecimal getIssue();
+    java.lang.Number getIssue();
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();

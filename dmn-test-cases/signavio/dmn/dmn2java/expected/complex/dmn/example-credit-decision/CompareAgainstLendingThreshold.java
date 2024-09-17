@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.ANY,
     rulesCount = 2
 )
-public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.DefaultSignavioBaseDecision {
+public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "compareAgainstLendingThreshold",
@@ -36,7 +36,7 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
     }
 
     @java.lang.Override()
-    public java.math.BigDecimal applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             return apply((input_.get("Applicant") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("Applicant"), new com.fasterxml.jackson.core.type.TypeReference<type.ApplicantImpl>() {}) : null), (input_.get("Current risk appetite") != null ? number(input_.get("Current risk appetite")) : null), (input_.get("Lending threshold") != null ? number(input_.get("Lending threshold")) : null), context_);
         } catch (Exception e) {
@@ -45,7 +45,7 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
         }
     }
 
-    public java.math.BigDecimal apply(type.Applicant applicant, java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
+    public java.lang.Number apply(type.Applicant applicant, java.lang.Number currentRiskAppetite, java.lang.Number lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'compareAgainstLendingThreshold'
             com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
@@ -60,7 +60,7 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, compareAgainstLendingThresholdArguments_);
 
             // Evaluate decision 'compareAgainstLendingThreshold'
-            java.math.BigDecimal output_ = evaluate(applicant, currentRiskAppetite, lendingThreshold, context_);
+            java.lang.Number output_ = evaluate(applicant, currentRiskAppetite, lendingThreshold, context_);
 
             // End decision 'compareAgainstLendingThreshold'
             eventListener_.endDRGElement(DRG_ELEMENT_METADATA, compareAgainstLendingThresholdArguments_, output_, (System.currentTimeMillis() - compareAgainstLendingThresholdStartTime_));
@@ -72,14 +72,14 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
         }
     }
 
-    protected java.math.BigDecimal evaluate(type.Applicant applicant, java.math.BigDecimal currentRiskAppetite, java.math.BigDecimal lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
+    protected java.lang.Number evaluate(type.Applicant applicant, java.lang.Number currentRiskAppetite, java.lang.Number lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
         com.gs.dmn.runtime.annotation.AnnotationSet annotationSet_ = context_ != null ? context_.getAnnotations() : null;
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
         com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
         // Apply child decisions
-        java.math.BigDecimal assessApplicantAge = this.assessApplicantAge.apply(applicant, context_);
-        java.math.BigDecimal assessIssueRisk = this.assessIssueRisk.apply(applicant, currentRiskAppetite, context_);
+        java.lang.Number assessApplicantAge = this.assessApplicantAge.apply(applicant, context_);
+        java.lang.Number assessIssueRisk = this.assessIssueRisk.apply(applicant, currentRiskAppetite, context_);
 
         // Apply rules and collect results
         com.gs.dmn.runtime.RuleOutputList ruleOutputList_ = new com.gs.dmn.runtime.RuleOutputList();
@@ -87,7 +87,7 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
         ruleOutputList_.add(rule1(assessApplicantAge, assessIssueRisk, lendingThreshold, context_));
 
         // Return results based on hit policy
-        java.math.BigDecimal output_;
+        java.lang.Number output_;
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
             output_ = null;
@@ -100,7 +100,7 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "string(\"Raw issue score is \") + string(assessIssueRisk) + string(\", Age-weighted score is \") + string(assessApplicantAge) + string(\", Acceptance threshold is \") + string(lendingThreshold)")
-    public com.gs.dmn.runtime.RuleOutput rule0(java.math.BigDecimal assessApplicantAge, java.math.BigDecimal assessIssueRisk, java.math.BigDecimal lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule0(java.lang.Number assessApplicantAge, java.lang.Number assessIssueRisk, java.lang.Number lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(0, "string(\"Raw issue score is \") + string(assessIssueRisk) + string(\", Age-weighted score is \") + string(assessApplicantAge) + string(\", Acceptance threshold is \") + string(lendingThreshold)");
 
@@ -134,7 +134,7 @@ public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.
     }
 
     @com.gs.dmn.runtime.annotation.Rule(index = 1, annotation = "string(\"Error: threshold undefined\")")
-    public com.gs.dmn.runtime.RuleOutput rule1(java.math.BigDecimal assessApplicantAge, java.math.BigDecimal assessIssueRisk, java.math.BigDecimal lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
+    public com.gs.dmn.runtime.RuleOutput rule1(java.lang.Number assessApplicantAge, java.lang.Number assessIssueRisk, java.lang.Number lendingThreshold, com.gs.dmn.runtime.ExecutionContext context_) {
         // Rule metadata
         com.gs.dmn.runtime.listener.Rule drgRuleMetadata = new com.gs.dmn.runtime.listener.Rule(1, "string(\"Error: threshold undefined\")");
 

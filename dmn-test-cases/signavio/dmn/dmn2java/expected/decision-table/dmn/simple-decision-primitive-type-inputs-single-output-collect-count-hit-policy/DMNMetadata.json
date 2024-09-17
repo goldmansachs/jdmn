@@ -42,7 +42,7 @@
     "@kind" : "inputData",
     "id" : "diagram-720ce15dd8694bb3b91aa8d0a01351db-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
     "javaParameterName" : "numberInput",
-    "javaTypeName" : "java.math.BigDecimal",
+    "javaTypeName" : "java.lang.Number",
     "label" : "NumberInput",
     "name" : "numberInput",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml",
@@ -71,7 +71,7 @@
     }, {
       "reference" : "diagram-720ce15dd8694bb3b91aa8d0a01351db-inputdata-sid-404A0FC2-6787-4210-BB30-2E7964835E99"
     } ],
-    "javaOutputTypeName" : "java.math.BigDecimal",
+    "javaOutputTypeName" : "java.lang.Number",
     "javaParameterName" : "decision",
     "javaTypeName" : "Decision",
     "knowledgeReferences" : [ ],
@@ -84,7 +84,7 @@
       "@kind" : "inputData",
       "id" : "diagram-720ce15dd8694bb3b91aa8d0a01351db-inputdata-sid-3F148E87-DF6E-42AF-B209-4D532421A2F9",
       "javaParameterName" : "numberInput",
-      "javaTypeName" : "java.math.BigDecimal",
+      "javaTypeName" : "java.lang.Number",
       "label" : "NumberInput",
       "name" : "numberInput",
       "namespace" : "http://www.provider.com/dmn/1.1/diagram/720ce15dd8694bb3b91aa8d0a01351db.xml",

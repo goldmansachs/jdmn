@@ -4,7 +4,7 @@ import java.util.*;
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "compile"})
 public class CompileRuleOutput extends com.gs.dmn.runtime.RuleOutput {
     private String nextTrafficLight;
-    private java.math.BigDecimal avgOfNumbers;
+    private java.lang.Number avgOfNumbers;
     private String name;
 
     public CompileRuleOutput(boolean matched) {
@@ -21,12 +21,12 @@ public class CompileRuleOutput extends com.gs.dmn.runtime.RuleOutput {
         this.nextTrafficLight = nextTrafficLight;
     }
     @com.fasterxml.jackson.annotation.JsonGetter("avgOfNumbers")
-    public java.math.BigDecimal getAvgOfNumbers() {
+    public java.lang.Number getAvgOfNumbers() {
         return this.avgOfNumbers;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("avgOfNumbers")
-    public void setAvgOfNumbers(java.math.BigDecimal avgOfNumbers) {
+    public void setAvgOfNumbers(java.lang.Number avgOfNumbers) {
         this.avgOfNumbers = avgOfNumbers;
     }
     @com.fasterxml.jackson.annotation.JsonGetter("name")

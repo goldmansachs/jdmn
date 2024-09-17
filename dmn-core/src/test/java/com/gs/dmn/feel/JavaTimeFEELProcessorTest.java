@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class JavaFEELProcessorTest extends AbstractStandardFEELProcessorTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeFEELProcessorTest extends AbstractStandardFEELProcessorTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected DMNDialectDefinition<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount, TestCases> makeDialect() {
         return new JavaTimeDMNDialectDefinition();

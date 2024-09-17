@@ -7,18 +7,18 @@ import java.util.*;
 public class PersonImpl implements Person {
         private String firstName;
         private String lastName;
-        private java.math.BigDecimal id;
+        private java.lang.Number id;
         private String gender;
-        private javax.xml.datatype.XMLGregorianCalendar dateOfBirth;
-        private javax.xml.datatype.XMLGregorianCalendar timeOfBirth;
-        private javax.xml.datatype.XMLGregorianCalendar dateTimeOfBirth;
+        private java.time.LocalDate dateOfBirth;
+        private java.time.temporal.TemporalAccessor timeOfBirth;
+        private java.time.temporal.TemporalAccessor dateTimeOfBirth;
         private List<String> list;
         private Boolean married;
 
     public PersonImpl() {
     }
 
-    public PersonImpl(javax.xml.datatype.XMLGregorianCalendar dateOfBirth, javax.xml.datatype.XMLGregorianCalendar dateTimeOfBirth, String firstName, String gender, java.math.BigDecimal id, String lastName, List<String> list, Boolean married, javax.xml.datatype.XMLGregorianCalendar timeOfBirth) {
+    public PersonImpl(java.time.LocalDate dateOfBirth, java.time.temporal.TemporalAccessor dateTimeOfBirth, String firstName, String gender, java.lang.Number id, String lastName, List<String> list, Boolean married, java.time.temporal.TemporalAccessor timeOfBirth) {
         this.setDateOfBirth(dateOfBirth);
         this.setDateTimeOfBirth(dateTimeOfBirth);
         this.setFirstName(firstName);
@@ -31,22 +31,22 @@ public class PersonImpl implements Person {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("dateOfBirth")
-    public javax.xml.datatype.XMLGregorianCalendar getDateOfBirth() {
+    public java.time.LocalDate getDateOfBirth() {
         return this.dateOfBirth;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("dateOfBirth")
-    public void setDateOfBirth(javax.xml.datatype.XMLGregorianCalendar dateOfBirth) {
+    public void setDateOfBirth(java.time.LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("dateTimeOfBirth")
-    public javax.xml.datatype.XMLGregorianCalendar getDateTimeOfBirth() {
+    public java.time.temporal.TemporalAccessor getDateTimeOfBirth() {
         return this.dateTimeOfBirth;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("dateTimeOfBirth")
-    public void setDateTimeOfBirth(javax.xml.datatype.XMLGregorianCalendar dateTimeOfBirth) {
+    public void setDateTimeOfBirth(java.time.temporal.TemporalAccessor dateTimeOfBirth) {
         this.dateTimeOfBirth = dateTimeOfBirth;
     }
 
@@ -71,12 +71,12 @@ public class PersonImpl implements Person {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("id")
-    public java.math.BigDecimal getId() {
+    public java.lang.Number getId() {
         return this.id;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("id")
-    public void setId(java.math.BigDecimal id) {
+    public void setId(java.lang.Number id) {
         this.id = id;
     }
 
@@ -111,12 +111,12 @@ public class PersonImpl implements Person {
     }
 
     @com.fasterxml.jackson.annotation.JsonGetter("timeOfBirth")
-    public javax.xml.datatype.XMLGregorianCalendar getTimeOfBirth() {
+    public java.time.temporal.TemporalAccessor getTimeOfBirth() {
         return this.timeOfBirth;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("timeOfBirth")
-    public void setTimeOfBirth(javax.xml.datatype.XMLGregorianCalendar timeOfBirth) {
+    public void setTimeOfBirth(java.time.temporal.TemporalAccessor timeOfBirth) {
         this.timeOfBirth = timeOfBirth;
     }
 
