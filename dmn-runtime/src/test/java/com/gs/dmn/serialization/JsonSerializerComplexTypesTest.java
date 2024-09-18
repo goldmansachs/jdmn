@@ -14,19 +14,15 @@ package com.gs.dmn.serialization;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;
 import com.gs.dmn.serialization.data.Address;
 import com.gs.dmn.serialization.data.AddressImpl;
 import com.gs.dmn.serialization.data.Person;
 import com.gs.dmn.serialization.data.PersonImpl;
-import com.gs.dmn.signavio.feel.lib.DefaultSignavioLib;
+import com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
@@ -37,14 +33,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static com.gs.dmn.serialization.DefaultStandardJsonSerializerTest.DATE_TIME_TEST_DATA;
-import static com.gs.dmn.serialization.DefaultStandardJsonSerializerTest.TIME_TEST_DATA;
 import static com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DefaultSignavioJsonSerializerTest extends AbstractJsonSerializerTest<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
-    private final DefaultSignavioLib lib = (DefaultSignavioLib) makeFEELLib();
+public class JsonSerializerComplexTypesTest {
+    private final JavaTimeSignavioLib lib = new JavaTimeSignavioLib();
     private final String numberListListText = "[ [ 1, 2 ] ]";
     private final List<Range> rangeList = new ArrayList<>(Collections.singletonList(new Range(true, 0, false, 1)));
     private final List<Address> addressList = new ArrayList<>(Collections.singletonList(new AddressImpl("line", "post code")));
@@ -164,46 +158,6 @@ public class DefaultSignavioJsonSerializerTest extends AbstractJsonSerializerTes
         List<BigDecimal> personList = list.get(0);
         assertEquals(new BigDecimal("1"), personList.get(0));
         assertEquals(new BigDecimal("2"), personList.get(1));
-    }
-
-    @Override
-    protected FEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> makeFEELLib() {
-        return new DefaultSignavioLib();
-    }
-
-    @Override
-    protected BigDecimal readNumber(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, BigDecimal.class);
-    }
-
-    @Override
-    protected XMLGregorianCalendar readDate(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
-    }
-
-    @Override
-    protected XMLGregorianCalendar readTime(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
-    }
-
-    @Override
-    protected XMLGregorianCalendar readDateTime(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, XMLGregorianCalendar.class);
-    }
-
-    @Override
-    protected Duration readDuration(String literal) throws Exception {
-        return OBJECT_MAPPER.readValue(literal, Duration.class);
-    }
-
-    @Override
-    protected List<Pair<String, String>> getTimeTestData() {
-        return TIME_TEST_DATA;
-    }
-
-    @Override
-    protected List<Pair<String, String>> getDateTimeTestData() {
-        return DATE_TIME_TEST_DATA;
     }
 
     private Person makePerson(String id) {

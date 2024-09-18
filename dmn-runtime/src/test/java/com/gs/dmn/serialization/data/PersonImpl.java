@@ -14,25 +14,25 @@ package com.gs.dmn.serialization.data;
 
 import com.gs.dmn.runtime.Range;
 
-import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 import java.util.List;
 
 @javax.annotation.Generated(value={"inputData.ftl", "person"})
 public class PersonImpl implements Person {
-    private java.math.BigDecimal id;
+    private Number id;
     private String firstName;
     private String lastName;
-    private javax.xml.datatype.XMLGregorianCalendar dateOfBirth;
-    private javax.xml.datatype.XMLGregorianCalendar timeOfBirth;
-    private javax.xml.datatype.XMLGregorianCalendar dateTimeOfBirth;
+    private LocalDate dateOfBirth;
+    private TemporalAccessor timeOfBirth;
+    private TemporalAccessor dateTimeOfBirth;
     private String gender;
     private Boolean married;
     private List<String> list;
-    private List<XMLGregorianCalendar> dateTimeList;
-    private Duration yearsAndMonthsDuration;
-    private Duration daysAndTimeDuration;
+    private List<TemporalAccessor> dateTimeList;
+    private TemporalAmount yearsAndMonthsDuration;
+    private TemporalAmount daysAndTimeDuration;
     private String at;
     private String aT;
     private List<Address> addresses;
@@ -41,7 +41,7 @@ public class PersonImpl implements Person {
     public PersonImpl() {
     }
 
-    public PersonImpl(BigDecimal id, String firstName, String lastName, XMLGregorianCalendar dateOfBirth, XMLGregorianCalendar timeOfBirth, XMLGregorianCalendar dateTimeOfBirth, String gender, Boolean married, List<String> list, List<XMLGregorianCalendar> dateTimeList, Duration yearsAndMonthsDuration, Duration daysAndTimeDuration, List<Address> addresses, List<Range> ranges) {
+    public PersonImpl(Number id, String firstName, String lastName, LocalDate dateOfBirth, TemporalAccessor timeOfBirth, TemporalAccessor dateTimeOfBirth, String gender, Boolean married, List<String> list, List<TemporalAccessor> dateTimeList, TemporalAmount yearsAndMonthsDuration, TemporalAmount daysAndTimeDuration, List<Address> addresses, List<Range> ranges) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -60,12 +60,12 @@ public class PersonImpl implements Person {
 
     @Override
     @com.fasterxml.jackson.annotation.JsonGetter("ID")
-    public BigDecimal getId() {
+    public Number getId() {
         return this.id;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("ID")
-    public void setId(BigDecimal id) {
+    public void setId(Number id) {
         this.id = id;
     }
 
@@ -93,34 +93,34 @@ public class PersonImpl implements Person {
 
     @Override
     @com.fasterxml.jackson.annotation.JsonGetter("Date of Birth")
-    public javax.xml.datatype.XMLGregorianCalendar getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return this.dateOfBirth;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Date of Birth")
-    public void setDateOfBirth(javax.xml.datatype.XMLGregorianCalendar dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
     @Override
     @com.fasterxml.jackson.annotation.JsonGetter("Time of Birth")
-    public javax.xml.datatype.XMLGregorianCalendar getTimeOfBirth() {
+    public TemporalAccessor getTimeOfBirth() {
         return this.timeOfBirth;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Time of Birth")
-    public void setTimeOfBirth(javax.xml.datatype.XMLGregorianCalendar timeOfBirth) {
+    public void setTimeOfBirth(TemporalAccessor timeOfBirth) {
         this.timeOfBirth = timeOfBirth;
     }
 
     @Override
     @com.fasterxml.jackson.annotation.JsonGetter("Date and Time of Birth")
-    public javax.xml.datatype.XMLGregorianCalendar getDateTimeOfBirth() {
+    public TemporalAccessor getDateTimeOfBirth() {
         return this.dateTimeOfBirth;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Date and Time of Birth")
-    public void setDateTimeOfBirth(javax.xml.datatype.XMLGregorianCalendar dateTimeOfBirth) {
+    public void setDateTimeOfBirth(TemporalAccessor dateTimeOfBirth) {
         this.dateTimeOfBirth = dateTimeOfBirth;
     }
 
@@ -157,34 +157,34 @@ public class PersonImpl implements Person {
 
     @Override
     @com.fasterxml.jackson.annotation.JsonGetter("Date and Time List")
-    public List<XMLGregorianCalendar> getDateTimeList() {
+    public List<TemporalAccessor> getDateTimeList() {
         return dateTimeList;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Date and Time List")
-    public void setDateTimeList(List<XMLGregorianCalendar> dateTimeList) {
+    public void setDateTimeList(List<TemporalAccessor> dateTimeList) {
         this.dateTimeList = dateTimeList;
     }
 
     @Override
     @com.fasterxml.jackson.annotation.JsonGetter("Years and Months Duration")
-    public Duration getYearsAndMonthsDuration() {
+    public TemporalAmount getYearsAndMonthsDuration() {
         return yearsAndMonthsDuration;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Years and Months Duration")
-    public void setYearsAndMonthsDuration(Duration yearsAndMonthsDuration) {
+    public void setYearsAndMonthsDuration(TemporalAmount yearsAndMonthsDuration) {
         this.yearsAndMonthsDuration = yearsAndMonthsDuration;
     }
 
     @Override
     @com.fasterxml.jackson.annotation.JsonGetter("Days and Time Duration")
-    public Duration getDaysAndTimeDuration() {
+    public TemporalAmount getDaysAndTimeDuration() {
         return daysAndTimeDuration;
     }
 
     @com.fasterxml.jackson.annotation.JsonSetter("Days and Time Duration")
-    public void setDaysAndTimeDuration(Duration daysAndTimeDuration) {
+    public void setDaysAndTimeDuration(TemporalAmount daysAndTimeDuration) {
         this.daysAndTimeDuration = daysAndTimeDuration;
     }
 

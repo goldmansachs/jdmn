@@ -20,10 +20,14 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.gs.dmn.runtime.serialization.XMLGregorianCalendarDeserializer;
-import com.gs.dmn.runtime.serialization.XMLGregorianCalendarSerializer;
+import com.gs.dmn.runtime.serialization.*;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalAmount;
 
 public class JsonSerializer {
     public static final ObjectMapper OBJECT_MAPPER;
@@ -31,12 +35,26 @@ public class JsonSerializer {
 
     static {
         SimpleModule module = new SimpleModule();
+        // XML dialects
         module.addSerializer(XMLGregorianCalendar.class, new XMLGregorianCalendarSerializer());
         module.addDeserializer(XMLGregorianCalendar.class, new XMLGregorianCalendarDeserializer());
 
+        // java.time dialects
+        module.addSerializer(LocalDate.class, new LocalDateSerializer());
+        module.addDeserializer(LocalDate.class, new LocalDateDeserializer());
+        module.addSerializer(TemporalAccessor.class, new TemporalAccessorSerializer());
+        module.addDeserializer(TemporalAccessor.class, new TemporalAccessorDeserializer());
+        module.addSerializer(TemporalAmount.class, new TemporalAmountSerializer());
+        module.addDeserializer(TemporalAmount.class, new TemporalAmountDeserializer());
+
+        // Mixed
+        module.addSerializer(OffsetTime.class, new OffsetTimeSerializer());
+        module.addDeserializer(OffsetTime.class, new OffsetTimeDeserializer());
+        module.addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer());
+        module.addDeserializer(ZonedDateTime.class, new ZonedDateTimeDeserializer());
+
         OBJECT_MAPPER = JsonMapper.builder()
                 .addModule(module)
-                .addModule(new JavaTimeModule())
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .serializationInclusion(JsonInclude.Include.NON_NULL)
                 .serializationInclusion(JsonInclude.Include.NON_ABSENT)
