@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
-public class SignavioFEELProcessorTest extends AbstractSignavioFEELProcessorTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
+public class JavaTimeSignavioFEELProcessorTest extends AbstractSignavioFEELProcessorTest<Number, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount> {
     @Override
     protected String numberType() {
         return Number.class.getName();

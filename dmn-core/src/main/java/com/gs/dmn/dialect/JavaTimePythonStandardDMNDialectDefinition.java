@@ -19,7 +19,7 @@ import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.StandardNativeTypeToPythonFactory;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.DefaultDMNBaseDecision;
+import com.gs.dmn.runtime.JavaTimeDMNBaseDecision;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.DMNToNativeTransformer;
@@ -66,7 +66,7 @@ public class JavaTimePythonStandardDMNDialectDefinition extends AbstractStandard
 
     @Override
     public String getDecisionBaseClass() {
-        return qualifiedName(DefaultDMNBaseDecision.class);
+        return qualifiedName(JavaTimeDMNBaseDecision.class).replace("JavaTime", "Default");
     }
 
     protected String qualifiedName(Class<?> cls) {

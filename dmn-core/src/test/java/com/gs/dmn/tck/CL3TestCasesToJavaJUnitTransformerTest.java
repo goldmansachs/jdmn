@@ -23,7 +23,7 @@ public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
 
     @Override
     protected String getTestCasesInputPath() {
-        return getDMNInputPath() + "/standard";
+        return getDMNInputPath() + "/pure";
     }
 
     @Override

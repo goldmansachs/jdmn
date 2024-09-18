@@ -23,7 +23,7 @@ public class CL3TestCasesToPythonJUnitTransformerTest extends AbstractTestCasesT
 
     @Override
     protected String getTestCasesInputPath() {
-        return getDMNInputPath() + "/standard";
+        return getDMNInputPath() + "/pure";
     }
 
     @Override

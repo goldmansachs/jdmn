@@ -22,7 +22,6 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.gs.dmn.runtime.serialization.*;
 
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
@@ -35,10 +34,6 @@ public class JsonSerializer {
 
     static {
         SimpleModule module = new SimpleModule();
-        // XML dialects
-        module.addSerializer(XMLGregorianCalendar.class, new XMLGregorianCalendarSerializer());
-        module.addDeserializer(XMLGregorianCalendar.class, new XMLGregorianCalendarDeserializer());
-
         // java.time dialects
         module.addSerializer(LocalDate.class, new LocalDateSerializer());
         module.addDeserializer(LocalDate.class, new LocalDateDeserializer());

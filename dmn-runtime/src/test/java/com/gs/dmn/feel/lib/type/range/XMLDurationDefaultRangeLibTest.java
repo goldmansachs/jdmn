@@ -12,17 +12,19 @@
  */
 package com.gs.dmn.feel.lib.type.range;
 
-import com.gs.dmn.feel.lib.DefaultFEELLib;
+import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 
 import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 
-public class XMLDurationDefaultRangeLibTest extends AbstractDefaultRangeLibTest <BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> {
+public class XMLDurationDefaultRangeLibTest extends AbstractDefaultRangeLibTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
-    protected final StandardFEELLib<BigDecimal, XMLGregorianCalendar, XMLGregorianCalendar, XMLGregorianCalendar, Duration> getLib() {
-        return new DefaultFEELLib();
+    protected final StandardFEELLib<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> getLib() {
+        return new MixedJavaTimeFEELLib();
     }
 
     @Override

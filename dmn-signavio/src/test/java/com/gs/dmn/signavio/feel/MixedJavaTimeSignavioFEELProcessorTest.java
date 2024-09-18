@@ -30,7 +30,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
-public class MixedSignavioFEELProcessorTest extends AbstractSignavioFEELProcessorTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public class MixedJavaTimeSignavioFEELProcessorTest extends AbstractSignavioFEELProcessorTest<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
     protected String numberType() {
         return BigDecimal.class.getName();

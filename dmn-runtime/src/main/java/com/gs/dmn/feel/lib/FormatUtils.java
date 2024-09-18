@@ -14,7 +14,6 @@ package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.*;
@@ -68,8 +67,6 @@ public class FormatUtils {
         } else if (from instanceof TemporalAccessor) {
             // Its time with zone ID
             return BaseDateTimeLib.FEEL_TIME.format((TemporalAccessor) from);
-        } else if (from instanceof XMLGregorianCalendar) {
-            return from.toString();
         } else if (from instanceof javax.xml.datatype.Duration) {
             return from.toString();
         } else if (from instanceof java.time.Period) {

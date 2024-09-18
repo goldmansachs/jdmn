@@ -34,7 +34,6 @@ import com.gs.dmn.runtime.function.FEELFunction;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import java.time.*;
 import java.time.temporal.TemporalAmount;
@@ -145,15 +144,15 @@ public class TypeChecker {
     }
 
     private static boolean isDateTime(Object value) {
-        return value instanceof XMLGregorianCalendar || value instanceof LocalDateTime || value instanceof OffsetDateTime || value instanceof ZonedDateTime;
+        return value instanceof LocalDateTime || value instanceof OffsetDateTime || value instanceof ZonedDateTime;
     }
 
     private static boolean isTime(Object value) {
-        return value instanceof XMLGregorianCalendar || value instanceof OffsetTime || value instanceof LocalTime;
+        return value instanceof OffsetTime || value instanceof LocalTime;
     }
 
     private static boolean isDate(Object value) {
-        return value instanceof XMLGregorianCalendar || value instanceof LocalDate;
+        return value instanceof LocalDate;
     }
 
     private static boolean isComparable(Object value) {

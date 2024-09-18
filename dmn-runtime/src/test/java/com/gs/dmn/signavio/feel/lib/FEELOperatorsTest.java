@@ -19,12 +19,8 @@ import com.gs.dmn.runtime.Range;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -1418,13 +1414,17 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     protected void assertEqualsDateTime(String expected, Object actual) {
-        if (actual instanceof XMLGregorianCalendar) {
-            assertEquals(expected, actual.toString());
-        } else if (actual instanceof LocalDate) {
+        if (actual instanceof LocalDate) {
             String actualText = ((LocalDate) actual).format(BaseDateTimeLib.FEEL_DATE);
             assertEquals(expected, actualText);
         } else if (actual instanceof OffsetTime) {
             String actualText = ((OffsetTime) actual).format(BaseDateTimeLib.FEEL_TIME);
+            assertEquals(expected, actualText);
+        } else if (actual instanceof LocalTime) {
+            String actualText = ((LocalTime) actual).format(BaseDateTimeLib.FEEL_TIME);
+            assertEquals(expected, actualText);
+        } else if (actual instanceof LocalDateTime) {
+            String actualText = ((LocalDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);
             assertEquals(expected, actualText);
         } else if (actual instanceof OffsetDateTime) {
             String actualText = ((OffsetDateTime) actual).format(BaseDateTimeLib.FEEL_DATE_TIME);

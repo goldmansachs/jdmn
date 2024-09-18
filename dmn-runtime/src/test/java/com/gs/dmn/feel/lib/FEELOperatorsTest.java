@@ -19,7 +19,6 @@ import com.gs.dmn.runtime.Range;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -1469,9 +1468,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     }
 
     protected void assertEqualsDateTime(String expected, Object actual) {
-        if (actual instanceof XMLGregorianCalendar) {
-            assertEquals(expected, actual.toString());
-        } else if (actual instanceof TemporalAccessor) {
+        if (actual instanceof TemporalAccessor) {
             String actualText = FormatUtils.formatTemporal(actual);
             assertEquals(expected, actualText);
         } else if (actual instanceof Duration) {

@@ -16,13 +16,10 @@ import com.gs.dmn.feel.lib.type.time.BaseDateTimeLib;
 import com.gs.dmn.signavio.feel.lib.SignavioUtil;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -223,12 +220,16 @@ public class DefaultSignavioStringLib implements SignavioStringLib {
             return ((BigDecimal) from).toPlainString();
         } else if (from instanceof LocalDate) {
             return ((LocalDate) from).format(BaseDateTimeLib.FEEL_DATE);
+        } else if (from instanceof LocalTime) {
+            return ((LocalTime) from).format(BaseDateTimeLib.FEEL_TIME);
         } else if (from instanceof OffsetTime) {
             return ((OffsetTime) from).format(BaseDateTimeLib.FEEL_TIME);
+        } else if (from instanceof LocalDateTime) {
+            return ((LocalDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
+        } else if (from instanceof OffsetDateTime) {
+            return ((OffsetDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
         } else if (from instanceof ZonedDateTime) {
             return ((ZonedDateTime) from).format(BaseDateTimeLib.FEEL_DATE_TIME);
-        } else if (from instanceof XMLGregorianCalendar) {
-            return from.toString();
         } else {
             return from.toString();
         }

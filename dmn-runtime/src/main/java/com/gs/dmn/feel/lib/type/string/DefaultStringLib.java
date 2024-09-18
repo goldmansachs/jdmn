@@ -19,7 +19,6 @@ import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -46,7 +45,7 @@ public class DefaultStringLib implements StringLib {
             return "null";
         } else if (from instanceof Number) {
             return FormatUtils.formatNumber((Number) from);
-        } else if (from instanceof XMLGregorianCalendar || from instanceof Duration) {
+        } else if (from instanceof Duration) {
             return FormatUtils.formatTemporal(from);
         } else if (from instanceof TemporalAccessor || from instanceof TemporalAmount) {
             return FormatUtils.formatTemporal(from);
@@ -284,13 +283,13 @@ public class DefaultStringLib implements StringLib {
         return input.equals(value);
     }
 
-    private String evaluateXPath(String input, String expression) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
+    private String evaluateXPath(String input, String expression) throws SAXException, IOException, XPathExpressionException {
         // Read document
         String xml = "<root>" + input + "</root>";
-        DocumentBuilder builder = new DocumentBuilderImpl();
+        DocumentBuilderImpl builder = new DocumentBuilderImpl();
         InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
         Document document = builder.parse(inputStream);
-        Configuration configuration = ((DocumentBuilderImpl) builder).getConfiguration();
+        Configuration configuration = builder.getConfiguration();
 
         // Evaluate xpath
         XPathFactory xPathFactory = new XPathFactoryImpl(configuration);

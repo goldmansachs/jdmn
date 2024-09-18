@@ -23,11 +23,9 @@ import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeComparator;
 import com.gs.dmn.feel.lib.type.time.pure.TemporalAmountComparator;
 import com.gs.dmn.feel.lib.type.time.pure.TemporalComparator;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationComparator;
-import com.gs.dmn.feel.lib.type.time.xml.DefaultXMLCalendarComparator;
 import com.gs.dmn.runtime.Range;
 
 import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetTime;
@@ -57,7 +55,6 @@ public class DefaultRangeLib implements RangeLib {
         COMPARATOR_MAP.put(Temporal.class, TemporalComparator.COMPARATOR);
         COMPARATOR_MAP.put(TemporalAmount.class, TemporalAmountComparator.COMPARATOR);
 
-        COMPARATOR_MAP.put(XMLGregorianCalendar.class, DefaultXMLCalendarComparator.COMPARATOR);
         COMPARATOR_MAP.put(Duration.class, DefaultDurationComparator.COMPARATOR);
     }
 

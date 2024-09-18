@@ -17,10 +17,13 @@ import com.gs.dmn.feel.lib.type.time.xml.BaseDefaultDurationType;
 import org.junit.jupiter.api.Assertions;
 
 import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.time.*;
+import java.time.OffsetTime;
+import java.time.Period;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,12 +112,10 @@ public class Assert {
     }
 
     private static boolean isDateTime(Object object) {
-        return object instanceof XMLGregorianCalendar
-                || object instanceof java.time.Duration
+        return object instanceof TemporalAccessor
                 || object instanceof Duration
-                || object instanceof ZonedDateTime
-                || object instanceof LocalDate
-                || object instanceof OffsetTime;
+                || object instanceof java.time.Duration
+                ;
     }
 
     private static boolean isList(Object actual) {

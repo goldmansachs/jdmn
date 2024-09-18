@@ -16,14 +16,9 @@ import com.gs.dmn.feel.lib.type.BaseType;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Objects;
 
 public abstract class XMLCalendarType extends BaseType {
     protected static final ThreadLocal<GregorianCalendar> GREGORIAN = ThreadLocal.withInitial(() -> new GregorianCalendar(
@@ -55,31 +50,12 @@ public abstract class XMLCalendarType extends BaseType {
         }
     }
 
-    public static boolean isXMLDuration(Object duration) {
-        return isYearMonthDuration(duration) || isDayTimeDuration(duration);
-    }
-
     public static boolean isYearMonthDuration(Object duration) {
         return duration instanceof Duration && getXMLSchemaType((Duration) duration) == DatatypeConstants.DURATION_YEARMONTH;
     }
 
     public static boolean isDayTimeDuration(Object duration) {
         return duration instanceof Duration && getXMLSchemaType((Duration) duration) == DatatypeConstants.DURATION_DAYTIME;
-    }
-
-    public boolean isDate(Object value) {
-        return value instanceof XMLGregorianCalendar
-                && ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATE;
-    }
-
-    public boolean isTime(Object value) {
-        return value instanceof XMLGregorianCalendar
-                && ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.TIME;
-    }
-
-    public boolean isDateTime(Object value) {
-        return value instanceof XMLGregorianCalendar
-                && ((XMLGregorianCalendar) value).getXMLSchemaType() == DatatypeConstants.DATETIME;
     }
 
     public boolean isYearsAndMonthsDuration(Object value) {
@@ -90,62 +66,6 @@ public abstract class XMLCalendarType extends BaseType {
     public boolean isDaysAndTimeDuration(Object value) {
         return value instanceof Duration
                 && isDayTimeDuration(value);
-    }
-
-    public Long dateValue(XMLGregorianCalendar date) {
-        if (date == null) {
-            return null;
-        }
-
-        XMLGregorianCalendar dateTime = toDateTime(date);
-        return dateTimeValue(dateTime);
-    }
-
-    public Long timeValue(XMLGregorianCalendar time) {
-        if (time == null) {
-            return null;
-        }
-
-        long value = time.getHour() * 3600L + time.getMinute() * 60L + time.getSecond();
-        if (time.getTimezone() != DatatypeConstants.FIELD_UNDEFINED) {
-            value -= time.getTimezone();
-        }
-        return value;
-    }
-
-    public Long dateTimeValue(XMLGregorianCalendar dateTime) {
-        if (dateTime == null) {
-            return null;
-        }
-
-        int nanoSeconds = dateTime.getMillisecond() * 1000_000;
-        LocalDateTime localDateTime = LocalDateTime.of(
-                dateTime.getYear(), dateTime.getMonth(), dateTime.getDay(),
-                dateTime.getHour(), dateTime.getMinute(), dateTime.getSecond(), nanoSeconds);
-        int timezone = dateTime.getTimezone();
-        if (timezone == DatatypeConstants.FIELD_UNDEFINED) {
-            timezone = 0;
-        }
-        ZoneOffset offset = ZoneOffset.ofTotalSeconds(timezone);
-        OffsetDateTime offsetDateTime = OffsetDateTime.of(localDateTime, offset);
-        return offsetDateTime.toEpochSecond();
-    }
-
-    public Long value(XMLGregorianCalendar calendar) {
-        if (isDate(calendar)) {
-            return dateValue(calendar);
-        } else if (isTime(calendar)) {
-            return timeValue(calendar);
-        } else if (isDateTime(calendar)) {
-            return dateTimeValue(calendar);
-        } else {
-            return null;
-        }
-    }
-
-    protected Long toEpochSeconds(XMLGregorianCalendar calendar) {
-        Objects.requireNonNull(calendar, "calendar");
-        return Math.floorDiv(calendar.toGregorianCalendar().getTimeInMillis(), 1000L);
     }
 
     public Long durationValue(Duration duration) {
@@ -190,22 +110,5 @@ public abstract class XMLCalendarType extends BaseType {
         long totalMinutes = 60L * totalHours + minutes;
         long totalSeconds = 60L * totalMinutes + seconds;
         return isNegative ? - totalSeconds : totalSeconds;
-    }
-
-    protected long getDurationInSeconds(XMLGregorianCalendar first, XMLGregorianCalendar second) {
-        return toEpochSeconds(first) - toEpochSeconds(second);
-    }
-
-    protected XMLGregorianCalendar toDateTime(XMLGregorianCalendar date) {
-        if (date == null) {
-            return null;
-        }
-
-        FEELXMLGregorianCalendar clone = (FEELXMLGregorianCalendar) date.clone();
-        clone.setHour(0);
-        clone.setMinute(0);
-        clone.setSecond(0);
-        clone.setZoneID("Z");
-        return clone;
     }
 }
