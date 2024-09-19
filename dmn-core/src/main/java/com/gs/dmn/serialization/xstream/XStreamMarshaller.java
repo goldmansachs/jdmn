@@ -49,7 +49,9 @@ public class XStreamMarshaller implements DMNMarshaller {
         DMNVersion result = null;
         try {
             Map<String, String> nsContext = from.getElementInfo().getNsContext();
-            if (nsContext.values().stream().anyMatch(s -> DMN_14.getNamespace().equals(s))) {
+            if (nsContext.values().stream().anyMatch(s -> DMN_15.getNamespace().equals(s))) {
+                result = DMN_15;
+            } else if (nsContext.values().stream().anyMatch(s -> DMN_14.getNamespace().equals(s))) {
                 result = DMN_14;
             } else if (nsContext.values().stream().anyMatch(s -> DMN_13.getNamespace().equals(s))) {
                 result = DMN_13;
@@ -71,7 +73,9 @@ public class XStreamMarshaller implements DMNMarshaller {
 
     private static DMNVersion inferDMNVersion(Map<String, String> nsContext) {
         DMNVersion result = null;
-        if (nsContext.values().stream().anyMatch(s -> DMN_14.getNamespace().equals(s))) {
+        if (nsContext.values().stream().anyMatch(s -> DMN_15.getNamespace().equals(s))) {
+            result = DMN_15;
+        } else if (nsContext.values().stream().anyMatch(s -> DMN_14.getNamespace().equals(s))) {
             result = DMN_14;
         } else if (nsContext.values().stream().anyMatch(s -> DMN_13.getNamespace().equals(s))) {
             result = DMN_13;
@@ -108,6 +112,7 @@ public class XStreamMarshaller implements DMNMarshaller {
     private final com.gs.dmn.serialization.xstream.v1_2.XStreamMarshaller xStream12;
     private final com.gs.dmn.serialization.xstream.v1_3.XStreamMarshaller xStream13;
     private final com.gs.dmn.serialization.xstream.v1_4.XStreamMarshaller xStream14;
+    private final com.gs.dmn.serialization.xstream.v1_5.XStreamMarshaller xStream15;
 
     XStreamMarshaller() {
         this(new ArrayList<>());
@@ -120,6 +125,7 @@ public class XStreamMarshaller implements DMNMarshaller {
         this.xStream12 = new com.gs.dmn.serialization.xstream.v1_2.XStreamMarshaller(extensionRegisters);
         this.xStream13 = new com.gs.dmn.serialization.xstream.v1_3.XStreamMarshaller(extensionRegisters);
         this.xStream14 = new com.gs.dmn.serialization.xstream.v1_4.XStreamMarshaller(extensionRegisters);
+        this.xStream15 = new com.gs.dmn.serialization.xstream.v1_5.XStreamMarshaller(extensionRegisters);
     }
 
     @Override
@@ -151,7 +157,9 @@ public class XStreamMarshaller implements DMNMarshaller {
 
     private TDefinitions unmarshal(DMNVersion inferDMNVersion, Reader secondStringReader) {
         TDefinitions result = null;
-        if (DMN_14.equals(inferDMNVersion)) {
+        if (DMN_15.equals(inferDMNVersion)) {
+            result = (TDefinitions) xStream15.unmarshal(secondStringReader);
+        } else if (DMN_14.equals(inferDMNVersion)) {
             result = (TDefinitions) xStream14.unmarshal(secondStringReader);
         } else if (DMN_13.equals(inferDMNVersion)) {
             result = (TDefinitions) xStream13.unmarshal(secondStringReader);
@@ -164,28 +172,30 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     @Override
-    public String marshal(TDefinitions definitions) {
-        if (definitions != null) {
-            DMNVersion dmnVersion = inferDMNVersion(definitions);
-            return marshall(definitions, dmnVersion);
+    public String marshal(TDefinitions o) {
+        if (o != null) {
+            DMNVersion dmnVersion = inferDMNVersion(o);
+            return marshall(o, dmnVersion);
         } else {
-            LOGGER.error("Error marshalling object {}", definitions);
+            LOGGER.error("Error marshalling object {}", o);
         }
         return null;
     }
 
     @Override
-    public void marshal(TDefinitions definitions, Writer output) {
-        if (definitions != null) {
-            DMNVersion dmnVersion = inferDMNVersion(definitions);
-            marshall(definitions, output, dmnVersion);
+    public void marshal(TDefinitions o, Writer output) {
+        if (o != null) {
+            DMNVersion dmnVersion = inferDMNVersion(o);
+            marshall(o, output, dmnVersion);
         } else {
-            LOGGER.error("Error marshalling object {}", definitions);
+            LOGGER.error("Error marshalling object {}", o);
         }
     }
 
     private String marshall(TDefinitions o, DMNVersion dmnVersion) {
-        if (dmnVersion == DMN_14) {
+        if (dmnVersion == DMN_15) {
+            return xStream15.marshal(o);
+        } else if (dmnVersion == DMN_14) {
             return xStream14.marshal(o);
         } else if (dmnVersion == DMN_13) {
             return xStream13.marshal(o);
@@ -198,15 +208,17 @@ public class XStreamMarshaller implements DMNMarshaller {
         }
     }
 
-    private void marshall(TDefinitions definitions, Writer out, DMNVersion dmnVersion) {
-        if (dmnVersion == DMN_14) {
-            xStream14.marshal(definitions, out);
+    private void marshall(TDefinitions o, Writer out, DMNVersion dmnVersion) {
+        if (dmnVersion == DMN_15) {
+            xStream15.marshal(o, out);
+        } else if (dmnVersion == DMN_14) {
+            xStream14.marshal(o, out);
         } else if (dmnVersion == DMN_13) {
-            xStream13.marshal(definitions, out);
+            xStream13.marshal(o, out);
         } else if (dmnVersion == DMN_12) {
-            xStream12.marshal(definitions, out);
+            xStream12.marshal(o, out);
         } else if (dmnVersion == DMN_11) {
-            xStream11.marshal(definitions, out);
+            xStream11.marshal(o, out);
         }
     }
 
@@ -221,8 +233,8 @@ public class XStreamMarshaller implements DMNMarshaller {
             Validator validator = schema.newValidator();
             validator.validate(source);
             return true;
-        } catch (Exception e) {
-            LOGGER.error(String.format("Invalid DMN file: %s", e.getMessage()));
+        } catch (Exception e){
+            LOGGER.error("Invalid DMN file: " + e.getMessage());
             throw new DMNRuntimeException(e);
         }
     }

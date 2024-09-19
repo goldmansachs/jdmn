@@ -77,7 +77,7 @@
     </distributionManagement>
 
     <properties>
-        <dmn.version>1.4</dmn.version>
+        <dmn.version>1.5</dmn.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

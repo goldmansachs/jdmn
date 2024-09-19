@@ -52,7 +52,7 @@ public class QNameConverter implements Converter {
                 }
             }
             writer.setValue(DMNBaseConverter.formatQName(qname, null, version));
-        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13 || version == DMNVersion.DMN_14) {
+        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13 || version == DMNVersion.DMN_14 || version == DMNVersion.DMN_15) {
             // DMN v1.2 semantic always local part.
             QName qname = (QName) object;
             writer.setValue(qname.getLocalPart());
@@ -72,7 +72,7 @@ public class QNameConverter implements Converter {
                 return new QName(qnameURI, qname.getLocalPart(), qname.getPrefix());
             }
             return qname;
-        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13 || version == DMNVersion.DMN_14) {
+        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13 || version == DMNVersion.DMN_14 || version == DMNVersion.DMN_15) {
             // DMN v1.2 semantic always local part.
             QName qname = new QName(reader.getValue());
             return qname;
