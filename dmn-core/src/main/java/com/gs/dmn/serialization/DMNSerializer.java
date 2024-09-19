@@ -126,6 +126,8 @@ public abstract class DMNSerializer {
             return this.dmnTransformer.transform13ToLatestDefinitions(definitions);
         } else if (dmnVersion == DMNVersion.DMN_14) {
             return this.dmnTransformer.transform14ToLatestDefinitions(definitions);
+        } else if (dmnVersion == DMNVersion.DMN_15) {
+            return this.dmnTransformer.transform15ToLatestDefinitions(definitions);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported", definitions.getClass()));
         }

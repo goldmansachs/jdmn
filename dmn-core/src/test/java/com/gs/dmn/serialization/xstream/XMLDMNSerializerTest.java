@@ -40,7 +40,7 @@ public class XMLDMNSerializerTest extends AbstractDMNSerializationTest {
     @Test
     public void testRoundTripWithNoExtensions() throws Exception {
         String inputPath = "dmn/input/1.1/test-dmn.dmn";
-        String expectedPath = "dmn/expected/1.1/1.4/test-dmn.dmn";
+        String expectedPath = "dmn/expected/1.1/latest/test-dmn.dmn";
 
         doRoundTripTest(inputPath, expectedPath);
     }
@@ -48,7 +48,7 @@ public class XMLDMNSerializerTest extends AbstractDMNSerializationTest {
     @Test
     public void testRoundTripWithExtensions() throws Exception {
         String inputPath = "xstream/v1_1/test20161014.dmn";
-        String expectedPath = "dmn/expected/1.1/1.4/test20161014.dmn";
+        String expectedPath = "dmn/expected/1.1/latest/test20161014.dmn";
 
         doRoundTripTest(inputPath, expectedPath);
     }
@@ -56,7 +56,7 @@ public class XMLDMNSerializerTest extends AbstractDMNSerializationTest {
     @Test
     public void testRoundTripWithExtensionsNoRegistration() throws Exception {
         String inputPath = "xstream/v1_1/test20161014.dmn";
-        String expectedPath = "dmn/expected/1.1/1.4/test20161014.dmn";
+        String expectedPath = "dmn/expected/1.1/latest/test20161014.dmn";
 
         doRoundTripTest(inputPath, expectedPath, new XMLDMNSerializer(LOGGER, inputParameters));
     }

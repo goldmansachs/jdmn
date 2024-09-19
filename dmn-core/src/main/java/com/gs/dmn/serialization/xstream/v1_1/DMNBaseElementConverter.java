@@ -81,7 +81,7 @@ public abstract class DMNBaseElementConverter extends DMNBaseConverter {
         if (parent instanceof TDefinitions) {
             if (version == DMNVersion.DMN_11) {
                 // Do nothing
-            } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13 || version == DMNVersion.DMN_14) {
+            } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13 || version == DMNVersion.DMN_14 || version == DMNVersion.DMN_15) {
                 TDefinitions tDefinitions = (TDefinitions) parent;
 
                 String dmndiURI = version.getPrefixToNamespaceMap().get("dmndi");

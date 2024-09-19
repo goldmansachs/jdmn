@@ -37,7 +37,7 @@ public class JsonDMNSerializerTest extends AbstractDMNSerializationTest {
     @Test
     public void testRoundTripNoExtension() throws Exception {
         String inputPath = "jackson/v1_3/0004-lending.json";
-        String expectedPath = "dmn/expected/1.1/1.4/0004-lending.json";
+        String expectedPath = "dmn/expected/1.1/latest/0004-lending.json";
 
         doRoundTripTest(inputPath, expectedPath);
     }
@@ -45,7 +45,7 @@ public class JsonDMNSerializerTest extends AbstractDMNSerializationTest {
     @Test
     public void testRoundTripWithExtensions() throws Exception {
         String inputPath = "jackson/v1_4/test20161014.json";
-        String expectedPath = "dmn/expected/1.1/1.4/test20161014.json";
+        String expectedPath = "dmn/expected/1.1/latest/test20161014.json";
 
         doRoundTripTest(inputPath, expectedPath);
     }

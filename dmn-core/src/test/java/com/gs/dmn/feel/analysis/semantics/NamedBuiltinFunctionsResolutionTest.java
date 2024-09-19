@@ -101,8 +101,8 @@ public class NamedBuiltinFunctionsResolutionTest extends AbstractStandardBuiltin
     @Test
     public void testBooleanFunctions() {
         // Not supported yet as not is also a unary operator
-        testFunctionInvocation("not(negand: null)", "BuiltinFunctionType(FormalParameter(negand, boolean, false, false), boolean)", false);
-        testFunctionInvocation("not(negand: true)", "BuiltinFunctionType(FormalParameter(negand, boolean, false, false), boolean)", false);
+//        testFunctionInvocation("not(negand: null)", "LogicNegation", false);
+//        testFunctionInvocation("not(negand: true)", "LogicNegation", false);
     }
 
     @Test

@@ -41,14 +41,14 @@ public class DMNSerializerConversionTest extends AbstractFileTransformerTest {
     @Test
     public void testRoundTripNoExtensions() throws Exception {
         String inputXmlPath = "dmn/input/1.1/0004-lending.dmn";
-        String expectedXmlPath = "dmn/expected/1.1/1.4/0004-lending.dmn";
+        String expectedXmlPath = "dmn/expected/1.1/latest/0004-lending.dmn";
         doRoundTripTest(inputXmlPath, expectedXmlPath, this::checkModel);
     }
 
     @Test
     public void testRoundTripWithExtensions() throws Exception {
         String inputPath = "xstream/v1_1/test20161014.dmn";
-        String expectedPath = "dmn/expected/1.1/1.4/test20161014.dmn";
+        String expectedPath = "dmn/expected/1.1/latest/test20161014.dmn";
 
         doRoundTripTest(inputPath, expectedPath, this::checkElementInfo);
     }
@@ -56,7 +56,7 @@ public class DMNSerializerConversionTest extends AbstractFileTransformerTest {
     @Test
     public void testRoundTripWithExtensionsNoRegistration() throws Exception {
         String inputPath = "xstream/v1_1/test20161014.dmn";
-        String expectedPath = "dmn/expected/1.1/1.4/test20161014.dmn";
+        String expectedPath = "dmn/expected/1.1/latest/test20161014.dmn";
 
         doRoundTripTest(inputPath, expectedPath, this::checkElementInfo);
     }

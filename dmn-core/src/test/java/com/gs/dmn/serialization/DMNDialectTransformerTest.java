@@ -8,6 +8,8 @@ import java.io.*;
 import java.nio.charset.Charset;
 
 public abstract class DMNDialectTransformerTest extends AbstractFileTransformerTest {
+    protected static final String LATEST_VERSION = "latest";
+
     protected final DMNMarshaller dmnMarshaller = getDMNMarshaller();
 
     protected void doTest(String inputFileName) throws Exception {

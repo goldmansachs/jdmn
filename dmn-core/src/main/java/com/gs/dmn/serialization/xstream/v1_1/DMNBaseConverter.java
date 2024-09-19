@@ -59,7 +59,7 @@ public abstract class DMNBaseConverter extends AbstractCollectionConverter {
             } else {
                 return qname.toString();
             }
-        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13 || version == DMNVersion.DMN_14) {
+        } else if (version == DMNVersion.DMN_12 || version == DMNVersion.DMN_13 || version == DMNVersion.DMN_14 || version == DMNVersion.DMN_15) {
             // DMN v1.2 namespace typeRef is imported with dot.
             if (!XMLConstants.DEFAULT_NS_PREFIX.equals(qname.getPrefix())) {
                 String nsForPrefix = parent.getNamespaceURI(qname.getPrefix());
