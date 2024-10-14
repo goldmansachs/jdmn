@@ -73,19 +73,25 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
 
     @Override
     public Long years(TemporalAmount duration) {
-        return duration.get(ChronoUnit.YEARS);
+        if (duration instanceof Period) {
+            return duration.get(ChronoUnit.YEARS);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot extract years from '%s'", duration));
+        }
     }
 
     @Override
     public Long months(TemporalAmount duration) {
-        return duration.get(ChronoUnit.MONTHS);
+        if (duration instanceof Period) {
+            return duration.get(ChronoUnit.MONTHS);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot extract months from '%s'", duration));
+        }
     }
 
     @Override
     public Long days(TemporalAmount duration) {
-       if (duration instanceof Period) {
-           return duration.get(ChronoUnit.DAYS);
-       } else if (duration instanceof Duration) {
+       if (duration instanceof Duration) {
            long seconds = ((Duration) duration).getSeconds();
            long minutes = seconds / 60;
            long hours = minutes / 60;
@@ -97,9 +103,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
 
     @Override
     public Long hours(TemporalAmount duration) {
-        if (duration instanceof Period) {
-            return duration.get(ChronoUnit.HOURS);
-        } else if (duration instanceof Duration) {
+        if (duration instanceof Duration) {
             long seconds = ((Duration) duration).getSeconds();
             long minutes = seconds / 60;
             long hours = minutes / 60;
@@ -111,9 +115,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
 
     @Override
     public Long minutes(TemporalAmount duration) {
-        if (duration instanceof Period) {
-            return duration.get(ChronoUnit.MINUTES);
-        } else if (duration instanceof Duration) {
+        if (duration instanceof Duration) {
             long seconds = ((Duration) duration).getSeconds();
             long minutes = seconds / 60;
             return minutes % 60;
@@ -124,9 +126,7 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
 
     @Override
     public Long seconds(TemporalAmount duration) {
-        if (duration instanceof Period) {
-            return duration.get(ChronoUnit.SECONDS);
-        } else if (duration instanceof Duration) {
+        if (duration instanceof Duration) {
             // Remove ms fraction
             long seconds = ((Duration) duration).toMillis() / 1000;
             return seconds % 60;

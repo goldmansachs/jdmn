@@ -767,6 +767,12 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     //
     @Test
     public void testDurationProperties() {
+        assertNull(getLib().years(makeDuration("P3D")));
+        assertNull(getLib().months(makeDuration("P3D")));
+        assertNull(getLib().hours(makeDuration("P3Y1M")));
+        assertNull(getLib().minutes(makeDuration("P3Y1M")));
+        assertNull(getLib().seconds(makeDuration("P3Y1M")));
+
         assertEqualsNumber(makeNumber("1"), getLib().years(makeDuration("P1Y2M")));
         assertEqualsNumber(makeNumber("2"), getLib().months(makeDuration("P1Y2M")));
 
