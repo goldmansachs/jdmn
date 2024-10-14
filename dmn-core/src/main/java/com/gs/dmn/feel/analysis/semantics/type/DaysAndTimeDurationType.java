@@ -13,24 +13,42 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.FEELConstants;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 
-public class DurationType extends ComparableDataType {
-    public static final DurationType ANY_DURATION = new DurationType("duration");
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-    public static Type getMemberType(Type sourceType, String member) {
-        if (YearsAndMonthsDurationType.YEAR_MONTH_DURATION.equivalentTo(sourceType)) {
-            return YearsAndMonthsDurationType.getMemberType(sourceType, member);
-        } else if (DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.equivalentTo(sourceType)) {
-            return DaysAndTimeDurationType.getMemberType(sourceType, member);
-        } else {
-            throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
-        }
+import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
+
+public class DaysAndTimeDurationType extends DurationType {
+    public static final DurationType DAYS_AND_TIME_DURATION = new DaysAndTimeDurationType("days and time duration");
+    // Aliases
+    public static final DurationType DAY_TIME_DURATION = new DaysAndTimeDurationType("dayTimeDuration");
+
+    private static final Map<String, Type> MEMBERS = new LinkedHashMap<>();
+    static {
+        MEMBERS.put("seconds", NUMBER);
+        MEMBERS.put("minutes", NUMBER);
+        MEMBERS.put("hours", NUMBER);
+        MEMBERS.put("days", NUMBER);
     }
 
-    public DurationType(String name) {
-        super(name, FEELConstants.DURATION_LITERAL_FUNCTION_NAME);
+    public static Type getMemberType(Type sourceType, String member) {
+        Type type = MEMBERS.get(member);
+        if (Type.isNull(type)) {
+            throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
+        }
+        return type;
+    }
+
+    public DaysAndTimeDurationType(String name) {
+        super(name);
+    }
+
+    @Override
+    public boolean equivalentTo(Type other) {
+        return (this == DAYS_AND_TIME_DURATION || this == DAY_TIME_DURATION) && (other == DAYS_AND_TIME_DURATION || other == DAY_TIME_DURATION)
+                ;
     }
 
     @Override

@@ -821,9 +821,9 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             element.setType(DateTimeType.DATE_AND_TIME);
         } else if (FEELConstants.DURATION_LITERAL_FUNCTION_NAME.equals(conversionFunction)) {
             if (element.isYearsAndMonthsDuration(element.getLexeme())) {
-                element.setType(DurationType.YEARS_AND_MONTHS_DURATION);
+                element.setType(YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION);
             } else if (element.isDaysAndTimeDuration(element.getLexeme())) {
-                element.setType(DurationType.DAYS_AND_TIME_DURATION);
+                element.setType(DaysAndTimeDurationType.DAYS_AND_TIME_DURATION);
             } else {
                 handleError(context, element, String.format("Date time literal '%s(%s) is not supported", conversionFunction, element.getLexeme()));
                 return null;

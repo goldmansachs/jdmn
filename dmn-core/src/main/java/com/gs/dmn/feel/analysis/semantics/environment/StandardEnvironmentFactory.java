@@ -28,10 +28,13 @@ import java.util.Map;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
+import static com.gs.dmn.feel.analysis.semantics.type.ComparableDataType.COMPARABLE;
 import static com.gs.dmn.feel.analysis.semantics.type.ContextType.ANY_CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
-import static com.gs.dmn.feel.analysis.semantics.type.DurationType.*;
+import static com.gs.dmn.feel.analysis.semantics.type.DurationType.ANY_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.RangeType.COMPARABLE_RANGE;

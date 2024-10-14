@@ -46,6 +46,6 @@ public interface NativeTypeFactory {
     }
 
     default String getNativeDurationType() {
-        return toNativeType(DurationType.DAYS_AND_TIME_DURATION.getName());
+        return toNativeType(DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.getName());
     }
 }

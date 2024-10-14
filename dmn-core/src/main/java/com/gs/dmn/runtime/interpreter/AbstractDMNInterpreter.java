@@ -156,9 +156,9 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                         } else if (feelLib.isDateTime(value)) {
                             inferredType = DateTimeType.DATE_AND_TIME.getName();
                         } else if (feelLib.isDaysAndTimeDuration(value)) {
-                            inferredType = DurationType.DAYS_AND_TIME_DURATION.getName();
+                            inferredType = DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.getName();
                         } else if (feelLib.isYearsAndMonthsDuration(value)) {
-                            inferredType = DurationType.DAYS_AND_TIME_DURATION.getName();
+                            inferredType = YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION.getName();
                         }
                         if (inferredType != null) {
                             variable.setTypeRef(new QName(inferredType));

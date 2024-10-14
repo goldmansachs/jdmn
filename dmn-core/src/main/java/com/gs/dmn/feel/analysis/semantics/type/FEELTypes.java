@@ -33,16 +33,16 @@ public class FEELTypes {
         FEEL_NAME_TO_FEEL_TYPE.put(DateTimeType.DATE_TIME_CAMEL.getName(), DateTimeType.DATE_AND_TIME);
         FEEL_NAME_TO_FEEL_TYPE.put(DateTimeType.DATE_TIME.getName(), DateTimeType.DATE_AND_TIME);
         FEEL_NAME_TO_FEEL_TYPE.put(DateTimeType.DATE_AND_TIME.getName(), DateTimeType.DATE_AND_TIME);
-        FEEL_NAME_TO_FEEL_TYPE.put(DurationType.DAYS_AND_TIME_DURATION.getName(), DurationType.DAYS_AND_TIME_DURATION);
-        FEEL_NAME_TO_FEEL_TYPE.put(DurationType.DAY_TIME_DURATION.getName(), DurationType.DAYS_AND_TIME_DURATION);
-        FEEL_NAME_TO_FEEL_TYPE.put(DurationType.YEARS_AND_MONTHS_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION);
-        FEEL_NAME_TO_FEEL_TYPE.put(DurationType.YEAR_MONTH_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION);
+        FEEL_NAME_TO_FEEL_TYPE.put(DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.getName(), DaysAndTimeDurationType.DAYS_AND_TIME_DURATION);
+        FEEL_NAME_TO_FEEL_TYPE.put(DaysAndTimeDurationType.DAY_TIME_DURATION.getName(), DaysAndTimeDurationType.DAYS_AND_TIME_DURATION);
+        FEEL_NAME_TO_FEEL_TYPE.put(YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION.getName(), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION);
+        FEEL_NAME_TO_FEEL_TYPE.put(YearsAndMonthsDurationType.YEAR_MONTH_DURATION.getName(), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION);
     }
 
     public static final List<String> FEEL_TYPE_NAMES = Arrays.asList(
             AnyType.ANY.getName(), NumberType.NUMBER.getName(), BooleanType.BOOLEAN.getName(), StringType.STRING.getName(),
             DateType.DATE.getName(), TimeType.TIME.getName(), DateTimeType.DATE_TIME_CAMEL.getName(), DateTimeType.DATE_TIME.getName(), DateTimeType.DATE_AND_TIME.getName(),
-            DurationType.DAYS_AND_TIME_DURATION.getName(), DurationType.YEARS_AND_MONTHS_DURATION.getName(), EnumerationType.ENUMERATION.getName());
+            DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.getName(), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION.getName(), EnumerationType.ENUMERATION.getName());
 
     public static final List<Type> FEEL_PRIMITIVE_TYPES = Arrays.asList(new Type[]{
             AnyType.ANY,
@@ -53,8 +53,8 @@ public class FEELTypes {
             DateType.DATE,
             TimeType.TIME,
             DateTimeType.DATE_AND_TIME,
-            DurationType.DAYS_AND_TIME_DURATION,
-            DurationType.YEARS_AND_MONTHS_DURATION
+            DaysAndTimeDurationType.DAYS_AND_TIME_DURATION,
+            YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION
     });
 
     public static final Map<Type, String> FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION = new LinkedHashMap<>();
@@ -67,7 +67,7 @@ public class FEELTypes {
         FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DateTimeType.DATE_TIME, "dateAndTime");
         FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DateTimeType.DATE_AND_TIME, "dateAndTime");
         FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DateTimeType.DATE_TIME_CAMEL, "dateAndTime");
-        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DurationType.DAYS_AND_TIME_DURATION, "duration");
-        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DurationType.YEARS_AND_MONTHS_DURATION, "duration");
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(DaysAndTimeDurationType.DAYS_AND_TIME_DURATION, "duration");
+        FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.put(YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION, "duration");
     }
 }

@@ -641,9 +641,9 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 return this.lib.booleanAnd(this.lib.timeLessEqualThan((TIME) leftOpd, (TIME) value), this.lib.timeLessEqualThan((TIME) value, (TIME) rightOpd));
             } else if (leftEndpoint.getType() == DateTimeType.DATE_AND_TIME) {
                 return this.lib.booleanAnd(this.lib.dateTimeLessEqualThan((DATE_TIME) leftOpd, (DATE_TIME) value), this.lib.dateTimeLessEqualThan((DATE_TIME) value, (DATE_TIME) rightOpd));
-            } else if (leftEndpoint.getType() == DurationType.YEARS_AND_MONTHS_DURATION) {
+            } else if (leftEndpoint.getType() == YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION) {
                 return this.lib.booleanAnd(this.lib.durationLessEqualThan((DURATION) leftOpd, (DURATION) value), this.lib.durationLessEqualThan((DURATION) value, (DURATION) rightOpd));
-            } else if (leftEndpoint.getType() == DurationType.DAYS_AND_TIME_DURATION) {
+            } else if (leftEndpoint.getType() == DaysAndTimeDurationType.DAYS_AND_TIME_DURATION) {
                 return this.lib.booleanAnd(this.lib.durationLessEqualThan((DURATION) leftOpd, (DURATION) value), this.lib.durationLessEqualThan((DURATION) value, (DURATION) rightOpd));
             } else{
                 handleError(context, element, String.format("Type '%s' is not supported yet", leftEndpoint.getType()));
@@ -1109,7 +1109,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             return this.lib.time(literal);
         } else if (type == DateTimeType.DATE_AND_TIME) {
             return this.lib.dateAndTime(literal);
-        } else if (type == DurationType.DAYS_AND_TIME_DURATION || type == DurationType.YEARS_AND_MONTHS_DURATION) {
+        } else if (type == DaysAndTimeDurationType.DAYS_AND_TIME_DURATION || type == YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION) {
             return this.lib.duration(literal);
         } else {
             this.errorHandler.reportError(String.format("Illegal date time literal '%s'", element));

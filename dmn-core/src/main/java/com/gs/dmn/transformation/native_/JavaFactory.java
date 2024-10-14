@@ -44,8 +44,8 @@ import java.util.List;
 
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
-import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DAYS_AND_TIME_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.DurationType.YEARS_AND_MONTHS_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 
 public class JavaFactory implements NativeFactory {

@@ -37,7 +37,7 @@ public class DateTimeType extends TemporalType {
         MEMBERS.put("hour", NUMBER);
         MEMBERS.put("minute", NUMBER);
         MEMBERS.put("second", NUMBER);
-        MEMBERS.put("time offset", DurationType.DAYS_AND_TIME_DURATION);
+        MEMBERS.put("time offset", DaysAndTimeDurationType.DAYS_AND_TIME_DURATION);
         MEMBERS.put("timezone", STRING);
     }
 

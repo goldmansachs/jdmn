@@ -19,7 +19,9 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
+import com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
+import com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.tck.ast.AnySimpleType;
 import com.gs.dmn.tck.ast.Component;
@@ -73,8 +75,8 @@ public class MockTCKValueTranslatorTest {
         doTest("null", makeSimpleValue("null"), NUMBER, null);
         doTest("null", makeSimpleValue(null), DATE, null);
         doTest("null", makeSimpleValue("null"), DATE, null);
-        doTest("null", makeSimpleValue(null), YEARS_AND_MONTHS_DURATION, null);
-        doTest("null", makeSimpleValue("null"), YEARS_AND_MONTHS_DURATION, null);
+        doTest("null", makeSimpleValue(null), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION, null);
+        doTest("null", makeSimpleValue("null"), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION, null);
     }
 
     @Test
@@ -118,8 +120,8 @@ public class MockTCKValueTranslatorTest {
         doTest("date(\"1990-03-29\")", makeSimpleValue(DATATYPE_FACTORY.newXMLGregorianCalendar("1990-03-29")), DATE, null);
         doTest("time(\"12:00:00\")", makeSimpleValue(DATATYPE_FACTORY.newXMLGregorianCalendar("12:00:00")), TIME, null);
         doTest("dateAndTime(\"1990-03-29T12:00:00\")", makeSimpleValue(DATATYPE_FACTORY.newXMLGregorianCalendar("1990-03-29T12:00:00")), DATE_AND_TIME, null);
-        doTest("duration(\"P2Y3M\")", makeSimpleValue(DATATYPE_FACTORY.newDuration("P2Y3M")), YEARS_AND_MONTHS_DURATION, null);
-        doTest("duration(\"P2DT3H\")", makeSimpleValue(DATATYPE_FACTORY.newDuration("P2DT3H")), DAYS_AND_TIME_DURATION, null);
+        doTest("duration(\"P2Y3M\")", makeSimpleValue(DATATYPE_FACTORY.newDuration("P2Y3M")), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION, null);
+        doTest("duration(\"P2DT3H\")", makeSimpleValue(DATATYPE_FACTORY.newDuration("P2DT3H")), DaysAndTimeDurationType.DAYS_AND_TIME_DURATION, null);
         doTest("duration(\"P1Y1M2DT3H\")", makeSimpleValue(DATATYPE_FACTORY.newDuration("P1Y1M2DT3H")), ANY_DURATION, null);
     }
 
@@ -148,7 +150,7 @@ public class MockTCKValueTranslatorTest {
                 "\"a\"", true, 1.0, DATATYPE_FACTORY.newXMLGregorianCalendar("1990-03-29"), DATATYPE_FACTORY.newDuration("P2Y3M")
         };
         Type[] types = new Type[] {
-                STRING, BOOLEAN, NUMBER, DATE, YEARS_AND_MONTHS_DURATION, STRING
+                STRING, BOOLEAN, NUMBER, DATE, YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION, STRING
         };
 
         doTest("new type.TestImpl(\"a\", Boolean.TRUE, new java.math.BigDecimal(1.0), date(\"1990-03-29\"), duration(\"P2Y3M\"), DEFAULT_STRING)", makeComponentValue(values), makeItemDefinitionType(types), null);
