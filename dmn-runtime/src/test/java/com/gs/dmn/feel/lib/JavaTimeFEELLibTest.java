@@ -14,7 +14,9 @@ package com.gs.dmn.feel.lib;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 
@@ -211,6 +213,14 @@ public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<Number, LocalDa
         // Overflow in duration(from)
         assertNull(getLib().duration("P11999999988M"));
         assertEquals("PT51112945032H", getLib().duration("P2129706043D").toString());
+
+        // Check class
+        assertInstanceOf(Duration.class, getLib().duration("P3DT12H"));
+        assertInstanceOf(Duration.class, getLib().duration("PT12H"));
+        assertInstanceOf(Duration.class, getLib().duration("P3D"));
+        assertInstanceOf(Period.class, getLib().duration("P1Y3M"));
+        assertInstanceOf(Period.class, getLib().duration("P3M"));
+        assertNull(getLib().duration("P3M2D"));
     }
 
     @Override

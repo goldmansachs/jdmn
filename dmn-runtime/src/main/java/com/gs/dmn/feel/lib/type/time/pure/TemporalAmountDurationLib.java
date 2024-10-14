@@ -38,7 +38,9 @@ public class TemporalAmountDurationLib implements DurationLib<LocalDate, Tempora
         } catch (DateTimeParseException e1) {
             // try to parse as years/months
             try {
-                return Period.parse(text).normalized();
+                if (!text.contains("D")) {
+                    return Period.parse(text).normalized();
+                }
             } catch (DateTimeParseException e2) {
             }
         }
