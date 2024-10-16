@@ -32,6 +32,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntry;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -344,10 +345,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
             // Derive type
             Type sourceType = expressionType(element, source.getExpression(), context);
-            Type matchType = expressionType(element, match.getExpression(), context);
             if (!(sourceType instanceof ListType)) {
                 throw new DMNRuntimeException(String.format("In expression in filter boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
             }
+            String iteratorVariable = FilterExpression.FILTER_PARAMETER_NAME;
+            DMNContext satisfiesContext = makeIteratorContext(context, iteratorVariable, ((ListType) sourceType).getElementType());
+            Type matchType = expressionType(element, match.getExpression(), satisfiesContext);
             if (matchType != BOOLEAN) {
                 throw new DMNRuntimeException(String.format("Match condition in filter boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName()));
             }
@@ -365,8 +368,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             if (!(sourceType instanceof ListType)) {
                 throw new DMNRuntimeException(String.format("In expression in for boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
             }
-            DMNContext iteratorContext = this.dmnTransformer.makeIteratorContext(context);
-            iteratorContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(((TFor) expression).getIteratorVariable(), ((ListType) sourceType).getElementType()));
+            String iteratorVariable = ((TFor) expression).getIteratorVariable();
+            DMNContext iteratorContext = makeIteratorContext(context, iteratorVariable, ((ListType) sourceType).getElementType());
             Type returnType = expressionType(element, return_.getExpression(), iteratorContext);
             return new ListType(returnType);
         } else if (expression instanceof TSome) {
@@ -379,12 +382,14 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
             // Derive type
             Type sourceType = expressionType(element, source.getExpression(), context);
-            Type satisfiesType = expressionType(element, satisfies.getExpression(), context);
-            if (satisfiesType != BOOLEAN) {
-                throw new DMNRuntimeException(String.format("Satisfies condition in some boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName()));
-            }
             if (!(sourceType instanceof ListType)) {
                 throw new DMNRuntimeException(String.format("In expression in some boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
+            }
+            String iteratorVariable = ((TSome) expression).getIteratorVariable();
+            DMNContext satisfiesContext = makeIteratorContext(context, iteratorVariable, ((ListType) sourceType).getElementType());
+            Type satisfiesType = expressionType(element, satisfies.getExpression(), satisfiesContext);
+            if (satisfiesType != BOOLEAN) {
+                throw new DMNRuntimeException(String.format("Satisfies condition in some boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName()));
             }
             return BOOLEAN;
         } else if (expression instanceof TEvery) {
@@ -397,17 +402,25 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
             // Derive type
             Type sourceType = expressionType(element, source.getExpression(), context);
-            Type satisfiesType = expressionType(element, satisfies.getExpression(), context);
-            if (satisfiesType != BOOLEAN) {
-                throw new DMNRuntimeException(String.format("Satisfies condition in every boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName()));
-            }
             if (!(sourceType instanceof ListType)) {
                 throw new DMNRuntimeException(String.format("In expression in every boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName()));
+            }
+            String iteratorVariable = ((TEvery) expression).getIteratorVariable();
+            DMNContext satisfiesContext = makeIteratorContext(context, iteratorVariable, ((ListType) sourceType).getElementType());
+            Type satisfiesType = expressionType(element, satisfies.getExpression(), satisfiesContext);
+            if (satisfiesType != BOOLEAN) {
+                throw new DMNRuntimeException(String.format("Satisfies condition in every boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName()));
             }
             return BOOLEAN;
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", expression.getClass().getSimpleName()));
         }
+    }
+
+    private DMNContext makeIteratorContext(DMNContext context, String iteratorVariable, Type iteratorType) {
+        DMNContext iteratorContext = this.dmnTransformer.makeIteratorContext(context);
+        iteratorContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(iteratorVariable, iteratorType));
+        return iteratorContext;
     }
 
     private List<TLiteralExpression> outputEntries(TDecisionTable dt) {

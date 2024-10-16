@@ -13,7 +13,7 @@
 package com.gs.dmn.feel;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.synthesis.NativeOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -30,7 +30,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.ContextType.ANY_CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.ANY_FUNCTION;
 import static com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType.ANY_ITEM_DEFINITION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
@@ -38,6 +37,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.RangeType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.synthesis.NativeOperator.Associativity.LEFT_RIGHT;
 import static com.gs.dmn.feel.synthesis.NativeOperator.Associativity.RIGHT_LEFT;
 import static com.gs.dmn.feel.synthesis.NativeOperator.Notation.FUNCTIONAL;
@@ -67,7 +67,6 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("=", ANY_FUNCTION, ANY_FUNCTION), new Pair<>(BOOLEAN, new NativeOperator("functionEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("=", NULL, NULL), new Pair<>(BOOLEAN, new NativeOperator("==", 2, true, LEFT_RIGHT, INFIX)));
-        MAPPINGS.put(new OperatorTableInputEntry("=", ANY, ANY), new Pair<>(BOOLEAN, new NativeOperator("==", 2, true, LEFT_RIGHT, INFIX)));
 
         MAPPINGS.put(new OperatorTableInputEntry("!=", NUMBER, NUMBER), new Pair<>(BOOLEAN, new NativeOperator("numericNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", BOOLEAN, BOOLEAN), new Pair<>(BOOLEAN, new NativeOperator("booleanNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
@@ -84,7 +83,6 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_FUNCTION, ANY_FUNCTION), new Pair<>(BOOLEAN, new NativeOperator("functionNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("!=", NULL, NULL), new Pair<>(BOOLEAN, new NativeOperator("!=", 2, true, LEFT_RIGHT, INFIX)));
-        MAPPINGS.put(new OperatorTableInputEntry("!=", ANY, ANY), new Pair<>(BOOLEAN, new NativeOperator("!=", 2, true, LEFT_RIGHT, INFIX)));
 
         // Relational
         MAPPINGS.put(new OperatorTableInputEntry("<", NUMBER, NUMBER), new Pair<>(BOOLEAN, new NativeOperator("numericLessThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
@@ -218,11 +216,6 @@ public class OperatorDecisionTable {
         String operator = normalizeJavaOperator(name);
         Pair<Type, Type> pair = normalizeTypes(leftType, rightType);
 
-        // Check if operator can be applied
-        if (!validOperator(name, pair.getLeft(), pair.getRight())) {
-            throw new DMNRuntimeException(String.format("Operator '%s' cannot be applied to '%s', '%s'", name, leftType, rightType));
-        }
-
         // Resolve operator
         OperatorTableInputEntry operatorTableEntry = new OperatorTableInputEntry(operator, pair.getLeft(), pair.getRight());
         OperatorTableInputEntry exactMatch = null;
@@ -239,8 +232,9 @@ public class OperatorDecisionTable {
             return exactMatch;
         } else if (candidates.size() == 1) {
             return candidates.get(0);
+        } else {
+            throw new SemanticError(String.format("Cannot resolve %s(%s, %s). Found zero or multiple candidates %s", name, leftType, rightType, candidates));
         }
-        return null;
     }
 
     private static String normalizeJavaOperator(String name) {
@@ -251,80 +245,12 @@ public class OperatorDecisionTable {
     }
 
     private static Pair<Type, Type> normalizeTypes(Type leftType, Type rightType) {
-        // Normalize lists & contexts
-        if (leftType instanceof ListType) {
-            leftType = ANY_LIST;
-        }
-        if (rightType instanceof ListType) {
-            rightType = ANY_LIST;
-        }
-        if (leftType instanceof ContextType) {
-            leftType = ANY_CONTEXT;
-        }
-        if (rightType instanceof ContextType) {
-            rightType = ANY_CONTEXT;
-        }
-        if (leftType instanceof ItemDefinitionType) {
-            leftType = ANY_ITEM_DEFINITION;
-        }
-        if (rightType instanceof ItemDefinitionType) {
-            rightType = ANY_ITEM_DEFINITION;
-        }
-        if (leftType instanceof RangeType) {
-            leftType = ANY_RANGE;
-        }
-        if (rightType instanceof RangeType) {
-            rightType = ANY_RANGE;
-        }
-        if (leftType instanceof FunctionType) {
-            leftType = ANY_FUNCTION;
-        }
-        if (rightType instanceof FunctionType) {
-            rightType = ANY_FUNCTION;
-        }
-
-        // Normalize data types
-        if (leftType instanceof DataType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
+        // Recover from weak types: null, Null, Any
+        if (!Type.isNullOrAnyType(leftType) && Type.isNullOrAnyType(rightType)) {
             rightType = leftType;
-        } else if (rightType instanceof DataType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
-            leftType = rightType;
-        } else if (leftType instanceof ListType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
-            rightType = leftType;
-        } else if (rightType instanceof ListType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
-            leftType = rightType;
-        } else if (leftType instanceof ContextType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
-            rightType = leftType;
-        } else if (rightType instanceof ContextType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
-            leftType = rightType;
-        } else if (leftType instanceof ItemDefinitionType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
-            rightType = leftType;
-        } else if (rightType instanceof ItemDefinitionType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
-            leftType = rightType;
-        } else if (leftType instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
-            rightType = leftType;
-        } else if (rightType instanceof RangeType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
-            leftType = rightType;
-        } else if (leftType instanceof FunctionType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(rightType)) {
-            rightType = leftType;
-        } else if (rightType instanceof FunctionType && com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAnyType(leftType)) {
+        } else if (!Type.isNullOrAnyType(rightType) && Type.isNullOrAnyType(leftType)) {
             leftType = rightType;
         }
         return new Pair<>(leftType, rightType);
     }
-
-    private static boolean validOperator(String operator, Type leftType, Type rightType) {
-        if (operator.equals("=") || operator.equals("!=")) {
-            if (leftType instanceof DataType && rightType instanceof DataType && leftType != rightType) {
-                return false;
-            }
-            if (leftType instanceof ListType && ! (rightType instanceof ListType)) {
-                return false;
-            }
-            if (leftType instanceof ContextType && ! (rightType instanceof ContextType)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 }

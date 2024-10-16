@@ -135,15 +135,24 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         endpoint.accept(this, context);
 
         // Derive type
+        Type endpointType = endpoint.getType();
         if (context.isExpressionContext()) {
-            element.setType(new RangeType(endpoint.getType()));
+            element.setType(new RangeType(endpointType));
         } else {
             Type inputExpressionType = context.getInputExpressionType();
-            element.setType(new RangeType(endpoint.getType()));
+            element.setType(new RangeType(endpointType));
+            // Check according to 7.3.2 UnaryTests Metamodel
             if (operator == null) {
-                checkType(element, "=", inputExpressionType, endpoint.getType(), context);
+                if (endpointType instanceof ListType && Type.conformsTo(inputExpressionType, ((ListType) endpointType).getElementType())) {
+                    // Endpoint is a list - check contains
+                    checkType(element, "=", inputExpressionType, ((ListType) endpointType).getElementType(), context);
+                } else {
+                    // Endpoint is a value - check equality
+                    checkType(element, "=", inputExpressionType, endpointType, context);
+                }
             } else {
-                checkType(element, operator, inputExpressionType, endpoint.getType(), context);
+                // Endpoint has operator, unary test
+                checkType(element, operator, inputExpressionType, endpointType, context);
             }
         }
 
@@ -313,7 +322,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         // Visit children
         List<Iterator<Type>> iterators = element.getIterators();
         DMNContext qParamsContext = visitIterators(element, context, iterators);
-        qParamsContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(PARTIAL_PARAMETER_NAME, new ListType(NullType.NULL)));
+        Type partialType = ListType.ANY_LIST;
+        qParamsContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(PARTIAL_PARAMETER_NAME, partialType));
         Expression<Type> body = element.getBody();
         body.accept(this, qParamsContext);
 
