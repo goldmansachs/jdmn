@@ -15,6 +15,7 @@ package com.gs.dmn.feel.lib.type.time.xml;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.bool.DefaultBooleanType;
 import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
@@ -93,6 +94,9 @@ public class DefaultTimeType extends XMLCalendarType implements TimeType<XMLGreg
     public XMLGregorianCalendar timeAddDuration(XMLGregorianCalendar time, Duration duration) {
         if (time == null || duration == null) {
             return null;
+        }
+        if (!isDaysAndTimeDuration(duration)) {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", time, duration));
         }
 
         XMLGregorianCalendar clone = (XMLGregorianCalendar) time.clone();

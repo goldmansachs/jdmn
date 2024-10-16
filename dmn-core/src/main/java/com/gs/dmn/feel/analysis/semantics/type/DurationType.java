@@ -24,6 +24,13 @@ public class DurationType extends ComparableDataType {
             return YearsAndMonthsDurationType.getMemberType(sourceType, member);
         } else if (DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.equivalentTo(sourceType)) {
             return DaysAndTimeDurationType.getMemberType(sourceType, member);
+        } else if (DurationType.ANY_DURATION.equivalentTo(sourceType)) {
+            Type memberType = null;
+            try {
+                memberType = YearsAndMonthsDurationType.getMemberType(sourceType, member);
+            } catch (Exception ignored) {
+            }
+            return memberType == null ? DaysAndTimeDurationType.getMemberType(sourceType, member) : memberType;
         } else {
             throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
         }

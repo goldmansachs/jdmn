@@ -103,6 +103,9 @@ public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTime
         if (dateTime == null || duration == null) {
             return null;
         }
+        if (!(isYearsAndMonthsDuration(duration) || isDaysAndTimeDuration(duration))) {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", dateTime, duration));
+        }
 
         return dateTime
                 .plus(toTemporalPeriod(duration))
@@ -113,6 +116,9 @@ public class ZonedDateTimeType extends BaseMixedCalendarType implements DateTime
     public ZonedDateTime dateTimeSubtractDuration(ZonedDateTime dateTime, Duration duration) {
         if (dateTime == null || duration == null) {
             return null;
+        }
+        if (!(isYearsAndMonthsDuration(duration) || isDaysAndTimeDuration(duration))) {
+            throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", dateTime, duration));
         }
 
         return dateTime

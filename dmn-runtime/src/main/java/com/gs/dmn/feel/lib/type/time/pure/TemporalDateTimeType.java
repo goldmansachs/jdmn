@@ -96,6 +96,9 @@ public class TemporalDateTimeType extends BaseJavaTimeCalendarType implements Da
         if (dateTime == null || duration == null) {
             return null;
         }
+        if (!(isYearsAndMonthsDuration(duration) || isDaysAndTimeDuration(duration))) {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", dateTime, duration));
+        }
 
         if (dateTime instanceof ZonedDateTime) {
             return ((ZonedDateTime) dateTime).plus(duration);

@@ -96,6 +96,9 @@ public class LocalDateType extends BaseMixedCalendarType implements DateType<Loc
         if (date == null || duration == null) {
             return null;
         }
+        if (!(isYearsAndMonthsDuration(duration) || isDaysAndTimeDuration(duration))) {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", date, duration));
+        }
 
         TemporalAmount yearMonth = toTemporalPeriod(duration);
         TemporalAmount dayTime = toTemporalDuration(duration);

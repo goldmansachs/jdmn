@@ -97,6 +97,9 @@ public class LocalDateType extends BaseJavaTimeCalendarType implements DateType<
         if (date == null || duration == null) {
             return null;
         }
+        if (!(isYearsAndMonthsDuration(duration) || isDaysAndTimeDuration(duration))) {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", date, duration));
+        }
 
         if (duration instanceof ChronoPeriod) {
             return date.plus(duration);

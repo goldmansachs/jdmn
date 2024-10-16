@@ -14,6 +14,7 @@ package com.gs.dmn.feel.lib.type.time.mixed;
 
 import com.gs.dmn.feel.lib.type.time.TimeType;
 import com.gs.dmn.feel.lib.type.time.xml.XMLDurationFactory;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.Duration;
 import java.time.OffsetTime;
@@ -88,6 +89,9 @@ public class OffsetTimeType extends BaseMixedCalendarType implements TimeType<Of
     public OffsetTime timeAddDuration(OffsetTime time, Duration duration) {
         if (time == null || duration == null) {
             return null;
+        }
+        if (!isDaysAndTimeDuration(duration)) {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", time, duration));
         }
 
         return time.plus(toTemporalDuration(duration));

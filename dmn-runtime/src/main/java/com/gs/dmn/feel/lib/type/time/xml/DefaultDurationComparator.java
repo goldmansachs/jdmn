@@ -34,7 +34,7 @@ public class DefaultDurationComparator extends XMLCalendarType implements XMLDat
             diff = firstValue - secondValue;
         }
         if (diff == null) {
-            return DatatypeConstants.INDETERMINATE;
+            return null;
         } else if (diff == 0) {
             return DatatypeConstants.EQUAL;
         } else if (diff < 0) {

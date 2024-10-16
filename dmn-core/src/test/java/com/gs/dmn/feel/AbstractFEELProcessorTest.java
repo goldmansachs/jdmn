@@ -1075,6 +1075,21 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "durationGreaterEqualThan(duration(\"P1Y1M\"), duration(\"P1Y2M\"))",
                 this.lib.durationGreaterEqualThan(this.lib.duration("P1Y1M"), this.lib.duration("P1Y2M")),
                 false);
+        String daysAndTimeDurationExp = "duration(\"P\" + \"10D\")";
+        String yearsAndMonthsDurationExp = "duration(\"P\" + \"1Y\")";
+        doExpressionTest(entries, "", "duration(\"P10D\") = " + daysAndTimeDurationExp,
+                "Relational(=,DateTimeLiteral(duration, \"P10D\"),FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral(\"P\"),StringLiteral(\"10D\")))))",
+                "boolean",
+                "durationEqual(duration(\"P10D\"), duration(stringAdd(\"P\", \"10D\")))",
+                this.lib.durationEqual(this.lib.duration("P10D"), this.lib.duration(this.lib.stringAdd("P", "10D"))),
+                true);
+        doExpressionTest(entries, "", "duration(\"P10D\") = " + yearsAndMonthsDurationExp,
+                "Relational(=,DateTimeLiteral(duration, \"P10D\"),FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral(\"P\"),StringLiteral(\"1Y\")))))",
+                "boolean",
+                "durationEqual(duration(\"P10D\"), duration(stringAdd(\"P\", \"1Y\")))",
+                this.lib.durationEqual(this.lib.duration("P10D"), this.lib.duration(this.lib.stringAdd("P", "1Y"))),
+                null);
+
 
         // range
         doExpressionTest(entries, "", "[1..10] = [1..10]",
@@ -1809,6 +1824,26 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "durationSubtract(duration(\"P1Y1M\"), duration(\"P1Y1M\"))",
                 this.lib.durationSubtract(this.lib.duration("P1Y1M"), this.lib.duration("P1Y1M")),
                 this.lib.duration("P0Y0M"));
+        String daysAndTimeDurationExp = "duration(\"P\" + \"10D\")";
+        String yearsAndMonthsDurationExp = "duration(\"P\" + \"1Y\")";
+        doExpressionTest(entries, "", String.format("%s %s %s", daysAndTimeDurationExp, "+", daysAndTimeDuration),
+                "Addition(+,FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral(\"P\"),StringLiteral(\"10D\")))),DateTimeLiteral(duration, \"P1DT1H\"))",
+                "days and time duration",
+                "durationAdd(duration(stringAdd(\"P\", \"10D\")), duration(\"P1DT1H\"))",
+                this.lib.durationAdd(this.lib.duration(this.lib.stringAdd("P", "10D")), this.lib.duration("P1DT1H")),
+                this.lib.duration("P11DT1H"));
+        doExpressionTest(entries, "", String.format("%s %s %s", yearsAndMonthsDurationExp, "+", yearsAndMonthsDuration),
+                "Addition(+,FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral(\"P\"),StringLiteral(\"1Y\")))),DateTimeLiteral(duration, \"P1Y1M\"))",
+                "years and months duration",
+                "durationAdd(duration(stringAdd(\"P\", \"1Y\")), duration(\"P1Y1M\"))",
+                this.lib.durationAdd(this.lib.duration(this.lib.stringAdd("P", "1Y")), this.lib.duration("P1Y1M")),
+                this.lib.duration("P2Y1M"));
+        doExpressionTest(entries, "", String.format("%s %s %s", yearsAndMonthsDurationExp, "+", yearsAndMonthsDurationExp),
+                "Addition(+,FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral(\"P\"),StringLiteral(\"1Y\")))),FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral(\"P\"),StringLiteral(\"1Y\")))))",
+                "duration",
+                "durationAdd(duration(stringAdd(\"P\", \"1Y\")), duration(stringAdd(\"P\", \"1Y\")))",
+                this.lib.durationAdd(this.lib.duration(this.lib.stringAdd("P", "1Y")), this.lib.duration(this.lib.stringAdd("P", "1Y"))),
+                this.lib.duration("P2Y"));
 
         // days and time duration, days and time duration
         doExpressionTest(entries, "", String.format("%s %s %s", daysAndTimeDuration, "+", daysAndTimeDuration),
@@ -1837,6 +1872,18 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "dateTimeSubtractDuration(dateAndTime(\"2016-08-01T11:00:00Z\"), duration(\"P1Y1M\"))",
                 this.lib.dateTimeSubtractDuration(this.lib.dateAndTime("2016-08-01T11:00:00Z"), this.lib.duration("P1Y1M")),
                 this.lib.dateAndTime("2015-07-01T11:00:00Z"));
+        doExpressionTest(entries, "", String.format("%s %s %s", dateAndTime, "+", yearsAndMonthsDurationExp),
+                "Addition(+,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"),FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral(\"P\"),StringLiteral(\"1Y\")))))",
+                "date and time",
+                "dateTimeAddDuration(dateAndTime(\"2016-08-01T11:00:00Z\"), duration(stringAdd(\"P\", \"1Y\")))",
+                this.lib.dateTimeAddDuration(this.lib.dateAndTime("2016-08-01T11:00:00Z"), this.lib.duration(this.lib.stringAdd("P", "1Y"))),
+                this.lib.dateAndTime("2017-08-01T11:00:00Z"));
+        doExpressionTest(entries, "", String.format("%s %s %s", dateAndTime, "-", yearsAndMonthsDurationExp),
+                "Addition(-,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\"),FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral(\"P\"),StringLiteral(\"1Y\")))))",
+                "date and time",
+                "dateTimeSubtractDuration(dateAndTime(\"2016-08-01T11:00:00Z\"), duration(stringAdd(\"P\", \"1Y\")))",
+                this.lib.dateTimeSubtractDuration(this.lib.dateAndTime("2016-08-01T11:00:00Z"), this.lib.duration(this.lib.stringAdd("P", "1Y"))),
+                this.lib.dateAndTime("2015-08-01T11:00:00Z"));
 
         // Not in standard
         // date, years and months duration

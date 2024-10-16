@@ -124,7 +124,7 @@ public class DefaultDateType extends XMLCalendarType implements DateType<XMLGreg
             // Convert to XML type
             return FEELXMLGregorianCalendar.makeDate(BigInteger.valueOf(localDate.getYear()), localDate.getMonthValue(), localDate.getDayOfMonth());
         } else {
-            throw new DMNRuntimeException(String.format("Cannot add '%s' with '%s'", date, duration));
+            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", date, duration));
         }
     }
 

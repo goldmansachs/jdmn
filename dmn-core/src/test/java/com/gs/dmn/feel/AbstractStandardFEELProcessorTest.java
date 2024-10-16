@@ -1280,6 +1280,30 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "months(duration(\"P10Y4M\"))",
                 this.lib.months(this.lib.duration("P10Y4M")),
                 this.lib.number("4"));
+        doExpressionTest(entries, "", "duration(string(\"P10Y4M\")).months",
+                "PathExpression(FunctionInvocation(Name(duration) -> PositionalParameters(FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral(\"P10Y4M\"))))), months)",
+                "number",
+                "months(duration(string(\"P10Y4M\")))",
+                this.lib.months(this.lib.duration(this.lib.string("P10Y4M"))),
+                this.lib.number("4"));
+        doExpressionTest(entries, "", "duration(string(\"P10Y4M\")).days",
+                "PathExpression(FunctionInvocation(Name(duration) -> PositionalParameters(FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral(\"P10Y4M\"))))), days)",
+                "number",
+                "days(duration(string(\"P10Y4M\")))",
+                this.lib.days(this.lib.duration(this.lib.string("P10Y4M"))),
+                null);
+        doExpressionTest(entries, "", "duration(string(\"P3DT2H\")).days",
+                "PathExpression(FunctionInvocation(Name(duration) -> PositionalParameters(FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral(\"P3DT2H\"))))), days)",
+                "number",
+                "days(duration(string(\"P3DT2H\")))",
+                this.lib.days(this.lib.duration(this.lib.string("P3DT2H"))),
+                this.lib.number("3"));
+        doExpressionTest(entries, "", "duration(string(\"P3DT2H\")).months",
+                "PathExpression(FunctionInvocation(Name(duration) -> PositionalParameters(FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral(\"P3DT2H\"))))), months)",
+                "number",
+                "months(duration(string(\"P3DT2H\")))",
+                this.lib.months(this.lib.duration(this.lib.string("P3DT2H"))),
+                null);
 
         // days and time duration
         doExpressionTest(entries, "", "duration(\"P1DT2H3M4S\").days",

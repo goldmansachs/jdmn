@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib.type.time.pure;
 
 import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.time.*;
 import java.time.temporal.Temporal;
@@ -100,6 +101,9 @@ public class TemporalTimeType extends BaseJavaTimeCalendarType implements TimeTy
         if (time == null || duration == null) {
             return null;
         }
+        if (!isDaysAndTimeDuration(duration)) {
+            throw new DMNRuntimeException(String.format("Cannot add '%s' and '%s'", time, duration));
+        }
 
         if (time instanceof LocalTime && duration instanceof Duration) {
             return ((LocalTime) time).plus(duration);
@@ -123,6 +127,9 @@ public class TemporalTimeType extends BaseJavaTimeCalendarType implements TimeTy
     public TemporalAccessor timeSubtractDuration(TemporalAccessor time, TemporalAmount duration) {
         if (time == null || duration == null) {
             return null;
+        }
+        if (!isDaysAndTimeDuration(duration)) {
+            throw new DMNRuntimeException(String.format("Cannot subtract '%s' and '%s'", time, duration));
         }
 
         if (time instanceof LocalTime && duration instanceof Duration) {
