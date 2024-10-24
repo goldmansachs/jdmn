@@ -80,9 +80,14 @@ positiveUnaryTest returns [Expression ast]:
     {$ast = astFactory.toPositiveUnaryTest($expression.ast);}
 ;
 
+opRel returns [String ast]:
+    (op = EQ | op = NE | op = LT | op = GT | op = LE | op = GE)
+    {$ast = $op.text;}
+;
+
 simplePositiveUnaryTest returns [Expression ast] :
-    ( op = LT | op = LE | op = GT | op = GE ) opd = endpoint
-    {$ast = $op == null ? astFactory.toOperatorRange(null, $opd.ast) : astFactory.toOperatorRange($op.text, $opd.ast);}
+    op = opRel opd = endpoint
+    {$ast = astFactory.toOperatorRange($op.ast, $opd.ast);}
     |
     opd2 = interval
     {$ast = $opd2.ast;}
@@ -235,7 +240,7 @@ comparison returns [Expression ast] :
     ae1 = arithmeticExpression
     {$ast = $ae1.ast;}
     (
-        (op = EQ | op = NE | op = LT | op = GT | op = LE | op = GE) ae2 = arithmeticExpression
+        op = opRel ae2 = arithmeticExpression
         {$ast = astFactory.toComparison($op.text, $ae1.ast, $ae2.ast);}
         |
         BETWEEN leftEndpoint = expression AND rightEndpoint = expression
