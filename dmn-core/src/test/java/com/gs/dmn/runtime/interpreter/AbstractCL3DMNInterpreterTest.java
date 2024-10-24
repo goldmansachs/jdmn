@@ -617,4 +617,14 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     public void test_14_cl3_1140_feel_string_join_function() {
         doSingleModelTest("1.4", "1140-feel-string-join-function");
     }
+
+    //
+    // DMN 1.5 files
+    //
+
+    @Test
+    public void test_15_cl3_0068_feel_equality() {
+        doSingleModelTest("1.5", "0068-feel-equality", new Pair<>("strongTyping", "false") );
+    }
+
 }

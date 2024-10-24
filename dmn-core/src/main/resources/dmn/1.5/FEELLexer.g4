@@ -60,7 +60,7 @@ STRING:
     { setText(convertUnicodeEscape(getText())); }
     ;
 NUMBER:
-    Digits ('.' Digits)? | '.' Digits
+    (Digits ('.' Digits)? | '.' Digits) (('e'|'E') ('+'|'-')? Digits)?
     ;
 
 TEMPORAL:

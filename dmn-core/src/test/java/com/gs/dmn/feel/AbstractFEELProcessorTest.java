@@ -2697,6 +2697,12 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
+        doExpressionTest(entries, "", "123.45e+1",
+                "NumericLiteral(123.45e+1)",
+                "number",
+                "number(\"123.45e+1\")",
+                this.lib.number("123.45e+1"),
+                this.lib.number("123.45e+1"));
         doExpressionTest(entries, "", "123.45",
                 "NumericLiteral(123.45)",
                 "number",

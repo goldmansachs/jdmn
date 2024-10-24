@@ -98,6 +98,26 @@ public class FEELLexerTest extends AbstractLexerTest {
 
         token = checkToken(".56", NUMBER, ".56");
         checkPosition(token, 1, 1, 1, 3, 0, 3);
+
+        token = checkToken("1234e+123", NUMBER, "1234e+123");
+        checkPosition(token, 1, 1, 1, 9, 0, 9);
+
+        token = checkToken("1234.56e+123", NUMBER, "1234.56e+123");
+        checkPosition(token, 1, 1, 1, 12, 0, 12);
+
+        token = checkToken(".56e+123", NUMBER, ".56e+123");
+        checkPosition(token, 1, 1, 1, 8, 0, 8);
+
+        token = checkToken("1234.56E+123", NUMBER, "1234.56E+123");
+        checkPosition(token, 1, 1, 1, 12, 0, 12);
+        token = checkToken("1234.56E-123", NUMBER, "1234.56E-123");
+        checkPosition(token, 1, 1, 1, 12, 0, 12);
+        token = checkToken("1234.56e-123", NUMBER, "1234.56e-123");
+        checkPosition(token, 1, 1, 1, 12, 0, 12);
+        token = checkToken("1234.56E123", NUMBER, "1234.56E123");
+        checkPosition(token, 1, 1, 1, 11, 0, 11);
+        token = checkToken("1234.56e123", NUMBER, "1234.56e123");
+        checkPosition(token, 1, 1, 1, 11, 0, 11);
     }
 
     @Test
