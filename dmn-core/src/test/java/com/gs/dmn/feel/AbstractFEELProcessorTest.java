@@ -433,6 +433,18 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         //
         // Simple Types
         //
+        doUnaryTestsTest(entries, "number", "= 123.45",
+                "PositiveUnaryTests(OperatorRange(=,NumericLiteral(123.45)))",
+                "TupleType(boolean)",
+                "numericEqual(number, number(\"123.45\"))",
+                this.lib.numericEqual(number, this.lib.number("123.45")),
+                false);
+        doUnaryTestsTest(entries, "number", "!= 123.45",
+                "PositiveUnaryTests(OperatorRange(!=,NumericLiteral(123.45)))",
+                "TupleType(boolean)",
+                "numericNotEqual(number, number(\"123.45\"))",
+                this.lib.numericNotEqual(number, this.lib.number("123.45")),
+                true);
         doUnaryTestsTest(entries, "number", "< 123.45",
                 "PositiveUnaryTests(OperatorRange(<,NumericLiteral(123.45)))",
                 "TupleType(boolean)",

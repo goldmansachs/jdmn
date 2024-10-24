@@ -28,6 +28,8 @@ public class OperatorRange<T> extends Range<T> {
         this.endpoint = endpoint;
         if (operator == null || "=".equals(operator)) {
             this.endpointsRange = new EndpointsRange<>(false, endpoint, false, endpoint);
+        } else if ("!=".equals(operator)) {
+            this.endpointsRange = new EndpointsRange<>(false, endpoint, false, endpoint);
         } else if ("<".equals(operator)) {
             this.endpointsRange = new EndpointsRange<>(true, null, true, endpoint);
         } else if ("<=".equals(operator)) {
