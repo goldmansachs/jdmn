@@ -47,6 +47,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
@@ -111,18 +112,40 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
 
     @Override
     public Triple visit(OperatorRange<Type> element, DMNContext context) {
+        String operator = element.getOperator();
+        Expression<Type> endpoint = element.getEndpoint();
         if (context.isExpressionContext()) {
             // Evaluate as range
-            return (Triple) element.getEndpointsRange().accept(this, context);
+            Triple endpointValue = (Triple) endpoint.accept(this, context);
+            Triple trueValue = this.triples.booleanValueConstant("true");
+            Triple falseValue = this.triples.booleanValueConstant("false");
+            Triple nullValue = this.triples.nullLiteral();
+            Triple operatorValue = this.triples.text(operator == null ? "=" : operator);
+            List<Triple> arguments;
+            if (operator == null || "=".equals(operator)) {
+                arguments = Arrays.asList(trueValue, endpointValue, trueValue, endpointValue, operatorValue);
+            } else if ("!=".equals(operator)) {
+                arguments = Arrays.asList(falseValue, endpointValue, falseValue, endpointValue, operatorValue);
+            } else if ("<".equals(operator)) {
+                arguments = Arrays.asList(falseValue, nullValue, falseValue, endpointValue, operatorValue);
+            } else if ("<=".equals(operator)) {
+                arguments = Arrays.asList(falseValue, nullValue, trueValue, endpointValue, operatorValue);
+            } else if (">".equals(operator)) {
+                arguments = Arrays.asList(falseValue, endpointValue, falseValue, nullValue, operatorValue);
+            } else if (">=".equals(operator)) {
+                arguments = Arrays.asList(trueValue, endpointValue, falseValue, nullValue, operatorValue);
+            } else {
+                throw new DMNRuntimeException(String.format("Unknown operator '%s'", operator));
+            }
+            String clsName = this.dmnTransformer.rangeClassName();
+            return this.triples.constructor(clsName, arguments);
         } else {
-            // Evaluate as test
+            // Evaluate as test according to 7.3.2 UnaryTests Metamodel
             Type inputExpressionType = context.getInputExpressionType();
-            Expression<Type> endpoint = element.getEndpoint();
             Type endpointType = endpoint.getType();
             if (Type.sameSemanticDomain(endpointType, inputExpressionType)) {
                 // input and endpoint are comparable
                 Triple condition;
-                String operator = element.getOperator();
                 if (operator == null) {
                     condition = makeRangeCondition("=", (Expression) context.getInputExpression(), endpoint, context);
                 } else {

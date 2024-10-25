@@ -148,7 +148,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 // Evaluate as range
                 return evaluateOperatorRange(element, operator, null, endpoint, context);
             } else {
-                // Evaluate as test
+                // Evaluate as test according to 7.3.2 UnaryTests Metamodel
                 Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
                 if (Type.sameSemanticDomain(endpointType, inputExpressionType)) {
                     // input and endpoint are comparable
@@ -186,21 +186,27 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         Object endpointValue = endpointExpression.accept(this, context);
         if (context.isExpressionContext()) {
             if (operator == null || "=".equals(operator)) {
-                return new Range(true, endpointValue, true, endpointValue);
+                return new Range(true, endpointValue, true, endpointValue, "=");
+            } else if ("!=".equals(operator)) {
+                return new Range(false, endpointValue, false, endpointValue, operator);
             } else if ("<".equals(operator)) {
-                return new Range(false, null, false, endpointValue);
+                return new Range(false, null, false, endpointValue, operator);
             } else if ("<=".equals(operator)) {
-                return new Range(false, null, true, endpointValue);
+                return new Range(false, null, true, endpointValue, operator);
             } else if (">".equals(operator)) {
-                return new Range(false, endpointValue, false, null);
+                return new Range(false, endpointValue, false, null, operator);
             } else if (">=".equals(operator)) {
-                return new Range(true, endpointValue, false, null);
+                return new Range(true, endpointValue, false, null, operator);
             } else {
                 throw new DMNRuntimeException(String.format("Unknown operator '%s'", operator));
             }
         } else {
             return evaluateOperatorRange(element, operator, self, context.getInputExpressionType(), endpointExpression.getType(), endpointValue);
         }
+    }
+
+    private Object evaluateRangeEndpoint(Expression<Type> element, String operator, Object self, Expression<Type> endpointExpression, DMNContext context) throws Exception {
+        return evaluateOperatorRange(element, operator, self, context.getInputExpressionType(), endpointExpression.getType(), endpointExpression.accept(this, context));
     }
 
     private Object evaluateOperatorRange(Expression<Type> element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue) throws IllegalAccessException, InvocationTargetException {
@@ -289,15 +295,15 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             String leftOperator = element.isOpenStart() ? ">" : ">=";
             String rightOperator = element.isOpenEnd() ? "<" : "<=";
 
-            if (self == null) {
+            if (context.isExpressionContext()) {
                 // Evaluate as range
                 Object startValue = element.getStart().accept(this, context);
                 Object endValue = element.getEnd().accept(this, context);
                 return new Range(!element.isOpenStart(), startValue, !element.isOpenEnd(), endValue);
             } else {
                 // Evaluate as test
-                Object leftCondition = evaluateOperatorRange(element, leftOperator, self, startExpression, context);
-                Object rightCondition = evaluateOperatorRange(element, rightOperator, self, endExpression, context);
+                Object leftCondition = evaluateRangeEndpoint(element, leftOperator, self, startExpression, context);
+                Object rightCondition = evaluateRangeEndpoint(element, rightOperator, self, endExpression, context);
 
                 return this.lib.booleanAnd(leftCondition, rightCondition);
             }
@@ -324,7 +330,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 if (Type.conformsTo(inputExpressionType, optimizedListType)) {
                     // both are compatible lists
                     String operator = "=";
-                    return evaluateOperatorRange(element, operator, self, optimizedListLiteral, context);
+                    return evaluateRangeEndpoint(element, operator, self, optimizedListLiteral, context);
                 } else if (Type.conformsTo(inputExpressionType, optimizedListElementType)) {
                     // input conforms to element in the list
                     List list = (List) optimizedListLiteral.accept(this, context);

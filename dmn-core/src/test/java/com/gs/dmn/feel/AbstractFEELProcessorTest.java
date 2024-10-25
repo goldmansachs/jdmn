@@ -29,6 +29,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -420,6 +421,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         TIME time = this.lib.time("12:00:00Z");
         DATE_TIME dateTime = this.lib.dateAndTime("2017-01-03T12:00:00Z");
         List<String> list = this.lib.asList("a", "b", "c");
+        Range range = new Range(true, this.lib.number("1"), true, this.lib.number("10"));
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("number", NUMBER, number),
                 new EnvironmentEntry("string", STRING, string),
@@ -427,11 +429,80 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("date", DateType.DATE, date),
                 new EnvironmentEntry("time", TimeType.TIME, time),
                 new EnvironmentEntry("dateTime", DateTimeType.DATE_AND_TIME, dateTime),
-                new EnvironmentEntry("list", ListType.STRING_LIST, list)
+                new EnvironmentEntry("list", ListType.STRING_LIST, list),
+                new EnvironmentEntry("range", RangeType.NUMBER_RANGE, range)
         );
 
         //
-        // Simple Types
+        // Simple values (missing operator)
+        //
+        doUnaryTestsTest(entries, "number", "123.56",
+                "PositiveUnaryTests(OperatorRange(null,NumericLiteral(123.56)))",
+                "TupleType(boolean)",
+                "numericEqual(number, number(\"123.56\"))",
+                this.lib.numericEqual(number, this.lib.number("123.56")),
+                false);
+        doUnaryTestsTest(entries, "number", "-1",
+                "PositiveUnaryTests(OperatorRange(null,ArithmeticNegation(NumericLiteral(1))))",
+                "TupleType(boolean)",
+                "numericEqual(number, numericUnaryMinus(number(\"1\")))",
+                this.lib.numericEqual(number, this.lib.numericUnaryMinus(this.lib.number("1"))),
+                false);
+        doUnaryTestsTest(entries, "string", "\"abc\"",
+                "PositiveUnaryTests(OperatorRange(null,StringLiteral(\"abc\")))",
+                "TupleType(boolean)",
+                "stringEqual(string, \"abc\")",
+                this.lib.stringEqual(string, "abc"),
+                true);
+        doUnaryTestsTest(entries, "boolean", "true",
+                "PositiveUnaryTests(OperatorRange(null,BooleanLiteral(true)))",
+                "TupleType(boolean)",
+                "booleanEqual(boolean, Boolean.TRUE)",
+                this.lib.booleanEqual(boolean_, Boolean.TRUE),
+                true);
+        doUnaryTestsTest(entries, "date", "date(\"2016-08-01\")",
+                "PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(date, \"2016-08-01\")))",
+                "TupleType(boolean)",
+                "dateEqual(date, date(\"2016-08-01\"))",
+                this.lib.dateEqual(date, this.lib.date("2016-08-01")),
+                false);
+        doUnaryTestsTest(entries, "time", "time(\"12:00:00Z\")",
+                "PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(time, \"12:00:00Z\")))",
+                "TupleType(boolean)",
+                "timeEqual(time, time(\"12:00:00Z\"))",
+                this.lib.timeEqual(time, this.lib.time("12:00:00Z")),
+                true);
+        doUnaryTestsTest(entries, "dateTime", "date and time(\"2016-08-01T11:00:00Z\")",
+                "PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
+                "TupleType(boolean)",
+                "dateTimeEqual(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\"))",
+                this.lib.dateTimeEqual(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z")),
+                false);
+
+        // List value
+        doUnaryTestsTest(entries, "list", "list",
+                "PositiveUnaryTests(OperatorRange(null,Name(list)))",
+                "TupleType(boolean)",
+                "listEqual(list, list)",
+                this.lib.listEqual(list, list),
+                true);
+        doUnaryTestsTest(entries, "string", "list",
+                "PositiveUnaryTests(OperatorRange(null,Name(list)))",
+                "TupleType(boolean)",
+                "listContains(list, string)",
+                this.lib.listContains(list, string),
+                false);
+
+        // Range value
+        doUnaryTestsTest(entries, "range", "range",
+                "PositiveUnaryTests(OperatorRange(null,Name(range)))",
+                "TupleType(boolean)",
+                "rangeEqual(range, range)",
+                this.lib.rangeEqual(range, range),
+                true);
+
+        //
+        // Explicit operator
         //
         doUnaryTestsTest(entries, "number", "= 123.45",
                 "PositiveUnaryTests(OperatorRange(=,NumericLiteral(123.45)))",
@@ -542,62 +613,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.dateTimeGreaterEqualThan(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z")),
                 true);
 
-        doUnaryTestsTest(entries, "number", "123.56",
-                "PositiveUnaryTests(OperatorRange(null,NumericLiteral(123.56)))",
-                "TupleType(boolean)",
-                "numericEqual(number, number(\"123.56\"))",
-                this.lib.numericEqual(number, this.lib.number("123.56")),
-                false);
-        doUnaryTestsTest(entries, "number", "-1",
-                "PositiveUnaryTests(OperatorRange(null,ArithmeticNegation(NumericLiteral(1))))",
-                "TupleType(boolean)",
-                "numericEqual(number, numericUnaryMinus(number(\"1\")))",
-                this.lib.numericEqual(number, this.lib.numericUnaryMinus(this.lib.number("1"))),
-                false);
-        doUnaryTestsTest(entries, "string", "\"abc\"",
-                "PositiveUnaryTests(OperatorRange(null,StringLiteral(\"abc\")))",
-                "TupleType(boolean)",
-                "stringEqual(string, \"abc\")",
-                this.lib.stringEqual(string, "abc"),
-                true);
-        doUnaryTestsTest(entries, "boolean", "true",
-                "PositiveUnaryTests(OperatorRange(null,BooleanLiteral(true)))",
-                "TupleType(boolean)",
-                "booleanEqual(boolean, Boolean.TRUE)",
-                this.lib.booleanEqual(boolean_, Boolean.TRUE),
-                true);
-        doUnaryTestsTest(entries, "date", "date(\"2016-08-01\")",
-                "PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(date, \"2016-08-01\")))",
-                "TupleType(boolean)",
-                "dateEqual(date, date(\"2016-08-01\"))",
-                this.lib.dateEqual(date, this.lib.date("2016-08-01")),
-                false);
-        doUnaryTestsTest(entries, "time", "time(\"12:00:00Z\")",
-                "PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(time, \"12:00:00Z\")))",
-                "TupleType(boolean)",
-                "timeEqual(time, time(\"12:00:00Z\"))",
-                this.lib.timeEqual(time, this.lib.time("12:00:00Z")),
-                true);
-        doUnaryTestsTest(entries, "dateTime", "date and time(\"2016-08-01T11:00:00Z\")",
-                "PositiveUnaryTests(OperatorRange(null,DateTimeLiteral(date and time, \"2016-08-01T11:00:00Z\")))",
-                "TupleType(boolean)",
-                "dateTimeEqual(dateTime, dateAndTime(\"2016-08-01T11:00:00Z\"))",
-                this.lib.dateTimeEqual(dateTime, this.lib.dateAndTime("2016-08-01T11:00:00Z")),
-                false);
-
-        // List
+        // List of unary tests
         doUnaryTestsTest(entries, "number", "1, 2, 3",
                 "PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)))",
                 "TupleType(boolean, boolean, boolean)",
                 "booleanOr(numericEqual(number, number(\"1\")), numericEqual(number, number(\"2\")), numericEqual(number, number(\"3\")))",
                 this.lib.booleanOr(this.lib.numericEqual(number, this.lib.number("1")), this.lib.numericEqual(number, this.lib.number("2")), this.lib.numericEqual(number, this.lib.number("3"))),
                 true);
-        doUnaryTestsTest(entries, "string", "list",
-                "PositiveUnaryTests(OperatorRange(null,Name(list)))",
-                "TupleType(boolean)",
-                "listContains(list, string)",
-                this.lib.listContains(list, string),
-                false);
     }
 
     @Test
@@ -1102,7 +1124,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 null);
 
 
-        // range
+        // endpoint ranges
         doExpressionTest(entries, "", "[1..10] = [1..10]",
                 "Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)))",
                 "boolean",
@@ -1121,6 +1143,44 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"1\"), false, number(\"10\")))",
                 this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("1"), false, this.lib.number("10"))),
                 false);
+
+        // operator range
+        doExpressionTest(entries, "", "(< 10) = (null..10)",
+                "Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,NullLiteral(),true,NumericLiteral(10)))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, number(\"10\"), \"<\"), new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"), "<"), new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"))),
+                false);
+        doExpressionTest(entries, "", "(<= 10) = (null..10]",
+                "Relational(=,OperatorRange(<=,NumericLiteral(10)),EndpointsRange(true,NullLiteral(),false,NumericLiteral(10)))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, true, number(\"10\"), \"<=\"), new com.gs.dmn.runtime.Range(false, null, true, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, true, this.lib.number("10"), "<="), new com.gs.dmn.runtime.Range(false, null, true, this.lib.number("10"))),
+                false);
+        doExpressionTest(entries, "", "(> 10) = (10..null)",
+                "Relational(=,OperatorRange(>,NumericLiteral(10)),EndpointsRange(true,NumericLiteral(10),true,NullLiteral()))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(false, number(\"10\"), false, null, \">\"), new com.gs.dmn.runtime.Range(false, number(\"10\"), false, null))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, this.lib.number("10"), false, null, ">"), new com.gs.dmn.runtime.Range(false, this.lib.number("10"), false, null)),
+                false);
+        doExpressionTest(entries, "", "(>= 10) = [10..null)",
+                "Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,NullLiteral()))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null, \">=\"), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null, ">="), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null)),
+                false);
+        doExpressionTest(entries, "", "(=10) = [10..10]",
+                "Relational(=,OperatorRange(=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),false,NumericLiteral(10)))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), true, number(\"10\"), \"=\"), new com.gs.dmn.runtime.Range(true, number(\"10\"), true, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), true, this.lib.number("10"), "="), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), true, this.lib.number("10"))),
+                false);
+        doExpressionTest(entries, "", "(!=10) = (!=10)",
+                "Relational(=,OperatorRange(!=,NumericLiteral(10)),OperatorRange(!=,NumericLiteral(10)))",
+                "boolean",
+                "rangeEqual(new com.gs.dmn.runtime.Range(false, number(\"10\"), false, number(\"10\"), \"!=\"), new com.gs.dmn.runtime.Range(false, number(\"10\"), false, number(\"10\"), \"!=\"))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, this.lib.number("10"), false, this.lib.number("10"), "!="), new com.gs.dmn.runtime.Range(false, this.lib.number("10"), false, this.lib.number("10"), "!=")),
+                true);
     }
 
     @Test
@@ -2580,7 +2640,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(expressionPairs, "", "[1, <2, [3..4]]",
                 "ListLiteral(NumericLiteral(1),OperatorRange(<,NumericLiteral(2)),EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4)))",
                 "ListType(Any)",
-                "asList(number(\"1\"), new com.gs.dmn.runtime.Range(false, null, false, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"3\"), true, number(\"4\")))",
+                "asList(number(\"1\"), new com.gs.dmn.runtime.Range(false, null, false, number(\"2\"), \"<\"), new com.gs.dmn.runtime.Range(true, number(\"3\"), true, number(\"4\")))",
                 null,
                 null);
 
@@ -2793,15 +2853,15 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "(< 10) = (null_input..10)",
                 "Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,Name(null_input),true,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
-                true);
+                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, number(\"10\"), \"<\"), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"), "<"), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
+                false);
         doExpressionTest(entries, "", "(>=; 10) = [10..null_input)",
                 "Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,Name(null_input)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
-                true);
+                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null, \">=\"), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null, ">="), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
+                false);
     }
 
     @Test
@@ -2823,15 +2883,15 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "(< 10) = (null_input..10)",
                 "Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,Name(null_input),true,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
-                true);
+                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, number(\"10\"), \"<\"), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"), "<"), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
+                false);
         doExpressionTest(entries, "", "(>=; 10) = [10..null_input)",
                 "Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,Name(null_input)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
-                true);
+                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null, \">=\"), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null, ">="), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
+                false);
     }
 
     protected void doUnaryTestsTest(List<EnvironmentEntry> entries, String inputExpressionText, String inputEntryText,

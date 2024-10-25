@@ -236,6 +236,11 @@ public class Triples {
         return addTriple(triple);
     }
 
+    public Triple text(String text) {
+        Triple triple = new TextTriple(String.format("\"%s\"", text));
+        return addTriple(triple);
+    }
+
     @Override
     public String toString() {
         return triples.toString();

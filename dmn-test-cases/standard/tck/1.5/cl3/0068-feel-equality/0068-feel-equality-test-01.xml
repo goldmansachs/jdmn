@@ -705,16 +705,16 @@
         <description>same datetimes, one with offset and the other with zone are equal</description>
         <resultNode name="datetime_008" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">false</value>
+                <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>
 
     <testCase id="datetime_008_a">
         <description>same datetimes, one with offset and the other with zone are equal - DST</description>
-        <resultNode name="datetime_008" type="decision">
+        <resultNode name="datetime_008_a" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">false</value>
+                <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>

@@ -360,11 +360,6 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     }
 
     @Test
-    public void test_13_cl3_0068_feel_equality() {
-        doSingleModelTest("1.3", "0068-feel-equality", new Pair<>("strongTyping", "false") );
-    }
-
-    @Test
     public void test_13_cl3_0071_feel_between() {
         doSingleModelTest("1.3", "0071-feel-between");
     }

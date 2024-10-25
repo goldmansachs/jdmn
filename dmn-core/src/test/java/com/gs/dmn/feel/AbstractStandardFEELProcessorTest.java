@@ -15,6 +15,7 @@ package com.gs.dmn.feel;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.runtime.Range;
 import com.gs.dmn.tck.ast.TestCases;
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +29,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     protected final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.dmnInterpreter.getFeelLib();
@@ -44,17 +46,13 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
         NUMBER number = this.lib.number("15");
         DATE date = this.lib.date("2015-01-01");
+        Range range = new Range(false, null, true, this.lib.number("10"), ">=");
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("number", NUMBER, number),
-                new EnvironmentEntry("date", DATE, date)
+                new EnvironmentEntry("date", DateType.DATE, date),
+                new EnvironmentEntry("range", RangeType.NUMBER_RANGE, range)
         );
 
-        doUnaryTestsTest(entries, "date", "<= date(\"2020-01-01\")",
-                "PositiveUnaryTests(OperatorRange(<=,DateTimeLiteral(date, \"2020-01-01\")))",
-                "TupleType(boolean)",
-                "dateLessEqualThan(date, date(\"2020-01-01\"))",
-                this.lib.dateLessEqualThan(date, this.lib.date("2020-01-01")),
-                true);
         // Extension for simple positive unary test / endpoint / simple value
         doUnaryTestsTest(entries, "date", "<= date(date(\"2020-01-01\") - duration(\"P5Y\"))",
                 "PositiveUnaryTests(OperatorRange(<=,FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, \"2020-01-01\"),DateTimeLiteral(duration, \"P5Y\"))))))",
@@ -68,6 +66,19 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "dateEqual(date, dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))",
                 lib.dateEqual(date, lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y"))),
                 true);
+
+        // Range value
+        try {
+            doUnaryTestsTest(entries, "number", "range",
+                    "PositiveUnaryTests(OperatorRange(null,Name(range)))",
+                    "TupleType(boolean)",
+                    "rangeEqual(range, range)",
+                    this.lib.rangeEqual(range, range),
+                    true);
+            fail("Expected semantic error");
+        } catch (Exception e) {
+            assertEquals("'OperatorRange': Operator '=' cannot be applied to 'number', 'RangeType(number)'", e.getMessage());
+        }
     }
 
     @Override
@@ -1715,29 +1726,29 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "(< 10).start",
                 "PathExpression(OperatorRange(<,NumericLiteral(10)), start)",
                 "number",
-                "new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")).getStart()",
-                new com.gs.dmn.runtime.Range(false, null, false, lib.number("10")).getStart(),
+                "new com.gs.dmn.runtime.Range(false, null, false, number(\"10\"), \"<\").getStart()",
+                new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"), "<").getStart(),
                 null);
 
         doExpressionTest(entries, "", "(<= 10).end",
                 "PathExpression(OperatorRange(<=,NumericLiteral(10)), end)",
                 "number",
-                "new com.gs.dmn.runtime.Range(false, null, true, number(\"10\")).getEnd()",
-                new com.gs.dmn.runtime.Range(false, null, true, lib.number("10")).getEnd(),
+                "new com.gs.dmn.runtime.Range(false, null, true, number(\"10\"), \"<=\").getEnd()",
+                new com.gs.dmn.runtime.Range(false, null, true, this.lib.number("10"), "<=").getEnd(),
                 this.lib.number("10"));
 
         doExpressionTest(entries, "", "(< 10).start included",
                 "PathExpression(OperatorRange(<,NumericLiteral(10)), start included)",
                 "boolean",
-                "new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")).isStartIncluded()",
-                new com.gs.dmn.runtime.Range(false, null, false, lib.number("10")).isStartIncluded(),
+                "new com.gs.dmn.runtime.Range(false, null, false, number(\"10\"), \"<\").isStartIncluded()",
+                new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"), "<").isStartIncluded(),
                 false);
 
         doExpressionTest(entries, "", "(> 10).end included",
                 "PathExpression(OperatorRange(>,NumericLiteral(10)), end included)",
                 "boolean",
-                "new com.gs.dmn.runtime.Range(false, number(\"10\"), false, null).isEndIncluded()",
-                new com.gs.dmn.runtime.Range(false, lib.number("10"), false, null).isEndIncluded(),
+                "new com.gs.dmn.runtime.Range(false, number(\"10\"), false, null, \">\").isEndIncluded()",
+                new com.gs.dmn.runtime.Range(false, this.lib.number("10"), false, null, ">").isEndIncluded(),
                 false);
     }
 

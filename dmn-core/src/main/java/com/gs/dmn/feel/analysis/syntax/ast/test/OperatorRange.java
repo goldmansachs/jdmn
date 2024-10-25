@@ -14,33 +14,16 @@ package com.gs.dmn.feel.analysis.syntax.ast.test;
 
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.Objects;
 
 public class OperatorRange<T> extends Range<T> {
     private final String operator;
     private final Expression<T> endpoint;
-    private final EndpointsRange<T> endpointsRange;
 
     public OperatorRange(String operator, Expression<T> endpoint) {
         this.operator = operator;
         this.endpoint = endpoint;
-        if (operator == null || "=".equals(operator)) {
-            this.endpointsRange = new EndpointsRange<>(false, endpoint, false, endpoint);
-        } else if ("!=".equals(operator)) {
-            this.endpointsRange = new EndpointsRange<>(false, endpoint, false, endpoint);
-        } else if ("<".equals(operator)) {
-            this.endpointsRange = new EndpointsRange<>(true, null, true, endpoint);
-        } else if ("<=".equals(operator)) {
-            this.endpointsRange = new EndpointsRange<>(true, null, false, endpoint);
-        } else if (">".equals(operator)) {
-            this.endpointsRange = new EndpointsRange<>(true, endpoint, true, null);
-        } else if (">=".equals(operator)) {
-            this.endpointsRange = new EndpointsRange<>(false, endpoint, true, null);
-        } else {
-            throw new DMNRuntimeException(String.format("Unexpected operator '%s'", operator));
-        }
     }
 
     public Expression<T> getEndpoint() {
@@ -56,10 +39,6 @@ public class OperatorRange<T> extends Range<T> {
         return this.operator;
     }
 
-    public EndpointsRange<T> getEndpointsRange() {
-        return this.endpointsRange;
-    }
-
     @Override
     public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
         return visitor.visit(this, context);
@@ -70,12 +49,12 @@ public class OperatorRange<T> extends Range<T> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OperatorRange<?> that = (OperatorRange<?>) o;
-        return Objects.equals(operator, that.operator) && Objects.equals(endpoint, that.endpoint) && Objects.equals(endpointsRange, that.endpointsRange);
+        return Objects.equals(operator, that.operator) && Objects.equals(endpoint, that.endpoint);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(operator, endpoint, endpointsRange);
+        return Objects.hash(operator, endpoint);
     }
 
     @Override

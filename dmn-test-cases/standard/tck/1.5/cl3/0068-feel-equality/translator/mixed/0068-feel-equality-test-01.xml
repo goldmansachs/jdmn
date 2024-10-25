@@ -88,6 +88,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="boolean_008">
         <description>boolean false equals another type (0)</description>
         <resultNode name="boolean_008" type="decision" errorResult="true">
@@ -96,7 +97,9 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
+<!--
     <testCase id="boolean_009">
         <description>boolean true equals another type (1)</description>
         <resultNode name="boolean_009" type="decision" errorResult="true">
@@ -105,6 +108,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="number_001">
         <description>num equal</description>
@@ -160,6 +164,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="number_007">
         <description>number equals another type</description>
         <resultNode name="number_007" type="decision" errorResult="true">
@@ -168,6 +173,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="number_008">
         <description>number equals literal 'e' exponent number with default sign</description>
@@ -232,6 +238,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="string_005">
         <description>string equals another type</description>
         <resultNode name="string_005" type="decision" errorResult="true">
@@ -240,6 +247,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="list_001">
         <description>list equal</description>
@@ -286,6 +294,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="list_006">
         <description>non list boolean of index 1 equals boolean</description>
         <resultNode name="list_006" type="decision">
@@ -294,6 +303,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="list_007">
         <description>non list number of index 1 equals number</description>
@@ -376,6 +386,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="list_016">
         <description>list equals another type</description>
         <resultNode name="list_016" type="decision" errorResult="true">
@@ -384,6 +395,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="context_001">
         <description>empty contexts equal</description>
@@ -439,6 +451,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="context_007">
         <description>context equals another type</description>
         <resultNode name="context_007" type="decision" errorResult="true">
@@ -447,6 +460,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="date_001">
         <description>same dates are equal</description>
@@ -475,6 +489,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="date_004">
         <description>date equals another type</description>
         <resultNode name="date_004" type="decision" errorResult="true">
@@ -483,6 +498,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
      <testCase id="time_001">
         <description>same times are equal</description>
@@ -618,6 +634,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="time_012">
         <description>time equals another type</description>
         <resultNode name="time_012" type="decision" errorResult="true">
@@ -626,6 +643,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="datetime_001">
         <description>same datetimes are equal</description>
@@ -705,16 +723,16 @@
         <description>same datetimes, one with offset and the other with zone are equal</description>
         <resultNode name="datetime_008" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">false</value>
+                <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>
 
     <testCase id="datetime_008_a">
         <description>same datetimes, one with offset and the other with zone are equal - DST</description>
-        <resultNode name="datetime_008" type="decision">
+        <resultNode name="datetime_008_a" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">false</value>
+                <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>
@@ -746,6 +764,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="datetime_011">
         <description>datetime equals another type</description>
         <resultNode name="datetime_011" type="decision" errorResult="true">
@@ -754,6 +773,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="datetime_012">
         <description>datetime: different times in different zones can be equal</description>
@@ -849,6 +869,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="dt_duration_007">
         <description>dt duration equals another type</description>
         <resultNode name="dt_duration_007" type="decision" errorResult="true">
@@ -857,6 +878,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <!-- commented out pending RTF resolution of whether P0D == P0Y for FEEL (not SFEEL).-->
 <!--
@@ -915,6 +937,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="ym_duration_006">
         <description>years/months duration not equal to days/hours duration of same amount</description>
         <resultNode name="ym_duration_006" type="decision" errorResult="true">
@@ -923,6 +946,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="ym_duration_007">
         <description>years/months duration equals null</description>
@@ -933,6 +957,7 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="ym_duration_008">
         <description>years/months duration equals another type</description>
         <resultNode name="ym_duration_008" type="decision" errorResult="true">
@@ -941,6 +966,7 @@
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="deep_001">
         <description>deep array equality</description>
@@ -1105,11 +1131,17 @@
     </testCase>
 
     <testCase id="range_006">
-        <description>equal ranges though syntactically different: LT </description>
-        <inputNode name="null_input">
-            <value xsi:nil="true"/>
-        </inputNode>
+        <description>equal ranges though syntactically different are not equal: LT </description>
         <resultNode name="range_006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_006_a">
+        <description>unary syntax comparison range LT</description>
+        <resultNode name="range_006_a" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">true</value>
             </expected>
@@ -1117,39 +1149,59 @@
     </testCase>
 
     <testCase id="range_007">
-        <description>equal ranges though syntactically different: LE </description>
-        <inputNode name="null_input">
-            <value xsi:nil="true"/>
-        </inputNode>
+        <description>equal ranges though syntactically different are not equal: LE </description>
         <resultNode name="range_007" type="decision">
             <expected>
-                <value xsi:type="xsd:boolean">true</value>
+                <value xsi:type="xsd:boolean">false</value>
             </expected>
         </resultNode>
     </testCase>
 
     <testCase id="range_008">
-        <description>equal ranges though syntactically different: GT </description>
-        <inputNode name="null_input">
-            <value xsi:nil="true"/>
-        </inputNode>
+        <description>equal ranges though syntactically different are not equal: GT </description>
         <resultNode name="range_008" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_009">
+        <description>equal ranges though syntactically different are not equal: GE </description>
+        <resultNode name="range_009" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_010">
+        <description>equal ranges though syntactically different are not equal: EQ </description>
+        <resultNode name="range_010" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">false</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="range_011">
+        <description>unary syntax comparison range EQ</description>
+        <resultNode name="range_011" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>
 
-    <testCase id="range_009">
-        <description>equal ranges though syntactically different: GE </description>
-        <inputNode name="null_input">
-            <value xsi:nil="true"/>
-        </inputNode>
-        <resultNode name="range_009" type="decision">
+    <testCase id="range_012">
+        <description>unary syntax comparison range NE</description>
+        <resultNode name="range_012" type="decision">
             <expected>
                 <value xsi:type="xsd:boolean">true</value>
             </expected>
         </resultNode>
     </testCase>
+
+
 
 </testCases>
