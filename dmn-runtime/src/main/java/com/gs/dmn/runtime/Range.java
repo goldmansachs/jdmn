@@ -19,9 +19,10 @@ public class Range {
     private final Object start;
     private final boolean endIncluded;
     private final Object end;
+    private final String operator;
 
     public Range() {
-        this(false, null, false, null);
+        this(false, null, false, null, null);
     }
 
     public Range(boolean startIncluded, Object start, boolean endIncluded, Object end) {
@@ -29,6 +30,15 @@ public class Range {
         this.start = start;
         this.endIncluded = endIncluded;
         this.end = end;
+        this.operator = null;
+    }
+
+    public Range(boolean startIncluded, Object start, boolean endIncluded, Object end, String operator) {
+        this.startIncluded = startIncluded;
+        this.start = start;
+        this.endIncluded = endIncluded;
+        this.end = end;
+        this.operator = operator;
     }
 
     public boolean isStartIncluded() {
@@ -47,30 +57,29 @@ public class Range {
         return end;
     }
 
+    public String getOperator() {
+        return operator;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Range range = (Range) o;
-
-        if (this.startIncluded != range.startIncluded) return false;
-        if (this.endIncluded != range.endIncluded) return false;
-        if (!Objects.equals(this.start, range.start)) return false;
-        return Objects.equals(this.end, range.end);
+        return isStartIncluded() == range.isStartIncluded() &&
+                isEndIncluded() == range.isEndIncluded() &&
+                Objects.equals(getStart(), range.getStart()) &&
+                Objects.equals(getEnd(), range.getEnd()) &&
+                Objects.equals(getOperator(), range.getOperator());
     }
 
     @Override
     public int hashCode() {
-        int result = (this.startIncluded ? 1 : 0);
-        result = 31 * result + (this.start != null ? this.start.hashCode() : 0);
-        result = 31 * result + (this.endIncluded ? 1 : 0);
-        result = 31 * result + (this.end != null ? this.end.hashCode() : 0);
-        return result;
+        return Objects.hash(isStartIncluded(), getStart(), isEndIncluded(), getEnd(), getOperator());
     }
 
     @Override
     public String toString() {
-        return String.format("Range(%s,%s,%s,%s)", this.startIncluded, this.start.toString(), this.end.toString(), this.endIncluded);
+        return String.format("Range(%s,%s,%s,%s,%s)", this.operator, this.startIncluded, this.start, this.endIncluded, this.end);
     }
 }

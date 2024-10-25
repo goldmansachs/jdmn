@@ -1223,7 +1223,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${tck.13.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality.dmn</inputFileDirectory>
+                            <inputFileDirectory>${tck.15.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <strongTyping>false</strongTyping>
@@ -1238,8 +1238,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${tck.13.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.13.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${tck.15.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.15.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <strongTyping>false</strongTyping>
