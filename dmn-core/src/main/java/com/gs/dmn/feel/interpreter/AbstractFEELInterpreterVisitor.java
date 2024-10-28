@@ -138,7 +138,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     public Object visit(OperatorRange<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        String operator = element.getOperator();
+        String operator = normalizeOperator(element.getOperator());
         Type inputExpressionType = context.getInputExpressionType();
         Expression<Type> endpoint = element.getEndpoint();
         Type endpointType = endpoint.getType();
@@ -152,20 +152,14 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
                 if (Type.sameSemanticDomain(endpointType, inputExpressionType)) {
                     // input and endpoint are comparable
-                    Object condition;
-                    if (operator == null) {
-                        condition = evaluateOperatorRange(element, "=", self, endpoint, context);
-                    } else {
-                        condition = evaluateOperatorRange(element, operator, self, endpoint, context);
-                    }
-                    return condition;
+                    return evaluateOperatorRange(element, operator, self, endpoint, context);
                 } else if (endpointType instanceof ListType) {
                     Type endpointElementType = ((ListType) endpointType).getElementType();
                     if (Type.sameSemanticDomain(endpointElementType, inputExpressionType)) {
                         // input and list elements are comparable
                         List endpointValueList = (List) endpoint.accept(this, context);
                         List results = new ArrayList();
-                        for(Object endpointValue: endpointValueList) {
+                        for (Object endpointValue: endpointValueList) {
                             results.add(evaluateOperatorRange(element, "=", self, inputExpressionType, ((ListType) endpointType).getElementType(), endpointValue));
                         }
                         return this.lib.or(results);
@@ -185,18 +179,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     private Object evaluateOperatorRange(Expression<Type> element, String operator, Object self, Expression<Type> endpointExpression, DMNContext context) throws Exception {
         Object endpointValue = endpointExpression.accept(this, context);
         if (context.isExpressionContext()) {
-            if (operator == null || "=".equals(operator)) {
-                return new Range(true, endpointValue, true, endpointValue, "=");
-            } else if ("!=".equals(operator)) {
-                return new Range(false, endpointValue, false, endpointValue, operator);
-            } else if ("<".equals(operator)) {
-                return new Range(false, null, false, endpointValue, operator);
-            } else if ("<=".equals(operator)) {
-                return new Range(false, null, true, endpointValue, operator);
-            } else if (">".equals(operator)) {
-                return new Range(false, endpointValue, false, null, operator);
-            } else if (">=".equals(operator)) {
-                return new Range(true, endpointValue, false, null, operator);
+            if (isValidRangeOperator(operator)) {
+                return new Range(operator, endpointValue);
             } else {
                 throw new DMNRuntimeException(String.format("Unknown operator '%s'", operator));
             }

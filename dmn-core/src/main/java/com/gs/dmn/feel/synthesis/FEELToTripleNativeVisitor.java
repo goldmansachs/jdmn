@@ -112,28 +112,15 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
 
     @Override
     public Triple visit(OperatorRange<Type> element, DMNContext context) {
-        String operator = element.getOperator();
+        String operator = normalizeOperator(element.getOperator());
         Expression<Type> endpoint = element.getEndpoint();
         if (context.isExpressionContext()) {
             // Evaluate as range
             Triple endpointValue = (Triple) endpoint.accept(this, context);
-            Triple trueValue = this.triples.booleanValueConstant("true");
-            Triple falseValue = this.triples.booleanValueConstant("false");
-            Triple nullValue = this.triples.nullLiteral();
-            Triple operatorValue = this.triples.text(operator == null ? "=" : operator);
+            Triple operatorValue = this.triples.text(operator);
             List<Triple> arguments;
-            if (operator == null || "=".equals(operator)) {
-                arguments = Arrays.asList(trueValue, endpointValue, trueValue, endpointValue, operatorValue);
-            } else if ("!=".equals(operator)) {
-                arguments = Arrays.asList(falseValue, endpointValue, falseValue, endpointValue, operatorValue);
-            } else if ("<".equals(operator)) {
-                arguments = Arrays.asList(falseValue, nullValue, falseValue, endpointValue, operatorValue);
-            } else if ("<=".equals(operator)) {
-                arguments = Arrays.asList(falseValue, nullValue, trueValue, endpointValue, operatorValue);
-            } else if (">".equals(operator)) {
-                arguments = Arrays.asList(falseValue, endpointValue, falseValue, nullValue, operatorValue);
-            } else if (">=".equals(operator)) {
-                arguments = Arrays.asList(trueValue, endpointValue, falseValue, nullValue, operatorValue);
+            if (isValidRangeOperator(operator)) {
+                arguments = Arrays.asList(operatorValue, endpointValue);
             } else {
                 throw new DMNRuntimeException(String.format("Unknown operator '%s'", operator));
             }
@@ -145,13 +132,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
             Type endpointType = endpoint.getType();
             if (Type.sameSemanticDomain(endpointType, inputExpressionType)) {
                 // input and endpoint are comparable
-                Triple condition;
-                if (operator == null) {
-                    condition = makeRangeCondition("=", (Expression) context.getInputExpression(), endpoint, context);
-                } else {
-                    condition = makeRangeCondition(operator, (Expression) context.getInputExpression(), endpoint, context);
-                }
-                return condition;
+                return makeRangeCondition(operator, (Expression) context.getInputExpression(), endpoint, context);
             } else if (endpointType instanceof ListType) {
                 Type endpointElementType = ((ListType) endpointType).getElementType();
                 if (Type.sameSemanticDomain(endpointElementType, inputExpressionType)) {

@@ -24,9 +24,7 @@ import com.gs.dmn.runtime.function.BuiltinFunction;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractFEELToJavaVisitor<R> extends AbstractAnalysisVisitor<Type, DMNContext, R> {
     private static final Map<String, String> FEEL_2_JAVA_FUNCTION = new LinkedHashMap<>();
@@ -77,6 +75,10 @@ public abstract class AbstractFEELToJavaVisitor<R> extends AbstractAnalysisVisit
         FEEL_2_JAVA_FUNCTION.put("week of year", "weekOfYear");
     }
 
+    private static final Set<String> RANGE_OPERATORS = new LinkedHashSet<>(
+            Arrays.asList("=", "!=", "<", "<=", ">", ">=")
+    );
+
     public AbstractFEELToJavaVisitor(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         super(dmnTransformer, new LogAndThrowErrorHandler(LOGGER));
     }
@@ -115,5 +117,13 @@ public abstract class AbstractFEELToJavaVisitor<R> extends AbstractAnalysisVisit
             handleError(String.format("Cannot find name of builtin function '%s'", function));
             return null;
         }
+    }
+
+    protected static String normalizeOperator(String operator) {
+        return StringUtils.isBlank(operator) ? "=" : operator;
+    }
+
+    protected static boolean isValidRangeOperator(String operator) {
+        return RANGE_OPERATORS.contains(operator);
     }
 }

@@ -253,23 +253,23 @@ public abstract class AbstractDefaultRangeLibTest<NUMBER, DATE, TIME, DATE_TIME,
     @Test
     public void testOperatorRanges() {
         // 5 before <= 10
-        assertNull(getLib().before(makePoint(5), new Range(false, null, true, makePoint(10), "<=") ));
+        assertNull(getLib().before(makePoint(5), new Range("<=", makePoint(10)) ));
         // 5 after <= 10
-        assertFalse(getLib().after(makePoint(5), new Range(false, null, true, makePoint(10), "<=") ));
+        assertFalse(getLib().after(makePoint(5), new Range("<=", makePoint(10)) ));
         // 5 finishes <= 5
-        assertTrue(getLib().finishes(makePoint(5), new Range(false, null, true, makePoint(5), "<=") ));
+        assertTrue(getLib().finishes(makePoint(5), new Range("<=", makePoint(5)) ));
         // <= 5 finished by 5
-        assertNull(getLib().finishedBy(new Range(false, null, true, makePoint(5), "<="), makePoint(5) ));
+        assertNull(getLib().finishedBy(new Range("<=", makePoint(5)), makePoint(5) ));
         // <= 10 includes 5
-        assertNull(getLib().includes(new Range(false, null, true, makePoint(10), "<="), makePoint(5) ));
+        assertNull(getLib().includes(new Range("<=", makePoint(10)), makePoint(5) ));
         // 5 during <= 10
-        assertNull(getLib().during(makePoint(5), new Range(false, null, true, makePoint(10), "<=") ));
+        assertNull(getLib().during(makePoint(5), new Range("<=", makePoint(10)) ));
         // 5 starts <= 5
-        assertFalse(getLib().starts(makePoint(5), new Range(false, null, true, makePoint(5), "<=") ));
+        assertFalse(getLib().starts(makePoint(5), new Range("<=", makePoint(5)) ));
         // <= 5 started by 5
-        assertFalse(getLib().startedBy(new Range(false, null, true, makePoint(5), "<="), makePoint(5) ));
+        assertFalse(getLib().startedBy(new Range("<=", makePoint(5)), makePoint(5) ));
         // <= 5 coincides <= 5
-        assertNull(getLib().coincides(new Range(false, null, true, makePoint(5), "<="), new Range(false, null, true, makePoint(5), "<=") ));
+        assertNull(getLib().coincides(new Range("<=", makePoint(5)), new Range("<=", makePoint(5)) ));
     }
 
     private Range makeRange(String startIncluded, int start, int end, String endIncluded) {
