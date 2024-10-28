@@ -54,6 +54,7 @@ public abstract class AbstractFEELToJavaVisitor<R> extends AbstractAnalysisVisit
         FEEL_2_JAVA_FUNCTION.put("index of", "indexOf");
         FEEL_2_JAVA_FUNCTION.put("insert before", "insertBefore");
         FEEL_2_JAVA_FUNCTION.put("list contains", "listContains");
+        FEEL_2_JAVA_FUNCTION.put("list replace", "listReplace");
 
         // context functions
         FEEL_2_JAVA_FUNCTION.put("get value", "getValue");

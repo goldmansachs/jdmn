@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1155-list-replace-function.dmn</modelName>
+
+    <testCase id="001">
+        <description>Replace element in list at 1-based position</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                    <item><value xsi:type="xsd:decimal">4</value></item>
+                    <item><value xsi:type="xsd:decimal">3</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>Replace last element in list using negative position</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                    <item><value xsi:type="xsd:decimal">2</value></item>
+                    <item><value xsi:type="xsd:decimal">4</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>A position of zero gives null</description>
+        <resultNode name="decision003" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <description>A positive position outside the list bounds gives null</description>
+        <resultNode name="decision004" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005">
+        <description>A negative position outside the list bounds gives null</description>
+        <resultNode name="decision005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>list value may not be null</description>
+        <resultNode name="decision006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007">
+        <description>position value may not be null</description>
+        <resultNode name="decision007" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008">
+        <description>newItem value may be null</description>
+        <resultNode name="decision008" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                    <item><value xsi:type="xsd:decimal">2</value></item>
+                    <item><value xsi:nil="true"/></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009">
+        <description>match function returning true will replace items</description>
+        <resultNode name="decision009" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">5</value></item>
+                    <item><value xsi:type="xsd:decimal">5</value></item>
+                    <item><value xsi:type="xsd:decimal">7</value></item>
+                    <item><value xsi:type="xsd:decimal">8</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010">
+        <description>position must be a number</description>
+        <resultNode name="decision010" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011">
+        <description>position will be truncated to integer</description>
+        <resultNode name="decision011" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                    <item><value xsi:type="xsd:decimal">4</value></item>
+                    <item><value xsi:type="xsd:decimal">3</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011_a">
+        <description>negative position will be truncated to integer</description>
+        <resultNode name="decision011_a" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                    <item><value xsi:type="xsd:decimal">2</value></item>
+                    <item><value xsi:type="xsd:decimal">4</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012">
+        <description>named arguments ('position') </description>
+        <resultNode name="decision012" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                    <item><value xsi:type="xsd:decimal">4</value></item>
+                    <item><value xsi:type="xsd:decimal">3</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="013">
+        <description>named arguments ('match') </description>
+        <resultNode name="decision013" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">1</value></item>
+                    <item><value xsi:type="xsd:decimal">4</value></item>
+                    <item><value xsi:type="xsd:decimal">3</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="014">
+        <description>too many arguments gives null</description>
+        <resultNode name="decision014" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="015">
+        <description>too few arguments gives null</description>
+        <resultNode name="decision015" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="016">
+        <description>unknown named argument gives null</description>
+        <resultNode name="decision016" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="017">
+        <description>invalid match function signature (too many arguments) gives null</description>
+        <resultNode name="decision017" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="018">
+        <description>invalid match function signature (too few arguments) gives null</description>
+        <resultNode name="decision018" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="019">
+        <description>match function must return boolean value</description>
+        <resultNode name="decision019" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="020">
+        <description>match function will be called for every list item</description>
+        <resultNode name="decision020" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">5</value></item>
+                    <item><value xsi:type="xsd:decimal">5</value></item>
+                    <item><value xsi:type="xsd:decimal">5</value></item>
+                    <item><value xsi:type="xsd:decimal">5</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="021">
+        <description>will coerce to singleton list</description>
+        <resultNode name="decision021" type="decision">
+            <expected>
+                <list>
+                    <item><value xsi:type="xsd:decimal">5</value></item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+
+
+</testCases>

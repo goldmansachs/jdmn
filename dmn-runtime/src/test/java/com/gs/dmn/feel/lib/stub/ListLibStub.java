@@ -50,6 +50,11 @@ public class ListLibStub implements ListLib {
     }
 
     @Override
+    public <T> List<T> listReplace(List<T> list, Object position, T newItem) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public <T> List<T> reverse(List<T> list) {
         throw new DMNRuntimeException("Not supported yet");
     }

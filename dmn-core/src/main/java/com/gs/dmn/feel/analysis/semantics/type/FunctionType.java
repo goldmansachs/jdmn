@@ -123,7 +123,7 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
             List<Type> newTypes = new ArrayList<>();
             PositionalParameterConversions<Type> conversions = new PositionalParameterConversions<>();
             boolean different = false;
-            boolean succsefulCandidate = true;
+            boolean failed = false;
             for (int i = 0; i < argumentSize; i++) {
                 // Compute new type and conversion
                 ConversionKind kind = candidateConversions[conversionMap[i]];
@@ -169,7 +169,7 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
                     // Check if new argument type matches
                     boolean newArgumentTypeOk = Type.conformsTo(newArgumentType, parameterType);
                     if (!newArgumentTypeOk) {
-                        succsefulCandidate = false;
+                        failed = true;
                         break;
                     } else {
                         newTypes.add(newArgumentType);
@@ -179,7 +179,7 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
             }
 
             // Add new candidate
-            if (different && succsefulCandidate) {
+            if (different && !failed) {
                 PositionalParameterTypes<Type> newSignature = new PositionalParameterTypes<>(newTypes);
                 candidates.add(new Pair<>(newSignature, conversions));
             }

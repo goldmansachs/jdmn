@@ -16,10 +16,7 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
-import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
-import com.gs.dmn.feel.analysis.semantics.type.ComparableDataType;
-import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
-import com.gs.dmn.feel.analysis.semantics.type.ListType;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.ListLiteral;
@@ -102,6 +99,18 @@ public class FunctionInvocationUtils {
             } else {
                 Type elementType = parameters.getParameterType(1, "element");
                 return StandardEnvironmentFactory.makeSignavioRemoveBuiltinFunctionType(listType, elementType);
+            }
+        } else if("list replace".equals(functionName)) {
+            Type listType = parameters.getParameterType(0, "list");
+            if (!(listType instanceof ListType)) {
+                // Implicit conversion
+                listType = new ListType(listType);
+            }
+            Expression<Type> secondParam = parameters.getParameter(1, "position");
+            if (secondParam != null && parameters.getParameterType(1, "position") instanceof NumberType) {
+                return StandardEnvironmentFactory.makeListReplacePositionBuiltinFunctionType(listType);
+            } else {
+                return StandardEnvironmentFactory.makeListReplaceMatchBuiltinFunctionType(listType);
             }
         } else if("reverse".equals(functionName)) {
             Type listType = parameters.getParameterType(0, "list");

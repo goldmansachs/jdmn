@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1155-list-replace-function"
+             name="1155-list-replace-function"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <description>FEEL built-in function 'list replace' in category list functions</description>
+
+    <decision name="decision001" id="_decision001">
+        <!-- replace position in list -->
+        <variable name="decision001"/>
+        <literalExpression>
+            <text>list replace([1,2,3], 2, 4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision002" id="_decision002">
+        <!-- replace last element in list using negative position -->
+        <variable name="decision002"/>
+        <literalExpression>
+            <text>list replace([1,2,3], -1, 4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003" id="_decision003">
+        <!-- zero position gives null -->
+        <variable name="decision003"/>
+        <literalExpression>
+            <text>list replace([1,2,3], 0, 4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision004" id="_decision004">
+        <!-- position outside bounds gives null -->
+        <variable name="decision004"/>
+        <literalExpression>
+            <text>list replace([1,2,3], 4, 4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision005" id="_decision005">
+        <!-- negative position outside bounds gives null -->
+        <variable name="decision005"/>
+        <literalExpression>
+            <text>list replace([1,2,3], -4, 4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision006" id="_decision006">
+        <!-- list may not be null -->
+        <variable name="decision006"/>
+        <literalExpression>
+            <text>list replace(null, 1, 4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision007" id="_decision007">
+        <!-- position may not be null -->
+        <variable name="decision007"/>
+        <literalExpression>
+            <text>list replace([1,2,3], null, 4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision008" id="_decision008">
+        <!-- newItem may be null -->
+        <variable name="decision008"/>
+        <literalExpression>
+            <text>list replace([1,2,3], 3, null)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision009" id="_decision009">
+        <!-- match function returning true will replace elements-->
+        <variable name="decision009"/>
+        <literalExpression>
+            <text>list replace ( [2, 4, 7, 8], function(item, newItem) item &lt; newItem, 5)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision010" id="_decision010">
+        <!-- position must be a number-->
+        <variable name="decision010"/>
+        <literalExpression>
+            <text>list replace([1,2,3], "2", 4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision011" id="_decision011">
+        <!-- decimal position is truncated to integer number -->
+        <variable name="decision011"/>
+        <literalExpression>
+            <text>list replace([1,2,3], 2.5, 4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision011_a" id="_decision011_a">
+        <!-- negative decimal position is truncated to integer number -->
+        <variable name="decision011_a"/>
+        <literalExpression>
+            <text>list replace([1,2,3], -1.5, 4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision012" id="_decision012">
+        <!-- named arguments 'position' -->
+        <variable name="decision012"/>
+        <literalExpression>
+            <text>list replace(position: 2, newItem: 4, list: [1,2,3])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision013" id="_decision013">
+        <!-- named arguments 'match' -->
+        <variable name="decision013"/>
+        <literalExpression>
+            <text>list replace(match: function(item, newItem) item = 2, newItem: 4, list: [1,2,3])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision014" id="_decision014">
+        <!-- too many arguments -->
+        <variable name="decision014"/>
+        <literalExpression>
+            <text>list replace([1,2,3], "2", 4, 4)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision015" id="_decision015">
+        <!-- too few arguments -->
+        <variable name="decision015"/>
+        <literalExpression>
+            <text>list replace([1,2,3], "2")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision016" id="_decision016">
+        <!-- unknown named argument -->
+        <variable name="decision016"/>
+        <literalExpression>
+            <text>list replace(position: 2, newItem: 4, list: [1,2,3], foo: 1)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision017" id="_decision017">
+        <!-- invalid match function signature (too many arguments) gives null -->
+        <variable name="decision017"/>
+        <literalExpression>
+            <text>list replace ( [2, 4], function(item, newItem, extraParam) item = 2, 5)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision018" id="_decision018">
+        <!-- invalid match function signature (too few arguments) gives null -->
+        <variable name="decision018"/>
+        <literalExpression>
+            <text>list replace ( [2, 4], function(item) item = 2, 5)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision019" id="_decision019">
+        <!-- match function must return boolean value -->
+        <variable name="decision019"/>
+        <literalExpression>
+            <text>list replace ( [2, 4], function(item, newItem) item, 5)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision020" id="_decision020">
+        <!-- match function will be called for every list item -->
+        <variable name="decision020"/>
+        <literalExpression>
+            <text>list replace ( [1, 2, 3, 4], function(item, newItem) true, 5)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision021" id="_decision021">
+        <!-- will coerce to singleton list -->
+        <variable name="decision021"/>
+        <literalExpression>
+            <text>list replace ( 1, 1, 5)</text>
+        </literalExpression>
+    </decision>
+
+
+</definitions>
+

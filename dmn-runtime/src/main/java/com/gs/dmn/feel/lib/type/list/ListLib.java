@@ -29,6 +29,8 @@ public interface ListLib {
 
     <T> List<T> remove(List<T> list, int position);
 
+    <T> List<T> listReplace(List<T> list, Object position, T newItem);
+
     <T> List<T> reverse(List<T> list);
 
     <T> List<T> union(List<T>... lists);

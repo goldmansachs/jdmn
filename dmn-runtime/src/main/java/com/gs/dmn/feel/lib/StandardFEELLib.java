@@ -244,6 +244,8 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
 
     <T> List<T> remove(List<T> list, Object position);
 
+    <T> List<T> listReplace(List<T> list, Object position, T newItem);
+
     <T> List<T> reverse(List<T> list);
 
     <T> List<NUMBER> indexOf(List<T> list, Object match);
