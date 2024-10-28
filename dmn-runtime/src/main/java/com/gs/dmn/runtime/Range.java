@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.runtime;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
 
 public class Range {
@@ -22,7 +24,11 @@ public class Range {
     private final String operator;
 
     public Range() {
-        this(false, null, false, null, null);
+        this.startIncluded = false;
+        this.start = null;
+        this.endIncluded = false;
+        this.end = null;
+        this.operator = null;
     }
 
     public Range(boolean startIncluded, Object start, boolean endIncluded, Object end) {
@@ -33,12 +39,49 @@ public class Range {
         this.operator = null;
     }
 
-    public Range(boolean startIncluded, Object start, boolean endIncluded, Object end, String operator) {
-        this.startIncluded = startIncluded;
-        this.start = start;
-        this.endIncluded = endIncluded;
-        this.end = end;
-        this.operator = operator;
+    public Range(String operator, Object endpoint) {
+        this.operator = StringUtils.isBlank(operator) ? "=" : operator;
+        // 10.3.2.7 Ranges
+        switch (this.operator) {
+            case "=":
+                startIncluded = true;
+                start = endpoint;
+                end = endpoint;
+                endIncluded = true;
+                break;
+            case "!=":
+                startIncluded = false;
+                start = null;
+                end = null;
+                endIncluded = false;
+                break;
+            case "<":
+                startIncluded = false;
+                start = null;
+                end = endpoint;
+                endIncluded = false;
+                break;
+            case "<=":
+                startIncluded = false;
+                start = null;
+                end = endpoint;
+                endIncluded = true;
+                break;
+            case ">":
+                startIncluded = false;
+                start = endpoint;
+                end = null;
+                endIncluded = false;
+                break;
+            case ">=":
+                startIncluded = true;
+                start = endpoint;
+                end = null;
+                endIncluded = false;
+                break;
+            default:
+                throw new DMNRuntimeException(String.format("Illegal operator '%s'", this.operator));
+        }
     }
 
     public boolean isStartIncluded() {

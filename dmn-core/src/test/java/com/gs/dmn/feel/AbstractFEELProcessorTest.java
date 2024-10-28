@@ -1148,38 +1148,38 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "(< 10) = (null..10)",
                 "Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,NullLiteral(),true,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, number(\"10\"), \"<\"), new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"), "<"), new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range(\"<\", number(\"10\")), new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("<", this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"))),
                 false);
         doExpressionTest(entries, "", "(<= 10) = (null..10]",
                 "Relational(=,OperatorRange(<=,NumericLiteral(10)),EndpointsRange(true,NullLiteral(),false,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, true, number(\"10\"), \"<=\"), new com.gs.dmn.runtime.Range(false, null, true, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, true, this.lib.number("10"), "<="), new com.gs.dmn.runtime.Range(false, null, true, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range(\"<=\", number(\"10\")), new com.gs.dmn.runtime.Range(false, null, true, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("<=", this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null, true, this.lib.number("10"))),
                 false);
         doExpressionTest(entries, "", "(> 10) = (10..null)",
                 "Relational(=,OperatorRange(>,NumericLiteral(10)),EndpointsRange(true,NumericLiteral(10),true,NullLiteral()))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(false, number(\"10\"), false, null, \">\"), new com.gs.dmn.runtime.Range(false, number(\"10\"), false, null))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, this.lib.number("10"), false, null, ">"), new com.gs.dmn.runtime.Range(false, this.lib.number("10"), false, null)),
+                "rangeEqual(new com.gs.dmn.runtime.Range(\">\", number(\"10\")), new com.gs.dmn.runtime.Range(false, number(\"10\"), false, null))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(">", this.lib.number("10")), new com.gs.dmn.runtime.Range(false, this.lib.number("10"), false, null)),
                 false);
         doExpressionTest(entries, "", "(>= 10) = [10..null)",
                 "Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,NullLiteral()))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null, \">=\"), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null, ">="), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null)),
+                "rangeEqual(new com.gs.dmn.runtime.Range(\">=\", number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(">=", this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null)),
                 false);
         doExpressionTest(entries, "", "(=10) = [10..10]",
                 "Relational(=,OperatorRange(=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),false,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), true, number(\"10\"), \"=\"), new com.gs.dmn.runtime.Range(true, number(\"10\"), true, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), true, this.lib.number("10"), "="), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), true, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range(\"=\", number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"10\"), true, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("=", this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), true, this.lib.number("10"))),
                 false);
         doExpressionTest(entries, "", "(!=10) = (!=10)",
                 "Relational(=,OperatorRange(!=,NumericLiteral(10)),OperatorRange(!=,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(false, number(\"10\"), false, number(\"10\"), \"!=\"), new com.gs.dmn.runtime.Range(false, number(\"10\"), false, number(\"10\"), \"!=\"))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, this.lib.number("10"), false, this.lib.number("10"), "!="), new com.gs.dmn.runtime.Range(false, this.lib.number("10"), false, this.lib.number("10"), "!=")),
+                "rangeEqual(new com.gs.dmn.runtime.Range(\"!=\", number(\"10\")), new com.gs.dmn.runtime.Range(\"!=\", number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("!=", this.lib.number("10")), new com.gs.dmn.runtime.Range("!=", this.lib.number("10"))),
                 true);
     }
 
@@ -2640,7 +2640,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(expressionPairs, "", "[1, <2, [3..4]]",
                 "ListLiteral(NumericLiteral(1),OperatorRange(<,NumericLiteral(2)),EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4)))",
                 "ListType(Any)",
-                "asList(number(\"1\"), new com.gs.dmn.runtime.Range(false, null, false, number(\"2\"), \"<\"), new com.gs.dmn.runtime.Range(true, number(\"3\"), true, number(\"4\")))",
+                "asList(number(\"1\"), new com.gs.dmn.runtime.Range(\"<\", number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"3\"), true, number(\"4\")))",
                 null,
                 null);
 
@@ -2853,14 +2853,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "(< 10) = (null_input..10)",
                 "Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,Name(null_input),true,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, number(\"10\"), \"<\"), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"), "<"), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range(\"<\", number(\"10\")), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("<", this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
                 false);
         doExpressionTest(entries, "", "(>=; 10) = [10..null_input)",
                 "Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,Name(null_input)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null, \">=\"), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null, ">="), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
+                "rangeEqual(new com.gs.dmn.runtime.Range(\">=\", number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(">=", this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
                 false);
     }
 
@@ -2883,14 +2883,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "(< 10) = (null_input..10)",
                 "Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,Name(null_input),true,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, number(\"10\"), \"<\"), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"), "<"), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range(\"<\", number(\"10\")), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("<", this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
                 false);
         doExpressionTest(entries, "", "(>=; 10) = [10..null_input)",
                 "Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,Name(null_input)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null, \">=\"), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null, ">="), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
+                "rangeEqual(new com.gs.dmn.runtime.Range(\">=\", number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(">=", this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
                 false);
     }
 
