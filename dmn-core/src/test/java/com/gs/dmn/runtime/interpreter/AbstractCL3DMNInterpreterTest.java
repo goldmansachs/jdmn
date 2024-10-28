@@ -622,4 +622,9 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
         doSingleModelTest("1.5", "0068-feel-equality", new Pair<>("strongTyping", "false") );
     }
 
+    @Test
+    public void test_15_cl3_1155_list_replace_function() {
+        doSingleModelTest("1.5", "1155-list-replace-function");
+    }
+
 }

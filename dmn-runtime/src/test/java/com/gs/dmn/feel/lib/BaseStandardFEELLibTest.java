@@ -1003,6 +1003,36 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Test
+    public void testListReplace() {
+        // List or position cannot be null
+        assertNull(getLib().listReplace(null, makeNumber(1), null));
+        assertNull(getLib().listReplace(makeNumberList(1, 2), null, null));
+
+        // Zero position gives null
+        assertNull(getLib().listReplace(makeNumberList("1", "2", "3"), makeNumber(0), makeNumber(4)));
+        // Position outside bounds gives null
+        assertNull(getLib().listReplace(makeNumberList("1", "2", "3"), makeNumber(4), makeNumber(4)));
+        // Negative position outside bounds gives null
+        assertNull(getLib().listReplace(makeNumberList("1", "2", "3"), makeNumber(-4), makeNumber(4)));
+
+        // NewItem can be null
+        assertEquals(makeNumberList("1", "2", null), getLib().listReplace(makeNumberList("1", "2", "3"), makeNumber("3"), null));
+        assertEquals(makeNumberList(1, 4, 3), getLib().listReplace(makeNumberList("1", "2", "3"), makeNumber(2), makeNumber(4)));
+        // Replace last element
+        assertEquals(makeNumberList(1, 2, 4), getLib().listReplace(makeNumberList("1", "2", "3"), makeNumber(-1), makeNumber(4)));
+
+        // Test with predicate
+        LambdaExpression<Boolean> predicate = new LambdaExpression<Boolean>() {
+            @Override
+            public Boolean apply(Object... args) {
+                return getLib().numericLessThan((NUMBER) args[0], (NUMBER) args[1]);
+            }
+        };
+        assertEquals(makeNumberList(5, 5, 7, 8), getLib().listReplace(makeNumberList(2, 4, 7, 8), predicate, makeNumber(5)));
+        assertEquals(makeNumberList(5, 5, 5, 5), getLib().listReplace(makeNumberList(1, 2, 3, 4), (LambdaExpression<Boolean>) args -> true, makeNumber(5)));
+    }
+
+    @Test
     public void testReverse() {
         assertEquals(Collections.emptyList(), getLib().reverse(null));
 

@@ -1239,6 +1239,17 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
+    public <T> List<T> listReplace(List<T> list, Object position, T newItem) {
+        try {
+            return this.listLib.listReplace(list, position, newItem);
+        } catch (Exception e) {
+            String message = String.format("listReplace(%s, %s, %s)", list, position, newItem);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
     public <T> List<T> reverse(List<T> list) {
         try {
             return this.listLib.reverse(list);

@@ -779,6 +779,15 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                     handleError(String.format("'%s' is not supported yet", secondArg.getClass()));
                     return null;
                 }
+            } else if ("listReplace".equals(javaFunctionName)) {
+                Object secondArg = argList.get(1);
+                if (secondArg instanceof Function) {
+                    Function filterFunction = (Function) secondArg;
+                    List result = ((StandardFEELLib) lib).listReplace((List) argList.get(0), makeLambdaExpression(filterFunction), argList.get(2));
+                    return result;
+                } else {
+                    return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
+                }
             } else {
                 return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
             }

@@ -678,6 +678,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         Parameters<Type> parameters = element.getParameters();
         if (function instanceof Name && "sort".equals(((Name<Type>) function).getName())) {
             visitSortParameters(element, context, parameters);
+        } else if (function instanceof Name && "list replace".equals(((Name<Type>) function).getName())) {
+            visitListReplaceParameters(element, context, parameters);
         } else {
             parameters.accept(this, context);
         }
@@ -742,6 +744,65 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         }
         if (!success) {
             handleError(context, element, String.format("Cannot infer parameter type for lambda in sort call '%s'", element));
+        }
+    }
+
+    private void visitListReplaceParameters(FunctionInvocation<Type> element, DMNContext context, Parameters<Type> parameters) {
+        ParameterTypes<Type> signature = parameters.getSignature();
+        if (signature.size() == 3) {
+            Expression<Type> listExpression;
+            Expression<Type> secondParameter;
+            boolean hasPosition = false;
+            Expression<Type> newItemExpression;
+            if (parameters instanceof PositionalParameters) {
+                listExpression = ((PositionalParameters<Type>) parameters).getParameters().get(0);
+                secondParameter = ((PositionalParameters<Type>) parameters).getParameters().get(1);
+                newItemExpression = ((PositionalParameters<Type>) parameters).getParameters().get(2);
+            } else {
+                listExpression = ((NamedParameters<Type>) parameters).getParameters().get("list");
+                secondParameter = ((NamedParameters<Type>) parameters).getParameters().get("position");
+                if (secondParameter == null) {
+                    hasPosition = true;
+                    secondParameter = ((NamedParameters<Type>) parameters).getParameters().get("match");
+                }
+                newItemExpression = ((NamedParameters<Type>) parameters).getParameters().get("newItem");
+            }
+            listExpression.accept(this, context);
+            Type listType = listExpression.getType();
+            if (listType instanceof ListType) {
+                Type elementType = ((ListType) listType).getElementType();
+                if (secondParameter instanceof FunctionDefinition) {
+                    List<FormalParameter<Type>> formalParameters = ((FunctionDefinition<Type>) secondParameter).getFormalParameters();
+                    formalParameters.forEach(p -> p.setType(elementType));
+                } else if (secondParameter instanceof Name) {
+                    Declaration declaration = context.lookupVariableDeclaration(((Name<Type>) secondParameter).getName());
+                    Type type = declaration.getType();
+                    if (type instanceof FunctionType && !(type instanceof BuiltinFunctionType)) {
+                        List<FormalParameter<Type>> formalParameters = ((FunctionType) type).getParameters();
+                        formalParameters.forEach(p -> p.setType(elementType));
+                    }
+                }
+            }
+            secondParameter.accept(this, context);
+            // Check type for named parameters invocation
+            Type secondParameterType = secondParameter.getType();
+            if (hasPosition && secondParameterType == NUMBER) {
+                handleError(context, element, String.format("Parameter 'position' must be a number, found '%s'", secondParameterType));
+            }
+            // Check cardinality and return type of 'match' parameter
+            if (secondParameterType instanceof FunctionType) {
+                List<FormalParameter<Type>> matchSignature = ((FunctionType) secondParameterType).getParameters();
+                if (matchSignature.size() != 2) {
+                    handleError(context, element, String.format("'match' parameter should have 2 parameters, found '%s'", matchSignature.size()));
+                }
+                Type returnType = ((FunctionType) secondParameterType).getReturnType();
+                if (returnType != BOOLEAN) {
+                    handleError(context, element, String.format("'match' parameter should return boolean, found '%s'", returnType));
+                }
+            }
+            newItemExpression.accept(this, context);
+        } else {
+            handleError(context, element, String.format("Expecting 3 parameters found '%s'", signature.size()));
         }
     }
 

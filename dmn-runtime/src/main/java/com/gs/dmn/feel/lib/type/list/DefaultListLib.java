@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib.type.list;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.LambdaExpression;
 
 import java.util.ArrayList;
@@ -120,6 +121,48 @@ public class DefaultListLib implements ListLib {
             result.addAll(list);
         }
         result.remove(position - 1);
+        return result;
+    }
+
+    @Override
+    public <T> List<T> listReplace(List<T> list, Object position, T newItem) {
+        if (list == null || position == null) {
+            return  null;
+        }
+
+        if (position instanceof Number) {
+            return listReplaceInt(list, (Number) position, newItem);
+        } else if (position instanceof LambdaExpression) {
+            return listReplaceMatch(list, (LambdaExpression) position, newItem);
+        } else {
+            throw new DMNRuntimeException(String.format("Illegal argument '%s'. Expected number or predicate", position.getClass().getName()));
+        }
+    }
+
+    private <T> List<T> listReplaceInt(List<T> list, Number position, T newItem) {
+        List result = new ArrayList<>();
+        result.addAll(list);
+
+        int index = position.intValue();
+        if (index < 0) {
+            index = list.size() + index;
+        } else {
+            --index;
+        }
+        result.set(index, newItem);
+        return result;
+    }
+
+    private <T> List<T> listReplaceMatch(List<T> list, LambdaExpression<Boolean> match, T newItem) {
+        List result = new ArrayList<>();
+        result.addAll(list);
+
+        for (int i=0; i<list.size(); i++) {
+            if (match.apply(list.get(i), newItem)) {
+                result.set(i, newItem);
+            }
+        }
+
         return result;
     }
 

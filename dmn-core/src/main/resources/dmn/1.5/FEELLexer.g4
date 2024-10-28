@@ -313,6 +313,9 @@ NAME:
     'time' WhiteSpace+ 'offset'
     { setText("time offset"); }
     |
+    'list' WhiteSpace+ 'replace'
+    { setText("list replace"); }
+    |
     NameStartChar ( NamePartChar )*
     |
     '\'' ( ~(['] | [\u000A-\u000D]) | '\'\'')*  '\''
