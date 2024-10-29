@@ -207,7 +207,29 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.durationLib.yearsAndMonthsDuration(from, to);
         } catch (Exception e) {
-            String message = String.format("yearsAndMonthsDURATION(%s, %s)", from, to);
+            String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Range range(String from) {
+        try {
+            return this.rangeLib.range(from);
+        } catch (Exception e) {
+            String message = String.format("range(\"%s\")", from);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean rangeContains(Range range, Object point) {
+        try {
+            return this.rangeLib.rangeContains(range, point);
+        } catch (Exception e) {
+            String message = String.format("rangeContains(\"%s\", \"%s\")", range, point);
             logError(message, e);
             return null;
         }
@@ -1734,18 +1756,54 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         if (type == null) {
             return null;
         }
-        switch (type) {
-            case "Null": return value == null;
-            case "Any": return value != null;
-            case "number": return this.numericType.isNumber(value);
-            case "string": return this.stringType.isString(value);
-            case "boolean": return this.booleanType.isBoolean(value);
-            case "date": return this.dateType.isDate(value);
-            case "time": return this.timeType.isTime(value);
-            case "date and time": return this.dateTimeType.isDateTime(value);
-            case "years and months duration": return this.durationType.isYearsAndMonthsDuration(value);
-            case "days and time duration": return this.durationType.isDaysAndTimeDuration(value);
-            default: throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
+        if (type.contains("(")) {
+            // Composite type
+            if (type.startsWith("ListType(")) {
+                if (!(value instanceof List)) {
+                    return false;
+                } else {
+                    String elementType = extractElementType(type);
+                    List list = (List) value;
+                    return list.stream().allMatch(e -> conformsTo(e, elementType));
+                }
+            } else if (type.startsWith("RangeType(")) {
+                if (!(value instanceof Range)) {
+                    return false;
+                } else {
+                    String elementType = extractElementType(type);
+                    Range range = (Range) value;
+                    return conformsTo(range.getStart(), elementType) && conformsTo(range.getEnd(), elementType);
+                }
+            } else if (type.startsWith("ItemDefinitionType((")) {
+                if (!(value instanceof Context)) {
+                    return false;
+                } else {
+                    throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
+                }
+            } else {
+                throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
+            }
+        } else {
+            // Primitive type
+            switch (type) {
+                case "Null": return value == null;
+                case "Any": return value != null;
+                case "number": return this.numericType.isNumber(value);
+                case "string": return this.stringType.isString(value);
+                case "boolean": return this.booleanType.isBoolean(value);
+                case "date": return this.dateType.isDate(value);
+                case "time": return this.timeType.isTime(value);
+                case "date and time": return this.dateTimeType.isDateTime(value);
+                case "years and months duration": return this.durationType.isYearsAndMonthsDuration(value);
+                case "days and time duration": return this.durationType.isDaysAndTimeDuration(value);
+                default: throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
+            }
         }
+    }
+
+    private static String extractElementType(String type) {
+        int firstOpenIndex = type.indexOf("(");
+        int lastCloseIndex = type.lastIndexOf(")");
+        return type.substring(firstOpenIndex + 1, lastCloseIndex);
     }
 }

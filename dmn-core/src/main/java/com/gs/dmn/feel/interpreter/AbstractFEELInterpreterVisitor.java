@@ -164,6 +164,12 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                         }
                         return this.lib.or(results);
                     }
+                } else if (endpointType instanceof RangeType) {
+                    Type endpointElementType = ((RangeType) endpointType).getRangeType();
+                    if (Type.sameSemanticDomain(endpointElementType, inputExpressionType)) {
+                        // input and range elements are comparable
+                        Range rangeValue = (Range) endpoint.accept(this, context);
+                        return ((StandardFEELLib) this.lib).rangeContains(rangeValue, self);                    }
                 }
 
                 // Cannot compare

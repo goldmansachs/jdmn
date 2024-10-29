@@ -490,6 +490,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String makeListType(String listType);
 
+    String makeRangeType();
+
     String nullableType(String type);
 
     String jdmnRootPackage();

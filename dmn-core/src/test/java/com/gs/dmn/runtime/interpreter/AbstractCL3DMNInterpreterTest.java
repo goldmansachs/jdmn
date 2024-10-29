@@ -627,4 +627,8 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
         doSingleModelTest("1.5", "1155-list-replace-function");
     }
 
+    @Test
+    public void test_15_cl3_1156_range_function() {
+        doSingleModelTest("1.5", "1156-range-function");
+    }
 }

@@ -1825,6 +1825,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
                 String elementType = toNativeType(((ListType) type).getElementType());
                 return makeListType(DMNToJavaTransformer.LIST_TYPE, elementType);
             }
+        } else if (type instanceof RangeType) {
+            return makeRangeType();
         } else if (type instanceof FunctionType) {
             if (type instanceof FEELFunctionType) {
                 String returnType = toNativeType(((FunctionType) type).getReturnType());
@@ -1857,6 +1859,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String makeListType(String listType) {
         return makeListType(listType, "? extends Object");
+    }
+
+    @Override
+    public String makeRangeType() {
+        return qualifiedName(Range.class);
     }
 
     @Override

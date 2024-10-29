@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1156-range-function.dmn</modelName>
+
+    <testCase id="001">
+        <description>Sanity check something is in range</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="001_a">
+        <description>range(number) instance of range&lt;number&gt;</description>
+        <resultNode name="decision001_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="001_b">
+        <description>range(number) instance of range&lt;number&gt;</description>
+        <resultNode name="decision001_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="001_c">
+        <description>range(string) instance of range&lt;string&gt;</description>
+        <resultNode name="decision001_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="001_d">
+        <description>range(date) instance of range&lt;date&gt;</description>
+        <resultNode name="decision001_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="001_e">
+        <description>range(date and time) instance of range&lt;date and time&gt;</description>
+        <resultNode name="decision001_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="001_g">
+        <description>range(time) instance of range&lt;time&gt;</description>
+        <resultNode name="decision001_g" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="001_h">
+        <description>range(days and time duration) instance of range&lt;days and time duration&gt;</description>
+        <resultNode name="decision001_h" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="001_i">
+        <description>range(years and months duration) instance of range&lt;years and months duration&gt;</description>
+        <resultNode name="decision001_i" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>sanity check using a non-literal string expression </description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003_a">
+        <description>range() function result equals FEEL range: [..]</description>
+        <resultNode name="decision003_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003_b">
+        <description>range() function result equals FEEL range: (..]</description>
+        <resultNode name="decision003_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003_c">
+        <description>range() function result equals FEEL range: ]..]</description>
+        <resultNode name="decision003_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003_d">
+        <description>range() function result equals FEEL range: [..)</description>
+        <resultNode name="decision003_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003_e">
+        <description>range() function result equals FEEL range: [..[</description>
+        <resultNode name="decision003_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004_e">
+        <description>closed start endpoint with no value is not valid and gives null</description>
+        <resultNode name="decision004_e" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004_f">
+        <description>closed end endpoint with no value is not valid and gives null</description>
+        <resultNode name="decision004_f" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005_a">
+        <description>range(string) function equals a unary FEEL range: string </description>
+        <resultNode name="decision005_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005_b">
+        <description>range(date) function equals a unary FEEL range: date </description>
+        <resultNode name="decision005_b" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005_c">
+        <description>range(date and time) function equals a unary FEEL range: date and time </description>
+        <resultNode name="decision005_c" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005_d">
+        <description>range(time) function equals a unary FEEL range: time </description>
+        <resultNode name="decision005_d" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005_e">
+        <description>range(days and time duration) function equals a unary FEEL range: days and time duration </description>
+        <resultNode name="decision005_e" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005_f">
+        <description>range(years and months duration) function equals a unary FEEL range: years and months duration </description>
+        <resultNode name="decision005_f" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006">
+        <description>will ignore whitespace when parsing</description>
+        <resultNode name="decision006" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007_a">
+        <description>use of date() function literal is permitted</description>
+        <resultNode name="decision007_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007_b">
+        <description>use of date() function as non literal is not permitted and gives null</description>
+        <resultNode name="decision007_b" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007_c">
+        <description>use of date() function as non literal is not permitted and gives null</description>
+        <inputNode name="input_001">
+            <value xsi:type="xsd:string">1970-01-01</value>
+        </inputNode>
+        <resultNode name="decision007_c" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008_a">
+        <description>use of date and time() function literal is permitted</description>
+        <resultNode name="decision008_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008_b">
+        <description>use of date and time() function as non literal is not permitted and gives null</description>
+        <resultNode name="decision008_b" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008_c">
+        <description>use of date and time() function as non literal is not permitted and gives null</description>
+        <inputNode name="input_001">
+            <value xsi:type="xsd:string">1970-01-01T00:00:00</value>
+        </inputNode>
+        <resultNode name="decision008_c" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009_a">
+        <description>use of time() function literal is permitted</description>
+        <resultNode name="decision009_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009_b">
+        <description>use of time() function as non literal is not permitted and gives null</description>
+        <resultNode name="decision009_b" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009_c">
+        <description>use of time() function as non literal is not permitted and gives null</description>
+        <inputNode name="input_001">
+            <value xsi:type="xsd:string">00:00:00</value>
+        </inputNode>
+        <resultNode name="decision009_c" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010_a">
+        <description>use of duration() function literal is permitted</description>
+        <resultNode name="decision010_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010_b">
+        <description>use of duration() function as non literal is not permitted and gives null</description>
+        <resultNode name="decision010_b" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="010_c">
+        <description>use of duration() function as non literal is not permitted and gives null</description>
+        <inputNode name="input_001">
+            <value xsi:type="xsd:string">P1D</value>
+        </inputNode>
+        <resultNode name="decision010_c" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="011">
+        <description>named argument</description>
+        <resultNode name="decision011" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="012">
+        <description>invalidly named argument gives null</description>
+        <resultNode name="decision012" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="013_a">
+        <description>too many arguments gives null</description>
+        <resultNode name="decision013_a" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="013_b">
+        <description>too few arguments gives null</description>
+        <resultNode name="decision013_b" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="014">
+        <description>invalid argument type gives null</description>
+        <resultNode name="decision014" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="015_a">
+        <description>empty string gives null</description>
+        <resultNode name="decision015_a" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="015_b">
+        <description>whitespace only gives null</description>
+        <resultNode name="decision015_b" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="016">
+        <description>non-literal argument providing invalid range string gives null</description>
+        <resultNode name="decision016" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="017">
+        <description>a unary range is not a valid literal range string and gives null</description>
+        <resultNode name="decision017" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="018">
+        <description>mismatching endpoint types gives null</description>
+        <resultNode name="decision018" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="019_a">
+        <!-- 10.3.2.7 Ranges "endpoints must be of equivalent types" -->
+        <description>date and date and time end points are not equivalent and gives null</description>
+        <resultNode name="decision019_a" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="019_b">
+        <!-- 10.3.2.7 Ranges  "endpoints must be of equivalent types" -->
+        <description>date and date and time end points are not equivalent and gives null</description>
+        <resultNode name="decision019_b" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="020">
+        <description>descending numeric range gives null</description>
+        <resultNode name="decision020" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="021">
+        <description>descending date range gives null</description>
+        <resultNode name="decision021" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="022">
+        <description>descending date time range gives null</description>
+        <resultNode name="decision022" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="023">
+        <description>descending string range gives null</description>
+        <resultNode name="decision023" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="024">
+        <description>descending date duration range gives null</description>
+        <resultNode name="decision024" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="025">
+        <description>descending year duration range gives null</description>
+        <resultNode name="decision025" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="026">
+        <description>descending time range gives null</description>
+        <resultNode name="decision026" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="027">
+        <description>both null endpoints gives null</description>
+        <resultNode name="decision027" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+
+</testCases>
