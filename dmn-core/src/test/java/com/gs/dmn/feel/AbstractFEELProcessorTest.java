@@ -2192,8 +2192,12 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testArithmeticNegation() {
         String number = "1";
+        String yearsAndMonthsDuration = "@\"P1Y1M\"";
+        String daysAndTimeDuration = "@\"P1DT1H\"";
+        String duration = "duration(\"P1DT1H\")";
         List<EnvironmentEntry> entries = Collections.singletonList(
-                new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
+                new EnvironmentEntry("input", NUMBER, this.lib.number("1"))
+        );
 
         doExpressionTest(entries, "", String.format("- %s", number),
                 "ArithmeticNegation(NumericLiteral(1))",
@@ -2201,37 +2205,54 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "numericUnaryMinus(number(\"1\"))",
                 this.lib.numericUnaryMinus(this.lib.number("1")),
                 this.lib.number("-1"));
-
         doExpressionTest(entries, "", String.format("-- %s", number),
                 "NumericLiteral(1)",
                 "number",
                 "number(\"1\")",
                 this.lib.number("1"),
                 this.lib.number("1"));
-
         doExpressionTest(entries, "", String.format("--- %s", number),
                 "ArithmeticNegation(NumericLiteral(1))",
                 "number",
                 "numericUnaryMinus(number(\"1\"))",
                 this.lib.numericUnaryMinus(this.lib.number("1")),
                 this.lib.number("-1"));
+
+        doExpressionTest(entries, "", String.format("- %s", yearsAndMonthsDuration),
+                "ArithmeticNegation(DateTimeLiteral(duration, \"P1Y1M\"))",
+                "years and months duration",
+                "durationUnaryMinus(duration(\"P1Y1M\"))",
+                this.lib.durationUnaryMinus(this.lib.duration("P1Y1M")),
+                this.lib.duration("-P1Y1M"));
+        doExpressionTest(entries, "", String.format("- %s", daysAndTimeDuration),
+                "ArithmeticNegation(DateTimeLiteral(duration, \"P1DT1H\"))",
+                "days and time duration",
+                "durationUnaryMinus(duration(\"P1DT1H\"))",
+                this.lib.durationUnaryMinus(this.lib.duration("P1DT1H")),
+                this.lib.duration("-PT25H"));
+        doExpressionTest(entries, "", String.format("- %s", duration),
+                "ArithmeticNegation(DateTimeLiteral(duration, \"P1DT1H\"))",
+                "days and time duration",
+                "durationUnaryMinus(duration(\"P1DT1H\"))",
+                this.lib.durationUnaryMinus(this.lib.duration("P1DT1H")),
+                this.lib.duration("-PT25H"));
     }
 
     @Test
     public void testArithmeticNegationOnIncorrectOperands() {
         Assertions.assertThrows(SemanticError.class, () -> {
-            String yearsAndMonthsDuration = "duration(\"P1Y1M\")";
-            String daysAndTimeDuration = "duration(\"P1DT1H\")";
+            String date = "date(\"2020-01-01\")";
+            String time = "time(\"21:00:00\")";
 
             List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
-            doExpressionTest(entries, "", String.format("- %s", yearsAndMonthsDuration),
+            doExpressionTest(entries, "", String.format("- %s", date),
                     "ArithmeticNegation(DateTimeLiteral(duration, \"P1Y1M\"))",
                     "years and months duration",
                     "numericUnaryMinus(duration(\"P1Y1M\"))",
                     null,
                     null);
-            doExpressionTest(entries, "", String.format("- %s", daysAndTimeDuration),
+            doExpressionTest(entries, "", String.format("- %s", time),
                     "ArithmeticNegation(DateTimeLiteral(duration, \"P1DT1H\"))",
                     "days and time duration",
                     "numericUnaryMinus(duration(\"P1DT1H\"))",

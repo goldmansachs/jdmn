@@ -56,6 +56,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
+
 public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
     private static final int INITIAL_VALUE = -1;
     private int filterCount = INITIAL_VALUE;
@@ -366,7 +368,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         // Filter
         if (filterType == BooleanType.BOOLEAN) {
             return this.triples.makeCollectionLogicFilter(source, newParameterName, filter);
-        } else if (filterType == NumberType.NUMBER) {
+        } else if (filterType == NUMBER) {
             // Compute element type
             Type elementType;
             if (sourceType instanceof ListType) {
@@ -514,7 +516,12 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
     public Triple visit(ArithmeticNegation<Type> element, DMNContext context) {
         Expression<Type> leftOperand = element.getLeftOperand();
         Triple leftOpd = (Triple) leftOperand.accept(this, context);
-        return this.triples.makeBuiltinFunctionInvocation("numericUnaryMinus", leftOpd);
+        Type type = element.getType();
+        if (type == NUMBER) {
+            return this.triples.makeBuiltinFunctionInvocation("numericUnaryMinus", leftOpd);
+        } else {
+            return this.triples.makeBuiltinFunctionInvocation("durationUnaryMinus", leftOpd);
+        }
     }
 
     //

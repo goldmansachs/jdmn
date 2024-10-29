@@ -623,6 +623,11 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     }
 
     @Test
+    public void test_15_cl3_0099_arithmetic_negation() {
+        doSingleModelTest("1.5", "0099-arithmetic-negation");
+    }
+
+    @Test
     public void test_15_cl3_1155_list_replace_function() {
         doSingleModelTest("1.5", "1155-list-replace-function");
     }

@@ -648,12 +648,12 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
 
         // Derive type
         Type type = element.getLeftOperand().getType();
-        element.setType(NUMBER);
-        if (type != NUMBER) {
+        if (type != NUMBER && !(type instanceof DurationType)) {
             handleError(context, element, String.format("Operator '%s' cannot be applied to '%s'", element.getOperator(), type));
         }
 
         // Derive type
+        element.setType(type);
         return element;
     }
 

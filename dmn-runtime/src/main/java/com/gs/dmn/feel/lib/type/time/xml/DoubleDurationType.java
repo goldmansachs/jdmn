@@ -17,6 +17,7 @@ import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.datatype.Duration;
+import java.time.Period;
 
 public class DoubleDurationType extends BaseDefaultDurationType implements DurationType<Duration, Double> {
     public DoubleDurationType() {
@@ -98,6 +99,21 @@ public class DoubleDurationType extends BaseDefaultDurationType implements Durat
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
+    }
+
+    @Override
+    public Duration durationUnaryMinus(Duration first) {
+        if (first == null) {
+            return null;
+        }
+
+        if (isDaysAndTimeDuration(first)) {
+            return first.negate();
+        } else if (isYearsAndMonthsDuration(first)) {
+            return first.negate();
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot negate '%s'", first));
         }
     }
 }

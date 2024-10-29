@@ -185,6 +185,21 @@ public class TemporalAmountDurationType extends BaseJavaTimeCalendarType impleme
         }
     }
 
+    @Override
+    public TemporalAmount durationUnaryMinus(TemporalAmount first) {
+        if (first == null) {
+            return null;
+        }
+
+        if (isDaysAndTimeDuration(first)) {
+            return ((Duration) first).negated();
+        } else if (isYearsAndMonthsDuration(first)) {
+            return ((Period) first).negated();
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot negate '%s'", first));
+        }
+    }
+
     private Long value(Period duration) {
         return duration == null ? null : duration.toTotalMonths();
     }

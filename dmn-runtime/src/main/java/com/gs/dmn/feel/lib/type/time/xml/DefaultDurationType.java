@@ -19,6 +19,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Period;
 
 public class DefaultDurationType extends BaseDefaultDurationType implements DurationType<Duration, BigDecimal> {
     public DefaultDurationType() {
@@ -107,6 +108,21 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
             return XMLDurationFactory.INSTANCE.dayTimeFromValue(seconds.longValue());
         } else {
             throw new DMNRuntimeException(String.format("Cannot divide '%s' by '%s'", first, second));
+        }
+    }
+
+    @Override
+    public Duration durationUnaryMinus(Duration first) {
+        if (first == null) {
+            return null;
+        }
+
+        if (isDaysAndTimeDuration(first)) {
+            return first.negate();
+        } else if (isYearsAndMonthsDuration(first)) {
+            return first.negate();
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot negate '%s'", first));
         }
     }
 

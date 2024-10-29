@@ -46,4 +46,6 @@ public interface DurationType<DURATION,  NUMBER> {
     DURATION durationMultiplyNumber(DURATION first, NUMBER second);
 
     DURATION durationDivideNumber(DURATION first, NUMBER second);
+
+    DURATION durationUnaryMinus(DURATION first);
 }

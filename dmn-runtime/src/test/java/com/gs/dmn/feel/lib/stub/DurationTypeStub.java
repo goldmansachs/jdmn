@@ -90,4 +90,9 @@ public class DurationTypeStub<DURATION, NUMBER> implements DurationType<DURATION
     public DURATION durationDivideNumber(DURATION first, NUMBER second) {
         throw new DMNRuntimeException("Not supported yet");
     }
+
+    @Override
+    public DURATION durationUnaryMinus(DURATION first) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
 }
