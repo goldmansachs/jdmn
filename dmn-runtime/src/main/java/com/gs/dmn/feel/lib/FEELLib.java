@@ -23,6 +23,7 @@ import com.gs.dmn.feel.lib.type.time.DateTimeType;
 import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.feel.lib.type.time.TimeType;
+import com.gs.dmn.runtime.Range;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,10 +77,14 @@ public interface FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     // Extra conversion functions
     //
-    List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end);
-    List<NUMBER> rangeToList(NUMBER start, NUMBER end);
-    Stream<NUMBER> rangeToStream(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end);
-    Stream<NUMBER> rangeToStream(NUMBER start, NUMBER endValue);
+    default <T> List<T> rangeToList(Range<T> range) {
+        return rangeToList(!range.isStartIncluded(), range.getStart(), !range.isEndIncluded(), range.getEnd());
+    }
+
+    <T> List<T> rangeToList(boolean isOpenStart, T start, boolean isOpenEnd, T end);
+    <T> List<T> rangeToList(T start, T end);
+    <T> Stream<T> rangeToStream(boolean isOpenStart, T start, boolean isOpenEnd, T end);
+    <T> Stream<T> rangeToStream(T start, T endValue);
 
     DATE toDate(Object from);
     TIME toTime(Object from);

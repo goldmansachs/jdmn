@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -194,6 +195,7 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
         assertEquals(makeNumberList(), getLib().rangeToList(false, null, false, null));
         assertEquals(makeNumberList(), getLib().rangeToList(false, null, false, makeNumber("3")));
         assertEquals(makeNumberList(), getLib().rangeToList(false, makeNumber("1"), false, null));
+        assertNull(getLib().rangeToList(false, makeNumber("3"), false, makeNumber("1")));
 
         assertEquals(makeNumberList("2"), getLib().rangeToList(true, makeNumber("1"), true, makeNumber("3")));
         assertEquals(makeNumberList("1", "2"), getLib().rangeToList(false, makeNumber("1"), true, makeNumber("3")));
@@ -209,6 +211,19 @@ public abstract class BaseFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> e
 
         assertEquals(makeNumberList(1, 2, 3), getLib().rangeToList(makeNumber("1"), makeNumber("3")));
         assertEquals(makeNumberList(3, 2, 1), getLib().rangeToList(makeNumber("3"), makeNumber("1")));
+    }
+
+    @Test
+    public void tesIterationDomainConstructor() {
+        // Function with 4 parameters
+        assertThrows(DMNRuntimeException.class, () -> {
+            ((BaseFEELLib) getLib()).iterationDomain(false, makeNumber("1.5"), false, makeNumber("3"));
+        });
+
+        // Function with 2 parameters
+        assertThrows(DMNRuntimeException.class, () -> {
+            ((BaseFEELLib) getLib()).iterationDomain(makeNumber("1.5"), makeNumber("3"));
+        });
     }
 
     @Test

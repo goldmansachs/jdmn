@@ -29,6 +29,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 import com.gs.dmn.runtime.interpreter.Result;
@@ -678,9 +679,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testTextualExpressions() {
-        String input = "abc";
-        List<EnvironmentEntry> entries = Collections.singletonList(
-                new EnvironmentEntry("input", NUMBER, input));
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doTextualExpressionsTest(entries, "1 + 2",
                 "Addition(+,NumericLiteral(1),NumericLiteral(2))",
@@ -694,13 +693,19 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     public void testForExpression() {
         List<EnvironmentEntry> entries = Collections.emptyList();
 
-        doExpressionTest(entries, "", "for i in 0..4 return if i = 0 then 1 else i * partial[-1]",
-                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(0), NumericLiteral(4))) -> IfExpression(Relational(=,Name(i),NumericLiteral(0)), NumericLiteral(1), Multiplication(*,Name(i),FilterExpression(Name(partial), ArithmeticNegation(NumericLiteral(1))))))",
+        // number one range
+        doExpressionTest(entries, "", "for i in 1..1 return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(1))) -> Name(i))",
                 "ListType(number)",
-                "rangeToList(number(\"0\"), number(\"4\")).stream().map(i -> (booleanEqual(numericEqual(i, number(\"0\")), Boolean.TRUE)) ? number(\"1\") : numericMultiply(i, ("+numberType()+")(elementAt(partial, numericUnaryMinus(number(\"1\")))))).collect(Collectors.toList())",
-                null,
-                null
-        );
+                "rangeToList(number(\"1\"), number(\"1\")).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("1")).stream().map(i -> i).collect(Collectors.toList()),
+                Arrays.asList(this.lib.number("1")));
+        doExpressionTest(entries, "", "for i in 1..2 return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> Name(i))",
+                "ListType(number)",
+                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
+                Arrays.asList(this.lib.number("1"), this.lib.number("2")));
         doExpressionTest(entries, "", "for i in 4..2 return i",
                 "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(4), NumericLiteral(2))) -> Name(i))",
                 "ListType(number)",
@@ -715,42 +720,51 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.rangeToList(this.lib.number("1"), this.lib.numericUnaryMinus(this.lib.number("1"))).stream().map(i -> i).collect(Collectors.toList()),
                 this.lib.asList(this.lib.number("1"), this.lib.number("0"), this.lib.number("-1"))
         );
+        doExpressionTest(entries, "", "for i in 0..4 return if i = 0 then 1 else i * partial[-1]",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(0), NumericLiteral(4))) -> IfExpression(Relational(=,Name(i),NumericLiteral(0)), NumericLiteral(1), Multiplication(*,Name(i),FilterExpression(Name(partial), ArithmeticNegation(NumericLiteral(1))))))",
+                "ListType(number)",
+                "rangeToList(number(\"0\"), number(\"4\")).stream().map(i -> (booleanEqual(numericEqual(i, number(\"0\")), Boolean.TRUE)) ? number(\"1\") : numericMultiply(i, ("+numberType()+")(elementAt(partial, numericUnaryMinus(number(\"1\")))))).collect(Collectors.toList())",
+                null,
+                null
+        );
 
-        doExpressionTest(entries, "", "for i in 1..2 return for j in [2, 3] return i+j",
-                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
-                "ListType(ListType(number))",
-                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
-                this.lib.rangeToList(this.lib.number("1"), this.lib.number("2")).stream().map(i -> this.lib.asList(this.lib.number("2"), this.lib.number("3")).stream().map(j -> this.lib.numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
-                Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))));
-        doExpressionTest(entries, "", "for i in [1..2] return i",
-                "ForExpression(Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))) -> Name(i))",
+        // real number one range
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            doExpressionTest(entries, "", "for i in 1.3..2 return i",
+                    "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1.3), NumericLiteral(2))) -> Name(i))",
+                    "ListType(number)",
+                    "rangeToList(number(\"1.3\"), number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
+                    this.lib.rangeToList(this.lib.number("1.3"), this.lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
+                    Arrays.asList(this.lib.number("1.3")));
+        });
+
+        // number two ranges
+        doExpressionTest(entries, "", "for i in 1..2, j in 2..3 return i+j",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))),Iterator(j in RangeIteratorDomain(NumericLiteral(2), NumericLiteral(3))) -> Addition(+,Name(i),Name(j)))",
                 "ListType(number)",
-                "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
-                this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
-                Arrays.asList(this.lib.number("1"), this.lib.number("2")));
-        doExpressionTest(entries, "", "for i in [1..2], j in [2..3] return i+j",
-                "ForExpression(Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Addition(+,Name(i),Name(j)))",
-                "ListType(number)",
-                "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericAdd(i, j))).flatMap(x -> x).collect(Collectors.toList())",
-                this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i ->
-                        this.lib.rangeToList(false, this.lib.number("2"), false, this.lib.number("3")).stream().map(j ->
-                                this.lib.numericAdd(i, j)))
-                        .flatMap(x -> x)
-                        .collect(Collectors.toList()),
+                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> rangeToList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j))).flatMap(x -> x).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.number("1"), this.lib.number("2")).stream().map(i ->
+                        this.lib.rangeToList(this.lib.number("2"), this.lib.number("3")).stream().map(j ->
+                                this.lib.numericAdd(i, j))).flatMap(x -> x).collect(Collectors.toList()),
                 Arrays.asList(this.lib.number("3"), this.lib.number("4"), this.lib.number("4"), this.lib.number("5")));
-        doExpressionTest(entries, "", "for i in [1..2] return for j in [2..3] return i+j",
-                "ForExpression(Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
+        doExpressionTest(entries, "", "for i in 1..2 return for j in 2..3 return i+j",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in RangeIteratorDomain(NumericLiteral(2), NumericLiteral(3))) -> Addition(+,Name(i),Name(j))))",
                 "ListType(ListType(number))",
-                "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
-                Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))),
+                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> rangeToList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.number("1"), this.lib.number("2")).stream().map(i ->
+                        this.lib.rangeToList(this.lib.number("2"), this.lib.number("3")).stream().map(j ->
+                                this.lib.numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
                 Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))));
 
+        // number one list
         doExpressionTest(entries, "", "for i in [1, 2] return i",
                 "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))) -> Name(i))",
                 "ListType(number)",
                 "asList(number(\"1\"), number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
                 Arrays.asList(this.lib.number("1"), this.lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2")));
+
+        // number two lists
         doExpressionTest(entries, "", "for i in [1, 2], j in [2, 3] return i+j",
                 "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j)))",
                 "ListType(number)",
@@ -771,6 +785,65 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                                 .collect(Collectors.toList()))
                         .collect(Collectors.toList()),
                 Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))));
+
+        // number two domains, mixture
+        doExpressionTest(entries, "", "for i in 1..2 return for j in [2, 3] return i+j",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
+                "ListType(ListType(number))",
+                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.number("1"), this.lib.number("2")).stream().map(i -> this.lib.asList(this.lib.number("2"), this.lib.number("3")).stream().map(j -> this.lib.numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
+                Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))));
+
+        // date one list
+        doExpressionTest(entries, "", "for i in [@\"1980-01-01\", @\"1980-01-02\"] return i",
+                "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-01\"),DateTimeLiteral(date, \"1980-01-02\")))) -> Name(i))",
+                "ListType(date)",
+                "asList(date(\"1980-01-01\"), date(\"1980-01-02\")).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.asList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")).stream().map(i -> i).collect(Collectors.toList()),
+                Arrays.asList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")));
+
+        // date two lists
+        doExpressionTest(entries, "", "for i in [@\"1980-01-01\", @\"1980-01-02\"], j in [@\"1980-01-02\", @\"1980-01-03\"] return i-j",
+                "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-01\"),DateTimeLiteral(date, \"1980-01-02\")))),Iterator(j in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-02\"),DateTimeLiteral(date, \"1980-01-03\")))) -> Addition(-,Name(i),Name(j)))",
+                "ListType(days and time duration)",
+                "asList(date(\"1980-01-01\"), date(\"1980-01-02\")).stream().map(i -> asList(date(\"1980-01-02\"), date(\"1980-01-03\")).stream().map(j -> dateSubtract(i, j))).flatMap(x -> x).collect(Collectors.toList())",
+                this.lib.asList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")).stream().map(i ->
+                        this.lib.asList(this.lib.date("1980-01-02"), this.lib.date("1980-01-03")).stream().map(j ->
+                                this.lib.dateSubtract(i, j))).flatMap(x -> x).collect(Collectors.toList()),
+                Arrays.asList(this.lib.duration("-PT24H"), this.lib.duration("-PT48H"), this.lib.duration("PT0S"), this.lib.duration("-PT24H")));
+        doExpressionTest(entries, "", "for i in [@\"1980-01-01\", @\"1980-01-02\"] return for j in [@\"1980-01-02\", @\"1980-01-03\"] return i-j",
+                "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-01\"),DateTimeLiteral(date, \"1980-01-02\")))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-02\"),DateTimeLiteral(date, \"1980-01-03\")))) -> Addition(-,Name(i),Name(j))))",
+                "ListType(ListType(days and time duration))",
+                "asList(date(\"1980-01-01\"), date(\"1980-01-02\")).stream().map(i -> asList(date(\"1980-01-02\"), date(\"1980-01-03\")).stream().map(j -> dateSubtract(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
+                this.lib.asList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")).stream().map(i ->
+                        this.lib.asList(this.lib.date("1980-01-02"), this.lib.date("1980-01-03")).stream().map(j ->
+                                this.lib.dateSubtract(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
+                Arrays.asList(Arrays.asList(this.lib.duration("-PT24H"), this.lib.duration("-PT48H")), Arrays.asList(this.lib.duration("PT0S"), this.lib.duration("-PT24H"))));
+
+        // date one range
+        doExpressionTest(entries, "", "for i in @\"1980-01-01\"..@\"1980-01-02\" return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(DateTimeLiteral(date, \"1980-01-01\"), DateTimeLiteral(date, \"1980-01-02\"))) -> Name(i))",
+                "ListType(date)",
+                "rangeToList(date(\"1980-01-01\"), date(\"1980-01-02\")).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")).stream().map(i -> i).collect(Collectors.toList()),
+                Arrays.asList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")));
+        doExpressionTest(entries, "", "for i in @\"1980-01-04\"..@\"1980-01-02\" return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(DateTimeLiteral(date, \"1980-01-04\"), DateTimeLiteral(date, \"1980-01-02\"))) -> Name(i))",
+                "ListType(date)",
+                "rangeToList(date(\"1980-01-04\"), date(\"1980-01-02\")).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.date("1980-01-04"), this.lib.date("1980-01-02")).stream().map(i -> i).collect(Collectors.toList()),
+                this.lib.asList(this.lib.date("1980-01-04"), this.lib.date("1980-01-03"), this.lib.date("1980-01-02"))
+        );
+
+        // date two domains, mixture
+        doExpressionTest(entries, "", "for i in @\"1980-01-01\"..@\"1980-01-02\" return for j in [@\"1980-01-02\", @\"1980-01-03\"] return i-j",
+                "ForExpression(Iterator(i in RangeIteratorDomain(DateTimeLiteral(date, \"1980-01-01\"), DateTimeLiteral(date, \"1980-01-02\"))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-02\"),DateTimeLiteral(date, \"1980-01-03\")))) -> Addition(-,Name(i),Name(j))))",
+                "ListType(ListType(days and time duration))",
+                "rangeToList(date(\"1980-01-01\"), date(\"1980-01-02\")).stream().map(i -> asList(date(\"1980-01-02\"), date(\"1980-01-03\")).stream().map(j -> dateSubtract(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.date("1980-01-01"),this.lib.date("1980-01-02")).stream().map(i ->
+                        this.lib.asList(this.lib.date("1980-01-02"), this.lib.date("1980-01-03")).stream().map(j ->
+                                this.lib.dateSubtract(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
+                Arrays.asList(Arrays.asList(this.lib.duration("-PT24H"), this.lib.duration("-PT48H")), Arrays.asList(this.lib.duration("PT0S"), this.lib.duration("-PT24H"))));
     }
 
     @Test
@@ -839,29 +912,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        doExpressionTest(entries, "", "some i in [1..2] j in [2..3] satisfies i + j > 1",
-                "QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
-                "boolean",
-                "booleanOr((List)rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
-                this.lib.booleanOr((List)
-                        this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i ->
-                                this.lib.rangeToList(false, this.lib.number("2"), false, this.lib.number("3")).stream().map(j ->
-                                        this.lib.numericGreaterThan(this.lib.numericAdd(i, j), this.lib.number("1"))))
-                                .flatMap(x -> x)
-                                .collect(Collectors.toList())),
-                true);
-        doExpressionTest(entries, "", "every i in [1..2] j in [2..3] satisfies i + j > 1",
-                "QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
-                "boolean",
-                "booleanAnd((List)rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
-                this.lib.booleanAnd((List)
-                        this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i ->
-                                this.lib.rangeToList(false, this.lib.number("2"), false, this.lib.number("3")).stream().map(j ->
-                                        this.lib.numericGreaterThan(this.lib.numericAdd(i, j), this.lib.number("1"))))
-                                .flatMap(x -> x)
-                                .collect(Collectors.toList())),
-                true);
-
+        // two domains - list
         doExpressionTest(entries, "", "some i in [1, 2] j in [2, 3] satisfies i + j > 1",
                 "QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                 "boolean",
@@ -882,6 +933,28 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                         .flatMap(x -> x)
                         .collect(Collectors.toList())),
                 true);
+
+        // two domains - ranges
+        Assertions.assertThrows(SemanticError.class, () -> {
+            doExpressionTest(entries, "", "some i in [1..2] j in [2..3] satisfies i + j > 1",
+                    "QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
+                    "boolean",
+                    "booleanOr((List)rangeToList(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\"))).stream().map(i -> rangeToList(new com.gs.dmn.runtime.Range<>(true, number(\"2\"), true, number(\"3\"))).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
+                    this.lib.booleanOr((List)this.lib.rangeToList(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2"))).stream().map(i ->
+                            this.lib.rangeToList(new com.gs.dmn.runtime.Range<>(true, this.lib.number("2"), true, this.lib.number("3"))).stream().map(j ->
+                                    this.lib.numericGreaterThan(this.lib.numericAdd(i, j), this.lib.number("1")))).flatMap(x -> x).collect(Collectors.toList())),
+                    true);
+        });
+        Assertions.assertThrows(SemanticError.class, () -> {
+            doExpressionTest(entries, "", "every i in [1..2] j in [2..3] satisfies i + j > 1",
+                    "QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
+                    "boolean",
+                    "booleanAnd((List)rangeToList(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\"))).stream().map(i -> rangeToList(new com.gs.dmn.runtime.Range<>(true, number(\"2\"), true, number(\"3\"))).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
+                    this.lib.booleanAnd((List)this.lib.rangeToList(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2"))).stream().map(i ->
+                            this.lib.rangeToList(new com.gs.dmn.runtime.Range<>(true, this.lib.number("2"), true, this.lib.number("3"))).stream().map(j ->
+                                    this.lib.numericGreaterThan(this.lib.numericAdd(i, j), this.lib.number("1")))).flatMap(x -> x).collect(Collectors.toList())),
+                    true);
+        });
     }
 
     @Test
@@ -1128,58 +1201,58 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "[1..10] = [1..10]",
                 "Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"10\")), new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("10")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("10"))),
                 true);
         doExpressionTest(entries, "", "[1..10] = [1..11]",
                 "Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(11)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"11\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("11"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"10\")), new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"11\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("10")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("11"))),
                 false);
         doExpressionTest(entries, "", "[1..10] = [1..10)",
                 "Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(1),true,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"1\"), false, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("1"), false, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"10\")), new com.gs.dmn.runtime.Range<>(true, number(\"1\"), false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("10")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), false, this.lib.number("10"))),
                 false);
 
         // operator range
         doExpressionTest(entries, "", "(< 10) = (null..10)",
                 "Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,NullLiteral(),true,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(\"<\", number(\"10\")), new com.gs.dmn.runtime.Range(false, null, false, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("<", this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null, false, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(\"<\", number(\"10\")), new com.gs.dmn.runtime.Range<>(false, null, false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>("<", this.lib.number("10")), new com.gs.dmn.runtime.Range<>(false, null, false, this.lib.number("10"))),
                 false);
         doExpressionTest(entries, "", "(<= 10) = (null..10]",
                 "Relational(=,OperatorRange(<=,NumericLiteral(10)),EndpointsRange(true,NullLiteral(),false,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(\"<=\", number(\"10\")), new com.gs.dmn.runtime.Range(false, null, true, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("<=", this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null, true, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(\"<=\", number(\"10\")), new com.gs.dmn.runtime.Range<>(false, null, true, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>("<=", this.lib.number("10")), new com.gs.dmn.runtime.Range<>(false, null, true, this.lib.number("10"))),
                 false);
         doExpressionTest(entries, "", "(> 10) = (10..null)",
                 "Relational(=,OperatorRange(>,NumericLiteral(10)),EndpointsRange(true,NumericLiteral(10),true,NullLiteral()))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(\">\", number(\"10\")), new com.gs.dmn.runtime.Range(false, number(\"10\"), false, null))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(">", this.lib.number("10")), new com.gs.dmn.runtime.Range(false, this.lib.number("10"), false, null)),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(\">\", number(\"10\")), new com.gs.dmn.runtime.Range<>(false, number(\"10\"), false, null))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>(">", this.lib.number("10")), new com.gs.dmn.runtime.Range<>(false, this.lib.number("10"), false, null)),
                 false);
         doExpressionTest(entries, "", "(>= 10) = [10..null)",
                 "Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,NullLiteral()))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(\">=\", number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(">=", this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null)),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(\">=\", number(\"10\")), new com.gs.dmn.runtime.Range<>(true, number(\"10\"), false, null))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>(">=", this.lib.number("10")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("10"), false, null)),
                 false);
         doExpressionTest(entries, "", "(=10) = [10..10]",
                 "Relational(=,OperatorRange(=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),false,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(\"=\", number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"10\"), true, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("=", this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), true, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(\"=\", number(\"10\")), new com.gs.dmn.runtime.Range<>(true, number(\"10\"), true, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>("=", this.lib.number("10")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("10"), true, this.lib.number("10"))),
                 false);
         doExpressionTest(entries, "", "(!=10) = (!=10)",
                 "Relational(=,OperatorRange(!=,NumericLiteral(10)),OperatorRange(!=,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(\"!=\", number(\"10\")), new com.gs.dmn.runtime.Range(\"!=\", number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("!=", this.lib.number("10")), new com.gs.dmn.runtime.Range("!=", this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(\"!=\", number(\"10\")), new com.gs.dmn.runtime.Range<>(\"!=\", number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>("!=", this.lib.number("10")), new com.gs.dmn.runtime.Range<>("!=", this.lib.number("10"))),
                 true);
     }
 
@@ -1374,14 +1447,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "[1..10] = null",
                 "Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),NullLiteral())",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")), null)",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10")), null),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"10\")), null)",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("10")), null),
                 false);
         doExpressionTest(entries, "", "null = [1..10]",
                 "Relational(=,NullLiteral(),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(null, new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"10\")))",
-                this.lib.rangeEqual(null, new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("10"))),
+                "rangeEqual(null, new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"10\")))",
+                this.lib.rangeEqual(null, new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("10"))),
                 false);
 
         doExpressionTest(entries, "", "null = null",
@@ -2661,7 +2734,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(expressionPairs, "", "[1, <2, [3..4]]",
                 "ListLiteral(NumericLiteral(1),OperatorRange(<,NumericLiteral(2)),EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4)))",
                 "ListType(Any)",
-                "asList(number(\"1\"), new com.gs.dmn.runtime.Range(\"<\", number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"3\"), true, number(\"4\")))",
+                "asList(number(\"1\"), new com.gs.dmn.runtime.Range<>(\"<\", number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"3\"), true, number(\"4\")))",
                 null,
                 null);
 
@@ -2874,14 +2947,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "(< 10) = (null_input..10)",
                 "Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,Name(null_input),true,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(\"<\", number(\"10\")), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("<", this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(\"<\", number(\"10\")), new com.gs.dmn.runtime.Range<>(false, null_input, false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>("<", this.lib.number("10")), new com.gs.dmn.runtime.Range<>(false, null_input, false, this.lib.number("10"))),
                 false);
         doExpressionTest(entries, "", "(>=; 10) = [10..null_input)",
                 "Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,Name(null_input)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(\">=\", number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(">=", this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(\">=\", number(\"10\")), new com.gs.dmn.runtime.Range<>(true, number(\"10\"), false, null_input))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>(">=", this.lib.number("10")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("10"), false, null_input)),
                 false);
     }
 
@@ -2904,14 +2977,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "(< 10) = (null_input..10)",
                 "Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,Name(null_input),true,NumericLiteral(10)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(\"<\", number(\"10\")), new com.gs.dmn.runtime.Range(false, null_input, false, number(\"10\")))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range("<", this.lib.number("10")), new com.gs.dmn.runtime.Range(false, null_input, false, this.lib.number("10"))),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(\"<\", number(\"10\")), new com.gs.dmn.runtime.Range<>(false, null_input, false, number(\"10\")))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>("<", this.lib.number("10")), new com.gs.dmn.runtime.Range<>(false, null_input, false, this.lib.number("10"))),
                 false);
         doExpressionTest(entries, "", "(>=; 10) = [10..null_input)",
                 "Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,Name(null_input)))",
                 "boolean",
-                "rangeEqual(new com.gs.dmn.runtime.Range(\">=\", number(\"10\")), new com.gs.dmn.runtime.Range(true, number(\"10\"), false, null_input))",
-                this.lib.rangeEqual(new com.gs.dmn.runtime.Range(">=", this.lib.number("10")), new com.gs.dmn.runtime.Range(true, this.lib.number("10"), false, null_input)),
+                "rangeEqual(new com.gs.dmn.runtime.Range<>(\">=\", number(\"10\")), new com.gs.dmn.runtime.Range<>(true, number(\"10\"), false, null_input))",
+                this.lib.rangeEqual(new com.gs.dmn.runtime.Range<>(">=", this.lib.number("10")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("10"), false, null_input)),
                 false);
     }
 
