@@ -108,7 +108,7 @@
 		<dependency>
 			<groupId>org.fitnesse</groupId>
 			<artifactId>fitnesse</artifactId>
-			<version>20240707</version>
+			<version>20241207</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
