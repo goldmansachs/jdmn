@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.lib;
 
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.DMNType;
 import com.gs.dmn.runtime.LambdaExpression;
 import com.gs.dmn.runtime.Range;
 import org.junit.jupiter.api.Test;
@@ -1162,5 +1163,99 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
         assertEquals(Collections.emptyList(), getLib().sort(Collections.emptyList(), null));
 
         assertEquals(Arrays.asList("1", "2", "3"), getLib().sort(Arrays.asList("3", "1", "2"), comparator));
+    }
+
+    @Test
+    public void testIsInstanceOf() {
+        // Incorrect type
+        assertNull(getLib().isInstanceOf(makeNumber("123"), "x"));
+
+        //
+        // Primitive types
+        //
+        // Null type
+        assertTrue(getLib().isInstanceOf(null, "Null"));
+        assertFalse(getLib().isInstanceOf(makeNumber("123"), "Null"));
+        // Any type
+        assertFalse(getLib().isInstanceOf(null, "Any"));
+        assertTrue(getLib().isInstanceOf(makeNumber("123"), "Any"));
+        // number type
+        assertFalse(getLib().isInstanceOf(null, "number"));
+        assertTrue(getLib().isInstanceOf(makeNumber("123"), "number"));
+        assertFalse(getLib().isInstanceOf("abc", "number"));
+        // string type
+        assertFalse(getLib().isInstanceOf(null, "string"));
+        assertTrue(getLib().isInstanceOf("123", "string"));
+        assertFalse(getLib().isInstanceOf(makeNumber("123"), "string"));
+        // boolean type
+        assertFalse(getLib().isInstanceOf(null, "boolean"));
+        assertTrue(getLib().isInstanceOf(true, "boolean"));
+        assertFalse(getLib().isInstanceOf("abc", "boolean"));
+        // date type
+        assertFalse(getLib().isInstanceOf(null, "date"));
+        assertTrue(getLib().isInstanceOf(makeDate("2016-01-01"), "date"));
+        assertFalse(getLib().isInstanceOf("abc", "date"));
+        // time type
+        assertFalse(getLib().isInstanceOf(null, "time"));
+        assertTrue(getLib().isInstanceOf(makeTime("12:00:00"), "time"));
+        assertFalse(getLib().isInstanceOf("abc", "time"));
+        // date and time type
+        assertFalse(getLib().isInstanceOf(null, "date and time"));
+        assertTrue(getLib().isInstanceOf(makeDateAndTime("2020-01-01T12:00:00"), "date and time"));
+        assertFalse(getLib().isInstanceOf("abc", "date and time"));
+        // years and months duration type
+        assertFalse(getLib().isInstanceOf(null, "years and months duration"));
+        assertTrue(getLib().isInstanceOf(makeDuration("P1Y1M"), "years and months duration"));
+        assertFalse(getLib().isInstanceOf("abc", "years and months duration"));
+        // days and time duration type
+        assertFalse(getLib().isInstanceOf(null, "days and time duration"));
+        assertTrue(getLib().isInstanceOf(makeDuration("P1D"), "days and time duration"));
+        assertFalse(getLib().isInstanceOf("abc", "days and time duration"));
+
+        //
+        // Composite types
+        //
+        // List type
+        assertNull(getLib().isInstanceOf(null, "list"));
+        assertNull(getLib().isInstanceOf(null, "list<>"));
+        assertFalse(getLib().isInstanceOf(null, "list<number>"));
+        assertTrue(getLib().isInstanceOf(makeNumberList(1, 2, 3), "list<number>"));
+        assertFalse(getLib().isInstanceOf(makeStringList("1", "2", "3"), "list<number>"));
+        assertFalse(getLib().isInstanceOf(makeNumber(1), "list<number>"));
+
+        // Range type
+        assertNull(getLib().isInstanceOf(null, "range"));
+        assertNull(getLib().isInstanceOf(null, "range<>"));
+        assertFalse(getLib().isInstanceOf(null, "range<number>"));
+        assertTrue(getLib().isInstanceOf(makeRange(makeNumber("1"), makeNumber("2")), "range<number>"));
+        assertFalse(getLib().isInstanceOf(makeRange("1", "2"), "range<number>"));
+        assertFalse(getLib().isInstanceOf(makeNumber(1), "range<number>"));
+
+        // Context type
+        assertNull(getLib().isInstanceOf(null, "context"));
+        assertNull(getLib().isInstanceOf(null, "context<>"));
+        assertFalse(getLib().isInstanceOf(null, "context<a: number, b:string>"));
+        assertTrue(getLib().isInstanceOf(new Context().add("a", makeNumber("1")).add("b", "2"), "context<a: number, b:string>"));
+        assertTrue(getLib().isInstanceOf(new Context().add("a", makeNumber("1")).add("b", "2").add("c", "123"), "context<a: number, b:string>"));
+        assertFalse(getLib().isInstanceOf(new Context().add("a", makeNumber("1")), "context<a: number, b:string>"));
+        assertTrue(getLib().isInstanceOf(new DMNType() {
+            @Override
+            public Context toContext() {
+                return new Context().add("a", makeNumber("1")).add("b", "2");
+            }
+        }, "context<a: number, b:string>"));
+        assertFalse(getLib().isInstanceOf(makeNumber(1), "context<a: number, b:string>"));
+
+        // Function type, NOT SUPPORTED
+        LambdaExpression<Boolean> function = new LambdaExpression<Boolean>() {
+            public Boolean apply(Object... args_) {
+                NUMBER x = (NUMBER) args_[0];
+                NUMBER y = (NUMBER) args_[1];
+                return getLib().numericLessThan(y, x);
+            }
+        };
+        assertFalse(getLib().isInstanceOf(null, "function<number, string> -> number"));
+        assertNull(getLib().isInstanceOf(function, "function<number, number> -> boolean"));
+        assertFalse(getLib().isInstanceOf(makeNumber(1), "function<number, string> -> number"));
     }
 }

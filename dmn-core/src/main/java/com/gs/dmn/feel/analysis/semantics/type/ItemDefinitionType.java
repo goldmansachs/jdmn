@@ -86,6 +86,12 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType, 
     }
 
     @Override
+    public String typeExpression() {
+        String members = this.members.entrySet().stream().map(e -> String.format("%s: %s", e.getKey(), e.getValue().typeExpression())).collect(Collectors.joining(", "));
+        return String.format("context<%s>", members);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

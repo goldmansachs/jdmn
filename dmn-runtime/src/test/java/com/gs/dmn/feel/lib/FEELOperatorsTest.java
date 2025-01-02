@@ -1423,6 +1423,10 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
         return result;
     }
 
+    protected Range makeRange(Object start, Object end) {
+        return new Range(true, start, true, end);
+    }
+
     protected DATE makeDate(String literal) {
         return getLib().date(literal);
     }

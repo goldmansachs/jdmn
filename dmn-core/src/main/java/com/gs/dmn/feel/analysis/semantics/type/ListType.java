@@ -65,6 +65,11 @@ public class ListType implements com.gs.dmn.el.analysis.semantics.type.ListType 
     }
 
     @Override
+    public String typeExpression() {
+        return String.format("list<%s>", elementType.typeExpression());
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

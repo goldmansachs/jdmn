@@ -10,29 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.semantics.type;
+package com.gs.dmn.feel.lib.reference;
 
-import com.gs.dmn.el.analysis.semantics.type.Type;
-
-public class EnumerationType extends NamedType {
-    public static final EnumerationType ENUMERATION = new EnumerationType();
-
-    public EnumerationType() {
-        super("enumeration");
-    }
-
-    @Override
-    public boolean equivalentTo(Type other) {
-        return other == ENUMERATION;
-    }
-
-    @Override
-    public boolean conformsTo(Type other) {
-        return other == ENUMERATION;
-    }
-
-    @Override
-    public String typeExpression() {
-        return "string";
-    }
+public interface Type {
 }

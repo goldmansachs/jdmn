@@ -12,6 +12,9 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.reference.SimpleType;
+import com.gs.dmn.feel.lib.reference.Type;
+import com.gs.dmn.feel.lib.reference.TypeReference;
 import com.gs.dmn.feel.lib.type.bool.BooleanLib;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
 import com.gs.dmn.feel.lib.type.context.ContextType;
@@ -26,10 +29,7 @@ import com.gs.dmn.feel.lib.type.range.RangeType;
 import com.gs.dmn.feel.lib.type.string.StringLib;
 import com.gs.dmn.feel.lib.type.string.StringType;
 import com.gs.dmn.feel.lib.type.time.*;
-import com.gs.dmn.runtime.Context;
-import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.LambdaExpression;
-import com.gs.dmn.runtime.Range;
+import com.gs.dmn.runtime.*;
 
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -1416,6 +1416,101 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         }
     }
 
+    @Override
+    // Table 62: Semantics of type-checking
+    // If e2 cannot be mapped to a node in the lattice L, the result is null.
+    // If e1 is null and type(e2) is Null, the result is true.
+    // If type(e1) conforms to type(e2) (see section 10.3.2.9) and e1 is not null, the result is true.
+    // Otherwise the result is false.
+    public Boolean isInstanceOf(Object value, String type) {
+        try {
+            TypeReference typeReference = new TypeReference(type);
+            if (typeReference == null) {
+                return null;
+            }
+            if (value == null) {
+                return "Null".equals(typeReference.getTypeExpression());
+            } else {
+                return conformsTo(value, typeReference.getType());
+            }
+        } catch (Exception e) {
+            String message = String.format("instance of(%s, %s)", value, type);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    private Boolean conformsTo(Object value, Type type) {
+        if (value == null) {
+            return true;
+        }
+        if (type instanceof SimpleType) {
+            String typeName = ((SimpleType) type).getName();
+            switch (typeName) {
+                case "Null": return value == null;
+                case "Any": return value != null;
+                case "number": return this.numericType.isNumber(value);
+                case "string": return this.stringType.isString(value);
+                case "boolean": return this.booleanType.isBoolean(value);
+                case "date": return this.dateType.isDate(value);
+                case "time": return this.timeType.isTime(value);
+                case "date and time": return this.dateTimeType.isDateTime(value);
+                case "years and months duration": return this.durationType.isYearsAndMonthsDuration(value);
+                case "days and time duration": return this.durationType.isDaysAndTimeDuration(value);
+                default: throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
+            }
+        } else if (type instanceof com.gs.dmn.feel.lib.reference.ListType) {
+            if (value instanceof List) {
+                Type elementType = ((com.gs.dmn.feel.lib.reference.ListType) type).getElementType();
+                for (Object e: (List) value) {
+                    Boolean checkElement = conformsTo(e, elementType);
+                    if (checkElement != Boolean.TRUE) {
+                        return Boolean.FALSE;
+                    }
+                }
+                return Boolean.TRUE;
+            } else {
+                return Boolean.FALSE;
+            }
+        } else if (type instanceof com.gs.dmn.feel.lib.reference.RangeType) {
+            if (value instanceof Range) {
+                Type elementType = ((com.gs.dmn.feel.lib.reference.RangeType) type).getElementType();
+                Object start = ((Range) value).getStart();
+                Object end = ((Range) value).getEnd();
+                return conformsTo(start, elementType) && conformsTo(end, elementType);
+            } else {
+                return Boolean.FALSE;
+            }
+        } else if (type instanceof com.gs.dmn.feel.lib.reference.ContextType) {
+            if (value instanceof DMNType) {
+                value = ((DMNType) value).toContext();
+            }
+            if (value instanceof Context) {
+                for (String key: ((com.gs.dmn.feel.lib.reference.ContextType) type).getMembers()) {
+                    Type memberType = ((com.gs.dmn.feel.lib.reference.ContextType) type).getMemberType(key);
+                    if (((Context) value).getBindings().containsKey(key)) {
+                        Boolean checkMember = conformsTo(((Context) value).get(key), memberType);
+                        if (checkMember != Boolean.TRUE) {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return Boolean.FALSE;
+            }
+        } else if (type instanceof com.gs.dmn.feel.lib.reference.FunctionType) {
+            if (value instanceof LambdaExpression) {
+                throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
+            } else {
+                return Boolean.FALSE;
+            }
+        }
+        throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
+    }
+
     //
     // Range functions
     //
@@ -1713,39 +1808,6 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             String message = String.format("coincides(%s, %s)", range1, range2);
             logError(message, e);
             return null;
-        }
-    }
-    @Override
-    public Boolean isInstanceOf(Object value, String type) {
-        try {
-            if (value == null) {
-                return "Null".equals(type);
-            } else {
-                return conformsTo(value, type);
-            }
-        } catch (Exception e) {
-            String message = String.format("instance of(%s, %s)", value, type);
-            logError(message, e);
-            return null;
-        }
-    }
-
-    private Boolean conformsTo(Object value, String type) {
-        if (type == null) {
-            return null;
-        }
-        switch (type) {
-            case "Null": return value == null;
-            case "Any": return value != null;
-            case "number": return this.numericType.isNumber(value);
-            case "string": return this.stringType.isString(value);
-            case "boolean": return this.booleanType.isBoolean(value);
-            case "date": return this.dateType.isDate(value);
-            case "time": return this.timeType.isTime(value);
-            case "date and time": return this.dateTimeType.isDateTime(value);
-            case "years and months duration": return this.durationType.isYearsAndMonthsDuration(value);
-            case "days and time duration": return this.durationType.isDaysAndTimeDuration(value);
-            default: throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
         }
     }
 }

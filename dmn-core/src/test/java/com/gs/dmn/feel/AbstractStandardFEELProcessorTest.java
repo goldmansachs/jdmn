@@ -29,7 +29,8 @@ import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     protected final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.dmnInterpreter.getFeelLib();
@@ -1808,32 +1809,32 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "[1, 2, 3] instance of list<number>",
                 "InstanceOfExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTypeExpression(NamedTypeExpression(number)))",
                 "boolean",
-                "isInstanceOf(asList(number(\"1\"), number(\"2\"), number(\"3\")), \"ListType(number)\")",
-                null,
-                null);
+                "isInstanceOf(asList(number(\"1\"), number(\"2\"), number(\"3\")), \"list<number>\")",
+                this.lib.isInstanceOf(this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), "list<number>"),
+                true);
         doExpressionTest(entries, "", "{a: 1, b: \"2\"} instance of context<a: number, b: string>",
                 "InstanceOfExpression(Context(ContextEntry(ContextEntryKey(a) = NumericLiteral(1)),ContextEntry(ContextEntryKey(b) = StringLiteral(\"2\"))), ContextTypeExpression(a: NamedTypeExpression(number), b: NamedTypeExpression(string)))",
                 "boolean",
-                "isInstanceOf(new com.gs.dmn.runtime.Context().add(\"a\", number(\"1\")).add(\"b\", \"2\"), \"ContextType(a = number, b = string)\")",
-                null,
-                null);
+                "isInstanceOf(new com.gs.dmn.runtime.Context().add(\"a\", number(\"1\")).add(\"b\", \"2\"), \"context<a: number, b: string>\")",
+                this.lib.isInstanceOf(new com.gs.dmn.runtime.Context().add("a", this.lib.number("1")).add("b", "2"), "context<a: number, b: string>"),
+                true);
         doExpressionTest(entries, "", "{\"a\": 1, \"b\": \"2\"} instance of context<a: number, b: string>",
                 "InstanceOfExpression(Context(ContextEntry(ContextEntryKey(a) = NumericLiteral(1)),ContextEntry(ContextEntryKey(b) = StringLiteral(\"2\"))), ContextTypeExpression(a: NamedTypeExpression(number), b: NamedTypeExpression(string)))",
                 "boolean",
-                "isInstanceOf(new com.gs.dmn.runtime.Context().add(\"a\", number(\"1\")).add(\"b\", \"2\"), \"ContextType(a = number, b = string)\")",
-                null,
-                null);
+                "isInstanceOf(new com.gs.dmn.runtime.Context().add(\"a\", number(\"1\")).add(\"b\", \"2\"), \"context<a: number, b: string>\")",
+                this.lib.isInstanceOf(new com.gs.dmn.runtime.Context().add("a", this.lib.number("1")).add("b", "2"), "context<a: number, b: string>"),
+                true);
         doExpressionTest(entries, "", "[1..3) instance of range<number>",
                 "InstanceOfExpression(EndpointsRange(false,NumericLiteral(1),true,NumericLiteral(3)), RangeTypeExpression(NamedTypeExpression(number)))",
                 "boolean",
-                "isInstanceOf(new com.gs.dmn.runtime.Range(true, number(\"1\"), false, number(\"3\")), \"RangeType(number)\")",
-                null,
-                null);
+                "isInstanceOf(new com.gs.dmn.runtime.Range(true, number(\"1\"), false, number(\"3\")), \"range<number>\")",
+                this.lib.isInstanceOf(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), false, this.lib.number("3")), "range<number>"),
+                true);
         doExpressionTest(entries, "", "(function () 4) instance of function <> -> number",
                 "InstanceOfExpression(FunctionDefinition(, NumericLiteral(4), false), FunctionTypeExpression( -> NamedTypeExpression(number)))",
                 "boolean",
-                null,
-                null,
+                "isInstanceOf(new com.gs.dmn.runtime.LambdaExpression<" + numberType() + ">() {public " + numberType() + " apply(Object... args_) {return number(\"4\");}}, \"function<> -> number\")",
+                this.lib.isInstanceOf(new com.gs.dmn.runtime.LambdaExpression<NUMBER>() {public NUMBER apply(Object... args_) {return (NUMBER) lib.number("4");}}, "function<> -> number"),
                 null);
     }
 }

@@ -20,10 +20,10 @@ import static com.gs.dmn.feel.analysis.semantics.type.ComparableDataType.COMPARA
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 
 public class RangeType implements Type {
     public static final Type NUMBER_RANGE = new RangeType(NUMBER);
@@ -78,6 +78,11 @@ public class RangeType implements Type {
     @Override
     public boolean isFullySpecified() {
         return !com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(type);
+    }
+
+    @Override
+    public String typeExpression() {
+        return String.format("range<%s>", type.typeExpression());
     }
 
     @Override

@@ -27,4 +27,9 @@ public abstract class DataType extends NamedType {
     public boolean hasConversionFunction(String kind) {
         return conversionFunction != null && conversionFunction.equals(kind);
     }
+
+    @Override
+    public String typeExpression() {
+        return getName();
+    }
 }

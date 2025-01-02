@@ -42,6 +42,11 @@ public class AnyType implements NamedType {
     }
 
     @Override
+    public String typeExpression() {
+        return getName();
+    }
+
+    @Override
     public String toString() {
         return this.getName();
     }

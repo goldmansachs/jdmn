@@ -88,6 +88,12 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
                 && !com.gs.dmn.el.analysis.semantics.type.Type.isNullOrAny(this.returnType);
     }
 
+    @Override
+    public String typeExpression() {
+        String types = this.parameterTypes.stream().map(p -> p == null ? "null" : p.typeExpression()).collect(Collectors.joining(", "));
+        return String.format("function<%s> -> %s", types, this.returnType.typeExpression());
+    }
+
     public List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(ParameterTypes<Type> parameterTypes) {
         if (parameterTypes instanceof PositionalParameterTypes) {
             List<Type> argumentTypes = ((PositionalParameterTypes<Type>) parameterTypes).getTypes();

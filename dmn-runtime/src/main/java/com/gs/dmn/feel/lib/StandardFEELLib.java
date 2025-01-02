@@ -271,8 +271,9 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     void collect(List<?> result, List<?> list);
 
     //
-    // Temporal built-in functions
+    // Other built-in functions
     //
     <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator);
+
     Boolean isInstanceOf(Object value, String type);
 }

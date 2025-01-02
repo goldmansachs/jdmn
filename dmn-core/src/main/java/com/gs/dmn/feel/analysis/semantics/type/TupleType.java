@@ -57,6 +57,12 @@ public class TupleType implements Type {
     }
 
     @Override
+    public String typeExpression() {
+        String types = this.types.stream().map(Type::typeExpression).collect(Collectors.joining(", "));
+        return String.format("tuple<%s>", types);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

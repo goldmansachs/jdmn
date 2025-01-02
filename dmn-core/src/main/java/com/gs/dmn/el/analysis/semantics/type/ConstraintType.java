@@ -66,8 +66,8 @@ public class ConstraintType implements Type {
     }
 
     @Override
-    public String serialize() {
-        return type.serialize();
+    public String typeExpression() {
+        return type.typeExpression();
     }
 
     @Override

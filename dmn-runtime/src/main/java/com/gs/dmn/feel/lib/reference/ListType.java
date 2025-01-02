@@ -10,44 +10,36 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.el.analysis.semantics.type;
+package com.gs.dmn.feel.lib.reference;
 
-public class NullType implements NamedType {
-    public static final NullType NULL = new NullType();
+import java.util.Objects;
 
-    private final String name;
+public class ListType implements Type {
+    private final Type elementType;
 
-    protected NullType() {
-        this.name = "Null";
+    public ListType(Type elementType) {
+        this.elementType = elementType;
+    }
+
+    public Type getElementType() {
+        return elementType;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListType listType = (ListType) o;
+        return Objects.equals(elementType, listType.elementType);
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
-        return Type.isNullType(other);
-    }
-
-    @Override
-    public boolean conformsTo(Type other) {
-        return true;
-    }
-
-    @Override
-    public boolean isFullySpecified() {
-        return true;
-    }
-
-    @Override
-    public String typeExpression() {
-        return this.getName();
+    public int hashCode() {
+        return Objects.hashCode(elementType);
     }
 
     @Override
     public String toString() {
-        return this.getName();
+        return String.format("list<%s>", elementType);
     }
 }

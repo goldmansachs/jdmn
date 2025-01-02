@@ -545,13 +545,9 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         try {
             Object e1 = element.getLeftOperand().accept(this, context);
             Type e2 = element.getRightOperand().getType();
-            if (e1 == null) {
-                return Type.isNullType(e2);
-            } else {
-                return Type.conformsTo(element.getLeftOperand().getType(), e2);
-            }
+            return ((StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.lib).isInstanceOf(e1, e2.typeExpression());
         } catch (Exception e) {
-            this.errorHandler.reportError("Cannot evaluate instanceof", e);
+            this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
         }
     }

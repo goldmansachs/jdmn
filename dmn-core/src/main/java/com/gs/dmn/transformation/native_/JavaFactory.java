@@ -45,8 +45,8 @@ import java.util.List;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 
 public class JavaFactory implements NativeFactory {
     protected static final Object DEFAULT_PROTO_NUMBER = "0.0";
@@ -180,7 +180,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String makeInstanceOf(String value, Type type) {
-        return String.format("isInstanceOf(%s, \"%s\")", value, type.serialize());
+        return String.format("isInstanceOf(%s, \"%s\")", value, type.typeExpression());
     }
 
     //

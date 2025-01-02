@@ -133,7 +133,5 @@ public interface Type {
 
     boolean isFullySpecified();
 
-    default String serialize() {
-        return this.toString();
-    }
+    String typeExpression();
 }
