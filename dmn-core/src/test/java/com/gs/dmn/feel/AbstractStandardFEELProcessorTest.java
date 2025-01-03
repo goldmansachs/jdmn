@@ -1502,38 +1502,38 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "before(1, [5..8])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "before(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.before(this.lib.number("1"), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "before(number(\"1\"), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.before(this.lib.number("1"), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 true);
         doExpressionTest(entries, "", "before(\"1\", [\"5\"..\"8\"])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(StringLiteral(\"1\"), EndpointsRange(false,StringLiteral(\"5\"),false,StringLiteral(\"8\"))))",
                 "boolean",
-                "before(\"1\", new com.gs.dmn.runtime.Range(true, \"5\", true, \"8\"))",
-                this.lib.before("1", new com.gs.dmn.runtime.Range(true, "5", true, "8")),
+                "before(\"1\", new com.gs.dmn.runtime.Range<>(true, \"5\", true, \"8\"))",
+                this.lib.before("1", new com.gs.dmn.runtime.Range<>(true, "5", true, "8")),
                 true);
         doExpressionTest(entries, "", "before(@\"2010-10-01\", [@\"2010-10-02\"..@\"2010-10-03\"])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date, \"2010-10-01\"), EndpointsRange(false,DateTimeLiteral(date, \"2010-10-02\"),false,DateTimeLiteral(date, \"2010-10-03\"))))",
                 "boolean",
-                "before(date(\"2010-10-01\"), new com.gs.dmn.runtime.Range(true, date(\"2010-10-02\"), true, date(\"2010-10-03\")))",
-                this.lib.before(this.lib.date("2010-10-01"), new com.gs.dmn.runtime.Range(true, this.lib.date("2010-10-02"), true, this.lib.date("2010-10-03"))),
+                "before(date(\"2010-10-01\"), new com.gs.dmn.runtime.Range<>(true, date(\"2010-10-02\"), true, date(\"2010-10-03\")))",
+                this.lib.before(this.lib.date("2010-10-01"), new com.gs.dmn.runtime.Range<>(true, this.lib.date("2010-10-02"), true, this.lib.date("2010-10-03"))),
                 true);
         doExpressionTest(entries, "", "before(@\"12:00:00\", [@\"12:00:02\"..@\"12:00:03\"])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(time, \"12:00:00\"), EndpointsRange(false,DateTimeLiteral(time, \"12:00:02\"),false,DateTimeLiteral(time, \"12:00:03\"))))",
                 "boolean",
-                "before(time(\"12:00:00\"), new com.gs.dmn.runtime.Range(true, time(\"12:00:02\"), true, time(\"12:00:03\")))",
-                this.lib.before(this.lib.time("12:00:00"), new com.gs.dmn.runtime.Range(true, this.lib.time("12:00:02"), true, this.lib.time("12:00:03"))),
+                "before(time(\"12:00:00\"), new com.gs.dmn.runtime.Range<>(true, time(\"12:00:02\"), true, time(\"12:00:03\")))",
+                this.lib.before(this.lib.time("12:00:00"), new com.gs.dmn.runtime.Range<>(true, this.lib.time("12:00:02"), true, this.lib.time("12:00:03"))),
                 true);
         doExpressionTest(entries, "", "before(@\"2010-10-01T12:00:00\", [@\"2010-10-02T12:00:00\"..@\"2010-10-03T12:00:00\"])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date and time, \"2010-10-01T12:00:00\"), EndpointsRange(false,DateTimeLiteral(date and time, \"2010-10-02T12:00:00\"),false,DateTimeLiteral(date and time, \"2010-10-03T12:00:00\"))))",
                 "boolean",
-                "before(dateAndTime(\"2010-10-01T12:00:00\"), new com.gs.dmn.runtime.Range(true, dateAndTime(\"2010-10-02T12:00:00\"), true, dateAndTime(\"2010-10-03T12:00:00\")))",
-                this.lib.before(this.lib.dateAndTime("2010-10-01T12:00:00"), new com.gs.dmn.runtime.Range(true, this.lib.dateAndTime("2010-10-02T12:00:00"), true, this.lib.dateAndTime("2010-10-03T12:00:00"))),
+                "before(dateAndTime(\"2010-10-01T12:00:00\"), new com.gs.dmn.runtime.Range<>(true, dateAndTime(\"2010-10-02T12:00:00\"), true, dateAndTime(\"2010-10-03T12:00:00\")))",
+                this.lib.before(this.lib.dateAndTime("2010-10-01T12:00:00"), new com.gs.dmn.runtime.Range<>(true, this.lib.dateAndTime("2010-10-02T12:00:00"), true, this.lib.dateAndTime("2010-10-03T12:00:00"))),
                 true);
         doExpressionTest(entries, "", "before(@\"P10Y\", [@\"P12Y\"..@\"P13Y\"])",
                 "FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(duration, \"P10Y\"), EndpointsRange(false,DateTimeLiteral(duration, \"P12Y\"),false,DateTimeLiteral(duration, \"P13Y\"))))",
                 "boolean",
-                "before(duration(\"P10Y\"), new com.gs.dmn.runtime.Range(true, duration(\"P12Y\"), true, duration(\"P13Y\")))",
-                this.lib.before(this.lib.duration("P10Y"), new com.gs.dmn.runtime.Range(true, this.lib.duration("P12Y"), true, this.lib.duration("P13Y"))),
+                "before(duration(\"P10Y\"), new com.gs.dmn.runtime.Range<>(true, duration(\"P12Y\"), true, duration(\"P13Y\")))",
+                this.lib.before(this.lib.duration("P10Y"), new com.gs.dmn.runtime.Range<>(true, this.lib.duration("P12Y"), true, this.lib.duration("P13Y"))),
                 true);
 
         doExpressionTest(entries, "", "after(1, 5)",
@@ -1545,131 +1545,131 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "after(1, [5..8])",
                 "FunctionInvocation(Name(after) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "after(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.after(this.lib.number("1"), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "after(number(\"1\"), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.after(this.lib.number("1"), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
         doExpressionTest(entries, "", "after([5..8], 1)",
                 "FunctionInvocation(Name(after) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))",
                 "boolean",
-                "after(new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
-                this.lib.after(new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
+                "after(new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
+                this.lib.after(new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
                 true);
         doExpressionTest(entries, "", "after([1..2], [5..8])",
                 "FunctionInvocation(Name(after) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "after(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.after(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "after(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.after(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
 
         doExpressionTest(entries, "", "meets([1..2], [5..8])",
                 "FunctionInvocation(Name(meets) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "meets(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.meets(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "meets(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.meets(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
 
         doExpressionTest(entries, "", "met by([1..2], [5..8])",
                 "FunctionInvocation(Name(met by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "metBy(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.metBy(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "metBy(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.metBy(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
 
         doExpressionTest(entries, "", "overlaps([1..2], [5..8])",
                 "FunctionInvocation(Name(overlaps) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "overlaps(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.overlaps(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "overlaps(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.overlaps(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
         doExpressionTest(entries, "", "overlaps before([1..2], [5..8])",
                 "FunctionInvocation(Name(overlaps before) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "overlapsBefore(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.overlapsBefore(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "overlapsBefore(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.overlapsBefore(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
         doExpressionTest(entries, "", "overlaps after([1..2], [5..8])",
                 "FunctionInvocation(Name(overlaps after) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "overlapsAfter(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.overlapsAfter(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "overlapsAfter(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.overlapsAfter(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
 
         doExpressionTest(entries, "", "finishes(1, [5..8])",
                 "FunctionInvocation(Name(finishes) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "finishes(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.finishes(this.lib.number("1"), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "finishes(number(\"1\"), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.finishes(this.lib.number("1"), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
         doExpressionTest(entries, "", "finishes([1..2], [5..8])",
                 "FunctionInvocation(Name(finishes) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "finishes(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.finishes(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "finishes(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.finishes(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
 
         doExpressionTest(entries, "", "finished by([5..8], 1)",
                 "FunctionInvocation(Name(finished by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))",
                 "boolean",
-                "finishedBy(new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
-                this.lib.finishedBy(new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
+                "finishedBy(new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
+                this.lib.finishedBy(new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
                 false);
         doExpressionTest(entries, "", "finished by([1..2], [5..8])",
                 "FunctionInvocation(Name(finished by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "finishedBy(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.finishedBy(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "finishedBy(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.finishedBy(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
 
         doExpressionTest(entries, "", "includes([5..8], 1)",
                 "FunctionInvocation(Name(includes) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))",
                 "boolean",
-                "includes(new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
-                this.lib.includes(new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
+                "includes(new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
+                this.lib.includes(new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
                 false);
         doExpressionTest(entries, "", "includes([1..2], [5..8])",
                 "FunctionInvocation(Name(includes) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "includes(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.includes(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "includes(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.includes(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
 
         doExpressionTest(entries, "", "during(1, [5..8])",
                 "FunctionInvocation(Name(during) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "during(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.during(this.lib.number("1"), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "during(number(\"1\"), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.during(this.lib.number("1"), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
         doExpressionTest(entries, "", "during([1..2], [5..8])",
                 "FunctionInvocation(Name(during) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "during(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.during(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "during(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.during(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
 
         doExpressionTest(entries, "", "starts(1, [5..8])",
                 "FunctionInvocation(Name(starts) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "starts(number(\"1\"), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.starts(this.lib.number("1"), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "starts(number(\"1\"), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.starts(this.lib.number("1"), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
         doExpressionTest(entries, "", "starts([1..2], [5..8])",
                 "FunctionInvocation(Name(starts) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "starts(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.starts(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "starts(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.starts(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
 
         doExpressionTest(entries, "", "started by([5..8], 1)",
                 "FunctionInvocation(Name(started by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))",
                 "boolean",
-                "startedBy(new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
-                this.lib.startedBy(new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
+                "startedBy(new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")), number(\"1\"))",
+                this.lib.startedBy(new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8")), this.lib.number("1")),
                 false);
         doExpressionTest(entries, "", "started by([1..2], [5..8])",
                 "FunctionInvocation(Name(started by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "startedBy(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.startedBy(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "startedBy(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.startedBy(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
 
         doExpressionTest(entries, "", "coincides(1, 5)",
@@ -1681,8 +1681,8 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "coincides([1..2], [5..8])",
                 "FunctionInvocation(Name(coincides) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))",
                 "boolean",
-                "coincides(new com.gs.dmn.runtime.Range(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")))",
-                this.lib.coincides(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))),
+                "coincides(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\")), new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")))",
+                this.lib.coincides(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2")), new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))),
                 false);
     }
 
@@ -1696,29 +1696,29 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "[5..8].start",
                 "PathExpression(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), start)",
                 "number",
-                "new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")).getStart()",
-                (new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8"))).getStart(),
+                "new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")).getStart()",
+                (new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8"))).getStart(),
                 this.lib.number("5"));
 
         doExpressionTest(entries, "", "[5..8].end",
                 "PathExpression(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), end)",
                 "number",
-                "new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")).getEnd()",
-                new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")).getEnd(),
+                "new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")).getEnd()",
+                new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8")).getEnd(),
                 this.lib.number("8"));
 
         doExpressionTest(entries, "", "[5..8].start included",
                 "PathExpression(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), start included)",
                 "boolean",
-                "new com.gs.dmn.runtime.Range(true, number(\"5\"), true, number(\"8\")).isStartIncluded()",
-                new com.gs.dmn.runtime.Range(true, this.lib.number("5"), true, this.lib.number("8")).isStartIncluded(),
+                "new com.gs.dmn.runtime.Range<>(true, number(\"5\"), true, number(\"8\")).isStartIncluded()",
+                new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), true, this.lib.number("8")).isStartIncluded(),
                 true);
 
         doExpressionTest(entries, "", "[5..8).end included",
                 "PathExpression(EndpointsRange(false,NumericLiteral(5),true,NumericLiteral(8)), end included)",
                 "boolean",
-                "new com.gs.dmn.runtime.Range(true, number(\"5\"), false, number(\"8\")).isEndIncluded()",
-                new com.gs.dmn.runtime.Range(true, this.lib.number("5"), false, this.lib.number("8")).isEndIncluded(),
+                "new com.gs.dmn.runtime.Range<>(true, number(\"5\"), false, number(\"8\")).isEndIncluded()",
+                new com.gs.dmn.runtime.Range<>(true, this.lib.number("5"), false, this.lib.number("8")).isEndIncluded(),
                 false);
 
         //
@@ -1727,29 +1727,29 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "(< 10).start",
                 "PathExpression(OperatorRange(<,NumericLiteral(10)), start)",
                 "number",
-                "new com.gs.dmn.runtime.Range(\"<\", number(\"10\")).getStart()",
-                new com.gs.dmn.runtime.Range("<", this.lib.number("10")).getStart(),
+                "new com.gs.dmn.runtime.Range<>(\"<\", number(\"10\")).getStart()",
+                new com.gs.dmn.runtime.Range<>("<", this.lib.number("10")).getStart(),
                 null);
 
         doExpressionTest(entries, "", "(<= 10).end",
                 "PathExpression(OperatorRange(<=,NumericLiteral(10)), end)",
                 "number",
-                "new com.gs.dmn.runtime.Range(\"<=\", number(\"10\")).getEnd()",
-                new com.gs.dmn.runtime.Range("<=", this.lib.number("10")).getEnd(),
+                "new com.gs.dmn.runtime.Range<>(\"<=\", number(\"10\")).getEnd()",
+                new com.gs.dmn.runtime.Range<>("<=", this.lib.number("10")).getEnd(),
                 this.lib.number("10"));
 
         doExpressionTest(entries, "", "(< 10).start included",
                 "PathExpression(OperatorRange(<,NumericLiteral(10)), start included)",
                 "boolean",
-                "new com.gs.dmn.runtime.Range(\"<\", number(\"10\")).isStartIncluded()",
-                new com.gs.dmn.runtime.Range("<", this.lib.number("10")).isStartIncluded(),
+                "new com.gs.dmn.runtime.Range<>(\"<\", number(\"10\")).isStartIncluded()",
+                new com.gs.dmn.runtime.Range<>("<", this.lib.number("10")).isStartIncluded(),
                 false);
 
         doExpressionTest(entries, "", "(> 10).end included",
                 "PathExpression(OperatorRange(>,NumericLiteral(10)), end included)",
                 "boolean",
-                "new com.gs.dmn.runtime.Range(\">\", number(\"10\")).isEndIncluded()",
-                new com.gs.dmn.runtime.Range(">", this.lib.number("10")).isEndIncluded(),
+                "new com.gs.dmn.runtime.Range<>(\">\", number(\"10\")).isEndIncluded()",
+                new com.gs.dmn.runtime.Range<>(">", this.lib.number("10")).isEndIncluded(),
                 false);
     }
 
@@ -1827,8 +1827,8 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
         doExpressionTest(entries, "", "[1..3) instance of range<number>",
                 "InstanceOfExpression(EndpointsRange(false,NumericLiteral(1),true,NumericLiteral(3)), RangeTypeExpression(NamedTypeExpression(number)))",
                 "boolean",
-                "isInstanceOf(new com.gs.dmn.runtime.Range(true, number(\"1\"), false, number(\"3\")), \"range<number>\")",
-                this.lib.isInstanceOf(new com.gs.dmn.runtime.Range(true, this.lib.number("1"), false, this.lib.number("3")), "range<number>"),
+                "isInstanceOf(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), false, number(\"3\")), \"range<number>\")",
+                this.lib.isInstanceOf(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), false, this.lib.number("3")), "range<number>"),
                 true);
         doExpressionTest(entries, "", "(function () 4) instance of function <> -> number",
                 "InstanceOfExpression(FunctionDefinition(, NumericLiteral(4), false), FunctionTypeExpression( -> NamedTypeExpression(number)))",

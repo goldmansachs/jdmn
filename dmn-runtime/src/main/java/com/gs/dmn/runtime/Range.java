@@ -16,11 +16,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
-public class Range {
+public class Range<T> {
     private final boolean startIncluded;
-    private final Object start;
+    private final T start;
     private final boolean endIncluded;
-    private final Object end;
+    private final T end;
     private final String operator;
 
     public Range() {
@@ -31,7 +31,12 @@ public class Range {
         this.operator = null;
     }
 
-    public Range(boolean startIncluded, Object start, boolean endIncluded, Object end) {
+    public Range(boolean startIncluded, T start, boolean endIncluded, T end) {
+        if (start instanceof Comparable && end instanceof Comparable) {
+            if (((Comparable<T>) start).compareTo(end) > 0) {
+                throw new DMNRuntimeException(String.format("Illegal range %s..%s, endpoints must be ordered such that range start <= range end.", start, end));
+            }
+        }
         this.startIncluded = startIncluded;
         this.start = start;
         this.endIncluded = endIncluded;
@@ -39,7 +44,7 @@ public class Range {
         this.operator = null;
     }
 
-    public Range(String operator, Object endpoint) {
+    public Range(String operator, T endpoint) {
         this.operator = StringUtils.isBlank(operator) ? "=" : operator;
         // 10.3.2.7 Ranges
         switch (this.operator) {
@@ -88,7 +93,7 @@ public class Range {
         return startIncluded;
     }
 
-    public Object getStart() {
+    public T getStart() {
         return start;
     }
 
@@ -96,7 +101,7 @@ public class Range {
         return endIncluded;
     }
 
-    public Object getEnd() {
+    public T getEnd() {
         return end;
     }
 
@@ -108,7 +113,7 @@ public class Range {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Range range = (Range) o;
+        Range<?> range = (Range<?>) o;
         return isStartIncluded() == range.isStartIncluded() &&
                 isEndIncluded() == range.isEndIncluded() &&
                 Objects.equals(getStart(), range.getStart()) &&

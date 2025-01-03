@@ -207,7 +207,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         try {
             return this.durationLib.yearsAndMonthsDuration(from, to);
         } catch (Exception e) {
-            String message = String.format("yearsAndMonthsDURATION(%s, %s)", from, to);
+            String message = String.format("yearsAndMonthsDuration(%s, %s)", from, to);
             logError(message, e);
             return null;
         }
@@ -1475,8 +1475,8 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         } else if (type instanceof com.gs.dmn.feel.lib.reference.RangeType) {
             if (value instanceof Range) {
                 Type elementType = ((com.gs.dmn.feel.lib.reference.RangeType) type).getElementType();
-                Object start = ((Range) value).getStart();
-                Object end = ((Range) value).getEnd();
+                Object start = ((Range<?>) value).getStart();
+                Object end = ((Range<?>) value).getEnd();
                 return conformsTo(start, elementType) && conformsTo(end, elementType);
             } else {
                 return Boolean.FALSE;
@@ -1526,7 +1526,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean before(Object point, Range range) {
+    public Boolean before(Object point, Range<?> range) {
         try {
             return this.rangeLib.before(point, range);
         } catch (Exception e) {
@@ -1537,7 +1537,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean before(Range range, Object point) {
+    public Boolean before(Range<?> range, Object point) {
         try {
             return this.rangeLib.before(range, point);
         } catch (Exception e) {
@@ -1548,7 +1548,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean before(Range range1, Range range2) {
+    public Boolean before(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.before(range1, range2);
         } catch (Exception e) {
@@ -1570,7 +1570,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean after(Object point, Range range) {
+    public Boolean after(Object point, Range<?> range) {
         try {
             return this.rangeLib.after(point, range);
         } catch (Exception e) {
@@ -1581,7 +1581,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean after(Range range, Object point) {
+    public Boolean after(Range<?> range, Object point) {
         try {
             return this.rangeLib.after(range, point);
         } catch (Exception e) {
@@ -1592,7 +1592,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean after(Range range1, Range range2) {
+    public Boolean after(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.after(range1, range2);
         } catch (Exception e) {
@@ -1603,7 +1603,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean meets(Range range1, Range range2) {
+    public Boolean meets(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.meets(range1, range2);
         } catch (Exception e) {
@@ -1614,7 +1614,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean metBy(Range range1, Range range2) {
+    public Boolean metBy(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.metBy(range1, range2);
         } catch (Exception e) {
@@ -1625,7 +1625,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean overlaps(Range range1, Range range2) {
+    public Boolean overlaps(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.overlaps(range1, range2);
         } catch (Exception e) {
@@ -1636,7 +1636,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean overlapsBefore(Range range1, Range range2) {
+    public Boolean overlapsBefore(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.overlapsBefore(range1, range2);
         } catch (Exception e) {
@@ -1647,7 +1647,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean overlapsAfter(Range range1, Range range2) {
+    public Boolean overlapsAfter(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.overlapsAfter(range1, range2);
         } catch (Exception e) {
@@ -1658,7 +1658,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean finishes(Object point, Range range) {
+    public Boolean finishes(Object point, Range<?> range) {
         try {
             return this.rangeLib.finishes(point, range);
         } catch (Exception e) {
@@ -1669,7 +1669,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean finishes(Range range1, Range range2) {
+    public Boolean finishes(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.finishes(range1, range2);
         } catch (Exception e) {
@@ -1680,7 +1680,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean finishedBy(Range range, Object point) {
+    public Boolean finishedBy(Range<?> range, Object point) {
         try {
             return this.rangeLib.finishedBy(range, point);
         } catch (Exception e) {
@@ -1691,7 +1691,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean finishedBy(Range range1, Range range2) {
+    public Boolean finishedBy(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.finishedBy(range1, range2);
         } catch (Exception e) {
@@ -1702,7 +1702,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean includes(Range range, Object point) {
+    public Boolean includes(Range<?> range, Object point) {
         try {
             return this.rangeLib.includes(range, point);
         } catch (Exception e) {
@@ -1713,7 +1713,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean includes(Range range1, Range range2) {
+    public Boolean includes(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.includes(range1, range2);
         } catch (Exception e) {
@@ -1724,7 +1724,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean during(Object point, Range range) {
+    public Boolean during(Object point, Range<?> range) {
         try {
             return this.rangeLib.during(point, range);
         } catch (Exception e) {
@@ -1735,7 +1735,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean during(Range range1, Range range2) {
+    public Boolean during(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.during(range1, range2);
         } catch (Exception e) {
@@ -1746,7 +1746,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean starts(Object point, Range range) {
+    public Boolean starts(Object point, Range<?> range) {
         try {
             return this.rangeLib.starts(point, range);
         } catch (Exception e) {
@@ -1757,7 +1757,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean starts(Range range1, Range range2) {
+    public Boolean starts(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.starts(range1, range2);
         } catch (Exception e) {
@@ -1768,7 +1768,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean startedBy(Range range, Object point) {
+    public Boolean startedBy(Range<?> range, Object point) {
         try {
             return this.rangeLib.startedBy(range, point);
         } catch (Exception e) {
@@ -1779,7 +1779,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean startedBy(Range range1, Range range2) {
+    public Boolean startedBy(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.startedBy(range1, range2);
         } catch (Exception e) {
@@ -1801,7 +1801,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     }
 
     @Override
-    public Boolean coincides(Range range1, Range range2) {
+    public Boolean coincides(Range<?> range1, Range<?> range2) {
         try {
             return this.rangeLib.coincides(range1, range2);
         } catch (Exception e) {

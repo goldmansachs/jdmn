@@ -16,43 +16,43 @@ import com.gs.dmn.runtime.Range;
 
 public interface RangeLib {
     Boolean before(Object point1, Object point2);
-    Boolean before(Object point, Range range);
-    Boolean before(Range range, Object point);
-    Boolean before(Range range1, Range range2);
+    Boolean before(Object point, Range<?> range);
+    Boolean before(Range<?> range, Object point);
+    Boolean before(Range<?> range1, Range<?> range2);
 
     Boolean after(Object point1, Object point2);
-    Boolean after(Object point, Range range);
-    Boolean after(Range range, Object point);
-    Boolean after(Range range1, Range range2);
+    Boolean after(Object point, Range<?> range);
+    Boolean after(Range<?> range, Object point);
+    Boolean after(Range<?> range1, Range<?> range2);
 
-    Boolean meets(Range range1, Range range2);
+    Boolean meets(Range<?> range1, Range<?> range2);
 
-    Boolean metBy(Range range1, Range range2);
+    Boolean metBy(Range<?> range1, Range<?> range2);
 
-    Boolean overlaps(Range range1, Range range2);
+    Boolean overlaps(Range<?> range1, Range<?> range2);
 
-    Boolean overlapsBefore(Range range1, Range range2);
+    Boolean overlapsBefore(Range<?> range1, Range<?> range2);
 
-    Boolean overlapsAfter(Range range1, Range range2);
+    Boolean overlapsAfter(Range<?> range1, Range<?> range2);
 
-    Boolean finishes(Object point, Range range);
-    Boolean finishes(Range range1, Range range2);
+    Boolean finishes(Object point, Range<?> range);
+    Boolean finishes(Range<?> range1, Range<?> range2);
 
-    Boolean finishedBy(Range range, Object point);
-    Boolean finishedBy(Range range1, Range range2);
+    Boolean finishedBy(Range<?> range, Object point);
+    Boolean finishedBy(Range<?> range1, Range<?> range2);
 
-    Boolean includes(Range range, Object point);
-    Boolean includes(Range range1, Range range2);
+    Boolean includes(Range<?> range, Object point);
+    Boolean includes(Range<?> range1, Range<?> range2);
 
-    Boolean during(Object point, Range range);
-    Boolean during(Range range1, Range range2);
+    Boolean during(Object point, Range<?> range);
+    Boolean during(Range<?> range1, Range<?> range2);
 
-    Boolean starts(Object point, Range range);
-    Boolean starts(Range range1, Range range2);
+    Boolean starts(Object point, Range<?> range);
+    Boolean starts(Range<?> range1, Range<?> range2);
 
-    Boolean startedBy(Range range, Object point);
-    Boolean startedBy(Range range1, Range range2);
+    Boolean startedBy(Range<?> range, Object point);
+    Boolean startedBy(Range<?> range1, Range<?> range2);
 
     Boolean coincides(Object point1, Object point2);
-    Boolean coincides(Range range1, Range range2);
+    Boolean coincides(Range<?> range1, Range<?> range2);
 }

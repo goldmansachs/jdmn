@@ -283,7 +283,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 // Evaluate as range
                 Object startValue = element.getStart().accept(this, context);
                 Object endValue = element.getEnd().accept(this, context);
-                return new Range(!element.isOpenStart(), startValue, !element.isOpenEnd(), endValue);
+                return new Range<>(!element.isOpenStart(), startValue, !element.isOpenEnd(), endValue);
             } else {
                 // Evaluate as test
                 Object leftCondition = evaluateRangeEndpoint(element, leftOperator, self, startExpression, context);

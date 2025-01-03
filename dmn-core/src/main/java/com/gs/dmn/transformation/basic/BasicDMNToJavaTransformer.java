@@ -311,12 +311,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String defaultConstructor(String className) {
-        return this.nativeFactory.constructor(className, "");
+        return this.nativeFactory.constructor(className, "", false);
     }
 
     @Override
     public String constructor(String className, String arguments) {
-        return this.nativeFactory.constructor(className, arguments);
+        return this.nativeFactory.constructor(className, arguments, false);
     }
 
     //
@@ -1825,6 +1825,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
                 String elementType = toNativeType(((ListType) type).getElementType());
                 return makeListType(DMNToJavaTransformer.LIST_TYPE, elementType);
             }
+        } else if (type instanceof RangeType) {
+            if (((RangeType) type).getRangeType() instanceof AnyType) {
+                return makeRangeType(rangeClassName());
+            } else {
+                String elementType = toNativeType(((RangeType) type).getRangeType());
+                return makeRangeType(rangeClassName(), elementType);
+            }
         } else if (type instanceof FunctionType) {
             if (type instanceof FEELFunctionType) {
                 String returnType = toNativeType(((FunctionType) type).getReturnType());
@@ -1856,7 +1863,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String makeListType(String listType) {
-        return makeListType(listType, "? extends Object");
+        return makeListType(listType, "?");
+    }
+
+    @Override
+    public String makeRangeType(String rangeClassName, String endpointType) {
+        return String.format("%s<%s>", rangeClassName, endpointType);
+    }
+
+    @Override
+    public String makeRangeType(String rangeClassName) {
+        return makeRangeType(rangeClassName, "?");
     }
 
     @Override
@@ -2301,12 +2318,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String getDefaultIntegerValue() {
-        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), "\"0\"");
+        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), "\"0\"", false);
     }
 
     @Override
     public String getDefaultDecimalValue() {
-        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), "\"0.0\"");
+        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), "\"0.0\"", false);
     }
 
     @Override
@@ -2356,12 +2373,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String makeIntegerForInput(String text) {
-        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), String.format("java.lang.Integer.toString(%s)", text));
+        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), String.format("java.lang.Integer.toString(%s)", text), false);
     }
 
     @Override
     public String makeDecimalForInput(String text) {
-        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), String.format("java.lang.Double.toString(%s)", text));
+        return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), String.format("java.lang.Double.toString(%s)", text), false);
     }
 
     @Override
@@ -2369,7 +2386,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (StringUtils.isBlank(text)) {
             return this.nativeFactory.nullLiteral();
         } else {
-            return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), text);
+            return this.nativeFactory.constructor(this.nativeTypeFactory.getNativeNumberConcreteType(), text, false);
         }
     }
 

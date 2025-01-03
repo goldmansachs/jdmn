@@ -38,7 +38,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     // Constructor
     //
     @Override
-    public String constructor(String className, String arguments) {
+    public String constructor(String className, String arguments, boolean isGeneric) {
         return String.format("%s(%s)", className.replace("?", ""), arguments);
     }
 

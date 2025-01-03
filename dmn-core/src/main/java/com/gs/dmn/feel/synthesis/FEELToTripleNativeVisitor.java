@@ -125,7 +125,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
                 throw new DMNRuntimeException(String.format("Unknown operator '%s'", operator));
             }
             String clsName = this.dmnTransformer.rangeClassName();
-            return this.triples.constructor(clsName, arguments);
+            return this.triples.constructor(clsName, arguments, true);
         } else {
             // Evaluate as test according to 7.3.2 UnaryTests Metamodel
             Type inputExpressionType = context.getInputExpressionType();
@@ -160,7 +160,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
             Triple end = endEndpoint == null ? this.triples.nullLiteral() : (Triple) endEndpoint.accept(this, context);
 
             String clsName = this.dmnTransformer.rangeClassName();
-            return this.triples.constructor(clsName, Arrays.asList(startIncluded, start, endIncluded, end));
+            return this.triples.constructor(clsName, Arrays.asList(startIncluded, start, endIncluded, end), true);
         } else {
             // Evaluate as test
             Triple leftCondition = makeRangeCondition(element.isOpenStart() ? ">" : ">=", (Expression) context.getInputExpression(), startEndpoint, context);

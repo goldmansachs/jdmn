@@ -156,13 +156,13 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
     @Override
     public String visit(Constructor triple, Triples context) {
         String argsText = triple.getArgs().stream().map(e -> e.accept(this, context)).collect(Collectors.joining(", "));
-        return this.nativeFactory.constructor(triple.getClsName(), argsText);
+        return this.nativeFactory.constructor(triple.getClassName(), argsText, triple.isGeneric());
     }
 
     @Override
     public String visit(FluentConstructor triple, Triples context) {
         String addMethods = triple.getAddMethods().stream().map(o -> o.accept(this, context)).collect(Collectors.joining(""));
-        return this.nativeFactory.fluentConstructor(triple.getContextClassName(), addMethods);
+        return this.nativeFactory.fluentConstructor(triple.getClassName(), addMethods);
     }
 
     //

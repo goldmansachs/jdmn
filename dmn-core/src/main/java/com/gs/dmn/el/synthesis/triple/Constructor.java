@@ -15,20 +15,26 @@ package com.gs.dmn.el.synthesis.triple;
 import java.util.List;
 
 public class Constructor extends FunctionInvocationTriple {
-    private final String clsName;
+    private final String className;
     private final List<Triple> args;
+    private final boolean isGeneric;
 
-    Constructor(String clsName, List<Triple> args) {
-        this.clsName = clsName;
+    Constructor(String className, List<Triple> args, boolean isGeneric) {
+        this.className = className;
         this.args = args;
+        this.isGeneric = isGeneric;
     }
 
-    String getClsName() {
-        return clsName;
+    String getClassName() {
+        return className;
     }
 
     List<Triple> getArgs() {
         return args;
+    }
+
+    boolean isGeneric() {
+        return isGeneric;
     }
 
     @Override
@@ -38,6 +44,6 @@ public class Constructor extends FunctionInvocationTriple {
 
     @Override
     public String toString() {
-        return String.format("Constructor(%s, %s)", clsName, args);
+        return String.format("Constructor(%s, %s, %s)", className, args, isGeneric);
     }
 }

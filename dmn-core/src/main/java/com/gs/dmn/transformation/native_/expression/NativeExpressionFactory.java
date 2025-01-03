@@ -30,10 +30,10 @@ public interface NativeExpressionFactory {
     //
     // Constructor
     //
-    String constructor(String className, String arguments);
+    String constructor(String className, String arguments, boolean isGeneric);
 
     default String defaultConstructor(String className) {
-        return constructor(className, "");
+        return constructor(className, "", false);
     }
 
     String fluentConstructor(String className, String addMethods);

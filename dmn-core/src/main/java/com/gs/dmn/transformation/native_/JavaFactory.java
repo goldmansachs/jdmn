@@ -69,8 +69,12 @@ public class JavaFactory implements NativeFactory {
     // Constructor
     //
     @Override
-    public String constructor(String className, String arguments) {
-        return String.format("new %s(%s)", className, arguments);
+    public String constructor(String className, String arguments, boolean isGeneric) {
+        if (isGeneric) {
+            return String.format("new %s<>(%s)", className, arguments);
+        } else {
+            return String.format("new %s(%s)", className, arguments);
+        }
     }
 
     @Override

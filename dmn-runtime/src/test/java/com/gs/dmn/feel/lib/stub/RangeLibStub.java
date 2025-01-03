@@ -23,17 +23,17 @@ public class RangeLibStub implements RangeLib {
     }
 
     @Override
-    public Boolean before(Object point, Range range) {
+    public Boolean before(Object point, Range<?> range) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean before(Range range, Object point) {
+    public Boolean before(Range<?> range, Object point) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean before(Range range1, Range range2) {
+    public Boolean before(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -43,102 +43,102 @@ public class RangeLibStub implements RangeLib {
     }
 
     @Override
-    public Boolean after(Object point, Range range) {
+    public Boolean after(Object point, Range<?> range) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean after(Range range, Object point) {
+    public Boolean after(Range<?> range, Object point) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean after(Range range1, Range range2) {
+    public Boolean after(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean meets(Range range1, Range range2) {
+    public Boolean meets(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean metBy(Range range1, Range range2) {
+    public Boolean metBy(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean overlaps(Range range1, Range range2) {
+    public Boolean overlaps(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean overlapsBefore(Range range1, Range range2) {
+    public Boolean overlapsBefore(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean overlapsAfter(Range range1, Range range2) {
+    public Boolean overlapsAfter(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean finishes(Object point, Range range) {
+    public Boolean finishes(Object point, Range<?> range) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean finishes(Range range1, Range range2) {
+    public Boolean finishes(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean finishedBy(Range range, Object point) {
+    public Boolean finishedBy(Range<?> range, Object point) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean finishedBy(Range range1, Range range2) {
+    public Boolean finishedBy(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean includes(Range range, Object point) {
+    public Boolean includes(Range<?> range, Object point) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean includes(Range range1, Range range2) {
+    public Boolean includes(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean during(Object point, Range range) {
+    public Boolean during(Object point, Range<?> range) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean during(Range range1, Range range2) {
+    public Boolean during(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean starts(Object point, Range range) {
+    public Boolean starts(Object point, Range<?> range) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean starts(Range range1, Range range2) {
+    public Boolean starts(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean startedBy(Range range, Object point) {
+    public Boolean startedBy(Range<?> range, Object point) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
     @Override
-    public Boolean startedBy(Range range1, Range range2) {
+    public Boolean startedBy(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 
@@ -148,7 +148,7 @@ public class RangeLibStub implements RangeLib {
     }
 
     @Override
-    public Boolean coincides(Range range1, Range range2) {
+    public Boolean coincides(Range<?> range1, Range<?> range2) {
         throw new DMNRuntimeException("Not supported yet");
     }
 }

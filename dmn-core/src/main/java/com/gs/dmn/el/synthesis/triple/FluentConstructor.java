@@ -15,16 +15,16 @@ package com.gs.dmn.el.synthesis.triple;
 import java.util.List;
 
 public class FluentConstructor extends FunctionInvocationTriple {
-    private final String contextClassName;
+    private final String className;
     private final List<Triple> addMethods;
 
-    FluentConstructor(String contextClassName, List<Triple> addMethods) {
-        this.contextClassName = contextClassName;
+    FluentConstructor(String className, List<Triple> addMethods) {
+        this.className = className;
         this.addMethods = addMethods;
     }
 
-    String getContextClassName() {
-        return contextClassName;
+    String getClassName() {
+        return className;
     }
 
     List<Triple> getAddMethods() {
@@ -38,6 +38,6 @@ public class FluentConstructor extends FunctionInvocationTriple {
 
     @Override
     public String toString() {
-        return String.format("FluentConstructor(%s, %s)", contextClassName, addMethods);
+        return String.format("FluentConstructor(%s, %s)", className, addMethods);
     }
 }

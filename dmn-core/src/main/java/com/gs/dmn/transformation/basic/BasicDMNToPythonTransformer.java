@@ -262,11 +262,11 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     //
     @Override
     public String makeIntegerForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(int(\"%s\"))", text));
+        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(int(\"%s\"))", text), false);
     }
 
     @Override
     public String makeDecimalForInput(String text) {
-        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(float(\"%s\"))", text));
+        return this.nativeFactory.constructor(getNativeNumberType(), String.format("str(float(\"%s\"))", text), false);
     }
 }

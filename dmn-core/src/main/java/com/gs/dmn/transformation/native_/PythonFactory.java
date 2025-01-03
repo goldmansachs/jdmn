@@ -21,7 +21,10 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class PythonFactory extends JavaFactory implements NativeFactory {
     private static final Set<String> PYTHON_KEYWORDS = new LinkedHashSet<>(
@@ -45,7 +48,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     // Constructor
     //
     @Override
-    public String constructor(String className, String arguments) {
+    public String constructor(String className, String arguments, boolean isGeneric) {
         className = removeOptionalParts(className);
         return String.format("%s(%s)", className, arguments);
     }

@@ -165,8 +165,8 @@ public class Triples {
         return addTriple(triple);
     }
 
-    public Triple constructor(String clsName, List<Triple> args) {
-        Triple triple = new Constructor(clsName, args);
+    public Triple constructor(String clsName, List<Triple> args, boolean isGeneric) {
+        Triple triple = new Constructor(clsName, args, isGeneric);
         return addTriple(triple);
     }
 
