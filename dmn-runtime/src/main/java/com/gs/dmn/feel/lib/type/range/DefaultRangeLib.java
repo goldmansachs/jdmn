@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.lib.type.range;
 
+import com.gs.dmn.feel.lib.JavaTimeFEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.lib.type.ComparableComparator;
 import com.gs.dmn.feel.lib.type.RelationalComparator;
 import com.gs.dmn.feel.lib.type.bool.BooleanType;
@@ -23,7 +25,10 @@ import com.gs.dmn.feel.lib.type.time.mixed.ZonedDateTimeComparator;
 import com.gs.dmn.feel.lib.type.time.pure.TemporalAmountComparator;
 import com.gs.dmn.feel.lib.type.time.pure.TemporalComparator;
 import com.gs.dmn.feel.lib.type.time.xml.DefaultDurationComparator;
+import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.datatype.Duration;
 import java.math.BigDecimal;
@@ -32,8 +37,8 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Pattern;
 
 //
 // Allen's algebra https://en.wikipedia.org/wiki/Allen%27s_interval_algebra
@@ -42,7 +47,9 @@ import java.util.Map;
 //
 public class DefaultRangeLib implements RangeLib {
     private static final BooleanType BOOLEAN_TYPE = new DefaultBooleanType();
-    private static final Map<Class<?>, RelationalComparator> COMPARATOR_MAP = new LinkedHashMap<>();
+    private static final Map<Class<?>, RelationalComparator<?>> COMPARATOR_MAP = new LinkedHashMap<>();
+
+    private static final Set<String> ENDPOINT_MARKERS = new LinkedHashSet<>();
 
     static {
         COMPARATOR_MAP.put(BigDecimal.class, new ComparableComparator<BigDecimal>());
@@ -56,6 +63,230 @@ public class DefaultRangeLib implements RangeLib {
         COMPARATOR_MAP.put(TemporalAmount.class, TemporalAmountComparator.COMPARATOR);
 
         COMPARATOR_MAP.put(Duration.class, DefaultDurationComparator.COMPARATOR);
+
+        ENDPOINT_MARKERS.add("(");
+        ENDPOINT_MARKERS.add(")");
+        ENDPOINT_MARKERS.add("[");
+        ENDPOINT_MARKERS.add("]");
+    }
+
+    private static final Pattern STRING_RANGE = Pattern.compile("^\".*\"$");
+    private static final Pattern NUMBER_RANGE = Pattern.compile("^[0-9]+.*$");
+    private static final String DATE_FORMAT = "\\d{4}-\\d{2}-\\d{2}";
+    private static final String TIME_FORMAT = "\\d{2}:\\d{2}:\\d{2}";
+    private static final Pattern DATE_RANGE = Pattern.compile("^@\"" + DATE_FORMAT + "\"$" + "|^date\\(.*\\)$");
+    private static final Pattern TIME_RANGE = Pattern.compile("^@\"" + TIME_FORMAT + "\"$" + "|^time\\(.*\\)$");
+    private static final Pattern DATE_TIME_RANGE = Pattern.compile("^@\"" + DATE_FORMAT + "T" + TIME_FORMAT + "\"$" + "|^date and time\\(.*\\)$");
+
+    public static final String YEAR_MONTH_DURATION = "P(\\d+Y)?(\\d+M)?";
+    private static final Pattern YEARS_MONTHS_RANGE = Pattern.compile("^@\"" + YEAR_MONTH_DURATION + "\"$" + "|^duration\\(\"" + YEAR_MONTH_DURATION + "\"\\)$");
+
+    public static final String DAY_TIME_DURATION = "P(\\d+D)?(T.*)?";
+    private static final Pattern DAYS_TIME_RANGE = Pattern.compile("^@\"" + DAY_TIME_DURATION + "\"$" + "|^duration\\(\"" + DAY_TIME_DURATION + "\"\\)$");
+
+    public static String[] extractRangeParts(String fromStr) {
+        String[] result = new String[4];
+
+        fromStr = fromStr.trim();
+        int middle = fromStr.indexOf("..");
+        if (middle != -1) {
+            result[0] = fromStr.substring(0, 1);
+            result[1] = fromStr.substring(1, middle);
+            result[2] = fromStr.substring(middle + 2, fromStr.length() - 1);
+            result[3] = fromStr.substring(fromStr.length() - 1);
+        }
+        return result;
+    }
+
+    private static String extractTemporalString(String str, List<String> allowedPrefixes) {
+        if (StringUtils.isBlank(str)) {
+            return str;
+        }
+
+        if (!startsWithPrefix(str, allowedPrefixes)) {
+            throw new DMNRuntimeException(String.format("Incorrect endpoint literal '%s'", str));
+        }
+
+        int firstIndex = str.indexOf('"');
+        int lastIndex = str.lastIndexOf('"');
+        if (firstIndex != -1 && lastIndex != -1) {
+            return str.substring(firstIndex + 1, lastIndex);
+        }
+        return null;
+    }
+
+    private static boolean startsWithPrefix(String str, List<String> allowedPrefixes) {
+        for (String allowedPrefix : allowedPrefixes) {
+            if (str.startsWith(allowedPrefix)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isStringRange(String fromStr) {
+        if (StringUtils.isBlank(fromStr)) {
+            return false;
+        }
+
+        return STRING_RANGE.matcher(fromStr).matches();
+    }
+
+    public static boolean isNumberRange(String fromStr) {
+        if (StringUtils.isBlank(fromStr)) {
+            return false;
+        }
+
+        return NUMBER_RANGE.matcher(fromStr).matches();
+    }
+
+    public static boolean isDateRange(String fromStr) {
+        if (StringUtils.isBlank(fromStr)) {
+            return false;
+        }
+
+        return DATE_RANGE.matcher(fromStr).matches();
+    }
+
+    public static boolean isTimeRange(String fromStr) {
+        if (StringUtils.isBlank(fromStr)) {
+            return false;
+        }
+
+        return TIME_RANGE.matcher(fromStr).matches();
+    }
+
+    public static boolean isDateTimeRange(String fromStr) {
+        if (StringUtils.isBlank(fromStr)) {
+            return false;
+        }
+
+        return DATE_TIME_RANGE.matcher(fromStr).matches();
+    }
+
+    public static boolean isYearsMonthsRange(String fromStr) {
+        if (StringUtils.isBlank(fromStr)) {
+            return false;
+        }
+
+        return YEARS_MONTHS_RANGE.matcher(fromStr).matches();
+    }
+
+    public static boolean isDaysTimeRange(String fromStr) {
+        if (StringUtils.isBlank(fromStr)) {
+            return false;
+        }
+
+        return DAYS_TIME_RANGE.matcher(fromStr).matches();
+    }
+
+    @Override
+    public Range<?> range(String from) {
+        if (StringUtils.isBlank(from)) {
+            return null;
+        }
+
+        // Extract the range parts
+        String[] rangeParts = extractRangeParts(from);
+        Boolean startIncluded = ENDPOINT_MARKERS.contains(rangeParts[0]) ? "[".equals(rangeParts[0]) : null;
+        String startStr = rangeParts[1];
+        Boolean endIncluded = ENDPOINT_MARKERS.contains(rangeParts[3]) ? "]".equals(rangeParts[3]) : null;
+        String endStr = rangeParts[2];
+
+        // Check range parts
+        if (startIncluded == null || endIncluded == null) {
+            throw new DMNRuntimeException(String.format("Incorrect range literal '%s'", from));
+        }
+        if (StringUtils.isBlank(startStr) && StringUtils.isBlank(endStr)) {
+            throw new DMNRuntimeException(String.format("Incorrect range literal '%s'", from));
+        }
+        if (startIncluded && StringUtils.isBlank(startStr)) {
+            throw new DMNRuntimeException(String.format("Illegal start endpoint in '%s'", from));
+        }
+        if (endIncluded && StringUtils.isBlank(endStr)) {
+            throw new DMNRuntimeException(String.format("Illegal end endpoint in '%s'", from));
+        }
+        Pair<Object, String> start = literalValue(startStr);
+        Pair<Object, String> end = literalValue(endStr);
+        if (start != null && end !=  null) {
+            if (!Objects.equals(start.getRight(), end.getRight()))  {
+                throw new DMNRuntimeException(String.format("Endpoints with different types in range '%s'", from));
+            }
+            RelationalComparator<Object> rc = resolveComparator(start.getLeft());
+            if (!rc.lessEqualThan(start.getLeft(), end.getLeft())) {
+                throw new DMNRuntimeException(String.format("Endpoints must be ascending order '%s'", from));
+            }
+        } else if (start == null && end == null) {
+            throw new DMNRuntimeException(String.format("Both endpoints are undefined in '%s'", from));
+        }
+        // Make range
+        if (start == null) {
+            return new Range<>(false, null, endIncluded, end.getLeft());
+        } else if (end ==  null) {
+            return new Range<>(startIncluded, start.getLeft(), false, null);
+        } else {
+            return new Range<>(startIncluded, start.getLeft(), endIncluded, end.getLeft());
+        }
+    }
+
+    @Override
+    public Boolean rangeContains(Range<?> range, Object point) {
+        if (checkArguments(point, range)) {
+            throw new DMNRuntimeException(String.format("Illegal operands '%s' %s", range, point));
+        }
+
+        String operator = range.getOperator();
+        if (StringUtils.isBlank(operator)) {
+            return includes(range, point);
+        } else {
+            RelationalComparator<Object> rc = resolveComparator(point);
+            switch (operator) {
+                case "=":
+                    return rc.equalTo(point, range.getStart());
+                case "!=":
+                    return rc.notEqualTo(point, range.getStart());
+                case "<":
+                    return rc.lessThan(point, range.getEnd());
+                case "<=":
+                    return rc.lessEqualThan(point, range.getEnd());
+                case ">":
+                    return rc.greaterThan(point, range.getStart());
+                case ">=":
+                    return rc.greaterEqualThan(point, range.getStart());
+                default:
+                    throw new DMNRuntimeException(String.format("Illegal operator '%s'", operator));
+            }
+        }
+    }
+
+    private Pair<Object, String> literalValue(String str) {
+        if (str != null) {
+            str = str.trim().replace("\\\"", "\"");
+        }
+
+        if (StringUtils.isBlank(str)) {
+            return null;
+        } else if (isStringRange(str)) {
+            return new Pair(str.substring(1, str.length() - 1), "string");
+        } else if (isNumberRange(str)) {
+            return new Pair(getFeelLib().number(str), "number");
+        } else if (isDateRange(str)) {
+            String temporalString = extractTemporalString(str, Arrays.asList("@\"", "date(\""));
+            return new Pair(getFeelLib().date(temporalString), "date");
+        } else if (isTimeRange(str)) {
+            String temporalString = extractTemporalString(str, Arrays.asList("@\"", "time(\""));
+            return new Pair(getFeelLib().time(temporalString), "time");
+        } else if (isDateTimeRange(str)) {
+            String temporalString = extractTemporalString(str, Arrays.asList("@\"", "date and time(\""));
+            return new Pair(getFeelLib().dateAndTime(temporalString), "date and time");
+        } else if (isYearsMonthsRange(str)) {
+            String temporalString = extractTemporalString(str, Arrays.asList("@\"P", "duration(\"P"));
+            return new Pair(getFeelLib().duration(temporalString), "years and months");
+        } else if (isDaysTimeRange(str)) {
+            String temporalString = extractTemporalString(str, Arrays.asList("@\"P", "duration(\"P"));
+            return new Pair(getFeelLib().duration(temporalString), "days and time");
+        }
+        throw new DMNRuntimeException(String.format("Incorrect endpoint literal '%s'", str));
     }
 
     @Override
@@ -783,10 +1014,10 @@ public class DefaultRangeLib implements RangeLib {
         }
 
         Class<?> pointClass = point.getClass();
-        RelationalComparator relationalComparator = COMPARATOR_MAP.get(pointClass);
+        RelationalComparator<?> relationalComparator = COMPARATOR_MAP.get(pointClass);
         if (relationalComparator == null) {
             // try instance of
-            for (Map.Entry<Class<?>, RelationalComparator> entry: COMPARATOR_MAP.entrySet()) {
+            for (Map.Entry<Class<?>, RelationalComparator<?>> entry: COMPARATOR_MAP.entrySet()) {
                 Class<?> key = entry.getKey();
                 if (key.isAssignableFrom(pointClass)) {
                     relationalComparator = entry.getValue();
@@ -795,5 +1026,9 @@ public class DefaultRangeLib implements RangeLib {
             }
         }
         return relationalComparator;
+    }
+
+    protected StandardFEELLib<?, ?, ?, ?, ?> getFeelLib() {
+        return JavaTimeFEELLib.INSTANCE;
     }
 }

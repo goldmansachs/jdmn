@@ -18,6 +18,16 @@ import com.gs.dmn.runtime.Range;
 
 public class RangeLibStub implements RangeLib {
     @Override
+    public Range<?> range(String from) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
+    public Boolean rangeContains(Range<?> range, Object point) {
+        throw new DMNRuntimeException("Not supported yet");
+    }
+
+    @Override
     public Boolean before(Object point1, Object point2) {
         throw new DMNRuntimeException("Not supported yet");
     }

@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1156-range-function"
+             name="1156-range-function"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <description>FEEL built-in function 'range(string)' in category conversion functions</description>
+
+    <inputData name="input_001" id="_input_001">
+        <variable name="input_001" typeRef="string"/>
+    </inputData>
+
+    <decision name="decision001" id="_decision001">
+        <!-- basic sanity check to ensure it is operating as a range -->
+        <variable name="decision001"/>
+        <literalExpression>
+            <text>2 in range("[1..3]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision001_a" id="_decision001_a">
+        <!-- will parse and have the correct type for number -->
+        <variable name="decision001_a"/>
+        <literalExpression>
+            <text>range("[1..3]") instance of range&lt;number&gt;</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision001_b" id="_decision001_b">
+        <!-- will parse and have the correct type for number (using non-literal) -->
+        <variable name="decision001_b"/>
+        <literalExpression>
+            <text>range(string("[1..3]")) instance of range&lt;number&gt;</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision001_c" id="_decision001_c">
+        <!-- will parse and have the correct type for string -->
+        <variable name="decision001_c"/>
+        <literalExpression>
+            <text>range("[\"a\"..\"c\"]") instance of range&lt;string&gt;</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision001_d" id="_decision001_d">
+        <!-- will parse and have the correct type for date -->
+        <variable name="decision001_d"/>
+        <literalExpression>
+            <text>range("[@\"1970-01-01\"..@\"1970-01-02\"]") instance of range&lt;date&gt;</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision001_e" id="_decision001_e">
+        <!-- will parse and have the correct type for date and time -->
+        <variable name="decision001_e"/>
+        <literalExpression>
+            <text>range("[@\"1970-01-01T00:00:00\"..@\"1970-01-02T00:00:00\"]") instance of range&lt;date and time&gt;
+            </text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision001_g" id="_decision001_g">
+        <!-- will parse and have the correct type for time -->
+        <variable name="decision001_g"/>
+        <literalExpression>
+            <text>range("[@\"00:00:00\"..@\"00:00:00\"]") instance of range&lt;time&gt;</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision001_h" id="_decision001_h">
+        <!-- will parse and have the correct type for days and time duration -->
+        <variable name="decision001_h"/>
+        <literalExpression>
+            <text>range("[@\"P1D\"..@\"P2D\"]") instance of range&lt;days and time duration&gt;</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision001_i" id="_decision001_i">
+        <!-- will parse and have the correct type for years and months duration -->
+        <variable name="decision001_i"/>
+        <literalExpression>
+            <text>range("[@\"P1Y\"..@\"P2Y\"]") instance of range&lt;years and months duration&gt;</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision002" id="_decision002">
+        <!-- basic sanity check to ensure it is operating as a range using non-literal-->
+        <variable name="decision002"/>
+        <literalExpression>
+            <text>2 in range(string("[1..3]"))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003_a" id="_decision003_a">
+        <!-- parsed range is equal to literal range -->
+        <variable name="decision003_a"/>
+        <literalExpression>
+            <text>range("[18..21]") = [18..21]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003_b" id="_decision003_b">
+        <!-- parsed range endpoint inclusivity is equal to literal range -->
+        <variable name="decision003_b"/>
+        <literalExpression>
+            <text>range("(18..21]") = (18..21]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003_c" id="_decision003_c">
+        <!-- parsed range endpoint inclusivity is equal to literal range -->
+        <variable name="decision003_c"/>
+        <literalExpression>
+            <text>range("]18..21]") = ]18..21]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003_d" id="_decision003_d">
+        <!-- parsed range endpoint inclusivity is equal to literal range -->
+        <variable name="decision003_d"/>
+        <literalExpression>
+            <text>range("[18..21)") = [18..21)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003_e" id="_decision003_e">
+        <!-- parsed range endpoint inclusivity is equal to literal range -->
+        <variable name="decision003_e"/>
+        <literalExpression>
+            <text>range("[18..21[") = [18..21[</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision004_e" id="_decision004_e">
+        <!-- closed start endpoint with no value is not valid and gives null -->
+        <variable name="decision004_e"/>
+        <literalExpression>
+            <text>range("[..2]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision004_f" id="_decision004_f">
+        <!-- closed end endpoint with no value is not valid and gives null -->
+        <variable name="decision004_f"/>
+        <literalExpression>
+            <text>range("[1..]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision005_a" id="_decision005_a">
+        <!-- parsed string range is equal to literal range -->
+        <variable name="decision005_a"/>
+        <literalExpression>
+            <text>range("[\"a\"..\"c\"]") = ["a".."c"]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision005_b" id="_decision005_b">
+        <!-- parsed date range is equal to literal range -->
+        <variable name="decision005_b"/>
+        <literalExpression>
+            <text>range("[@\"1970-01-01\"..@\"1970-01-02\"]") = [@"1970-01-01"..@"1970-01-02"]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision005_c" id="_decision005_c">
+        <!-- parsed date and time range is equal to literal range -->
+        <variable name="decision005_c"/>
+        <literalExpression>
+            <text>range("[@\"1970-01-01T00:00:00\"..@\"1970-01-02T00:00:00\"]") =
+                [@"1970-01-01T00:00:00"..@"1970-01-02T00:00:00"]
+            </text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision005_d" id="_decision005_d">
+        <!-- parsed time range is equal to literal range -->
+        <variable name="decision005_d"/>
+        <literalExpression>
+            <text>range("[@\"00:00:00\"..@\"00:00:00\"]") = [@"00:00:00"..@"00:00:00"]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision005_e" id="_decision005_e">
+        <!-- parsed days/weeks duration range is equal to literal range -->
+        <variable name="decision005_e"/>
+        <literalExpression>
+            <text>range("[@\"P1D\"..@\"P2D\"]") = [@"P1D"..@"P2D"]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision005_f" id="_decision005_f">
+        <!-- parsed years/month duration range is equal to literal range -->
+        <variable name="decision005_f"/>
+        <literalExpression>
+            <text>range("[@\"P1Y\"..@\"P2Y\"]") = [@"P1Y"..@"P2Y"]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision006" id="_decision006">
+        <!-- will ignore whitespace when parsing -->
+        <variable name="decision006"/>
+        <literalExpression>
+            <text>range(" [ 1 .. 3 ] ") = [1..3]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision007_a" id="_decision007_a">
+        <!-- use of date() function literal is permitted -->
+        <variable name="decision007_a"/>
+        <literalExpression>
+            <text>range("[date(\"1970-01-01\")..date(\"1970-01-02\")]") = [date("1970-01-01")..date("1970-01-02")]
+            </text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision007_b" id="_decision007_b">
+        <!-- use of date() function as non literal is not permitted and gives null -->
+        <!-- the usage of string() here causes start endPoint to be non-literal -->
+        <variable name="decision007_b"/>
+        <literalExpression>
+            <text>range("[date(string(\"1970-01-01\"))..date(\"1970-01-02\")]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision007_c" id="_decision007_c">
+        <!-- use of date() function as non literal is not permitted and gives null -->
+        <!-- shows range literal using input data as argument to date() -->
+        <variable name="decision007_c"/>
+        <informationRequirement>
+            <requiredInput href="#_input_001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>range("[date(input_001)..date(\"1970-01-02\")]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision008_a" id="_decision008_a">
+        <!-- use of date and time() function literal is permitted -->
+        <variable name="decision008_a"/>
+        <literalExpression>
+            <text>range("[date and time(\"1970-01-01T00:00:00\")..@\"1970-01-02T00:00:00\"]") =
+                [@"1970-01-01T00:00:00"..@"1970-01-02T00:00:00"]
+            </text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision008_b" id="_decision008_b">
+        <!-- use of date and time() function as non literal is not permitted and gives null -->
+        <!-- the usage of string() here causes start endPoint to be non-literal -->
+        <variable name="decision008_b"/>
+        <literalExpression>
+            <text>range("[date and time(string(\"1970-01-01T00:00:00\"))..@\"1970-01-02T00:00:00\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision008_c" id="_decision008_c">
+        <!-- use of date and time() function as non literal is not permitted and gives null -->
+        <!-- shows range literal using input data as argument to date and time() -->
+        <variable name="decision008_c"/>
+        <informationRequirement>
+            <requiredInput href="#_input_001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>range("[date and time(input_001)..@\"1970-01-02T00:00:00\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision009_a" id="_decision009_a">
+        <!-- use of time() function literal is permitted -->
+        <variable name="decision009_a"/>
+        <literalExpression>
+            <text>range("[time(\"00:00:00\")..@\"00:00:00\"]") = [@"00:00:00"..@"00:00:00"]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision009_b" id="_decision009_b">
+        <!-- use of time() function as non literal is not permitted and gives null -->
+        <!-- the usage of string() here causes start endPoint to be non-literal -->
+        <variable name="decision009_b"/>
+        <literalExpression>
+            <text>range("[time(string(\"00:00:00\"))..@\"00:00:00\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision009_c" id="_decision009_c">
+        <!-- use of time() function as non literal is not permitted and gives null -->
+        <!-- shows range literal using input data as argument to time() -->
+        <variable name="decision009_c"/>
+        <informationRequirement>
+            <requiredInput href="#_input_001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>range("[time(input_001)..@\"00:00:00\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision010_a" id="_decision010_a">
+        <!-- use of duration() function literal is permitted -->
+        <variable name="decision010_a"/>
+        <literalExpression>
+            <text>range("[duration(\"P1D\")..@\"P2D\"]") = [@"P1D"..@"P2D"]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision010_b" id="_decision010_b">
+        <!-- use of duration() function as non literal is not permitted and gives null-->
+        <!-- the usage of string() here causes start endPoint to be non-literal -->
+        <variable name="decision010_b"/>
+        <literalExpression>
+            <text>range("[duration(string(\"P1D\"))..@\"P2D\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision010_c" id="_decision010_c">
+        <!-- use of duration() function as non literal is not permitted and gives null-->
+        <!-- shows range literal using input data as argument to duration() -->
+        <variable name="decision010_c"/>
+        <informationRequirement>
+            <requiredInput href="#_input_001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>range("[duration(input_001)..@\"P2D\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision011" id="_decision011">
+        <!-- named argument -->
+        <variable name="decision011"/>
+        <literalExpression>
+            <text>range(from: "[1..3]") = [1..3]</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision012" id="_decision012">
+        <!-- invalidly named argument 'fron' gives null  -->
+        <variable name="decision012"/>
+        <literalExpression>
+            <text>range(fron: "[1..3]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision013_a" id="_decision013_a">
+        <!-- too many arguments gives null -->
+        <variable name="decision013_a"/>
+        <literalExpression>
+            <text>range("[1..3]", "foo")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision013_b" id="_decision013_b">
+        <!-- too few arguments gives null -->
+        <variable name="decision013_b"/>
+        <literalExpression>
+            <text>range()</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision014" id="_decision014">
+        <!-- invalid type gives null -->
+        <variable name="decision014"/>
+        <literalExpression>
+            <text>range([1..3])</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision015_a" id="_decision015_a">
+        <!-- empty string gives null -->
+        <variable name="decision015_a"/>
+        <literalExpression>
+            <text>range("")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision015_b" id="_decision015_b">
+        <!-- whitespace only gives null -->
+        <variable name="decision015_b"/>
+        <literalExpression>
+            <text>range(" ")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision016" id="_decision016">
+        <!-- non-literal argument provides invalid range string gives null -->
+        <variable name="decision016"/>
+        <literalExpression>
+            <text>range(string(""))</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision017" id="_decision017">
+        <!-- a unary range is not a valid literal range string -->
+        <variable name="decision017"/>
+        <literalExpression>
+            <text>range(">=10")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision018" id="_decision018">
+        <!-- mismatching endpoint types gives null -->
+        <variable name="decision018"/>
+        <literalExpression>
+            <text>range("[1..\"b\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision019_a" id="_decision019_sa">
+        <!-- date, and date and time end points are not equivalent and gives null -->
+        <variable name="decision019_a"/>
+        <literalExpression>
+            <text>range("[@\"1970-01-01\"..@\"1970-01-02T00:00:00\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision019_b" id="_decision019_b">
+        <!-- date, and date and time end points are not equivalent and gives null -->
+        <variable name="decision019_b"/>
+        <literalExpression>
+            <text>range("[@\"1970-01-01T00:00:00\"..@\"1970-01-02\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision020" id="_decision020">
+        <!-- a descending numeric range gives null -->
+        <variable name="decision020"/>
+        <literalExpression>
+            <text>range("[3..1]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision021" id="_decision021">
+        <!-- a descending date range gives null -->
+        <variable name="decision021"/>
+        <literalExpression>
+            <text>range("[@\"1970-01-02\"..@\"1970-01-01\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision022" id="_decision022">
+        <!-- a descending date time range gives null -->
+        <variable name="decision022"/>
+        <literalExpression>
+            <text>range("[@\"1970-01-02T00:00:00\"..@\"1970-01-01T00:00:00\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision023" id="_decision023">
+        <!-- a descending string range gives null -->
+        <variable name="decision023"/>
+        <literalExpression>
+            <text>range("[\"z\"..\"a\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision024" id="_decision024">
+        <!-- a descending date duration range gives null -->
+        <variable name="decision024"/>
+        <literalExpression>
+            <text>range("[@\"P2D\"..@\"P1D\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision025" id="_decision025">
+        <!-- a descending years duration range gives null -->
+        <variable name="decision025"/>
+        <literalExpression>
+            <text>range("[@\"P2Y\"..@\"P1Y\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision026" id="_decision026">
+        <!-- a descending time range gives null -->
+        <variable name="decision026"/>
+        <literalExpression>
+            <text>range("[@\"02:00:00\"..@\"01:00:00\"]")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision027" id="_decision027">
+        <!-- both null endpoints gives null -->
+        <variable name="decision027"/>
+        <literalExpression>
+            <text>range("[null..null]")</text>
+        </literalExpression>
+    </decision>
+
+
+
+</definitions>
+

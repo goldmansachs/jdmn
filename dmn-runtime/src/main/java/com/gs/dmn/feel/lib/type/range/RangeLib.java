@@ -15,6 +15,9 @@ package com.gs.dmn.feel.lib.type.range;
 import com.gs.dmn.runtime.Range;
 
 public interface RangeLib {
+    Range<?> range(String from);
+    Boolean rangeContains(Range<?> range, Object point);
+
     Boolean before(Object point1, Object point2);
     Boolean before(Object point, Range<?> range);
     Boolean before(Range<?> range, Object point);

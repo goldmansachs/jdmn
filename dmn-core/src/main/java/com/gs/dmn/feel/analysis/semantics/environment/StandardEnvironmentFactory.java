@@ -20,6 +20,7 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
+import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.function.BuiltinFunction;
 
@@ -32,15 +33,15 @@ import static com.gs.dmn.feel.analysis.semantics.type.ComparableDataType.COMPARA
 import static com.gs.dmn.feel.analysis.semantics.type.ContextType.ANY_CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
-import static com.gs.dmn.feel.analysis.semantics.type.DurationType.ANY_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.DurationType.ANY_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.ANY_FUNCTION;
-import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.RangeType.COMPARABLE_RANGE;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 
 public class StandardEnvironmentFactory implements EnvironmentFactory {
     private static final EnvironmentFactory INSTANCE = new StandardEnvironmentFactory();
@@ -126,6 +127,10 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("function", functionType));
     }
 
+    public static BuiltinFunctionType makeRangeBuiltinFunctionType(Type returnType) {
+        return new BuiltinFunctionType(new RangeType(returnType), new FormalParameter<>("from", STRING));
+    }
+
     // Signavio
     public static BuiltinFunctionType makeSignavioAppendBuiltinFunctionType(Type listType, Type elementType) {
         return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("element", elementType));
@@ -189,6 +194,7 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         // Extension to the standard to reduce the number of conversions
         addFunctionDeclaration(environment, "years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter<>("from", DATE), new FormalParameter<>("to", DATE_AND_TIME)));
         addFunctionDeclaration(environment, "years and months duration", new BuiltinFunctionType(YEARS_AND_MONTHS_DURATION, new FormalParameter<>("from", DATE_AND_TIME), new FormalParameter<>("to", DATE)));
+        addFunctionDeclaration(environment, "range", makeRangeBuiltinFunctionType(ANY));
     }
 
     private static void addNumberFunctions(Environment environment) {

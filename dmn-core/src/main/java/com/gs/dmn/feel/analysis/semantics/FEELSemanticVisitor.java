@@ -143,9 +143,12 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             element.setType(new RangeType(endpointType));
             // Check according to 7.3.2 UnaryTests Metamodel
             if (operator == null) {
-                if (endpointType instanceof ListType && Type.conformsTo(inputExpressionType, ((ListType) endpointType).getElementType())) {
+                if (endpointType instanceof ListType && Type.sameSemanticDomain(inputExpressionType, ((ListType) endpointType).getElementType())) {
                     // Endpoint is a list - check contains
                     checkType(element, "=", inputExpressionType, ((ListType) endpointType).getElementType(), context);
+                } else if (endpointType instanceof RangeType && Type.sameSemanticDomain(inputExpressionType, ((RangeType) endpointType).getRangeType())) {
+                    // Endpoint is a range - check contains
+                    checkType(element, "=", inputExpressionType, ((RangeType) endpointType).getRangeType(), context);
                 } else {
                     // Endpoint is a value - check equality
                     checkType(element, "=", inputExpressionType, endpointType, context);
@@ -1075,7 +1078,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         element.getReturnType().accept(this, context);
 
         // Derive type
-        List<FormalParameter<Type>> parameters = element.getParameters().stream().map(e -> new FormalParameter<Type>(null, e.getType())).collect(Collectors.toList());
+        List<FormalParameter<Type>> parameters = element.getParameters().stream().map(e -> new FormalParameter<>(null, e.getType())).collect(Collectors.toList());
         Type returnType = element.getReturnType().getType();
         FunctionType functionType = new FEELFunctionType(parameters, returnType, false);
         element.setType(functionType);

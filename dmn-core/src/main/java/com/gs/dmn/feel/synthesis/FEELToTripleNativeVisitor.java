@@ -140,6 +140,13 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
                     Triple javaList = (Triple) endpoint.accept(this, context);
                     return this.triples.makeBuiltinFunctionInvocation("listContains", javaList, inputExpressionToJava(context));
                 }
+            } else if (endpointType instanceof RangeType) {
+                Type endpointElementType = ((RangeType) endpointType).getRangeType();
+                if (Type.sameSemanticDomain(endpointElementType, inputExpressionType)) {
+                    // input and list elements are comparable
+                    Triple javaList = (Triple) endpoint.accept(this, context);
+                    return this.triples.makeBuiltinFunctionInvocation("rangeContains", javaList, inputExpressionToJava(context));
+                }
             }
 
             // Cannot compare

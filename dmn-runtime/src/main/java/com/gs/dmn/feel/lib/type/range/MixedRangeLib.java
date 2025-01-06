@@ -12,10 +12,17 @@
  */
 package com.gs.dmn.feel.lib.type.range;
 
+import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.StandardFEELLib;
+
 //
 // Allen's algebra https://en.wikipedia.org/wiki/Allen%27s_interval_algebra
 //
 // CQL https://cql.hl7.org/09-b-cqlreference.html#interval-operators-3
 //
 public class MixedRangeLib extends DefaultRangeLib {
+    @Override
+    protected StandardFEELLib<?, ?, ?, ?, ?> getFeelLib() {
+        return MixedJavaTimeFEELLib.INSTANCE;
+    }
 }

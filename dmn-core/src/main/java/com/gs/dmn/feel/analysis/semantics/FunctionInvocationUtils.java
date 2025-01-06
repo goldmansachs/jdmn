@@ -20,14 +20,17 @@ import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.ListLiteral;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.StringLiteral;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
+import static com.gs.dmn.feel.lib.type.range.DefaultRangeLib.*;
 
 public class FunctionInvocationUtils {
     static void deriveType(FunctionInvocation<Type> element, DMNContext context, String functionName) {
@@ -137,7 +140,15 @@ public class FunctionInvocationUtils {
             Type listType = parameters.getParameterType(0, "list");
             Type functionType = parameters.getParameterType(1, "function");
             return StandardEnvironmentFactory.makeSortBuiltinFunctionType(listType, functionType);
-
+        } else if ("range".equals(functionName)) {
+            Expression<Type> from = parameters.getParameter(0, "from");
+            Type returnType = ANY;
+            if (from instanceof StringLiteral) {
+                String lexeme = ((StringLiteral<Type>) from).getLexeme();
+                String fromStr = lexeme.substring(1, lexeme.length() - 1);
+                returnType = inferEndpointType(fromStr);
+            }
+            return StandardEnvironmentFactory.makeRangeBuiltinFunctionType(returnType);
         } else if("appendAll".equals(functionName)) {
             Type list1Type = parameters.getParameterType(0, "list1");
             return StandardEnvironmentFactory.makeSignavioAppendAllBuiltinFunctionType(list1Type);
@@ -148,6 +159,33 @@ public class FunctionInvocationUtils {
             return functionDeclaration.getType();
         }
     }
+
+    private static Type inferEndpointType(String fromStr) {
+        Type returnType = ANY;
+        String[] rangeParts = extractRangeParts(fromStr);
+        String endpoint = rangeParts[1];
+        if (StringUtils.isBlank(endpoint)) {
+            endpoint = rangeParts[2];
+        }
+        endpoint = endpoint == null ? null : endpoint.trim().replace("\\\"", "\"");
+        if (isStringRange(endpoint)) {
+            returnType = StringType.STRING;
+        } else if (isNumberRange(endpoint)) {
+            returnType = NumberType.NUMBER;
+        } else if (isDateRange(endpoint)) {
+            returnType = DateType.DATE;
+        } else if (isTimeRange(endpoint)) {
+            returnType = TimeType.TIME;
+        } else if (isDateTimeRange(endpoint)) {
+            returnType = DateTimeType.DATE_AND_TIME;
+        } else if (isYearsMonthsRange(endpoint)) {
+            returnType = YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
+        } else if (isDaysTimeRange(endpoint)) {
+            returnType = DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
+        }
+        return returnType;
+    }
+
 
     private static Type nestedElementType(Expression<Type> expression) {
         List<Type> primitiveTypes = new ArrayList<>();

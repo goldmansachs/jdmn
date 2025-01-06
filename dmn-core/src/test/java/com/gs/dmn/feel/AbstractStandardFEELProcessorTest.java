@@ -29,8 +29,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     protected final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.dmnInterpreter.getFeelLib();
@@ -47,7 +45,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
         NUMBER number = this.lib.number("15");
         DATE date = this.lib.date("2015-01-01");
-        Range range = new Range(">=", this.lib.number("10"));
+        Range<?> range = new Range<>(">=", this.lib.number("10"));
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("number", NUMBER, number),
                 new EnvironmentEntry("date", DateType.DATE, date),
@@ -68,18 +66,13 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 lib.dateEqual(date, lib.dateSubtractDuration(lib.date("2020-01-01"), lib.duration("P5Y"))),
                 true);
 
-        // Range value
-        try {
-            doUnaryTestsTest(entries, "number", "range",
-                    "PositiveUnaryTests(OperatorRange(null,Name(range)))",
-                    "TupleType(boolean)",
-                    "rangeEqual(range, range)",
-                    this.lib.rangeEqual(range, range),
-                    true);
-            fail("Expected semantic error");
-        } catch (Exception e) {
-            assertEquals("'OperatorRange': Operator '=' cannot be applied to 'number', 'RangeType(number)'", e.getMessage());
-        }
+        // operator range value
+        doUnaryTestsTest(entries, "number", "range",
+                "PositiveUnaryTests(OperatorRange(null,Name(range)))",
+                "TupleType(boolean)",
+                "rangeContains(range, number)",
+                this.lib.rangeContains(range, number),
+                true);
     }
 
     @Override
@@ -140,6 +133,14 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "dateLessEqualThan(date, dateSubtractDuration(date(\"2020-01-01\"), duration(\"P5Y\")))",
                 this.lib.dateLessEqualThan(date, this.lib.dateSubtractDuration(this.lib.date("2020-01-01"), this.lib.duration("P5Y"))),
                 false);
+
+        // Range function
+        doUnaryTestsTest(entries, "number", "? in range(\"[1..11)\")",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(null,FunctionInvocation(Name(range) -> PositionalParameters(StringLiteral(\"[1..11)\")))))))",
+                "TupleType(boolean)",
+                "rangeContains(range(\"[1..11)\"), number)",
+                this.lib.rangeContains(this.lib.range("[1..11)"), number),
+                true);
     }
 
     @Override

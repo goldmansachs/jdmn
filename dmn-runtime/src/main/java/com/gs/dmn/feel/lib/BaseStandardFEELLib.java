@@ -213,6 +213,28 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         }
     }
 
+    @Override
+    public Range range(String from) {
+        try {
+            return this.rangeLib.range(from);
+        } catch (Exception e) {
+            String message = String.format("range(\"%s\")", from);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public Boolean rangeContains(Range<?> range, Object point) {
+        try {
+            return this.rangeLib.rangeContains(range, point);
+        } catch (Exception e) {
+            String message = String.format("rangeContains(\"%s\", \"%s\")", range, point);
+            logError(message, e);
+            return null;
+        }
+    }
+
     //
     // Extra conversion functions
     //
@@ -963,7 +985,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             } else if (value1 instanceof List) {
                 return this.listType.listIs((List) value1, (List) value2);
             } else if (value1 instanceof Range) {
-                return this.rangeType.rangeIs((Range) value1, (Range) value2);
+                return this.rangeType.rangeIs((Range<?>) value1, (Range<?>) value2);
             } else if (value1 instanceof Context) {
                 return this.contextType.contextIs((Context) value1, (Context) value2);
             } else {

@@ -157,13 +157,19 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                     Type endpointElementType = ((ListType) endpointType).getElementType();
                     if (Type.sameSemanticDomain(endpointElementType, inputExpressionType)) {
                         // input and list elements are comparable
-                        List endpointValueList = (List) endpoint.accept(this, context);
-                        List results = new ArrayList();
+                        List<Object> endpointValueList = (List<Object>) endpoint.accept(this, context);
+                        List<Object> results = new ArrayList<>();
                         for (Object endpointValue: endpointValueList) {
                             results.add(evaluateOperatorRange(element, "=", self, inputExpressionType, ((ListType) endpointType).getElementType(), endpointValue));
                         }
                         return this.lib.or(results);
                     }
+                } else if (endpointType instanceof RangeType) {
+                    Type endpointElementType = ((RangeType) endpointType).getRangeType();
+                    if (Type.sameSemanticDomain(endpointElementType, inputExpressionType)) {
+                        // input and range elements are comparable
+                        Range<?> rangeValue = (Range<?>) endpoint.accept(this, context);
+                        return ((StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.lib).rangeContains(rangeValue, self);                    }
                 }
 
                 // Cannot compare
@@ -180,7 +186,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         Object endpointValue = endpointExpression.accept(this, context);
         if (context.isExpressionContext()) {
             if (isValidRangeOperator(operator)) {
-                return new Range(operator, endpointValue);
+                return new Range<>(operator, endpointValue);
             } else {
                 throw new DMNRuntimeException(String.format("Unknown operator '%s'", operator));
             }
@@ -201,14 +207,14 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         } else {
             String methodName = javaOperator.getName();
             if (javaOperator.getAssociativity() == NativeOperator.Associativity.LEFT_RIGHT) {
-                Class[] argumentTypes = {getClass(self), getClass(endpointValue)};
+                Class<?>[] argumentTypes = {getClass(self), getClass(endpointValue)};
                 Method method = MethodUtils.resolveMethod(methodName, this.lib.getClass(), argumentTypes);
                 if (method == null) {
                     throw new DMNRuntimeException(String.format("Cannot find method '%s' for arguments '%s' and '%s'", methodName, self, endpointValue));
                 }
                 return method.invoke(this.lib, self, endpointValue);
             } else {
-                Class[] argumentTypes = {getClass(endpointValue), getClass(null)};
+                Class<?>[] argumentTypes = {getClass(endpointValue), null};
                 Method method = MethodUtils.resolveMethod(methodName, this.lib.getClass(), argumentTypes);
                 if (method == null) {
                     throw new DMNRuntimeException(String.format("Cannot find method '%s' for arguments '%s' and '%s'", methodName, self, endpointValue));
@@ -317,7 +323,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                     return evaluateRangeEndpoint(element, operator, self, optimizedListLiteral, context);
                 } else if (Type.conformsTo(inputExpressionType, optimizedListElementType)) {
                     // input conforms to element in the list
-                    List list = (List) optimizedListLiteral.accept(this, context);
+                    List<?> list = (List<?>) optimizedListLiteral.accept(this, context);
                     result = this.lib.listContains(list, self);
                 } else {
                     handleError(context, element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
@@ -326,7 +332,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             } else {
                 // test is list of ranges compatible with input
                 ListLiteral<Type> listLiteral = element.getListLiteral();
-                List list = (List) listLiteral.accept(this, context);
+                List<?> list = (List<?>) listLiteral.accept(this, context);
                 result = this.lib.listContains(list, true);
             }
 
@@ -356,9 +362,9 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         LOGGER.debug("Visiting element '{}'", element);
 
         DMNContext entryContext = this.dmnTransformer.makeLocalContext(parentContext);
-        List<Pair> entries = element.getEntries().stream().map(e -> (Pair) e.accept(this, entryContext)).collect(Collectors.toList());
+        List<Pair<?, ?>> entries = element.getEntries().stream().map(e -> (Pair<?, ?>) e.accept(this, entryContext)).collect(Collectors.toList());
         com.gs.dmn.runtime.Context runtimeContext = new com.gs.dmn.runtime.Context();
-        for (Pair p : entries) {
+        for (Pair<?, ?> p : entries) {
             runtimeContext.put(p.getLeft(), p.getRight());
         }
         return runtimeContext;
@@ -399,16 +405,16 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
 
         // Loop over domain and evaluate body
         DMNContext iteratorContext = this.dmnTransformer.makeIteratorContext(context);
-        List result = new ArrayList<>();
+        List<Object> result = new ArrayList<>();
         iteratorContext.bind(PARTIAL_PARAMETER_NAME, result);
         if (expressionDomain instanceof ExpressionIteratorDomain) {
-            for (Object value : (List) domain) {
+            for (Object value : (List<?>) domain) {
                 iteratorContext.bind(iterator.getName(), value);
                 result.add(element.getBody().accept(this, iteratorContext));
             }
         } else {
-            NUMBER start = toNumber(((Pair) domain).getLeft());
-            NUMBER end = toNumber(((Pair) domain).getRight());
+            NUMBER start = toNumber(((Pair<?, ?>) domain).getLeft());
+            NUMBER end = toNumber(((Pair<?, ?>) domain).getRight());
             java.util.Iterator<NUMBER> numberIterator = this.lib.rangeToStream(start, end).iterator();
             while (numberIterator.hasNext()) {
                 NUMBER number = numberIterator.next();
@@ -441,10 +447,10 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         LOGGER.debug("Visiting element '{}'", element);
 
         Expression<Type> expressionDomain = element.getExpression();
-        List domain;
+        List<?> domain;
         if (expressionDomain instanceof Name) {
             String name = ((Name<Type>) expressionDomain).getName();
-            domain = (List) context.lookupBinding(name);
+            domain = (List<?>) context.lookupBinding(name);
         } else if (expressionDomain instanceof EndpointsRange) {
             EndpointsRange<Type> test = (EndpointsRange<Type>) expressionDomain;
             if (test.getType() instanceof RangeType && Type.conformsTo(((RangeType) test.getType()).getRangeType(), NumberType.NUMBER)) {
@@ -456,11 +462,11 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             }
         } else if (expressionDomain instanceof ListTest) {
             ListTest<Type> test = (ListTest<Type>) expressionDomain;
-            domain = (List) test.getListLiteral().accept(this, context);
+            domain = (List<?>) test.getListLiteral().accept(this, context);
         } else if (expressionDomain instanceof ListLiteral) {
-            domain = (List) expressionDomain.accept(this, context);
+            domain = (List<?>) expressionDomain.accept(this, context);
         } else if (expressionDomain instanceof FunctionInvocation) {
-            domain = (List) expressionDomain.accept(this, context);
+            domain = (List<?>) expressionDomain.accept(this, context);
         } else {
             throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
                     element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
@@ -496,7 +502,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         // Transform into nested for expressions
         ForExpression<Type> equivalentForExpression = element.toForExpression();
         // Evaluate
-        List result = (List) equivalentForExpression.accept(this, context);
+        List<?> result = (List<?>) equivalentForExpression.accept(this, context);
         // Apply predicate
         String predicate = element.getPredicate();
         if ("some".equals(predicate)) {
@@ -520,7 +526,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         }
         if (filterType == BooleanType.BOOLEAN) {
             List<Object> result = new ArrayList<>();
-            for (Object item : (List) source) {
+            for (Object item : (List<?>) source) {
                 DMNContext filterContext = this.dmnTransformer.makeFilterContext(element, FilterExpression.FILTER_PARAMETER_NAME, context);
                 filterContext.bind(FilterExpression.FILTER_PARAMETER_NAME, item);
 
@@ -532,7 +538,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             return result;
         } else if (filterType == NumberType.NUMBER) {
             Object filterValue = element.getFilter().accept(this, context);
-            return this.lib.elementAt((List) source, (NUMBER) filterValue);
+            return this.lib.elementAt((List<?>) source, (NUMBER) filterValue);
         } else {
             throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
         }
@@ -770,7 +776,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 Object secondArg = argList.get(1);
                 if (secondArg instanceof Function) {
                     Function sortFunction = (Function) secondArg;
-                    return ((StandardFEELLib) lib).sort((List) argList.get(0), makeLambdaExpression(sortFunction));
+                    return ((StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) lib).sort((List<Object>) argList.get(0), makeLambdaExpression(sortFunction));
                 } else {
                     handleError(String.format("'%s' is not supported yet", secondArg.getClass()));
                     return null;
@@ -779,8 +785,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 Object secondArg = argList.get(1);
                 if (secondArg instanceof Function) {
                     Function filterFunction = (Function) secondArg;
-                    List result = ((StandardFEELLib) lib).listReplace((List) argList.get(0), makeLambdaExpression(filterFunction), argList.get(2));
-                    return result;
+                    return ((StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) lib).listReplace((List<Object>) argList.get(0), makeLambdaExpression(filterFunction), argList.get(2));
                 } else {
                     return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
                 }
@@ -936,7 +941,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         return evaluateBuiltInFunction(this.lib, functionName, argList);
     }
 
-    private Object evaluateBuiltInFunction(FEELLib lib, String functionName, List<Object> argList) {
+    private Object evaluateBuiltInFunction(FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib, String functionName, List<Object> argList) {
         return evaluateMethod(lib, lib.getClass(), functionName, argList);
     }
 
@@ -946,7 +951,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     private Object evaluateMethod(Object object, Class<?> cls, String functionName, List<Object> argList) {
         try {
-            Class[] argTypes = new Class[argList.size()];
+            Class<?>[] argTypes = new Class[argList.size()];
             for (int i = 0; i < argList.size(); i++) {
                 argTypes[i] = getClass(argList.get(i));
             }
@@ -1015,11 +1020,11 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         String member = element.getMember();
 
         if (sourceType instanceof ListType) {
-            List result = new ArrayList();
+            List<Object> result = new ArrayList<>();
             if (sourceValue == null) {
                 return null;
             }
-            for (Object obj : (List) sourceValue) {
+            for (Object obj : (List<Object>) sourceValue) {
                 result.add(navigate(element, ((ListType) sourceType).getElementType(), obj, member));
             }
             return result;
@@ -1073,13 +1078,13 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     private Object evaluateRangeMember(Object source, String member) {
         if ("start".equals(member)) {
-            return ((Range) source).getStart();
+            return ((Range<?>) source).getStart();
         } else if ("end".equals(member)) {
-            return ((Range) source).getEnd();
+            return ((Range<?>) source).getEnd();
         } else if ("start included".equals(member)) {
-            return ((Range) source).isStartIncluded();
+            return ((Range<?>) source).isStartIncluded();
         } else if ("end included".equals(member)) {
-            return ((Range) source).isEndIncluded();
+            return ((Range<?>) source).isEndIncluded();
         } else {
             throw new DMNRuntimeException(String.format("Cannot resolve method '%s' for date time", member));
         }
@@ -1139,7 +1144,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         LOGGER.debug("Visiting element '{}'", element);
 
         List<Expression<Type>> expressionList = element.getExpressionList();
-        List result = new ArrayList();
+        List<Object> result = new ArrayList<>();
         for (Expression<Type> exp : expressionList) {
             Object value = exp.accept(this, context);
             result.add(value);
@@ -1154,7 +1159,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         if (element.getNames().size() == 1) {
             String name = element.getNames().get(0);
             if (name.equals(INPUT_ENTRY_PLACE_HOLDER)) {
-                Expression<Type> inputExpression = (Expression) context.getInputExpression();
+                Expression<Type> inputExpression = (Expression<Type>) context.getInputExpression();
                 return inputExpression.accept(this, context);
             } else {
                 return context.lookupBinding(name);
