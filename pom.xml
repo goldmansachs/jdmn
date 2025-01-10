@@ -156,11 +156,25 @@
                             <addLicenseHeaders>false</addLicenseHeaders>
                             <excludes>
                                 <!-- Standard project files to exclude -->
+                                <exclude>**/.github/**</exclude>
                                 <exclude>**/.idea/**</exclude>
+                                <exclude>**/dco/**</exclude>
+                                <exclude>**/.venv/**</exclude>
+                                <exclude>**/.docs/**</exclude>
+                                <exclude>**/dmn-test-cases/**</exclude>
+                                <exclude>**/gen/**</exclude>
+                                <exclude>**/.pytest_cache/**</exclude>
+
                                 <exclude>**/*.iml</exclude>
                                 <exclude>**/*.md</exclude>
-                                <exclude>**/LICENSE.txt</exclude>
-                                <exclude>**/com/gs/dmn/runtime/LambdaExpressionImpl.class</exclude>
+                                <exclude>**/*.yml</exclude>
+                                <exclude>**/*.bat</exclude>
+                                <exclude>**/*.sh</exclude>
+                                <exclude>**/*.txt</exclude>
+                                <exclude>**/*.toml</exclude>
+                                <exclude>**/tox.ini</exclude>
+                                <exclude>**/pytest.log</exclude>
+                                <exclude>**/scripts.py</exclude>
 
                                 <!-- Excluding the resources  -->
                                 <exclude>**/test/resources/**</exclude>
@@ -210,18 +224,30 @@ Unless required by applicable law or agreed to in writing, software distributed 
 specific language governing permissions and limitations under the License.]]></inlineHeader>
                             <excludes>
                                 <!-- Standard project files to exclude -->
+                                <exclude>**/.github/**</exclude>
                                 <exclude>**/.idea/**</exclude>
+                                <exclude>**/dco/**</exclude>
+                                <exclude>**/.venv/**</exclude>
+                                <exclude>**/.docs/**</exclude>
+                                <exclude>**/dmn-test-cases/**</exclude>
+                                <exclude>**/gen/**</exclude>
+                                <exclude>**/.pytest_cache/**</exclude>
+
                                 <exclude>**/*.iml</exclude>
                                 <exclude>**/*.md</exclude>
-                                <exclude>**/LICENSE.txt</exclude>
-                                <exclude>**/NOTICE.txt</exclude>
-                                <exclude>**/.travis.yml</exclude>
+                                <exclude>**/*.yml</exclude>
+                                <exclude>**/*.bat</exclude>
+                                <exclude>**/*.sh</exclude>
+                                <exclude>**/*.txt</exclude>
+                                <exclude>**/*.toml</exclude>
+                                <exclude>**/tox.ini</exclude>
+                                <exclude>**/pytest.log</exclude>
+                                <exclude>**/scripts.py</exclude>
 
                                 <!-- Excluding the resources  -->
                                 <exclude>**/test/resources/**</exclude>
                                 <exclude>**/main/resources/**</exclude>
                                 <exclude>**/target/**</exclude>
-                                <exclude>**/public.key</exclude>
                             </excludes>
                             <strictCheck>true</strictCheck>
                             <skipExistingHeaders>false</skipExistingHeaders>
