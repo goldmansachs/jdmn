@@ -721,7 +721,12 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         LOGGER.debug("Visiting element '{}'", element);
 
         Object leftOperand = element.getLeftOperand().accept(this, context);
-        return this.lib.numericUnaryMinus((NUMBER) leftOperand);
+        Type type = element.getType();
+        if (type == NumberType.NUMBER) {
+            return this.lib.numericUnaryMinus((NUMBER) leftOperand);
+        } else {
+            return this.lib.durationUnaryMinus((DURATION) leftOperand);
+        }
     }
 
     @Override

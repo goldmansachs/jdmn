@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>0099-arithmetic-negation.dmn</modelName>
+
+    <testCase id="decision_001">
+        <description>negate number</description>
+        <resultNode name="decision_001" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">-10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_002">
+        <description>negate negative number</description>
+        <resultNode name="decision_002" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_003">
+        <description>negate days and time duration</description>
+        <resultNode name="decision_003" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">-P1D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_003_a">
+        <description>negate a negative days and time duration</description>
+        <resultNode name="decision_003_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">P1D</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_004">
+        <description>negate years and months duration</description>
+        <resultNode name="decision_004" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">-P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_004_a">
+        <description>negate a negative years and months duration</description>
+        <resultNode name="decision_004_a" type="decision">
+            <expected>
+                <value xsi:type="xsd:duration">P1Y</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_005">
+        <description>negate date gives null</description>
+        <resultNode name="decision_005" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_006">
+        <description>negate datetime gives null</description>
+        <resultNode name="decision_006" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_007">
+        <description>negate time gives null</description>
+        <resultNode name="decision_007" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_008">
+        <description>negate context gives null</description>
+        <resultNode name="decision_008" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_009">
+        <description>negate string gives null</description>
+        <resultNode name="decision_009" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_010">
+        <description>negate singleton list gives null</description>
+        <resultNode name="decision_010" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_011">
+        <description>negate range gives null</description>
+        <resultNode name="decision_011" type="decision" errorResult="true">
+            <expected>
+                <value xsi:nil="true"></value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="decision_012">
+        <description>negate expression result</description>
+        <resultNode name="decision_012" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">-10</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

@@ -110,6 +110,21 @@ public class DefaultDurationType extends BaseDefaultDurationType implements Dura
         }
     }
 
+    @Override
+    public Duration durationUnaryMinus(Duration first) {
+        if (first == null) {
+            return null;
+        }
+
+        if (isDaysAndTimeDuration(first)) {
+            return first.negate();
+        } else if (isYearsAndMonthsDuration(first)) {
+            return first.negate();
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot negate '%s'", first));
+        }
+    }
+
     private BigDecimal multiplyNumbers(Long firstValue, BigDecimal second) {
         return BigDecimal.valueOf(firstValue).multiply(second);
     }

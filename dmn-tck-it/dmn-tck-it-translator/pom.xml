@@ -2109,7 +2109,7 @@
                     </execution>
 
                     <execution>
-                        <id>cl3-1155-list-replace-function-test</id>
+                        <id>cl3-1155-list-replace-function</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>dmn-to-java</goal>

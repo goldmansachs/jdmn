@@ -1113,6 +1113,17 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
         }
     }
 
+    @Override
+    public DURATION durationUnaryMinus(DURATION first) {
+        try {
+            return durationType.durationUnaryMinus(first);
+        } catch (Exception e) {
+            String message = String.format("durationUnaryMinus(%s", first);
+            logError(message, e);
+            return null;
+        }
+    }
+
     //
     // List operators
     //
