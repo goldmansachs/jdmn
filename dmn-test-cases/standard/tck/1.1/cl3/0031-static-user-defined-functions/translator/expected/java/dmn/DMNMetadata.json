@@ -127,6 +127,43 @@
     } ]
   }, {
     "@kind" : "compositeType",
+    "id" : "_xuQ0YIJtEee4zOLdFxCBaA-1",
+    "isCollection" : false,
+    "name" : "tFnInvocationResult",
+    "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_OmarcIJuEee4zOLdFxCBaA-1",
+      "isCollection" : false,
+      "name" : "divisionResultPositional",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_IpHmkIJuEee4zOLdFxCBaA-1",
+      "isCollection" : false,
+      "name" : "multiplicationResultPositional",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_GDzKIIJuEee4zOLdFxCBaA-1",
+      "isCollection" : false,
+      "name" : "sumResult",
+      "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
     "id" : "_fKdL0IDJEee-MeWXoLgrYg",
     "isCollection" : false,
     "name" : "tFnLibrary",

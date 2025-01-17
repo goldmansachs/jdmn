@@ -41,13 +41,12 @@ import org.junit.jupiter.api.Assertions;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.gs.dmn.serialization.DMNConstants.isDMNFile;
 import static com.gs.dmn.serialization.DMNConstants.isTCKFile;
 
 public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTest {
@@ -63,20 +62,15 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     private FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib;
 
     @SafeVarargs
-    protected final void doSingleModelTest(String dmnVersion, String dmnFileName, Pair<String, String>... extraInputParameters) {
-        doMultipleModelsTest(dmnVersion, Collections.singletonList(dmnFileName), extraInputParameters);
-    }
-
-    @SafeVarargs
-    protected final void doMultipleModelsTest(String dmnVersion, List<String> dmnFileNames, Pair<String, String>... extraInputParameters) {
-        String errorMessage = String.format("Tested failed for DM '%s'", dmnFileNames);
+    protected final void doFolderTest(String dmnVersion, String folderName, Pair<String, String>... extraInputParameters) {
+        String errorMessage = String.format("Tested failed for '%s'", folderName);
         try {
             // Read DMN files
-            List<TDefinitions> definitionsList = readModels(dmnVersion, dmnFileNames);
+            List<TDefinitions> definitionsList = readModels(dmnVersion, folderName);
             DMNModelRepository repository = new DMNModelRepository(definitionsList);
 
-            // Read TestCases filers
-            Pair<List<String>, List<TestCases>> pair = findTestCases(dmnVersion, dmnFileNames);
+            // Read TestCases files
+            Pair<List<String>, List<TestCases>> pair = readTestCases(dmnVersion, folderName);
 
             // Transform definitions and test cases
             this.dmnTransformer = new ToQuotedNameTransformer(LOGGER);
@@ -95,61 +89,16 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         }
     }
 
-    @SafeVarargs
-    protected final void doMultipleModelsTest(String dmnVersion, String dmnFolderName, String testFolderName, Pair<String, String>... extraInputParameters) {
-        String errorMessage = String.format("Tested failed for diagram '%s'", dmnFolderName);
-        try {
-            // Read DMN files
-            File dmnInputFile = new File(tckResource(completePath(getDMNInputPath(), dmnVersion, dmnFolderName) + "/"));
-            DMNModelRepository repository = new DMNModelRepository(this.dmnSerializer.readModels(dmnInputFile));
-
-            // Read TestCases filers
-            File testCasesInputFile = new File(tckResource(completePath(getTestCasesInputPath(), dmnVersion, testFolderName) + "/"));
-            Pair<List<String>, List<TestCases>> pair = findTestCasesInFolder(testCasesInputFile);
-
-            // Transform definitions and test cases
-            this.dmnTransformer = new ToQuotedNameTransformer(LOGGER);
-            this.dmnTransformer.transform(repository, pair.getRight());
-
-            // Set-up execution
-            Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);
-            this.interpreter = getDialectDefinition().createDMNInterpreter(repository, makeInputParameters(inputParameters));
-            this.basicTransformer = this.interpreter.getBasicDMNTransformer();
-            this.lib = this.interpreter.getFeelLib();
-
-            // Execute tests
-            doTest(pair.getLeft(), pair.getRight(), this.interpreter, repository);
-        } catch (Exception e) {
-            throw new DMNRuntimeException(errorMessage, e);
-        }
-    }
-
-    private Pair<List<String>, List<TestCases>> findTestCasesInFolder(File testCasesInputFile) {
+    private Pair<List<String>, List<TestCases>> readTestCases(String dmnVersion, String modelFolder) throws Exception {
         List<String> testFileNames = new ArrayList<>();
         List<TestCases> testCasesList = new ArrayList<>();
-        for (File child : testCasesInputFile.listFiles()) {
+        URL testInputPathURL = tckResource(completePath(getTestCasesInputPath(), dmnVersion, modelFolder)).toURL();
+        File testInputPathFolder = new File(testInputPathURL.getFile());
+        for (File child : testInputPathFolder.listFiles()) {
             if (isTCKFile(child, this.inputParameters.getTckFileExtension())) {
                 TestCases testCases = this.tckSerializer.read(child);
                 testFileNames.add(child.getName());
                 testCasesList.add(testCases);
-            }
-        }
-        return new Pair<>(testFileNames, testCasesList);
-    }
-
-    private Pair<List<String>, List<TestCases>> findTestCases(String dmnVersion, List<String> dmnFileNames) throws Exception {
-        String testName = dmnFileNames.get(0);
-        List<String> testFileNames = new ArrayList<>();
-        List<TestCases> testCasesList = new ArrayList<>();
-        for (String dmnFileName : dmnFileNames) {
-            URL testInputPathURL = tckResource(completePath(getTestCasesInputPath(), dmnVersion, testName)).toURL();
-            File testInputPathFolder = new File(testInputPathURL.getFile());
-            for (File child : testInputPathFolder.listFiles()) {
-                if (isTCKFile(child, this.inputParameters.getTckFileExtension()) && child.getName().startsWith(dmnFileName)) {
-                    TestCases testCases = this.tckSerializer.read(child);
-                    testFileNames.add(child.getName());
-                    testCasesList.add(testCases);
-                }
             }
         }
         return new Pair<>(testFileNames, testCasesList);
@@ -196,14 +145,15 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         }
     }
 
-    private List<TDefinitions> readModels(String dmnVersion, List<String> dmnFileNames) {
+    private List<TDefinitions> readModels(String dmnVersion, String modelFolder) throws Exception {
         List<TDefinitions> definitionsList = new ArrayList<>();
-        String testName = dmnFileNames.get(0);
-        for (String dmnFileName : dmnFileNames) {
-            URI dmnFileURI = tckResource(completePath(getDMNInputPath(), dmnVersion, testName) + "/" + dmnFileName + this.inputParameters.getDmnFileExtension());
-            File dmnFile = new File(dmnFileURI.getPath());
-            TDefinitions definitions = this.dmnSerializer.readModel(dmnFile);
-            definitionsList.add(definitions);
+        URL modelInputPathURL = tckResource(completePath(getDMNInputPath(), dmnVersion, modelFolder)).toURL();
+        File modelInputPathFolder = new File(modelInputPathURL.getFile());
+        for (File child : modelInputPathFolder.listFiles()) {
+            if (isDMNFile(child, this.inputParameters.getDmnFileExtension())) {
+                TDefinitions definitions = this.dmnSerializer.readModel(child);
+                definitionsList.add(definitions);
+            }
         }
         return definitionsList;
     }

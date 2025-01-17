@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <modelName>0034-drg-scopes.dmn</modelName>
+    <modelName>0034-drg-scopes-2.dmn</modelName>
     <labels>
         <label>Compliance Level 3</label>
         <label>Business Knowledge Model</label>
