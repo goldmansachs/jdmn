@@ -24,8 +24,8 @@ import com.gs.dmn.feel.lib.type.time.DateType;
 import com.gs.dmn.feel.lib.type.time.DurationType;
 import com.gs.dmn.feel.lib.type.time.TimeType;
 import com.gs.dmn.runtime.Context;
+import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.LazyEval;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.listener.EventListener;
 import com.gs.dmn.runtime.listener.Rule;
@@ -1454,58 +1454,106 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
     // Extra conversion functions
     //
     @Override
-    public List<NUMBER> rangeToList(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end) {
-        return rangeToStream(isOpenStart, start, isOpenEnd, end).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<NUMBER> rangeToList(NUMBER start, NUMBER end) {
-        return rangeToStream(start, end).collect(Collectors.toList());
-    }
-
-    @Override
-    public Stream<NUMBER> rangeToStream(boolean isOpenStart, NUMBER start, boolean isOpenEnd, NUMBER end) {
-        Pair<Integer, Integer> intRange = intRange(isOpenStart, (Number) start, isOpenEnd, (Number) end);
-        if (intRange == null) {
-            return Stream.of();
+    public <T> List<T> rangeToList(boolean isOpenStart, T start, boolean isOpenEnd, T end) {
+        try {
+            return rangeToStream(isOpenStart, start, isOpenEnd, end).collect(Collectors.toList());
+        } catch (Exception e) {
+            String message = String.format("rangeToList(%s, %s, %s, %s)", isOpenStart, start, isOpenEnd, end);
+            logError(message, e);
+            return null;
         }
-
-        return intRangeToStream(intRange.getLeft(), intRange.getRight());
     }
 
     @Override
-    public Stream<NUMBER> rangeToStream(NUMBER start, NUMBER end) {
-        Pair<Integer, Integer> intRange = intRange((Number) start, (Number) end);
-        if (intRange == null) {
-            return Stream.of();
+    public <T> List<T> rangeToList(T start, T end) {
+        try {
+            return rangeToStream(start, end).collect(Collectors.toList());
+        } catch (Exception e) {
+            String message = String.format("rangeToList(%s, %s)", start, end);
+            logError(message, e);
+            return null;
         }
-
-        return intRangeToStream(intRange.getLeft(), intRange.getRight());
     }
 
-    private Pair<Integer, Integer> intRange(boolean isOpenStart, Number start, boolean isOpenEnd, Number end) {
+    @Override
+    public <T> Stream<T> rangeToStream(boolean isOpenStart, T start, boolean isOpenEnd, T end) {
+        try {
+            IterationDomain iterationDomain = iterationDomain(isOpenStart, start, isOpenEnd, end);
+            if (iterationDomain == null) {
+                return Stream.of();
+            }
+
+            return iterationDomainToStream(iterationDomain);
+        } catch (Exception e) {
+            String message = String.format("rangeToStream(%s, %s, %s, %s)", isOpenStart, start, isOpenEnd, end);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    @Override
+    public <T> Stream<T> rangeToStream(T start, T end) {
+        try {
+            IterationDomain iterationDomain = iterationDomain(start, end);
+            if (iterationDomain == null) {
+                return Stream.of();
+            }
+            return iterationDomainToStream(iterationDomain);
+        } catch (Exception e) {
+            String message = String.format("rangeToStream(%s, %s)", start, end);
+            logError(message, e);
+            return null;
+        }
+    }
+
+    <T> IterationDomain iterationDomain(boolean isOpenStart, T start, boolean isOpenEnd, T end) {
         if (start == null || end == null) {
             return null;
         }
-        int startValue = isOpenStart ? start.intValue() + 1 : start.intValue();
-        int endValue = isOpenEnd ? end.intValue() - 1 : end.intValue();
-        return new Pair<>(startValue, endValue);
-    }
 
-    private Pair<Integer, Integer> intRange(Number start, Number end) {
-        if (start == null || end == null) {
-            return null;
-        }
-        int startValue = start.intValue();
-        int endValue = end.intValue();
-        return new Pair<>(startValue, endValue);
-    }
-
-    private Stream<NUMBER> intRangeToStream(int startValue, int endValue) {
-        if (startValue <= endValue) {
-            return Stream.iterate(valueOf(startValue), (i) -> numericAdd(i, valueOf(1))).limit((long) endValue - startValue + 1).sequential();
+        if (isNumber(start) && isNumber(end)) {
+            if (!numericLessEqualThan((NUMBER) start, (NUMBER) end)) {
+                throw new DMNRuntimeException(String.format("Invalid iteration domain '%s..%s'. Range should be ascending", start, end));
+            }
+            NUMBER startValue = isOpenStart ? numericAdd((NUMBER) start, valueOf(1)) : (NUMBER) start;
+            NUMBER endValue = isOpenEnd ? numericSubtract((NUMBER) end, valueOf(1)) : (NUMBER) end;
+            return new IterationDomain(startValue, endValue);
+        } else if (isDate(start) && isDate(end)) {
+            if (!dateLessEqualThan((DATE) start, (DATE) end)) {
+                throw new DMNRuntimeException(String.format("Invalid iteration domain '%s..%s'. Range should be ascending", start, end));
+            }
+            DATE startValue = isOpenStart ? dateAddDuration((DATE) start, duration("P1D")) : (DATE) start;
+            DATE endValue = isOpenStart ? dateSubtractDuration((DATE) end, duration("P1D")) : (DATE) end;
+            return new IterationDomain(startValue, endValue);
         } else {
-            return Stream.iterate(valueOf(startValue), (i) -> numericSubtract(i, valueOf(1))).limit((long) startValue - endValue + 1).sequential();
+            throw new DMNRuntimeException(String.format("Invalid iteration domain for '%s..%s'. Ends should be numbers or dates", start, end));
+        }
+    }
+
+    <T> IterationDomain iterationDomain(T start, T end) {
+        if (start == null || end == null) {
+            return null;
+        }
+        return new IterationDomain(start, end);
+    }
+
+    private <T> Stream<T> iterationDomainToStream(IterationDomain range) {
+        Object startValue = range.getStartValue();
+        long size = range.getSize();
+        if (isNumber(startValue)) {
+            if (range.isAscending()) {
+                return (Stream<T>) Stream.iterate((NUMBER) startValue, (i) -> numericAdd(i, valueOf(1))).limit(size).sequential();
+            } else {
+                return (Stream<T>) Stream.iterate((NUMBER) startValue, (i) -> numericSubtract(i, valueOf(1))).limit(size).sequential();
+            }
+        } else if (isDate(startValue)) {
+            if (range.isAscending()) {
+                return (Stream<T>) Stream.iterate((DATE) startValue, (i) -> dateAddDuration(i, duration("P1D"))).limit(size).sequential();
+            } else {
+                return (Stream<T>) Stream.iterate((DATE) startValue, (i) -> dateSubtractDuration(i, duration("P1D"))).limit(size).sequential();
+            }
+        } else {
+            throw new DMNRuntimeException(String.format("Iteration domain not supported for '%s'", startValue));
         }
     }
 
@@ -1572,4 +1620,52 @@ public abstract class BaseFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> imple
 
     protected abstract NUMBER valueOf(long number);
     protected abstract int intValue(NUMBER number);
+
+    class IterationDomain {
+        private final Object startValue;
+        private boolean ascending;
+        private long size;
+
+        public IterationDomain(Object startValue, Object endValue) {
+            if (isNumber(startValue) && isNumber(endValue)) {
+                // Check for integers
+                if (!isInteger((NUMBER) startValue) || !isInteger((NUMBER) endValue)) {
+                    throw new DMNRuntimeException(String.format("Iteration domain not supported for '%s..%s'. Endpoints must be integers.", startValue, endValue));
+                }
+                this.startValue = startValue;
+                this.ascending = numericLessEqualThan((NUMBER) startValue, (NUMBER) endValue);
+                this.size = this.ascending ? intValue(numericSubtract((NUMBER) endValue, (NUMBER) startValue)) + 1 : intValue(numericSubtract((NUMBER) startValue, (NUMBER) endValue)) + 1;
+            } else if (isDate(startValue) && isDate(endValue)) {
+                this.startValue = startValue;
+                this.ascending = dateLessEqualThan((DATE) startValue, (DATE) endValue);
+                DURATION d1 = dateSubtract((DATE) endValue, startValue);
+                DURATION d2 = dateSubtract((DATE) startValue, endValue);
+                long d1Days = durationValue(d1) / (3600 * 24);
+                long d2Days = durationValue(d2) / (3600 * 24);
+                this.size = this.ascending ? d1Days + 1 : d2Days + 1;
+            } else {
+                throw new DMNRuntimeException(String.format("Iteration domain not supported for '%s..%s'", startValue, endValue));
+            }
+        }
+
+        public Object getStartValue() {
+            return startValue;
+        }
+
+        public boolean isAscending() {
+            return this.ascending;
+        }
+
+        public long getSize() {
+            return this.size;
+        }
+
+        protected boolean isInteger(NUMBER number) {
+            if (number == null) {
+                return false;
+            } else {
+                return numericEqual(number, valueOf(intValue(number)));
+            }
+        }
+    }
 }

@@ -53,6 +53,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTest {
     protected final ELTranslator<Type, DMNContext> feelTranslator;
@@ -680,9 +681,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testTextualExpressions() {
-        String input = "abc";
-        List<EnvironmentEntry> entries = Collections.singletonList(
-                new EnvironmentEntry("input", NUMBER, input));
+        List<EnvironmentEntry> entries = Collections.emptyList();
 
         doTextualExpressionsTest(entries, "1 + 2",
                 "Addition(+,NumericLiteral(1),NumericLiteral(2))",
@@ -696,13 +695,19 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     public void testForExpression() {
         List<EnvironmentEntry> entries = Collections.emptyList();
 
-        doExpressionTest(entries, "", "for i in 0..4 return if i = 0 then 1 else i * partial[-1]",
-                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(0), NumericLiteral(4))) -> IfExpression(Relational(=,Name(i),NumericLiteral(0)), NumericLiteral(1), Multiplication(*,Name(i),FilterExpression(Name(partial), ArithmeticNegation(NumericLiteral(1))))))",
+        // number one range
+        doExpressionTest(entries, "", "for i in 1..1 return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(1))) -> Name(i))",
                 "ListType(number)",
-                "rangeToList(number(\"0\"), number(\"4\")).stream().map(i -> (booleanEqual(numericEqual(i, number(\"0\")), Boolean.TRUE)) ? number(\"1\") : numericMultiply(i, ("+numberType()+")(elementAt(partial, numericUnaryMinus(number(\"1\")))))).collect(Collectors.toList())",
-                null,
-                null
-        );
+                "rangeToList(number(\"1\"), number(\"1\")).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("1")).stream().map(i -> i).collect(Collectors.toList()),
+                Arrays.asList(this.lib.number("1")));
+        doExpressionTest(entries, "", "for i in 1..2 return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> Name(i))",
+                "ListType(number)",
+                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
+                Arrays.asList(this.lib.number("1"), this.lib.number("2")));
         doExpressionTest(entries, "", "for i in 4..2 return i",
                 "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(4), NumericLiteral(2))) -> Name(i))",
                 "ListType(number)",
@@ -717,42 +722,51 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.rangeToList(this.lib.number("1"), this.lib.numericUnaryMinus(this.lib.number("1"))).stream().map(i -> i).collect(Collectors.toList()),
                 this.lib.asList(this.lib.number("1"), this.lib.number("0"), this.lib.number("-1"))
         );
+        doExpressionTest(entries, "", "for i in 0..4 return if i = 0 then 1 else i * partial[-1]",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(0), NumericLiteral(4))) -> IfExpression(Relational(=,Name(i),NumericLiteral(0)), NumericLiteral(1), Multiplication(*,Name(i),FilterExpression(Name(partial), ArithmeticNegation(NumericLiteral(1))))))",
+                "ListType(number)",
+                "rangeToList(number(\"0\"), number(\"4\")).stream().map(i -> (booleanEqual(numericEqual(i, number(\"0\")), Boolean.TRUE)) ? number(\"1\") : numericMultiply(i, ("+numberType()+")(elementAt(partial, numericUnaryMinus(number(\"1\")))))).collect(Collectors.toList())",
+                null,
+                null
+        );
 
-        doExpressionTest(entries, "", "for i in 1..2 return for j in [2, 3] return i+j",
-                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
-                "ListType(ListType(number))",
-                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
-                this.lib.rangeToList(this.lib.number("1"), this.lib.number("2")).stream().map(i -> this.lib.asList(this.lib.number("2"), this.lib.number("3")).stream().map(j -> this.lib.numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
-                Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))));
-        doExpressionTest(entries, "", "for i in [1..2] return i",
-                "ForExpression(Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))) -> Name(i))",
+        // real number one range
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            doExpressionTest(entries, "", "for i in 1.3..2 return i",
+                    "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1.3), NumericLiteral(2))) -> Name(i))",
+                    "ListType(number)",
+                    "rangeToList(number(\"1.3\"), number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
+                    this.lib.rangeToList(this.lib.number("1.3"), this.lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
+                    Arrays.asList(this.lib.number("1.3")));
+        });
+
+        // number two ranges
+        doExpressionTest(entries, "", "for i in 1..2, j in 2..3 return i+j",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))),Iterator(j in RangeIteratorDomain(NumericLiteral(2), NumericLiteral(3))) -> Addition(+,Name(i),Name(j)))",
                 "ListType(number)",
-                "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
-                this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
-                Arrays.asList(this.lib.number("1"), this.lib.number("2")));
-        doExpressionTest(entries, "", "for i in [1..2], j in [2..3] return i+j",
-                "ForExpression(Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Addition(+,Name(i),Name(j)))",
-                "ListType(number)",
-                "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericAdd(i, j))).flatMap(x -> x).collect(Collectors.toList())",
-                this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i ->
-                        this.lib.rangeToList(false, this.lib.number("2"), false, this.lib.number("3")).stream().map(j ->
-                                this.lib.numericAdd(i, j)))
-                        .flatMap(x -> x)
-                        .collect(Collectors.toList()),
+                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> rangeToList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j))).flatMap(x -> x).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.number("1"), this.lib.number("2")).stream().map(i ->
+                        this.lib.rangeToList(this.lib.number("2"), this.lib.number("3")).stream().map(j ->
+                                this.lib.numericAdd(i, j))).flatMap(x -> x).collect(Collectors.toList()),
                 Arrays.asList(this.lib.number("3"), this.lib.number("4"), this.lib.number("4"), this.lib.number("5")));
-        doExpressionTest(entries, "", "for i in [1..2] return for j in [2..3] return i+j",
-                "ForExpression(Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
+        doExpressionTest(entries, "", "for i in 1..2 return for j in 2..3 return i+j",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in RangeIteratorDomain(NumericLiteral(2), NumericLiteral(3))) -> Addition(+,Name(i),Name(j))))",
                 "ListType(ListType(number))",
-                "rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
-                Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))),
+                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> rangeToList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.number("1"), this.lib.number("2")).stream().map(i ->
+                        this.lib.rangeToList(this.lib.number("2"), this.lib.number("3")).stream().map(j ->
+                                this.lib.numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
                 Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))));
 
+        // number one list
         doExpressionTest(entries, "", "for i in [1, 2] return i",
                 "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))) -> Name(i))",
                 "ListType(number)",
                 "asList(number(\"1\"), number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
                 Arrays.asList(this.lib.number("1"), this.lib.number("2")).stream().map(i -> i).collect(Collectors.toList()),
                 Arrays.asList(this.lib.number("1"), this.lib.number("2")));
+
+        // number two lists
         doExpressionTest(entries, "", "for i in [1, 2], j in [2, 3] return i+j",
                 "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j)))",
                 "ListType(number)",
@@ -773,6 +787,75 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                                 .collect(Collectors.toList()))
                         .collect(Collectors.toList()),
                 Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))));
+
+        // number two domains, mixture
+        doExpressionTest(entries, "", "for i in 1..2 return for j in [2, 3] return i+j",
+                "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))",
+                "ListType(ListType(number))",
+                "rangeToList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.number("1"), this.lib.number("2")).stream().map(i -> this.lib.asList(this.lib.number("2"), this.lib.number("3")).stream().map(j -> this.lib.numericAdd(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
+                Arrays.asList(Arrays.asList(this.lib.number("3"), this.lib.number("4")), Arrays.asList(this.lib.number("4"), this.lib.number("5"))));
+
+        // date one list
+        doExpressionTest(entries, "", "for i in [@\"1980-01-01\", @\"1980-01-02\"] return i",
+                "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-01\"),DateTimeLiteral(date, \"1980-01-02\")))) -> Name(i))",
+                "ListType(date)",
+                "asList(date(\"1980-01-01\"), date(\"1980-01-02\")).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.asList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")).stream().map(i -> i).collect(Collectors.toList()),
+                Arrays.asList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")));
+
+        // date two lists
+        doExpressionTest(entries, "", "for i in [@\"1980-01-01\", @\"1980-01-02\"], j in [@\"1980-01-02\", @\"1980-01-03\"] return i-j",
+                "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-01\"),DateTimeLiteral(date, \"1980-01-02\")))),Iterator(j in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-02\"),DateTimeLiteral(date, \"1980-01-03\")))) -> Addition(-,Name(i),Name(j)))",
+                "ListType(days and time duration)",
+                "asList(date(\"1980-01-01\"), date(\"1980-01-02\")).stream().map(i -> asList(date(\"1980-01-02\"), date(\"1980-01-03\")).stream().map(j -> dateSubtract(i, j))).flatMap(x -> x).collect(Collectors.toList())",
+                this.lib.asList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")).stream().map(i ->
+                        this.lib.asList(this.lib.date("1980-01-02"), this.lib.date("1980-01-03")).stream().map(j ->
+                                this.lib.dateSubtract(i, j))).flatMap(x -> x).collect(Collectors.toList()),
+                Arrays.asList(this.lib.duration("-PT24H"), this.lib.duration("-PT48H"), this.lib.duration("PT0S"), this.lib.duration("-PT24H")));
+        doExpressionTest(entries, "", "for i in [@\"1980-01-01\", @\"1980-01-02\"] return for j in [@\"1980-01-02\", @\"1980-01-03\"] return i-j",
+                "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-01\"),DateTimeLiteral(date, \"1980-01-02\")))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-02\"),DateTimeLiteral(date, \"1980-01-03\")))) -> Addition(-,Name(i),Name(j))))",
+                "ListType(ListType(days and time duration))",
+                "asList(date(\"1980-01-01\"), date(\"1980-01-02\")).stream().map(i -> asList(date(\"1980-01-02\"), date(\"1980-01-03\")).stream().map(j -> dateSubtract(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
+                this.lib.asList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")).stream().map(i ->
+                        this.lib.asList(this.lib.date("1980-01-02"), this.lib.date("1980-01-03")).stream().map(j ->
+                                this.lib.dateSubtract(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
+                Arrays.asList(Arrays.asList(this.lib.duration("-PT24H"), this.lib.duration("-PT48H")), Arrays.asList(this.lib.duration("PT0S"), this.lib.duration("-PT24H"))));
+
+        // date one range
+        doExpressionTest(entries, "", "for i in @\"1980-01-01\"..@\"1980-01-02\" return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(DateTimeLiteral(date, \"1980-01-01\"), DateTimeLiteral(date, \"1980-01-02\"))) -> Name(i))",
+                "ListType(date)",
+                "rangeToList(date(\"1980-01-01\"), date(\"1980-01-02\")).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")).stream().map(i -> i).collect(Collectors.toList()),
+                Arrays.asList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")));
+        doExpressionTest(entries, "", "for i in @\"1980-01-04\"..@\"1980-01-02\" return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(DateTimeLiteral(date, \"1980-01-04\"), DateTimeLiteral(date, \"1980-01-02\"))) -> Name(i))",
+                "ListType(date)",
+                "rangeToList(date(\"1980-01-04\"), date(\"1980-01-02\")).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.date("1980-01-04"), this.lib.date("1980-01-02")).stream().map(i -> i).collect(Collectors.toList()),
+                this.lib.asList(this.lib.date("1980-01-04"), this.lib.date("1980-01-03"), this.lib.date("1980-01-02"))
+        );
+
+        // date two domains, mixture
+        doExpressionTest(entries, "", "for i in @\"1980-01-01\"..@\"1980-01-02\" return for j in [@\"1980-01-02\", @\"1980-01-03\"] return i-j",
+                "ForExpression(Iterator(i in RangeIteratorDomain(DateTimeLiteral(date, \"1980-01-01\"), DateTimeLiteral(date, \"1980-01-02\"))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-02\"),DateTimeLiteral(date, \"1980-01-03\")))) -> Addition(-,Name(i),Name(j))))",
+                "ListType(ListType(days and time duration))",
+                "rangeToList(date(\"1980-01-01\"), date(\"1980-01-02\")).stream().map(i -> asList(date(\"1980-01-02\"), date(\"1980-01-03\")).stream().map(j -> dateSubtract(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
+                this.lib.rangeToList(this.lib.date("1980-01-01"),this.lib.date("1980-01-02")).stream().map(i ->
+                        this.lib.asList(this.lib.date("1980-01-02"), this.lib.date("1980-01-03")).stream().map(j ->
+                                this.lib.dateSubtract(i, j)).collect(Collectors.toList())).collect(Collectors.toList()),
+                Arrays.asList(Arrays.asList(this.lib.duration("-PT24H"), this.lib.duration("-PT48H")), Arrays.asList(this.lib.duration("PT0S"), this.lib.duration("-PT24H"))));
+
+        // duplicated iteration variable
+        assertThrows(SemanticError.class, () -> {
+            doExpressionTest(entries, "", "for i in [1,2], i in [4,5] return i * j",
+                    "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(4),NumericLiteral(5)))) -> Multiplication(*,Name(i),Name(j)))",
+                    "ListType(number)",
+                    "asList(number(\"1\"), number(\"2\")).stream().map(i -> asList(number(\"4\"), number(\"5\")).stream().map(j -> numericMultiply(i, j))).flatMap(x -> x).collect(Collectors.toList())",
+                    this.lib.asList(this.lib.number("1"), this.lib.number("2")).stream().map(i -> this.lib.asList(this.lib.number("4"), this.lib.number("5")).stream().map(j -> this.lib.numericMultiply(i, j))).flatMap(x -> x).collect(Collectors.toList()),
+                    Arrays.asList(this.lib.number("4"), this.lib.number("5"), this.lib.number("8"), this.lib.number("10")));
+        });
     }
 
     @Test
@@ -841,29 +924,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        doExpressionTest(entries, "", "some i in [1..2] j in [2..3] satisfies i + j > 1",
-                "QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
-                "boolean",
-                "booleanOr((List)rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
-                this.lib.booleanOr((List)
-                        this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i ->
-                                this.lib.rangeToList(false, this.lib.number("2"), false, this.lib.number("3")).stream().map(j ->
-                                        this.lib.numericGreaterThan(this.lib.numericAdd(i, j), this.lib.number("1"))))
-                                .flatMap(x -> x)
-                                .collect(Collectors.toList())),
-                true);
-        doExpressionTest(entries, "", "every i in [1..2] j in [2..3] satisfies i + j > 1",
-                "QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
-                "boolean",
-                "booleanAnd((List)rangeToList(false, number(\"1\"), false, number(\"2\")).stream().map(i -> rangeToList(false, number(\"2\"), false, number(\"3\")).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
-                this.lib.booleanAnd((List)
-                        this.lib.rangeToList(false, this.lib.number("1"), false, this.lib.number("2")).stream().map(i ->
-                                this.lib.rangeToList(false, this.lib.number("2"), false, this.lib.number("3")).stream().map(j ->
-                                        this.lib.numericGreaterThan(this.lib.numericAdd(i, j), this.lib.number("1"))))
-                                .flatMap(x -> x)
-                                .collect(Collectors.toList())),
-                true);
-
+        // two domains - list
         doExpressionTest(entries, "", "some i in [1, 2] j in [2, 3] satisfies i + j > 1",
                 "QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                 "boolean",
@@ -884,6 +945,28 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                         .flatMap(x -> x)
                         .collect(Collectors.toList())),
                 true);
+
+        // two domains - ranges
+        Assertions.assertThrows(SemanticError.class, () -> {
+            doExpressionTest(entries, "", "some i in [1..2] j in [2..3] satisfies i + j > 1",
+                    "QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
+                    "boolean",
+                    "booleanOr((List)rangeToList(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\"))).stream().map(i -> rangeToList(new com.gs.dmn.runtime.Range<>(true, number(\"2\"), true, number(\"3\"))).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
+                    this.lib.booleanOr((List)this.lib.rangeToList(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2"))).stream().map(i ->
+                            this.lib.rangeToList(new com.gs.dmn.runtime.Range<>(true, this.lib.number("2"), true, this.lib.number("3"))).stream().map(j ->
+                                    this.lib.numericGreaterThan(this.lib.numericAdd(i, j), this.lib.number("1")))).flatMap(x -> x).collect(Collectors.toList())),
+                    true);
+        });
+        Assertions.assertThrows(SemanticError.class, () -> {
+            doExpressionTest(entries, "", "every i in [1..2] j in [2..3] satisfies i + j > 1",
+                    "QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
+                    "boolean",
+                    "booleanAnd((List)rangeToList(new com.gs.dmn.runtime.Range<>(true, number(\"1\"), true, number(\"2\"))).stream().map(i -> rangeToList(new com.gs.dmn.runtime.Range<>(true, number(\"2\"), true, number(\"3\"))).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).flatMap(x -> x).collect(Collectors.toList()))",
+                    this.lib.booleanAnd((List)this.lib.rangeToList(new com.gs.dmn.runtime.Range<>(true, this.lib.number("1"), true, this.lib.number("2"))).stream().map(i ->
+                            this.lib.rangeToList(new com.gs.dmn.runtime.Range<>(true, this.lib.number("2"), true, this.lib.number("3"))).stream().map(j ->
+                                    this.lib.numericGreaterThan(this.lib.numericAdd(i, j), this.lib.number("1")))).flatMap(x -> x).collect(Collectors.toList())),
+                    true);
+        });
     }
 
     @Test

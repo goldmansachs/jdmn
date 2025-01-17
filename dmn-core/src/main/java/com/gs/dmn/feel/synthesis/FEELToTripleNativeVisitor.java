@@ -223,7 +223,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
 
     @Override
     public Triple visit(FormalParameter<Type> element, DMNContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
@@ -271,6 +271,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
     public Triple visit(ForExpression<Type> element, DMNContext context) {
         DMNContext forContext = this.dmnTransformer.makeForContext(context);
 
+        // Translate iterators
         List<Iterator<Type>> iterators = element.getIterators();
         List<Pair<Triple, String>> domainIterators = new ArrayList<>();
         for (Iterator<Type> it : iterators) {
@@ -278,36 +279,29 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
             Triple domain = (Triple) expressionDomain.accept(this, forContext);
             domainIterators.add(new Pair<>(domain, it.getName()));
         }
+
+        // Translate body
         Triple body = (Triple) element.getBody().accept(this, forContext);
+
         return this.triples.makeForExpression(domainIterators, body);
     }
 
     @Override
     public Triple visit(Iterator<Type> element, DMNContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
     public Triple visit(ExpressionIteratorDomain<Type> element, DMNContext context) {
         Expression<Type> expressionDomain = element.getExpression();
         Triple domain;
-        if (expressionDomain instanceof Name) {
-            String name = ((Name<Type>) expressionDomain).getName();
-            domain = this.triples.name(this.dmnTransformer.nativeFriendlyVariableName(name));
-        } else if (expressionDomain instanceof EndpointsRange) {
-            EndpointsRange<Type> test = (EndpointsRange<Type>) expressionDomain;
-            Triple start = (Triple) test.getStart().accept(this, context);
-            Triple end = (Triple) test.getEnd().accept(this, context);
-            domain = this.triples.makeBuiltinFunctionInvocation("rangeToList", this.triples.booleanValueLiteral(test.isOpenStart()), start, this.triples.booleanValueLiteral(test.isOpenEnd()), end);
-        } else if (expressionDomain instanceof ListTest) {
-            ListTest<Type> test = (ListTest<Type>) expressionDomain;
-            domain = (Triple) test.getListLiteral().accept(this, context);
-        } else if (expressionDomain instanceof ListLiteral) {
+        if (element.getType() instanceof ListType) {
             domain = (Triple) expressionDomain.accept(this, context);
-        } else if (expressionDomain instanceof FunctionInvocation) {
-            domain = (Triple) expressionDomain.accept(this, context);
+        } else if (element.getType() instanceof RangeType && expressionDomain instanceof EndpointsRange) {
+            Triple rangeTriple = (Triple) expressionDomain.accept(this, context);
+            domain = this.triples.makeBuiltinFunctionInvocation("rangeToList", rangeTriple);
         } else {
-            throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
+            throw new DMNRuntimeException(String.format("FEEL '%s' is not supported yet with domain '%s'",
                     element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
         }
         return domain;
@@ -331,8 +325,12 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
 
     @Override
     public Triple visit(QuantifiedExpression<Type> element, DMNContext context) {
+        // Transform into equivalent nested for expressions
         ForExpression<Type> forExpression = element.toForExpression();
+
+        // Translate the for expression
         Triple forList = (Triple) forExpression.accept(this, context);
+
         // Add boolean predicate
         String predicate = element.getPredicate();
         if ("some".equals(predicate)) {
@@ -340,7 +338,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         } else if ("every".equals(predicate)) {
             return this.triples.makeEveryExpression(forList);
         } else {
-            throw new UnsupportedOperationException("Predicate '" + predicate + "' is not supported yet");
+            throw new DMNRuntimeException("Predicate '" + predicate + "' is not supported yet");
         }
     }
 
@@ -380,7 +378,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
 
             return this.triples.makeCollectionNumericFilter(javaElementType, source, filter);
         } else {
-            throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+            throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
         }
     }
 
@@ -400,7 +398,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
             Type rightOperandType = element.getRightOperand().getType();
             return this.triples.makeInstanceOf(leftOperand, rightOperandType);
         } catch (Exception e) {
-            throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+            throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
         }
     }
 
@@ -409,7 +407,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
     //
     @Override
     public Triple visit(ExpressionList<Type> element, DMNContext context) {
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     //
@@ -752,7 +750,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
     }
 
     protected Triple handleNotSupportedElement(Element<Type> element) {
-        throw new UnsupportedOperationException("FEEL '" + (element == null ? null : element.getClass().getSimpleName()) + "' is not supported in this context");
+        throw new DMNRuntimeException("FEEL '" + (element == null ? null : element.getClass().getSimpleName()) + "' is not supported in this context");
     }
 
     protected Triple makeNavigation(Expression<Type> element, Type sourceType, Triple source, String memberName, String memberVariableName, DMNContext context) {

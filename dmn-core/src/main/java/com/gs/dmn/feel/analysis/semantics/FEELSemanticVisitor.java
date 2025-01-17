@@ -322,9 +322,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
 
     @Override
     public Element<Type> visit(ForExpression<Type> element, DMNContext context) {
-        // Visit children
+        // Visit iterators
         List<Iterator<Type>> iterators = element.getIterators();
         DMNContext qParamsContext = visitIterators(element, context, iterators);
+
+        // Visit body
         Type partialType = ListType.ANY_LIST;
         qParamsContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(PARTIAL_PARAMETER_NAME, partialType));
         Expression<Type> body = element.getBody();
@@ -413,9 +415,11 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
 
     @Override
     public Element<Type> visit(QuantifiedExpression<Type> element, DMNContext context) {
-        // Visit children
+        // Visit iterators
         List<Iterator<Type>> iterators = element.getIterators();
         DMNContext qParamsContext = visitIterators(element, context, iterators);
+
+        // Visit body
         Expression<Type> body = element.getBody();
         body.accept(this, qParamsContext);
 
@@ -1102,14 +1106,25 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         iterators.forEach(it -> {
             it.accept(visitor, qContext);
             String itName = it.getName();
-            Type domainType = it.getDomain().getType();
+            IteratorDomain<Type> domain = it.getDomain();
+            Type domainType = domain.getType();
             Type itType = null;
-            if (domainType instanceof ListType) {
-                itType = ((ListType) domainType).getElementType();
-            } else if (domainType instanceof RangeType) {
-                itType = ((RangeType) domainType).getRangeType();
+            if (element instanceof QuantifiedExpression) {
+                if (domain instanceof ExpressionIteratorDomain && domainType instanceof ListType) {
+                    itType = ((ListType) domainType).getElementType();
+                } else {
+                    handleError(context, element, String.format("Type '%s' is not supported for iteration domains", domainType));
+                }
+            } else if (element instanceof ForExpression) {
+                if (domain instanceof ExpressionIteratorDomain && domainType instanceof ListType) {
+                    itType = ((ListType) domainType).getElementType();
+                } else if (domain instanceof RangeIteratorDomain && domainType instanceof RangeType && isValidForIterationDomainType(((RangeType) domainType).getRangeType())) {
+                    itType = ((RangeType) domainType).getRangeType();
+                } else {
+                    handleError(context, element, String.format("Type '%s' is not supported for iteration domains", domainType));
+                }
             } else {
-                handleError(context, element, String.format("Cannot resolve iterator type for '%s'", domainType));
+                handleError(context, element, String.format("Type '%s' is not supported for iteration domains", domainType));
             }
             qContext.addDeclaration(this.environmentFactory.makeVariableDeclaration(itName, itType));
         });

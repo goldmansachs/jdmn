@@ -24,6 +24,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.runtime.Range;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
@@ -141,11 +142,6 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     }
 
     @Override
-    public String lazyEvaluation(String elementName, String nativeName) {
-        return isLazyEvaluated(elementName) ? String.format("%s.getOrCompute()", nativeName) : nativeName;
-    }
-
-    @Override
     protected String inputClassName() {
         return "dict";
     }
@@ -172,6 +168,11 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     @Override
     public String makeListType(String listType) {
         return makeListType(listType, "typing.Any");
+    }
+
+    @Override
+    public String rangeClassName() {
+        return qualifiedName(Range.class);
     }
 
     @Override

@@ -354,7 +354,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     public Object visit(FormalParameter<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
@@ -403,24 +403,26 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         IteratorDomain<Type> expressionDomain = iterator.getDomain();
         Object domain = expressionDomain.accept(this, context);
 
-        // Loop over domain and evaluate body
+        // Loop over domains and evaluate body
         DMNContext iteratorContext = this.dmnTransformer.makeIteratorContext(context);
         List<Object> result = new ArrayList<>();
         iteratorContext.bind(PARTIAL_PARAMETER_NAME, result);
         if (expressionDomain instanceof ExpressionIteratorDomain) {
-            for (Object value : (List<?>) domain) {
+            for (Object value : (List) domain) {
+                iteratorContext.bind(iterator.getName(), value);
+                result.add(element.getBody().accept(this, iteratorContext));
+            }
+        } else if (expressionDomain instanceof RangeIteratorDomain) {
+            Object start = ((Pair) domain).getLeft();
+            Object end = ((Pair) domain).getRight();
+            java.util.Iterator<Object> domainIterator = this.lib.rangeToStream(start, end).iterator();
+            while (domainIterator.hasNext()) {
+                Object value = domainIterator.next();
                 iteratorContext.bind(iterator.getName(), value);
                 result.add(element.getBody().accept(this, iteratorContext));
             }
         } else {
-            NUMBER start = toNumber(((Pair<?, ?>) domain).getLeft());
-            NUMBER end = toNumber(((Pair<?, ?>) domain).getRight());
-            java.util.Iterator<NUMBER> numberIterator = this.lib.rangeToStream(start, end).iterator();
-            while (numberIterator.hasNext()) {
-                NUMBER number = numberIterator.next();
-                iteratorContext.bind(iterator.getName(), number);
-                result.add(element.getBody().accept(this, iteratorContext));
-            }
+            handleError(context, element, String.format("Not supported iteration domain type '%s'", expressionDomain.getType()));
         }
         for (int i = 1; i <= iteratorNo - 1; i++) {
             result = this.lib.flattenFirstLevel(result);
@@ -439,7 +441,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     public Object visit(Iterator<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
@@ -447,28 +449,11 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         LOGGER.debug("Visiting element '{}'", element);
 
         Expression<Type> expressionDomain = element.getExpression();
-        List<?> domain;
-        if (expressionDomain instanceof Name) {
-            String name = ((Name<Type>) expressionDomain).getName();
-            domain = (List<?>) context.lookupBinding(name);
-        } else if (expressionDomain instanceof EndpointsRange) {
-            EndpointsRange<Type> test = (EndpointsRange<Type>) expressionDomain;
-            if (test.getType() instanceof RangeType && Type.conformsTo(((RangeType) test.getType()).getRangeType(), NumberType.NUMBER)) {
-                Object start = test.getStart().accept(this, context);
-                Object end = test.getEnd().accept(this, context);
-                domain = this.lib.rangeToList(test.isOpenStart(), (NUMBER) start, test.isOpenEnd(), (NUMBER) end);
-            } else {
-                throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
-            }
-        } else if (expressionDomain instanceof ListTest) {
-            ListTest<Type> test = (ListTest<Type>) expressionDomain;
-            domain = (List<?>) test.getListLiteral().accept(this, context);
-        } else if (expressionDomain instanceof ListLiteral) {
-            domain = (List<?>) expressionDomain.accept(this, context);
-        } else if (expressionDomain instanceof FunctionInvocation) {
-            domain = (List<?>) expressionDomain.accept(this, context);
+        List domain;
+        if (element.getType() instanceof ListType) {
+            domain = (List) expressionDomain.accept(this, context);
         } else {
-            throw new UnsupportedOperationException(String.format("FEEL '%s' is not supported yet with domain '%s'",
+            throw new DMNRuntimeException(String.format("FEEL '%s' is not supported yet with domain '%s'",
                     element.getClass().getSimpleName(), expressionDomain.getClass().getSimpleName()));
         }
         return domain;
@@ -499,10 +484,12 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     public Object visit(QuantifiedExpression<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        // Transform into nested for expressions
-        ForExpression<Type> equivalentForExpression = element.toForExpression();
-        // Evaluate
-        List<?> result = (List<?>) equivalentForExpression.accept(this, context);
+        // Transform into equivalent nested for expressions
+        ForExpression<Type> forExpression = element.toForExpression();
+
+        // Evaluate for expression
+        List result = (List) forExpression.accept(this, context);
+
         // Apply predicate
         String predicate = element.getPredicate();
         if ("some".equals(predicate)) {
@@ -510,7 +497,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         } else if ("every".equals(predicate)) {
             return this.lib.and(result);
         } else {
-            throw new UnsupportedOperationException("Predicate '" + predicate + "' is not supported yet");
+            throw new DMNRuntimeException("Predicate '" + predicate + "' is not supported yet");
         }
     }
 
@@ -540,7 +527,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             Object filterValue = element.getFilter().accept(this, context);
             return this.lib.elementAt((List<?>) source, (NUMBER) filterValue);
         } else {
-            throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+            throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
         }
     }
 
@@ -562,7 +549,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     public Object visit(ExpressionList<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
@@ -1170,7 +1157,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 return context.lookupBinding(name);
             }
         } else {
-            throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+            throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
         }
     }
 
@@ -1189,34 +1176,34 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     public Object visit(NamedTypeExpression<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
     public Object visit(ContextTypeExpression<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
     public Object visit(RangeTypeExpression<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
     public Object visit(FunctionTypeExpression<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override
     public Object visit(ListTypeExpression<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        throw new UnsupportedOperationException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 }

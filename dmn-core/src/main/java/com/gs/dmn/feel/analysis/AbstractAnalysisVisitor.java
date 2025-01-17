@@ -18,6 +18,8 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.feel.analysis.semantics.type.DateType;
+import com.gs.dmn.feel.analysis.semantics.type.NumberType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.visitor.AbstractVisitor;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
@@ -57,6 +59,10 @@ public abstract class AbstractAnalysisVisitor<T, C, R> extends AbstractVisitor<T
 
     public BasicDMNToNativeTransformer<T, C> getDmnTransformer() {
         return dmnTransformer;
+    }
+
+    protected boolean isValidForIterationDomainType(Type elementType) {
+        return Type.conformsTo(elementType, NumberType.NUMBER) || Type.conformsTo(elementType, DateType.DATE);
     }
 
     protected void handleError(String message) {
