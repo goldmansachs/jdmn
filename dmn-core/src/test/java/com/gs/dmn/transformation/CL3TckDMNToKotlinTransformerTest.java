@@ -27,18 +27,18 @@ public class CL3TckDMNToKotlinTransformerTest extends AbstractTckDMNToKotlinTran
 
     @Test
     public void testCL3() throws Exception {
-        doSingleModelTest("1.1","0004-lending");
-        doSingleModelTest("1.1","0005-literal-invocation");
-        doSingleModelTest("1.1","0006-join");
-        doSingleModelTest("1.1","0013-sort");
-        doSingleModelTest("1.1","0014-loan-comparison");
-        doSingleModelTest("1.1","0016-some-every");
-        doSingleModelTest("1.1","0017-tableTests");
-        doSingleModelTest("1.1","0020-vacation-days");
-        doSingleModelTest("1.1","0021-singleton-list");
-        doSingleModelTest("1.1","0030-user-defined-functions");
-        doSingleModelTest("1.1","0031-static-user-defined-functions");
+        doFolderTest("1.1", "0004-lending");
+        doFolderTest("1.1", "0005-literal-invocation");
+        doFolderTest("1.1", "0006-join");
+        doFolderTest("1.1", "0013-sort");
+        doFolderTest("1.1", "0014-loan-comparison");
+        doFolderTest("1.1", "0016-some-every");
+        doFolderTest("1.1", "0017-tableTests");
+        doFolderTest("1.1", "0020-vacation-days");
+        doFolderTest("1.1", "0021-singleton-list");
+        doFolderTest("1.1", "0030-user-defined-functions");
+        doFolderTest("1.1", "0031-static-user-defined-functions");
 
-        doSingleModelTest("1.1","9001-recursive-function");
+        doFolderTest("1.1", "9001-recursive-function");
     }
 }

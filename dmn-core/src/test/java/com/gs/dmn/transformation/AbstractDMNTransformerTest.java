@@ -45,15 +45,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
     }
 
     @SafeVarargs
-    protected final void doSingleModelTest(String dmnVersion, String dmnFileName, Pair<String, String>... extraInputParameters) throws Exception {
-        String inputFilePath = completePath(getInputPath(), dmnVersion, dmnFileName) + "/" + dmnFileName + this.inputParameters.getDmnFileExtension();
-        String expectedOutputPath = completePath(getExpectedPath(), dmnVersion, dmnFileName) + "/";
-        URI resource = resource(inputFilePath);
-        doTest(resource.getPath(), expectedOutputPath, extraInputParameters);
-    }
-
-    @SafeVarargs
-    protected final void doMultipleModelsTest(String dmnVersion, String dmnFolderName, Pair<String, String>... extraInputParameters) throws Exception {
+    protected final void doFolderTest(String dmnVersion, String dmnFolderName, Pair<String, String>... extraInputParameters) throws Exception {
         String inputFilePath = completePath(getInputPath(), dmnVersion, dmnFolderName) + "/";
         String expectedOutputPath = completePath(getExpectedPath(), dmnVersion, dmnFolderName) + "/";
         URI resource = resource(inputFilePath);

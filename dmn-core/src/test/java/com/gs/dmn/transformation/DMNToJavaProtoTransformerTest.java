@@ -28,11 +28,11 @@ public class DMNToJavaProtoTransformerTest extends AbstractTckDMNToJavaTransform
 
     @Test
     public void testProto() throws Exception {
-        doSingleModelTest("1.1","0004-lending", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
+        doFolderTest("1.1", "0004-lending", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
     }
 
     @Test
     public void testProtoDateTime() throws Exception {
-        doSingleModelTest("1.1","date-time-proto", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
+        doFolderTest("1.1", "date-time-proto", new Pair<>("generateProtoMessages", "true"), new Pair<>("generateProtoServices", "true"), new Pair<>("caching", "true"));
     }
 }

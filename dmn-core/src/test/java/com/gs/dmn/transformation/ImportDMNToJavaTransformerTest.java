@@ -28,15 +28,15 @@ public class ImportDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
 
     @Test
     public void testImport() throws Exception {
-        doMultipleModelsTest("1.2","0001-no-name-conflicts-one-package", new Pair<>("onePackage", "true"));
-        doMultipleModelsTest("1.2","0002-no-name-conflicts");
-        doMultipleModelsTest("1.2","0003-name-conflicts");
-        doMultipleModelsTest("1.2","0004-decision-tables");
-        doMultipleModelsTest("1.2","0005-decision-tables-name-conflicts");
-        doMultipleModelsTest("1.2","0006-multiple-input-data", new Pair<>("singletonInputData", "false"));
-        doMultipleModelsTest("1.2","0007-name-conflicts-same-decision-singleton");
-        doMultipleModelsTest("1.2","0008-name-conflicts-same-decision-no-singleton", new Pair<>("singletonInputData", "false"));
-        doMultipleModelsTest("1.2","0009-type-name-conflicts", new Pair<>("onePackage", "true"));
-        doMultipleModelsTest("1.2","0010-bkm-name-conflicts");
+        doFolderTest("1.2","0001-no-name-conflicts-one-package", new Pair<>("onePackage", "true"));
+        doFolderTest("1.2","0002-no-name-conflicts");
+        doFolderTest("1.2","0003-name-conflicts");
+        doFolderTest("1.2","0004-decision-tables");
+        doFolderTest("1.2","0005-decision-tables-name-conflicts");
+        doFolderTest("1.2","0006-multiple-input-data", new Pair<>("singletonInputData", "false"));
+        doFolderTest("1.2","0007-name-conflicts-same-decision-singleton");
+        doFolderTest("1.2","0008-name-conflicts-same-decision-no-singleton", new Pair<>("singletonInputData", "false"));
+        doFolderTest("1.2","0009-type-name-conflicts", new Pair<>("onePackage", "true"));
+        doFolderTest("1.2","0010-bkm-name-conflicts");
     }
 }

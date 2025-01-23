@@ -60,7 +60,7 @@ public class CL3DMNToLambdaTransformerTest extends AbstractTckDMNToJavaTransform
 
     @Test
     public void testCL3() throws Exception {
-        doSingleModelTest("1.3","0020-vacation-days");
+        doFolderTest("1.3", "0020-vacation-days");
     }
 
     public static void main(String[] args) {

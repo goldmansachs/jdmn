@@ -27,12 +27,12 @@ public class CL2TckDMNToKotlinTransformerTest extends AbstractTckDMNToKotlinTran
 
     @Test
     public void testCL2() throws Exception {
-        doSingleModelTest("1.1","0004-simpletable-U");
-        doSingleModelTest("1.1","0005-simpletable-A");
-        doSingleModelTest("1.1","0006-simpletable-P1");
-        doSingleModelTest("1.1","0007-simpletable-P2");
-        doSingleModelTest("1.1","0008-LX-arithmetic");
-        doSingleModelTest("1.1","0009-invocation-arithmetic");
-        doSingleModelTest("1.1","0010-multi-output-U");
+        doFolderTest("1.1", "0004-simpletable-U");
+        doFolderTest("1.1", "0005-simpletable-A");
+        doFolderTest("1.1", "0006-simpletable-P1");
+        doFolderTest("1.1", "0007-simpletable-P2");
+        doFolderTest("1.1", "0008-LX-arithmetic");
+        doFolderTest("1.1", "0009-invocation-arithmetic");
+        doFolderTest("1.1", "0010-multi-output-U");
     }
 }

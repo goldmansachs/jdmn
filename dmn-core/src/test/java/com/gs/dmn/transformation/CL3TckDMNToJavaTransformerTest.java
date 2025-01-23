@@ -29,33 +29,33 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
     @Test
     public void testCL3() throws Exception {
         // DMN 1.1
-        doSingleModelTest("1.1", "0004-lending");
-        doSingleModelTest("1.1","0005-literal-invocation");
-        doSingleModelTest("1.1","0006-join");
-        doSingleModelTest("1.1","0013-sort");
-        doSingleModelTest("1.1","0014-loan-comparison");
-        doSingleModelTest("1.1","0016-some-every");
-        doSingleModelTest("1.1","0017-tableTests");
-        doSingleModelTest("1.1","0020-vacation-days");
-        doSingleModelTest("1.1","0021-singleton-list");
-        doSingleModelTest("1.1","0030-user-defined-functions");
-        doSingleModelTest("1.1","0031-user-defined-functions");
-        doSingleModelTest("1.1","0031-static-user-defined-functions");
+        doFolderTest("1.1", "0004-lending");
+        doFolderTest("1.1", "0005-literal-invocation");
+        doFolderTest("1.1", "0006-join");
+        doFolderTest("1.1", "0013-sort");
+        doFolderTest("1.1", "0014-loan-comparison");
+        doFolderTest("1.1", "0016-some-every");
+        doFolderTest("1.1", "0017-tableTests");
+        doFolderTest("1.1", "0020-vacation-days");
+        doFolderTest("1.1", "0021-singleton-list");
+        doFolderTest("1.1", "0030-user-defined-functions");
+        doFolderTest("1.1", "0031-user-defined-functions");
+        doFolderTest("1.1", "0031-static-user-defined-functions");
 
         // DMN 1.2
-        doSingleModelTest("1.2","0076-feel-external-java");
+        doFolderTest("1.2", "0076-feel-external-java");
 
         // DMN 1.3
-        doSingleModelTest("1.3","0085-decision-services", new Pair<>("caching", "true"));
-        doSingleModelTest("1.3","0092-feel-lambda");
-        doSingleModelTest("1.3","0083-feel-unicode");
+        doFolderTest("1.3", "0085-decision-services", new Pair<>("caching", "true"));
+        doFolderTest("1.3", "0092-feel-lambda");
+        doFolderTest("1.3", "0083-feel-unicode");
 
         // extensions
-        doSingleModelTest("1.1","9001-recursive-function");
+        doFolderTest("1.1", "9001-recursive-function");
     }
 
     @Test
     public void testCL3Singleton() throws Exception {
-        doSingleModelTest("1.3", "0004-lending", new Pair<>("singletonDecision", "true"));
+        doFolderTest("1.3", "0004-lending", new Pair<>("singletonDecision", "true"));
     }
 }

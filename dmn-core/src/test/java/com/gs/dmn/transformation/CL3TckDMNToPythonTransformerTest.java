@@ -29,10 +29,10 @@ public class CL3TckDMNToPythonTransformerTest extends AbstractTckDMNToPythonTran
     @Test
     public void testCL3() throws Exception {
         // DMN 1.1
-        doSingleModelTest("1.1", "0004-lending");
-        doSingleModelTest("1.1","0020-vacation-days", new Pair<>("javaRootPackage", "org.gs"), new Pair<>("generateExtra", "true"));
+        doFolderTest("1.1", "0004-lending");
+        doFolderTest("1.1", "0020-vacation-days", new Pair<>("javaRootPackage", "org.gs"), new Pair<>("generateExtra", "true"));
 
         // DMN 1.3
-        doSingleModelTest("1.3","0085-decision-services", new Pair<>("caching", "true"));
+        doFolderTest("1.3", "0085-decision-services", new Pair<>("caching", "true"));
     }
 }
