@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dmn-ns:definitions xmlns:dmn-ns="http://www.omg.org/spec/DMN/20151101/dmn.xsd"
                     xmlns:ext="http://dmnextension.org"
-                    name="test"
+                    name="test20161014"
                     namespace="http://tempuri.org"
                     xmlns="http://tempuri.org">
     <dmn-ns:description>dmn-ns:description</dmn-ns:description>

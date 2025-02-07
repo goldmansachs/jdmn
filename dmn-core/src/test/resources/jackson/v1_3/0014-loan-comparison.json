@@ -1,6 +1,6 @@
 {
   "@kind" : "definitions",
-  "name" : "loanComparison",
+  "name" : "0014-loan-comparison",
   "id" : "_56c7d4a5-e6db-4bba-ac5f-dc082a16f719",
   "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719",
   "exporter" : "DMN Modeler; Method and Style trisofix.xslt",

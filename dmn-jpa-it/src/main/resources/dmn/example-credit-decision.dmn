@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:userExt="http://www.dmn.com/schema/dmn/1.1/" namespace="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" exporterVersion="1.0" name="Example credit decision" id="id-84bc037e246b42bab52261b4fc2836f0">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:userExt="http://www.dmn.com/schema/dmn/1.1/" namespace="http://www.dmn.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml" exporterVersion="1.0" name="example-credit-decision" id="id-84bc037e246b42bab52261b4fc2836f0">
     <itemDefinition isCollection="false" name="applicant" id="id-5bf135bcd0f2d1d6dabfb49f463ee763" label="Applicant">
         <itemComponent isCollection="false" name="name" id="id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-0" label="Name">
             <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:string</typeRef>

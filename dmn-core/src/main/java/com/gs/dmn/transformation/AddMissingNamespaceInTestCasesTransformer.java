@@ -19,6 +19,7 @@ import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.tck.TCKUtil;
 import com.gs.dmn.tck.ast.*;
 import com.gs.dmn.tck.ast.visitor.TraversalVisitor;
 import org.apache.commons.lang3.StringUtils;
@@ -76,13 +77,11 @@ class AddMissingImportPrefixInDTVisitor extends TraversalVisitor<TransformationC
     public TCKBaseElement visit(TestCases element, TransformationContext context) {
         DMNModelRepository repository = context.getRepository();
         if (element != null) {
-            // Search model by name
+            // Set TestCase namespace from model under test
             if (StringUtils.isBlank(element.getNamespace())) {
-                String modelName = element.getModelName();
-                List<TDefinitions> definitionsList = repository.findDefinitionByName(modelName);
-                if (definitionsList.size() == 1) {
-                    element.setNamespace(definitionsList.get(0).getNamespace());
-                }
+                String modelName = TCKUtil.getModelName(element.getModelName());
+                TDefinitions definitions = repository.findModelByName(modelName);
+                element.setNamespace(definitions.getNamespace());
             }
 
             // Set namespace for nodes

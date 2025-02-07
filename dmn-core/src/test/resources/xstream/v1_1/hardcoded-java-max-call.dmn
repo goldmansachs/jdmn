@@ -4,7 +4,7 @@
                    xmlns:dmn11="http://www.omg.org/spec/DMN/20151101/dmn.xsd"
                    xmlns="http://www.trisotech.com/dmn/definitions/_6ea3f4ee-7c6b-4cf8-8ba1-a86e538244b5"
                    exporter="DMN Modeler" exporterVersion="6.1.12.1" id="_6ea3f4ee-7c6b-4cf8-8ba1-a86e538244b5"
-                   name="Drawing 1"
+                   name="hardcoded-java-max-call"
                    namespace="http://www.trisotech.com/dmn/definitions/_6ea3f4ee-7c6b-4cf8-8ba1-a86e538244b5"
                    triso:logoChoice="Default">
     <dmn11:extensionElements/>

@@ -1,7 +1,7 @@
 
 public class ModelElementRegistry extends com.gs.dmn.runtime.discovery.ModelElementRegistry {
     public ModelElementRegistry() {
-        // Register elements from model 'some-every'
+        // Register elements from model '0016-some-every'
         register("everyGtTen1", "EveryGtTen1");
         register("everyGtTen2", "EveryGtTen2");
         register("everyGtTen3", "EveryGtTen3");

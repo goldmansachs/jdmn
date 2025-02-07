@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions xmlns:ex="http://www.omg.org/spec/DMN/20151101/ch11example.xml"
              namespace="http://www.omg.org/spec/DMN/20151101/ch11example.xml"
-             name="Loan Origination Decision Model" id="LoanOriginationModel"
+             name="ch11example" id="LoanOriginationModel"
              xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd">
     <description>Implements model from chapter 11 of DMN 1.1 spec</description>
     <itemDefinition name="Applicant data" id="applicantData_t">

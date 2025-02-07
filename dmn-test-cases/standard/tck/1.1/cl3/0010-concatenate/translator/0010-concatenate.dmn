@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tns="http://www.trisotech.com/definitions/_e14a67c7-c9a2-4fd6-84fb-63722d1454d4" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.34; 1.0" id="_e14a67c7-c9a2-4fd6-84fb-63722d1454d4" name="concatenate" namespace="http://www.trisotech.com/definitions/_e14a67c7-c9a2-4fd6-84fb-63722d1454d4" triso:logoChoice="Default">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tns="http://www.trisotech.com/definitions/_e14a67c7-c9a2-4fd6-84fb-63722d1454d4" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.34; 1.0" id="_e14a67c7-c9a2-4fd6-84fb-63722d1454d4" name="0010-concatenate" namespace="http://www.trisotech.com/definitions/_e14a67c7-c9a2-4fd6-84fb-63722d1454d4" triso:logoChoice="Default">
 	<itemDefinition id="tStringList" isCollection="true" name="tStringList">
 		<typeRef>feel:string</typeRef>
 	</itemDefinition>

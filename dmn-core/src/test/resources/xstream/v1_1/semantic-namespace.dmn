@@ -6,7 +6,7 @@
                       xmlns="http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11"
                       id="_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11"
                       namespace="http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11"
-                      exporter="DMN Modeler" exporterVersion="5.0.32.2" name="literal invocation1"
+                      exporter="DMN Modeler" exporterVersion="5.0.32.2" name="semantic-namespace"
                       triso:logoChoice="Default"
                       xsi:schemaLocation="http://www.omg.org/spec/DMN/20151101/dmn.xsd ../../dmn.xsd">
     <semantic:extensionElements/>

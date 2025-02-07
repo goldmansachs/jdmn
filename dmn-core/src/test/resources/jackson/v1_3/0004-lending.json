@@ -1,6 +1,6 @@
 {
   "@kind" : "definitions",
-  "name" : "Lending1",
+  "name" : "0004-lending",
   "id" : "_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
   "expressionLanguage" : "https://www.omg.org/spec/DMN/20191111/FEEL/",
   "typeLanguage" : "https://www.omg.org/spec/DMN/20191111/FEEL/",

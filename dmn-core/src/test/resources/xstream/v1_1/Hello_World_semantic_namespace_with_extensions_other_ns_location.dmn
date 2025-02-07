@@ -7,7 +7,7 @@
 
                       exporter="DMN Modeler" exporterVersion="5.2.2"
                       id="_f2695525-ffe9-4c96-a9ec-15c18e555f68"
-                      name="Hello World semantic namespace"
+                      name="Hello_World_semantic_namespace_with_extensions_other_ns_location"
                       namespace="http://www.trisotech.com/definitions/_f2695525-ffe9-4c96-a9ec-15c18e555f68"
                       triso:logoChoice="Default">
     <semantic:extensionElements>

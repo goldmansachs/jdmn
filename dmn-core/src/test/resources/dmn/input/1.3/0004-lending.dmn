@@ -2,7 +2,7 @@
 <definitions exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0"
              expressionLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/"
              namespace="http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b"
-             typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" name="Lending1" triso:logoChoice="Default"
+             typeLanguage="https://www.omg.org/spec/DMN/20191111/FEEL/" name="0004-lending" triso:logoChoice="Default"
              id="_4e0f0b70-d31c-471c-bd52-5ca709ed362b" xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
              xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
              xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"

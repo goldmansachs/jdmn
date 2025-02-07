@@ -133,7 +133,7 @@ public class DMNToManifestTransformer {
         }
         for (TImport import_: model.getImport()) {
             if (import_.getName().equals(importName)) {
-                model = this.dmnModelRepository.getModel(import_.getNamespace());
+                model = this.dmnModelRepository.findModelByNamespace(import_.getNamespace());
                 if (model == null) {
                     throw new DMNRuntimeException(String.format("Cannot find model for import name '%s'", importName));
                 }

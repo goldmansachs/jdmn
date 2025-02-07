@@ -2,7 +2,7 @@
 <definitions
         xmlns:triso="http://www.trisotech.com/2015/triso/modeling"
         xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/"
-        id="_10435dcd-8774-4575-a338-49dd554a0928" name="Model C"
+        id="_10435dcd-8774-4575-a338-49dd554a0928" name="0089-nested-inputdata-imports"
         namespace="http://www.trisotech.com/definitions/_10435dcd-8774-4575-a338-49dd554a0928" exporter="DMN Modeler"
         exporterVersion="6.2.4.2" triso:logoChoice="Default">
     <import namespace="http://www.trisotech.com/definitions/_2a1d771a-a899-4fef-abd6-fc894332337c"

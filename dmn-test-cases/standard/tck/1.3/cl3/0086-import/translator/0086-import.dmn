@@ -11,7 +11,7 @@
                       xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
                       xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" id="_f27bb64b-6fc7-4e1f-9848-11ba35e0df36" 
                       namespace="http://www.trisotech.com/definitions/_c3e08836-7973-4e4d-af2b-d46b23725c13"          exporter="DMN Modeler" exporterVersion="6.2.1" 
-                      name="Import BKM and have a Decision Ctx with DT" triso:logoChoice="Default">
+                      name="0086-import" triso:logoChoice="Default">
     <import namespace="http://www.trisotech.com/definitions/_f27bb64b-6fc7-4e1f-9848-11ba35e0df36"
                      name="myimport"
                      importType="https://www.omg.org/spec/DMN/20191111/MODEL/"

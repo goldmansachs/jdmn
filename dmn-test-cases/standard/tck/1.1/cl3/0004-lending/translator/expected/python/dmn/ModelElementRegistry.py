@@ -3,7 +3,7 @@ import jdmn.runtime.discovery.ModelElementRegistry
 
 class ModelElementRegistry(jdmn.runtime.discovery.ModelElementRegistry.ModelElementRegistry):
     def __init__(self):
-        # Register elements from model 'Lending1'
+        # Register elements from model '0004-lending'
         self.register("Adjudication", "Adjudication.Adjudication")
         self.register("AffordabilityCalculation", "AffordabilityCalculation.AffordabilityCalculation")
         self.register("ApplicantData", "ApplicantData.ApplicantData")

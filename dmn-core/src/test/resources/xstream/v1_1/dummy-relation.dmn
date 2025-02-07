@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="" exporterVersion=""
              expressionLanguage="http://www.omg.org/spec/FEEL/20140401"
-             id="idvalue0" label="" name="" namespace="http://tempuri.org"
+             id="idvalue0" label="" name="dummy-relation" namespace="http://tempuri.org"
              typeLanguage="http://www.omg.org/spec/FEEL/20140401" xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd"
              xsi:schemaLocation="http://www.omg.org/spec/DMN/20151101/dmn.xsd dmn.xsd ">
     <description>description</description>

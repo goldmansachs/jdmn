@@ -32,11 +32,11 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='definitions'): error: The 'name' of a 'DRGElement' must be unique. Found duplicates for 'CIP Assessments, Input'.",
-                "(model='definitions'): error: The 'name' of a 'ItemDefinition' must be unique. Found duplicates for 'itemDefinition'.",
-                "(model='definitions', name='CIP Assessments', id='cip-assessments'): error: Missing variable",
-                "(model='definitions', name='CIP Assessments', id='cip-assessments1'): error: Missing variable",
-                "(model='definitions', label='String', name='CIP Assessments', id='id-input-1'): error: DRGElement name and variable name should be the same. Found 'CIP Assessments' and 'string'"
+                "(model='test-dmn-with-duplicates'): error: The 'name' of a 'DRGElement' must be unique. Found duplicates for 'CIP Assessments, Input'.",
+                "(model='test-dmn-with-duplicates'): error: The 'name' of a 'ItemDefinition' must be unique. Found duplicates for 'itemDefinition'.",
+                "(model='test-dmn-with-duplicates', name='CIP Assessments', id='cip-assessments'): error: Missing variable",
+                "(model='test-dmn-with-duplicates', name='CIP Assessments', id='cip-assessments1'): error: Missing variable",
+                "(model='test-dmn-with-duplicates', label='String', name='CIP Assessments', id='id-input-1'): error: DRGElement name and variable name should be the same. Found 'CIP Assessments' and 'string'"
         );
         validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
     }

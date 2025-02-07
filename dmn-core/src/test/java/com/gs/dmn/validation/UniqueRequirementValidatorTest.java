@@ -31,8 +31,8 @@ public class UniqueRequirementValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Duplicated informationRequirement.requiredInput 'input-1'",
-                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Duplicated informationRequirement.requiredDecision 'decision-1'"
+                "(model='test-dmn-with-duplicated-information-requirements', name='CIP Assessments', id='cip-assessments'): error: Duplicated informationRequirement.requiredInput 'input-1'",
+                "(model='test-dmn-with-duplicated-information-requirements', name='CIP Assessments', id='cip-assessments'): error: Duplicated informationRequirement.requiredDecision 'decision-1'"
         );
         validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicated-information-requirements.dmn"), expectedErrors);
     }

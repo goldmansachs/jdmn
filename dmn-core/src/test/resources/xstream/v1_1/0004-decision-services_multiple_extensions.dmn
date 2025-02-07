@@ -6,7 +6,7 @@
                       xmlns="http://www.trisotech.com/definitions/_686f58d4-4ec3-4c65-8c06-0e4fd8983def"
                       exporter="DMN Modeler"
                       exporterVersion="6.0.2.201802201132" id="_686f58d4-4ec3-4c65-8c06-0e4fd8983def"
-                      name="Decision Services"
+                      name="0004-decision-services_multiple_extensions"
                       namespace="http://www.trisotech.com/definitions/_686f58d4-4ec3-4c65-8c06-0e4fd8983def"
                       triso:logoChoice="Default">
     <semantic:extensionElements>

@@ -44,6 +44,7 @@ public class DMNModelRepository {
     // Derived properties to optimise search
     protected final List<TDefinitions> allDefinitions = new ArrayList<>();
     protected final Map<String, TDefinitions> namespaceToDefinitions = new LinkedHashMap<>();
+    // Cache for DRGElements and top ItemDefinitions
     protected final Map<TNamedElement, TDefinitions> elementToDefinitions = new LinkedHashMap<>();
     protected List<TInvocable> invocables;
     protected List<TItemDefinition> itemDefinitions;
@@ -71,6 +72,7 @@ public class DMNModelRepository {
         if (definitionsList != null) {
             for (TDefinitions definitions: definitionsList) {
                 this.allDefinitions.add(definitions);
+                // Update caches
                 if (!this.namespaceToDefinitions.containsKey(definitions.getNamespace())) {
                     this.namespaceToDefinitions.put(definitions.getNamespace(), definitions);
                 } else {
@@ -182,14 +184,20 @@ public class DMNModelRepository {
     }
 
     // Model name might not be unique
-    public List<TDefinitions> findDefinitionByName(String modelName) {
+    public TDefinitions findModelByName(String modelName) {
         List<TDefinitions> result = new ArrayList<>();
         for (TDefinitions definitions : this.allDefinitions) {
             if (modelName.equals(definitions.getName())) {
                 result.add(definitions);
             }
         }
-        return result;
+        if (result.isEmpty()) {
+            throw new DMNRuntimeException(String.format("Cannot find model '%s'", modelName));
+        } else if (result.size() == 1) {
+            return result.get(0);
+        } else {
+            throw new DMNRuntimeException(String.format("Model name '%s' is not unique", modelName));
+        }
     }
 
     public void addElementMap(TDRGElement element, TDefinitions definitions) {
@@ -206,14 +214,20 @@ public class DMNModelRepository {
         return names;
     }
 
-    public TDefinitions getModel(String namespace) {
-        return this.namespaceToDefinitions.get(namespace);
-    }
-
     public TDefinitions getModel(TNamedElement element) {
         return this.elementToDefinitions.get(element);
     }
 
+    public TDefinitions findModelByNamespace(String namespace) {
+        TDefinitions definitions = this.namespaceToDefinitions.get(namespace);
+        if (definitions == null) {
+            throw new DMNRuntimeException(String.format("Cannot find DM for namespace '%s'", namespace));
+        } else {
+            return definitions;
+        }
+    }
+
+    // Error location
     public String makeLocation(TDefinitions definitions, TDMNElement element) {
         if (definitions == null && element == null) {
             return null;
@@ -612,7 +626,7 @@ public class DMNModelRepository {
                 result = value.get(0);
                 this.drgElementByName.put(name, result);
             } else if (value.size() > 1) {
-                throw new DMNRuntimeException(String.format("Found %s business knowledge models for name='%s'", value.size(), name));
+                throw new DMNRuntimeException(String.format("Found %s DRG elements for name='%s'", value.size(), name));
             }
         }
         if (result == null) {
@@ -838,7 +852,7 @@ public class DMNModelRepository {
             for (TImport import_: model.getImport()) {
                 if (import_.getName().equals(importName)) {
                     String modelNamespace = import_.getNamespace();
-                    model = this.getModel(modelNamespace);
+                    model = this.findModelByNamespace(modelNamespace);
                     if (model == null) {
                         throw new DMNRuntimeException(String.format("Cannot find DM for '%s'", modelNamespace));
                     }

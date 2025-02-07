@@ -6,7 +6,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="_54863c52-2fa7-4a3d-b383-d4eb2eb88771"
     namespace="http://www.trisotech.com/definitions/_54863c52-2fa7-4a3d-b383-d4eb2eb88771" 
     exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0" 
-    name="conditionals" triso:logoChoice="Default" 
+    name="0032-conditionals" triso:logoChoice="Default"
     xsi:schemaLocation="http://www.omg.org/spec/DMN/20151101/dmn.xsd ../../dmn.xsd" 
     expressionLanguage="http://www.omg.org/spec/FEEL/20140401" 
     typeLanguage="http://www.omg.org/spec/FEEL/20140401">

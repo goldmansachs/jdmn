@@ -40,7 +40,7 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenIntervals1() {
         List<String> expectedErrors = Collections.singletonList(
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'"
+                "(model='loan-grade-with-intervals-1', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-1.dmn"), expectedErrors);
     }
@@ -48,7 +48,7 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenIntervals2() {
         List<String> expectedErrors = Collections.singletonList(
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'"
+                "(model='loan-grade-with-intervals-2', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-2.dmn"), expectedErrors);
     }
@@ -56,8 +56,8 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenIntervals3() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3, 5]' overlap in decision 'Loan Grade'",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[3, 6]' overlap in decision 'Loan Grade'"
+                "(model='loan-grade-with-intervals-3', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3, 5]' overlap in decision 'Loan Grade'",
+                "(model='loan-grade-with-intervals-3', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[3, 6]' overlap in decision 'Loan Grade'"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-3.dmn"), expectedErrors);
     }
@@ -65,8 +65,8 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenRelationalOperators() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[3, 4]' overlap in decision 'Loan Grade'"
+                "(model='loan-grade-with-relational-operators', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'",
+                "(model='loan-grade-with-relational-operators', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[3, 4]' overlap in decision 'Loan Grade'"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-relational-operators.dmn"), expectedErrors);
     }
@@ -74,7 +74,7 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenAny() {
         List<String> expectedErrors = Collections.singletonList(
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3, 4]' overlap in decision 'Loan Grade'"
+                "(model='loan-grade-with-any', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3, 4]' overlap in decision 'Loan Grade'"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-any.dmn"), expectedErrors);
     }
@@ -82,9 +82,9 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenBoolean() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[2, 4]' overlap in decision 'Loan Grade'",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[3, 4]' overlap in decision 'Loan Grade'"
+                "(model='loan-grade-with-boolean', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'",
+                "(model='loan-grade-with-boolean', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[2, 4]' overlap in decision 'Loan Grade'",
+                "(model='loan-grade-with-boolean', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[3, 4]' overlap in decision 'Loan Grade'"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-boolean.dmn"), expectedErrors);
     }
@@ -92,8 +92,8 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenEnumeration() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'",
-                "(model='loan-grade', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[2, 3, 4]' overlap in decision 'Loan Grade'"
+                "(model='loan-grade-with-enumeration', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[1, 3]' overlap in decision 'Loan Grade'",
+                "(model='loan-grade-with-enumeration', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): error: Decision table rules '[2, 3, 4]' overlap in decision 'Loan Grade'"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-enumeration.dmn"), expectedErrors);
     }

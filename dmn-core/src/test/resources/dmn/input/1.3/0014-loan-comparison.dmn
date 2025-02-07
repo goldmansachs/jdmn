@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.1.1; 1.1"
              namespace="http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719"
-             name="loanComparison" triso:logoChoice="Default" xsi:schemaLocation=""
+             name="0014-loan-comparison" triso:logoChoice="Default" xsi:schemaLocation=""
              id="_56c7d4a5-e6db-4bba-ac5f-dc082a16f719" xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
              xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
              xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"

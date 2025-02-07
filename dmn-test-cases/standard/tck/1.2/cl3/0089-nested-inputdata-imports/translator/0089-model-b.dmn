@@ -14,7 +14,7 @@
                       xmlns:trisodmn="http://www.trisotech.com/2016/triso/dmn"  
                       xmlns:tc="http://www.omg.org/spec/DMN/20160719/testcase"  
                       xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" 
-                      id="_2a1d771a-a899-4fef-abd6-fc894332337c" name="Model B" 
+                      id="_2a1d771a-a899-4fef-abd6-fc894332337c" name="0089-model-b"
                       namespace="http://www.trisotech.com/definitions/_2a1d771a-a899-4fef-abd6-fc894332337c" exporter="DMN Modeler" exporterVersion="6.2.4.2" triso:logoChoice="Default">
     <import namespace="http://www.trisotech.com/definitions/_ae5b3c17-1ac3-4e1d-b4f9-2cf861aec6d9" 
                      name="modelA" 

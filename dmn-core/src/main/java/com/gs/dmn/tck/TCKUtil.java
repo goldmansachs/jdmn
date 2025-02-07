@@ -104,7 +104,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             // Lookup in imports
             for (TImport imp: definitions.getImport()) {
                 String namespace = imp.getNamespace();
-                TDefinitions child = this.dmnModelRepository.getModel(namespace);
+                TDefinitions child = this.dmnModelRepository.findModelByNamespace(namespace);
                 DRGElementReference<? extends TDRGElement> result = extractInfoFromModel(child, elementNamespace, elementName, new ImportPath(importPath, imp.getName()));
                 if (result != null) {
                     return result;
@@ -124,7 +124,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         // Lookup in imports
         for (TImport imp: definitions.getImport()) {
             String namespace = imp.getNamespace();
-            TDefinitions child = this.dmnModelRepository.getModel(namespace);
+            TDefinitions child = this.dmnModelRepository.findModelByNamespace(namespace);
             DRGElementReference<? extends TDRGElement> result = extractInfoFromModel(child, elementName, new ImportPath(importPath, imp.getName()));
             if (result != null) {
                 return result;
@@ -141,7 +141,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         ValueType value = node;
         while (import_ != null) {
             path.addPathElement(name);
-            definitions = this.dmnModelRepository.getModel(import_.getNamespace());
+            definitions = this.dmnModelRepository.findModelByNamespace(import_.getNamespace());
             name = null;
             if (value.getComponent() != null && value.getComponent().size() == 1) {
                 Component component = value.getComponent().get(0);
@@ -508,37 +508,32 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     // Model - lookup methods
     //
     private TDefinitions getRootModel(TestCases testCases) {
-        TDefinitions definitions;
-        if (this.dmnModelRepository.getAllDefinitions().size() == 1) {
-            // One single DM
-            definitions = this.dmnModelRepository.getRootDefinitions();
+        // Find DM by namespace or name
+        String namespace = getNamespace(testCases);
+        TDefinitions definitions = null;
+        if (StringUtils.isBlank(namespace)) {
+            // Lookup by name
+            String modelName = getModelName(testCases);
+            definitions = this.dmnModelRepository.findModelByName(modelName);
         } else {
-            // Find DM by namespace
-            String namespace = getNamespace(testCases);
-            if (!StringUtils.isEmpty(namespace)) {
-                definitions = this.dmnModelRepository.getModel(namespace);
-            } else {
-                throw new DMNRuntimeException(String.format("Missing namespace for TestCases '%s'", testCases.getModelName()));
-            }
+            // Lookup by namespace
+            definitions = this.dmnModelRepository.findModelByNamespace(namespace);
         }
         if (definitions == null) {
-            throw new DMNRuntimeException(String.format("Cannot find root DM for TestCases '%s'", testCases.getModelName()));
+            throw new DMNRuntimeException(String.format("Cannot find DM '%s' for TestCases", testCases.getModelName()));
         } else {
             return definitions;
         }
     }
 
     private TDRGElement findDRGElement(TestCases testCases, TestCase testCase, ResultNode node) {
-        try {
-            String namespace = getNamespace(testCases, testCase, node);
-            String name = drgElementName(testCases, testCase, node);
-            if (namespace != null) {
-                return this.dmnModelRepository.findDRGElementByName(namespace, name);
-            } else {
-                return this.dmnModelRepository.findDRGElementByName(name);
-            }
-        } catch (Exception e) {
-            return null;
+        String namespace = getNamespace(testCases, testCase, node);
+        String name = drgElementName(testCases, testCase, node);
+        if (!StringUtils.isBlank(namespace)) {
+            return this.dmnModelRepository.findDRGElementByName(namespace, name);
+        } else {
+            TDefinitions rootModel = getRootModel(testCases);
+            return this.dmnModelRepository.findDRGElementByName(rootModel, name);
         }
     }
 
@@ -556,6 +551,17 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return elementToEvaluate;
     }
 
+    private String getModelName(TestCases testCases) {
+        String fileName = testCases.getModelName();
+        return getModelName(fileName);
+    }
+
+    public static String getModelName(String fileName) {
+        // Remove extension
+        int index = fileName.indexOf(".");
+        return index == -1 ? fileName : fileName.substring(0, index);
+    }
+
     private String getNamespace(TestCases testCases) {
         return testCases.getNamespace();
     }
@@ -566,7 +572,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private String getNamespace(TestCases testCases, TestCase testCase, InputNode node) {
         String namespace = getNamespace(node);
-        if (StringUtils.isEmpty(namespace)) {
+        if (StringUtils.isBlank(namespace)) {
+            namespace = getNamespace(testCase);
+        }
+        if (StringUtils.isBlank(namespace)) {
             namespace = getNamespace(testCases);
         }
         return namespace;
@@ -574,10 +583,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     private String getNamespace(TestCases testCases, TestCase testCase, ResultNode node) {
         String namespace = getNamespace(node);
-        if (StringUtils.isEmpty(namespace)) {
+        if (StringUtils.isBlank(namespace)) {
             namespace = getNamespace(testCase);
         }
-        if (StringUtils.isEmpty(namespace)) {
+        if (StringUtils.isBlank(namespace)) {
             namespace = getNamespace(testCases);
         }
         return namespace;

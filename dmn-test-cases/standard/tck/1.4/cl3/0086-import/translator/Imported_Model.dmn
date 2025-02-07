@@ -10,7 +10,7 @@
                       xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
                       xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/" id="_f27bb64b-6fc7-4e1f-9848-11ba35e0df36" 
                       namespace="http://www.trisotech.com/definitions/_f27bb64b-6fc7-4e1f-9848-11ba35e0df36"          exporter="DMN Modeler" exporterVersion="6.2.1" 
-                      name="Imported Model" triso:logoChoice="Default">
+                      name="Imported_Model" triso:logoChoice="Default">
     <itemDefinition name="tPerson" label="tPerson" isCollection="false">
         <itemComponent name="name" id="_9bb0759c-b3c1-482f-87f5-c047dc65cef0" isCollection="false">
             <typeRef>string</typeRef>

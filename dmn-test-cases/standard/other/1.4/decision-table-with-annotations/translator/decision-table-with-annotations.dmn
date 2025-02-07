@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.35; 1.0"
-             namespace="http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6" name="tableTest"
+             namespace="http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6" name="decision-table-with-annotations"
              triso:logoChoice="Default" id="_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6"
              xmlns="https://www.omg.org/spec/DMN/20211108/MODEL/"
              xmlns:triso="http://www.trisotech.com/2015/triso/modeling">

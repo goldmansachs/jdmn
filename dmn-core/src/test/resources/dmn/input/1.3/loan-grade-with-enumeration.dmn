@@ -2,7 +2,7 @@
                  xmlns="https://kiegroup.org/dmn/_DCAF9EC7-124D-4025-8AA2-22A64C80DD9B"
                  xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/"
                  xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
-                 id="_4B769E4A-A615-4556-BEB2-E79C7770A1D7" name="loan-grade"
+                 id="_4B769E4A-A615-4556-BEB2-E79C7770A1D7" name="loan-grade-with-enumeration"
                  typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/"
                  namespace="https://kiegroup.org/dmn/_DCAF9EC7-124D-4025-8AA2-22A64C80DD9B">
   <dmn:extensionElements/>

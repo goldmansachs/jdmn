@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tns="http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" id="_f52ca843-504b-4c3b-a6bc-4d377bffef7a" namespace="http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0" name="filter01" triso:logoChoice="Default">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:feel="http://www.omg.org/spec/FEEL/20140401" xmlns:tns="http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a" xmlns:triso="http://www.trisotech.com/2015/triso/modeling" id="_f52ca843-504b-4c3b-a6bc-4d377bffef7a" namespace="http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a" exporter="DMN Modeler; Method and Style trisofix.xslt" exporterVersion="5.0.32.2; 1.0" name="0021-singleton-list" triso:logoChoice="Default">
 	<itemDefinition id="tStringList" name="tStringList" isCollection="true">
 		<typeRef>feel:string</typeRef>
 	</itemDefinition>
