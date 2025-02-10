@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1158-noname-imports-01-B"
+             name="1158-noname-imports-01-B"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <itemDefinition name="typeRefA">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
+    <inputData name="model_b_input001" id="_model_b_input001">
+        <variable name="model_b_input001" typeRef="string"/>
+    </inputData>
+
+    <!-- decision just returns its own name -->
+    <decision name="model_b_decision001" id="_model_b_decision001">
+        <variable name="model_b_decision001" typeRef="string"/>
+        <literalExpression>
+            <text>"model_b_decision001"</text>
+        </literalExpression>
+    </decision>
+
+    <!-- BKM just returns its own name -->
+    <businessKnowledgeModel name="model_b_bkm001" id="_model_b_bkm001">
+        <variable name="model_b_bkm001"/>
+        <encapsulatedLogic>
+            <literalExpression typeRef="string">
+                <text>"model_b_bkm001"</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+
+</definitions>
+

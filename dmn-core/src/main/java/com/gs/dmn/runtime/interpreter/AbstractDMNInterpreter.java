@@ -273,6 +273,10 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             } else {
                 throw new DMNRuntimeException(String.format("Not supported invocable '%s'", invocable.getClass().getSimpleName()));
             }
+
+            // Add new binding to match path in parent
+            ImportPath relativeImportPath = this.repository.findRelativeImportPath(parent, requiredKnowledge);
+            addBinding(context, reference, relativeImportPath);
         }
     }
 

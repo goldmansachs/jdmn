@@ -199,11 +199,12 @@ public class DMNModelRepository {
         this.elementToDefinitions.put(element, definitions);
     }
 
-    public List<String> getImportedNames() {
+    public List<String> getImportedNames(TDefinitions definitions) {
         List<String> names = new ArrayList<>();
-        for (TDefinitions definitions: this.allDefinitions) {
-            for (TImport imp: definitions.getImport()) {
-                names.add(imp.getName());
+        for (TImport imp: definitions.getImport()) {
+            String name = imp.getName();
+            if (!StringUtils.isBlank(name) && !names.contains(name)) {
+                names.add(name);
             }
         }
         return names;
@@ -523,12 +524,12 @@ public class DMNModelRepository {
                 }
             }
             if (result == null) {
-                throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href));
+                throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s' in element '%s'", href, parent.getName()));
             } else {
                 return result;
             }
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s'", href), e);
+            throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s' in element '%s'", href, parent.getName()), e);
         }
     }
 
@@ -544,7 +545,7 @@ public class DMNModelRepository {
     private TDRGElement findDRGElementById(TDefinitions definitions, String id) {
         TDRGElement element = findDRGElementByFilter(definitions, id, this::sameId);
         if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find DRG element for id='%s'", id));
+            throw new DMNRuntimeException(String.format("Cannot find DRG element for id='%s' in model '%s#%s'", id, definitions.getNamespace(), definitions.getName()));
         } else {
             return element;
         }
@@ -1236,12 +1237,6 @@ public class DMNModelRepository {
                 if (Objects.equals(import_.getNamespace(), namespace)) {
                     return new ImportPath(parentPath, import_.getName());
                 }
-            }
-            // Check each imported model
-            for (TImport import_: parentDefinitions.getImport()) {
-                String importedNamespace = import_.getNamespace();
-                TDefinitions importedModel = findModelByNamespace(importedNamespace);
-                return findAbsoluteImportPath(importedModel, namespace, new ImportPath(parentPath, import_.getName()));
             }
         }
         throw new DMNRuntimeException(String.format("Cannot not find import for '%s' in '%s:%s'", namespace, parentDefinitions.getNamespace(), parentDefinitions.getName()));

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1158-noname-imports-19-B"
+             name="1158-noname-imports-19-B"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+
+    <inputData name="input001" id="_input001">
+        <variable name="input001" typeRef="string"/>
+    </inputData>
+
+    <decision name="decision001" id="_decision001">
+        <variable name="decision001" typeRef="string"/>
+        <informationRequirement>
+            <requiredInput href="#_input001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>input001</text>
+        </literalExpression>
+    </decision>
+
+</definitions>
+

@@ -375,7 +375,7 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
         }
 
         LexicalContext lexicalContext = new LexicalContext(names);
-        lexicalContext.addNames(repository.getImportedNames());
+        lexicalContext.addNames(repository.getImportedNames(repository.getModel(element)));
 
         return lexicalContext;
     }
