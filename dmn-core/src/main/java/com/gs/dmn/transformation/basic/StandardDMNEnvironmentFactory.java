@@ -792,28 +792,30 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     protected void addDeclaration(Environment environment, Declaration declaration, TDRGElement parent, TDRGElement child) {
         Type type = declaration.getType();
-        String importName = this.dmnModelRepository.findChildImportName(parent, child);
-        if (ImportPath.isEmpty(importName)) {
+        ImportPath importPath = this.dmnModelRepository.findRelativeImportPath(parent, child);
+        if (ImportPath.isEmpty(importPath)) {
             environment.addDeclaration(declaration);
         } else {
+            // Lookup / add variable declaration for import context
+            String importName = importPath.getPathElements().get(0);
             Declaration importDeclaration = environment.lookupLocalVariableDeclaration(importName);
+            ImportContextType importContextType = null;
             if (importDeclaration == null) {
-                ImportContextType contextType = new ImportContextType(importName);
-                contextType.addMember(declaration.getName(), new ArrayList<>(), type);
-                contextType.addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
-                importDeclaration = this.environmentFactory.makeVariableDeclaration(importName, contextType);
+                importContextType = new ImportContextType(importName);
+                importDeclaration = this.environmentFactory.makeVariableDeclaration(importName, importContextType);
                 environment.addDeclaration(importDeclaration);
             } else if (importDeclaration instanceof VariableDeclaration) {
                 Type importType = importDeclaration.getType();
                 if (importType instanceof ImportContextType) {
-                    ((ImportContextType) importType).addMember(declaration.getName(), new ArrayList<>(), type);
-                    ((ImportContextType) importType).addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
-                } else {
-                    throw new DMNRuntimeException(String.format("Cannot process declaration for '%s.%s'", importName, declaration.getName()));
+                    importContextType = (ImportContextType) importType;
                 }
             } else {
-                throw new DMNRuntimeException(String.format("Cannot process declaration for '%s.%s'", importName, declaration.getName()));
+                throw new DMNRuntimeException(String.format("Incorrect import declaration '%s' for import '%s'", declaration, importName));
             }
+
+            // Add member and reference
+            importContextType.addMember(declaration.getName(), new ArrayList<>(), type);
+            importContextType.addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
         }
     }
 

@@ -960,15 +960,15 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         List<Pair<String, Type>> parameters = new ArrayList<>();
         for (TDMNElementReference er : service.getInputData()) {
             TInputData inputData = this.dmnModelRepository.findInputDataByRef(service, er.getHref());
-            String importName = this.dmnModelRepository.findImportName(service, er);
-            String parameterName = nameProducer.apply(this.dmnModelRepository.makeDRGElementReference(importName, inputData));
+            ImportPath importPath = this.dmnModelRepository.findRelativeImportPath(service, er);
+            String parameterName = nameProducer.apply(this.dmnModelRepository.makeDRGElementReference(importPath, inputData));
             Type parameterType = toFEELType(inputData);
             parameters.add(new Pair<>(parameterName, parameterType));
         }
         for (TDMNElementReference er : service.getInputDecision()) {
             TDecision decision = this.dmnModelRepository.findDecisionByRef(service, er.getHref());
-            String importName = this.dmnModelRepository.findImportName(service, er);
-            String parameterName = nameProducer.apply(this.dmnModelRepository.makeDRGElementReference(importName, decision));
+            ImportPath importPath = this.dmnModelRepository.findRelativeImportPath(service, er);
+            String parameterName = nameProducer.apply(this.dmnModelRepository.makeDRGElementReference(importPath, decision));
             Type parameterType = drgElementOutputFEELType(decision);
             parameters.add(new Pair<>(parameterName, parameterType));
         }

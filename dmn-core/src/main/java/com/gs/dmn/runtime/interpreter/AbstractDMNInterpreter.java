@@ -261,15 +261,15 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             String href = requiredKnowledge.getHref();
             TInvocable invocable = this.repository.findInvocableByRef(parent, href);
 
-            // Calculate import path
-            String importName = this.repository.findImportName(parent, requiredKnowledge);
-            ImportPath invocableImportPath = new ImportPath(importPath, importName);
+            // Make reference for knowledge requirement
+            ImportPath absoluteImportPath = this.repository.findAbsoluteImportPath(parent, requiredKnowledge, importPath);
+            DRGElementReference<?> reference = this.repository.makeDRGElementReference(absoluteImportPath, invocable);
 
             // Evaluate invocable
             if (invocable instanceof TBusinessKnowledgeModel) {
-                applyBKM(this.repository.makeDRGElementReference(invocableImportPath, (TBusinessKnowledgeModel) invocable), context);
+                applyBKM((DRGElementReference<TBusinessKnowledgeModel>) reference, context);
             } else if (invocable instanceof TDecisionService) {
-                applyDecisionService(this.repository.makeDRGElementReference(invocableImportPath, (TDecisionService) invocable), context);
+                applyDecisionService((DRGElementReference<TDecisionService>) reference, context);
             } else {
                 throw new DMNRuntimeException(String.format("Not supported invocable '%s'", invocable.getClass().getSimpleName()));
             }
@@ -306,21 +306,26 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             TDMNElementReference requiredInput = informationRequirement.getRequiredInput();
             TDMNElementReference requiredDecision = informationRequirement.getRequiredDecision();
             if (requiredInput != null) {
+                // Make reference for input data
                 TInputData child = this.repository.findInputDataByRef(parent, requiredInput.getHref());
-                String importName = this.repository.findImportName(parent, requiredInput);
-                ImportPath childImportPath = new ImportPath(importPath, importName);
+                ImportPath absoluteImportPath = this.repository.findAbsoluteImportPath(parent, requiredInput, importPath);
+                DRGElementReference<TInputData> reference = this.repository.makeDRGElementReference(absoluteImportPath, child);
 
                 // Add new binding to match path in parent
-                addBinding(context, this.repository.makeDRGElementReference(childImportPath, child), importName);
+                ImportPath relativeImportPath = this.repository.findRelativeImportPath(parent, requiredInput);
+                addBinding(context, reference, relativeImportPath);
             } else if (requiredDecision != null) {
+                // Make reference for decision
                 TDecision child = this.repository.findDecisionByRef(parent, requiredDecision.getHref());
-                String importName = this.repository.findImportName(parent, requiredDecision);
-                ImportPath childImportPath = new ImportPath(importPath, importName);
-                DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference(childImportPath, child);
+                ImportPath absoluteImportPath = this.repository.findAbsoluteImportPath(parent, requiredDecision, importPath);
+                DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference(absoluteImportPath, child);
+
+                // Evaluate decision
                 Result result = this.visitor.visitDecisionReference(reference, makeDecisionGlobalContext(reference, context));
 
                 // Add new binding to match path in parent
-                addBinding(context, this.repository.makeDRGElementReference(childImportPath, child), importName, Result.value(result));
+                ImportPath relativeImportPath = this.repository.findRelativeImportPath(parent, requiredDecision);
+                addBinding(context, this.repository.makeDRGElementReference(absoluteImportPath, child), relativeImportPath, Result.value(result));
             } else {
                 this.errorHandler.reportError("Incorrect InformationRequirement. Missing required input and decision");
             }
@@ -484,19 +489,20 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     // Add binding required by parent: importName.elementName
-    private void addBinding(DMNContext context, DRGElementReference<? extends TDRGElement> reference, String importName) {
+    private void addBinding(DMNContext context, DRGElementReference<? extends TDRGElement> reference, ImportPath relativeImportPath) {
         Object value = lookupBinding(context, reference);
-        addBinding(context, reference, importName, value);
+        addBinding(context, reference, relativeImportPath, value);
     }
 
     // Add binding required by parent: importName.elementName
-    private void addBinding(DMNContext context, DRGElementReference<? extends TDRGElement> reference, String importName, Object value) {
+    private void addBinding(DMNContext context, DRGElementReference<? extends TDRGElement> reference, ImportPath relativeImportPath, Object value) {
         if (this.dmnTransformer.isSingletonInputData()) {
             String name = reference.getElementName();
-            if (ImportPath.isEmpty(importName)) {
+            if (ImportPath.isEmpty(relativeImportPath)) {
                 context.bind(name, value);
             } else {
                 // Lookup / bind import name
+                String importName = ImportPath.getImportName(relativeImportPath);
                 Context parentContext = (Context) context.lookupBinding(importName);
                 if (parentContext == null) {
                     parentContext = new Context();
@@ -506,15 +512,10 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 parentContext.put(name, value);
             }
         } else {
-            ImportPath importPath = reference.getImportPath();
-            if (ImportPath.isEmpty(importPath)) {
+            if (ImportPath.isEmpty(relativeImportPath)) {
                 context.bind(reference.getElementName(), value);
             } else {
-                if (ImportPath.isEmpty(importName)) {
-                    context.bind(reference.getElementName(), value);
-                } else {
-                    bind(context, this.repository.makeDRGElementReference(new ImportPath(importName), reference.getElement()), value);
-                }
+                bind(context, this.repository.makeDRGElementReference(relativeImportPath, reference.getElement()), value);
             }
         }
     }
@@ -611,8 +612,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 TDecision decision = repository.findDecisionByRef(service, outputDecisionReference.getHref());
                 outputDecisions.add(decision);
 
-                String importName = repository.findImportName(service, outputDecisionReference);
-                ImportPath decisionImportPath = new ImportPath(serviceReference.getImportPath(), importName);
+                ImportPath decisionImportPath = repository.findAbsoluteImportPath(service, outputDecisionReference, serviceReference.getImportPath());
                 DRGElementReference<TDecision> reference = repository.makeDRGElementReference(decisionImportPath, decision);
                 Result result = visitDecisionReference(reference, makeDecisionGlobalContext(reference, serviceContext));
                 results.add(result);

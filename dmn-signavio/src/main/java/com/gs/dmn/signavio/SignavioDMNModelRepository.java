@@ -185,8 +185,8 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
         for (TDMNElementReference reference: childReferences) {
             TDecision child = findDecisionByRef(parent, reference.getHref());
             if (child != null) {
-                String importName = findImportName(parent, reference);
-                DRGElementReference<TDecision> childReference = makeDRGElementReference(new ImportPath(parentImportPath, importName), child);
+                ImportPath importPath = findAbsoluteImportPath(parent, reference, parentImportPath);
+                DRGElementReference<TDecision> childReference = makeDRGElementReference(importPath, child);
                 List<DRGElementReference<TInputData>> inputReferences = collectTransitiveInputDatas(childReference);
                 result.addAll(inputReferences);
             } else {

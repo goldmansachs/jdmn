@@ -12,6 +12,7 @@
  */
 package com.gs.dmn;
 
+import com.gs.dmn.runtime.DMNRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -26,13 +27,20 @@ public class ImportPath {
         return importPath == null || importPath.isEmpty();
     }
 
+    public static String getImportName(ImportPath relativeImportPath) {
+        if (relativeImportPath.getPathElements().size() != 1) {
+            throw new DMNRuntimeException(String.format("Not supported import path '%s'", relativeImportPath));
+        }
+        return relativeImportPath.getPathElements().get(0);
+    }
+
     private final List<String> pathElements = new ArrayList<>();
 
     public ImportPath() {
     }
 
     public ImportPath(String pathElement) {
-        if (!StringUtils.isEmpty(pathElement)) {
+        if (!StringUtils.isBlank(pathElement)) {
             this.pathElements.add(pathElement);
         }
     }
@@ -49,7 +57,7 @@ public class ImportPath {
     }
 
     public void addPathElement(String pathElement) {
-        if (!StringUtils.isEmpty(pathElement)) {
+        if (!StringUtils.isBlank(pathElement)) {
             this.pathElements.add(pathElement);
         }
     }
