@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1158-noname-imports-14-B"
+             name="1158-noname-imports-14-B"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <decision name="decision002" id="_decision002">
+        <variable name="decision002"/>
+        <informationRequirement>
+            <requiredDecision href="#_decision003"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>decision003</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003" id="_decision003">
+        <variable name="decision003"/>
+        <literalExpression>
+            <text>"model_b_decision003"</text>
+        </literalExpression>
+    </decision>
+
+
+</definitions>
+

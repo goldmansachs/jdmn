@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1158-noname-imports-02-B"
+             name="1158-noname-imports-02-B"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <!-- does nothing but effectively import, then re-export everything in model C -->
+
+    <import namespace="http://www.montera.com.au/spec/DMN/1158-noname-imports-02-C"
+            name=""
+            importType="https://www.omg.org/spec/DMN/20230324/MODEL/"
+    />
+
+</definitions>
+

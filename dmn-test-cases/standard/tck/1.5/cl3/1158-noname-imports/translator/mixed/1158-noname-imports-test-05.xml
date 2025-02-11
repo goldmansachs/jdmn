@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1158-noname-imports-05-A.dmn</modelName>
+
+    <!-- A imports B, B imports C-->
+    <!-- Both B & C define decision002 -->
+    <!-- A uses decision002 -->
+    <!-- We expect the decision002 from model B to get the gig -->
+
+    <testCase id="001">
+        <description>nested imports - will not import a decision with name conflict</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_b_decision002</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+</testCases>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1158-noname-imports-08-C"
+             name="1158-noname-imports-08-C"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <decision name="decision002" id="_decision002">
+        <variable name="decision002"/>
+        <literalExpression>
+            <text>"model_c_decision002"</text>
+        </literalExpression>
+    </decision>
+
+</definitions>
+

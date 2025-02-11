@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1158-noname-imports-19-B.dmn</modelName>
+
+    <!--
+    Model A is empty and imports a decision and input data from model B.  The test case
+    will reference both those items in B
+    -->
+
+    <testCase id="001">
+        <description>imported decision and inputData are also "exported"</description>
+        <inputNode name="input001">
+            <value xsi:type="xsd:string">Foo</value>
+        </inputNode>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">Foo</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

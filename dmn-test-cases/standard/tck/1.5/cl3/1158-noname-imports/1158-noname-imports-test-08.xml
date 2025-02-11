@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1158-noname-imports-08-A.dmn</modelName>
+
+    <!-- A imports B, B import C & D -->
+    <!-- Both C & D define decision002 -->
+    <!-- Model A uses decision002 -->
+    <!-- We expect the decision002 from Model C to be used -->
+
+    <testCase id="001">
+        <description>nested imports - will go deep</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_c_decision002</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+</testCases>

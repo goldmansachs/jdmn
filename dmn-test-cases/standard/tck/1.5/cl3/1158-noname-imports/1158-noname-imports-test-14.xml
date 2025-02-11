@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1158-noname-imports-14-A.dmn</modelName>
+
+    <!--
+    Model A has decision001 and decision003.  Model B has decision002 and decision003
+    Decision001 requires decision002 (in model B).  decision002 requires decision003 (in model B).
+
+    decision003 already exists in model A so, we expect the decision003 requirement in model B
+    to be resolved to the decision in model A
+    -->
+
+    <testCase id="001">
+        <description>requirement of imported decision will be resolved locally when there is a name conflict</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_a_decision003</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+
+</testCases>

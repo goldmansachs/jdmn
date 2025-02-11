@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1158-noname-imports-02-A"
+             name="1158-noname-imports-02-A"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <import namespace="http://www.montera.com.au/spec/DMN/1158-noname-imports-02-B"
+            name=""
+            importType="https://www.omg.org/spec/DMN/20230324/MODEL/"
+    />
+
+    <!-- references an informationRequirement from an import -->
+    <decision name="decision001" id="_decision001">
+        <variable name="decision001"/>
+        <informationRequirement>
+            <requiredDecision href="#_model_a_decision001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>model_a_decision001</text>
+        </literalExpression>
+    </decision>
+
+    <!-- references an knowledgeRequirement from an import -->
+    <decision name="decision002" id="_decision002">
+        <variable name="decision002"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_model_a_bkm001"/>
+        </knowledgeRequirement>
+        <literalExpression>
+            <text>model_a_bkm001()</text>
+        </literalExpression>
+    </decision>
+
+    <!-- references an inputData from an import -->
+    <decision name="decision003" id="_decision003">
+        <variable name="decision003"/>
+        <informationRequirement>
+            <requiredInput href="#_model_a_input001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>model_a_input001</text>
+        </literalExpression>
+    </decision>
+
+    <!-- uses an imported "string" typeRef - two tests will provide a string and a number
+    as input to assert the type is being used (we'll see a null for a number value) -->
+    <decision name="decision004" id="_decision004">
+        <variable name="decision004" typeRef="typeRefA"/>
+        <informationRequirement>
+            <requiredInput href="#_model_a_input001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>model_a_input001</text>
+        </literalExpression>
+    </decision>
+
+
+</definitions>
+

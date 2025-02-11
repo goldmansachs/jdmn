@@ -865,23 +865,52 @@ public class DMNModelRepository {
             return null;
         }
         String importName = typeRef.getNamespace();
+        if (importName == null) {
+            importName = "";
+        }
         if (DMNVersion.LATEST.getFeelPrefix().equals(importName)) {
             return null;
         }
 
         if (model == null) {
             return lookupItemDefinition(findAllItemDefinitions(), typeRef);
-        } else {
-            for (TImport import_: model.getImport()) {
-                if (import_.getName().equals(importName)) {
-                    String modelNamespace = import_.getNamespace();
-                    model = this.findModelByNamespace(modelNamespace);
-                    if (model == null) {
-                        throw new DMNRuntimeException(String.format("Cannot find DM for '%s'", modelNamespace));
+        } else if (importName.isEmpty()) {
+            // Lookup in current model
+            TItemDefinition result = lookupItemDefinition(findItemDefinitions(model), typeRef);
+            if (result == null) {
+                // Lookup in models imported with empty prefix
+                for (TImport import_: model.getImport()) {
+                    if (StringUtils.isBlank(import_.getName())) {
+                        String childNamespace = import_.getNamespace();
+                        TDefinitions childModel = this.findModelByNamespace(childNamespace);
+                        if (childModel == null) {
+                            throw new DMNRuntimeException(String.format("Cannot find DM for '%s'", childNamespace));
+                        }
+                        result = lookupItemDefinition(childModel, typeRef);
+                        if (result != null) {
+                            return result;
+                        }
                     }
                 }
+                return null;
+            } else {
+                return result;
             }
-            return lookupItemDefinition(findItemDefinitions(model), typeRef);
+        } else {
+            // Find model for importName
+            String childNamespace = null;
+            for (TImport import_: model.getImport()) {
+                if (import_.getName().equals(importName)) {
+                    childNamespace = import_.getNamespace();
+                    break;
+                }
+            }
+            TDefinitions childModel = this.findModelByNamespace(childNamespace);
+            if (childModel == null) {
+                throw new DMNRuntimeException(String.format("Cannot find DM for '%s'", childNamespace));
+            }
+            // Lookup typeRef in model
+            return lookupItemDefinition(findItemDefinitions(childModel), typeRef);
         }
     }
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1158-noname-imports-06-A"
+             name="1158-noname-imports-06-A"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <import namespace="http://www.montera.com.au/spec/DMN/1158-noname-imports-06-B"
+            name=""
+            importType="https://www.omg.org/spec/DMN/20230324/MODEL/"
+    />
+
+    <import namespace="http://www.montera.com.au/spec/DMN/1158-noname-imports-06-C"
+            name=""
+            importType="https://www.omg.org/spec/DMN/20230324/MODEL/"
+    />
+
+    <decision name="decision001" id="_decision001">
+        <variable name="decision001"/>
+        <informationRequirement>
+            <requiredDecision href="#_decision002"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>decision002</text>
+        </literalExpression>
+    </decision>
+
+
+</definitions>
+
