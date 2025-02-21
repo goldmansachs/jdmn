@@ -19,27 +19,130 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RangeTest {
     @Test
-    public void testConstructor() {
+    public void testDefaultConstructor() {
         // Endpoints Range
-        Range<Integer> r1 = new Range<>(true, 3, false, 4);
-        assertTrue(r1.isStartIncluded());
-        assertEquals(3, r1.getStart());
-        assertFalse(r1.isEndIncluded());
-        assertEquals(4, r1.getEnd());
-        assertNull(r1.getOperator());
+        Range<Integer> r = new Range<>();
+        assertFalse(r.isStartIncluded());
+        assertNull(r.getStart());
+        assertFalse(r.isEndIncluded());
+        assertNull(r.getEnd());
+        assertNull(r.getOperator());
+    }
 
+    @Test
+    public void testConstructorWithEndpoints() {
+        // Endpoints Range
+        Range<Integer> r = new Range<>(true, 3, false, 4);
+        assertTrue(r.isStartIncluded());
+        assertEquals(3, r.getStart());
+        assertFalse(r.isEndIncluded());
+        assertEquals(4, r.getEnd());
+        assertNull(r.getOperator());
+    }
+
+    @Test
+    public void testConstructorWithEqualOperator() {
+        // Operator range
+        Range<Integer> r = new Range<>("=", 4);
+        assertTrue(r.isStartIncluded());
+        assertEquals(4, r.getStart());
+        assertTrue(r.isEndIncluded());
+        assertEquals(4, r.getEnd());
+        assertEquals("=", r.getOperator());
+    }
+
+    @Test
+    public void testConstructorWithNullOperator() {
+        // Operator range
+        Range<Integer> r = new Range<>( null, 4);
+        assertTrue(r.isStartIncluded());
+        assertEquals(4, r.getStart());
+        assertTrue(r.isEndIncluded());
+        assertEquals(4, r.getEnd());
+        assertEquals("=", r.getOperator());
+    }
+
+    @Test
+    public void testConstructorWithEmptyOperator() {
+        // Operator range
+        Range<Integer> r = new Range<>( "  ", 4);
+        assertTrue(r.isStartIncluded());
+        assertEquals(4, r.getStart());
+        assertTrue(r.isEndIncluded());
+        assertEquals(4, r.getEnd());
+        assertEquals("=", r.getOperator());
+    }
+
+    @Test
+    public void testConstructorWithNotEqualOperator() {
+        // Operator range
+        Range<Integer> r = new Range<>("!=", 4);
+        assertFalse(r.isStartIncluded());
+        assertNull(r.getStart());
+        assertFalse(r.isEndIncluded());
+        assertNull(r.getEnd());
+        assertEquals("!=", r.getOperator());
+    }
+
+    @Test
+    public void testConstructorWithLessOperator() {
+        // Operator range
+        Range<Integer> r = new Range<>("<", 4);
+        assertFalse(r.isStartIncluded());
+        assertNull(r.getStart());
+        assertFalse(r.isEndIncluded());
+        assertEquals(4, r.getEnd());
+        assertEquals("<", r.getOperator());
+    }
+
+    @Test
+    public void testConstructorWithLessEqualOperator() {
+        // Operator range
+        Range<Integer> r = new Range<>("<=", 4);
+        assertFalse(r.isStartIncluded());
+        assertNull(r.getStart());
+        assertTrue(r.isEndIncluded());
+        assertEquals(4, r.getEnd());
+        assertEquals("<=", r.getOperator());
+    }
+
+    @Test
+    public void testConstructorWithGreaterOperator() {
+        // Operator range
+        Range<Integer> r = new Range<>(">", 4);
+        assertFalse(r.isStartIncluded());
+        assertEquals(4, r.getStart());
+        assertFalse(r.isEndIncluded());
+        assertNull(r.getEnd());
+        assertEquals(">", r.getOperator());
+    }
+
+    @Test
+    public void testConstructorWithGreaterEqualOperator() {
+        // Operator range
+        Range<Integer> r = new Range<>(">=", 4);
+        assertTrue(r.isStartIncluded());
+        assertEquals(4, r.getStart());
+        assertFalse(r.isEndIncluded());
+        assertNull(r.getEnd());
+        assertEquals(">=", r.getOperator());
+    }
+
+    @Test
+    public void testConstructorWithIncorrectEndpoints() {
+        // Endpoints Range
         // Assert exception being thrown
         Assertions.assertThrows(DMNRuntimeException.class, () -> {
             new Range<>(true, 4, false, 3);
         });
+    }
 
-
+    @Test
+    public void testConstructorWithIncorrectOperator() {
         // Operator Range
-        Range<Integer> r2 = new Range<>("<", 4);
-        assertFalse(r2.isStartIncluded());
-        assertNull(r2.getStart());
-        assertFalse(r2.isEndIncluded());
-        assertEquals(4, r2.getEnd());
-        assertEquals("<", r2.getOperator());
+        // Assert exception being thrown
+        Assertions.assertThrows(DMNRuntimeException.class, () -> {
+            new Range<>("abc", 4);
+        });
     }
 }

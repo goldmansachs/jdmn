@@ -1,7 +1,7 @@
 # Choose Slim protocol
 !define TEST_SYSTEM {slim}
 
-!1 For Expressions
+!1 InstanceOf Expressions
 !|FEEL Expression Fixture                                                                                                                                                                                      |
 |expression                                                     |output?                                                                                                                                       |
 |3 instance of number                                           |InstanceOfExpression(NumericLiteral(3), NamedTypeExpression(number))                                                                          |

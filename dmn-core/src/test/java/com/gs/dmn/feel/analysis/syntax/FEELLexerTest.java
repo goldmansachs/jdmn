@@ -50,6 +50,7 @@ public class FEELLexerTest extends AbstractLexerTest {
             "insert before",
             "index of",
             "distinct values",
+            "list replace",
             // context functions
             "get entries",
             "get value",

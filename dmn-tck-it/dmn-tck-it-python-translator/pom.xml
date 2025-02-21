@@ -1295,7 +1295,21 @@
                         </configuration>
                     </execution>
 
-<!--
+                    <execution>
+                        <id>cl3-0068-feel-equality</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-python</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.15.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <strongTyping>false</strongTyping>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0068_feel_equality</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>test-0068-feel-equality</id>
                         <phase>generate-sources</phase>
@@ -1305,7 +1319,6 @@
                         <configuration>
                             <inputTestFileDirectory>${tck.15.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality-test-01.xml</inputTestFileDirectory>
                             <inputModelFileDirectory>${tck.15.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality.dmn</inputModelFileDirectory>
-                            <inputModelFileDirectory>${tck.15.diagram.folder}/cl3/0068-feel-equality/translator/0068-feel-equality.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <strongTyping>false</strongTyping>
@@ -1313,7 +1326,6 @@
                             </inputParameters>
                         </configuration>
                     </execution>
--->
 
 <!--
                     <execution>
