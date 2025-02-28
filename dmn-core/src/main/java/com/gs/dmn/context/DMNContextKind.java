@@ -25,10 +25,11 @@ public enum DMNContextKind {
     // element of s is a special context.
     LOCAL,
     // Special context
-    UNARY_TEST_CONTEXT,
+    UNARY_TEST,
     FUNCTION,
     FOR,
     ITERATOR,
     FILTER,
+    LIST,
     RELATION
 }

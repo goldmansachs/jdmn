@@ -75,6 +75,8 @@
             <@expressionApplyBody drgElement/>
         <#elseif modelRepository.isRelationExpression(drgElement)>
             <@expressionApplyBody drgElement/>
+        <#elseif modelRepository.isListExpression(drgElement)>
+            <@expressionApplyBody drgElement/>
         <#elseif modelRepository.isFunctionDefinitionExpression(drgElement)>
             <@expressionApplyBody drgElement/>
         <#elseif modelRepository.isConditionalExpression(drgElement)>
@@ -164,6 +166,9 @@
 
         <@addEvaluateExpressionMethod drgElement/>
     <#elseif modelRepository.isContextExpression(drgElement)>
+
+        <@addEvaluateExpressionMethod drgElement/>
+    <#elseif modelRepository.isListExpression(drgElement)>
 
         <@addEvaluateExpressionMethod drgElement/>
     <#elseif modelRepository.isRelationExpression(drgElement)>

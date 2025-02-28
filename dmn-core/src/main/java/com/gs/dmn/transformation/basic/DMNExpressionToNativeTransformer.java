@@ -21,6 +21,7 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
@@ -135,9 +136,9 @@ public class DMNExpressionToNativeTransformer {
 
     Integer outputClausePriority(TDRGElement element, TLiteralExpression literalExpression, int outputIndex) {
         String outputEntryText = literalExpression.getText();
-        TExpression tExpression = this.dmnModelRepository.expression(element);
-        if (tExpression instanceof TDecisionTable) {
-            TOutputClause tOutputClause = ((TDecisionTable) tExpression).getOutput().get(outputIndex);
+        TExpression expression = this.dmnModelRepository.expression(element);
+        if (expression instanceof TDecisionTable) {
+            TOutputClause tOutputClause = ((TDecisionTable) expression).getOutput().get(outputIndex);
             TUnaryTests outputValues = tOutputClause.getOutputValues();
             if (outputValues != null) {
                 String text = outputValues.getText();
@@ -155,7 +156,7 @@ public class DMNExpressionToNativeTransformer {
             }
             return null;
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported '%s'", tExpression.getClass().getSimpleName()));
+            throw new SemanticError(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
         }
     }
 
@@ -377,8 +378,8 @@ public class DMNExpressionToNativeTransformer {
     }
 
     String outputEntryToNative(TDRGElement element, TLiteralExpression outputEntryExpression, int outputIndex) {
-        TExpression tExpression = this.dmnModelRepository.expression(element);
-        if (tExpression instanceof TDecisionTable) {
+        TExpression expression = this.dmnModelRepository.expression(element);
+        if (expression instanceof TDecisionTable) {
             // Analyze output expression
             String outputEntryText = outputEntryExpression.getText();
             if ("-".equals(outputEntryText)) {
@@ -390,7 +391,7 @@ public class DMNExpressionToNativeTransformer {
             // Generate code
             return this.feelTranslator.expressionToNative(feelOutputEntryExpression, outputEntryContext);
         } else {
-            throw new UnsupportedOperationException(String.format("Not supported '%s'", tExpression.getClass().getSimpleName()));
+            throw new SemanticError(String.format("Not supported '%s' in element '%s'", expression.getClass().getSimpleName(), element.getName()));
         }
     }
 
@@ -447,7 +448,7 @@ public class DMNExpressionToNativeTransformer {
         Map<TContextEntry, Expression<Type>> literalExpressionMap = pair.getRight();
         CompoundStatement statement = this.nativeFactory.makeCompoundStatement();
         ExpressionStatement returnValue = null;
-        for(TContextEntry entry: context.getContextEntry()) {
+        for (TContextEntry entry: context.getContextEntry()) {
             // Translate value
             ExpressionStatement value;
             Type entryType;
@@ -612,7 +613,7 @@ public class DMNExpressionToNativeTransformer {
         // Compute name-java binding for arguments
         Map<String, Statement> argBinding = new LinkedHashMap<>();
         for(TBinding binding: invocation.getBinding()) {
-            String argName= binding.getParameter().getName();
+            String argName = binding.getParameter().getName();
             TExpression argExpression = binding.getExpression();
             Statement argJava = this.dmnTransformer.expressionToNative(element, argExpression, parentContext);
             argBinding.put(argName, argJava);
@@ -671,6 +672,48 @@ public class DMNExpressionToNativeTransformer {
     }
 
     //
+    // TList
+    //
+    Statement listExpressionToNative(TDRGElement element, TList list) {
+        DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
+
+        return listExpressionToNative(element, list, globalContext);
+    }
+
+    Statement listExpressionToNative(TDRGElement element, TList list, DMNContext parentContext) {
+        // Make list context
+        DMNContext listContext = this.dmnTransformer.makeListContext(element, list, parentContext);
+        Type resultType = this.dmnTransformer.drgElementOutputFEELType(element);
+        Type elementType;
+        if (resultType instanceof ListType) {
+            elementType = ((ListType) resultType).getElementType();
+        } else {
+            throw new SemanticError(String.format("Expected list type, found '%s'", resultType));
+        }
+        if (list.getExpression() == null) {
+            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.nullLiteral(), resultType);
+        }
+
+        // Scan expressions and translate each expression
+        List<String> listValue = new ArrayList<>();
+        List<TExpression> expList = list.getExpression();
+        for (TExpression expression : expList) {
+            String expValue;
+            if (expression == null) {
+                expValue = this.nativeFactory.nullLiteral();
+            } else {
+                Statement statement = this.dmnTransformer.expressionToNative(element, expression, listContext);
+                expValue = statement.getText();
+            }
+            listValue.add(expValue);
+        }
+
+        // Make a list
+        String result = this.nativeFactory.asList(elementType, String.join("," + LINE_SEPARATOR + RELATION_INDENT, listValue));
+        return this.nativeFactory.makeExpressionStatement(result, resultType);
+    }
+
+    //
     // TRelation
     //
     Statement relationExpressionToNative(TDRGElement element, TRelation relation) {
@@ -693,16 +736,16 @@ public class DMNExpressionToNativeTransformer {
         // Constructor argument names
         List<String> argNameList = relation.getColumn().stream().map(c -> this.dmnTransformer.nativeFriendlyVariableName(c.getName())).collect(Collectors.toList());
 
-        // Scan relation and translate each row to a Java constructor invocation
+        // Scan relation and translate each row to a constructor invocation
         List<String> rowValues = new ArrayList<>();
-        for(TList row: relation.getRow()) {
+        for (TList row: relation.getRow()) {
             // Translate value
             List<TExpression> expList = row.getExpression();
             if (expList == null) {
                 rowValues.add(this.nativeFactory.nullLiteral());
             } else {
                 List<Pair<String, String>> argPairList = new ArrayList<>();
-                for(int i = 0; i < expList.size(); i++) {
+                for (int i = 0; i < expList.size(); i++) {
                     TExpression expression = expList.get(i);
                     String argValue;
                     if (expression == null) {

@@ -2139,6 +2139,38 @@
                     </execution>
 
                     <execution>
+                        <id>cl3-0098-feel-week-of-year-function</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.15.diagram.folder}/cl3/0098-feel-week-of-year-function/translator/0098-feel-week-of-year-function.dmn</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <strongTyping>false</strongTyping>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0098_feel_week_of_year_function</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-0098-feel-week-of-year-function</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.15.diagram.folder}/cl3/0098-feel-week-of-year-function/translator/0098-feel-week-of-year-function-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.15.diagram.folder}/cl3/0098-feel-week-of-year-function/translator/0098-feel-week-of-year-function.dmn</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <strongTyping>false</strongTyping>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_0098_feel_week_of_year_function</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>cl3-1155-list-replace-function</id>
                         <phase>generate-sources</phase>
                         <goals>

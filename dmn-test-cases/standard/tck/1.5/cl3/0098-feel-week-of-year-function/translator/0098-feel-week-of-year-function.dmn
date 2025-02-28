@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/0098-feel-week-of-year-function"
+             name="0098-feel-week-of-year-function"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <description>week of year function</description>
+
+    <inputData name="date_input_001" id="_date_input_001">
+        <variable name="date_input_001" typeRef="date" /> <!-- used to externally supply FEEL:date or other type of values defined in the TCK test file -->
+    </inputData>
+
+    <decision name="date_001" id="_date_001">
+        <description>Tests FEEL expression: 'week of year(@"2019-09-17")' and expects result: '1 (number)'</description>
+        <question>Result of FEEL expression 'week of year(@"2019-09-17")'?</question>
+        <allowedAnswers>1 (number)</allowedAnswers>
+        <variable name="date_001"/>
+        <literalExpression>
+            <text>week of year(@"2019-09-17")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="date_002" id="_date_002">
+        <description>Tests FEEL expression: 'week of year(@"2003-12-29")' and expects result: '1 (number)'</description>
+        <question>Result of FEEL expression 'week of year(@"2003-12-29")'?</question>
+        <allowedAnswers>1 (number)</allowedAnswers>
+        <variable name="date_002"/>
+        <literalExpression>
+            <!-- 2004 NYD falls on a Thursday, so this is in week 01 of the next year -->
+            <text>week of year(@"2003-12-29")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="date_003" id="_date_003">
+        <description>Tests FEEL expression: 'week of year(@"2003-12-31")' and expects result: '1 (number)'</description>
+        <question>Result of FEEL expression 'week of year(@"2003-12-31")'?</question>
+        <allowedAnswers>1 (number)</allowedAnswers>
+        <variable name="date_003"/>
+        <literalExpression>
+            <!-- 2004 NYD falls on a Thursday, so this is in week 01 of the next year -->
+            <text>week of year(@"2003-12-31")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="date_004" id="_date_004">
+        <description>Tests FEEL expression: 'week of year(@"2004-01-01")' and expects result: '1 (number)'</description>
+        <question>Result of FEEL expression 'week of year(@"2004-01-01")'?</question>
+        <allowedAnswers>1 (number)</allowedAnswers>
+        <variable name="date_004"/>
+        <literalExpression>
+            <!-- 2004 NYD falls on a Thursday, so this is in week 01 of the current year -->
+            <text>week of year(@"2004-01-01")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="date_005" id="_date_005">
+        <description>Tests FEEL expression: 'week of year(@"2010-01-01")' and expects result: '53 (number)'</description>
+        <question>Result of FEEL expression 'week of year(@"2010-01-01")'?</question>
+        <allowedAnswers>53 (number)</allowedAnswers>
+        <variable name="date_005"/>
+        <literalExpression>
+            <!-- 2010 NYD falls on a Friday, so NYD week is part of the previous year -->
+            <text>week of year(@"2010-01-01")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="date_006" id="_date_006">
+        <variable name="date_006"/>
+        <informationRequirement>
+            <requiredInput href="#_date_input_001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>week of year(date_input_001)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="date_007" id="_date_007">
+        <description>Tests FEEL expression: 'week of year(date: @"2019-09-17")' and expects result: '38 (number)'</description>
+        <question>Result of FEEL expression 'week of year(date: @"2019-09-17")'?</question>
+        <allowedAnswers>38 (number)</allowedAnswers>
+        <variable name="date_007"/>
+        <literalExpression>
+            <text>week of year(date: @"2019-09-17")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="date_008" id="_date_008">
+        <variable name="date_008"/>
+        <list>
+            <!-- other spec examples -->
+            <literalExpression>
+                <!-- 53 -->
+                <text>week of year(date(2005, 1, 1))</text>
+            </literalExpression>
+            <literalExpression>
+                <!-- 1 -->
+                <text>week of year(date(2005, 1, 3))</text>
+            </literalExpression>
+            <literalExpression>
+                <!-- 1 -->
+                <text>week of year(date(2005, 1, 9))</text>
+            </literalExpression>
+        </list>
+    </decision>
+
+    <decision name="datetime_001" id="_datetime_001">
+        <description>Tests FEEL expression: 'week of year(@"1970-01-01T10:10:10")' and expects result: '1 (number)'</description>
+        <question>Result of FEEL expression 'week of year(@"1970-01-01T10:10:10")'?</question>
+        <allowedAnswers>1 (number)</allowedAnswers>
+        <variable name="datetime_001"/>
+        <literalExpression>
+            <text>week of year(@"1970-01-01T10:10:10")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="datetime_004" id="_datetime_004">
+        <variable name="datetime_004"/>
+        <informationRequirement>
+            <requiredInput href="#_date_input_001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>week of year(date_input_001)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="datetime_005" id="_datetime_005">
+        <description>Tests FEEL expression: 'week of year(date: @"2019-09-17T10:10:10")' and expects result: '38 (number)'</description>
+        <question>Result of FEEL expression 'week of year(date: @"2019-09-17T10:10:10")'?</question>
+        <allowedAnswers>38 (number)</allowedAnswers>
+        <variable name="datetime_005"/>
+        <literalExpression>
+            <text>week of year(date: @"2019-09-17T10:10:10")</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="null_001" id="_null_001">
+        <description>Tests FEEL expression: 'week of year(null)' and expects result: 'null (number)'</description>
+        <question>Result of FEEL expression 'week of year(null)'?</question>
+        <allowedAnswers>null (number)</allowedAnswers>
+        <variable name="null_001"/>
+        <literalExpression>
+            <text>week of year(null)</text>
+        </literalExpression>
+    </decision>
+
+<!--    <decision name="null_002" id="_null_002">-->
+<!--        <description>Tests FEEL expression: 'week of year()' and expects result: 'null (number)'</description>-->
+<!--        <question>Result of FEEL expression 'week of year()'?</question>-->
+<!--        <allowedAnswers>null (number)</allowedAnswers>-->
+<!--        <variable name="null_002"/>-->
+<!--        <literalExpression>-->
+<!--            <text>week of year()</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
+
+<!--    <decision name="null_003" id="_null_003">-->
+<!--        <description>Tests FEEL expression: 'week of year("foo")' and expects result: 'null (number)'</description>-->
+<!--        <question>Result of FEEL expression 'week of year("foo")'?</question>-->
+<!--        <allowedAnswers>null (number)</allowedAnswers>-->
+<!--        <variable name="null_003"/>-->
+<!--        <literalExpression>-->
+<!--            <text>week of year("foo")</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
+
+    <decision name="null_004" id="_null_004">
+        <description>Tests FEEL expression: 'week of year(date: null)' and expects result: 'null (number)'</description>
+        <question>Result of FEEL expression 'week of year(date: null)'?</question>
+        <allowedAnswers>null (number)</allowedAnswers>
+        <variable name="null_004"/>
+        <literalExpression>
+            <text>week of year(date: null)</text>
+        </literalExpression>
+    </decision>
+
+<!--    <decision name="null_005" id="_null_005">-->
+<!--        <description>Tests FEEL expression: 'week of year(date: "foo")' and expects result: 'null (number)'</description>-->
+<!--        <question>Result of FEEL expression 'week of year(date: "foo")'?</question>-->
+<!--        <allowedAnswers>null (number)</allowedAnswers>-->
+<!--        <variable name="null_005"/>-->
+<!--        <literalExpression>-->
+<!--            <text>week of year(date: "foo")</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
+
+<!--    <decision name="null_006" id="_null_006">-->
+<!--        <description>Tests FEEL expression: 'week of year(value: @"1970-01-01")' and expects result: 'null (number)'</description>-->
+<!--        <question>Result of FEEL expression 'week of year(value: @"1970-01-01")'?</question>-->
+<!--        <allowedAnswers>null (number)</allowedAnswers>-->
+<!--        <variable name="null_006"/>-->
+<!--        <literalExpression>-->
+<!--            &lt;!&ndash; 'value' is not the param name &ndash;&gt;-->
+<!--            <text>week of year(value: @"1970-01-01")</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
+
+    <decision name="null_007" id="_null_007">
+        <variable name="null_007"/>
+        <informationRequirement>
+            <requiredInput href="#_date_input_001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>week of year(date_input_001)</text>
+        </literalExpression>
+    </decision>
+
+<!--    <decision name="null_008" id="_null_008">-->
+<!--        <description>Tests FEEL expression: 'week of year(@"1970-01-01", @"1970-01-01")' and expects result: 'null (number)'</description>-->
+<!--        <question>Result of FEEL expression 'week of year(@"1970-01-01", @"1970-01-01")'?</question>-->
+<!--        <allowedAnswers>null (number)</allowedAnswers>-->
+<!--        <variable name="null_008"/>-->
+<!--        <literalExpression>-->
+<!--            &lt;!&ndash; too many params &ndash;&gt;-->
+<!--            <text>week of year(@"1970-01-01", @"1970-01-01")</text>-->
+<!--        </literalExpression>-->
+<!--    </decision>-->
+
+
+</definitions>
+

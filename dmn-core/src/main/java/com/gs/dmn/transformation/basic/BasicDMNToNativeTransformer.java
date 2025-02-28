@@ -610,6 +610,9 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext);
 
+    //
+    // DMN context related methods
+    //
     default DMNContext makeBuiltInContext() {
         return getEnvironmentFactory().getBuiltInContext();
     }
@@ -647,7 +650,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
     default DMNContext makeUnaryTestContext(Expression<Type> inputExpression, DMNContext parentContext) {
         return DMNContext.of(
                 parentContext,
-                DMNContextKind.UNARY_TEST_CONTEXT,
+                DMNContextKind.UNARY_TEST,
                 parentContext.getElement(),
                 getDMNEnvironmentFactory().makeUnaryTestEnvironment((TDRGElement) parentContext.getElement(), inputExpression),
                 RuntimeEnvironment.of());
@@ -744,11 +747,11 @@ public interface BasicDMNToNativeTransformer<T, C> {
         );
     }
 
-    default DMNContext makeIteratorContext(DMNContext context) {
+    default DMNContext makeIteratorContext(DMNContext parentContext) {
         return DMNContext.of(
-                context,
+                parentContext,
                 DMNContextKind.ITERATOR,
-                context.getElement(),
+                parentContext.getElement(),
                 this.getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
@@ -776,22 +779,22 @@ public interface BasicDMNToNativeTransformer<T, C> {
         return filterContext;
     }
 
+    default DMNContext makeListContext(TDRGElement element, TList list, DMNContext parentContext) {
+        return DMNContext.of(
+                parentContext,
+                DMNContextKind.LIST,
+                element,
+                this.getEnvironmentFactory().emptyEnvironment(),
+                RuntimeEnvironment.of()
+        );
+    }
+
     default DMNContext makeRelationContext(TDRGElement element, TRelation relation, DMNContext parentContext) {
         return DMNContext.of(
                 parentContext,
                 DMNContextKind.RELATION,
                 element,
                 makeRelationEnvironment(element, relation),
-                RuntimeEnvironment.of()
-        );
-    }
-
-    default DMNContext makeLocalContext(TDRGElement element, TContext context, DMNContext parentContext) {
-        return DMNContext.of(
-                parentContext,
-                DMNContextKind.LOCAL,
-                element,
-                this.getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
     }

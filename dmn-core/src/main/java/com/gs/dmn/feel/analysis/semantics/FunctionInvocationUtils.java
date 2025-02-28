@@ -231,11 +231,11 @@ public class FunctionInvocationUtils {
         ParameterTypes<Type> parameterTypes = element.getParameters().getSignature();
         List<DeclarationMatch> functionMatches = findFunctionMatches(element, context, name, parameterTypes);
         if (functionMatches.isEmpty()) {
-            throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'. No match found.", name, parameterTypes));
+            throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'. No match found in element '%s'", name, parameterTypes, context.getElementName()));
         } else if (functionMatches.size() == 1) {
             return functionMatches.get(0);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'. Found %d matches %s", name, parameterTypes, functionMatches.size(), functionMatches));
+            throw new DMNRuntimeException(String.format("Cannot resolve function '%s(%s)'. Found %d matches %s in element '%s'", name, parameterTypes, functionMatches.size(), functionMatches, context.getElementName()));
         }
     }
 

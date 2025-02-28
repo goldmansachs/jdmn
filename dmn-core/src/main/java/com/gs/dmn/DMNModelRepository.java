@@ -1006,6 +1006,11 @@ public class DMNModelRepository {
         return expression instanceof TContext;
     }
 
+    public boolean isListExpression(TDRGElement element) {
+        TExpression expression = expression(element);
+        return expression instanceof TList;
+    }
+
     public boolean isRelationExpression(TDRGElement element) {
         TExpression expression = expression(element);
         return expression instanceof TRelation;

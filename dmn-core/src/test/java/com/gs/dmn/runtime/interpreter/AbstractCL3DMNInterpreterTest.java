@@ -294,6 +294,7 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     }
 
     @Disabled("incorrect DS type")
+    @Test
     public void test_12_cl3_0082_feel_coercion() {
         doFolderTest("1.2", "0082-feel-coercion");
     }
@@ -304,6 +305,7 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     }
 
     @Disabled("incorrect DS type")
+    @Test
     public void test_12_cl3_0086_import() {
         doFolderTest("1.2", "0086-import", new Pair<>("singletonInputData", "false"));
     }
@@ -623,6 +625,11 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     @Test
     public void test_15_cl3_0084_feel_for_loops() {
         doFolderTest("1.5", "0084-feel-for-loops");
+    }
+
+    @Test
+    public void test_15_cl3_0098_feel_week_of_year_function() {
+        doFolderTest("1.5", "0098-feel-week-of-year-function");
     }
 
     @Test

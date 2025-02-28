@@ -198,7 +198,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
             List<Pair<String, Type>> members = new ArrayList<>();
             Type returnType = null;
-            DMNContext localContext = this.dmnTransformer.makeLocalContext(element, (TContext) expression, context);
+            DMNContext localContext = this.dmnTransformer.makeLocalContext(element, context);
             for(TContextEntry entry: contextEntryList) {
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {

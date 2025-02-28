@@ -1648,6 +1648,8 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText());
             Type expectedType = drgElementOutputFEELType(element);
             return convertExpression(statement, expectedType);
+        } else if (expression instanceof TList) {
+            return this.expressionToNativeTransformer.listExpressionToNative(element, (TList) expression);
         } else if (expression instanceof TRelation) {
             return this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression);
         } else if (expression instanceof TConditional) {
