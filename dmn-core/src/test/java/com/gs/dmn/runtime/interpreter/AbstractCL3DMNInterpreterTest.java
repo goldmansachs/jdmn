@@ -657,4 +657,8 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
         doFolderTest("1.5", "1158-noname-imports", new Pair<>("strongTyping", "false"));
     }
 
+    @Test
+    public void test_15_cl3_1161_boxed_list_expression() {
+        doFolderTest("1.5", "1161-boxed-list-expression");
+    }
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1161-boxed-list-expression.dmn</modelName>
+
+    <testCase id="001">
+        <description>non-null inputs</description>
+        <inputNode name="A">
+            <value xsi:type="xsd:decimal">123</value>
+        </inputNode>
+        <inputNode name="B">
+            <value xsi:type="xsd:boolean">true</value>
+        </inputNode>
+        <inputNode name="C">
+            <value xsi:type="xsd:string">abc</value>
+        </inputNode>
+        <resultNode name="BList" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">123</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">true</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">abc</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>null inputs</description>
+        <resultNode name="BList" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">null</value>
+                    </item>
+                    <item>
+                        <value xsi:type="xsd:string">null</value>
+                    </item>
+                    <item>
+                        <value xsi:nil="true"/>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

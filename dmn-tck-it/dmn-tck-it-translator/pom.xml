@@ -2293,6 +2293,36 @@
                     </execution>
 
                     <execution>
+                        <id>cl3-1161-boxed-list-expression</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.15.diagram.folder}/cl3/1161-boxed-list-expression/translator/</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1161_boxed_list_expression</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-1161-boxed-list-expression</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.15.diagram.folder}/cl3/1161-boxed-list-expression/translator/</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.15.diagram.folder}/cl3/1161-boxed-list-expression/translator/</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1161_boxed_list_expression</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>cl3-9001-recursive-function</id>
                         <phase>generate-sources</phase>
                         <goals>

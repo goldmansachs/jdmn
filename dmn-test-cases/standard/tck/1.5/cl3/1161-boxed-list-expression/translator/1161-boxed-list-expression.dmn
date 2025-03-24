@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://kie.org/dmn/_79084FE3-D33B-41DE-B58A-26AE29357FB0" id="_D189825E-BE7C-4690-905A-FA0DF44845DB" name="1161-boxed-list-expression" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0">
+  <itemDefinition id="_14A5D0A6-D78D-4545-BEA2-866430023EE0" name="stringList" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <typeRef>string</typeRef>
+  </itemDefinition>
+  <inputData name="A" id="_10346F6C-A1D1-4F86-9F01-94F753145C71">
+    <variable name="A" id="_18F0434B-D5CA-4D5D-88F4-BDF44A48E164" typeRef="number" />
+  </inputData>
+  <decision name="BList" id="_4910A030-0560-4E68-850E-3CEC5CA2758F">
+    <variable id="_C6FD8372-0309-46C1-AC96-8896EAA91CE7" typeRef="stringList" name="BList" />
+    <informationRequirement id="_01A4F98B-4429-4C38-B219-CF41258F51B9">
+      <requiredInput href="#_10346F6C-A1D1-4F86-9F01-94F753145C71" />
+    </informationRequirement>
+    <informationRequirement id="_32ADFD2E-0674-4135-85AB-B588C159C2FF">
+      <requiredInput href="#_D37801C6-99EF-4641-8E91-21338C38B8DE" />
+    </informationRequirement>
+    <informationRequirement id="_C6D67FE9-BA10-4C83-92FA-51528B215766">
+      <requiredInput href="#_E51045E4-CA2E-4204-B602-0B07590F3829" />
+    </informationRequirement>
+    <list id="_D20690B7-C133-41B0-81A1-50532E5EE167" typeRef="stringList" label="BList">
+      <literalExpression id="_E5AD114C-D0B5-495C-B959-9B650E08A0B4" typeRef="stringList" label="Expression Name">
+        <text>string(A)</text>
+      </literalExpression>
+      <literalExpression id="_C74A1449-E8EA-4EB3-B192-D87FBA7FEBA8" typeRef="stringList" label="Expression Name">
+        <text>string(B)</text>
+      </literalExpression>
+      <literalExpression id="_63CFEB4E-546A-425B-8FDF-2D0EFAD8CE4A" typeRef="stringList" label="Expression Name">
+        <text>C</text>
+      </literalExpression>
+    </list>
+  </decision>
+  <inputData name="B" id="_D37801C6-99EF-4641-8E91-21338C38B8DE">
+    <variable name="B" id="_EBEA23A9-86AB-4C65-9DA4-016B71D3124A" typeRef="boolean" />
+  </inputData>
+  <inputData name="C" id="_E51045E4-CA2E-4204-B602-0B07590F3829">
+    <variable name="C" id="_12B22C2B-3F86-49BD-B75D-BBB1DE92BAF9" typeRef="string" />
+  </inputData>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_777E3E9C-8564-4973-A00A-E1499EBD016C" name="Default DRD" useAlternativeInputDataShape="false">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_E5AD114C-D0B5-495C-B959-9B650E08A0B4">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_C74A1449-E8EA-4EB3-B192-D87FBA7FEBA8">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_63CFEB4E-546A-425B-8FDF-2D0EFAD8CE4A">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="_28A53AFF-FAD5-45B3-A626-750C38F8EFFB" dmnElementRef="_10346F6C-A1D1-4F86-9F01-94F753145C71" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="100" y="300" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_40AAD193-6710-4115-8A8D-C0F1FAF25EDD" dmnElementRef="_4910A030-0560-4E68-850E-3CEC5CA2758F" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="300" y="80" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="_140B068E-F161-48DE-9B8E-BDCC12219CEF-AUTO-TARGET" dmnElementRef="_01A4F98B-4429-4C38-B219-CF41258F51B9" sourceElement="_28A53AFF-FAD5-45B3-A626-750C38F8EFFB" targetElement="_40AAD193-6710-4115-8A8D-C0F1FAF25EDD">
+        <di:waypoint x="180" y="340" />
+        <di:waypoint x="380" y="120" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="_CC47963F-D7CD-4591-8E4A-A5A31F08A8AB" dmnElementRef="_D37801C6-99EF-4641-8E91-21338C38B8DE" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="300" y="300" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_F819F437-FBCA-401D-8E77-96C169311751" dmnElementRef="_E51045E4-CA2E-4204-B602-0B07590F3829" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="500" y="300" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="_0F63C390-6F46-443D-8696-3407D39DB4F2" dmnElementRef="_32ADFD2E-0674-4135-85AB-B588C159C2FF" sourceElement="_CC47963F-D7CD-4591-8E4A-A5A31F08A8AB" targetElement="_40AAD193-6710-4115-8A8D-C0F1FAF25EDD">
+        <di:waypoint x="380" y="340" />
+        <di:waypoint x="380" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="_FCBB1260-B4C5-4339-BAB3-22A5FE0C3A8A" dmnElementRef="_C6D67FE9-BA10-4C83-92FA-51528B215766" sourceElement="_F819F437-FBCA-401D-8E77-96C169311751" targetElement="_40AAD193-6710-4115-8A8D-C0F1FAF25EDD">
+        <di:waypoint x="580" y="340" />
+        <di:waypoint x="380" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

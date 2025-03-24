@@ -42,7 +42,7 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
         if (valueType.getValue() != null) {
             Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
-            if (text == null || "null".equals(text)) {
+            if (value == null) {
                 return this.nativeFactory.nullLiteral();
             } else if (isNumber(value, type)) {
                 return makeLiteral("number", text);
