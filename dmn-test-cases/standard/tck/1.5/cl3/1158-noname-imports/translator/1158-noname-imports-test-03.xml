@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1158-noname-imports-03-A.dmn</modelName>
+
+    <!-- model A uses a number of no-name imports from model B whose names are already in model A.
+    There are no ID conflicts.   We do not expect anything from model B to override model A.-->
+
+    <testCase id="001">
+        <description>will not import a decision with name conflict</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_a_decision001</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>will not import a BKM with name conflict</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_a_bkm001</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>will not import an inputData with name conflict</description>
+        <inputNode name="input001">
+            <value xsi:type="xsd:string">model_a_input001</value>
+        </inputNode>
+        <resultNode name="decision003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_a_input001</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <!-- imported typeRef is a string, we test a string against it -->
+        <description>will not import a typeRef with name conflict</description>
+        <inputNode name="input001">
+            <value xsi:type="xsd:string">a string</value>
+        </inputNode>
+        <resultNode name="decision004" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">a string</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--    <testCase id="004_a">-->
+<!--        &lt;!&ndash; imported typeRef is a string, we test a number against it &ndash;&gt;-->
+<!--        <description>will not import a typeRef with name conflict</description>-->
+<!--        <inputNode name="input001">-->
+<!--            <value xsi:type="xsd:decimal">1234</value>-->
+<!--        </inputNode>-->
+<!--        <resultNode name="decision004" type="decision">-->
+<!--            <expected>-->
+<!--                <value xsi:nil="true"/>-->
+<!--            </expected>-->
+<!--        </resultNode>-->
+<!--    </testCase>-->
+
+
+</testCases>

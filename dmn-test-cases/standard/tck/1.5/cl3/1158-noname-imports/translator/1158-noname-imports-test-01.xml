@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1158-noname-imports-01-A.dmn</modelName>
+
+    <!-- model A uses a number of no-name imports from model B -->
+
+    <testCase id="001">
+        <description>will import a decision</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_b_decision001</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <description>will import a BKM</description>
+        <resultNode name="decision002" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_b_bkm001</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <description>will import an inputData</description>
+        <inputNode name="model_b_input001">
+            <value xsi:type="xsd:string">model_b_input001</value>
+        </inputNode>
+        <resultNode name="decision003" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_b_input001</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004">
+        <!-- imported typeRef is a string, we test a string against it -->
+        <description>will import a typeRef</description>
+        <inputNode name="model_b_input001">
+            <value xsi:type="xsd:string">a string</value>
+        </inputNode>
+        <resultNode name="decision004" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">a string</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+<!--    <testCase id="004_a">-->
+<!--        &lt;!&ndash; imported typeRef is a string, we test a number against it &ndash;&gt;-->
+<!--        <description>will import a typeRef</description>-->
+<!--        <inputNode name="model_b_input001">-->
+<!--            <value xsi:type="xsd:decimal">1234</value>-->
+<!--        </inputNode>-->
+<!--        <resultNode name="decision004" type="decision">-->
+<!--            <expected>-->
+<!--                <value xsi:nil="true"/>-->
+<!--            </expected>-->
+<!--        </resultNode>-->
+<!--    </testCase>-->
+
+
+</testCases>
