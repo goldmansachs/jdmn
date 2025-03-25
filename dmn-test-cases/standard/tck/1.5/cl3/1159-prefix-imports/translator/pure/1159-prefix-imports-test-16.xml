@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1159-prefix-imports-16-A.dmn</modelName>
+
+    <!--
+    Model A imports B. B imports A.
+
+    We can't assert on anything real here to make sure a runtime does not go in a loop.  But,
+    consider this a sanity check.  The test should fail if a runtime does go into an infinite loop.
+    -->
+
+    <testCase id="001">
+        <description>dependency loop - a direct import imports the main model - will not crash</description>
+        <resultNode name="decision001" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_b_decision002</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

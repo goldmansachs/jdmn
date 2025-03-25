@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1159-prefix-imports-03-A"
+             name="1159-prefix-imports-03-A"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <import namespace="http://www.montera.com.au/spec/DMN/1159-prefix-imports-03-B"
+            name="b"
+            importType="https://www.omg.org/spec/DMN/20230324/MODEL/"
+    />
+
+    <itemDefinition name="typeRefA">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
+    <inputData name="input001" id="_model_a_input001">
+        <variable name="input001" typeRef="string"/>
+    </inputData>
+
+    <decision name="decision001" id="_model_a_decision001">
+        <variable name="decision001" typeRef="string"/>
+        <literalExpression>
+            <text>"model_a_decision001"</text>
+        </literalExpression>
+    </decision>
+
+    <businessKnowledgeModel name="bkm001" id="_model_a_bkm001">
+        <variable name="bkm001"/>
+        <encapsulatedLogic>
+            <literalExpression typeRef="string">
+                <text>"model_a_bkm001"</text>
+            </literalExpression>
+        </encapsulatedLogic>
+    </businessKnowledgeModel>
+
+    <decision name="decision002" id="_decision002">
+        <variable name="decision002"/>
+        <knowledgeRequirement>
+            <requiredKnowledge href="#_model_a_bkm001"/>
+        </knowledgeRequirement>
+        <literalExpression typeRef="string">
+            <text>bkm001()</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003" id="_decision003">
+        <variable name="decision003" typeRef="string"/>
+        <informationRequirement>
+            <requiredInput href="#_model_a_input001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>input001</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision004" id="_decision004">
+        <variable name="decision004" typeRef="typeRefA"/>
+        <informationRequirement>
+            <requiredInput href="#_model_a_input001"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>input001</text>
+        </literalExpression>
+    </decision>
+
+
+</definitions>
+

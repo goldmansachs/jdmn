@@ -2231,36 +2231,6 @@
                     </execution>
 
                     <execution>
-                        <id>cl3-1158-noname-imports-with-prefix</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <inputFileDirectory>${tck.15.diagram.folder}/cl3/1158-noname-imports-with-prefix/translator/</inputFileDirectory>
-                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_1158_noname_imports_with_prefix</javaRootPackage>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-cl3-1158-noname-imports-with-prefix</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>tck-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <inputTestFileDirectory>${tck.15.diagram.folder}/cl3/1158-noname-imports-with-prefix/translator/</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.15.diagram.folder}/cl3/1158-noname-imports-with-prefix/translator/</inputModelFileDirectory>
-                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.tck.cl3_1158_noname_imports_with_prefix</javaRootPackage>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-
-                    <execution>
                         <id>cl3-1158-noname-imports</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -2288,6 +2258,36 @@
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_1158_noname_imports</javaRootPackage>
                                 <strongTyping>false</strongTyping>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cl3-1159-prefix-imports</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.15.diagram.folder}/cl3/1159-prefix-imports/translator/</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1159_prefix_imports</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-1159-prefix-imports</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.15.diagram.folder}/cl3/1159-prefix-imports/translator/</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.15.diagram.folder}/cl3/1159-prefix-imports/translator/</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1159_prefix_imports</javaRootPackage>
                             </inputParameters>
                         </configuration>
                     </execution>

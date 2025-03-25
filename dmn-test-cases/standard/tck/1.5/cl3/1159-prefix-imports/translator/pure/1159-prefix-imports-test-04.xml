@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1159-prefix-imports-04-A.dmn</modelName>
+
+    <!-- model A has a decision called "allowableDuplicateName".  From model B, it uses an imported
+    typeRef also called "allowableDuplicateName".  Name clashes between drg elements and
+    import/itemDefinition are permitted by the spec.-->
+
+    <testCase id="001">
+        <description>imported typeRef name may already exist as a DRG name</description>
+        <resultNode name="allowableDuplicateName" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">model_a_decision001</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

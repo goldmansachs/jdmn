@@ -648,13 +648,13 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     }
 
     @Test
-    public void test_15_cl3_1158_noname_imports_with_prefix() {
-        doFolderTest("1.5", "1158-noname-imports-with-prefix", new Pair<>("strongTyping", "true"));
+    public void test_15_cl3_1158_noname_imports() {
+        doFolderTest("1.5", "1158-noname-imports");
     }
 
     @Test
-    public void test_15_cl3_1158_noname_imports() {
-        doFolderTest("1.5", "1158-noname-imports", new Pair<>("strongTyping", "false"));
+    public void test_15_cl3_1159_prefix_imports() {
+        doFolderTest("1.5", "1159-prefix-imports");
     }
 
     @Test

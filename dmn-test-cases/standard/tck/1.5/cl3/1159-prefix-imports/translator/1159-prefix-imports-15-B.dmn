@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/1159-prefix-imports-15-B"
+             name="1159-prefix-imports-15-B"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+    <decision name="decision002" id="_decision002">
+        <variable name="decision002" typeRef="string"/>
+        <informationRequirement>
+            <!-- absolute href -->
+            <requiredDecision href="http://www.montera.com.au/spec/DMN/1159-prefix-imports-15-B#_decision003"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>decision003</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="decision003" id="_decision003">
+        <variable name="decision003" typeRef="string"/>
+        <literalExpression>
+            <text>"model_b_decision003"</text>
+        </literalExpression>
+    </decision>
+
+
+</definitions>
+
