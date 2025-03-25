@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:included0="https://kie.org/dmn/_7A341620-479B-43CA-8A3A-F9E717D7D21D" xmlns:included1="https://kie.org/dmn/_1454ADE6-BEB2-42CD-8B97-468240315289" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://example.org/1160-multiple-imports-02-C" id="_C52B5F73-A9F4-4A20-8776-292DF4F97028" name="1160-multiple-imports-02-C" xmlns:included2="https://example.org/1160-multiple-imports-01-A" xmlns:included3="https://example.org/1160-multiple-imports-01-B">
+  <import id="_BA573D9F-6BDD-48D6-8F48-EBEDB9743EE1" name="" importType="http://www.omg.org/spec/DMN/20180521/MODEL/" namespace="https://example.org/1160-multiple-imports-01-A" locationURI="./1160-multiple-imports-01-A.dmn" />
+  <import id="_F0A10A48-86D9-4C6B-BB3B-DF0CE71A868A" name="" importType="http://www.omg.org/spec/DMN/20180521/MODEL/" namespace="https://example.org/1160-multiple-imports-02-B" locationURI="./1160-multiple-imports-02-B.dmn" />
+  <decision name="DecisionC" id="_7B6F6A1D-9355-467D-8345-D9B835C6032F">
+    <variable name="DecisionC" id="_88230981-720F-4659-9E8B-ADD9DC22E91F" typeRef="string" />
+    <informationRequirement id="_B6868056-BD4D-453F-B859-699DB99FBE38">
+      <requiredInput href="https://example.org/1160-multiple-imports-01-A#_B4982021-33F9-4148-9015-93511122650E" />
+    </informationRequirement>
+    <informationRequirement id="_C064E187-5AAD-4CD7-A3E1-328BA0A37BD0">
+      <requiredDecision href="https://example.org/1160-multiple-imports-02-B#_C2C804CE-1467-4797-83F1-D55DD6D94298" />
+    </informationRequirement>
+    <literalExpression id="_D99E591D-8CD4-406A-A56A-264B65618309" typeRef="string" label="DecisionC">
+      <text>person.name + DecisionB</text>
+    </literalExpression>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_39778580-0AA1-4002-BE00-562599165679" name="Default DRD" useAlternativeInputDataShape="false">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_41F8ECF3-6B29-450A-895B-33489424D749">
+            <kie:width>60</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>240</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_D99E591D-8CD4-406A-A56A-264B65618309">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="_538D6394-1AB0-4C26-903D-ABD498938172" dmnElementRef="_7B6F6A1D-9355-467D-8345-D9B835C6032F" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="240" y="40" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_01B9FAD7-B713-453A-9B86-484F0899BDB1" dmnElementRef="included2:_B4982021-33F9-4148-9015-93511122650E">
+        <dc:Bounds x="180" y="360" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_996DADBD-C537-42C0-B5E8-5A076A9C116C" dmnElementRef="included3:_C2C804CE-1467-4797-83F1-D55DD6D94298">
+        <dc:Bounds x="460" y="200" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="_1303995F-0F7E-4B61-8BF1-96C4FF4894AB" dmnElementRef="_B6868056-BD4D-453F-B859-699DB99FBE38" sourceElement="_01B9FAD7-B713-453A-9B86-484F0899BDB1" targetElement="_538D6394-1AB0-4C26-903D-ABD498938172">
+        <di:waypoint x="260" y="400" />
+        <di:waypoint x="320" y="120" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="_7F311310-EE36-4269-832A-BB7D62CAF10B" dmnElementRef="_C064E187-5AAD-4CD7-A3E1-328BA0A37BD0" sourceElement="_996DADBD-C537-42C0-B5E8-5A076A9C116C" targetElement="_538D6394-1AB0-4C26-903D-ABD498938172">
+        <di:waypoint x="540" y="240" />
+        <di:waypoint x="320" y="120" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

@@ -658,6 +658,11 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     }
 
     @Test
+    public void test_15_cl3_1160_multiple_imports() {
+        doFolderTest("1.5", "1160-multiple-imports");
+    }
+
+    @Test
     public void test_15_cl3_1161_boxed_list_expression() {
         doFolderTest("1.5", "1161-boxed-list-expression");
     }

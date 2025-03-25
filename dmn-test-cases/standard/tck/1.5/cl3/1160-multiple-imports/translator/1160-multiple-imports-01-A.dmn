@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://example.org/1160-multiple-imports-01-A" id="_95C6459D-9889-4756-B510-D725246320A5" name="1160-multiple-imports-01-A" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0">
+  <itemDefinition id="_74A49B89-5BA7-482E-B0AF-EA1AB6DD7E0F" name="Person" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <itemComponent id="_5E05809D-B99C-4B46-B1DE-EDE114AD3D24" name="name" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>string</typeRef>
+    </itemComponent>
+    <itemComponent id="_52034A45-A9FA-4A3F-AC69-7AA8A2A0A57E" name="age" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>number</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <inputData name="person" id="_B4982021-33F9-4148-9015-93511122650E">
+    <variable name="person" id="_A4337FF4-4D4A-4081-BEB7-83CD2B148EF2" typeRef="Person" />
+  </inputData>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_25A2BC31-CE54-4280-87C9-69C97C36EB25" name="Default DRD" useAlternativeInputDataShape="false">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths />
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="_9758897F-7347-422A-91D4-C538946C6DD8" dmnElementRef="_B4982021-33F9-4148-9015-93511122650E" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="100" y="300" width="160" height="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

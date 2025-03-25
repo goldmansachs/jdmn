@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1160-multiple-imports-02-C.dmn</modelName>
+
+    <!--
+     Model A contains the definition of an InputData for a Person (e.g. name, age etc)
+     Model B imports model A. Model B contains a decision DecisionB that uses the Person as input
+     Model C imports models A and B. Model C contains a decision DecisionC that uses Person and DecisionB as input
+    -->
+
+    <testCase id="001">
+        <description>Only one binding is needed as per https://issues.omg.org/browse/DMN16-50</description>
+        <inputNode name="person">
+            <component name="name">
+                <value xsi:type="xsd:string">Peter</value>
+            </component>
+            <component name="age">
+                <value xsi:type="xsd:decimal">25</value>
+            </component>
+        </inputNode>
+        <resultNode name="DecisionC" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">PeterPeter</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>
