@@ -16,7 +16,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 
-public class ListType implements com.gs.dmn.el.analysis.semantics.type.ListType {
+public class ListType implements com.gs.dmn.el.analysis.semantics.type.ListType, FEELType {
     public static final Type ANY_LIST = new ListType(ANY);
     public static final Type NUMBER_LIST = new ListType(NumberType.NUMBER);
     public static final Type STRING_LIST = new ListType(StringType.STRING);

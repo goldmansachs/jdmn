@@ -25,7 +25,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 
-public class RangeType implements Type {
+public class RangeType implements Type, FEELType {
     public static final Type NUMBER_RANGE = new RangeType(NUMBER);
     public static final Type STRING_RANGE = new RangeType(STRING);
     public static final Type DATE_RANGE = new RangeType(DATE);

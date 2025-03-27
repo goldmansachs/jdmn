@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-public abstract class NamedType implements com.gs.dmn.el.analysis.semantics.type.NamedType {
+public abstract class NamedType implements com.gs.dmn.el.analysis.semantics.type.NamedType, FEELType {
     protected final String name;
 
     protected NamedType(String name) {

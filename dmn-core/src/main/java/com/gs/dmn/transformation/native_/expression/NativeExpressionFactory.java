@@ -19,7 +19,7 @@ import com.gs.dmn.el.analysis.semantics.type.FunctionType;
 import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.function.Conversion;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
+import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
 import com.gs.dmn.runtime.Pair;
 

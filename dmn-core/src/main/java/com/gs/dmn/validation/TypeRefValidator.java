@@ -21,7 +21,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
+import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
@@ -160,6 +160,6 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
     }
 
     private boolean isPrimitiveType(String name) {
-        return FEELTypes.FEEL_TYPE_NAMES.contains(name) || name.startsWith(DMNVersion.LATEST.getFeelPrefix());
+        return FEELType.FEEL_TYPE_NAMES.contains(name) || name.startsWith(DMNVersion.LATEST.getFeelPrefix());
     }
 }

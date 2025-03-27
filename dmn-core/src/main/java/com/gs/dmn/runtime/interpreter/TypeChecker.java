@@ -20,10 +20,11 @@ import com.gs.dmn.el.analysis.semantics.type.ConstraintType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.Conversion;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.lib.FEELLib;
+import com.gs.dmn.feel.lib.type.time.xml.XMLCalendarType;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Range;
@@ -36,99 +37,87 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import javax.xml.datatype.Duration;
 import javax.xml.namespace.QName;
 import java.time.*;
-import java.time.temporal.TemporalAmount;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
-import static com.gs.dmn.feel.analysis.semantics.type.ComparableDataType.COMPARABLE;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
-import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
+import static com.gs.dmn.feel.analysis.syntax.ConversionKind.*;
 
 public class TypeChecker {
-    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
-    private final ELInterpreter<Type, DMNContext> elInterpreter;
-    protected final FEELLib<?, ?, ?, ?, ?> lib;
-    private final boolean checkConstraints;
-    private final boolean throwError;
-
-    public TypeChecker(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, ELInterpreter<Type, DMNContext> elInterpreter, FEELLib<?, ?, ?, ?, ?> lib) {
-        this.dmnTransformer = dmnTransformer;
-        this.elInterpreter = elInterpreter;
-        this.lib = lib;
-        this.checkConstraints = dmnTransformer.isCheckConstraints();
-        this.throwError = true;
-    }
-
-    /*
-        A value conforms to a type when the value is in the semantic domain of type (in varies from one dialect to another)
-    */
-    private static boolean conformsTo(Object value, Type type) {
+    private static Type valueType(Object value, Type expectedType) {
+        Type actualType = null;
         if (value == null) {
-            return true;
-        }
-
-        type = Type.extractTypeFromConstraint(type);
-        if (type == ANY) {
-            return true;
-        } else if (type == NUMBER && isNumber(value)) {
-            return true;
-        } else if (type == STRING && isString(value)) {
-            return true;
-        } else if (type == BOOLEAN && value instanceof Boolean) {
-            return true;
-        } else if (type == DATE && isDate(value)) {
-            return true;
-        } else if (type == TIME && isTime(value)) {
-            return true;
-        } else if (type instanceof DateTimeType && isDateTime(value)) {
-            return true;
-        } else if (type instanceof DurationType && isDuration(value)) {
-            return true;
-        } else if (type == COMPARABLE && isComparable(value)) {
-            return true;
-        } else if ((type instanceof ContextType || type instanceof ItemDefinitionType) && value instanceof Context) {
+            actualType =  NULL;
+        } else if (isNumber(value)) {
+            actualType = NUMBER;
+        } else if (isString(value)) {
+            actualType = STRING;
+        } else if (value instanceof Boolean) {
+            actualType = BOOLEAN;
+        } else if (isDate(value)) {
+            actualType = DATE;
+        } else if (isTime(value)) {
+            actualType = TIME;
+        } else if (isDateTime(value)) {
+            actualType = DateTimeType.DATE_AND_TIME;
+        } else if (isDaysTimeDuration(value)) {
+            actualType = DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
+        } else if (isYearsAndMonthDuration(value)) {
+            actualType = YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
+        } else if (value instanceof Context) {
             Context context = (Context) value;
-            CompositeDataType contextType = (CompositeDataType) type;
-            for (String member : contextType.getMembers()) {
-                if (!context.getBindings().containsKey(member) || !conformsTo(context.get(member), contextType.getMemberType(member))) {
-                    return false;
-                }
+            ContextType contextType = new ContextType();
+            for (Object objMember : context.getBindings().keySet()) {
+                String member = (String) objMember;
+                Type expectedMemberType = expectedType instanceof CompositeDataType ? ((CompositeDataType) expectedType).getMemberType(member) : NULL;
+                contextType.addMember(member, new ArrayList<>(), valueType(context.get(member), expectedMemberType));
             }
-            return true;
-        } else if (type instanceof RangeType && value instanceof Range) {
-            return true;
-        } else if (type instanceof ListType && value instanceof List) {
-            for (Object obj : (List) value) {
-                if (!conformsTo(obj, ((ListType) type).getElementType())) {
-                    return false;
+            return contextType;
+        } else if (value instanceof Range) {
+            actualType = RangeType.ANY_RANGE;
+        } else if (value instanceof List) {
+            if (((List<?>) value).isEmpty()) {
+                return new ListType(NULL);
+            } else {
+                Type expectdElementType = expectedType instanceof ListType ? ((ListType) expectedType).getElementType() : NULL;
+                Type elementType = valueType(((List<?>) value).get(0), expectdElementType);
+                for (Object obj : (List<?>) value) {
+                    Type objType = valueType(obj, expectdElementType);
+                    if (Type.equivalentTo(objType, elementType) || Type.conformsTo(objType, elementType)) {
+                    } else if (Type.conformsTo(elementType, objType)) {
+                        // move to parent type
+                        elementType = objType;
+                    } else {
+                        // could be refined to use other abstract types (e.g. comparable)
+                        elementType = ANY;
+                    }
                 }
+                return new ListType(elementType);
             }
-            return true;
-        } else if (value instanceof FEELFunction && type instanceof FunctionType) {
+        } else if (value instanceof FEELFunction) {
             FunctionDefinition<Type> functionDefinition = ((FEELFunction) value).getFunctionDefinition();
-            return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(functionDefinition.getType(), type);
-        } else if (value instanceof DMNInvocable && type instanceof FunctionType) {
-            Type valueType = ((DMNInvocable) value).getType();
-            return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(valueType, type);
-        } else if (value instanceof DMNFunction && type instanceof FunctionType) {
-            Type valueType = ((DMNFunction) value).getType();
-            return com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(valueType, type);
-        } else if (value instanceof BuiltinFunction && type instanceof FunctionType) {
-            // At least one conforms
+            actualType = functionDefinition.getType();
+        } else if (value instanceof DMNInvocable) {
+            actualType = ((DMNInvocable) value).getType();
+        } else if (value instanceof DMNFunction) {
+            actualType = ((DMNFunction) value).getType();
+        } else if (value instanceof BuiltinFunction) {
+            // Find the one that conforms
             List<Declaration> declarations = ((BuiltinFunction) value).getDeclarations();
+            actualType = NULL;
             for (Declaration d: declarations) {
-                if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(d.getType(), type)) {
-                    return true;
+                if (Type.conformsTo(d.getType(), expectedType)) {
+                    actualType = d.getType();
                 }
             }
-            return false;
-        } else {
-            return false;
         }
+        return actualType;
     }
 
     private static boolean isString(Object value) {
@@ -137,10 +126,6 @@ public class TypeChecker {
 
     private static boolean isNumber(Object value) {
         return value instanceof Number;
-    }
-
-    private static boolean isDuration(Object value) {
-        return value instanceof Duration || value instanceof TemporalAmount;
     }
 
     private static boolean isDateTime(Object value) {
@@ -160,13 +145,37 @@ public class TypeChecker {
                 isDate(value) || isTime(value) || isDateTime(value) || isDuration(value);
     }
 
-    private static boolean isSingletonList(Object value) {
-        return value instanceof List && ((List) value).size() == 1;
+    private static boolean isDuration(Object value) {
+        return isDaysTimeDuration(value) || isYearsAndMonthDuration(value);
+    }
+
+    private static boolean isDaysTimeDuration(Object value) {
+        return value instanceof Duration && XMLCalendarType.isDayTimeDuration(value) ||
+                value instanceof java.time.Duration;
+    }
+
+    private static boolean isYearsAndMonthDuration(Object value) {
+        return value instanceof Duration && XMLCalendarType.isYearMonthDuration(value) ||
+                value instanceof java.time.Period;
+    }
+
+    private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
+    private final ELInterpreter<Type, DMNContext> elInterpreter;
+    protected final FEELLib<?, ?, ?, ?, ?> lib;
+    private final boolean checkConstraints;
+    private final boolean throwError;
+
+    public TypeChecker(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, ELInterpreter<Type, DMNContext> elInterpreter, FEELLib<?, ?, ?, ?, ?> lib) {
+        this.dmnTransformer = dmnTransformer;
+        this.elInterpreter = elInterpreter;
+        this.lib = lib;
+        this.checkConstraints = dmnTransformer.isCheckConstraints();
+        this.throwError = true;
     }
 
     public Result checkBindingResult(Result result, Type expectedType) {
         // Apply conversions
-        Result finalResult = convertValue(Result.value(result), expectedType);
+        Result finalResult = convertValue(result, expectedType);
 
         // Check constraints
         return checkConstraints(finalResult, expectedType);
@@ -209,7 +218,7 @@ public class TypeChecker {
 
         // Apply conversions
         Type parameterType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
-        Result finalResult = convertValue(Result.value(argResult), parameterType);
+        Result finalResult = convertValue(argResult, parameterType);
 
         // Check constraints
         return checkConstraints(finalResult, parameterType);
@@ -217,7 +226,7 @@ public class TypeChecker {
 
     public Result checkArgument(Object value, Type parameterType) {
         // Apply conversions
-        Result finalResult = convertValue(value, parameterType);
+        Result finalResult = convertValue(makeResult(value, parameterType), parameterType);
 
         // Check constraints
         return checkConstraints(finalResult, parameterType);
@@ -226,12 +235,12 @@ public class TypeChecker {
     public Object checkArgument(Object value, Conversion<Type> conversion) {
         // Apply conversions
         ConversionKind kind = conversion.getKind();
-        return convertValue(value, kind);
+        return convertValue(makeResult(value, NULL), kind);
     }
 
     public Object checkEntry(Object entryValue, Type entryType) {
         // Apply conversions
-        Result finalResult = convertValue(entryValue, entryType);
+        Result finalResult = convertValue(makeResult(entryValue, entryType), entryType);
 
         // Check constraints
         Result result = checkConstraints(finalResult, entryType);
@@ -267,21 +276,21 @@ public class TypeChecker {
         return checkBindingResult(result, paramType);
     }
 
-    private Result convertValue(Object value, Type expectedType) {
+    private Result convertValue(Result result, Type expectedType) {
         expectedType = Type.extractTypeFromConstraint(expectedType);
-        if (value == null) {
-            return Result.of(value, expectedType);
+        if (Result.value(result) == null) {
+            return Result.of(Result.value(result), expectedType);
         }
 
         // Dynamic conversion
         if (expectedType == null) {
             expectedType = ANY;
         }
-        ConversionKind conversionKind = conversionKind(value, expectedType);
+        ConversionKind conversionKind = conversionKind(result, expectedType);
         if (throwError && conversionKind.isError()) {
-            throw new DMNRuntimeException(String.format("Value '%s' does not conform to type '%s'", value, expectedType));
+            throw new DMNRuntimeException(String.format("Value '%s' does not conform to type '%s'", result, expectedType));
         }
-        Object newValue = convertValue(value, conversionKind);
+        Object newValue = convertValue(result, conversionKind);
         return Result.of(newValue, expectedType);
     }
 
@@ -293,34 +302,30 @@ public class TypeChecker {
         return typeRef;
     }
 
-    private ConversionKind conversionKind(Object value, Type expectedType) {
-        expectedType = Type.extractTypeFromConstraint(expectedType);
-        if (conformsTo(value, expectedType)) {
-            return NONE;
-        } else if (isSingletonList(value) && conformsTo(((List) value).get(0), expectedType)) {
-            return SINGLETON_LIST_TO_ELEMENT;
-        } else if (expectedType instanceof ListType && conformsTo(value, ((ListType) expectedType).getElementType())) {
-            return ELEMENT_TO_SINGLETON_LIST;
-        } else if (lib.isDate(value) && expectedType instanceof DateTimeType) {
-            return DATE_TO_UTC_MIDNIGHT;
-        } else {
-            return CONFORMS_TO;
-        }
+    private ConversionKind conversionKind(Result result, Type expectedType) {
+        return FEELType.conversionKind(expectedType, valueType(Result.value(result), expectedType));
     }
 
-    private Object convertValue(Object value, ConversionKind kind) {
+    private Object convertValue(Result result, ConversionKind kind) {
+        Object value = Result.value(result);
         if (kind == NONE) {
             return value;
         } else if (kind == ELEMENT_TO_SINGLETON_LIST) {
             return lib.asList(value);
         } else if (kind == SINGLETON_LIST_TO_ELEMENT) {
-            return lib.asElement((List) value);
+            return lib.asElement((List<?>) value);
+        } else if (kind == DATE_TO_UTC_MIDNIGHT) {
+            return lib.toDateTime(value);
         } else if (kind == CONFORMS_TO) {
             return null;
-        } else if (kind == DATE_TO_UTC_MIDNIGHT) {
-            return lib.toDate(value);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", kind));
         }
+    }
+
+    private Result makeResult(Object value, Type expectType) {
+        Type actualType = valueType(value, expectType);
+
+        return Result.of(value, actualType);
     }
 }

@@ -24,7 +24,7 @@ import com.gs.dmn.el.analysis.semantics.type.ListType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.function.Conversion;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind;
+import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
@@ -452,7 +452,7 @@ public class JavaFactory implements NativeFactory {
     @Override
     public boolean isSerializable(Type type) {
         type = Type.extractTypeFromConstraint(type);
-        return FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type) ||
+        return FEELType.FEEL_PRIMITIVE_TYPES.contains(type) ||
                 (type instanceof ListType && isSerializable(((ListType) type).getElementType())) ||
                 type instanceof ItemDefinitionType ||
                 type instanceof ContextType;
@@ -469,8 +469,8 @@ public class JavaFactory implements NativeFactory {
             }
         }
 
-        if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
-            String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
+        if (FEELType.FEEL_PRIMITIVE_TYPES.contains(type)) {
+            String conversionMethod = FEELType.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
             if (conversionMethod != null) {
                 return String.format("(%s != null ? %s(%s) : null)", paramName, conversionMethod, paramName);
             } else if (type == StringType.STRING) {
@@ -552,7 +552,7 @@ public class JavaFactory implements NativeFactory {
     @Override
     public String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext) {
         type = Type.extractTypeFromConstraint(type);
-        if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
+        if (FEELType.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 String qNativeConcreteType = this.transformer.getNativeTypeFactory().getNativeNumberConcreteType();
                 String value = String.format("%s.valueOf(%s)", qNativeConcreteType, protoValue);
@@ -574,7 +574,7 @@ public class JavaFactory implements NativeFactory {
             Type elementType = ((ListType) type).getElementType();
             elementType = Type.extractTypeFromConstraint(elementType);
             String mapFunction;
-            if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
+            if (FEELType.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
                 if (elementType == NumberType.NUMBER) {
                     String qNativeType = this.transformer.getNativeTypeFactory().getNativeNumberType();
                     String qNativeConcreteType = this.transformer.getNativeTypeFactory().getNativeNumberConcreteType();
@@ -619,7 +619,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     protected String getConversionMethod(Type type, boolean staticContext) {
-        String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
+        String conversionMethod = FEELType.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
         if (conversionMethod == null) {
             return null;
         }
@@ -637,7 +637,7 @@ public class JavaFactory implements NativeFactory {
     @Override
     public String convertValueToProtoNativeType(String value, Type type, boolean staticContext) {
         type = Type.extractTypeFromConstraint(type);
-        if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
+        if (FEELType.FEEL_PRIMITIVE_TYPES.contains(type)) {
             if (type == NumberType.NUMBER) {
                 return toProtoNumber(value);
             } else if (type == BooleanType.BOOLEAN) {
@@ -653,7 +653,7 @@ public class JavaFactory implements NativeFactory {
             Type elementType = ((ListType) type).getElementType();
             elementType = Type.extractTypeFromConstraint(elementType);
             String mapFunction;
-            if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
+            if (FEELType.FEEL_PRIMITIVE_TYPES.contains(elementType)) {
                 if (elementType == NumberType.NUMBER) {
                     mapFunction = String.format("e -> %s", toProtoNumber("e"));
                 } else if (elementType == BooleanType.BOOLEAN) {

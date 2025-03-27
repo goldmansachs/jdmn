@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
+package com.gs.dmn.feel.analysis.syntax;
 
 public enum ConversionKind {
     NONE(false, false),
@@ -30,7 +30,8 @@ public enum ConversionKind {
     private final boolean error;
 
     ConversionKind(boolean implicit, boolean error) {
-        this.implicit = implicit;this.error = error;
+        this.implicit = implicit;
+        this.error = error;
     }
 
     public boolean isImplicit() {

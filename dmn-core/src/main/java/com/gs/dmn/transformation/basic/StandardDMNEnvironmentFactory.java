@@ -596,10 +596,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         String importName = typeRef.getNamespace();
         if (DMNVersion.LATEST.getFeelPrefix().equals(importName)) {
             String typeName = typeRef.getLocalPart();
-            return FEELTypes.FEEL_NAME_TO_FEEL_TYPE.get(typeName);
+            return FEELType.FEEL_NAME_TO_FEEL_TYPE.get(typeName);
         } else if (StringUtils.isBlank(importName)) {
             String typeName = typeRef.getLocalPart();
-            return FEELTypes.FEEL_NAME_TO_FEEL_TYPE.get(typeName);
+            return FEELType.FEEL_NAME_TO_FEEL_TYPE.get(typeName);
         } else {
             return null;
         }

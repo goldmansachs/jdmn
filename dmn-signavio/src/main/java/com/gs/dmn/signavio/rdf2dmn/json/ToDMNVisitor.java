@@ -15,7 +15,7 @@ package com.gs.dmn.signavio.rdf2dmn.json;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
+import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
@@ -36,9 +36,9 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 
 public class ToDMNVisitor implements Visitor {
     protected static final Map<String, String> TO_FEEL_OPERATOR = new HashMap<>();
@@ -78,7 +78,7 @@ public class ToDMNVisitor implements Visitor {
     @Override
     public String visit(SimpleLiteral element, Context context) {
         String typeName = element.getType();
-        Type type = FEELTypes.FEEL_NAME_TO_FEEL_TYPE.get(typeName);
+        Type type = FEELType.FEEL_NAME_TO_FEEL_TYPE.get(typeName);
         if (STRING == type) {
             return String.format("%s", element.getValue());
         } else if (DATE == type) {

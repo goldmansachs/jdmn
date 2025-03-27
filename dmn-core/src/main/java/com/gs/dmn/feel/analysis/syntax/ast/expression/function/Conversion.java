@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.syntax.ConversionKind;
+
 import java.util.Objects;
 
 public class Conversion<T> implements com.gs.dmn.el.analysis.syntax.ast.expression.function.Conversion<T, ConversionKind> {

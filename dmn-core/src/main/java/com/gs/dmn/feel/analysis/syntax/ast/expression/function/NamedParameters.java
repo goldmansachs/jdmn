@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNRuntimeException;

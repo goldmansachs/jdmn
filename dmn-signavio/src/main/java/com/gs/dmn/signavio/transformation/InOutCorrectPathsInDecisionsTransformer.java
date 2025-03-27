@@ -14,7 +14,7 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
-import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
+import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
@@ -117,7 +117,7 @@ public class InOutCorrectPathsInDecisionsTransformer extends SimpleDMNTransforme
         }
 
         String name = itemDefinition.getTypeRef().getLocalPart();
-        return (FEELTypes.FEEL_TYPE_NAMES.contains(name) || name.startsWith(DMNVersion.LATEST.getFeelPrefix())) && !itemDefinition.isIsCollection();
+        return (FEELType.FEEL_TYPE_NAMES.contains(name) || name.startsWith(DMNVersion.LATEST.getFeelPrefix())) && !itemDefinition.isIsCollection();
     }
 
     private void correctDecision(TDecision decision, List<String> childNames, TDecisionTable dte) {

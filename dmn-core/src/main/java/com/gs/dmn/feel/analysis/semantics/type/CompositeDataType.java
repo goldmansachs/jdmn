@@ -17,9 +17,9 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import java.util.List;
 import java.util.Set;
 
-public interface CompositeDataType {
+public interface CompositeDataType extends FEELType {
     static boolean equivalentTo(CompositeDataType self, Type other) {
-        if (other instanceof ContextType) {
+        if (self instanceof ContextType && other instanceof ContextType) {
             Set<String> selfNames = self.getMembers();
             Set<String> otherNames = ((ContextType) other).getMembers();
             if (!selfNames.equals(otherNames)) {
@@ -33,7 +33,7 @@ public interface CompositeDataType {
                 }
             }
             return true;
-        } else if (other instanceof ItemDefinitionType) {
+        } else if (self instanceof ItemDefinitionType && other instanceof ItemDefinitionType) {
             Set<String> selfNames = self.getMembers();
             Set<String> otherNames = ((ItemDefinitionType) other).getMembers();
             if (!selfNames.equals(otherNames)) {

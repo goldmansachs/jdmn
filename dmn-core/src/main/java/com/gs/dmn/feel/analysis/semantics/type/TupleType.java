@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 
-public class TupleType implements Type {
+public class TupleType implements Type, FEELType {
     private final List<Type> types = new ArrayList<>();
 
     public TupleType() {

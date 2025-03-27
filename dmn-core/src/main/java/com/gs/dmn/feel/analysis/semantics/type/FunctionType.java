@@ -14,6 +14,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.runtime.Pair;
 
@@ -23,9 +24,9 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
-import static com.gs.dmn.feel.analysis.syntax.ast.expression.function.ConversionKind.*;
+import static com.gs.dmn.feel.analysis.syntax.ConversionKind.*;
 
-public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.type.FunctionType {
+public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.type.FunctionType, FEELType {
     public static final FunctionType ANY_FUNCTION = new FunctionType(Collections.emptyList(), ANY) {
         @Override
         public boolean equivalentTo(Type other) {

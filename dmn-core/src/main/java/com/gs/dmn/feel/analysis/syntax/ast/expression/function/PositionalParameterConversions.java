@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.syntax.ConversionKind;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

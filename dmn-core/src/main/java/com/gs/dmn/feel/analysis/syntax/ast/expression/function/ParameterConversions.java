@@ -12,6 +12,8 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.analysis.syntax.ConversionKind;
+
 import java.util.List;
 
 public abstract class ParameterConversions<T> {

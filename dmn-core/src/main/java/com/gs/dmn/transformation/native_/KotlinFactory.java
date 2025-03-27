@@ -20,7 +20,7 @@ import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.el.analysis.semantics.type.ListType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.BooleanType;
-import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
+import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -302,8 +302,8 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
             }
         }
 
-        if (FEELTypes.FEEL_PRIMITIVE_TYPES.contains(type)) {
-            String conversionMethod = FEELTypes.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
+        if (FEELType.FEEL_PRIMITIVE_TYPES.contains(type)) {
+            String conversionMethod = FEELType.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
             if (conversionMethod != null) {
                 return String.format("%s?.let({ %s(it) })", paramName, conversionMethod);
             } else if (type == StringType.STRING) {

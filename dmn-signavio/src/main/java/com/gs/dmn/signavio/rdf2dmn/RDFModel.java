@@ -15,7 +15,7 @@ package com.gs.dmn.signavio.rdf2dmn;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
+import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.rdf2dmn.json.EnumItem;
 import com.gs.dmn.signavio.rdf2dmn.json.ItemDefinition;
@@ -190,7 +190,7 @@ public class RDFModel {
 
     public String getFEELType(Element resource) {
         List<String> types = getTypes(resource);
-        List<String> foundTypes = types.stream().filter(FEELTypes.FEEL_TYPE_NAMES::contains).collect(Collectors.toList());
+        List<String> foundTypes = types.stream().filter(FEELType.FEEL_TYPE_NAMES::contains).collect(Collectors.toList());
         return foundTypes.size() == 1 ? foundTypes.get(0) : null;
     }
 

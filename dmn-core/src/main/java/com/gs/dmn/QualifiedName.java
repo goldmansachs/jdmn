@@ -15,7 +15,7 @@ package com.gs.dmn;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TImport;
 import com.gs.dmn.ast.TItemDefinition;
-import com.gs.dmn.feel.analysis.semantics.type.FEELTypes;
+import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.serialization.DMNVersion;
 
 import javax.xml.namespace.QName;
@@ -60,7 +60,7 @@ public class QualifiedName {
                 }
             }
             // Check the FEEL types
-            if (FEELTypes.FEEL_TYPE_NAMES.contains(qName)) {
+            if (FEELType.FEEL_TYPE_NAMES.contains(qName)) {
                 return new QualifiedName(DMNVersion.LATEST.getFeelPrefix(), qName);
             }
 
