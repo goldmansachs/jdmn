@@ -23,6 +23,7 @@ import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
@@ -898,5 +899,39 @@ public class DMNExpressionToNativeTransformer {
         } else {
             throw new UnsupportedOperationException("Predicate '" + predicate + "' is not supported yet");
         }
+    }
+
+    //
+    // Conversions
+    //
+    public Statement convertExpression(Statement statement, Type expectedType) {
+        if (!(statement instanceof ExpressionStatement)) {
+            return statement;
+        }
+        String javaExpression = statement.getText();
+        Type expressionType = ((ExpressionStatement) statement).getExpressionType();
+        ConversionKind kind = FEELType.conversionKind(expectedType, expressionType);
+
+        if (kind == ConversionKind.ELEMENT_TO_SINGLETON_LIST) {
+            // To Singleton List conversion
+            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertElementToList(javaExpression, expectedType), expectedType);
+        } else if (kind == ConversionKind.SINGLETON_LIST_TO_ELEMENT) {
+            // From Singleton List conversion
+            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertListToElement(javaExpression, expectedType), expectedType);
+        } else if (kind == ConversionKind.DATE_TO_UTC_MIDNIGHT) {
+            // From Date to Date and Time conversion
+            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertDateToDateAndTimeMidnight(javaExpression, expectedType), expectedType);
+        } else if (kind == ConversionKind.TO_ITEM_DEFINITION) {
+            // To ItemDefinitionType
+            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
+        } else if (kind == ConversionKind.TO_LIST_OF_ITEM_DEFINITION) {
+            // To List of ItemDefinitionType
+            Type expectedElementType = ((ListType) expectedType).getElementType();
+            String conversionText = this.nativeFactory.convertToListOfItemDefinitionType(javaExpression, (ItemDefinitionType) expectedElementType);
+            return this.nativeFactory.makeExpressionStatement(conversionText, expectedType);
+        } else if (kind == ConversionKind.CONFORMS_TO) {
+            throw new SemanticError(String.format("Type '%s' does not conform to '%s'", expressionType, expectedType));
+        }
+        return statement;
     }
 }

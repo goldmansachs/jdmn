@@ -316,6 +316,8 @@ public class TypeChecker {
             return lib.asElement((List<?>) value);
         } else if (kind == DATE_TO_UTC_MIDNIGHT) {
             return lib.toDateTime(value);
+        } else if (kind == TO_ITEM_DEFINITION || kind == TO_LIST_OF_ITEM_DEFINITION) {
+            return value;
         } else if (kind == CONFORMS_TO) {
             return null;
         } else {

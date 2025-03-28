@@ -286,7 +286,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType) {
+    public String convertToListOfItemDefinitionType(String javaExpression, ItemDefinitionType expectedElementType) {
         String elementConversion = convertToItemDefinitionType("x", expectedElementType);
         return String.format("%s?.map({ x -> %s })", javaExpression, elementConversion);
     }

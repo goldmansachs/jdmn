@@ -416,7 +416,9 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String convertListToElement(String expression, Type type) {
-        return asElement(expression);
+        String elementExp = asElement(expression);
+        String nativeElementType = this.transformer.toNativeType(type);
+        return cast(nativeElementType, elementExp);
     }
 
     @Override
@@ -425,9 +427,8 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType) {
-        String elementConversion = convertToItemDefinitionType("x", expectedElementType);
-        return String.format("%s.stream().map(x -> %s).collect(Collectors.toList())", javaExpression, elementConversion);
+    public String convertDateToDateAndTimeMidnight(String expression, Type type) {
+        return this.makeBuiltinFunctionInvocation("toDateTime", expression);
     }
 
     @Override
@@ -435,6 +436,12 @@ public class JavaFactory implements NativeFactory {
         String convertMethodName = convertMethodName(type);
         String interfaceName = transformer.toNativeType(type);
         return String.format("%s.%s(%s)", interfaceName, convertMethodName, expression);
+    }
+
+    @Override
+    public String convertToListOfItemDefinitionType(String javaExpression, ItemDefinitionType expectedElementType) {
+        String elementConversion = convertToItemDefinitionType("x", expectedElementType);
+        return String.format("%s.stream().map(x -> %s).collect(Collectors.toList())", javaExpression, elementConversion);
     }
 
     @Override

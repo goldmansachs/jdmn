@@ -51,7 +51,6 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationOptimisation;
 import com.gs.dmn.transformation.native_.JavaFactory;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import com.gs.dmn.transformation.native_.statement.CompoundStatement;
-import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
 import com.gs.dmn.transformation.native_.statement.Statement;
 import com.gs.dmn.transformation.proto.MessageType;
 import com.gs.dmn.transformation.proto.ProtoBufferFactory;
@@ -986,31 +985,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         }
     }
 
-    protected Statement convertExpression(Statement statement, Type expectedType) {
-        if (!(statement instanceof ExpressionStatement)) {
-            return statement;
-        }
-        String javaExpression = statement.getText();
-        Type expressionType = ((ExpressionStatement) statement).getExpressionType();
-        if ("null".equals(javaExpression)) {
-            return this.nativeFactory.makeExpressionStatement(javaExpression, expectedType);
-        }
-        if (expectedType instanceof ListType && expressionType instanceof ListType) {
-            Type expectedElementType = ((ListType) expectedType).getElementType();
-            if (expectedElementType instanceof ItemDefinitionType) {
-                String conversionText = this.nativeFactory.makeListConversion(javaExpression, (ItemDefinitionType) expectedElementType);
-                return this.nativeFactory.makeExpressionStatement(conversionText, expectedType);
-            }
-        } else if (expectedType instanceof ListType) {
-            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertElementToList(javaExpression, expectedType), expectedType);
-        } else if (expressionType instanceof ListType) {
-            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertListToElement(javaExpression, expectedType), expectedType);
-        } else if (expectedType instanceof ItemDefinitionType) {
-            return this.nativeFactory.makeExpressionStatement(this.nativeFactory.convertToItemDefinitionType(javaExpression, (ItemDefinitionType) expectedType), expectedType);
-        }
-        return statement;
-    }
-
     @Override
     public String convertMethodName(TItemDefinition itemDefinition) {
         return this.nativeFactory.convertMethodName(itemDefinition);
@@ -1614,7 +1588,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (outputDecisions.size() == 1) {
             TDecision decision = outputDecisions.get(0).getElement();
             String decisionVarName = namedElementVariableName(decision);
-            return this.nativeFactory.makeExpressionStatement(decisionVarName, drgElementOutputFEELType(decision));
+            Statement statement = this.nativeFactory.makeExpressionStatement(decisionVarName, drgElementOutputFEELType(decision));
+
+            // Implicit conversions
+            Type expectedType = drgElementOutputFEELType(element);
+            statement = this.expressionToNativeTransformer.convertExpression(statement, expectedType);
+
+            return statement;
         } else {
             // Make statements
             CompoundStatement statement = new CompoundStatement();
@@ -1638,33 +1618,36 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public Statement expressionToNative(TDRGElement element) {
         TExpression expression = this.dmnModelRepository.expression(element);
+        Statement statement;
         if (expression instanceof TContext) {
-            return this.expressionToNativeTransformer.contextExpressionToNative(element, (TContext) expression);
+            statement = this.expressionToNativeTransformer.contextExpressionToNative(element, (TContext) expression);
         } else if (expression instanceof TFunctionDefinition) {
-            return this.expressionToNativeTransformer.functionDefinitionToNative(element, (TFunctionDefinition) expression);
+            statement = this.expressionToNativeTransformer.functionDefinitionToNative(element, (TFunctionDefinition) expression);
         } else if (expression instanceof TInvocation) {
-            return this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression);
+            statement = this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression);
         } else if (expression instanceof TLiteralExpression) {
-            Statement statement = this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText());
-            Type expectedType = drgElementOutputFEELType(element);
-            return convertExpression(statement, expectedType);
+            statement = this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText());
         } else if (expression instanceof TList) {
-            return this.expressionToNativeTransformer.listExpressionToNative(element, (TList) expression);
+            statement = this.expressionToNativeTransformer.listExpressionToNative(element, (TList) expression);
         } else if (expression instanceof TRelation) {
-            return this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression);
+            statement = this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression);
         } else if (expression instanceof TConditional) {
-            return this.expressionToNativeTransformer.conditionalExpressionToNative(element, (TConditional) expression);
+            statement = this.expressionToNativeTransformer.conditionalExpressionToNative(element, (TConditional) expression);
         } else if (expression instanceof TFilter) {
-            return this.expressionToNativeTransformer.filterExpressionToNative(element, (TFilter) expression);
+            statement = this.expressionToNativeTransformer.filterExpressionToNative(element, (TFilter) expression);
         } else if (expression instanceof TFor) {
-            return this.expressionToNativeTransformer.forExpressionToNative(element, (TFor) expression);
+            statement = this.expressionToNativeTransformer.forExpressionToNative(element, (TFor) expression);
         } else if (expression instanceof TSome) {
-            return this.expressionToNativeTransformer.someExpressionToNative(element, (TSome) expression);
+            statement = this.expressionToNativeTransformer.someExpressionToNative(element, (TSome) expression);
         } else if (expression instanceof TEvery) {
-            return this.expressionToNativeTransformer.everyExpressionToNative(element, (TEvery) expression);
+            statement = this.expressionToNativeTransformer.everyExpressionToNative(element, (TEvery) expression);
         } else {
             throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
         }
+
+        // Implicit conversions
+        Type expectedType = drgElementOutputFEELType(element);
+        return this.expressionToNativeTransformer.convertExpression(statement, expectedType);
     }
 
     @Override

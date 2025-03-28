@@ -102,7 +102,7 @@ public class CompositeDateTime extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisio
                 com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
-                return type.CompositeDateTime.toCompositeDateTime(compositeInputDateTime);
+                return compositeInputDateTime;
             }
         };
 }

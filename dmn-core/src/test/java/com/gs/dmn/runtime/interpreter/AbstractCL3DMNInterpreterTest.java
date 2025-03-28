@@ -648,6 +648,11 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     }
 
     @Test
+    public void test_15_cl3_1157_implicit_conversions() {
+        doFolderTest("1.5", "1157-implicit-conversions");
+    }
+
+    @Test
     public void test_15_cl3_1158_noname_imports() {
         doFolderTest("1.5", "1158-noname-imports");
     }

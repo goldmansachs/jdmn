@@ -71,7 +71,7 @@ public class Decision2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
                 com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
                 com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
 
-                return asElement(sublist(employees, number("2"), number("1")));
+                return ((String) asElement(sublist(employees, number("2"), number("1"))));
             }
         };
 }

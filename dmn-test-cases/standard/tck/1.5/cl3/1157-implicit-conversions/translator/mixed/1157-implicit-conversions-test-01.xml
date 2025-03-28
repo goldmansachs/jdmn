@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1157-implicit-conversions.dmn</modelName>
+    <testCase id="001">
+        <resultNode name="To Singleton List" type="decision">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:string">abc</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <resultNode name="From Singleton List" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002_a">
+        <resultNode name="From Singleton List Error" type="decision">
+            <expected>
+                <value xsi:nil="true"/>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="003">
+        <resultNode name="From Date To Date and Time" type="decision">
+            <expected>
+                <value xsi:type="xsd:dateTime">2000-01-02T00:00:00Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="004" invocableName="To Singleton List BKM" type="bkm">
+        <resultNode name="To Singleton List BKM">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:decimal">1</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="005" invocableName="From Singleton List BKM" type="bkm">
+        <resultNode name="From Singleton List BKM">
+            <expected>
+                <value xsi:type="xsd:decimal">1</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="006" invocableName="From Date To Date and Time BKM" type="bkm">
+        <resultNode name="From Date To Date and Time BKM">
+            <expected>
+                <value xsi:type="xsd:dateTime">2000-01-02T00:00:00Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="007" invocableName="To Singleton List DS" type="decisionService">
+        <resultNode name="To Singleton List DS">
+            <expected>
+                <list>
+                    <item>
+                        <value xsi:type="xsd:date">2000-01-02</value>
+                    </item>
+                </list>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="008" invocableName="From Singleton List DS" type="decisionService">
+        <resultNode name="From Singleton List DS">
+            <expected>
+                <value xsi:type="xsd:date">2000-01-02</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="009" invocableName="From Date to Date and Time DS" type="decisionService">
+        <resultNode name="From Date to Date and Time DS">
+            <expected>
+                <value xsi:type="xsd:dateTime">2000-01-02T00:00:00Z</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

@@ -1,0 +1,227 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "referenceType",
+    "id" : "_7546A1B0-00DF-40AB-B2CD-6ED845798BAA",
+    "isCollection" : true,
+    "name" : "dateList",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "id" : "_7546A1B0-00DF-40AB-B2CD-6ED845798BAF",
+    "isCollection" : false,
+    "name" : "functionReturningDate",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
+  }, {
+    "@kind" : "referenceType",
+    "id" : "_7546A1B0-00DF-40AB-B2CD-6ED845798BAE",
+    "isCollection" : false,
+    "name" : "functionReturningDateList",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
+  }, {
+    "@kind" : "referenceType",
+    "id" : "_7546A1B0-00DF-40AB-B2CD-6ED845798BAD",
+    "isCollection" : false,
+    "name" : "functionReturningDateTime",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
+  }, {
+    "@kind" : "referenceType",
+    "id" : "_7546A1B0-00DF-40AB-B2CD-6ED845798BAC",
+    "isCollection" : false,
+    "name" : "functionReturningNumber",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
+  }, {
+    "@kind" : "referenceType",
+    "id" : "_7546A1B0-00DF-40AB-B2CD-6ED845798BAB",
+    "isCollection" : false,
+    "name" : "functionReturningNumberList",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
+  }, {
+    "@kind" : "referenceType",
+    "id" : "_B0265B36-6C95-4941-8991-42F0066528FC",
+    "isCollection" : true,
+    "name" : "numberList",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "referenceType",
+    "id" : "_84B1A679-21B7-48ED-9F88-68078F0CE72D",
+    "isCollection" : true,
+    "name" : "stringList",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ],
+  "elements" : [ {
+    "@kind" : "bkm",
+    "id" : "_B7D3B059-9DD8-4192-9E2E-CFF2C135C896",
+    "javaOutputTypeName" : "java.time.temporal.TemporalAccessor",
+    "javaParameterName" : "fromDateToDateAndTimeBKM",
+    "javaTypeName" : "FromDateToDateAndTimeBKM",
+    "knowledgeReferences" : [ ],
+    "name" : "From Date To Date and Time BKM",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "typeRef" : {
+      "localName" : "functionReturningDateTime",
+      "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
+    }
+  }, {
+    "@kind" : "bkm",
+    "id" : "_36886A3E-CFF7-4335-A2EE-1E7587A81763",
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "fromSingletonListBKM",
+    "javaTypeName" : "FromSingletonListBKM",
+    "knowledgeReferences" : [ ],
+    "name" : "From Singleton List BKM",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "typeRef" : {
+      "localName" : "functionReturningNumber",
+      "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
+    }
+  }, {
+    "@kind" : "bkm",
+    "id" : "_6476F970-C1FE-46E5-8DC3-D6241FAA8CA7",
+    "javaOutputTypeName" : "List<java.lang.Number>",
+    "javaParameterName" : "toSingletonListBKM",
+    "javaTypeName" : "ToSingletonListBKM",
+    "knowledgeReferences" : [ ],
+    "name" : "To Singleton List BKM",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "typeRef" : {
+      "localName" : "functionReturningNumberList",
+      "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_B3384D41-36C1-414E-A48D-FF817F728BB2",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.time.LocalDate",
+    "javaParameterName" : "body1",
+    "javaTypeName" : "Body1",
+    "knowledgeReferences" : [ ],
+    "name" : "Body 1",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "protoRequestName" : "proto.Body1Request",
+    "protoResponseName" : "proto.Body1Response",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_A8E5ACA2-02C8-4424-A826-AC330FF424FF",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "List<java.time.LocalDate>",
+    "javaParameterName" : "body2",
+    "javaTypeName" : "Body2",
+    "knowledgeReferences" : [ ],
+    "name" : "Body 2",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "protoRequestName" : "proto.Body2Request",
+    "protoResponseName" : "proto.Body2Response",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "dateList",
+      "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_9B10A67E-B994-492A-BB53-089F22A8B9D4",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.time.LocalDate",
+    "javaParameterName" : "body3",
+    "javaTypeName" : "Body3",
+    "knowledgeReferences" : [ ],
+    "name" : "Body 3",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "protoRequestName" : "proto.Body3Request",
+    "protoResponseName" : "proto.Body3Response",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_64886F45-91EF-4119-B779-9C34841AC6F2",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "java.time.temporal.TemporalAccessor",
+    "javaParameterName" : "fromDateToDateAndTime",
+    "javaTypeName" : "FromDateToDateAndTime",
+    "knowledgeReferences" : [ ],
+    "name" : "From Date To Date and Time",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "protoRequestName" : "proto.FromDateToDateAndTimeRequest",
+    "protoResponseName" : "proto.FromDateToDateAndTimeResponse",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "date and time",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_18456903-ED9D-438E-BF32-0150AF228218",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "fromSingletonList",
+    "javaTypeName" : "FromSingletonList",
+    "knowledgeReferences" : [ ],
+    "name" : "From Singleton List",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "protoRequestName" : "proto.FromSingletonListRequest",
+    "protoResponseName" : "proto.FromSingletonListResponse",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_D9834124-4E36-4167-B605-028F093F7FFD",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "fromSingletonListError",
+    "javaTypeName" : "FromSingletonListError",
+    "knowledgeReferences" : [ ],
+    "name" : "From Singleton List Error",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "protoRequestName" : "proto.FromSingletonListErrorRequest",
+    "protoResponseName" : "proto.FromSingletonListErrorResponse",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_02780B09-B61A-4219-975B-ABA04FFDABE1",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "List<String>",
+    "javaParameterName" : "toSingletonList",
+    "javaTypeName" : "ToSingletonList",
+    "knowledgeReferences" : [ ],
+    "name" : "To Singleton List",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "protoRequestName" : "proto.ToSingletonListRequest",
+    "protoResponseName" : "proto.ToSingletonListResponse",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "stringList",
+      "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
+    }
+  } ]
+}

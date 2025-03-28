@@ -17,7 +17,11 @@ public enum ConversionKind {
     ELEMENT_TO_SINGLETON_LIST(true, false),
     SINGLETON_LIST_TO_ELEMENT(true, false),
     DATE_TO_UTC_MIDNIGHT(true, false),
-    CONFORMS_TO(false, true);
+    CONFORMS_TO(false, true),
+
+    // Convert equivalent CompositeDataTypes (e.g. ItemDefinition and ContentType)
+    TO_ITEM_DEFINITION(false, false),
+    TO_LIST_OF_ITEM_DEFINITION(false, false);
 
     public static final ConversionKind[] FUNCTION_RESOLUTION_CANDIDATES = new ConversionKind[] {
             NONE,

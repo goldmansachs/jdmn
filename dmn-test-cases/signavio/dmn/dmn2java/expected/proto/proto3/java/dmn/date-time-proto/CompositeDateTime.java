@@ -109,6 +109,6 @@ public class CompositeDateTime extends com.gs.dmn.signavio.runtime.JavaTimeSigna
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
         com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
-        return type.TCompositeDateTime.toTCompositeDateTime(compositeInputDateTime);
+        return compositeInputDateTime;
     }
 }

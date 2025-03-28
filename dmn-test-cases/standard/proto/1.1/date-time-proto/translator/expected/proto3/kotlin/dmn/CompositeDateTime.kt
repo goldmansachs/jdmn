@@ -68,7 +68,7 @@ class CompositeDateTime() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return type.CompositeDateTime.toCompositeDateTime(compositeInputDateTime) as type.CompositeDateTime?
+        return compositeInputDateTime as type.CompositeDateTime?
     }
 
     companion object {

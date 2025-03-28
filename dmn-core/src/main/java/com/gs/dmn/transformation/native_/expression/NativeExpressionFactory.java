@@ -160,9 +160,11 @@ public interface NativeExpressionFactory {
 
     String convertElementToList(String expression, Type type);
 
-    String makeListConversion(String javaExpression, ItemDefinitionType expectedElementType);
+    String convertDateToDateAndTimeMidnight(String expression, Type type);
 
     String convertToItemDefinitionType(String expression, ItemDefinitionType type);
+
+    String convertToListOfItemDefinitionType(String javaExpression, ItemDefinitionType expectedElementType);
 
     String convertMethodName(TItemDefinition itemDefinition);
 

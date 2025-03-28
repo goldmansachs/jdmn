@@ -50,6 +50,9 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doFolderTest("1.3", "0092-feel-lambda");
         doFolderTest("1.3", "0083-feel-unicode");
 
+        // DMN 1.5
+        doFolderTest("1.5","1157-implicit-conversions");
+
         // extensions
         doFolderTest("1.1", "9001-recursive-function");
     }

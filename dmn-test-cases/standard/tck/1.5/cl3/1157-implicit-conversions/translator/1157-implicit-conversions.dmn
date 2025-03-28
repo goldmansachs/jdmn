@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D" id="_B6EF67C0-8376-4854-8D71-79484E1DBF39" name="1157-implicit-conversions">
+  <itemDefinition id="_7546A1B0-00DF-40AB-B2CD-6ED845798BAB" name="functionReturningNumberList" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <functionItem outputTypeRef="numberList" id="_F4EA43DE-6211-4BC7-B687-230C8FBE6296" />
+  </itemDefinition>
+  <itemDefinition id="_7546A1B0-00DF-40AB-B2CD-6ED845798BAC" name="functionReturningNumber" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <functionItem outputTypeRef="number" id="_69ADBE0C-8995-4957-BDF3-3B3610B39739" />
+  </itemDefinition>
+  <itemDefinition id="_7546A1B0-00DF-40AB-B2CD-6ED845798BAD" name="functionReturningDateTime" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <functionItem outputTypeRef="date and time" id="_8FBD47B9-9EA7-4A08-9AAA-7858B9D62B55" />
+  </itemDefinition>
+  <itemDefinition id="_7546A1B0-00DF-40AB-B2CD-6ED845798BAE" name="functionReturningDateList" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <functionItem outputTypeRef="dateList" id="_DC20B4DF-E952-43B8-8CAB-AE78FD7E5F10" />
+  </itemDefinition>
+  <itemDefinition id="_7546A1B0-00DF-40AB-B2CD-6ED845798BAF" name="functionReturningDate" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <functionItem outputTypeRef="date" id="_E1AEDADB-A715-4AF9-B312-A60619877709" />
+  </itemDefinition>
+  <itemDefinition id="_7546A1B0-00DF-40AB-B2CD-6ED845798BAA" name="dateList" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <typeRef>date</typeRef>
+  </itemDefinition>
+  <itemDefinition id="_B0265B36-6C95-4941-8991-42F0066528FC" name="numberList" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <typeRef>number</typeRef>
+  </itemDefinition>
+  <itemDefinition id="_84B1A679-21B7-48ED-9F88-68078F0CE72D" name="stringList" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <typeRef>string</typeRef>
+  </itemDefinition>
+  <decision name="To Singleton List" id="_02780B09-B61A-4219-975B-ABA04FFDABE1">
+    <variable name="To Singleton List" id="_A29D233B-9C89-44E7-BAEB-194BCBA54585" typeRef="stringList" />
+    <literalExpression id="_270B6641-1C19-449D-9FE6-1953A35A9878" typeRef="stringList" label="To Singleton List">
+      <text>&quot;abc&quot;</text>
+    </literalExpression>
+  </decision>
+  <decision name="From Singleton List" id="_18456903-ED9D-438E-BF32-0150AF228218">
+    <variable name="From Singleton List" id="_5E841794-8708-4420-B6B2-310617A50729" typeRef="string" />
+    <literalExpression id="_99F52A00-5DEE-4985-BEC2-41F850B031D6" typeRef="string" label="From Singleton List">
+      <text>[&quot;abc&quot;]</text>
+    </literalExpression>
+  </decision>
+  <decision name="From Date To Date and Time" id="_64886F45-91EF-4119-B779-9C34841AC6F2">
+    <variable name="From Date To Date and Time" id="_4110D8EC-9B5C-4233-BF58-BF0C8961BF8D" typeRef="date and time" />
+    <literalExpression id="_69125618-E4D4-41A3-8AD7-225BC81B591A" typeRef="date and time" label="From Date To Date and Time">
+      <text>date(2000, 01, 02)</text>
+    </literalExpression>
+  </decision>
+  <decision name="From Singleton List Error" id="_D9834124-4E36-4167-B605-028F093F7FFD">
+    <variable name="From Singleton List Error" id="_8D1EFD62-FC3A-4058-83A0-C146DCEC7C63" typeRef="string" />
+    <literalExpression id="_A5266FFC-6596-4955-9BE3-BBAEC1F4A11F" typeRef="string" label="From Singleton List Error">
+      <text>[&quot;abc&quot;, &quot;bcd&quot;]</text>
+    </literalExpression>
+  </decision>
+  <businessKnowledgeModel name="To Singleton List BKM" id="_6476F970-C1FE-46E5-8DC3-D6241FAA8CA7">
+    <variable name="To Singleton List BKM" id="_A5EBE51D-300F-4539-8396-417C9A67C932" typeRef="functionReturningNumberList" />
+    <encapsulatedLogic label="To Singleton List BKM" id="_5762C7D0-5062-4097-A080-8E48303156A9" kind="FEEL">
+      <literalExpression id="_B807FCB3-D826-4EA2-9172-48EE16ACEA85" typeRef="number" label="Return">
+        <text>1</text>
+      </literalExpression>
+    </encapsulatedLogic>
+  </businessKnowledgeModel>
+  <businessKnowledgeModel name="From Singleton List BKM" id="_36886A3E-CFF7-4335-A2EE-1E7587A81763">
+    <variable name="From Singleton List BKM" id="_FC6F36CF-B514-44B2-9926-7129571A9519" typeRef="functionReturningNumber" />
+    <encapsulatedLogic label="From Singleton List BKM" id="_82AA651F-3809-4F9E-89EC-7EF024A5E513" kind="FEEL">
+      <literalExpression id="_3635A0AF-0ABE-4B76-B427-42A77DE710C3" typeRef="numberList" label="Return">
+        <text>[1]</text>
+      </literalExpression>
+    </encapsulatedLogic>
+  </businessKnowledgeModel>
+  <businessKnowledgeModel name="From Date To Date and Time BKM" id="_B7D3B059-9DD8-4192-9E2E-CFF2C135C896">
+    <variable name="From Date To Date and Time BKM" id="_77A7812D-A29E-4DD6-A52A-391E46498364" typeRef="functionReturningDateTime" />
+    <encapsulatedLogic label="From Date To Date and Time BKM" id="_FC342813-2279-48F1-9568-2A25237ACC73" kind="FEEL">
+      <literalExpression id="_A7593EDA-E829-4A97-A51E-756536DE28E4" typeRef="date and time" label="Return">
+        <text>date(2000, 1, 2)</text>
+      </literalExpression>
+    </encapsulatedLogic>
+  </businessKnowledgeModel>
+  <decisionService name="To Singleton List DS" id="_BF3F2933-A588-41F1-AC98-492A79088A53">
+    <variable name="To Singleton List DS" id="_4C2AB9A4-BDB1-4BC4-A9B6-040020AA235E" typeRef="functionReturningDateList" />
+    <outputDecision href="#_B3384D41-36C1-414E-A48D-FF817F728BB2" />
+  </decisionService>
+  <decision name="Body 1" id="_B3384D41-36C1-414E-A48D-FF817F728BB2">
+    <variable id="_9F749E69-EDEB-4B02-9130-E32E0F1065A1" typeRef="date" name="Body 1" />
+    <literalExpression id="_56188658-200B-4385-99B0-72CC17A8A6F7" typeRef="date" label="Body 1">
+      <text>date(2000, 1, 2)</text>
+    </literalExpression>
+  </decision>
+  <decisionService name="From Singleton List DS" id="_79630040-ED4D-4656-A7E8-700D5DF62B3F">
+    <variable name="From Singleton List DS" id="_6888721D-A77C-4EEB-BB53-0248D23E1B68" typeRef="functionReturningDate" />
+    <outputDecision href="#_A8E5ACA2-02C8-4424-A826-AC330FF424FF" />
+  </decisionService>
+  <decision name="Body 2" id="_A8E5ACA2-02C8-4424-A826-AC330FF424FF">
+    <variable id="_0B08A715-E336-4F39-8665-159D51BD30A7" typeRef="dateList" name="Body 2" />
+    <literalExpression id="_0A455E79-9FD3-469E-8917-099508B742DB" typeRef="dateList" label="Body 2">
+      <text>[date(2000, 1, 2)]</text>
+    </literalExpression>
+  </decision>
+  <decisionService name="From Date to Date and Time DS" id="_44150402-E698-4F84-B30D-51BB159F9E92">
+    <variable name="From Date to Date and Time DS" id="_A2C1C994-4A9C-4CF0-9062-4A9469E2779A" typeRef="functionReturningDateTime" />
+    <outputDecision href="#_9B10A67E-B994-492A-BB53-089F22A8B9D4" />
+  </decisionService>
+  <decision name="Body 3" id="_9B10A67E-B994-492A-BB53-089F22A8B9D4">
+    <variable id="_EDE24ED4-A39B-4FFF-9C67-11369F5F67D6" typeRef="date" name="Body 3" />
+    <literalExpression id="_363B48FD-4E56-4176-BA21-0B619143EEE7" typeRef="date" label="Body 3">
+      <text>date(2000, 1, 2)</text>
+    </literalExpression>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_B0C6BA55-676B-4873-874E-58936C272986" name="Default DRD" useAlternativeInputDataShape="false">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_270B6641-1C19-449D-9FE6-1953A35A9878">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_99F52A00-5DEE-4985-BEC2-41F850B031D6">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_69125618-E4D4-41A3-8AD7-225BC81B591A">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_B807FCB3-D826-4EA2-9172-48EE16ACEA85">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_3635A0AF-0ABE-4B76-B427-42A77DE710C3">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_A7593EDA-E829-4A97-A51E-756536DE28E4">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_56188658-200B-4385-99B0-72CC17A8A6F7">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_0A455E79-9FD3-469E-8917-099508B742DB">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_363B48FD-4E56-4176-BA21-0B619143EEE7">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_A5266FFC-6596-4955-9BE3-BBAEC1F4A11F">
+            <kie:width>190</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="_F914AC57-DB1E-4A68-8BF3-92A2F246DEE7" dmnElementRef="_02780B09-B61A-4219-975B-ABA04FFDABE1" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="180" y="80" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_246DEF29-8853-4A46-A0CF-EFDD9C767A82" dmnElementRef="_18456903-ED9D-438E-BF32-0150AF228218" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="380" y="80" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_087B84B3-7CD6-4C26-B5C9-AF0699240DD9" dmnElementRef="_64886F45-91EF-4119-B779-9C34841AC6F2" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="600" y="80" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_1C9B225A-3292-4ED0-A4A1-57EAB5FAEAD3" dmnElementRef="_6476F970-C1FE-46E5-8DC3-D6241FAA8CA7" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="180" y="260" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_2C232DA3-E400-40D7-8552-3B03067063B4" dmnElementRef="_36886A3E-CFF7-4335-A2EE-1E7587A81763" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="380" y="260" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_1C5A308F-1697-47F6-908B-04E69AFBD4D9" dmnElementRef="_B7D3B059-9DD8-4192-9E2E-CFF2C135C896" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="600" y="260" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_EE1F0C52-FE31-4D02-9EE0-33DB6587503D" dmnElementRef="_BF3F2933-A588-41F1-AC98-492A79088A53" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="200" y="440" width="320" height="320" />
+        <dmndi:DMNDecisionServiceDividerLine id="_CDA28BC0-E3C8-4CC3-ADCC-1F4CFE3F674E">
+          <di:waypoint x="200" y="600" />
+          <di:waypoint x="520" y="600" />
+        </dmndi:DMNDecisionServiceDividerLine>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_C0F3343A-F3B0-423C-AED3-6019266A27BB" dmnElementRef="_B3384D41-36C1-414E-A48D-FF817F728BB2" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="280" y="500" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_EC725A3F-65C3-4A93-B1DB-292E211C4E4C" dmnElementRef="_79630040-ED4D-4656-A7E8-700D5DF62B3F" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="560" y="440" width="320" height="320" />
+        <dmndi:DMNDecisionServiceDividerLine id="_49AFABCC-8B2B-4AF9-A4CB-114449069072">
+          <di:waypoint x="560" y="600" />
+          <di:waypoint x="880" y="600" />
+        </dmndi:DMNDecisionServiceDividerLine>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_D3592263-622B-43F8-98B9-3C5B3AC29755" dmnElementRef="_A8E5ACA2-02C8-4424-A826-AC330FF424FF" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="640" y="500" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_DDF0C227-C82A-485E-8E0C-DC82F3DFEEBD" dmnElementRef="_44150402-E698-4F84-B30D-51BB159F9E92" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="960" y="440" width="320" height="320" />
+        <dmndi:DMNDecisionServiceDividerLine id="_D935A3EC-2A99-42E1-9355-E7027D98FF1A">
+          <di:waypoint x="960" y="600" />
+          <di:waypoint x="1280" y="600" />
+        </dmndi:DMNDecisionServiceDividerLine>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_12BE23AE-E7BE-471D-89D9-D6BEA0E66CFA" dmnElementRef="_9B10A67E-B994-492A-BB53-089F22A8B9D4" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="1020" y="500" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_643D5EF5-4C75-4B77-85B7-81FF2CB032C7" dmnElementRef="_D9834124-4E36-4167-B605-028F093F7FFD" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="820" y="80" width="160" height="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

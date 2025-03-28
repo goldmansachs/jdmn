@@ -808,6 +808,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 Type importType = importDeclaration.getType();
                 if (importType instanceof ImportContextType) {
                     importContextType = (ImportContextType) importType;
+                } else {
+                    throw new DMNRuntimeException(String.format("Incorrect import declaration '%s' for import '%s'", declaration, importName));
                 }
             } else {
                 throw new DMNRuntimeException(String.format("Incorrect import declaration '%s' for import '%s'", declaration, importName));
@@ -932,6 +934,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     @Override
     public Type entryType(TDRGElement element, TContextEntry entry, TExpression expression, Expression<Type> feelExpression) {
+        // Derive FEEL type from context entry
         TDefinitions model = this.dmnModelRepository.getModel(element);
         TInformationItem variable = entry.getVariable();
         Type entryType = variableType(element, variable);
@@ -942,6 +945,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
             entryType = this.dmnTransformer.toFEELType(model, typeRef);
         }
+
+        // Derive FEEL type from FEEL expression
         if (entryType == null) {
             entryType = feelExpression.getType();
         }

@@ -74,7 +74,7 @@ class CompositeDateTime() : com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDeci
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return type.TCompositeDateTime.toTCompositeDateTime(compositeInputDateTime) as type.TCompositeDateTime?
+        return compositeInputDateTime as type.TCompositeDateTime?
     }
 
     companion object {

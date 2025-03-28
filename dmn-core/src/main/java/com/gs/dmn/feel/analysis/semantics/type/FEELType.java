@@ -27,6 +27,7 @@ import static com.gs.dmn.feel.analysis.syntax.ConversionKind.*;
 public interface FEELType {
     static ConversionKind conversionKind(Type expectedType, Type actualType) {
         expectedType = Type.extractTypeFromConstraint(expectedType);
+        actualType = Type.extractTypeFromConstraint(actualType);
         // Check when conversion is not needed
         if (Type.equivalentTo(actualType, expectedType)) {
             // Same type, no conversion
@@ -40,6 +41,9 @@ public interface FEELType {
         if (expectedType instanceof DataType && actualType instanceof DataType) {
             if (Type.conformsTo(actualType, expectedType)) {
                 return NONE;
+            } else if (expectedType instanceof DurationType && actualType instanceof DurationType) {
+                // Ignore duration variants
+                return NONE;
             }
         } else if (expectedType instanceof EnumerationType && actualType instanceof EnumerationType) {
             if (Type.conformsTo(actualType, expectedType)) {
@@ -51,11 +55,34 @@ public interface FEELType {
             }
         } else if (expectedType instanceof CompositeDataType && actualType instanceof CompositeDataType) {
             if (Type.conformsTo(actualType, expectedType)) {
+                // Convert to ItemDefinition
+                if (expectedType instanceof ItemDefinitionType) {
+                    // Convert to Item Definitions
+                    return TO_ITEM_DEFINITION;
+                }
                 return NONE;
+            } else {
+                // Actual type needs refinement, convert to ItemDefinition
+                if (expectedType instanceof ItemDefinitionType && Type.isAny(actualType)) {
+                    // Convert to Item Definitions
+                    return TO_ITEM_DEFINITION;
+                }
             }
         } else if (expectedType instanceof ListType && actualType instanceof ListType) {
             if (Type.conformsTo(actualType, expectedType)) {
+                // Not equivalent types, convert to list of Item Definitions
+                Type expectedElementType = ((ListType) expectedType).getElementType();
+                if (expectedElementType instanceof ItemDefinitionType) {
+                    return TO_LIST_OF_ITEM_DEFINITION;
+                }
                 return NONE;
+            } else {
+                // Actual type needs refinement, convert to list of Item Definitions
+                Type expectedElementType = ((ListType) expectedType).getElementType();
+                Type actualElementType = ((ListType) actualType).getElementType();
+                if (expectedElementType instanceof ItemDefinitionType && Type.isAny(actualElementType)) {
+                    return TO_LIST_OF_ITEM_DEFINITION;
+                }
             }
         } else if (expectedType instanceof FunctionType && actualType instanceof FunctionType) {
             if (Type.conformsTo(actualType, expectedType)) {

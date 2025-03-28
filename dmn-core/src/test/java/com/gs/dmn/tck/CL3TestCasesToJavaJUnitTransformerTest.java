@@ -54,6 +54,9 @@ public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
         doSingleModelTest("1.3", "0092-feel-lambda", "0092-feel-lambda-test-01");
         doSingleModelTest("1.3", "0083-feel-unicode", "0083-feel-unicode-test-01");
 
+        // DMN 1.5
+        doSingleModelTest("1.5","1157-implicit-conversions", "1157-implicit-conversions-test-01");
+
         // Extensions
         doSingleModelTest("1.1", "9001-recursive-function", "9001-recursive-function-test-01");
     }
