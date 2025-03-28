@@ -67,6 +67,15 @@
   } ],
   "elements" : [ {
     "@kind" : "bkm",
+    "id" : "_77A8EFC6-CE7B-4113-BB9F-7CEAC4B3273F",
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "fUNCT",
+    "javaTypeName" : "FUNCT",
+    "knowledgeReferences" : [ ],
+    "name" : "FUNCT",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D"
+  }, {
+    "@kind" : "bkm",
     "id" : "_B7D3B059-9DD8-4192-9E2E-CFF2C135C896",
     "javaOutputTypeName" : "java.time.temporal.TemporalAccessor",
     "javaParameterName" : "fromDateToDateAndTimeBKM",
@@ -201,6 +210,44 @@
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
     "protoRequestName" : "proto.FromSingletonListErrorRequest",
     "protoResponseName" : "proto.FromSingletonListErrorResponse",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_1DE77D02-F541-4853-B405-041FC704228C",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "implicitConversionsCE",
+    "javaTypeName" : "ImplicitConversionsCE",
+    "knowledgeReferences" : [ ],
+    "name" : "Implicit Conversions CE",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "protoRequestName" : "proto.ImplicitConversionsCERequest",
+    "protoResponseName" : "proto.ImplicitConversionsCEResponse",
+    "transitiveRequiredInput" : [ ],
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_628DFC7D-B42C-4473-9DDE-03ED44E538E5",
+    "informationReferences" : [ ],
+    "javaOutputTypeName" : "String",
+    "javaParameterName" : "implicitConversionsFUNCT",
+    "javaTypeName" : "ImplicitConversionsFUNCT",
+    "knowledgeReferences" : [ {
+      "reference" : "_77A8EFC6-CE7B-4113-BB9F-7CEAC4B3273F"
+    }, {
+      "reference" : "_77A8EFC6-CE7B-4113-BB9F-7CEAC4B3273F"
+    } ],
+    "name" : "Implicit Conversions FUNCT",
+    "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
+    "protoRequestName" : "proto.ImplicitConversionsFUNCTRequest",
+    "protoResponseName" : "proto.ImplicitConversionsFUNCTResponse",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",

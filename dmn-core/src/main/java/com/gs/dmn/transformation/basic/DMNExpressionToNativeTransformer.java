@@ -461,7 +461,7 @@ public class DMNExpressionToNativeTransformer {
                 Expression<Type> feelExpression = literalExpressionMap.get(entry);
                 entryType = this.dmnEnvironmentFactory.entryType(element, entry, expression, feelExpression);
                 String stm = this.feelTranslator.expressionToNative(feelExpression, localContext);
-                value = this.nativeFactory.makeExpressionStatement(stm, entryType);
+                value = this.nativeFactory.makeExpressionStatement(stm, feelExpression.getType());
             } else {
                 entryType = this.dmnEnvironmentFactory.entryType(element, entry, localContext);
                 value = (ExpressionStatement) this.dmnTransformer.expressionToNative(element, expression, localContext);
@@ -470,6 +470,10 @@ public class DMNExpressionToNativeTransformer {
             // Add statement
             TInformationItem variable = entry.getVariable();
             if (variable != null) {
+                // Implicit conversions
+                value = (ExpressionStatement) convertExpression(value, entryType);
+
+                // Create assignment statement
                 String type = this.dmnTransformer.toNativeType(entryType);
                 String name = this.dmnTransformer.lowerCaseFirst(variable.getName());
                 String assignmentText = this.nativeFactory.makeVariableAssignment(type, name, value.getText());
@@ -630,6 +634,10 @@ public class DMNExpressionToNativeTransformer {
                 String paramName = param.getName();
                 if (argBinding.containsKey(paramName)) {
                     Statement argValue = argBinding.get(paramName);
+
+                    // Implicit conversions
+                    argValue = this.convertExpression(argValue, param.getType());
+
                     argList.add(argValue);
                 } else {
                     throw new UnsupportedOperationException(String.format("Cannot find binding for parameter '%s'", paramName));

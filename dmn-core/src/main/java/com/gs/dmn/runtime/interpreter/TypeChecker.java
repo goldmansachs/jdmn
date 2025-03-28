@@ -173,14 +173,48 @@ public class TypeChecker {
         this.throwError = true;
     }
 
+    //
+    // Convert and check constraints when binding to a variable
+    //
+    public Result checkBindingResult(Result result, TInformationItem variable, TDefinitions model) {
+        if (variable == null || variable.getTypeRef() == null) {
+            return result;
+        }
+
+        // Check result
+        QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
+        if (typeRef != null) {
+            Type expectedType = dmnTransformer.toFEELType(model, typeRef);
+            result = checkBindingResult(result, expectedType);
+        }
+
+        return result;
+    }
+
     public Result checkBindingResult(Result result, Type expectedType) {
-        // Apply conversions
-        Result finalResult = convertValue(result, expectedType);
+        // Apply implicit conversions
+        Result finalResult = convertValue(Result.value(result), expectedType);
 
         // Check constraints
         return checkConstraints(finalResult, expectedType);
     }
 
+    public Result checkBindingArgument(Object value, Type parameterType) {
+        // Apply conversions
+        Result finalResult = convertValue(value, parameterType);
+
+        // Check constraints
+        return checkConstraints(finalResult, parameterType);
+    }
+
+    public Object checkBindingArgument(Object value, Conversion<Type> conversion) {
+        Result finalResult = checkBindingArgument(value, conversion.getTargetType());
+        return Result.value(finalResult);
+    }
+
+    //
+    // Check constraints when evaluating an expression
+    //
     public Result checkExpressionResult(Result result, TExpression expression, TDefinitions model) {
         QName typeRef = expression.getTypeRef();
         if (typeRef == null) {
@@ -195,56 +229,6 @@ public class TypeChecker {
     public Result checkExpressionResult(Result result, Type expectedType) {
         // Check constraints
         return checkConstraints(result, expectedType);
-    }
-
-    private Result checkConstraints(Result result, Type expectedType) {
-        // Check constraints
-        if (checkConstraints) {
-            Type actualType = Result.type(result);
-            if (Type.conformsTo(actualType, expectedType)) {
-                Object value = Result.value(result);
-                value = AllowedValuesConverter.validateConstraint(value, expectedType, elInterpreter, dmnTransformer);
-                result = Result.of(value, expectedType);
-            }
-        }
-        return result;
-    }
-
-    public Result checkArgument(Result argResult, TInformationItem parameter, TDefinitions model) {
-        QName typeRef = parameter.getTypeRef();
-        if (typeRef == null) {
-            return argResult;
-        }
-
-        // Apply conversions
-        Type parameterType = dmnTransformer.toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
-        Result finalResult = convertValue(argResult, parameterType);
-
-        // Check constraints
-        return checkConstraints(finalResult, parameterType);
-    }
-
-    public Result checkArgument(Object value, Type parameterType) {
-        // Apply conversions
-        Result finalResult = convertValue(makeResult(value, parameterType), parameterType);
-
-        // Check constraints
-        return checkConstraints(finalResult, parameterType);
-    }
-
-    public Object checkArgument(Object value, Conversion<Type> conversion) {
-        // Apply conversions
-        ConversionKind kind = conversion.getKind();
-        return convertValue(makeResult(value, NULL), kind);
-    }
-
-    public Object checkEntry(Object entryValue, Type entryType) {
-        // Apply conversions
-        Result finalResult = convertValue(makeResult(entryValue, entryType), entryType);
-
-        // Check constraints
-        Result result = checkConstraints(finalResult, entryType);
-        return Result.value(result);
     }
 
     public Result checkListElement(Result elementResult, QName typeRef, TDefinitions model) {
@@ -276,21 +260,34 @@ public class TypeChecker {
         return checkBindingResult(result, paramType);
     }
 
-    private Result convertValue(Result result, Type expectedType) {
+    private Result checkConstraints(Result result, Type expectedType) {
+        // Check constraints
+        if (checkConstraints) {
+            Type actualType = Result.type(result);
+            if (Type.conformsTo(actualType, expectedType)) {
+                Object value = Result.value(result);
+                value = AllowedValuesConverter.validateConstraint(value, expectedType, elInterpreter, dmnTransformer);
+                result = Result.of(value, expectedType);
+            }
+        }
+        return result;
+    }
+
+    private Result convertValue(Object value, Type expectedType) {
         expectedType = Type.extractTypeFromConstraint(expectedType);
-        if (Result.value(result) == null) {
-            return Result.of(Result.value(result), expectedType);
+        if (value == null) {
+            return Result.of(value, expectedType);
         }
 
         // Dynamic conversion
         if (expectedType == null) {
             expectedType = ANY;
         }
-        ConversionKind conversionKind = conversionKind(result, expectedType);
+        ConversionKind conversionKind = conversionKind(value, expectedType);
         if (throwError && conversionKind.isError()) {
-            throw new DMNRuntimeException(String.format("Value '%s' does not conform to type '%s'", result, expectedType));
+            throw new DMNRuntimeException(String.format("Value '%s' does not conform to type '%s'", value, expectedType));
         }
-        Object newValue = convertValue(result, conversionKind);
+        Object newValue = convertValue(value, conversionKind);
         return Result.of(newValue, expectedType);
     }
 
@@ -302,12 +299,11 @@ public class TypeChecker {
         return typeRef;
     }
 
-    private ConversionKind conversionKind(Result result, Type expectedType) {
-        return FEELType.conversionKind(expectedType, valueType(Result.value(result), expectedType));
+    private ConversionKind conversionKind(Object value, Type expectedType) {
+        return FEELType.conversionKind(expectedType, valueType(value, expectedType));
     }
 
-    private Object convertValue(Result result, ConversionKind kind) {
-        Object value = Result.value(result);
+    private Object convertValue(Object value, ConversionKind kind) {
         if (kind == NONE) {
             return value;
         } else if (kind == ELEMENT_TO_SINGLETON_LIST) {
@@ -323,11 +319,5 @@ public class TypeChecker {
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", kind));
         }
-    }
-
-    private Result makeResult(Object value, Type expectType) {
-        Type actualType = valueType(value, expectType);
-
-        return Result.of(value, actualType);
     }
 }

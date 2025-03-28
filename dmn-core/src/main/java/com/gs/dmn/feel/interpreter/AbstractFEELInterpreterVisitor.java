@@ -720,16 +720,18 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     public Object visit(FunctionInvocation<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        // Evaluate and convert actual parameters
+        // Evaluate actual parameters
         Parameters<Type> parameters = element.getParameters();
         parameters.accept(this, context);
-        Arguments<Type> arguments = parameters.convertArguments((value, conversion) -> this.dmnInterpreter.getTypeChecker().checkArgument(value, conversion));
+
+        // Convert actual parameters
+        Arguments<Type> arguments = parameters.convertArguments((value, conversion) -> this.dmnInterpreter.getTypeChecker().checkBindingArgument(value, conversion));
+
+        // Evaluate function
         Expression<Type> function = element.getFunction();
         FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter<Type>> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
-
-        // Evaluate function
         return evaluateFunction(function, functionType, argList, context);
     }
 
@@ -830,7 +832,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             // check for optional and varArgs parameters (builtin functions)
             if (parameter.isOptional()) {
                 if (i < argList.size()) {
-                    Object value = checkArgument(argList.get(i), type);
+                    Object value = checkBindingArgument(argList.get(i), type);
                     // Add variable declaration and bind
                     functionContext.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
                     functionContext.bind(name, value);
@@ -838,14 +840,14 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             } else if (parameter.isVarArg()) {
                 List<Object> value = new ArrayList<>();
                 for (int j = i; j < argList.size(); j++) {
-                    Object varArg = checkArgument(argList.get(j), type);
+                    Object varArg = checkBindingArgument(argList.get(j), type);
                     value.add(varArg);
                 }
                 // Add variable declaration and bind
                 functionContext.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
                 functionContext.bind(name, value);
             } else {
-                Object value = checkArgument(argList.get(i), type);
+                Object value = checkBindingArgument(argList.get(i), type);
                 // Add variable declaration and bind
                 functionContext.addDeclaration(environmentFactory.makeVariableDeclaration(name, type));
                 functionContext.bind(name, value);
@@ -853,9 +855,9 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         }
     }
 
-    private Object checkArgument(Object value, Type type) {
+    private Object checkBindingArgument(Object value, Type type) {
         // Check value
-        Result result = this.dmnInterpreter.getTypeChecker().checkArgument(value, type);
+        Result result = this.dmnInterpreter.getTypeChecker().checkBindingArgument(value, type);
         value = Result.value(result);
         return value;
     }

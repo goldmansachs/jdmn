@@ -540,13 +540,15 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         // Generate code for actual parameters
         Parameters<Type> parameters = element.getParameters();
         parameters.accept(this, context);
-        Arguments<Type> arguments = parameters.convertArguments(this::convertArgument);
+
+        // Generate code for conversion
+        Arguments<Type> arguments = parameters.convertArguments(this::checkBindingArgument);
+
+        // Generate code for function invocation
         Expression<Type> function = element.getFunction();
         FunctionType functionType = (FunctionType) function.getType();
         List<FormalParameter<Type>> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
-
-        // Generate code for function
         Triple javaFunctionCode = (Triple) function.accept(this, context);
         if (functionType instanceof BuiltinFunctionType) {
             List<Triple> operands = visitArgList(argList);
@@ -601,7 +603,8 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         argList.add(this.triples.name(dmnTransformer.executionContextVariableName()));
     }
 
-    protected Triple convertArgument(Object param, Conversion<Type> conversion) {
+    protected Triple checkBindingArgument(Object param, Conversion<Type> conversion) {
+        // TODO check constraints
         if (param instanceof Triple) {
             return this.triples.makeConvertArgument((Triple) param, conversion);
         } else {

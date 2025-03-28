@@ -390,7 +390,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             Object value = argList.get(i);
 
             // Check argument
-            Result result = this.typeChecker.checkArgument(value, paramType);
+            Result result = this.typeChecker.checkBindingArgument(value, paramType);
             value = Result.value(result);
 
             // Declaration is already in environment
@@ -408,7 +408,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             Object value = argList.get(i);
 
             // Check argument
-            Result result = this.typeChecker.checkArgument(value, type);
+            Result result = this.typeChecker.checkBindingArgument(value, type);
             value = Result.value(result);
 
             // Variable declaration already exists
@@ -685,7 +685,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 Result argResult = this.visit(argExpression, EvaluationContext.makeExpressionEvaluationContext(element, parentContext, elementAnnotation));
 
                 // Check argument
-                argResult = typeChecker.checkArgument(argResult, binding.getParameter(), model);
+                argResult = typeChecker.checkBindingResult(argResult, binding.getParameter(), model);
                 Object argJava = Result.value(argResult);
 
                 // Bind argument
@@ -751,17 +751,23 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 } else {
                     entryResult = null;
                 }
-                entryResultMap.put(entry, entryResult);
 
                 // Add runtime binding
                 TInformationItem variable = entry.getVariable();
                 if (variable != null) {
+                    // Check result
+                    entryResult = typeChecker.checkBindingResult(entryResult, variable, model);
+
+                    // Bind result for next entries
                     String entryName = variable.getName();
                     Object entryValue = Result.value(entryResult);
                     localContext.bind(entryName, entryValue);
                 } else {
                     returnResult = entryResult;
                 }
+
+                // Store entry result
+                entryResultMap.put(entry, entryResult);
             }
 
             // Return result
@@ -779,8 +785,9 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                         String entryName = variable.getName();
                         String typeRef = QualifiedName.toName(variable.getTypeRef());
                         Type entryType;
+                        Result entryResult = entryResultMap.get(entry);
                         if (StringUtils.isEmpty(typeRef)) {
-                            Result entryResult = entryResultMap.get(entry);
+                            // Infer entry type from value
                             entryType = Result.type(entryResult);
                         } else {
                             entryType = dmnTransformer.toFEELType(model, typeRef);
@@ -788,11 +795,8 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                         // Add member type
                         type.addMember(entryName, new ArrayList<>(), entryType);
 
-                        // Check constraint for entry
-                        Object entryValue = localContext.lookupBinding(entryName);
-                        entryValue = typeChecker.checkEntry(entryValue, entryType);
                         // Add entry value
-                        output.add(entryName, entryValue);
+                        output.add(entryName, Result.value(entryResult));
                     }
                 }
                 // Return value
