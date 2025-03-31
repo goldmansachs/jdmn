@@ -21,15 +21,11 @@ public abstract class Parameters<T> extends Element<T> {
     // API for initial status
     public abstract boolean isEmpty();
     public abstract ParameterTypes<T> getSignature();
-    public abstract Arguments<T> getOriginalArguments();
     public abstract void setOriginalArguments(Arguments<T> originalArguments);
 
     // API during and after conversion
-    public abstract ParameterConversions<T> getParameterConversions();
     public abstract void setParameterConversions(ParameterConversions<T> parameterConversions);
-    public abstract ParameterTypes<T> getConvertedParameterTypes();
     public abstract void setConvertedParameterTypes(ParameterTypes<T> parameterTypes);
-    public abstract Arguments<T> getConvertedArguments();
     public abstract Arguments<T> convertArguments(BiFunction<Object, Conversion<T>, Object> convertArgument);
 
     public abstract T getParameterType(int position, String name);

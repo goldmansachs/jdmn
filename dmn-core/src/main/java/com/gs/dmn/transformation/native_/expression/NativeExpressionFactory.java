@@ -44,8 +44,6 @@ public interface NativeExpressionFactory {
     //
     String makeItemDefinitionAccessor(String javaType, String source, String memberName);
 
-    String makeItemDefinitionSelectExpression(String source, String memberName, String memberType);
-
     String makeContextAccessor(String javaType, String source, String memberName);
 
     String makeCollectionMap(String source, String filter);
@@ -102,7 +100,6 @@ public interface NativeExpressionFactory {
     // Equality
     //
     String isNull(String exp);
-    String makeEquality(String left, String right);
 
     //
     // Functions

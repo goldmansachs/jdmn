@@ -51,18 +51,8 @@ public class PositionalParameters<T> extends Parameters<T> {
     }
 
     @Override
-    public Arguments<T> getOriginalArguments() {
-        return this.originalArguments;
-    }
-
-    @Override
     public void setOriginalArguments(Arguments<T> originalArguments) {
         this.originalArguments = (PositionalArguments<T>) originalArguments;
-    }
-
-    @Override
-    public ParameterConversions<T> getParameterConversions() {
-        return this.parameterConversions;
     }
 
     @Override
@@ -71,18 +61,8 @@ public class PositionalParameters<T> extends Parameters<T> {
     }
 
     @Override
-    public ParameterTypes<T> getConvertedParameterTypes() {
-        return this.parameterTypes;
-    }
-
-    @Override
     public void setConvertedParameterTypes(ParameterTypes<T> parameterTypes) {
         this.parameterTypes = (PositionalParameterTypes<T>) parameterTypes;
-    }
-
-    @Override
-    public Arguments<T> getConvertedArguments() {
-        return this.convertedArguments;
     }
 
     @Override

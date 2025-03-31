@@ -97,11 +97,6 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String makeItemDefinitionSelectExpression(String source, String memberName, String memberType) {
-        return String.format("((%s)%s.%s)", memberType, source, this.transformer.contextGetter(memberName));
-    }
-
-    @Override
     public String makeContextAccessor(String javaType, String source, String memberName) {
         return String.format("((%s)((%s)%s).%s)", javaType, this.transformer.contextClassName(), source, this.transformer.contextGetter(memberName));
     }
@@ -248,11 +243,6 @@ public class JavaFactory implements NativeFactory {
     @Override
     public String isNull(String exp) {
         return String.format("%s == %s", exp, this.nullLiteral());
-    }
-
-    @Override
-    public String makeEquality(String left, String right) {
-        return String.format("%s == %s", left, right);
     }
 
     //

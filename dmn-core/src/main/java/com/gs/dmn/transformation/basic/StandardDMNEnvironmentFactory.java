@@ -799,7 +799,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             // Lookup / add variable declaration for import context
             String importName = importPath.getPathElements().get(0);
             Declaration importDeclaration = environment.lookupLocalVariableDeclaration(importName);
-            ImportContextType importContextType = null;
+            ImportContextType importContextType;
             if (importDeclaration == null) {
                 importContextType = new ImportContextType(importName);
                 importDeclaration = this.environmentFactory.makeVariableDeclaration(importName, importContextType);

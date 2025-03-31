@@ -63,12 +63,6 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String makeItemDefinitionSelectExpression(String source, String memberName, String memberType) {
-        String nullableType = this.typeFactory.nullableType(memberType);
-        return String.format("(%s.%s) as %s", source, memberName, nullableType);
-    }
-
-    @Override
     public String makeContextAccessor(String javaType, String source, String memberName) {
         String contextClassName = this.transformer.contextClassName();
         String nullableType = this.typeFactory.nullableType(javaType);
@@ -321,11 +315,6 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
             String javaType = transformer.itemDefinitionNativeClassName(transformer.toNativeType(type));
             return String.format("%s?.let({ %s.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<%s>() {}) })", paramName, objectMapper(), javaType);
         }
-    }
-
-    @Override
-    protected String listToElementConversionFunction(String javaType) {
-        return "asElement";
     }
 
     @Override

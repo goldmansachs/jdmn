@@ -706,7 +706,7 @@ public class DMNExpressionToNativeTransformer {
         // Scan expressions and translate each expression
         List<String> listValue = new ArrayList<>();
         List<TExpression> expList = list.getExpression();
-        for (TExpression expression : expList) {
+        for (TExpression expression: expList) {
             String expValue;
             if (expression == null) {
                 expValue = this.nativeFactory.nullLiteral();

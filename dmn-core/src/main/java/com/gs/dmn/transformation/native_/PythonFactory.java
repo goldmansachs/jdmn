@@ -85,11 +85,6 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String makeItemDefinitionSelectExpression(String source, String memberName, String memberType) {
-        return String.format("%s.%s", source, memberName);
-    }
-
-    @Override
     public String makeContextAccessor(String javaType, String source, String memberName) {
         return String.format("%s.%s", source, this.transformer.contextGetter(memberName));
     }

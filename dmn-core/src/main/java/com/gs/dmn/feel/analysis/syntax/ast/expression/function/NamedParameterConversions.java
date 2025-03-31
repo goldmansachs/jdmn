@@ -65,11 +65,6 @@ public class NamedParameterConversions<T> extends ParameterConversions<T> {
     }
 
     @Override
-    public boolean hasConversion(ConversionKind kind) {
-        return this.conversions.values().stream().anyMatch(c -> c.getKind() == kind);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
