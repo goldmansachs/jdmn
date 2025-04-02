@@ -27,6 +27,7 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.type.time.xml.XMLCalendarType;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.DMNType;
 import com.gs.dmn.runtime.Range;
 import com.gs.dmn.runtime.function.BuiltinFunction;
 import com.gs.dmn.runtime.function.DMNFunction;
@@ -70,6 +71,8 @@ public class TypeChecker {
             actualType = DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
         } else if (isYearsAndMonthDuration(value)) {
             actualType = YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
+        } else if (value instanceof DMNType) {
+            return valueType(((DMNType) value).toContext(), expectedType);
         } else if (value instanceof Context) {
             Context context = (Context) value;
             ContextType contextType = new ContextType();
