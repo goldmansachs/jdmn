@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
-import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.syntax.ConversionKind.*;
 
 public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.type.FunctionType, FEELType {
@@ -44,7 +43,7 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
         }
 
         @Override
-        protected List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(List argumentTypes) {
+        protected List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(List<Type> argumentTypes) {
             return null;
         }
     };
@@ -117,114 +116,60 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
     protected ArrayList<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> calculateCandidates(List<Type> parameterTypes, List<Type> argumentTypes) {
         // calculate candidates
         Set<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> candidates = new LinkedHashSet<>();
-        int argumentSize = argumentTypes.size();
-        ConversionKind[] candidateConversions = FUNCTION_RESOLUTION_CANDIDATES;
-        int conversionSize = candidateConversions.length;
 
-        // For every sequence of conversions
-        int[] conversionMap = init(argumentSize);
-        // Skip the exact match
-        conversionMap = next(conversionMap, argumentSize, conversionSize);
-        while (conversionMap != null) {
-            // Calculate new types and conversions for every argument
-            List<Type> newTypes = new ArrayList<>();
-            PositionalParameterConversions<Type> conversions = new PositionalParameterConversions<>();
-            boolean different = false;
-            boolean failed = false;
-            for (int i = 0; i < argumentSize; i++) {
-                // Compute new type and conversion
-                ConversionKind kind = candidateConversions[conversionMap[i]];
-                Type argumentType = argumentTypes.get(i);
-                Type newArgumentType = argumentType;
-                Conversion<Type> conversion = new Conversion<>(NONE, newArgumentType);
-                if (i < parameterTypes.size()) {
-                    Type parameterType = parameterTypes.get(i);
-                    if (kind == NONE) {
-                        // No conversion
-                    } else if (kind == ELEMENT_TO_SINGLETON_LIST) {
-                        // When the type of the expression is T and the target type is List<T> the expression is converted to a singleton list.
-                        if (parameterType instanceof ListType) {
-                            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(argumentType, ((ListType) parameterType).getElementType())) {
-                                newArgumentType = new ListType(argumentType);
-                                conversion = new Conversion<>(kind, newArgumentType);
-                                different = true;
-                            }
-                        }
-                    } else if (kind == SINGLETON_LIST_TO_ELEMENT) {
-                        // When the type of the expression is List<T>, the value of the expression is a singleton list and the target type is T,
-                        // the expression is converted by unwraping the first element.
-                        if (argumentType instanceof ListType) {
-                            if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(parameterType, ((ListType) argumentType).getElementType())) {
-                                newArgumentType = ((ListType) argumentType).getElementType();
-                                conversion = new Conversion<>(kind, newArgumentType);
-
-                                different = true;
-                            }
-                        }
-                    } else if (kind == DATE_TO_UTC_MIDNIGHT) {
-                        // When the type of the expression is date, the value of the expression is a date and the target type is date and time,
-                        // the expression is converted to UTC midnight data and time.
-                        if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(argumentType, DATE) && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(parameterType, DATE_AND_TIME)) {
-                            newArgumentType = DATE_AND_TIME;
-                            conversion = new Conversion<>(kind, newArgumentType);
-
-                            different = true;
-                        }
-                    } else {
-                        throw new SemanticError(String.format("Conversion '%s' is not supported yet", kind));
-                    }
-                    // Check if new argument type matches
-                    boolean newArgumentTypeOk = Type.conformsTo(newArgumentType, parameterType);
-                    if (!newArgumentTypeOk) {
-                        failed = true;
-                        break;
-                    } else {
-                        newTypes.add(newArgumentType);
-                        conversions.add(conversion);
-                    }
+        // Calculate the new types and conversions for every argument
+        List<Type> newTypes = new ArrayList<>();
+        PositionalParameterConversions<Type> conversions = new PositionalParameterConversions<>();
+        boolean different = false;
+        boolean failed = false;
+        ConversionKind kind = NONE;
+        Type newArgumentType = null;
+        for (int i = 0; i < argumentTypes.size(); i++) {
+            // Compute new type and conversion
+            Type argumentType = argumentTypes.get(i);
+            if (i < parameterTypes.size()) {
+                Type parameterType = parameterTypes.get(i);
+                kind = FEELType.conversionKind(parameterType, argumentType);
+                if (kind == NONE) {
+                    // No conversion
+                    newArgumentType = parameterType;
+                } else if (kind == ELEMENT_TO_SINGLETON_LIST) {
+                    // When the type of the expression is T and the target type is List<T> the expression is converted to a singleton list.
+                    newArgumentType = parameterType;
+                    different = true;
+                } else if (kind == SINGLETON_LIST_TO_ELEMENT) {
+                    // When the type of the expression is List<T>, the value of the expression is a singleton list and the target type is T,
+                    // the expression is converted by unwraping the first element.
+                    newArgumentType = parameterType;
+                    different = true;
+                } else if (kind == DATE_TO_UTC_MIDNIGHT) {
+                    // When the type of the expression is date, the value of the expression is a date and the target type is date and time,
+                    // the expression is converted to UTC midnight data and time.
+                    newArgumentType = DATE_AND_TIME;
+                    different = true;
+                } else if (kind == CONFORMS_TO) {
+                    failed = true;
+                } else {
+                    throw new SemanticError(String.format("Conversion '%s' is not supported yet", kind));
                 }
             }
 
-            // Add new candidate
-            if (different && !failed) {
-                PositionalParameterTypes<Type> newSignature = new PositionalParameterTypes<>(newTypes);
-                candidates.add(new Pair<>(newSignature, conversions));
-            }
-
-            // Next sequence
-            conversionMap = next(conversionMap, argumentSize, conversionSize);
-        }
-        return new ArrayList<>(candidates);
-    }
-
-    // Initialise the sequence of vectors
-    protected int[] init(int power) {
-        int[] vector = new int[power];
-        for (int i = 0; i < power; i++) {
-            vector[i] = 0;
-        }
-        return vector;
-    }
-
-    // Generate next vector in sequence
-    protected int[] next(int[] vector, int power, int cardinal) {
-        for (int i = power - 1; i >= 0; i--) {
-            if (vector[i] == cardinal - 1) {
-                vector[i] = 0;
+            // Check if new argument type matches
+            if (failed) {
+                break;
             } else {
-                vector[i]++;
-                break;
+                newTypes.add(newArgumentType);
+                conversions.add(new Conversion<>(kind, newArgumentType));
             }
         }
-        // Check end of sequence
-        boolean end = true;
-        for (int i = 0; i < power; i++) {
-            if (vector[i] != 0) {
-                end = false;
-                break;
-            }
+
+        // Add new candidate
+        if (different && !failed) {
+            PositionalParameterTypes<Type> newSignature = new PositionalParameterTypes<>(newTypes);
+            candidates.add(new Pair<>(newSignature, conversions));
         }
-        return end ? null : vector;
+
+        return new ArrayList<>(candidates);
     }
 
     protected boolean compatible(ParameterTypes<Type> parameterTypes, List<FormalParameter<Type>> parameters) {

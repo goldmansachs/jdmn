@@ -47,6 +47,9 @@ public abstract class FunctionTypeTest {
         doTest(Arrays.asList(NUMBER, DATE_AND_TIME), Arrays.asList(NUMBER, DATE), "[" +
                 "Pair(PositionalParameterTypes(number, date and time), PositionalParameterConversions([Conversion(NONE, number), Conversion(DATE_TO_UTC_MIDNIGHT, date and time)]))" +
                 "]");
+        doTest(Arrays.asList(DATE_AND_TIME), Arrays.asList(DATE, DATE), "[" +
+                "Pair(PositionalParameterTypes(date and time, date and time), PositionalParameterConversions([Conversion(DATE_TO_UTC_MIDNIGHT, date and time), Conversion(DATE_TO_UTC_MIDNIGHT, date and time)]))" +
+                "]");
     }
 
     private void doTest(List<Type> parameterTypes, List<Type> argumentTypes, String expectedCandidates) {

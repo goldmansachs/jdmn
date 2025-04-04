@@ -23,13 +23,6 @@ public enum ConversionKind {
     TO_ITEM_DEFINITION(false, false),
     TO_LIST_OF_ITEM_DEFINITION(false, false);
 
-    public static final ConversionKind[] FUNCTION_RESOLUTION_CANDIDATES = new ConversionKind[] {
-            NONE,
-            ELEMENT_TO_SINGLETON_LIST,
-            SINGLETON_LIST_TO_ELEMENT,
-            DATE_TO_UTC_MIDNIGHT
-    };
-
     private final boolean implicit;
     private final boolean error;
 
