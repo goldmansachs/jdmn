@@ -13,28 +13,15 @@
 package com.gs.dmn.feel.lib.type.string;
 
 import com.gs.dmn.feel.lib.FormatUtils;
-import net.sf.saxon.Configuration;
-import net.sf.saxon.dom.DocumentBuilderImpl;
-import net.sf.saxon.xpath.XPathFactoryImpl;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
+import net.sf.saxon.s9api.*;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class DefaultStringLib implements StringLib {
@@ -203,7 +190,7 @@ public class DefaultStringLib implements StringLib {
     }
 
     @Override
-    public List<String> split(String string, String delimiter) {
+    public List<String> split(String string, String delimiter) throws Exception {
         if (string == null || delimiter == null) {
             return null;
         }
@@ -211,22 +198,7 @@ public class DefaultStringLib implements StringLib {
             return null;
         }
 
-        Pattern p = Pattern.compile(delimiter);
-        Matcher m = p.matcher(string);
-        List<String> result = new ArrayList<>();
-        int start = 0;
-        while (m.find(start)) {
-            int delimiterStart = m.start();
-            int delimiterEnd = m.end();
-            String token = string.substring(start, delimiterStart);
-            result.add(token);
-            start = delimiterEnd;
-        }
-        if (start <= string.length()) {
-            String token = string.substring(start);
-            result.add(token);
-        }
-        return result;
+        return evaluateSplit(string, delimiter);
     }
 
     @Override
@@ -271,28 +243,52 @@ public class DefaultStringLib implements StringLib {
         return result;
     }
 
-    private String evaluateReplace(String input, String pattern, String replacement, String flags) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
-        String expression = String.format("replace(/root, '%s', '%s', '%s')", pattern, replacement, flags);
-        return evaluateXPath(input, expression);
+    private String evaluateReplace(String input, String pattern, String replacement, String flags) throws Exception {
+        String functionName = "replace";
+        List<String> paramNames = Arrays.asList("input", "pattern", "replacement", "flags");
+        List<String> arguments = Arrays.asList(input, pattern, replacement, flags);
+        XdmValue result = evaluateFunction(functionName, paramNames, arguments);
+        return ((XdmAtomicValue) result).getStringValue();
     }
 
-    private boolean evaluateMatches(String input, String pattern, String flags) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
-        String expression = String.format("/root[matches(., '%s', '%s')]", pattern, flags);
-        String value = evaluateXPath(input, expression);
-        return input.equals(value);
+    private boolean evaluateMatches(String input, String pattern, String flags) throws Exception {
+        String functionName = "matches";
+        List<String> paramNames = Arrays.asList("input", "pattern", "flags");
+        List<String> arguments = Arrays.asList(input, pattern, flags);
+        XdmValue result = evaluateFunction(functionName, paramNames, arguments);
+        return ((XdmAtomicValue) result).getBooleanValue();
     }
 
-    private String evaluateXPath(String input, String expression) throws SAXException, IOException, XPathExpressionException {
-        // Read document
-        String xml = "<root>" + input + "</root>";
-        DocumentBuilderImpl builder = new DocumentBuilderImpl();
-        InputStream inputStream = new ByteArrayInputStream(xml.getBytes());
-        Document document = builder.parse(inputStream);
-        Configuration configuration = builder.getConfiguration();
+    private List<String> evaluateSplit(String input, String pattern) throws SaxonApiException {
+        String functionName = "tokenize";
+        List<String> paramNames = Arrays.asList("input", "pattern");
+        List<String> arguments = Arrays.asList(input, pattern);
+        XdmValue result = evaluateFunction(functionName, paramNames, arguments);
+        // Iterate over the resulting tokens
+        return result.stream().map(XdmItem::getStringValue).collect(Collectors.toList());
+    }
 
-        // Evaluate xpath
-        XPathFactory xPathFactory = new XPathFactoryImpl(configuration);
-        XPath xPath = xPathFactory.newXPath();
-        return xPath.evaluate(expression, document.getDocumentElement());
+    private static XdmValue evaluateFunction(String functionName, List<String> paramNames, List<String> arguments) throws SaxonApiException {
+        // Create a Saxon processor
+        Processor processor = new Processor(false);
+        XPathCompiler xpathCompiler = processor.newXPathCompiler();
+
+        // Declare variables in the XPath expression
+        for (String param: paramNames) {
+            xpathCompiler.declareVariable(new QName(param));
+        }
+
+        // Construct an XPath expression using the tokenize() function
+        String call = String.format("%s(%s)", functionName, paramNames.stream().map(p -> "$"+p).collect(Collectors.joining(", ")));
+        XPathExecutable compile = xpathCompiler.compile(call);
+        XPathSelector selector = compile.load();
+
+        // Set the input string and pattern as variables
+        for (int i = 0; i< paramNames.size(); i++) {
+            selector.setVariable(new QName(paramNames.get(i)), new XdmAtomicValue(arguments.get(i)));
+        }
+
+        // Evaluate the XPath expression
+        return selector.evaluate();
     }
 }
