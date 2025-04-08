@@ -99,7 +99,7 @@ public class AccessCertainTemporalUnits extends com.gs.dmn.signavio.runtime.Java
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-            output_ = ruleOutputs_.stream().map(o -> ((AccessCertainTemporalUnitsRuleOutput)o).getAccessCertainTemporalUnits()).collect(Collectors.toList());
+            output_ = ruleOutputs_.stream().map(ro_ -> ((AccessCertainTemporalUnitsRuleOutput)ro_).getAccessCertainTemporalUnits()).collect(Collectors.toList());
         }
 
         return output_;

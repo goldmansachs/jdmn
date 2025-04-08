@@ -86,7 +86,7 @@ class ProcessPriorIssues() : com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
             }
         } else {
             val ruleOutputs_: List<com.gs.dmn.runtime.RuleOutput> = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT)
-            output_ = ruleOutputs_.stream().map({ o -> (o as ProcessPriorIssuesRuleOutput).processPriorIssues }).collect(Collectors.toList())
+            output_ = ruleOutputs_.stream().map({ ro_ -> (ro_ as ProcessPriorIssuesRuleOutput).processPriorIssues }).collect(Collectors.toList())
         }
 
         return output_

@@ -91,7 +91,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String makeCollectionMap(String source, String filter) {
-        return String.format("list(map(lambda x: %s, %s))", filter, source);
+        return String.format("list(map(lambda %s: %s, %s))", MAP_ITERATOR, filter, source);
     }
 
     @Override
@@ -180,15 +180,15 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String makeMinAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("self.min(list(map(lambda o: o.%s, %s)))",
-                outputClauseVariableName, ruleOutputListVariableName
+        return String.format("self.min(list(map(lambda %s: %s.%s, %s)))",
+                MAP_ITERATOR, MAP_ITERATOR, outputClauseVariableName, ruleOutputListVariableName
         );
     }
 
     @Override
     public String makeMaxAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("self.max(list(map(lambda o: o.%s, %s)))",
-               outputClauseVariableName, ruleOutputListVariableName
+        return String.format("self.max(list(map(lambda %s: %s.%s, %s)))",
+               MAP_ITERATOR, MAP_ITERATOR, outputClauseVariableName, ruleOutputListVariableName
         );
     }
 
@@ -199,8 +199,8 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String makeSumAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("self.sum(list(map(lambda o: o.%s, %s)))",
-                outputClauseVariableName, ruleOutputListVariableName
+        return String.format("self.sum(list(map(lambda %s: %s.%s, %s)))",
+                MAP_ITERATOR, MAP_ITERATOR, outputClauseVariableName, ruleOutputListVariableName
         );
     }
 

@@ -54,7 +54,7 @@ class Join() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
         var eventListener_: com.gs.dmn.runtime.listener.EventListener = context_.getEventListener()
         var externalExecutor_: com.gs.dmn.runtime.external.ExternalFunctionExecutor = context_.getExternalFunctionExecutor()
         var cache_: com.gs.dmn.runtime.cache.Cache = context_.getCache()
-        return (elementAt(deptTable?.filter({ item -> numericEqual(item?.let({ it.number as kotlin.Number? }), (elementAt(employeeTable?.filter({ item_1_ -> stringEqual(item_1_?.let({ it.name as String? }), lastName) })?.map({ x -> x?.let({ it.deptNum as kotlin.Number? }) }), number("1")) as kotlin.Number?)) })?.map({ x -> x?.let({ it.manager as String? }) }), number("1")) as String?) as String?
+        return (elementAt(deptTable?.filter({ item -> numericEqual(item?.let({ it.number as kotlin.Number? }), (elementAt(employeeTable?.filter({ item_1_ -> stringEqual(item_1_?.let({ it.name as String? }), lastName) })?.map({ x_ -> x_?.let({ it.deptNum as kotlin.Number? }) }), number("1")) as kotlin.Number?)) })?.map({ x_ -> x_?.let({ it.manager as String? }) }), number("1")) as String?) as String?
     }
 
     companion object {

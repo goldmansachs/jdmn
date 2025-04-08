@@ -58,6 +58,8 @@ import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 
+import static com.gs.dmn.transformation.native_.NativeFactory.MAP_ITERATOR;
+
 public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
     private static final int INITIAL_VALUE = -1;
     private int filterCount = INITIAL_VALUE;
@@ -780,7 +782,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
             String javaType = this.dmnTransformer.toNativeType(memberType);
             return this.triples.makeContextAccessor(javaType, source, memberName);
         } else if (sourceType instanceof ListType) {
-            Triple filter = makeNavigation(element, ((ListType) sourceType).getElementType(), triples.name("x"), memberName, memberVariableName, context);
+            Triple filter = makeNavigation(element, ((ListType) sourceType).getElementType(), triples.name(MAP_ITERATOR), memberName, memberVariableName, context);
             return this.triples.makeCollectionMap(source, filter);
         } else if (sourceType instanceof DateType) {
             return this.triples.makeBuiltinFunctionInvocation(propertyFunctionName(memberName), source);

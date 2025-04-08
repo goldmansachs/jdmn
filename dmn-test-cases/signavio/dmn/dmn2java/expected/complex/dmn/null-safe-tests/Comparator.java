@@ -85,7 +85,7 @@ public class Comparator extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBase
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-            output_ = ruleOutputs_.stream().map(o -> ((ComparatorRuleOutput)o).getComparator()).collect(Collectors.toList());
+            output_ = ruleOutputs_.stream().map(ro_ -> ((ComparatorRuleOutput)ro_).getComparator()).collect(Collectors.toList());
         }
 
         return output_;

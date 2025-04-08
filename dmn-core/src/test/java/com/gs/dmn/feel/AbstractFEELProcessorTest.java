@@ -2445,7 +2445,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "DeptTable[number = EmployeeTable[name=LastName].deptNum[1]].manager[1]",
                 "FilterExpression(PathExpression(FilterExpression(Name(DeptTable), Relational(=,PathExpression(Name(item), number),FilterExpression(PathExpression(FilterExpression(Name(EmployeeTable), Relational(=,PathExpression(Name(item), name),Name(LastName))), deptNum), NumericLiteral(1)))), manager), NumericLiteral(1))",
                 "string",
-                "(String)(elementAt(deptTable.stream().filter(item -> numericEqual((("+numberType()+")(item != null ? item.getNumber() : null)), ("+numberType()+")(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)(item_1_ != null ? item_1_.getName() : null)), lastName) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x -> (("+numberType()+")(x != null ? x.getDeptNum() : null))).collect(Collectors.toList()), number(\"1\")))) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x -> ((String)(x != null ? x.getManager() : null))).collect(Collectors.toList()), number(\"1\")))",
+                "(String)(elementAt(deptTable.stream().filter(item -> numericEqual((("+numberType()+")(item != null ? item.getNumber() : null)), ("+numberType()+")(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)(item_1_ != null ? item_1_.getName() : null)), lastName) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> (("+numberType()+")(x_ != null ? x_.getDeptNum() : null))).collect(Collectors.toList()), number(\"1\")))) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String)(x_ != null ? x_.getManager() : null))).collect(Collectors.toList()), number(\"1\")))",
                 null,
                 null
         );
@@ -2510,14 +2510,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "employee[item.dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
-                "employee.stream().filter(item -> numericEqual((("+numberType()+")((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> this.lib.numericEqual(((NUMBER)((com.gs.dmn.runtime.Context)item).get("dept")), this.lib.number("20")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get("name"))).collect(Collectors.toList()),
+                "employee.stream().filter(item -> numericEqual((("+numberType()+")((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String)((com.gs.dmn.runtime.Context)x_).get(\"name\"))).collect(Collectors.toList())",
+                employeeValue.stream().filter(item -> this.lib.numericEqual(((NUMBER)((com.gs.dmn.runtime.Context)item).get("dept")), this.lib.number("20")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String)((com.gs.dmn.runtime.Context)x_).get("name"))).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
         doExpressionTest(entries, "", "employee[dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
-                "employee.stream().filter(item -> numericEqual((("+numberType()+")((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x -> ((String)((com.gs.dmn.runtime.Context)x).get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> this.lib.numericEqual((NUMBER)((Context)item).get("dept"), this.lib.number("20"))).collect(Collectors.toList()).stream().map(x -> (String) x.get("name")).collect(Collectors.toList()),
+                "employee.stream().filter(item -> numericEqual((("+numberType()+")((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String)((com.gs.dmn.runtime.Context)x_).get(\"name\"))).collect(Collectors.toList())",
+                employeeValue.stream().filter(item -> this.lib.numericEqual((NUMBER)((Context)item).get("dept"), this.lib.number("20"))).collect(Collectors.toList()).stream().map(x_ -> (String) x_.get("name")).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
 
         // numeric filter
@@ -2627,7 +2627,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "[{b: 1}, {b: [2.1, 2.2]}, {b: 3}, {b: 4}, {b: 5}].b = [1, [2.1, 2.2], 3, 4, 5]",
                 "Relational(=,PathExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(b) = ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(3))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(4))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(5)))), b),ListLiteral(NumericLiteral(1),ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)),NumericLiteral(3),NumericLiteral(4),NumericLiteral(5)))",
                 "boolean",
-                "listEqual(asList(new com.gs.dmn.runtime.Context().add(\"b\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"b\", asList(number(\"2.1\"), number(\"2.2\"))), new com.gs.dmn.runtime.Context().add(\"b\", number(\"3\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"4\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"5\"))).stream().map(x -> ((com.gs.dmn.runtime.Context)(x)).get(\"b\", asList())).collect(Collectors.toList()), asList(number(\"1\"), asList(number(\"2.1\"), number(\"2.2\")), number(\"3\"), number(\"4\"), number(\"5\")))",
+                "listEqual(asList(new com.gs.dmn.runtime.Context().add(\"b\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"b\", asList(number(\"2.1\"), number(\"2.2\"))), new com.gs.dmn.runtime.Context().add(\"b\", number(\"3\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"4\")), new com.gs.dmn.runtime.Context().add(\"b\", number(\"5\"))).stream().map(x_ -> ((com.gs.dmn.runtime.Context)(x_)).get(\"b\", asList())).collect(Collectors.toList()), asList(number(\"1\"), asList(number(\"2.1\"), number(\"2.2\")), number(\"3\"), number(\"4\"), number(\"5\")))",
                 null,
                 null);
     }

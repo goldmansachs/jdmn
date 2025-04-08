@@ -88,7 +88,7 @@ class ExtraDaysCase1(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision)
             output_ = self.number("0")
         else:
             ruleOutputs_: typing.List[jdmn.runtime.RuleOutput.RuleOutput] = ruleOutputList_.applyMultiple(jdmn.runtime.annotation.HitPolicy.HitPolicy.COLLECT)
-            output_ = self.max(list(map(lambda o: o.extraDaysCase1, ruleOutputs_)))
+            output_ = self.max(list(map(lambda x_: x_.extraDaysCase1, ruleOutputs_)))
 
         return output_
 

@@ -81,7 +81,7 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
             output_ = null;
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-            output_ = sum(ruleOutputs_.stream().map(o -> ((DecisionRuleOutput)o).getDecision()).collect(Collectors.toList()));
+            output_ = sum(ruleOutputs_.stream().map(x_ -> ((DecisionRuleOutput)x_).getDecision()).collect(Collectors.toList()));
         }
 
         return output_;

@@ -84,7 +84,7 @@ public class ProcessPriorIssues extends com.gs.dmn.signavio.runtime.JavaTimeSign
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-            output_ = ruleOutputs_.stream().map(o -> ((ProcessPriorIssuesRuleOutput)o).getProcessPriorIssues()).collect(Collectors.toList());
+            output_ = ruleOutputs_.stream().map(ro_ -> ((ProcessPriorIssuesRuleOutput)ro_).getProcessPriorIssues()).collect(Collectors.toList());
         }
 
         return output_;

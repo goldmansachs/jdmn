@@ -121,13 +121,13 @@
             <#if modelRepository.hasAggregator(expression)>
             output_ = None
             <#else>
-            output_ = list(map(lambda o: toDecisionOutput(o), ruleOutputs_))
+            output_ = list(map(lambda ro_: toDecisionOutput(ro_), ruleOutputs_))
             </#if>
         <#else >
             <#if modelRepository.hasAggregator(expression)>
             output_ = ${transformer.aggregator(drgElement, expression, expression.output[0], "ruleOutputs_")}
             <#else>
-            output_ = list(map(lambda o: o.${transformer.outputClauseVariableName(drgElement, expression.output[0])}, ruleOutputs_))
+            output_ = list(map(lambda ro_: ro_.${transformer.outputClauseVariableName(drgElement, expression.output[0])}, ruleOutputs_))
             </#if>
         </#if>
 

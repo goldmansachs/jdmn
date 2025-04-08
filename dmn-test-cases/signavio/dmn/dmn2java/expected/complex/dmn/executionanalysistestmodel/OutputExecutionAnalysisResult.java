@@ -89,7 +89,7 @@ public class OutputExecutionAnalysisResult extends com.gs.dmn.signavio.runtime.J
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-            output_ = ruleOutputs_.stream().map(o -> ((OutputExecutionAnalysisResultRuleOutput)o).getOutputExecutionAnalysisResult()).collect(Collectors.toList());
+            output_ = ruleOutputs_.stream().map(ro_ -> ((OutputExecutionAnalysisResultRuleOutput)ro_).getOutputExecutionAnalysisResult()).collect(Collectors.toList());
         }
 
         return output_;

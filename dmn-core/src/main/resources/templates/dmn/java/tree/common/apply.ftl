@@ -238,13 +238,13 @@
                     <#if modelRepository.hasAggregator(expression)>
                     output_ = null;
                     <#else>
-                    output_ = ruleOutputs_.stream().map(o -> toDecisionOutput(((${transformer.ruleOutputClassName(drgElement)})o))).collect(Collectors.toList());
+                    output_ = ruleOutputs_.stream().map(ro_ -> toDecisionOutput(((${transformer.ruleOutputClassName(drgElement)})ro_))).collect(Collectors.toList());
                     </#if>
                 <#else >
                     <#if modelRepository.hasAggregator(expression)>
                     output_ = ${transformer.aggregator(drgElement, expression, expression.output[0], "ruleOutputs_")};
                     <#else>
-                    output_ = ruleOutputs_.stream().map(o -> ((${transformer.ruleOutputClassName(drgElement)})o).${transformer.outputClauseGetter(drgElement, expression.output[0])}).collect(Collectors.toList());
+                    output_ = ruleOutputs_.stream().map(ro_ -> ((${transformer.ruleOutputClassName(drgElement)})ro_).${transformer.outputClauseGetter(drgElement, expression.output[0])}).collect(Collectors.toList());
                     </#if>
                 </#if>
                 }

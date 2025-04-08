@@ -77,7 +77,7 @@ class GenerateOutputData(val assessIssueRisk : AssessIssueRisk = AssessIssueRisk
         val compareAgainstLendingThreshold: kotlin.Number? = this.compareAgainstLendingThreshold.apply(applicant, currentRiskAppetite, lendingThreshold, context_)
         val makeCreditDecision: String? = this.makeCreditDecision.apply(applicant, currentRiskAppetite, lendingThreshold, context_)
 
-        return zip(asList("Decision", "Assessment", "Issue"), asList(asList(makeCreditDecision), asList(compareAgainstLendingThreshold), asList(assessIssueRisk)))?.map({ x -> type.GenerateOutputData.toGenerateOutputData(x) }) as List<type.GenerateOutputData?>?
+        return zip(asList("Decision", "Assessment", "Issue"), asList(asList(makeCreditDecision), asList(compareAgainstLendingThreshold), asList(assessIssueRisk)))?.map({ x_ -> type.GenerateOutputData.toGenerateOutputData(x_) }) as List<type.GenerateOutputData?>?
     }
 
     companion object {

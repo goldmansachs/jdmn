@@ -85,7 +85,7 @@ public class ExtraDaysCase1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
                     output_ = number("0");
                 } else {
                     List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-                    output_ = max(ruleOutputs_.stream().map(o -> ((ExtraDaysCase1RuleOutput)o).getExtraDaysCase1()).collect(Collectors.toList()));
+                    output_ = max(ruleOutputs_.stream().map(x_ -> ((ExtraDaysCase1RuleOutput)x_).getExtraDaysCase1()).collect(Collectors.toList()));
                 }
 
                 return output_;

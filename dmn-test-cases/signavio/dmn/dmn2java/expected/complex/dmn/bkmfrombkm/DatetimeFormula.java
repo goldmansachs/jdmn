@@ -81,7 +81,7 @@ public class DatetimeFormula extends com.gs.dmn.signavio.runtime.JavaTimeSignavi
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-            output_ = ruleOutputs_.stream().map(o -> ((DatetimeFormulaRuleOutput)o).getDatetimeFormula()).collect(Collectors.toList());
+            output_ = ruleOutputs_.stream().map(ro_ -> ((DatetimeFormulaRuleOutput)ro_).getDatetimeFormula()).collect(Collectors.toList());
         }
 
         return output_;

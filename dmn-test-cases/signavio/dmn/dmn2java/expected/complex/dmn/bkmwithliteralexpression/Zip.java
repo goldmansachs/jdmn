@@ -88,6 +88,6 @@ public class Zip extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
         List<java.lang.Number> removeValues = this.removeValues.apply(listOfNumbers, context_);
         List<String> removeall = this.removeall.apply(blacklist, names, context_);
 
-        return zip(asList("n", "e", "t"), asList(removeValues, appendall, removeall)).stream().map(x -> type.Zip.toZip(x)).collect(Collectors.toList());
+        return zip(asList("n", "e", "t"), asList(removeValues, appendall, removeall)).stream().map(x_ -> type.Zip.toZip(x_)).collect(Collectors.toList());
     }
 }

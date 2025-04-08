@@ -103,7 +103,7 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.JavaTimeDMNBas
                     output_ = null;
                 } else {
                     List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-                    output_ = sum(ruleOutputs_.stream().map(o -> ((ApplicationRiskScoreModelRuleOutput)o).getApplicationRiskScoreModel()).collect(Collectors.toList()));
+                    output_ = sum(ruleOutputs_.stream().map(x_ -> ((ApplicationRiskScoreModelRuleOutput)x_).getApplicationRiskScoreModel()).collect(Collectors.toList()));
                 }
 
                 return output_;

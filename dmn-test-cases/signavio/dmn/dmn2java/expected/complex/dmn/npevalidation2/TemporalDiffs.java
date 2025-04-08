@@ -98,7 +98,7 @@ public class TemporalDiffs extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-            output_ = ruleOutputs_.stream().map(o -> toDecisionOutput(((TemporalDiffsRuleOutput)o))).collect(Collectors.toList());
+            output_ = ruleOutputs_.stream().map(ro_ -> toDecisionOutput(((TemporalDiffsRuleOutput)ro_))).collect(Collectors.toList());
         }
 
         return output_;

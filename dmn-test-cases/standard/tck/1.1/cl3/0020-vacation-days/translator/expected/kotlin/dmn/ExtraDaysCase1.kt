@@ -65,7 +65,7 @@ class ExtraDaysCase1() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
             output_ = number("0")
         } else {
             val ruleOutputs_: List<com.gs.dmn.runtime.RuleOutput> = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT)
-            output_ = max(ruleOutputs_?.map({ o -> (o as ExtraDaysCase1RuleOutput)?.extraDaysCase1 }))
+            output_ = max(ruleOutputs_?.map({ x_ -> (x_ as ExtraDaysCase1RuleOutput)?.extraDaysCase1 }))
         }
 
         return output_

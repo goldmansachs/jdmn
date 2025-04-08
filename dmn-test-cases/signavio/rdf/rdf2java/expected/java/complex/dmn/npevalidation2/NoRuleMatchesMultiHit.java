@@ -82,7 +82,7 @@ public class NoRuleMatchesMultiHit extends com.gs.dmn.signavio.runtime.JavaTimeS
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.RULE_ORDER);
-            output_ = ruleOutputs_.stream().map(o -> ((NoRuleMatchesMultiHitRuleOutput)o).getNoRuleMatchesMultiHit()).collect(Collectors.toList());
+            output_ = ruleOutputs_.stream().map(ro_ -> ((NoRuleMatchesMultiHitRuleOutput)ro_).getNoRuleMatchesMultiHit()).collect(Collectors.toList());
         }
 
         return output_;

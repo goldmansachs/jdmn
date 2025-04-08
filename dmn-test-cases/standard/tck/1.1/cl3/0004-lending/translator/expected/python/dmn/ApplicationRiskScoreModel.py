@@ -106,7 +106,7 @@ class ApplicationRiskScoreModel(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBa
             output_ = None
         else:
             ruleOutputs_: typing.List[jdmn.runtime.RuleOutput.RuleOutput] = ruleOutputList_.applyMultiple(jdmn.runtime.annotation.HitPolicy.HitPolicy.COLLECT)
-            output_ = self.sum(list(map(lambda o: o.applicationRiskScoreModel, ruleOutputs_)))
+            output_ = self.sum(list(map(lambda x_: x_.applicationRiskScoreModel, ruleOutputs_)))
 
         return output_
 

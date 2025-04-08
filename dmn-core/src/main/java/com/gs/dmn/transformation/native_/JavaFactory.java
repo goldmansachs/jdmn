@@ -103,7 +103,7 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String makeCollectionMap(String source, String filter) {
-        return String.format("%s.stream().map(x -> %s).collect(Collectors.toList())", source, filter);
+        return String.format("%s.stream().map(%s -> %s).collect(Collectors.toList())", source, MAP_ITERATOR, filter);
     }
 
     @Override
@@ -187,15 +187,15 @@ public class JavaFactory implements NativeFactory {
     //
     @Override
     public String makeMinAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("min(%s.stream().map(o -> ((%s)o).%s).collect(Collectors.toList()))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, this.transformer.getter(outputClauseVariableName)
+        return String.format("min(%s.stream().map(%s -> ((%s)%s).%s).collect(Collectors.toList()))",
+                ruleOutputListVariableName, MAP_ITERATOR, decisionRuleOutputClassName, MAP_ITERATOR, this.transformer.getter(outputClauseVariableName)
         );
     }
 
     @Override
     public String makeMaxAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("max(%s.stream().map(o -> ((%s)o).%s).collect(Collectors.toList()))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, this.transformer.getter(outputClauseVariableName)
+        return String.format("max(%s.stream().map(%s -> ((%s)%s).%s).collect(Collectors.toList()))",
+                ruleOutputListVariableName, MAP_ITERATOR, decisionRuleOutputClassName, MAP_ITERATOR, this.transformer.getter(outputClauseVariableName)
         );
     }
 
@@ -206,8 +206,8 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String makeSumAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("sum(%s.stream().map(o -> ((%s)o).%s).collect(Collectors.toList()))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, this.transformer.getter(outputClauseVariableName)
+        return String.format("sum(%s.stream().map(%s -> ((%s)%s).%s).collect(Collectors.toList()))",
+                ruleOutputListVariableName, MAP_ITERATOR, decisionRuleOutputClassName, MAP_ITERATOR, this.transformer.getter(outputClauseVariableName)
         );
     }
 
@@ -430,8 +430,8 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String convertToListOfItemDefinitionType(String javaExpression, ItemDefinitionType expectedElementType) {
-        String elementConversion = convertToItemDefinitionType("x", expectedElementType);
-        return String.format("%s.stream().map(x -> %s).collect(Collectors.toList())", javaExpression, elementConversion);
+        String elementConversion = convertToItemDefinitionType(MAP_ITERATOR, expectedElementType);
+        return String.format("%s.stream().map(%s -> %s).collect(Collectors.toList())", javaExpression, MAP_ITERATOR, elementConversion);
     }
 
     @Override

@@ -89,7 +89,7 @@ public class DatetimeOperators extends com.gs.dmn.signavio.runtime.JavaTimeSigna
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-            output_ = ruleOutputs_.stream().map(o -> ((DatetimeOperatorsRuleOutput)o).getDatetimeOperators()).collect(Collectors.toList());
+            output_ = ruleOutputs_.stream().map(ro_ -> ((DatetimeOperatorsRuleOutput)ro_).getDatetimeOperators()).collect(Collectors.toList());
         }
 
         return output_;

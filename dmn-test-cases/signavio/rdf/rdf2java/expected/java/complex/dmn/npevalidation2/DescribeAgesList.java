@@ -85,7 +85,7 @@ public class DescribeAgesList extends com.gs.dmn.signavio.runtime.JavaTimeSignav
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-            output_ = ruleOutputs_.stream().map(o -> ((DescribeAgesListRuleOutput)o).getListDescription()).collect(Collectors.toList());
+            output_ = ruleOutputs_.stream().map(ro_ -> ((DescribeAgesListRuleOutput)ro_).getListDescription()).collect(Collectors.toList());
         }
 
         return output_;

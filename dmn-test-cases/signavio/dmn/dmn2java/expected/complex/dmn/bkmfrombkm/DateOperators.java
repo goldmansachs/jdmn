@@ -89,7 +89,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
             }
         } else {
             List<? extends com.gs.dmn.runtime.RuleOutput> ruleOutputs_ = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT);
-            output_ = ruleOutputs_.stream().map(o -> ((DateOperatorsRuleOutput)o).getDateOperators()).collect(Collectors.toList());
+            output_ = ruleOutputs_.stream().map(ro_ -> ((DateOperatorsRuleOutput)ro_).getDateOperators()).collect(Collectors.toList());
         }
 
         return output_;

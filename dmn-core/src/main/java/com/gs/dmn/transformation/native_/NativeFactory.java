@@ -21,6 +21,7 @@ import com.gs.dmn.transformation.native_.statement.NativeStatementFactory;
 
 public interface NativeFactory extends NativeExpressionFactory, NativeStatementFactory {
     String TO_PROTO_CONVERSION_METHOD = "toProto";
+    String MAP_ITERATOR = "x_";
 
     String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter, boolean staticContext);
 

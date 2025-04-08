@@ -71,7 +71,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String makeCollectionMap(String source, String filter) {
-        return String.format("%s?.map({ x -> %s })", source, filter);
+        return String.format("%s?.map({ %s -> %s })", source, MAP_ITERATOR, filter);
     }
 
     @Override
@@ -141,15 +141,15 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     //
     @Override
     public String makeMinAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("min(%s?.map({ o -> (o as %s)?.%s }))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName
+        return String.format("min(%s?.map({ %s -> (%s as %s)?.%s }))",
+                ruleOutputListVariableName, MAP_ITERATOR, MAP_ITERATOR, decisionRuleOutputClassName, outputClauseVariableName
         );
     }
 
     @Override
     public String makeMaxAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("max(%s?.map({ o -> (o as %s)?.%s }))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName
+        return String.format("max(%s?.map({ %s -> (%s as %s)?.%s }))",
+                ruleOutputListVariableName, MAP_ITERATOR, MAP_ITERATOR, decisionRuleOutputClassName, outputClauseVariableName
         );
     }
 
@@ -160,8 +160,8 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String makeSumAggregator(String ruleOutputListVariableName, String decisionRuleOutputClassName, String outputClauseVariableName) {
-        return String.format("sum(%s?.map({ o -> (o as %s)?.%s }))",
-                ruleOutputListVariableName, decisionRuleOutputClassName, outputClauseVariableName
+        return String.format("sum(%s?.map({ %s -> (%s as %s)?.%s }))",
+                ruleOutputListVariableName, MAP_ITERATOR, MAP_ITERATOR, decisionRuleOutputClassName, outputClauseVariableName
         );
     }
 
@@ -281,8 +281,8 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
 
     @Override
     public String convertToListOfItemDefinitionType(String javaExpression, ItemDefinitionType expectedElementType) {
-        String elementConversion = convertToItemDefinitionType("x", expectedElementType);
-        return String.format("%s?.map({ x -> %s })", javaExpression, elementConversion);
+        String elementConversion = convertToItemDefinitionType(MAP_ITERATOR, expectedElementType);
+        return String.format("%s?.map({ %s -> %s })", javaExpression, MAP_ITERATOR, elementConversion);
     }
 
     @Override

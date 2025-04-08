@@ -77,7 +77,7 @@ class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
             output_ = null
         } else {
             val ruleOutputs_: List<com.gs.dmn.runtime.RuleOutput> = ruleOutputList_.applyMultiple(com.gs.dmn.runtime.annotation.HitPolicy.COLLECT)
-            output_ = sum(ruleOutputs_?.map({ o -> (o as ApplicationRiskScoreModelRuleOutput)?.applicationRiskScoreModel }))
+            output_ = sum(ruleOutputs_?.map({ x_ -> (x_ as ApplicationRiskScoreModelRuleOutput)?.applicationRiskScoreModel }))
         }
 
         return output_
