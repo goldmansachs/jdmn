@@ -693,7 +693,18 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testForExpression() {
-        List<EnvironmentEntry> entries = Collections.emptyList();
+        ContextType complexType = new ContextType();
+        complexType.addMember("min", Arrays.asList(), NUMBER);
+        complexType.addMember("max", Arrays.asList(), NUMBER);
+        NUMBER min = this.lib.number("2");
+
+        NUMBER max = this.lib.number("4");
+        Context a = new Context().add("min", min).add("max", max);
+        Range<NUMBER> b = new Range<>(true, min, true, max);
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("a", complexType, a),
+                new EnvironmentEntry("b", RangeType.NUMBER_RANGE, b)
+        );
 
         // number one range
         doExpressionTest(entries, "", "for i in 1..1 return i",
@@ -856,6 +867,20 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     this.lib.asList(this.lib.number("1"), this.lib.number("2")).stream().map(i -> this.lib.asList(this.lib.number("4"), this.lib.number("5")).stream().map(j -> this.lib.numericMultiply(i, j))).flatMap(x -> x).collect(Collectors.toList()),
                     Arrays.asList(this.lib.number("4"), this.lib.number("5"), this.lib.number("8"), this.lib.number("10")));
         });
+
+        // complex types
+        doExpressionTest(entries, "", "for i in a.min..a.max return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(PathExpression(Name(a), min), PathExpression(Name(a), max))) -> Name(i))",
+                "ListType(number)",
+                "rangeToList(((" + numberType() + ")((com.gs.dmn.runtime.Context)a).get(\"min\")), ((" + numberType() + ")((com.gs.dmn.runtime.Context)a).get(\"max\"))).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.rangeToList(((java.lang.Number)((com.gs.dmn.runtime.Context)a).get("min")), ((java.lang.Number)((com.gs.dmn.runtime.Context)a).get("max"))).stream().map(i -> i).collect(Collectors.toList()),
+                Arrays.asList(this.lib.number("2"), this.lib.number("3"), this.lib.number("4")));
+        doExpressionTest(entries, "", "for i in b.start .. b.end return i",
+                "ForExpression(Iterator(i in RangeIteratorDomain(PathExpression(Name(b), start), PathExpression(Name(b), end))) -> Name(i))",
+                "ListType(number)",
+                "rangeToList(b.getStart(), b.getEnd()).stream().map(i -> i).collect(Collectors.toList())",
+                this.lib.rangeToList(b.getStart(), b.getEnd()).stream().map(i -> i).collect(Collectors.toList()),
+                Arrays.asList(this.lib.number("2"), this.lib.number("3"), this.lib.number("4")));
     }
 
     @Test
