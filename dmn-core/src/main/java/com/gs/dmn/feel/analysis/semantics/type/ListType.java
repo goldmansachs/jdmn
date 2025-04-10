@@ -17,6 +17,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 
 public class ListType implements com.gs.dmn.el.analysis.semantics.type.ListType, FEELType {
+    public static final Type EMPTY_LIST = new ListType();
     public static final Type ANY_LIST = new ListType(ANY);
     public static final Type NUMBER_LIST = new ListType(NumberType.NUMBER);
     public static final Type STRING_LIST = new ListType(StringType.STRING);
@@ -32,13 +33,10 @@ public class ListType implements com.gs.dmn.el.analysis.semantics.type.ListType,
     private final Type elementType;
 
     public ListType() {
-        this(ANY);
+        this( null);
     }
 
     public ListType(Type elementType) {
-        if (Type.isNull(elementType)) {
-            elementType = ANY;
-        }
         this.elementType = elementType;
     }
 
@@ -50,13 +48,16 @@ public class ListType implements com.gs.dmn.el.analysis.semantics.type.ListType,
     @Override
     public boolean equivalentTo(Type other) {
         return other instanceof ListType
-                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.elementType, ((ListType) other).elementType);
+                && Type.equivalentTo(this.elementType, ((ListType) other).elementType);
     }
 
     @Override
     public boolean conformsTo(Type other) {
-        return other instanceof ListType
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.elementType, ((ListType) other).elementType);
+        if (other instanceof ListType) {
+            return Type.equivalentTo(this, ListType.EMPTY_LIST) || Type.conformsTo(this.elementType, ((ListType) other).elementType);
+        } else {
+            return false;
+        }
     }
 
     @Override

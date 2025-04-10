@@ -1778,11 +1778,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     private String toNativeTypeNoCache(Type type) {
         type = Type.extractTypeFromConstraint(type);
         if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-            if (isStrongTyping()) {
-                throw new DMNRuntimeException(String.format("Cannot infer native type for '%s' type", type));
-            } else {
-                return this.nativeTypeFactory.toNativeType(ANY.getName());
-            }
+            return this.nativeTypeFactory.toNativeType(ANY.getName());
         }
 
         if (type instanceof com.gs.dmn.el.analysis.semantics.type.NamedType) {

@@ -22,7 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.gs.dmn.el.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.syntax.ConversionKind.*;
 
 public interface FEELType {
@@ -95,7 +94,7 @@ public interface FEELType {
         if (expectedType instanceof ListType && Type.conformsTo(actualType, ((ListType) expectedType).getElementType())) {
             // actual type conforms to expected list element, convert from element to singleton list
             return ELEMENT_TO_SINGLETON_LIST;
-        } else if (actualType instanceof ListType && ((ListType) actualType).getElementType() != NULL && Type.conformsTo(((ListType) actualType).getElementType(), expectedType)) {
+        } else if (actualType instanceof ListType && !Type.equivalentTo(actualType, com.gs.dmn.feel.analysis.semantics.type.ListType.EMPTY_LIST) && Type.conformsTo(((ListType) actualType).getElementType(), expectedType)) {
             // actual element conforms to expected type and not empty list, convert from singleton list to element
             return SINGLETON_LIST_TO_ELEMENT;
         } else if (actualType instanceof DateType && expectedType instanceof DateTimeType) {

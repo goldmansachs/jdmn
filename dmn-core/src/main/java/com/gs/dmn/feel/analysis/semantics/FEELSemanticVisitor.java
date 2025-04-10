@@ -946,12 +946,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
 
         // Derive type
         if (expressionList.isEmpty()) {
-            if (context.isExpressionContext()) {
-                // conforms to any other list
-                element.setType(new ListType(NullType.NULL));
-            } else {
-                element.setType(ListType.ANY_LIST);
-            }
+            // conforms to any other list
+            element.setType(ListType.EMPTY_LIST);
         } else {
             checkListElementTypes(element);
         }

@@ -113,7 +113,11 @@ public class TypeConformanceTest {
         checkConformsTo(true, ListType.BOOLEAN_LIST, ListType.BOOLEAN_LIST);
         checkConformsTo(true, ListType.NUMBER_LIST, ListType.NUMBER_LIST);
         checkConformsTo(true, ListType.ANY_LIST, ListType.ANY_LIST);
+        checkConformsTo(true, ListType.EMPTY_LIST, ListType.EMPTY_LIST);
 
+        checkConformsTo(true, ListType.EMPTY_LIST, ListType.BOOLEAN_LIST);
+        checkConformsTo(true, ListType.EMPTY_LIST, ListType.NUMBER_LIST);
+        checkConformsTo(true, ListType.EMPTY_LIST, ListType.ANY_LIST);
         checkConformsTo(false, ListType.BOOLEAN_LIST, ListType.NUMBER_LIST);
         checkConformsTo(false, ListType.NUMBER_LIST, ListType.BOOLEAN_LIST);
         checkConformsTo(false, ListType.ANY_LIST, ListType.BOOLEAN_LIST);

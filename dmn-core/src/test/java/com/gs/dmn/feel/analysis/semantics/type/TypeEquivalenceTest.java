@@ -113,10 +113,13 @@ public class TypeEquivalenceTest {
         checkEquivalentTo(true, ListType.BOOLEAN_LIST, ListType.BOOLEAN_LIST);
         checkEquivalentTo(true, ListType.NUMBER_LIST, ListType.NUMBER_LIST);
         checkEquivalentTo(true, ListType.ANY_LIST, ListType.ANY_LIST);
+        checkEquivalentTo(true, ListType.EMPTY_LIST, ListType.EMPTY_LIST);
 
         checkEquivalentTo(false, ListType.BOOLEAN_LIST, ListType.NUMBER_LIST);
         checkEquivalentTo(false, ListType.NUMBER_LIST, ListType.BOOLEAN_LIST);
         checkEquivalentTo(false, ListType.ANY_LIST, ListType.BOOLEAN_LIST);
+        checkEquivalentTo(false, ListType.EMPTY_LIST, ListType.BOOLEAN_LIST);
+        checkEquivalentTo(false, ListType.EMPTY_LIST, ListType.ANY_LIST);
     }
 
     @Test
