@@ -147,18 +147,20 @@ public class JavaFactory implements NativeFactory {
     public String makeForExpression(List<Pair<String, String>> domainIterators, String body) {
         // Add code for each iterator
         StringBuilder result = new StringBuilder();
-        for (Pair<String, String> pair: domainIterators) {
-            result.append(String.format("%s.stream().map(%s -> ", pair.getLeft(), pair.getRight()));
+        for (int i = 0; i < domainIterators.size(); i++) {
+            Pair<String, String> pair = domainIterators.get(i);
+            if (i != domainIterators.size() - 1) {
+                // Flatten nested streams
+                result.append(String.format("%s.stream().flatMap(%s -> ", pair.getLeft(), pair.getRight()));
+            } else {
+                result.append(String.format("%s.stream().map(%s -> ", pair.getLeft(), pair.getRight()));
+            }
         }
         // Add body
         result.append(body);
         // Close parenthesis
         for (int i = 0; i < domainIterators.size(); i++) {
             result.append(")");
-        }
-        // Flatten nested streams
-        for (int i = 0; i < domainIterators.size() - 1; i++) {
-            result.append(".flatMap(x -> x)");
         }
         // Collect result
         result.append(".collect(Collectors.toList())");
