@@ -13,49 +13,31 @@
 package com.gs.dmn.feel.analysis.scanner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LexicalContext {
-    private List<String> names = new ArrayList<>();
-    private boolean ordered = false;
+    private final List<String> names = new ArrayList<>();
 
     public LexicalContext(String... names) {
-        this.names =  new ArrayList<>();
         if (names != null) {
-            for(String name: names) {
-                addName(name);
-            }
+            this.names.addAll(Arrays.asList(names));
         }
+        sort();
     }
 
     public LexicalContext(List<String> names) {
         if (names != null) {
-            addNames(names);
+            this.names.addAll(names);
         }
+        sort();
     }
 
-    public LexicalContext(LexicalContext lexicalContext) {
-        this(lexicalContext.names);
-    }
-
-    public void addNames(List<String> names) {
-        for (String name: names) {
-            this.addName(name);
-        }
-    }
-
-    public void addName(String name) {
-        if (name != null) {
-            this.ordered = false;
-            this.names.add(name);
-        }
-    }
-
-    public List<String> orderedNames() {
-        if (!ordered) {
-            this.names.sort((o1, o2) -> o2.length() - o1.length());
-            this.ordered = true;
-        }
+    public List<String> getNames() {
         return this.names;
+    }
+
+    private void sort() {
+        this.names.sort((o1, o2) -> o2.length() - o1.length());
     }
 }

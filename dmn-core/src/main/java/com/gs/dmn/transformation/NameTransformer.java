@@ -14,27 +14,25 @@ package com.gs.dmn.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.feel.analysis.scanner.ContextDependentFEELLexer;
 import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.tck.ast.*;
-import org.apache.commons.lang3.StringUtils;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.Token;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.gs.dmn.feel.analysis.scanner.ContextDependentFEELLexer.*;
+import static com.gs.dmn.feel.analysis.syntax.antlrv4.FEELLexer.*;
+import static org.antlr.v4.runtime.Recognizer.EOF;
 
 public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     private final boolean renameElements = false;
     private final Set<TDMNElement> renamedElements = new LinkedHashSet<>();
-
-    protected NameTransformer() {
-        this(new Slf4jBuildLogger(LOGGER));
-    }
 
     protected NameTransformer(BuildLogger logger) {
         super(logger);
@@ -166,11 +164,11 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             }
         } else if (expression instanceof TFunctionDefinition) {
             TExpression body = ((TFunctionDefinition) expression).getExpression();
-            LexicalContext bodyContext = new LexicalContext(lexicalContext);
+            List<String> bodyNames = new ArrayList<>(lexicalContext.getNames());
             for (TInformationItem parameter: ((TFunctionDefinition) expression).getFormalParameter()) {
-                bodyContext.addName(parameter.getName());
+                bodyNames.add(parameter.getName());
             }
-            replace(body, lexicalContext);
+            replace(body, new LexicalContext(bodyNames));
         } else if (expression instanceof TInvocation) {
             TExpression exp = ((TInvocation) expression).getExpression();
             if (exp != null) {
@@ -182,25 +180,25 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             }
         } else if (expression instanceof TContext) {
             List<TContextEntry> contextEntry = ((TContext) expression).getContextEntry();
-            LexicalContext entryContext = new LexicalContext(lexicalContext);
+            List<String> entryNames = new ArrayList<>(lexicalContext.getNames());
             for (TContextEntry ce: contextEntry) {
                 TInformationItem variable = ce.getVariable();
                 if (variable != null) {
-                    entryContext.addName(variable.getName());
+                    entryNames.add(variable.getName());
                 }
                 TExpression exp = ce.getExpression();
                 if (exp != null) {
-                    replace(exp, entryContext);
+                    replace(exp, new LexicalContext(entryNames));
                 }
             }
         } else if (expression instanceof TRelation) {
             List<TList> lists = ((TRelation) expression).getRow();
-            LexicalContext relationContext = new LexicalContext(lexicalContext);
+            List<String> relationNames = new ArrayList<>(lexicalContext.getNames());
             for (TInformationItem ii: ((TRelation) expression).getColumn()) {
-                relationContext.addName(ii.getName());
+                relationNames.add(ii.getName());
             }
             for (TList list: lists) {
-                replace(list, relationContext);
+                replace(list, new LexicalContext(relationNames));
             }
         } else if (expression instanceof TList) {
             List<? extends TExpression> expressionList = ((TList) expression).getExpression();
@@ -374,8 +372,8 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
             }
         }
 
+        names.addAll(repository.getImportedNames(repository.getModel(element)));
         LexicalContext lexicalContext = new LexicalContext(names);
-        lexicalContext.addNames(repository.getImportedNames(repository.getModel(element)));
 
         return lexicalContext;
     }
@@ -408,173 +406,111 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     protected String replaceNamesInText(String text, LexicalContext lexicalContext) {
+        List<String> names = new ArrayList<>(lexicalContext.getNames());
+        names.add("grouping separator");
+        names.add("decimal separator");
+        names.add("start position");
+        names.add("new item");
+        lexicalContext = new LexicalContext(names);
+
+        // Collect all tokens
+        List<Pair<String, Token>> pairs = collectTokens(text, lexicalContext);
+
+        // Scan tokens
         StringBuilder newText = new StringBuilder();
-        lexicalContext.addName("grouping separator");
-        lexicalContext.addName("decimal separator");
-        lexicalContext.addName("start position");
-        lexicalContext.addName("new item");
-
-        if (!StringUtils.isEmpty(text)) {
-            int index = 0;
-            replaceNamesInText(text, index, lexicalContext, newText);
+        for (int i=0; i<pairs.size(); i++) {
+            Pair<String, Token> pair = pairs.get(i);
+            newText.append(pair.getLeft());
+            Token token = pair.getRight();
+            String lexeme = token.getText();
+            if (token.getType() == NAME) {
+                // Transform lexeme if present in context
+                if (isContextKey(token, pairs, i)) {
+                    transformAndAddKey(token.getText(), newText);
+                } else {
+                    String newLexeme = lexeme;
+                    for (String name: lexicalContext.getNames()) {
+                        String transformedName = transformName(name);
+                        if (!newLexeme.contains(transformedName)) {
+                            String regExp = String.format("\\b%s\\b", name);
+                            newLexeme = newLexeme.replaceAll(regExp, transformedName);
+                        }
+                    }
+                    newText.append(newLexeme);
+                }
+            } else if (isContextKey(token, pairs, i)) {
+                transformAndAddKey(token.getText(), newText);
+            } else {
+                newText.append(lexeme);
+            }
         }
-
         return newText.toString();
     }
 
-    private int replaceNamesInText(String text, int index, LexicalContext lexicalContext, StringBuilder newText) {
-        while (index < text.length()) {
-            int ch = codePointAt(text, index);
-            if (ch == '"') {
-                index = appendStrings(text, index, newText);
-            } else if (ch == '{') {
-                index = replaceContextKeys(text, index, lexicalContext, newText);
-            } else if (ch == '[') {
-                index = replaceNamesInList(text, index, lexicalContext, newText);
-            } else if (isNameStartChar(ch)) {
-                index = replaceIdentifiers(text, index, lexicalContext, newText, ch);
+    private static List<Pair<String, Token>> collectTokens(String text, LexicalContext lexicalContext) {
+        ContextDependentFEELLexer lexer = new ContextDependentFEELLexer(CharStreams.fromString(text));
+        List<Pair<String, Token>> pairs = new ArrayList<>();
+        Token token = null;
+        do {
+            Pair<String, Token> pair = lexer.nextToken(lexicalContext);
+            token = pair.getRight();
+            if (token.getType() != EOF) {
+                pairs.add(pair);
+            }
+        } while (token.getType() != EOF);
+        return pairs;
+    }
+
+    private boolean isContextKey(Token token, List<Pair<String, Token>> tokens, int index) {
+        int type = token.getType();
+        if (type != NAME && type != STRING) {
+            return false;
+        }
+        if (!insideContext(index, tokens)) {
+            return false;
+        }
+        Token previousToken = index == 0 ? null : tokens.get(index -1).getRight();
+        return previousToken != null && (previousToken.getType() == BRACE_OPEN || previousToken.getType() == COMMA);
+    }
+
+    private boolean insideContext(int index, List<Pair<String, Token>> tokens) {
+        boolean foundLeft = false;
+        for (int i=index-1; i>=0; i--) {
+            if (tokens.get(i).getRight().getType() == BRACE_OPEN) {
+                foundLeft = true;
+                break;
+            }
+        }
+        if (!foundLeft) {
+            return false;
+        }
+        boolean foundRight = false;
+        for (int i=index+1; i<tokens.size(); i++) {
+            if (tokens.get(i).getRight().getType() == BRACE_CLOSE) {
+                foundRight = true;
+                break;
+            }
+        }
+        return foundRight;
+    }
+
+    private String transformKey(String key) {
+        if (!key.isEmpty()) {
+            if (key.startsWith("\"") && key.endsWith("\"")) {
+                String name = key.substring(1, key.length() - 1);
+                return String.format("\"%s\"", transformName(name));
             } else {
-                newText.appendCodePoint(ch);
-                index = nextIndex(text, index);
+                return transformName(key);
             }
         }
-        return index;
+        return key;
     }
 
-    private int appendStrings(String text, int index, StringBuilder newText) {
-        // skip strings
-        newText.appendCodePoint(codePointAt(text, index));
-        index = nextIndex(text, index);
-        while (index < text.length()) {
-            newText.appendCodePoint(codePointAt(text, index));
-            if (codePointAt(text, index) == '"') {
-                index = nextIndex(text, index);
-                break;
-            } else {
-                index = nextIndex(text, index);
-            }
+    private void transformAndAddKey(String key, StringBuilder newText) {
+        if (!key.isEmpty()) {
+            key = transformKey(key);
+            newText.append(key);
         }
-        return index;
-    }
-
-    protected int replaceContextKeys(String text, int index, LexicalContext lexicalContext, StringBuilder newText) {
-        // process {
-        newText.appendCodePoint(codePointAt(text, index));
-        index = nextIndex(text, index);
-
-        // process context
-        while (index < text.length()) {
-            if (codePointAt(text, index) == '}') {
-                break;
-            }
-            // collect key
-            StringBuilder keyBuilder = new StringBuilder();
-            while (index < text.length() && codePointAt(text, index) != ':' && codePointAt(text, index) != '}') {
-                keyBuilder.appendCodePoint(codePointAt(text, index));
-                index = nextIndex(text, index);
-            }
-            // transform and add key
-            String key = keyBuilder.toString().trim();
-            if (key.length() != 0) {
-                if (key.startsWith("\"") && key.endsWith("\"")) {
-                    key = key.substring(1, key.length() - 1);
-                    newText.append("\"").append(transformName(key)).append("\"");
-                } else {
-                    newText.append(transformName(key));
-                }
-            }
-            if (index < text.length() && codePointAt(text, index) == ':') {
-                newText.append(":");
-                index = nextIndex(text, index);
-            }
-            // process value
-            while (index < text.length() && codePointAt(text, index) != ',' && codePointAt(text, index) != '}') {
-                if (codePointAt(text, index) == '\"') {
-                    index = appendStrings(text, index, newText);
-                } else if (codePointAt(text, index) == '{') {
-                    index = replaceContextKeys(text, index, lexicalContext, newText);
-                } else if (codePointAt(text, index) == '[') {
-                    index = replaceNamesInList(text, index, lexicalContext, newText);
-                } else {
-                    newText.appendCodePoint(codePointAt(text, index));
-                    index = nextIndex(text, index);
-                }
-            }
-            if (index < text.length() && codePointAt(text, index) == ',') {
-                newText.append(", ");
-                index = nextIndex(text, index);
-            }
-        }
-        if (index < text.length() && codePointAt(text, index) == '}') {
-            newText.append('}');
-            index = nextIndex(text, index);
-        }
-        return index;
-    }
-
-    protected int replaceNamesInList(String text, int index, LexicalContext lexicalContext, StringBuilder newText) {
-        // process [
-        newText.appendCodePoint(codePointAt(text, index));
-        index = nextIndex(text, index);
-
-        // process list
-        while (index < text.length()) {
-            int ch = codePointAt(text, index);
-            if (ch == ']') {
-                newText.append(']');
-                index = nextIndex(text, index);
-                break;
-            } else if (ch == '\"') {
-                index = appendStrings(text, index, newText);
-            } else if (ch == '{') {
-                index = replaceContextKeys(text, index, lexicalContext, newText);
-            } else if (ch == '[') {
-                index = replaceNamesInList(text, index, lexicalContext, newText);
-            } else if (isNameStartChar(ch)) {
-                index = replaceIdentifiers(text, index, lexicalContext, newText, ch);
-            } else {
-                newText.appendCodePoint(ch);
-                index = nextIndex(text, index);
-            }
-        }
-        return index;
-    }
-
-    protected int replaceIdentifiers(String text, int index, LexicalContext lexicalContext, StringBuilder newText, int ch) {
-        // Check keywords
-        boolean foundKeyword = false;
-        for (String keyword: KEYWORDS.keySet()) {
-            if (text.startsWith(keyword, index)) {
-                newText.append(keyword);
-                index += keyword.length();
-                foundKeyword = true;
-                break;
-            }
-        }
-        if (!foundKeyword) {
-            // Check names
-            boolean foundName = false;
-            for (String name: lexicalContext.orderedNames()) {
-                if (text.startsWith(name, index)) {
-                    newText.append(transformName(name));
-                    index += name.length();
-                    foundName = true;
-                    break;
-                }
-            }
-            if (!foundName) {
-                do {
-                    newText.appendCodePoint(ch);
-                    index = nextIndex(text, index);
-                    if (index < text.length()) {
-                        ch = codePointAt(text, index);
-                    } else {
-                        break;
-                    }
-                } while (isNamePartChar(ch));
-            }
-        }
-        return index;
     }
 
     protected void renameItemDefinitionMembers(TItemDefinition itemDefinition) {
@@ -632,14 +568,4 @@ public abstract class NameTransformer extends SimpleDMNTransformer<TestCases> {
     }
 
     public abstract String transformName(String name);
-
-    private int codePointAt(String text, int index) {
-        return text.codePointAt(index);
-    }
-
-    private int nextIndex(String text, int index) {
-        int codePoint = text.codePointAt(index);
-        index += Character.charCount(codePoint);
-        return index;
-    }
 }

@@ -12,11 +12,13 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.feel.analysis.scanner.LexicalContext;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.tck.ast.TestCases;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -64,6 +66,16 @@ public class ToQuotedNameTransformerTest extends SimpleDMNTransformerTest {
     }
 
     @Test
+    public void testTransformEmpty() {
+        ToQuotedNameTransformer transformer = new ToQuotedNameTransformer();
+
+        DMNModelRepository repository = new DMNModelRepository();
+        ArrayList<TestCases> testCasesList = new ArrayList<>();
+        assertEquals(repository, transformer.transform(repository));
+        assertEquals(new Pair<>(repository, testCasesList), transformer.transform(repository, testCasesList));
+    }
+
+    @Test
     public void testTransformName() {
         ToQuotedNameTransformer transformer = (ToQuotedNameTransformer) getTransformer();
 
@@ -84,31 +96,59 @@ public class ToQuotedNameTransformerTest extends SimpleDMNTransformerTest {
     public void testContextKeys() {
         NameTransformer transformer = (NameTransformer) getTransformer();
 
+        //
+        // Test name in key
+        //
         String result = transformer.replaceNamesInText("{foo bar: \"foo\"}", new LexicalContext());
         assertEquals("{'foo bar': \"foo\"}", result);
 
         result = transformer.replaceNamesInText("{foo+bar: \"foo\"}", new LexicalContext());
         assertEquals("{'foo+bar': \"foo\"}", result);
 
-        result = transformer.replaceNamesInText("{\"foo+bar((!!],foo\": \"foo\"}", new LexicalContext());
-        assertEquals("{\"'foo+bar((!!],foo'\": \"foo\"}", result);
-
-        result = transformer.replaceNamesInText("{\"\": \"foo\"}", new LexicalContext());
-        assertEquals("{\"\": \"foo\"}", result);
-
-        result = transformer.replaceNamesInText("{a: 1 + 2, b: a + 3}", new LexicalContext());
-        assertEquals("{a: 1 + 2, b: a + 3}", result);
-
-        result = transformer.replaceNamesInText("{a: 1 + 2, b: 3, c: {d e: a + b}}", new LexicalContext());
-        assertEquals("{a: 1 + 2, b: 3, c: {'d e': a + b}}", result);
-
         result = transformer.replaceNamesInText("{\uD83D\uDC0E: \"bar\"}", new LexicalContext());
         assertEquals("{'\uD83D\uDC0E': \"bar\"}", result);
 
-        String text = "function(s1, s2) external {java:{class:\"java.lang.Math\",method signature:\"max(java.lang.String, java.lang.String)\"}}";
-        LexicalContext context = new LexicalContext("mathMaxString");
-        result = transformer.replaceNamesInText(text, context);
+        //
+        // Test qualified name in key
+        //
+        result = transformer.replaceNamesInText("{'foo bar': \"foo\"}", new LexicalContext());
+        assertEquals("{'foo bar': \"foo\"}", result);
+
+        //
+        // Test string in key
+        //
+        result = transformer.replaceNamesInText("{\"\": \"foo\"}", new LexicalContext());
+        assertEquals("{\"\": \"foo\"}", result);
+
+        result = transformer.replaceNamesInText("{\"foo+bar((!!],foo\": \"foo\"}", new LexicalContext());
+        assertEquals("{\"'foo+bar((!!],foo'\": \"foo\"}", result);
+
+        //
+        // Test complex context
+        //
+        result = transformer.replaceNamesInText("{a: 1 + 2, b: a + 3}", new LexicalContext());
+        assertEquals("{a: 1 + 2, b: a + 3}", result);
+
+        result = transformer.replaceNamesInText("{name 1: 1 + 2, name 2: 3, c: name 1 + name 2}", new LexicalContext("name 1", "name 2"));
+        assertEquals("{'name 1': 1 + 2, 'name 2': 3, c: 'name 1' + 'name 2'}", result);
+
+        result = transformer.replaceNamesInText("{name 1: 1 + 2, name 2: 3, c: {d e: name 1 + name 2}}", new LexicalContext("name 1", "name 2"));
+        assertEquals("{'name 1': 1 + 2, 'name 2': 3, c: {'d e': 'name 1' + 'name 2'}}", result);
+
+//        Not supported yet
+//        result = transformer.replaceNamesInText("{a: 1 + 2, b: 3, c: {d e: 'a b' + b}}", new LexicalContext());
+//        assertEquals("{a: 1 + 2, b: 3, c: {'d e': 'a b' + b}}", result);
+
+        //
+        // Test mapping to external functions
+        //
+        String text = "function(s1, s2) external {java:{class:\"java.lang.Math\", method signature:\"max(java.lang.String, java.lang.String)\"}}";
+        result = transformer.replaceNamesInText(text, new LexicalContext("mathMaxString"));
         assertEquals("function(s1, s2) external {java:{class:\"java.lang.Math\", 'method signature':\"max(java.lang.String, java.lang.String)\"}}", result);
+
+        text = "function(s1, s2) external {java:{class:\"java.lang.Math\",'method signature':\"max(java.lang.String, java.lang.String)\"}}";
+        result = transformer.replaceNamesInText(text, new LexicalContext());
+        assertEquals("function(s1, s2) external {java:{class:\"java.lang.Math\",'method signature':\"max(java.lang.String, java.lang.String)\"}}", result);
     }
 
     @Test
@@ -120,6 +160,41 @@ public class ToQuotedNameTransformerTest extends SimpleDMNTransformerTest {
 
         result = transformer.replaceNamesInText("substring(string:\"abc\", starting position:2)", new LexicalContext("starting position"));
         assertEquals("substring(string:\"abc\", 'starting position':2)", result);
+
+        result = transformer.replaceNamesInText("number(from: \"1.000.000,01\", 'decimal separator':\",\", 'grouping separator':\".\")", new LexicalContext("decimal separator", "grouping separator"));
+        assertEquals("number(from: \"1.000.000,01\", 'decimal separator':\",\", 'grouping separator':\".\")", result);
+    }
+
+    @Test
+    public void testNamesFromContext() {
+        NameTransformer transformer = (NameTransformer) getTransformer();
+
+        String result = transformer.replaceNamesInText("name 1 + name 12", new LexicalContext("name 1", "name 12"));
+        assertEquals("'name 1' + 'name 12'", result);
+
+        result = transformer.replaceNamesInText("Applicant data.Monthly.Expenses", new LexicalContext("Applicant data"));
+        assertEquals("'Applicant data'.Monthly.Expenses", result);
+
+        result = transformer.replaceNamesInText("'Applicant data'.Monthly.Expenses", new LexicalContext("Applicant data"));
+        assertEquals("'Applicant data'.Monthly.Expenses", result);
+
+        result = transformer.replaceNamesInText("ApplicantData.Monthly.Expenses", new LexicalContext("ApplicantData"));
+        assertEquals("ApplicantData.Monthly.Expenses", result);
+
+        result = transformer.replaceNamesInText("f in factors return is factor", new LexicalContext("factors", "is factor"));
+        assertEquals("f in factors return 'is factor'", result);
+
+        result = transformer.replaceNamesInText("f in factors return 'is factor'", new LexicalContext("factors", "is factor"));
+        assertEquals("f in factors return 'is factor'", result);
+
+        result = transformer.replaceNamesInText("'name 1' + 'name 12'", new LexicalContext("name 1", "name 12"));
+        assertEquals("'name 1' + 'name 12'", result);
+
+        result = transformer.replaceNamesInText("{a : name 1, b: name 12}", new LexicalContext("name 1", "name 12"));
+        assertEquals("{a : 'name 1', b: 'name 12'}", result);
+
+        result = transformer.replaceNamesInText("1 + /* 1 + */ 1", new LexicalContext("name 1", "name 12"));
+        assertEquals("1 + /* 1 + */ 1", result);
     }
 
     @Override

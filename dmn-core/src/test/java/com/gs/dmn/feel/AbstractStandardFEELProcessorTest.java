@@ -785,6 +785,14 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "stringJoin(asList(\"a\", \"b\", \"c\"))",
                 this.lib.stringJoin(this.lib.asList("a", "b", "c")),
                 "abc");
+
+        // quoted function name
+        doExpressionTest(entries, "", "'string length'(\"\\n\")",
+                "FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral(\"\\n\")))",
+                "number",
+                "stringLength(\"\\n\")",
+                this.lib.stringLength("\n"),
+                this.lib.number("1"));
     }
 
     @Test

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.scanner;
 
+import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.Token;
@@ -56,6 +57,18 @@ public class ContextDependentFEELLexerTest {
         check(lexicalContext, "a'b", NAME, "a'b");
 
         check(lexicalContext, "a b c", NAME, "a b c");
+        check(lexicalContext, "'a b c'", NAME, "a b c");
+
+        // Test Unicode > U+FFFF with surrogate pairs
+        String name = "\uD83D\uDC0E";
+        check(lexicalContext, name, NAME, name);
+
+        // Test with all the chars
+        char[] sc1 = Character.toChars(0x10000);
+        char[] sc2 = Character.toChars(0xEFFFF);
+        String supplementaryChars = "" + sc1[0] + sc1[1] + sc2[0] + sc2[1];
+        name = "?AZ_az\u00C0\u00D6\u00D8\u00F6\u00F8\u02FF\u0370\u037D\u037F\u1FFF\u200C\u200D\u2070\u218F\u2C00\u2FEF\u3001\uD7FF\uF900\uFDCF\uFDF0\uFFFD" + supplementaryChars;
+        check(lexicalContext, name, NAME, name);
     }
 
     @Test
@@ -200,8 +213,9 @@ public class ContextDependentFEELLexerTest {
     }
 
     private void check(LexicalContext lexicalContext, String input, Token expectedToken) {
-        scanner = new ContextDependentFEELLexer(CharStreams.fromString(input));
-        Token actualToken = scanner.nextToken(lexicalContext);
+        CharStream inputTape = CharStreams.fromString(input);
+        scanner = new ContextDependentFEELLexer(inputTape);
+        Token actualToken = scanner.nextToken(lexicalContext).getRight();
         checkToken(expectedToken, actualToken);
     }
 
@@ -215,7 +229,7 @@ public class ContextDependentFEELLexerTest {
         Token actualToken;
         int i = 0;
         do {
-            actualToken = scanner.nextToken(lexicalContext);
+            actualToken = scanner.nextToken(lexicalContext).getRight();
             checkToken(expectedTokens.get(i++), actualToken);
         } while (actualToken.getType() != EOF);
     }

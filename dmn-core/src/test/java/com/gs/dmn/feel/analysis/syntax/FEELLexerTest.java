@@ -132,9 +132,11 @@ public class FEELLexerTest extends AbstractLexerTest {
         token = checkToken("\"a\u0030b\"", STRING, "\"a0b\"");
         checkPosition(token, 1, 1, 1, 5, 0, 5);
 
+        // Unicode > U+FFFF with surrogate pairs
         token = checkToken("\"a\\ud83d\\udca9b\"", STRING, "\"a\\ud83d\\udca9b\"");
         checkPosition(token, 1, 1, 1, 16, 0, 16);
 
+        // Unicode > U+FFFF
         token = checkToken("\"a\\U01F40Eb\"", STRING, "\"a\uD83D\uDC0Eb\"");
         checkPosition(token, 1, 1, 1, 6, 0, 12);
 
