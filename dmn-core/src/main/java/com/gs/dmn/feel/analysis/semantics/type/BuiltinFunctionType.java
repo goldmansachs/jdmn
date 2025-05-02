@@ -177,10 +177,6 @@ public class BuiltinFunctionType extends FunctionType {
 
         BuiltinFunctionType that = (BuiltinFunctionType) o;
 
-        if (this.totalParamsCount != that.totalParamsCount) return false;
-        if (this.mandatoryParamsCount != that.mandatoryParamsCount) return false;
-        if (this.hasOptionalParams != that.hasOptionalParams) return false;
-        if (this.hasVarArgs != that.hasVarArgs) return false;
         if (this.parameters != null ? !this.parameters.equals(that.parameters) : that.parameters != null) return false;
         return this.returnType != null ? this.returnType.equals(that.returnType) : Type.isNull(that.returnType);
     }
@@ -189,10 +185,6 @@ public class BuiltinFunctionType extends FunctionType {
     public int hashCode() {
         int result = this.parameters != null ? this.parameters.hashCode() : 0;
         result = 31 * result + (this.returnType != null ? this.returnType.hashCode() : 0);
-        result = 31 * result + this.totalParamsCount;
-        result = 31 * result + this.mandatoryParamsCount;
-        result = 31 * result + (this.hasOptionalParams ? 1 : 0);
-        result = 31 * result + (this.hasVarArgs ? 1 : 0);
         return result;
     }
 

@@ -103,6 +103,9 @@ STAR_STAR:
     ;
 
 // Punctuation
+DOT_DOT_DOT:
+    '...'
+    ;
 DOT_DOT:
     '..'
     ;

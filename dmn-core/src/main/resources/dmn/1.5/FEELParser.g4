@@ -17,16 +17,18 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.library.*;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.Pair;
 }
 
 @parser::members {
-    private ASTFactory astFactory;
+    ASTFactory astFactory;
 
-    public FEELParser(TokenStream input, ASTFactory astFactory) {
-        this(input);
-        this.astFactory = astFactory;
+    public static FEELParser makeParser(TokenStream input, ASTFactory astFactory) {
+        FEELParser parser = new FEELParser(input);
+        parser.astFactory = astFactory;
+        return parser;
     }
 }
 
@@ -178,8 +180,14 @@ functionDefinition returns [Expression ast] :
 
 formalParameter returns [FormalParameter ast]:
     {TypeExpression typeExp = null; }
-    name = parameterName (COLON type {typeExp = $type.ast;})?
-    {$ast = astFactory.toFormalParameter($name.ast, typeExp);}
+    name = parameterName (COLON type {typeExp = $type.ast;})? q = qualifier
+    {$ast = astFactory.toFormalParameter($name.ast, typeExp, $q.ast);}
+;
+
+qualifier returns [String ast]:
+    {String qualifier = null; }
+    (q = NAME {qualifier = $q.text;} | q = DOT_DOT_DOT {qualifier = $q.text;})?
+    {$ast = qualifier;}
 ;
 
 forExpression returns [Expression ast] :

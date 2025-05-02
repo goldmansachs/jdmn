@@ -25,6 +25,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.triple.Triple;
 import com.gs.dmn.el.synthesis.triple.Triples;
 import com.gs.dmn.feel.OperatorDecisionTable;
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
@@ -46,6 +47,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.library.FunctionDeclaration;
+import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -77,6 +80,19 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
 
     public Triples getTriples() {
         return this.triples;
+    }
+
+    //
+    // Libraries
+    //
+    @Override
+    public Object visit(Library<Type> element, DMNContext context) {
+        throw new SemanticError("Not supported");
+    }
+
+    @Override
+    public Object visit(FunctionDeclaration<Type> element, DMNContext context) {
+        throw new SemanticError("Not supported");
     }
 
     //

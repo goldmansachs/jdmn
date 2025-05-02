@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.syntax.ast.visitor;
 
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
@@ -32,11 +33,26 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
+import com.gs.dmn.feel.analysis.syntax.ast.library.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
 public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     public TraversalVisitor(ErrorHandler errorHandler) {
         super(errorHandler);
+    }
+
+    //
+    // Libraries
+    //
+    @Override
+    public Element<T> visit(Library<T> element, C context) {
+        throw new SemanticError("Not supported");
+    }
+
+    @Override
+    public Element<T> visit(FunctionDeclaration<T> element, C context) {
+        throw new SemanticError("Not supported");
     }
 
     //

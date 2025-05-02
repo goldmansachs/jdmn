@@ -88,7 +88,7 @@ public class FEELAnalyzerImpl extends AbstractFEELAnalyzer {
         CharStream cs = CharStreams.fromString(text);
         FEELLexer lexer = new FEELLexer(cs);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        FEELParser feelParser = new FEELParser(tokens, new ASTFactory<Type, DMNContext>());
+        FEELParser feelParser = FEELParser.makeParser(tokens, new ASTFactory<Type, DMNContext>());
         feelParser.removeErrorListeners();
         feelParser.addErrorListener(new ErrorListener());
         return feelParser;

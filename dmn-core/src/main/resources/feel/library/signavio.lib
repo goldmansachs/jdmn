@@ -1,0 +1,109 @@
+namespace com.gs.dmn.signavio.feel.lib;
+signavio {
+    // Data acceptance functions
+    function isDefined(arg: Any) : boolean;
+    function isUndefined(arg: Any) : boolean;
+    function isValid(arg: Any) : boolean;
+    function isInvalid(arg: Any) : boolean;
+
+    // Conversion functions
+    function date(from: string) : date;
+    function date and time(from: string) : date and time;
+    function time(from: string) : time;
+    function string(from: Any) : string;
+    function duration(from: Any) : duration;
+
+    // Number functions
+    function abs(number: number) : number;
+    function count(list: list<Any>) : number;
+    function round(number: number, digits: number) : number;
+    function ceiling(number: number) : number;
+    function floor(number: number) : number;
+    function integer(number: number) : number;
+    function modulo(dividend: number, divisor: number) : number;
+    function percent(number: number) : number;
+    function power(base: number, exponent: number) : number;
+    function product(list: list<Any>) : number;
+    function roundDown(number: number, digits: number) : number;
+    function roundUp(number: number, digits: number) : number;
+    function sum(list: list<Any>) : number;
+
+    // String functions
+    function concat(list: list<Any>) : string;
+    function isAlpha(text: string) : boolean;
+    function isAlphanumeric(text: string) : boolean;
+    function isNumeric(text: string) : boolean;
+    function isSpaces(text: string) : boolean;
+    function len(text: string) : number;
+    function lower(text: string) : string;
+    function trim(text: string) : string;
+    function upper(text: string) : string;
+    function number(text: string, default_value: number ?) : number;
+    function mid(text: string, start: number, num_chars: number) : string;
+    function left(text: string, num_chars: number) : string;
+    function right(text: string, num_chars: number) : string;
+    function text(num: number, format_text: string) : string;
+    function textOccurrences(find_text: string, within_text: string) : number;
+    function contains(text: string, substring: string) : boolean;
+    function startsWith(string: string, prefix: string) : boolean;
+    function endsWith(string: string, suffix: string) : boolean;
+
+    // Boolean functions
+    function not(negand: boolean) : boolean;
+
+    // Date time functions
+    function day(datetime: date) : number;
+    function day(datetime: date and time) : number;
+    function dayAdd(datetime: date, days_to_add: number) : date;
+    function dayAdd(datetime: date and time, days_to_add: number) : date and time;
+    function dayDiff(datetime1: date, datetime2: date) : number;
+    function dayDiff(datetime1: date, datetime2: date and time) : number;
+    function dayDiff(datetime1: date and time, datetime2: date) : number;
+    function dayDiff(datetime1: date and time, datetime2: date and time) : number;
+    function date(year: number, month: number, day: number) : date;
+    function dateTime(day: number, month: number, year: number, hour: number, minute: number, second: number, hourOffset: number ?) : date and time;
+    function hour(datetime: time) : number;
+    function hour(datetime: date and time) : number;
+    function hourDiff(datetime1: temporal, datetime2: temporal) : number;
+    function minute(datetime: time) : number;
+    function minute(datetime: date and time) : number;
+    function minutesDiff(datetime1: temporal, datetime2: temporal) : number;
+    function month(datetime: date) : number;
+    function month(datetime: date and time) : number;
+    function monthAdd(datetime: date, months_to_add: number) : date;
+    function monthAdd(datetime: date and time, months_to_add: number) : date and time;
+    function monthDiff(datetime1: date, datetime2: date) : number;
+    function monthDiff(datetime1: date, datetime2: date and time) : number;
+    function monthDiff(datetime1: date and time, datetime2: date) : number;
+    function monthDiff(datetime1: date and time, datetime2: date and time) : number;
+    function now() : date and time;
+    function today() : date;
+    function weekday(datetime: date) : number;
+    function weekday(datetime: date and time) : number;
+    function year(datetime: date) : number;
+    function year(datetime: date and time) : number;
+    function yearAdd(datetime: date, years_to_add: number) : date;
+    function yearAdd(datetime: date and time, years_to_add: number) : date and time;
+    function yearDiff(datetime1: date, datetime2: date) : number;
+    function yearDiff(datetime1: date, datetime2: date and time) : number;
+    function yearDiff(datetime1: date and time, datetime2: date) : number;
+    function yearDiff(datetime1: date and time, datetime2: date and time) : number;
+
+    // List functions
+    function append(list: list<Any>, element: Any) : list<Any>;
+    function appendAll(list1: list<Any>, list2: list<Any>) : list<Any>;
+    function remove(list: list<Any>, element: Any) : list<Any>;
+    function removeAll(list1: list<Any>, list2: list<Any>) : list<Any>;
+    function zip(attributes: list<Any>, values: list<Any>) : list<Any>;
+    function notContainsAny(list1: list<Any>, list2: list<Any>) : boolean;
+    function containsOnly(list1: list<Any>, list2: list<Any>) : boolean;
+    function areElementsOf(list1: list<Any>, list2: list<Any>) : boolean;
+    function elementOf(list1: Any, list2: list<Any>) : boolean;
+
+    // Statistical operations
+    function avg(list: list<Any>) : number;
+    function max(list: list<Any>) : number;
+    function median(list: list<Any>) : number;
+    function min(list: list<Any>) : number;
+    function mode(list: list<Any>) : number
+}

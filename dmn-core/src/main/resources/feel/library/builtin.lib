@@ -1,0 +1,175 @@
+namespace com.gs.dmn.feel.lib;
+builtin {
+    // Conversion functions
+    function date(from: string) : date  ;
+    function date(from: date) : date;
+    function date(from: date and time) : date;
+    function date(year: number, month: number, day: number) : date;
+    function date and time(date: date, time: time) : date and time;
+    function date and time(date: date and time, time: time) : date and time;
+    function date and time(from: string) : date and time;
+    function time(from: string) : time;
+    function time(from: date) : time;
+    function time(from: date and time) : time;
+    function time(hour: number, minute: number, second: number, offset: days and time duration ?) : time;
+    function number(from: string, 'grouping separator': string, 'decimal separator': string) : number;
+    function number(from: string, groupingSeparator: string, decimalSeparator: string) : number;
+    function string(from: Any) : string;
+    function duration(from: string) : duration;
+    function years and months duration(from: date, to: date) : years and months duration;
+    function years and months duration(from: date and time, to: date and time) : years and months duration;
+    // Extension to the standard to reduce the number of conversions
+    function years and months duration(from: date, to: date and time) : years and months duration;
+    function years and months duration(from: date and time, to: date) : years and months duration;
+    function range(from: string) : range<Any>;
+
+    // Number functions
+    function decimal(n: number, scale: number) : number;
+    function round(n: number, scale: number, mode: string) : number;
+    function round up(n: number, scale: number) : number;
+    function round down(n: number, scale: number) : number;
+    function round half up(n: number, scale: number) : number;
+    function round half down(n: number, scale: number) : number;
+    function floor(n: number) : number;
+    function floor(n: number, scale: number) : number;
+    function ceiling(n: number) : number;
+    function ceiling(n: number, scale: number) : number;
+    function abs(n: number) : number;
+    function abs(n: years and months duration) : years and months duration;
+    function abs(n: days and time duration) : days and time duration;
+    function modulo(dividend: number, divisor: number) : number;
+    function sqrt(number: number) : number;
+    function log(number: number) : number;
+    function exp(number: number) : number;
+    function odd(number: number) : boolean;
+    function even(number: number) : boolean;
+
+    // Boolean functions
+    function not(negand: boolean) : boolean;
+
+    // String functions
+    function substring(string: string, start position: number, length: number ?) : string;
+    function string length(string: string) : number;
+    function upper case(string: string) : string;
+    function lower case(string: string) : string;
+    function substring before(string: string, match: string) : string;
+    function substring after(string: string, match: string) : string;
+    function replace(input: string, pattern: string, replacement: string, flags: string ?) : string;
+    function contains(string: string, match: string) : boolean;
+    function starts with(string: string, match: string) : boolean;
+    function ends with(string: string, match: string) : boolean;
+    function matches(input: string, pattern: string, flags: string ?) : boolean;
+    function split(string: string, delimiter: string) : list<string>;
+    function string join(list: list<string>, delimiter: string ?) : string;
+
+    // Date time functions
+    function is(value1: Any, value2: Any) : boolean;
+
+    // Temporal functions
+    function day of year(date: date) : number;
+    function day of year(date: date and time) : number;
+    function day of week(date: date) : string;
+    function day of week(date: date and time) : string;
+    function month of year(date: date) : string;
+    function month of year(date: date and time) : string;
+    function week of year(date: date) : number;
+    function week of year(date: date and time) : number;
+
+    // Miscellaneous Functions
+    function now() : date and time;
+    function today() : date;
+
+    // List Functions
+    function list contains(list: list<Any>, element: Any) : boolean;
+    function count(list: list<Any>) : number;
+    function min(list: list<comparable>) : comparable;
+    function min(c1: comparable, cs: comparable ...) : comparable;
+    function max(list: list<comparable>) : comparable;
+    function max(c1: comparable, cs: comparable ...) : comparable;
+    function sum(list: list<number>) : number;
+    function sum(n1: number, ns: number ...) : number;
+    function mean(list: list<number>) : number;
+    function mean(n1: number, ns: number ...) : number;
+    // and() replaced with all() in DMN 1.2
+    function and(list: list<boolean>) : boolean;
+    function and(b1: boolean, bs: boolean ...) : boolean;
+    function all(list: list<boolean>) : boolean;
+    function all(b1: boolean, bs: boolean ...) : boolean;
+    // or() replaced with any() in DMN 1.2
+    function or(list: list<boolean>) : boolean;
+    function or(b1: boolean, bs: boolean ...) : boolean;
+    function any(list: list<boolean>) : boolean;
+    function any(b1: boolean, bs: boolean ...) : boolean;
+    function sublist(list: list<Any>, 'start position': number, length: number ?) : list<Any>;
+    function append(list: list<Any>, item: Any ...) : list<Any>;
+    function concatenate(list: list<Any> ...) : list<Any>;
+    function insert before(list: list<Any>, position: number, newItem: Any) : list<Any>;
+    function remove(list: list<Any>, position: number) : list<Any>;
+    function reverse(list: list<Any>) : list<Any>;
+    function index of(list: list<Any>, match: Any) :  list<number>;
+    function distinct values(list: list<Any>) : list<Any>;
+    function union(list: list<Any> ...) : list<Any>;
+    function flatten(list: list<Any>) : list<Any>;
+    function product(list: list<number>) : number;
+    function product(n1: number, ns: number ...) : number;
+    function median(list: list<number>) : number;
+    function median(n1: number, ns: number ...) : number;
+    function stddev(list: list<number>) : number;
+    function stddev(n1: number, ns: number ...) : number;
+    function mode(list: list<number>) : number;
+    function mode(n1: number, ns: number ...) : number;
+    function list replace(list: list<Any>, position: number, newItem: Any) : list<Any>;
+    function list replace(list: list<Any>, match: function<Null, Null> -> boolean, newItem: Any) : list<Any>;
+
+    function sort(list: list<Any>, precedes: function<Null, Null> -> boolean) : list<Any>;
+
+    // Context functions
+    function get entries(m: context) : list<context>;
+    function get value(m: context, key: string) : Any;
+    function context(entries: list<context>) : context;
+    function context put(context: context, key: string, value: Any) : context;
+    function context put(context: context, keys: list<string>, value: Any) : context;
+    function context merge(contexts: list<Any>) : context;
+
+    // Range functions
+    function before(point1: comparable, point2: comparable) : boolean;
+    function before(point: comparable, range: range<comparable>) : boolean;
+    function before(range: range<comparable>, point: comparable) : boolean;
+    function before(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function after(point1: comparable, point2: comparable) : boolean;
+    function after(point: comparable, range: range<comparable>) : boolean;
+    function after(range: range<comparable>, point: comparable) : boolean;
+    function after(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function meets(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function met by(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function overlaps(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function overlaps before(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function overlaps after(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function finishes(point: comparable, range: range<comparable>) : boolean;
+    function finishes(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function finished by(range: range<comparable>, point: comparable) : boolean;
+    function finished by(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function includes(range: range<comparable>, point: comparable) : boolean;
+    function includes(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function during(point: comparable, range: range<comparable>) : boolean;
+    function during(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function starts(point: comparable, range: range<comparable>) : boolean;
+    function starts(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function started by(range: range<comparable>, point: comparable) : boolean;
+    function started by(range1: range<comparable>, range2: range<comparable>) : boolean;
+
+    function coincides(point1: comparable, point2: comparable) : boolean;
+    function coincides(range1: range<comparable>, range2: range<comparable>) : boolean
+}

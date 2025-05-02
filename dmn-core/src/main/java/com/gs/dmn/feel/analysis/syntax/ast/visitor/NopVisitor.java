@@ -32,11 +32,26 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
+import com.gs.dmn.feel.analysis.syntax.ast.library.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
 public class NopVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     public NopVisitor() {
         super(NopErrorHandler.INSTANCE);
+    }
+
+    //
+    // Libraries
+    //
+    @Override
+    public Element<T> visit(Library<T> element, C context) {
+        return element;
+    }
+
+    @Override
+    public Element<T> visit(FunctionDeclaration<T> element, C context) {
+        return element;
     }
 
     //

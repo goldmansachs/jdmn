@@ -43,7 +43,8 @@ public class PathExpression<T> extends Expression<T> {
         } else if (exp instanceof QualifiedName) {
             return ((QualifiedName<T>) exp).getQualifiedName();
         } else if (exp instanceof PathExpression) {
-            return String.format("%s.%s", getPath(this.source), this.member);
+            PathExpression<T> expPath = (PathExpression<T>) exp;
+            return String.format("%s.%s", getPath(expPath.source), expPath.member);
         }
         return String.format("%s.%s", getPath(this.source), this.member);
     }

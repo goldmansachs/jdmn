@@ -43,6 +43,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.library.FunctionDeclaration;
+import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -59,6 +61,42 @@ import static com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpressi
 public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContext, Element<Type>> {
     public FEELSemanticVisitor(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         super(dmnTransformer, new LogAndThrowErrorHandler(LOGGER));
+    }
+
+    //
+    // Libraries
+    //
+    @Override
+    public Element<Type> visit(Library<Type> element, DMNContext context) {
+        // Visit children
+        List<FunctionDeclaration<Type>> functions = element.getFunctions();
+        functions.forEach(f -> f.accept(this, context));
+
+        // Calculate declarations
+        List<Declaration> decls = functions.stream().map(this::makeDeclaration).collect(Collectors.toList());
+        element.getDeclarations().addAll(decls);
+
+        return element;
+    }
+
+    private Declaration makeDeclaration(FunctionDeclaration<?> decl) {
+        LibraryFunctionType type = (LibraryFunctionType) decl.getType();
+        return this.environmentFactory.makeVariableDeclaration(decl.getName(), type);
+    }
+
+    @Override
+    public Element<Type> visit(FunctionDeclaration<Type> element, DMNContext context) {
+        // Visit children
+        element.getFormalParameters().forEach(fp -> fp.accept(this, context));
+        element.getReturnTypeExpression().accept(this, context);
+
+        // Set function type
+        List<FormalParameter<Type>> formalParameters = element.getFormalParameters();
+        Type returnType = element.getReturnTypeExpression().getType();
+        Type type = new LibraryFunctionType(formalParameters, returnType);
+        element.setType(type);
+
+        return element;
     }
 
     //
@@ -1034,9 +1072,12 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     @Override
     public Element<Type> visit(NamedTypeExpression<Type> element, DMNContext context) {
         // Derive type
-        TDefinitions model = this.dmnModelRepository.getModel(context.getElement());
+        TDefinitions model = null;
+        if (context != null && context.getElement() != null) {
+            model = this.dmnModelRepository.getModel(context.getElement());
+        }
         com.gs.dmn.QualifiedName typeRef = com.gs.dmn.QualifiedName.toQualifiedName(model, element.getQualifiedName());
-        element.setType(this.dmnTransformer.toFEELType(null, typeRef));
+        element.setType(this.dmnTransformer.toFEELType(model, typeRef));
         return element;
     }
 

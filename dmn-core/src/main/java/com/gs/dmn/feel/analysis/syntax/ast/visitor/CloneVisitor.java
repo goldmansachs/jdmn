@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.syntax.ast.visitor;
 
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.syntax.ast.ASTFactory;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
@@ -33,6 +34,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
+import com.gs.dmn.feel.analysis.syntax.ast.library.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
 import java.util.LinkedHashMap;
@@ -46,6 +49,19 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     public CloneVisitor(ErrorHandler errorHandler) {
         super(errorHandler);
         this.astFactory = new ASTFactory<>();
+    }
+
+    //
+    // Libraries
+    //
+    @Override
+    public Element<T> visit(Library<T> element, C context) {
+        throw new SemanticError("Not supported");
+    }
+
+    @Override
+    public Element<T> visit(FunctionDeclaration<T> element, C context) {
+        throw new SemanticError("Not supported");
     }
 
     //

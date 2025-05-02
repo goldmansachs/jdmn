@@ -32,6 +32,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.library.FunctionDeclaration;
+import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.analysis.syntax.ast.visitor.ContainsNameVisitor;
 import com.gs.dmn.runtime.Pair;
@@ -42,6 +44,21 @@ import java.util.*;
 import static com.gs.dmn.feel.FEELConstants.DATE_TIME_LITERAL_NAMES;
 
 public class ASTFactory<T, C> {
+    //
+    // Libraries
+    //
+    public Library<T> toLibrary(Expression<T> namespace, String name, List<FunctionDeclaration<T>> functions) {
+        if (namespace instanceof PathExpression) {
+            return new Library(((PathExpression) namespace).getPath(), name, functions);
+        } else {
+            throw new SemanticError("Not supported");
+        }
+    }
+
+    public FunctionDeclaration<T> toFunctionDeclaration(String name, List<FormalParameter<T>> formalParameters, TypeExpression<T> returnTypeExpression) {
+        return new FunctionDeclaration<>(name, formalParameters, returnTypeExpression);
+    }
+
     //
     // Expressions
     //
@@ -265,8 +282,8 @@ public class ASTFactory<T, C> {
         return new PositiveUnaryTests<>(positiveUnaryTests);
     }
 
-    public FormalParameter<T> toFormalParameter(String parameterName, TypeExpression<T> typeExpression) {
-        return new FormalParameter<>(parameterName, typeExpression);
+    public FormalParameter<T> toFormalParameter(String parameterName, TypeExpression<T> typeExpression, String qualifier) {
+        return new FormalParameter<>(parameterName, typeExpression, qualifier);
     }
 
     public Expression<T> toFunctionDefinition(List<FormalParameter<T>> formalParameters, TypeExpression<T> returnTypeExpression, Expression<T> body, boolean external) {
@@ -438,5 +455,4 @@ public class ASTFactory<T, C> {
             throw new SemanticError(String.format("Not supported type '%s'", typeName));
         }
     }
-
 }

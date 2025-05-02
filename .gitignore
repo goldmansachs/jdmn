@@ -3,10 +3,10 @@
 *.iml
 
 # ANTLR plugin files
-**/gen/FEELLexer*
-**/gen/FEELParser*
-**/gen/SFEELLexer*
-**/gen/SFEELParser*
+**/gen/**/*Lexer.*
+**/gen/**/*Parser.*
+**/gen/**/*Listener.*
+**/gen/**/*Visitor.*
 
 # Maven files
 target/

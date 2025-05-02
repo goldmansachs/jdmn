@@ -26,18 +26,15 @@ public class FormalParameter<T> extends Element<T> {
     protected final boolean optional;
     protected final boolean varArg;
 
-    public FormalParameter(String name, TypeExpression<T> typeExpression) {
+    public FormalParameter(String name, TypeExpression<T> typeExpression, String qualifier) {
         this.name = name;
         this.typeExpression = typeExpression;
-        this.optional = false;
-        this.varArg = false;
+        this.optional = "?".equals(qualifier);
+        this.varArg = "...".equals(qualifier);
     }
 
     public FormalParameter(String name, T type) {
-        this.name = name;
-        this.type = type;
-        this.optional = false;
-        this.varArg = false;
+        this(name, type, false, false);
     }
 
     public FormalParameter(String name, T type, boolean optional, boolean varArg) {

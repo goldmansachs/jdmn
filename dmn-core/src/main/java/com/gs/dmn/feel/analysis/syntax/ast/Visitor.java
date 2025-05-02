@@ -30,9 +30,18 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
+import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
+import com.gs.dmn.feel.analysis.syntax.ast.library.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
 public interface Visitor<T, C, R> {
+    //
+    // Libraries
+    //
+    R visit(Library<T> element, C context);
+
+    R visit(FunctionDeclaration<T> element, C context);
+
     //
     // Tests
     //
