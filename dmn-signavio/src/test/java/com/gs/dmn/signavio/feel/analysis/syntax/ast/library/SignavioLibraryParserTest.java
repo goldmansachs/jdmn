@@ -16,11 +16,11 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.feel.analysis.syntax.ast.library.BuiltinLibraryParserTest;
 import com.gs.dmn.feel.analysis.syntax.ast.library.ELLib;
-import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
+import com.gs.dmn.feel.analysis.syntax.ast.library.LibraryMetadata;
+import com.gs.dmn.feel.analysis.syntax.ast.library.LibraryRepository;
 import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -28,25 +28,33 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SignavioLibraryParserTest extends BuiltinLibraryParserTest {
     @Test
-    public void testSignavioLibrary() throws IOException {
-        // Parse library
+    public void testSignavioLibrary() {
+        // Create library
+        LibraryRepository libraryRepository = new LibraryRepository(inputParameters);
         String libPath = "feel/library/signavio.lib";
-        Library<?> library = parseLibrary(libPath);
-
-        // Semantic analysis
-        DMNContext builtInContext = SignavioEnvironmentFactory.instance().getBuiltInContext();
-        ELLib lib = library.analyze(builtInContext);
+        libraryRepository.discoverLibraries(SignavioEnvironmentFactory.instance().getBuiltInContext());
+        ELLib library = libraryRepository.getLibrary("com.gs.dmn.signavio.feel.lib");
 
         // Check properties
-        assertNotNull(lib);
-        assertEquals("com.gs.dmn.signavio.feel.lib", lib.getNamespace());
-        assertEquals("signavio", lib.getName());
+        assertNotNull(library);
+        assertEquals("com.gs.dmn.signavio.feel.lib", library.getNamespace());
+        assertEquals("signavio", library.getName());
+        LibraryMetadata metadata = library.getMetadata();
+        assertNotNull(metadata);
+        assertEquals("feel/library/signavio.lib", metadata.getDescriptionPath());
+        assertEquals("com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib", metadata.getClassName());
+        assertFalse(metadata.isStaticAccess());
 
         // Semantic analysis
-        checkTypes(lib);
+        checkTypes(library);
 
         // Check every library declaration
+        // Semantic analysis
+        checkTypes(library);
+
+        // Check every library declaration
+        DMNContext builtInContext = SignavioEnvironmentFactory.instance().getBuiltInContext();
         Map<String, List<Declaration>> variablesTable = builtInContext.getEnvironment().getVariablesTable();
-        check(lib.getDeclarations(), variablesTable);
+        check(library, variablesTable);
     }
 }

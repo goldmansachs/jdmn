@@ -81,10 +81,10 @@ public class Library<T> extends Element<T> {
         return String.format("Library(%s, %s, %s)", namespace, name, functions);
     }
 
-    public ELLib analyze(DMNContext context) {
+    public ELLib analyze(DMNContext context, LibraryMetadata metadata) {
         BasicDMNToNativeTransformer<Type, DMNContext> transformer = new JavaTimeDMNDialectDefinition().createBasicTransformer(new DMNModelRepository(), new NopLazyEvaluationDetector(), new InputParameters());
         FEELSemanticVisitor semanticVisitor = new FEELSemanticVisitor(transformer);
         Library<Type> library = (Library<Type>) semanticVisitor.visit((Library<Type>) this, context);
-        return new ELLib(library.namespace, library.name, library.getDeclarations());
+        return new ELLib(metadata, library.namespace, library.name, library.getDeclarations());
     }
 }

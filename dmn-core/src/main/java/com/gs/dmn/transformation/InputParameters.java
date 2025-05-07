@@ -89,6 +89,8 @@ public class InputParameters {
 
     private final boolean checkConstraints;
 
+    private final String librariesConfigPath;
+
     public InputParameters() {
         this(new LinkedHashMap<>());
     }
@@ -128,6 +130,7 @@ public class InputParameters {
         this.generateExtra = InputParameters.getOptionalBooleanParam(inputParameters, "generateExtra", "false");
 
         this.checkConstraints = InputParameters.getOptionalBooleanParam(inputParameters, "checkConstraints", "false");
+        this.librariesConfigPath = InputParameters.getOptionalParam(inputParameters, "librariesConfigPath", "feel/library/libraries.json");
     }
 
     public String getDmnVersion() {
@@ -232,5 +235,9 @@ public class InputParameters {
 
     public boolean isCheckConstraints() {
         return checkConstraints;
+    }
+
+    public String getLibrariesConfigPath() {
+        return librariesConfigPath;
     }
 }

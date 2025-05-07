@@ -1,0 +1,7 @@
+[
+    {
+        "descriptionPath": "feel/library/signavio.lib",
+        "className": "com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib",
+        "staticAccess": false
+    }
+]

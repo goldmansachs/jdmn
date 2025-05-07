@@ -19,11 +19,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class ELLib {
+    private final LibraryMetadata metadata;
     private final String namespace;
     private final String name;
     private final List<Declaration> declarations;
 
-    public ELLib(String namespace, String name, List<Declaration> declarations) {
+    public ELLib(LibraryMetadata metadata, String namespace, String name, List<Declaration> declarations) {
+        this.metadata = metadata;
         Objects.requireNonNull(namespace, "Missing namespace");
         Objects.requireNonNull(name, "Missing name");
         Objects.requireNonNull(declarations, "Missing declarations");
@@ -32,6 +34,10 @@ public class ELLib {
         this.name = name;
         this.declarations = declarations;
         updateDeclarations();
+    }
+
+    public LibraryMetadata getMetadata() {
+        return metadata;
     }
 
     public String getNamespace() {

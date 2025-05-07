@@ -18,69 +18,39 @@ import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
-import com.gs.dmn.feel.analysis.syntax.ErrorListener;
-import com.gs.dmn.feel.analysis.syntax.antlrv4.LibraryLexer;
-import com.gs.dmn.feel.analysis.syntax.antlrv4.LibraryParser;
-import com.gs.dmn.feel.analysis.syntax.ast.ASTFactory;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BuiltinLibraryParserTest extends AbstractTest {
     @Test
-    public void testBuiltinLibrary() throws IOException {
-        // Parse library
-        String libPath = "feel/library/builtin.lib";
-        Library<?> library = parseLibrary(libPath);
-
-        // Semantic analysis
-        DMNContext builtInContext = StandardEnvironmentFactory.instance().getBuiltInContext();
-        ELLib lib = library.analyze(builtInContext);
+    public void testBuiltinLibrary() {
+        // Create library
+        LibraryRepository libraryRepository = new LibraryRepository(inputParameters);
+        LibraryMetadata metadata1 = new LibraryMetadata("feel/library/builtin.lib", "com.gs.dmn.feel.lib", false);
+        ELLib library = libraryRepository.createLibrary(metadata1, StandardEnvironmentFactory.instance().getBuiltInContext());
 
         // Check properties
-        assertNotNull(lib);
-        assertEquals("com.gs.dmn.feel.lib", lib.getNamespace());
-        assertEquals("builtin", lib.getName());
+        assertNotNull(library);
+        assertEquals("com.gs.dmn.feel.lib", library.getNamespace());
+        assertEquals("builtin", library.getName());
+        LibraryMetadata metadata2 = library.getMetadata();
+        assertNotNull(metadata2);
 
         // Semantic analysis
-        checkTypes(lib);
+        checkTypes(library);
 
         // Check every library declaration
+        DMNContext builtInContext = StandardEnvironmentFactory.instance().getBuiltInContext();
         Map<String, List<Declaration>> variablesTable = builtInContext.getEnvironment().getVariablesTable();
-        check(lib.getDeclarations(), variablesTable);
+        check(library, variablesTable);
     }
 
-    protected Library<?> parseLibrary(String libPath) throws IOException {
-        String text = readLibrary(libPath);
-        LibraryParser parser = makeParser(text);
-        return (Library<?>) parser.library().ast;
-    }
-
-    private String readLibrary(String libPath) {
-        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(libPath)) {
-            if (inputStream == null) {
-                throw new IllegalArgumentException("Error reading lib: " + libPath);
-            } else {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                return reader.lines().collect(Collectors.joining("\n"));
-            }
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Error reading lib: " + libPath, e);
-        }
-    }
-
-    protected void check(List<Declaration> libraryDeclarations, Map<String, List<Declaration>> variablesTable) {
+    protected void check(ELLib library, Map<String, List<Declaration>> variablesTable) {
+        List<Declaration> libraryDeclarations = library.getDeclarations();
         int sum = variablesTable.values().stream().mapToInt(List::size).sum();
         assertEquals(sum, libraryDeclarations.size());
         for (Declaration libraryDeclaration : libraryDeclarations) {
@@ -121,18 +91,4 @@ public class BuiltinLibraryParserTest extends AbstractTest {
             return false;
         }
     }
-
-    protected LibraryParser makeParser(String text) {
-        if (text == null) {
-            throw new IllegalArgumentException("Input tape cannot be null.");
-        }
-        CharStream cs = CharStreams.fromString(text);
-        LibraryLexer lexer = new LibraryLexer(cs);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        LibraryParser parser = LibraryParser.makeLibraryParser(tokens, new ASTFactory<Type, DMNContext>());
-        parser.removeErrorListeners();
-        parser.addErrorListener(new ErrorListener());
-        return parser;
-    }
-
 }
