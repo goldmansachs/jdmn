@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/feel-signavio-library-prefix"
+             name="feel-signavio-library-prefix"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+
+    <import namespace="com.gs.dmn.signavio.feel.lib"
+            name="signavio"
+            importType="https://www.omg.org/spec/DMN/EL/LIBRARY"
+    />
+
+    <inputData name="inputString" id="id-13216bd85ab5ac7ee926ae1e467072ad" label="InputString">
+        <variable typeRef="string" name="inputString" id="id-13216bd85ab5ac7ee926ae1e467072ad_variable"/>
+    </inputData>
+    <inputData name="inputDate" id="id-13216bd85ab5ac7ee926ae1e467072ad-1" label="InputDate">
+        <variable typeRef="date" name="inputDate" id="id-13216bd85ab5ac7ee926ae1e467072ad_variable-1"/>
+    </inputData>
+
+    <decision name="Decision1" id="id-44953907cf5c50f591b26f9f6b405dea" label="Decision1">
+        <variable typeRef="boolean" name="Decision1" id="id-44953907cf5c50f591b26f9f6b405dea_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-13216bd85ab5ac7ee926ae1e467072ad"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>signavio.isAlpha(inputString)</text>
+        </literalExpression>
+    </decision>
+    <decision name="Decision2" id="id-44953907cf5c50f591b26f9f6b405dea-1" label="Decision2">
+        <variable typeRef="number" name="Decision2" id="id-44953907cf5c50f591b26f9f6b405dea_variable-1"/>
+        <informationRequirement>
+            <requiredInput href="#id-13216bd85ab5ac7ee926ae1e467072ad-1"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>signavio.day(inputDate)</text>
+        </literalExpression>
+    </decision>
+</definitions>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>feel-signavio-library.dmn</modelName>
+
+    <testCase id="001">
+        <inputNode name="inputString">
+            <value xsi:type="xsd:string">abc</value>
+        </inputNode>
+        <resultNode name="Decision1" type="decision">
+            <expected>
+                <value xsi:type="xsd:boolean">true</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+    <testCase id="002">
+        <inputNode name="inputDate">
+            <value xsi:type="xsd:date">2020-01-31</value>
+        </inputNode>
+        <resultNode name="Decision2" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">31</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

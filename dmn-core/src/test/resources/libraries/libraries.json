@@ -3,5 +3,10 @@
     "descriptionPath": "libraries/apache-string-utils.lib",
     "className": "org.apache.commons.lang3.StringUtils",
     "staticAccess": true
+  },
+  {
+    "descriptionPath": "feel/library/signavio.lib",
+    "className": "com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib",
+    "staticAccess": false
   }
 ]
