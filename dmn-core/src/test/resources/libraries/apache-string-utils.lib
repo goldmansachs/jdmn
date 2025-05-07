@@ -1,0 +1,8 @@
+namespace org.omg.feel.stringUtil;
+
+stringLib {
+    // Checks if str is empty ("") or null.
+	function isEmpty(str: string) : boolean ;
+    // The capitalized str, null if str is null
+	function capitalize(str: string) : string
+}

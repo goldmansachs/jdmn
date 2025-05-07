@@ -18,6 +18,7 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.el.synthesis.ELTranslator;
+import com.gs.dmn.feel.analysis.syntax.ast.library.LibraryRepository;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.log.BuildLogger;
@@ -41,6 +42,8 @@ public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, T
     //
     // FEEL Processors
     //
+    LibraryRepository createLibraryRepository(InputParameters inputParameters);
+
     EnvironmentFactory createEnvironmentFactory();
 
     ELInterpreter<Type, DMNContext> createELInterpreter(DMNModelRepository repository, InputParameters inputParameters);

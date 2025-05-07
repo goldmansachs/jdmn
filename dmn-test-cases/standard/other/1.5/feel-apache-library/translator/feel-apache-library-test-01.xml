@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>feel-apache-library.dmn</modelName>
+
+    <testCase id="001">
+        <inputNode name="inputString">
+            <value xsi:type="xsd:string">abc</value>
+        </inputNode>
+        <resultNode name="Capitalize" type="decision">
+            <expected>
+                <value xsi:type="xsd:string">Abc</value>
+            </expected>
+        </resultNode>
+    </testCase>
+</testCases>

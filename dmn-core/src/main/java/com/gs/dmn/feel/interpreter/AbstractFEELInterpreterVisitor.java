@@ -44,8 +44,10 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
+import com.gs.dmn.feel.analysis.syntax.ast.library.ELLib;
 import com.gs.dmn.feel.analysis.syntax.ast.library.FunctionDeclaration;
+import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
+import com.gs.dmn.feel.analysis.syntax.ast.library.LibraryMetadata;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
@@ -774,6 +776,9 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 handleError(String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName()));
                 return null;
             }
+        } else if (functionType instanceof LibraryFunctionType) {
+            String functionName = functionName(functionDefinition);
+            return evaluateLibraryFunction(((LibraryFunctionType) functionType).getLib(), functionName, argList);
         } else if (functionType instanceof BuiltinFunctionType) {
             String functionName = functionName(functionDefinition);
             String nativeFunctionName = nativeFunctionName(functionName);
@@ -948,6 +953,17 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
 
     private Object evaluateBuiltInFunction(FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib, String functionName, List<Object> argList) {
         return evaluateMethod(lib, lib.getClass(), functionName, argList);
+    }
+
+    private Object evaluateLibraryFunction(ELLib library, String functionName, List<Object> argList) {
+        LibraryMetadata metadata = library.getMetadata();
+        try {
+            Class<?> cls = Class.forName(metadata.getClassName());
+            Object object = metadata.isStaticAccess() ? null : cls.getDeclaredConstructor().newInstance();
+            return evaluateMethod(object, cls, functionName, argList);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot evaluate function '%s'", functionName), e);
+        }
     }
 
     private Object evaluateExternalJavaFunction(JavaFunctionInfo info, List<Object> argList) {

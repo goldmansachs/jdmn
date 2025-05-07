@@ -13,7 +13,6 @@
 package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
@@ -47,8 +46,7 @@ public class JavaTimePythonStandardDMNDialectDefinition extends AbstractStandard
 
     @Override
     public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
-        EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicDMNToPythonTransformer(this, repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
+        return new BasicDMNToPythonTransformer(this, repository, lazyEvaluationDetector, inputParameters);
     }
 
     //

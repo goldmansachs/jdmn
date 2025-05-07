@@ -13,7 +13,6 @@
 package com.gs.dmn.signavio.dialect;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.MixedJavaTimeNativeTypeFactory;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
@@ -53,8 +52,7 @@ public class MixedJavaTimeSignavioDMNDialectDefinition extends AbstractSignavioD
 
     @Override
     public BasicDMNToJavaTransformer createBasicTransformer(DMNModelRepository repository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
-        EnvironmentFactory environmentFactory = createEnvironmentFactory();
-        return new BasicSignavioDMNToJavaTransformer(this, repository, environmentFactory, createNativeTypeFactory(), lazyEvaluationDetector, inputParameters);
+        return new BasicSignavioDMNToJavaTransformer(this, repository, lazyEvaluationDetector, inputParameters);
     }
 
     //

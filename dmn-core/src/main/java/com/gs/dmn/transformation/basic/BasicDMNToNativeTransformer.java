@@ -27,11 +27,14 @@ import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
+import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
+import com.gs.dmn.feel.analysis.syntax.ast.library.ELLib;
+import com.gs.dmn.feel.analysis.syntax.ast.library.LibraryRepository;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
@@ -44,6 +47,7 @@ import com.gs.dmn.transformation.proto.ProtoBufferFactory;
 import com.gs.dmn.transformation.proto.Service;
 
 import javax.xml.namespace.QName;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -52,6 +56,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     DMNDialectDefinition<?, ?, ?, ?, ?, ?> getDialect();
 
     DMNModelRepository getDMNModelRepository();
+
+    LibraryRepository getLibraryRepository();
 
     EnvironmentFactory getEnvironmentFactory();
 
@@ -607,30 +613,71 @@ public interface BasicDMNToNativeTransformer<T, C> {
     String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext);
 
     //
-    // DMN context related methods
+    // DMN context factory
     //
     default DMNContext makeBuiltInContext() {
         return getEnvironmentFactory().getBuiltInContext();
     }
 
     default DMNContext makeGlobalContext(TDRGElement element) {
-        return DMNContext.of(
-                this.makeBuiltInContext(),
+        DMNContext libraryContext = makeLibraryContext(element, makeBuiltInContext());
+        DMNContext globalContext = DMNContext.of(
+                libraryContext,
                 DMNContextKind.GLOBAL,
                 element,
-                makeEnvironment(element),
+                getDMNEnvironmentFactory().makeEnvironment(element),
                 RuntimeEnvironment.of()
         );
+        return globalContext;
     }
 
     default DMNContext makeGlobalContext(TDRGElement element, boolean isRecursive) {
-        return DMNContext.of(
-                makeBuiltInContext(),
+        DMNContext libraryContext = makeLibraryContext(element, makeBuiltInContext());
+        DMNContext globalContext = DMNContext.of(
+                libraryContext,
                 DMNContextKind.GLOBAL,
                 element,
                 getDMNEnvironmentFactory().makeEnvironment(element, isRecursive),
                 RuntimeEnvironment.of()
         );
+        return globalContext;
+    }
+
+    default DMNContext makeLibraryContext(TDRGElement element, DMNContext parentContext) {
+        // Filter libs
+        List<Pair<String, ELLib>> importedLibraries = findImportedLibraries(element);
+        if (importedLibraries.isEmpty()) {
+            return parentContext;
+        } else {
+            // Add declarations and bind values
+            Environment environment = getEnvironmentFactory().emptyEnvironment();
+            RuntimeEnvironment runtimeEnvironment = RuntimeEnvironment.of();
+            DMNContext libraryContext = DMNContext.of(
+                    parentContext,
+                    DMNContextKind.GLOBAL,
+                    element,
+                    environment,
+                    runtimeEnvironment
+            );
+            ELLib.bind(importedLibraries, libraryContext);
+            return libraryContext;
+        }
+    }
+
+    default List<Pair<String, ELLib>> findImportedLibraries(TDRGElement element) {
+        getLibraryRepository().discoverLibraries(getEnvironmentFactory().getBuiltInContext());
+        TDefinitions definitions = getDMNModelRepository().getModel(element);
+        List<Pair<String, ELLib>> importedLibraries = new ArrayList<>();
+        for (TImport import_ : definitions.getImport()) {
+            if (getDMNModelRepository().isLibraryImport(import_)) {
+                ELLib library = getLibraryRepository().getLibrary(import_.getNamespace());
+                if (library == null) {
+                    throw new SemanticError(String.format("Cannot find library for namespace '%s' in import '%s'", import_.getNamespace(), import_));
+                }
+                importedLibraries.add(new Pair<>(import_.getName(), library));
+            }
+        }
+        return importedLibraries;
     }
 
     default DMNContext makeGlobalContext(TDRGElement element, DMNContext parentContext) {
@@ -638,7 +685,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 parentContext,
                 DMNContextKind.GLOBAL,
                 element,
-                makeEnvironment(element),
+                getDMNEnvironmentFactory().makeEnvironment(element),
                 RuntimeEnvironment.of()
         );
     }
@@ -677,7 +724,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 parentContext,
                 DMNContextKind.FUNCTION,
                 element,
-                makeFunctionDefinitionEnvironment(element, expression),
+                getDMNEnvironmentFactory().makeFunctionDefinitionEnvironment(element, expression),
                 RuntimeEnvironment.of()
         );
     }
@@ -694,7 +741,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
         TDefinitions model = getDMNModelRepository().getModel(parentContext.getElement());
         FunctionType functionType = null;
         if (functionTypeRef != null) {
-            functionType = (FunctionType) toFEELType(null, QualifiedName.toQualifiedName(model, functionTypeRef));
+            functionType = (FunctionType) getDMNEnvironmentFactory().toFEELType(null, QualifiedName.toQualifiedName(model, functionTypeRef));
         }
         // Add parameter declarations
         List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
@@ -704,7 +751,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
             QName paramTypeRef = param.getTypeRef();
             Type paramType = null;
             if (paramTypeRef != null) {
-                paramType = toFEELType(null, QualifiedName.toQualifiedName(model, paramTypeRef));
+                paramType = getDMNEnvironmentFactory().toFEELType(null, QualifiedName.toQualifiedName(model, paramTypeRef));
             }
             if (paramType == null && functionType != null) {
                 // Infer from function type
@@ -738,7 +785,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 parentContext,
                 DMNContextKind.FOR,
                 parentContext.getElement(),
-                this.getEnvironmentFactory().emptyEnvironment(),
+                getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
     }
@@ -748,7 +795,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 parentContext,
                 DMNContextKind.ITERATOR,
                 parentContext.getElement(),
-                this.getEnvironmentFactory().emptyEnvironment(),
+                getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
     }
@@ -771,7 +818,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
-        filterContext.addDeclaration(this.getEnvironmentFactory().makeVariableDeclaration(filterParameterName, itemType));
+        filterContext.addDeclaration(getEnvironmentFactory().makeVariableDeclaration(filterParameterName, itemType));
         return filterContext;
     }
 
@@ -780,7 +827,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 parentContext,
                 DMNContextKind.LIST,
                 element,
-                this.getEnvironmentFactory().emptyEnvironment(),
+                getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
     }
@@ -790,7 +837,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 parentContext,
                 DMNContextKind.RELATION,
                 element,
-                makeRelationEnvironment(element, relation),
+                getEnvironmentFactory().emptyEnvironment(),
                 RuntimeEnvironment.of()
         );
     }

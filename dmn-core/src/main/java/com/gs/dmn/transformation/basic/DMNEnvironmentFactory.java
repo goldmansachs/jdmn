@@ -89,5 +89,4 @@ public interface DMNEnvironmentFactory {
     // Relation
     //
     Environment makeRelationEnvironment(TNamedElement element, TRelation relation);
-
 }

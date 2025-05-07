@@ -13,34 +13,15 @@
 package com.gs.dmn.runtime.function;
 
 import com.gs.dmn.context.environment.Declaration;
-import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.List;
 
-public class BuiltinFunction extends Function {
+public class LibraryFunction extends BuiltinFunction {
     public static Function of(List<Declaration> declarations) {
-        return new BuiltinFunction(declarations);
+        return new LibraryFunction(declarations);
     }
 
-    // List of declarations
-    private final List<Declaration> declarations;
-
-    protected BuiltinFunction(List<Declaration> declarations) {
-        this.declarations = declarations;
-    }
-
-    public List<Declaration> getDeclarations() {
-        return declarations;
-    }
-
-    @Override
-    public Type getType() {
-        throw new DMNRuntimeException("Not supported");
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s(declaration='%s')", getClass().getSimpleName(), declarations);
+    private LibraryFunction(List<Declaration> declarations) {
+        super(declarations);
     }
 }

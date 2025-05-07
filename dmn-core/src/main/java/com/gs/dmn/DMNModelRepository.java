@@ -860,6 +860,10 @@ public class DMNModelRepository {
         }
     }
 
+    public boolean isLibraryImport(TImport import_) {
+        return DMNVersion.FEEL_LIBRARY_IMPORT.equals(import_.getImportType());
+    }
+
     public boolean isNull(String typeRef) {
         return typeRef == null;
     }

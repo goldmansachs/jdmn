@@ -17,6 +17,7 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.el.synthesis.ELTranslator;
+import com.gs.dmn.feel.analysis.syntax.ast.library.LibraryRepository;
 import com.gs.dmn.feel.interpreter.AbstractFEELInterpreter;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
@@ -27,6 +28,11 @@ public abstract class AbstractDMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME
     //
     // FEEL Processors
     //
+    @Override
+    public LibraryRepository createLibraryRepository(InputParameters inputParameters) {
+        return new LibraryRepository(inputParameters);
+    }
+
     @Override
     public ELInterpreter<Type, DMNContext> createELInterpreter(DMNModelRepository repository, InputParameters inputParameters) {
         DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter = createDMNInterpreter(repository, inputParameters);

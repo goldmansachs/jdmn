@@ -19,10 +19,8 @@ import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TInvocable;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.Range;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -37,8 +35,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
-    public BasicDMNToPythonTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory feelTypeTranslator, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
-        super(dialect, dmnModelRepository, environmentFactory, feelTypeTranslator, lazyEvaluationDetector, inputParameters);
+    public BasicDMNToPythonTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
+        super(dialect, dmnModelRepository, lazyEvaluationDetector, inputParameters);
     }
 
     @Override

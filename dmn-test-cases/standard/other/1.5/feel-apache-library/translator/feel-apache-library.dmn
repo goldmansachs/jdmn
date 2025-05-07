@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions namespace="http://www.montera.com.au/spec/DMN/feel-apache-library"
+             name="feel-apache-library"
+             id="_i9fboPUUEeesLuP4RHs4vA"
+             xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+>
+
+    <import namespace="org.omg.feel.stringUtil"
+            name=""
+            importType="https://www.omg.org/spec/DMN/EL/LIBRARY"
+    />
+
+    <inputData name="inputString" id="id-13216bd85ab5ac7ee926ae1e467072ad" label="InputString">
+        <variable typeRef="string" name="inputString" id="id-13216bd85ab5ac7ee926ae1e467072ad_variable"/>
+    </inputData>
+    <decision name="Capitalize" id="id-44953907cf5c50f591b26f9f6b405dea" label="Capitalize">
+        <variable typeRef="string" name="Capitalize" id="id-44953907cf5c50f591b26f9f6b405dea_variable"/>
+        <informationRequirement>
+            <requiredInput href="#id-13216bd85ab5ac7ee926ae1e467072ad"/>
+        </informationRequirement>
+        <decisionTable hitPolicy="UNIQUE">
+            <input id="id-4c42f7838e0e1d46b6c36672189bde48" label="InputString">
+                <inputExpression>
+                    <text>inputString</text>
+                </inputExpression>
+            </input>
+            <output name="capitalize" typeRef="string" id="id-2a5aadcc1199c4bbf3ec289cd98aeb35" label="Capitalize"/>
+            <rule id="id-0c56b582587660c13da7259aaadd4c89">
+                <description>string(-)</description>
+                <inputEntry>
+                    <text>-</text>
+                </inputEntry>
+                <outputEntry>
+                    <text>capitalize(inputString)</text>
+                </outputEntry>
+            </rule>
+        </decisionTable>
+    </decision>
+</definitions>

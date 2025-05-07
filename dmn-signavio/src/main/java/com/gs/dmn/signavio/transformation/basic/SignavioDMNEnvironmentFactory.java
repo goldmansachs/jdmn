@@ -114,7 +114,7 @@ public class SignavioDMNEnvironmentFactory extends StandardDMNEnvironmentFactory
             } else {
                 TFunctionDefinition functionDefinition = bkm.getEncapsulatedLogic();
                 functionDefinition.getFormalParameter().forEach(
-                        p -> parentEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), this.dmnTransformer.toFEELType(childModel, QualifiedName.toQualifiedName(childModel, p.getTypeRef())))));
+                        p -> parentEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), toFEELType(childModel, QualifiedName.toQualifiedName(childModel, p.getTypeRef())))));
                 declaration = makeInvocableDeclaration(bkm);
             }
         } else if (child instanceof TDecision) {

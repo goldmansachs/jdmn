@@ -1,0 +1,7 @@
+[
+  {
+    "descriptionPath": "libraries/apache-string-utils.lib",
+    "className": "org.apache.commons.lang3.StringUtils",
+    "staticAccess": true
+  }
+]

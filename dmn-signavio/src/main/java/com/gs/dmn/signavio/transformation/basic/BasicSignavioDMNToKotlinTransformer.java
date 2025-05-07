@@ -17,10 +17,8 @@ import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
@@ -30,8 +28,8 @@ import com.gs.dmn.transformation.native_.KotlinFactory;
 import com.gs.dmn.transformation.proto.ProtoBufferKotlinFactory;
 
 public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaTransformer {
-    public BasicSignavioDMNToKotlinTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
-        super(dialect, dmnModelRepository, environmentFactory, nativeTypeFactory, lazyEvaluationDetector, inputParameters);
+    public BasicSignavioDMNToKotlinTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
+        super(dialect, dmnModelRepository, lazyEvaluationDetector, inputParameters);
     }
 
     @Override

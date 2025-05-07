@@ -27,6 +27,7 @@ import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
+import com.gs.dmn.feel.analysis.syntax.ast.library.LibraryRepository;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.FEELTranslator;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
@@ -74,6 +75,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
     protected final NativeTypeFactory nativeTypeFactory;
+    protected final LibraryRepository libraryRepository;
     protected ProtoBufferFactory protoFactory;
     private final LazyEvaluationDetector lazyEvaluationDetector;
 
@@ -90,11 +92,12 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     protected final DRGElementFilter drgElementFilter;
     protected final JavaTypeMemoizer nativeTypeMemoizer;
 
-    public BasicDMNToJavaTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, EnvironmentFactory environmentFactory, NativeTypeFactory nativeTypeFactory, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
+    public BasicDMNToJavaTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         this.dialect = dialect;
         this.dmnModelRepository = dmnModelRepository;
-        this.environmentFactory = environmentFactory;
-        this.nativeTypeFactory = nativeTypeFactory;
+        this.libraryRepository = dialect.createLibraryRepository(inputParameters);
+        this.environmentFactory = dialect.createEnvironmentFactory();
+        this.nativeTypeFactory = dialect.createNativeTypeFactory();
         this.lazyEvaluationDetector = lazyEvaluationDetector;
 
         // Configuration
@@ -144,6 +147,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public DMNModelRepository getDMNModelRepository() {
         return this.dmnModelRepository;
+    }
+
+    @Override
+    public LibraryRepository getLibraryRepository() {
+        return this.libraryRepository;
     }
 
     @Override
