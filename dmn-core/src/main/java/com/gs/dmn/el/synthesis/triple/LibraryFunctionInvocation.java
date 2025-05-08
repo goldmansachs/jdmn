@@ -14,21 +14,22 @@ package com.gs.dmn.el.synthesis.triple;
 
 import java.util.List;
 
-public class BuiltinFunctionInvocation extends FunctionInvocationTriple {
-    protected final Triple conversionFunction;
-    protected final List<Triple> operands;
+public class LibraryFunctionInvocation extends BuiltinFunctionInvocation {
+    private final Triple class_;
+    private final boolean staticAccess;
 
-    BuiltinFunctionInvocation(Triple conversionFunction, List<Triple> operands) {
-        this.conversionFunction = conversionFunction;
-        this.operands = operands;
+    LibraryFunctionInvocation(Triple class_, boolean staticAccess, Triple conversionFunction, List<Triple> operands) {
+        super(conversionFunction, operands);
+        this.class_ = class_;
+        this.staticAccess = staticAccess;
     }
 
-    Triple getConversionFunction() {
-        return conversionFunction;
+    public Triple getClass_() {
+        return class_;
     }
 
-    List<Triple> getOperands() {
-        return operands;
+    public boolean isStaticAccess() {
+        return staticAccess;
     }
 
     @Override
@@ -38,6 +39,6 @@ public class BuiltinFunctionInvocation extends FunctionInvocationTriple {
 
     @Override
     public String toString() {
-        return String.format("BuiltinFunctionInvocation(%s, %s)", conversionFunction, operands);
+        return String.format("LibraryFunctionInvocation(%s, %s, %s)", class_, conversionFunction, operands);
     }
 }

@@ -1,0 +1,97 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "http://www.montera.com.au/spec/DMN/feel-signavio-library" ],
+  "nativeNamespace" : "",
+  "types" : [ ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-1",
+    "javaParameterName" : "inputDate",
+    "javaTypeName" : "java.time.LocalDate",
+    "label" : "InputDate",
+    "name" : "inputDate",
+    "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "id-13216bd85ab5ac7ee926ae1e467072ad",
+    "javaParameterName" : "inputString",
+    "javaTypeName" : "String",
+    "label" : "InputString",
+    "name" : "inputString",
+    "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
+    "typeRef" : {
+      "localName" : "string",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "id-44953907cf5c50f591b26f9f6b405dea",
+    "informationReferences" : [ {
+      "reference" : "id-13216bd85ab5ac7ee926ae1e467072ad"
+    } ],
+    "javaOutputTypeName" : "Boolean",
+    "javaParameterName" : "decision1",
+    "javaTypeName" : "Decision1",
+    "knowledgeReferences" : [ ],
+    "label" : "Decision1",
+    "name" : "Decision1",
+    "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
+    "protoRequestName" : "proto.Decision1Request",
+    "protoResponseName" : "proto.Decision1Response",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-13216bd85ab5ac7ee926ae1e467072ad",
+      "javaParameterName" : "inputString",
+      "javaTypeName" : "String",
+      "label" : "InputString",
+      "name" : "inputString",
+      "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "boolean",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "id-44953907cf5c50f591b26f9f6b405dea-1",
+    "informationReferences" : [ {
+      "reference" : "id-13216bd85ab5ac7ee926ae1e467072ad-1"
+    } ],
+    "javaOutputTypeName" : "java.lang.Number",
+    "javaParameterName" : "decision2",
+    "javaTypeName" : "Decision2",
+    "knowledgeReferences" : [ ],
+    "label" : "Decision2",
+    "name" : "Decision2",
+    "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
+    "protoRequestName" : "proto.Decision2Request",
+    "protoResponseName" : "proto.Decision2Response",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-1",
+      "javaParameterName" : "inputDate",
+      "javaTypeName" : "java.time.LocalDate",
+      "label" : "InputDate",
+      "name" : "inputDate",
+      "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "number",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  } ]
+}

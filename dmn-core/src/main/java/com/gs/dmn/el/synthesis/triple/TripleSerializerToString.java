@@ -96,6 +96,12 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
     }
 
     @Override
+    public String visit(LibraryFunctionSelect triple, Triples context) {
+        // Import prefix is ignored, fully qualified path
+        return triple.getFunctionName();
+    }
+
+    @Override
     public String visit(RangeAccessor triple, Triples context) {
         String sourceText = triple.getSource().accept(this, context);
         return String.format("%s.%s", sourceText, triple.getRangeGetter());
@@ -139,6 +145,16 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
         String function = triple.getConversionFunction().accept(this, context);
         String argumentsText = triple.getOperands().stream().map(o -> o.accept(this, context)).collect(Collectors.joining(", "));
         return this.nativeFactory.makeBuiltinFunctionInvocation(function, argumentsText);
+    }
+
+    @Override
+    public String visit(LibraryFunctionInvocation triple, Triples context) {
+        String className = triple.getClass_().accept(this, context);
+        boolean staticAccess = triple.isStaticAccess();
+        String functionName = triple.getConversionFunction().accept(this, context);
+        String qualifiedName = staticAccess ? String.format("%s.%s", className, functionName) : String.format("%s.INSTANCE.%s", className, functionName);
+        String argumentsText = triple.getOperands().stream().map(o -> o.accept(this, context)).collect(Collectors.joining(", "));
+        return this.nativeFactory.makeBuiltinFunctionInvocation(qualifiedName, argumentsText);
     }
 
     @Override

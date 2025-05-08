@@ -111,6 +111,11 @@ public class Triples {
         return addTriple(triple);
     }
 
+    public Triple makeLibraryFunctionSelectExpression(String source, String functionName) {
+        Triple triple = new LibraryFunctionSelect(source, functionName);
+        return addTriple(triple);
+    }
+
     public Triple makeRangeAccessor(Triple source, String rangeGetter) {
         Triple triple = new RangeAccessor(source, rangeGetter);
         return addTriple(triple);
@@ -148,6 +153,11 @@ public class Triples {
 
     public Triple makeBuiltinFunctionInvocation(Triple function, List<Triple> operands) {
         Triple triple = new BuiltinFunctionInvocation(function, operands);
+        return addTriple(triple);
+    }
+
+    public Triple makeLibraryFunctionInvocation(Triple class_, boolean staticAccess, Triple function, List<Triple> operands) {
+        Triple triple = new LibraryFunctionInvocation(class_, staticAccess, function, operands);
         return addTriple(triple);
     }
 

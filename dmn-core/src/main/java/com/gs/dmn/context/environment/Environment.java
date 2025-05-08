@@ -82,7 +82,7 @@ public class Environment {
         } else if (declarations.stream().allMatch(d -> d.getType() instanceof FunctionType)) {
             return null;
         } else {
-            throw new SemanticError(String.format("Multiple variables for 'name' in the same context %s", declarations));
+            throw new SemanticError(String.format("Multiple variables for '%s' in the same context %s", name, declarations));
         }
     }
 

@@ -3345,6 +3345,37 @@
                         </configuration>
                     </execution>
 
+                    <!-- libraries -->
+                    <execution>
+                        <id>signavio-library</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${other.15.diagram.folder}/feel-signavio-library/translator</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.other.signavio_library</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-signavio-library</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${other.15.diagram.folder}/feel-signavio-library/translator</inputTestFileDirectory>
+                            <inputModelFileDirectory>${other.15.diagram.folder}/feel-signavio-library/translator</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.other.signavio_library</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
                     <!-- non-compliant-->
                     <!--
                                         <execution>

@@ -49,6 +49,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.library.FunctionDeclaration;
 import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
+import com.gs.dmn.feel.analysis.syntax.ast.library.LibraryMetadata;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -562,7 +563,12 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         List<FormalParameter<Type>> formalParameters = functionType.getParameters();
         List<Object> argList = arguments.argumentList(formalParameters);
         Triple functionCode = (Triple) function.accept(this, context);
-        if (functionType instanceof BuiltinFunctionType) {
+        if (functionType instanceof LibraryFunctionType) {
+            List<Triple> operands = visitArgList(argList);
+            LibraryMetadata metadata =  ((LibraryFunctionType) functionType).getLib().getMetadata();
+            Triple className = this.triples.name(metadata.getClassName());
+            return this.triples.makeLibraryFunctionInvocation(className, metadata.isStaticAccess(), functionCode, operands);
+        } else if (functionType instanceof BuiltinFunctionType) {
             List<Triple> operands = visitArgList(argList);
             return this.triples.makeBuiltinFunctionInvocation(functionCode, operands);
         } else if (functionType instanceof DMNFunctionType) {
@@ -773,17 +779,23 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
             ImportContextType importContextType = (ImportContextType) sourceType;
             // Try imported DRG element
             DRGElementReference<? extends TDRGElement> memberReference = importContextType.getMemberReference(memberName);
-            if (memberReference == null) {
-                handleError(context, element, String.format("Cannot find reference for '%s'", memberName));
-                return null;
+            if (memberReference != null) {
+                TDRGElement drgElement = memberReference.getElement();
+                if (drgElement instanceof TInvocable) {
+                    return this.triples.singletonInvocableInstance(this.dmnTransformer.singletonInvocableInstance((TBusinessKnowledgeModel) drgElement));
+                } else {
+                    String qualifiedName = this.dmnTransformer.drgReferenceQualifiedName(memberReference);
+                    return nameToTriple(memberReference.getElementName(), qualifiedName);
+                }
             }
-            TDRGElement drgElement = memberReference.getElement();
-            if (drgElement instanceof TInvocable) {
-                return this.triples.singletonInvocableInstance(this.dmnTransformer.singletonInvocableInstance((TBusinessKnowledgeModel) drgElement));
-            } else {
-                String qualifiedName = this.dmnTransformer.drgReferenceQualifiedName(memberReference);
-                return nameToTriple(memberReference.getElementName(), qualifiedName);
+            // Try imported library
+            Type memberType = importContextType.getMemberType(memberName);
+            if (memberType instanceof LibraryFunctionType) {
+                 String importPath = importContextType.getImportName();
+                 return this.triples.makeLibraryFunctionSelectExpression(importPath, memberName);
             }
+            handleError(context, element, String.format("Cannot find imported member '%s'", memberName));
+            return null;
         } else if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
             String nativeType = this.dmnTransformer.toNativeType(memberType);

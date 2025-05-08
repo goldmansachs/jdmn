@@ -12,23 +12,21 @@
  */
 package com.gs.dmn.el.synthesis.triple;
 
-import java.util.List;
+public class LibraryFunctionSelect extends PathTriple {
+    private final String source;
+    private final String functionName;
 
-public class BuiltinFunctionInvocation extends FunctionInvocationTriple {
-    protected final Triple conversionFunction;
-    protected final List<Triple> operands;
-
-    BuiltinFunctionInvocation(Triple conversionFunction, List<Triple> operands) {
-        this.conversionFunction = conversionFunction;
-        this.operands = operands;
+    LibraryFunctionSelect(String source, String functionName) {
+        this.source = source;
+        this.functionName = functionName;
     }
 
-    Triple getConversionFunction() {
-        return conversionFunction;
+    String getSource() {
+        return source;
     }
 
-    List<Triple> getOperands() {
-        return operands;
+    String getFunctionName() {
+        return functionName;
     }
 
     @Override
@@ -38,6 +36,6 @@ public class BuiltinFunctionInvocation extends FunctionInvocationTriple {
 
     @Override
     public String toString() {
-        return String.format("BuiltinFunctionInvocation(%s, %s)", conversionFunction, operands);
+        return String.format("LibraryFunctionSelect(%s, %s)", source, functionName);
     }
 }

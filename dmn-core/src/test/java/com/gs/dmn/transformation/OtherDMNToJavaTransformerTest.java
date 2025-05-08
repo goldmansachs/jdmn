@@ -35,4 +35,13 @@ public class OtherDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransform
         doFolderTest("1.4", "decision-table-with-annotations");
     }
 
+    @Test
+    public void testSignavioLibrary() throws Exception {
+        doFolderTest("1.5", "feel-signavio-library");
+    }
+
+    @Test
+    public void testSignavioLibraryWithPrefix() throws Exception {
+        doFolderTest("1.5", "feel-signavio-library-prefix");
+    }
 }

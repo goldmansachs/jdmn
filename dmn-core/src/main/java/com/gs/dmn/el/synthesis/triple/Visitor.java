@@ -39,6 +39,8 @@ public interface Visitor<C, R> {
 
     R visit(ContextSelect triple, C context);
 
+    R visit(LibraryFunctionSelect triple, C context);
+
     R visit(RangeAccessor triple, C context);
 
     R visit(CollectionMap triple, C context);
@@ -56,6 +58,8 @@ public interface Visitor<C, R> {
     R visit(FunctionDefinitionTriple triple, C context);
 
     R visit(BuiltinFunctionInvocation triple, C context);
+
+    R visit(LibraryFunctionInvocation triple, C context);
 
     R visit(ApplyInvocation triple, C context);
 
