@@ -23,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.namespace.QName;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -34,14 +33,14 @@ public abstract class SimpleDMNDialectTransformer {
     protected final ErrorHandler errorHandler;
     protected final DMNVersion sourceVersion;
     protected final DMNVersion targetVersion;
-    protected final DMNVersionTransformerVisitor visitor;
+    protected final DMNVersionTransformerVisitor<?> visitor;
 
     public SimpleDMNDialectTransformer(BuildLogger logger, DMNVersion sourceVersion, DMNVersion targetVersion) {
         this.logger = logger;
         this.errorHandler =  new LogErrorHandler(LOGGER);
         this.sourceVersion = sourceVersion;
         this.targetVersion = targetVersion;
-        this.visitor = new DMNVersionTransformerVisitor(logger, this.errorHandler, sourceVersion, targetVersion);
+        this.visitor = new DMNVersionTransformerVisitor<>(logger, this.errorHandler, sourceVersion, targetVersion);
     }
 
     public TDefinitions transformDefinitions(TDefinitions sourceDefinitions) {
@@ -97,9 +96,20 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
     @Override
     public DMNBaseElement visit(TImport element, C context) {
         updateXMLNamespaces(element);
+        updateImportType(element);
 
         super.visit(element, context);
         return element;
+    }
+
+    private void updateImportType(TImport element) {
+        String importType = element.getImportType();
+        if (sourceVersion.getNamespace().equals(importType)) {
+            element.setImportType(targetVersion.getNamespace());
+        }
+        if (sourceVersion.getFeelNamespace().equals(importType)) {
+            element.setImportType(targetVersion.getFeelNamespace());
+        }
     }
 
     @Override

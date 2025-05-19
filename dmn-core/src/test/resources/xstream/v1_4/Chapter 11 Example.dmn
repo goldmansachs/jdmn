@@ -15,7 +15,7 @@
                      name="Financial"
                      triso:fileId="eyJmIjp7InNrdSI6IjU1ZTFkZDA5LTdjYTUtNGUyMC04NzI1LWVlOTI5NzI2OTZkYiIsIm5hbWUiOiJGaW5hbmNpYWwifSwiciI6eyJhcGlrZXkiOiIyOTIwMDNmNjk4NDBlNzEyIn19"
                      triso:fileName="Chapter 11 Example/Financial"
-                     importType="https://www.omg.org/spec/DMN/20191111/MODEL/" drools:modelName="Financial"/>
+                     importType="https://www.omg.org/spec/DMN/20211108/MODEL/" drools:modelName="Financial"/>
     <semantic:itemDefinition isCollection="false" name="tStrategy" label="tStrategy">
         <semantic:typeRef>string</semantic:typeRef>
         <semantic:allowedValues triso:constraintsType="enumeration">

@@ -23,6 +23,7 @@ public class DMN13ToLatestDialectTransformerTest extends DMNDialectTransformerTe
         doTest("0004-lending.dmn");
         doTest("0014-loan-comparison.dmn");
         doTest("0087-chapter-11-example.dmn");
+        doTest("0086-import.dmn");
     }
 
     @Override
