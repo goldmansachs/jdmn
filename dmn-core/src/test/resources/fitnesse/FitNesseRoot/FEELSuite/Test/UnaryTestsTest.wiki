@@ -51,7 +51,7 @@
 |]1..2[                                  |PositiveUnaryTests(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))                                         |
 |[1..2]                                  |PositiveUnaryTests(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))                                       |
 |-a.b.c                                  |PositiveUnaryTests(OperatorRange(null,ArithmeticNegation(PathExpression(PathExpression(Name(a), b), c))))                 |
-|null                                    |PositiveUnaryTests(NullTest())                                                                                            |
+|null                                    |PositiveUnaryTests(OperatorRange(null,NullLiteral()))                                                                                            |
 |-                                       |Any()                                                                                                                     |
 |not (1, 2)                              |NegatedPositiveUnaryTests(PositiveUnaryTests(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2))))|
 

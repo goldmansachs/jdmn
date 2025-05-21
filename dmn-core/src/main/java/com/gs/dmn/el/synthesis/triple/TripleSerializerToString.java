@@ -205,13 +205,44 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
         String nativeOperator = infixExpression.getNativeOperator();
         String leftOpd = infixExpression.getLeftOpd().accept(this, context);
         String rightOpd = infixExpression.getRightOpd().accept(this, context);
-        return String.format("(%s) %s (%s)", leftOpd, nativeOperator, rightOpd);
+        // Optimize parenthesis
+        leftOpd = addParenthesis(leftOpd, infixExpression.getLeftOpd(), context);
+        rightOpd = addParenthesis(rightOpd, infixExpression.getRightOpd(), context);
+        return String.format("%s %s %s", leftOpd, nativeOperator, rightOpd);
+    }
+
+    private String addParenthesis(String text, Triple operand, Triples context) {
+        // Lower priority triple that infix notation
+        if (needsParenthesis(operand, context)) {
+            return String.format("(%s)", text);
+        } else {
+            return text;
+        }
+    }
+
+    private boolean needsParenthesis(Triple operand, Triples context) {
+        if (operand instanceof TripleReference) {
+            Triple opdTriple = context.getTriple(((TripleReference) operand).getIndex());
+            return  opdTriple instanceof ForTriple ||
+                    opdTriple instanceof EveryTriple ||
+                    opdTriple instanceof SomeTriple ||
+                    opdTriple instanceof InstanceOfTriple ||
+                    opdTriple instanceof IfTriple;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public String visit(IsNullTriple triple, Triples context) {
         String text = triple.getInputExpressionToJava().accept(this, context);
         return this.nativeFactory.isNull(text);
+    }
+
+    @Override
+    public String visit(IsNotNullTriple triple, Triples context) {
+        String text = triple.getInputExpressionToJava().accept(this, context);
+        return this.nativeFactory.isNotNull(text);
     }
 
     @Override

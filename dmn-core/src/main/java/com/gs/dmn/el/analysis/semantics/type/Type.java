@@ -114,6 +114,8 @@ public interface Type {
         type2 = extractTypeFromConstraint(type2);
         if (isNullOrAny(type1) || isNullOrAny(type2)) {
             return true;
+        } else if (isNullType(type1) || isNullType(type2)) {
+            return true;
         } else {
             return type1.getClass().equals(type2.getClass());
         }

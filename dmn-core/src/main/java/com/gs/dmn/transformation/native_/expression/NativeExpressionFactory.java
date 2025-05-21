@@ -101,6 +101,8 @@ public interface NativeExpressionFactory {
     //
     String isNull(String exp);
 
+    String isNotNull(String exp);
+
     //
     // Functions
     //

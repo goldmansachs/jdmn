@@ -120,14 +120,6 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Override
-    public Object visit(NullTest<Type> element, DMNContext context) {
-        LOGGER.debug("Visiting element '{}'", element);
-
-        Object self = context.lookupBinding(INPUT_ENTRY_PLACE_HOLDER);
-        return self == null;
-    }
-
-    @Override
     public Object visit(ExpressionTest<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 

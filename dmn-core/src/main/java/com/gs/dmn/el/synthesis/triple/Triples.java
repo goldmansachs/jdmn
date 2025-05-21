@@ -196,9 +196,31 @@ public class Triples {
     //
     // Expression
     //
-    public Triple makeInfixExpression(String javaOperator, Triple leftOpd, Triple rightOpd) {
-        Triple triple = new InfixTriple(javaOperator, leftOpd, rightOpd);
+    public Triple makeInfixExpression(String nativeOperator, Triple leftOpd, Triple rightOpd) {
+        Triple triple;
+        if ("==".equals(nativeOperator)) {
+            if (isNullLiteral(leftOpd)) {
+                return makeIsNull(rightOpd);
+            } else if (isNullLiteral(rightOpd)) {
+                return makeIsNull(leftOpd);
+            }
+        }
+        if ("!=".equals(nativeOperator)) {
+            if (isNullLiteral(leftOpd)) {
+                return makeIsNotNull(rightOpd);
+            } else if (isNullLiteral(rightOpd)) {
+                return makeIsNotNull(leftOpd);
+            }
+        }
+        triple = new InfixTriple(nativeOperator, leftOpd, rightOpd);
         return addTriple(triple);
+    }
+
+    private boolean isNullLiteral(Triple operand) {
+        if (operand instanceof TripleReference) {
+            operand = this.triples.get(((TripleReference) operand).getIndex());
+        }
+        return operand instanceof NullLiteral;
     }
 
     public Triple makeIfExpression(Triple condition, Triple thenExp, Triple elseExp) {
@@ -206,8 +228,13 @@ public class Triples {
         return addTriple(triple);
     }
 
-    public Triple isNull(Triple inputExpressionToJava) {
+    public Triple makeIsNull(Triple inputExpressionToJava) {
         Triple triple = new IsNullTriple(inputExpressionToJava);
+        return addTriple(triple);
+    }
+
+    public Triple makeIsNotNull(Triple inputExpressionToJava) {
+        Triple triple = new IsNotNullTriple(inputExpressionToJava);
         return addTriple(triple);
     }
 

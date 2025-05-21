@@ -239,6 +239,11 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
         return String.format("%s is %s", exp, this.nullLiteral());
     }
 
+    @Override
+    public String isNotNull(String exp) {
+        return String.format("%s is not %s", exp, this.nullLiteral());
+    }
+
     //
     // Functions
     //

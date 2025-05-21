@@ -108,14 +108,6 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     @Override
-    public Element<Type> visit(NullTest<Type> element, DMNContext context) {
-        // Derive type
-        element.setType(BooleanType.BOOLEAN);
-
-        return element;
-    }
-
-    @Override
     public Element<Type> visit(ExpressionTest<Type> element, DMNContext context) {
         // Visit children
         Expression<Type> expression = element.getExpression();

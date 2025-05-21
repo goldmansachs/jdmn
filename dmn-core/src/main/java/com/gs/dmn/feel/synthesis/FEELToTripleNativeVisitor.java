@@ -51,13 +51,11 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
-
 import static com.gs.dmn.transformation.native_.NativeFactory.MAP_ITERATOR;
 
 public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object> {
@@ -101,11 +99,6 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
     @Override
     public Triple visit(Any<Type> element, DMNContext context) {
         return this.triples.trueConstant();
-    }
-
-    @Override
-    public Triple visit(NullTest<Type> element, DMNContext context) {
-        return this.triples.isNull(inputExpressionToJava(context));
     }
 
     @Override
@@ -745,11 +738,11 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         Triple leftOpd = (Triple) leftOperand.accept(this, context);
         Triple rightOpd = (Triple) rightOperand.accept(this, context);
         Triple condition;
-        String javaOperator = rangeOperator(feelOperator, leftOperand, rightOperand);
-        if (StringUtils.isEmpty(javaOperator)) {
-            condition = infixExpression(javaOperator, leftOpd, rightOpd);
+        NativeOperator nativeOperator = rangeOperator(feelOperator, leftOperand, rightOperand);
+        if (nativeOperator.getNotation() == NativeOperator.Notation.INFIX) {
+            condition = infixExpression(nativeOperator.getName(), leftOpd, rightOpd);
         } else {
-            condition = functionalExpression(javaOperator, leftOpd, rightOpd);
+            condition = functionalExpression(nativeOperator.getName(), leftOpd, rightOpd);
         }
         return condition;
     }
@@ -836,22 +829,22 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
         }
     }
 
-    protected String rangeOperator(String feelOperatorName, Expression<Type> leftOperand, Expression<Type> rightOperand) {
-        NativeOperator javaOperator = OperatorDecisionTable.javaOperator(feelOperatorName, rightOperand.getType(), rightOperand.getType());
-        if (javaOperator != null) {
-            return javaOperator.getName();
+    protected NativeOperator rangeOperator(String feelOperatorName, Expression<Type> leftOperand, Expression<Type> rightOperand) {
+        NativeOperator nativeOperator = OperatorDecisionTable.javaOperator(feelOperatorName, rightOperand.getType(), rightOperand.getType());
+        if (nativeOperator != null) {
+            return nativeOperator;
         } else {
             handleError(makeOperatorErrorMessage(feelOperatorName, leftOperand, rightOperand));
             return null;
         }
     }
 
-    protected Triple functionalExpression(String javaOperator, Triple leftOpd, Triple rightOpd) {
-        return triples.makeBuiltinFunctionInvocation(javaOperator, leftOpd, rightOpd);
+    protected Triple functionalExpression(String nativeOperator, Triple leftOpd, Triple rightOpd) {
+        return triples.makeBuiltinFunctionInvocation(nativeOperator, leftOpd, rightOpd);
     }
 
-    protected Triple infixExpression(String javaOperator, Triple leftOpd, Triple rightOpd) {
-        return triples.makeInfixExpression(javaOperator, leftOpd, rightOpd);
+    protected Triple infixExpression(String nativeOperator, Triple leftOpd, Triple rightOpd) {
+        return triples.makeInfixExpression(nativeOperator, leftOpd, rightOpd);
     }
 
     protected String rangeGetter(String memberName) {

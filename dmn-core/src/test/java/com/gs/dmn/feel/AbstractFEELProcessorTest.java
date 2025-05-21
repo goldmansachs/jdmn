@@ -150,7 +150,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         //  NullTest
         //
         doUnaryTestsTest(entries, "number", "null",
-                "PositiveUnaryTests(NullTest())",
+                "PositiveUnaryTests(OperatorRange(null,NullLiteral()))",
                 "TupleType(boolean)",
                 "number == null",
                 number == null,
@@ -360,7 +360,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
         // null test
         doUnaryTestsTest(entries, "input", "? in null",
-                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), NullTest())))",
+                "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(null,NullLiteral()))))",
                 "TupleType(boolean)",
                 "input == null",
                 input == null,
@@ -384,11 +384,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
     @Test
     public void testListTest() {
         NUMBER number = this.lib.number("1");
+        List<NUMBER> numberList = this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"));
 
-        List<EnvironmentEntry> entries = Collections.singletonList(
-                new EnvironmentEntry("number", NUMBER, number)
+        List<EnvironmentEntry> entries = Arrays.asList(
+                new EnvironmentEntry("number", NUMBER, number),
+                new EnvironmentEntry("numberList", ListType.NUMBER_LIST, numberList)
         );
 
+        // Simple type input
         doUnaryTestsTest(entries, "number", "[]",
                 "PositiveUnaryTests(ListTest(ListLiteral()))",
                 "TupleType(boolean)",
@@ -413,6 +416,58 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "listContains(asList(number(\"1\"), number(\"2\"), number(\"3\")), number)",
                 this.lib.listContains(this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), number),
                 true);
+        doUnaryTestsTest(entries, "number", "[1, null, 3]",
+                "PositiveUnaryTests(ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NullLiteral()),OperatorRange(null,NumericLiteral(3)))))",
+                "TupleType(boolean)",
+                "listContains(asList(number(\"1\"), null, number(\"3\")), number)",
+                this.lib.listContains(this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3")), number),
+                true);
+
+        // List type input
+        doUnaryTestsTest(entries, "numberList", "[1, null, 3]",
+                "PositiveUnaryTests(ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NullLiteral()),OperatorRange(null,NumericLiteral(3)))))",
+                "TupleType(boolean)",
+                "listEqual(numberList, asList(number(\"1\"), null, number(\"3\")))",
+                this.lib.listEqual(numberList, this.lib.asList(this.lib.number("1"), null, this.lib.number("3"))),
+                false);
+        doUnaryTestsTest(entries, "numberList", "[1, 2, 3]",
+                "PositiveUnaryTests(ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)))))",
+                "TupleType(boolean)",
+                "listEqual(numberList, asList(number(\"1\"), number(\"2\"), number(\"3\")))",
+                this.lib.listEqual(numberList, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
+                true);
+        assertThrows(SemanticError.class, () -> {
+            doUnaryTestsTest(entries, "numberList", "[\"1\", \"2\", \"3\"]",
+                    "PositiveUnaryTests(ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)))))",
+                    "TupleType(boolean)",
+                    "listEqual(numberList, asList(number(\"1\"), number(\"2\"), number(\"3\")))",
+                    this.lib.listEqual(numberList, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
+                    true);
+        });
+        doUnaryTestsTest(entries, "numberList", "= [1, 2, 3]",
+                "PositiveUnaryTests(OperatorRange(=,ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
+                "TupleType(boolean)",
+                "listEqual(numberList, asList(number(\"1\"), number(\"2\"), number(\"3\")))",
+                this.lib.listEqual(numberList, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
+                true);
+        doUnaryTestsTest(entries, "numberList", "!= [1, 2, 3]",
+                "PositiveUnaryTests(OperatorRange(!=,ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
+                "TupleType(boolean)",
+                "listNotEqual(numberList, asList(number(\"1\"), number(\"2\"), number(\"3\")))",
+                this.lib.listNotEqual(numberList, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
+                false);
+        doUnaryTestsTest(entries, "numberList", "? = [1, 2, 3]",
+                "PositiveUnaryTests(ExpressionTest(Relational(=,Name(?),ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))",
+                "TupleType(boolean)",
+                "listEqual(numberList, asList(number(\"1\"), number(\"2\"), number(\"3\")))",
+                this.lib.listEqual(numberList, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
+                true);
+        doUnaryTestsTest(entries, "numberList", "? = [1, null, 3]",
+                "PositiveUnaryTests(ExpressionTest(Relational(=,Name(?),ListLiteral(NumericLiteral(1),NullLiteral(),NumericLiteral(3)))))",
+                "TupleType(boolean)",
+                "listEqual(numberList, asList(number(\"1\"), null, number(\"3\")))",
+                this.lib.listEqual(numberList, this.lib.asList(this.lib.number("1"), null, this.lib.number("3"))),
+                false);
     }
 
     @Test
@@ -450,6 +505,12 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "TupleType(boolean)",
                 "numericEqual(number, numericUnaryMinus(number(\"1\")))",
                 this.lib.numericEqual(number, this.lib.numericUnaryMinus(this.lib.number("1"))),
+                false);
+        doUnaryTestsTest(entries, "number", "null",
+                "PositiveUnaryTests(OperatorRange(null,NullLiteral()))",
+                "TupleType(boolean)",
+                "number == null",
+                number == null,
                 false);
         doUnaryTestsTest(entries, "string", "\"abc\"",
                 "PositiveUnaryTests(OperatorRange(null,StringLiteral(\"abc\")))",
@@ -1269,6 +1330,19 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 this.lib.durationEqual(this.lib.duration("P10D"), this.lib.duration(this.lib.stringAdd("P", "1Y"))),
                 null);
 
+        // null
+        doExpressionTest(entries, "", "null = null",
+                "Relational(=,NullLiteral(),NullLiteral())",
+                "boolean",
+                "null == null",
+                null == null,
+                true);
+        doExpressionTest(entries, "", "null != null",
+                "Relational(!=,NullLiteral(),NullLiteral())",
+                "boolean",
+                "null != null",
+                null != null,
+                false);
 
         // endpoint ranges
         doExpressionTest(entries, "", "[1..10] = [1..10]",
@@ -1533,13 +1607,13 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "null = null",
                 "Relational(=,NullLiteral(),NullLiteral())",
                 "boolean",
-                "(null) == (null)",
+                "null == null",
                 null == null,
                 true);
         doExpressionTest(entries, "", "null != null",
                 "Relational(!=,NullLiteral(),NullLiteral())",
                 "boolean",
-                "(null) != (null)",
+                "null != null",
                 null != null,
                 false);
 

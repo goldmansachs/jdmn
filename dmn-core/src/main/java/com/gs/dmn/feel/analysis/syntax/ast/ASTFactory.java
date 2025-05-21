@@ -196,7 +196,7 @@ public class ASTFactory<T, C> {
             return (PositiveUnaryTest<T>) expression;
         } else if (expression instanceof NullLiteral) {
             // since DMN 1.1
-            return toNullPositiveUnaryTest();
+            return toOperatorRange(null, expression);
         } else if (expression instanceof SimpleLiteral) {
             // since DMN 1.1
             return toOperatorRange(null, expression);
@@ -227,10 +227,6 @@ public class ASTFactory<T, C> {
         ContainsNameVisitor<T, C> visitor = new ContainsNameVisitor<>();
         expression.accept(visitor, null);
         return visitor.isFound();
-    }
-
-    public NullTest<T> toNullPositiveUnaryTest() {
-        return new NullTest<>();
     }
 
     public ExpressionTest<T> toExpressionTest(Expression<T> expression) {

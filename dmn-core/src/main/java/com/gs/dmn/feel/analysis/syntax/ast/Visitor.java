@@ -42,8 +42,6 @@ public interface Visitor<T, C, R> {
 
     R visit(Any<T> element, C context);
 
-    R visit(NullTest<T> element, C context);
-
     R visit(ExpressionTest<T> element, C context);
 
     R visit(OperatorRange<T> element, C context);

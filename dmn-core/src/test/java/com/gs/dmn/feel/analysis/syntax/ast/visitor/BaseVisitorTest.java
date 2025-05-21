@@ -62,11 +62,6 @@ public abstract class BaseVisitorTest {
     }
 
     @Test
-    public void testVisitNullTest() {
-        assertNull(getVisitor().visit((NullTest<Type>) null, null));
-    }
-
-    @Test
     public void testVisitExpressionTest() {
         assertNull(getVisitor().visit((ExpressionTest<Type>) null, null));
     }

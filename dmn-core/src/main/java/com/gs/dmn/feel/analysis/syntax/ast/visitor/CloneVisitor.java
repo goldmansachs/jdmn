@@ -77,11 +77,6 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     }
 
     @Override
-    public Element<T> visit(NullTest<T> element, C context) {
-        return element;
-    }
-
-    @Override
     public Element<T> visit(ExpressionTest<T> element, C context) {
         if (element == null) {
             return null;

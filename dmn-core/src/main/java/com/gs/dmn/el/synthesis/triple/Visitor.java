@@ -81,6 +81,8 @@ public interface Visitor<C, R> {
 
     R visit(IsNullTriple triple, C context);
 
+    R visit(IsNotNullTriple triple, C context);
+
     R visit(IfTriple triple, C context);
 
     R visit(ForTriple triple, C context);

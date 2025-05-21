@@ -247,6 +247,11 @@ public class JavaFactory implements NativeFactory {
         return String.format("%s == %s", exp, this.nullLiteral());
     }
 
+    @Override
+    public String isNotNull(String exp) {
+        return String.format("%s != %s", exp, this.nullLiteral());
+    }
+
     //
     // Functions
     //

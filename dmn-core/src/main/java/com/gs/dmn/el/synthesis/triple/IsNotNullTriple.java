@@ -10,20 +10,26 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.feel.analysis.syntax.ast.test;
+package com.gs.dmn.el.synthesis.triple;
 
-import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
+public class IsNotNullTriple extends Triple {
+    private final Triple inputExpressionToJava;
 
-public class NullTest<T> extends PositiveUnaryTest<T> {
+    IsNotNullTriple(Triple inputExpressionToJava) {
+        this.inputExpressionToJava = inputExpressionToJava;
+    }
+
+    Triple getInputExpressionToJava() {
+        return inputExpressionToJava;
+    }
 
     @Override
-    public <C, R> R accept(Visitor<T, C, R> visitor, C context) {
+    public <C, R> R accept(Visitor<C, R> visitor, C context) {
         return visitor.visit(this, context);
     }
 
     @Override
     public String toString() {
-        return "NullTest()";
+        return String.format("IsNotNull(%s)", inputExpressionToJava);
     }
-
 }
