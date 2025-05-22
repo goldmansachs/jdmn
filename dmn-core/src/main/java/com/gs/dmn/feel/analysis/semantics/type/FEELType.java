@@ -152,7 +152,7 @@ public interface FEELType {
             YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION
     });
 
-    Map<Type, String> FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION = new LinkedHashMap<Type, String>() {{
+    Map<Type, String> FEEL_PRIMITIVE_TYPE_TO_NATIVE_CONVERSION_FUNCTION = new LinkedHashMap<Type, String>() {{
         put(NumberType.NUMBER, "number");
         put(BooleanType.BOOLEAN, null);
         put(StringType.STRING, null);

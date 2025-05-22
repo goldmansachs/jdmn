@@ -34,7 +34,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.NUMBER_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.RangeType.*;
-import static com.gs.dmn.feel.analysis.semantics.type.RangeType.DAYS_AND_TIME_DURATION_RANGE;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
@@ -261,9 +260,9 @@ class OperatorDecisionTableTest {
     private void check(String operator, Type leftType, Type rightType, Type resultType, String nativeOperator) {
         assertEquals(resultType, OperatorDecisionTable.resultType(operator, leftType, rightType));
         if (nativeOperator == null) {
-            assertNull(OperatorDecisionTable.javaOperator(operator, leftType, rightType));
+            assertNull(OperatorDecisionTable.nativeOperator(operator, leftType, rightType));
         } else {
-            assertEquals(nativeOperator, OperatorDecisionTable.javaOperator(operator, leftType, rightType).getName());
+            assertEquals(nativeOperator, OperatorDecisionTable.nativeOperator(operator, leftType, rightType).getName());
         }
     }
 }

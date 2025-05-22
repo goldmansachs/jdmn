@@ -80,13 +80,13 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
     @Override
     public String visit(ItemDefinitionAccessor triple, Triples context) {
         String sourceText = triple.getSource().accept(this, context);
-        return this.nativeFactory.makeItemDefinitionAccessor(triple.getJavaType(), sourceText, triple.getMemberName());
+        return this.nativeFactory.makeItemDefinitionAccessor(triple.getNativeType(), sourceText, triple.getMemberName());
     }
 
     @Override
     public String visit(ContextAccessor triple, Triples context) {
         String sourceText = triple.getSource().accept(this, context);
-        return this.nativeFactory.makeContextAccessor(triple.getJavaType(), sourceText, triple.getMemberName());
+        return this.nativeFactory.makeContextAccessor(triple.getNativeType(), sourceText, triple.getMemberName());
     }
 
     @Override
@@ -235,13 +235,13 @@ public class TripleSerializerToString implements Visitor<Triples, String> {
 
     @Override
     public String visit(IsNullTriple triple, Triples context) {
-        String text = triple.getInputExpressionToJava().accept(this, context);
+        String text = triple.getNativeInputExpression().accept(this, context);
         return this.nativeFactory.isNull(text);
     }
 
     @Override
     public String visit(IsNotNullTriple triple, Triples context) {
-        String text = triple.getInputExpressionToJava().accept(this, context);
+        String text = triple.getNativeInputExpression().accept(this, context);
         return this.nativeFactory.isNotNull(text);
     }
 

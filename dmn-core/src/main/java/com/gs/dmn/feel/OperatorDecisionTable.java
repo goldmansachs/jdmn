@@ -259,10 +259,10 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("..", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(DAYS_AND_TIME_DURATION_RANGE, null));
     }
 
-    public static NativeOperator javaOperator(String name, Type leftType, Type rightType) {
+    public static NativeOperator nativeOperator(String name, Type leftType, Type rightType) {
         OperatorTableInputEntry entry = resolveOperator(name, leftType, rightType);
         if (entry == null) {
-            throw new DMNRuntimeException(String.format("Cannot infer java operator for '(%s, %s, %s)'", name, leftType, rightType));
+            throw new DMNRuntimeException(String.format("Cannot infer native operator for '(%s, %s, %s)'", name, leftType, rightType));
         } else {
             return MAPPINGS.get(entry).getRight();
         }
@@ -280,7 +280,7 @@ public class OperatorDecisionTable {
 
     private static OperatorTableInputEntry resolveOperator(String name, Type leftType, Type rightType) {
         // Normalize operator and operands
-        String operator = normalizeJavaOperator(name);
+        String operator = normalizeNativeOperator(name);
         Pair<Type, Type> pair = normalizeTypes(leftType, rightType);
 
         // Resolve operator
@@ -304,7 +304,7 @@ public class OperatorDecisionTable {
         }
     }
 
-    private static String normalizeJavaOperator(String name) {
+    private static String normalizeNativeOperator(String name) {
         if ("==".equals(name)) {
             name = "=";
         }

@@ -47,7 +47,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
-import com.gs.dmn.feel.synthesis.AbstractFEELToJavaVisitor;
+import com.gs.dmn.feel.synthesis.AbstractFEELToNativeVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
 import com.gs.dmn.feel.synthesis.NativeOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -72,7 +72,7 @@ import java.util.stream.Collectors;
 import static com.gs.dmn.context.DMNContext.INPUT_ENTRY_PLACE_HOLDER;
 import static com.gs.dmn.feel.analysis.syntax.ast.expression.textual.ForExpression.PARTIAL_PARAMETER_NAME;
 
-abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELToJavaVisitor<Object> {
+abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractFEELToNativeVisitor<Object> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractFEELInterpreterVisitor.class);
 
     private final DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> dmnInterpreter;
@@ -192,13 +192,13 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     private Object evaluateOperatorRange(Expression<Type> element, String operator, Object self, Type inputExpressionType, Type endpointType, Object endpointValue) throws IllegalAccessException, InvocationTargetException {
-        NativeOperator javaOperator = javaOperator(operator, inputExpressionType, endpointType);
-        if (javaOperator == null) {
+        NativeOperator nativeOperator = nativeOperator(operator, inputExpressionType, endpointType);
+        if (nativeOperator == null) {
             this.errorHandler.reportError(String.format("Cannot find method for '%s' '%s'", operator, element));
             return null;
         } else {
-            String methodName = javaOperator.getName();
-            if (javaOperator.getAssociativity() == NativeOperator.Associativity.LEFT_RIGHT) {
+            String methodName = nativeOperator.getName();
+            if (nativeOperator.getAssociativity() == NativeOperator.Associativity.LEFT_RIGHT) {
                 Class<?>[] argumentTypes = {getClass(self), getClass(endpointValue)};
                 Method method = MethodUtils.resolveMethod(methodName, this.lib.getClass(), argumentTypes);
                 if (method == null) {
@@ -217,27 +217,27 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     private Object evaluateBinaryOperator(Expression<Type> element, String operator, Expression<Type> leftOperand, Expression<Type> rightOperand, DMNContext context) throws Exception {
-        NativeOperator javaOperator = javaOperator(operator, leftOperand, rightOperand);
-        if (javaOperator == null) {
+        NativeOperator nativeOperator = nativeOperator(operator, leftOperand, rightOperand);
+        if (nativeOperator == null) {
             this.errorHandler.reportError(String.format("Cannot find method for '%s' '%s'", operator, element));
             return null;
         } else {
-            if (javaOperator.getCardinality() == 2) {
+            if (nativeOperator.getCardinality() == 2) {
                 Object leftValue = leftOperand.accept(this, context);
                 Object rightValue = rightOperand.accept(this, context);
-                if (javaOperator.getNotation() == NativeOperator.Notation.FUNCTIONAL) {
-                    if (javaOperator.getAssociativity() == NativeOperator.Associativity.LEFT_RIGHT) {
-                        Method method = MethodUtils.resolveMethod(javaOperator.getName(), this.lib.getClass(), new Class[]{getClass(leftValue), getClass(rightValue)});
+                if (nativeOperator.getNotation() == NativeOperator.Notation.FUNCTIONAL) {
+                    if (nativeOperator.getAssociativity() == NativeOperator.Associativity.LEFT_RIGHT) {
+                        Method method = MethodUtils.resolveMethod(nativeOperator.getName(), this.lib.getClass(), new Class[]{getClass(leftValue), getClass(rightValue)});
                         return method.invoke(this.lib, leftValue, rightValue);
                     } else {
-                        Method method = MethodUtils.resolveMethod(javaOperator.getName(), this.lib.getClass(), new Class[]{getClass(rightValue), getClass(leftValue)});
+                        Method method = MethodUtils.resolveMethod(nativeOperator.getName(), this.lib.getClass(), new Class[]{getClass(rightValue), getClass(leftValue)});
                         return method.invoke(this.lib, rightValue, leftValue);
                     }
                 } else {
                     // Infix
-                    if (javaOperator.getName().equals("==")) {
+                    if (nativeOperator.getName().equals("==")) {
                         return leftValue == rightValue;
-                    } else if (javaOperator.getName().equals("!=")) {
+                    } else if (nativeOperator.getName().equals("!=")) {
                         return leftValue != rightValue;
                     } else {
                         this.errorHandler.reportError(String.format("Cannot evaluate '%s' '%s'", operator, element));
@@ -251,14 +251,14 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         }
     }
 
-    protected NativeOperator javaOperator(String feelOperator, Expression<Type> leftOperand, Expression<Type> rightOperand) {
+    protected NativeOperator nativeOperator(String feelOperator, Expression<Type> leftOperand, Expression<Type> rightOperand) {
         Type leftOperandType = leftOperand.getType();
         Type rightOperandType = rightOperand.getType();
-        return javaOperator(feelOperator, leftOperandType, rightOperandType);
+        return nativeOperator(feelOperator, leftOperandType, rightOperandType);
     }
 
-    private NativeOperator javaOperator(String feelOperator, Type leftOperandType, Type rightOperandType) {
-        return OperatorDecisionTable.javaOperator(feelOperator, leftOperandType, rightOperandType);
+    private NativeOperator nativeOperator(String feelOperator, Type leftOperandType, Type rightOperandType) {
+        return OperatorDecisionTable.nativeOperator(feelOperator, leftOperandType, rightOperandType);
     }
 
     private Class<?> getClass(Object leftValue) {
@@ -757,8 +757,8 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
             }
         } else if (functionType instanceof BuiltinFunctionType) {
             String functionName = functionName(functionDefinition);
-            String javaFunctionName = javaFunctionName(functionName);
-            if ("sort".equals(javaFunctionName)) {
+            String nativeFunctionName = nativeFunctionName(functionName);
+            if ("sort".equals(nativeFunctionName)) {
                 Object secondArg = argList.get(1);
                 if (secondArg instanceof Function) {
                     Function sortFunction = (Function) secondArg;
@@ -767,16 +767,16 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                     handleError(String.format("'%s' is not supported yet", secondArg.getClass()));
                     return null;
                 }
-            } else if ("listReplace".equals(javaFunctionName)) {
+            } else if ("listReplace".equals(nativeFunctionName)) {
                 Object secondArg = argList.get(1);
                 if (secondArg instanceof Function) {
                     Function filterFunction = (Function) secondArg;
                     return ((StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) lib).listReplace((List<Object>) argList.get(0), makeLambdaExpression(filterFunction), argList.get(2));
                 } else {
-                    return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
+                    return evaluateBuiltInFunction(this.lib, nativeFunctionName, argList);
                 }
             } else {
-                return evaluateBuiltInFunction(this.lib, javaFunctionName, argList);
+                return evaluateBuiltInFunction(this.lib, nativeFunctionName, argList);
             }
         } else {
             handleError(String.format("Not supported yet %s", functionDefinition.getClass().getSimpleName()));

@@ -78,14 +78,14 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     // Selection
     //
     @Override
-    public String makeItemDefinitionAccessor(String javaType, String source, String memberName) {
+    public String makeItemDefinitionAccessor(String nativeType, String source, String memberName) {
         memberName = this.transformer.lowerCaseFirst(memberName);
         return String.format("%s if (%s) else (%s.%s)", this.nullLiteral(), isNull(source), source, memberName);
 
     }
 
     @Override
-    public String makeContextAccessor(String javaType, String source, String memberName) {
+    public String makeContextAccessor(String nativeType, String source, String memberName) {
         return String.format("%s.%s", source, this.transformer.contextGetter(memberName));
     }
 
@@ -113,7 +113,7 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String makeCollectionNumericFilter(String javaElementType, String source, String filter) {
+    public String makeCollectionNumericFilter(String nativeElementType, String source, String filter) {
         String args = String.format("%s, %s", source, filter);
         String call = this.makeBuiltinFunctionInvocation("elementAt", args);
         return String.format("%s", call);
@@ -248,12 +248,12 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     // Functions
     //
     @Override
-    public String makeBuiltinFunctionInvocation(String javaFunctionCode, String argumentsText) {
+    public String makeBuiltinFunctionInvocation(String nativeFunctionCode, String argumentsText) {
         // Python keywords
-        if (PYTHON_KEYWORDS.contains(javaFunctionCode)) {
-            javaFunctionCode += "_";
+        if (PYTHON_KEYWORDS.contains(nativeFunctionCode)) {
+            nativeFunctionCode += "_";
         }
-        return String.format("self.%s(%s)", javaFunctionCode, argumentsText);
+        return String.format("self.%s(%s)", nativeFunctionCode, argumentsText);
     }
 
     @Override
@@ -353,9 +353,9 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String convertToListOfItemDefinitionType(String javaExpression, ItemDefinitionType expectedElementType) {
+    public String convertToListOfItemDefinitionType(String nativeExpression, ItemDefinitionType expectedElementType) {
         String elementConversion = convertToItemDefinitionType("x", expectedElementType);
-        return String.format("list(map(lambda x: %s, %s))", elementConversion, javaExpression);
+        return String.format("list(map(lambda x: %s, %s))", elementConversion, nativeExpression);
     }
 
     @Override

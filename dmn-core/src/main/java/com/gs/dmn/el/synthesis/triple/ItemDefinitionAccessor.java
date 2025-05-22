@@ -13,18 +13,18 @@
 package com.gs.dmn.el.synthesis.triple;
 
 public class ItemDefinitionAccessor extends PathTriple {
-    private final String javaType;
+    private final String nativeType;
     private final Triple source;
     private final String memberName;
 
-    ItemDefinitionAccessor(String javaType, Triple source, String memberName) {
-        this.javaType = javaType;
+    ItemDefinitionAccessor(String nativeType, Triple source, String memberName) {
+        this.nativeType = nativeType;
         this.source = source;
         this.memberName = memberName;
     }
 
-    String getJavaType() {
-        return javaType;
+    String getNativeType() {
+        return nativeType;
     }
 
     Triple getSource() {
@@ -42,6 +42,6 @@ public class ItemDefinitionAccessor extends PathTriple {
 
     @Override
     public String toString() {
-        return String.format("ItemDefinitionAccessor(%s, %s, %s)", javaType, source, memberName);
+        return String.format("ItemDefinitionAccessor(%s, %s, %s)", nativeType, source, memberName);
     }
 }

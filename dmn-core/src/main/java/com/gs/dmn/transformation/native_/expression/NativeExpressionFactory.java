@@ -42,9 +42,9 @@ public interface NativeExpressionFactory {
     //
     // Selection
     //
-    String makeItemDefinitionAccessor(String javaType, String source, String memberName);
+    String makeItemDefinitionAccessor(String nativeType, String source, String memberName);
 
-    String makeContextAccessor(String javaType, String source, String memberName);
+    String makeContextAccessor(String nativeType, String source, String memberName);
 
     String makeCollectionMap(String source, String filter);
 
@@ -57,7 +57,7 @@ public interface NativeExpressionFactory {
     //
     String makeCollectionLogicFilter(String source, String parameterName, String filter);
 
-    String makeCollectionNumericFilter(String javaElementType, String source, String filter);
+    String makeCollectionNumericFilter(String nativeElementType, String source, String filter);
 
     String makeIfExpression(String condition, String thenExp, String elseExp);
 
@@ -106,13 +106,13 @@ public interface NativeExpressionFactory {
     //
     // Functions
     //
-    String makeBuiltinFunctionInvocation(String javaFunctionCode, String argumentsText);
+    String makeBuiltinFunctionInvocation(String nativeFunctionCode, String argumentsText);
 
-    String makeApplyInvocation(String javaFunctionCode, String argumentsText);
+    String makeApplyInvocation(String nativeFunctionCode, String argumentsText);
 
     String applyMethod(FunctionType functionType, String signature, boolean convertTypeToContext, String body);
 
-    String makeExternalExecutorCall(String externalExecutorVariableName, String className, String methodName, String arguments, String returnJavaType);
+    String makeExternalExecutorCall(String externalExecutorVariableName, String className, String methodName, String arguments, String returnNativeType);
 
     //
     // Parameters
@@ -163,7 +163,7 @@ public interface NativeExpressionFactory {
 
     String convertToItemDefinitionType(String expression, ItemDefinitionType type);
 
-    String convertToListOfItemDefinitionType(String javaExpression, ItemDefinitionType expectedElementType);
+    String convertToListOfItemDefinitionType(String nativeExpression, ItemDefinitionType expectedElementType);
 
     String convertMethodName(TItemDefinition itemDefinition);
 
@@ -173,7 +173,7 @@ public interface NativeExpressionFactory {
 
     String convertArgumentFromString(String paramName, Type type);
 
-    String conversionFunction(Conversion<Type, ConversionKind> conversion, String javaType);
+    String conversionFunction(Conversion<Type, ConversionKind> conversion, String nativeType);
 
     //
     // Proto conversions

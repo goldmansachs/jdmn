@@ -91,14 +91,14 @@ public class JavaFactory implements NativeFactory {
     // Selection
     //
     @Override
-    public String makeItemDefinitionAccessor(String javaType, String source, String memberName) {
+    public String makeItemDefinitionAccessor(String nativeType, String source, String memberName) {
         String accessorMethod = this.transformer.getter(memberName);
-        return String.format("((%s)(%s != null ? %s.%s : null))", javaType, source, source, accessorMethod);
+        return String.format("((%s)(%s != null ? %s.%s : null))", nativeType, source, source, accessorMethod);
     }
 
     @Override
-    public String makeContextAccessor(String javaType, String source, String memberName) {
-        return String.format("((%s)((%s)%s).%s)", javaType, this.transformer.contextClassName(), source, this.transformer.contextGetter(memberName));
+    public String makeContextAccessor(String nativeType, String source, String memberName) {
+        return String.format("((%s)((%s)%s).%s)", nativeType, this.transformer.contextClassName(), source, this.transformer.contextGetter(memberName));
     }
 
     @Override
@@ -125,10 +125,10 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String makeCollectionNumericFilter(String javaElementType, String source, String filter) {
+    public String makeCollectionNumericFilter(String nativeElementType, String source, String filter) {
         String args = String.format("%s, %s", source, filter);
         String call = this.makeBuiltinFunctionInvocation("elementAt", args);
-        return String.format("(%s)(%s)", javaElementType, call);
+        return String.format("(%s)(%s)", nativeElementType, call);
     }
 
     @Override
@@ -256,13 +256,13 @@ public class JavaFactory implements NativeFactory {
     // Functions
     //
     @Override
-    public String makeBuiltinFunctionInvocation(String javaFunctionCode, String argumentsText) {
-        return String.format("%s(%s)", javaFunctionCode, argumentsText);
+    public String makeBuiltinFunctionInvocation(String nativeFunctionCode, String argumentsText) {
+        return String.format("%s(%s)", nativeFunctionCode, argumentsText);
     }
 
     @Override
-    public String makeApplyInvocation(String javaFunctionCode, String argumentsText) {
-        return String.format("%s.apply(%s)", javaFunctionCode, argumentsText);
+    public String makeApplyInvocation(String nativeFunctionCode, String argumentsText) {
+        return String.format("%s.apply(%s)", nativeFunctionCode, argumentsText);
     }
 
     @Override
@@ -436,21 +436,21 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String convertToListOfItemDefinitionType(String javaExpression, ItemDefinitionType expectedElementType) {
+    public String convertToListOfItemDefinitionType(String nativeExpression, ItemDefinitionType expectedElementType) {
         String elementConversion = convertToItemDefinitionType(MAP_ITERATOR, expectedElementType);
-        return String.format("%s.stream().map(%s -> %s).collect(Collectors.toList())", javaExpression, MAP_ITERATOR, elementConversion);
+        return String.format("%s.stream().map(%s -> %s).collect(Collectors.toList())", nativeExpression, MAP_ITERATOR, elementConversion);
     }
 
     @Override
     public String convertMethodName(TItemDefinition itemDefinition) {
-        String javaInterfaceName = transformer.upperCaseFirst(itemDefinition.getName());
-        return String.format("to%s", javaInterfaceName);
+        String nativeInterfaceName = transformer.upperCaseFirst(itemDefinition.getName());
+        return String.format("to%s", nativeInterfaceName);
     }
 
     @Override
     public String convertMethodName(ItemDefinitionType type) {
-        String javaInterfaceName = transformer.upperCaseFirst(type.getName());
-        return String.format("to%s", javaInterfaceName);
+        String nativeInterfaceName = transformer.upperCaseFirst(type.getName());
+        return String.format("to%s", nativeInterfaceName);
     }
 
     @Override
@@ -474,7 +474,7 @@ public class JavaFactory implements NativeFactory {
         }
 
         if (FEELType.FEEL_PRIMITIVE_TYPES.contains(type)) {
-            String conversionMethod = FEELType.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
+            String conversionMethod = FEELType.FEEL_PRIMITIVE_TYPE_TO_NATIVE_CONVERSION_FUNCTION.get(type);
             if (conversionMethod != null) {
                 return String.format("(%s != null ? %s(%s) : null)", paramName, conversionMethod, paramName);
             } else if (type == StringType.STRING) {
@@ -487,28 +487,28 @@ public class JavaFactory implements NativeFactory {
                 throw new DMNRuntimeException(String.format("Cannot convert String to type '%s'", type));
             }
         } else if (type instanceof ListType) {
-            String javaType = this.transformer.toNativeType(type);
-            return String.format("(%s != null ? %s.readValue(%s, new com.fasterxml.jackson.core.type.TypeReference<%s>() {}) : null)", paramName, objectMapper(), paramName, javaType);
+            String nativeType = this.transformer.toNativeType(type);
+            return String.format("(%s != null ? %s.readValue(%s, new com.fasterxml.jackson.core.type.TypeReference<%s>() {}) : null)", paramName, objectMapper(), paramName, nativeType);
         } else if (type instanceof ItemDefinitionType || type instanceof ContextType) {
-            String javaType = transformer.itemDefinitionNativeClassName(transformer.toNativeType(type));
-            return String.format("(%s != null ? %s.readValue(%s, new com.fasterxml.jackson.core.type.TypeReference<%s>() {}) : null)", paramName, objectMapper(), paramName, javaType);
+            String nativeType = transformer.itemDefinitionNativeClassName(transformer.toNativeType(type));
+            return String.format("(%s != null ? %s.readValue(%s, new com.fasterxml.jackson.core.type.TypeReference<%s>() {}) : null)", paramName, objectMapper(), paramName, nativeType);
         } else {
             throw new DMNRuntimeException(String.format("Conversion not supported for '%s' yet", type.getClass().getSimpleName()));
         }
     }
 
     @Override
-    public String conversionFunction(Conversion<Type, ConversionKind> conversion, String javaType) {
+    public String conversionFunction(Conversion<Type, ConversionKind> conversion, String nativeType) {
         if (conversion.getKind() == ConversionKind.NONE) {
             return null;
         } else if (conversion.getKind() == ConversionKind.ELEMENT_TO_SINGLETON_LIST) {
             return elementToListConversionFunction();
         } else if (conversion.getKind() == ConversionKind.SINGLETON_LIST_TO_ELEMENT) {
-            return listToElementConversionFunction(javaType);
+            return listToElementConversionFunction(nativeType);
         } else if (conversion.getKind() == ConversionKind.DATE_TO_UTC_MIDNIGHT) {
-            return dateToUTCMidnight(javaType);
+            return dateToUTCMidnight(nativeType);
         } else {
-            return toNull(javaType);
+            return toNull(nativeType);
         }
     }
 
@@ -516,15 +516,15 @@ public class JavaFactory implements NativeFactory {
         return "asList";
     }
 
-    protected String listToElementConversionFunction(String javaType) {
+    protected String listToElementConversionFunction(String nativeType) {
         return "asElement";
     }
 
-    protected String dateToUTCMidnight(String javaType) {
+    protected String dateToUTCMidnight(String nativeType) {
         return "toDateTime";
     }
 
-    protected String toNull(String javaType) {
+    protected String toNull(String nativeType) {
         return "toNull";
     }
 
@@ -623,7 +623,7 @@ public class JavaFactory implements NativeFactory {
     }
 
     protected String getConversionMethod(Type type, boolean staticContext) {
-        String conversionMethod = FEELType.FEEL_PRIMITIVE_TYPE_TO_JAVA_CONVERSION_FUNCTION.get(type);
+        String conversionMethod = FEELType.FEEL_PRIMITIVE_TYPE_TO_NATIVE_CONVERSION_FUNCTION.get(type);
         if (conversionMethod == null) {
             return null;
         }

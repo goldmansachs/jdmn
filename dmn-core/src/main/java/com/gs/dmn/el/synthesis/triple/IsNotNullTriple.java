@@ -13,14 +13,14 @@
 package com.gs.dmn.el.synthesis.triple;
 
 public class IsNotNullTriple extends Triple {
-    private final Triple inputExpressionToJava;
+    private final Triple nativeInputExpression;
 
-    IsNotNullTriple(Triple inputExpressionToJava) {
-        this.inputExpressionToJava = inputExpressionToJava;
+    IsNotNullTriple(Triple nativeInputExpression) {
+        this.nativeInputExpression = nativeInputExpression;
     }
 
-    Triple getInputExpressionToJava() {
-        return inputExpressionToJava;
+    Triple getNativeInputExpression() {
+        return nativeInputExpression;
     }
 
     @Override
@@ -30,6 +30,6 @@ public class IsNotNullTriple extends Triple {
 
     @Override
     public String toString() {
-        return String.format("IsNotNull(%s)", inputExpressionToJava);
+        return String.format("IsNotNull(%s)", nativeInputExpression);
     }
 }

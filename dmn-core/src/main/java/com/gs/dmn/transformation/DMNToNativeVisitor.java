@@ -89,9 +89,9 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
             String typePackageName = dmnTransformer.nativeTypePackageName(definitions.getName());
 
             // Generate interface and class
-            String javaInterfaceName = dmnTransformer.itemDefinitionNativeSimpleInterfaceName(element);
-            transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionInterfaceTemplate(), generatedClasses, outputPath, typePackageName, javaInterfaceName);
-            transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionClassTemplate(), generatedClasses, outputPath, typePackageName, dmnTransformer.itemDefinitionNativeClassName(javaInterfaceName));
+            String nativeInterfaceName = dmnTransformer.itemDefinitionNativeSimpleInterfaceName(element);
+            transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionInterfaceTemplate(), generatedClasses, outputPath, typePackageName, nativeInterfaceName);
+            transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionClassTemplate(), generatedClasses, outputPath, typePackageName, dmnTransformer.itemDefinitionNativeClassName(nativeInterfaceName));
 
             // Process children
             List<TItemDefinition> itemDefinitionList = element.getItemComponent();

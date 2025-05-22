@@ -96,13 +96,13 @@ public class Triples {
     //
     // Path
     //
-    public Triple makeItemDefinitionAccessor(String javaType, Triple source, String memberName) {
-        Triple triple = new ItemDefinitionAccessor(javaType, source, memberName);
+    public Triple makeItemDefinitionAccessor(String nativeType, Triple source, String memberName) {
+        Triple triple = new ItemDefinitionAccessor(nativeType, source, memberName);
         return addTriple(triple);
     }
 
-    public Triple makeContextAccessor(String javaType, Triple source, String memberName) {
-        Triple triple = new ContextAccessor(javaType, source, memberName);
+    public Triple makeContextAccessor(String nativeType, Triple source, String memberName) {
+        Triple triple = new ContextAccessor(nativeType, source, memberName);
         return addTriple(triple);
     }
 
@@ -129,8 +129,8 @@ public class Triples {
         return addTriple(triple);
     }
 
-    public Triple makeCollectionNumericFilter(String javaElementType, Triple source, Triple filter) {
-        Triple triple = new CollectionNumericFilter(javaElementType, source, filter);
+    public Triple makeCollectionNumericFilter(String nativeElementType, Triple source, Triple filter) {
+        Triple triple = new CollectionNumericFilter(nativeElementType, source, filter);
         return addTriple(triple);
     }
 
@@ -151,12 +151,12 @@ public class Triples {
         return addTriple(triple);
     }
 
-    public Triple makeApplyInvocation(String javaFunctionName, List<Triple> arguments) {
-        return makeApplyInvocation(this.name(javaFunctionName), arguments);
+    public Triple makeApplyInvocation(String nativeFunctionName, List<Triple> arguments) {
+        return makeApplyInvocation(this.name(nativeFunctionName), arguments);
     }
 
-    public Triple makeApplyInvocation(Triple javaFunctionCode, List<Triple> arguments) {
-        Triple triple = new ApplyInvocation(javaFunctionCode, arguments);
+    public Triple makeApplyInvocation(Triple functionCode, List<Triple> arguments) {
+        Triple triple = new ApplyInvocation(functionCode, arguments);
         return addTriple(triple);
     }
 
