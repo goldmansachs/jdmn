@@ -550,7 +550,7 @@ public class DMNExpressionToNativeTransformer {
     ExpressionStatement functionDefinitionToNative(TDRGElement element, TFunctionDefinition expression, DMNContext context) {
         FunctionType functionType = (FunctionType) this.dmnTransformer.expressionType(element, expression, context);
         TFunctionKind kind = expression.getKind();
-        if (this.dmnTransformer.isFEELFunction(kind)) {
+        if (this.dmnModelRepository.isFEELFunction(kind)) {
             TExpression bodyExpression = expression.getExpression();
             DMNContext functionContext = this.dmnTransformer.makeFunctionContext(element, expression, context);
             ExpressionStatement statement = (ExpressionStatement) this.dmnTransformer.expressionToNative(element, bodyExpression, functionContext);
@@ -558,7 +558,7 @@ public class DMNExpressionToNativeTransformer {
 
             String expressionText = functionDefinitionToNative(element, functionType, body, false);
             return this.nativeFactory.makeExpressionStatement(expressionText, functionType);
-        } else if (this.dmnTransformer.isJavaFunction(kind)) {
+        } else if (this.dmnModelRepository.isJavaFunction(kind)) {
             JavaFunctionInfo javaInfo = this.externalFunctionExtractor.extractJavaFunctionInfo(element, expression);
             String text = javaFunctionToNative(javaInfo, functionType);
             return this.nativeFactory.makeExpressionStatement(text, functionType);

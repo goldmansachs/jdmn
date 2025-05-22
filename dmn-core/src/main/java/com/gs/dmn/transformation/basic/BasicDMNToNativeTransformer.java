@@ -555,10 +555,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     Environment makeRelationEnvironment(TNamedElement element, TRelation relation);
 
-    boolean isFEELFunction(TFunctionKind kind);
-
-    boolean isJavaFunction(TFunctionKind kind);
-
     //
     // .proto related functions
     //

@@ -549,7 +549,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToJavaVisitor<Object>
             List<Triple> operands = visitArgList(argList);
             return this.triples.makeBuiltinFunctionInvocation(javaFunctionCode, operands);
         } else if (functionType instanceof DMNFunctionType) {
-            if (!dmnTransformer.isJavaFunction(((DMNFunctionType) functionType).getKind())) {
+            if (!this.dmnModelRepository.isJavaFunction(((DMNFunctionType) functionType).getKind())) {
                 addExtraArguments(argList);
             }
             TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();

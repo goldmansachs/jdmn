@@ -885,11 +885,11 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         DMNContext definitionContext = runtimeFunction.getDefinitionContext();
         DMNContext functionContext = makeFunctionContext(definitionContext, functionType.getParameters(), argList);
         TFunctionKind kind = functionDefinition.getKind();
-        if (this.dmnTransformer.isFEELFunction(kind)) {
+        if (this.dmnModelRepository.isFEELFunction(kind)) {
             TDRGElement drgElement = (TDRGElement) definitionContext.getElement();
             Result result = this.dmnInterpreter.evaluate(functionDefinition, EvaluationContext.makeFunctionInvocationContext(drgElement, argList, functionContext));
             return Result.value(result);
-        } else if (this.dmnTransformer.isJavaFunction(kind)) {
+        } else if (this.dmnModelRepository.isJavaFunction(kind)) {
             return evaluateExternalJavaFunction(functionDefinition, argList, functionContext);
         } else {
             throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet", kind.value()));

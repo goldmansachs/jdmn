@@ -649,9 +649,9 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             } else {
                 DMNContext functionDefinitionContext = this.dmnTransformer.makeFunctionContext(element, functionDefinition, context);
                 TFunctionKind kind = functionDefinition.getKind();
-                if (this.dmnTransformer.isFEELFunction(kind)) {
+                if (this.dmnModelRepository.isFEELFunction(kind)) {
                     bodyType = expressionType(element, body, functionDefinitionContext);
-                } else if (this.dmnTransformer.isJavaFunction(kind)) {
+                } else if (this.dmnModelRepository.isJavaFunction(kind)) {
                     bodyType = AnyType.ANY;
                 } else {
                     throw new DMNRuntimeException(String.format("DRGElement '%s': Kind '%s' is not supported yet", element.getName(), kind));

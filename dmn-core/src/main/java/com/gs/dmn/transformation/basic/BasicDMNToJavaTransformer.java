@@ -1823,10 +1823,10 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
                 }
             } else if (type instanceof DMNFunctionType) {
                 TFunctionKind kind = ((DMNFunctionType) type).getKind();
-                if (isFEELFunction(kind)) {
+                if (this.dmnModelRepository.isFEELFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
                     return makeFunctionType(lambdaExpressionClassName(), returnType);
-                } else if (isJavaFunction(kind)) {
+                } else if (this.dmnModelRepository.isJavaFunction(kind)) {
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
                     return makeFunctionType(javaExternalFunctionClassName(), returnType);
                 }
@@ -2112,16 +2112,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition) {
         return this.dmnEnvironmentFactory.makeFunctionDefinitionEnvironment(element, functionDefinition);
-    }
-
-    @Override
-    public boolean isFEELFunction(TFunctionKind kind) {
-        return kind == null || kind == TFunctionKind.FEEL;
-    }
-
-    @Override
-    public boolean isJavaFunction(TFunctionKind kind) {
-        return kind == TFunctionKind.JAVA;
     }
 
     //

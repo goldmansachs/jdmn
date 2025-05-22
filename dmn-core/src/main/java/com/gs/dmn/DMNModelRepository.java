@@ -1021,6 +1021,14 @@ public class DMNModelRepository {
         return expression instanceof TFunctionDefinition;
     }
 
+    public boolean isFEELFunction(TFunctionKind kind) {
+        return kind == null || kind == TFunctionKind.FEEL;
+    }
+
+    public boolean isJavaFunction(TFunctionKind kind) {
+        return kind == TFunctionKind.JAVA;
+    }
+
     public boolean isConditionalExpression(TDRGElement element) {
         TExpression expression = expression(element);
         return expression instanceof TConditional;
