@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:included0="https://kie.org/dmn/_7A341620-479B-43CA-8A3A-F9E717D7D21D" xmlns:included1="https://kie.org/dmn/_1454ADE6-BEB2-42CD-8B97-468240315289" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://example.org/1160-multiple-imports-02-C" id="_C52B5F73-A9F4-4A20-8776-292DF4F97028" name="1160-multiple-imports-02-C" xmlns:included2="https://example.org/1160-multiple-imports-01-A" xmlns:included3="https://example.org/1160-multiple-imports-01-B">
-  <import id="_BA573D9F-6BDD-48D6-8F48-EBEDB9743EE1" name="" importType="http://www.omg.org/spec/DMN/20180521/MODEL/" namespace="https://example.org/1160-multiple-imports-01-A" locationURI="./1160-multiple-imports-01-A.dmn" />
-  <import id="_F0A10A48-86D9-4C6B-BB3B-DF0CE71A868A" name="" importType="http://www.omg.org/spec/DMN/20180521/MODEL/" namespace="https://example.org/1160-multiple-imports-02-B" locationURI="./1160-multiple-imports-02-B.dmn" />
+  <import id="_BA573D9F-6BDD-48D6-8F48-EBEDB9743EE1" name="" importType="https://www.omg.org/spec/DMN/20230324/MODEL/" namespace="https://example.org/1160-multiple-imports-01-A" locationURI="./1160-multiple-imports-01-A.dmn" />
+  <import id="_F0A10A48-86D9-4C6B-BB3B-DF0CE71A868A" name="" importType="https://www.omg.org/spec/DMN/20230324/MODEL/" namespace="https://example.org/1160-multiple-imports-02-B" locationURI="./1160-multiple-imports-02-B.dmn" />
   <decision name="DecisionC" id="_7B6F6A1D-9355-467D-8345-D9B835C6032F">
     <variable name="DecisionC" id="_88230981-720F-4659-9E8B-ADD9DC22E91F" typeRef="string" />
     <informationRequirement id="_B6868056-BD4D-453F-B859-699DB99FBE38">
