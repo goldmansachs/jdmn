@@ -290,30 +290,25 @@
         </resultNode>
     </testCase>
 
+<!--
     <testCase id="decision_023">
-        <description>a valid numeric range is permitted as iteration context</description>
+        <description>numeric range is not permitted as iteration domain</description>
         <resultNode name="decision_023" type="decision">
             <expected>
-                <list>
-                    <item><value xsi:type="xsd:decimal">1</value></item>
-                    <item><value xsi:type="xsd:decimal">2</value></item>
-                </list>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
 
     <testCase id="decision_024">
-        <description>a valid date range is permitted as iteration context</description>
+        <description>date range is not permitted as iteration domain</description>
         <resultNode name="decision_024" type="decision">
             <expected>
-                <list>
-                    <item><value xsi:type="xsd:date">1980-01-01</value></item>
-                    <item><value xsi:type="xsd:date">1980-01-02</value></item>
-                    <item><value xsi:type="xsd:date">1980-01-03</value></item>
-                </list>
+                <value xsi:nil="true"/>
             </expected>
         </resultNode>
     </testCase>
+-->
 
     <testCase id="decision_025">
         <description>invalid (descending) range gives null</description>

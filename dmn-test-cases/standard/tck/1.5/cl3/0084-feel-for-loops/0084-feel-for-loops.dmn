@@ -185,8 +185,9 @@
         </literalExpression>
     </decision>
 
+<!--
     <decision name="decision_023" id="_decision_023">
-        <!-- a valid numeric range is permitted as iteration context -->
+        &lt;!&ndash; numeric range is not permitted as iteration domain &ndash;&gt;
         <variable name="decision_023"/>
         <literalExpression>
             <text>for i in [1..2] return i</text>
@@ -194,12 +195,13 @@
     </decision>
 
     <decision name="decision_024" id="_decision_024">
-        <!-- a valid date range is permitted as iteration context -->
+        &lt;!&ndash; date range is not permitted as iteration domain &ndash;&gt;
         <variable name="decision_024"/>
         <literalExpression>
             <text>for i in [@"1980-01-01"..@"1980-01-03"] return i</text>
         </literalExpression>
     </decision>
+-->
 
     <decision name="decision_025" id="_decision_025">
         <!-- invalid range gives null (ranges may be descending) -->
