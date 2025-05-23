@@ -82,10 +82,10 @@ public class DMNVersion {
 
     public static final DMNVersion LATEST = DMN_15;
 
-    protected static final List<DMNVersion> VALUES = Arrays.asList(DMN_11, DMN_12, DMN_13, DMN_14, DMN_15);
+    public static final List<DMNVersion> VERSIONS = Arrays.asList(DMN_11, DMN_12, DMN_13, DMN_14, DMN_15);
 
     public static DMNVersion fromVersion(String key) {
-        for (DMNVersion version: VALUES) {
+        for (DMNVersion version: VERSIONS) {
             if (version.version.equals(key)) {
                 return  version;
             }

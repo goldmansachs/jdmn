@@ -165,6 +165,11 @@ public class DMNModelRepository {
         }
     }
 
+    public boolean isDMNImport(TImport import_) {
+        // Always the latest version - a transformation to latest is performed when reading
+        return DMNVersion.LATEST.getNamespace().equals(import_.getImportType());
+    }
+
     public TDefinitions getRootDefinitions() {
         int size = this.getAllDefinitions().size();
         if (size == 1) {
@@ -202,12 +207,23 @@ public class DMNModelRepository {
     public List<String> getImportedNames(TDefinitions definitions) {
         List<String> names = new ArrayList<>();
         for (TImport imp: definitions.getImport()) {
-            String name = imp.getName();
-            if (!StringUtils.isBlank(name) && !names.contains(name)) {
-                names.add(name);
+            if (isDMNImport(imp)) {
+                String name = imp.getName();
+                if (!StringUtils.isBlank(name) && !names.contains(name)) {
+                    names.add(name);
+                }
             }
         }
         return names;
+    }
+
+    public TImport findImport(TDefinitions definitions, String name) {
+        for (TImport imp: definitions.getImport()) {
+            if (imp.getName().equals(name)) {
+                return imp;
+            }
+        }
+        return null;
     }
 
     public TDefinitions getModel(TNamedElement element) {
@@ -880,15 +896,17 @@ public class DMNModelRepository {
             if (result == null) {
                 // Lookup in models imported with empty prefix
                 for (TImport import_: model.getImport()) {
-                    if (StringUtils.isBlank(import_.getName())) {
-                        String childNamespace = import_.getNamespace();
-                        TDefinitions childModel = this.findModelByNamespace(childNamespace);
-                        if (childModel == null) {
-                            throw new DMNRuntimeException(String.format("Cannot find DM for '%s'", childNamespace));
-                        }
-                        result = lookupItemDefinition(childModel, typeRef);
-                        if (result != null) {
-                            return result;
+                    if (isDMNImport(import_)) {
+                        if (StringUtils.isBlank(import_.getName())) {
+                            String childNamespace = import_.getNamespace();
+                            TDefinitions childModel = this.findModelByNamespace(childNamespace);
+                            if (childModel == null) {
+                                throw new DMNRuntimeException(String.format("Cannot find DM for '%s'", childNamespace));
+                            }
+                            result = lookupItemDefinition(childModel, typeRef);
+                            if (result != null) {
+                                return result;
+                            }
                         }
                     }
                 }
@@ -900,9 +918,11 @@ public class DMNModelRepository {
             // Find model for importName
             String childNamespace = null;
             for (TImport import_: model.getImport()) {
-                if (import_.getName().equals(importName)) {
-                    childNamespace = import_.getNamespace();
-                    break;
+                if (isDMNImport(import_)) {
+                    if (import_.getName().equals(importName)) {
+                        childNamespace = import_.getNamespace();
+                        break;
+                    }
                 }
             }
             TDefinitions childModel = this.findModelByNamespace(childNamespace);
@@ -1276,8 +1296,10 @@ public class DMNModelRepository {
         } else {
             // Check imported declarations
             for (TImport import_: parentDefinitions.getImport()) {
-                if (Objects.equals(import_.getNamespace(), namespace)) {
-                    return new ImportPath(parentPath, import_.getName());
+                if (isDMNImport(import_)) {
+                    if (Objects.equals(import_.getNamespace(), namespace)) {
+                        return new ImportPath(parentPath, import_.getName());
+                    }
                 }
             }
         }

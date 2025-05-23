@@ -103,11 +103,13 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         } else {
             // Lookup in imports
             for (TImport imp: definitions.getImport()) {
-                String namespace = imp.getNamespace();
-                TDefinitions child = this.dmnModelRepository.findModelByNamespace(namespace);
-                DRGElementReference<? extends TDRGElement> result = extractInfoFromModel(child, elementNamespace, elementName, new ImportPath(importPath, imp.getName()));
-                if (result != null) {
-                    return result;
+                if (this.dmnModelRepository.isDMNImport(imp)) {
+                    String namespace = imp.getNamespace();
+                    TDefinitions child = this.dmnModelRepository.findModelByNamespace(namespace);
+                    DRGElementReference<? extends TDRGElement> result = extractInfoFromModel(child, elementNamespace, elementName, new ImportPath(importPath, imp.getName()));
+                    if (result != null) {
+                        return result;
+                    }
                 }
             }
         }
@@ -123,11 +125,13 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
         // Lookup in imports
         for (TImport imp: definitions.getImport()) {
-            String namespace = imp.getNamespace();
-            TDefinitions child = this.dmnModelRepository.findModelByNamespace(namespace);
-            DRGElementReference<? extends TDRGElement> result = extractInfoFromModel(child, elementName, new ImportPath(importPath, imp.getName()));
-            if (result != null) {
-                return result;
+            if (this.dmnModelRepository.isDMNImport(imp)) {
+                String namespace = imp.getNamespace();
+                TDefinitions child = this.dmnModelRepository.findModelByNamespace(namespace);
+                DRGElementReference<? extends TDRGElement> result = extractInfoFromModel(child, elementName, new ImportPath(importPath, imp.getName()));
+                if (result != null) {
+                    return result;
+                }
             }
         }
         return null;
@@ -137,7 +141,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         // Navigate the import paths if needed
         String name = node.getName();
         ImportPath path = new ImportPath();
-        TImport import_ = getImport(definitions, name);
+        TImport import_ = this.dmnModelRepository.findImport(definitions, name);
         ValueType value = node;
         while (import_ != null) {
             path.addPathElement(name);
@@ -148,7 +152,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                 name = component.getName();
                 value = component;
             }
-            import_ = getImport(definitions, name);
+            import_ = this.dmnModelRepository.findImport(definitions, name);
         }
 
         // Find DRG element and value
@@ -193,15 +197,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             result.add(triplet);
         }
         return result;
-    }
-
-    private TImport getImport(TDefinitions definitions, String name) {
-        for (TImport imp: definitions.getImport()) {
-            if (imp.getName().equals(name)) {
-                return imp;
-            }
-        }
-        return null;
     }
 
     public String toNativeType(InputNodeInfo info) {

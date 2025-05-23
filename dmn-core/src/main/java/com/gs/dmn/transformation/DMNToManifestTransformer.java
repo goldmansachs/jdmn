@@ -132,10 +132,12 @@ public class DMNToManifestTransformer {
             return DMN_11.getFeelNamespace();
         }
         for (TImport import_: model.getImport()) {
-            if (import_.getName().equals(importName)) {
-                model = this.dmnModelRepository.findModelByNamespace(import_.getNamespace());
-                if (model == null) {
-                    throw new DMNRuntimeException(String.format("Cannot find model for import name '%s'", importName));
+            if (this.dmnModelRepository.isDMNImport(import_)) {
+                if (import_.getName().equals(importName)) {
+                    model = this.dmnModelRepository.findModelByNamespace(import_.getNamespace());
+                    if (model == null) {
+                        throw new DMNRuntimeException(String.format("Cannot find model for import name '%s'", importName));
+                    }
                 }
             }
         }
