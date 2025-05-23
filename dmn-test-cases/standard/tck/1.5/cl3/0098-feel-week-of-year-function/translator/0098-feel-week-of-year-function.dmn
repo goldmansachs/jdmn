@@ -3,7 +3,10 @@
              name="0098-feel-week-of-year-function"
              id="_i9fboPUUEeesLuP4RHs4vA"
              xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
->
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <description>week of year function</description>
 
     <inputData name="date_input_001" id="_date_input_001">
