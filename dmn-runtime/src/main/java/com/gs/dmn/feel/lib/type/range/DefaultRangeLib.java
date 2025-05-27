@@ -1004,8 +1004,8 @@ public class DefaultRangeLib implements RangeLib {
         );
     }
 
-    private boolean checkArguments(Object point, Object range) {
-        return point == null || range == null;
+    private boolean checkArguments(Object arg1, Object arg2) {
+        return arg1 == null || arg2 == null;
     }
 
     private RelationalComparator resolveComparator(Object point) {

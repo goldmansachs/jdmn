@@ -175,6 +175,22 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     }
 
     @Test
+    public void testAddition() {
+        super.testAddition();
+
+        NUMBER input = null;
+        List<EnvironmentEntry> entries = Collections.singletonList(
+                new EnvironmentEntry("input", NUMBER, input));
+
+        doExpressionTest(entries, "", "string(\"Today is the \") + string(input) + string(\" !\")",
+                "Addition(+,Addition(+,FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral(\"Today is the \"))),FunctionInvocation(Name(string) -> PositionalParameters(Name(input)))),FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral(\" !\"))))",
+                "string",
+                "stringAdd(stringAdd(string(\"Today is the \"), string(input)), string(\" !\"))",
+                this.lib.stringAdd(this.lib.stringAdd(this.lib.string("Today is the "), this.lib.string(input)), this.lib.string(" !")),
+                null);
+    }
+
+    @Test
     public void testFunctionInvocation() {
         String input = "abc";
         NUMBER score1 = this.lib.number("1");

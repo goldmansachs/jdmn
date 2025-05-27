@@ -28,7 +28,7 @@ public class DefaultStringLib implements StringLib {
     @Override
     public String string(Object from) {
         if (from == null) {
-            return "null";
+            return null;
         } else if (from instanceof Number) {
             return FormatUtils.formatNumber((Number) from);
         } else if (from instanceof Duration) {

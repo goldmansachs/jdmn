@@ -248,7 +248,7 @@ public class JavaTimeFEELLibTest extends BaseStandardFEELLibTest<Number, LocalDa
 
     @Test
     public void testString() {
-        assertEquals("null", getLib().string(null));
+        assertNull(getLib().string(null));
 
         // test number
         assertEquals("123.45", getLib().string(makeNumber("123.45")));

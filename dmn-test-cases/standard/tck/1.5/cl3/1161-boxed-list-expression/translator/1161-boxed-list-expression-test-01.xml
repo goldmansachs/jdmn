@@ -40,10 +40,10 @@
             <expected>
                 <list>
                     <item>
-                        <value xsi:type="xsd:string">null</value>
+                        <value xsi:nil="true"/>
                     </item>
                     <item>
-                        <value xsi:type="xsd:string">null</value>
+                        <value xsi:nil="true"/>
                     </item>
                     <item>
                         <value xsi:nil="true"/>
