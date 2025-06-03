@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.syntax.ConversionKind;
@@ -45,6 +46,40 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
         @Override
         protected List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(List<Type> argumentTypes) {
             return null;
+        }
+
+        @Override
+        public String toString() {
+            String types = this.parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
+            return String.format("AnyFunctionType(%s, %s, %s)", types, this.returnType, false);
+        }
+    };
+
+    public static final FunctionType PREDICATE_FUNCTION = new FunctionType(Arrays.asList(new FormalParameter<>("first", NullType.NULL), new FormalParameter<>("second", NullType.NULL)), BooleanType.BOOLEAN) {
+        @Override
+        public boolean equivalentTo(Type other) {
+            return this == other;
+        }
+
+        @Override
+        public boolean conformsTo(Type other) {
+            return equivalentTo(other);
+        }
+
+        @Override
+        public boolean match(ParameterTypes<Type> parameterTypes) {
+            return false;
+        }
+
+        @Override
+        protected List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(List<Type> argumentTypes) {
+            return null;
+        }
+
+        @Override
+        public String toString() {
+            String types = this.parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
+            return String.format("PredicateFunctionType(%s, %s, %s)", types, this.returnType, false);
         }
     };
 

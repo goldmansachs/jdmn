@@ -309,25 +309,29 @@ instanceOf returns [Expression ast] :
 ;
 
 type returns [TypeExpression ast] :
-    qName = qualifiedName {$ast = astFactory.toNamedTypeExpression($qName.ast);}
-    |
     typeName = identifier {"range".equals($typeName.ast.getText()) || "list".equals($typeName.ast.getText())}? LT type GT {$ast = astFactory.toTypeExpression($typeName.ast.getText(), $type.ast);}
     |
+    typeName = identifier {"context".equals($typeName.ast.getText())}?
     {List<Pair<String, TypeExpression>> members = new ArrayList<>();}
-    typeName = identifier {"context".equals($typeName.ast.getText())}? LT
-    id1 = identifier COLON t1 = type {members.add(new Pair<String, TypeExpression>($id1.ast.getText(), $t1.ast));}
-    ( COMMA id2 = identifier COLON t2 = type {members.add(new Pair<String, TypeExpression>($id2.ast.getText(), $t2.ast));})*
+    LT
+    (
+        id1 = identifier COLON t1 = type {members.add(new Pair<String, TypeExpression>($id1.ast.getText(), $t1.ast));}
+        ( COMMA id2 = identifier COLON t2 = type {members.add(new Pair<String, TypeExpression>($id2.ast.getText(), $t2.ast));})*
+    )?
     GT
     {$ast = astFactory.toContextTypeExpression(members);}
     |
+    typeName = identifier {"function".equals($typeName.ast.getText())}?
     {List<TypeExpression> parameters = new ArrayList<>();}
-    typeName = identifier {"function".equals($typeName.ast.getText())}? LT
+    LT
     (
         t1 = type {parameters.add($t1.ast);}
         ( COMMA t2 = type )* {parameters.add($t2.ast);}
     )?
     GT ARROW returnType = type
     {$ast = astFactory.toFunctionTypeExpression(parameters, $returnType.ast);}
+    |
+    qName = qualifiedName {$ast = astFactory.toNamedTypeExpression($qName.ast);}
     ;
 
 postfixExpression returns [Expression ast] :

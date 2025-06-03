@@ -113,7 +113,8 @@ public class FunctionInvocationUtils {
             if (secondParam != null && parameters.getParameterType(1, "position") instanceof NumberType) {
                 return StandardEnvironmentFactory.makeListReplacePositionBuiltinFunctionType(listType);
             } else {
-                return StandardEnvironmentFactory.makeListReplaceMatchBuiltinFunctionType(listType);
+                Type functionType = parameters.getParameterType(1, "match");
+                return StandardEnvironmentFactory.makeListReplaceMatchBuiltinFunctionType(listType, functionType);
             }
         } else if("reverse".equals(functionName)) {
             Type listType = parameters.getParameterType(0, "list");

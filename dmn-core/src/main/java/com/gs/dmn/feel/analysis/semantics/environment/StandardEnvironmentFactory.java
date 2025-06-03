@@ -35,7 +35,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.ANY_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.ANY_FUNCTION;
+import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.PREDICATE_FUNCTION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.RangeType.COMPARABLE_RANGE;
@@ -119,8 +119,8 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         return new BuiltinFunctionType(listType, new FormalParameter<>("list", ANY_LIST), new FormalParameter<>("position", NUMBER), new FormalParameter<>("newItem", ANY, false, false));
     }
 
-    public static BuiltinFunctionType makeListReplaceMatchBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list", ANY_LIST), new FormalParameter<>("match", ANY_FUNCTION), new FormalParameter<>("newItem", ANY, false, false));
+    public static BuiltinFunctionType makeListReplaceMatchBuiltinFunctionType(Type listType, Type functionType) {
+        return new BuiltinFunctionType(listType, new FormalParameter<>("list", ANY_LIST), new FormalParameter<>("match", functionType), new FormalParameter<>("newItem", ANY, false, false));
     }
 
     public static BuiltinFunctionType makeSortBuiltinFunctionType(Type listType, Type functionType) {
@@ -302,9 +302,9 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
         addFunctionDeclaration(environment, "mode", new BuiltinFunctionType(NUMBER, new FormalParameter<>("list", NUMBER_LIST)));
         addFunctionDeclaration(environment, "mode", new BuiltinFunctionType(NUMBER, new FormalParameter<>("n1", NUMBER), new FormalParameter<>("ns", NUMBER, false, true)));
         addFunctionDeclaration(environment, "list replace", makeListReplacePositionBuiltinFunctionType(ANY_LIST));
-        addFunctionDeclaration(environment, "list replace", makeListReplaceMatchBuiltinFunctionType(ANY_LIST));
+        addFunctionDeclaration(environment, "list replace", makeListReplaceMatchBuiltinFunctionType(ANY_LIST, PREDICATE_FUNCTION));
 
-        addFunctionDeclaration(environment, "sort", makeSortBuiltinFunctionType(ANY_LIST, ANY));
+        addFunctionDeclaration(environment, "sort", makeSortBuiltinFunctionType(ANY_LIST, PREDICATE_FUNCTION));
     }
 
     private static void addContextFunctions(Environment environment) {

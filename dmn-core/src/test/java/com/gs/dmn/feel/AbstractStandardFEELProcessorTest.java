@@ -145,6 +145,27 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
 
     @Override
     @Test
+    public void testFunctionDefinition() {
+        super.testFunctionDefinition();
+
+        List<EnvironmentEntry> entries = Collections.emptyList();
+
+        // Complex function types
+        doExpressionTest(entries, "", "function (list: list<context<>>, precedes: function<context<>, context<>> -> boolean) : list<context<>> sort(list, precedes)",
+                "FunctionDefinition(FormalParameter(list, ListType(ContextType()), false, false),FormalParameter(precedes, FEELFunctionType(FormalParameter(null, ContextType(), false, false), FormalParameter(null, ContextType(), false, false), boolean, false), false, false), FunctionInvocation(Name(sort) -> PositionalParameters(Name(list), Name(precedes))), false)",
+                "FEELFunctionType(FormalParameter(list, ListType(ContextType()), false, false), FormalParameter(precedes, FEELFunctionType(FormalParameter(null, ContextType(), false, false), FormalParameter(null, ContextType(), false, false), boolean, false), false, false), ListType(ContextType()), false)",
+                "new com.gs.dmn.runtime.LambdaExpression<List<com.gs.dmn.runtime.Context>>() {public List<com.gs.dmn.runtime.Context> apply(Object... args_) {List<com.gs.dmn.runtime.Context> list = (List<com.gs.dmn.runtime.Context>)args_[0]; com.gs.dmn.runtime.LambdaExpression<Boolean> precedes = (com.gs.dmn.runtime.LambdaExpression<Boolean>)args_[1];return sort(list, precedes);}}",
+                null,
+                null);
+        doExpressionTest(entries, "", "function (list: list<number>, precedes: function<number, number> -> boolean) : list<number> sort(list, precedes)",
+                "FunctionDefinition(FormalParameter(list, ListType(number), false, false),FormalParameter(precedes, FEELFunctionType(FormalParameter(null, number, false, false), FormalParameter(null, number, false, false), boolean, false), false, false), FunctionInvocation(Name(sort) -> PositionalParameters(Name(list), Name(precedes))), false)",
+                "FEELFunctionType(FormalParameter(list, ListType(number), false, false), FormalParameter(precedes, FEELFunctionType(FormalParameter(null, number, false, false), FormalParameter(null, number, false, false), boolean, false), false, false), ListType(number), false)",
+                "new com.gs.dmn.runtime.LambdaExpression<List<"+numberType()+">>() {public List<"+numberType()+"> apply(Object... args_) {List<"+numberType()+"> list = (List<"+numberType()+">)args_[0]; com.gs.dmn.runtime.LambdaExpression<Boolean> precedes = (com.gs.dmn.runtime.LambdaExpression<Boolean>)args_[1];return sort(list, precedes);}}",
+                null,
+                null);
+    }
+    @Override
+    @Test
     public void testBetweenExpression() {
         super.testBetweenExpression();
 
@@ -1860,6 +1881,18 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "boolean",
                 "isInstanceOf(new com.gs.dmn.runtime.LambdaExpression<" + numberType() + ">() {public " + numberType() + " apply(Object... args_) {return number(\"4\");}}, \"function<> -> number\")",
                 this.lib.isInstanceOf(new com.gs.dmn.runtime.LambdaExpression<NUMBER>() {public NUMBER apply(Object... args_) {return (NUMBER) lib.number("4");}}, "function<> -> number"),
+                null);
+        doExpressionTest(entries, "", "(function (list: list<number>, precedes: function<number, number> -> boolean) sort(list, precedes)) instance of function <list<number>, function<number, number> -> boolean> -> list<number>",
+                "InstanceOfExpression(FunctionDefinition(FormalParameter(list, ListType(number), false, false),FormalParameter(precedes, FEELFunctionType(FormalParameter(null, number, false, false), FormalParameter(null, number, false, false), boolean, false), false, false), FunctionInvocation(Name(sort) -> PositionalParameters(Name(list), Name(precedes))), false), FunctionTypeExpression(ListTypeExpression(NamedTypeExpression(number)), FunctionTypeExpression(NamedTypeExpression(number), NamedTypeExpression(number) -> NamedTypeExpression(boolean)) -> ListTypeExpression(NamedTypeExpression(number))))",
+                "boolean",
+                "isInstanceOf(new com.gs.dmn.runtime.LambdaExpression<List<"+numberType()+">>() {public List<"+numberType()+"> apply(Object... args_) {List<"+numberType()+"> list = (List<"+numberType()+">)args_[0]; com.gs.dmn.runtime.LambdaExpression<Boolean> precedes = (com.gs.dmn.runtime.LambdaExpression<Boolean>)args_[1];return sort(list, precedes);}}, \"function<list<number>, function<number, number> -> boolean> -> list<number>\")",
+                this.lib.isInstanceOf(new com.gs.dmn.runtime.LambdaExpression<List<java.lang.Number>>() {
+                    public List<java.lang.Number> apply(Object... args_) {
+                        List<java.lang.Number> list = (List<java.lang.Number>)args_[0];
+                        com.gs.dmn.runtime.LambdaExpression<Boolean> precedes = (com.gs.dmn.runtime.LambdaExpression<Boolean>)args_[1];
+                        return AbstractStandardFEELProcessorTest.this.lib.sort(list, precedes);
+                    }
+                }, "function<list<number>, function<number, number> -> boolean> -> list<number>"),
                 null);
     }
 }

@@ -22,11 +22,11 @@ public class SemanticError extends RuntimeException {
     }
 
     public SemanticError(DMNContext context, Expression<Type> expression, String errorMessage) {
-        super(String.format("'%s': %s", makeLocation(context, expression), errorMessage));
+        super(String.format("%s: %s", makeLocation(context, expression), errorMessage));
     }
 
     public SemanticError(DMNContext context, Expression<Type> expression, String errorMessage, Exception e) {
-        super(String.format("'%s': %s", makeLocation(context, expression), errorMessage), e);
+        super(String.format("%s: %s", makeLocation(context, expression), errorMessage), e);
     }
 
     private static String makeLocation(DMNContext context, Expression<Type> expression) {

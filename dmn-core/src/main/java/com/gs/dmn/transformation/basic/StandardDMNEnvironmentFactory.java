@@ -521,15 +521,15 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     }
 
     private Type toFEELTypeNoCache(TDefinitions model, QualifiedName typeRef) {
-        // Lookup primitive types
-        Type primitiveType = lookupPrimitiveType(typeRef);
-        if (primitiveType != null) {
-            return primitiveType;
-        }
         // Lookup item definitions
         TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, typeRef);
         if (itemDefinition != null) {
             return toFEELType(itemDefinition);
+        }
+        // Lookup primitive types
+        Type primitiveType = lookupPrimitiveType(typeRef);
+        if (primitiveType != null) {
+            return primitiveType;
         }
         throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", typeRef));
     }

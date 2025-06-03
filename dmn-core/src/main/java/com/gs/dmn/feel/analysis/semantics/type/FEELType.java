@@ -14,6 +14,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.ListType;
+import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 
@@ -106,7 +107,7 @@ public interface FEELType {
     }
 
     Map<String, Type> FEEL_NAME_TO_FEEL_TYPE = new LinkedHashMap<String, Type>() {{
-        put(AnyType.ANY.getName(), AnyType.ANY);
+        // Primitive types
         put(NumberType.NUMBER.getName(), NumberType.NUMBER);
         put(BooleanType.BOOLEAN.getName(), BooleanType.BOOLEAN);
         put(StringType.STRING.getName(), StringType.STRING);
@@ -120,6 +121,17 @@ public interface FEELType {
         put(DaysAndTimeDurationType.DAY_TIME_DURATION.getName(), DaysAndTimeDurationType.DAYS_AND_TIME_DURATION);
         put(YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION.getName(), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION);
         put(YearsAndMonthsDurationType.YEAR_MONTH_DURATION.getName(), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION);
+
+        // Abstract types
+        put(AnyType.ANY.getName(), AnyType.ANY);
+        put(NullType.NULL.getName(), NullType.NULL);
+        put(TemporalType.TEMPORAL.getName(), TemporalType.TEMPORAL);
+        put(DurationType.ANY_DURATION.getName(), DurationType.ANY_DURATION);
+        put(ComparableDataType.COMPARABLE.getName(), ComparableDataType.COMPARABLE);
+        // context is equivalent to context<>
+        put("context", ContextType.ANY_CONTEXT);
+        // function is equivalent to function<> -> ANY
+        put("function", FunctionType.ANY_FUNCTION);
     }};
 
     List<String> FEEL_TYPE_NAMES = Arrays.asList(

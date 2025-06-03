@@ -37,7 +37,6 @@ import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -436,7 +435,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "listEqual(numberList, asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 this.lib.listEqual(numberList, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                 true);
-        assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticError.class, () -> {
             doUnaryTestsTest(entries, "numberList", "[\"1\", \"2\", \"3\"]",
                     "PositiveUnaryTests(ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)))))",
                     "TupleType(boolean)",
@@ -444,6 +443,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     this.lib.listEqual(numberList, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                     true);
         });
+        assertEquals("ListTest: Cannot compare 'ListType(number)', 'ListType(string)'", exception.getMessage());
         doUnaryTestsTest(entries, "numberList", "= [1, 2, 3]",
                 "PositiveUnaryTests(OperatorRange(=,ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
                 "TupleType(boolean)",
@@ -717,23 +717,25 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testEqualOperatorRangeWhenTypeMismatch() {
-        Assertions.assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticError.class, () -> {
             Boolean input = true;
             List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", BOOLEAN, input));
 
             doUnaryTestsTest(entries, "input", "123.56", "", "TupleType(boolean)", "", null, "");
         });
+        assertEquals("OperatorRange: Operator '=' cannot be applied to 'boolean', 'number'", exception.getMessage());
     }
 
     @Test
     public void testOperatorRangeWhenTypeMismatch() {
-        Assertions.assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticError.class, () -> {
             List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", BOOLEAN, true));
 
             doUnaryTestsTest(entries, "input", "< 123.56", "", "TupleType(boolean)", "", null, "");
         });
+        assertEquals("OperatorRange: Operator '<' cannot be applied to 'boolean', 'number'", exception.getMessage());
     }
 
     //
@@ -807,15 +809,16 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         );
 
         // real number one range
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            doExpressionTest(entries, "", "for i in 1.3..2 return i",
-                    "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1.3), NumericLiteral(2))) -> Name(i))",
+        Exception exception = assertThrows(NullPointerException.class, () -> {
+            doExpressionTest(entries, "", "for i in 0.3..2 return i",
+                    "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(0.3), NumericLiteral(2))) -> Name(i))",
                     "ListType(number)",
-                    "rangeToList(number(\"1.3\"), number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
-                    this.lib.rangeToList(this.lib.number("1.3"), this.lib.number("2")).
+                    "rangeToList(number(\"0.3\"), number(\"2\")).stream().map(i -> i).collect(Collectors.toList())",
+                    this.lib.rangeToList(this.lib.number("0.3"), this.lib.number("2")).
                             stream().map(i -> i).collect(Collectors.toList()),
                     Arrays.asList(this.lib.number("1.3")));
         });
+        assertEquals("Cannot invoke \"java.util.List.stream()\" because the return value of \"com.gs.dmn.feel.lib.FEELLib.rangeToList(Object, Object)\" is null", exception.getMessage());
 
         // number two ranges
         doExpressionTest(entries, "", "for i in 1..2, j in 2..3 return i+j",
@@ -951,7 +954,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 Arrays.asList(this.lib.number("6")));
 
         // duplicated iteration variable
-        assertThrows(SemanticError.class, () -> {
+        exception = assertThrows(SemanticError.class, () -> {
             doExpressionTest(entries, "", "for i in [1,2], i in [4,5] return i * j",
                     "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(4),NumericLiteral(5)))) -> Multiplication(*,Name(i),Name(j)))",
                     "ListType(number)",
@@ -962,6 +965,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                             collect(Collectors.toList()),
                     Arrays.asList(this.lib.number("4"), this.lib.number("5"), this.lib.number("8"), this.lib.number("10")));
         });
+        assertEquals("VariableDeclaration 'i' already exists", exception.getMessage());
 
         // complex types
         doExpressionTest(entries, "", "for i in a.min..a.max return i",
@@ -1013,7 +1017,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testIfExpressionWhenConditionIsNotBoolean() {
-        Assertions.assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticError.class, () -> {
             List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
@@ -1024,11 +1028,12 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     "",
                     "");
         });
+        assertEquals("IfExpression: Condition type must be boolean. Found 'number' instead.", exception.getMessage());
     }
 
     @Test
     public void testIfExpressionWhenTypesDontMatch() {
-        Assertions.assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticError.class, () -> {
             List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
@@ -1039,6 +1044,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     "",
                     "");
         });
+        assertEquals("IfExpression: Types of then and else branches are incompatible. Found 'boolean' and 'number'.", exception.getMessage());
     }
 
     @Test
@@ -1067,7 +1073,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 true);
 
         // two domains - ranges
-        Assertions.assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticError.class, () -> {
             doExpressionTest(entries, "", "some i in [1..2] j in [2..3] satisfies i + j > 1",
                     "QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                     "boolean",
@@ -1078,7 +1084,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                             collect(Collectors.toList())),
                     true);
         });
-        Assertions.assertThrows(SemanticError.class, () -> {
+        assertEquals("QuantifiedExpression: Type 'RangeType(number)' is not supported for iteration domains", exception.getMessage());
+        exception = assertThrows(SemanticError.class, () -> {
             doExpressionTest(entries, "", "every i in [1..2] j in [2..3] satisfies i + j > 1",
                     "QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                     "boolean",
@@ -1089,6 +1096,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                             collect(Collectors.toList())),
                     true);
         });
+        assertEquals("QuantifiedExpression: Type 'RangeType(number)' is not supported for iteration domains", exception.getMessage());
     }
 
     @Test
@@ -1934,7 +1942,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testInExpressionWhenOperatorRangeAndTypeMismatch() {
-        Assertions.assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticError.class, () -> {
             List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
@@ -1945,6 +1953,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     "",
                     "");
         });
+        assertEquals("OperatorRange: Operator '=' cannot be applied to 'number', 'boolean'", exception.getMessage());
     }
 
     @Test
@@ -2478,7 +2487,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testArithmeticNegationOnIncorrectOperands() {
-        Assertions.assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticError.class, () -> {
             String date = "date(\"2020-01-01\")";
             String time = "time(\"21:00:00\")";
 
@@ -2497,6 +2506,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     null,
                     null);
         });
+        assertEquals("ArithmeticNegation: Operator '-' cannot be applied to 'date'", exception.getMessage());
     }
 
     @Test
@@ -2819,10 +2829,11 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
-        doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) x + y",
+        // FEEL functions
+        doExpressionTest(entries, "", "function (x : string, y : string) x + y",
                 "FunctionDefinition(FormalParameter(x, string, false, false),FormalParameter(y, string, false, false), Addition(+,Name(x),Name(y)), false)",
                 "FEELFunctionType(FormalParameter(x, string, false, false), FormalParameter(y, string, false, false), string, false)",
-                null,
+                "new com.gs.dmn.runtime.LambdaExpression<String>() {public String apply(Object... args_) {String x = (String)args_[0]; String y = (String)args_[1];return stringAdd(x, y);}}",
                 null,
                 null);
         doExpressionTest(entries, "", "function (x , y) x + y",
@@ -2832,29 +2843,36 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 null,
                 null);
 
-        doExpressionTest(entries, "", "function (x : feel.string, y : feel.string) external { " +
-                        "java: {class : \"name\", methodSignature: \"signature\" } }",
-                "FunctionDefinition(FormalParameter(x, string, false, false),FormalParameter(y, string, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
-                "FEELFunctionType(FormalParameter(x, string, false, false), FormalParameter(y, string, false, false), Any, true)",
+        // External functions
+        doExpressionTest(entries, "", "function(a: number, b: number) external {" +
+                        "java: {class: \"com.gs.dmn.simple_decision_with_user_function.Sum\", methodSignature: \"add(a, b)\", returnType : \"number\"}" +
+                        "}",
+                "FunctionDefinition(FormalParameter(a, number, false, false),FormalParameter(b, number, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"com.gs.dmn.simple_decision_with_user_function.Sum\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"add(a, b)\")),ContextEntry(ContextEntryKey(returnType) = StringLiteral(\"number\"))))), true)",
+                "FEELFunctionType(FormalParameter(a, number, false, false), FormalParameter(b, number, false, false), Any, true)",
+                "new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo(\"com.gs.dmn.simple_decision_with_user_function.Sum\", \"add\", Arrays.asList(\"a\", \"b\")), externalExecutor_, Object.class)",
                 null,
-                null,
-                null);
+                null
+        );
         doExpressionTest(entries, "", "function (x , y) external { " +
                         "java: {class : \"name\", methodSignature: \"signature\" } }",
                 "FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
                 "FEELFunctionType(FormalParameter(x, null, false, false), FormalParameter(y, null, false, false), Any, true)",
                 null,
                 null,
-                null);
-        doExpressionTest(entries, "", "function(a: feel.number, b: feel.number) external {" +
-                        "java: {class: \"com.gs.dmn.simple_decision_with_user_function.Sum\", methodSignature: \"add(a, b)\", returnType : \"number\"}" +
-                        "}",
-                "FunctionDefinition(FormalParameter(a, number, false, false),FormalParameter(b, number, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"com.gs.dmn.simple_decision_with_user_function.Sum\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"add(a, b)\")),ContextEntry(ContextEntryKey(returnType) = StringLiteral(\"number\"))))), true)",
-                "FEELFunctionType(FormalParameter(a, number, false, false), FormalParameter(b, number, false, false), Any, true)",
-                null,
-                null,
                 null
         );
+
+        // Incorrect external function
+        Exception exception = assertThrows(SemanticError.class, () -> {
+            doExpressionTest(entries, "", "function (x : string, y : string) external { " +
+                            "java: {class : \"name\", methodSignature: \"signature\"} }",
+                    "FunctionDefinition(FormalParameter(x, string, false, false),FormalParameter(y, string, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",
+                    "FEELFunctionType(FormalParameter(x, string, false, false), FormalParameter(y, string, false, false), Any, true)",
+                    "new com.gs.dmn.runtime.external.JavaExternalFunction<>(new com.gs.dmn.runtime.external.JavaFunctionInfo(\"name\", \"add\", Arrays.asList(\"a\", \"b\")), externalExecutor_, Object.class)",
+                    null,
+                    null);
+        });
+        assertEquals("FunctionDefinition: Illegal signature 'signature'", exception.getMessage());
     }
 
     @Test
