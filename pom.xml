@@ -83,7 +83,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
 
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <maven.version>3.9.4</maven.version>
 
         <antlr4.version>4.13.1</antlr4.version>
