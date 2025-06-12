@@ -20,14 +20,16 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ExpressionList<T> extends Expression<T> {
-    private List<Expression<T>> expressionList = new ArrayList<>();
+    private final List<Expression<T>> expressionList = new ArrayList<>();
 
     public ExpressionList() {
     }
 
     public ExpressionList(List<Expression<T>> expressionList) {
-        this.expressionList = expressionList;
-    }
+        if (expressionList != null) {
+            this.expressionList.addAll(expressionList);
+        }
+   }
 
     public List<Expression<T>> getExpressionList() {
         return this.expressionList;

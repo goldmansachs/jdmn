@@ -16,18 +16,21 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FunctionDefinition<T> extends Expression<T> {
-    private final List<FormalParameter<T>> formalParameters;
+    private final List<FormalParameter<T>> formalParameters = new ArrayList<>();
     private final TypeExpression<T> returnTypeExpression;
     private final Expression<T> body;
     private final boolean external;
 
     public FunctionDefinition(List<FormalParameter<T>> formalParameters, TypeExpression<T> returnTypeExpression, Expression<T> body, boolean external) {
-        this.formalParameters = formalParameters;
+        if (formalParameters != null) {
+            this.formalParameters.addAll(formalParameters);
+        }
         this.returnTypeExpression = returnTypeExpression;
         this.body = body;
         this.external = external;

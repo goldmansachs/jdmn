@@ -17,19 +17,22 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.TypeExpression;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FunctionDeclaration<T> extends Element<T> {
     private final String name;
-    private final List<FormalParameter<T>> formalParameters;
+    private final List<FormalParameter<T>> formalParameters = new ArrayList<>();
     private final TypeExpression<T> returnTypeExpression;
     private T type;
 
     public FunctionDeclaration(String name, List<FormalParameter<T>> formalParameters, TypeExpression<T> returnTypeExpression) {
         this.name = name;
-        this.formalParameters = formalParameters;
+        if (formalParameters != null) {
+            this.formalParameters.addAll(formalParameters);
+        }
         this.returnTypeExpression = returnTypeExpression;
     }
 

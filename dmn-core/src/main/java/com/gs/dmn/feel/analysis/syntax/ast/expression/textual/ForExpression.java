@@ -16,6 +16,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -24,11 +25,13 @@ import java.util.stream.Collectors;
 public class ForExpression<T> extends Expression<T> {
     public static final String PARTIAL_PARAMETER_NAME = "partial";
 
-    private final List<Iterator<T>> iterators;
+    private final List<Iterator<T>> iterators = new ArrayList<>();
     private final Expression<T> body;
 
     public ForExpression(List<Iterator<T>> iterators, Expression<T> body) {
-        this.iterators = iterators;
+        if (iterators != null) {
+            this.iterators.addAll(iterators);
+        }
         this.body = body;
     }
 

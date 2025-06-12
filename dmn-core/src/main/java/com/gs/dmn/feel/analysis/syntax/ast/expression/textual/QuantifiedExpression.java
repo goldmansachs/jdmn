@@ -16,18 +16,21 @@ import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class QuantifiedExpression<T> extends Expression<T> {
     private final String predicate;
-    private final List<Iterator<T>> iterators;
+    private final List<Iterator<T>> iterators = new ArrayList<>();
     private final Expression<T> body;
 
     public QuantifiedExpression(String predicate, List<Iterator<T>> iterators, Expression<T> body) {
         this.predicate = predicate;
-        this.iterators = iterators;
+        if (iterators != null) {
+            this.iterators.addAll(iterators);
+        }
         this.body = body;
     }
 

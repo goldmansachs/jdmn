@@ -20,11 +20,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class PositiveUnaryTests<T> extends UnaryTests<T> {
-    private List<PositiveUnaryTest<T>> positiveUnaryTests = new ArrayList<>();
+    private final List<PositiveUnaryTest<T>> positiveUnaryTests = new ArrayList<>();
 
     public PositiveUnaryTests(List<PositiveUnaryTest<T>> positiveUnaryTests) {
         if (positiveUnaryTests != null) {
-            this.positiveUnaryTests = positiveUnaryTests;
+            this.positiveUnaryTests.addAll(positiveUnaryTests);
         }
     }
 

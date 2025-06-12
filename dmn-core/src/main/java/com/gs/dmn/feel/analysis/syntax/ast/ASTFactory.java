@@ -63,6 +63,7 @@ public class ASTFactory<T, C> {
     // Expressions
     //
     public Expression<T> toExpressionList(List<Expression<T>> expressionList) {
+        Objects.requireNonNull(expressionList, "Missing expression list");
         if (expressionList.size() == 1) {
             return expressionList.get(0);
         } else {
@@ -193,7 +194,7 @@ public class ASTFactory<T, C> {
     }
 
     public Expression<T> toQualifiedName(List<String> names) {
-        if (names.size() > 0) {
+        if (names != null && !names.isEmpty()) {
             return toPathExpression(names);
         } else {
             throw new SemanticError(String.format("Illegal qualified name '%s'", names));
@@ -272,11 +273,13 @@ public class ASTFactory<T, C> {
 
     public PositiveUnaryTests<T> toPositiveUnaryTests(List<Expression<T>> expressions) {
         List<PositiveUnaryTest<T>> positiveUnaryTests = new ArrayList<>();
-        for (Expression<T> e : expressions) {
-            if (e instanceof PositiveUnaryTest) {
-                positiveUnaryTests.add((PositiveUnaryTest<T>) e);
-            } else {
-                positiveUnaryTests.add(toPositiveUnaryTest(e));
+        if (expressions != null) {
+            for (Expression<T> e : expressions) {
+                if (e instanceof PositiveUnaryTest) {
+                    positiveUnaryTests.add((PositiveUnaryTest<T>) e);
+                } else {
+                    positiveUnaryTests.add(toPositiveUnaryTest(e));
+                }
             }
         }
         return new PositiveUnaryTests<>(positiveUnaryTests);
@@ -369,6 +372,10 @@ public class ASTFactory<T, C> {
     }
 
     public Expression<T> toPathExpression(List<String> names) {
+        if (names == null || names.isEmpty()) {
+            throw new SemanticError("Expected at least 2 names, found " + names);
+        }
+
         Expression<T> source = toName(names.get(0));
         for(int i = 1; i < names.size(); i++) {
             source = toPathExpression(source, names.get(i));

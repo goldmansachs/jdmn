@@ -13,7 +13,6 @@
 package com.gs.dmn.feel.analysis.syntax.ast.visitor;
 
 import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
 import com.gs.dmn.feel.analysis.syntax.ast.ASTFactory;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
@@ -34,8 +33,8 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.Disjunction;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.logic.LogicNegation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.type.*;
-import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
 import com.gs.dmn.feel.analysis.syntax.ast.library.FunctionDeclaration;
+import com.gs.dmn.feel.analysis.syntax.ast.library.Library;
 import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 
 import java.util.LinkedHashMap;
@@ -56,12 +55,23 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
     //
     @Override
     public Element<T> visit(Library<T> element, C context) {
-        throw new SemanticError("Not supported");
+        if (element == null) {
+            return null;
+        }
+
+        List<FunctionDeclaration<T>> functions = element.getFunctions().stream().map(f -> (FunctionDeclaration<T>) f.accept(this, context)).collect(Collectors.toList());
+        return new Library<>(element.getNamespace(), element.getName(), functions);
     }
 
     @Override
     public Element<T> visit(FunctionDeclaration<T> element, C context) {
-        throw new SemanticError("Not supported");
+        if (element == null) {
+            return null;
+        }
+
+        List<FormalParameter<T>> parameters = element.getFormalParameters().stream().map(p -> (FormalParameter<T>) p.accept(this, context)).collect(Collectors.toList());
+        TypeExpression<T> returnType = element.getReturnTypeExpression() == null ? null : (TypeExpression<T>) element.getReturnTypeExpression().accept(this, context);
+        return this.astFactory.toFunctionDeclaration(element.getName(), parameters, returnType);
     }
 
     //
@@ -83,7 +93,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        PositiveUnaryTests<T> puts = (PositiveUnaryTests<T>) element.getPositiveUnaryTests().accept(this, context);
+        PositiveUnaryTests<T> puts = element.getPositiveUnaryTests() == null ? null : (PositiveUnaryTests<T>) element.getPositiveUnaryTests().accept(this, context);
         return this.astFactory.toNegatedUnaryTests(puts);
     }
 
@@ -98,7 +108,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> expression = (Expression<T>) element.getExpression().accept(this, context);
+        Expression<T> expression = element.getExpression() == null ? null : (Expression<T>) element.getExpression().accept(this, context);
         return this.astFactory.toExpressionTest(expression);
     }
 
@@ -108,7 +118,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> endpoint = (Expression<T>) element.getEndpoint().accept(this, context);
+        Expression<T> endpoint = element.getEndpoint() == null ? null : (Expression<T>) element.getEndpoint().accept(this, context);
         return this.astFactory.toOperatorRange(element.getOperator(), endpoint);
     }
 
@@ -118,8 +128,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> start = (Expression<T>) element.getStart().accept(this, context);
-        Expression<T> end = (Expression<T>) element.getEnd().accept(this, context);
+        Expression<T> start = element.getStart() == null ? null : (Expression<T>) element.getStart().accept(this, context);
+        Expression<T> end = element.getEnd() == null ? null : (Expression<T>) element.getEnd().accept(this, context);
         return this.astFactory.toEndpointsRange(par(element.isOpenStart()), start, par(element.isOpenEnd()), end);
     }
 
@@ -133,8 +143,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        ListLiteral<T> listLiteral = (ListLiteral<T>) element.getListLiteral().accept(this, context);
-        return this.astFactory.toListTest(listLiteral.getExpressionList());
+        ListLiteral<T> listLiteral = element.getListLiteral() == null ? null : (ListLiteral<T>) element.getListLiteral().accept(this, context);
+        return this.astFactory.toListTest(listLiteral == null ? null : listLiteral.getExpressionList());
     }
 
     //
@@ -166,8 +176,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        ContextEntryKey<T> key = (ContextEntryKey<T>) element.getKey().accept(this, context);
-        Expression<T> expression = (Expression<T>) element.getExpression().accept(this, context);
+        ContextEntryKey<T> key = element.getKey() == null ? null : (ContextEntryKey<T>) element.getKey().accept(this, context);
+        Expression<T> expression = element.getExpression() == null ? null : (Expression<T>) element.getExpression().accept(this, context);
         return this.astFactory.toContextEntry(key, expression);
     }
 
@@ -187,7 +197,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
         }
 
         List<Iterator<T>> iterators = element.getIterators().stream().map(it -> (Iterator<T>) it.accept(this, context)).collect(Collectors.toList());
-        Expression<T> body = (Expression<T>) element.getBody().accept(this, context);
+        Expression<T> body = element.getBody() == null ? null : (Expression<T>) element.getBody().accept(this, context);
         return this.astFactory.toForExpression(iterators, body);
     }
 
@@ -197,7 +207,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        IteratorDomain<T> domain = (IteratorDomain<T>) element.getDomain().accept(this, context);
+        IteratorDomain<T> domain = element.getDomain() == null ? null : (IteratorDomain<T>) element.getDomain().accept(this, context);
         return this.astFactory.toIterator(element.getName(), domain);
     }
 
@@ -207,7 +217,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> expression = (Expression<T>) element.getExpression().accept(this, context);
+        Expression<T> expression = element.getExpression() == null ? null : (Expression<T>) element.getExpression().accept(this, context);
         return this.astFactory.toIteratorDomain(expression, null);
     }
 
@@ -217,7 +227,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> start = (Expression<T>) element.getStart().accept(this, context);
+        Expression<T> start = element.getStart() == null ? null : (Expression<T>) element.getStart().accept(this, context);
         Expression<T> end = (Expression<T>) element.getEnd().accept(this, context);
         return this.astFactory.toIteratorDomain(start, end);
     }
@@ -228,9 +238,9 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> condition = (Expression<T>) element.getCondition().accept(this, context);
-        Expression<T> thenExpression = (Expression<T>) element.getThenExpression().accept(this, context);
-        Expression<T> elseExpression = (Expression<T>) element.getElseExpression().accept(this, context);
+        Expression<T> condition = element.getCondition() == null ? null : (Expression<T>) element.getCondition().accept(this, context);
+        Expression<T> thenExpression = element.getThenExpression() == null ? null : (Expression<T>) element.getThenExpression().accept(this, context);
+        Expression<T> elseExpression = element.getElseExpression() == null ? null : (Expression<T>) element.getElseExpression().accept(this, context);
         return this.astFactory.toIfExpression(condition, thenExpression, elseExpression);
     }
 
@@ -241,7 +251,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
         }
 
         List<Iterator<T>> iterators = element.getIterators().stream().map(it -> (Iterator<T>) it.accept(this, context)).collect(Collectors.toList());
-        Expression<T> body = (Expression<T>) element.getBody().accept(this, context);
+        Expression<T> body = element.getBody() == null ? null : (Expression<T>) element.getBody().accept(this, context);
         return this.astFactory.toQuantifiedExpression(element.getPredicate(), iterators, body);
     }
 
@@ -251,8 +261,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> source = (Expression<T>) element.getSource().accept(this, context);
-        Expression<T> filter = (Expression<T>) element.getFilter().accept(this, context);
+        Expression<T> source = element.getSource() == null ? null : (Expression<T>) element.getSource().accept(this, context);
+        Expression<T> filter = element.getFilter() == null ? null : (Expression<T>) element.getFilter().accept(this, context);
         return this.astFactory.toFilterExpression(source, filter);
     }
 
@@ -262,8 +272,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> leftOperand = (Expression<T>) element.getLeftOperand().accept(this, context);
-        TypeExpression<T> rightOperand = (TypeExpression<T>) element.getRightOperand().accept(this, context);
+        Expression<T> leftOperand = element.getLeftOperand() == null ? null : (Expression<T>) element.getLeftOperand().accept(this, context);
+        TypeExpression<T> rightOperand = element.getRightOperand() == null ? null : (TypeExpression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toInstanceOf(leftOperand, rightOperand);
     }
 
@@ -289,8 +299,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
-        Expression<T> right = (Expression<T>) element.getRightOperand().accept(this, context);
+        Expression<T> left = element.getLeftOperand() == null ? null : (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> right = element.getRightOperand() == null ? null : (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toConjunction(left, right);
     }
 
@@ -300,8 +310,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
-        Expression<T> right = (Expression<T>) element.getRightOperand().accept(this, context);
+        Expression<T> left = element.getLeftOperand() == null ? null : (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> right = element.getRightOperand() == null ? null : (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toDisjunction(left, right);
     }
 
@@ -311,7 +321,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> left = element.getLeftOperand() == null ? null : (Expression<T>) element.getLeftOperand().accept(this, context);
         return this.astFactory.toNegation("not", left);
     }
 
@@ -324,8 +334,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> leftOpd = (Expression<T>) element.getLeftOperand().accept(this, context);
-        Expression<T> rightOpd = (Expression<T>) element.getRightOperand().accept(this, context);
+        Expression<T> leftOpd = element.getLeftOperand() == null ? null : (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> rightOpd = element.getRightOperand() == null ? null : (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toComparison(element.getOperator(), leftOpd, rightOpd);
     }
 
@@ -335,9 +345,9 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> value = (Expression<T>) element.getValue().accept(this, context);
-        Expression<T> left = (Expression<T>) element.getLeftEndpoint().accept(this, context);
-        Expression<T> right = (Expression<T>) element.getRightEndpoint().accept(this, context);
+        Expression<T> value = element.getValue() == null ? null : (Expression<T>) element.getValue().accept(this, context);
+        Expression<T> left = element.getLeftEndpoint() == null ? null : (Expression<T>) element.getLeftEndpoint().accept(this, context);
+        Expression<T> right = element.getRightEndpoint() == null ? null : (Expression<T>) element.getRightEndpoint().accept(this, context);
         return this.astFactory.toBetweenExpression(value, left, right);
     }
 
@@ -347,7 +357,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> value = (Expression<T>) element.getValue().accept(this, context);
+        Expression<T> value = element.getValue() == null ? null : (Expression<T>) element.getValue().accept(this, context);
         List<Expression<T>> putList = element.getTests().stream().map(t -> (Expression<T>) t.accept(this, context)).collect(Collectors.toList());
         return this.astFactory.toInExpression(value, this.astFactory.toPositiveUnaryTests(putList));
     }
@@ -361,8 +371,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
-        Expression<T> right = (Expression<T>) element.getRightOperand().accept(this, context);
+        Expression<T> left = element.getLeftOperand() == null ? null : (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> right = element.getRightOperand() == null ? null : (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toAddition(element.getOperator(), left, right);
     }
 
@@ -372,8 +382,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
-        Expression<T> right = (Expression<T>) element.getRightOperand().accept(this, context);
+        Expression<T> left = element.getLeftOperand() == null ? null : (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> right = element.getRightOperand() == null ? null : (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toMultiplication(element.getOperator(), left, right);
     }
 
@@ -383,8 +393,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
-        Expression<T> right = (Expression<T>) element.getRightOperand().accept(this, context);
+        Expression<T> left = element.getLeftOperand() == null ? null : (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> right = element.getRightOperand() == null ? null : (Expression<T>) element.getRightOperand().accept(this, context);
         return this.astFactory.toExponentiation(left, right);
     }
 
@@ -394,7 +404,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> left = (Expression<T>) element.getLeftOperand().accept(this, context);
+        Expression<T> left = element.getLeftOperand() == null ? null : (Expression<T>) element.getLeftOperand().accept(this, context);
         return this.astFactory.toNegation("-", left);
     }
 
@@ -407,7 +417,7 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> source = (Expression<T>) element.getSource().accept(this, context);
+        Expression<T> source = element.getSource() == null ? null : (Expression<T>) element.getSource().accept(this, context);
         return this.astFactory.toPathExpression(source, element.getMember());
     }
 
@@ -417,8 +427,8 @@ public class CloneVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        Expression<T> function = (Expression<T>) element.getFunction().accept(this, context);
-        Parameters<T> parameters = (Parameters<T>) element.getParameters().accept(this, context);
+        Expression<T> function = element.getFunction() == null ? null : (Expression<T>) element.getFunction().accept(this, context);
+        Parameters<T> parameters = element.getParameters() == null ? null : (Parameters<T>) element.getParameters().accept(this, context);
         return this.astFactory.toFunctionInvocation(function, parameters);
     }
 

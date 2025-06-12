@@ -45,8 +45,9 @@ public class PathExpression<T> extends Expression<T> {
         } else if (exp instanceof PathExpression) {
             PathExpression<T> expPath = (PathExpression<T>) exp;
             return String.format("%s.%s", getPath(expPath.source), expPath.member);
+        } else {
+            return String.format("%s.%s", this.source, this.member);
         }
-        return String.format("%s.%s", getPath(this.source), this.member);
     }
 
     @Override
@@ -69,6 +70,6 @@ public class PathExpression<T> extends Expression<T> {
 
     @Override
     public String toString() {
-        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.source.toString(), this.member);
+        return String.format("%s(%s, %s)", getClass().getSimpleName(), this.source, this.member);
     }
 }

@@ -31,15 +31,16 @@ import java.util.Objects;
 public class Library<T> extends Element<T> {
     private final String namespace;
     private final String name;
-    private final List<FunctionDeclaration<T>> functions;
-    private final List<Declaration> declarations;
+    private final List<FunctionDeclaration<T>> functions = new ArrayList<>();
+    private final List<Declaration> declarations = new ArrayList<>();
 
 
     public Library(String namespace, String name, List<FunctionDeclaration<T>> functions) {
         this.namespace = namespace;
         this.name = name;
-        this.functions = functions;
-        this.declarations = new ArrayList<>();
+        if (functions != null) {
+            this.functions.addAll(functions);
+        }
     }
 
     public String getNamespace() {
