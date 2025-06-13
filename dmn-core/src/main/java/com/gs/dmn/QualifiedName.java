@@ -68,6 +68,10 @@ public class QualifiedName {
         }
     }
 
+    public static QualifiedName toQualifiedName(String namespace, String localName) {
+        return new QualifiedName(namespace, localName);
+    }
+
     private final String namespace;
     private final String localPart;
 

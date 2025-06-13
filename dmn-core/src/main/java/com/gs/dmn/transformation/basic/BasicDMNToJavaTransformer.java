@@ -930,6 +930,20 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     // Decision Service related functions
     //
     @Override
+    public List<TDRGElement> dsInputs(TDecisionService service) {
+        List<TDRGElement> inputs = new ArrayList<>();
+        for (TDMNElementReference er : service.getInputData()) {
+            TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
+            inputs.add(inputData);
+        }
+        for (TDMNElementReference er : service.getInputDecision()) {
+            TDecision decision = getDMNModelRepository().findDecisionByRef(service, er.getHref());
+            inputs.add(decision);
+        }
+        return inputs;
+    }
+
+    @Override
     public List<FormalParameter<Type>> dsFEELParameters(TDecisionService service) {
         // Check variable.typeRef
         TDefinitions model = this.dmnModelRepository.getModel(service);
@@ -946,13 +960,15 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         }
         // Infer from inputs
         List<FormalParameter<Type>> parameters = new ArrayList<>();
-        for (TDMNElementReference er : service.getInputData()) {
-            TInputData inputData = getDMNModelRepository().findInputDataByRef(service, er.getHref());
-            parameters.add(new FormalParameter<>(inputData.getName(), toFEELType(inputData)));
-        }
-        for (TDMNElementReference er : service.getInputDecision()) {
-            TDecision decision = getDMNModelRepository().findDecisionByRef(service, er.getHref());
-            parameters.add(new FormalParameter<>(decision.getName(), drgElementOutputFEELType(decision)));
+        List<TDRGElement> inputs = dsInputs(service);
+        for (TDRGElement input : inputs) {
+            if (input instanceof TInputData) {
+                // TInputData
+                parameters.add(new FormalParameter<>(input.getName(), toFEELType((TInputData) input)));
+            } else {
+                // TDecision
+                parameters.add(new FormalParameter<>(input.getName(), drgElementOutputFEELType(input)));
+            }
         }
         return parameters;
     }
@@ -1098,14 +1114,20 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String bindingName(DRGElementReference<? extends TDRGElement> reference) {
-        Pair<List<String>, String> qName = qualifiedName(reference.getImportPath(), reference.getModelName(), reference.getElementName());
+    public String bindingName(QualifiedName reference) {
+        return bindingName(reference.getNamespace(), reference.getLocalPart());
+    }
 
-        String prefix = String.join(".", qName.getLeft());
-        if (StringUtils.isBlank(prefix)) {
-            return qName.getRight();
+    @Override
+    public String bindingName(DRGElementReference<? extends TDRGElement> reference) {
+        return bindingName(reference.getNamespace(), reference.getElementName());
+    }
+
+    private static String bindingName(String namespace, String elementName) {
+        if (StringUtils.isBlank(namespace)) {
+            return elementName;
         } else {
-            return String.format("%s.%s", prefix, qName.getRight());
+            return String.format("%s#%s", namespace, elementName);
         }
     }
 
@@ -1129,7 +1151,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else {
             TDefinitions model = this.dmnModelRepository.getModel(element);
             String modelId = model.getNamespace();
-            return String.format("%s#%s", modelId, displayName(element));
+            return bindingName(modelId, displayName(element));
         }
     }
 

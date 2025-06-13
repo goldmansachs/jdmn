@@ -13,6 +13,7 @@
 package com.gs.dmn.transformation.basic;
 
 import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.TDefinitions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,33 +22,33 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class QualifiedNameTest {
     @Test
     public void testConstructorWithNullString() {
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null, (String) null);
+        QualifiedName qualifiedName = QualifiedName.toQualifiedName((TDefinitions) null, (String) null);
         assertNull(qualifiedName);
     }
 
     @Test
     public void testConstructorWithEmptyString() {
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null, "");
+        QualifiedName qualifiedName = QualifiedName.toQualifiedName((TDefinitions) null, "");
         assertNull(qualifiedName);
     }
 
     @Test
     public void testConstructorForFEELTypes() {
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null,"feel.string");
+        QualifiedName qualifiedName = QualifiedName.toQualifiedName((TDefinitions) null,"feel.string");
         assertEquals("feel", qualifiedName.getNamespace());
         assertEquals("string", qualifiedName.getLocalPart());
     }
 
     @Test
     public void testConstructorWhenMissingNamespace() {
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null,"abc");
+        QualifiedName qualifiedName = QualifiedName.toQualifiedName((TDefinitions) null,"abc");
         assertNull(qualifiedName.getNamespace());
         assertEquals("abc", qualifiedName.getLocalPart());
     }
 
     @Test
     public void testConstructorWhenDotInName() {
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName(null,"test.abc");
+        QualifiedName qualifiedName = QualifiedName.toQualifiedName((TDefinitions) null,"test.abc");
         assertNull(qualifiedName.getNamespace());
         assertEquals("test.abc", qualifiedName.getLocalPart());
     }

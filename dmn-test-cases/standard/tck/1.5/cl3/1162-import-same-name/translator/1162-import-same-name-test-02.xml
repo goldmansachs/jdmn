@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Contributed to DMN TCK by StrayAlien -->
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation=""
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <modelName>1162-import-same-name-02-A.dmn</modelName>
+
+    <testCase id="001">
+        <inputNode name="A">
+            <value xsi:type="xsd:decimal">4</value>
+        </inputNode>
+        <inputNode name="A" namespace="https://kie.org/dmn/_DDA3BC7D-BEBD-4990-AC9A-73B1A60DEE3E">
+            <value xsi:type="xsd:decimal">5</value>
+        </inputNode>
+        <resultNode name="Decision" type="decision">
+            <expected>
+                <value xsi:type="xsd:decimal">9</value>
+            </expected>
+        </resultNode>
+    </testCase>
+
+</testCases>

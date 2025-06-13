@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.interpreter;
 
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.runtime.listener.DRGElement;
@@ -24,11 +25,7 @@ public abstract class EvaluationContext {
         return new FunctionInvocationContext(element, argList, context);
     }
 
-    public static EvaluationContext makeFunctionInvocationContext(TDRGElement element, List<Object> argList) {
-        return new FunctionInvocationContext(element, argList);
-    }
-
-    public static EvaluationContext makeDecisionEvaluationContext(TDRGElement element, Map<String, Object> informationRequirements) {
+    public static EvaluationContext makeDecisionEvaluationContext(TDRGElement element, Map<QualifiedName, Object> informationRequirements) {
         return new DecisionEvaluationContext(element, informationRequirements);
     }
 

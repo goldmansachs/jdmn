@@ -1149,7 +1149,7 @@ public class DMNModelRepository {
                         }
                         TBuiltinAggregator aggregation = dt.getAggregation();
                         if (aggregation == SUM || aggregation == COUNT) {
-                            typeRef = QualifiedName.toQualifiedName(null, "number");
+                            typeRef = QualifiedName.toQualifiedName((TDefinitions) null, "number");
                         }
                     }
                 }

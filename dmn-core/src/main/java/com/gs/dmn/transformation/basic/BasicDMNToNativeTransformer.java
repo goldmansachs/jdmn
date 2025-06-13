@@ -259,6 +259,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     // Decision Service related functions
     //
+    List<TDRGElement> dsInputs(TDecisionService service);
+
     List<FormalParameter<Type>> dsFEELParameters(TDecisionService service);
 
     List<String> dsFEELParameterNames(TDecisionService service);
@@ -280,6 +282,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
     List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference);
 
     String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference);
+
+    String bindingName(QualifiedName qName);
 
     String bindingName(DRGElementReference<? extends TDRGElement> reference);
 

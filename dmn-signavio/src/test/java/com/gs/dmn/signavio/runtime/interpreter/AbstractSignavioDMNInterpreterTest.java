@@ -15,6 +15,7 @@ package com.gs.dmn.signavio.runtime.interpreter;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.DRGElementReference;
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.dialect.DMNDialectDefinition;
@@ -54,7 +55,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
         doTest(config.getDecisionName(), config.getDiagramName(), config.getRuntimeContext(), config.getExpectedResult());
     }
 
-    protected void doTest(String decisionName, String diagramName, Map<String, Object> inputRequirements, Object expectedResult) throws Exception {
+    protected void doTest(String decisionName, String diagramName, Map<String, Object> bindings, Object expectedResult) throws Exception {
         String errorMessage = String.format("Tested failed for diagram '%s'", diagramName);
         try {
             String pathName = getInputPath() + "/" + diagramName + DMNConstants.DMN_FILE_EXTENSION;
@@ -66,7 +67,11 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
 
             TDecision decision = (TDecision) repository.findDRGElementByName(repository.getRootDefinitions(), decisionName);
             DRGElementReference<TDecision> reference = repository.makeDRGElementReference(decision);
-            Result actualResult = interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeDecisionEvaluationContext(decision, inputRequirements));
+            Map<QualifiedName, Object> informationRequirements = new LinkedHashMap<>();
+            for (Map.Entry<String, Object> entry : bindings.entrySet()) {
+                informationRequirements.put(QualifiedName.toQualifiedName(definitions.getNamespace(), entry.getKey()), entry.getValue());
+            }
+            Result actualResult = interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeDecisionEvaluationContext(decision, informationRequirements));
             Object actualValue = Result.value(actualResult);
 
             assertEquals(expectedResult, actualValue, errorMessage);

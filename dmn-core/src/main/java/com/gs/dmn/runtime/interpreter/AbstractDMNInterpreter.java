@@ -111,7 +111,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             TDRGElement element = this.repository.findDRGElementByName(namespace, decisionName);
             if (element instanceof TDecision) {
                 // Infer types for InputData
-                Map<String, Object> informationRequirements = ((DecisionEvaluationContext) context).getInformationRequirements();
+                Map<QualifiedName, Object> informationRequirements = ((DecisionEvaluationContext) context).getInformationRequirements();
                 Map<TInputData, Pair<String, String>> inferredTypes = inferInputDataType(element, informationRequirements);
                 // Make context
                 DRGElementReference<TDecision> reference = this.repository.makeDRGElementReference((TDecision) element);
@@ -129,14 +129,13 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         }
     }
 
-    private Map<TInputData, Pair<String, String>> inferInputDataType(TDRGElement element, Map<String, Object> informationRequirements) {
+    private Map<TInputData, Pair<String, String>> inferInputDataType(TDRGElement element, Map<QualifiedName, Object> informationRequirements) {
         Map<TInputData, Pair<String, String>> result = new LinkedHashMap<>();
         if (!this.dmnTransformer.isStrongTyping()) {
             TDefinitions model = this.repository.getModel(element);
-            for (Map.Entry<String, Object> entry: informationRequirements.entrySet()) {
-                String inputDataName = entry.getKey();
+            for (Map.Entry<QualifiedName, Object> entry: informationRequirements.entrySet()) {
                 Object value = entry.getValue();
-                TDRGElement drgElementByName = findInputData(model, inputDataName);
+                TDRGElement drgElementByName = findInputData(model, entry.getKey());
                 if (drgElementByName instanceof TInputData) {
                     TInputData inputData = (TInputData) drgElementByName;
                     TInformationItem variable = inputData.getVariable();
@@ -181,9 +180,15 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         }
     }
 
-    private TDRGElement findInputData(TDefinitions model, String inputDataName) {
+    private TDRGElement findInputData(TDefinitions model, QualifiedName qualifiedName) {
         try {
-            return this.repository.findDRGElementByName(model, inputDataName);
+            String namespace = qualifiedName.getNamespace();
+            String localPart = qualifiedName.getLocalPart();
+            if (StringUtils.isBlank(namespace)) {
+                return this.repository.findDRGElementByName(model, localPart);
+            } else {
+                return this.repository.findDRGElementByName(namespace, localPart);
+            }
         } catch (Exception e) {
             return null;
         }
@@ -197,7 +202,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             if (element instanceof TInvocable) {
                 // Make context
                 DRGElementReference<? extends TInvocable> reference = this.repository.makeDRGElementReference((TInvocable) element);
-                DMNContext invocableContext = makeInvocableGlobalContext(reference.getElement(), argList);
+                DMNContext invocableContext = makeInvocableGlobalContext(reference.getElement(), argList, ((FunctionInvocationContext) context).getContext());
                 // Evaluate invocable
                 return this.visitor.visitInvocable(reference, invocableContext);
             } else {
@@ -343,24 +348,19 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         return dmnTransformer.makeGlobalContext(reference.getElement(), parentContext);
     }
 
-    private DMNContext makeDecisionGlobalContext(TDRGElement element, Map<String, Object> informationRequirements) {
+    private DMNContext makeDecisionGlobalContext(TDRGElement element, Map<QualifiedName, Object> informationRequirements) {
         // No caching when is not strongly typed, input data types might be inferred from input data
         boolean strongTyping = dmnTransformer.isStrongTyping();
         DMNContext globalContext = strongTyping ? this.dmnTransformer.makeGlobalContext(element) : this.dmnTransformer.makeGlobalContext(element, true);
-        for (Map.Entry<String, Object> entry: informationRequirements.entrySet()) {
-            globalContext.bind(entry.getKey(), entry.getValue());
+        for (Map.Entry<QualifiedName, Object> entry: informationRequirements.entrySet()) {
+            String key = this.dmnTransformer.bindingName(entry.getKey());
+            globalContext.bind(key, entry.getValue());
         }
         return globalContext;
     }
 
     protected DMNContext makeInvocableGlobalContext(TInvocable invocable, List<Object> argList, DMNContext parentContext) {
         DMNContext invocableContext = this.dmnTransformer.makeGlobalContext(invocable, parentContext);
-        bindArguments(invocable, argList, invocableContext);
-        return invocableContext;
-    }
-
-    private DMNContext makeInvocableGlobalContext(TInvocable invocable, List<Object> argList) {
-        DMNContext invocableContext = this.dmnTransformer.makeGlobalContext(invocable);
         bindArguments(invocable, argList, invocableContext);
         return invocableContext;
     }
@@ -400,6 +400,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     private void bindArguments(TDecisionService service, List<Object> argList, DMNContext serviceContext) {
         // Bind parameters
+        List<TDRGElement> inputs = this.dmnTransformer.dsInputs(service);
         List<FormalParameter<Type>> formalParameterList = this.dmnTransformer.dsFEELParameters(service);
         for (int i = 0; i < formalParameterList.size(); i++) {
             FormalParameter<Type> param = formalParameterList.get(i);
@@ -412,6 +413,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             value = Result.value(result);
 
             // Variable declaration already exists
+            serviceContext.bind(this.dmnTransformer.bindingName(this.repository.makeDRGElementReference(inputs.get(i))), value);
             serviceContext.bind(name, value);
         }
     }
@@ -548,9 +550,10 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             EVENT_LISTENER.startDRGElement(drgElementAnnotation, decisionArguments);
 
             // Check if has already been evaluated
-            String decisionName = decision.getName();
+            String bindingKey = getBasicDMNTransformer().bindingName(reference);
             Result result;
-            if (dagOptimisation() && decisionContext.isBound(decisionName)) {
+            // Always evaluate in loops
+            if (dagOptimisation() && decisionContext.isBound(bindingKey)) {
                 // Retrieve value from environment
                 Object output = lookupBinding(decisionContext, reference);
                 Type expectedType = dmnTransformer.drgElementOutputFEELType(decision, decisionContext);

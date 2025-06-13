@@ -436,11 +436,13 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find DRG elements for node '%s'", info.getNodeName()));
         } else if (element instanceof TDecision) {
-            Map<String, Object> informationRequirements = makeInputs(testCases, testCase);
+            Map<QualifiedName, Object> informationRequirements = makeInputs(testCases, testCase);
             return interpreter.evaluateDecision(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeDecisionEvaluationContext(element, informationRequirements));
         } else if (element instanceof TInvocable) {
-            List<Object> arguments = makeArgs(element, testCase);
-            return interpreter.evaluateInvocable(reference.getNamespace(), reference.getElementName(), EvaluationContext.makeFunctionInvocationContext(element, arguments));
+            Map<QualifiedName, Object> informationRequirements = makeInputs(testCases, testCase);
+            List<Object> arguments = makeArgs(element, informationRequirements);
+            EvaluationContext functionContext = EvaluationContext.makeFunctionInvocationContext(element, arguments, this.transformer.makeGlobalContext(element));
+            return interpreter.evaluateInvocable(reference.getNamespace(), reference.getElementName(), functionContext);
         } else {
             throw new DMNRuntimeException(String.format("'%s' is not supported yet", element.getClass().getSimpleName()));
         }
@@ -451,49 +453,41 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.tckValueInterpreter.makeValue(info.getExpectedValue());
     }
 
-    private Map<String, Object> makeInputs(TestCases testCases, TestCase testCase) {
-        Map<String, Object> inputs = new LinkedHashMap<>();
+    private Map<QualifiedName, Object> makeInputs(TestCases testCases, TestCase testCase) {
+        Map<QualifiedName, Object> inputs = new LinkedHashMap<>();
         List<InputNode> inputNode = testCase.getInputNode();
         for (int i = 0; i < inputNode.size(); i++) {
             InputNode input = inputNode.get(i);
+            String simpleName = input.getName();
             try {
                 if (this.transformer.isSingletonInputData()) {
                     InputNodeInfo info = extractInputNodeInfo(testCases, testCase, input);
-                    String name = this.transformer.bindingName(info.getReference());
                     Object value = this.tckValueInterpreter.makeValue(info.getValue());
-                    inputs.put(name, value);
+                    DRGElementReference<? extends TDRGElement> reference = info.getReference();
+                    inputs.put(QualifiedName.toQualifiedName(reference.getNamespace(), reference.getElementName()), value);
                 } else {
-                    String name = input.getName();
                     Object value = this.tckValueInterpreter.makeValue(input);
-                    inputs.put(name, value);
+                    inputs.put(QualifiedName.toQualifiedName((String) null, simpleName), value);
                 }
             } catch (Exception e) {
-                LOGGER.error("Cannot make environment ", e);
-                throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DM '%s'", input.getName(), i, testCase.getName()), e);
+                LOGGER.error("Cannot extract inputs ", e);
+                throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DM '%s'", simpleName, i, testCase.getName()), e);
             }
         }
         return inputs;
     }
 
-    private List<Object> makeArgs(TDRGElement drgElement, TestCase testCase) {
+    private List<Object> makeArgs(TDRGElement drgElement, Map<QualifiedName, Object> inputs) {
         List<Object> args = new ArrayList<>();
         if (drgElement instanceof TInvocable) {
-            // Preserve de order in the call
+            // Preserve the order in the call
             List<FormalParameter<Type>> formalParameters = this.transformer.invocableFEELParameters(drgElement);
-            Map<String, Object> map = new LinkedHashMap<>();
-            List<InputNode> inputNode = testCase.getInputNode();
-            for (int i = 0; i < inputNode.size(); i++) {
-                InputNode input = inputNode.get(i);
-                try {
-                    Object value = this.tckValueInterpreter.makeValue(input);
-                    map.put(input.getName(), value);
-                } catch (Exception e) {
-                    LOGGER.error("Cannot make arguments", e);
-                    throw new DMNRuntimeException(String.format("Cannot process input node '%s' for TestCase %d for DRGElement '%s'", input.getName(), i, drgElement.getName()), e);
-                }
-            }
             for (FormalParameter<Type> parameter: formalParameters) {
-                args.add(map.get(parameter.getName()));
+                for (Map.Entry<QualifiedName, Object> entry : inputs.entrySet()) {
+                    if (entry.getKey().getLocalPart().equals(parameter.getName())) {
+                        args.add(entry.getValue());
+                    }
+                }
             }
         }
         return args;

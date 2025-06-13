@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.runtime.interpreter;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.NameUtils;
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -85,6 +86,8 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             Aggregator aggregator = multiInstanceDecision.getAggregator();
             TDecision topLevelDecision = multiInstanceDecision.getTopLevelDecision();
             String lambdaParamName = getBasicDMNTransformer().namedElementVariableName(iterator);
+            TDefinitions model = dmnModelRepository.getModel(decision);
+            QualifiedName lambdaQName = QualifiedName.toQualifiedName(model.getNamespace(), lambdaParamName);
 
             // Evaluate source
             Result result = evaluateLiteralExpression(iterationExpression, parentContext);
@@ -94,7 +97,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             List outputList = new ArrayList<>();
             DMNContext loopContext = getBasicDMNTransformer().makeGlobalContext(decision, parentContext);
             for (Object obj : sourceList) {
-                loopContext.bind(lambdaParamName, obj);
+                loopContext.bind(dmnTransformer.bindingName(lambdaQName), obj);
                 DRGElementReference<TDecision> reference = dmnModelRepository.makeDRGElementReference(topLevelDecision);
                 Result decisionResult = visitor.visitDecisionReference(reference, makeDecisionGlobalContext(reference, loopContext));
                 outputList.add(Result.value(decisionResult));
