@@ -7,7 +7,7 @@
 
     <import namespace="org.omg.feel.stringUtil"
             name="myLib"
-            importType="https://www.omg.org/spec/DMN/EL/LIBRARY"
+            importType="https://www.omg.org/spec/DMN/20230324/FEEL/"
     />
 
     <inputData name="inputString" id="id-13216bd85ab5ac7ee926ae1e467072ad" label="InputString">

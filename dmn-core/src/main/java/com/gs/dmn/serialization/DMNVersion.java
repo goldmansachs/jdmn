@@ -93,7 +93,7 @@ public class DMNVersion {
         throw new IllegalArgumentException(String.format("Cannot find DMN version '%s'", key));
     }
 
-    public static String FEEL_LIBRARY_IMPORT = "https://www.omg.org/spec/DMN/EL/LIBRARY";
+    public static String FEEL_LIBRARY_IMPORT = DMNVersion.LATEST.feelNamespace;
 
     private final String version;
     private final String schemaLocation;
