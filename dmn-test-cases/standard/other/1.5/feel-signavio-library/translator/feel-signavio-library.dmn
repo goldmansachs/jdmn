@@ -10,11 +10,22 @@
             importType="https://www.omg.org/spec/DMN/20230324/FEEL/"
     />
 
+    <itemDefinition name="stringList" isCollection="true">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+
     <inputData name="inputString" id="id-13216bd85ab5ac7ee926ae1e467072ad" label="InputString">
         <variable typeRef="string" name="inputString" id="id-13216bd85ab5ac7ee926ae1e467072ad_variable"/>
     </inputData>
     <inputData name="inputDate" id="id-13216bd85ab5ac7ee926ae1e467072ad-1" label="InputDate">
         <variable typeRef="date" name="inputDate" id="id-13216bd85ab5ac7ee926ae1e467072ad_variable-1"/>
+    </inputData>
+
+    <inputData name="list1" id="id-13216bd85ab5ac7ee926ae1e467072ad-2" label="InputDate">
+        <variable typeRef="stringList" name="list1" id="id-13216bd85ab5ac7ee926ae1e467072ad_variable-2"/>
+    </inputData>
+    <inputData name="list2" id="id-13216bd85ab5ac7ee926ae1e467072ad-3" label="InputDate">
+        <variable typeRef="stringList" name="list2" id="id-13216bd85ab5ac7ee926ae1e467072ad_variable-3"/>
     </inputData>
 
     <decision name="Decision1" id="id-44953907cf5c50f591b26f9f6b405dea" label="Decision1">
@@ -33,6 +44,19 @@
         </informationRequirement>
         <literalExpression>
             <text>day(inputDate)</text>
+        </literalExpression>
+    </decision>
+
+    <decision name="AppendAllTest" id="id-44953907cf5c50f591b26f9f6b405dea-2" label="AppendAllTest">
+        <variable typeRef="stringList" name="AppendAllTest" id="id-44953907cf5c50f591b26f9f6b405dea_variable-2"/>
+        <informationRequirement>
+            <requiredInput href="#id-13216bd85ab5ac7ee926ae1e467072ad-2"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#id-13216bd85ab5ac7ee926ae1e467072ad-3"/>
+        </informationRequirement>
+        <literalExpression>
+            <text>appendAll(list1, list2)</text>
         </literalExpression>
     </decision>
 </definitions>

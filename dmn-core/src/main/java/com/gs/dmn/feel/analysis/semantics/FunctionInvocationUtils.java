@@ -46,13 +46,14 @@ public class FunctionInvocationUtils {
 
     private static Type refineFunctionType(FunctionInvocation<Type> element, Declaration functionDeclaration) {
         // Refine type for built-in functions
-        if (!(functionDeclaration.getType() instanceof BuiltinFunctionType)) {
-            return functionDeclaration.getType();
+        Type originalFunctionType = functionDeclaration.getType();
+        if (!(originalFunctionType instanceof BuiltinFunctionType)) {
+            return originalFunctionType;
         }
 
         String functionName = functionDeclaration.getName();
         Parameters<Type> parameters = element.getParameters();
-        List<FormalParameter<Type>> formalParameters = ((FunctionType) functionDeclaration.getType()).getParameters();
+        List<FormalParameter<Type>> formalParameters = ((FunctionType) originalFunctionType).getParameters();
         if ("max".equals(functionName) || "min".equals(functionName)) {
             if (!formalParameters.isEmpty()) {
                 FormalParameter<Type> formalParameter = formalParameters.get(0);
@@ -70,7 +71,7 @@ public class FunctionInvocationUtils {
                     }
                 }
             }
-            return functionDeclaration.getType();
+            return originalFunctionType;
         } else if("sublist".equals(functionName)) {
             Type listType = parameters.getParameterType(0, "list");
             return StandardEnvironmentFactory.makeSublistBuiltInFunctionType(listType);
@@ -84,7 +85,7 @@ public class FunctionInvocationUtils {
             } else {
                 Type listType = parameters.getParameterType(0, "list");
                 Type elementType = parameters.getParameterType(1, "element");
-                return StandardEnvironmentFactory.makeSignavioAppendBuiltinFunctionType(listType, elementType);
+                return StandardEnvironmentFactory.makeSignavioAppendBuiltinFunctionType(originalFunctionType, listType, elementType);
             }
         } else if("concatenate".equals(functionName)) {
             Type listType = parameters.getParameterType(0, "list");
@@ -101,7 +102,7 @@ public class FunctionInvocationUtils {
                 return StandardEnvironmentFactory.makeRemoveBuiltinFunctionType(listType);
             } else {
                 Type elementType = parameters.getParameterType(1, "element");
-                return StandardEnvironmentFactory.makeSignavioRemoveBuiltinFunctionType(listType, elementType);
+                return StandardEnvironmentFactory.makeSignavioRemoveBuiltinFunctionType(originalFunctionType, listType, elementType);
             }
         } else if("list replace".equals(functionName)) {
             Type listType = parameters.getParameterType(0, "list");
@@ -152,12 +153,12 @@ public class FunctionInvocationUtils {
             return StandardEnvironmentFactory.makeRangeBuiltinFunctionType(returnType);
         } else if("appendAll".equals(functionName)) {
             Type list1Type = parameters.getParameterType(0, "list1");
-            return StandardEnvironmentFactory.makeSignavioAppendAllBuiltinFunctionType(list1Type);
+            return StandardEnvironmentFactory.makeSignavioAppendAllBuiltinFunctionType(originalFunctionType, list1Type);
         } else if("removeAll".equals(functionName)) {
             Type list1Type = parameters.getParameterType(0, "list1");
-            return StandardEnvironmentFactory.makeSignavioRemoveAllBuiltinFunctionType(list1Type);
+            return StandardEnvironmentFactory.makeSignavioRemoveAllBuiltinFunctionType(originalFunctionType, list1Type);
         } else {
-            return functionDeclaration.getType();
+            return originalFunctionType;
         }
     }
 

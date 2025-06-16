@@ -181,11 +181,11 @@ public class SignavioEnvironmentFactory implements EnvironmentFactory {
     }
 
     private static void addListFunctions(Environment environment) {
-        addFunctionDeclaration(environment, "append", StandardEnvironmentFactory.makeSignavioAppendBuiltinFunctionType(ANY_LIST, ANY));
-        addFunctionDeclaration(environment, "appendAll", StandardEnvironmentFactory.makeSignavioAppendAllBuiltinFunctionType(ANY_LIST));
-        addFunctionDeclaration(environment, "remove", StandardEnvironmentFactory.makeSignavioRemoveBuiltinFunctionType(ANY_LIST, ANY));
-        addFunctionDeclaration(environment, "removeAll", StandardEnvironmentFactory.makeSignavioRemoveAllBuiltinFunctionType(ANY_LIST));
-        addFunctionDeclaration(environment, "zip", StandardEnvironmentFactory.makeSignavioZipBuiltinFunctionType(ANY_LIST, ANY_LIST, ANY_LIST));
+        addFunctionDeclaration(environment, "append", StandardEnvironmentFactory.makeSignavioAppendBuiltinFunctionType(null, ANY_LIST, ANY));
+        addFunctionDeclaration(environment, "appendAll", StandardEnvironmentFactory.makeSignavioAppendAllBuiltinFunctionType(null, ANY_LIST));
+        addFunctionDeclaration(environment, "remove", StandardEnvironmentFactory.makeSignavioRemoveBuiltinFunctionType(null, ANY_LIST, ANY));
+        addFunctionDeclaration(environment, "removeAll", StandardEnvironmentFactory.makeSignavioRemoveAllBuiltinFunctionType(null, ANY_LIST));
+        addFunctionDeclaration(environment, "zip", StandardEnvironmentFactory.makeSignavioZipBuiltinFunctionType(null, ANY_LIST, ANY_LIST, ANY_LIST));
         addFunctionDeclaration(environment, "notContainsAny", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list1", ANY_LIST), new FormalParameter<>("list2", ANY_LIST)));
         addFunctionDeclaration(environment, "containsOnly", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list1", ANY_LIST), new FormalParameter<>("list2", ANY_LIST)));
         addFunctionDeclaration(environment, "areElementsOf", new BuiltinFunctionType(BOOLEAN, new FormalParameter<>("list1", ANY_LIST), new FormalParameter<>("list2", ANY_LIST)));

@@ -770,6 +770,10 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
                 return evaluateFunctionDefinition((DMNFunction) functionDefinition, argList);
             } else if (functionDefinition instanceof FEELFunction) {
                 return evaluateFunctionDefinition((FEELFunction) functionDefinition, argList);
+            } else if (functionDefinition instanceof LibraryFunctionType) {
+                ELLib library = ((LibraryFunctionType) functionDefinition).getLib();
+                String functionName = functionName(functionDefinition);
+                return evaluateLibraryFunction(library, functionName, argList);
             } else if (functionDefinition instanceof BuiltinFunction) {
                 return evaluateBuiltInFunction((BuiltinFunction) functionDefinition, argList);
             } else {

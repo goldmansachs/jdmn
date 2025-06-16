@@ -20,10 +20,12 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.BuiltinFunctionType;
+import com.gs.dmn.feel.analysis.semantics.type.LibraryFunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.RangeType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.runtime.function.BuiltinFunction;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -132,24 +134,70 @@ public class StandardEnvironmentFactory implements EnvironmentFactory {
     }
 
     // Signavio
-    public static BuiltinFunctionType makeSignavioAppendBuiltinFunctionType(Type listType, Type elementType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("element", elementType));
+    private static boolean isLibraryFunction(Type originalFunctionType) {
+        return originalFunctionType instanceof LibraryFunctionType;
     }
 
-    public static BuiltinFunctionType makeSignavioAppendAllBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list1", listType), new FormalParameter<>("list2", listType));
+    public static BuiltinFunctionType makeSignavioAppendBuiltinFunctionType(Type originalFunctionType, Type listType, Type elementType) {
+        List<FormalParameter<Type>> formalParameters = Arrays.asList(new FormalParameter<>("list", listType), new FormalParameter<>("element", elementType));
+        Type returnType = listType;
+        if (isLibraryFunction(originalFunctionType)) {
+            LibraryFunctionType libraryFunctionType = new LibraryFunctionType(formalParameters, returnType);
+            libraryFunctionType.setLibrary(((LibraryFunctionType) originalFunctionType).getLib());
+            return libraryFunctionType;
+        } else {
+            return new BuiltinFunctionType(formalParameters, returnType);
+        }
     }
 
-    public static BuiltinFunctionType makeSignavioRemoveBuiltinFunctionType(Type listType, Type elementType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list", listType), new FormalParameter<>("element", elementType));
+    public static BuiltinFunctionType makeSignavioAppendAllBuiltinFunctionType(Type originalFunctionType, Type listType) {
+        List<FormalParameter<Type>> formalParameters = Arrays.asList(new FormalParameter<>("list1", listType), new FormalParameter<>("list2", listType));
+        Type returnType = listType;
+        if (isLibraryFunction(originalFunctionType)) {
+            LibraryFunctionType libraryFunctionType = new LibraryFunctionType(formalParameters, listType);
+            libraryFunctionType.setLibrary(((LibraryFunctionType) originalFunctionType).getLib());
+            return libraryFunctionType;
+        } else {
+            return new BuiltinFunctionType(formalParameters, returnType);
+        }
     }
 
-    public static BuiltinFunctionType makeSignavioRemoveAllBuiltinFunctionType(Type listType) {
-        return new BuiltinFunctionType(listType, new FormalParameter<>("list1", listType), new FormalParameter<>("list2", listType));
+    public static BuiltinFunctionType makeSignavioRemoveBuiltinFunctionType(Type originalFunctionType, Type listType, Type elementType) {
+        List<FormalParameter<Type>> formalParameters = Arrays.asList(new FormalParameter<>("list", listType), new FormalParameter<>("element", elementType));
+        Type returnType = listType;
+        if (isLibraryFunction(originalFunctionType)) {
+            LibraryFunctionType libraryFunctionType = new LibraryFunctionType(formalParameters, returnType);
+            libraryFunctionType.setLibrary(((LibraryFunctionType) originalFunctionType).getLib());
+            return libraryFunctionType;
+        } else {
+            return new BuiltinFunctionType(formalParameters, returnType);
+        }
+
     }
 
-    public static BuiltinFunctionType makeSignavioZipBuiltinFunctionType(Type resultType, Type attributesType, Type valuesType) {
-        return new BuiltinFunctionType(resultType, new FormalParameter<>("attributes", attributesType), new FormalParameter<>("values", valuesType));
+    public static BuiltinFunctionType makeSignavioRemoveAllBuiltinFunctionType(Type originalFunctionType, Type listType) {
+        List<FormalParameter<Type>> formalParameters = Arrays.asList(new FormalParameter<>("list1", listType), new FormalParameter<>("list2", listType));
+        Type returnType = listType;
+        if (isLibraryFunction(originalFunctionType)) {
+            LibraryFunctionType libraryFunctionType = new LibraryFunctionType(formalParameters, returnType);
+            libraryFunctionType.setLibrary(((LibraryFunctionType) originalFunctionType).getLib());
+            return libraryFunctionType;
+
+        } else {
+            return new BuiltinFunctionType(formalParameters, returnType);
+        }
+    }
+
+    public static BuiltinFunctionType makeSignavioZipBuiltinFunctionType(Type originalFunctionType, Type returnType, Type attributesType, Type valuesType) {
+        List<FormalParameter<Type>> formalParameters = Arrays.asList(new FormalParameter<>("attributes", attributesType), new FormalParameter<>("values", valuesType));
+        if (isLibraryFunction(originalFunctionType)) {
+            LibraryFunctionType libraryFunctionType = new LibraryFunctionType(formalParameters, returnType);
+            libraryFunctionType.setLibrary(((LibraryFunctionType) originalFunctionType).getLib());
+            return libraryFunctionType;
+
+        } else {
+            return new BuiltinFunctionType(formalParameters, returnType);
+        }
     }
 
     private StandardEnvironmentFactory() {
