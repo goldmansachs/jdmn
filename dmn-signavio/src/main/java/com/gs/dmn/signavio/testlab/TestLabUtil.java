@@ -182,6 +182,9 @@ public class TestLabUtil {
         if (element == null) {
             element = this.repository.findDRGElementByLabel(parameterDefinition.getRequirementName(), parameterDefinition.getDiagramId(), parameterDefinition.getShapeId());
         }
+        if (element == null) {
+            throw new DMNRuntimeException(String.format("Cannot find DRG element for label '%s' in model '%s'", parameterDefinition.getRequirementName(), parameterDefinition.getRequirementName()));
+        }
         return element;
     }
 
