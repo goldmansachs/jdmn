@@ -50,7 +50,7 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
 
     private String toNativeExpression(ValueType valueType, Type type, TDRGElement element, TItemDefinition itemDefinition) {
         AnySimpleType value = valueType.getValue();
-        if (value != null) {
+        if (ValueType.isSimpleValue(valueType)) {
             String text = value.getText();
             String cleanText = removeWhiteSpaces(text);
             String path = makePath(cleanText, element);
@@ -93,9 +93,9 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
 
                 throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
             }
-        } else if (valueType.getList() != null) {
+        } else if (ValueType.isListValue(valueType)) {
             return toNativeExpression(valueType.getList(), (ListType) type, element, itemDefinition);
-        } else if (valueType.getComponent() != null) {
+        } else if (ValueType.isComplexValue(valueType)) {
             if (type instanceof ItemDefinitionType) {
                 return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type, element, itemDefinition);
             } else if (type instanceof ContextType) {

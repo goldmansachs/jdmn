@@ -35,6 +35,18 @@ import java.util.Map;
         "extensionElements"
 })
 public class ValueType extends TCKBaseElement {
+    public static boolean isSimpleValue(ValueType valueType) {
+        return valueType != null && valueType.getValue() != null;
+    }
+
+    public static boolean isListValue(ValueType valueType) {
+        return valueType != null && valueType.getList() != null;
+    }
+
+    public static boolean isComplexValue(ValueType valueType) {
+        return valueType != null && valueType.getComponent() != null;
+    }
+
     protected AnySimpleType value;
     protected java.util.List<Component> component;
     protected List list;

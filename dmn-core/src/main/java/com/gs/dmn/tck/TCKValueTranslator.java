@@ -39,7 +39,7 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     //
     public String toNativeExpression(ValueType valueType, Type type, TDRGElement element) {
         type = Type.extractTypeFromConstraint(type);
-        if (valueType.getValue() != null) {
+        if (ValueType.isSimpleValue(valueType)) {
             Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
             if (value == null) {
@@ -62,9 +62,9 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
             } else {
                 throw new DMNRuntimeException(String.format("Cannot make value for input '%s' with type '%s'", valueType, type));
             }
-        } else if (valueType.getList() != null) {
+        } else if (ValueType.isListValue(valueType)) {
             return toNativeExpression(valueType.getList(), (ListType) type, element);
-        } else if (valueType.getComponent() != null) {
+        } else if (ValueType.isComplexValue(valueType)) {
             if (type instanceof ItemDefinitionType) {
                 return toNativeExpression(valueType.getComponent(), (ItemDefinitionType) type, element);
             } else if (type instanceof ContextType) {

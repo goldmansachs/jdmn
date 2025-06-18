@@ -37,7 +37,7 @@ public class TCKValueInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     // Make Java value from ValueType
     //
     public Object makeValue(ValueType valueType) {
-        if (valueType.getValue() != null) {
+        if (ValueType.isSimpleValue(valueType)) {
             Object value = anySimpleTypeValue(valueType.getValue());
             String text = getTextContent(value);
             if (text == null) {
@@ -67,9 +67,9 @@ public class TCKValueInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
                 }
                 return obj;
             }
-        } else if (valueType.getList() != null) {
+        } else if (ValueType.isListValue(valueType)) {
             return makeList(valueType);
-        } else if (valueType.getComponent() != null) {
+        } else if (ValueType.isComplexValue(valueType)) {
             return makeContext(valueType);
         }
         throw new DMNRuntimeException(String.format("Cannot make value for input '%s'", valueType));
