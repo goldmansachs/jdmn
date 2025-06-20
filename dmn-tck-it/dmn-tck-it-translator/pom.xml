@@ -1648,7 +1648,7 @@
                             <goal>dmn-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputFileDirectory>${tck.14.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in.dmn</inputFileDirectory>
+                            <inputFileDirectory>${tck.15.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in.dmn</inputFileDirectory>
                             <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_feel_in</javaRootPackage>
@@ -1662,8 +1662,8 @@
                             <goal>tck-to-java</goal>
                         </goals>
                         <configuration>
-                            <inputTestFileDirectory>${tck.14.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.14.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in.dmn</inputModelFileDirectory>
+                            <inputTestFileDirectory>${tck.15.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in-test-01.xml</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.15.diagram.folder}/cl3/0072-feel-in/translator/0072-feel-in.dmn</inputModelFileDirectory>
                             <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
                             <inputParameters>
                                 <javaRootPackage>${generated.root.package}.tck.cl3_feel_in</javaRootPackage>
