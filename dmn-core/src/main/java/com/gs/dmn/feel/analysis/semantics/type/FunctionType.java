@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.runtime.Pair;

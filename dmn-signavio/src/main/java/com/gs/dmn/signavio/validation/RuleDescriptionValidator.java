@@ -74,7 +74,7 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
             for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
                 if (description.contains(entry.getKey())) {
                     String errorMessage = String.format("Description of rule %d in decision '%s' contains illegal sequence '%s'", ruleIndex, decision.getName(), entry.getValue());
-                    errors.add(makeError(repository, definitions, decision, errorMessage));
+                    errors.add(makeError(definitions, decision, errorMessage));
                 }
             }
         }

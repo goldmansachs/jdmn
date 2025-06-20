@@ -55,6 +55,6 @@ public class TypeRefValidationContext extends ValidationContext {
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
 
         String hint = Type.isNull(type) ? "" : String.format(". The inferred type is '%s'", type);
-        return SimpleDMNValidator.makeError(repository, model, element, String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint);
+        return SimpleDMNValidator.makeError(model, element, String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint);
     }
 }

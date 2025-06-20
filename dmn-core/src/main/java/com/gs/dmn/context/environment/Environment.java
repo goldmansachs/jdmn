@@ -15,7 +15,7 @@ package com.gs.dmn.context.environment;
 import com.gs.dmn.el.analysis.semantics.type.FunctionType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.error.SemanticError;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

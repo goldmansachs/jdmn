@@ -27,6 +27,7 @@ import com.gs.dmn.el.analysis.semantics.type.ConstraintType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
+import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntry;
@@ -318,10 +319,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             Type thenType = expressionType(element, then_.getExpression(), context);
             Type elseType = expressionType(element, else_.getExpression(), context);
             if (conditionType != BOOLEAN) {
-                throw new DMNRuntimeException(String.format("Condition type must be boolean. Found '%s' instead in element '%s'.", conditionType, element.getName()));
+                throw new DMNRuntimeException(String.format("Condition type must be boolean, found '%s' instead in element '%s',", conditionType, element.getName()));
             }
             if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType) && com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
-                throw new DMNRuntimeException(String.format("Types of then and else branches are incompatible. Found '%s' and '%s' in element '%s'.", thenType, elseType, element.getName()));
+                throw new DMNRuntimeException(ErrorFactory.makeIfErrorMessage(element, thenType, elseType));
             } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType)) {
                 return elseType;
             } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
@@ -332,7 +333,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(elseType, thenType)) {
                     return thenType;
                 } else {
-                    throw new DMNRuntimeException(String.format("Types of then and else branches are incompatible. Found '%s' and '%s' in element '%s'.", thenType, elseType, element.getName()));
+                    throw new DMNRuntimeException(ErrorFactory.makeIfErrorMessage(element, thenType, elseType));
                 }
             }
         } else if (expression instanceof TFilter) {

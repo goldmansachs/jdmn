@@ -106,7 +106,7 @@ public class SweepRuleOverlapValidator extends SweepValidator {
     private String makeError(TDRGElement element, RuleGroup group, DMNModelRepository repository) {
         TDefinitions model = repository.getModel(element);
         String message = String.format("Decision table rules '%s' overlap in decision '%s'", group.serialize(), repository.displayName(element));
-        return makeError(repository, model, element, message);
+        return makeError(model, element, message);
     }
 
     //  From "Semantics and Analysis of DMN Decision Tables.pdf"

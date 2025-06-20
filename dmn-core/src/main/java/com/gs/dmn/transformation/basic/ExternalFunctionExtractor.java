@@ -15,7 +15,8 @@ package com.gs.dmn.transformation.basic;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntry;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
@@ -90,7 +91,8 @@ public class ExternalFunctionExtractor {
                         int lpIndex = signature.indexOf('(');
                         int rpIndex = signature.indexOf(')');
                         if (lpIndex ==  -1 || rpIndex == -1) {
-                            throw new SemanticError(null, functionDefinition, String.format("Illegal signature '%s'", signature));
+                            String errorMessage = ErrorFactory.makeELExpressionErrorMessage(null, element, functionDefinition, String.format("Illegal signature '%s'", signature));
+                            throw new SemanticError(errorMessage);
                         }
                         methodName = signature.substring(0, lpIndex);
                         String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");

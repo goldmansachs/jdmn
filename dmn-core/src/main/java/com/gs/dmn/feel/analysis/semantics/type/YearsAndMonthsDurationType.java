@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.error.SemanticError;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

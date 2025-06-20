@@ -83,7 +83,7 @@ public class SweepMissingRuleValidator extends SweepValidator {
         TDefinitions model = repository.getModel(element);
         String intervalsString = rule.getIntervals().stream().map(Interval::serialize).collect(Collectors.joining(", "));
         String message = String.format("Found missing rule '[%s]' in '%s' table", intervalsString, repository.displayName(element));
-        return makeError(repository, model, element, message);
+        return makeError(model, element, message);
     }
 
     //  Algorithm: findMissingRules.

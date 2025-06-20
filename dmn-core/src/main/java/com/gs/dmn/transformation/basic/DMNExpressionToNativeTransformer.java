@@ -21,7 +21,7 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;

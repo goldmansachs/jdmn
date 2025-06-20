@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax;
 
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.error.SemanticError;
 import org.antlr.v4.runtime.ConsoleErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;

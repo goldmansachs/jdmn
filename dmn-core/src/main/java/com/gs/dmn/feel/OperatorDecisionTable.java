@@ -13,7 +13,7 @@
 package com.gs.dmn.feel;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.synthesis.NativeOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;

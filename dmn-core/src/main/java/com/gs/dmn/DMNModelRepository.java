@@ -240,43 +240,6 @@ public class DMNModelRepository {
     }
 
     // Error location
-    public String makeLocation(TDefinitions definitions, TDMNElement element) {
-        if (definitions == null && element == null) {
-            return null;
-        }
-
-        List<String> locationParts = new ArrayList<>();
-        addModelCoordinates(definitions, element, locationParts);
-        addElementCoordinates(element, locationParts);
-        return locationParts.isEmpty() ? null : String.format("(%s)", String.join(", ", locationParts));
-    }
-
-    protected void addModelCoordinates(TDefinitions definitions, TDMNElement element, List<String> locationParts) {
-        if (definitions != null) {
-            String modelName = definitions.getName();
-            if (!StringUtils.isBlank(modelName)) {
-                locationParts.add(String.format("model='%s'", modelName));
-            }
-        }
-    }
-
-    protected void addElementCoordinates(TDMNElement element, List<String> locationParts) {
-        if (element != null) {
-            String id = element.getId();
-            String label = element.getLabel();
-            String name = element instanceof TNamedElement ? ((TNamedElement) element).getName() : null;
-            if (!StringUtils.isBlank(label)) {
-                locationParts.add(String.format("label='%s'", label));
-            }
-            if (!StringUtils.isBlank(name)) {
-                locationParts.add(String.format("name='%s'", name));
-            }
-            if (!StringUtils.isBlank(id)) {
-                locationParts.add(String.format("id='%s'", id));
-            }
-        }
-    }
-
     public String getNamespace(TNamedElement element) {
         TDefinitions definitions = this.elementToDefinitions.get(element);
         return definitions == null ? null : definitions.getNamespace();

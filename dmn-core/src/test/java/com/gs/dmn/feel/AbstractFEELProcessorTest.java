@@ -23,7 +23,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.el.synthesis.ELTranslator;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
@@ -443,7 +443,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     this.lib.listEqual(numberList, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                     true);
         });
-        assertEquals("ListTest: Cannot compare 'ListType(number)', 'ListType(string)'", exception.getMessage());
+        assertEquals("Cannot compare 'ListType(number)', 'ListType(string)' for expression 'ListTest(ListLiteral(OperatorRange(null,StringLiteral(\"1\")),OperatorRange(null,StringLiteral(\"2\")),OperatorRange(null,StringLiteral(\"3\"))))'", exception.getMessage());
         doUnaryTestsTest(entries, "numberList", "= [1, 2, 3]",
                 "PositiveUnaryTests(OperatorRange(=,ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
                 "TupleType(boolean)",
@@ -724,7 +724,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
             doUnaryTestsTest(entries, "input", "123.56", "", "TupleType(boolean)", "", null, "");
         });
-        assertEquals("OperatorRange: Operator '=' cannot be applied to 'boolean', 'number'", exception.getMessage());
+        assertEquals("Operator '=' cannot be applied to 'boolean', 'number' for expression 'OperatorRange(null,NumericLiteral(123.56))'", exception.getMessage());
     }
 
     @Test
@@ -735,7 +735,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
             doUnaryTestsTest(entries, "input", "< 123.56", "", "TupleType(boolean)", "", null, "");
         });
-        assertEquals("OperatorRange: Operator '<' cannot be applied to 'boolean', 'number'", exception.getMessage());
+        assertEquals("Operator '<' cannot be applied to 'boolean', 'number' for expression 'OperatorRange(<,NumericLiteral(123.56))'", exception.getMessage());
     }
 
     //
@@ -1028,7 +1028,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     "",
                     "");
         });
-        assertEquals("IfExpression: Condition type must be boolean. Found 'number' instead.", exception.getMessage());
+        assertEquals("Condition type must be boolean, found 'number' instead, for expression 'IfExpression(NumericLiteral(5), NumericLiteral(1), NumericLiteral(2))'", exception.getMessage());
     }
 
     @Test
@@ -1044,7 +1044,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     "",
                     "");
         });
-        assertEquals("IfExpression: Types of then and else branches are incompatible. Found 'boolean' and 'number'.", exception.getMessage());
+        assertEquals("Types of then and else branches are incompatible, found 'boolean' and 'number', for expression 'IfExpression(BooleanLiteral(true), BooleanLiteral(true), NumericLiteral(2))'", exception.getMessage());
     }
 
     @Test
@@ -1084,7 +1084,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                             collect(Collectors.toList())),
                     true);
         });
-        assertEquals("QuantifiedExpression: Type 'RangeType(number)' is not supported for iteration domains", exception.getMessage());
+        assertEquals("Type 'RangeType(number)' is not supported for iteration domains for expression 'QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))'", exception.getMessage());
         exception = assertThrows(SemanticError.class, () -> {
             doExpressionTest(entries, "", "every i in [1..2] j in [2..3] satisfies i + j > 1",
                     "QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
@@ -1096,7 +1096,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                             collect(Collectors.toList())),
                     true);
         });
-        assertEquals("QuantifiedExpression: Type 'RangeType(number)' is not supported for iteration domains", exception.getMessage());
+        assertEquals("Type 'RangeType(number)' is not supported for iteration domains for expression 'QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))'", exception.getMessage());
     }
 
     @Test
@@ -1953,7 +1953,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     "",
                     "");
         });
-        assertEquals("OperatorRange: Operator '=' cannot be applied to 'number', 'boolean'", exception.getMessage());
+        assertEquals("Operator '=' cannot be applied to 'number', 'boolean' for expression 'OperatorRange(null,BooleanLiteral(true))'", exception.getMessage());
     }
 
     @Test
@@ -2506,7 +2506,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     null,
                     null);
         });
-        assertEquals("ArithmeticNegation: Operator '-' cannot be applied to 'date'", exception.getMessage());
+        assertEquals("Operator '-' cannot be applied to 'date' for expression 'ArithmeticNegation(DateTimeLiteral(date, \"2020-01-01\"))'", exception.getMessage());
     }
 
     @Test
@@ -2872,7 +2872,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     null,
                     null);
         });
-        assertEquals("FunctionDefinition: Illegal signature 'signature'", exception.getMessage());
+        assertEquals("Illegal signature 'signature' for expression 'FunctionDefinition(FormalParameter(x, string, false, false),FormalParameter(y, string, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)'", exception.getMessage());
     }
 
     @Test

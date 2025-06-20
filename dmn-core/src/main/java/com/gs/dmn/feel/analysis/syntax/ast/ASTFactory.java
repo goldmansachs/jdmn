@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;

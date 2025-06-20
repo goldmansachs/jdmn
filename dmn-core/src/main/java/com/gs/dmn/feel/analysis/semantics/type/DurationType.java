@@ -13,8 +13,8 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.FEELConstants;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
 
 public class DurationType extends ComparableDataType {
     public static final DurationType ANY_DURATION = new DurationType("duration");

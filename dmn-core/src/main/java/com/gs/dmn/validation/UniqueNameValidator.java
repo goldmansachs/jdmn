@@ -103,7 +103,7 @@ class UniqueNameValidatorVisitor extends TraversalVisitor<ValidationContext> {
         for (Map.Entry<String, List<TDMNElement>> entry : map.entrySet()) {
             String key = entry.getKey();
             if(entry.getValue().size() > 1){
-                context.addError(makeError(repository, definitions, null, String.format("%s Found %d duplicates for '%s'.", errorMessage, entry.getValue().size(), key)));
+                context.addError(makeError(definitions, null, String.format("%s Found %d duplicates for '%s'.", errorMessage, entry.getValue().size(), key)));
             }
         }
     }

@@ -17,13 +17,16 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.LogErrorHandler;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 
 public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
     private final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
@@ -45,6 +48,10 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
 
     @Override
     public DMNBaseElement visit(TDefinitions element, NativeVisitorContext context) {
+        Objects.requireNonNull(element, "Missing " + TDefinitions.class.getSimpleName());
+
+        this.logger.debug(String.format("Generating code for %s '%s'", element.getClass().getSimpleName(), element.getName()));
+
         // Generate data types
         List<TItemDefinition> itemDefinitions = dmnModelRepository.findItemDefinitions(element);
         if (itemDefinitions != null) {
@@ -76,33 +83,37 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
 
     @Override
     public DMNBaseElement visit(TItemDefinition element, NativeVisitorContext context) {
-        if (element == null) {
-            return element;
-        }
+        Objects.requireNonNull(element, "Missing " + TItemDefinition.class.getSimpleName());
+
+        this.logger.debug(String.format("Generating code for %s '%s'", element.getClass().getSimpleName(), element.getName()));
 
         TDefinitions definitions = context.getDefinitions();
+        try {
+            // Complex type
+            if (dmnTransformer.getDMNModelRepository().hasComponents(element)) {
+                this.logger.debug(String.format("Generating code for ItemDefinition '%s'", element.getName()));
 
-        // Complex type
-        if (dmnTransformer.getDMNModelRepository().hasComponents(element)) {
-            this.logger.debug(String.format("Generating code for ItemDefinition '%s'", element.getName()));
+                String typePackageName = dmnTransformer.nativeTypePackageName(definitions.getName());
 
-            String typePackageName = dmnTransformer.nativeTypePackageName(definitions.getName());
+                // Generate interface and class
+                String nativeInterfaceName = dmnTransformer.itemDefinitionNativeSimpleInterfaceName(element);
+                transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionInterfaceTemplate(), generatedClasses, outputPath, typePackageName, nativeInterfaceName);
+                transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionClassTemplate(), generatedClasses, outputPath, typePackageName, dmnTransformer.itemDefinitionNativeClassName(nativeInterfaceName));
 
-            // Generate interface and class
-            String nativeInterfaceName = dmnTransformer.itemDefinitionNativeSimpleInterfaceName(element);
-            transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionInterfaceTemplate(), generatedClasses, outputPath, typePackageName, nativeInterfaceName);
-            transformItemDefinition(definitions, element, dmnTransformer, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().itemDefinitionClassTemplate(), generatedClasses, outputPath, typePackageName, dmnTransformer.itemDefinitionNativeClassName(nativeInterfaceName));
-
-            // Process children
-            List<TItemDefinition> itemDefinitionList = element.getItemComponent();
-            if (itemDefinitionList != null) {
-                for (TItemDefinition itemDefinition1 : itemDefinitionList) {
-                    itemDefinition1.accept(this, context);
+                // Process children
+                List<TItemDefinition> itemDefinitionList = element.getItemComponent();
+                if (itemDefinitionList != null) {
+                    for (TItemDefinition itemDefinition1 : itemDefinitionList) {
+                        itemDefinition1.accept(this, context);
+                    }
                 }
             }
-        }
 
-        return element;
+            return element;
+        } catch (Exception e) {
+            String errorMessage = makeErrorMessage(element, definitions);
+            throw new SemanticError(errorMessage, e);
+        }
     }
 
     private void transformItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String baseTemplatePath, String itemDefinitionTemplate, List<String> generatedClasses, Path outputPath, String typePackageName, String typeName) {
@@ -117,56 +128,74 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
 
     @Override
     public DMNBaseElement visit(TBusinessKnowledgeModel element, NativeVisitorContext context) {
-        this.logger.debug(String.format("Generating code for BKM '%s'", element.getName()));
+        Objects.requireNonNull(element, "Missing " + TBusinessKnowledgeModel.class.getSimpleName());
+
+        this.logger.debug(String.format("Generating code for %s '%s'", element.getClass().getSimpleName(), element.getName()));
 
         TDefinitions definitions = context.getDefinitions();
+        try {
+            String bkmPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
+            String bkmClassName = dmnTransformer.drgElementClassName(element);
+            checkDuplicate(generatedClasses, bkmPackageName, bkmClassName, dmnTransformer);
+            templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().bkmTemplateName(), dmnTransformer, outputPath, bkmPackageName, bkmClassName, decisionBaseClass);
 
-        String bkmPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
-        String bkmClassName = dmnTransformer.drgElementClassName(element);
-        checkDuplicate(generatedClasses, bkmPackageName, bkmClassName, dmnTransformer);
-        templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().bkmTemplateName(), dmnTransformer, outputPath, bkmPackageName, bkmClassName, decisionBaseClass);
+            if (dmnTransformer.getDMNModelRepository().isDecisionTableExpression(element)) {
+                String decisionRuleOutputClassName = dmnTransformer.ruleOutputClassName(element);
+                checkDuplicate(generatedClasses, bkmPackageName, decisionRuleOutputClassName, dmnTransformer);
+                templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTableRuleOutputTemplate(), dmnTransformer, outputPath, bkmPackageName, decisionRuleOutputClassName, decisionBaseClass);
+            }
 
-        if (dmnTransformer.getDMNModelRepository().isDecisionTableExpression(element)) {
-            String decisionRuleOutputClassName = dmnTransformer.ruleOutputClassName(element);
-            checkDuplicate(generatedClasses, bkmPackageName, decisionRuleOutputClassName, dmnTransformer);
-            templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTableRuleOutputTemplate(), dmnTransformer, outputPath, bkmPackageName, decisionRuleOutputClassName, decisionBaseClass);
+            return element;
+        } catch (Exception e) {
+            String errorMessage = makeErrorMessage(element, definitions);
+            throw new SemanticError(errorMessage, e);
         }
-
-        return element;
     }
 
     @Override
     public DMNBaseElement visit(TDecisionService element, NativeVisitorContext context) {
-        this.logger.debug(String.format("Generating code for DS '%s'", element.getName()));
+        Objects.requireNonNull(element, "Missing " + TDecisionService.class.getSimpleName());
+
+        this.logger.debug(String.format("Generating code for %s '%s'", element.getClass().getSimpleName(), element.getName()));
 
         TDefinitions definitions = context.getDefinitions();
+        try {
+            String dsPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
+            String dsClassName = dmnTransformer.drgElementClassName(element);
+            checkDuplicate(generatedClasses, dsPackageName, dsClassName, dmnTransformer);
+            templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().dsTemplateName(), dmnTransformer, outputPath, dsPackageName, dsClassName, decisionBaseClass);
 
-        String dsPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
-        String dsClassName = dmnTransformer.drgElementClassName(element);
-        checkDuplicate(generatedClasses, dsPackageName, dsClassName, dmnTransformer);
-        templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().dsTemplateName(), dmnTransformer, outputPath, dsPackageName, dsClassName, decisionBaseClass);
-
-        return element;
+            return element;
+        } catch (Exception e) {
+            String errorMessage = makeErrorMessage(element, definitions);
+            throw new SemanticError(errorMessage, e);
+        }
     }
 
     @Override
     public DMNBaseElement visit(TDecision element, NativeVisitorContext context) {
-        this.logger.debug(String.format("Generating code for Decision '%s'", element.getName()));
+        Objects.requireNonNull(element, "Missing " + TDecision.class.getSimpleName());
+
+        this.logger.debug(String.format("Generating code for %s '%s'", element.getClass().getSimpleName(), element.getName()));
 
         TDefinitions definitions = context.getDefinitions();
+        try {
+            String decisionPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
+            String decisionClassName = dmnTransformer.drgElementClassName(element);
+            checkDuplicate(generatedClasses, decisionPackageName, decisionClassName, dmnTransformer);
+            templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTemplateName(), dmnTransformer, outputPath, decisionPackageName, decisionClassName, decisionBaseClass);
 
-        String decisionPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
-        String decisionClassName = dmnTransformer.drgElementClassName(element);
-        checkDuplicate(generatedClasses, decisionPackageName, decisionClassName, dmnTransformer);
-        templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTemplateName(), dmnTransformer, outputPath, decisionPackageName, decisionClassName, decisionBaseClass);
+            if (dmnTransformer.getDMNModelRepository().isDecisionTableExpression(element)) {
+                String decisionRuleOutputClassName = dmnTransformer.ruleOutputClassName(element);
+                checkDuplicate(generatedClasses, decisionPackageName, decisionRuleOutputClassName, dmnTransformer);
+                templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTableRuleOutputTemplate(), dmnTransformer, outputPath, decisionPackageName, decisionRuleOutputClassName, decisionBaseClass);
+            }
 
-        if (dmnTransformer.getDMNModelRepository().isDecisionTableExpression(element)) {
-            String decisionRuleOutputClassName = dmnTransformer.ruleOutputClassName(element);
-            checkDuplicate(generatedClasses, decisionPackageName, decisionRuleOutputClassName, dmnTransformer);
-            templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), templateProcessor.getTemplateProvider().decisionTableRuleOutputTemplate(), dmnTransformer, outputPath, decisionPackageName, decisionRuleOutputClassName, decisionBaseClass);
+            return element;
+        } catch (Exception e) {
+            String errorMessage = makeErrorMessage(element, definitions);
+            throw new SemanticError(errorMessage, e);
         }
-
-        return element;
     }
 
     private void checkDuplicate(List<String> generatedClasses, String pkg, String className, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
@@ -176,5 +205,10 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
         } else {
             generatedClasses.add(qualifiedName);
         }
+    }
+
+    public static String makeErrorMessage(TNamedElement element, TDefinitions definitions) {
+        String errorMessage = String.format("Error translating DMN element '%s' to native platform", element);
+        return ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage);
     }
 }

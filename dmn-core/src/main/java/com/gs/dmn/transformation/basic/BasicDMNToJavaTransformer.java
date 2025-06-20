@@ -23,7 +23,8 @@ import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
-import com.gs.dmn.feel.analysis.semantics.SemanticError;
+import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
@@ -1647,37 +1648,44 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public Statement expressionToNative(TDRGElement element) {
-        TExpression expression = this.dmnModelRepository.expression(element);
-        Statement statement;
-        if (expression instanceof TContext) {
-            statement = this.expressionToNativeTransformer.contextExpressionToNative(element, (TContext) expression);
-        } else if (expression instanceof TFunctionDefinition) {
-            statement = this.expressionToNativeTransformer.functionDefinitionToNative(element, (TFunctionDefinition) expression);
-        } else if (expression instanceof TInvocation) {
-            statement = this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression);
-        } else if (expression instanceof TLiteralExpression) {
-            statement = this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText());
-        } else if (expression instanceof TList) {
-            statement = this.expressionToNativeTransformer.listExpressionToNative(element, (TList) expression);
-        } else if (expression instanceof TRelation) {
-            statement = this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression);
-        } else if (expression instanceof TConditional) {
-            statement = this.expressionToNativeTransformer.conditionalExpressionToNative(element, (TConditional) expression);
-        } else if (expression instanceof TFilter) {
-            statement = this.expressionToNativeTransformer.filterExpressionToNative(element, (TFilter) expression);
-        } else if (expression instanceof TFor) {
-            statement = this.expressionToNativeTransformer.forExpressionToNative(element, (TFor) expression);
-        } else if (expression instanceof TSome) {
-            statement = this.expressionToNativeTransformer.someExpressionToNative(element, (TSome) expression);
-        } else if (expression instanceof TEvery) {
-            statement = this.expressionToNativeTransformer.everyExpressionToNative(element, (TEvery) expression);
-        } else {
-            throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
-        }
+        try {
+            TExpression expression = this.dmnModelRepository.expression(element);
+            Statement statement;
+            if (expression instanceof TContext) {
+                statement = this.expressionToNativeTransformer.contextExpressionToNative(element, (TContext) expression);
+            } else if (expression instanceof TFunctionDefinition) {
+                statement = this.expressionToNativeTransformer.functionDefinitionToNative(element, (TFunctionDefinition) expression);
+            } else if (expression instanceof TInvocation) {
+                statement = this.expressionToNativeTransformer.invocationExpressionToNative(element, (TInvocation) expression);
+            } else if (expression instanceof TLiteralExpression) {
+                statement = this.expressionToNativeTransformer.literalExpressionToNative(element, ((TLiteralExpression) expression).getText());
+            } else if (expression instanceof TList) {
+                statement = this.expressionToNativeTransformer.listExpressionToNative(element, (TList) expression);
+            } else if (expression instanceof TRelation) {
+                statement = this.expressionToNativeTransformer.relationExpressionToNative(element, (TRelation) expression);
+            } else if (expression instanceof TConditional) {
+                statement = this.expressionToNativeTransformer.conditionalExpressionToNative(element, (TConditional) expression);
+            } else if (expression instanceof TFilter) {
+                statement = this.expressionToNativeTransformer.filterExpressionToNative(element, (TFilter) expression);
+            } else if (expression instanceof TFor) {
+                statement = this.expressionToNativeTransformer.forExpressionToNative(element, (TFor) expression);
+            } else if (expression instanceof TSome) {
+                statement = this.expressionToNativeTransformer.someExpressionToNative(element, (TSome) expression);
+            } else if (expression instanceof TEvery) {
+                statement = this.expressionToNativeTransformer.everyExpressionToNative(element, (TEvery) expression);
+            } else {
+                throw new UnsupportedOperationException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
+            }
 
-        // Implicit conversions
-        Type expectedType = drgElementOutputFEELType(element);
-        return this.expressionToNativeTransformer.convertExpression(statement, expectedType);
+            // Implicit conversions
+            Type expectedType = drgElementOutputFEELType(element);
+            return this.expressionToNativeTransformer.convertExpression(statement, expectedType);
+        } catch (Exception e) {
+            TDefinitions definitions = this.dmnModelRepository.getModel(element);
+            TExpression expression = this.dmnModelRepository.expression(element);
+            String errorMessage = "Error translating expression to native platform";
+            throw new SemanticError(ErrorFactory.makeDMNExpressionErrorMessage(definitions, element, expression, errorMessage), e);
+        }
     }
 
     @Override

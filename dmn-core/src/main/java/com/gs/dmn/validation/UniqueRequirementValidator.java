@@ -15,6 +15,7 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
+import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -115,9 +116,9 @@ class UniqueRequirementValidatorVisitor extends TraversalVisitor<ValidationConte
                     if (referredElement == null) {
                         errorMessage = String.format("Duplicated %s '%s'", propertyPath, id);
                     } else {
-                        errorMessage = String.format("Duplicated %s %s", propertyPath, repository.makeLocation(definitions, referredElement));
+                        errorMessage = String.format("Duplicated %s %s", propertyPath, ErrorFactory.makeLocation(definitions, referredElement));
                     }
-                    context.addError(makeError(repository, definitions, element, errorMessage));
+                    context.addError(makeError(definitions, element, errorMessage));
                 } else {
                     existingIds.add(id);
                 }

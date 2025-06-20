@@ -115,7 +115,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         // Report error
         if (!duplicates.isEmpty()) {
             String message = String.join(", ", duplicates);
-            context.addError(makeError(context.getRepository(), definitions, null, String.format("%s Found duplicates for '%s'.", errorMessage, message)));
+            context.addError(makeError(definitions, null, String.format("%s Found duplicates for '%s'.", errorMessage, message)));
         }
     }
 
@@ -149,14 +149,14 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         // Report error
         if (!duplicates.isEmpty()) {
             String message = String.join(", ", duplicates);
-            context.addError(makeError(context.getRepository(), definitions, null, String.format("%s Found duplicates for '%s'.", errorMessage, message)));
+            context.addError(makeError(definitions, null, String.format("%s Found duplicates for '%s'.", errorMessage, message)));
         }
     }
 
     private void validateNamedElement(TDefinitions definitions, TNamedElement element, ValidationContext context) {
         if (StringUtils.isBlank(element.getName())) {
             String errorMessage = "Missing name";
-            context.addError(makeError(context.getRepository(), definitions, element, errorMessage));
+            context.addError(makeError(definitions, element, errorMessage));
         }
     }
 
@@ -165,25 +165,25 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
 
         if (variable == null) {
             String errorMessage = "Missing variable";
-            context.addError(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(definitions, element, errorMessage));
         } else {
             if (variable.getName() == null) {
                 String errorMessage = "Missing variable name";
-                context.addError(makeError(context.getRepository(), definitions, element, errorMessage));
+                context.addError(makeError(definitions, element, errorMessage));
             } else {
                 // element/@name == element/variable/@name
                 String variableName = variable.getName();
                 String elementName = element.getName();
                 if (!elementName.equals(variableName)) {
                     String errorMessage = String.format("DRGElement name and variable name should be the same. Found '%s' and '%s'", elementName, variableName);
-                    context.addError(makeError(repository, definitions, element, errorMessage));
+                    context.addError(makeError(definitions, element, errorMessage));
                 }
                 // decision/variable/@typeRef is not null
                 if (validateTypeRef) {
                     QualifiedName typeRef = QualifiedName.toQualifiedName(definitions, variable.getTypeRef());
                     if (repository.isNull(typeRef)) {
                         String errorMessage = "Missing typRef in variable";
-                        context.addError(makeError(repository, definitions, element, errorMessage));
+                        context.addError(makeError(definitions, element, errorMessage));
                     }
                 }
             }
@@ -225,7 +225,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         DMNModelRepository repository = context.getRepository();
         if (expression == null) {
             String errorMessage = "Missing expression";
-            context.addError(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(definitions, element, errorMessage));
         } else {
             if (expression instanceof TDecisionTable) {
                 TDecisionTable decisionTable = (TDecisionTable) expression;
@@ -238,22 +238,22 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 String expressionLanguage = ((TLiteralExpression) expression).getExpressionLanguage();
                 if (!isSupported(expressionLanguage)) {
                     String errorMessage = String.format("Not supported expression language '%s'", expressionLanguage);
-                    context.addError(makeError(repository, definitions, element, errorMessage));
+                    context.addError(makeError(definitions, element, errorMessage));
                 }
                 if (StringUtils.isBlank(literalExpression.getText())) {
                     String errorMessage = "Missing text in literal expressions";
-                    context.addError(makeError(repository, definitions, element, errorMessage));
+                    context.addError(makeError(definitions, element, errorMessage));
                 }
             } else if (expression instanceof TContext) {
                 List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
                 if (contextEntryList.isEmpty()) {
                     String errorMessage = "Missing entries in context expression";
-                    context.addError(makeError(repository, definitions, element, errorMessage));
+                    context.addError(makeError(definitions, element, errorMessage));
                 }
             } else if (expression instanceof TRelation) {
                 if (((TRelation) expression).getColumn() == null && ((TRelation) expression).getRow() == null) {
                     String errorMessage = "Empty relation";
-                    context.addError(makeError(repository, definitions, element, errorMessage));
+                    context.addError(makeError(definitions, element, errorMessage));
                 }
             } else if (expression instanceof TConditional) {
                 checkChildExpression(definitions, element, ((TConditional) expression).getIf(), "conditional", "if", context);
@@ -285,18 +285,18 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         List<TInputClause> input = decisionTable.getInput();
         if (input == null || input.isEmpty()) {
             String errorMessage = "Missing input clauses";
-            context.addError(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(definitions, element, errorMessage));
         }
         List<TOutputClause> output = decisionTable.getOutput();
         if (output == null || output.isEmpty()) {
             String errorMessage = "Missing output clauses";
-            context.addError(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(definitions, element, errorMessage));
         }
         validateHitPolicy(definitions, element, decisionTable, context);
         List<TDecisionRule> ruleList = decisionTable.getRule();
         if (ruleList == null || ruleList.isEmpty()) {
             String errorMessage = "Missing rules in decision table";
-            context.addError(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(definitions, element, errorMessage));
         } else {
             for (TDecisionRule rule : ruleList) {
                 validateRule(definitions, element, rule, context);
@@ -312,13 +312,13 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         TBuiltinAggregator aggregation = decisionTable.getAggregation();
         if (hitPolicy != THitPolicy.COLLECT && aggregation != null) {
             String errorMessage = String.format("Aggregation '%s' not allowed for hit policy '%s'", aggregation, hitPolicy);
-            context.addError(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(definitions, element, errorMessage));
         }
         if (output != null && output.size() > 1
                 && hitPolicy == THitPolicy.COLLECT
                 && aggregation != null) {
             String errorMessage = String.format("Collect operator is not defined over multiple outputs for decision table '%s'", decisionTable.getId());
-            context.addError(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(definitions, element, errorMessage));
         }
     }
 
@@ -331,19 +331,19 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         List<TUnaryTests> inputEntry = rule.getInputEntry();
         if (inputEntry == null || inputEntry.isEmpty()) {
             String errorMessage = "No input entries for rule " + rule.getId();
-            context.addError(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(definitions, element, errorMessage));
         }
         List<TLiteralExpression> outputEntry = rule.getOutputEntry();
         if (outputEntry == null || outputEntry.isEmpty()) {
             String errorMessage = "No outputEntry entries for rule " + rule.getId();
-            context.addError(makeError(repository, definitions, element, errorMessage));
+            context.addError(makeError(definitions, element, errorMessage));
         }
     }
 
     private void checkChildExpression(TDefinitions definitions, TDRGElement element, TChildExpression childExpression, String parentName, String childName, ValidationContext context) {
         String errorMessage = String.format("Missing '%s' expression in '%s' boxed expression in element '%s'", childName, parentName, element.getName());
         if (childExpression == null || childExpression.getExpression() == null) {
-            context.addError(makeError(context.getRepository(), definitions, element, errorMessage));
+            context.addError(makeError(definitions, element, errorMessage));
         }
     }
 }

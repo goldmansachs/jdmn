@@ -84,7 +84,7 @@ public class SweepMissingIntervalValidator extends SweepValidator {
         } else {
             message = String.format("Intervals '%s' are not covered for column %d in '%s' table", intervalsString, columnIndex + 1, repository.displayName(element));
         }
-        return makeError(repository, model, element, message);
+        return makeError(model, element, message);
     }
 
     //  Algorithm: findMissingRules.

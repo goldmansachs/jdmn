@@ -19,6 +19,7 @@ import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.FEELConstants;
 import com.gs.dmn.feel.OperatorDecisionTable;
@@ -420,10 +421,10 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
         Type thenType = thenExpression.getType();
         Type elseType = elseExpression.getType();
         if (conditionType != BOOLEAN) {
-            handleError(context, element, String.format("Condition type must be boolean. Found '%s' instead.", conditionType));
+            handleError(context, element, String.format("Condition type must be boolean, found '%s' instead,", conditionType));
             return null;
         } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType) && com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
-            handleError(context, element, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));
+            handleError(context, element, String.format(ErrorFactory.makeIfErrorMessage(context.getElement(), thenType, elseType)));
             return null;
         } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType)) {
             element.setType(elseType);
@@ -435,7 +436,7 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(elseType, thenType)) {
                 element.setType(thenType);
             } else {
-                handleError(context, element, String.format("Types of then and else branches are incompatible. Found '%s' and '%s'.", thenType, elseType));
+                handleError(context, element, String.format("Types of then and else branches are incompatible, found '%s' and '%s',", thenType, elseType));
                 return null;
             }
         }

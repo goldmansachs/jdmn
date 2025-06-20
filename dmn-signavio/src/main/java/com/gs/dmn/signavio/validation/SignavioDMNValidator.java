@@ -33,7 +33,7 @@ public class SignavioDMNValidator extends DefaultDMNValidator {
         TDMNElement.ExtensionElements extensionElements = knowledgeModel.getExtensionElements();
         if (encapsulatedLogic == null && extensionElements == null) {
             String errorMessage = "Missing encapsulatedLogic";
-            context.addError(makeError(context.getRepository(), definitions, knowledgeModel, errorMessage));
+            context.addError(makeError(definitions, knowledgeModel, errorMessage));
         }
     }
 
@@ -55,11 +55,11 @@ public class SignavioDMNValidator extends DefaultDMNValidator {
                         String nodeName = ((Element) obj).getNodeName();
                         if (!"MultiInstanceDecisionLogic".equals(nodeName)) {
                             String errorMessage = String.format("Extension '%s' not supported", obj);
-                            context.addError(makeError(repository, definitions, decision, errorMessage));
+                            context.addError(makeError(definitions, decision, errorMessage));
                         }
                     } else {
                         String errorMessage = String.format("Extension '%s' not supported", obj);
-                        context.addError(makeError(repository, definitions, decision, errorMessage));
+                        context.addError(makeError(definitions, decision, errorMessage));
                     }
                 }
             }

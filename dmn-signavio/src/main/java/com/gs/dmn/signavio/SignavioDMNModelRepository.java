@@ -19,7 +19,6 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
 import com.gs.dmn.signavio.extension.SignavioExtension;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -85,19 +84,6 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
                     MultiInstanceDecisionLogic midLogic = this.extension.multiInstanceDecisionLogic(element);
                     this.iterators.add((TInputData) midLogic.getIterator());
                 }
-            }
-        }
-    }
-
-    @Override
-    protected void addModelCoordinates(TDefinitions definitions, TDMNElement element, List<String> locationParts) {
-        String diagramId = getDiagramId(element);
-        if (!StringUtils.isBlank(diagramId)) {
-            locationParts.add(String.format("model='%s'", diagramId));
-        } else {
-            String modelName = definitions.getName();
-            if (!StringUtils.isBlank(modelName)) {
-                locationParts.add(String.format("model='%s'", modelName));
             }
         }
     }
