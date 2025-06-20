@@ -415,13 +415,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot(dateInput == null),
-            booleanNot(timeInput == null),
-            booleanNot(dateAndTimeInput == null),
-            booleanNot(numberInput == null),
-            booleanNot(textInput == null),
-            booleanNot(booleanInput == null),
-            booleanNot(enumerationInput == null)
+            booleanNot(dateEqual(dateInput, null)),
+            booleanNot(timeEqual(timeInput, null)),
+            booleanNot(dateTimeEqual(dateAndTimeInput, null)),
+            booleanNot(numericEqual(numberInput, null)),
+            booleanNot(stringEqual(textInput, null)),
+            booleanNot(booleanEqual(booleanInput, null)),
+            booleanNot(stringEqual(enumerationInput, null))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -452,13 +452,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            dateInput == null,
-            timeInput == null,
-            dateAndTimeInput == null,
-            numberInput == null,
-            textInput == null,
-            booleanInput == null,
-            enumerationInput == null
+            dateEqual(dateInput, null),
+            timeEqual(timeInput, null),
+            dateTimeEqual(dateAndTimeInput, null),
+            numericEqual(numberInput, null),
+            stringEqual(textInput, null),
+            booleanEqual(booleanInput, null),
+            stringEqual(enumerationInput, null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -489,13 +489,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot(dateInput == null),
-            booleanNot(timeInput == null),
-            booleanNot(dateAndTimeInput == null),
-            booleanNot(numberInput == null),
-            booleanNot(textInput == null),
-            booleanNot(booleanInput == null),
-            booleanNot(enumerationInput == null)
+            booleanNot(dateEqual(dateInput, null)),
+            booleanNot(timeEqual(timeInput, null)),
+            booleanNot(dateTimeEqual(dateAndTimeInput, null)),
+            booleanNot(numericEqual(numberInput, null)),
+            booleanNot(stringEqual(textInput, null)),
+            booleanNot(booleanEqual(booleanInput, null)),
+            booleanNot(stringEqual(enumerationInput, null))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -526,13 +526,13 @@ public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
         // Apply rule
         DecisionRuleOutput output_ = new DecisionRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            dateInput == null,
-            timeInput == null,
-            dateAndTimeInput == null,
-            numberInput == null,
-            textInput == null,
-            booleanInput == null,
-            enumerationInput == null
+            dateEqual(dateInput, null),
+            timeEqual(timeInput, null),
+            dateTimeEqual(dateAndTimeInput, null),
+            numericEqual(numberInput, null),
+            stringEqual(textInput, null),
+            booleanEqual(booleanInput, null),
+            stringEqual(enumerationInput, null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

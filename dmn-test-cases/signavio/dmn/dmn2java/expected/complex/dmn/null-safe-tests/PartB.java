@@ -127,12 +127,12 @@ public class PartB extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecis
         // Apply rule
         PartBRuleOutput output_ = new PartBRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot(stringHandlingComparator == null),
+            booleanNot(booleanEqual(stringHandlingComparator, null)),
             notContainsAny(comparator, asList("bottomRule")),
-            booleanNot(statistical == null),
-            booleanNot(listHandling == null),
-            booleanNot(formattingAndCoercing == null),
-            booleanNot(arithmetic == null)
+            booleanNot(numericEqual(statistical, null)),
+            booleanNot(booleanEqual(listHandling, null)),
+            booleanNot(numericEqual(formattingAndCoercing, null)),
+            booleanNot(numericEqual(arithmetic, null))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

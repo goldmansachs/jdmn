@@ -382,7 +382,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot(date == null)
+            booleanNot(dateEqual(date, null))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -416,7 +416,7 @@ public class DateOperators extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
         // Apply rule
         DateOperatorsRuleOutput output_ = new DateOperatorsRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            date == null
+            dateEqual(date, null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

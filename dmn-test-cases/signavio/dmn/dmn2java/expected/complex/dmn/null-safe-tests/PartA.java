@@ -114,9 +114,9 @@ public class PartA extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecis
         // Apply rule
         PartARuleOutput output_ = new PartARuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot(anyTrueAggregation == null),
-            booleanNot(allTrueAggregation == null),
-            booleanNot(allFalseAggregation == null)
+            booleanNot(booleanEqual(anyTrueAggregation, null)),
+            booleanNot(booleanEqual(allTrueAggregation, null)),
+            booleanNot(booleanEqual(allFalseAggregation, null))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

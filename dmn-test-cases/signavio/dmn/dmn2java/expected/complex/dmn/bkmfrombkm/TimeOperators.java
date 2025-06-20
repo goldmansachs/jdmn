@@ -382,7 +382,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            booleanNot(time == null)
+            booleanNot(timeEqual(time, null))
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
@@ -416,7 +416,7 @@ public class TimeOperators extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
         // Apply rule
         TimeOperatorsRuleOutput output_ = new TimeOperatorsRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            time == null
+            timeEqual(time, null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

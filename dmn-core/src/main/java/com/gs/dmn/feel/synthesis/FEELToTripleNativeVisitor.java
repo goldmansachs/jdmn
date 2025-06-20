@@ -55,7 +55,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.ImportContextType;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -860,7 +859,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
     }
 
     protected NativeOperator rangeOperator(String feelOperatorName, Expression<Type> leftOperand, Expression<Type> rightOperand) {
-        NativeOperator nativeOperator = OperatorDecisionTable.nativeOperator(feelOperatorName, rightOperand.getType(), rightOperand.getType());
+        NativeOperator nativeOperator = OperatorDecisionTable.nativeOperator(feelOperatorName, leftOperand.getType(), rightOperand.getType());
         if (nativeOperator != null) {
             return nativeOperator;
         } else {

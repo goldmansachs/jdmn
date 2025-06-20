@@ -261,7 +261,7 @@ public class TemporalComparator extends com.gs.dmn.signavio.runtime.JavaTimeSign
         // Apply rule
         TemporalComparatorRuleOutput output_ = new TemporalComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            dateTime == null
+            dateTimeEqual(dateTime, null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

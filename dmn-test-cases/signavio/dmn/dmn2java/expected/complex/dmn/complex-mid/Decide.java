@@ -194,7 +194,7 @@ public class Decide extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDeci
         // Apply rule
         DecideRuleOutput output_ = new DecideRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            properties_iterator == null
+            stringEqual(properties_iterator, null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);

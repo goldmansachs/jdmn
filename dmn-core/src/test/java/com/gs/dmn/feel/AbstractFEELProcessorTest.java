@@ -151,8 +151,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doUnaryTestsTest(entries, "number", "null",
                 "PositiveUnaryTests(OperatorRange(null,NullLiteral()))",
                 "TupleType(boolean)",
-                "number == null",
-                number == null,
+                "numericEqual(number, null)",
+                this.lib.numericEqual(number, null),
                 false);
     }
 
@@ -361,8 +361,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doUnaryTestsTest(entries, "input", "? in null",
                 "PositiveUnaryTests(ExpressionTest(InExpression(Name(?), OperatorRange(null,NullLiteral()))))",
                 "TupleType(boolean)",
-                "input == null",
-                input == null,
+                "numericEqual(input, null)",
+                this.lib.numericEqual(input, null),
                 false);
 
         // ? is in the right end side
@@ -509,8 +509,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doUnaryTestsTest(entries, "number", "null",
                 "PositiveUnaryTests(OperatorRange(null,NullLiteral()))",
                 "TupleType(boolean)",
-                "number == null",
-                number == null,
+                "numericEqual(number, null)",
+                this.lib.numericEqual(number, null),
                 false);
         doUnaryTestsTest(entries, "string", "\"abc\"",
                 "PositiveUnaryTests(OperatorRange(null,StringLiteral(\"abc\")))",

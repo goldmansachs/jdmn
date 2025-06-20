@@ -261,7 +261,7 @@ public class Comparator extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBase
         // Apply rule
         ComparatorRuleOutput output_ = new ComparatorRuleOutput(false);
         if (ruleMatches(eventListener_, drgRuleMetadata,
-            numberA == null
+            numericEqual(numberA, null)
         )) {
             // Rule match
             eventListener_.matchRule(DRG_ELEMENT_METADATA, drgRuleMetadata);
