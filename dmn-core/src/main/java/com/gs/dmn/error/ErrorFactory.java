@@ -20,10 +20,14 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ErrorFactory {
+    public static final String DIAGRAM_ID = "diagramId";
+
     private ErrorFactory() {
     }
 
@@ -79,16 +83,20 @@ public class ErrorFactory {
         }
 
         List<String> locationParts = new ArrayList<>();
-        addModelCoordinates(definitions, locationParts);
+        addModelCoordinates(definitions, element, locationParts);
         addElementCoordinates(element, locationParts);
         return locationParts.isEmpty() ? null : String.format("(%s)", String.join(", ", locationParts));
     }
 
-    protected static void addModelCoordinates(TDefinitions definitions, List<String> locationParts) {
+    protected static void addModelCoordinates(TDefinitions definitions, TDMNElement element, List<String> locationParts) {
         if (definitions != null) {
             String modelName = definitions.getName();
             if (!StringUtils.isBlank(modelName)) {
                 locationParts.add(String.format("model='%s'", modelName));
+            }
+            String diagramId = getDiagramId(element);
+            if (!StringUtils.isBlank(diagramId)) {
+                locationParts.add(String.format("%s='%s'", DIAGRAM_ID, diagramId));
             }
         }
     }
@@ -112,9 +120,24 @@ public class ErrorFactory {
 
     public static String makeIfErrorMessage(TNamedElement element, Type thenType, Type elseType) {
         if (element == null) {
-            return String.format("Types of then and else branches are incompatible, found '%s' and '%s',", thenType, elseType);
+            return String.format("Types of then and else branches are incompatible, found '%s' and '%s'", thenType, elseType);
         } else {
-            return String.format("Types of then and else branches are incompatible, found '%s' and '%s' in element '%s',", thenType, elseType, element.getName());
+            return String.format("Types of then and else branches are incompatible, found '%s' and '%s' in element '%s'", thenType, elseType, element.getName());
         }
+    }
+
+    public static String getDiagramId(TDMNElement element) {
+        if (element == null) {
+            return null;
+        }
+        Map<QName, String> otherAttributes = element.getOtherAttributes();
+        if (otherAttributes != null) {
+            for (Map.Entry<QName, String> entry : otherAttributes.entrySet()) {
+                if (DIAGRAM_ID.equals(entry.getKey().getLocalPart())) {
+                    return entry.getValue();
+                }
+            }
+        }
+        return null;
     }
 }
