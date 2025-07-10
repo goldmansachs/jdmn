@@ -22,10 +22,8 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import javax.xml.namespace.QName;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -47,11 +45,23 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
 
         DefaultDMNValidatorVisitor visitor = new DefaultDMNValidatorVisitor(this.logger, this.errorHandler, this);
-        for (TDefinitions definitions: repository.getAllDefinitions()) {
+        for (TDefinitions definitions : repository.getAllDefinitions()) {
             definitions.accept(visitor, context);
         }
 
         return context.getErrors();
+    }
+
+    public void validateImport(TDefinitions definitions, TImport element, ValidationContext context) {
+        validateNamedElement(definitions, element, context);
+        if (StringUtils.isBlank(element.getImportType())) {
+            String errorMessage = "Missing importType of import";
+            context.addError(makeError(definitions, element, errorMessage));
+        }
+        if (StringUtils.isBlank(element.getNamespace())) {
+            String errorMessage = "Missing namespace of import";
+            context.addError(makeError(definitions, element, errorMessage));
+        }
     }
 
     protected void validateInputData(TDefinitions definitions, TInputData element, ValidationContext context) {
@@ -66,7 +76,8 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         validateInformationRequirements(definitions, element, element.getInformationRequirement(), context);
         List<TDMNElementReference> krs = element.getKnowledgeRequirement().stream().map(TKnowledgeRequirement::getRequiredKnowledge).collect(Collectors.toList());
         validateReferences(definitions, element, krs, context);
-        validateExpression(definitions, element, context);
+        validateExpression(definitions, element, element.getExpression(), context);
+        validateTypeRef(definitions, element.getVariable(), element.getExpression(), context);
     }
 
     protected void validateBusinessKnowledgeModel(TDefinitions definitions, TBusinessKnowledgeModel element, ValidationContext context) {
@@ -74,6 +85,8 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         validateVariable(definitions, element, element.getVariable(), false, context);
         List<TDMNElementReference> krs = element.getKnowledgeRequirement().stream().map(TKnowledgeRequirement::getRequiredKnowledge).collect(Collectors.toList());
         validateReferences(definitions, element, krs, context);
+        validateExpression(definitions, element, element.getEncapsulatedLogic(), context);
+        validateTypeRef(definitions, element.getVariable(), element.getEncapsulatedLogic(), context);
     }
 
     protected void validateDecisionService(TDefinitions definitions, TDecisionService element, ValidationContext context) {
@@ -87,13 +100,13 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
 
     protected void validateUnique(TDefinitions definitions, List<? extends TDMNElement> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElement, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
-            errorMessage = String.format("The '%s' of a '%s' must be unique.", property, elementType);
+            errorMessage = String.format("The %s of a %s must be unique.", property, elementType);
         }
         // Create a map
         Map<String, List<TDMNElement>> map = new LinkedHashMap<>();
         for (TDMNElement element : elements) {
             String key = accessor.apply(element);
-            if (!isOptionalProperty || key != null) {
+            if (key != null && !isOptionalProperty) {
                 List<TDMNElement> list = map.get(key);
                 if (list == null) {
                     list = new ArrayList<>();
@@ -108,7 +121,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         List<String> duplicates = new ArrayList<>();
         for (Map.Entry<String, List<TDMNElement>> entry : map.entrySet()) {
             String key = entry.getKey();
-            if(entry.getValue().size() > 1){
+            if (entry.getValue().size() > 1) {
                 duplicates.add(key);
             }
         }
@@ -121,7 +134,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
 
     private void validateUniqueReferences(TDefinitions definitions, List<? extends TDMNElementReference> elements, String elementType, String property, boolean isOptionalProperty, Function<TDMNElementReference, String> accessor, String errorMessage, ValidationContext context) {
         if (errorMessage == null) {
-            errorMessage = String.format("The '%s' of a '%s' must be unique.", property, elementType);
+            errorMessage = String.format("The %s of a %s must be unique.", property, elementType);
         }
         // Create a map
         Map<String, List<TDMNElementReference>> map = new LinkedHashMap<>();
@@ -142,7 +155,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         List<String> duplicates = new ArrayList<>();
         for (Map.Entry<String, List<TDMNElementReference>> entry : map.entrySet()) {
             String key = entry.getKey();
-            if(entry.getValue().size() > 1){
+            if (entry.getValue().size() > 1) {
                 duplicates.add(key);
             }
         }
@@ -154,6 +167,10 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     }
 
     private void validateNamedElement(TDefinitions definitions, TNamedElement element, ValidationContext context) {
+        if (StringUtils.isBlank(element.getId())) {
+            String errorMessage = "Missing id";
+            context.addError(makeError(definitions, element, errorMessage));
+        }
         if (StringUtils.isBlank(element.getName())) {
             String errorMessage = "Missing name";
             context.addError(makeError(definitions, element, errorMessage));
@@ -166,26 +183,28 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         if (variable == null) {
             String errorMessage = "Missing variable";
             context.addError(makeError(definitions, element, errorMessage));
+            return;
+        }
+
+        // validate element/variable/name
+        if (variable.getName() == null) {
+            String errorMessage = "Missing variable name";
+            context.addError(makeError(definitions, element, errorMessage));
         } else {
-            if (variable.getName() == null) {
-                String errorMessage = "Missing variable name";
+            // element/@name == element/variable/@name
+            String variableName = variable.getName();
+            String elementName = element.getName();
+            if (!elementName.equals(variableName)) {
+                String errorMessage = String.format("DRGElement name and variable name should be the same. Found '%s' and '%s'", elementName, variableName);
                 context.addError(makeError(definitions, element, errorMessage));
-            } else {
-                // element/@name == element/variable/@name
-                String variableName = variable.getName();
-                String elementName = element.getName();
-                if (!elementName.equals(variableName)) {
-                    String errorMessage = String.format("DRGElement name and variable name should be the same. Found '%s' and '%s'", elementName, variableName);
-                    context.addError(makeError(definitions, element, errorMessage));
-                }
-                // decision/variable/@typeRef is not null
-                if (validateTypeRef) {
-                    QualifiedName typeRef = QualifiedName.toQualifiedName(definitions, variable.getTypeRef());
-                    if (repository.isNull(typeRef)) {
-                        String errorMessage = "Missing typRef in variable";
-                        context.addError(makeError(definitions, element, errorMessage));
-                    }
-                }
+            }
+        }
+        // validate element/variable/@typeRef
+        if (validateTypeRef) {
+            QualifiedName typeRef = QualifiedName.toQualifiedName(definitions, variable.getTypeRef());
+            if (repository.isNull(typeRef)) {
+                String errorMessage = "Missing typRef of variable";
+                context.addError(makeError(definitions, element, errorMessage));
             }
         }
     }
@@ -205,20 +224,12 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 accessor, decision.getName(), context);
     }
 
-    private void validateReferences(TDefinitions definitions, TNamedElement decision, List<TDMNElementReference> references, ValidationContext context) {
+    private void validateReferences(TDefinitions definitions, TNamedElement element, List<TDMNElementReference> references, ValidationContext context) {
         // Validate requirements
         Function<TDMNElementReference, String> accessor =
                 TDMNElementReference::getHref;
         validateUniqueReferences(definitions, references, "TDMNElementReference", "href", false,
-                accessor, decision.getName(), context);
-    }
-
-    private void validateExpression(TDefinitions definitions, TDecision decision, ValidationContext context) {
-        // Validate expression
-        TExpression expression = decision.getExpression();
-        if (expression != null) {
-            validateExpression(definitions, decision, expression, context);
-        }
+                accessor, element.getName(), context);
     }
 
     private void validateExpression(TDefinitions definitions, TDRGElement element, TExpression expression, ValidationContext context) {
@@ -241,7 +252,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                     context.addError(makeError(definitions, element, errorMessage));
                 }
                 if (StringUtils.isBlank(literalExpression.getText())) {
-                    String errorMessage = "Missing text in literal expressions";
+                    String errorMessage = "Missing text of literal expression";
                     context.addError(makeError(definitions, element, errorMessage));
                 }
             } else if (expression instanceof TContext) {
@@ -279,9 +290,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
     }
 
-
     private void validateDecisionTable(TDefinitions definitions, TDMNElement element, TDecisionTable decisionTable, ValidationContext context) {
-        DMNModelRepository repository = context.getRepository();
         List<TInputClause> input = decisionTable.getInput();
         if (input == null || input.isEmpty()) {
             String errorMessage = "Missing input clauses";
@@ -305,8 +314,6 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     }
 
     private void validateHitPolicy(TDefinitions definitions, TDMNElement element, TDecisionTable decisionTable, ValidationContext context) {
-        DMNModelRepository repository = context.getRepository();
-
         List<TOutputClause> output = decisionTable.getOutput();
         THitPolicy hitPolicy = decisionTable.getHitPolicy();
         TBuiltinAggregator aggregation = decisionTable.getAggregation();
@@ -327,7 +334,6 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     }
 
     private void validateRule(TDefinitions definitions, TDMNElement element, TDecisionRule rule, ValidationContext context) {
-        DMNModelRepository repository = context.getRepository();
         List<TUnaryTests> inputEntry = rule.getInputEntry();
         if (inputEntry == null || inputEntry.isEmpty()) {
             String errorMessage = "No input entries for rule " + rule.getId();
@@ -346,6 +352,19 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             context.addError(makeError(definitions, element, errorMessage));
         }
     }
+
+    private void validateTypeRef(TDefinitions definitions, TInformationItem variable, TExpression expression, ValidationContext context) {
+        if (variable != null && expression != null) {
+            QName variableTypeRef = variable.getTypeRef();
+            QName expressionTypeRef = expression.getTypeRef();
+            if (variableTypeRef != null && expressionTypeRef != null) {
+                if (!Objects.equals(variableTypeRef, expressionTypeRef)) {
+                    String errorMessage = String.format("The variable type '%s' must be the same as the type of the contained expression '%s'", variableTypeRef, expressionTypeRef);
+                    context.addError(makeError(definitions, null, errorMessage));
+                }
+            }
+        }
+    }
 }
 
 class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
@@ -358,31 +377,45 @@ class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
 
     @Override
     public DMNBaseElement visit(TDefinitions element, ValidationContext context) {
-        if (element != null)
-        {
+        if (element != null) {
             DMNModelRepository repository = context.getRepository();
 
             logger.debug("Validate unique 'DRGElement.id'");
+            List<TDRGElement> drgElements = repository.findDRGElements(element);
             this.validator.validateUnique(
-                    element, new ArrayList<>(repository.findDRGElements(element)), "DRGElement", "id", false,
+                    element, new ArrayList<>(drgElements), "DRGElement", "id", false,
                     TDMNElement::getId, null, context
             );
 
-            logger.debug("Validate unique 'DRGElement.name'");
+            logger.debug("Validate unique 'DRGElement.name' and 'Import.name'");
+            List<TNamedElement> namedElements = new ArrayList<>(drgElements);
+            namedElements.addAll(element.getImport());
             this.validator.validateUnique(
-                    element, new ArrayList<>(repository.findDRGElements(element)), "DRGElement", "name", false,
-                    e -> ((TNamedElement)e).getName(), null, context
+                    element, new ArrayList<>(namedElements), "DRGElement", "name", false,
+                    e -> ((TNamedElement) e).getName(), null, context
             );
 
             logger.debug("Validate unique 'ItemDefinition.name'");
             this.validator.validateUnique(
                     element, new ArrayList<>(repository.findItemDefinitions(element)), "ItemDefinition", "name", false,
-                    e -> ((TNamedElement)e).getName(), null, context
+                    e -> ((TNamedElement) e).getName(), null, context
             );
         }
 
         // Visit children
         super.visit(element, context);
+
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TImport element, ValidationContext context) {
+        if (element != null) {
+            DMNModelRepository repository = context.getRepository();
+            TDefinitions definitions = repository.getModel(element);
+
+            this.validator.validateImport(definitions, element, context);
+        }
 
         return element;
     }

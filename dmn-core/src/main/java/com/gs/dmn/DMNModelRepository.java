@@ -59,7 +59,7 @@ public class DMNModelRepository {
     protected Map<TDefinitions, List<TDecisionService>> dssByModel = new LinkedHashMap<>();
 
     public DMNModelRepository() {
-        this(OBJECT_FACTORY.createTDefinitions());
+        this(Collections.emptyList());
     }
 
     public DMNModelRepository(TDefinitions definitions) {
@@ -69,9 +69,9 @@ public class DMNModelRepository {
     public DMNModelRepository(List<TDefinitions> definitionsList) {
         this.definitionsList = definitionsList;
         // Normalize definitions
-        this.definitionsList.sort(Comparator.comparing((TDefinitions o) -> NameUtils.removeSingleQuotes(o.getName())));
         if (definitionsList != null) {
-            for (TDefinitions definitions: definitionsList) {
+            this.definitionsList.sort(Comparator.comparing((TDefinitions o) -> NameUtils.removeSingleQuotes(o.getName())));
+            for (TDefinitions definitions : definitionsList) {
                 this.allDefinitions.add(definitions);
                 // Update caches
                 if (!this.namespaceToDefinitions.containsKey(definitions.getNamespace())) {
@@ -83,15 +83,18 @@ public class DMNModelRepository {
         }
 
         // Process all definitions
-        for (TDefinitions definitions: this.getAllDefinitions()) {
+        for (TDefinitions definitions : this.getAllDefinitions()) {
             // Normalize
             findItemDefinitionAndAllowedValuesFor(definitions);
 
             // Set derived properties
-            for (TNamedElement element: findItemDefinitions(definitions)) {
+            for (TNamedElement element : findImports(definitions)) {
                 this.elementToDefinitions.put(element, definitions);
             }
-            for (TDRGElement element: findDRGElements(definitions)) {
+            for (TNamedElement element : findItemDefinitions(definitions)) {
+                this.elementToDefinitions.put(element, definitions);
+            }
+            for (TDRGElement element : findDRGElements(definitions)) {
                 this.elementToDefinitions.put(element, definitions);
             }
         }
@@ -118,17 +121,17 @@ public class DMNModelRepository {
 
         Map<String, Integer> map = new LinkedHashMap<>();
         Map<String, TDecision> parentMap = new LinkedHashMap<>();
-        for (TDefinitions definitions: this.getAllDefinitions()) {
-            for (TDecision decision: findDecisions(definitions)) {
+        for (TDefinitions definitions : this.getAllDefinitions()) {
+            for (TDecision decision : findDecisions(definitions)) {
                 addCachedChildren(definitions, decision, parentMap, map);
             }
-            for (TDecisionService service: findDSs(definitions)) {
+            for (TDecisionService service : findDSs(definitions)) {
                 addCachedChildren(definitions, service, parentMap, map);
             }
         }
 
         Set<String> result = new LinkedHashSet<>();
-        for (Map.Entry<String, Integer> entry: map.entrySet()) {
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
             if (entry.getValue() > cachingThreshold) {
                 String key = entry.getKey();
                 TDecision drgElement = this.findDecisionByRef(parentMap.get(key), key);
@@ -144,7 +147,7 @@ public class DMNModelRepository {
     }
 
     private void addCachedChildren(TDefinitions definitions, TDecision decision, Map<String, TDecision> parentMap, Map<String, Integer> map) {
-        for (TInformationRequirement ir: decision.getInformationRequirement()) {
+        for (TInformationRequirement ir : decision.getInformationRequirement()) {
             TDMNElementReference requiredDecision = ir.getRequiredDecision();
             if (requiredDecision != null) {
                 String href = normalizeHref(definitions.getNamespace(), requiredDecision);
@@ -155,7 +158,7 @@ public class DMNModelRepository {
     }
 
     private void addCachedChildren(TDefinitions definitions, TDecisionService decisionService, Map<String, TDecision> parentMap, Map<String, Integer> map) {
-        for (TDMNElementReference inputDecisionRef: decisionService.getInputDecision()) {
+        for (TDMNElementReference inputDecisionRef : decisionService.getInputDecision()) {
             if (inputDecisionRef != null) {
                 String href = normalizeHref(definitions.getNamespace(), inputDecisionRef);
                 map.compute(href, (k, v) -> v == null ? 1 : v + 1);
@@ -206,7 +209,7 @@ public class DMNModelRepository {
 
     public List<String> getImportedNames(TDefinitions definitions) {
         List<String> names = new ArrayList<>();
-        for (TImport imp: definitions.getImport()) {
+        for (TImport imp : definitions.getImport()) {
             if (isDMNImport(imp)) {
                 String name = imp.getName();
                 if (!StringUtils.isBlank(name) && !names.contains(name)) {
@@ -218,7 +221,7 @@ public class DMNModelRepository {
     }
 
     public TImport findImport(TDefinitions definitions, String name) {
-        for (TImport imp: definitions.getImport()) {
+        for (TImport imp : definitions.getImport()) {
             if (imp.getName().equals(name)) {
                 return imp;
             }
@@ -253,7 +256,7 @@ public class DMNModelRepository {
     private List<TInvocable> findAllInvocables() {
         if (this.invocables == null) {
             this.invocables = new ArrayList<>();
-            for (TDefinitions definitions: this.allDefinitions) {
+            for (TDefinitions definitions : this.allDefinitions) {
                 collectInvocables(definitions, this.invocables);
             }
         }
@@ -263,7 +266,7 @@ public class DMNModelRepository {
     private List<TItemDefinition> findAllItemDefinitions() {
         if (this.itemDefinitions == null) {
             this.itemDefinitions = new ArrayList<>();
-            for (TDefinitions definitions: this.allDefinitions) {
+            for (TDefinitions definitions : this.allDefinitions) {
                 this.itemDefinitions.addAll(definitions.getItemDefinition());
             }
         }
@@ -277,8 +280,7 @@ public class DMNModelRepository {
     public List<TDRGElement> findDRGElements(TDefinitions definitions) {
         List<TDRGElement> result = this.drgElementsByModel.get(definitions);
         if (result == null) {
-            result = new ArrayList<>();
-            collectDRGElements(definitions, result);
+            result = new ArrayList<>(definitions.getDrgElement());
             this.drgElementsByModel.put(definitions, result);
         }
         return result;
@@ -324,18 +326,16 @@ public class DMNModelRepository {
         return result;
     }
 
+    public List<TImport> findImports(TDefinitions definitions) {
+        return definitions.getImport();
+    }
+
     public List<TItemDefinition> findItemDefinitions(TDefinitions definitions) {
         return definitions.getItemDefinition();
     }
 
-    protected void collectDRGElements(TDefinitions definitions, List<TDRGElement> result) {
-        for (TDRGElement element: definitions.getDrgElement()) {
-            result.add(element);
-        }
-    }
-
     protected void collectDecisions(TDefinitions definitions, List<TDecision> result) {
-        for (TDRGElement element: definitions.getDrgElement()) {
+        for (TDRGElement element : definitions.getDrgElement()) {
             if (element instanceof TDecision) {
                 result.add((TDecision) element);
             }
@@ -343,7 +343,7 @@ public class DMNModelRepository {
     }
 
     protected void collectInputDatas(TDefinitions definitions, List<TInputData> result) {
-        for (TDRGElement element: definitions.getDrgElement()) {
+        for (TDRGElement element : definitions.getDrgElement()) {
             if (element instanceof TInputData) {
                 result.add((TInputData) element);
             }
@@ -351,7 +351,7 @@ public class DMNModelRepository {
     }
 
     protected void collectBKMs(TDefinitions definitions, List<TBusinessKnowledgeModel> result) {
-        for (TDRGElement element: definitions.getDrgElement()) {
+        for (TDRGElement element : definitions.getDrgElement()) {
             if (element instanceof TBusinessKnowledgeModel) {
                 result.add((TBusinessKnowledgeModel) element);
             }
@@ -359,7 +359,7 @@ public class DMNModelRepository {
     }
 
     protected void collectDSs(TDefinitions definitions, List<TDecisionService> result) {
-        for (TDRGElement element: definitions.getDrgElement()) {
+        for (TDRGElement element : definitions.getDrgElement()) {
             if (element instanceof TDecisionService) {
                 result.add((TDecisionService) element);
             }
@@ -367,7 +367,7 @@ public class DMNModelRepository {
     }
 
     protected void collectInvocables(TDefinitions definitions, List<TInvocable> result) {
-        for (TDRGElement element: definitions.getDrgElement()) {
+        for (TDRGElement element : definitions.getDrgElement()) {
             if (element instanceof TInvocable) {
                 result.add((TInvocable) element);
             }
@@ -407,7 +407,7 @@ public class DMNModelRepository {
         while (true) {
             TUnaryTests allowedValues = itemDefinition.getAllowedValues();
             if (restrictions == null) {
-                restrictions =  allowedValues;
+                restrictions = allowedValues;
             }
             TItemDefinition next = next(itemDefinition);
             if (next != null) {
@@ -425,7 +425,7 @@ public class DMNModelRepository {
                 || itemDefinition.isIsCollection()
                 || !isEmpty(itemDefinition.getItemComponent())
                 || itemDefinition.getFunctionItem() != null
-                ) {
+        ) {
             return null;
         }
         TDefinitions model = getModel(itemDefinition);
@@ -433,11 +433,11 @@ public class DMNModelRepository {
     }
 
     protected void sortDRGElements(List<? extends TDRGElement> elements) {
-        elements.sort(Comparator.comparing((TDRGElement o) -> NameUtils.removeSingleQuotes(o.getName())));
+        elements.sort(Comparator.comparing((TDRGElement o) -> o == null || o.getName() == null ? "" : NameUtils.removeSingleQuotes(o.getName())));
     }
 
     public void sortNamedElements(List<? extends TNamedElement> elements) {
-        elements.sort(Comparator.comparing((TNamedElement o) -> NameUtils.removeSingleQuotes(o.getName())));
+        elements.sort(Comparator.comparing((TNamedElement o) -> o == null || o.getName() == null ? "" : NameUtils.removeSingleQuotes(o.getName())));
     }
 
     private void sortDMNDI(DMNDI dmndi) {
@@ -457,7 +457,7 @@ public class DMNModelRepository {
     private void sortDMNDiagrams(DMNDI dmndi) {
         List<DMNDiagram> diagrams = dmndi.getDMNDiagram();
         diagrams.sort(Comparator.comparing(this::diagramKey));
-        for (DMNDiagram d: diagrams) {
+        for (DMNDiagram d : diagrams) {
             d.getDMNDiagramElement().sort(Comparator.comparing(this::diagramElementKey));
         }
     }
@@ -482,7 +482,7 @@ public class DMNModelRepository {
 
     public TDRGElement findDRGElementByRef(TDRGElement parent, String href) {
         try {
-            TDRGElement result = null;
+            TDRGElement result;
             if (isAbsoluteURI(href)) {
                 result = this.drgElementByRef.get(href);
                 if (result == null) {
@@ -491,16 +491,13 @@ public class DMNModelRepository {
                     // Update local cache
                     this.drgElementByRef.put(href, result);
                 }
-                return result;
             } else {
                 TDefinitions parentDefinitions = getModel(parent);
                 result = findDRGElementById(parentDefinitions, href);
-                if (result != null) {
-                    TDefinitions childDefinitions = getModel(result);
-                    // Update local cache
-                    String key = makeRef(childDefinitions.getNamespace(), href);
-                    this.drgElementByRef.put(key, result);
-                }
+                TDefinitions childDefinitions = getModel(result);
+                // Update local cache
+                String key = makeRef(childDefinitions.getNamespace(), href);
+                this.drgElementByRef.put(key, result);
             }
             if (result == null) {
                 throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s' in element '%s'", href, parent.getName()));
@@ -513,7 +510,7 @@ public class DMNModelRepository {
     }
 
     private TDRGElement findDRGElementByRef(TDefinitions definitions, String href) {
-        for (TDRGElement element: findDRGElements(definitions)) {
+        for (TDRGElement element : findDRGElements(definitions)) {
             if (sameId(element, href)) {
                 return element;
             }
@@ -561,7 +558,7 @@ public class DMNModelRepository {
         TInvocable result = this.invocablesByName.get(name);
         if (result == null) {
             List<TInvocable> value = new ArrayList<>();
-            for (TInvocable invocable: findAllInvocables()) {
+            for (TInvocable invocable : findAllInvocables()) {
                 if (sameName(invocable, name)) {
                     value.add(invocable);
                 }
@@ -604,7 +601,7 @@ public class DMNModelRepository {
 
         // Lookup in current model
         TDRGElement result = null;
-        for (TDRGElement element: findDRGElements(definitions)) {
+        for (TDRGElement element : findDRGElements(definitions)) {
             if (filter.apply(element, property)) {
                 result = element;
                 break;
@@ -617,8 +614,8 @@ public class DMNModelRepository {
         TDRGElement result = this.drgElementByName.get(name);
         if (result == null) {
             List<TDRGElement> value = new ArrayList<>();
-            for (TDefinitions definitions: getAllDefinitions()) {
-                for (TDRGElement element: findDRGElements(definitions)) {
+            for (TDefinitions definitions : getAllDefinitions()) {
+                for (TDRGElement element : findDRGElements(definitions)) {
                     if (sameName(element, name)) {
                         value.add(element);
                     }
@@ -663,7 +660,7 @@ public class DMNModelRepository {
         List<DRGElementReference<TInputData>> result = new ArrayList<>();
         // Add reference for direct children
         List<TDMNElementReference> references = requiredInputDataReferences(parent);
-        for (TDMNElementReference reference: references) {
+        for (TDMNElementReference reference : references) {
             TInputData child = findInputDataByRef(parent, reference.getHref());
             if (child != null) {
                 ImportPath importPath = findRelativeImportPath(parent, reference);
@@ -685,7 +682,7 @@ public class DMNModelRepository {
         List<DRGElementReference<TInputData>> result = new ArrayList<>();
         // Add reference for direct children
         List<TDMNElementReference> references = requiredInputDataReferences(parent);
-        for (TDMNElementReference reference: references) {
+        for (TDMNElementReference reference : references) {
             TInputData child = findInputDataByRef(parent, reference.getHref());
             if (child != null) {
                 ImportPath importPath = findAbsoluteImportPath(parent, reference, parentImportPath);
@@ -697,7 +694,7 @@ public class DMNModelRepository {
 
         // Process direct children and update reference
         List<TDMNElementReference> childReferences = requiredDecisionReferences(parent);
-        for (TDMNElementReference reference: childReferences) {
+        for (TDMNElementReference reference : childReferences) {
             TDecision child = findDecisionByRef(parent, reference.getHref());
             if (child != null) {
                 // Update reference for descendants
@@ -715,7 +712,7 @@ public class DMNModelRepository {
         List<DRGElementReference<TDecision>> result = new ArrayList<>();
         if (parent instanceof TDecision) {
             // Add reference for direct children
-            for (TInformationRequirement ir: ((TDecision) parent).getInformationRequirement()) {
+            for (TInformationRequirement ir : ((TDecision) parent).getInformationRequirement()) {
                 TDMNElementReference reference = ir.getRequiredDecision();
                 if (reference != null) {
                     TDecision child = findDecisionByRef(parent, reference.getHref());
@@ -725,7 +722,7 @@ public class DMNModelRepository {
             }
         } else if (parent instanceof TDecisionService) {
             // Add reference for direct children
-            for (TDMNElementReference outputDecisionRef: ((TDecisionService) parent).getOutputDecision()) {
+            for (TDMNElementReference outputDecisionRef : ((TDecisionService) parent).getOutputDecision()) {
                 TDecision child = findDecisionByRef(parent, outputDecisionRef.getHref());
                 ImportPath importPath = findRelativeImportPath(parent, outputDecisionRef);
                 result.add(makeDRGElementReference(importPath, child));
@@ -738,7 +735,7 @@ public class DMNModelRepository {
     public List<DRGElementReference<TDecision>> directInputDecisions(TDecisionService parent) {
         List<DRGElementReference<TDecision>> result = new ArrayList<>();
         // Add reference for direct children
-        for (TDMNElementReference inputDecisionRef: parent.getInputDecision()) {
+        for (TDMNElementReference inputDecisionRef : parent.getInputDecision()) {
             TDecision child = findDecisionByRef(parent, inputDecisionRef.getHref());
             ImportPath importPath = findRelativeImportPath(parent, inputDecisionRef);
             result.add(makeDRGElementReference(importPath, child));
@@ -751,7 +748,7 @@ public class DMNModelRepository {
         List<DRGElementReference<TInvocable>> result = new ArrayList<>();
         // Add reference for direct children
         List<TKnowledgeRequirement> knowledgeRequirements = knowledgeRequirements(element);
-        for (TKnowledgeRequirement kr: knowledgeRequirements) {
+        for (TKnowledgeRequirement kr : knowledgeRequirements) {
             TDMNElementReference reference = kr.getRequiredKnowledge();
             if (reference != null) {
                 TInvocable invocable = findInvocableByRef(element, reference.getHref());
@@ -862,7 +859,7 @@ public class DMNModelRepository {
             TItemDefinition result = lookupItemDefinition(findItemDefinitions(model), typeRef);
             if (result == null) {
                 // Lookup in models imported with empty prefix
-                for (TImport import_: model.getImport()) {
+                for (TImport import_ : model.getImport()) {
                     if (isDMNImport(import_)) {
                         if (StringUtils.isBlank(import_.getName())) {
                             String childNamespace = import_.getNamespace();
@@ -884,7 +881,7 @@ public class DMNModelRepository {
         } else {
             // Find model for importName
             String childNamespace = null;
-            for (TImport import_: model.getImport()) {
+            for (TImport import_ : model.getImport()) {
                 if (isDMNImport(import_)) {
                     if (import_.getName().equals(importName)) {
                         childNamespace = import_.getNamespace();
@@ -902,7 +899,7 @@ public class DMNModelRepository {
     }
 
     protected TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
-        for (TItemDefinition itemDefinition: itemDefinitionList) {
+        for (TItemDefinition itemDefinition : itemDefinitionList) {
             if (typeRef.getLocalPart().equals(itemDefinition.getName())) {
                 return itemDefinition;
             }
@@ -918,7 +915,7 @@ public class DMNModelRepository {
         if (name == null) {
             return null;
         }
-        for (TItemDefinition itemDefinition: itemDefinitionList) {
+        for (TItemDefinition itemDefinition : itemDefinitionList) {
             if (name.equals(itemDefinition.getName())) {
                 return itemDefinition;
             }
@@ -937,7 +934,7 @@ public class DMNModelRepository {
 
     public boolean hasDefaultValue(TDecisionTable decisionTable) {
         List<TOutputClause> outputClauses = decisionTable.getOutput();
-        for (TOutputClause output: outputClauses) {
+        for (TOutputClause output : outputClauses) {
             TLiteralExpression defaultOutputEntry = output.getDefaultOutputEntry();
             if (defaultOutputEntry != null) {
                 return true;
@@ -1085,7 +1082,7 @@ public class DMNModelRepository {
                 if (expression instanceof TContext) {
                     // Derive from return entry
                     List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
-                    for (TContextEntry ce: contextEntryList) {
+                    for (TContextEntry ce : contextEntryList) {
                         if (ce.getVariable() == null) {
                             TExpression returnExp = ce.getExpression();
                             if (returnExp != null) {
@@ -1262,7 +1259,7 @@ public class DMNModelRepository {
             return parentPath;
         } else {
             // Check imported declarations
-            for (TImport import_: parentDefinitions.getImport()) {
+            for (TImport import_ : parentDefinitions.getImport()) {
                 if (isDMNImport(import_)) {
                     if (Objects.equals(import_.getNamespace(), namespace)) {
                         return new ImportPath(parentPath, import_.getName());
@@ -1319,7 +1316,7 @@ public class DMNModelRepository {
 
     private void collectCompositeItemDefinitions(List<TItemDefinition> itemDefinitions, List<TItemDefinition> accumulator) {
         if (itemDefinitions != null) {
-            for (TItemDefinition itemDefinition: itemDefinitions) {
+            for (TItemDefinition itemDefinition : itemDefinitions) {
                 if (hasComponents(itemDefinition)) {
                     accumulator.add(itemDefinition);
                     collectCompositeItemDefinitions(itemDefinition.getItemComponent(), accumulator);

@@ -31,12 +31,19 @@ public abstract class AbstractValidatorTest extends AbstractTest {
         DMNModelRepository repository = makeRepository(fileURI);
         List<String> actualErrors = validator.validate(repository);
 
-        assertEquals(expectedErrors, actualErrors);
+        checkErrors(expectedErrors, actualErrors);
     }
 
     protected DMNModelRepository makeRepository(URI fileURI) {
         File input = new File(fileURI);
         TDefinitions definitions = this.serializer.readModel(input);
         return new DMNModelRepository(definitions);
+    }
+
+    protected void checkErrors(List<String> expectedErrors, List<String> actualErrors) {
+        assertEquals(expectedErrors.size(), actualErrors.size());
+        for (int i = 0; i < actualErrors.size(); i++) {
+            assertEquals(expectedErrors.get(i), actualErrors.get(i), "Failed at index " + i);
+        }
     }
 }

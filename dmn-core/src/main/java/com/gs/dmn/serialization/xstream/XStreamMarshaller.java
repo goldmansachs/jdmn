@@ -17,23 +17,18 @@ import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.DMNVersion;
+import com.gs.dmn.serialization.XSDSchemaValidator;
 import com.thoughtworks.xstream.io.xml.QNameMap;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.XMLConstants;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import java.io.BufferedReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -106,8 +101,6 @@ public class XStreamMarshaller implements DMNMarshaller {
         return result;
     }
 
-    private final List<DMNExtensionRegister> extensionRegisters = new ArrayList<>();
-
     private final com.gs.dmn.serialization.xstream.v1_1.XStreamMarshaller xStream11;
     private final com.gs.dmn.serialization.xstream.v1_2.XStreamMarshaller xStream12;
     private final com.gs.dmn.serialization.xstream.v1_3.XStreamMarshaller xStream13;
@@ -119,8 +112,6 @@ public class XStreamMarshaller implements DMNMarshaller {
     }
 
     XStreamMarshaller(List<DMNExtensionRegister> extensionRegisters) {
-        this.extensionRegisters.addAll(extensionRegisters);
-
         this.xStream11 = new com.gs.dmn.serialization.xstream.v1_1.XStreamMarshaller(extensionRegisters);
         this.xStream12 = new com.gs.dmn.serialization.xstream.v1_2.XStreamMarshaller(extensionRegisters);
         this.xStream13 = new com.gs.dmn.serialization.xstream.v1_3.XStreamMarshaller(extensionRegisters);
@@ -134,7 +125,10 @@ public class XStreamMarshaller implements DMNMarshaller {
             DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
             if (validateSchema && dmnVersion != null) {
                 try (StringReader reader = new StringReader(input)) {
-                    validateXMLSchema(new StreamSource(reader), dmnVersion.getSchemaLocation());
+                    List<String> errors = XSDSchemaValidator.validateXSDSchema(new StreamSource(reader), dmnVersion);
+                    if (!errors.isEmpty()) {
+                        throw new DMNRuntimeException(String.format("%s", errors));
+                    }
                 }
             }
             return unmarshal(dmnVersion, secondStringReader);
@@ -219,23 +213,6 @@ public class XStreamMarshaller implements DMNMarshaller {
             xStream12.marshal(o, out);
         } else if (dmnVersion == DMN_11) {
             xStream11.marshal(o, out);
-        }
-    }
-
-    private boolean validateXMLSchema(Source source, String schemaPath) {
-        try {
-            URL schemaURL = this.getClass().getClassLoader().getResource(schemaPath).toURI().toURL();
-            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            // Prohibit the use of all protocols by external entities:
-            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "file");
-            Schema schema = factory.newSchema(schemaURL);
-            Validator validator = schema.newValidator();
-            validator.validate(source);
-            return true;
-        } catch (Exception e){
-            LOGGER.error("Invalid DMN file: " + e.getMessage());
-            throw new DMNRuntimeException(e);
         }
     }
 }

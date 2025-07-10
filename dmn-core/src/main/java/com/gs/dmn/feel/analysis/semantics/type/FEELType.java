@@ -106,7 +106,7 @@ public interface FEELType {
         return CONFORMS_TO;
     }
 
-    Map<String, Type> FEEL_NAME_TO_FEEL_TYPE = new LinkedHashMap<String, Type>() {{
+    Map<String, Type> FEEL_NAME_TO_FEEL_TYPE = new LinkedHashMap<>() {{
         // Primitive types
         put(NumberType.NUMBER.getName(), NumberType.NUMBER);
         put(BooleanType.BOOLEAN.getName(), BooleanType.BOOLEAN);
@@ -152,7 +152,7 @@ public interface FEELType {
             YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION
     });
 
-    Map<Type, String> FEEL_PRIMITIVE_TYPE_TO_NATIVE_CONVERSION_FUNCTION = new LinkedHashMap<Type, String>() {{
+    Map<Type, String> FEEL_PRIMITIVE_TYPE_TO_NATIVE_CONVERSION_FUNCTION = new LinkedHashMap<>() {{
         put(NumberType.NUMBER, "number");
         put(BooleanType.BOOLEAN, null);
         put(StringType.STRING, null);

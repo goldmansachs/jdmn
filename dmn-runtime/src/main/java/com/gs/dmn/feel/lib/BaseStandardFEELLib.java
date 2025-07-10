@@ -1252,7 +1252,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     @Override
     public <T> List<T> remove(List<T> list, Object position) {
         try {
-            return this.listLib.remove(list, ((Number)position).intValue());
+            return this.listLib.remove(list, ((Number) position).intValue());
         } catch (Exception e) {
             String message = String.format("remove(%s)", list);
             logError(message, e);
@@ -1288,7 +1288,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
                 Object o = list.get(i);
-                if (o == null && match == null || o!= null && o.equals(match)) {
+                if (o == null && match == null || o != null && o.equals(match)) {
                     result.add(valueOf((long) i + 1));
                 }
             }
@@ -1355,7 +1355,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     public NUMBER median(List<?> list) {
         try {
             return this.numberLib.median(list);
-        } catch (Exception e){
+        } catch (Exception e) {
             String message = String.format("median(%s)", list);
             logError(message, e);
             return null;
@@ -1447,9 +1447,6 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     public Boolean isInstanceOf(Object value, String type) {
         try {
             TypeReference typeReference = new TypeReference(type);
-            if (typeReference == null) {
-                return null;
-            }
             if (value == null) {
                 return "Null".equals(typeReference.getTypeExpression());
             } else {
@@ -1469,22 +1466,33 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
         if (type instanceof SimpleType) {
             String typeName = ((SimpleType) type).getName();
             switch (typeName) {
-                case "Null": return value == null;
-                case "Any": return value != null;
-                case "number": return this.numericType.isNumber(value);
-                case "string": return this.stringType.isString(value);
-                case "boolean": return this.booleanType.isBoolean(value);
-                case "date": return this.dateType.isDate(value);
-                case "time": return this.timeType.isTime(value);
-                case "date and time": return this.dateTimeType.isDateTime(value);
-                case "years and months duration": return this.durationType.isYearsAndMonthsDuration(value);
-                case "days and time duration": return this.durationType.isDaysAndTimeDuration(value);
-                default: throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
+                case "Null":
+                    return value == null;
+                case "Any":
+                    return value != null;
+                case "number":
+                    return this.numericType.isNumber(value);
+                case "string":
+                    return this.stringType.isString(value);
+                case "boolean":
+                    return this.booleanType.isBoolean(value);
+                case "date":
+                    return this.dateType.isDate(value);
+                case "time":
+                    return this.timeType.isTime(value);
+                case "date and time":
+                    return this.dateTimeType.isDateTime(value);
+                case "years and months duration":
+                    return this.durationType.isYearsAndMonthsDuration(value);
+                case "days and time duration":
+                    return this.durationType.isDaysAndTimeDuration(value);
+                default:
+                    throw new DMNRuntimeException(String.format("instance of (%s, %s) is not supported yet", value, type));
             }
         } else if (type instanceof com.gs.dmn.feel.lib.reference.ListType) {
             if (value instanceof List) {
                 Type elementType = ((com.gs.dmn.feel.lib.reference.ListType) type).getElementType();
-                for (Object e: (List) value) {
+                for (Object e : (List) value) {
                     Boolean checkElement = conformsTo(e, elementType);
                     if (checkElement != Boolean.TRUE) {
                         return Boolean.FALSE;
@@ -1508,7 +1516,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
                 value = ((DMNType) value).toContext();
             }
             if (value instanceof Context) {
-                for (String key: ((com.gs.dmn.feel.lib.reference.ContextType) type).getMembers()) {
+                for (String key : ((com.gs.dmn.feel.lib.reference.ContextType) type).getMembers()) {
                     Type memberType = ((com.gs.dmn.feel.lib.reference.ContextType) type).getMemberType(key);
                     if (((Context) value).getBindings().containsKey(key)) {
                         Boolean checkMember = conformsTo(((Context) value).get(key), memberType);
