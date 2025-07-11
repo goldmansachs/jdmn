@@ -233,7 +233,6 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     }
 
     private void validateExpression(TDefinitions definitions, TDRGElement element, TExpression expression, ValidationContext context) {
-        DMNModelRepository repository = context.getRepository();
         if (expression == null) {
             String errorMessage = "Missing expression";
             context.addError(makeError(definitions, element, errorMessage));
@@ -400,10 +399,10 @@ class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
                     element, new ArrayList<>(repository.findItemDefinitions(element)), "ItemDefinition", "name", false,
                     e -> ((TNamedElement) e).getName(), null, context
             );
-        }
 
-        // Visit children
-        super.visit(element, context);
+            // Visit children
+            super.visit(element, context);
+        }
 
         return element;
     }
