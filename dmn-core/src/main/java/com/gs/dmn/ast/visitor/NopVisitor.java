@@ -273,6 +273,11 @@ public class NopVisitor<C, R> extends AbstractVisitor<C, R> {
     }
 
     @Override
+    public R visit(Style.IDREFStubStyle element, C context) {
+        return null;
+    }
+
+    @Override
     public R visit(DMNLabel element, C context) {
         return null;
     }

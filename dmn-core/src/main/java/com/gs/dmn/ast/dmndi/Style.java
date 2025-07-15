@@ -15,6 +15,8 @@ package com.gs.dmn.ast.dmndi;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.gs.dmn.ast.DMNBaseElement;
+import com.gs.dmn.ast.Visitable;
+import com.gs.dmn.ast.Visitor;
 
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public abstract class Style extends DMNBaseElement {
         return otherAttributes;
     }
 
-    public static class Extension {
+    public static class Extension extends DMNBaseElement {
         private List<Object> any;
 
         public List<Object> getAny() {
@@ -63,12 +65,17 @@ public abstract class Style extends DMNBaseElement {
         }
     }
 
-    public static class IDREFStubStyle extends Style {
+    public static class IDREFStubStyle extends Style implements Visitable {
         public IDREFStubStyle() {
         }
 
         public IDREFStubStyle(String id) {
             this.id = id;
+        }
+
+        @Override
+        public <C, R> R accept(Visitor<C, R> visitor, C context) {
+            return visitor.visit(this, context);
         }
     }
 }

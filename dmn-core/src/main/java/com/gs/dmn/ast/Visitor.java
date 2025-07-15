@@ -130,6 +130,8 @@ public interface Visitor<C, R> {
 
     R visit(DMNStyle element, C context);
 
+    R visit(Style.IDREFStubStyle element, C context);
+
     R visit(DMNLabel element, C context);
 
     R visit(DMNDecisionServiceDividerLine element, C context);

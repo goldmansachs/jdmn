@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import javax.xml.stream.Location;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -26,10 +27,10 @@ import java.util.Map;
 })
 public class ElementInfo {
     @JsonIgnore
-    private final Location location;
-    private final Map<String, String> nsContext;
-    private final String prefix;
-    private final String namespaceURI;
+    private Location location;
+    private final Map<String, String> nsContext = new HashMap<>();
+    private String prefix;
+    private String namespaceURI;
 
     public ElementInfo() {
         this(null, null, null, new LinkedHashMap<>());
@@ -39,11 +40,25 @@ public class ElementInfo {
         this.location = location;
         this.prefix = prefix;
         this.namespaceURI = namespaceURI;
-        this.nsContext = nsContext;
+        if (nsContext != null) {
+            this.nsContext.putAll(nsContext);
+        }
     }
 
     public Location getLocation() {
         return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public void setNamespaceURI(String namespaceURI) {
+        this.namespaceURI = namespaceURI;
     }
 
     public String getPrefix() {

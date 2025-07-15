@@ -17,14 +17,12 @@ import com.gs.dmn.ast.dmndi.*;
 public class ObjectFactory {
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.omg.spec.dmn._20191111.model
-     * 
      */
     public ObjectFactory() {
     }
 
     /**
      * Create an instance of {@link TDefinitions }
-     * 
      */
     public TDefinitions createTDefinitions() {
         return new TDefinitions();
@@ -32,7 +30,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TImport }
-     * 
      */
     public TImport createTImport() {
         return new TImport();
@@ -40,7 +37,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TElementCollection }
-     * 
      */
     public TElementCollection createTElementCollection() {
         return new TElementCollection();
@@ -48,7 +44,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TDecision }
-     * 
      */
     public TDecision createTDecision() {
         return new TDecision();
@@ -56,7 +51,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TBusinessContextElement }
-     * 
      */
     public TBusinessContextElement createTBusinessContextElement() {
         return new TBusinessContextElement();
@@ -64,7 +58,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TPerformanceIndicator }
-     * 
      */
     public TPerformanceIndicator createTPerformanceIndicator() {
         return new TPerformanceIndicator();
@@ -72,7 +65,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TOrganizationUnit }
-     * 
      */
     public TOrganizationUnit createTOrganizationUnit() {
         return new TOrganizationUnit();
@@ -80,7 +72,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TBusinessKnowledgeModel }
-     * 
      */
     public TBusinessKnowledgeModel createTBusinessKnowledgeModel() {
         return new TBusinessKnowledgeModel();
@@ -88,7 +79,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TInputData }
-     * 
      */
     public TInputData createTInputData() {
         return new TInputData();
@@ -96,7 +86,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TKnowledgeSource }
-     * 
      */
     public TKnowledgeSource createTKnowledgeSource() {
         return new TKnowledgeSource();
@@ -104,7 +93,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TInformationRequirement }
-     * 
      */
     public TInformationRequirement createTInformationRequirement() {
         return new TInformationRequirement();
@@ -112,7 +100,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TKnowledgeRequirement }
-     * 
      */
     public TKnowledgeRequirement createTKnowledgeRequirement() {
         return new TKnowledgeRequirement();
@@ -120,7 +107,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TAuthorityRequirement }
-     * 
      */
     public TAuthorityRequirement createTAuthorityRequirement() {
         return new TAuthorityRequirement();
@@ -128,7 +114,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TItemDefinition }
-     * 
      */
     public TItemDefinition createTItemDefinition() {
         return new TItemDefinition();
@@ -136,7 +121,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TFunctionItem }
-     * 
      */
     public TFunctionItem createTFunctionItem() {
         return new TFunctionItem();
@@ -144,7 +128,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TLiteralExpression }
-     * 
      */
     public TLiteralExpression createTLiteralExpression() {
         return new TLiteralExpression();
@@ -152,7 +135,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TInvocation }
-     * 
      */
     public TInvocation createTInvocation() {
         return new TInvocation();
@@ -160,7 +142,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TInformationItem }
-     * 
      */
     public TInformationItem createTInformationItem() {
         return new TInformationItem();
@@ -168,7 +149,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TDecisionTable }
-     * 
      */
     public TDecisionTable createTDecisionTable() {
         return new TDecisionTable();
@@ -176,7 +156,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TGroup }
-     * 
      */
     public TGroup createTGroup() {
         return new TGroup();
@@ -184,7 +163,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TTextAnnotation }
-     * 
      */
     public TTextAnnotation createTTextAnnotation() {
         return new TTextAnnotation();
@@ -192,7 +170,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TAssociation }
-     * 
      */
     public TAssociation createTAssociation() {
         return new TAssociation();
@@ -200,7 +177,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TContext }
-     * 
      */
     public TContext createTContext() {
         return new TContext();
@@ -208,7 +184,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TContextEntry }
-     * 
      */
     public TContextEntry createTContextEntry() {
         return new TContextEntry();
@@ -216,7 +191,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TFunctionDefinition }
-     * 
      */
     public TFunctionDefinition createTFunctionDefinition() {
         return new TFunctionDefinition();
@@ -224,7 +198,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TRelation }
-     * 
      */
     public TRelation createTRelation() {
         return new TRelation();
@@ -232,7 +205,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TList }
-     * 
      */
     public TList createTList() {
         return new TList();
@@ -240,7 +212,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TConditional }
-     *
      */
     public TConditional createTConditional() {
         return new TConditional();
@@ -248,7 +219,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TFilter }
-     *
      */
     public TFilter createTFilter() {
         return new TFilter();
@@ -256,7 +226,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TFor }
-     *
      */
     public TFor createTFor() {
         return new TFor();
@@ -264,7 +233,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TSome }
-     *
      */
     public TSome createTSome() {
         return new TSome();
@@ -272,15 +240,27 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TEvery }
-     *
      */
     public TEvery createTEvery() {
         return new TEvery();
     }
 
     /**
+     * Create an instance of {@link TChildExpression }
+     */
+    public TChildExpression createTChildExpression() {
+        return new TChildExpression();
+    }
+
+    /**
+     * Create an instance of {@link TTypedChildExpression }
+     */
+    public TTypedChildExpression createTTypedChildExpression() {
+        return new TTypedChildExpression();
+    }
+
+    /**
      * Create an instance of {@link TDecisionService }
-     * 
      */
     public TDecisionService createTDecisionService() {
         return new TDecisionService();
@@ -288,7 +268,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TDMNElementReference }
-     * 
      */
     public TDMNElementReference createTDMNElementReference() {
         return new TDMNElementReference();
@@ -296,7 +275,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TBinding }
-     * 
      */
     public TBinding createTBinding() {
         return new TBinding();
@@ -304,7 +282,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TInputClause }
-     * 
      */
     public TInputClause createTInputClause() {
         return new TInputClause();
@@ -312,7 +289,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TOutputClause }
-     * 
      */
     public TOutputClause createTOutputClause() {
         return new TOutputClause();
@@ -320,7 +296,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TRuleAnnotationClause }
-     * 
      */
     public TRuleAnnotationClause createTRuleAnnotationClause() {
         return new TRuleAnnotationClause();
@@ -328,7 +303,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TDecisionRule }
-     * 
      */
     public TDecisionRule createTDecisionRule() {
         return new TDecisionRule();
@@ -336,7 +310,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TRuleAnnotation }
-     * 
      */
     public TRuleAnnotation createTRuleAnnotation() {
         return new TRuleAnnotation();
@@ -344,7 +317,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TImportedValues }
-     * 
      */
     public TImportedValues createTImportedValues() {
         return new TImportedValues();
@@ -352,7 +324,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TUnaryTests }
-     * 
      */
     public TUnaryTests createTUnaryTests() {
         return new TUnaryTests();
@@ -360,7 +331,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DMNDI }
-     * 
      */
     public DMNDI createDMNDI() {
         return new DMNDI();
@@ -368,7 +338,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DMNDiagram }
-     * 
      */
     public DMNDiagram createDMNDiagram() {
         return new DMNDiagram();
@@ -376,7 +345,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DMNShape }
-     * 
      */
     public DMNShape createDMNShape() {
         return new DMNShape();
@@ -384,7 +352,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DMNEdge }
-     * 
      */
     public DMNEdge createDMNEdge() {
         return new DMNEdge();
@@ -392,15 +359,20 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DMNStyle }
-     * 
      */
     public DMNStyle createDMNStyle() {
         return new DMNStyle();
     }
 
     /**
+     * Create an instance of {@link Style.IDREFStubStyle }
+     */
+    public Style.IDREFStubStyle createStyleIDREFStubStyle() {
+        return new Style.IDREFStubStyle();
+    }
+
+    /**
      * Create an instance of {@link DMNLabel }
-     * 
      */
     public DMNLabel createDMNLabel() {
         return new DMNLabel();
@@ -408,7 +380,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DMNDecisionServiceDividerLine }
-     * 
      */
     public DMNDecisionServiceDividerLine createDMNDecisionServiceDividerLine() {
         return new DMNDecisionServiceDividerLine();
@@ -416,7 +387,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Color }
-     * 
      */
     public Color createColor() {
         return new Color();
@@ -424,7 +394,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Point }
-     * 
      */
     public Point createPoint() {
         return new Point();
@@ -432,7 +401,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Bounds }
-     * 
      */
     public Bounds createBounds() {
         return new Bounds();
@@ -440,7 +408,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Dimension }
-     * 
      */
     public Dimension createDimension() {
         return new Dimension();
@@ -448,7 +415,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DiagramElement.Extension }
-     * 
      */
     public DiagramElement.Extension createDiagramElementExtension() {
         return new DiagramElement.Extension();
@@ -456,7 +422,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Style.Extension }
-     * 
      */
     public Style.Extension createStyleExtension() {
         return new Style.Extension();
@@ -464,7 +429,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TDMNElement.ExtensionElements }
-     * 
      */
     public TDMNElement.ExtensionElements createTDMNElementExtensionElements() {
         return new TDMNElement.ExtensionElements();

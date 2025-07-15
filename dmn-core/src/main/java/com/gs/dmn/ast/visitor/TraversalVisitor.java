@@ -16,6 +16,7 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.dmndi.*;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
 import javax.xml.namespace.QName;
 
@@ -25,13 +26,16 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
     }
 
     //
-    // DMN Elements
-    //
     // Definitions
+    //
     @Override
     public DMNBaseElement visit(TDefinitions element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         visitTNamedElementProperties(element, context);
-        for (TImport import_ : element.getImport()){
+        for (TImport import_ : element.getImport()) {
             import_.accept(this, context);
         }
         for (TItemDefinition itemDefinition : element.getItemDefinition()) {
@@ -43,7 +47,7 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
         for (TArtifact artifact : element.getArtifact()) {
             visitTArtifact(artifact, context);
         }
-        for (TElementCollection  elementCollection : element.getElementCollection()) {
+        for (TElementCollection elementCollection : element.getElementCollection()) {
             elementCollection.accept(this, context);
         }
         for (TBusinessContextElement businessContextElement : element.getBusinessContextElement()) {
@@ -56,22 +60,38 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
         return element;
     }
 
+    //
     // Import
+    //
     @Override
     public DMNBaseElement visit(TImport element, C context) {
-        visitTNamedElementProperties(element, context);
+        if (element == null) {
+            return null;
+        }
+
+        visitTImportProperties(element, context);
         return element;
     }
 
     @Override
     public DMNBaseElement visit(TImportedValues element, C context) {
-        visitTNamedElementProperties(element, context);
+        if (element == null) {
+            return null;
+        }
+
+        visitTImportProperties(element, context);
         return element;
     }
 
+    //
     // Data types
+    //
     @Override
-    public DMNBaseElement visit(TItemDefinition  element, C context) {
+    public DMNBaseElement visit(TItemDefinition element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         visitTNamedElementProperties(element, context);
         element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
         TUnaryTests allowedValues = element.getAllowedValues();
@@ -82,14 +102,18 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
             itemDefinition.accept(this, context);
         }
         TFunctionItem functionItem = element.getFunctionItem();
-        if (functionItem  != null) {
+        if (functionItem != null) {
             functionItem.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public DMNBaseElement visit(TFunctionItem  element, C context) {
+    public DMNBaseElement visit(TFunctionItem element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         visitTDMNElementProperties(element, context);
         for (TInformationItem parameter : element.getParameters()) {
             parameter.accept(this, context);
@@ -98,62 +122,104 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
         return element;
     }
 
+    //
     // DRG Elements
+    //
+    protected void visitTDRGElement(TDRGElement element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        if (element instanceof TInputData) {
+            ((TInputData) element).accept(this, context);
+        } else if (element instanceof TDecision) {
+            ((TDecision) element).accept(this, context);
+        } else if (element instanceof TInvocable) {
+            visitTInvocable(element, context);
+        } else if (element instanceof TKnowledgeSource) {
+            ((TKnowledgeSource) element).accept(this, context);
+        } else {
+            throw new DMNRuntimeException("Not supported");
+        }
+    }
+
     @Override
-    public DMNBaseElement visit(TInputData  element, C context) {
+    public DMNBaseElement visit(TInputData element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         visitTNamedElementProperties(element, context);
         TInformationItem variable = element.getVariable();
-        if (variable  != null) {
+        if (variable != null) {
             variable.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public DMNBaseElement visit(TDecision  element, C context) {
+    public DMNBaseElement visit(TDecision element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         visitTNamedElementProperties(element, context);
         TInformationItem variable = element.getVariable();
         if (variable != null) {
-            variable.accept(this,context);
+            variable.accept(this, context);
         }
         for (TInformationRequirement informationRequirement : element.getInformationRequirement()) {
             informationRequirement.accept(this, context);
         }
-        for (TKnowledgeRequirement knowledgeRequirement: element.getKnowledgeRequirement()) {
+        for (TKnowledgeRequirement knowledgeRequirement : element.getKnowledgeRequirement()) {
             knowledgeRequirement.accept(this, context);
         }
         for (TAuthorityRequirement authorityRequirement : element.getAuthorityRequirement()) {
             authorityRequirement.accept(this, context);
         }
-        for (TDMNElementReference  elementReference : element.getSupportedObjective()) {
+        for (TDMNElementReference elementReference : element.getSupportedObjective()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference  elementReference : element.getImpactedPerformanceIndicator()) {
+        for (TDMNElementReference elementReference : element.getImpactedPerformanceIndicator()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference  elementReference : element.getDecisionMaker()) {
+        for (TDMNElementReference elementReference : element.getDecisionMaker()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference  elementReference : element.getDecisionOwner()) {
+        for (TDMNElementReference elementReference : element.getDecisionOwner()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference  elementReference : element.getUsingProcess()) {
+        for (TDMNElementReference elementReference : element.getUsingProcess()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference  elementReference : element.getUsingTask()) {
+        for (TDMNElementReference elementReference : element.getUsingTask()) {
             elementReference.accept(this, context);
         }
         visitTExpression(element.getExpression(), context);
         return element;
     }
 
-    @Override
-    public DMNBaseElement visit(TBusinessKnowledgeModel  element, C context) {
-        visitTNamedElementProperties(element, context);
-        TInformationItem variable = element.getVariable();
-        if (variable != null) {
-            variable.accept(this,context);
+    protected void visitTInvocable(TDRGElement element, C context) {
+        if (element == null) {
+            return;
         }
+
+        if (element instanceof TBusinessKnowledgeModel) {
+            ((TBusinessKnowledgeModel) element).accept(this, context);
+        } else if (element instanceof TDecisionService) {
+            ((TDecisionService) element).accept(this, context);
+        } else {
+            throw new DMNRuntimeException("Not supported");
+        }
+    }
+
+    @Override
+    public DMNBaseElement visit(TBusinessKnowledgeModel element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTInvocableProperties(element, context);
         TFunctionDefinition encapsulatedLogic = element.getEncapsulatedLogic();
         if (encapsulatedLogic != null) {
             encapsulatedLogic.accept(this, context);
@@ -168,29 +234,33 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
     }
 
     @Override
-    public DMNBaseElement visit(TDecisionService  element, C context) {
-        visitTNamedElementProperties(element, context);
-        TInformationItem variable = element.getVariable();
-        if (variable != null) {
-            variable.accept(this,context);
+    public DMNBaseElement visit(TDecisionService element, C context) {
+        if (element == null) {
+            return null;
         }
-        for (TDMNElementReference  elementReference : element.getOutputDecision()) {
+
+        visitTInvocableProperties(element, context);
+        for (TDMNElementReference elementReference : element.getOutputDecision()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference  elementReference : element.getEncapsulatedDecision()) {
+        for (TDMNElementReference elementReference : element.getEncapsulatedDecision()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference  elementReference : element.getInputDecision()) {
+        for (TDMNElementReference elementReference : element.getInputDecision()) {
             elementReference.accept(this, context);
         }
-        for (TDMNElementReference  elementReference : element.getInputData()) {
+        for (TDMNElementReference elementReference : element.getInputData()) {
             elementReference.accept(this, context);
         }
         return element;
     }
 
     @Override
-    public DMNBaseElement visit(TKnowledgeSource  element, C context) {
+    public DMNBaseElement visit(TKnowledgeSource element, C context) {
+        if (element == null) {
+            return null;
+        }
+
         visitTNamedElementProperties(element, context);
         for (TAuthorityRequirement authorityRequirement : element.getAuthorityRequirement()) {
             authorityRequirement.accept(this, context);
@@ -202,522 +272,14 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
         return element;
     }
 
+    //
     // Expressions
-    @Override
-    public DMNBaseElement visit(TContext  element, C context) {
-        visitTExpressionProperties(element, context);
-        for (TContextEntry contextEntry : element.getContextEntry()) {
-            contextEntry.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TContextEntry  element, C context) {
-        visitTDMNElementProperties(element, context);
-        TInformationItem variable = element.getVariable();
-        if (variable != null) {
-            variable.accept(this, context);
-        }
-        visitTExpression(element.getExpression(), context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TDecisionTable  element, C context) {
-        visitTExpressionProperties(element, context);
-        for (TInputClause inputClause : element.getInput()) {
-            inputClause.accept(this, context);
-        }
-        for (TOutputClause outputClause : element.getOutput()) {
-            outputClause.accept(this, context);
-        }
-        for (TRuleAnnotationClause clause : element.getAnnotation()) {
-            clause.accept(this, context);
-        }
-        for (TDecisionRule rule : element.getRule()) {
-            rule.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TInputClause  element, C context) {
-        visitTDMNElementProperties(element, context);
-        TLiteralExpression inputExpression = element.getInputExpression();
-        if (inputExpression != null) {
-            inputExpression.accept(this, context);
-        }
-        TUnaryTests inputValues = element.getInputValues();
-        if (inputValues != null) {
-            inputValues.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TOutputClause  element, C context) {
-        visitTDMNElementProperties(element, context);
-        TUnaryTests outputValues = element.getOutputValues();
-        if (outputValues != null) {
-            outputValues.accept(this, context);
-        }
-        TLiteralExpression defaultOutputEntry = element.getDefaultOutputEntry();
-        if (defaultOutputEntry != null) {
-            defaultOutputEntry.accept(this, context);
-        }
-        element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TRuleAnnotationClause  element, C context) {
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TDecisionRule  element, C context) {
-        visitTDMNElementProperties(element, context);
-        for (TUnaryTests unaryTests : element.getInputEntry()) {
-            unaryTests.accept(this, context);
-        }
-        for (TLiteralExpression expression : element.getOutputEntry()) {
-            expression.accept(this, context);
-        }
-        for (TRuleAnnotation ruleAnnotation : element.getAnnotationEntry()) {
-            ruleAnnotation.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TRuleAnnotation  element, C context) {
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TFunctionDefinition  element, C context) {
-        visitTExpressionProperties(element, context);
-        for (TInformationItem informationItem : element.getFormalParameter()) {
-            informationItem.accept(this, context);
-        }
-        visitTExpression(element.getExpression(), context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TInvocation  element, C context) {
-        visitTExpressionProperties(element, context);
-        visitTExpression(element.getExpression(), context);
-        for (TBinding binding : element.getBinding()) {
-            binding.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TBinding  element, C context) {
-        TInformationItem parameter = element.getParameter();
-        if (parameter != null) {
-            parameter.accept(this, context);
-        }
-        visitTExpression(element.getExpression(), context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TList  element, C context) {
-        visitTExpressionProperties(element, context);
-        for (TExpression expression : element.getExpression()) {
-            visitTExpression(expression, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TLiteralExpression  element, C context) {
-        visitTExpressionProperties(element, context);
-        TImportedValues importedValues = element.getImportedValues();
-        if (importedValues != null) {
-            importedValues.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TRelation  element, C context) {
-        visitTExpressionProperties(element, context);
-        for (TInformationItem informationItem : element.getColumn()) {
-            informationItem.accept(this, context);
-        }
-        for (TList list : element.getRow()) {
-            list.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TUnaryTests  element, C context) {
-        visitTExpressionProperties(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TConditional  element, C context) {
-        visitTExpressionProperties(element, context);
-        TChildExpression ifExp = element.getIf();
-        if (ifExp != null) {
-            ifExp.accept(this, context);
-        }
-        TChildExpression thenExp = element.getThen();
-        if (thenExp != null) {
-            thenExp.accept(this, context);
-        }
-        TChildExpression elseExp = element.getElse();
-        if (elseExp != null) {
-            elseExp.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TFor  element, C context) {
-        visitTExpressionProperties(element, context);
-        TChildExpression inExp = element.getIn();
-        if (inExp != null) {
-            inExp.accept(this, context);
-        }
-        TChildExpression returnExp = element.getReturn();
-        if (returnExp != null) {
-            returnExp.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TFilter  element, C context) {
-        visitTExpressionProperties(element, context);
-        TChildExpression inExp = element.getIn();
-        if (inExp != null) {
-            inExp.accept(this, context);
-        }
-        TChildExpression matchExp = element.getMatch();
-        if (matchExp != null) {
-            matchExp.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TEvery  element, C context) {
-        visitTExpressionProperties(element, context);
-        visitTQuantifiedProperties(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TSome  element, C context) {
-        visitTExpressionProperties(element, context);
-        visitTQuantifiedProperties(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TChildExpression  element, C context) {
-        TExpression exp = element.getExpression();
-        if (exp != null) {
-            visitTExpression(exp, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TTypedChildExpression  element, C context) {
-        TExpression exp = element.getExpression();
-        if (exp != null) {
-            visitTExpression(exp, context);
-        }
-        return element;
-    }
-
-    private void visitTQuantifiedProperties(TQuantified element, C context) {
-        TChildExpression inExp = element.getIn();
-        if (inExp != null) {
-            inExp.accept(this, context);
-        }
-        TChildExpression satisfiesExp = element.getSatisfies();
-        if (satisfiesExp != null) {
-            satisfiesExp.accept(this, context);
-        }
-    }
-
-    // Requirements
-    @Override
-    public DMNBaseElement visit(TAuthorityRequirement  element, C context) {
-        visitTDMNElementProperties(element, context);
-        TDMNElementReference requiredDecision = element.getRequiredDecision();
-        if (requiredDecision != null) {
-            requiredDecision.accept(this, context);
-        }
-        TDMNElementReference requiredInput = element.getRequiredInput();
-        if (requiredInput != null) {
-            requiredInput.accept(this, context);
-        }
-        TDMNElementReference requiredAuthority = element.getRequiredAuthority();
-        if (requiredAuthority != null) {
-            requiredAuthority.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TInformationRequirement  element, C context) {
-        visitTDMNElementProperties(element, context);
-        TDMNElementReference requiredDecision = element.getRequiredDecision();
-        if (requiredDecision != null) {
-            requiredDecision.accept(this, context);
-        }
-        TDMNElementReference requiredInput = element.getRequiredInput();
-        if (requiredInput != null) {
-            requiredInput.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TKnowledgeRequirement  element, C context) {
-        visitTDMNElementProperties(element, context);
-        TDMNElementReference requiredKnowledge = element.getRequiredKnowledge();
-        if (requiredKnowledge != null) {
-            requiredKnowledge.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TInformationItem  element, C context) {
-        visitTNamedElementProperties(element, context);
-        element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TDMNElementReference  element, C context) {
-        return element;
-    }
-
-    // Artifacts
-    @Override
-    public DMNBaseElement visit(TAssociation  element, C context) {
-        visitTDMNElementProperties(element, context);
-        TDMNElementReference sourceRef = element.getSourceRef();
-        if (sourceRef != null) {
-            sourceRef.accept(this, context);
-        }
-        TDMNElementReference targetRef = element.getTargetRef();
-        if (targetRef != null) {
-            targetRef.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TGroup  element, C context) {
-        visitTDMNElementProperties(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TTextAnnotation  element, C context) {
-        visitTDMNElementProperties(element, context);
-        return element;
-    }
-
-    // Other
-    @Override
-    public DMNBaseElement visit(TBusinessContextElement  element, C context) {
-        visitTNamedElementProperties(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TPerformanceIndicator  element, C context) {
-        visitTNamedElementProperties(element, context);
-        for (TDMNElementReference  elementReference : element.getImpactingDecision()) {
-            elementReference.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TOrganizationUnit  element, C context) {
-        visitTNamedElementProperties(element, context);
-        for (TDMNElementReference  elementReference : element.getDecisionMade()) {
-            elementReference.accept(this, context);
-        }
-        for (TDMNElementReference  elementReference : element.getDecisionOwned()) {
-            elementReference.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(TElementCollection  element, C context) {
-        visitTNamedElementProperties(element, context);
-        for (TDMNElementReference  elementReference : element.getDrgElement()) {
-            elementReference.accept(this, context);
-        }
-        return element;
-    }
-
-    // Extensions
-    @Override
-    public DMNBaseElement visit(TDMNElement.ExtensionElements element, C context) {
-        return visitExtensions(element, context);
-    }
-
     //
-    // DMNDI elements
-    //
-    @Override
-    public DMNBaseElement visit(DMNDI  element, C context) {
-        for (DMNDiagram diagram : element.getDMNDiagram()) {
-            diagram.accept(this, context);
-        }
-        for (DMNStyle style : element.getDMNStyle()) {
-            style.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNDiagram  element, C context) {
-        visitDiagramElementProperties(element, context);
-        Dimension size = element.getSize();
-        if (size != null) {
-            size.accept(this, context);
-        }
-        for (DiagramElement diagramElement : element.getDMNDiagramElement()) {
-            visitDiagramElement(diagramElement, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNShape  element, C context) {
-        visitDiagramElementProperties(element, context);
-        visitShapeProperties(element, context);
-        DMNLabel dmnLabel = element.getDMNLabel();
-        if (dmnLabel != null) {
-            dmnLabel.accept(this, context);
-        }
-        DMNDecisionServiceDividerLine dmnDecisionServiceDividerLine = element.getDMNDecisionServiceDividerLine();
-        if (dmnDecisionServiceDividerLine != null) {
-            dmnDecisionServiceDividerLine.accept(this, context);
-        }
-        element.setDmnElementRef(visitQName(element.getDmnElementRef(), context));
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNEdge  element, C context) {
-        visitEdgeProperties(element, context);
-        DMNLabel dmnLabel = element.getDMNLabel();
-        if (dmnLabel != null) {
-            dmnLabel.accept(this, context);
-        }
-        element.setDmnElementRef(visitQName(element.getDmnElementRef(), context));
-        element.setSourceElement(visitQName(element.getSourceElement(), context));
-        element.setTargetElement(visitQName(element.getTargetElement(), context));
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNStyle  element, C context) {
-        visitExtension(element.getExtension(), context);
-        Color fillColor = element.getFillColor();
-        if (fillColor != null) {
-            fillColor.accept(this, context);
-        }
-        Color strokeColor = element.getStrokeColor();
-        if (strokeColor != null) {
-            strokeColor.accept(this, context);
-        }
-        Color fontColor = element.getFontColor();
-        if (fontColor != null) {
-            fontColor.accept(this, context);
-        }
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNLabel  element, C context) {
-        visitShapeProperties(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DMNDecisionServiceDividerLine  element, C context) {
-        visitEdgeProperties(element, context);
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(Color  element, C context) {
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(Point  element, C context) {
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(Bounds  element, C context) {
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(Dimension  element, C context) {
-        return element;
-    }
-
-    @Override
-    public DMNBaseElement visit(DiagramElement.Extension element, C context) {
-        return visitExtension(element, context);
-    }
-
-    @Override
-    public Object visit(Style.Extension element, C context) {
-        return visitExtension(element, context);
-    }
-
-    private void visitTDMNElementProperties(TDMNElement  element, C context) {
-        visitExtensions(element.getExtensionElements(), context);
-    }
-
-    private void visitTArtifact(TArtifact  element, C context) {
-        visitTDMNElementProperties(element, context);
-        if (element instanceof TAssociation) {
-            ((TAssociation) element).accept(this, context);
-        } else if (element instanceof TGroup) {
-            ((TGroup) element).accept(this, context);
-        } else if (element instanceof TTextAnnotation) {
-            ((TTextAnnotation) element).accept(this, context);
-        }
-    }
-
-    private void visitTExpressionProperties(TExpression  element, C context) {
-        visitTDMNElementProperties(element, context);
-        element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
-    }
-
-    private void visitTExpression(TExpression  element, C context) {
+    protected void visitTExpression(TExpression element, C context) {
         if (element == null) {
             return;
         }
 
-        visitTExpressionProperties(element, context);
         if (element instanceof TContext) {
             element.accept(this, context);
         } else if (element instanceof TDecisionTable) {
@@ -747,27 +309,592 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
         }
     }
 
-    private void visitTNamedElementProperties(TNamedElement  element, C context) {
-        visitTDMNElementProperties(element, context);
+    @Override
+    public DMNBaseElement visit(TContext element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTExpressionProperties(element, context);
+        for (TContextEntry contextEntry : element.getContextEntry()) {
+            contextEntry.accept(this, context);
+        }
+        return element;
     }
 
-    private void visitTDRGElement(TDRGElement  element, C context) {
-        if (element instanceof TInputData) {
-            ((TInputData) element).accept(this, context);
-        } else if (element instanceof TDecision) {
-            ((TDecision) element).accept(this, context);
-        } else if (element instanceof TInvocable) {
-            visitInvocable(element, context);
-        } else if (element instanceof TKnowledgeSource) {
-            ((TKnowledgeSource) element).accept(this, context);
+    @Override
+    public DMNBaseElement visit(TContextEntry element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTDMNElementProperties(element, context);
+        TInformationItem variable = element.getVariable();
+        if (variable != null) {
+            variable.accept(this, context);
+        }
+        visitTExpression(element.getExpression(), context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecisionTable element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTExpressionProperties(element, context);
+        for (TInputClause inputClause : element.getInput()) {
+            inputClause.accept(this, context);
+        }
+        for (TOutputClause outputClause : element.getOutput()) {
+            outputClause.accept(this, context);
+        }
+        for (TRuleAnnotationClause clause : element.getAnnotation()) {
+            clause.accept(this, context);
+        }
+        for (TDecisionRule rule : element.getRule()) {
+            rule.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TInputClause element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTDMNElementProperties(element, context);
+        TLiteralExpression inputExpression = element.getInputExpression();
+        if (inputExpression != null) {
+            inputExpression.accept(this, context);
+        }
+        TUnaryTests inputValues = element.getInputValues();
+        if (inputValues != null) {
+            inputValues.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TOutputClause element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTDMNElementProperties(element, context);
+        TUnaryTests outputValues = element.getOutputValues();
+        if (outputValues != null) {
+            outputValues.accept(this, context);
+        }
+        TLiteralExpression defaultOutputEntry = element.getDefaultOutputEntry();
+        if (defaultOutputEntry != null) {
+            defaultOutputEntry.accept(this, context);
+        }
+        element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TRuleAnnotationClause element, C context) {
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDecisionRule element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTDMNElementProperties(element, context);
+        for (TUnaryTests unaryTests : element.getInputEntry()) {
+            unaryTests.accept(this, context);
+        }
+        for (TLiteralExpression expression : element.getOutputEntry()) {
+            expression.accept(this, context);
+        }
+        for (TRuleAnnotation ruleAnnotation : element.getAnnotationEntry()) {
+            ruleAnnotation.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TRuleAnnotation element, C context) {
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TFunctionDefinition element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTExpressionProperties(element, context);
+        for (TInformationItem informationItem : element.getFormalParameter()) {
+            informationItem.accept(this, context);
+        }
+        visitTExpression(element.getExpression(), context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TInvocation element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+
+        visitTExpressionProperties(element, context);
+        visitTExpression(element.getExpression(), context);
+        for (TBinding binding : element.getBinding()) {
+            binding.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TBinding element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        TInformationItem parameter = element.getParameter();
+        if (parameter != null) {
+            parameter.accept(this, context);
+        }
+        visitTExpression(element.getExpression(), context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TList element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTExpressionProperties(element, context);
+        for (TExpression expression : element.getExpression()) {
+            visitTExpression(expression, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TLiteralExpression element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTExpressionProperties(element, context);
+        TImportedValues importedValues = element.getImportedValues();
+        if (importedValues != null) {
+            importedValues.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TRelation element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTExpressionProperties(element, context);
+        for (TInformationItem informationItem : element.getColumn()) {
+            informationItem.accept(this, context);
+        }
+        for (TList list : element.getRow()) {
+            list.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TUnaryTests element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTExpressionProperties(element, context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TConditional element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTExpressionProperties(element, context);
+        TChildExpression ifExp = element.getIf();
+        if (ifExp != null) {
+            ifExp.accept(this, context);
+        }
+        TChildExpression thenExp = element.getThen();
+        if (thenExp != null) {
+            thenExp.accept(this, context);
+        }
+        TChildExpression elseExp = element.getElse();
+        if (elseExp != null) {
+            elseExp.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TFor element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTIteratorProperties(element, context);
+        TChildExpression returnExp = element.getReturn();
+        if (returnExp != null) {
+            returnExp.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TFilter element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTExpressionProperties(element, context);
+        TChildExpression inExp = element.getIn();
+        if (inExp != null) {
+            inExp.accept(this, context);
+        }
+        TChildExpression matchExp = element.getMatch();
+        if (matchExp != null) {
+            matchExp.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TEvery element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTQuantifiedProperties(element, context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TSome element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTQuantifiedProperties(element, context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TChildExpression element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTChildExpressionProperties(element, context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TTypedChildExpression element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTChildExpressionProperties(element, context);
+        element.setTypeRef(element.getTypeRef());
+        return element;
+    }
+
+    //
+    // Requirements
+    //
+    @Override
+    public DMNBaseElement visit(TAuthorityRequirement element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTDMNElementProperties(element, context);
+        TDMNElementReference requiredDecision = element.getRequiredDecision();
+        if (requiredDecision != null) {
+            requiredDecision.accept(this, context);
+        }
+        TDMNElementReference requiredInput = element.getRequiredInput();
+        if (requiredInput != null) {
+            requiredInput.accept(this, context);
+        }
+        TDMNElementReference requiredAuthority = element.getRequiredAuthority();
+        if (requiredAuthority != null) {
+            requiredAuthority.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TInformationRequirement element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTDMNElementProperties(element, context);
+        TDMNElementReference requiredDecision = element.getRequiredDecision();
+        if (requiredDecision != null) {
+            requiredDecision.accept(this, context);
+        }
+        TDMNElementReference requiredInput = element.getRequiredInput();
+        if (requiredInput != null) {
+            requiredInput.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TKnowledgeRequirement element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTDMNElementProperties(element, context);
+        TDMNElementReference requiredKnowledge = element.getRequiredKnowledge();
+        if (requiredKnowledge != null) {
+            requiredKnowledge.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TInformationItem element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTNamedElementProperties(element, context);
+        element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TDMNElementReference element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        element.setHref(element.getHref());
+        return element;
+    }
+
+    //
+    // Artifacts
+    //
+    protected void visitTArtifact(TArtifact element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        visitTDMNElementProperties(element, context);
+        if (element instanceof TAssociation) {
+            ((TAssociation) element).accept(this, context);
+        } else if (element instanceof TGroup) {
+            ((TGroup) element).accept(this, context);
+        } else if (element instanceof TTextAnnotation) {
+            ((TTextAnnotation) element).accept(this, context);
+        } else {
+            throw new DMNRuntimeException("Not supported");
         }
     }
 
-    private void visitInvocable(TDRGElement  element, C context) {
-        if (element instanceof TBusinessKnowledgeModel) {
-            ((TBusinessKnowledgeModel) element).accept(this, context);
-        } else if (element instanceof TDecisionService) {
-            ((TDecisionService) element).accept(this, context);
+    @Override
+    public DMNBaseElement visit(TAssociation element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTDMNElementProperties(element, context);
+        TDMNElementReference sourceRef = element.getSourceRef();
+        if (sourceRef != null) {
+            sourceRef.accept(this, context);
+        }
+        TDMNElementReference targetRef = element.getTargetRef();
+        if (targetRef != null) {
+            targetRef.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TGroup element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTDMNElementProperties(element, context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TTextAnnotation element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTDMNElementProperties(element, context);
+        return element;
+    }
+
+    //
+    // Other DMN elements
+    //
+    @Override
+    public DMNBaseElement visit(TBusinessContextElement element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTNamedElementProperties(element, context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TPerformanceIndicator element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTNamedElementProperties(element, context);
+        for (TDMNElementReference elementReference : element.getImpactingDecision()) {
+            elementReference.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TOrganizationUnit element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTNamedElementProperties(element, context);
+        for (TDMNElementReference elementReference : element.getDecisionMade()) {
+            elementReference.accept(this, context);
+        }
+        for (TDMNElementReference elementReference : element.getDecisionOwned()) {
+            elementReference.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TElementCollection element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitTNamedElementProperties(element, context);
+        for (TDMNElementReference elementReference : element.getDrgElement()) {
+            elementReference.accept(this, context);
+        }
+        return element;
+    }
+
+    //
+    // Extensions
+    //
+    @Override
+    public DMNBaseElement visit(TDMNElement.ExtensionElements element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        return visitExtensions(element, context);
+    }
+
+    //
+    // DMN properties
+    //
+    protected void visitTDMNElementProperties(TDMNElement element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        visitExtensions(element.getExtensionElements(), context);
+    }
+
+    protected void visitTNamedElementProperties(TNamedElement element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        visitTDMNElementProperties(element, context);
+    }
+
+    protected void visitTImportProperties(TImport element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        visitTNamedElementProperties(element, context);
+    }
+
+    protected void visitTInvocableProperties(TInvocable element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        visitTNamedElementProperties(element, context);
+        TInformationItem variable = element.getVariable();
+        if (variable != null) {
+            variable.accept(this, context);
+        }
+    }
+
+    protected void visitTExpressionProperties(TExpression element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        visitTDMNElementProperties(element, context);
+        element.setTypeRef(visitTypeRef(element.getTypeRef(), context));
+    }
+
+    protected void visitTIteratorProperties(TIterator element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        visitTExpressionProperties(element, context);
+        TChildExpression inExp = element.getIn();
+        if (inExp != null) {
+            inExp.accept(this, context);
+        }
+    }
+
+    protected void visitTQuantifiedProperties(TQuantified element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        visitTIteratorProperties(element, context);
+        TChildExpression satisfies = element.getSatisfies();
+        if (satisfies != null) {
+            satisfies.accept(this, context);
+        }
+    }
+
+    protected void visitTChildExpressionProperties(TChildExpression element, C context) {
+        TExpression exp = element.getExpression();
+        if (exp != null) {
+            visitTExpression(exp, context);
         }
     }
 
@@ -783,11 +910,46 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
         return element;
     }
 
-    private void visitDiagramElementProperties(DiagramElement  element, C context) {
-        visitExtension(element.getExtension(), context);
+    //
+    // DMN DI elements
+    //
+    @Override
+    public DMNBaseElement visit(DMNDI element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        for (DMNDiagram diagram : element.getDMNDiagram()) {
+            diagram.accept(this, context);
+        }
+        for (DMNStyle style : element.getDMNStyle()) {
+            style.accept(this, context);
+        }
+        return element;
     }
 
-    private void visitDiagramElement(DiagramElement  element, C context) {
+    @Override
+    public DMNBaseElement visit(DMNDiagram element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitDiagramProperties(element, context);
+        Dimension size = element.getSize();
+        if (size != null) {
+            size.accept(this, context);
+        }
+        for (DiagramElement diagramElement : element.getDMNDiagramElement()) {
+            visitDiagramElement(diagramElement, context);
+        }
+        return element;
+    }
+
+    protected void visitDiagramElement(DiagramElement element, C context) {
+        if (element == null) {
+            return;
+        }
+
         visitDiagramElementProperties(element, context);
         if (element instanceof DMNDiagram) {
             ((DMNDiagram) element).accept(this, context);
@@ -799,10 +961,182 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
             ((DMNLabel) element).accept(this, context);
         } else if (element instanceof DMNShape) {
             ((DMNShape) element).accept(this, context);
+        } else {
+            throw new DMNRuntimeException("Not supported");
         }
     }
 
-    private void visitShapeProperties(Shape  element, C context) {
+    @Override
+    public DMNBaseElement visit(DMNShape element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitShapeProperties(element, context);
+        DMNLabel dmnLabel = element.getDMNLabel();
+        if (dmnLabel != null) {
+            dmnLabel.accept(this, context);
+        }
+        DMNDecisionServiceDividerLine dmnDecisionServiceDividerLine = element.getDMNDecisionServiceDividerLine();
+        if (dmnDecisionServiceDividerLine != null) {
+            dmnDecisionServiceDividerLine.accept(this, context);
+        }
+        element.setDmnElementRef(visitQName(element.getDmnElementRef(), context));
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(DMNEdge element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitEdgeProperties(element, context);
+        DMNLabel dmnLabel = element.getDMNLabel();
+        if (dmnLabel != null) {
+            dmnLabel.accept(this, context);
+        }
+        return element;
+    }
+
+    protected void visitStyle(Style element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        if (element instanceof DMNStyle) {
+            ((DMNStyle) element).accept(this, context);
+        } else if (element instanceof Style.IDREFStubStyle) {
+            ((Style.IDREFStubStyle) element).accept(this, context);
+        } else {
+            throw new DMNRuntimeException("Not supported");
+        }
+    }
+
+    @Override
+    public DMNBaseElement visit(DMNStyle element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitStyleProperties(element, context);
+        Color fillColor = element.getFillColor();
+        if (fillColor != null) {
+            fillColor.accept(this, context);
+        }
+        Color strokeColor = element.getStrokeColor();
+        if (strokeColor != null) {
+            strokeColor.accept(this, context);
+        }
+        Color fontColor = element.getFontColor();
+        if (fontColor != null) {
+            fontColor.accept(this, context);
+        }
+        return element;
+    }
+
+    @Override
+    public Object visit(Style.IDREFStubStyle element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitStyleProperties(element, context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(DMNLabel element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitShapeProperties(element, context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(DMNDecisionServiceDividerLine element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        visitEdgeProperties(element, context);
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(Color element, C context) {
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(Point element, C context) {
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(Bounds element, C context) {
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(Dimension element, C context) {
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(DiagramElement.Extension element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        return visitExtension(element, context);
+    }
+
+    @Override
+    public Object visit(Style.Extension element, C context) {
+        if (element == null) {
+            return null;
+        }
+
+        return visitExtension(element, context);
+    }
+
+    protected DMNBaseElement visitExtension(DiagramElement.Extension element, C context) {
+        return element;
+    }
+
+    protected Style.Extension visitExtension(Style.Extension element, C context) {
+        return element;
+    }
+
+    //
+    // DMN DI properties
+    //
+    protected void visitDiagramProperties(Diagram element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        visitDiagramElementProperties(element, context);
+    }
+
+    protected void visitDiagramElementProperties(DiagramElement element, C context) {
+        if (element == null) {
+            return;
+        }
+
+        visitExtension(element.getExtension(), context);
+        visitStyle(element.getStyle(), context);
+        visitStyle(element.getSharedStyle(), context);
+    }
+
+    protected void visitShapeProperties(Shape element, C context) {
+        if (element == null) {
+            return;
+        }
+
         visitDiagramElementProperties(element, context);
         Bounds bounds = element.getBounds();
         if (bounds != null) {
@@ -810,18 +1144,22 @@ public class TraversalVisitor<C> extends AbstractVisitor<C, Object> {
         }
     }
 
-    private void visitEdgeProperties(Edge  element, C context) {
+    protected void visitEdgeProperties(Edge element, C context) {
+        if (element == null) {
+            return;
+        }
+
         visitDiagramElementProperties(element, context);
         for (Point point : element.getWaypoint()) {
             point.accept(this, context);
         }
     }
 
-    private DMNBaseElement visitExtension(DiagramElement.Extension element, C context) {
-        return element;
-    }
+    protected void visitStyleProperties(Style element, C context) {
+        if (element == null) {
+            return;
+        }
 
-    private Object visitExtension(Style.Extension element, C context) {
-        return element;
+        visitExtension(element.getExtension(), context);
     }
 }
