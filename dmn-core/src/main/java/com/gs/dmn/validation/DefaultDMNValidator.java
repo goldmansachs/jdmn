@@ -168,11 +168,11 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
 
     private void validateNamedElement(TDefinitions definitions, TNamedElement element, ValidationContext context) {
         if (StringUtils.isBlank(element.getId())) {
-            String errorMessage = "Missing id";
+            String errorMessage = String.format("Missing id for element %s", element.getClass().getSimpleName());
             context.addError(makeError(definitions, element, errorMessage));
         }
         if (StringUtils.isBlank(element.getName())) {
-            String errorMessage = "Missing name";
+            String errorMessage = String.format("Missing name for element %s", element.getClass().getSimpleName());
             context.addError(makeError(definitions, element, errorMessage));
         }
     }

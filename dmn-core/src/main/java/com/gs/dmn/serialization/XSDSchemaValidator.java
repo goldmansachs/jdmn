@@ -49,7 +49,10 @@ public class XSDSchemaValidator {
 
             List<String> errors = new ArrayList<>();
             for (SAXParseException e : errorHandler.getExceptions()) {
-                errors.add(String.format("Line %d, Column %d: %s", e.getLineNumber(), e.getColumnNumber(), e.getMessage()));
+                String errorMessage = String.format("Line %d, Column %d: %s", e.getLineNumber(), e.getColumnNumber(), e.getMessage());
+                if (!errors.contains(errorMessage)) {
+                    errors.add(errorMessage);
+                }
             }
             return errors;
         } catch (Exception e) {
