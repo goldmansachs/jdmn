@@ -19,6 +19,7 @@ import org.xmlunit.diff.DifferenceEvaluator;
 import org.xmlunit.diff.DifferenceEvaluators;
 
 import javax.xml.transform.stream.StreamSource;
+import java.util.Objects;
 
 public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
@@ -73,7 +74,7 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
 
     @Override
     protected StreamSource getSchemaSource() {
-        return new StreamSource(this.getClass().getResource("/dmn/1.3/DMN13.xsd").getFile());
+        return new StreamSource(Objects.requireNonNull(this.getClass().getResource("/dmn/1.3/DMN13.xsd")).getFile());
     }
 
     @Override

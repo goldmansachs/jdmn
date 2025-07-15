@@ -16,6 +16,7 @@ import com.gs.dmn.serialization.AbstractXStreamUnmarshalMarshalTest;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.diff.XMLDifferenceEvaluator;
 import com.gs.dmn.serialization.xstream.DMNMarshallerFactory;
+import com.gs.dmn.serialization.xstream.extensions.kie.DecisionServicesRegister;
 import com.gs.dmn.serialization.xstream.extensions.kie.KieTestRegister;
 import com.gs.dmn.serialization.xstream.extensions.test.TestRegister;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,7 @@ import org.xmlunit.diff.DifferenceEvaluators;
 
 import javax.xml.transform.stream.StreamSource;
 import java.util.Collections;
+import java.util.Objects;
 
 public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
@@ -39,6 +41,24 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
     public void test0003InputDataStringAllowedValues() throws Exception {
         testRoundTrip("xstream/v1_1/0003-input-data-string-allowed-values.dmn");
+    }
+
+    @Test
+    public void test0004DecisionService() throws Exception {
+        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new DecisionServicesRegister()));
+        testRoundTrip("xstream/v1_1/0004-decision-services.dmn", marshaller);
+    }
+
+    @Test
+    public void test0004DecisionServiceMultipleExtension() throws Exception {
+        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new DecisionServicesRegister()));
+        testRoundTrip("xstream/v1_1/0004-decision-services_multiple_extensions.dmn", marshaller);
+    }
+
+    @Test
+    public void test0004DecisionServiceNsOtherLocation() throws Exception {
+        DMNMarshaller marshaller = DMNMarshallerFactory.newMarshallerWithExtensions(Collections.singletonList(new DecisionServicesRegister()));
+        testRoundTrip("xstream/v1_1/0004-decision-services_ns_other_location.dmn", marshaller);
     }
 
     @Test
@@ -106,7 +126,7 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
 
     @Override
     protected StreamSource getSchemaSource() {
-        return new StreamSource(this.getClass().getResource("/dmn/1.1/dmn.xsd").getFile());
+        return new StreamSource(Objects.requireNonNull(this.getClass().getResource("/dmn/1.1/dmn.xsd")).getFile());
     }
 
     @Override

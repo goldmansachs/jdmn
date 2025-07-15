@@ -29,6 +29,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -77,7 +78,7 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
     @Test
     public void testFontSizeSharedStyle() throws Exception {
         testRoundTrip("xstream/v1_2/test-FontSize-sharedStyle.dmn");
-        TDefinitions definitions = getMarshaller().unmarshal(new InputStreamReader(this.getClass().getResourceAsStream("/xstream/v1_2/test-FontSize-sharedStyle.dmn")), true);
+        TDefinitions definitions = getMarshaller().unmarshal(new InputStreamReader(Objects.requireNonNull(this.getClass().getResourceAsStream("/xstream/v1_2/test-FontSize-sharedStyle.dmn"))), true);
         List<DMNDiagram> dmnDiagram = definitions.getDMNDI().getDMNDiagram();
         DMNShape shape0 = (DMNShape) dmnDiagram.get(0).getDMNDiagramElement().get(0);
         DMNStyle shape0sharedStyle = (DMNStyle) shape0.getDMNLabel().getSharedStyle();
@@ -97,7 +98,7 @@ public class UnmarshalMarshalTest extends AbstractXStreamUnmarshalMarshalTest {
 
     @Override
     protected StreamSource getSchemaSource() {
-        return new StreamSource(this.getClass().getResource("/dmn/1.2/DMN12.xsd").getFile());
+        return new StreamSource(Objects.requireNonNull(this.getClass().getResource("/dmn/1.2/DMN12.xsd")).getFile());
     }
 
 
