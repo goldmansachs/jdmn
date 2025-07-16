@@ -22,17 +22,8 @@ public class TemporalType extends ComparableDataType {
     }
 
     @Override
-    public boolean equivalentTo(Type other) {
-        return this == other;
-    }
-
-    @Override
     public boolean conformsTo(Type other) {
-        return this == other;
-    }
-
-    @Override
-    public boolean isFullySpecified() {
-        return true;
+        return equivalentTo(other)
+                || other == COMPARABLE;
     }
 }

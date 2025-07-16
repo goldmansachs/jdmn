@@ -126,12 +126,12 @@ public interface FEELType {
         put(AnyType.ANY.getName(), AnyType.ANY);
         put(NullType.NULL.getName(), NullType.NULL);
         put(TemporalType.TEMPORAL.getName(), TemporalType.TEMPORAL);
-        put(DurationType.ANY_DURATION.getName(), DurationType.ANY_DURATION);
+        put(DurationType.DURATION.getName(), DurationType.DURATION);
         put(ComparableDataType.COMPARABLE.getName(), ComparableDataType.COMPARABLE);
         // context is equivalent to context<>
-        put("context", ContextType.ANY_CONTEXT);
+        put("context", ContextType.CONTEXT);
         // function is equivalent to function<> -> ANY
-        put("function", FunctionType.ANY_FUNCTION);
+        put("function", FunctionType.FUNCTION);
     }};
 
     List<String> FEEL_TYPE_NAMES = Arrays.asList(

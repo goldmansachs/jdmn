@@ -36,14 +36,14 @@ public abstract class ParameterTypesTest {
     @Test
     public void testCompatibleWhenEmpty() {
         List<FormalParameter<Type>> formalParameters = makeFormalParameters(new ArrayList<>());
-        assertTrue(FunctionType.ANY_FUNCTION.compatible(makeParameterTypes(formalParameters), formalParameters));
+        assertTrue(FunctionType.FUNCTION.compatible(makeParameterTypes(formalParameters), formalParameters));
     }
 
     @Test
     public void testCompatible() {
         List<Type> parameterTypes = Arrays.asList(NumberType.NUMBER, StringType.STRING);
         List<FormalParameter<Type>> formalParameters = makeFormalParameters(parameterTypes);
-        assertTrue(FunctionType.ANY_FUNCTION.compatible(makeParameterTypes(formalParameters), formalParameters));
+        assertTrue(FunctionType.FUNCTION.compatible(makeParameterTypes(formalParameters), formalParameters));
     }
 
     protected List<FormalParameter<Type>> makeFormalParameters(List<Type> types) {

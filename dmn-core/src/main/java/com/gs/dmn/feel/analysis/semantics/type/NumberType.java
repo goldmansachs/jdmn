@@ -28,6 +28,7 @@ public class NumberType extends ComparableDataType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return other == NUMBER || other == COMPARABLE;
+        return equivalentTo(other)
+                || other == COMPARABLE;
     }
 }

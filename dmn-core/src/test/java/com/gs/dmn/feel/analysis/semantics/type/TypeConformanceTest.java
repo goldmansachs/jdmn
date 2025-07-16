@@ -24,56 +24,89 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
+import static com.gs.dmn.feel.analysis.semantics.type.ContextType.CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.FUNCTION;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TypeConformanceTest {
-    public final Map<Pair<Type, Type>, Boolean> dataTypesTable = new LinkedHashMap<Pair<Type, Type>, Boolean>() {{
-        put(new Pair<>(NUMBER, NUMBER), true);
+    public final Map<Pair<Type, Type>, Boolean> dataTypesTable = new LinkedHashMap<>() {{
+        // Concrete types
         put(new Pair<>(NUMBER, ANY), true);
+        put(new Pair<>(NUMBER, COMPARABLE), true);
+        put(new Pair<>(NUMBER, NUMBER), true);
 
-        put(new Pair<>(BOOLEAN, BOOLEAN), true);
         put(new Pair<>(BOOLEAN, ANY), true);
+        put(new Pair<>(BOOLEAN, COMPARABLE), false);
+        put(new Pair<>(BOOLEAN, BOOLEAN), true);
 
-        put(new Pair<>(STRING, STRING), true);
         put(new Pair<>(STRING, ANY), true);
+        put(new Pair<>(NUMBER, COMPARABLE), true);
+        put(new Pair<>(STRING, STRING), true);
 
-        put(new Pair<>(DATE, DATE), true);
         put(new Pair<>(DATE, ANY), true);
+        put(new Pair<>(DATE, COMPARABLE), true);
+        put(new Pair<>(DATE, TEMPORAL), true);
+        put(new Pair<>(DATE, DATE), true);
 
+        put(new Pair<>(TIME, ANY), true);
+        put(new Pair<>(TIME, COMPARABLE), true);
+        put(new Pair<>(TIME, TEMPORAL), true);
+        put(new Pair<>(TIME, TIME), true);
+
+        put(new Pair<>(DATE_AND_TIME, ANY), true);
+        put(new Pair<>(DATE_AND_TIME, COMPARABLE), true);
+        put(new Pair<>(DATE_AND_TIME, TEMPORAL), true);
         put(new Pair<>(DATE_AND_TIME, DATE_AND_TIME), true);
         put(new Pair<>(DATE_AND_TIME, DATE_TIME), true);
         put(new Pair<>(DATE_AND_TIME, DATE_TIME_CAMEL), true);
-        put(new Pair<>(DATE_AND_TIME, ANY), true);
 
+        put(new Pair<>(DATE_TIME, ANY), true);
+        put(new Pair<>(DATE_TIME, COMPARABLE), true);
+        put(new Pair<>(DATE_TIME, TEMPORAL), true);
         put(new Pair<>(DATE_TIME, DATE_AND_TIME), true);
         put(new Pair<>(DATE_TIME, DATE_TIME), true);
         put(new Pair<>(DATE_TIME, DATE_TIME_CAMEL), true);
-        put(new Pair<>(DATE_TIME, ANY), true);
 
+        put(new Pair<>(DATE_TIME_CAMEL, ANY), true);
+        put(new Pair<>(DATE_TIME_CAMEL, COMPARABLE), true);
+        put(new Pair<>(DATE_TIME_CAMEL, TEMPORAL), true);
         put(new Pair<>(DATE_TIME_CAMEL, DATE_AND_TIME), true);
         put(new Pair<>(DATE_TIME_CAMEL, DATE_TIME), true);
         put(new Pair<>(DATE_TIME_CAMEL, DATE_TIME_CAMEL), true);
-        put(new Pair<>(DATE_TIME_CAMEL, ANY), true);
 
-        put(new Pair<>(TIME, TIME), true);
-        put(new Pair<>(TIME, ANY), true);
-
-        put(new Pair<>(DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), true);
         put(new Pair<>(DAYS_AND_TIME_DURATION, ANY), true);
+        put(new Pair<>(DAYS_AND_TIME_DURATION, COMPARABLE), true);
+        put(new Pair<>(DAYS_AND_TIME_DURATION, DURATION), true);
+        put(new Pair<>(DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), true);
 
-        put(new Pair<>(YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), true);
         put(new Pair<>(YEARS_AND_MONTHS_DURATION, ANY), true);
+        put(new Pair<>(YEARS_AND_MONTHS_DURATION, COMPARABLE), true);
+        put(new Pair<>(YEARS_AND_MONTHS_DURATION, DURATION), true);
+        put(new Pair<>(YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), true);
 
+        // Abstract types
         put(new Pair<>(ANY, ANY), true);
 
+        put(new Pair<>(COMPARABLE, ANY), true);
+        put(new Pair<>(COMPARABLE, COMPARABLE), true);
+
+        put(new Pair<>(TEMPORAL, COMPARABLE), true);
+        put(new Pair<>(TEMPORAL, TEMPORAL), true);
+
+        put(new Pair<>(DURATION, COMPARABLE), true);
+        put(new Pair<>(DURATION, DURATION), true);
+
+        // Mixture
         put(new Pair<>(NUMBER, STRING), false);
         put(new Pair<>(BOOLEAN, NUMBER), false);
         put(new Pair<>(DATE, NUMBER), false);
@@ -98,14 +131,20 @@ public class TypeConformanceTest {
     public void testFunctionType() {
         FEELFunctionType type1 = new FEELFunctionType(Collections.singletonList(new FormalParameter<>("p", STRING)), STRING, false);
         FEELFunctionType type2 = new FEELFunctionType(Collections.singletonList(new FormalParameter<>("p", NUMBER)), STRING, false);
-        FEELFunctionType tyep3 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p1", STRING), new FormalParameter<>("p2", NUMBER)), STRING, false);
+        FEELFunctionType type3 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p1", STRING), new FormalParameter<>("p2", NUMBER)), STRING, false);
+        FEELFunctionType type4 = new FEELFunctionType(Collections.emptyList(), ANY, false);
 
         checkConformsTo(true, type1, type1);
         checkConformsTo(true, type1, ANY);
+        checkConformsTo(true, type1, FUNCTION);
 
         checkConformsTo(false, type1, type2);
-        checkConformsTo(false, type1, tyep3);
+        checkConformsTo(false, type1, type3);
         checkConformsTo(false, type1, NUMBER);
+        checkConformsTo(false, type1, type4);
+
+        checkConformsTo(true, type4, FUNCTION);
+        checkConformsTo(false, FUNCTION, type4);
     }
 
     @Test
@@ -125,24 +164,32 @@ public class TypeConformanceTest {
 
     @Test
     public void testContextType() {
-        ContextType type1 = new ContextType(new LinkedHashMap<String, Type>() {{
+        ContextType type1 = new ContextType(new LinkedHashMap<>() {{
             put("m", NUMBER);
         }});
-        ContextType type2 = new ContextType(new LinkedHashMap<String, Type>() {{
+        ContextType type2 = new ContextType(new LinkedHashMap<>() {{
             put("m", BOOLEAN);
         }});
-        ContextType type3 = new ContextType(new LinkedHashMap<String, Type>() {{
+        ContextType type3 = new ContextType(new LinkedHashMap<>() {{
             put("m", NUMBER);
             put("n", NUMBER);
         }});
+        ContextType type4 = new ContextType(new LinkedHashMap<>());
 
         checkConformsTo(true, type1, type1);
         checkConformsTo(true, type1, ANY);
+        checkConformsTo(true, type1, CONTEXT);
+        checkConformsTo(true, type1, type4);
 
         checkConformsTo(false, type1, type2);
         checkConformsTo(false, type1, type3);
         checkConformsTo(true, type3, type1);
         checkConformsTo(false, type1, NUMBER);
+
+        checkConformsTo(true, type4, type4);
+        checkConformsTo(true, type4, CONTEXT);
+        checkConformsTo(true, CONTEXT, type4);
+        checkConformsTo(false, CONTEXT, type1);
     }
 
     @Test
@@ -157,13 +204,19 @@ public class TypeConformanceTest {
         type3.addMember("m", Collections.emptyList(), NUMBER);
         type3.addMember("x", Collections.emptyList(), NUMBER);
 
+        ContextType type4 = new ContextType(new LinkedHashMap<>());
+
         checkConformsTo(true, type1, ANY);
+        checkConformsTo(true, type1, CONTEXT);
+        checkConformsTo(true, type1, type4);
         checkConformsTo(true, type1, type1);
 
         checkConformsTo(false, type1, type2);
         checkConformsTo(false, type1, type3);
         checkConformsTo(true, type3, type1);
         checkConformsTo(false, type1, NUMBER);
+        checkConformsTo(false, type4, type1);
+        checkConformsTo(false, CONTEXT, type1);
     }
 
     @Test
@@ -190,11 +243,14 @@ public class TypeConformanceTest {
 
     @Test
     public void testNullType() {
-        NullType type = NullType.NULL;
+        NullType type = NULL;
 
         checkConformsTo(true, type, type);
 
         checkConformsTo(true, type, ANY);
+        checkConformsTo(true, type, COMPARABLE);
+        checkConformsTo(true, type, TEMPORAL);
+        checkConformsTo(true, type, DURATION);
         checkConformsTo(true, type, STRING);
         checkConformsTo(true, type, BOOLEAN);
         checkConformsTo(true, type, NUMBER);

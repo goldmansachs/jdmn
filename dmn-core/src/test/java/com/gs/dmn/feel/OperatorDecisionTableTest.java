@@ -23,12 +23,12 @@ import java.util.Collections;
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.el.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
-import static com.gs.dmn.feel.analysis.semantics.type.ContextType.ANY_CONTEXT;
+import static com.gs.dmn.feel.analysis.semantics.type.ContextType.CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.DurationType.ANY_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.ANY_FUNCTION;
+import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.FUNCTION;
 import static com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType.ANY_ITEM_DEFINITION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.NUMBER_LIST;
@@ -53,15 +53,15 @@ class OperatorDecisionTableTest {
         check("=", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationEqual");
         check("=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationEqual");
         check("=", ANY_LIST, ANY_LIST, BOOLEAN, "listEqual");
-        check("=", ANY_CONTEXT, ANY_CONTEXT, BOOLEAN, "contextEqual");
+        check("=", CONTEXT, CONTEXT, BOOLEAN, "contextEqual");
         check("=", ANY_ITEM_DEFINITION, ANY_ITEM_DEFINITION, BOOLEAN, "contextEqual");
         check("=", ANY_RANGE, ANY_RANGE, BOOLEAN, "rangeEqual");
-        check("=", ANY_FUNCTION, ANY_FUNCTION, BOOLEAN, "functionEqual");
+        check("=", FUNCTION, FUNCTION, BOOLEAN, "functionEqual");
 
         check("=", NUMBER_LIST, ANY_LIST, BOOLEAN, "listEqual");
         ContextType contextType = new ContextType();
         contextType.addMember("a", Collections.emptyList(), NUMBER);
-        check("=", contextType, ANY_CONTEXT, BOOLEAN, "contextEqual");
+        check("=", contextType, CONTEXT, BOOLEAN, "contextEqual");
         ItemDefinitionType itemDefinitionType = new ItemDefinitionType("test");
         itemDefinitionType.addMember("a", Collections.emptyList(), NUMBER);
         check("=", itemDefinitionType, ANY_ITEM_DEFINITION, BOOLEAN, "contextEqual");
@@ -71,19 +71,19 @@ class OperatorDecisionTableTest {
         check("=", NUMBER, null, BOOLEAN, "numericEqual");
         check("=", NUMBER, NULL, BOOLEAN, "numericEqual");
         check("=", NUMBER, ANY, BOOLEAN, "numericEqual");
-        check("==", ANY_DURATION, ANY_DURATION, BOOLEAN, "durationEqual");
+        check("==", DURATION, DURATION, BOOLEAN, "durationEqual");
 
-        check("==", DAYS_AND_TIME_DURATION, ANY_DURATION, BOOLEAN, "durationEqual");
-        check("==", ANY_DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationEqual");
-        check("==", YEARS_AND_MONTHS_DURATION, ANY_DURATION, BOOLEAN, "durationEqual");
-        check("==", ANY_DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationEqual");
-        check("==", ANY_DURATION, ANY_DURATION, BOOLEAN, "durationEqual");
+        check("==", DAYS_AND_TIME_DURATION, DURATION, BOOLEAN, "durationEqual");
+        check("==", DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationEqual");
+        check("==", YEARS_AND_MONTHS_DURATION, DURATION, BOOLEAN, "durationEqual");
+        check("==", DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationEqual");
+        check("==", DURATION, DURATION, BOOLEAN, "durationEqual");
 
-        check("!=", DAYS_AND_TIME_DURATION, ANY_DURATION, BOOLEAN, "durationNotEqual");
-        check("!=", ANY_DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationNotEqual");
-        check("!=", YEARS_AND_MONTHS_DURATION, ANY_DURATION, BOOLEAN, "durationNotEqual");
-        check("!=", ANY_DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationNotEqual");
-        check("!=", ANY_DURATION, ANY_DURATION, BOOLEAN, "durationNotEqual");
+        check("!=", DAYS_AND_TIME_DURATION, DURATION, BOOLEAN, "durationNotEqual");
+        check("!=", DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationNotEqual");
+        check("!=", YEARS_AND_MONTHS_DURATION, DURATION, BOOLEAN, "durationNotEqual");
+        check("!=", DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationNotEqual");
+        check("!=", DURATION, DURATION, BOOLEAN, "durationNotEqual");
     }
 
     @Test
@@ -99,20 +99,20 @@ class OperatorDecisionTableTest {
         check("-", TIME, TIME, DAYS_AND_TIME_DURATION, "timeSubtract");
 
         check("+", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, "durationAdd");
-        check("+", YEARS_AND_MONTHS_DURATION, ANY_DURATION, YEARS_AND_MONTHS_DURATION, "durationAdd");
-        check("+", ANY_DURATION, YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, "durationAdd");
+        check("+", YEARS_AND_MONTHS_DURATION, DURATION, YEARS_AND_MONTHS_DURATION, "durationAdd");
+        check("+", DURATION, YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, "durationAdd");
         check("-", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, "durationSubtract");
-        check("-", YEARS_AND_MONTHS_DURATION, ANY_DURATION, YEARS_AND_MONTHS_DURATION, "durationSubtract");
-        check("-", ANY_DURATION, YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, "durationSubtract");
+        check("-", YEARS_AND_MONTHS_DURATION, DURATION, YEARS_AND_MONTHS_DURATION, "durationSubtract");
+        check("-", DURATION, YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, "durationSubtract");
 
         check("+", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, "durationAdd");
-        check("+", DAYS_AND_TIME_DURATION, ANY_DURATION, DAYS_AND_TIME_DURATION, "durationAdd");
-        check("+", ANY_DURATION, DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, "durationAdd");
-        check("+", ANY_DURATION, ANY_DURATION, ANY_DURATION, "durationAdd");
+        check("+", DAYS_AND_TIME_DURATION, DURATION, DAYS_AND_TIME_DURATION, "durationAdd");
+        check("+", DURATION, DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, "durationAdd");
+        check("+", DURATION, DURATION, DURATION, "durationAdd");
         check("-", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, "durationSubtract");
-        check("-", DAYS_AND_TIME_DURATION, ANY_DURATION, DAYS_AND_TIME_DURATION, "durationSubtract");
-        check("-", ANY_DURATION, DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, "durationSubtract");
-        check("-", ANY_DURATION, ANY_DURATION, ANY_DURATION, "durationSubtract");
+        check("-", DAYS_AND_TIME_DURATION, DURATION, DAYS_AND_TIME_DURATION, "durationSubtract");
+        check("-", DURATION, DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, "durationSubtract");
+        check("-", DURATION, DURATION, DURATION, "durationSubtract");
 
         check("+", DATE_AND_TIME, YEARS_AND_MONTHS_DURATION, DATE_AND_TIME, "dateTimeAddDuration");
         check("-", DATE_AND_TIME, YEARS_AND_MONTHS_DURATION, DATE_AND_TIME, "dateTimeSubtractDuration");
@@ -120,20 +120,20 @@ class OperatorDecisionTableTest {
         check("+", YEARS_AND_MONTHS_DURATION, DATE_AND_TIME, DATE_AND_TIME, "dateTimeAddDuration");
 
         check("+", DATE_AND_TIME, DAYS_AND_TIME_DURATION, DATE_AND_TIME, "dateTimeAddDuration");
-        check("+", DATE_AND_TIME, ANY_DURATION, DATE_AND_TIME, "dateTimeAddDuration");
+        check("+", DATE_AND_TIME, DURATION, DATE_AND_TIME, "dateTimeAddDuration");
         check("-", DATE_AND_TIME, DAYS_AND_TIME_DURATION, DATE_AND_TIME, "dateTimeSubtractDuration");
-        check("-", DATE_AND_TIME, ANY_DURATION, DATE_AND_TIME, "dateTimeSubtractDuration");
+        check("-", DATE_AND_TIME, DURATION, DATE_AND_TIME, "dateTimeSubtractDuration");
 
         check("+", DAYS_AND_TIME_DURATION, DATE_AND_TIME, DATE_AND_TIME, "dateTimeAddDuration");
-        check("+", ANY_DURATION, DATE_AND_TIME, DATE_AND_TIME, "dateTimeAddDuration");
+        check("+", DURATION, DATE_AND_TIME, DATE_AND_TIME, "dateTimeAddDuration");
 
         check("+", TIME, DAYS_AND_TIME_DURATION, TIME, "timeAddDuration");
-        check("+", TIME, ANY_DURATION, TIME, "timeAddDuration");
+        check("+", TIME, DURATION, TIME, "timeAddDuration");
         check("-", TIME, DAYS_AND_TIME_DURATION, TIME, "timeSubtractDuration");
-        check("-", TIME, ANY_DURATION, TIME, "timeSubtractDuration");
+        check("-", TIME, DURATION, TIME, "timeSubtractDuration");
 
         check("+", DAYS_AND_TIME_DURATION, TIME, TIME, "timeAddDuration");
-        check("+", ANY_DURATION, TIME, TIME, "timeAddDuration");
+        check("+", DURATION, TIME, TIME, "timeAddDuration");
 
         check("+", STRING, STRING, STRING, "stringAdd");
 
@@ -143,12 +143,12 @@ class OperatorDecisionTableTest {
         check("+", YEARS_AND_MONTHS_DURATION, DATE, DATE, "dateAddDuration");
 
         check("+", DATE, DAYS_AND_TIME_DURATION, DATE, "dateAddDuration");
-        check("+", DATE, ANY_DURATION, DATE, "dateAddDuration");
+        check("+", DATE, DURATION, DATE, "dateAddDuration");
         check("-", DATE, DAYS_AND_TIME_DURATION, DATE, "dateSubtractDuration");
-        check("-", DATE, ANY_DURATION, DATE, "dateSubtractDuration");
+        check("-", DATE, DURATION, DATE, "dateSubtractDuration");
 
         check("+", DAYS_AND_TIME_DURATION, DATE, DATE, "dateAddDuration");
-        check("+", ANY_DURATION, DATE, DATE, "dateAddDuration");
+        check("+", DURATION, DATE, DATE, "dateAddDuration");
     }
 
     @Test
@@ -162,8 +162,8 @@ class OperatorDecisionTableTest {
         check("*", NUMBER, YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, "durationMultiplyNumber");
 
         check("/", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, NUMBER, "durationDivide");
-        check("/", YEARS_AND_MONTHS_DURATION, ANY_DURATION, NUMBER, "durationDivide");
-        check("/", ANY_DURATION, YEARS_AND_MONTHS_DURATION, NUMBER, "durationDivide");
+        check("/", YEARS_AND_MONTHS_DURATION, DURATION, NUMBER, "durationDivide");
+        check("/", DURATION, YEARS_AND_MONTHS_DURATION, NUMBER, "durationDivide");
 
         check("*", DAYS_AND_TIME_DURATION, NUMBER, DAYS_AND_TIME_DURATION, "durationMultiplyNumber");
         check("/", DAYS_AND_TIME_DURATION, NUMBER, DAYS_AND_TIME_DURATION, "durationDivideNumber");
@@ -171,15 +171,15 @@ class OperatorDecisionTableTest {
         check("*", NUMBER, DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, "durationMultiplyNumber");
 
         check("/", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, NUMBER, "durationDivide");
-        check("/", DAYS_AND_TIME_DURATION, ANY_DURATION, NUMBER, "durationDivide");
-        check("/", ANY_DURATION, DAYS_AND_TIME_DURATION, NUMBER, "durationDivide");
+        check("/", DAYS_AND_TIME_DURATION, DURATION, NUMBER, "durationDivide");
+        check("/", DURATION, DAYS_AND_TIME_DURATION, NUMBER, "durationDivide");
 
-        check("*", ANY_DURATION, NUMBER, ANY_DURATION, "durationMultiplyNumber");
-        check("/", ANY_DURATION, NUMBER, ANY_DURATION, "durationDivideNumber");
+        check("*", DURATION, NUMBER, DURATION, "durationMultiplyNumber");
+        check("/", DURATION, NUMBER, DURATION, "durationDivideNumber");
 
-        check("*", NUMBER, ANY_DURATION, ANY_DURATION, "durationMultiplyNumber");
+        check("*", NUMBER, DURATION, DURATION, "durationMultiplyNumber");
 
-        check("/", ANY_DURATION, ANY_DURATION, NUMBER, "durationDivide");
+        check("/", DURATION, DURATION, NUMBER, "durationDivide");
     }
 
     @Test
@@ -190,12 +190,12 @@ class OperatorDecisionTableTest {
         check("<", TIME, TIME, BOOLEAN, "timeLessThan");
         check("<", DATE_AND_TIME, DATE_AND_TIME, BOOLEAN, "dateTimeLessThan");
         check("<", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationLessThan");
-        check("<", YEARS_AND_MONTHS_DURATION, ANY_DURATION, BOOLEAN, "durationLessThan");
-        check("<", ANY_DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationLessThan");
+        check("<", YEARS_AND_MONTHS_DURATION, DURATION, BOOLEAN, "durationLessThan");
+        check("<", DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationLessThan");
         check("<", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationLessThan");
-        check("<", DAYS_AND_TIME_DURATION, ANY_DURATION, BOOLEAN, "durationLessThan");
-        check("<", ANY_DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationLessThan");
-        check("<", ANY_DURATION, ANY_DURATION, BOOLEAN, "durationLessThan");
+        check("<", DAYS_AND_TIME_DURATION, DURATION, BOOLEAN, "durationLessThan");
+        check("<", DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationLessThan");
+        check("<", DURATION, DURATION, BOOLEAN, "durationLessThan");
 
         check(">", NUMBER, NUMBER, BOOLEAN, "numericGreaterThan");
         check(">", STRING, STRING, BOOLEAN, "stringGreaterThan");
@@ -203,12 +203,12 @@ class OperatorDecisionTableTest {
         check(">", TIME, TIME, BOOLEAN, "timeGreaterThan");
         check(">", DATE_AND_TIME, DATE_AND_TIME, BOOLEAN, "dateTimeGreaterThan");
         check(">", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationGreaterThan");
-        check(">", YEARS_AND_MONTHS_DURATION, ANY_DURATION, BOOLEAN, "durationGreaterThan");
-        check(">", ANY_DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationGreaterThan");
+        check(">", YEARS_AND_MONTHS_DURATION, DURATION, BOOLEAN, "durationGreaterThan");
+        check(">", DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationGreaterThan");
         check(">", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationGreaterThan");
-        check(">", DAYS_AND_TIME_DURATION, ANY_DURATION, BOOLEAN, "durationGreaterThan");
-        check(">", ANY_DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationGreaterThan");
-        check(">", ANY_DURATION, ANY_DURATION, BOOLEAN, "durationGreaterThan");
+        check(">", DAYS_AND_TIME_DURATION, DURATION, BOOLEAN, "durationGreaterThan");
+        check(">", DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationGreaterThan");
+        check(">", DURATION, DURATION, BOOLEAN, "durationGreaterThan");
 
         check("<=", NUMBER, NUMBER, BOOLEAN, "numericLessEqualThan");
         check("<=", STRING, STRING, BOOLEAN, "stringLessEqualThan");
@@ -216,12 +216,12 @@ class OperatorDecisionTableTest {
         check("<=", TIME, TIME, BOOLEAN, "timeLessEqualThan");
         check("<=", DATE_AND_TIME, DATE_AND_TIME, BOOLEAN, "dateTimeLessEqualThan");
         check("<=", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationLessEqualThan");
-        check("<=", YEARS_AND_MONTHS_DURATION, ANY_DURATION, BOOLEAN, "durationLessEqualThan");
-        check("<=", ANY_DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationLessEqualThan");
+        check("<=", YEARS_AND_MONTHS_DURATION, DURATION, BOOLEAN, "durationLessEqualThan");
+        check("<=", DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationLessEqualThan");
         check("<=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationLessEqualThan");
-        check("<=", DAYS_AND_TIME_DURATION, ANY_DURATION, BOOLEAN, "durationLessEqualThan");
-        check("<=", ANY_DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationLessEqualThan");
-        check("<=", ANY_DURATION, ANY_DURATION, BOOLEAN, "durationLessEqualThan");
+        check("<=", DAYS_AND_TIME_DURATION, DURATION, BOOLEAN, "durationLessEqualThan");
+        check("<=", DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationLessEqualThan");
+        check("<=", DURATION, DURATION, BOOLEAN, "durationLessEqualThan");
 
         check(">=", NUMBER, NUMBER, BOOLEAN, "numericGreaterEqualThan");
         check(">=", STRING, STRING, BOOLEAN, "stringGreaterEqualThan");
@@ -229,12 +229,12 @@ class OperatorDecisionTableTest {
         check(">=", TIME, TIME, BOOLEAN, "timeGreaterEqualThan");
         check(">=", DATE_AND_TIME, DATE_AND_TIME, BOOLEAN, "dateTimeGreaterEqualThan");
         check(">=", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationGreaterEqualThan");
-        check(">=", YEARS_AND_MONTHS_DURATION, ANY_DURATION, BOOLEAN, "durationGreaterEqualThan");
-        check(">=", ANY_DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationGreaterEqualThan");
+        check(">=", YEARS_AND_MONTHS_DURATION, DURATION, BOOLEAN, "durationGreaterEqualThan");
+        check(">=", DURATION, YEARS_AND_MONTHS_DURATION, BOOLEAN, "durationGreaterEqualThan");
         check(">=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationGreaterEqualThan");
-        check(">=", DAYS_AND_TIME_DURATION, ANY_DURATION, BOOLEAN, "durationGreaterEqualThan");
-        check(">=", ANY_DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationGreaterEqualThan");
-        check(">=", ANY_DURATION, ANY_DURATION, BOOLEAN, "durationGreaterEqualThan");
+        check(">=", DAYS_AND_TIME_DURATION, DURATION, BOOLEAN, "durationGreaterEqualThan");
+        check(">=", DURATION, DAYS_AND_TIME_DURATION, BOOLEAN, "durationGreaterEqualThan");
+        check(">=", DURATION, DURATION, BOOLEAN, "durationGreaterEqualThan");
     }
 
     @Test

@@ -43,7 +43,7 @@ import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
-import static com.gs.dmn.feel.analysis.semantics.type.DurationType.*;
+import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
@@ -122,7 +122,7 @@ public class MockTCKValueTranslatorTest {
         doTest("dateAndTime(\"1990-03-29T12:00:00\")", makeSimpleValue(DATATYPE_FACTORY.newXMLGregorianCalendar("1990-03-29T12:00:00")), DATE_AND_TIME, null);
         doTest("duration(\"P2Y3M\")", makeSimpleValue(DATATYPE_FACTORY.newDuration("P2Y3M")), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION, null);
         doTest("duration(\"P2DT3H\")", makeSimpleValue(DATATYPE_FACTORY.newDuration("P2DT3H")), DaysAndTimeDurationType.DAYS_AND_TIME_DURATION, null);
-        doTest("duration(\"P1Y1M2DT3H\")", makeSimpleValue(DATATYPE_FACTORY.newDuration("P1Y1M2DT3H")), ANY_DURATION, null);
+        doTest("duration(\"P1Y1M2DT3H\")", makeSimpleValue(DATATYPE_FACTORY.newDuration("P1Y1M2DT3H")), DURATION, null);
     }
 
     @Test

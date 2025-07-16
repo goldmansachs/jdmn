@@ -17,14 +17,14 @@ import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.FEELConstants;
 
 public class DurationType extends ComparableDataType {
-    public static final DurationType ANY_DURATION = new DurationType("duration");
+    public static final DurationType DURATION = new DurationType("duration");
 
     public static Type getMemberType(Type sourceType, String member) {
         if (YearsAndMonthsDurationType.YEAR_MONTH_DURATION.equivalentTo(sourceType)) {
             return YearsAndMonthsDurationType.getMemberType(sourceType, member);
         } else if (DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.equivalentTo(sourceType)) {
             return DaysAndTimeDurationType.getMemberType(sourceType, member);
-        } else if (DurationType.ANY_DURATION.equivalentTo(sourceType)) {
+        } else if (DurationType.DURATION.equivalentTo(sourceType)) {
             Type memberType = null;
             try {
                 memberType = YearsAndMonthsDurationType.getMemberType(sourceType, member);
@@ -41,7 +41,14 @@ public class DurationType extends ComparableDataType {
     }
 
     @Override
+    public boolean equivalentTo(Type other) {
+        return other == DURATION;
+    }
+
+    @Override
     public boolean conformsTo(Type other) {
-        return equivalentTo(other) || other == ANY_DURATION || other == COMPARABLE;
+        return equivalentTo(other)
+                || other == DURATION
+                || other == COMPARABLE;
     }
 }

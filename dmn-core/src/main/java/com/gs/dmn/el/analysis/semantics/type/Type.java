@@ -112,9 +112,7 @@ public interface Type {
     static boolean sameSemanticDomain(Type type1, Type type2) {
         type1 = extractTypeFromConstraint(type1);
         type2 = extractTypeFromConstraint(type2);
-        if (isNullOrAny(type1) || isNullOrAny(type2)) {
-            return true;
-        } else if (isNullType(type1) || isNullType(type2)) {
+        if (isNullOrAnyType(type1) || isNullOrAnyType(type2)) {
             return true;
         } else {
             return type1.getClass().equals(type2.getClass());

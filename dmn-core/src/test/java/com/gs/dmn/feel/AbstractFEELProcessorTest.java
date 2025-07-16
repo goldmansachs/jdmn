@@ -177,7 +177,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 new EnvironmentEntry("dateTime", DateTimeType.DATE_AND_TIME, dateTime),
                 new EnvironmentEntry("list", ListType.NUMBER_LIST, list),
                 new EnvironmentEntry("input", NUMBER, input),
-                new EnvironmentEntry("context", ContextType.ANY_CONTEXT, context)
+                new EnvironmentEntry("context", ContextType.CONTEXT, context)
         );
 
         //
@@ -752,6 +752,18 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "numericAdd(number(\"1\"), number(\"2\"))",
                 this.lib.numericAdd(this.lib.number("1"), this.lib.number("2")),
                 this.lib.number("3"));
+    }
+
+    @Test
+    public void testBoxedExpressions() {
+        List<EnvironmentEntry> entries = Collections.emptyList();
+
+        doBoxedExpressionTest(entries, "[1 + 2]",
+                "ListLiteral(Addition(+,NumericLiteral(1),NumericLiteral(2)))",
+                "ListType(number)",
+                "asList(numericAdd(number(\"1\"), number(\"2\")))",
+                this.lib.asList(this.lib.numericAdd(this.lib.number("1"), this.lib.number("2"))),
+                this.lib.asList(this.lib.number("3")));
     }
 
     @Test

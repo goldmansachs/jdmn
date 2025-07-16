@@ -46,6 +46,8 @@ public class DateType extends TemporalType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return other == DATE || other == TEMPORAL || other == COMPARABLE;
+        return equivalentTo(other)
+                || other == TEMPORAL
+                || other == COMPARABLE;
     }
 }

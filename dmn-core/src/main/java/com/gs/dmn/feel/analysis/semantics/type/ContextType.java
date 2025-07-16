@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ContextType implements Type, CompositeDataType {
-    public static final Type ANY_CONTEXT = new ContextType();
+    public static final Type CONTEXT = new ContextType();
 
     private final Map<String, Type> members = new LinkedHashMap<>();
 

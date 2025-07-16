@@ -28,6 +28,7 @@ public class StringType extends ComparableDataType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return other == STRING || other == COMPARABLE;
+        return equivalentTo(other)
+                || other == COMPARABLE;
     }
 }

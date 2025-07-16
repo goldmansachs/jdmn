@@ -27,7 +27,7 @@ public class FEELTypeTest {
         assertEquals("date", DateType.DATE.typeExpression());
         assertEquals("time", TimeType.TIME.typeExpression());
         assertEquals("date and time", DateTimeType.DATE_AND_TIME.typeExpression());
-        assertEquals("duration", DurationType.ANY_DURATION.typeExpression());
+        assertEquals("duration", DurationType.DURATION.typeExpression());
         assertEquals("days and time duration", DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.typeExpression());
         assertEquals("years and months duration", YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION.typeExpression());
 
@@ -41,10 +41,10 @@ public class FEELTypeTest {
         assertEquals("range<number>", RangeType.NUMBER_RANGE.typeExpression());
         assertEquals("range<string>", RangeType.STRING_RANGE.typeExpression());
 
-        assertEquals("context<>", ContextType.ANY_CONTEXT.typeExpression());
+        assertEquals("context<>", ContextType.CONTEXT.typeExpression());
         assertEquals("context<a: number, b: string>", new ContextType().addMember("a", Arrays.asList(), NumberType.NUMBER).addMember("b", Arrays.asList(), StringType.STRING).typeExpression());
 
-        assertEquals("function<> -> Any", FunctionType.ANY_FUNCTION.typeExpression());
+        assertEquals("function<> -> Any", FunctionType.FUNCTION.typeExpression());
         assertEquals("function<Null, Null> -> boolean", FunctionType.PREDICATE_FUNCTION.typeExpression());
     }
 
@@ -56,7 +56,7 @@ public class FEELTypeTest {
         assertEquals("date", DateType.DATE.toString());
         assertEquals("time", TimeType.TIME.toString());
         assertEquals("date and time", DateTimeType.DATE_AND_TIME.toString());
-        assertEquals("duration", DurationType.ANY_DURATION.toString());
+        assertEquals("duration", DurationType.DURATION.toString());
         assertEquals("days and time duration", DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.toString());
         assertEquals("years and months duration", YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION.toString());
 
@@ -70,10 +70,10 @@ public class FEELTypeTest {
         assertEquals("RangeType(number)", RangeType.NUMBER_RANGE.toString());
         assertEquals("RangeType(string)", RangeType.STRING_RANGE.toString());
 
-        assertEquals("ContextType()", ContextType.ANY_CONTEXT.toString());
+        assertEquals("ContextType()", ContextType.CONTEXT.toString());
         assertEquals("ContextType(a = number, b = string)", new ContextType().addMember("a", Arrays.asList(), NumberType.NUMBER).addMember("b", Arrays.asList(), StringType.STRING).toString());
 
-        assertEquals("AnyFunctionType(, Any, false)", FunctionType.ANY_FUNCTION.toString());
+        assertEquals("AnyFunctionType(, Any, false)", FunctionType.FUNCTION.toString());
         assertEquals("PredicateFunctionType(FormalParameter(first, Null, false, false), FormalParameter(second, Null, false, false), boolean, false)", FunctionType.PREDICATE_FUNCTION.toString());
     }
 }

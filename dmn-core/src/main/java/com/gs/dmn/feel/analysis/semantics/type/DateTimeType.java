@@ -45,6 +45,10 @@ public class DateTimeType extends TemporalType {
         return MEMBERS.get(member);
     }
 
+    public DateTimeType(String datetime) {
+        super(datetime, "date and time");
+    }
+
     @Override
     public boolean equivalentTo(Type other) {
         return other == DATE_AND_TIME
@@ -54,10 +58,8 @@ public class DateTimeType extends TemporalType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return equivalentTo(other) || other == TEMPORAL || other == COMPARABLE;
-    }
-
-    public DateTimeType(String datetime) {
-        super(datetime, "date and time");
+        return equivalentTo(other)
+                || other == TEMPORAL
+                || other == COMPARABLE;
     }
 }

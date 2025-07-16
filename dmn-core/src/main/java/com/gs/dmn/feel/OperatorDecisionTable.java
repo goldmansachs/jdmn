@@ -26,12 +26,12 @@ import java.util.Map;
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.el.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
-import static com.gs.dmn.feel.analysis.semantics.type.ContextType.ANY_CONTEXT;
+import static com.gs.dmn.feel.analysis.semantics.type.ContextType.CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.DurationType.ANY_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.ANY_FUNCTION;
+import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.FUNCTION;
 import static com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType.ANY_ITEM_DEFINITION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
@@ -60,17 +60,17 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("=", TIME, TIME), new Pair<>(BOOLEAN, new NativeOperator("timeEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("=", DATE_AND_TIME, DATE_AND_TIME), new Pair<>(BOOLEAN, new NativeOperator("dateTimeEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("=", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("=", YEARS_AND_MONTHS_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("=", ANY_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("=", YEARS_AND_MONTHS_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("=", DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("=", DAYS_AND_TIME_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("=", ANY_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("=", ANY_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("=", DAYS_AND_TIME_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("=", DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("=", DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("=", ANY_LIST, ANY_LIST), new Pair<>(BOOLEAN, new NativeOperator("listEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("=", ANY_CONTEXT, ANY_CONTEXT), new Pair<>(BOOLEAN, new NativeOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("=", CONTEXT, CONTEXT), new Pair<>(BOOLEAN, new NativeOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("=", ANY_ITEM_DEFINITION, ANY_ITEM_DEFINITION), new Pair<>(BOOLEAN, new NativeOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("=", ANY_RANGE, ANY_RANGE), new Pair<>(BOOLEAN, new NativeOperator("rangeEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("=", ANY_FUNCTION, ANY_FUNCTION), new Pair<>(BOOLEAN, new NativeOperator("functionEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("=", FUNCTION, FUNCTION), new Pair<>(BOOLEAN, new NativeOperator("functionEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("=", NULL, NULL), new Pair<>(BOOLEAN, new NativeOperator("==", 2, true, LEFT_RIGHT, INFIX)));
 
@@ -81,17 +81,17 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("!=", TIME, TIME), new Pair<>(BOOLEAN, new NativeOperator("timeNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", DATE_AND_TIME, DATE_AND_TIME), new Pair<>(BOOLEAN, new NativeOperator("dateTimeNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("!=", YEARS_AND_MONTHS_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("!=", YEARS_AND_MONTHS_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("!=", DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("!=", DAYS_AND_TIME_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("!=", DAYS_AND_TIME_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("!=", DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("!=", DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_LIST, ANY_LIST), new Pair<>(BOOLEAN, new NativeOperator("listNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_CONTEXT, ANY_CONTEXT), new Pair<>(BOOLEAN, new NativeOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("!=", CONTEXT, CONTEXT), new Pair<>(BOOLEAN, new NativeOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_ITEM_DEFINITION, ANY_ITEM_DEFINITION), new Pair<>(BOOLEAN, new NativeOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_RANGE, ANY_RANGE), new Pair<>(BOOLEAN, new NativeOperator("rangeNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_FUNCTION, ANY_FUNCTION), new Pair<>(BOOLEAN, new NativeOperator("functionNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("!=", FUNCTION, FUNCTION), new Pair<>(BOOLEAN, new NativeOperator("functionNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("!=", NULL, NULL), new Pair<>(BOOLEAN, new NativeOperator("!=", 2, true, LEFT_RIGHT, INFIX)));
 
@@ -102,12 +102,12 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("<", TIME, TIME), new Pair<>(BOOLEAN, new NativeOperator("timeLessThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("<", DATE_AND_TIME, DATE_AND_TIME), new Pair<>(BOOLEAN, new NativeOperator("dateTimeLessThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("<", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("<", YEARS_AND_MONTHS_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("<", ANY_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("<", YEARS_AND_MONTHS_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("<", DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("<", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("<", DAYS_AND_TIME_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("<", ANY_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("<", ANY_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("<", DAYS_AND_TIME_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("<", DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("<", DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry(">", NUMBER, NUMBER), new Pair<>(BOOLEAN, new NativeOperator("numericGreaterThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry(">", STRING, STRING), new Pair<>(BOOLEAN, new NativeOperator("stringGreaterThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
@@ -115,12 +115,12 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry(">", TIME, TIME), new Pair<>(BOOLEAN, new NativeOperator("timeGreaterThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry(">", DATE_AND_TIME, DATE_AND_TIME), new Pair<>(BOOLEAN, new NativeOperator("dateTimeGreaterThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry(">", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry(">", YEARS_AND_MONTHS_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry(">", ANY_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry(">", YEARS_AND_MONTHS_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry(">", DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry(">", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry(">", DAYS_AND_TIME_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry(">", ANY_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry(">", ANY_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry(">", DAYS_AND_TIME_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry(">", DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry(">", DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("<=", NUMBER, NUMBER), new Pair<>(BOOLEAN, new NativeOperator("numericLessEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("<=", STRING, STRING), new Pair<>(BOOLEAN, new NativeOperator("stringLessEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
@@ -128,12 +128,12 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("<=", TIME, TIME), new Pair<>(BOOLEAN, new NativeOperator("timeLessEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("<=", DATE_AND_TIME, DATE_AND_TIME), new Pair<>(BOOLEAN, new NativeOperator("dateTimeLessEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("<=", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("<=", YEARS_AND_MONTHS_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("<=", ANY_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("<=", YEARS_AND_MONTHS_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("<=", DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("<=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("<=", DAYS_AND_TIME_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("<=", ANY_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("<=", ANY_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("<=", DAYS_AND_TIME_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("<=", DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("<=", DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationLessEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry(">=", NUMBER, NUMBER), new Pair<>(BOOLEAN, new NativeOperator("numericGreaterEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry(">=", STRING, STRING), new Pair<>(BOOLEAN, new NativeOperator("stringGreaterEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
@@ -141,12 +141,12 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry(">=", TIME, TIME), new Pair<>(BOOLEAN, new NativeOperator("timeGreaterEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry(">=", DATE_AND_TIME, DATE_AND_TIME), new Pair<>(BOOLEAN, new NativeOperator("dateTimeGreaterEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry(">=", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry(">=", YEARS_AND_MONTHS_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry(">=", ANY_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry(">=", YEARS_AND_MONTHS_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry(">=", DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, false, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry(">=", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry(">=", DAYS_AND_TIME_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry(">=", ANY_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry(">=", ANY_DURATION, ANY_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry(">=", DAYS_AND_TIME_DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry(">=", DURATION, DAYS_AND_TIME_DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry(">=", DURATION, DURATION), new Pair<>(BOOLEAN, new NativeOperator("durationGreaterEqualThan", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         // Addition
         MAPPINGS.put(new OperatorTableInputEntry("+", NUMBER, NUMBER), new Pair<>(NUMBER, new NativeOperator("numericAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
@@ -160,20 +160,20 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("-", TIME, TIME), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("timeSubtract", 2, false, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("+", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(YEARS_AND_MONTHS_DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("+", YEARS_AND_MONTHS_DURATION, ANY_DURATION), new Pair<>(YEARS_AND_MONTHS_DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("+", ANY_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(YEARS_AND_MONTHS_DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("+", YEARS_AND_MONTHS_DURATION, DURATION), new Pair<>(YEARS_AND_MONTHS_DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("+", DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(YEARS_AND_MONTHS_DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("-", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(YEARS_AND_MONTHS_DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("-", YEARS_AND_MONTHS_DURATION, ANY_DURATION), new Pair<>(YEARS_AND_MONTHS_DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("-", ANY_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(YEARS_AND_MONTHS_DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("-", YEARS_AND_MONTHS_DURATION, DURATION), new Pair<>(YEARS_AND_MONTHS_DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("-", DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(YEARS_AND_MONTHS_DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("+", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("+", DAYS_AND_TIME_DURATION, ANY_DURATION), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("+", ANY_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("+", ANY_DURATION, ANY_DURATION), new Pair<>(ANY_DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("+", DAYS_AND_TIME_DURATION, DURATION), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("+", DURATION, DAYS_AND_TIME_DURATION), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("+", DURATION, DURATION), new Pair<>(DURATION, new NativeOperator("durationAdd", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("-", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("-", DAYS_AND_TIME_DURATION, ANY_DURATION), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("-", ANY_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("-", ANY_DURATION, ANY_DURATION), new Pair<>(ANY_DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("-", DAYS_AND_TIME_DURATION, DURATION), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("-", DURATION, DAYS_AND_TIME_DURATION), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("-", DURATION, DURATION), new Pair<>(DURATION, new NativeOperator("durationSubtract", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("+", DATE_AND_TIME, YEARS_AND_MONTHS_DURATION), new Pair<>(DATE_AND_TIME, new NativeOperator("dateTimeAddDuration", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("-", DATE_AND_TIME, YEARS_AND_MONTHS_DURATION), new Pair<>(DATE_AND_TIME, new NativeOperator("dateTimeSubtractDuration", 2, false, LEFT_RIGHT, FUNCTIONAL)));
@@ -185,20 +185,20 @@ public class OperatorDecisionTable {
 
         MAPPINGS.put(new OperatorTableInputEntry("+", DAYS_AND_TIME_DURATION, DATE_AND_TIME), new Pair<>(DATE_AND_TIME, new NativeOperator("dateTimeAddDuration", 2, true, RIGHT_LEFT, FUNCTIONAL)));
 
-        MAPPINGS.put(new OperatorTableInputEntry("+", DATE_AND_TIME, ANY_DURATION), new Pair<>(DATE_AND_TIME, new NativeOperator("dateTimeAddDuration", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("-", DATE_AND_TIME, ANY_DURATION), new Pair<>(DATE_AND_TIME, new NativeOperator("dateTimeSubtractDuration", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("+", DATE_AND_TIME, DURATION), new Pair<>(DATE_AND_TIME, new NativeOperator("dateTimeAddDuration", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("-", DATE_AND_TIME, DURATION), new Pair<>(DATE_AND_TIME, new NativeOperator("dateTimeSubtractDuration", 2, false, LEFT_RIGHT, FUNCTIONAL)));
 
-        MAPPINGS.put(new OperatorTableInputEntry("+", ANY_DURATION, DATE_AND_TIME), new Pair<>(DATE_AND_TIME, new NativeOperator("dateTimeAddDuration", 2, true, RIGHT_LEFT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("+", DURATION, DATE_AND_TIME), new Pair<>(DATE_AND_TIME, new NativeOperator("dateTimeAddDuration", 2, true, RIGHT_LEFT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("+", TIME, DAYS_AND_TIME_DURATION), new Pair<>(TIME, new NativeOperator("timeAddDuration", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("-", TIME, DAYS_AND_TIME_DURATION), new Pair<>(TIME, new NativeOperator("timeSubtractDuration", 2, false, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("+", DAYS_AND_TIME_DURATION, TIME), new Pair<>(TIME, new NativeOperator("timeAddDuration", 2, true, RIGHT_LEFT, FUNCTIONAL)));
 
-        MAPPINGS.put(new OperatorTableInputEntry("+", TIME, ANY_DURATION), new Pair<>(TIME, new NativeOperator("timeAddDuration", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("-", TIME, ANY_DURATION), new Pair<>(TIME, new NativeOperator("timeSubtractDuration", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("+", TIME, DURATION), new Pair<>(TIME, new NativeOperator("timeAddDuration", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("-", TIME, DURATION), new Pair<>(TIME, new NativeOperator("timeSubtractDuration", 2, false, LEFT_RIGHT, FUNCTIONAL)));
 
-        MAPPINGS.put(new OperatorTableInputEntry("+", ANY_DURATION, TIME), new Pair<>(TIME, new NativeOperator("timeAddDuration", 2, true, RIGHT_LEFT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("+", DURATION, TIME), new Pair<>(TIME, new NativeOperator("timeAddDuration", 2, true, RIGHT_LEFT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("+", STRING, STRING), new Pair<>(STRING, new NativeOperator("stringAdd", 2, false, LEFT_RIGHT, FUNCTIONAL)));
 
@@ -212,10 +212,10 @@ public class OperatorDecisionTable {
 
         MAPPINGS.put(new OperatorTableInputEntry("+", DAYS_AND_TIME_DURATION, DATE), new Pair<>(DATE, new NativeOperator("dateAddDuration", 2, false, RIGHT_LEFT, FUNCTIONAL)));
 
-        MAPPINGS.put(new OperatorTableInputEntry("+", DATE, ANY_DURATION), new Pair<>(DATE, new NativeOperator("dateAddDuration", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("-", DATE, ANY_DURATION), new Pair<>(DATE, new NativeOperator("dateSubtractDuration", 2, false, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("+", DATE, DURATION), new Pair<>(DATE, new NativeOperator("dateAddDuration", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("-", DATE, DURATION), new Pair<>(DATE, new NativeOperator("dateSubtractDuration", 2, false, LEFT_RIGHT, FUNCTIONAL)));
 
-        MAPPINGS.put(new OperatorTableInputEntry("+", ANY_DURATION, DATE), new Pair<>(DATE, new NativeOperator("dateAddDuration", 2, false, RIGHT_LEFT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("+", DURATION, DATE), new Pair<>(DATE, new NativeOperator("dateAddDuration", 2, false, RIGHT_LEFT, FUNCTIONAL)));
 
         // Multiplication
         MAPPINGS.put(new OperatorTableInputEntry("*", NUMBER, NUMBER), new Pair<>(NUMBER, new NativeOperator("numericMultiply", 2, true, LEFT_RIGHT, FUNCTIONAL)));
@@ -227,8 +227,8 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("*", NUMBER, YEARS_AND_MONTHS_DURATION), new Pair<>(YEARS_AND_MONTHS_DURATION, new NativeOperator("durationMultiplyNumber", 2, true, RIGHT_LEFT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("/", YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("/", YEARS_AND_MONTHS_DURATION, ANY_DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("/", ANY_DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("/", YEARS_AND_MONTHS_DURATION, DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("/", DURATION, YEARS_AND_MONTHS_DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("*", DAYS_AND_TIME_DURATION, NUMBER), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationMultiplyNumber", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("/", DAYS_AND_TIME_DURATION, NUMBER), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationDivideNumber", 2, true, LEFT_RIGHT, FUNCTIONAL)));
@@ -236,15 +236,15 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("*", NUMBER, DAYS_AND_TIME_DURATION), new Pair<>(DAYS_AND_TIME_DURATION, new NativeOperator("durationMultiplyNumber", 2, true, RIGHT_LEFT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("/", DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("/", DAYS_AND_TIME_DURATION, ANY_DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("/", ANY_DURATION, DAYS_AND_TIME_DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("/", DAYS_AND_TIME_DURATION, DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("/", DURATION, DAYS_AND_TIME_DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
-        MAPPINGS.put(new OperatorTableInputEntry("*", ANY_DURATION, NUMBER), new Pair<>(ANY_DURATION, new NativeOperator("durationMultiplyNumber", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("/", ANY_DURATION, NUMBER), new Pair<>(ANY_DURATION, new NativeOperator("durationDivideNumber", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("*", DURATION, NUMBER), new Pair<>(DURATION, new NativeOperator("durationMultiplyNumber", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("/", DURATION, NUMBER), new Pair<>(DURATION, new NativeOperator("durationDivideNumber", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
-        MAPPINGS.put(new OperatorTableInputEntry("*", NUMBER, ANY_DURATION), new Pair<>(ANY_DURATION, new NativeOperator("durationMultiplyNumber", 2, true, RIGHT_LEFT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("*", NUMBER, DURATION), new Pair<>(DURATION, new NativeOperator("durationMultiplyNumber", 2, true, RIGHT_LEFT, FUNCTIONAL)));
 
-        MAPPINGS.put(new OperatorTableInputEntry("/", ANY_DURATION, ANY_DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
+        MAPPINGS.put(new OperatorTableInputEntry("/", DURATION, DURATION), new Pair<>(NUMBER, new NativeOperator("durationDivide", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         // Exponentiation
         MAPPINGS.put(new OperatorTableInputEntry("**", NUMBER, NUMBER), new Pair<>(NUMBER, new NativeOperator("numericExponentiation", 2, false, LEFT_RIGHT, FUNCTIONAL)));
