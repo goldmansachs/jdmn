@@ -130,8 +130,6 @@ public interface FEELType {
         put(ComparableDataType.COMPARABLE.getName(), ComparableDataType.COMPARABLE);
         // context is equivalent to context<>
         put("context", ContextType.CONTEXT);
-        // function is equivalent to function<> -> ANY
-        put("function", FunctionType.FUNCTION);
     }};
 
     List<String> FEEL_TYPE_NAMES = Arrays.asList(

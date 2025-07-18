@@ -164,8 +164,7 @@ public class BuiltinFunctionType extends FunctionType {
     @Override
     public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
-        return other == FunctionType.FUNCTION ||
-                other instanceof FunctionType
+        return  other instanceof FunctionType
                 && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
                 && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
     }

@@ -31,7 +31,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.FUNCTION;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
@@ -136,15 +135,11 @@ public class TypeConformanceTest {
 
         checkConformsTo(true, type1, type1);
         checkConformsTo(true, type1, ANY);
-        checkConformsTo(true, type1, FUNCTION);
 
         checkConformsTo(false, type1, type2);
         checkConformsTo(false, type1, type3);
         checkConformsTo(false, type1, NUMBER);
         checkConformsTo(false, type1, type4);
-
-        checkConformsTo(true, type4, FUNCTION);
-        checkConformsTo(false, FUNCTION, type4);
     }
 
     @Test

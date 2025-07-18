@@ -31,7 +31,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.FUNCTION;
 import static com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType.ANY_ITEM_DEFINITION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
@@ -70,7 +69,6 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("=", CONTEXT, CONTEXT), new Pair<>(BOOLEAN, new NativeOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("=", ANY_ITEM_DEFINITION, ANY_ITEM_DEFINITION), new Pair<>(BOOLEAN, new NativeOperator("contextEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("=", ANY_RANGE, ANY_RANGE), new Pair<>(BOOLEAN, new NativeOperator("rangeEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("=", FUNCTION, FUNCTION), new Pair<>(BOOLEAN, new NativeOperator("functionEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("=", NULL, NULL), new Pair<>(BOOLEAN, new NativeOperator("==", 2, true, LEFT_RIGHT, INFIX)));
 
@@ -91,7 +89,6 @@ public class OperatorDecisionTable {
         MAPPINGS.put(new OperatorTableInputEntry("!=", CONTEXT, CONTEXT), new Pair<>(BOOLEAN, new NativeOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_ITEM_DEFINITION, ANY_ITEM_DEFINITION), new Pair<>(BOOLEAN, new NativeOperator("contextNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
         MAPPINGS.put(new OperatorTableInputEntry("!=", ANY_RANGE, ANY_RANGE), new Pair<>(BOOLEAN, new NativeOperator("rangeNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
-        MAPPINGS.put(new OperatorTableInputEntry("!=", FUNCTION, FUNCTION), new Pair<>(BOOLEAN, new NativeOperator("functionNotEqual", 2, true, LEFT_RIGHT, FUNCTIONAL)));
 
         MAPPINGS.put(new OperatorTableInputEntry("!=", NULL, NULL), new Pair<>(BOOLEAN, new NativeOperator("!=", 2, true, LEFT_RIGHT, INFIX)));
 

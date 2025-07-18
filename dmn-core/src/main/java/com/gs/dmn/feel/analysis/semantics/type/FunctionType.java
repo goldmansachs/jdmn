@@ -22,39 +22,10 @@ import com.gs.dmn.runtime.Pair;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.syntax.ConversionKind.*;
 
 public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.type.FunctionType, FEELType {
-    public static final FunctionType FUNCTION = new FunctionType(Collections.emptyList(), ANY) {
-        @Override
-        public boolean equivalentTo(Type other) {
-            return this == other;
-        }
-
-        @Override
-        public boolean conformsTo(Type other) {
-            return equivalentTo(other);
-        }
-
-        @Override
-        public boolean match(ParameterTypes<Type> parameterTypes) {
-            return false;
-        }
-
-        @Override
-        protected List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(List<Type> argumentTypes) {
-            return null;
-        }
-
-        @Override
-        public String toString() {
-            String types = this.parameters.stream().map(p -> p == null ? "null" : p.toString()).collect(Collectors.joining(", "));
-            return String.format("AnyFunctionType(%s, %s, %s)", types, this.returnType, false);
-        }
-    };
-
     public static final FunctionType PREDICATE_FUNCTION = new FunctionType(Arrays.asList(new FormalParameter<>("first", NullType.NULL), new FormalParameter<>("second", NullType.NULL)), BooleanType.BOOLEAN) {
         @Override
         public boolean equivalentTo(Type other) {

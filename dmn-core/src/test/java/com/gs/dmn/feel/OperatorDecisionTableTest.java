@@ -28,7 +28,6 @@ import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.FunctionType.FUNCTION;
 import static com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType.ANY_ITEM_DEFINITION;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.ANY_LIST;
 import static com.gs.dmn.feel.analysis.semantics.type.ListType.NUMBER_LIST;
@@ -56,7 +55,6 @@ class OperatorDecisionTableTest {
         check("=", CONTEXT, CONTEXT, BOOLEAN, "contextEqual");
         check("=", ANY_ITEM_DEFINITION, ANY_ITEM_DEFINITION, BOOLEAN, "contextEqual");
         check("=", ANY_RANGE, ANY_RANGE, BOOLEAN, "rangeEqual");
-        check("=", FUNCTION, FUNCTION, BOOLEAN, "functionEqual");
 
         check("=", NUMBER_LIST, ANY_LIST, BOOLEAN, "listEqual");
         ContextType contextType = new ContextType();

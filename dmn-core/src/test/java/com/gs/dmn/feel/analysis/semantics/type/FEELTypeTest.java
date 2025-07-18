@@ -44,7 +44,6 @@ public class FEELTypeTest {
         assertEquals("context<>", ContextType.CONTEXT.typeExpression());
         assertEquals("context<a: number, b: string>", new ContextType().addMember("a", Arrays.asList(), NumberType.NUMBER).addMember("b", Arrays.asList(), StringType.STRING).typeExpression());
 
-        assertEquals("function<> -> Any", FunctionType.FUNCTION.typeExpression());
         assertEquals("function<Null, Null> -> boolean", FunctionType.PREDICATE_FUNCTION.typeExpression());
     }
 
@@ -73,7 +72,6 @@ public class FEELTypeTest {
         assertEquals("ContextType()", ContextType.CONTEXT.toString());
         assertEquals("ContextType(a = number, b = string)", new ContextType().addMember("a", Arrays.asList(), NumberType.NUMBER).addMember("b", Arrays.asList(), StringType.STRING).toString());
 
-        assertEquals("AnyFunctionType(, Any, false)", FunctionType.FUNCTION.toString());
         assertEquals("PredicateFunctionType(FormalParameter(first, Null, false, false), FormalParameter(second, Null, false, false), boolean, false)", FunctionType.PREDICATE_FUNCTION.toString());
     }
 }
