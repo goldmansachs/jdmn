@@ -22,6 +22,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+
 public class BuiltinFunctionType extends FunctionType {
     private final int totalParamsCount;
     private final int mandatoryParamsCount;
@@ -134,10 +136,10 @@ public class BuiltinFunctionType extends FunctionType {
     }
 
     private boolean match(NamedParameterTypes<Type> namedParameterTypes) {
-        for (String argName: namedParameterTypes.getNames()) {
+        for (String argName : namedParameterTypes.getNames()) {
             Type argType = namedParameterTypes.getType(argName);
             boolean found = false;
-            for(FormalParameter<Type> parameter: this.parameters) {
+            for (FormalParameter<Type> parameter : this.parameters) {
                 if (parameter.getName().equals(argName)) {
                     found = true;
                     Type parType = parameter.getType();
@@ -164,9 +166,11 @@ public class BuiltinFunctionType extends FunctionType {
     @Override
     public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
-        return  other instanceof FunctionType
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+        return other == ANY
+                || other instanceof FunctionType
+                    && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
+                    && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes)
+                || equivalentTo(other);
     }
 
     @Override

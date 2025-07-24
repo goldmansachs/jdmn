@@ -42,6 +42,10 @@ public class ConstraintType implements Type {
 
     @Override
     public boolean conformsTo(Type other) {
+        if (equivalentTo(other)) {
+            return true;
+        }
+
         if (other instanceof ConstraintType) {
             return this.type.conformsTo(((ConstraintType) other).getType());
         } else {

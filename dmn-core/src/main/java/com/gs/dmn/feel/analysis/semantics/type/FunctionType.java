@@ -22,6 +22,7 @@ import com.gs.dmn.runtime.Pair;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
 import static com.gs.dmn.feel.analysis.syntax.ConversionKind.*;
 
@@ -34,7 +35,9 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
 
         @Override
         public boolean conformsTo(Type other) {
-            return equivalentTo(other);
+            return other == ANY
+                    || equivalentTo(other)
+                    ;
         }
 
         @Override

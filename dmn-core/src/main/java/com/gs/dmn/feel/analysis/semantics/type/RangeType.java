@@ -66,13 +66,16 @@ public class RangeType implements Type, FEELType {
     @Override
     public boolean equivalentTo(Type other) {
         return other instanceof RangeType
-                && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.type, ((RangeType) other).type);
+                   && com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(this.type, ((RangeType) other).type);
     }
 
     @Override
     public boolean conformsTo(Type other) {
-        return other instanceof RangeType
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.type, ((RangeType) other).type);
+        return other == ANY
+                || other instanceof RangeType
+                    && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.type, ((RangeType) other).type)
+                || equivalentTo(other)
+                ;
     }
 
     @Override

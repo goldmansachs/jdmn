@@ -22,6 +22,8 @@ import com.gs.dmn.runtime.Pair;
 
 import java.util.List;
 
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+
 public class BuiltinOverloadedFunctionType extends FunctionType {
     private final List<Declaration> declarations;
 
@@ -43,6 +45,10 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
 
     @Override
     public boolean conformsTo(Type other) {
+        if (other == ANY) {
+            return true;
+        }
+
         for (Declaration d: this.declarations) {
             Type type = d.getType();
             if (type.conformsTo(other)) {

@@ -16,6 +16,8 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.FEELConstants;
 
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+
 public class DurationType extends ComparableDataType {
     public static final DurationType DURATION = new DurationType("duration");
 
@@ -47,8 +49,10 @@ public class DurationType extends ComparableDataType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return equivalentTo(other)
+        return other == ANY
+                || other == COMPARABLE
                 || other == DURATION
-                || other == COMPARABLE;
+                || equivalentTo(other)
+                ;
     }
 }

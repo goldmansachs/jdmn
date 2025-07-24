@@ -14,6 +14,8 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
 
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+
 public class BooleanType extends DataType {
     public static final BooleanType BOOLEAN = new BooleanType();
 
@@ -28,6 +30,8 @@ public class BooleanType extends DataType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return other == BOOLEAN;
+        return other == ANY
+                || equivalentTo(other)
+                ;
     }
 }

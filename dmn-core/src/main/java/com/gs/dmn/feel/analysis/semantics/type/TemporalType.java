@@ -14,6 +14,8 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
 
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+
 public class TemporalType extends ComparableDataType {
     public static final TemporalType TEMPORAL = new TemporalType("temporal", null);
 
@@ -22,8 +24,16 @@ public class TemporalType extends ComparableDataType {
     }
 
     @Override
+    public boolean equivalentTo(Type other) {
+        return other == TEMPORAL;
+    }
+
+    @Override
     public boolean conformsTo(Type other) {
-        return equivalentTo(other)
-                || other == COMPARABLE;
+        return other == ANY
+                || other == COMPARABLE
+                || other == TEMPORAL
+                || equivalentTo(other)
+                ;
     }
 }

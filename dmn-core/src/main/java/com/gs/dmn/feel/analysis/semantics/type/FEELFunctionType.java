@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+
 public class FEELFunctionType extends FunctionType {
     private final FunctionDefinition<Type> functionDefinition;
     private final boolean external;
@@ -55,9 +57,12 @@ public class FEELFunctionType extends FunctionType {
     @Override
     public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
-        return  other instanceof FunctionType
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+        return other == ANY
+                || other instanceof FunctionType
+                    && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
+                    && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes)
+                || equivalentTo(other)
+                ;
     }
 
     @Override

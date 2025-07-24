@@ -58,7 +58,8 @@ public class ContextType implements Type, CompositeDataType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return CompositeDataType.conformsTo(this, other);
+        return CompositeDataType.conformsTo(this, other)
+                || equivalentTo(other);
     }
 
     @Override

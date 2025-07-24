@@ -45,8 +45,8 @@ public class YearsAndMonthsDurationType extends DurationType {
 
     @Override
     public boolean equivalentTo(Type other) {
-        return (this == YEARS_AND_MONTHS_DURATION || this == YEAR_MONTH_DURATION)
-                && (other == YEARS_AND_MONTHS_DURATION || other == YEAR_MONTH_DURATION)
+        return other == YEARS_AND_MONTHS_DURATION
+                || other == YEAR_MONTH_DURATION
                 ;
     }
 }

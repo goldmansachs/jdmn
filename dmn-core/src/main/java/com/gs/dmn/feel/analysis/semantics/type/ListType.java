@@ -33,7 +33,7 @@ public class ListType implements com.gs.dmn.el.analysis.semantics.type.ListType,
     private final Type elementType;
 
     public ListType() {
-        this( null);
+        this(null);
     }
 
     public ListType(Type elementType) {
@@ -53,6 +53,10 @@ public class ListType implements com.gs.dmn.el.analysis.semantics.type.ListType,
 
     @Override
     public boolean conformsTo(Type other) {
+        if (other == ANY || equivalentTo(other)) {
+            return true;
+        }
+
         if (other instanceof ListType) {
             return Type.equivalentTo(this, ListType.EMPTY_LIST) || Type.conformsTo(this.elementType, ((ListType) other).elementType);
         } else {

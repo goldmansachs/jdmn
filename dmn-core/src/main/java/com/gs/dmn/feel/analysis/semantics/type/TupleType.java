@@ -44,8 +44,10 @@ public class TupleType implements Type, FEELType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return other instanceof TupleType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.types, ((TupleType) other).types)
-                || other == ANY;
+        return other == ANY
+                || other instanceof TupleType && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.types, ((TupleType) other).types)
+                || equivalentTo(other)
+                ;
     }
 
     @Override

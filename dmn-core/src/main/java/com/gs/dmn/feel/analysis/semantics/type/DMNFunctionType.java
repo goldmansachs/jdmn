@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+
 public class DMNFunctionType extends FunctionType implements com.gs.dmn.el.analysis.semantics.type.DMNFunctionType {
     private final TDRGElement drgElement;
     private final TFunctionDefinition functionDefinition;
@@ -69,9 +71,12 @@ public class DMNFunctionType extends FunctionType implements com.gs.dmn.el.analy
     @Override
     public boolean conformsTo(Type other) {
         // “contravariant function argument type” and “covariant function return type”
-        return  other instanceof FunctionType
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
-                && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes);
+        return other == ANY
+                || other instanceof FunctionType
+                    && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(this.returnType, ((FunctionType) other).returnType)
+                    && com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(((FunctionType) other).parameterTypes, this.parameterTypes)
+                || equivalentTo(other)
+                ;
     }
 
     @Override

@@ -25,10 +25,4 @@ public class StringType extends ComparableDataType {
     public boolean equivalentTo(Type other) {
         return other == STRING;
     }
-
-    @Override
-    public boolean conformsTo(Type other) {
-        return equivalentTo(other)
-                || other == COMPARABLE;
-    }
 }

@@ -45,11 +45,4 @@ public class TimeType extends TemporalType {
     public boolean equivalentTo(Type other) {
         return other == TIME;
     }
-
-    @Override
-    public boolean conformsTo(Type other) {
-        return equivalentTo(other)
-                || other == TEMPORAL
-                || other == COMPARABLE;
-    }
 }

@@ -14,6 +14,8 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
 
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+
 public class EnumerationType extends NamedType {
     public static final EnumerationType ENUMERATION = new EnumerationType();
 
@@ -28,7 +30,8 @@ public class EnumerationType extends NamedType {
 
     @Override
     public boolean conformsTo(Type other) {
-        return other == ENUMERATION;
+        return other == ANY
+                || equivalentTo(other);
     }
 
     @Override

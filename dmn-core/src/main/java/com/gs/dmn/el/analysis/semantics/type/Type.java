@@ -16,8 +16,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.List;
 
-import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
-
 public interface Type {
     //
     // Undefined types
@@ -76,7 +74,7 @@ public interface Type {
     static boolean conformsTo(Type type1, Type type2) {
         type1 = extractTypeFromConstraint(type1);
         type2 = extractTypeFromConstraint(type2);
-        if (type2 == null || type2 == ANY) {
+        if (type2 == null) {
             return true;
         } else if (type1 == null) {
             return false;

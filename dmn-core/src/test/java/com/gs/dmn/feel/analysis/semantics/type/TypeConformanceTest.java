@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
@@ -30,11 +31,13 @@ import static com.gs.dmn.feel.analysis.semantics.type.ContextType.CONTEXT;
 import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAY_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.DurationType.DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEAR_MONTH_DURATION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TypeConformanceTest {
@@ -87,11 +90,23 @@ public class TypeConformanceTest {
         put(new Pair<>(DAYS_AND_TIME_DURATION, COMPARABLE), true);
         put(new Pair<>(DAYS_AND_TIME_DURATION, DURATION), true);
         put(new Pair<>(DAYS_AND_TIME_DURATION, DAYS_AND_TIME_DURATION), true);
+        put(new Pair<>(DAYS_AND_TIME_DURATION, DAY_TIME_DURATION), true);
+        put(new Pair<>(DAY_TIME_DURATION, ANY), true);
+        put(new Pair<>(DAY_TIME_DURATION, COMPARABLE), true);
+        put(new Pair<>(DAY_TIME_DURATION, DURATION), true);
+        put(new Pair<>(DAY_TIME_DURATION, DAY_TIME_DURATION), true);
+        put(new Pair<>(DAY_TIME_DURATION, DAYS_AND_TIME_DURATION), true);
 
         put(new Pair<>(YEARS_AND_MONTHS_DURATION, ANY), true);
         put(new Pair<>(YEARS_AND_MONTHS_DURATION, COMPARABLE), true);
         put(new Pair<>(YEARS_AND_MONTHS_DURATION, DURATION), true);
+        put(new Pair<>(YEARS_AND_MONTHS_DURATION, YEAR_MONTH_DURATION), true);
         put(new Pair<>(YEARS_AND_MONTHS_DURATION, YEARS_AND_MONTHS_DURATION), true);
+        put(new Pair<>(YEAR_MONTH_DURATION, ANY), true);
+        put(new Pair<>(YEAR_MONTH_DURATION, COMPARABLE), true);
+        put(new Pair<>(YEAR_MONTH_DURATION, DURATION), true);
+        put(new Pair<>(YEAR_MONTH_DURATION, YEARS_AND_MONTHS_DURATION), true);
+        put(new Pair<>(YEAR_MONTH_DURATION, YEAR_MONTH_DURATION), true);
 
         // Abstract types
         put(new Pair<>(ANY, ANY), true);
@@ -99,9 +114,11 @@ public class TypeConformanceTest {
         put(new Pair<>(COMPARABLE, ANY), true);
         put(new Pair<>(COMPARABLE, COMPARABLE), true);
 
+        put(new Pair<>(TEMPORAL, ANY), true);
         put(new Pair<>(TEMPORAL, COMPARABLE), true);
         put(new Pair<>(TEMPORAL, TEMPORAL), true);
 
+        put(new Pair<>(DURATION, ANY), true);
         put(new Pair<>(DURATION, COMPARABLE), true);
         put(new Pair<>(DURATION, DURATION), true);
 
@@ -127,19 +144,30 @@ public class TypeConformanceTest {
     }
 
     @Test
-    public void testFunctionType() {
-        FEELFunctionType type1 = new FEELFunctionType(Collections.singletonList(new FormalParameter<>("p", STRING)), STRING, false);
-        FEELFunctionType type2 = new FEELFunctionType(Collections.singletonList(new FormalParameter<>("p", NUMBER)), STRING, false);
-        FEELFunctionType type3 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p1", STRING), new FormalParameter<>("p2", NUMBER)), STRING, false);
-        FEELFunctionType type4 = new FEELFunctionType(Collections.emptyList(), ANY, false);
+    public void testNullType() {
+        NullType type = NULL;
 
-        checkConformsTo(true, type1, type1);
-        checkConformsTo(true, type1, ANY);
+        checkConformsTo(true, type, type);
 
-        checkConformsTo(false, type1, type2);
-        checkConformsTo(false, type1, type3);
-        checkConformsTo(false, type1, NUMBER);
-        checkConformsTo(false, type1, type4);
+        checkConformsTo(true, type, ANY);
+        checkConformsTo(true, type, COMPARABLE);
+        checkConformsTo(true, type, TEMPORAL);
+        checkConformsTo(true, type, DURATION);
+        checkConformsTo(true, type, STRING);
+        checkConformsTo(true, type, BOOLEAN);
+        checkConformsTo(true, type, NUMBER);
+    }
+
+    @Test
+    public void testEnumerationType() {
+        Type type = EnumerationType.ENUMERATION;
+
+        checkConformsTo(true, type, type);
+
+        checkConformsTo(true, type, ANY);
+        checkConformsTo(false, type, STRING);
+        checkConformsTo(false, type, BOOLEAN);
+        checkConformsTo(false, type, NUMBER);
     }
 
     @Test
@@ -227,9 +255,11 @@ public class TypeConformanceTest {
         TupleType type1 = new TupleType(Arrays.asList(NUMBER, BOOLEAN, DATE));
         TupleType type2 = new TupleType(Arrays.asList(BOOLEAN, DATE));
         TupleType type3 = new TupleType(Arrays.asList(NUMBER, BOOLEAN));
+        TupleType type4 = new TupleType(Arrays.asList(NUMBER, ANY, DATE));
 
-        checkConformsTo(true, type1, type1);
         checkConformsTo(true, type1, ANY);
+        checkConformsTo(true, type1, type4);
+        checkConformsTo(true, type1, type1);
 
         checkConformsTo(false, type1, type2);
         checkConformsTo(false, type1, type3);
@@ -237,18 +267,65 @@ public class TypeConformanceTest {
     }
 
     @Test
-    public void testNullType() {
-        NullType type = NULL;
+    public void testDMNFunctionType() {
+        FunctionType type1 = new DMNFunctionType(Collections.singletonList(new FormalParameter<>("p", STRING)), STRING, null);
+        FunctionType type2 = new DMNFunctionType(Collections.singletonList(new FormalParameter<>("p", NUMBER)), STRING, null);
+        FunctionType type3 = new DMNFunctionType(Arrays.asList(new FormalParameter<>("p1", STRING), new FormalParameter<>("p2", NUMBER)), STRING, null);
+        FunctionType type4 = new DMNFunctionType(Collections.emptyList(), ANY, null);
 
-        checkConformsTo(true, type, type);
+        checkFunctionType(type1, type1, type2, type3, type4);
+    }
 
+    @Test
+    public void testFEELFunctionType() {
+        FunctionType type1 = new FEELFunctionType(Collections.singletonList(new FormalParameter<>("p", STRING)), STRING, false);
+        FunctionType type2 = new FEELFunctionType(Collections.singletonList(new FormalParameter<>("p", NUMBER)), STRING, false);
+        FunctionType type3 = new FEELFunctionType(Arrays.asList(new FormalParameter<>("p1", STRING), new FormalParameter<>("p2", NUMBER)), STRING, false);
+        FunctionType type4 = new FEELFunctionType(Collections.emptyList(), ANY, false);
+
+        checkFunctionType(type1, type1, type2, type3, type4);
+    }
+
+    @Test
+    public void testBuiltinFunctionType() {
+        FunctionType type1 = new BuiltinFunctionType(STRING, new FormalParameter<>("p", STRING));
+        FunctionType type2 = new BuiltinFunctionType(STRING, new FormalParameter<>("p", NUMBER));
+        FunctionType type3 = new BuiltinFunctionType(STRING, new FormalParameter<>("p1", STRING), new FormalParameter<>("p2", NUMBER));
+        FunctionType type4 = new BuiltinFunctionType(ANY);
+
+        checkFunctionType(type1, type1, type2, type3, type4);
+    }
+
+    @Test
+    public void testBuiltinOverloadedFunctionType() {
+        FunctionType functionType1 = new BuiltinFunctionType(STRING, new FormalParameter<>("p", STRING));
+        FunctionType functionType2 = new BuiltinFunctionType(STRING, new FormalParameter<>("p", NUMBER));
+        FunctionType functionType3 = new BuiltinFunctionType(STRING, new FormalParameter<>("p1", STRING), new FormalParameter<>("p2", NUMBER));
+        FunctionType functionType4 = new BuiltinFunctionType(ANY);
+
+        FunctionType type1 = new BuiltinOverloadedFunctionType(Collections.singletonList(new VariableDeclaration("f1", functionType1)));
+
+        checkFunctionType(type1, functionType1, functionType2, functionType3, functionType4);
+    }
+
+    @Test
+    public void testLibraryFunctionType() {
+        FunctionType type1 = new LibraryFunctionType(Collections.singletonList(new FormalParameter<>("p", STRING)), STRING);
+        FunctionType type2 = new LibraryFunctionType(Collections.singletonList(new FormalParameter<>("p", NUMBER)), STRING);
+        FunctionType type3 = new LibraryFunctionType(Arrays.asList(new FormalParameter<>("p1", STRING), new FormalParameter<>("p2", NUMBER)), STRING);
+        FunctionType type4 = new LibraryFunctionType(Collections.emptyList(), ANY);
+
+        checkFunctionType(type1, type1, type2, type3, type4);
+    }
+
+    private void checkFunctionType(FunctionType type, FunctionType type1, FunctionType type2, FunctionType type3, FunctionType type4) {
+        checkConformsTo(true, type, type1);
         checkConformsTo(true, type, ANY);
-        checkConformsTo(true, type, COMPARABLE);
-        checkConformsTo(true, type, TEMPORAL);
-        checkConformsTo(true, type, DURATION);
-        checkConformsTo(true, type, STRING);
-        checkConformsTo(true, type, BOOLEAN);
-        checkConformsTo(true, type, NUMBER);
+
+        checkConformsTo(false, type, type2);
+        checkConformsTo(false, type, type3);
+        checkConformsTo(false, type, NUMBER);
+        checkConformsTo(false, type, type4);
     }
 
     private void checkConformsTo(boolean expected, Type left, Type right) {

@@ -47,8 +47,8 @@ public class DaysAndTimeDurationType extends DurationType {
 
     @Override
     public boolean equivalentTo(Type other) {
-        return (this == DAYS_AND_TIME_DURATION || this == DAY_TIME_DURATION)
-                && (other == DAYS_AND_TIME_DURATION || other == DAY_TIME_DURATION)
+        return other == DAYS_AND_TIME_DURATION
+                || other == DAY_TIME_DURATION
                 ;
     }
 }

@@ -17,6 +17,8 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import java.util.List;
 import java.util.Set;
 
+import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+
 public interface CompositeDataType extends FEELType {
     static boolean equivalentTo(CompositeDataType self, Type other) {
         if (self instanceof ContextType && other instanceof ContextType) {
@@ -53,6 +55,10 @@ public interface CompositeDataType extends FEELType {
     }
 
     static boolean conformsTo(CompositeDataType self, Type other) {
+        if (other == ANY) {
+            return true;
+        }
+
         if (other instanceof ContextType) {
             Set<String> selfNames = self.getMembers();
             Set<String> otherNames = ((ContextType) other).getMembers();

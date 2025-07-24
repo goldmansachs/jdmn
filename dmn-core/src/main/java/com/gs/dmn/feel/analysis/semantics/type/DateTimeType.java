@@ -55,11 +55,4 @@ public class DateTimeType extends TemporalType {
                 || other == DATE_TIME
                 || other == DATE_TIME_CAMEL;
     }
-
-    @Override
-    public boolean conformsTo(Type other) {
-        return equivalentTo(other)
-                || other == TEMPORAL
-                || other == COMPARABLE;
-    }
 }
