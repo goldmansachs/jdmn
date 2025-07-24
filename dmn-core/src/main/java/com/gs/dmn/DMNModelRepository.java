@@ -52,7 +52,6 @@ public class DMNModelRepository {
     protected Map<String, TDRGElement> drgElementByName = new LinkedHashMap<>();
     protected Map<String, TInvocable> invocablesByName = new LinkedHashMap<>();
     protected Map<String, TDRGElement> drgElementByRef = new LinkedHashMap<>();
-    protected Map<TDefinitions, List<TDRGElement>> drgElementsByModel = new LinkedHashMap<>();
     protected Map<TDefinitions, List<TDecision>> decisionsByModel = new LinkedHashMap<>();
     protected Map<TDefinitions, List<TInputData>> inputDatasByModel = new LinkedHashMap<>();
     protected Map<TDefinitions, List<TBusinessKnowledgeModel>> bkmsByModel = new LinkedHashMap<>();
@@ -278,12 +277,7 @@ public class DMNModelRepository {
     }
 
     public List<TDRGElement> findDRGElements(TDefinitions definitions) {
-        List<TDRGElement> result = this.drgElementsByModel.get(definitions);
-        if (result == null) {
-            result = new ArrayList<>(definitions.getDrgElement());
-            this.drgElementsByModel.put(definitions, result);
-        }
-        return result;
+        return definitions.getDrgElement();
     }
 
     public List<TDecision> findDecisions(TDefinitions definitions) {

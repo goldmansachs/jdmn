@@ -78,4 +78,14 @@ public abstract class TCKBaseElement implements Visitable {
     public void addChildren(TCKBaseElement child) {
         this.children.add(child);
     }
+
+    @Override
+    public final boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public final int hashCode() {
+        return super.hashCode();
+    }
 }

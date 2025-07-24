@@ -77,4 +77,14 @@ public abstract class DMNBaseElement {
     public void addChildren(DMNBaseElement child) {
         this.children.add(child);
     }
+
+    @Override
+    public final boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public final int hashCode() {
+        return super.hashCode();
+    }
 }
