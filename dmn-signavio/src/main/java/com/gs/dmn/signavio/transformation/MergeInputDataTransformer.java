@@ -16,7 +16,6 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TInputData;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 
 public class MergeInputDataTransformer extends AbstractMergeInputDataTransformer {
@@ -31,7 +30,7 @@ public class MergeInputDataTransformer extends AbstractMergeInputDataTransformer
     @Override
     protected String equivalenceKey(TInputData inputData, DMNModelRepository repository) {
         if (isIterator(inputData, repository)) {
-            return ((SignavioDMNModelRepository) repository).getShapeId(inputData);
+            return String.format("%s-%s-%s", diagramId(inputData, repository), shapeId(inputData, repository), inputData.getId());
         } else {
             return inputData.getLabel().trim();
         }
