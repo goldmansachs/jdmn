@@ -233,9 +233,11 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
         TDefinitions definitions = repository.getRootDefinitions();
         List<TInputData> inputDataList = repository.findInputDatas(definitions);
         for(TInputData inputData: inputDataList) {
-            String key = equivalenceKey(inputData, repository);
-            Pair<TInputData, List<TInputData>> inputDataClass = inputDataClasses.computeIfAbsent(key, k -> new Pair<>(null, new ArrayList<>()));
-            inputDataClass.getRight().add(inputData);
+            if (!isIterator(inputData, repository)) {
+                String key = equivalenceKey(inputData, repository);
+                Pair<TInputData, List<TInputData>> inputDataClass = inputDataClasses.computeIfAbsent(key, k -> new Pair<>(null, new ArrayList<>()));
+                inputDataClass.getRight().add(inputData);
+            }
         }
         for(Map.Entry<String, Pair<TInputData, List<TInputData>>> entry: inputDataClasses.entrySet()) {
             Pair<TInputData, List<TInputData>> inputDataClass = entry.getValue();
@@ -283,6 +285,16 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
 
     protected boolean isIterator(TInputData inputData, DMNModelRepository repository) {
         return repository instanceof SignavioDMNModelRepository && ((SignavioDMNModelRepository) repository).isIterator(inputData);
+    }
+
+    protected String diagramId(TInputData inputData, DMNModelRepository repository) {
+        SignavioDMNModelRepository signavioRepository = (SignavioDMNModelRepository) repository;
+        return signavioRepository.getDiagramId(inputData);
+    }
+
+    protected String shapeId(TInputData inputData, DMNModelRepository repository) {
+        SignavioDMNModelRepository signavioRepository = (SignavioDMNModelRepository) repository;
+        return signavioRepository.getShapeId(inputData);
     }
 
     protected abstract String equivalenceKey(TInputData inputData, DMNModelRepository repository);
