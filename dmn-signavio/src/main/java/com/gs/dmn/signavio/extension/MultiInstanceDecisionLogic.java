@@ -17,7 +17,7 @@ import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 public class MultiInstanceDecisionLogic {
-    private final String iterationExpression;
+    private String iterationExpression;
     private final TDRGElement iterator;
     private final Aggregator aggregator;
     private final TDecision topLevelDecision;
@@ -43,6 +43,10 @@ public class MultiInstanceDecisionLogic {
 
     public String getIterationExpression() {
         return iterationExpression;
+    }
+
+    public void setIterationExpression(String iterationExpression) {
+        this.iterationExpression = iterationExpression;
     }
 
     public TDRGElement getIterator() {

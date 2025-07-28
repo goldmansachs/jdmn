@@ -25,7 +25,11 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class MultiInstanceDecisionLogic {
     @XStreamAlias("iterationExpression")
     private String iterationExpression;
-    
+
+    public void setIterationExpression(String iterationExpression) {
+        this.iterationExpression = iterationExpression;
+    }
+
     @XStreamAlias("iteratorShapeId")
     private String iteratorShapeId;
     

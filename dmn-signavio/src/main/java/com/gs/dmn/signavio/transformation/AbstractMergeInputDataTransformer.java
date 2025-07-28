@@ -19,6 +19,8 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
+import com.gs.dmn.signavio.extension.MultiInstanceDecisionLogic;
+import com.gs.dmn.signavio.extension.SignavioExtension;
 import com.gs.dmn.signavio.testlab.InputParameterDefinition;
 import com.gs.dmn.signavio.testlab.TestCase;
 import com.gs.dmn.signavio.testlab.TestLab;
@@ -210,6 +212,15 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
                             }
                         }
                     }
+                    // Replace IterationExpression with representative
+                    if (((SignavioDMNModelRepository)repository).isMultiInstanceDecision(decision)) {
+                        SignavioExtension extension = ((SignavioDMNModelRepository) repository).getExtension();
+                        MultiInstanceDecisionLogic multiInstanceDecisionLogic = extension.multiInstanceDecisionLogic(decision);
+                        String iterationExpression = multiInstanceDecisionLogic.getIterationExpression();
+                        if (inputDataInClass.stream().anyMatch(i -> i.getName().equals(iterationExpression))) {
+                            setIterationExpression(decision, representative.getName(), (SignavioDMNModelRepository) repository);
+                        }
+                    }
                 }
             }
         }
@@ -226,6 +237,17 @@ public abstract class AbstractMergeInputDataTransformer extends SimpleDMNTransfo
         }
 
         return repository.copy();
+    }
+
+    private void setIterationExpression(TDecision decision, String name, SignavioDMNModelRepository repository) {
+        SignavioExtension signavioExtension = repository.getExtension();
+        List<Object> extensions = signavioExtension.findExtensions(decision.getExtensionElements(), repository.getSchemaNamespace(), MultiInstanceDecisionLogic.class.getSimpleName());
+        Object extension = extensions.get(0);
+        if (extension instanceof com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic) {
+            ((com.gs.dmn.signavio.serialization.xstream.MultiInstanceDecisionLogic) extension).setIterationExpression(name);
+        } else {
+            throw new RuntimeException(String.format("Cannot set iterationExpression for MID '%s'", decision));
+        }
     }
 
     private Map<String, Pair<TInputData, List<TInputData>>> inputDataEquivalenceClasses(DMNModelRepository repository) {
