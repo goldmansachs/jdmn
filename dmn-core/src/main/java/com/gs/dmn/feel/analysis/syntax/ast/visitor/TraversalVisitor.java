@@ -86,8 +86,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getPositiveUnaryTests() != null) {
-            element.getPositiveUnaryTests().accept(this, context);
+        PositiveUnaryTests<T> positiveUnaryTests = element.getPositiveUnaryTests();
+        if (positiveUnaryTests != null) {
+            positiveUnaryTests.accept(this, context);
         }
         return element;
     }
@@ -103,8 +104,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getExpression() != null) {
-            element.getExpression().accept(this, context);
+        Expression<T> expression = element.getExpression();
+        if (expression != null) {
+            expression.accept(this, context);
         }
         return element;
     }
@@ -115,8 +117,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getEndpoint() != null) {
-            element.getEndpoint().accept(this, context);
+        Expression<T> endpoint = element.getEndpoint();
+        if (endpoint != null) {
+            endpoint.accept(this, context);
         }
         return element;
     }
@@ -127,11 +130,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getStart() != null) {
-            element.getStart().accept(this, context);
+        Expression<T> start = element.getStart();
+        if (start != null) {
+            start.accept(this, context);
         }
-        if (element.getEnd() != null) {
-            element.getEnd().accept(this, context);
+        Expression<T> end = element.getEnd();
+        if (end != null) {
+            end.accept(this, context);
         }
         return element;
     }
@@ -142,8 +147,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getListLiteral() != null) {
-            element.getListLiteral().accept(this, context);
+        ListLiteral<T> listLiteral = element.getListLiteral();
+        if (listLiteral != null) {
+            listLiteral.accept(this, context);
         }
         return element;
     }
@@ -157,8 +163,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getBody() != null) {
-            element.getBody().accept(this, context);
+        Expression<T> body = element.getBody();
+        if (body != null) {
+            body.accept(this, context);
         }
         element.getFormalParameters().forEach(p -> p.accept(this, context));
         return element;
@@ -185,11 +192,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getKey() != null) {
-            element.getKey().accept(this, context);
+        ContextEntryKey<T> key = element.getKey();
+        if (key != null) {
+            key.accept(this, context);
         }
-        if (element.getExpression() != null) {
-            element.getExpression().accept(this, context);
+        Expression<T> expression = element.getExpression();
+        if (expression != null) {
+            expression.accept(this, context);
         }
         return element;
     }
@@ -206,8 +215,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
         }
 
         element.getIterators().forEach(it -> it.accept(this, context));
-        if (element.getBody() != null) {
-            element.getBody().accept(this, context);
+        Expression<T> body = element.getBody();
+        if (body != null) {
+            body.accept(this, context);
         }
         return element;
     }
@@ -218,8 +228,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getDomain() != null) {
-            element.getDomain().accept(this, context);
+        IteratorDomain<T> domain = element.getDomain();
+        if (domain != null) {
+            domain.accept(this, context);
         }
         return element;
     }
@@ -230,8 +241,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getExpression() != null) {
-            element.getExpression().accept(this, context);
+        Expression<T> expression = element.getExpression();
+        if (expression != null) {
+            expression.accept(this, context);
         }
         return element;
     }
@@ -242,11 +254,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getStart() != null) {
-            element.getStart().accept(this, context);
+        Expression<T> start = element.getStart();
+        if (start != null) {
+            start.accept(this, context);
         }
-        if (element.getEnd() != null) {
-            element.getEnd().accept(this, context);
+        Expression<T> end = element.getEnd();
+        if (end != null) {
+            end.accept(this, context);
         }
         return element;
     }
@@ -257,14 +271,17 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getCondition() != null) {
-            element.getCondition().accept(this, context);
+        Expression<T> condition = element.getCondition();
+        if (condition != null) {
+            condition.accept(this, context);
         }
-        if (element.getThenExpression() != null) {
-            element.getThenExpression().accept(this, context);
+        Expression<T> thenExpression = element.getThenExpression();
+        if (thenExpression != null) {
+            thenExpression.accept(this, context);
         }
-        if (element.getElseExpression() != null) {
-            element.getElseExpression().accept(this, context);
+        Expression<T> elseExpression = element.getElseExpression();
+        if (elseExpression != null) {
+            elseExpression.accept(this, context);
         }
         return element;
     }
@@ -276,8 +293,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
         }
 
         element.getIterators().forEach(it -> it.accept(this, context));
-        if (element.getBody() != null) {
-            element.getBody().accept(this, context);
+        Expression<T> body = element.getBody();
+        if (body != null) {
+            body.accept(this, context);
         }
         return element;
     }
@@ -289,11 +307,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
         }
 
 
-        if (element.getFilter() != null) {
-            element.getSource().accept(this, context);
+        Expression<T> source = element.getSource();
+        if (source != null) {
+            source.accept(this, context);
         }
-        if (element.getFilter() != null) {
-            element.getFilter().accept(this, context);
+        Expression<T> filter = element.getFilter();
+        if (filter != null) {
+            filter.accept(this, context);
         }
         return element;
     }
@@ -304,11 +324,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getLeftOperand() != null) {
-            element.getLeftOperand().accept(this, context);
+        Expression<T> leftOperand = element.getLeftOperand();
+        if (leftOperand != null) {
+            leftOperand.accept(this, context);
         }
-        if (element.getRightOperand() != null) {
-            element.getRightOperand().accept(this, context);
+        TypeExpression<T> rightOperand = element.getRightOperand();
+        if (rightOperand != null) {
+            rightOperand.accept(this, context);
         }
         return element;
     }
@@ -335,11 +357,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getLeftOperand() != null) {
-            element.getLeftOperand().accept(this, context);
+        Expression<T> leftOperand = element.getLeftOperand();
+        if (leftOperand != null) {
+            leftOperand.accept(this, context);
         }
-        if (element.getRightOperand() != null) {
-            element.getRightOperand().accept(this, context);
+        Expression<T> rightOperand = element.getRightOperand();
+        if (rightOperand != null) {
+            rightOperand.accept(this, context);
         }
         return element;
     }
@@ -350,11 +374,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getLeftOperand() != null) {
-            element.getLeftOperand().accept(this, context);
+        Expression<T> leftOperand = element.getLeftOperand();
+        if (leftOperand != null) {
+            leftOperand.accept(this, context);
         }
-        if (element.getRightOperand() != null) {
-            element.getRightOperand().accept(this, context);
+        Expression<T> rightOperand = element.getRightOperand();
+        if (rightOperand != null) {
+            rightOperand.accept(this, context);
         }
         return element;
     }
@@ -365,8 +391,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getLeftOperand() != null) {
-            element.getLeftOperand().accept(this, context);
+        Expression<T> leftOperand = element.getLeftOperand();
+        if (leftOperand != null) {
+            leftOperand.accept(this, context);
         }
         return element;
     }
@@ -380,11 +407,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getLeftOperand() != null) {
-            element.getLeftOperand().accept(this, context);
+        Expression<T> leftOperand = element.getLeftOperand();
+        if (leftOperand != null) {
+            leftOperand.accept(this, context);
         }
-        if (element.getRightOperand() != null) {
-            element.getRightOperand().accept(this, context);
+        Expression<T> rightOperand = element.getRightOperand();
+        if (rightOperand != null) {
+            rightOperand.accept(this, context);
         }
         return element;
     }
@@ -395,14 +424,17 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getValue() != null) {
-            element.getValue().accept(this, context);
+        Expression<T> value = element.getValue();
+        if (value != null) {
+            value.accept(this, context);
         }
-        if (element.getLeftEndpoint() != null) {
-            element.getLeftEndpoint().accept(this, context);
+        Expression<T> leftEndpoint = element.getLeftEndpoint();
+        if (leftEndpoint != null) {
+            leftEndpoint.accept(this, context);
         }
-        if (element.getRightEndpoint() != null) {
-            element.getRightEndpoint().accept(this, context);
+        Expression<T> rightEndpoint = element.getRightEndpoint();
+        if (rightEndpoint != null) {
+            rightEndpoint.accept(this, context);
         }
         return element;
     }
@@ -413,8 +445,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getValue() != null) {
-            element.getValue().accept(this, context);
+        Expression<T> value = element.getValue();
+        if (value != null) {
+            value.accept(this, context);
         }
         element.getTests().forEach(t -> t.accept(this, context));
         return element;
@@ -429,11 +462,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getLeftOperand() != null) {
-            element.getLeftOperand().accept(this, context);
+        Expression<T> leftOperand = element.getLeftOperand();
+        if (leftOperand != null) {
+            leftOperand.accept(this, context);
         }
-        if (element.getRightOperand() != null) {
-            element.getRightOperand().accept(this, context);
+        Expression<T> rightOperand = element.getRightOperand();
+        if (rightOperand != null) {
+            rightOperand.accept(this, context);
         }
         return element;
     }
@@ -444,11 +479,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getLeftOperand() != null) {
-            element.getLeftOperand().accept(this, context);
+        Expression<T> leftOperand = element.getLeftOperand();
+        if (leftOperand != null) {
+            leftOperand.accept(this, context);
         }
-        if (element.getRightOperand() != null) {
-            element.getRightOperand().accept(this, context);
+        Expression<T> rightOperand = element.getRightOperand();
+        if (rightOperand != null) {
+            rightOperand.accept(this, context);
         }
         return element;
     }
@@ -459,11 +496,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getLeftOperand() != null) {
-            element.getLeftOperand().accept(this, context);
+        Expression<T> leftOperand = element.getLeftOperand();
+        if (leftOperand != null) {
+            leftOperand.accept(this, context);
         }
-        if (element.getRightOperand() != null) {
-            element.getRightOperand().accept(this, context);
+        Expression<T> rightOperand = element.getRightOperand();
+        if (rightOperand != null) {
+            rightOperand.accept(this, context);
         }
         return element;
     }
@@ -474,8 +513,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getLeftOperand() != null) {
-            element.getLeftOperand().accept(this, context);
+        Expression<T> leftOperand = element.getLeftOperand();
+        if (leftOperand != null) {
+            leftOperand.accept(this, context);
         }
         return element;
     }
@@ -489,8 +529,9 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getSource() != null) {
-            element.getSource().accept(this, context);
+        Expression<T> source = element.getSource();
+        if (source != null) {
+            source.accept(this, context);
         }
         return element;
     }
@@ -501,11 +542,13 @@ public class TraversalVisitor<T, C> extends AbstractVisitor<T, C, Element<T>> {
             return null;
         }
 
-        if (element.getFunction() != null) {
-            element.getFunction().accept(this, context);
+        Expression<T> function = element.getFunction();
+        if (function != null) {
+            function.accept(this, context);
         }
-        if (element.getParameters() != null) {
-            element.getParameters().accept(this, context);
+        Parameters<T> parameters = element.getParameters();
+        if (parameters != null) {
+            parameters.accept(this, context);
         }
         return element;
     }

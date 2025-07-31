@@ -1,0 +1,6 @@
+input|expected|ast
+#
+# TextualExpressions
+#
+1 + 2|1 + 2|Addition(+,NumericLiteral(1),NumericLiteral(2))
+1, 2, 3|1, 2, 3|ExpressionList(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))

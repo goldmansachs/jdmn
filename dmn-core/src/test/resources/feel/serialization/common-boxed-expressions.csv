@@ -1,0 +1,5 @@
+input|expected|ast
+#
+# BoxedExpressions
+#
+[1 + 2]|[1 + 2]|ListLiteral(Addition(+,NumericLiteral(1),NumericLiteral(2)))

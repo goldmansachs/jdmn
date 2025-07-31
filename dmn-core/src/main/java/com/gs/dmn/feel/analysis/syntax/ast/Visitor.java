@@ -136,32 +136,32 @@ public interface Visitor<T, C, R> {
     //
     // Primary expressions
     //
+    R visit(NumericLiteral<T> element, C context);
+
+    R visit(StringLiteral<T> element, C context);
+
     R visit(BooleanLiteral<T> element, C context);
 
     R visit(DateTimeLiteral<T> element, C context);
 
     R visit(NullLiteral<T> element, C context);
 
-    R visit(NumericLiteral<T> element, C context);
-
-    R visit(StringLiteral<T> element, C context);
-
     R visit(ListLiteral<T> element, C context);
 
-    R visit(QualifiedName<T> element, C context);
-
     R visit(Name<T> element, C context);
+
+    R visit(QualifiedName<T> element, C context);
 
     //
     // Type expressions
     //
     R visit(NamedTypeExpression<T> element, C context);
 
-    R visit(ContextTypeExpression<T> element, C context);
+    R visit(ListTypeExpression<T> element, C context);
 
     R visit(RangeTypeExpression<T> element, C context);
 
-    R visit(FunctionTypeExpression<T> element, C context);
+    R visit(ContextTypeExpression<T> element, C context);
 
-    R visit(ListTypeExpression<T> element, C context);
+    R visit(FunctionTypeExpression<T> element, C context);
 }

@@ -1,0 +1,363 @@
+input|expected|ast
+#
+# FunctionDefinition
+#
+# Complex function types
+function (list: list<context<>>, precedes: function<context<>, context<>> -> boolean) : list<context<>> sort(list, precedes)|(function(list: list<context<>>, precedes: function<context<>, context<>> -> boolean) : list<context<>> sort(list, precedes))|FunctionDefinition(FormalParameter(list, null, false, false),FormalParameter(precedes, null, false, false), FunctionInvocation(Name(sort) -> PositionalParameters(Name(list), Name(precedes))), false)
+function (list: list<number>, precedes: function<number, number> -> boolean) : list<number> sort(list, precedes)|(function(list: list<number>, precedes: function<number, number> -> boolean) : list<number> sort(list, precedes))|FunctionDefinition(FormalParameter(list, null, false, false),FormalParameter(precedes, null, false, false), FunctionInvocation(Name(sort) -> PositionalParameters(Name(list), Name(precedes))), false)
+
+#
+# BetweenExpression
+#
+"a" between "b" and "d"|"a" between "b" and "d"|BetweenExpression(StringLiteral("a"), StringLiteral("b"), StringLiteral("d"))
+
+#
+# InExpression
+#
+# operator test
+"b" in [["f".."h"], ["a".."c"]]|"b" in [["f" .. "h"], ["a" .. "c"]]|InExpression(StringLiteral("b"), ListTest(ListLiteral(EndpointsRange(false,StringLiteral("f"),false,StringLiteral("h")),EndpointsRange(false,StringLiteral("a"),false,StringLiteral("c")))))
+
+#
+# Addition
+#
+string("Today is the ") + string(input) + string(" !")|string("Today is the ") + string(input) + string(" !")|Addition(+,Addition(+,FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral("Today is the "))),FunctionInvocation(Name(string) -> PositionalParameters(Name(input)))),FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral(" !"))))
+
+#
+# FunctionInvocation
+#
+# nested functions invocation
+sort([score5, score6, score7, score8], function(x: number, y: number) y < x)|sort([score5, score6, score7, score8], (function(x: number, y: number) y < x))|FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(Name(score5),Name(score6),Name(score7),Name(score8)), FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Relational(<,Name(y),Name(x)), false)))
+sublist(sort([score5, score6, score7, score8], function(x: number, y: number) y < x), 1, 2)|sublist(sort([score5, score6, score7, score8], (function(x: number, y: number) y < x)), 1, 2)|FunctionInvocation(Name(sublist) -> PositionalParameters(FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(Name(score5),Name(score6),Name(score7),Name(score8)), FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Relational(<,Name(y),Name(x)), false))), NumericLiteral(1), NumericLiteral(2)))
+
+# invocation with positional arguments
+and([true, false, true])|and([true, false, true])|FunctionInvocation(Name(and) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(false),BooleanLiteral(true))))
+or([true, false, true])|or([true, false, true])|FunctionInvocation(Name(or) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(false),BooleanLiteral(true))))
+contains("abc", "a")|contains("abc", "a")|FunctionInvocation(Name(contains) -> PositionalParameters(StringLiteral("abc"), StringLiteral("a")))
+string(from : 1.1)|string(from: 1.1)|FunctionInvocation(Name(string) -> NamedParameters(from : NumericLiteral(1.1)))
+string length(substring(input, 1))|string length(substring(input, 1))|FunctionInvocation(Name(string length) -> PositionalParameters(FunctionInvocation(Name(substring) -> PositionalParameters(Name(input), NumericLiteral(1)))))
+substring("\\U01F40Eab", 2)|substring("\🐎ab", 2)|FunctionInvocation(Name(substring) -> PositionalParameters(StringLiteral("\🐎ab"), NumericLiteral(2)))
+                
+# invocation with named arguments
+contains(string : "abc", match : "a")|contains(string: "abc", match: "a")|FunctionInvocation(Name(contains) -> NamedParameters(string : StringLiteral("abc"), match : StringLiteral("a")))
+
+# is invocation
+is(@"23:00:50@Australia/Melbourne", @"23:00:50@Australia/Melbourne")|is(time("23:00:50@Australia/Melbourne"), time("23:00:50@Australia/Melbourne"))|FunctionInvocation(Name(is) -> PositionalParameters(DateTimeLiteral(time, "23:00:50@Australia/Melbourne"), DateTimeLiteral(time, "23:00:50@Australia/Melbourne")))
+
+#
+# FilterExpression
+#
+[{ x: "1", y: "2" }, { x: null, y: "3" }][ x < "2" ]|[{"x": "1", "y": "2"}, {"x": null, "y": "3"}][x < "2"]|FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = StringLiteral("1")),ContextEntry(ContextEntryKey(y) = StringLiteral("2"))),Context(ContextEntry(ContextEntryKey(x) = NullLiteral()),ContextEntry(ContextEntryKey(y) = StringLiteral("3")))), Relational(<,Name(x),StringLiteral("2")))
+[{ x: null, y: "2" },{ x: "1", y: "3" } ][ x < "2" ]|[{"x": null, "y": "2"}, {"x": "1", "y": "3"}][x < "2"]|FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NullLiteral()),ContextEntry(ContextEntryKey(y) = StringLiteral("2"))),Context(ContextEntry(ContextEntryKey(x) = StringLiteral("1")),ContextEntry(ContextEntryKey(y) = StringLiteral("3")))), Relational(<,Name(x),StringLiteral("2")))
+
+#
+# PathExpression
+#
+string length(PrivateFundRequirements.HierarchyNode)|string length(PrivateFundRequirements.HierarchyNode)|FunctionInvocation(Name(string length) -> PositionalParameters(PathExpression(Name(PrivateFundRequirements), HierarchyNode)))
+date("2018-12-10").weekday|date("2018-12-10").weekday|PathExpression(DateTimeLiteral(date, "2018-12-10"), weekday)
+date and time("2018-12-10T10:30:01").weekday|date and time("2018-12-10T10:30:01").weekday|PathExpression(DateTimeLiteral(date and time, "2018-12-10T10:30:01"), weekday)
+time("10:30:01").hour|time("10:30:01").hour|PathExpression(DateTimeLiteral(time, "10:30:01"), hour)
+date and time("2018-12-10T10:30:01").hour|date and time("2018-12-10T10:30:01").hour|PathExpression(DateTimeLiteral(date and time, "2018-12-10T10:30:01"), hour)
+
+#
+# ConversionFunctions
+#
+date("2012-03-01")|date("2012-03-01")|DateTimeLiteral(date, "2012-03-01")
+date(date("2012-03-01"))|date(date("2012-03-01"))|FunctionInvocation(Name(date) -> PositionalParameters(DateTimeLiteral(date, "2012-03-01")))
+date(date and time("2012-03-01"))|date(date and time("2012-03-01"))|FunctionInvocation(Name(date) -> PositionalParameters(DateTimeLiteral(date and time, "2012-03-01")))
+date(2012, 3, 1)|date(2012, 3, 1)|FunctionInvocation(Name(date) -> PositionalParameters(NumericLiteral(2012), NumericLiteral(3), NumericLiteral(1)))
+date and time(date("2012-03-01"), time("10:11:12Z"))|date and time(date("2012-03-01"), time("10:11:12Z"))|FunctionInvocation(Name(date and time) -> PositionalParameters(DateTimeLiteral(date, "2012-03-01"), DateTimeLiteral(time, "10:11:12Z")))
+date and time("2012-03-01T10:11:12Z")|date and time("2012-03-01T10:11:12Z")|DateTimeLiteral(date and time, "2012-03-01T10:11:12Z")
+time("10:11:12Z")|time("10:11:12Z")|DateTimeLiteral(time, "10:11:12Z")
+time(date("2012-03-01"))|time(date("2012-03-01"))|FunctionInvocation(Name(time) -> PositionalParameters(DateTimeLiteral(date, "2012-03-01")))
+time(date and time("2012-03-01T10:11:12Z"))|time(date and time("2012-03-01T10:11:12Z"))|FunctionInvocation(Name(time) -> PositionalParameters(DateTimeLiteral(date and time, "2012-03-01T10:11:12Z")))
+number("1 000", ".")|number("1 000", ".")|FunctionInvocation(Name(number) -> PositionalParameters(StringLiteral("1 000"), StringLiteral(".")))
+number(from: "1.000.000,01", 'decimal separator': ".", 'grouping separator':",")|number(from: "1.000.000,01", 'decimal separator': ".", 'grouping separator': ",")|FunctionInvocation(Name(number) -> NamedParameters(from : StringLiteral("1.000.000,01"), decimal separator : StringLiteral("."), grouping separator : StringLiteral(",")))
+number(from: "1.000.000,01", decimalSeparator: ",", groupingSeparator:",")|number(from: "1.000.000,01", decimalSeparator: ",", groupingSeparator: ",")|FunctionInvocation(Name(number) -> NamedParameters(from : StringLiteral("1.000.000,01"), decimalSeparator : StringLiteral(","), groupingSeparator : StringLiteral(",")))
+string(1.1)|string(1.1)|FunctionInvocation(Name(string) -> PositionalParameters(NumericLiteral(1.1)))
+duration("P1Y2M")|duration("P1Y2M")|DateTimeLiteral(duration, "P1Y2M")
+duration("P1DT2H3M3S")|duration("P1DT2H3M3S")|DateTimeLiteral(duration, "P1DT2H3M3S")
+duration("P1Y1M2DT3H4M5S")|duration("P1Y1M2DT3H4M5S")|DateTimeLiteral(duration, "P1Y1M2DT3H4M5S") 
+years and months duration(date("2012-03-01"), date("2013-05-01"))|years and months duration(date("2012-03-01"), date("2013-05-01"))|FunctionInvocation(Name(years and months duration) -> PositionalParameters(DateTimeLiteral(date, "2012-03-01"), DateTimeLiteral(date, "2013-05-01")))
+
+#
+# NumericFunctions
+#
+decimal(100, 2)|decimal(100, 2)|FunctionInvocation(Name(decimal) -> PositionalParameters(NumericLiteral(100), NumericLiteral(2)))
+round(5.125, 2, "up")|round(5.125, 2, "up")|FunctionInvocation(Name(round) -> PositionalParameters(NumericLiteral(5.125), NumericLiteral(2), StringLiteral("up")))
+round up(5.125, 2)|round up(5.125, 2)|FunctionInvocation(Name(round up) -> PositionalParameters(NumericLiteral(5.125), NumericLiteral(2)))
+round down(5.125, 2)|round down(5.125, 2)|FunctionInvocation(Name(round down) -> PositionalParameters(NumericLiteral(5.125), NumericLiteral(2)))
+round half up(5.125, 2)|round half up(5.125, 2)|FunctionInvocation(Name(round half up) -> PositionalParameters(NumericLiteral(5.125), NumericLiteral(2)))
+round half down(5.125, 2)|round half down(5.125, 2)|FunctionInvocation(Name(round half down) -> PositionalParameters(NumericLiteral(5.125), NumericLiteral(2)))
+floor(100)|floor(100)|FunctionInvocation(Name(floor) -> PositionalParameters(NumericLiteral(100)))
+floor(100.123, 2)|floor(100.123, 2)|FunctionInvocation(Name(floor) -> PositionalParameters(NumericLiteral(100.123), NumericLiteral(2)))
+ceiling(100)|ceiling(100)|FunctionInvocation(Name(ceiling) -> PositionalParameters(NumericLiteral(100)))
+ceiling(100.123, 2)|ceiling(100.123, 2)|FunctionInvocation(Name(ceiling) -> PositionalParameters(NumericLiteral(100.123), NumericLiteral(2)))
+abs(100)|abs(100)|FunctionInvocation(Name(abs) -> PositionalParameters(NumericLiteral(100)))
+abs(-100)|abs(-100)|FunctionInvocation(Name(abs) -> PositionalParameters(ArithmeticNegation(NumericLiteral(100))))
+abs(@"PT5H")|abs(duration("PT5H"))|FunctionInvocation(Name(abs) -> PositionalParameters(DateTimeLiteral(duration, "PT5H")))
+abs(@"-PT5H")|abs(duration("-PT5H"))|FunctionInvocation(Name(abs) -> PositionalParameters(DateTimeLiteral(duration, "-PT5H")))
+modulo(100, 3)|modulo(100, 3)|FunctionInvocation(Name(modulo) -> PositionalParameters(NumericLiteral(100), NumericLiteral(3)))
+sqrt(101)|sqrt(101)|FunctionInvocation(Name(sqrt) -> PositionalParameters(NumericLiteral(101)))
+log(100)|log(100)|FunctionInvocation(Name(log) -> PositionalParameters(NumericLiteral(100)))
+exp(100)|exp(100)|FunctionInvocation(Name(exp) -> PositionalParameters(NumericLiteral(100)))
+odd(100)|odd(100)|FunctionInvocation(Name(odd) -> PositionalParameters(NumericLiteral(100)))
+even(100)|even(100)|FunctionInvocation(Name(even) -> PositionalParameters(NumericLiteral(100)))
+even(100)|even(100)|FunctionInvocation(Name(even) -> PositionalParameters(NumericLiteral(100)))
+
+#
+# BooleanFunctions
+#
+not(true)|not true|LogicNegation(BooleanLiteral(true))
+
+#
+# StringFunctions
+#
+substring("abc", 3)|substring("abc", 3)|FunctionInvocation(Name(substring) -> PositionalParameters(StringLiteral("abc"), NumericLiteral(3)))
+substring(string: "abc", 'start position': 3)|substring(string: "abc", 'start position': 3)|FunctionInvocation(Name(substring) -> NamedParameters(string : StringLiteral("abc"), start position : NumericLiteral(3)))
+string length("abc")|string length("abc")|FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("abc")))
+string length("\\n")|string length("\\n")|FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("\\n")))
+string length("\\r")|string length("\\r")|FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("\\r")))
+string length("\\t")|string length("\\t")|FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("\\t")))
+string length("\\'")|string length("\\'")|FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("\\'")))
+string length("\\"")|string length("\\"")|FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("\\"")))
+string length("\\\\")|string length("\\\\")|FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("\\\\")))
+string length("\u0009")|string length("\u0009")|FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("\u0009")))
+string length("\\\\u0009")|string length("\\\\u0009")|FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("\\\\u0009")))
+string length("\\uD83D\\uDCA9")|string length("\\uD83D\\uDCA9")|FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("\\uD83D\\uDCA9")))
+upper case("abc")|upper case("abc")|FunctionInvocation(Name(upper case) -> PositionalParameters(StringLiteral("abc")))
+lower case("abc")|lower case("abc")|FunctionInvocation(Name(lower case) -> PositionalParameters(StringLiteral("abc")))
+substring before("abc", "b")|substring before("abc", "b")|FunctionInvocation(Name(substring before) -> PositionalParameters(StringLiteral("abc"), StringLiteral("b")))
+substring after("abc", "b")|substring after("abc", "b")|FunctionInvocation(Name(substring after) -> PositionalParameters(StringLiteral("abc"), StringLiteral("b")))
+replace("abc", "b", "d", "i")|replace("abc", "b", "d", "i")|FunctionInvocation(Name(replace) -> PositionalParameters(StringLiteral("abc"), StringLiteral("b"), StringLiteral("d"), StringLiteral("i")))
+replace("abc", "b", "d")|replace("abc", "b", "d")|FunctionInvocation(Name(replace) -> PositionalParameters(StringLiteral("abc"), StringLiteral("b"), StringLiteral("d")))
+replace("0123456789", "(\\d{3})(\\d{3})(\\d{4})", "($1) $2-$3")|replace("0123456789", "(\\d{3})(\\d{3})(\\d{4})", "($1) $2-$3")|FunctionInvocation(Name(replace) -> PositionalParameters(StringLiteral("0123456789"), StringLiteral("(\\d{3})(\\d{3})(\\d{4})"), StringLiteral("($1) $2-$3")))
+contains("abc", "a")|contains("abc", "a")|FunctionInvocation(Name(contains) -> PositionalParameters(StringLiteral("abc"), StringLiteral("a")))
+starts with("abc", "a")|starts with("abc", "a")|FunctionInvocation(Name(starts with) -> PositionalParameters(StringLiteral("abc"), StringLiteral("a")))
+ends with("abc", "c")|ends with("abc", "c")|FunctionInvocation(Name(ends with) -> PositionalParameters(StringLiteral("abc"), StringLiteral("c")))
+matches("abc", "abc", "i")|matches("abc", "abc", "i")|FunctionInvocation(Name(matches) -> PositionalParameters(StringLiteral("abc"), StringLiteral("abc"), StringLiteral("i")))
+matches("abc", "abc")|matches("abc", "abc")|FunctionInvocation(Name(matches) -> PositionalParameters(StringLiteral("abc"), StringLiteral("abc")))
+matches("?", "\\p{Nd}+")|matches("?", "\\p{Nd}+")|FunctionInvocation(Name(matches) -> PositionalParameters(StringLiteral("?"), StringLiteral("\\p{Nd}+")))
+split("John Doe", "\\s")|split("John Doe", "\\s")|FunctionInvocation(Name(split) -> PositionalParameters(StringLiteral("John Doe"), StringLiteral("\\s")))
+string join(["a", "b", "c"], "_and_")|string join(["a", "b", "c"], "_and_")|FunctionInvocation(Name(string join) -> PositionalParameters(ListLiteral(StringLiteral("a"),StringLiteral("b"),StringLiteral("c")), StringLiteral("_and_")))
+string join(["a", "b", "c"])|string join(["a", "b", "c"])|FunctionInvocation(Name(string join) -> PositionalParameters(ListLiteral(StringLiteral("a"),StringLiteral("b"),StringLiteral("c"))))
+
+# quoted function name
+'string length'("\\n")|string length("\\n")|FunctionInvocation(Name(string length) -> PositionalParameters(StringLiteral("\\n")))
+
+#
+# ListFunctions
+#
+list contains([1, 2, 3], 1)|list contains([1, 2, 3], 1)|FunctionInvocation(Name(list contains) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(1)))
+count([1, 2, 3])|count([1, 2, 3])|FunctionInvocation(Name(count) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))
+min([1, 2, 3])|min([1, 2, 3])|FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))
+min(1, 2, 3)|min(1, 2, 3)|FunctionInvocation(Name(min) -> PositionalParameters(NumericLiteral(1), NumericLiteral(2), NumericLiteral(3)))
+min(["a", "b", "c"])|min(["a", "b", "c"])|FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(StringLiteral("a"),StringLiteral("b"),StringLiteral("c"))))
+min("a", "b", "c")|min("a", "b", "c")|FunctionInvocation(Name(min) -> PositionalParameters(StringLiteral("a"), StringLiteral("b"), StringLiteral("c")))
+min([@"2010-01-01", @"2010-01-02", @"2010-01-03"])|min([date("2010-01-01"), date("2010-01-02"), date("2010-01-03")])|FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(DateTimeLiteral(date, "2010-01-01"),DateTimeLiteral(date, "2010-01-02"),DateTimeLiteral(date, "2010-01-03"))))
+min(@"2010-01-01", @"2010-01-02", @"2010-01-03")|min(date("2010-01-01"), date("2010-01-02"), date("2010-01-03"))|FunctionInvocation(Name(min) -> PositionalParameters(DateTimeLiteral(date, "2010-01-01"), DateTimeLiteral(date, "2010-01-02"), DateTimeLiteral(date, "2010-01-03")))
+min([@"T12:00:01", @"T12:00:02", @"T12:00:03"])|min([time("T12:00:01"), time("T12:00:02"), time("T12:00:03")])|FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(DateTimeLiteral(time, "T12:00:01"),DateTimeLiteral(time, "T12:00:02"),DateTimeLiteral(time, "T12:00:03"))))
+min(@"T12:00:01", @"T12:00:02", @"T12:00:03")|min(time("T12:00:01"), time("T12:00:02"), time("T12:00:03"))|FunctionInvocation(Name(min) -> PositionalParameters(DateTimeLiteral(time, "T12:00:01"), DateTimeLiteral(time, "T12:00:02"), DateTimeLiteral(time, "T12:00:03")))
+min([@"2010-01-01T12:00:01", @"2010-01-01T12:00:02", @"2010-01-01T12:00:03"])|min([date and time("2010-01-01T12:00:01"), date and time("2010-01-01T12:00:02"), date and time("2010-01-01T12:00:03")])|FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(DateTimeLiteral(date and time, "2010-01-01T12:00:01"),DateTimeLiteral(date and time, "2010-01-01T12:00:02"),DateTimeLiteral(date and time, "2010-01-01T12:00:03"))))
+min(@"2010-01-01T12:00:01", @"2010-01-01T12:00:02", @"2010-01-01T12:00:03")|min(date and time("2010-01-01T12:00:01"), date and time("2010-01-01T12:00:02"), date and time("2010-01-01T12:00:03"))|FunctionInvocation(Name(min) -> PositionalParameters(DateTimeLiteral(date and time, "2010-01-01T12:00:01"), DateTimeLiteral(date and time, "2010-01-01T12:00:02"), DateTimeLiteral(date and time, "2010-01-01T12:00:03")))
+min([@"P1Y1M", @"P1Y2M", @"P1Y3M"])|min([duration("P1Y1M"), duration("P1Y2M"), duration("P1Y3M")])|FunctionInvocation(Name(min) -> PositionalParameters(ListLiteral(DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"),DateTimeLiteral(duration, "P1Y3M"))))
+min(@"P1D", @"P1DT1H", @"P1DT2H")|min(duration("P1D"), duration("P1DT1H"), duration("P1DT2H"))|FunctionInvocation(Name(min) -> PositionalParameters(DateTimeLiteral(duration, "P1D"), DateTimeLiteral(duration, "P1DT1H"), DateTimeLiteral(duration, "P1DT2H")))
+max([1, 2, 3])|max([1, 2, 3])|FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))
+max(1, 2, 3)|max(1, 2, 3)|FunctionInvocation(Name(max) -> PositionalParameters(NumericLiteral(1), NumericLiteral(2), NumericLiteral(3)))
+max(["a", "b", "c"])|max(["a", "b", "c"])|FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(StringLiteral("a"),StringLiteral("b"),StringLiteral("c"))))
+max("a", "b", "c")|max("a", "b", "c")|FunctionInvocation(Name(max) -> PositionalParameters(StringLiteral("a"), StringLiteral("b"), StringLiteral("c")))
+max([@"2010-01-01", @"2010-01-02", @"2010-01-03"])|max([date("2010-01-01"), date("2010-01-02"), date("2010-01-03")])|FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(DateTimeLiteral(date, "2010-01-01"),DateTimeLiteral(date, "2010-01-02"),DateTimeLiteral(date, "2010-01-03"))))
+max(@"2010-01-01", @"2010-01-02", @"2010-01-03")|max(date("2010-01-01"), date("2010-01-02"), date("2010-01-03"))|FunctionInvocation(Name(max) -> PositionalParameters(DateTimeLiteral(date, "2010-01-01"), DateTimeLiteral(date, "2010-01-02"), DateTimeLiteral(date, "2010-01-03")))
+max([@"T12:00:01", @"T12:00:02", @"T12:00:03"])|max([time("T12:00:01"), time("T12:00:02"), time("T12:00:03")])|FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(DateTimeLiteral(time, "T12:00:01"),DateTimeLiteral(time, "T12:00:02"),DateTimeLiteral(time, "T12:00:03"))))
+max(@"T12:00:01", @"T12:00:02", @"T12:00:03")|max(time("T12:00:01"), time("T12:00:02"), time("T12:00:03"))|FunctionInvocation(Name(max) -> PositionalParameters(DateTimeLiteral(time, "T12:00:01"), DateTimeLiteral(time, "T12:00:02"), DateTimeLiteral(time, "T12:00:03")))
+max([@"2010-01-01T12:00:01", @"2010-01-01T12:00:02", @"2010-01-01T12:00:03"])|max([date and time("2010-01-01T12:00:01"), date and time("2010-01-01T12:00:02"), date and time("2010-01-01T12:00:03")])|FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(DateTimeLiteral(date and time, "2010-01-01T12:00:01"),DateTimeLiteral(date and time, "2010-01-01T12:00:02"),DateTimeLiteral(date and time, "2010-01-01T12:00:03"))))
+max(@"2010-01-01T12:00:01", @"2010-01-01T12:00:02", @"2010-01-01T12:00:03")|max(date and time("2010-01-01T12:00:01"), date and time("2010-01-01T12:00:02"), date and time("2010-01-01T12:00:03"))|FunctionInvocation(Name(max) -> PositionalParameters(DateTimeLiteral(date and time, "2010-01-01T12:00:01"), DateTimeLiteral(date and time, "2010-01-01T12:00:02"), DateTimeLiteral(date and time, "2010-01-01T12:00:03")))
+max([@"P1Y1M", @"P1Y2M", @"P1Y3M"])|max([duration("P1Y1M"), duration("P1Y2M"), duration("P1Y3M")])|FunctionInvocation(Name(max) -> PositionalParameters(ListLiteral(DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"),DateTimeLiteral(duration, "P1Y3M"))))
+max(@"P1D", @"P1DT1H", @"P1DT2H")|max(duration("P1D"), duration("P1DT1H"), duration("P1DT2H"))|FunctionInvocation(Name(max) -> PositionalParameters(DateTimeLiteral(duration, "P1D"), DateTimeLiteral(duration, "P1DT1H"), DateTimeLiteral(duration, "P1DT2H")))
+sum([1, 2, 3])|sum([1, 2, 3])|FunctionInvocation(Name(sum) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))
+sum(1, 2, 3)|sum(1, 2, 3)|FunctionInvocation(Name(sum) -> PositionalParameters(NumericLiteral(1), NumericLiteral(2), NumericLiteral(3)))
+mean([1, 2, 3])|mean([1, 2, 3])|FunctionInvocation(Name(mean) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))
+mean(1, 2, 3)|mean(1, 2, 3)|FunctionInvocation(Name(mean) -> PositionalParameters(NumericLiteral(1), NumericLiteral(2), NumericLiteral(3)))
+and([true, true, false])|and([true, true, false])|FunctionInvocation(Name(and) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(true),BooleanLiteral(false))))
+and(true, true, false)|and(true, true, false)|FunctionInvocation(Name(and) -> PositionalParameters(BooleanLiteral(true), BooleanLiteral(true), BooleanLiteral(false)))
+all([true, true, false])|all([true, true, false])|FunctionInvocation(Name(all) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(true),BooleanLiteral(false))))
+all(true, true, false)|all(true, true, false)|FunctionInvocation(Name(all) -> PositionalParameters(BooleanLiteral(true), BooleanLiteral(true), BooleanLiteral(false)))
+or([true, true, false])|or([true, true, false])|FunctionInvocation(Name(or) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(true),BooleanLiteral(false))))
+or([true, true, false])|or([true, true, false])|FunctionInvocation(Name(or) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(true),BooleanLiteral(false))))
+any([true, true, false])|any([true, true, false])|FunctionInvocation(Name(any) -> PositionalParameters(ListLiteral(BooleanLiteral(true),BooleanLiteral(true),BooleanLiteral(false))))
+any(true, true, false)|any(true, true, false)|FunctionInvocation(Name(any) -> PositionalParameters(BooleanLiteral(true), BooleanLiteral(true), BooleanLiteral(false)))
+
+# function with refined type
+sublist([1, 2, 3], 2, 1)|sublist([1, 2, 3], 2, 1)|FunctionInvocation(Name(sublist) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(2), NumericLiteral(1)))
+sublist([1, 2, 3], 2)|sublist([1, 2, 3], 2)|FunctionInvocation(Name(sublist) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(2)))
+append([1, 2, 3], 4)|append([1, 2, 3], 4)|FunctionInvocation(Name(append) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(4)))
+append([1, 2, 3], 4, 5)|append([1, 2, 3], 4, 5)|FunctionInvocation(Name(append) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(4), NumericLiteral(5)))
+concatenate([1, 2, 3], [4, 5, 6])|concatenate([1, 2, 3], [4, 5, 6])|FunctionInvocation(Name(concatenate) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))
+insert before(["1", "2", "3"], 3, "5")|insert before(["1", "2", "3"], 3, "5")|FunctionInvocation(Name(insert before) -> PositionalParameters(ListLiteral(StringLiteral("1"),StringLiteral("2"),StringLiteral("3")), NumericLiteral(3), StringLiteral("5")))
+remove([1, 2, 3], 1)|remove([1, 2, 3], 1)|FunctionInvocation(Name(remove) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(1)))
+reverse([1, 2, 3])|reverse([1, 2, 3])|FunctionInvocation(Name(reverse) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))
+index of([1, 2, 3], 3)|index of([1, 2, 3], 3)|FunctionInvocation(Name(index of) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), NumericLiteral(3)))
+distinct values([1, 2, 3])|distinct values([1, 2, 3])|FunctionInvocation(Name(distinct values) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))
+index of(["1", "2", "2"], "2")|index of(["1", "2", "2"], "2")|FunctionInvocation(Name(index of) -> PositionalParameters(ListLiteral(StringLiteral("1"),StringLiteral("2"),StringLiteral("2")), StringLiteral("2")))
+union([1, 2, 3], [4, 5, 6])|union([1, 2, 3], [4, 5, 6])|FunctionInvocation(Name(union) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListLiteral(NumericLiteral(4),NumericLiteral(5),NumericLiteral(6))))
+flatten([])|flatten([])|FunctionInvocation(Name(flatten) -> PositionalParameters(ListLiteral()))
+flatten([1, 2, 3])|flatten([1, 2, 3])|FunctionInvocation(Name(flatten) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))
+flatten([1, 2, [3, [4]], [5, 6]])|flatten([1, 2, [3, [4]], [5, 6]])|FunctionInvocation(Name(flatten) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),ListLiteral(NumericLiteral(3),ListLiteral(NumericLiteral(4))),ListLiteral(NumericLiteral(5),NumericLiteral(6)))))
+flatten([1, 2, "3"])|flatten([1, 2, "3"])|FunctionInvocation(Name(flatten) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),StringLiteral("3"))))
+sort([1, 2, 3, 4], function(x: number, y: number) y < x)|sort([1, 2, 3, 4], (function(x: number, y: number) y < x))|FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)), FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Relational(<,Name(y),Name(x)), false)))
+sort(["1", "2", "3", "4"], function(x: number, y: number) y < x)|sort(["1", "2", "3", "4"], (function(x: number, y: number) y < x))|FunctionInvocation(Name(sort) -> PositionalParameters(ListLiteral(StringLiteral("1"),StringLiteral("2"),StringLiteral("3"),StringLiteral("4")), FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Relational(<,Name(y),Name(x)), false)))
+
+#
+# ContextFunctions
+#
+get entries({a: "foo", b: "bar"})|get entries({"a": "foo", "b": "bar"})|FunctionInvocation(Name(get entries) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(a) = StringLiteral("foo")),ContextEntry(ContextEntryKey(b) = StringLiteral("bar")))))
+get entries({})|get entries({})|FunctionInvocation(Name(get entries) -> PositionalParameters(Context()))
+get value({a: "foo"}, "a")|get value({"a": "foo"}, "a")|FunctionInvocation(Name(get value) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(a) = StringLiteral("foo"))), StringLiteral("a")))
+get value(null, null)|get value(null, null)|FunctionInvocation(Name(get value) -> PositionalParameters(NullLiteral(), NullLiteral()))
+context([{key:"a", value:1}, {key:"b", value:2}])|context([{"key": "a", "value": 1}, {"key": "b", "value": 2}])|FunctionInvocation(Name(context) -> PositionalParameters(ListLiteral(Context(ContextEntry(ContextEntryKey(key) = StringLiteral("a")),ContextEntry(ContextEntryKey(value) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(key) = StringLiteral("b")),ContextEntry(ContextEntryKey(value) = NumericLiteral(2))))))
+context({key:"a", value:1})|context({"key": "a", "value": 1})|FunctionInvocation(Name(context) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(key) = StringLiteral("a")),ContextEntry(ContextEntryKey(value) = NumericLiteral(1)))))
+context put({x: 1}, {"y": 2})|context put({"x": 1}, {"y": 2})|FunctionInvocation(Name(context put) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1))), Context(ContextEntry(ContextEntryKey(y) = NumericLiteral(2)))))
+context put({x: 1, y: {"a": 0}}, ["y", "a"], 2)|context put({"x": 1, "y": {"a": 0}}, ["y", "a"], 2)|FunctionInvocation(Name(context put) -> PositionalParameters(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = Context(ContextEntry(ContextEntryKey(a) = NumericLiteral(0))))), ListLiteral(StringLiteral("y"),StringLiteral("a")), NumericLiteral(2)))
+context merge([{x: 1}, {y:2}])|context merge([{"x": 1}, {"y": 2}])|FunctionInvocation(Name(context merge) -> PositionalParameters(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(y) = NumericLiteral(2))))))
+
+#
+# DateProperties
+#
+date("2010-01-01").year|date("2010-01-01").year|PathExpression(DateTimeLiteral(date, "2010-01-01"), year)
+
+#
+# TimeProperties
+#
+time("12:00:00").hour|time("12:00:00").hour|PathExpression(DateTimeLiteral(time, "12:00:00"), hour)
+time("12:00:00Z").time offset|time("12:00:00Z").time offset|PathExpression(DateTimeLiteral(time, "12:00:00Z"), time offset)
+
+#
+# DateAndTimeProperties
+#
+date and time("2018-12-10T10:30:00").time offset|date and time("2018-12-10T10:30:00").time offset|PathExpression(DateTimeLiteral(date and time, "2018-12-10T10:30:00"), time offset)
+date and time("2018-12-10T10:30:00@Etc/UTC").timezone|date and time("2018-12-10T10:30:00@Etc/UTC").timezone|PathExpression(DateTimeLiteral(date and time, "2018-12-10T10:30:00@Etc/UTC"), timezone)
+date and time("2018-12-10T10:30:00").timezone|date and time("2018-12-10T10:30:00").timezone|PathExpression(DateTimeLiteral(date and time, "2018-12-10T10:30:00"), timezone)
+time("10:30:00").time offset|time("10:30:00").time offset|PathExpression(DateTimeLiteral(time, "10:30:00"), time offset)
+time("10:30:00@Etc/UTC").timezone|time("10:30:00@Etc/UTC").timezone|PathExpression(DateTimeLiteral(time, "10:30:00@Etc/UTC"), timezone)
+time("10:30:00").timezone|time("10:30:00").timezone|PathExpression(DateTimeLiteral(time, "10:30:00"), timezone)
+
+#
+# DurationProperties
+#
+# years and months duration
+duration("P10Y4M").years|duration("P10Y4M").years|PathExpression(DateTimeLiteral(duration, "P10Y4M"), years)
+duration("P10Y4M").months|duration("P10Y4M").months|PathExpression(DateTimeLiteral(duration, "P10Y4M"), months)
+duration(string("P10Y4M")).months|duration(string("P10Y4M")).months|PathExpression(FunctionInvocation(Name(duration) -> PositionalParameters(FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral("P10Y4M"))))), months)
+duration(string("P10Y4M")).days|duration(string("P10Y4M")).days|PathExpression(FunctionInvocation(Name(duration) -> PositionalParameters(FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral("P10Y4M"))))), days)
+duration(string("P3DT2H")).days|duration(string("P3DT2H")).days|PathExpression(FunctionInvocation(Name(duration) -> PositionalParameters(FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral("P3DT2H"))))), days)
+duration(string("P3DT2H")).months|duration(string("P3DT2H")).months|PathExpression(FunctionInvocation(Name(duration) -> PositionalParameters(FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral("P3DT2H"))))), months)
+
+# days and time duration
+duration("P1DT2H3M4S").days|duration("P1DT2H3M4S").days|PathExpression(DateTimeLiteral(duration, "P1DT2H3M4S"), days)
+duration("P1DT2H3M4S").hours|duration("P1DT2H3M4S").hours|PathExpression(DateTimeLiteral(duration, "P1DT2H3M4S"), hours)
+duration("P1DT2H3M4S").minutes|duration("P1DT2H3M4S").minutes|PathExpression(DateTimeLiteral(duration, "P1DT2H3M4S"), minutes)
+duration("P1DT2H3M4S").seconds|duration("P1DT2H3M4S").seconds|PathExpression(DateTimeLiteral(duration, "P1DT2H3M4S"), seconds)
+
+# complex date and time expressions
+(date("2012-03-01") - date("2012-04-01")).days|(date("2012-03-01") - date("2012-04-01")).days|PathExpression(Addition(-,DateTimeLiteral(date, "2012-03-01"),DateTimeLiteral(date, "2012-04-01")), days)
+(date("2012-03-01") - date("2012-04-01")).hours|(date("2012-03-01") - date("2012-04-01")).hours|PathExpression(Addition(-,DateTimeLiteral(date, "2012-03-01"),DateTimeLiteral(date, "2012-04-01")), hours)
+(date("2012-03-01") - date("2012-04-01")).minutes|(date("2012-03-01") - date("2012-04-01")).minutes|PathExpression(Addition(-,DateTimeLiteral(date, "2012-03-01"),DateTimeLiteral(date, "2012-04-01")), minutes)
+(date("2012-03-01") - date("2012-04-01")).seconds|(date("2012-03-01") - date("2012-04-01")).seconds|PathExpression(Addition(-,DateTimeLiteral(date, "2012-03-01"),DateTimeLiteral(date, "2012-04-01")), seconds)
+
+#
+# DateTimeFunctions
+#
+is(1, 1)|is(1, 1)|FunctionInvocation(Name(is) -> PositionalParameters(NumericLiteral(1), NumericLiteral(1)))
+is(@"2012-12-25", @"23:00:50")|is(date("2012-12-25"), time("23:00:50"))|FunctionInvocation(Name(is) -> PositionalParameters(DateTimeLiteral(date, "2012-12-25"), DateTimeLiteral(time, "23:00:50")))
+is(@"2012-12-25", @"2012-12-25")|is(date("2012-12-25"), date("2012-12-25"))|FunctionInvocation(Name(is) -> PositionalParameters(DateTimeLiteral(date, "2012-12-25"), DateTimeLiteral(date, "2012-12-25")))
+now()|now()|FunctionInvocation(Name(now) -> PositionalParameters())
+today()|today()|FunctionInvocation(Name(today) -> PositionalParameters())
+
+#
+# TemporalFunctions
+#
+day of year(date(2019, 9, 17))|day of year(date(2019, 9, 17))|FunctionInvocation(Name(day of year) -> PositionalParameters(FunctionInvocation(Name(date) -> PositionalParameters(NumericLiteral(2019), NumericLiteral(9), NumericLiteral(17)))))
+day of week(date(2019, 9, 17))|day of week(date(2019, 9, 17))|FunctionInvocation(Name(day of week) -> PositionalParameters(FunctionInvocation(Name(date) -> PositionalParameters(NumericLiteral(2019), NumericLiteral(9), NumericLiteral(17)))))
+month of year(date(2019, 9, 17))|month of year(date(2019, 9, 17))|FunctionInvocation(Name(month of year) -> PositionalParameters(FunctionInvocation(Name(date) -> PositionalParameters(NumericLiteral(2019), NumericLiteral(9), NumericLiteral(17)))))
+week of year(date(2019, 9, 17))|week of year(date(2019, 9, 17))|FunctionInvocation(Name(week of year) -> PositionalParameters(FunctionInvocation(Name(date) -> PositionalParameters(NumericLiteral(2019), NumericLiteral(9), NumericLiteral(17)))))
+
+#
+# RangeLiterals
+#
+@"2010-10-01"|date("2010-10-01")|DateTimeLiteral(date, "2010-10-01")
+@"12:00:00"|time("12:00:00")|DateTimeLiteral(time, "12:00:00")
+@"2010-10-01T12:00:00"|date and time("2010-10-01T12:00:00")|DateTimeLiteral(date and time, "2010-10-01T12:00:00")
+@"P10Y"|duration("P10Y")|DateTimeLiteral(duration, "P10Y")
+@""|date and time("")|DateTimeLiteral(date and time, "")
+@"2010-10-01"|date("2010-10-01")|DateTimeLiteral(date, "2010-10-01")
+< @"2010-10-01"|(< date("2010-10-01"))|OperatorRange(<,DateTimeLiteral(date, "2010-10-01"))
+
+#
+# RangeFunctions
+#
+before(1, [5..8])|before(1, [5 .. 8])|FunctionInvocation(Name(before) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+before("1", ["5".."8"])|before("1", ["5" .. "8"])|FunctionInvocation(Name(before) -> PositionalParameters(StringLiteral("1"), EndpointsRange(false,StringLiteral("5"),false,StringLiteral("8"))))
+before(@"2010-10-01", [@"2010-10-02"..@"2010-10-03"])|before(date("2010-10-01"), [date("2010-10-02") .. date("2010-10-03")])|FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date, "2010-10-01"), EndpointsRange(false,DateTimeLiteral(date, "2010-10-02"),false,DateTimeLiteral(date, "2010-10-03"))))
+before(@"12:00:00", [@"12:00:02"..@"12:00:03"])|before(time("12:00:00"), [time("12:00:02") .. time("12:00:03")])|FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(time, "12:00:00"), EndpointsRange(false,DateTimeLiteral(time, "12:00:02"),false,DateTimeLiteral(time, "12:00:03"))))
+before(@"2010-10-01T12:00:00", [@"2010-10-02T12:00:00"..@"2010-10-03T12:00:00"])|before(date and time("2010-10-01T12:00:00"), [date and time("2010-10-02T12:00:00") .. date and time("2010-10-03T12:00:00")])|FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(date and time, "2010-10-01T12:00:00"), EndpointsRange(false,DateTimeLiteral(date and time, "2010-10-02T12:00:00"),false,DateTimeLiteral(date and time, "2010-10-03T12:00:00"))))
+before(@"P10Y", [@"P12Y"..@"P13Y"])|before(duration("P10Y"), [duration("P12Y") .. duration("P13Y")])|FunctionInvocation(Name(before) -> PositionalParameters(DateTimeLiteral(duration, "P10Y"), EndpointsRange(false,DateTimeLiteral(duration, "P12Y"),false,DateTimeLiteral(duration, "P13Y"))))
+after(1, 5)|after(1, 5)|FunctionInvocation(Name(after) -> PositionalParameters(NumericLiteral(1), NumericLiteral(5)))
+after(1, [5..8])|after(1, [5 .. 8])|FunctionInvocation(Name(after) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+after([5..8], 1)|after([5 .. 8], 1)|FunctionInvocation(Name(after) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))
+after([1..2], [5..8])|after([1 .. 2], [5 .. 8])|FunctionInvocation(Name(after) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+meets([1..2], [5..8])|meets([1 .. 2], [5 .. 8])|FunctionInvocation(Name(meets) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+met by([1..2], [5..8])|met by([1 .. 2], [5 .. 8])|FunctionInvocation(Name(met by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+overlaps([1..2], [5..8])|overlaps([1 .. 2], [5 .. 8])|FunctionInvocation(Name(overlaps) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+overlaps before([1..2], [5..8])|overlaps before([1 .. 2], [5 .. 8])|FunctionInvocation(Name(overlaps before) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+overlaps after([1..2], [5..8])|overlaps after([1 .. 2], [5 .. 8])|FunctionInvocation(Name(overlaps after) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+finishes(1, [5..8])|finishes(1, [5 .. 8])|FunctionInvocation(Name(finishes) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+finishes([1..2], [5..8])|finishes([1 .. 2], [5 .. 8])|FunctionInvocation(Name(finishes) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+finished by([5..8], 1)|finished by([5 .. 8], 1)|FunctionInvocation(Name(finished by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))
+finished by([1..2], [5..8])|finished by([1 .. 2], [5 .. 8])|FunctionInvocation(Name(finished by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+includes([5..8], 1)|includes([5 .. 8], 1)|FunctionInvocation(Name(includes) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))
+includes([1..2], [5..8])|includes([1 .. 2], [5 .. 8])|FunctionInvocation(Name(includes) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+during(1, [5..8])|during(1, [5 .. 8])|FunctionInvocation(Name(during) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+during([1..2], [5..8])|during([1 .. 2], [5 .. 8])|FunctionInvocation(Name(during) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+starts(1, [5..8])|starts(1, [5 .. 8])|FunctionInvocation(Name(starts) -> PositionalParameters(NumericLiteral(1), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+starts([1..2], [5..8])|starts([1 .. 2], [5 .. 8])|FunctionInvocation(Name(starts) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+started by([5..8], 1)|started by([5 .. 8], 1)|FunctionInvocation(Name(started by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), NumericLiteral(1)))
+started by([1..2], [5..8])|started by([1 .. 2], [5 .. 8])|FunctionInvocation(Name(started by) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+coincides(1, 5)|coincides(1, 5)|FunctionInvocation(Name(coincides) -> PositionalParameters(NumericLiteral(1), NumericLiteral(5)))
+coincides([1..2], [5..8])|coincides([1 .. 2], [5 .. 8])|FunctionInvocation(Name(coincides) -> PositionalParameters(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8))))
+
+#
+# RangeProperties
+#
+#
+# EndpointsRange
+#
+[5..8].start|[5 .. 8].start|PathExpression(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), start)
+[5..8].end|[5 .. 8].end|PathExpression(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), end)
+[5..8].start included|[5 .. 8].start included|PathExpression(EndpointsRange(false,NumericLiteral(5),false,NumericLiteral(8)), start included)
+[5..8).end included|[5 .. 8).end included|PathExpression(EndpointsRange(false,NumericLiteral(5),true,NumericLiteral(8)), end included)
+
+#
+# OperatorRange
+#
+(< 10).start|(< 10).start|PathExpression(OperatorRange(<,NumericLiteral(10)), start)
+(<= 10).end|(<= 10).end|PathExpression(OperatorRange(<=,NumericLiteral(10)), end)
+(< 10).start included|(< 10).start included|PathExpression(OperatorRange(<,NumericLiteral(10)), start included)
+(> 10).end included|(> 10).end included|PathExpression(OperatorRange(>,NumericLiteral(10)), end included)
+
+#
+# InstanceOfExpression
+#
+3 instance of number|3 instance of number|InstanceOfExpression(NumericLiteral(3), NamedTypeExpression(number))
+"abc" instance of string|"abc" instance of string|InstanceOfExpression(StringLiteral("abc"), NamedTypeExpression(string))
+true instance of boolean|true instance of boolean|InstanceOfExpression(BooleanLiteral(true), NamedTypeExpression(boolean))
+date("2011-01-03") instance of date|date("2011-01-03") instance of date|InstanceOfExpression(DateTimeLiteral(date, "2011-01-03"), NamedTypeExpression(date))
+time("12:00:00Z") instance of time|time("12:00:00Z") instance of time|InstanceOfExpression(DateTimeLiteral(time, "12:00:00Z"), NamedTypeExpression(time))
+date and time("2016-03-01T12:00:00Z") instance of date and time|date and time("2016-03-01T12:00:00Z") instance of date and time|InstanceOfExpression(DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"), NamedTypeExpression(date and time))
+duration("P1Y1M") instance of years and months duration|duration("P1Y1M") instance of years and months duration|InstanceOfExpression(DateTimeLiteral(duration, "P1Y1M"), NamedTypeExpression(years and months duration))
+duration("P1DT1H") instance of days and time duration|duration("P1DT1H") instance of days and time duration|InstanceOfExpression(DateTimeLiteral(duration, "P1DT1H"), NamedTypeExpression(days and time duration))
+[1, 2, 3] instance of list<number>|[1, 2, 3] instance of list<number>|InstanceOfExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTypeExpression(NamedTypeExpression(number)))
+{a: 1, b: "2"} instance of context<a: number, b: string>|{"a": 1, "b": "2"} instance of context<a: number, b: string>|InstanceOfExpression(Context(ContextEntry(ContextEntryKey(a) = NumericLiteral(1)),ContextEntry(ContextEntryKey(b) = StringLiteral("2"))), ContextTypeExpression(a: NamedTypeExpression(number), b: NamedTypeExpression(string)))
+{"a": 1, "b": "2"} instance of context<a: number, b: string>|{"a": 1, "b": "2"} instance of context<a: number, b: string>|InstanceOfExpression(Context(ContextEntry(ContextEntryKey(a) = NumericLiteral(1)),ContextEntry(ContextEntryKey(b) = StringLiteral("2"))), ContextTypeExpression(a: NamedTypeExpression(number), b: NamedTypeExpression(string)))
+[1..3) instance of range<number>|[1 .. 3) instance of range<number>|InstanceOfExpression(EndpointsRange(false,NumericLiteral(1),true,NumericLiteral(3)), RangeTypeExpression(NamedTypeExpression(number)))
+(function ()  4) instance of function <> -> number|(function() 4) instance of function<> -> number|InstanceOfExpression(FunctionDefinition(, NumericLiteral(4), false), FunctionTypeExpression( -> NamedTypeExpression(number)))
+(function (list: list<number>, precedes: function<number, number> -> boolean) sort(list, precedes)) instance of function <list<number>, function<number, number> -> boolean> -> list<number>|(function(list: list<number>, precedes: function<number, number> -> boolean) sort(list, precedes)) instance of function<list<number>, function<number, number> -> boolean> -> list<number>|InstanceOfExpression(FunctionDefinition(FormalParameter(list, null, false, false),FormalParameter(precedes, null, false, false), FunctionInvocation(Name(sort) -> PositionalParameters(Name(list), Name(precedes))), false), FunctionTypeExpression(ListTypeExpression(NamedTypeExpression(number)), FunctionTypeExpression(NamedTypeExpression(number), NamedTypeExpression(number) -> NamedTypeExpression(boolean)) -> ListTypeExpression(NamedTypeExpression(number))))
+123 instance of a.b.c|123 instance of a.b.c|InstanceOfExpression(NumericLiteral(123), NamedTypeExpression(a.b.c))

@@ -1,0 +1,13 @@
+input|expected|ast
+#
+# ConversionFunctions
+#
+date and time(date and time("2012-03-01T13:14:15Z"), time("10:11:12Z"))|date and time(date and time("2012-03-01T13:14:15Z"), time("10:11:12Z"))|FunctionInvocation(Name(date and time) -> PositionalParameters(DateTimeLiteral(date and time, "2012-03-01T13:14:15Z"), DateTimeLiteral(time, "10:11:12Z")))
+years and months duration(date and time("2012-03-01T10:12:00Z"), date and time("2012-03-01T10:12:00Z"))|years and months duration(date and time("2012-03-01T10:12:00Z"), date and time("2012-03-01T10:12:00Z"))|FunctionInvocation(Name(years and months duration) -> PositionalParameters(DateTimeLiteral(date and time, "2012-03-01T10:12:00Z"), DateTimeLiteral(date and time, "2012-03-01T10:12:00Z")))
+years and months duration(date and time("2012-03-01T10:12:00Z"), date("2013-05-01"))|years and months duration(date and time("2012-03-01T10:12:00Z"), date("2013-05-01"))|FunctionInvocation(Name(years and months duration) -> PositionalParameters(DateTimeLiteral(date and time, "2012-03-01T10:12:00Z"), DateTimeLiteral(date, "2013-05-01")))
+years and months duration(date("2013-05-01"), date and time("2012-03-01T10:12:00Z"))|years and months duration(date("2013-05-01"), date and time("2012-03-01T10:12:00Z"))|FunctionInvocation(Name(years and months duration) -> PositionalParameters(DateTimeLiteral(date, "2013-05-01"), DateTimeLiteral(date and time, "2012-03-01T10:12:00Z")))
+
+#
+# DateTimeFunctions
+#
+is(@"23:00:50Z", @"23:00:50")|is(time("23:00:50Z"), time("23:00:50"))|FunctionInvocation(Name(is) -> PositionalParameters(DateTimeLiteral(time, "23:00:50Z"), DateTimeLiteral(time, "23:00:50")))

@@ -1,0 +1,568 @@
+input|expected|ast
+#
+# ForExpression
+#
+# number one range
+for i in 1..1 return i|for i in 1 .. 1 return i|ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(1))) -> Name(i))
+for i in 1..2 return i|for i in 1 .. 2 return i|ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> Name(i))
+for i in 4..2 return i|for i in 4 .. 2 return i|ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(4), NumericLiteral(2))) -> Name(i))
+for i in 1..-1 return i|for i in 1 .. -1 return i|ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), ArithmeticNegation(NumericLiteral(1)))) -> Name(i))
+for i in 0..4 return if i = 0 then 1 else i * partial[-1]|for i in 0 .. 4 return if i = 0 then 1 else i * partial[-1]|ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(0), NumericLiteral(4))) -> IfExpression(Relational(=,Name(i),NumericLiteral(0)), NumericLiteral(1), Multiplication(*,Name(i),FilterExpression(Name(partial), ArithmeticNegation(NumericLiteral(1))))))
+
+# real number one range
+for i in 0.3..2 return i|for i in 0.3 .. 2 return i|ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(0.3), NumericLiteral(2))) -> Name(i))
+
+# number two ranges
+for i in 1..2, j in 2..3 return i+j|for i in 1 .. 2, j in 2 .. 3 return i + j|ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))),Iterator(j in RangeIteratorDomain(NumericLiteral(2), NumericLiteral(3))) -> Addition(+,Name(i),Name(j)))
+for i in 1..2 return for j in 2..3 return i+j|for i in 1 .. 2 return for j in 2 .. 3 return i + j|ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in RangeIteratorDomain(NumericLiteral(2), NumericLiteral(3))) -> Addition(+,Name(i),Name(j))))
+
+# number one list
+for i in [1, 2] return i|for i in [1, 2] return i|ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))) -> Name(i))
+
+# number two lists
+for i in [1, 2], j in [2, 3] return i+j|for i in [1, 2], j in [2, 3] return i + j|ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j)))
+for i in [1, 2] return for j in [2, 3] return i+j|for i in [1, 2] return for j in [2, 3] return i + j|ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))
+
+# number two domains, mixture
+for i in 1..2 return for j in [2, 3] return i+j|for i in 1 .. 2 return for j in [2, 3] return i + j|ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(1), NumericLiteral(2))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Addition(+,Name(i),Name(j))))
+
+# date one list
+for i in [@"1980-01-01"..@"1980-01-02"] return i|for i in [date("1980-01-01") .. date("1980-01-02")] return i|ForExpression(Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,DateTimeLiteral(date, "1980-01-01"),false,DateTimeLiteral(date, "1980-01-02")))) -> Name(i))
+
+# date two lists
+for i in [@"1980-01-01", @"1980-01-02"], j in [@"1980-01-02", @"1980-01-03"] return i-j|for i in [date("1980-01-01"), date("1980-01-02")], j in [date("1980-01-02"), date("1980-01-03")] return i - j|ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, "1980-01-01"),DateTimeLiteral(date, "1980-01-02")))),Iterator(j in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, "1980-01-02"),DateTimeLiteral(date, "1980-01-03")))) -> Addition(-,Name(i),Name(j)))
+for i in [@"1980-01-01", @"1980-01-02"] return for j in [@"1980-01-02", @"1980-01-03"] return i-j|for i in [date("1980-01-01"), date("1980-01-02")] return for j in [date("1980-01-02"), date("1980-01-03")] return i - j|ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, "1980-01-01"),DateTimeLiteral(date, "1980-01-02")))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, "1980-01-02"),DateTimeLiteral(date, "1980-01-03")))) -> Addition(-,Name(i),Name(j))))
+
+# date one range
+for i in @"1980-01-01"..@"1980-01-02" return i|for i in date("1980-01-01") .. date("1980-01-02") return i|ForExpression(Iterator(i in RangeIteratorDomain(DateTimeLiteral(date, "1980-01-01"), DateTimeLiteral(date, "1980-01-02"))) -> Name(i))
+for i in @"1980-01-04"..@"1980-01-02" return i|for i in date("1980-01-04") .. date("1980-01-02") return i|ForExpression(Iterator(i in RangeIteratorDomain(DateTimeLiteral(date, "1980-01-04"), DateTimeLiteral(date, "1980-01-02"))) -> Name(i))
+
+# date two domains, mixture
+for i in @"1980-01-01"..@"1980-01-02" return for j in [@"1980-01-02", @"1980-01-03"] return i-j|for i in date("1980-01-01") .. date("1980-01-02") return for j in [date("1980-01-02"), date("1980-01-03")] return i - j|ForExpression(Iterator(i in RangeIteratorDomain(DateTimeLiteral(date, "1980-01-01"), DateTimeLiteral(date, "1980-01-02"))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, "1980-01-02"),DateTimeLiteral(date, "1980-01-03")))) -> Addition(-,Name(i),Name(j))))
+
+# number three lists
+for i in [1], j in [2], k in [3] return i+j+k|for i in [1], j in [2], k in [3] return i + j + k|ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2)))),Iterator(k in ExpressionIteratorDomain(ListLiteral(NumericLiteral(3)))) -> Addition(+,Addition(+,Name(i),Name(j)),Name(k)))
+
+# duplicated iteration variable
+for i in [1,2], i in [4,5] return i * j|for i in [1, 2], i in [4, 5] return i * j|ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(4),NumericLiteral(5)))) -> Multiplication(*,Name(i),Name(j)))
+
+# complex types
+for i in a.min..a.max return i|for i in a.min .. a.max return i|ForExpression(Iterator(i in RangeIteratorDomain(PathExpression(Name(a), min), PathExpression(Name(a), max))) -> Name(i))
+for i in b.start..b.end return i|for i in b.start .. b.end return i|ForExpression(Iterator(i in RangeIteratorDomain(PathExpression(Name(b), start), PathExpression(Name(b), end))) -> Name(i))
+
+#
+# IfExpression
+#
+if true then 1 else 2|if true then 1 else 2|IfExpression(BooleanLiteral(true), NumericLiteral(1), NumericLiteral(2))
+if true then "b" else "a"|if true then "b" else "a"|IfExpression(BooleanLiteral(true), StringLiteral("b"), StringLiteral("a"))
+if false then null else "a"|if false then null else "a"|IfExpression(BooleanLiteral(false), NullLiteral(), StringLiteral("a"))
+if true then 1 else null|if true then 1 else null|IfExpression(BooleanLiteral(true), NumericLiteral(1), NullLiteral())
+
+#
+# QuantifiedExpression
+#
+# two domains - list
+some i in [1, 2] j in [2, 3] satisfies i + j > 1|some i in [1, 2] j in [2, 3] satisfies i + j > 1|QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))
+every i in [1, 2] j in [2, 3] satisfies i + j > 1|every i in [1, 2] j in [2, 3] satisfies i + j > 1|QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))
+
+# two domains - ranges
+some i in [1..2] j in [2..3] satisfies i + j > 1|some i in [1 .. 2] j in [2 .. 3] satisfies i + j > 1|QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))
+every i in [1..2] j in [2..3] satisfies i + j > 1|every i in [1 .. 2] j in [2 .. 3] satisfies i + j > 1|QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))
+
+#
+# RelationalExpression
+#
+# number
+1 = 2|1 = 2|Relational(=,NumericLiteral(1),NumericLiteral(2))
+1 == 2|1 == 2|Relational(==,NumericLiteral(1),NumericLiteral(2))
+1 != 2|1 != 2|Relational(!=,NumericLiteral(1),NumericLiteral(2))
+1 < 2|1 < 2|Relational(<,NumericLiteral(1),NumericLiteral(2))
+1 <= 2|1 <= 2|Relational(<=,NumericLiteral(1),NumericLiteral(2))
+1 > 2|1 > 2|Relational(>,NumericLiteral(1),NumericLiteral(2))
+1 >= 2|1 >= 2|Relational(>=,NumericLiteral(1),NumericLiteral(2))
+
+# date
+date("2016-03-01") = date("2016-03-02")|date("2016-03-01") = date("2016-03-02")|Relational(=,DateTimeLiteral(date, "2016-03-01"),DateTimeLiteral(date, "2016-03-02"))
+date("2016-03-01") == date("2016-03-02")|date("2016-03-01") == date("2016-03-02")|Relational(==,DateTimeLiteral(date, "2016-03-01"),DateTimeLiteral(date, "2016-03-02"))
+date("2016-03-01") != date("2016-03-01")|date("2016-03-01") != date("2016-03-01")|Relational(!=,DateTimeLiteral(date, "2016-03-01"),DateTimeLiteral(date, "2016-03-01"))
+date("2016-03-01") < date("2016-03-01")|date("2016-03-01") < date("2016-03-01")|Relational(<,DateTimeLiteral(date, "2016-03-01"),DateTimeLiteral(date, "2016-03-01"))
+date("2016-03-01") <= date("2016-03-02")|date("2016-03-01") <= date("2016-03-02")|Relational(<=,DateTimeLiteral(date, "2016-03-01"),DateTimeLiteral(date, "2016-03-02"))
+date("2016-03-01") > date("2016-03-02")|date("2016-03-01") > date("2016-03-02")|Relational(>,DateTimeLiteral(date, "2016-03-01"),DateTimeLiteral(date, "2016-03-02"))
+date("2016-03-01") >= date("2016-03-02")|date("2016-03-01") >= date("2016-03-02")|Relational(>=,DateTimeLiteral(date, "2016-03-01"),DateTimeLiteral(date, "2016-03-02"))
+
+# date and time
+date and time("2016-03-01T12:00:00Z") = date and time("2016-03-02T12:00:00Z")|date and time("2016-03-01T12:00:00Z") = date and time("2016-03-02T12:00:00Z")|Relational(=,DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"),DateTimeLiteral(date and time, "2016-03-02T12:00:00Z"))
+date and time("2016-03-01T12:00:00Z") == date and time("2016-03-02T12:00:00Z")|date and time("2016-03-01T12:00:00Z") == date and time("2016-03-02T12:00:00Z")|Relational(==,DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"),DateTimeLiteral(date and time, "2016-03-02T12:00:00Z"))
+date and time("2016-03-01T12:00:00Z") != date and time("2016-03-02T12:00:00Z")|date and time("2016-03-01T12:00:00Z") != date and time("2016-03-02T12:00:00Z")|Relational(!=,DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"),DateTimeLiteral(date and time, "2016-03-02T12:00:00Z"))
+date and time("2016-03-01T12:00:00Z") < date and time("2016-03-02T12:00:00Z")|date and time("2016-03-01T12:00:00Z") < date and time("2016-03-02T12:00:00Z")|Relational(<,DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"),DateTimeLiteral(date and time, "2016-03-02T12:00:00Z"))
+date and time("2016-03-01T12:00:00Z") <= date and time("2016-03-02T12:00:00Z")|date and time("2016-03-01T12:00:00Z") <= date and time("2016-03-02T12:00:00Z")|Relational(<=,DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"),DateTimeLiteral(date and time, "2016-03-02T12:00:00Z"))
+date and time("2016-03-01T12:00:00Z") > date and time("2016-03-02T12:00:00Z")|date and time("2016-03-01T12:00:00Z") > date and time("2016-03-02T12:00:00Z")|Relational(>,DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"),DateTimeLiteral(date and time, "2016-03-02T12:00:00Z"))
+date and time("2016-03-01T12:00:00Z") >= date and time("2016-03-02T12:00:00Z")|date and time("2016-03-01T12:00:00Z") >= date and time("2016-03-02T12:00:00Z")|Relational(>=,DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"),DateTimeLiteral(date and time, "2016-03-02T12:00:00Z"))
+
+# time
+time("12:00:00Z") = time("12:01:00Z")|time("12:00:00Z") = time("12:01:00Z")|Relational(=,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "12:01:00Z"))
+time("12:00:00Z") == time("12:01:00Z")|time("12:00:00Z") == time("12:01:00Z")|Relational(==,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "12:01:00Z"))
+time("12:00:00Z") != time("12:01:00Z")|time("12:00:00Z") != time("12:01:00Z")|Relational(!=,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "12:01:00Z"))
+time("12:00:00Z") < time("12:01:00Z")|time("12:00:00Z") < time("12:01:00Z")|Relational(<,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "12:01:00Z"))
+time("12:00:00Z") <= time("12:01:00Z")|time("12:00:00Z") <= time("12:01:00Z")|Relational(<=,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "12:01:00Z"))
+time("12:00:00Z") > time("12:01:00Z")|time("12:00:00Z") > time("12:01:00Z")|Relational(>,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "12:01:00Z"))
+time("12:00:00Z") >= time("12:01:00Z")|time("12:00:00Z") >= time("12:01:00Z")|Relational(>=,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "12:01:00Z"))
+
+# duration
+duration("P1Y1M") = duration("P1Y2M")|duration("P1Y1M") = duration("P1Y2M")|Relational(=,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))
+duration("P1Y1M") == duration("P1Y2M")|duration("P1Y1M") == duration("P1Y2M")|Relational(==,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))
+duration("P1Y1M") != duration("P1Y2M")|duration("P1Y1M") != duration("P1Y2M")|Relational(!=,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))
+duration("P1Y1M") < duration("P1Y2M")|duration("P1Y1M") < duration("P1Y2M")|Relational(<,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))
+duration("P1Y1M") <= duration("P1Y2M")|duration("P1Y1M") <= duration("P1Y2M")|Relational(<=,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))
+duration("P1Y1M") > duration("P1Y2M")|duration("P1Y1M") > duration("P1Y2M")|Relational(>,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))
+duration("P1Y1M") >= duration("P1Y2M")|duration("P1Y1M") >= duration("P1Y2M")|Relational(>=,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y2M"))
+duration("P10D") = duration("P" + "10D")|duration("P10D") = duration("P" + "10D")|Relational(=,DateTimeLiteral(duration, "P10D"),FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral("P"),StringLiteral("10D")))))
+duration("P10D") = duration("P" + "1Y")|duration("P10D") = duration("P" + "1Y")|Relational(=,DateTimeLiteral(duration, "P10D"),FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral("P"),StringLiteral("1Y")))))
+
+# null
+null = null|null = null|Relational(=,NullLiteral(),NullLiteral())
+null != null|null != null|Relational(!=,NullLiteral(),NullLiteral())
+
+# endpoint ranges
+[1..10] = [1..10]|[1 .. 10] = [1 .. 10]|Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)))
+[1..10] = [1..11]|[1 .. 10] = [1 .. 11]|Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(11)))
+[1..10] = [1..10)|[1 .. 10] = [1 .. 10)|Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(1),true,NumericLiteral(10)))
+
+# operator range
+(< 10) = (null..10)|(< 10) = (null .. 10)|Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,NullLiteral(),true,NumericLiteral(10)))
+(<= 10) = (null..10]|(<= 10) = (null .. 10]|Relational(=,OperatorRange(<=,NumericLiteral(10)),EndpointsRange(true,NullLiteral(),false,NumericLiteral(10)))
+(> 10) = (10..null)|(> 10) = (10 .. null)|Relational(=,OperatorRange(>,NumericLiteral(10)),EndpointsRange(true,NumericLiteral(10),true,NullLiteral()))
+(>= 10) = [10..null)|(>= 10) = [10 .. null)|Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,NullLiteral()))
+(=10) = [10..10]|(= 10) = [10 .. 10]|Relational(=,OperatorRange(=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),false,NumericLiteral(10)))
+(!=10) = (!=10)|(!= 10) = (!= 10)|Relational(=,OperatorRange(!=,NumericLiteral(10)),OperatorRange(!=,NumericLiteral(10)))
+
+< 10 = (null..10)|(< 10 = (null .. 10))|OperatorRange(<,Relational(=,NumericLiteral(10),EndpointsRange(true,NullLiteral(),true,NumericLiteral(10))))
+
+#
+# NullRelationalExpression
+#
+# number
+1 = null|1 = null|Relational(=,NumericLiteral(1),NullLiteral())
+null = 2|null = 2|Relational(=,NullLiteral(),NumericLiteral(2))
+1 != null|1 != null|Relational(!=,NumericLiteral(1),NullLiteral())
+null != 2|null != 2|Relational(!=,NullLiteral(),NumericLiteral(2))
+
+# boolean
+true = null|true = null|Relational(=,BooleanLiteral(true),NullLiteral())
+null = true|null = true|Relational(=,NullLiteral(),BooleanLiteral(true))
+true != null|true != null|Relational(!=,BooleanLiteral(true),NullLiteral())
+null != true|null != true|Relational(!=,NullLiteral(),BooleanLiteral(true))
+
+# string
+"abc" = null|"abc" = null|Relational(=,StringLiteral("abc"),NullLiteral())
+null = "abc"|null = "abc"|Relational(=,NullLiteral(),StringLiteral("abc"))
+"abc" != null|"abc" != null|Relational(!=,StringLiteral("abc"),NullLiteral())
+null != "abc"|null != "abc"|Relational(!=,NullLiteral(),StringLiteral("abc"))
+
+# date
+date("2016-03-01") = null|date("2016-03-01") = null|Relational(=,DateTimeLiteral(date, "2016-03-01"),NullLiteral())
+null = date("2016-03-02")|null = date("2016-03-02")|Relational(=,NullLiteral(),DateTimeLiteral(date, "2016-03-02"))
+date("2016-03-01") != null|date("2016-03-01") != null|Relational(!=,DateTimeLiteral(date, "2016-03-01"),NullLiteral())
+null != date("2016-03-02")|null != date("2016-03-02")|Relational(!=,NullLiteral(),DateTimeLiteral(date, "2016-03-02"))
+
+# date and time
+date and time("2016-03-01T12:00:00Z") = null|date and time("2016-03-01T12:00:00Z") = null|Relational(=,DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"),NullLiteral())
+null = date and time("2016-03-02T12:00:00Z")|null = date and time("2016-03-02T12:00:00Z")|Relational(=,NullLiteral(),DateTimeLiteral(date and time, "2016-03-02T12:00:00Z"))
+date and time("2016-03-01T12:00:00Z") != null|date and time("2016-03-01T12:00:00Z") != null|Relational(!=,DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"),NullLiteral())
+null != date and time("2016-03-02T12:00:00Z")|null != date and time("2016-03-02T12:00:00Z")|Relational(!=,NullLiteral(),DateTimeLiteral(date and time, "2016-03-02T12:00:00Z"))
+
+# time
+time("12:00:00Z") = null|time("12:00:00Z") = null|Relational(=,DateTimeLiteral(time, "12:00:00Z"),NullLiteral())
+null = time("12:01:00Z")|null = time("12:01:00Z")|Relational(=,NullLiteral(),DateTimeLiteral(time, "12:01:00Z"))
+time("12:00:00Z") != null|time("12:00:00Z") != null|Relational(!=,DateTimeLiteral(time, "12:00:00Z"),NullLiteral())
+null != time("12:01:00Z")|null != time("12:01:00Z")|Relational(!=,NullLiteral(),DateTimeLiteral(time, "12:01:00Z"))
+
+# duration
+duration("P1Y1M") = null|duration("P1Y1M") = null|Relational(=,DateTimeLiteral(duration, "P1Y1M"),NullLiteral())
+null = duration("P1Y2M")|null = duration("P1Y2M")|Relational(=,NullLiteral(),DateTimeLiteral(duration, "P1Y2M"))
+duration("P1Y1M") != null|duration("P1Y1M") != null|Relational(!=,DateTimeLiteral(duration, "P1Y1M"),NullLiteral())
+null != duration("P1Y2M")|null != duration("P1Y2M")|Relational(!=,NullLiteral(),DateTimeLiteral(duration, "P1Y2M"))
+
+# range
+[1..10] = null|[1 .. 10] = null|Relational(=,EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)),NullLiteral())
+null = [1..10]|null = [1 .. 10]|Relational(=,NullLiteral(),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(10)))
+null = null|null = null|Relational(=,NullLiteral(),NullLiteral())
+null != null|null != null|Relational(!=,NullLiteral(),NullLiteral())
+
+# list
+[] = []|[] = []|Relational(=,ListLiteral(),ListLiteral())
+[] = null|[] = null|Relational(=,ListLiteral(),NullLiteral())
+[] != []|[] != []|Relational(!=,ListLiteral(),ListLiteral())
+[] != null|[] != null|Relational(!=,ListLiteral(),NullLiteral())
+
+# context
+{} = {}|{} = {}|Relational(=,Context(),Context())
+{} = null|{} = null|Relational(=,Context(),NullLiteral())
+{} != {}|{} != {}|Relational(!=,Context(),Context())
+{} != null|{} != null|Relational(!=,Context(),NullLiteral())
+
+# complex context
+[1,2,{a: [3,4]}] = [1,2,{a: [3,4]}]|[1, 2, {"a": [3, 4]}] = [1, 2, {"a": [3, 4]}]|Relational(=,ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))))),ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))))))
+
+# complex context
+[1,2,{a: [3,4]}] = [1,2,{a: [3,4], b: "foo"}]|[1, 2, {"a": [3, 4]}] = [1, 2, {"a": [3, 4], "b": "foo"}]|Relational(=,ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))))),ListLiteral(NumericLiteral(1),NumericLiteral(2),Context(ContextEntry(ContextEntryKey(a) = ListLiteral(NumericLiteral(3),NumericLiteral(4))),ContextEntry(ContextEntryKey(b) = StringLiteral("foo")))))
+
+#
+# BetweenExpression
+#
+3 between 1 and 4|3 between 1 and 4|BetweenExpression(NumericLiteral(3), NumericLiteral(1), NumericLiteral(4))
+(i) between (a) and (b)|i between a and b|BetweenExpression(Name(i), Name(a), Name(b))
+(i) between 1 and 2|i between 1 and 2|BetweenExpression(Name(i), NumericLiteral(1), NumericLiteral(2))
+date("2018-12-01") between date("2018-12-02") and date("2018-12-04")|date("2018-12-01") between date("2018-12-02") and date("2018-12-04")|BetweenExpression(DateTimeLiteral(date, "2018-12-01"), DateTimeLiteral(date, "2018-12-02"), DateTimeLiteral(date, "2018-12-04"))
+time("10:31:00") between time("10:32:00") and time("10:34:00")|time("10:31:00") between time("10:32:00") and time("10:34:00")|BetweenExpression(DateTimeLiteral(time, "10:31:00"), DateTimeLiteral(time, "10:32:00"), DateTimeLiteral(time, "10:34:00"))
+date and time("2018-12-01T10:30:00") between date and time("2018-12-02T10:30:00") and date and time("2018-12-04T10:30:00")|date and time("2018-12-01T10:30:00") between date and time("2018-12-02T10:30:00") and date and time("2018-12-04T10:30:00")|BetweenExpression(DateTimeLiteral(date and time, "2018-12-01T10:30:00"), DateTimeLiteral(date and time, "2018-12-02T10:30:00"), DateTimeLiteral(date and time, "2018-12-04T10:30:00"))
+duration("P1Y") between duration("P2Y") and duration("P4Y")|duration("P1Y") between duration("P2Y") and duration("P4Y")|BetweenExpression(DateTimeLiteral(duration, "P1Y"), DateTimeLiteral(duration, "P2Y"), DateTimeLiteral(duration, "P4Y"))
+duration("P1D") between duration("P2D") and duration("P4D")|duration("P1D") between duration("P2D") and duration("P4D")|BetweenExpression(DateTimeLiteral(duration, "P1D"), DateTimeLiteral(duration, "P2D"), DateTimeLiteral(duration, "P4D"))
+
+#
+# InExpression
+#
+# operator test
+# simple types
+1 in 1|1 in 1|InExpression(NumericLiteral(1), OperatorRange(null,NumericLiteral(1)))
+1 in <1|1 in (< 1)|InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)))
+1 in <=1|1 in (<= 1)|InExpression(NumericLiteral(1), OperatorRange(<=,NumericLiteral(1)))
+1 in >1|1 in (> 1)|InExpression(NumericLiteral(1), OperatorRange(>,NumericLiteral(1)))
+1 in >=1|1 in (>= 1)|InExpression(NumericLiteral(1), OperatorRange(>=,NumericLiteral(1)))
+
+# interval test
+1 in (1..2)|1 in (1 .. 2)|InExpression(NumericLiteral(1), EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))
+1 in (1..2]|1 in (1 .. 2]|InExpression(NumericLiteral(1), EndpointsRange(true,NumericLiteral(1),false,NumericLiteral(2)))
+1 in [1..2)|1 in [1 .. 2)|InExpression(NumericLiteral(1), EndpointsRange(false,NumericLiteral(1),true,NumericLiteral(2)))
+1 in [1..2]|1 in [1 .. 2]|InExpression(NumericLiteral(1), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))
+
+# list test
+1 in [1, 2]|1 in [1, 2]|InExpression(NumericLiteral(1), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))))
+[1, 2, 3] in [1, 2, 3]|[1, 2, 3] in [1, 2, 3]|InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)))))
+[1,2,3] in ([1,2,3,4], [1,2,3])|[1, 2, 3] in ([1, 2, 3, 4], [1, 2, 3])|InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)),OperatorRange(null,NumericLiteral(4)))), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)))))
+[1,2,3] in ([[1,2,3,4]], [[1,2,3]])|[1, 2, 3] in ([[1, 2, 3, 4]], [[1, 2, 3]])|InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)))), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))
+[1,2,3] in ([[1,2,3,4]], [[1,2,3]])|[1, 2, 3] in ([[1, 2, 3, 4]], [[1, 2, 3]])|InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)))), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))
+[1,2,3] in [[1,2,3,4], [1,2,3]]|[1, 2, 3] in [[1, 2, 3, 4], [1, 2, 3]]|InExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)), ListTest(ListLiteral(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)),ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3)))))
+
+# list test containing EndpointsRange
+1 in [[2..4], [1..3]]|1 in [[2 .. 4], [1 .. 3]]|InExpression(NumericLiteral(1), ListTest(ListLiteral(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(4)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(3)))))
+date("2018-12-11") in [[date("2018-12-05")..date("2018-12-07")], [date("2018-12-10")..date("2018-12-12")]]|date("2018-12-11") in [[date("2018-12-05") .. date("2018-12-07")], [date("2018-12-10") .. date("2018-12-12")]]|InExpression(DateTimeLiteral(date, "2018-12-11"), ListTest(ListLiteral(EndpointsRange(false,DateTimeLiteral(date, "2018-12-05"),false,DateTimeLiteral(date, "2018-12-07")),EndpointsRange(false,DateTimeLiteral(date, "2018-12-10"),false,DateTimeLiteral(date, "2018-12-12")))))
+time("10:30:11") in [[time("10:30:05")..time("10:30:07")], [time("10:30:10")..time("10:30:12")]]|time("10:30:11") in [[time("10:30:05") .. time("10:30:07")], [time("10:30:10") .. time("10:30:12")]]|InExpression(DateTimeLiteral(time, "10:30:11"), ListTest(ListLiteral(EndpointsRange(false,DateTimeLiteral(time, "10:30:05"),false,DateTimeLiteral(time, "10:30:07")),EndpointsRange(false,DateTimeLiteral(time, "10:30:10"),false,DateTimeLiteral(time, "10:30:12")))))
+date and time("2018-12-08T10:30:11") in [[date and time("2018-12-08T10:30:05")..date and time("2018-12-08T10:30:07")], [date and time("2018-12-08T10:30:10")..date and time("2018-12-08T10:30:12")]]|date and time("2018-12-08T10:30:11") in [[date and time("2018-12-08T10:30:05") .. date and time("2018-12-08T10:30:07")], [date and time("2018-12-08T10:30:10") .. date and time("2018-12-08T10:30:12")]]|InExpression(DateTimeLiteral(date and time, "2018-12-08T10:30:11"), ListTest(ListLiteral(EndpointsRange(false,DateTimeLiteral(date and time, "2018-12-08T10:30:05"),false,DateTimeLiteral(date and time, "2018-12-08T10:30:07")),EndpointsRange(false,DateTimeLiteral(date and time, "2018-12-08T10:30:10"),false,DateTimeLiteral(date and time, "2018-12-08T10:30:12")))))
+{a: "foo"} in [{b: "bar"}, {a: "foo"}]|{"a": "foo"} in [{"b": "bar"}, {"a": "foo"}]|InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral("foo"))), ListTest(ListLiteral(OperatorRange(null,Context(ContextEntry(ContextEntryKey(b) = StringLiteral("bar")))),OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral("foo")))))))
+{a: "foo"} in ({a: "bar"}, {a: "foo"})|{"a": "foo"} in ({"a": "bar"}, {"a": "foo"})|InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral("foo"))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral("bar")))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral("foo")))))
+{a: "foo"} in ({a: "bar"}, {a: "baz"})|{"a": "foo"} in ({"a": "bar"}, {"a": "baz"})|InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral("foo"))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral("bar")))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(a) = StringLiteral("baz")))))
+
+# context
+{a: "foo"} in {b: "bar"}|{"a": "foo"} in {"b": "bar"}|InExpression(Context(ContextEntry(ContextEntryKey(a) = StringLiteral("foo"))), OperatorRange(null,Context(ContextEntry(ContextEntryKey(b) = StringLiteral("bar")))))
+
+# compound test
+1 in (1)|1 in 1|InExpression(NumericLiteral(1), OperatorRange(null,NumericLiteral(1)))
+1 in (1, 2)|1 in (1, 2)|InExpression(NumericLiteral(1), OperatorRange(null,NumericLiteral(1)), OperatorRange(null,NumericLiteral(2)))
+1 in (<1, [1..2], [1, 2])|1 in ((< 1), [1 .. 2], [1, 2])|InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))))
+1 in (<1, [1..2], 3)|1 in ((< 1), [1 .. 2], 3)|InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), OperatorRange(null,NumericLiteral(3)))
+
+# complex in expression
+
+#
+# LogicExpression
+#
+(true) or (true)|true or true|Disjunction(BooleanLiteral(true),BooleanLiteral(true))|(true) or (true)||Disjunction(BooleanLiteral(true),BooleanLiteral(true))|true or true");
+true or true|true or true|Disjunction(BooleanLiteral(true),BooleanLiteral(true))|true or true||Disjunction(BooleanLiteral(true),BooleanLiteral(true))|true or true");
+true or 123|true or 123|Disjunction(BooleanLiteral(true),NumericLiteral(123))|true or 123||Disjunction(BooleanLiteral(true),NumericLiteral(123))|true or 123");
+false or 123|false or 123|Disjunction(BooleanLiteral(false),NumericLiteral(123))|false or 123||Disjunction(BooleanLiteral(false),NumericLiteral(123))|false or 123");
+(true) and (true)|true and true|Conjunction(BooleanLiteral(true),BooleanLiteral(true))|(true) and (true)||Conjunction(BooleanLiteral(true),BooleanLiteral(true))|true and true");
+true and true|true and true|Conjunction(BooleanLiteral(true),BooleanLiteral(true))|true and true||Conjunction(BooleanLiteral(true),BooleanLiteral(true))|true and true");
+false and 123|false and 123|Conjunction(BooleanLiteral(false),NumericLiteral(123))|false and 123||Conjunction(BooleanLiteral(false),NumericLiteral(123))|false and 123");
+true and 123|true and 123|Conjunction(BooleanLiteral(true),NumericLiteral(123))|true and 123||Conjunction(BooleanLiteral(true),NumericLiteral(123))|true and 123");
+not (true)|not true|LogicNegation(BooleanLiteral(true))|not (true)||LogicNegation(BooleanLiteral(true))|not true");
+not not true|true|BooleanLiteral(true)|not not true||BooleanLiteral(true)|true");
+not not not true|not true|LogicNegation(BooleanLiteral(true))|not not not true||LogicNegation(BooleanLiteral(true))|not true");
+booleanA and booleanB or booleanA|booleanA and booleanB or booleanA|Disjunction(Conjunction(Name(booleanA),Name(booleanB)),Name(booleanA))|booleanA and booleanB or booleanA||Disjunction(Conjunction(Name(booleanA),Name(booleanB)),Name(booleanA))|booleanA and booleanB or booleanA");
+
+#
+# Addition
+#
+# number, number
+1 + 1|1 + 1|Addition(+,NumericLiteral(1),NumericLiteral(1))
+1 - 1|1 - 1|Addition(-,NumericLiteral(1),NumericLiteral(1))
+# date and time, date and time
+date and time("2016-08-01T11:00:00Z") - date and time("2016-08-01T11:00:00Z")|date and time("2016-08-01T11:00:00Z") - date and time("2016-08-01T11:00:00Z")|Addition(-,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"),DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"))
+
+# date, date
+date("2016-08-01") - date("2016-08-01")|date("2016-08-01") - date("2016-08-01")|Addition(-,DateTimeLiteral(date, "2016-08-01"),DateTimeLiteral(date, "2016-08-01"))
+
+# date and time, date
+date and time("2016-08-01T11:00:00Z") - date("2016-08-01")|date and time("2016-08-01T11:00:00Z") - date("2016-08-01")|Addition(-,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"),DateTimeLiteral(date, "2016-08-01"))
+
+# date, date and time
+date("2016-08-01") - date and time("2016-08-01T11:00:00Z")|date("2016-08-01") - date and time("2016-08-01T11:00:00Z")|Addition(-,DateTimeLiteral(date, "2016-08-01"),DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"))
+
+# time, time
+time("12:00:00Z") - time("12:00:00Z")|time("12:00:00Z") - time("12:00:00Z")|Addition(-,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(time, "12:00:00Z"))
+
+# years and months duration, years and months duration
+duration("P1Y1M") + duration("P1Y1M")|duration("P1Y1M") + duration("P1Y1M")|Addition(+,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y1M"))
+duration("P1Y1M") - duration("P1Y1M")|duration("P1Y1M") - duration("P1Y1M")|Addition(-,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y1M"))
+duration("P" + "10D") + duration("P1DT1H")|duration("P" + "10D") + duration("P1DT1H")|Addition(+,FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral("P"),StringLiteral("10D")))),DateTimeLiteral(duration, "P1DT1H"))
+duration("P" + "1Y") + duration("P1Y1M")|duration("P" + "1Y") + duration("P1Y1M")|Addition(+,FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral("P"),StringLiteral("1Y")))),DateTimeLiteral(duration, "P1Y1M"))
+duration("P" + "1Y") + duration("P" + "1Y")|duration("P" + "1Y") + duration("P" + "1Y")|Addition(+,FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral("P"),StringLiteral("1Y")))),FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral("P"),StringLiteral("1Y")))))
+
+# days and time duration, days and time duration
+duration("P1DT1H") + duration("P1DT1H")|duration("P1DT1H") + duration("P1DT1H")|Addition(+,DateTimeLiteral(duration, "P1DT1H"),DateTimeLiteral(duration, "P1DT1H"))
+duration("P1DT1H") - duration("P1DT1H")|duration("P1DT1H") - duration("P1DT1H")|Addition(-,DateTimeLiteral(duration, "P1DT1H"),DateTimeLiteral(duration, "P1DT1H"))
+
+# date and time, years and months duration
+date and time("2016-08-01T11:00:00Z") + duration("P1Y1M")|date and time("2016-08-01T11:00:00Z") + duration("P1Y1M")|Addition(+,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"),DateTimeLiteral(duration, "P1Y1M"))
+date and time("2016-08-01T11:00:00Z") - duration("P1Y1M")|date and time("2016-08-01T11:00:00Z") - duration("P1Y1M")|Addition(-,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"),DateTimeLiteral(duration, "P1Y1M"))
+date and time("2016-08-01T11:00:00Z") + duration("P" + "1Y")|date and time("2016-08-01T11:00:00Z") + duration("P" + "1Y")|Addition(+,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"),FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral("P"),StringLiteral("1Y")))))
+date and time("2016-08-01T11:00:00Z") - duration("P" + "1Y")|date and time("2016-08-01T11:00:00Z") - duration("P" + "1Y")|Addition(-,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"),FunctionInvocation(Name(duration) -> PositionalParameters(Addition(+,StringLiteral("P"),StringLiteral("1Y")))))
+
+# Not in standard
+# date, years and months duration
+date("2016-08-01") + duration("P1Y1M")|date("2016-08-01") + duration("P1Y1M")|Addition(+,DateTimeLiteral(date, "2016-08-01"),DateTimeLiteral(duration, "P1Y1M"))
+
+# Not in standard
+# date, years and months duration
+date("2016-08-01") - duration("P1Y1M")|date("2016-08-01") - duration("P1Y1M")|Addition(-,DateTimeLiteral(date, "2016-08-01"),DateTimeLiteral(duration, "P1Y1M"))
+
+# years and months duration, date and time
+duration("P1Y1M") + date and time("2016-08-01T11:00:00Z")|duration("P1Y1M") + date and time("2016-08-01T11:00:00Z")|Addition(+,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"))
+
+# Not in standard
+# years and months duration, date
+duration("P1Y1M") + date("2016-08-01")|duration("P1Y1M") + date("2016-08-01")|Addition(+,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(date, "2016-08-01"))
+
+# date and time, days and time duration
+date and time("2016-08-01T11:00:00Z") + duration("P1DT1H")|date and time("2016-08-01T11:00:00Z") + duration("P1DT1H")|Addition(+,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"),DateTimeLiteral(duration, "P1DT1H"))
+date and time("2016-08-01T11:00:00Z") - duration("P1DT1H")|date and time("2016-08-01T11:00:00Z") - duration("P1DT1H")|Addition(-,DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"),DateTimeLiteral(duration, "P1DT1H"))
+
+# days and time duration, date and time
+duration("P1DT1H") + date and time("2016-08-01T11:00:00Z")|duration("P1DT1H") + date and time("2016-08-01T11:00:00Z")|Addition(+,DateTimeLiteral(duration, "P1DT1H"),DateTimeLiteral(date and time, "2016-08-01T11:00:00Z"))
+
+# time, days and time duration
+time("12:00:00Z") + duration("P1DT1H")|time("12:00:00Z") + duration("P1DT1H")|Addition(+,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(duration, "P1DT1H"))
+time("12:00:00Z") - duration("P1DT1H")|time("12:00:00Z") - duration("P1DT1H")|Addition(-,DateTimeLiteral(time, "12:00:00Z"),DateTimeLiteral(duration, "P1DT1H"))
+
+# days and time duration, time
+duration("P1DT1H") + time("12:00:00Z")|duration("P1DT1H") + time("12:00:00Z")|Addition(+,DateTimeLiteral(duration, "P1DT1H"),DateTimeLiteral(time, "12:00:00Z"))
+
+# string, string
+"abc" + "abc"|"abc" + "abc"|Addition(+,StringLiteral("abc"),StringLiteral("abc"))
+string("Today is the ") + string("day") + string(".") + string("month") + string(".") + string("year") + string("!")|string("Today is the ") + string("day") + string(".") + string("month") + string(".") + string("year") + string("!")|Addition(+,Addition(+,Addition(+,Addition(+,Addition(+,Addition(+,FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral("Today is the "))),FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral("day")))),FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral(".")))),FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral("month")))),FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral(".")))),FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral("year")))),FunctionInvocation(Name(string) -> PositionalParameters(StringLiteral("!"))))
+            
+#
+# Multiplication
+#
+# number, number
+1 * 1|1 * 1|Multiplication(*,NumericLiteral(1),NumericLiteral(1))
+1 / 1|1 / 1|Multiplication(/,NumericLiteral(1),NumericLiteral(1))
+
+# years and months duration, number
+duration("P1Y1M") * 1|duration("P1Y1M") * 1|Multiplication(*,DateTimeLiteral(duration, "P1Y1M"),NumericLiteral(1))
+duration("P1Y1M") / 1|duration("P1Y1M") / 1|Multiplication(/,DateTimeLiteral(duration, "P1Y1M"),NumericLiteral(1))
+
+# number, years and months duration
+1 * duration("P1Y1M")|1 * duration("P1Y1M")|Multiplication(*,NumericLiteral(1),DateTimeLiteral(duration, "P1Y1M"))
+
+# years and months duration, years and months duration
+duration("P1Y1M") / duration("P1Y1M")|duration("P1Y1M") / duration("P1Y1M")|Multiplication(/,DateTimeLiteral(duration, "P1Y1M"),DateTimeLiteral(duration, "P1Y1M"))
+
+# days and time duration, number
+duration("P1DT1H") * 1|duration("P1DT1H") * 1|Multiplication(*,DateTimeLiteral(duration, "P1DT1H"),NumericLiteral(1))
+duration("P1DT1H") / 1|duration("P1DT1H") / 1|Multiplication(/,DateTimeLiteral(duration, "P1DT1H"),NumericLiteral(1))
+
+# number, days and time duration
+1 * duration("P1DT1H")|1 * duration("P1DT1H")|Multiplication(*,NumericLiteral(1),DateTimeLiteral(duration, "P1DT1H"))
+
+# days and time duration, days and time duration
+duration("P1DT1H") / duration("P1DT1H")|duration("P1DT1H") / duration("P1DT1H")|Multiplication(/,DateTimeLiteral(duration, "P1DT1H"),DateTimeLiteral(duration, "P1DT1H"))
+
+# complex divisions
+(date and time("2012-04-01T00:00:00Z") - date and time("2012-03-01T00:00:00Z")) / duration("P1D")|(date and time("2012-04-01T00:00:00Z") - date and time("2012-03-01T00:00:00Z")) / duration("P1D")|Multiplication(/,Addition(-,DateTimeLiteral(date and time, "2012-04-01T00:00:00Z"),DateTimeLiteral(date and time, "2012-03-01T00:00:00Z")),DateTimeLiteral(duration, "P1D"))
+(date("2012-04-01") - date("2012-03-01")) / duration("P1D")|(date("2012-04-01") - date("2012-03-01")) / duration("P1D")|Multiplication(/,Addition(-,DateTimeLiteral(date, "2012-04-01"),DateTimeLiteral(date, "2012-03-01")),DateTimeLiteral(duration, "P1D"))
+(date("2012-03-01") - date("2012-04-01")) / duration("P1D")|(date("2012-03-01") - date("2012-04-01")) / duration("P1D")|Multiplication(/,Addition(-,DateTimeLiteral(date, "2012-03-01"),DateTimeLiteral(date, "2012-04-01")),DateTimeLiteral(duration, "P1D"))
+(date and time("2012-04-01T00:00:00Z") - date and time("2012-03-01T00:00:00Z")) / 2|(date and time("2012-04-01T00:00:00Z") - date and time("2012-03-01T00:00:00Z")) / 2|Multiplication(/,Addition(-,DateTimeLiteral(date and time, "2012-04-01T00:00:00Z"),DateTimeLiteral(date and time, "2012-03-01T00:00:00Z")),NumericLiteral(2))
+(date and time("2012-03-01T00:00:00Z") - date and time("2012-04-01T00:00:00Z")) / 2|(date and time("2012-03-01T00:00:00Z") - date and time("2012-04-01T00:00:00Z")) / 2|Multiplication(/,Addition(-,DateTimeLiteral(date and time, "2012-03-01T00:00:00Z"),DateTimeLiteral(date and time, "2012-04-01T00:00:00Z")),NumericLiteral(2))
+(date("2012-04-01") - date("2012-03-01")) / 2|(date("2012-04-01") - date("2012-03-01")) / 2|Multiplication(/,Addition(-,DateTimeLiteral(date, "2012-04-01"),DateTimeLiteral(date, "2012-03-01")),NumericLiteral(2))
+(date("2012-02-01") - date("2012-03-01")) / 2|(date("2012-02-01") - date("2012-03-01")) / 2|Multiplication(/,Addition(-,DateTimeLiteral(date, "2012-02-01"),DateTimeLiteral(date, "2012-03-01")),NumericLiteral(2))
+
+#
+# Exponentiation
+#
+2 ** 2|2 ** 2|Exponentiation(NumericLiteral(2),NumericLiteral(2))
+
+#
+# ArithmeticNegation
+#
+# number
+- 1|-1|ArithmeticNegation(NumericLiteral(1))
+--1|1|NumericLiteral(1)
+---1|-1|ArithmeticNegation(NumericLiteral(1))
+
+# duration
+- duration("P1Y1M")|-duration("P1Y1M")|ArithmeticNegation(DateTimeLiteral(duration, "P1Y1M"))
+- duration("P1DT1H")|-duration("P1DT1H")|ArithmeticNegation(DateTimeLiteral(duration, "P1DT1H"))
+
+# complex negation
+-(1+2+3)|-(1 + 2 + 3)|ArithmeticNegation(Addition(+,Addition(+,NumericLiteral(1),NumericLiteral(2)),NumericLiteral(3)))
+-(function(a) a)(10)|-(function(a) a)(10)|ArithmeticNegation(FunctionInvocation(FunctionDefinition(FormalParameter(a, null, false, false), Name(a), false) -> PositionalParameters(NumericLiteral(10))))
+
+#
+# complex arithmetic expression
+#
+-1|-1|ArithmeticNegation(NumericLiteral(1))
+-(1)|-1|ArithmeticNegation(NumericLiteral(1))
+1 ** 2|1 ** 2|Exponentiation(NumericLiteral(1),NumericLiteral(2))
+1 * 2 * 3|1 * 2 * 3|Multiplication(*,Multiplication(*,NumericLiteral(1),NumericLiteral(2)),NumericLiteral(3))
+1 + 2 + 3|1 + 2 + 3|Addition(+,Addition(+,NumericLiteral(1),NumericLiteral(2)),NumericLiteral(3))
+(1 + 2)|1 + 2|Addition(+,NumericLiteral(1),NumericLiteral(2))
+1 + 2 + 3|1 + 2 + 3|Addition(+,Addition(+,NumericLiteral(1),NumericLiteral(2)),NumericLiteral(3))
+1 + (2 + 3)|1 + (2 + 3)|Addition(+,NumericLiteral(1),Addition(+,NumericLiteral(2),NumericLiteral(3)))
+(1 + 2) + 3|1 + 2 + 3|Addition(+,Addition(+,NumericLiteral(1),NumericLiteral(2)),NumericLiteral(3))
+(1 + 2) * 3|(1 + 2) * 3|Multiplication(*,Addition(+,NumericLiteral(1),NumericLiteral(2)),NumericLiteral(3))
+1 / 2 /3|1 / 2 / 3|Multiplication(/,Multiplication(/,NumericLiteral(1),NumericLiteral(2)),NumericLiteral(3))
+1 ** 2 ** 3|1 ** 2 ** 3|Exponentiation(Exponentiation(NumericLiteral(1),NumericLiteral(2)),NumericLiteral(3))
+1 ** (2 ** 3)|1 ** (2 ** 3)|Exponentiation(NumericLiteral(1),Exponentiation(NumericLiteral(2),NumericLiteral(3)))
+
+#
+# PostfixExpression
+#
+DeptTable[number = EmployeeTable[name=LastName].deptNum[1]].manager[1]|DeptTable[number = EmployeeTable[name = LastName].deptNum[1]].manager[1]|FilterExpression(PathExpression(FilterExpression(Name(DeptTable), Relational(=,Name(number),FilterExpression(PathExpression(FilterExpression(Name(EmployeeTable), Relational(=,Name(name),Name(LastName))), deptNum), NumericLiteral(1)))), manager), NumericLiteral(1))
+            
+#
+# FilterExpression
+#
+# boolean filter
+[{item: 1}, {item: 2}, {item: 3}][item >= 2]|[{"item": 1}, {"item": 2}, {"item": 3}][item >= 2]|FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(3)))), Relational(>=,Name(item),NumericLiteral(2)))
+source[true]|source[true]|FilterExpression(Name(source), BooleanLiteral(true))
+[1, 2][true]|[1, 2][true]|FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), BooleanLiteral(true))
+1[true]|1[true]|FilterExpression(NumericLiteral(1), BooleanLiteral(true))
+[1, 2, 3, 4][item > 2]|[1, 2, 3, 4][item > 2]|FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3),NumericLiteral(4)), Relational(>,Name(item),NumericLiteral(2)))
+employee[item.dept = 20]|employee[item.dept = 20]|FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20)))
+employee[item.dept = 20].name|employee[item.dept = 20].name|PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)
+employee[dept = 20].name|employee[dept = 20].name|PathExpression(FilterExpression(Name(employee), Relational(=,Name(dept),NumericLiteral(20))), name)
+
+# numeric filter
+[1, 2][0]|[1, 2][0]|FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), NumericLiteral(0))
+[1, 2][-1]|[1, 2][-1]|FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(1)))
+[1, 2][-2]|[1, 2][-2]|FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(2)))
+1[1]|1[1]|FilterExpression(NumericLiteral(1), NumericLiteral(1))
+
+# context filter
+[{x:1, y:2}, {x:2, y:3}] [item.x = 1]|[{"x": 1, "y": 2}, {"x": 2, "y": 3}][item.x = 1]|FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(2)),ContextEntry(ContextEntryKey(y) = NumericLiteral(3)))), Relational(=,PathExpression(Name(item), x),NumericLiteral(1)))
+            
+#
+# ConversionFunctions
+#
+date("2016-03-01")|date("2016-03-01")|DateTimeLiteral(date, "2016-03-01")
+date("2016-03-01T12:00:00Z")|date("2016-03-01T12:00:00Z")|DateTimeLiteral(date, "2016-03-01T12:00:00Z")
+time("12:00:00Z")|time("12:00:00Z")|DateTimeLiteral(time, "12:00:00Z")
+time("2016-03-01T12:00:00Z")|time("2016-03-01T12:00:00Z")|DateTimeLiteral(time, "2016-03-01T12:00:00Z")
+date and time("2016-03-01T12:00:00Z")|date and time("2016-03-01T12:00:00Z")|DateTimeLiteral(date and time, "2016-03-01T12:00:00Z")
+duration("P1Y1M")|duration("P1Y1M")|DateTimeLiteral(duration, "P1Y1M")
+duration("P1DT1H")|duration("P1DT1H")|DateTimeLiteral(duration, "P1DT1H")
+
+#
+# PathExpression
+#
+[{b: 1}, {b: [2.1, 2.2]}, {b: 3}, {b: 4}, {b: 5}].b = [1, [2.1, 2.2], 3, 4, 5]|[{"b": 1}, {"b": [2.1, 2.2]}, {"b": 3}, {"b": 4}, {"b": 5}].b = [1, [2.1, 2.2], 3, 4, 5]|Relational(=,PathExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(b) = ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(3))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(4))),Context(ContextEntry(ContextEntryKey(b) = NumericLiteral(5)))), b),ListLiteral(NumericLiteral(1),ListLiteral(NumericLiteral(2.1),NumericLiteral(2.2)),NumericLiteral(3),NumericLiteral(4),NumericLiteral(5)))
+
+#
+# QualifiedName
+#
+a.b.c|a.b.c|PathExpression(PathExpression(Name(a), b), c)
+
+#
+# PrimaryExpression
+#
+(123.45)|123.45|NumericLiteral(123.45)
+(1 + 2)|1 + 2|Addition(+,NumericLiteral(1),NumericLiteral(2))
+            
+#
+# Null
+#
+null|null|NullLiteral()|null||NullLiteral()|null");
+
+#
+# FunctionDefinition
+#
+# FEEL functions
+function (x : string, y : string) x + y|(function(x: string, y: string) x + y)|FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Addition(+,Name(x),Name(y)), false)
+function (x , y) x + y|(function(x, y) x + y)|FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Addition(+,Name(x),Name(y)), false)
+# External functions
+function(a: number, b: number) external {java: {class: "com.gs.dmn.simple_decision_with_user_function.Sum", methodSignature: "add(a, b)", returnType : "number"}}|(function(a: number, b: number) external {"java": {"class": "com.gs.dmn.simple_decision_with_user_function.Sum", "methodSignature": "add(a, b)", "returnType": "number"}})|FunctionDefinition(FormalParameter(a, null, false, false),FormalParameter(b, null, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral("com.gs.dmn.simple_decision_with_user_function.Sum")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral("add(a, b)")),ContextEntry(ContextEntryKey(returnType) = StringLiteral("number"))))), true)
+function (x , y) external {"java": {class : "name", methodSignature : "signature" } }|(function(x, y) external {"java": {"class": "name", "methodSignature": "signature"}})|FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral("name")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral("signature"))))), true)
+# Incorrect external function
+function (x : string, y : string) external {"java": {class : "name", methodSignature: "signature"} }|(function(x: string, y: string) external {"java": {"class": "name", "methodSignature": "signature"}})|FunctionDefinition(FormalParameter(x, null, false, false),FormalParameter(y, null, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral("name")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral("signature"))))), true)
+            
+#
+# List
+#
+# simple lists
+[]|[]|ListLiteral()
+[1]|[1]|ListLiteral(NumericLiteral(1))
+[1, 2, 3]|[1, 2, 3]|ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))
+# list of expressions
+[number >= 1, number > 2, number > 3]|[number >= 1, number > 2, number > 3]|ListLiteral(Relational(>=,Name(number),NumericLiteral(1)),Relational(>,Name(number),NumericLiteral(2)),Relational(>,Name(number),NumericLiteral(3)))
+[1, <2, [3..4]]|[1, (< 2), [3 .. 4]]|ListLiteral(NumericLiteral(1),OperatorRange(<,NumericLiteral(2)),EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4)))
+# list filters
+true[0]|true[0]|FilterExpression(BooleanLiteral(true), NumericLiteral(0))
+100[0]|100[0]|FilterExpression(NumericLiteral(100), NumericLiteral(0))
+"foo"[0]|"foo"[0]|FilterExpression(StringLiteral("foo"), NumericLiteral(0))
+            
+#
+# Context
+#
+{a: "foo", b: {c: "bar", d: {e: "baz"}}}|{"a": "foo", "b": {"c": "bar", "d": {"e": "baz"}}}|Context(ContextEntry(ContextEntryKey(a) = StringLiteral("foo")),ContextEntry(ContextEntryKey(b) = Context(ContextEntry(ContextEntryKey(c) = StringLiteral("bar")),ContextEntry(ContextEntryKey(d) = Context(ContextEntry(ContextEntryKey(e) = StringLiteral("baz")))))))
+{a: 1 + 2, b: 3, c: {d: a + b}}|{"a": 1 + 2, "b": 3, "c": {"d": a + b}}|Context(ContextEntry(ContextEntryKey(a) = Addition(+,NumericLiteral(1),NumericLiteral(2))),ContextEntry(ContextEntryKey(b) = NumericLiteral(3)),ContextEntry(ContextEntryKey(c) = Context(ContextEntry(ContextEntryKey(d) = Addition(+,Name(a),Name(b))))))
+{"": "foo"}|{"": "foo"}|Context(ContextEntry(ContextEntryKey() = StringLiteral("foo")))
+{"foo+bar((!!],foo": "foo"}|{"foo+bar((!!],foo": "foo"}|Context(ContextEntry(ContextEntryKey(foo+bar((!!],foo) = StringLiteral("foo")))
+{ k1 : 1, k2 : 2 }|{"k1": 1, "k2": 2}|Context(ContextEntry(ContextEntryKey(k1) = NumericLiteral(1)),ContextEntry(ContextEntryKey(k2) = NumericLiteral(2)))
+{ isPositive : function(x : feel.number) x > 1 }|{"isPositive": (function(x: feel.number) x > 1)}|Context(ContextEntry(ContextEntryKey(isPositive) = FunctionDefinition(FormalParameter(x, null, false, false), Relational(>,Name(x),NumericLiteral(1)), false)))
+{type : "string", "value" : string(dateinput)}|{"type": "string", "value": string(dateinput)}|Context(ContextEntry(ContextEntryKey(type) = StringLiteral("string")),ContextEntry(ContextEntryKey(value) = FunctionInvocation(Name(string) -> PositionalParameters(Name(dateinput)))))
+{type : "string", "value" : enumerationInput = "E1"}|{"type": "string", "value": enumerationInput = "E1"}|Context(ContextEntry(ContextEntryKey(type) = StringLiteral("string")),ContextEntry(ContextEntryKey(value) = Relational(=,Name(enumerationInput),StringLiteral("E1"))))
+
+#
+# SimpleLiterals
+#
+123.45e+1|123.45e+1|NumericLiteral(123.45e+1)
+123.45|123.45|NumericLiteral(123.45)
+"""123"""|"""123"""|StringLiteral("123")
+true|true|BooleanLiteral(true)
+false|false|BooleanLiteral(false)
+date("2016-03-01")|date("2016-03-01")|DateTimeLiteral(date, "2016-03-01")
+date and time("2016-03-01T12:00:00Z")|date and time("2016-03-01T12:00:00Z")|DateTimeLiteral(date and time, "2016-03-01T12:00:00Z")
+time("12:00:00Z")|time("12:00:00Z")|DateTimeLiteral(time, "12:00:00Z")
+duration("P1Y1M")|duration("P1Y1M")|DateTimeLiteral(duration, "P1Y1M")
+duration("P1DT1H")|duration("P1DT1H")|DateTimeLiteral(duration, "P1DT1H")
+
+#
+# TypeIsMissing
+#
+# 0068-feel-equality
+(< 10) = (null_input..10)|(< 10) = (null_input .. 10)|Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,Name(null_input),true,NumericLiteral(10)))
+(>= 10) = [10..null_input)|(>= 10) = [10 .. null_input)|Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,Name(null_input)))
+
+#
+# TypeIsAny
+#
+# 0068-feel-equality
+(< 10) = (null_input..10)|(< 10) = (null_input .. 10)|Relational(=,OperatorRange(<,NumericLiteral(10)),EndpointsRange(true,Name(null_input),true,NumericLiteral(10)))
+(>= 10) = [10..null_input)|(>= 10) = [10 .. null_input)|Relational(=,OperatorRange(>=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),true,Name(null_input)))
+
+#
+# Positive unary tests
+#
+[1, 2]|[1, 2]|ListLiteral(NumericLiteral(1),NumericLiteral(2))
+< 1 + 2 |(< 1 + 2)|OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2)))
+< (1 + 2) |(< 1 + 2)|OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2)))
+[a..b]|[a .. b]|EndpointsRange(false,Name(a),false,Name(b))
+1 or < 1 + 2|1 or (< 1 + 2)|Disjunction(NumericLiteral(1),OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2))))
+1 or < (1 + 2)|1 or (< 1 + 2)|Disjunction(NumericLiteral(1),OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2))))
+1 or (< 1 + 2)|1 or (< 1 + 2)|Disjunction(NumericLiteral(1),OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2))))
+1 and [1, 2] or < 1 + 2 or [1..2]|1 and [1, 2] or (< 1 + 2 or [1 .. 2])|Disjunction(Conjunction(NumericLiteral(1),ListLiteral(NumericLiteral(1),NumericLiteral(2))),OperatorRange(<,Disjunction(Addition(+,NumericLiteral(1),NumericLiteral(2)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))))
+1 and [1, 2] or < (1 + 2 or [1..2])|1 and [1, 2] or (< 1 + 2 or [1 .. 2])|Disjunction(Conjunction(NumericLiteral(1),ListLiteral(NumericLiteral(1),NumericLiteral(2))),OperatorRange(<,Disjunction(Addition(+,NumericLiteral(1),NumericLiteral(2)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))))
+1 and [1, 2] or (< 1 + 2 or [1..2])|1 and [1, 2] or (< 1 + 2 or [1 .. 2])|Disjunction(Conjunction(NumericLiteral(1),ListLiteral(NumericLiteral(1),NumericLiteral(2))),OperatorRange(<,Disjunction(Addition(+,NumericLiteral(1),NumericLiteral(2)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))))
+1 and [1, 2] or (< 1 + 2) or [1..2]|1 and [1, 2] or (< 1 + 2) or [1 .. 2]|Disjunction(Disjunction(Conjunction(NumericLiteral(1),ListLiteral(NumericLiteral(1),NumericLiteral(2))),OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2)))),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))
+x in ([1,2], < 1 + 2,  [a..b])|x in ([1, 2], (< 1 + 2), [a .. b])|InExpression(Name(x), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))), OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2))), EndpointsRange(false,Name(a),false,Name(b)))
