@@ -289,7 +289,7 @@ week of year(date(2019, 9, 17))|week of year(date(2019, 9, 17))|FunctionInvocati
 @"P10Y"|duration("P10Y")|DateTimeLiteral(duration, "P10Y")
 @""|date and time("")|DateTimeLiteral(date and time, "")
 @"2010-10-01"|date("2010-10-01")|DateTimeLiteral(date, "2010-10-01")
-< @"2010-10-01"|(< date("2010-10-01"))|OperatorRange(<,DateTimeLiteral(date, "2010-10-01"))
+< @"2010-10-01"|< date("2010-10-01")|OperatorRange(<,DateTimeLiteral(date, "2010-10-01"))
 
 #
 # RangeFunctions

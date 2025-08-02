@@ -44,7 +44,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ToStringVisitor<T, C> extends AbstractVisitor<T, C, String> {
-    private boolean lowerPrecedence(Expression<?> childNode, Expression<?> parentNode) {
+    private static boolean lowerPrecedence(Expression<?> childNode, Expression<?> parentNode) {
         String prec1 = PRECDEDENCE.get(childNode.getClass());
         String prec2 = PRECDEDENCE.get(parentNode.getClass());
         return (prec1 != null && prec2 != null) ? prec1.compareTo(prec2) < 0 : false;
@@ -96,7 +96,10 @@ public class ToStringVisitor<T, C> extends AbstractVisitor<T, C, String> {
         // Boxed expressions
         PRECDEDENCE.put(FunctionDefinition.class, "2h");
         PRECDEDENCE.put(Context.class, "2h");
-        PRECDEDENCE.put(SimplePositiveUnaryTest.class, "2h");
+        PRECDEDENCE.put(ListTest.class, "2h");
+        PRECDEDENCE.put(EndpointsRange.class, "2h");
+        // Force parenthesis when is inner node
+        PRECDEDENCE.put(OperatorRange.class, "1");
     }
 
     public ToStringVisitor(ErrorHandler errorHandler) {
@@ -756,7 +759,7 @@ public class ToStringVisitor<T, C> extends AbstractVisitor<T, C, String> {
         if (StringUtils.isBlank(operator)) {
             return endpoint;
         } else {
-            return String.format("(%s %s)", operator, endpoint);
+            return String.format("%s %s", operator, endpoint);
         }
     }
 

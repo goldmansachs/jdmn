@@ -136,7 +136,7 @@ null != null|null != null|Relational(!=,NullLiteral(),NullLiteral())
 (=10) = [10..10]|(= 10) = [10 .. 10]|Relational(=,OperatorRange(=,NumericLiteral(10)),EndpointsRange(false,NumericLiteral(10),false,NumericLiteral(10)))
 (!=10) = (!=10)|(!= 10) = (!= 10)|Relational(=,OperatorRange(!=,NumericLiteral(10)),OperatorRange(!=,NumericLiteral(10)))
 
-< 10 = (null..10)|(< 10 = (null .. 10))|OperatorRange(<,Relational(=,NumericLiteral(10),EndpointsRange(true,NullLiteral(),true,NumericLiteral(10))))
+< 10 = (null..10)|< 10 = (null .. 10)|OperatorRange(<,Relational(=,NumericLiteral(10),EndpointsRange(true,NullLiteral(),true,NumericLiteral(10))))
 
 #
 # NullRelationalExpression
@@ -225,10 +225,10 @@ duration("P1D") between duration("P2D") and duration("P4D")|duration("P1D") betw
 # operator test
 # simple types
 1 in 1|1 in 1|InExpression(NumericLiteral(1), OperatorRange(null,NumericLiteral(1)))
-1 in <1|1 in (< 1)|InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)))
-1 in <=1|1 in (<= 1)|InExpression(NumericLiteral(1), OperatorRange(<=,NumericLiteral(1)))
-1 in >1|1 in (> 1)|InExpression(NumericLiteral(1), OperatorRange(>,NumericLiteral(1)))
-1 in >=1|1 in (>= 1)|InExpression(NumericLiteral(1), OperatorRange(>=,NumericLiteral(1)))
+1 in <1|1 in < 1|InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)))
+1 in <=1|1 in <= 1|InExpression(NumericLiteral(1), OperatorRange(<=,NumericLiteral(1)))
+1 in >1|1 in > 1|InExpression(NumericLiteral(1), OperatorRange(>,NumericLiteral(1)))
+1 in >=1|1 in >= 1|InExpression(NumericLiteral(1), OperatorRange(>=,NumericLiteral(1)))
 
 # interval test
 1 in (1..2)|1 in (1 .. 2)|InExpression(NumericLiteral(1), EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)))
@@ -259,8 +259,8 @@ date and time("2018-12-08T10:30:11") in [[date and time("2018-12-08T10:30:05")..
 # compound test
 1 in (1)|1 in 1|InExpression(NumericLiteral(1), OperatorRange(null,NumericLiteral(1)))
 1 in (1, 2)|1 in (1, 2)|InExpression(NumericLiteral(1), OperatorRange(null,NumericLiteral(1)), OperatorRange(null,NumericLiteral(2)))
-1 in (<1, [1..2], [1, 2])|1 in ((< 1), [1 .. 2], [1, 2])|InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))))
-1 in (<1, [1..2], 3)|1 in ((< 1), [1 .. 2], 3)|InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), OperatorRange(null,NumericLiteral(3)))
+1 in (<1, [1..2], [1, 2])|1 in (< 1, [1 .. 2], [1, 2])|InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))))
+1 in (<1, [1..2], 3)|1 in (< 1, [1 .. 2], 3)|InExpression(NumericLiteral(1), OperatorRange(<,NumericLiteral(1)), EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)), OperatorRange(null,NumericLiteral(3)))
 
 # complex in expression
 
@@ -505,7 +505,7 @@ function (x : string, y : string) external {"java": {class : "name", methodSigna
 [1, 2, 3]|[1, 2, 3]|ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))
 # list of expressions
 [number >= 1, number > 2, number > 3]|[number >= 1, number > 2, number > 3]|ListLiteral(Relational(>=,Name(number),NumericLiteral(1)),Relational(>,Name(number),NumericLiteral(2)),Relational(>,Name(number),NumericLiteral(3)))
-[1, <2, [3..4]]|[1, (< 2), [3 .. 4]]|ListLiteral(NumericLiteral(1),OperatorRange(<,NumericLiteral(2)),EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4)))
+[1, <2, [3..4]]|[1, < 2, [3 .. 4]]|ListLiteral(NumericLiteral(1),OperatorRange(<,NumericLiteral(2)),EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4)))
 # list filters
 true[0]|true[0]|FilterExpression(BooleanLiteral(true), NumericLiteral(0))
 100[0]|100[0]|FilterExpression(NumericLiteral(100), NumericLiteral(0))
@@ -555,8 +555,8 @@ duration("P1DT1H")|duration("P1DT1H")|DateTimeLiteral(duration, "P1DT1H")
 # Positive unary tests
 #
 [1, 2]|[1, 2]|ListLiteral(NumericLiteral(1),NumericLiteral(2))
-< 1 + 2 |(< 1 + 2)|OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2)))
-< (1 + 2) |(< 1 + 2)|OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2)))
+< 1 + 2 |< 1 + 2|OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2)))
+< (1 + 2) |< 1 + 2|OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2)))
 [a..b]|[a .. b]|EndpointsRange(false,Name(a),false,Name(b))
 1 or < 1 + 2|1 or (< 1 + 2)|Disjunction(NumericLiteral(1),OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2))))
 1 or < (1 + 2)|1 or (< 1 + 2)|Disjunction(NumericLiteral(1),OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2))))
@@ -565,4 +565,4 @@ duration("P1DT1H")|duration("P1DT1H")|DateTimeLiteral(duration, "P1DT1H")
 1 and [1, 2] or < (1 + 2 or [1..2])|1 and [1, 2] or (< 1 + 2 or [1 .. 2])|Disjunction(Conjunction(NumericLiteral(1),ListLiteral(NumericLiteral(1),NumericLiteral(2))),OperatorRange(<,Disjunction(Addition(+,NumericLiteral(1),NumericLiteral(2)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))))
 1 and [1, 2] or (< 1 + 2 or [1..2])|1 and [1, 2] or (< 1 + 2 or [1 .. 2])|Disjunction(Conjunction(NumericLiteral(1),ListLiteral(NumericLiteral(1),NumericLiteral(2))),OperatorRange(<,Disjunction(Addition(+,NumericLiteral(1),NumericLiteral(2)),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))))
 1 and [1, 2] or (< 1 + 2) or [1..2]|1 and [1, 2] or (< 1 + 2) or [1 .. 2]|Disjunction(Disjunction(Conjunction(NumericLiteral(1),ListLiteral(NumericLiteral(1),NumericLiteral(2))),OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2)))),EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))
-x in ([1,2], < 1 + 2,  [a..b])|x in ([1, 2], (< 1 + 2), [a .. b])|InExpression(Name(x), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))), OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2))), EndpointsRange(false,Name(a),false,Name(b)))
+x in ([1,2], < 1 + 2,  [a..b])|x in ([1, 2], < 1 + 2, [a .. b])|InExpression(Name(x), ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)))), OperatorRange(<,Addition(+,NumericLiteral(1),NumericLiteral(2))), EndpointsRange(false,Name(a),false,Name(b)))

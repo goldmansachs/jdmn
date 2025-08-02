@@ -3,7 +3,7 @@ input|expected|ast
 # OperatorRange
 #
 # Extension for simple positive unary test / endpoint / simple value
-<= date(date("2020-01-01") - duration("P5Y"))|(<= date(date("2020-01-01") - duration("P5Y")))|PositiveUnaryTests(OperatorRange(<=,FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, "2020-01-01"),DateTimeLiteral(duration, "P5Y"))))))
+<= date(date("2020-01-01") - duration("P5Y"))|<= date(date("2020-01-01") - duration("P5Y"))|PositiveUnaryTests(OperatorRange(<=,FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, "2020-01-01"),DateTimeLiteral(duration, "P5Y"))))))
 date("2020-01-01") - duration("P5Y")|date("2020-01-01") - duration("P5Y")|PositiveUnaryTests(OperatorRange(null,Addition(-,DateTimeLiteral(date, "2020-01-01"),DateTimeLiteral(duration, "P5Y"))))
 
 # operator range value
@@ -13,7 +13,7 @@ range|range|PositiveUnaryTests(OperatorRange(null,Name(range)))
 # ExpressionTest
 #
 count(?) > 2|count(?) > 2|PositiveUnaryTests(ExpressionTest(Relational(>,FunctionInvocation(Name(count) -> PositionalParameters(Name(?))),NumericLiteral(2))))
-and(> 10, < 20)|and((> 10), (< 20))|PositiveUnaryTests(ExpressionTest(FunctionInvocation(Name(and) -> PositionalParameters(OperatorRange(>,NumericLiteral(10)), OperatorRange(<,NumericLiteral(20))))))
+and(> 10, < 20)|and(> 10, < 20)|PositiveUnaryTests(ExpressionTest(FunctionInvocation(Name(and) -> PositionalParameters(OperatorRange(>,NumericLiteral(10)), OperatorRange(<,NumericLiteral(20))))))
 or((1..2), [3..4])|or((1 .. 2), [3 .. 4])|PositiveUnaryTests(ExpressionTest(FunctionInvocation(Name(or) -> PositionalParameters(EndpointsRange(true,NumericLiteral(1),true,NumericLiteral(2)), EndpointsRange(false,NumericLiteral(3),false,NumericLiteral(4))))))
 ? <= date(date("2020-01-01") - duration("P5Y"))|? <= date(date("2020-01-01") - duration("P5Y"))|PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),FunctionInvocation(Name(date) -> PositionalParameters(Addition(-,DateTimeLiteral(date, "2020-01-01"),DateTimeLiteral(duration, "P5Y")))))))
 ? <= date("2020-01-01") - duration("P5Y")|? <= date("2020-01-01") - duration("P5Y")|PositiveUnaryTests(ExpressionTest(Relational(<=,Name(?),Addition(-,DateTimeLiteral(date, "2020-01-01"),DateTimeLiteral(duration, "P5Y")))))
