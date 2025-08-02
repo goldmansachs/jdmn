@@ -90,12 +90,18 @@ public class DMNModelRepository {
             for (TNamedElement element : findImports(definitions)) {
                 this.elementToDefinitions.put(element, definitions);
             }
-            for (TNamedElement element : findItemDefinitions(definitions)) {
-                this.elementToDefinitions.put(element, definitions);
-            }
+            addItemDefinitions(findItemDefinitions(definitions), definitions);
             for (TDRGElement element : findDRGElements(definitions)) {
                 this.elementToDefinitions.put(element, definitions);
             }
+        }
+    }
+
+    private void addItemDefinitions(List<TItemDefinition> itemDefinitions, TDefinitions definitions) {
+        for (TItemDefinition itemDefinition : itemDefinitions) {
+            this.elementToDefinitions.put(itemDefinition, definitions);
+            // Add children
+            addItemDefinitions(itemDefinition.getItemComponent(), definitions);
         }
     }
 
