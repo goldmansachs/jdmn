@@ -167,11 +167,13 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     }
 
     private void validateNamedElement(TDefinitions definitions, TNamedElement element, ValidationContext context) {
-        if (StringUtils.isBlank(element.getId())) {
+        // ID is mandatory for DRG elements, it is used in references
+        if (StringUtils.isBlank(element.getId()) && element instanceof TDRGElement) {
             String errorMessage = String.format("Missing id for element %s", element.getClass().getSimpleName());
             context.addError(makeError(definitions, element, errorMessage));
         }
-        if (StringUtils.isBlank(element.getName())) {
+        // Name is mandatory in XSD
+        if (element.getName() == null) {
             String errorMessage = String.format("Missing name for element %s", element.getClass().getSimpleName());
             context.addError(makeError(definitions, element, errorMessage));
         }
@@ -237,12 +239,53 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             String errorMessage = "Missing expression";
             context.addError(makeError(definitions, element, errorMessage));
         } else {
-            if (expression instanceof TDecisionTable) {
+            if (expression instanceof TList) {
+                TList listExp = (TList) expression;
+                for (TExpression childExp : listExp.getExpression()) {
+                    validateExpression(definitions, element, childExp, context);
+                }
+            } else if (expression instanceof TFunctionDefinition) {
+                TFunctionDefinition functionDefinitionExp = (TFunctionDefinition) expression;
+                validateExpression(definitions, element, functionDefinitionExp.getExpression(), context);
+            } else if (expression instanceof TRelation) {
+                TRelation relationExp = (TRelation) expression;
+                if (((TRelation) expression).getColumn() == null && relationExp.getRow() == null) {
+                    String errorMessage = "Empty relation";
+                    context.addError(makeError(definitions, element, errorMessage));
+                }
+            } else if (expression instanceof TUnaryTests) {
+                TUnaryTests unaryTests = (TUnaryTests) expression;
+                String expressionLanguage = unaryTests.getExpressionLanguage();
+                if (!isSupported(expressionLanguage)) {
+                    String errorMessage = String.format("Not supported expression language '%s'", expressionLanguage);
+                    context.addError(makeError(definitions, element, errorMessage));
+                }
+                if (StringUtils.isBlank(unaryTests.getText())) {
+                    String errorMessage = "Missing text of unary tests";
+                    context.addError(makeError(definitions, element, errorMessage));
+                }
+            } else if (expression instanceof TConditional) {
+                TConditional conditionalExp = (TConditional) expression;
+                checkChildExpression(definitions, element, conditionalExp.getIf(), "conditional", "if", context);
+                checkChildExpression(definitions, element, conditionalExp.getThen(), "conditional", "then", context);
+                checkChildExpression(definitions, element, conditionalExp.getElse(), "conditional", "else", context);
+            } else if (expression instanceof TDecisionTable) {
                 TDecisionTable decisionTable = (TDecisionTable) expression;
                 validateDecisionTable(definitions, element, decisionTable, context);
-            } else if (expression instanceof TInvocation) {
-                TInvocation invocation = (TInvocation) expression;
-                validateExpression(definitions, element, invocation.getExpression(), context);
+            } else if (expression instanceof TSome) {
+                TQuantified quantifiedExp = (TQuantified) expression;
+                String parentName = "some";
+                checkChildExpression(definitions, element, quantifiedExp.getIn(), parentName, "in", context);
+                checkChildExpression(definitions, element, quantifiedExp.getSatisfies(), parentName, "satisfies", context);
+            } else if (expression instanceof TEvery) {
+                TQuantified quantifiedExp = (TQuantified) expression;
+                String parentName = "every";
+                checkChildExpression(definitions, element, quantifiedExp.getIn(), parentName, "in", context);
+                checkChildExpression(definitions, element, quantifiedExp.getSatisfies(), parentName, "satisfies", context);
+            } else if (expression instanceof TFor) {
+                TFor forExp = (TFor) expression;
+                checkChildExpression(definitions, element, forExp.getIn(), "for", "in", context);
+                checkChildExpression(definitions, element, forExp.getReturn(), "for", "return", context);
             } else if (expression instanceof TLiteralExpression) {
                 TLiteralExpression literalExpression = (TLiteralExpression) expression;
                 String expressionLanguage = ((TLiteralExpression) expression).getExpressionLanguage();
@@ -254,37 +297,20 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                     String errorMessage = "Missing text of literal expression";
                     context.addError(makeError(definitions, element, errorMessage));
                 }
+            } else if (expression instanceof TFilter) {
+                TFilter filterExp = (TFilter) expression;
+                checkChildExpression(definitions, element, filterExp.getIn(), "filter", "in", context);
+                checkChildExpression(definitions, element, filterExp.getMatch(), "filter", "match", context);
             } else if (expression instanceof TContext) {
-                List<TContextEntry> contextEntryList = ((TContext) expression).getContextEntry();
+                TContext contextExp = (TContext) expression;
+                List<TContextEntry> contextEntryList = contextExp.getContextEntry();
                 if (contextEntryList.isEmpty()) {
                     String errorMessage = "Missing entries in context expression";
                     context.addError(makeError(definitions, element, errorMessage));
                 }
-            } else if (expression instanceof TRelation) {
-                if (((TRelation) expression).getColumn() == null && ((TRelation) expression).getRow() == null) {
-                    String errorMessage = "Empty relation";
-                    context.addError(makeError(definitions, element, errorMessage));
-                }
-            } else if (expression instanceof TConditional) {
-                checkChildExpression(definitions, element, ((TConditional) expression).getIf(), "conditional", "if", context);
-                checkChildExpression(definitions, element, ((TConditional) expression).getThen(), "conditional", "then", context);
-                checkChildExpression(definitions, element, ((TConditional) expression).getElse(), "conditional", "else", context);
-            } else if (expression instanceof TFilter) {
-                checkChildExpression(definitions, element, ((TFilter) expression).getIn(), "filter", "in", context);
-                checkChildExpression(definitions, element, ((TFilter) expression).getMatch(), "filter", "match", context);
-            } else if (expression instanceof TFor) {
-                checkChildExpression(definitions, element, ((TFor) expression).getIn(), "for", "in", context);
-                checkChildExpression(definitions, element, ((TFor) expression).getReturn(), "for", "return", context);
-            } else if (expression instanceof TSome) {
-                String parentName = "some";
-                checkChildExpression(definitions, element, ((TQuantified) expression).getIn(), parentName, "in", context);
-                checkChildExpression(definitions, element, ((TQuantified) expression).getSatisfies(), parentName, "satisfies", context);
-            } else if (expression instanceof TEvery) {
-                String parentName = "every";
-                checkChildExpression(definitions, element, ((TQuantified) expression).getIn(), parentName, "in", context);
-                checkChildExpression(definitions, element, ((TQuantified) expression).getSatisfies(), parentName, "satisfies", context);
-            } else {
-                throw new UnsupportedOperationException("Not supported DMN expression type " + expression.getClass().getName());
+            } else if (expression instanceof TInvocation) {
+                TInvocation invocation = (TInvocation) expression;
+                validateExpression(definitions, element, invocation.getExpression(), context);
             }
         }
     }
@@ -388,7 +414,7 @@ class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
 
             logger.debug("Validate unique 'DRGElement.name' and 'Import.name'");
             List<TNamedElement> namedElements = new ArrayList<>(drgElements);
-            namedElements.addAll(element.getImport());
+            namedElements.addAll(element.getImport().stream().filter(i -> StringUtils.isNotBlank(i.getName())).toList());
             this.validator.validateUnique(
                     element, new ArrayList<>(namedElements), "DRGElement", "name", false,
                     e -> ((TNamedElement) e).getName(), null, context

@@ -45,7 +45,6 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     public void testValidateDefinitionsWithError() {
         List<String> expectedErrors = Arrays.asList(
                 "(model='test-dmn'): error: The name of a DRGElement must be unique. Found duplicates for 'dec1'.",
-                "(model='test-dmn', name='dec1'): error: Missing id for element TImport",
                 "(model='test-dmn', name='dec1'): error: Missing importType of import",
                 "(model='test-dmn', name='dec1'): error: Missing namespace of import",
                 "(model='test-dmn'): error: Missing id for element TDecision",
