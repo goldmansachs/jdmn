@@ -1,0 +1,5 @@
+expression               |ast
+
+# If Expressions
+if true then 1 else 2    |IfExpression(BooleanLiteral(true), NumericLiteral(1), NumericLiteral(2))
+if true then "b" else "a"|IfExpression(BooleanLiteral(true), StringLiteral("b"), StringLiteral("a"))|

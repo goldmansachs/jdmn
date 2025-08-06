@@ -1,0 +1,26 @@
+expression   |ast
+
+# Numeric literal
+123       |NumericLiteral(123)
+123.45    |NumericLiteral(123.45)|
+.45       |NumericLiteral(.45)
+
+# String literal
+"""a"""   |StringLiteral("a")
+"""123""" |StringLiteral("123")|
+
+# Boolean literal
+true      |BooleanLiteral(true)
+false     |BooleanLiteral(false)|
+
+# Date and time literal
+date("2016-08-01")                   |DateTimeLiteral(date, "2016-08-01")
+time("12:00:00Z")                    |DateTimeLiteral(time, "12:00:00Z")
+date and time("2016-08-01T12:00:00Z")|DateTimeLiteral(date and time, "2016-08-01T12:00:00Z")|
+
+# Duration literal
+duration("P1Y2M") |DateTimeLiteral(duration, "P1Y2M")
+duration("PT1H2M")|DateTimeLiteral(duration, "PT1H2M")|
+
+# Simple Name
+x         |Name(x)

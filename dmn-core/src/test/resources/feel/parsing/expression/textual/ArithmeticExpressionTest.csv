@@ -1,0 +1,31 @@
+expression|ast
+
+# Addition
+x + 1     |Addition(+,Name(x),NumericLiteral(1))
+1 + x     |Addition(+,NumericLiteral(1),Name(x))
+
+# Subtraction
+x - 1     |Addition(-,Name(x),NumericLiteral(1))
+1 - x     |Addition(-,NumericLiteral(1),Name(x))
+
+# Multiplication
+x * 2     |Multiplication(*,Name(x),NumericLiteral(2))
+2 * x     |Multiplication(*,NumericLiteral(2),Name(x))
+
+# Division
+x/2       |Multiplication(/,Name(x),NumericLiteral(2))
+2/2       |Multiplication(/,NumericLiteral(2),NumericLiteral(2))
+
+# Exponentiation
+x ** 2    |Exponentiation(Name(x),NumericLiteral(2))
+2 ** 3    |Exponentiation(NumericLiteral(2),NumericLiteral(3))
+
+# Unary minus
+-x        |ArithmeticNegation(Name(x))
+-2        |ArithmeticNegation(NumericLiteral(2))
+
+# Mixed
+x+1-3     |Addition(-,Addition(+,Name(x),NumericLiteral(1)),NumericLiteral(3))
+x+1*2     |Addition(+,Name(x),Multiplication(*,NumericLiteral(1),NumericLiteral(2)))
+(x+1)*2   |Multiplication(*,Addition(+,Name(x),NumericLiteral(1)),NumericLiteral(2))
+-(x+1)*2  |Multiplication(*,ArithmeticNegation(Addition(+,Name(x),NumericLiteral(1))),NumericLiteral(2))|

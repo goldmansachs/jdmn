@@ -1,0 +1,16 @@
+expression                                                     |ast
+
+# InstanceOf Expressions
+3 instance of number                                           |InstanceOfExpression(NumericLiteral(3), NamedTypeExpression(number))
+"abc" instance of string                                       |InstanceOfExpression(StringLiteral("abc"), NamedTypeExpression(string))
+true instance of boolean                                       |InstanceOfExpression(BooleanLiteral(true), NamedTypeExpression(boolean))
+date("2011-01-03") instance of date                            |InstanceOfExpression(DateTimeLiteral(date, "2011-01-03"), NamedTypeExpression(date))
+time("12:00:00Z") instance of time                             |InstanceOfExpression(DateTimeLiteral(time, "12:00:00Z"), NamedTypeExpression(time))
+date and time("2016-03-01T12:00:00Z") instance of date and time|InstanceOfExpression(DateTimeLiteral(date and time, "2016-03-01T12:00:00Z"), NamedTypeExpression(date and time))
+duration("P1Y1M") instance of years and months duration        |InstanceOfExpression(DateTimeLiteral(duration, "P1Y1M"), NamedTypeExpression(years and months duration))
+duration("P1DT1H") instance of days and time duration          |InstanceOfExpression(DateTimeLiteral(duration, "P1DT1H"), NamedTypeExpression(days and time duration))
+x instance of number                                           |InstanceOfExpression(Name(x), NamedTypeExpression(number))
+x instance of context<x: number, y:string>                     |InstanceOfExpression(Name(x), ContextTypeExpression(x: NamedTypeExpression(number), y: NamedTypeExpression(string)))
+x instance of range<number>                                    |InstanceOfExpression(Name(x), RangeTypeExpression(NamedTypeExpression(number)))
+x instance of function<number, string> -> number               |InstanceOfExpression(Name(x), FunctionTypeExpression(NamedTypeExpression(number), NamedTypeExpression(string) -> NamedTypeExpression(number)))|
+x instance of list<number>                                     |InstanceOfExpression(Name(x), ListTypeExpression(NamedTypeExpression(number)))

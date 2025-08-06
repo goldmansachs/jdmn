@@ -1,3 +1,0 @@
-# Import fixtures
-|Import                          |
-|com.gs.dmn.fitnesse.fixture.feel|
