@@ -21,6 +21,7 @@ import org.xmlunit.validation.Validator;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -46,7 +47,7 @@ public abstract class AbstractUnmarshalMarshalTest<D, M> extends AbstractFileTra
 
         // Write definitions
         File baseOutputDir = new File(outputFilePath);
-        baseOutputDir.mkdirs();
+        Files.createDirectories(baseOutputDir.toPath());
         File outputFile = new File(baseOutputDir, inputFile.getName());
         writeModel(marshaller, definitions, outputFile);
 

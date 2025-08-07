@@ -20,6 +20,7 @@ import com.gs.dmn.validation.NopDMNValidator;
 
 import java.io.File;
 import java.net.URI;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
@@ -58,7 +59,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
         }
 
         File outputFolder = new File("target/" + expectedOutputPath);
-        outputFolder.mkdirs();
+        Files.createDirectories(outputFolder.toPath());
 
         Path inputPath = new File(inputFilePath).toPath();
         Map<String, String> inputParameters = makeInputParametersMap(extraInputParameters);

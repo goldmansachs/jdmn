@@ -16,6 +16,7 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_
     @SafeVarargs
     protected final void doTest(String inputTestFilePath, String inputModelFilePath, String expectedOutputPath, Pair<String, String>... extraInputParameters) throws Exception {
         File outputFolder = new File("target/" + expectedOutputPath);
-        outputFolder.mkdirs();
+        Files.createDirectories(outputFolder.toPath());
 
         Path inputPath = new File(inputTestFilePath).toPath();
         Path inputModelPath = new File(inputModelFilePath).toPath();

@@ -26,6 +26,7 @@ import org.xmlunit.diff.DifferenceEvaluator;
 import org.xmlunit.diff.DifferenceEvaluators;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -64,7 +65,7 @@ public abstract class SimpleDMNTransformerTest extends AbstractFileTransformerTe
         // Check output
         for (TestCases actualTestCases: actualTestCasesList) {
             File targetFolder = new File(getTargetPath());
-            targetFolder.mkdirs();
+            Files.createDirectories(targetFolder.toPath());
             for (String dmnFileName: dmnFileNames) {
                 TDefinitions definitions =  definitionsMap.get(dmnFileName);
                 check(definitions, dmnFileName);

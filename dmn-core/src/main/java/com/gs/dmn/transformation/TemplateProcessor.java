@@ -36,6 +36,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
@@ -60,14 +61,14 @@ public class TemplateProcessor {
         this.inputParameters = inputParameters;
     }
 
-    public File makeOutputFile(Path outputPath, String relativeFilePath, String fileName, String fileExtension) {
+    public File makeOutputFile(Path outputPath, String relativeFilePath, String fileName, String fileExtension) throws IOException {
         String absoluteFilePath = outputPath.toAbsolutePath().toString();
         if (!StringUtils.isBlank(relativeFilePath)) {
             absoluteFilePath += "/" + relativeFilePath;
         }
         absoluteFilePath += "/" + fileName + fileExtension;
         File outputFile = new File(absoluteFilePath);
-        outputFile.getParentFile().mkdirs();
+        Files.createDirectories(outputFile.getParentFile().toPath());
         return outputFile;
     }
 

@@ -15,5 +15,6 @@ package com.gs.dmn.transformation;
 import java.nio.file.Path;
 
 public interface FileTransformer {
+    // Directories in the outputPath are created prior invocation
     void transform(Path inputPath, Path outputPath);
 }

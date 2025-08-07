@@ -30,6 +30,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
@@ -69,7 +70,7 @@ public abstract class AbstractRDFToDMNTransformerTest extends AbstractSignavioFi
 
     private void doTestFolder(String inputPath, String outputPath, String expectedDMNPath, String diagramName) throws Exception {
         File outputFolder = new File(outputPath);
-        outputFolder.mkdirs();
+        Files.createDirectories(outputFolder.toPath());
 
         RDFToDMNTransformer transformer = (RDFToDMNTransformer) makeTransformer(new InputParameters(makeInputParametersMap()), LOGGER);
         transformer.transform(path(inputPath), new File(outputPath).toPath());

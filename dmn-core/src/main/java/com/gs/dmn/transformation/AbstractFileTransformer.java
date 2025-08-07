@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public abstract class AbstractFileTransformer implements FileTransformer {
@@ -31,11 +32,6 @@ public abstract class AbstractFileTransformer implements FileTransformer {
 
     @Override
     public void transform(Path inputPath, Path outputPath) {
-        File targetDirectory = outputPath.toFile();
-        if (!targetDirectory.isDirectory() && !targetDirectory.mkdirs()) {
-            throw new DMNRuntimeException("Unable to create directory " + targetDirectory);
-        }
-
         File inputFile = inputPath.toFile();
         if (shouldTransformFile(inputFile)) {
             transformFile(inputFile, inputFile, outputPath);
@@ -54,11 +50,11 @@ public abstract class AbstractFileTransformer implements FileTransformer {
                 String path = outputPath.toFile().getCanonicalPath();
                 outputFolder = new File(path + "/" + relativePath);
             }
-            outputFolder.mkdirs();
+            Files.createDirectories(outputFolder.toPath());
             return outputFolder;
         } else if (root.getCanonicalPath().equals(child.getCanonicalPath())) {
             File outputFolder = outputPath.toFile();
-            outputFolder.mkdirs();
+            Files.createDirectories(outputFolder.toPath());
             return outputFolder;
         } else {
             throw new DMNRuntimeException(String.format("Cannot compute output folder for child '%s' and root '%s'", child.getCanonicalPath(), root.getCanonicalPath()));

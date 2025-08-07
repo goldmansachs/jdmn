@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -69,7 +70,7 @@ public class CloneVisitorTest extends AbstractFileTransformerTest {
 
         // Save clone
         File parent = new File("target/clone/dmn/" + subDir);
-        parent.mkdirs();
+        Files.createDirectories(parent.toPath());
         File outputXMLFile = new File(parent, inputXMLFile.getName());
         try (FileWriter writer = new FileWriter(outputXMLFile, StandardCharsets.UTF_8)) {
             marshaller.marshal(result, writer);

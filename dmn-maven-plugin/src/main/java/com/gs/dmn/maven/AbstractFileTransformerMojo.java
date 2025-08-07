@@ -22,6 +22,7 @@ import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public abstract class AbstractFileTransformerMojo<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractMojo {
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
@@ -36,6 +37,7 @@ public abstract class AbstractFileTransformerMojo<NUMBER, DATE, TIME, DATE_TIME,
 
             // Transform
             this.getLog().info(String.format("Transforming '%s' to '%s' ...", inputFileDirectory, outputFileDirectory));
+            Files.createDirectories(outputFileDirectory.toPath());
             transformer.transform(inputFileDirectory.toPath(), outputFileDirectory.toPath());
 
             // Add sources

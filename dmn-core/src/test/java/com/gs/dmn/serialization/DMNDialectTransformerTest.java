@@ -18,6 +18,7 @@ import com.gs.dmn.transformation.AbstractFileTransformerTest;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 
 public abstract class DMNDialectTransformerTest extends AbstractFileTransformerTest {
     protected static final String LATEST_VERSION = "latest";
@@ -48,9 +49,9 @@ public abstract class DMNDialectTransformerTest extends AbstractFileTransformerT
         compareFile(expectedOutputFile, actualOutputFile);
     }
 
-    protected File getActualOutputFile(String inputFileName) {
+    protected File getActualOutputFile(String inputFileName) throws IOException {
         File targetFolder = new File(getTargetPath());
-        targetFolder.mkdirs();
+        Files.createDirectories(targetFolder.toPath());
         return new File(targetFolder, inputFileName);
     }
 
