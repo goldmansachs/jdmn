@@ -20,6 +20,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 public abstract class AbstractFileTransformer implements FileTransformer {
     protected final BuildLogger logger;
@@ -32,11 +35,31 @@ public abstract class AbstractFileTransformer implements FileTransformer {
 
     @Override
     public void transform(Path inputPath, Path outputPath) {
-        File inputFile = inputPath.toFile();
-        if (shouldTransformFile(inputFile)) {
-            transformFile(inputFile, inputFile, outputPath);
+        List<File> files = new ArrayList<>();
+        collectFiles(inputPath, files);
+        if (files.isEmpty()) {
+            throw new DMNRuntimeException("Illegal input file " + inputPath.toFile().getAbsolutePath());
         } else {
-            throw new DMNRuntimeException("Illegal input file " + inputFile.getAbsolutePath());
+            transformFiles(files, inputPath.toFile(), outputPath);
+        }
+    }
+
+    protected void collectFiles(Path inputPath, List<File> files) {
+        if (Files.isRegularFile(inputPath) && shouldTransformFile(inputPath.toFile())) {
+            files.add(inputPath.toFile());
+        } else if (Files.isDirectory(inputPath)) {
+            // All levels
+            try (Stream<Path> stream = Files.walk(inputPath)) {
+                files.addAll(
+                    stream
+                    .filter(Files::isRegularFile)
+                    .map(Path::toFile)
+                    .filter(this::shouldTransformFile)
+                    .toList()
+                );
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -81,5 +104,5 @@ public abstract class AbstractFileTransformer implements FileTransformer {
 
     protected abstract boolean shouldTransformFile(File inputFile);
 
-    protected abstract void transformFile(File child, File root, Path outputPath);
+    protected abstract void transformFiles(List<File> files, File rootFile, Path outputPath);
 }

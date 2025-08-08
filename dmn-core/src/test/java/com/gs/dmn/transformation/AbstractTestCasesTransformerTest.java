@@ -36,7 +36,7 @@ public abstract class AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_
         compareFile(expectedOutputFolder, outputFolder);
     }
 
-    private InputParameters makeInputParameters(Map<String, String> inputParameters) {
+    protected InputParameters makeInputParameters(Map<String, String> inputParameters) {
         return new InputParameters(inputParameters);
     }
 

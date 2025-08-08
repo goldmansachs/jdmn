@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -88,7 +89,7 @@ class DefaultTransformer extends AbstractFileTransformer {
     }
 
     @Override
-    protected void transformFile(File child, File root, Path outputPath) {
+    protected void transformFiles(List<File> children, File root, Path outputPath) {
         // NOP transformer for testing
     }
 }

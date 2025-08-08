@@ -38,7 +38,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.serialization.DMNConstants.isDMNFile;
 import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
 import static com.gs.dmn.transformation.DMNToJavaTransformer.DMN_METADATA_FILE_NAME;
 
@@ -62,12 +61,14 @@ public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATIO
 
     @Override
     protected DMNModelRepository readModels(File file) {
-        if (isDMNFile(file, this.inputParameters.getDmnFileExtension())) {
-            TDefinitions result = this.dmnSerializer.readModel(file);
-            return new SignavioDMNModelRepository(result, this.schemaNamespace);
-        } else {
-            throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
-        }
+        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(file);
+        return new SignavioDMNModelRepository(definitionsList, this.schemaNamespace);
+    }
+
+    @Override
+    protected DMNModelRepository readModels(List<File> files) {
+        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(files);
+        return new SignavioDMNModelRepository(definitionsList, this.schemaNamespace);
     }
 
     @Override

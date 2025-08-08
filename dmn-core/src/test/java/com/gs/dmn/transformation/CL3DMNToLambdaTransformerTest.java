@@ -31,6 +31,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CL3DMNToLambdaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
@@ -77,9 +78,9 @@ public class CL3DMNToLambdaTransformerTest extends AbstractTckDMNToJavaTransform
         );
 
         // Transform
-        File inputFileDirectory = new File( "C:\\Work\\Projects\\jdmn-opatrascoiu\\dmn-test-cases\\standard\\tck\\1.3\\cl3\\0020-vacation-days\\0020-vacation-days.dmn");
+        File inputFile = new File( "C:\\Work\\Projects\\jdmn-opatrascoiu\\dmn-test-cases\\standard\\tck\\1.3\\cl3\\0020-vacation-days\\0020-vacation-days.dmn");
         File outputFileDirectory = new File("C:/Work/Projects/aws/bpmn-to-aws-examples/dmn-lambda/");
-        transformer.transformFile(inputFileDirectory, null, outputFileDirectory.toPath());
+        transformer.transformFiles(List.of(inputFile), inputFile, outputFileDirectory.toPath());
     }
 
     private static InputParameters makeLambdaInputParameters() {

@@ -23,13 +23,14 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.Objects;
 
 public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     protected void doFolderTest() throws Exception {
         String inputPath = getInputPath();
         File folder = path(inputPath).toFile();
         if (folder.listFiles() != null) {
-            for(File file: folder.listFiles()) {
+            for(File file: Objects.requireNonNull(folder.listFiles())) {
                 if (file.isFile() && file.getName().endsWith(this.inputParameters.getDmnFileExtension())) {
                     doSingleModelTest(diagramName(file));
                 }
@@ -70,7 +71,7 @@ public abstract class AbstractDMNTransformerTest<NUMBER, DATE, TIME, DATE_TIME, 
         compareFile(expectedOutputFolder, outputFolder);
     }
 
-    private InputParameters makeInputParameters(Map<String, String> inputParameters) {
+    protected InputParameters makeInputParameters(Map<String, String> inputParameters) {
         return new InputParameters(inputParameters);
     }
 

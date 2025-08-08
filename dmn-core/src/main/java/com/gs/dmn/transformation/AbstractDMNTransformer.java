@@ -52,6 +52,11 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
         return new DMNModelRepository(definitionsList);
     }
 
+    protected DMNModelRepository readModels(List<File> files) {
+        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(files);
+        return new DMNModelRepository(definitionsList);
+    }
+
     protected void handleValidationErrors(List<String> errors) {
         if (errors == null || errors.isEmpty()) {
             return;

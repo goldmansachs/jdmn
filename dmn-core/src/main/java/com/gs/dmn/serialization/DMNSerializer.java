@@ -21,6 +21,7 @@ import com.gs.dmn.transformation.InputParameters;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class DMNSerializer {
 
@@ -63,7 +64,7 @@ public abstract class DMNSerializer {
             definitionsList.add(definitions);
             return definitionsList;
         } else if (file.isDirectory()) {
-            for (File child : file.listFiles()) {
+            for (File child : Objects.requireNonNull(file.listFiles())) {
                 if (DMNConstants.isDMNFile(child, this.inputParameters.getDmnFileExtension())) {
                     TDefinitions definitions = readModel(child);
                     definitionsList.add(definitions);

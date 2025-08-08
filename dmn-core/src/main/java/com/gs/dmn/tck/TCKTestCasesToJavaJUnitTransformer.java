@@ -32,11 +32,14 @@ import com.gs.dmn.validation.DMNValidator;
 import org.apache.commons.lang3.time.StopWatch;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static com.gs.dmn.serialization.DMNConstants.isTCKFile;
 
@@ -55,35 +58,41 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         this.tckUtil = new TCKUtil<>(basicTransformer, (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) dialectDefinition.createFEELLib());
     }
 
-    @Override
-    protected boolean shouldTransformFile(File inputFile) {
-        if (inputFile == null) {
-            return false;
-        } else if (inputFile.isDirectory()) {
-            return !inputFile.getName().endsWith(".svn");
-        } else {
-            return isTCKFile(inputFile, inputParameters.getTckFileExtension());
+    protected void collectFiles(Path inputPath, List<File> files) {
+        if (Files.isRegularFile(inputPath) && shouldTransformFile(inputPath.toFile())) {
+            files.add(inputPath.toFile());
+        } else if (Files.isDirectory(inputPath)) {
+            // One single level
+            try (Stream<Path> stream = Files.list(inputPath)) {
+                files.addAll(
+                    stream
+                    .filter(Files::isRegularFile)
+                    .map(Path::toFile)
+                    .filter(this::shouldTransformFile)
+                    .toList()
+                );
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     @Override
-    protected void transformFile(File file, File root, Path outputPath) {
+    protected boolean shouldTransformFile(File inputFile) {
+        return isTCKFile(inputFile, inputParameters.getTckFileExtension());
+    }
+
+    @Override
+    protected void transformFiles(List<File> files, File rootFile, Path outputPath) {
         try {
-            logger.info(String.format("Processing TCK file '%s'", file.getPath()));
             StopWatch watch = new StopWatch();
             watch.start();
 
             List<TestCases> testCasesList = new ArrayList<>();
-            if (file.isFile()) {
+            for (File file : files) {
+                logger.info(String.format("Processing TCK files '%s'", file));
                 TestCases testCases = testCasesReader.read(file);
                 testCasesList.add(testCases);
-            } else if (file.isDirectory() && file.listFiles() != null) {
-                for (File child: file.listFiles()) {
-                    if (isTCKFile(child, inputParameters.getTckFileExtension())) {
-                        TestCases testCases = testCasesReader.read(child);
-                        testCasesList.add(testCases);
-                    }
-                }
             }
             testCasesList = dmnTransformer.transform(basicTransformer.getDMNModelRepository(), testCasesList).getRight();
 
@@ -98,7 +107,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
             watch.stop();
             logger.info("TCK processing time: " + watch);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error during transforming %s.", file.getName()), e);
+            throw new DMNRuntimeException(String.format("Error during transforming TCK tests in %s.", rootFile.getName()), e);
         }
     }
 

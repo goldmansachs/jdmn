@@ -15,6 +15,14 @@ package com.gs.dmn.tck;
 import com.gs.dmn.runtime.Pair;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.net.URI;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCasesToJavaJUnitTransformerTest {
     @Override
     protected String getDMNInputPath() {
@@ -66,4 +74,18 @@ public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
         doSingleModelTest("1.3", "0004-lending", "0004-lending-test-01", new Pair<>("singletonDecision", "true"));
     }
 
+    @Test
+    public void testCollectDMNFiles() {
+        String dmnVersion = "1.5";
+        String dmnFolderName = "0068-feel-equality";
+        String inputFilePath = completePath(getDMNInputPath(), dmnVersion, dmnFolderName) + "/";
+        URI resource = resource(inputFilePath);
+
+        // Do not collect recursively the TCK files
+        Path tckTestFolderPath = new File(resource.getPath()).getParentFile().toPath();
+        TCKTestCasesToJavaJUnitTransformer<?, ?, ?, ?, ?> transformer = (TCKTestCasesToJavaJUnitTransformer<?, ?, ?, ?, ?>) makeTransformer(tckTestFolderPath, makeInputParameters(makeInputParametersMap()), LOGGER);
+        List<File> files = new ArrayList<>();
+        transformer.collectFiles(tckTestFolderPath, files);
+        assertEquals(1, files.size());
+    }
 }

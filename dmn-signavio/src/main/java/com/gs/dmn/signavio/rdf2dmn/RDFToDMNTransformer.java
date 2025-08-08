@@ -99,36 +99,14 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
     @Override
     protected boolean shouldTransformFile(File inputFile) {
-        if (inputFile == null) {
-            return false;
-        } else if (inputFile.isDirectory()) {
-            return !inputFile.getName().endsWith(".svn");
-        } else {
-            return isRDFFile(inputFile);
-        }
+        return isRDFFile(inputFile);
     }
 
     @Override
-    protected void transformFile(File inputFile, File inputRoot, Path outputPath) {
-        if (inputFile.isDirectory()) {
-            if (shouldTransformFile(inputFile)) {
-                this.logger.info(String.format("Scanning folder '%s'", inputFile.getPath()));
-                File[] files = inputFile.listFiles();
-                if (files != null) {
-                    for (File child : files) {
-                        transformFile(child, inputRoot, outputPath);
-                    }
-                }
-            }
-        } else {
-            try {
-                if (shouldTransformFile(inputFile)) {
-                    this.logger.info(String.format("Transforming file '%s'", inputFile.getPath()));
-                    transformLeaf(inputFile, inputRoot, outputPath);
-                }
-            } catch (Exception e) {
-                throw new DMNRuntimeException(String.format("Failed to transform diagram '%s'", inputFile.getPath()), e);
-            }
+    protected void transformFiles(List<File> files, File inputRoot, Path outputPath) {
+        for (File child : files) {
+            this.logger.info(String.format("Transforming file '%s'", child.getPath()));
+            transformLeaf(child, inputRoot, outputPath);
         }
     }
 
@@ -795,7 +773,7 @@ public class RDFToDMNTransformer extends AbstractFileTransformer {
 
     private String transformAllowedValues(String enumItems) {
         try {
-            List<AllowedValue> allowedValues = RDFModel.MAPPER.readValue(enumItems, new TypeReference<List<AllowedValue>>() {
+            List<AllowedValue> allowedValues = RDFModel.MAPPER.readValue(enumItems, new TypeReference<>() {
             });
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < allowedValues.size(); i++) {

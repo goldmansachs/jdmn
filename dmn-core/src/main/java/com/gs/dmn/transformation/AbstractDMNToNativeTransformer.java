@@ -62,23 +62,17 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
     @Override
     protected boolean shouldTransformFile(File inputFile) {
-        if (inputFile == null) {
-            return false;
-        } else if (inputFile.isDirectory()) {
-            return !inputFile.getName().endsWith(".svn");
-        } else {
-            return isDMNFile(inputFile, inputParameters.getDmnFileExtension());
-        }
+        return isDMNFile(inputFile, inputParameters.getDmnFileExtension());
     }
 
     @Override
-    protected void transformFile(File file, File root, Path outputPath) {
-        this.logger.info(String.format("Processing DMN file '%s'", file.getPath()));
+    protected void transformFiles(List<File> files, File rootFile, Path outputPath) {
+        this.logger.info(String.format("Processing DMN files in '%s'", rootFile.getPath()));
         StopWatch watch = new StopWatch();
         watch.start();
 
         // Read and validate DMN
-        DMNModelRepository repository = readModels(file);
+        DMNModelRepository repository = readModels(files);
         handleValidationErrors(this.dmnValidator.validate(repository));
         this.dmnTransformer.transform(repository);
         BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);

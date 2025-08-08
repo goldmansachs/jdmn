@@ -15,6 +15,14 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.runtime.Pair;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.net.URI;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransformerTest {
     @Override
     protected String getInputPath() {
@@ -60,5 +68,20 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
     @Test
     public void testCL3Singleton() throws Exception {
         doFolderTest("1.3", "0004-lending", new Pair<>("singletonDecision", "true"));
+    }
+
+    @Test
+    public void testCollectDMNFiles() {
+        String dmnVersion = "1.5";
+        String dmnFolderName = "0068-feel-equality";
+        String inputFilePath = completePath(getInputPath(), dmnVersion, dmnFolderName) + "/";
+        URI resource = resource(inputFilePath);
+
+        // collect recursively the DMN files
+        DMNToJavaTransformer<?, ?, ?, ?, ?> transformer = (DMNToJavaTransformer<?, ?, ?, ?, ?>) makeTransformer(makeInputParameters(makeInputParametersMap()), LOGGER);
+        List<File> files = new ArrayList<>();
+        Path tckTestFolder = new File(resource.getPath()).getParentFile().toPath();
+        transformer.collectFiles(tckTestFolder, files);
+        assertEquals(2, files.size());
     }
 }
