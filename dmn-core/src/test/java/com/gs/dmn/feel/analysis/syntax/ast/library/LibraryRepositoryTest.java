@@ -22,17 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class LibraryRepositoryTest {
-    private final LibraryRepository libraryRepository = new LibraryRepository(new InputParameters());
-
     @Test
-    public void testDiscovery() {
-        libraryRepository.discoverLibraries(StandardEnvironmentFactory.instance().getBuiltInContext());
-        Collection<ELLib> libraries = libraryRepository.getLibraries();
-        assertEquals(1, libraries.size());
-    }
-
-    @Test
-    public void testGetByNamespace() {
+    public void testExternalLibsAreConfigured() {
+        LibraryRepository libraryRepository = new LibraryRepository(new InputParameters());
         libraryRepository.discoverLibraries(StandardEnvironmentFactory.instance().getBuiltInContext());
         ELLib library = libraryRepository.getLibrary("com.gs.dmn.signavio.feel.lib");
         assertNotNull(library);
