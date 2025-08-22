@@ -24,8 +24,12 @@ import java.io.Reader;
 public class TestLabSerializer {
     public static final String TEST_LAB_FILE_EXTENSION = ".json";
 
+    public static boolean isTestLabFile(File file, String extension) {
+        return file != null && file.isFile() && file.getName().endsWith(extension);
+    }
+
     public static boolean isTestLabFile(File file) {
-        return file != null && file.isFile() && file.getName().endsWith(TEST_LAB_FILE_EXTENSION);
+        return isTestLabFile(file, TEST_LAB_FILE_EXTENSION);
     }
 
     public static final ObjectMapper MAPPER;

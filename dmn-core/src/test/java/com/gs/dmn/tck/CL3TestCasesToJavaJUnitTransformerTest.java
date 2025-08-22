@@ -75,14 +75,14 @@ public class CL3TestCasesToJavaJUnitTransformerTest extends AbstractTCKTestCases
     }
 
     @Test
-    public void testCollectDMNFiles() {
+    public void testCollectTCKFiles() {
         String dmnVersion = "1.5";
         String dmnFolderName = "0068-feel-equality";
         String inputFilePath = completePath(getDMNInputPath(), dmnVersion, dmnFolderName) + "/";
         URI resource = resource(inputFilePath);
 
         // Do not collect recursively the TCK files
-        Path tckTestFolderPath = new File(resource.getPath()).getParentFile().toPath();
+        Path tckTestFolderPath = new File(resource.getPath()).toPath();
         TCKTestCasesToJavaJUnitTransformer<?, ?, ?, ?, ?> transformer = (TCKTestCasesToJavaJUnitTransformer<?, ?, ?, ?, ?>) makeTransformer(tckTestFolderPath, makeInputParameters(makeInputParametersMap()), LOGGER);
         List<File> files = new ArrayList<>();
         transformer.collectFiles(tckTestFolderPath, files);

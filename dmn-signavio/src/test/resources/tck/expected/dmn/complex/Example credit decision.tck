@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelName>Example credit decision</modelName>
+  <testCase id="001" type="decision">
+    <inputNode name="currentRiskAppetite">
+      <value xsi:type="xsd:decimal">50</value>
+    </inputNode>
+    <inputNode name="lendingThreshold">
+      <value xsi:type="xsd:decimal">25</value>
+    </inputNode>
+    <inputNode name="applicant">
+      <component name="Name">
+        <value xsi:type="xsd:string">Amy</value>
+      </component>
+      <component name="Age">
+        <value xsi:type="xsd:decimal">38</value>
+      </component>
+      <component name="Credit score">
+        <value xsi:type="xsd:decimal">100</value>
+      </component>
+      <component name="Prior issues">
+        <list>
+          <item>
+            <value xsi:type="xsd:string">Late payment</value>
+          </item>
+        </list>
+      </component>
+    </inputNode>
+    <resultNode name="generateOutputData">
+      <expected>
+        <list>
+          <item>
+            <component name="Decision">
+              <value xsi:type="xsd:string">Accept</value>
+            </component>
+            <component name="Assessment">
+              <value xsi:type="xsd:decimal">27.5</value>
+            </component>
+            <component name="Issue">
+              <value xsi:type="xsd:decimal">-7.5</value>
+            </component>
+          </item>
+        </list>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="002" type="decision">
+    <inputNode name="currentRiskAppetite">
+      <value xsi:type="xsd:decimal">50</value>
+    </inputNode>
+    <inputNode name="lendingThreshold">
+      <value xsi:type="xsd:decimal">25</value>
+    </inputNode>
+    <inputNode name="applicant">
+      <component name="Name">
+        <value xsi:type="xsd:string">Bill</value>
+      </component>
+      <component name="Age">
+        <value xsi:type="xsd:decimal">18</value>
+      </component>
+      <component name="Credit score">
+        <value xsi:type="xsd:decimal">65</value>
+      </component>
+      <component name="Prior issues">
+        <list>
+          <item>
+            <value xsi:type="xsd:string">Card rejection</value>
+          </item>
+          <item>
+            <value xsi:type="xsd:string">Default on obligations</value>
+          </item>
+        </list>
+      </component>
+    </inputNode>
+    <resultNode name="generateOutputData">
+      <expected>
+        <list>
+          <item>
+            <component name="Decision">
+              <value xsi:type="xsd:string">Reject</value>
+            </component>
+            <component name="Assessment">
+              <value xsi:type="xsd:decimal">-10</value>
+            </component>
+            <component name="Issue">
+              <value xsi:type="xsd:decimal">-25</value>
+            </component>
+          </item>
+        </list>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="003" type="decision">
+    <inputNode name="currentRiskAppetite">
+      <value xsi:type="xsd:decimal">50</value>
+    </inputNode>
+    <inputNode name="lendingThreshold">
+      <value xsi:type="xsd:decimal">25</value>
+    </inputNode>
+    <inputNode name="applicant">
+      <component name="Name">
+        <value xsi:type="xsd:string">Charlie</value>
+      </component>
+      <component name="Age">
+        <value xsi:type="xsd:decimal">65</value>
+      </component>
+      <component name="Credit score">
+        <value xsi:type="xsd:decimal">80</value>
+      </component>
+      <component name="Prior issues">
+        <list>
+          <item>
+            <value xsi:type="xsd:string">Late payment</value>
+          </item>
+          <item>
+            <value xsi:type="xsd:string">Default on obligations</value>
+          </item>
+          <item>
+            <value xsi:type="xsd:string">Bankruptcy</value>
+          </item>
+        </list>
+      </component>
+    </inputNode>
+    <resultNode name="generateOutputData">
+      <expected>
+        <list>
+          <item>
+            <component name="Decision">
+              <value xsi:type="xsd:string">Reject</value>
+            </component>
+            <component name="Assessment">
+              <value xsi:type="xsd:decimal">-42.5</value>
+            </component>
+            <component name="Issue">
+              <value xsi:type="xsd:decimal">-77.5</value>
+            </component>
+          </item>
+        </list>
+      </expected>
+    </resultNode>
+  </testCase>
+</testCases>

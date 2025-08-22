@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelName>BKMfromBKM</modelName>
+  <testCase id="001" type="decision">
+    <inputNode name="t">
+      <value xsi:type="xsd:time">12:00:00+01:00</value>
+    </inputNode>
+    <inputNode name="d">
+      <value xsi:type="xsd:date">2017-06-09</value>
+    </inputNode>
+    <resultNode name="decision">
+      <expected>
+        <value xsi:type="xsd:string">good</value>
+      </expected>
+    </resultNode>
+  </testCase>
+</testCases>

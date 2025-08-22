@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelName>CompareLists</modelName>
+  <testCase id="001" type="decision">
+    <inputNode name="l1">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">1</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">2</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">3</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">4</value>
+        </item>
+      </list>
+    </inputNode>
+    <inputNode name="l23">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">1</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">1</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">2</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">3</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">5</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">8</value>
+        </item>
+      </list>
+    </inputNode>
+    <resultNode name="processL1">
+      <expected>
+        <list>
+          <item>
+            <value xsi:type="xsd:decimal">2</value>
+          </item>
+          <item>
+            <value xsi:type="xsd:decimal">1</value>
+          </item>
+          <item>
+            <value xsi:type="xsd:decimal">1</value>
+          </item>
+          <item>
+            <value xsi:type="xsd:decimal">0</value>
+          </item>
+        </list>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="002" type="decision">
+    <inputNode name="l1">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">10</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">20</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">30</value>
+        </item>
+      </list>
+    </inputNode>
+    <inputNode name="l23">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">5</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">10</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">15</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">20</value>
+        </item>
+      </list>
+    </inputNode>
+    <resultNode name="processL1">
+      <expected>
+        <list>
+          <item>
+            <value xsi:type="xsd:decimal">1</value>
+          </item>
+          <item>
+            <value xsi:type="xsd:decimal">1</value>
+          </item>
+          <item>
+            <value xsi:type="xsd:decimal">0</value>
+          </item>
+        </list>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="003" type="decision">
+    <inputNode name="l1">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">-1</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">0</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">1</value>
+        </item>
+      </list>
+    </inputNode>
+    <inputNode name="l23">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">2</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">3</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">4</value>
+        </item>
+      </list>
+    </inputNode>
+    <resultNode name="processL1">
+      <expected>
+        <list>
+          <item>
+            <value xsi:type="xsd:decimal">0</value>
+          </item>
+          <item>
+            <value xsi:type="xsd:decimal">0</value>
+          </item>
+          <item>
+            <value xsi:type="xsd:decimal">0</value>
+          </item>
+        </list>
+      </expected>
+    </resultNode>
+  </testCase>
+</testCases>

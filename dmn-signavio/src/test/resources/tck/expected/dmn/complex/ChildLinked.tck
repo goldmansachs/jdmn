@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelName>ChildLinked</modelName>
+  <testCase id="001" type="decision">
+    <inputNode name="num">
+      <value xsi:type="xsd:decimal">1</value>
+    </inputNode>
+    <resultNode name="abc">
+      <expected>
+        <value xsi:type="xsd:decimal">2</value>
+      </expected>
+    </resultNode>
+  </testCase>
+</testCases>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelName>DotProduct</modelName>
+  <testCase id="001" type="decision">
+    <inputNode name="b">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">2</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">3</value>
+        </item>
+      </list>
+    </inputNode>
+    <inputNode name="a">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">4</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">2</value>
+        </item>
+      </list>
+    </inputNode>
+    <resultNode name="dotProduct">
+      <expected>
+        <component name="DotProduct">
+          <value xsi:type="xsd:decimal">14</value>
+        </component>
+        <component name="Output Message">
+          <value xsi:type="xsd:string">2D vector dot product == 14</value>
+        </component>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="002" type="decision">
+    <inputNode name="b">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">2</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">2</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">2</value>
+        </item>
+      </list>
+    </inputNode>
+    <inputNode name="a">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">3</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">3</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">3</value>
+        </item>
+      </list>
+    </inputNode>
+    <resultNode name="dotProduct">
+      <expected>
+        <component name="DotProduct">
+          <value xsi:type="xsd:decimal">18</value>
+        </component>
+        <component name="Output Message">
+          <value xsi:type="xsd:string">3D vector dot product == 18</value>
+        </component>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="003" type="decision">
+    <inputNode name="b">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">1</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">2</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">3</value>
+        </item>
+      </list>
+    </inputNode>
+    <inputNode name="a">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">1</value>
+        </item>
+        <item>
+          <value xsi:type="xsd:decimal">2</value>
+        </item>
+      </list>
+    </inputNode>
+    <resultNode name="dotProduct">
+      <expected>
+        <component name="DotProduct">
+          <value xsi:type="xsd:decimal">0</value>
+        </component>
+        <component name="Output Message">
+          <value xsi:type="xsd:string">Error: Cannot calculate the dot product for a 2D vector and a 3D vector</value>
+        </component>
+      </expected>
+    </resultNode>
+  </testCase>
+</testCases>

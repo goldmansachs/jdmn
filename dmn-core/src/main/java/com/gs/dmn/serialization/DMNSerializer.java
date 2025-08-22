@@ -57,22 +57,21 @@ public abstract class DMNSerializer {
 
     public List<TDefinitions> readModels(File file) {
         List<TDefinitions> definitionsList = new ArrayList<>();
-        if (file == null) {
-            throw new DMNRuntimeException("Missing DMN file");
-        } else if (DMNConstants.isDMNFile(file, this.inputParameters.getDmnFileExtension())) {
+        collectModels(file, definitionsList);
+        if (definitionsList.isEmpty()) {
+            throw new DMNRuntimeException(String.format("Missing DMN models in file '%s'", file.getAbsoluteFile()));
+        }
+        return definitionsList;
+    }
+
+    private void collectModels(File file, List<TDefinitions> definitionsList) {
+        if (DMNConstants.isDMNFile(file, this.inputParameters.getDmnFileExtension())) {
             TDefinitions definitions = readModel(file);
             definitionsList.add(definitions);
-            return definitionsList;
         } else if (file.isDirectory()) {
             for (File child : Objects.requireNonNull(file.listFiles())) {
-                if (DMNConstants.isDMNFile(child, this.inputParameters.getDmnFileExtension())) {
-                    TDefinitions definitions = readModel(child);
-                    definitionsList.add(definitions);
-                }
+                collectModels(child, definitionsList);
             }
-            return definitionsList;
-        } else {
-            throw new DMNRuntimeException(String.format("Invalid DMN file %s", file.getAbsoluteFile()));
         }
     }
 

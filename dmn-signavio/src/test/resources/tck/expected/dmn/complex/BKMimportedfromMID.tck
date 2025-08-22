@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCases xmlns="http://www.omg.org/spec/DMN/20160719/testcase" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelName>BKMimportedfromMID</modelName>
+  <testCase id="001" type="decision">
+    <inputNode name="figures">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">563</value>
+        </item>
+      </list>
+    </inputNode>
+    <resultNode name="hidden">
+      <expected>
+        <list>
+          <item>
+            <value xsi:type="xsd:string">adult</value>
+          </item>
+        </list>
+      </expected>
+    </resultNode>
+  </testCase>
+  <testCase id="002" type="decision">
+    <inputNode name="figures">
+      <list>
+        <item>
+          <value xsi:type="xsd:decimal">0</value>
+        </item>
+      </list>
+    </inputNode>
+    <resultNode name="hidden">
+      <expected>
+        <list>
+          <item>
+            <value xsi:type="xsd:string">child</value>
+          </item>
+        </list>
+      </expected>
+    </resultNode>
+  </testCase>
+</testCases>
