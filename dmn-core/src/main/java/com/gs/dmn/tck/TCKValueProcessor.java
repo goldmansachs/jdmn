@@ -15,7 +15,7 @@ package com.gs.dmn.tck;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.tck.ast.AnySimpleType;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.native_.NativeFactory;
@@ -25,11 +25,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 public class TCKValueProcessor<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     protected final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
-    protected final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
+    protected final FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
     protected final DMNModelRepository repository;
     protected final NativeFactory nativeFactory;
 
-    public TCKValueProcessor(BasicDMNToNativeTransformer<Type, DMNContext> transformer, StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
+    public TCKValueProcessor(BasicDMNToNativeTransformer<Type, DMNContext> transformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         this.transformer = transformer;
         this.feelLib = feelLib;
         this.repository = transformer.getDMNModelRepository();

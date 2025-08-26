@@ -21,7 +21,7 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
-import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -44,14 +44,12 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private final DMNModelRepository dmnModelRepository;
 
     private final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
-    private final StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib;
     private final NativeTypeFactory typeFactory;
     private final TCKValueInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckValueInterpreter;
     private final TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckValueTranslator;
 
-    public TCKUtil(BasicDMNToNativeTransformer<Type, DMNContext> transformer, StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
+    public TCKUtil(BasicDMNToNativeTransformer<Type, DMNContext> transformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         this.transformer = transformer;
-        this.feelLib = feelLib;
         this.dmnModelRepository = transformer.getDMNModelRepository();
         this.typeFactory = transformer.getNativeTypeFactory();
         this.tckValueInterpreter = new TCKValueInterpreter<>(transformer, feelLib);

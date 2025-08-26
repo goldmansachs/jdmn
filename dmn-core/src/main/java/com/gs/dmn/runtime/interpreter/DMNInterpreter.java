@@ -21,7 +21,7 @@ import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 
 public interface DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    BasicDMNToNativeTransformer getBasicDMNTransformer();
+    BasicDMNToNativeTransformer<Type, DMNContext> getBasicDMNTransformer();
 
     ELInterpreter<Type, DMNContext> getElInterpreter();
 

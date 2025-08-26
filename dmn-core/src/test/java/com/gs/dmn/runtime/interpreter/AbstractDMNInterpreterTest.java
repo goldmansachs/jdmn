@@ -19,7 +19,6 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.lib.FEELLib;
-import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.Assert;
@@ -45,6 +44,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.gs.dmn.serialization.DMNConstants.isDMNFile;
 import static com.gs.dmn.serialization.DMNConstants.isTCKFile;
@@ -94,7 +94,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         List<TestCases> testCasesList = new ArrayList<>();
         URL testInputPathURL = tckResource(completePath(getTestCasesInputPath(), dmnVersion, modelFolder)).toURL();
         File testInputPathFolder = new File(testInputPathURL.getFile());
-        for (File child : testInputPathFolder.listFiles()) {
+        for (File child : Objects.requireNonNull(testInputPathFolder.listFiles())) {
             if (isTCKFile(child, this.inputParameters.getTckFileExtension())) {
                 TestCases testCases = this.tckSerializer.read(child);
                 testFileNames.add(child.getName());
@@ -118,7 +118,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
     }
 
     private void doTest(String testCaseFileName, TestCases testCases, TestCase testCase, DMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> interpreter) {
-        TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil = new TCKUtil<>(this.basicTransformer, (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.lib);
+        TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil = new TCKUtil<>(this.basicTransformer, this.lib);
 
         List<ResultNode> resultNode = testCase.getResultNode();
         for (ResultNode res : resultNode) {
@@ -149,7 +149,7 @@ public abstract class AbstractDMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIME, 
         List<TDefinitions> definitionsList = new ArrayList<>();
         URL modelInputPathURL = tckResource(completePath(getDMNInputPath(), dmnVersion, modelFolder)).toURL();
         File modelInputPathFolder = new File(modelInputPathURL.getFile());
-        for (File child : modelInputPathFolder.listFiles()) {
+        for (File child : Objects.requireNonNull(modelInputPathFolder.listFiles())) {
             if (isDMNFile(child, this.inputParameters.getDmnFileExtension())) {
                 TDefinitions definitions = this.dmnSerializer.readModel(child);
                 definitionsList.add(definitions);

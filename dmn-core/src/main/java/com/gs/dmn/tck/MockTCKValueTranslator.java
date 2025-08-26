@@ -21,7 +21,7 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.*;
-import com.gs.dmn.feel.lib.StandardFEELLib;
+import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.tck.ast.AnySimpleType;
@@ -35,7 +35,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
-    public MockTCKValueTranslator(BasicDMNToNativeTransformer<Type, DMNContext> transformer, StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
+    public MockTCKValueTranslator(BasicDMNToNativeTransformer<Type, DMNContext> transformer, FEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> feelLib) {
         super(transformer, feelLib);
     }
 
