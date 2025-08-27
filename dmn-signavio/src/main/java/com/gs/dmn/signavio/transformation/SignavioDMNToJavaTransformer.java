@@ -22,7 +22,6 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.metadata.DMNMetadata;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
-import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
 import com.gs.dmn.transformation.DMNTransformer;
@@ -31,44 +30,22 @@ import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.signavio.extension.SignavioExtension.SIG_EXT_NAMESPACE;
 import static com.gs.dmn.transformation.DMNToJavaTransformer.DMN_METADATA_FILE_NAME;
 
 public class SignavioDMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
-    private final String schemaNamespace;
-
     public SignavioDMNToJavaTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
-        String schemaNamespace = inputParameters.getSchemaNamespace();
-        if (StringUtils.isBlank(schemaNamespace)) {
-            this.schemaNamespace = SIG_EXT_NAMESPACE;
-        } else {
-            this.schemaNamespace = schemaNamespace;
-        }
     }
 
     @Override
     protected String getFileExtension() {
         return ".java";
-    }
-
-    @Override
-    protected DMNModelRepository readModels(File file) {
-        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(file);
-        return new SignavioDMNModelRepository(definitionsList, this.schemaNamespace);
-    }
-
-    @Override
-    protected DMNModelRepository readModels(List<File> files) {
-        List<TDefinitions> definitionsList = this.dmnSerializer.readModels(files);
-        return new SignavioDMNModelRepository(definitionsList, this.schemaNamespace);
     }
 
     @Override

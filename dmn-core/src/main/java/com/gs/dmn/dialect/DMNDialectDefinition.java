@@ -13,6 +13,7 @@
 package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -33,11 +34,15 @@ import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 
+import java.util.List;
+
 public interface DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> {
     //
     // Serialization
     //
     DMNSerializer createDMNSerializer(BuildLogger logger, InputParameters inputParameters);
+
+    DMNModelRepository createDMNModelRepository(List<TDefinitions> definitionsList, InputParameters inputParameters);
 
     //
     // FEEL Processors

@@ -49,12 +49,12 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     protected DMNModelRepository readModels(File file) {
         List<TDefinitions> definitionsList = this.dmnSerializer.readModels(file);
-        return new DMNModelRepository(definitionsList);
+        return this.dialectDefinition.createDMNModelRepository(definitionsList, this.inputParameters);
     }
 
     protected DMNModelRepository readModels(List<File> files) {
         List<TDefinitions> definitionsList = this.dmnSerializer.readModels(files);
-        return new DMNModelRepository(definitionsList);
+        return this.dialectDefinition.createDMNModelRepository(definitionsList, this.inputParameters);
     }
 
     protected void handleValidationErrors(List<String> errors) {

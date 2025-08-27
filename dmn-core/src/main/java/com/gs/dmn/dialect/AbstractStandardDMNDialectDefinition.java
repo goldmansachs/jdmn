@@ -13,6 +13,7 @@
 package com.gs.dmn.dialect;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.feel.interpreter.AbstractFEELInterpreter;
@@ -27,6 +28,8 @@ import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
+
+import java.util.List;
 
 import static com.gs.dmn.serialization.SerializationFormat.JSON;
 import static com.gs.dmn.serialization.SerializationFormat.XML;
@@ -53,6 +56,11 @@ public abstract class AbstractStandardDMNDialectDefinition<NUMBER, DATE, TIME, D
         } else {
             throw new IllegalArgumentException(String.format("Format '%s' is not supported yet", format));
         }
+    }
+
+    @Override
+    public DMNModelRepository createDMNModelRepository(List<TDefinitions> definitionsList, InputParameters inputParameters) {
+        return new DMNModelRepository(definitionsList);
     }
 
     //
