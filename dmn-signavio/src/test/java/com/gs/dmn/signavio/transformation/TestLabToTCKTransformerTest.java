@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.transformation;
 
+import com.gs.dmn.signavio.SignavioTestConstants;
 import com.gs.dmn.transformation.InputParameters;
 import org.junit.jupiter.api.Test;
 
@@ -75,7 +76,7 @@ class TestLabToTCKTransformerTest extends AbstractSignavioFileTransformerTest {
     @Override
     protected Map<String, String> makeInputParametersMap() {
         Map<String, String> inputParams = super.makeInputParametersMap();
-        inputParams.put("signavioSchemaNamespace", "http://www.provider.com/schema/dmn/1.1/");
+        inputParams.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
         inputParams.put("tckFileExtension", ".tck");
         return inputParams;
     }

@@ -41,6 +41,12 @@ import java.util.stream.Collectors;
 public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private static final Logger LOGGER = LoggerFactory.getLogger(TCKUtil.class);
 
+    public static String getModelName(String fileName) {
+        // Remove extension
+        int index = fileName.lastIndexOf(".");
+        return index == -1 ? fileName : fileName.substring(0, index);
+    }
+
     private final DMNModelRepository dmnModelRepository;
 
     private final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
@@ -541,12 +547,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     private String getModelName(TestCases testCases) {
         String fileName = testCases.getModelName();
         return getModelName(fileName);
-    }
-
-    public static String getModelName(String fileName) {
-        // Remove extension
-        int index = fileName.indexOf(".");
-        return index == -1 ? fileName : fileName.substring(0, index);
     }
 
     private String getNamespace(TestCases testCases) {

@@ -9,16 +9,16 @@
       <value xsi:type="xsd:decimal">25</value>
     </inputNode>
     <inputNode name="applicant">
-      <component name="Name">
+      <component name="name">
         <value xsi:type="xsd:string">Amy</value>
       </component>
-      <component name="Age">
+      <component name="age">
         <value xsi:type="xsd:decimal">38</value>
       </component>
-      <component name="Credit score">
+      <component name="creditScore">
         <value xsi:type="xsd:decimal">100</value>
       </component>
-      <component name="Prior issues">
+      <component name="priorIssues">
         <list>
           <item>
             <value xsi:type="xsd:string">Late payment</value>
@@ -30,13 +30,13 @@
       <expected>
         <list>
           <item>
-            <component name="Decision">
+            <component name="decision">
               <value xsi:type="xsd:string">Accept</value>
             </component>
-            <component name="Assessment">
+            <component name="assessment">
               <value xsi:type="xsd:decimal">27.5</value>
             </component>
-            <component name="Issue">
+            <component name="issue">
               <value xsi:type="xsd:decimal">-7.5</value>
             </component>
           </item>
@@ -52,16 +52,16 @@
       <value xsi:type="xsd:decimal">25</value>
     </inputNode>
     <inputNode name="applicant">
-      <component name="Name">
+      <component name="name">
         <value xsi:type="xsd:string">Bill</value>
       </component>
-      <component name="Age">
+      <component name="age">
         <value xsi:type="xsd:decimal">18</value>
       </component>
-      <component name="Credit score">
+      <component name="creditScore">
         <value xsi:type="xsd:decimal">65</value>
       </component>
-      <component name="Prior issues">
+      <component name="priorIssues">
         <list>
           <item>
             <value xsi:type="xsd:string">Card rejection</value>
@@ -76,13 +76,13 @@
       <expected>
         <list>
           <item>
-            <component name="Decision">
+            <component name="decision">
               <value xsi:type="xsd:string">Reject</value>
             </component>
-            <component name="Assessment">
+            <component name="assessment">
               <value xsi:type="xsd:decimal">-10</value>
             </component>
-            <component name="Issue">
+            <component name="issue">
               <value xsi:type="xsd:decimal">-25</value>
             </component>
           </item>
@@ -98,16 +98,16 @@
       <value xsi:type="xsd:decimal">25</value>
     </inputNode>
     <inputNode name="applicant">
-      <component name="Name">
+      <component name="name">
         <value xsi:type="xsd:string">Charlie</value>
       </component>
-      <component name="Age">
+      <component name="age">
         <value xsi:type="xsd:decimal">65</value>
       </component>
-      <component name="Credit score">
+      <component name="creditScore">
         <value xsi:type="xsd:decimal">80</value>
       </component>
-      <component name="Prior issues">
+      <component name="priorIssues">
         <list>
           <item>
             <value xsi:type="xsd:string">Late payment</value>
@@ -125,13 +125,13 @@
       <expected>
         <list>
           <item>
-            <component name="Decision">
+            <component name="decision">
               <value xsi:type="xsd:string">Reject</value>
             </component>
-            <component name="Assessment">
+            <component name="assessment">
               <value xsi:type="xsd:decimal">-42.5</value>
             </component>
-            <component name="Issue">
+            <component name="issue">
               <value xsi:type="xsd:decimal">-77.5</value>
             </component>
           </item>

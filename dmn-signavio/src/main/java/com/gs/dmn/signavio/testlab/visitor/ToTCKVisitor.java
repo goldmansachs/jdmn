@@ -97,7 +97,7 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
 
             // Transform and add input node
             Expression expression = element.getInputValues().get(i);
-            TCKBaseElement tckElement = expression.accept(this, context);
+            TCKBaseElement tckElement = expression == null ? null : expression.accept(this, context);
             InputNode inputNode = makeInputNode(tckElement, context);
             tckTestCase.getInputNode().add(inputNode);
         }
@@ -109,7 +109,7 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
 
             // Transform and add result node
             Expression expression = element.getExpectedValues().get(i);
-            TCKBaseElement tckElement = expression.accept(this, context);
+            TCKBaseElement tckElement = expression == null ? null : expression.accept(this, context);
             ResultNode resultNode = makeResultNode(tckElement, context);
             tckTestCase.getResultNode().add(resultNode);
         }
@@ -197,7 +197,7 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
     @Override
     public TCKBaseElement visit(Slot element, TestLabContext context) {
         Component component = new Component();
-        component.setName(element.getName());
+        component.setName(element.getItemComponentName());
         TCKBaseElement slotValue = element.getValue().accept(this, context);
         copyValue(component, slotValue);
         return component;
@@ -253,7 +253,9 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
 
     private ValueType makeValueType(TCKBaseElement element) {
         ValueType valueType = new ValueType();
-        if (element instanceof AnySimpleType) {
+        if (element == null) {
+            valueType.setValue(AnySimpleType.of(null));
+        } else if (element instanceof AnySimpleType) {
             valueType.setValue((AnySimpleType) element);
         } else if (element instanceof com.gs.dmn.tck.ast.List) {
             valueType.setList((com.gs.dmn.tck.ast.List) element);
@@ -266,7 +268,9 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
     }
 
     private void copyValue(ValueType targetValueType, TCKBaseElement tckElement) {
-        if (tckElement instanceof ValueType) {
+        if (tckElement == null) {
+            targetValueType.setValue(AnySimpleType.of(null));
+        } else if (tckElement instanceof ValueType) {
             ValueType valueType = (ValueType) tckElement;
             targetValueType.setValue(valueType.getValue());
             targetValueType.setList(valueType.getList());

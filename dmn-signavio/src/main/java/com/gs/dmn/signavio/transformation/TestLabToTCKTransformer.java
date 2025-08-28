@@ -19,9 +19,9 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
-import com.gs.dmn.signavio.testlab.TestLab;
-import com.gs.dmn.signavio.testlab.TestLabSerializer;
+import com.gs.dmn.signavio.testlab.*;
 import com.gs.dmn.signavio.testlab.visitor.TestLabContext;
+import com.gs.dmn.signavio.testlab.visitor.TestLabEnhancer;
 import com.gs.dmn.signavio.testlab.visitor.ToTCKVisitor;
 import com.gs.dmn.tck.ast.TestCases;
 import com.gs.dmn.tck.serialization.xstream.XMLTCKSerializer;
@@ -43,9 +43,11 @@ public class TestLabToTCKTransformer {
     private static final JavaTimeSignavioDMNDialectDefinition SIGNAVIO_DIALECT = new JavaTimeSignavioDMNDialectDefinition();
 
     private final InputParameters inputParameters;
+    private final TestLabValidator testLabValidator;
 
     public TestLabToTCKTransformer(InputParameters inputParameters) {
         this.inputParameters = inputParameters;
+        this.testLabValidator = new TestLabValidator();
     }
 
     public void transformFolder(File sourceFolder, File targetFolder) throws Exception {
@@ -66,12 +68,21 @@ public class TestLabToTCKTransformer {
 
     private void transformFile(TestLab testLab, SignavioDMNModelRepository repository, File targetFolder) {
         TestCases tckTestCases = transform(testLab, repository);
-        String modelName = tckTestCases.getModelName().replaceAll(inputParameters.getDmnFileExtension(), "");
+        String modelName = removeExtensionFromModelName(tckTestCases);
         writeTCK(tckTestCases, new File(targetFolder, modelName + inputParameters.getTckFileExtension()));
     }
 
     private TestCases transform(TestLab testLab, SignavioDMNModelRepository repository) {
+        // Validate TestLab
+        testLabValidator.validate(testLab);
+
+        // Enhance TestLab by adding itemComponent names
         BasicDMNToJavaTransformer basicTransformer = STANDARD_DIALECT.createBasicTransformer(repository, new NopLazyEvaluationDetector(), this.inputParameters);
+        TestLabUtil testLabUtil = new TestLabUtil(basicTransformer);
+        TestLabEnhancer testLabEnhancer = new TestLabEnhancer(testLabUtil);
+        testLabEnhancer.enhance(testLab);
+
+        // Transform TestLab to TCK
         ToTCKVisitor visitor = new ToTCKVisitor(basicTransformer);
         return (TestCases) testLab.accept(visitor, new TestLabContext());
     }
@@ -100,5 +111,12 @@ public class TestLabToTCKTransformer {
     private DMNSerializer makeSignavioSerializer() {
         BuildLogger logger = new Slf4jBuildLogger(LOGGER);
         return SIGNAVIO_DIALECT.createDMNSerializer(logger, this.inputParameters);
+    }
+
+    private String removeExtensionFromModelName(TestCases tckTestCases) {
+        String modelName = tckTestCases.getModelName();
+        int index = modelName.lastIndexOf(inputParameters.getDmnFileExtension());
+        modelName = index == - 1 ? modelName : modelName.substring(0, index);
+        return modelName;
     }
 }
