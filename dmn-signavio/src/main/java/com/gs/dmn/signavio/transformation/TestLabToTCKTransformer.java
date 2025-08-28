@@ -66,13 +66,13 @@ public class TestLabToTCKTransformer {
         transformFile(testLab, repository, targetFolder);
     }
 
-    private void transformFile(TestLab testLab, SignavioDMNModelRepository repository, File targetFolder) {
+    public void transformFile(TestLab testLab, SignavioDMNModelRepository repository, File targetFolder) {
         TestCases tckTestCases = transform(testLab, repository);
         String modelName = removeExtensionFromModelName(tckTestCases);
         writeTCK(tckTestCases, new File(targetFolder, modelName + inputParameters.getTckFileExtension()));
     }
 
-    private TestCases transform(TestLab testLab, SignavioDMNModelRepository repository) {
+    public TestCases transform(TestLab testLab, SignavioDMNModelRepository repository) {
         // Validate TestLab
         testLabValidator.validate(testLab);
 
