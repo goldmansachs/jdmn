@@ -84,7 +84,7 @@ public class DMNModelRepository {
         // Process all definitions
         for (TDefinitions definitions : this.getAllDefinitions()) {
             // Normalize
-            findItemDefinitionAndAllowedValuesFor(definitions);
+            normalizeDefinitions(definitions);
 
             // Set derived properties
             for (TNamedElement element : findImports(definitions)) {
@@ -109,7 +109,7 @@ public class DMNModelRepository {
         return new DMNModelRepository(this.definitionsList);
     }
 
-    protected void findItemDefinitionAndAllowedValuesFor(TDefinitions definitions) {
+    protected void normalizeDefinitions(TDefinitions definitions) {
         if (definitions != null) {
             sortDRGElements(definitions.getDrgElement());
             sortNamedElements(definitions.getItemDefinition());
@@ -410,7 +410,8 @@ public class DMNModelRepository {
                 restrictions = allowedValues;
             }
             TItemDefinition next = next(itemDefinition);
-            if (next != null) {
+            // Avoid cycles
+            if (next != null && next != itemDefinition) {
                 itemDefinition = next;
             } else {
                 break;
