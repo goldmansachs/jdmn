@@ -118,9 +118,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
         // Add body
         result.append(body);
         // Close parenthesis
-        for (int i = 0; i < domainIterators.size(); i++) {
-            result.append(" })");
-        }
+        result.append(" })".repeat(domainIterators.size()));
         // Collect result
         result.append("?.collect(Collectors.toList())");
         return result.toString();
@@ -298,7 +296,7 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
             }
         }
 
-        if (FEELType.FEEL_PRIMITIVE_TYPES.contains(type)) {
+        if (FEELType.isPrimitiveType(type)) {
             String conversionMethod = FEELType.FEEL_PRIMITIVE_TYPE_TO_NATIVE_CONVERSION_FUNCTION.get(type);
             if (conversionMethod != null) {
                 return String.format("%s?.let({ %s(it) })", paramName, conversionMethod);

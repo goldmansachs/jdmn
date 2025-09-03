@@ -12,9 +12,12 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -42,7 +45,7 @@ public class FEELTypeTest {
         assertEquals("range<string>", RangeType.STRING_RANGE.typeExpression());
 
         assertEquals("context<>", ContextType.CONTEXT.typeExpression());
-        assertEquals("context<a: number, b: string>", new ContextType().addMember("a", Arrays.asList(), NumberType.NUMBER).addMember("b", Arrays.asList(), StringType.STRING).typeExpression());
+        assertEquals("context<a: number, b: string>", new ContextType().addMember("a", List.of(), NumberType.NUMBER).addMember("b", List.of(), StringType.STRING).typeExpression());
 
         assertEquals("function<Null, Null> -> boolean", FunctionType.PREDICATE_FUNCTION.typeExpression());
     }
@@ -70,8 +73,52 @@ public class FEELTypeTest {
         assertEquals("RangeType(string)", RangeType.STRING_RANGE.toString());
 
         assertEquals("ContextType()", ContextType.CONTEXT.toString());
-        assertEquals("ContextType(a = number, b = string)", new ContextType().addMember("a", Arrays.asList(), NumberType.NUMBER).addMember("b", Arrays.asList(), StringType.STRING).toString());
+        assertEquals("ContextType(a = number, b = string)", new ContextType().addMember("a", List.of(), NumberType.NUMBER).addMember("b", List.of(), StringType.STRING).toString());
 
         assertEquals("PredicateFunctionType(FormalParameter(first, Null, false, false), FormalParameter(second, Null, false, false), boolean, false)", FunctionType.PREDICATE_FUNCTION.toString());
+    }
+
+    @Test
+    public void testPrimitiveTypes() {
+        Set<String> expected = Set.of(
+                "number", "boolean", "string",
+                "date", "time", "date and time", "years and months duration", "days and time duration",
+                "datetime", "dateTime", "dayTimeDuration", "yearMonthDuration",
+                "enumeration",
+                "Any", "Null", "temporal", "duration", "comparable", "context");
+        assertEquals(expected, FEELType.FEEL_PRIMITIVE_TYPES.stream().map(FEELType::typeName).collect(Collectors.toSet()));
+    }
+
+    @Test
+    public void testPrimitiveTypeNames() {
+        Set<String> expected = Set.of(
+                "number", "boolean", "string",
+                "date", "time", "date and time", "years and months duration", "days and time duration",
+                "datetime", "dateTime", "dayTimeDuration", "yearMonthDuration",
+                "enumeration",
+                "Any", "Null", "temporal", "duration", "comparable", "context");
+        assertEquals(expected, FEELType.FEEL_TYPE_NAMES);
+    }
+
+    @Test
+    public void testMappingFromNameToType() {
+        assertEquals(FEELType.FEEL_PRIMITIVE_TYPES.size(), FEELType.FEEL_NAME_TO_FEEL_TYPE.keySet().size());
+        for (Type type : FEELType.FEEL_PRIMITIVE_TYPES) {
+            if (type instanceof DateTimeType) {
+                type = DateTimeType.DATE_AND_TIME;
+            } else if (type instanceof YearsAndMonthsDurationType) {
+                type = YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
+            } else if (type instanceof DaysAndTimeDurationType) {
+                type = DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
+            } else if (type instanceof EnumerationType) {
+                type = StringType.STRING;
+            }
+            assertEquals(type, FEELType.FEEL_NAME_TO_FEEL_TYPE.get(FEELType.typeName(type)));
+        }
+    }
+
+    @Test
+    public void testConversionFunctionForType() {
+        assertEquals(FEELType.FEEL_PRIMITIVE_TYPES.size(), FEELType.FEEL_PRIMITIVE_TYPE_TO_NATIVE_CONVERSION_FUNCTION.keySet().size());
     }
 }

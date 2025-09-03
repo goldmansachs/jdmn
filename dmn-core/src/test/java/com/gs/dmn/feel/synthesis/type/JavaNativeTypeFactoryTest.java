@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.synthesis.type;
 
+import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -76,5 +77,11 @@ class JavaNativeTypeFactoryTest {
     @Test
     public void testGetNativeDurationType() {
         assertEquals("java.time.temporal.TemporalAmount", typeFactory.getNativeDurationType());
+    }
+
+    @Test
+    public void testMappings() {
+        assertEquals(JavaTimeNativeTypeFactory.FEEL_TYPE_TO_JAVA_TYPE.keySet().size(), FEELType.FEEL_PRIMITIVE_TYPES.size());
+        assertEquals(JavaTimeNativeTypeFactory.FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.keySet().size(), FEELType.FEEL_PRIMITIVE_TYPES.size());
     }
 }

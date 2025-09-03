@@ -12,16 +12,16 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
-import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.ListType;
-import com.gs.dmn.el.analysis.semantics.type.NullType;
-import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.el.analysis.semantics.type.NamedType;
+import com.gs.dmn.el.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ConversionKind;
+import com.gs.dmn.runtime.DMNRuntimeException;
 
-import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.syntax.ConversionKind.*;
 
@@ -106,12 +106,47 @@ public interface FEELType {
         return CONFORMS_TO;
     }
 
+    static boolean isPrimitiveType(Type type) {
+        return FEEL_PRIMITIVE_TYPES.contains(type);
+    }
+
+    static String typeName(Type type) {
+        if (type instanceof NamedType) {
+            return ((NamedType) type).getName();
+        } else if (type == ContextType.CONTEXT) {
+            return "context";
+        } else {
+            throw new DMNRuntimeException(String.format("Type '%s' does not have a name", type));
+        }
+    }
+
+    Set<Type> FEEL_PRIMITIVE_TYPES = Set.of(
+            NumberType.NUMBER,
+            BooleanType.BOOLEAN,
+            StringType.STRING,
+            DateType.DATE,
+            TimeType.TIME,
+            DateTimeType.DATE_AND_TIME, DateTimeType.DATE_TIME_CAMEL, DateTimeType.DATE_TIME,
+            DaysAndTimeDurationType.DAYS_AND_TIME_DURATION, DaysAndTimeDurationType.DAY_TIME_DURATION,
+            YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION, YearsAndMonthsDurationType.YEAR_MONTH_DURATION,
+            EnumerationType.ENUMERATION,
+
+            // Abstract types
+            AnyType.ANY,
+            NullType.NULL,
+            TemporalType.TEMPORAL,
+            DurationType.DURATION,
+            ComparableDataType.COMPARABLE,
+            ContextType.CONTEXT
+    );
+
+    Set<String> FEEL_TYPE_NAMES = FEEL_PRIMITIVE_TYPES.stream().map(FEELType::typeName).collect(Collectors.toSet());
+
     Map<String, Type> FEEL_NAME_TO_FEEL_TYPE = new LinkedHashMap<>() {{
         // Primitive types
         put(NumberType.NUMBER.getName(), NumberType.NUMBER);
         put(BooleanType.BOOLEAN.getName(), BooleanType.BOOLEAN);
         put(StringType.STRING.getName(), StringType.STRING);
-        put(EnumerationType.ENUMERATION.getName(), StringType.STRING);
         put(DateType.DATE.getName(), DateType.DATE);
         put(TimeType.TIME.getName(), TimeType.TIME);
         put(DateTimeType.DATE_TIME_CAMEL.getName(), DateTimeType.DATE_AND_TIME);
@@ -121,6 +156,7 @@ public interface FEELType {
         put(DaysAndTimeDurationType.DAY_TIME_DURATION.getName(), DaysAndTimeDurationType.DAYS_AND_TIME_DURATION);
         put(YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION.getName(), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION);
         put(YearsAndMonthsDurationType.YEAR_MONTH_DURATION.getName(), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION);
+        put(EnumerationType.ENUMERATION.getName(), StringType.STRING);
 
         // Abstract types
         put(AnyType.ANY.getName(), AnyType.ANY);
@@ -129,26 +165,8 @@ public interface FEELType {
         put(DurationType.DURATION.getName(), DurationType.DURATION);
         put(ComparableDataType.COMPARABLE.getName(), ComparableDataType.COMPARABLE);
         // context is equivalent to context<>
-        put("context", ContextType.CONTEXT);
+        put(typeName(ContextType.CONTEXT), ContextType.CONTEXT);
     }};
-
-    List<String> FEEL_TYPE_NAMES = Arrays.asList(
-            AnyType.ANY.getName(), NumberType.NUMBER.getName(), BooleanType.BOOLEAN.getName(), StringType.STRING.getName(),
-            DateType.DATE.getName(), TimeType.TIME.getName(), DateTimeType.DATE_TIME_CAMEL.getName(), DateTimeType.DATE_TIME.getName(), DateTimeType.DATE_AND_TIME.getName(),
-            DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.getName(), YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION.getName(), EnumerationType.ENUMERATION.getName());
-
-    List<Type> FEEL_PRIMITIVE_TYPES = Arrays.asList(new Type[]{
-            AnyType.ANY,
-            NumberType.NUMBER,
-            BooleanType.BOOLEAN,
-            StringType.STRING,
-            StringType.STRING,
-            DateType.DATE,
-            TimeType.TIME,
-            DateTimeType.DATE_AND_TIME,
-            DaysAndTimeDurationType.DAYS_AND_TIME_DURATION,
-            YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION
-    });
 
     Map<Type, String> FEEL_PRIMITIVE_TYPE_TO_NATIVE_CONVERSION_FUNCTION = new LinkedHashMap<>() {{
         put(NumberType.NUMBER, "number");
@@ -156,10 +174,20 @@ public interface FEELType {
         put(StringType.STRING, null);
         put(DateType.DATE, "date");
         put(TimeType.TIME, "time");
-        put(DateTimeType.DATE_TIME, "dateAndTime");
         put(DateTimeType.DATE_AND_TIME, "dateAndTime");
         put(DateTimeType.DATE_TIME_CAMEL, "dateAndTime");
+        put(DateTimeType.DATE_TIME, "dateAndTime");
         put(DaysAndTimeDurationType.DAYS_AND_TIME_DURATION, "duration");
+        put(DaysAndTimeDurationType.DAY_TIME_DURATION, "duration");
         put(YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION, "duration");
+        put(YearsAndMonthsDurationType.YEAR_MONTH_DURATION, "duration");
+        put(EnumerationType.ENUMERATION, null);
+
+        put(AnyType.ANY, null);
+        put(NullType.NULL, null);
+        put(TemporalType.TEMPORAL, null);
+        put(DurationType.DURATION, null);
+        put(ComparableDataType.COMPARABLE, null);
+        put(ContextType.CONTEXT, null);
     }};
 }

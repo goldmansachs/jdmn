@@ -15,7 +15,11 @@ package com.gs.dmn.transformation.proto;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
+import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
+import com.gs.dmn.el.analysis.semantics.type.ListType;
+import com.gs.dmn.el.analysis.semantics.type.NamedType;
 import com.gs.dmn.el.analysis.semantics.type.*;
+import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
@@ -29,18 +33,21 @@ import java.util.List;
 import java.util.Map;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
+import static com.gs.dmn.el.analysis.semantics.type.NullType.NULL;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
-import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.DATE_AND_TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.DateTimeType.*;
 import static com.gs.dmn.feel.analysis.semantics.type.DateType.DATE;
 import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAYS_AND_TIME_DURATION;
-import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.DaysAndTimeDurationType.DAY_TIME_DURATION;
 import static com.gs.dmn.feel.analysis.semantics.type.EnumerationType.ENUMERATION;
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
+import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION;
+import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEAR_MONTH_DURATION;
 
 public abstract class ProtoBufferFactory {
-    private static final Map<String, String> FEEL_TYPE_TO_PROTO_TYPE = new LinkedHashMap<>();
+    static final Map<String, String> FEEL_TYPE_TO_PROTO_TYPE = new LinkedHashMap<>();
     public static final String OPTIONAL = "optional";
     public static final String REPEATED = "repeated";
 
@@ -49,16 +56,26 @@ public abstract class ProtoBufferFactory {
     private static final String PROTO_VARIABLE_SUFFIX = "Proto_";
 
     static {
-        FEEL_TYPE_TO_PROTO_TYPE.put(ENUMERATION.getName(), "string");
-        FEEL_TYPE_TO_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), "string");
-        FEEL_TYPE_TO_PROTO_TYPE.put(DAYS_AND_TIME_DURATION.getName(), "string");
-        FEEL_TYPE_TO_PROTO_TYPE.put(DATE_AND_TIME.getName(), "string");
-        FEEL_TYPE_TO_PROTO_TYPE.put(TIME.getName(), "string");
-        FEEL_TYPE_TO_PROTO_TYPE.put(DATE.getName(), "string");
-        FEEL_TYPE_TO_PROTO_TYPE.put(STRING.getName(), "string");
-        FEEL_TYPE_TO_PROTO_TYPE.put(BOOLEAN.getName(), "bool");
         FEEL_TYPE_TO_PROTO_TYPE.put(NUMBER.getName(), "double");
+        FEEL_TYPE_TO_PROTO_TYPE.put(BOOLEAN.getName(), "bool");
+        FEEL_TYPE_TO_PROTO_TYPE.put(STRING.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(DATE.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(TIME.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(DATE_AND_TIME.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(DATE_TIME_CAMEL.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(DATE_TIME.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(YEARS_AND_MONTHS_DURATION.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(YEAR_MONTH_DURATION.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(DAYS_AND_TIME_DURATION.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(DAY_TIME_DURATION.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(ENUMERATION.getName(), "string");
+
         FEEL_TYPE_TO_PROTO_TYPE.put(ANY.getName(), null);
+        FEEL_TYPE_TO_PROTO_TYPE.put(NULL.getName(), null);
+        FEEL_TYPE_TO_PROTO_TYPE.put(TemporalType.TEMPORAL.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(DurationType.DURATION.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(ComparableDataType.COMPARABLE.getName(), "string");
+        FEEL_TYPE_TO_PROTO_TYPE.put(FEELType.typeName(ContextType.CONTEXT), null);
     }
 
     private final BasicDMNToNativeTransformer<Type, DMNContext> transformer;
@@ -221,7 +238,7 @@ public abstract class ProtoBufferFactory {
         throw new IllegalArgumentException(String.format("Type '%s' is not supported yet", type));
     }
 
-    private String toProtoType(String feelType) {
+    protected String toProtoType(String feelType) {
         return FEEL_TYPE_TO_PROTO_TYPE.get(feelType);
     }
 

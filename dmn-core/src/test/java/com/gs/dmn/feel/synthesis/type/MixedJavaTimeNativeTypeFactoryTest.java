@@ -17,38 +17,41 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class KotlinNativeTypeFactoryTest {
-    private final NativeTypeFactory typeFactory = new JavaTimeKotlinNativeTypeFactory();
+class MixedJavaTimeNativeTypeFactoryTest {
+    private final NativeTypeFactory typeFactory = new MixedJavaTimeNativeTypeFactory();
 
     @Test
     public void testToNativeType() {
-        assertEquals("kotlin.Number", typeFactory.toNativeType("number"));
+        assertEquals("java.math.BigDecimal", typeFactory.toNativeType("number"));
         assertEquals("String", typeFactory.toNativeType("string"));
+        assertEquals("Boolean", typeFactory.toNativeType("boolean"));
     }
 
     @Test
     public void testToQualifiedNativeType() {
-        assertEquals("kotlin.Number", typeFactory.toQualifiedNativeType("number"));
+        assertEquals("java.math.BigDecimal", typeFactory.toQualifiedNativeType("number"));
+        assertEquals("java.lang.String", typeFactory.toQualifiedNativeType("string"));
+        assertEquals("java.lang.Boolean", typeFactory.toQualifiedNativeType("boolean"));
     }
 
     @Test
     public void testNullableType() {
-        assertEquals("A?", typeFactory.nullableType("A"));
+        assertEquals("A", typeFactory.nullableType("A"));
     }
 
     @Test
     public void testConstructorOfGenericType() {
-        assertEquals("A<a, b>", typeFactory.constructorOfGenericType("A", "a", "b"));
+        assertEquals("A<>", typeFactory.constructorOfGenericType("A", "a", "b"));
     }
 
     @Test
     public void testClassOf() {
-        assertEquals("A::class.java", typeFactory.classOf("A"));
+        assertEquals("A.class", typeFactory.classOf("A"));
     }
 
     @Test
     public void testGetNativeNumberType() {
-        assertEquals("kotlin.Number", typeFactory.getNativeNumberType());
+        assertEquals("java.math.BigDecimal", typeFactory.getNativeNumberType());
     }
 
     @Test
@@ -63,22 +66,22 @@ class KotlinNativeTypeFactoryTest {
 
     @Test
     public void testGetNativeTimeType() {
-        assertEquals("java.time.temporal.TemporalAccessor", typeFactory.getNativeTimeType());
+        assertEquals("java.time.OffsetTime", typeFactory.getNativeTimeType());
     }
 
     @Test
     public void testGetNativeDateAndTimeType() {
-        assertEquals("java.time.temporal.TemporalAccessor", typeFactory.getNativeDateAndTimeType());
+        assertEquals("java.time.ZonedDateTime", typeFactory.getNativeDateAndTimeType());
     }
 
     @Test
     public void testGetNativeDurationType() {
-        assertEquals("java.time.temporal.TemporalAmount", typeFactory.getNativeDurationType());
+        assertEquals("javax.xml.datatype.Duration", typeFactory.getNativeDurationType());
     }
 
     @Test
     public void testMappings() {
-        assertEquals(JavaTimeKotlinNativeTypeFactory.FEEL_TYPE_TO_JAVA_TYPE.keySet().size(), FEELType.FEEL_PRIMITIVE_TYPES.size());
-        assertEquals(JavaTimeKotlinNativeTypeFactory.FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.keySet().size(), FEELType.FEEL_PRIMITIVE_TYPES.size());
+        assertEquals(JavaTimeNativeTypeFactory.FEEL_TYPE_TO_JAVA_TYPE.keySet().size(), FEELType.FEEL_PRIMITIVE_TYPES.size());
+        assertEquals(JavaTimeNativeTypeFactory.FEEL_TYPE_TO_QUALIFIED_JAVA_TYPE.keySet().size(), FEELType.FEEL_PRIMITIVE_TYPES.size());
     }
 }
