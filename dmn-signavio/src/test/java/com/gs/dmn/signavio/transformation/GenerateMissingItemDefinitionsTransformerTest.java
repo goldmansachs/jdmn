@@ -65,7 +65,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
     }
 
     @Test
-    public void testTransformerForExistingConflictingDefinition() throws Exception {
+    public void testTransformerForExistingConflictingDefinition() {
         Assertions.assertThrows(DMNRuntimeException.class, () -> {
             executeTransformation(
                     signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
@@ -89,7 +89,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
     }
 
     @Test
-    public void testTransformerForDuplicateConflictingNewDefinitions() throws Exception {
+    public void testTransformerForDuplicateConflictingNewDefinitions() {
         Assertions.assertThrows(DMNRuntimeException.class, () -> {
             executeTransformation(
                     signavioResource("dmn/complex/input/credit-decision-missing-definitions-other.dmn"),
@@ -118,7 +118,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
                     .stream().filter(x -> x.getName().equals(definitionName)).findFirst()
                     .orElseThrow(() -> new DMNRuntimeException("Cannot locate new definition"));
 
-            Assertions.assertEquals("feel.number", QualifiedName.toName(definition.getTypeRef()), "Definition type reference is not correct");
+            Assertions.assertEquals("number", QualifiedName.toName(definition.getTypeRef()), "Definition type reference is not correct");
         }
     }
 
@@ -144,7 +144,7 @@ public class GenerateMissingItemDefinitionsTransformerTest extends AbstractSigna
 
     // Identify the name of any definitions present in comparisonRepository that are not present in baseRepository
     private List<String> identifyNewDefinitions(List<TItemDefinition> baseRepository, List<TItemDefinition> comparisonRepository) {
-        List<String> baseDefinitions = baseRepository.stream().map(TItemDefinition::getName).collect(Collectors.toList());
+        List<String> baseDefinitions = baseRepository.stream().map(TItemDefinition::getName).toList();
 
         return comparisonRepository.stream()
                 .map(TItemDefinition::getName)

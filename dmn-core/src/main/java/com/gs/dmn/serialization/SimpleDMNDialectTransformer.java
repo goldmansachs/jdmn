@@ -19,6 +19,7 @@ import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.xstream.dom.ElementInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -577,20 +578,98 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
 
     @Override
     protected QName visitTypeRef(QName typeRef, C context) {
-        if (this.sourceVersion == DMNVersion.DMN_11) {
-            if (typeRef != null) {
-                String namespaceURI = typeRef.getNamespaceURI();
-                String prefix = typeRef.getPrefix();
-                String nsForPrefix = this.definitions.getNamespaceURI(prefix);
-                String localPart = typeRef.getLocalPart();
-                if (this.sourceVersion.getFeelNamespace().equals(namespaceURI) || this.targetVersion.getFeelNamespace().equals(nsForPrefix)) {
-                    return new QName(String.format("%s.%s", this.targetVersion.getFeelPrefix(), localPart));
+        if (typeRef != null) {
+            if (this.sourceVersion == DMNVersion.DMN_11) {
+                // DMN 1.1
+                // An ItemDefinition element SHALL have a typeRef, which is a QName that references, by namespace prefix and
+                // local name, either an ItemDefinition in the current instance of Definitions or a built-in type in the specified
+                // typeLanguage or a type defined in an imported DMN, XSD, or other document. In the latter case, the external
+                // document SHALL be imported in the Definitions element that contains the instance of ItemDefinition, using
+                // an Import element. For example, in the case of data structures contributed by an XML schema, an Import would be
+                // used to specify the file location of that schema, and the typeRef attribute would reference the type or element definition
+                // in the imported schema. If the type language is FEEL the built-in types are the FEEL built-in data types: number, string,
+                // boolean, days and time duration, years and months duration, time, and date and time.
+
+                // DMN 1.2
+                // An ItemDefinition element MAY have a typeRef, which is a string that references, as a qualified name, either an
+                // ItemDefinition in the current instance of Definitions or a built-in type in the specified typeLanguage or a
+                // type defined in an imported DMN, XSD, or other document. In the latter case, the external document SHALL be
+                // imported in the Definitions element that contains the instance of ItemDefinition, using an Import element
+                // specifying both the namespace value and its name when used a qualifier. For example, in the case of data structures
+                // contributed by an XML schema, an Import would be used to specify the file location of that schema, and the typeRef
+                // attribute would reference the type or element definition in the imported schema. If the type language is FEEL the built-in
+                // types are the FEEL built-in data types: number, string, boolean, days and time duration, years and months duration, time,
+                // and date and time. A typeRef referencing a built-in type SHALL omit the prefix.
+                String typeName = typeRef.getLocalPart();
+                if (isFEELQName(typeRef)) {
+                    if (isDefinedInCurrentModel(typeName)) {
+                        // Keep the feel prefix to avoid conflicts
+                        return new QName(String.format("%s.%s", this.targetVersion.getFeelPrefix(), typeName));
+                    } else {
+                        // Remove the prefix for FEEL types
+                        return new QName(typeName);
+                    }
                 } else {
-                    return new QName(typeRef.getLocalPart());
+                    // Type reference via XML namespace or imports
+                    if (isImported(typeRef)) {
+                        // Imported definition
+                        return typeRef;
+                    } else {
+                        // Local definition
+                        return new QName(typeName);
+                    }
+                }
+            } else {
+                // Remove the prefix for FEEL types, prefix is the same for all DMN versions
+                String localPart = typeRef.getLocalPart();
+                if (startsWithFEELPrefix(localPart, this.targetVersion)) {
+                    String typeName = localPart.substring(this.targetVersion.getFeelPrefix().length() + 1);
+                    if (isDefinedInCurrentModel(typeName)) {
+                        // Keep the feel prefix to avoid conflicts
+                        return typeRef;
+                    } else {
+                        return new QName(typeName);
+                    }
                 }
             }
         }
         return typeRef;
+    }
+
+    private boolean isFEELQName(QName typeRef) {
+        // Namespace is defined in <definitions> or an enclosing tag e.g. <typeRef>
+        String namespaceURI = typeRef.getNamespaceURI();
+        if (StringUtils.isBlank(namespaceURI)) {
+            // Namespace is defined in <definitions>
+            String prefix = typeRef.getPrefix();
+            namespaceURI = this.definitions.getNamespaceURI(prefix);
+        }
+        return this.targetVersion.getFeelNamespace().equals(namespaceURI)
+                || this.sourceVersion.getFeelNamespace().equals(namespaceURI);
+    }
+
+    private boolean isDefinedInCurrentModel(String name) {
+        for (TItemDefinition itemDefinition : this.definitions.getItemDefinition()) {
+            if (itemDefinition.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isImported(QName typeRef) {
+        for (TImport import_ : this.definitions.getImport()) {
+            String namespaceURI = typeRef.getNamespaceURI();
+            String prefix = typeRef.getPrefix();
+            if (import_.getNamespace().equals(namespaceURI) || import_.getName().equals(prefix)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean startsWithFEELPrefix(String localPart, DMNVersion version) {
+        return localPart.startsWith(version.getFeelPrefix() + ".");
     }
 
     private void updateXMLNamespaces(DMNBaseElement element) {

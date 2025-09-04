@@ -80,6 +80,11 @@ public class GenerateMissingItemDefinitionsTransformer extends AbstractMissingIt
                 } else {
                     // Support both DMN 1.1 and 1.2 syntax; transform all to 1.2
                     String typeRef = ((String) type).replace(':', '.');
+                    // Remove feel prefix
+                    int index = typeRef.indexOf("feel.");
+                    if (index != -1) {
+                        typeRef = typeRef.substring(5);
+                    }
 
                     // Create ItemDefinition and add it to result
                     TItemDefinition itemDefinition = makeItemDefinition(result.size(), (String) name, Boolean.parseBoolean((String) isCollection), typeRef);

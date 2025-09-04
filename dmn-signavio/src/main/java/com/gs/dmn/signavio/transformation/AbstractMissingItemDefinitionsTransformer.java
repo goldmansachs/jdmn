@@ -43,8 +43,7 @@ public abstract class AbstractMissingItemDefinitionsTransformer extends SimpleDM
                 if (definitionsAreEquivalent(definition, existingDefinition)) {
                     logger.warn(String.format("Matching definition already exists for \"%s\"; no definition will be generated", definition.getName()));
                     continue;
-                }
-                else {
+                } else {
                     throw new DMNRuntimeException(String.format("Cannot generate item definition for \"%s\"; conflicting item definition already exists", definition.getName()));
                 }
             }

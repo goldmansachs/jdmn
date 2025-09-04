@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="https://www.omg.org/spec/DMN/20230324/FEEL/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" sigExt:revisionNumber="1" sigExt:revisionId="61aca407c00f4bcb8ee0d854ebb0ecac" id="id-09de67af469244c9a7bcb6a99c34b5a1" name="simple-decision-with-bkm" namespace="http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml" exporterVersion="10.15.9">
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/"
+             sigExt:revisionNumber="1" sigExt:revisionId="61aca407c00f4bcb8ee0d854ebb0ecac"
+             id="id-09de67af469244c9a7bcb6a99c34b5a1" name="simple-decision-with-bkm"
+             namespace="http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml"
+             exporterVersion="10.15.9">
   <extensionElements>
     <decisionService id="service-id-806148ab1843f34bf4e461a8ed442b97" name="service-sUM">
       <outputDecision href="#id-806148ab1843f34bf4e461a8ed442b97"></outputDecision>
@@ -8,19 +12,19 @@
     </decisionService>
   </extensionElements>
   <itemDefinition id="id-d8d2409326ca95ebc06b54a4f32d82b9" label="A" name="a" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-7529a16fb8fb3ac44ab132893d08aabc" label="A" name="a2" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-5c3a857c933c219de1462d611ecf644b" label="B" name="b" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-bbd21642e140be5214da01c35869ad84" label="B" name="b2" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-b8bf75fc98d4d6a0e0e8cb2ce9fcfee8" label="SUM" name="sUM" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <inputData sigExt:shapeId="sid-F2486B26-F187-43CA-8687-DF0893AD1D27" sigExt:diagramId="0cad6eb96bfc4b638250c73ff90f439b" id="id-6941daac7dedcf760459bef259f2b83c" label="A" name="a">
     <variable id="id-6941daac7dedcf760459bef259f2b83c_variable" name="a" typeRef="a"></variable>

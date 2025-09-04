@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<semantic:definitions xmlns:semantic="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" id="_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4" name="0087-chapter-11-example" namespace="http://www.trisotech.com/definitions/_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4" exporter="DMN Modeler" exporterVersion="6.0.7">
+<semantic:definitions xmlns:semantic="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4" name="0087-chapter-11-example" namespace="http://www.trisotech.com/definitions/_9d01a0c4-f529-4ad8-ad8e-ec5fb5d96ad4" exporter="DMN Modeler" exporterVersion="6.0.7">
   <semantic:extensionElements></semantic:extensionElements>
   <semantic:itemDefinition label="tStrategy" name="tStrategy" isCollection="false">
     <semantic:typeRef>string</semantic:typeRef>

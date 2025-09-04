@@ -3,67 +3,67 @@
   <extensionElements></extensionElements>
   <itemDefinition id="id-5bf135bcd0f2d1d6dabfb49f463ee763" label="Applicant" name="applicant" isCollection="false">
     <itemComponent sigExt:slotId="0" id="id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-0" label="Name" name="name" isCollection="false">
-      <typeRef>feel.string</typeRef>
+      <typeRef>string</typeRef>
     </itemComponent>
     <itemComponent sigExt:slotId="1" id="id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-1" label="Age" name="age" isCollection="false">
-      <typeRef>feel.number</typeRef>
+      <typeRef>number</typeRef>
     </itemComponent>
     <itemComponent sigExt:slotId="2" id="id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-2" label="Credit score" name="creditScore" isCollection="false">
-      <typeRef>feel.number</typeRef>
+      <typeRef>number</typeRef>
     </itemComponent>
     <itemComponent sigExt:slotId="4" id="id-5bf135bcd0f2d1d6dabfb49f463ee763-relation-4" label="Prior issues" name="priorIssues" isCollection="true">
       <typeRef>creditIssueType</typeRef>
     </itemComponent>
   </itemDefinition>
   <itemDefinition id="id-747970848a049f329dae6329a0601f86" label="Assess applicant age" name="assessApplicantAge" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-bb09635d62df507f5a1c18a6b6dbe4c2" label="Assess issue" name="assessIssue" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-886f8868546e44421c28582adfb5d720" label="Assess issue risk" name="assessIssueRisk" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-51fbdbe450548506ab83bc067833e138" label="Compare against lending threshold" name="compareAgainstLendingThreshold" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition sigExt:glossaryId="3aa8101e7bad40dd87d293f33b5ae045" id="id-e5d4d4757df0b46fe82633187641f999" label="Credit issue type" name="creditIssueType" isCollection="false">
-    <typeRef>feel.string</typeRef>
+    <typeRef>string</typeRef>
     <allowedValues>
       <text>"Card rejection","Late payment","Default on obligations","Bankruptcy"</text>
     </allowedValues>
   </itemDefinition>
   <itemDefinition id="id-f6f0d0a33cba7ca489f16f640f6bcb3b" label="Current risk appetite" name="currentRiskAppetite" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
     <allowedValues>
       <text>[0.0..100.0]</text>
     </allowedValues>
   </itemDefinition>
   <itemDefinition id="id-7eeb80d6a1c17ddd2de72e9c2419fa8b" label="Generate output data" name="generateOutputData" isCollection="true">
     <itemComponent sigExt:slotId="Decision" id="id-7eeb80d6a1c17ddd2de72e9c2419fa8b-relation-Decision" label="Decision" name="decision" isCollection="false">
-      <typeRef>feel.string</typeRef>
+      <typeRef>string</typeRef>
     </itemComponent>
     <itemComponent sigExt:slotId="Assessment" id="id-7eeb80d6a1c17ddd2de72e9c2419fa8b-relation-Assessment" label="Assessment" name="assessment" isCollection="false">
-      <typeRef>feel.number</typeRef>
+      <typeRef>number</typeRef>
     </itemComponent>
     <itemComponent sigExt:slotId="Issue" id="id-7eeb80d6a1c17ddd2de72e9c2419fa8b-relation-Issue" label="Issue" name="issue" isCollection="false">
-      <typeRef>feel.number</typeRef>
+      <typeRef>number</typeRef>
     </itemComponent>
   </itemDefinition>
   <itemDefinition id="id-4cb80be6fb604151f1e9edf9c3cbe2e7" label="Lending threshold" name="lendingThreshold" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-d7e2b287eb5a59fdfd07067ee95b115b" label="Make credit decision" name="makeCreditDecision" isCollection="false">
-    <typeRef>feel.string</typeRef>
+    <typeRef>string</typeRef>
     <allowedValues>
       <text>"Accept","Recommend further assessment","Reject"</text>
     </allowedValues>
   </itemDefinition>
   <itemDefinition id="id-6cf70bdf6bd2e4c75faf286e36bd6caf" label="Prior issue" name="priorIssue" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-8a4fb941ebc03bbe6df3c7615cb14852" label="Process prior issues" name="processPriorIssues" isCollection="true">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <inputData sigExt:shapeId="sid-6CFB0C31-B181-4606-BE51-1960E8B86487" sigExt:diagramId="9acf44f2b05343d79fc35140c493c1e0" id="id-5a7daa825c6a7542e30184a94034b435" label="Lending threshold" name="lendingThreshold">
     <variable id="id-5a7daa825c6a7542e30184a94034b435_variable" name="lendingThreshold" typeRef="lendingThreshold"></variable>
@@ -88,7 +88,7 @@
           <text>applicant.priorIssues</text>
         </inputExpression>
       </input>
-      <output id="id-96865ad6994adedd010841f6fee16856" label="Process prior issues" name="processPriorIssues" typeRef="feel.number"></output>
+      <output id="id-96865ad6994adedd010841f6fee16856" label="Process prior issues" name="processPriorIssues" typeRef="number"></output>
       <rule id="id-e9e18cb693d2e95d7b152b5b041702a2">
         <description>string(-)</description>
         <inputEntry>
@@ -147,7 +147,7 @@
           <text>compareAgainstLendingThreshold</text>
         </inputExpression>
       </input>
-      <output id="id-10cb91a4518a14e3677dec31e54a5314" label="Make credit decision" name="makeCreditDecision" typeRef="feel.string"></output>
+      <output id="id-10cb91a4518a14e3677dec31e54a5314" label="Make credit decision" name="makeCreditDecision" typeRef="string"></output>
       <rule id="id-bddde61ea0caf3cab3bc8c342e9cd321">
         <description>string(-)</description>
         <inputEntry>
@@ -215,7 +215,7 @@
           <text>applicant.age</text>
         </inputExpression>
       </input>
-      <output id="id-c23c8ccc2e159b5ac59f044549b3d867" label="Assess applicant age" name="assessApplicantAge" typeRef="feel.number"></output>
+      <output id="id-c23c8ccc2e159b5ac59f044549b3d867" label="Assess applicant age" name="assessApplicantAge" typeRef="number"></output>
       <rule id="id-8b5fd55713957581c8c1e2bf6d132c9b">
         <description>string(-)</description>
         <inputEntry>
@@ -262,7 +262,7 @@
           <text>lendingThreshold</text>
         </inputExpression>
       </input>
-      <output id="id-277cf2c1c696bd448823dc55264801fc" label="Compare against lending threshold" name="compareAgainstLendingThreshold" typeRef="feel.number"></output>
+      <output id="id-277cf2c1c696bd448823dc55264801fc" label="Compare against lending threshold" name="compareAgainstLendingThreshold" typeRef="number"></output>
       <rule id="id-c6714ce91f6cb26281b8085e1c75e4ae">
         <description>string("Raw issue score is ") + string(assessIssueRisk) + string(", Age-weighted score is ") + string(assessApplicantAge) + string(", Acceptance threshold is ") + string(lendingThreshold)</description>
         <inputEntry>

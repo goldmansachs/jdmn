@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:sig="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" xmlns:feel="https://www.omg.org/spec/DMN/20230324/FEEL/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" sigExt:revisionNumber="1" sigExt:revisionId="ca105398f65d4c3ead49bfa305c5db43" id="id-39104958614e42a8aac1c2c02557d321" name="Null Safe Tests" namespace="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" exporterVersion="10.15.9">
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:sigExt="http://www.provider.com/schema/dmn/1.1/" sigExt:revisionNumber="1" sigExt:revisionId="ca105398f65d4c3ead49bfa305c5db43" id="id-39104958614e42a8aac1c2c02557d321" name="Null Safe Tests" namespace="http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml" exporterVersion="10.15.9">
   <extensionElements></extensionElements>
   <itemDefinition id="id-2cc3214320632e21fa06a8e4df51a01f" label="allFalseAggregation" name="allFalseAggregation" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-471466181fede0d84c7df0e9fe289a0e" label="allTogether" name="allTogether" isCollection="false">
     <typeRef>feel.string</typeRef>
   </itemDefinition>
   <itemDefinition id="id-358fb3eef70f854067115a7957b8e757" label="allTrueAggregation" name="allTrueAggregation" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-8834daef08074502f6114c3bbfa67ff0" label="anyTrueAggregation" name="anyTrueAggregation" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-8266402525c1150efdfd6183507e6980" label="arithmetic" name="arithmetic" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-94010e51fff3246bb81ff073cc030cbd" label="booleanA" name="booleanA" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-ab8b01c0dd497fcde9fd1ca33e705e55" label="booleanAllFalse" name="booleanAllFalse" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-9e082ad3b2250f1df8027ba40689b23d" label="booleanAllTrue" name="booleanAllTrue" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-334e50482f30ae457540df3012c193da" label="booleanAnyTrue" name="booleanAnyTrue" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-cb5f8f251c78a1fa0f3c14922aa163db" label="booleanB " name="booleanB" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-7c2fce8ec22887bb67f15d0c4b81af86" label="booleanList" name="booleanList" isCollection="true">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-eabe544d9031007a7c789c332a5f01b7" label="comparator " name="comparator" isCollection="true">
     <typeRef>feel.string</typeRef>
@@ -41,34 +41,34 @@
     <typeRef>feel.date</typeRef>
   </itemDefinition>
   <itemDefinition id="id-ede7794c2ca519e4b2483cb568d7de67" label="dateTime" name="dateTime" isCollection="false">
-    <typeRef>feel.date and time</typeRef>
+    <typeRef>date and time</typeRef>
   </itemDefinition>
   <itemDefinition id="id-c0a0a5abc1125fd69627af517c1b7a3b" label="formattingAndCoercing" name="formattingAndCoercing" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-05ead685d65ac4d20c5b6150cc46ca4a" label="keepInput_allFalse" name="keepInputallFalse" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-9203cd168799b29b1e95772a8e9868fd" label="keepInput_allTrue" name="keepInputallTrue" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-f2a735669eb978daaf9c21a6a7e6970d" label="keepInput_anyTrue" name="keepInputanyTrue" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-d6e1e7be21c12b57a61c8f97cb7d614b" label="listHandling" name="listHandling" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-85b56ea918b2fb3cd2b9d0d11c6b7206" label="logical " name="logical" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-1faba55e4fd5e1351ff3e3332db2f2c7" label="numberA" name="numberA" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-62a3564431596dc382ef27011f0def3e" label="numberB" name="numberB" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-3730312cd03e8f285381a7502e3337b6" label="numberList" name="numberList" isCollection="true">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-bd26355ac1241c457f913b2bfa56e370" label="partA" name="partA" isCollection="false">
     <typeRef>feel.string</typeRef>
@@ -80,7 +80,7 @@
     <typeRef>feel.string</typeRef>
   </itemDefinition>
   <itemDefinition id="id-03ec1b690e33459b90b16efc9685ddd2" label="statistical" name="statistical" isCollection="false">
-    <typeRef>feel.number</typeRef>
+    <typeRef>number</typeRef>
   </itemDefinition>
   <itemDefinition id="id-9d843f44d8ac1071405e1cedc0d97648" label="string" name="string" isCollection="false">
     <typeRef>feel.string</typeRef>
@@ -89,19 +89,19 @@
     <typeRef>feel.string</typeRef>
   </itemDefinition>
   <itemDefinition id="id-37f7779f9f670999279937e94332d604" label="stringHandlingComparator" name="stringHandlingComparator" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-ef9ae8d5f1d1cd3109e72799b860b153" label="stringList" name="stringList" isCollection="true">
     <typeRef>feel.string</typeRef>
   </itemDefinition>
   <itemDefinition id="id-9dc928bec6c5c35a28acf175efb0cedc" label="temporal" name="temporal" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-8ffcf107aef36a1e7334d8a2d6b9b5ce" label="temporalComparator " name="temporalComparator" isCollection="true">
     <typeRef>feel.string</typeRef>
   </itemDefinition>
   <itemDefinition id="id-42e5206b1e875f9b9fdcabcec1bca7ae" label="temporalDiff" name="temporalDiff" isCollection="false">
-    <typeRef>feel.boolean</typeRef>
+    <typeRef>boolean</typeRef>
   </itemDefinition>
   <itemDefinition id="id-c3fcae69eb4b4cbbaedb71f007ba1806" label="time " name="time" isCollection="false">
     <typeRef>feel.time</typeRef>

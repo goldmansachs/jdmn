@@ -27,9 +27,7 @@ public class DMNVersionTest {
     void testFromIncorrectVersion() {
         // Used in client code
         assertThrows(IllegalArgumentException.class,
-                () -> {
-                    DMNVersion.fromVersion("xxx");
-                });
+                () -> DMNVersion.fromVersion("xxx"));
     }
 
     @Test
@@ -44,5 +42,12 @@ public class DMNVersionTest {
         // Used in client code
         assertNotNull(DMNVersion.LATEST.getPrefixToNamespaceMap());
         assertFalse(DMNVersion.LATEST.getPrefixToNamespaceMap().isEmpty());
+    }
+
+    @Test
+    void testFEELPrefix() {
+        for (DMNVersion version : DMNVersion.VERSIONS) {
+            assertEquals("feel", version.getFeelPrefix());
+        }
     }
 }
