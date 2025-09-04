@@ -38,7 +38,7 @@ public abstract class AbstractFileTransformer implements FileTransformer {
         List<File> files = new ArrayList<>();
         collectFiles(inputPath, files);
         if (files.isEmpty()) {
-            throw new DMNRuntimeException("Illegal input file " + inputPath.toFile().getAbsolutePath());
+            logger.warn("Cannot find files to transform in " + inputPath.toFile().getAbsolutePath());
         } else {
             transformFiles(files, inputPath.toFile(), outputPath);
         }
