@@ -45,8 +45,8 @@ public abstract class SimpleDMNDialectTransformer {
     }
 
     public TDefinitions transformDefinitions(TDefinitions sourceDefinitions) {
-        this.logger.info(String.format("Transforming '%s' from DMN %s to DMN %s ...", sourceDefinitions.getName(), this.sourceVersion.getVersion(), this.targetVersion.getVersion()));
         if (this.sourceVersion != this.targetVersion) {
+            this.logger.info(String.format("Transforming '%s' from DMN %s to DMN %s ...", sourceDefinitions.getName(), this.sourceVersion.getVersion(), this.targetVersion.getVersion()));
             sourceDefinitions.accept(this.visitor, null);
         }
         return sourceDefinitions;
@@ -80,10 +80,10 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
             element.getOtherAttributes().remove(NO_NAMESPACE_SCHEMA_LOCATION);
         }
         // Update expression language
-        if (this.sourceVersion.getFeelNamespace().equals(element.getTypeLanguage())) {
+        if (isFEELNamespace(element.getTypeLanguage())) {
             element.setTypeLanguage(this.targetVersion.getFeelNamespace());
         }
-        if (this.sourceVersion.getFeelNamespace().equals(element.getExpressionLanguage())) {
+        if (isFEELNamespace(element.getExpressionLanguage())) {
             element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
         }
         // Update XML namespaces
@@ -105,10 +105,10 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
 
     private void updateImportType(TImport element) {
         String importType = element.getImportType();
-        if (sourceVersion.getNamespace().equals(importType)) {
+        if (isDMNNamespace(importType)) {
             element.setImportType(targetVersion.getNamespace());
         }
-        if (sourceVersion.getFeelNamespace().equals(importType)) {
+        if (isFEELNamespace(importType)) {
             element.setImportType(targetVersion.getFeelNamespace());
         }
     }
@@ -644,8 +644,7 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
             String prefix = typeRef.getPrefix();
             namespaceURI = this.definitions.getNamespaceURI(prefix);
         }
-        return this.targetVersion.getFeelNamespace().equals(namespaceURI)
-                || this.sourceVersion.getFeelNamespace().equals(namespaceURI);
+        return isFEELNamespace(namespaceURI);
     }
 
     private boolean isDefinedInCurrentModel(String name) {
@@ -680,16 +679,16 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
         ElementInfo elementInfo = element.getElementInfo();
         // DMN namespace
         String newNamespaceURI = elementInfo.getNamespaceURI();
-        if (this.sourceVersion.getNamespace().equals(elementInfo.getNamespaceURI())) {
+        if (isDMNNamespace(elementInfo.getNamespaceURI())) {
             newNamespaceURI = this.targetVersion.getNamespace();
         }
         Map<String, String> newNsContext = new LinkedHashMap<>(elementInfo.getNsContext());
         for (Map.Entry<String, String> entry : newNsContext.entrySet()) {
             // DMN namespace
-            if (this.sourceVersion.getNamespace().equals(entry.getValue())) {
+            if (isDMNNamespace(entry.getValue())) {
                 entry.setValue(this.targetVersion.getNamespace());
             // FEEL namespace
-            } else if (this.sourceVersion.getFeelNamespace().equals(entry.getValue())) {
+            } else if (isFEELNamespace(entry.getValue())) {
                 entry.setValue(this.targetVersion.getFeelNamespace());
             }
         }
@@ -705,5 +704,15 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
 
         ElementInfo newElementInfo = new ElementInfo(elementInfo.getLocation(), elementInfo.getPrefix(), newNamespaceURI, newNsContext);
         element.setElementInfo(newElementInfo);
+    }
+
+    // Include all version to recover from errors when the namespaces do not match the sourceVersion
+    private boolean isDMNNamespace(String namespace) {
+        return DMNVersion.VERSIONS.stream().anyMatch(v -> v.getNamespace().equals(namespace));
+    }
+
+    // Include all version to recover from errors when the namespaces do not match the sourceVersion
+    private boolean isFEELNamespace(String namespace) {
+        return DMNVersion.VERSIONS.stream().anyMatch(v -> v.getFeelNamespace().equals(namespace));
     }
 }
