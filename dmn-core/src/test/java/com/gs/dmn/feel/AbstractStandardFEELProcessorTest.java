@@ -363,7 +363,7 @@ public abstract class AbstractStandardFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testPathExpression() {
         super.testPathExpression();
 
-        ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Collections.emptyList(), STRING);
+        ItemDefinitionType type = makeItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Collections.emptyList(), STRING);
         List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("PrivateFundRequirements", type, null));
 

@@ -17,7 +17,6 @@ import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.SignavioTestConstants;
-import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.signavio.testlab.TestLab;
 import com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider;
 import com.gs.dmn.transformation.AbstractDMNTransformerTest;
@@ -26,8 +25,6 @@ import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.transformation.template.TemplateProvider;
-import com.gs.dmn.validation.DMNValidator;
-import com.gs.dmn.validation.NopDMNValidator;
 
 import java.net.URI;
 import java.util.Map;
@@ -36,11 +33,6 @@ public abstract class AbstractSignavioDMNToNativeTest<NUMBER, DATE, TIME, DATE_T
     @Override
     protected URI resource(String path) {
         return signavioResource(path);
-    }
-
-    @Override
-    protected DMNValidator makeDMNValidator(BuildLogger logger) {
-        return new NopDMNValidator();
     }
 
     @Override
@@ -66,10 +58,7 @@ public abstract class AbstractSignavioDMNToNativeTest<NUMBER, DATE, TIME, DATE_T
     @Override
     protected Map<String, String> makeInputParametersMap() {
         Map<String, String> inputParams = super.makeInputParametersMap();
-        inputParams.put("semanticValidation", "false");
         inputParams.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
-        inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
-        inputParams.put("decisionBaseClass", makeDialectDefinition().getDecisionBaseClass());
         return inputParams;
     }
 

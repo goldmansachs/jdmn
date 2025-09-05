@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.feel;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.AbstractFEELProcessorTest;
 import com.gs.dmn.feel.EnvironmentEntry;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
@@ -21,9 +22,7 @@ import com.gs.dmn.signavio.feel.lib.SignavioLib;
 import com.gs.dmn.signavio.testlab.TestLab;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
@@ -159,7 +158,7 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
     public void testPathExpression() {
         super.testPathExpression();
 
-        ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Collections.emptyList(), STRING);
+        ItemDefinitionType type = makeItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Collections.emptyList(), STRING);
         List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("PrivateFundRequirements", type, null));
 
@@ -167,6 +166,21 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 "FunctionInvocation(Name(len) -> PositionalParameters(PathExpression(Name(PrivateFundRequirements), HierarchyNode)))",
                 "number",
                 "len(((String)(privateFundRequirements != null ? privateFundRequirements.getHierarchyNode() : null)))",
+                null,
+                null);
+    }
+
+    @Test
+    public void testQualifiedName() {
+        Type bType = makeItemDefinitionType("b").addMember("c", Collections.singletonList("C"), STRING);
+        Type aType = makeItemDefinitionType("a").addMember("b", Collections.singletonList("B"), bType);
+        List<EnvironmentEntry> entries = Collections.singletonList(
+                new EnvironmentEntry("a", aType, null));
+
+        doExpressionTest(entries, "", "a.b.c",
+                "PathExpression(PathExpression(Name(a), b), c)",
+                "string",
+                "((String)(((type.B)(a != null ? a.getB() : null)) != null ? ((type.B)(a != null ? a.getB() : null)).getC() : null))",
                 null,
                 null);
     }

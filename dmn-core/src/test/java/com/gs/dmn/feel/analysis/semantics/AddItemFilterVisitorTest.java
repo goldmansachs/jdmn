@@ -34,7 +34,7 @@ public class AddItemFilterVisitorTest extends BaseVisitorTest {
     private final String parameterName = "parameterName";
     private final Type stringType = StringType.STRING;
     private final ContextType contextType = new ContextType().addMember(this.parameterName, Collections.emptyList(), this.stringType);
-    private final ItemDefinitionType itemDefinitionType = new ItemDefinitionType("personType").addMember(this.parameterName, Collections.emptyList(), this.stringType);
+    private final ItemDefinitionType itemDefinitionType = makeItemDefinitionType("personType").addMember(this.parameterName, Collections.emptyList(), this.stringType);
 
     private final ErrorHandler errorHandler = NopErrorHandler.INSTANCE;
     private final AddItemFilterVisitor<Type, DMNContext> contextTypeVisitor = new AddItemFilterVisitor<>(this.parameterName, this.contextType, this.errorHandler);

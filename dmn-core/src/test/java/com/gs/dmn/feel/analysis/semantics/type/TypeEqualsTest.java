@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
@@ -34,8 +35,8 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TypeEqualsTest {
-    public final Map<Pair<Type, Type>, Boolean> dataTypeTable = new LinkedHashMap<Pair<Type, Type>, Boolean>() {{
+public class TypeEqualsTest extends AbstractTest {
+    public final Map<Pair<Type, Type>, Boolean> dataTypeTable = new LinkedHashMap<>() {{
         put(new Pair<>(NUMBER, NUMBER), true);
         put(new Pair<>(NUMBER, ANY), false);
 
@@ -121,13 +122,13 @@ public class TypeEqualsTest {
 
     @Test
     public void testContextType() {
-        ContextType type1 = new ContextType(new LinkedHashMap<String, Type>() {{
+        ContextType type1 = new ContextType(new LinkedHashMap<>() {{
             put("m", NUMBER);
         }});
-        ContextType type2 = new ContextType(new LinkedHashMap<String, Type>() {{
+        ContextType type2 = new ContextType(new LinkedHashMap<>() {{
             put("m", BOOLEAN);
         }});
-        ContextType type3 = new ContextType(new LinkedHashMap<String, Type>() {{
+        ContextType type3 = new ContextType(new LinkedHashMap<>() {{
             put("m", NUMBER);
             put("n", NUMBER);
         }});
@@ -142,13 +143,13 @@ public class TypeEqualsTest {
 
     @Test
     public void testItemDefinitionType() {
-        ItemDefinitionType type1 = new ItemDefinitionType("ID1");
+        ItemDefinitionType type1 = makeItemDefinitionType("ID1");
         type1.addMember("m", Collections.emptyList(), NUMBER);
 
-        ItemDefinitionType type2 = new ItemDefinitionType("ID2");
+        ItemDefinitionType type2 = makeItemDefinitionType("ID2");
         type2.addMember("m", Collections.emptyList(), BOOLEAN);
 
-        ItemDefinitionType type3 = new ItemDefinitionType("ID3");
+        ItemDefinitionType type3 = makeItemDefinitionType("ID3");
         type3.addMember("m", Collections.emptyList(), NUMBER);
         type3.addMember("x", Collections.emptyList(), NUMBER);
 

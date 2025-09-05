@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.tck;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TInputData;
@@ -50,7 +51,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
 import static com.gs.dmn.feel.analysis.semantics.type.TimeType.TIME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MockTCKValueTranslatorTest {
+public class MockTCKValueTranslatorTest extends AbstractTest {
     static final DatatypeFactory DATATYPE_FACTORY;
 
     static {
@@ -153,7 +154,7 @@ public class MockTCKValueTranslatorTest {
                 STRING, BOOLEAN, NUMBER, DATE, YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION, STRING
         };
 
-        doTest("new type.TestImpl(\"a\", Boolean.TRUE, new java.math.BigDecimal(1.0), date(\"1990-03-29\"), duration(\"P2Y3M\"), DEFAULT_STRING)", makeComponentValue(values), makeItemDefinitionType(types), null);
+        doTest("new model_name.type.TestImpl(\"a\", Boolean.TRUE, new java.math.BigDecimal(1.0), date(\"1990-03-29\"), duration(\"P2Y3M\"), DEFAULT_STRING)", makeComponentValue(values), makeItemDefinitionType(types), null);
         doTest("new com.gs.dmn.runtime.Context().add(\"m0\", \"a\").add(\"m1\", Boolean.TRUE).add(\"m2\", new java.math.BigDecimal(1.0)).add(\"m3\", date(\"1990-03-29\")).add(\"m4\", duration(\"P2Y3M\")).add(\"m5\", DEFAULT_STRING)", makeComponentValue(values), makeContextType(types), null);
     }
 
@@ -189,7 +190,7 @@ public class MockTCKValueTranslatorTest {
     }
 
     private Type makeItemDefinitionType(Type... types) {
-        ItemDefinitionType result = new ItemDefinitionType("test");
+        ItemDefinitionType result = makeItemDefinitionType("test");
         for (int i=0; i<types.length; i++) {
             result.addMember("m" + i, Collections.emptyList(), types[i]);
         }

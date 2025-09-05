@@ -28,9 +28,6 @@ import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.NopDMNValidator;
 import org.junit.jupiter.api.Test;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractTest {
@@ -72,15 +69,6 @@ public abstract class AbstractDMNDialectDefinitionTest<NUMBER, DATE, TIME, DATE_
     public void testGetDecisionBaseClass() {
         String decisionBaseClass = dialect.getDecisionBaseClass();
         assertEquals(getExpectedDecisionBaseClass(), decisionBaseClass);
-    }
-
-    @Override
-    protected Map<String, String> makeInputParametersMap() {
-        Map<String, String> map = new LinkedHashMap<>();
-        map.put("dmnVersion", "1.1");
-        map.put("modelVersion", "1.2");
-        map.put("platformVersion", "3.2");
-        return map;
     }
 
     protected abstract DMNDialectDefinition<NUMBER,DATE,TIME,DATE_TIME,DURATION,TEST> makeDialect();

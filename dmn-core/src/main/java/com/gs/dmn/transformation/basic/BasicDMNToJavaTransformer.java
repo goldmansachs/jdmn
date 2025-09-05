@@ -1824,13 +1824,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             if (StringUtils.isBlank(typeName)) {
                 throw new DMNRuntimeException(String.format("Missing type name in '%s'", type));
             }
-            String primitiveType = this.nativeTypeFactory.toNativeType(typeName);
-            if (!StringUtils.isBlank(primitiveType)) {
-                return primitiveType;
+            if (type instanceof ItemDefinitionType) {
+                String modelName = ((ItemDefinitionType) type).getModelName();
+                return qualifiedName(nativeTypePackageName(modelName), upperCaseFirst(typeName));
             } else {
-                if (type instanceof ItemDefinitionType) {
-                    String modelName = ((ItemDefinitionType) type).getModelName();
-                    return qualifiedName(nativeTypePackageName(modelName), upperCaseFirst(typeName));
+                String primitiveType = this.nativeTypeFactory.toNativeType(typeName);
+                if (!StringUtils.isBlank(primitiveType)) {
+                    return primitiveType;
                 } else {
                     throw new DMNRuntimeException(String.format("Cannot infer native type for '%s' type", type));
                 }
@@ -2084,11 +2084,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String nativeRootPackageName() {
         String javaRootPackage = this.inputParameters.getJavaRootPackage();
-        if (javaRootPackage == null) {
-            return "";
-        } else {
-            return javaRootPackage;
-        }
+        return Objects.requireNonNullElse(javaRootPackage, "");
     }
 
     @Override

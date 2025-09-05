@@ -2584,12 +2584,12 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testPostfixExpression() {
-        ItemDefinitionType employeeTableType = new ItemDefinitionType("tEmployeeTable")
+        ItemDefinitionType employeeTableType = makeItemDefinitionType("tEmployeeTable")
                 .addMember("id", Collections.emptyList(), STRING)
                 .addMember("name", Collections.emptyList(), STRING)
                 .addMember("deptNum", Collections.emptyList(), NUMBER)
                 ;
-        ItemDefinitionType deptTableType = new ItemDefinitionType("tDeptTable")
+        ItemDefinitionType deptTableType = makeItemDefinitionType("tDeptTable")
                 .addMember("number", Collections.emptyList(), NUMBER)
                 .addMember("name", Collections.emptyList(), STRING)
                 .addMember("manager", Collections.emptyList(), STRING)
@@ -2777,7 +2777,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testPathExpression() {
-        ItemDefinitionType type = new ItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Collections.emptyList(), STRING);
+        ItemDefinitionType type = makeItemDefinitionType("PrivateFundRequirements").addMember("HierarchyNode", Collections.emptyList(), STRING);
         List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("PrivateFundRequirements", type, null));
 
@@ -2791,15 +2791,15 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testQualifiedName() {
-        Type bType = new ItemDefinitionType("b").addMember("c", Collections.singletonList("C"), STRING);
-        Type aType = new ItemDefinitionType("a").addMember("b", Collections.singletonList("B"), bType);
+        Type bType = makeItemDefinitionType("b").addMember("c", Collections.singletonList("C"), STRING);
+        Type aType = makeItemDefinitionType("a").addMember("b", Collections.singletonList("B"), bType);
         List<EnvironmentEntry> entries = Collections.singletonList(
                 new EnvironmentEntry("a", aType, null));
 
         doExpressionTest(entries, "", "a.b.c",
                 "PathExpression(PathExpression(Name(a), b), c)",
                 "string",
-                "((String)(((type.B)(a != null ? a.getB() : null)) != null ? ((type.B)(a != null ? a.getB() : null)).getC() : null))",
+                "((String)(((model_name.type.B)(a != null ? a.getB() : null)) != null ? ((model_name.type.B)(a != null ? a.getB() : null)).getC() : null))",
                 null,
                 null);
     }

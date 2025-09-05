@@ -12,6 +12,7 @@
  */
 package com.gs.dmn;
 
+import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
@@ -67,8 +68,12 @@ public abstract class AbstractTest {
     protected Map<String, String> makeInputParametersMap() {
         Map<String, String> inputParams = new LinkedHashMap<>();
         inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "1.0");
+        inputParams.put("modelVersion", "2.0");
         inputParams.put("platformVersion", "1.0");
         return inputParams;
+    }
+
+    protected ItemDefinitionType makeItemDefinitionType(String itemDefinitionName) {
+        return new ItemDefinitionType(itemDefinitionName, "model name");
     }
 }

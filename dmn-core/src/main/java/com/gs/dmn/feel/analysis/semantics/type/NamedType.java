@@ -12,11 +12,14 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import java.util.Objects;
+
 public abstract class NamedType implements com.gs.dmn.el.analysis.semantics.type.NamedType, FEELType {
     protected final String name;
 
     protected NamedType(String name) {
         this.name = name;
+        Objects.requireNonNull(name, "Missing mandatory type name");
     }
 
     @Override

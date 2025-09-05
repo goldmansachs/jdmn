@@ -90,10 +90,7 @@ public abstract class AbstractSignavioDMNInterpreterTest extends AbstractTest {
 
     @Override
     protected Map<String, String> makeInputParametersMap() {
-        Map<String, String> inputParams = new LinkedHashMap<>();
-        inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "1.0");
-        inputParams.put("platformVersion", "1.0");
+        Map<String, String> inputParams = super.makeInputParametersMap();
         inputParams.put("signavioSchemaNamespace", SIG_EXT_NAMESPACE);
         return inputParams;
     }

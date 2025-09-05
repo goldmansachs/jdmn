@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
@@ -39,7 +40,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class OperatorDecisionTableTest {
+class OperatorDecisionTableTest extends AbstractTest {
     @Test
     public void testEquality() {
         // Exact types
@@ -60,7 +61,7 @@ class OperatorDecisionTableTest {
         ContextType contextType = new ContextType();
         contextType.addMember("a", Collections.emptyList(), NUMBER);
         check("=", contextType, CONTEXT, BOOLEAN, "contextEqual");
-        ItemDefinitionType itemDefinitionType = new ItemDefinitionType("test");
+        ItemDefinitionType itemDefinitionType = makeItemDefinitionType("test");
         itemDefinitionType.addMember("a", Collections.emptyList(), NUMBER);
         check("=", itemDefinitionType, ANY_ITEM_DEFINITION, BOOLEAN, "contextEqual");
         Type rangeType = new RangeType(NUMBER);

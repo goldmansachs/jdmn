@@ -22,9 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -45,15 +43,6 @@ public abstract class AbstractTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DUR
             }
         }
         return result.toString().toLowerCase();
-    }
-
-    @Override
-    protected Map<String, String> makeInputParametersMap() {
-        Map<String, String> inputParams = new LinkedHashMap<>();
-        inputParams.put("dmnVersion", "1.1");
-        inputParams.put("modelVersion", "2.0");
-        inputParams.put("platformVersion", "1.0");
-        return inputParams;
     }
 
     protected abstract DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> makeDialectDefinition();

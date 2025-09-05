@@ -17,7 +17,6 @@ import com.gs.dmn.serialization.DMNConstants;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.SignavioTestConstants;
-import com.gs.dmn.signavio.runtime.SignavioEnvironmentFactory;
 import com.gs.dmn.transformation.AbstractTestCasesTransformerTest;
 import com.gs.dmn.transformation.DMNTransformer;
 import com.gs.dmn.transformation.InputParameters;
@@ -29,6 +28,7 @@ import com.gs.dmn.validation.NopDMNValidator;
 
 import java.net.URI;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public abstract class AbstractTestLabToJUnitTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> {
@@ -55,8 +55,6 @@ public abstract class AbstractTestLabToJUnitTransformerTest<NUMBER, DATE, TIME, 
     @Override
     protected Map<String, String> makeInputParametersMap() {
         Map<String, String> inputParams = super.makeInputParametersMap();
-        inputParams.put("environmentFactoryClass", SignavioEnvironmentFactory.class.getName());
-        inputParams.put("decisionBaseClass", makeDialectDefinition().getDecisionBaseClass());
         inputParams.put("signavioSchemaNamespace", SignavioTestConstants.SIG_EXT_NAMESPACE);
         return inputParams;
    }
@@ -66,8 +64,8 @@ public abstract class AbstractTestLabToJUnitTransformerTest<NUMBER, DATE, TIME, 
         String expectedPath = getExpectedPath() + "/" + friendlyFolderName(name);
         String inputTestFilePath = path + name + TestLabSerializer.TEST_LAB_FILE_EXTENSION;
         String inputModelFilePath = path + name + DMNConstants.DMN_FILE_EXTENSION;
-        String decodedInputTestFilePath = URLDecoder.decode(signavioResource(inputTestFilePath).getPath(), "UTF-8");
-        String decodedInputModelFilePath = URLDecoder.decode(signavioResource(inputModelFilePath).getPath(), "UTF-8");
+        String decodedInputTestFilePath = URLDecoder.decode(signavioResource(inputTestFilePath).getPath(), StandardCharsets.UTF_8);
+        String decodedInputModelFilePath = URLDecoder.decode(signavioResource(inputModelFilePath).getPath(), StandardCharsets.UTF_8);
         super.doTest(decodedInputTestFilePath, decodedInputModelFilePath, expectedPath);
     }
 

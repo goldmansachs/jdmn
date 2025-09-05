@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.visitor;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.syntax.ast.ASTFactory;
@@ -49,7 +50,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public abstract class BaseVisitorTest {
+public abstract class BaseVisitorTest extends AbstractTest {
     private final ASTFactory<Type, ?> factory = new ASTFactory<>();
 
     //

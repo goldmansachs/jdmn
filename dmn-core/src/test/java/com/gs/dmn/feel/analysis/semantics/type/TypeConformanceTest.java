@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.semantics.type;
 
+import com.gs.dmn.AbstractTest;
 import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -40,7 +41,7 @@ import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType
 import static com.gs.dmn.feel.analysis.semantics.type.YearsAndMonthsDurationType.YEAR_MONTH_DURATION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TypeConformanceTest {
+public class TypeConformanceTest extends AbstractTest {
     public final Map<Pair<Type, Type>, Boolean> dataTypesTable = new LinkedHashMap<>() {{
         // Concrete types
         put(new Pair<>(NUMBER, ANY), true);
@@ -217,13 +218,13 @@ public class TypeConformanceTest {
 
     @Test
     public void testItemDefinitionType() {
-        ItemDefinitionType type1 = new ItemDefinitionType("ID1");
+        ItemDefinitionType type1 = makeItemDefinitionType("ID1");
         type1.addMember("m", Collections.emptyList(), NUMBER);
 
-        ItemDefinitionType type2 = new ItemDefinitionType("ID2");
+        ItemDefinitionType type2 = makeItemDefinitionType("ID2");
         type2.addMember("m", Collections.emptyList(), BOOLEAN);
 
-        ItemDefinitionType type3 = new ItemDefinitionType("ID3");
+        ItemDefinitionType type3 = makeItemDefinitionType("ID3");
         type3.addMember("m", Collections.emptyList(), NUMBER);
         type3.addMember("x", Collections.emptyList(), NUMBER);
 

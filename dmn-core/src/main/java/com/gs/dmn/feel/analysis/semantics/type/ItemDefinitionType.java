@@ -18,15 +18,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ItemDefinitionType extends NamedType implements CompositeDataType, com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType {
-    public static final Type ANY_ITEM_DEFINITION = new ItemDefinitionType("");
+    public static final Type ANY_ITEM_DEFINITION = new ItemDefinitionType("", "");
 
     private final String modelName;
     private final Map<String, Type> members = new LinkedHashMap<>();
     private final Map<String, List<String>> aliases = new LinkedHashMap<>();
-
-    public ItemDefinitionType(String name) {
-        this(name, null);
-    }
 
     public ItemDefinitionType(String name, String modelName) {
         super(name);

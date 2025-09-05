@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.tck;
 
-import com.gs.dmn.feel.analysis.semantics.environment.StandardEnvironmentFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DefaultTypeDeserializationConfigurer;
@@ -26,8 +25,8 @@ import com.gs.dmn.validation.NopDMNValidator;
 
 import java.net.URI;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.Map;
 
 public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends AbstractTestCasesTransformerTest<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestCases> {
     @Override
@@ -42,8 +41,8 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
         String expectedPath = completePath(getExpectedPath(), dmnVersion, dmnFileName);
         String inputTestFilePath = testCasesPath + testFileName + this.inputParameters.getTckFileExtension();
         String inputModelFilePath = dmnPath + dmnFileName + this.inputParameters.getDmnFileExtension();
-        String decodedInputTestFilePath = URLDecoder.decode(resource(inputTestFilePath).getPath(), "UTF-8");
-        String decodedInputModelFilePath = URLDecoder.decode(resource(inputModelFilePath).getPath(), "UTF-8");
+        String decodedInputTestFilePath = URLDecoder.decode(resource(inputTestFilePath).getPath(), StandardCharsets.UTF_8);
+        String decodedInputModelFilePath = URLDecoder.decode(resource(inputModelFilePath).getPath(), StandardCharsets.UTF_8);
         super.doTest(decodedInputTestFilePath, decodedInputModelFilePath, expectedPath, extraInputParameters);
     }
 
@@ -52,8 +51,8 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
         String inputTestFilePath = completePath(getTestCasesInputPath(), dmnVersion, testFolderName) + "/";
         String inputModelFilePath = completePath(getDMNInputPath(), dmnVersion, dmnFolderName) + "/";
         String expectedPath = completePath(getExpectedPath(), dmnVersion, dmnFolderName);
-        String decodedInputTestFilePath = URLDecoder.decode(resource(inputTestFilePath).getPath(), "UTF-8");
-        String decodedInputModelFilePath = URLDecoder.decode(resource(inputModelFilePath).getPath(), "UTF-8");
+        String decodedInputTestFilePath = URLDecoder.decode(resource(inputTestFilePath).getPath(), StandardCharsets.UTF_8);
+        String decodedInputModelFilePath = URLDecoder.decode(resource(inputModelFilePath).getPath(), StandardCharsets.UTF_8);
         super.doTest(decodedInputTestFilePath, decodedInputModelFilePath, expectedPath, extraInputParameters);
     }
 
@@ -75,14 +74,6 @@ public abstract class AbstractTCKTestCasesToJUnitTransformerTest<NUMBER, DATE, T
     @Override
     protected TypeDeserializationConfigurer makeTypeDeserializationConfigurer(BuildLogger logger) {
         return new DefaultTypeDeserializationConfigurer();
-    }
-
-    @Override
-    protected Map<String, String> makeInputParametersMap() {
-        Map<String, String> inputParams = super.makeInputParametersMap();
-        inputParams.put("environmentFactoryClass", StandardEnvironmentFactory.class.getName());
-        inputParams.put("decisionBaseClass", makeDialectDefinition().getDecisionBaseClass());
-        return inputParams;
     }
 
     @Override
