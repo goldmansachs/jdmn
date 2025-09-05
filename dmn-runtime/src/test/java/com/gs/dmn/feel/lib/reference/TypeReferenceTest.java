@@ -23,8 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TypeReferenceTest {
     @Test
-    public void testConstructor() {
-        assertThrows(DMNRuntimeException.class, () -> check(new SimpleType("number"), "null"));
+    public void testParsing() {
+        assertThrows(DMNRuntimeException.class, () -> check(null, "null"));
 
         // Primitive types
         check(new SimpleType("Null"), "Null");
@@ -34,20 +34,42 @@ class TypeReferenceTest {
         check(new SimpleType("boolean"), "boolean");
         check(new SimpleType("date"), "date");
         check(new SimpleType("time"), "time");
-        check(new SimpleType("date and time"), "date and time");
-        check(new SimpleType("years and months duration"), "years and months duration");
-        check(new SimpleType("days and time duration"), "days and time duration");
+        check(new SimpleType("date and time"), "'date and time'");
+        check(new SimpleType("years and months duration"), "'years and months duration'");
+        check(new SimpleType("days and time duration"), "'days and time duration'");
 
         // Composite types
         check(new ListType(new SimpleType("number")), "list<number>");
         check(new RangeType(new SimpleType("number")), "range<number>");
+        check(new ContextType(), "context");
+        check(new ContextType(), "context<>");
         check(new ContextType().addMember("a", new SimpleType("number")), "context<a:number>");
         check(new ContextType().addMember("a", new SimpleType("number")).addMember("b", new SimpleType("boolean")), "context<a:number, b:boolean>");
+        check(new ItemDefinitionType("model name", "Cls"), "'model name':Cls<>");
+        check(new ItemDefinitionType("model name", "Cls").addMember("a", new SimpleType("number")), "'model name':Cls<a:number>");
+        check(new ItemDefinitionType("m", "Person").addMember("a", new SimpleType("number")).addMember("b", new SimpleType("boolean")), "m:Person<a:number, b:boolean>");
         check(new FunctionType(Collections.emptyList(), new SimpleType("number")), "function<> -> number");
         check(new FunctionType(Arrays.asList(new SimpleType("number"), new SimpleType("boolean")), new SimpleType("number")), "function<number, boolean> -> number");
 
         // Nested types
         check(new ListType(new RangeType(new SimpleType("number"))), "list<range<number>>");
+
+        // incorrect types
+        assertThrows(DMNRuntimeException.class, () -> {
+            check(null, "list");
+        });
+        assertThrows(DMNRuntimeException.class, () -> {
+            check(null, "list<>");
+        });
+        assertThrows(DMNRuntimeException.class, () -> {
+            check(null, "range");
+        });
+        assertThrows(DMNRuntimeException.class, () -> {
+            check(null, "range<>");
+        });
+        assertThrows(DMNRuntimeException.class, () -> {
+            check(null, "model name:name<>");
+        });
     }
 
     private void check(Type expecytedType, String typeExpression) {

@@ -13,6 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.feel.lib.reference.SimpleType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -29,10 +30,10 @@ public class FEELTypeTest {
         assertEquals("boolean", BooleanType.BOOLEAN.typeExpression());
         assertEquals("date", DateType.DATE.typeExpression());
         assertEquals("time", TimeType.TIME.typeExpression());
-        assertEquals("date and time", DateTimeType.DATE_AND_TIME.typeExpression());
+        assertEquals("'date and time'", DateTimeType.DATE_AND_TIME.typeExpression());
         assertEquals("duration", DurationType.DURATION.typeExpression());
-        assertEquals("days and time duration", DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.typeExpression());
-        assertEquals("years and months duration", YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION.typeExpression());
+        assertEquals("'days and time duration'", DaysAndTimeDurationType.DAYS_AND_TIME_DURATION.typeExpression());
+        assertEquals("'years and months duration'", YearsAndMonthsDurationType.YEARS_AND_MONTHS_DURATION.typeExpression());
 
         assertEquals("list<Any>", ListType.ANY_LIST.typeExpression());
         assertEquals("list<number>", ListType.NUMBER_LIST.typeExpression());
@@ -120,5 +121,11 @@ public class FEELTypeTest {
     @Test
     public void testConversionFunctionForType() {
         assertEquals(FEELType.FEEL_PRIMITIVE_TYPES.size(), FEELType.FEEL_PRIMITIVE_TYPE_TO_NATIVE_CONVERSION_FUNCTION.keySet().size());
+    }
+
+    @Test
+    public void testCardinalityOfTypeReferencesConversionFunctionForType() {
+        // No reification for enumeration, aliases
+        assertEquals(FEELType.FEEL_PRIMITIVE_TYPES.size(), SimpleType.SIMPLE_TYPES.size() + 5);
     }
 }

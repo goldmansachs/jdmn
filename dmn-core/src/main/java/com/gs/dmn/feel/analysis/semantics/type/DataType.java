@@ -30,6 +30,11 @@ public abstract class DataType extends NamedType {
 
     @Override
     public String typeExpression() {
-        return getName();
+        String name = getName();
+        if (name.indexOf(' ') != -1) {
+            return String.format("'%s'", name);
+        } else {
+            return name;
+        }
     }
 }

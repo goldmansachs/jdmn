@@ -28,6 +28,7 @@ import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.literal.DateTimeLiteral;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
+import com.gs.dmn.feel.lib.reference.TypeReference;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -179,7 +180,12 @@ public class JavaFactory implements NativeFactory {
 
     @Override
     public String makeInstanceOf(String value, Type type) {
-        return String.format("isInstanceOf(%s, \"%s\")", value, type.typeExpression());
+        return String.format("isInstanceOf(%s, %s)", value, makeTypeReference(type));
+    }
+
+    @Override
+    public String makeTypeReference(Type type) {
+        return String.format("new %s(\"%s\")", TypeReference.class.getName(), type.typeExpression());
     }
 
     //

@@ -134,9 +134,9 @@ public interface FEELType {
             // Abstract types
             AnyType.ANY,
             NullType.NULL,
+            ComparableDataType.COMPARABLE,
             TemporalType.TEMPORAL,
             DurationType.DURATION,
-            ComparableDataType.COMPARABLE,
             ContextType.CONTEXT
     );
 

@@ -17,31 +17,36 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ContextType extends CompositeDataType {
-    public ContextType() {
-        this(new LinkedHashMap<>());
+public class ItemDefinitionType extends CompositeDataType {
+    private final String modelName;
+    private final String name;
+
+    public ItemDefinitionType(String modelName, String name) {
+        this(modelName, name, new LinkedHashMap<>());
     }
 
-    public ContextType(Map<String, Type> namedTypes) {
+    public ItemDefinitionType(String modelName, String name, Map<String, Type> namedTypes) {
         super(namedTypes);
+        this.modelName = modelName;
+        this.name = name;
     }
 
     @Override
     public String getExpressionType() {
         String membersStr = members.entrySet().stream().map(e -> String.format("%s: %s", e.getKey(), e.getValue())).collect(Collectors.joining(", "));
-        return String.format("context<%s>", membersStr);
+        return String.format("'%s':'%s'<%s>", modelName, name, membersStr);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ContextType that = (ContextType) o;
-        return Objects.equals(members, that.members);
+        ItemDefinitionType that = (ItemDefinitionType) o;
+        return Objects.equals(modelName, that.modelName) && Objects.equals(name, that.name) && Objects.equals(getMembers(), that.getMembers());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(members);
+        return Objects.hash(modelName, name, getMembers());
     }
 }

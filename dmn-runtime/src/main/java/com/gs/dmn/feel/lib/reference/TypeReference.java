@@ -19,16 +19,26 @@ import java.util.*;
 
 import static com.gs.dmn.feel.lib.reference.TokenKind.*;
 
+//
+// Reference to runtime types
+//
+// Native expression type is serialized as:
+// Primitive types:
+//     Null, Any
+//     number, string, boolean,
+//     date, time, date and time, years and months duration, days and time duration
+// Composite types:
+//     list<number>
+//     range<number>
+//     range<number>
+//     context<a:number, b:string> for ContextType
+//     p1.p2.Cls<a:number> for ItemDefinitionType
 public class TypeReference {
     private final String typeExpression;
-    private final Type type;
+    private Type type;
 
     public TypeReference(String typeExpression) {
-        if (StringUtils.isBlank(typeExpression)) {
-            throw new DMNRuntimeException("Missing type expression");
-        }
         this.typeExpression = typeExpression;
-        this.type = parse(typeExpression);
     }
 
     public String getTypeExpression() {
@@ -36,10 +46,13 @@ public class TypeReference {
     }
 
     public Type getType() {
+        if (type == null) {
+            this.type = parse(typeExpression);
+        }
         return type;
     }
 
-    private Type parse(String type) {
+    protected Type parse(String type) {
         if (StringUtils.isBlank(type)) {
             throw new DMNRuntimeException("Type expression cannot be blank");
         }
@@ -116,9 +129,22 @@ class Lexer {
                 } else {
                     currentToken = new Token(TokenKind.BAD, "-" + ch);
                 }
-            } else if (Character.isLetter(ch)) {
+            } else if (ch == '\'') {
                 StringBuilder nameBuilder = new StringBuilder();
-                while ((Character.isLetter(ch) || Character.isSpaceChar(ch)) && ch != -1) {
+                ch = nextChar();
+                while (ch != '\'' && ch != -1) {
+                    nameBuilder.append((char) ch);
+                    ch = nextChar();
+                }
+                if (ch == '\'') {
+                    nextChar();
+                    currentToken = new Token(NAME, nameBuilder.toString());
+                } else {
+                    currentToken = new Token(TokenKind.BAD, "'" + ch);
+                }
+            } else if (isNameStart(ch)) {
+                StringBuilder nameBuilder = new StringBuilder();
+                while (isNamePart(ch) && ch != -1) {
                     nameBuilder.append((char) ch);
                     ch = nextChar();
                 }
@@ -155,6 +181,16 @@ class Lexer {
         }
     }
 
+    private boolean isNameStart(int ch) {
+        return Character.isLetter(ch);
+    }
+
+    private boolean isNamePart(int ch) {
+        return Character.isLetter(ch) ||
+                Character.isDigit(ch) ||
+                ch == '_' ||
+                ch == '-';
+    }
 }
 
 class Parser {
@@ -175,16 +211,20 @@ class Parser {
 
     private Type type(Lexer lexer) {
         Token token = lexer.currentToken;
-        if (token.kind == TokenKind.NAME) {
+        if (matches(token, NAME)) {
             lexer.nextToken();
-            return new SimpleType(token.lexeme);
-        } else if (token.kind == TokenKind.LIST) {
+            if (matches(lexer.currentToken, COLON)) {
+                return itemDefinitionType(token.lexeme, lexer);
+            } else {
+                return new SimpleType(token.lexeme);
+            }
+        } else if (matches(token, LIST)) {
             return listType(lexer);
-        } else if (token.kind == TokenKind.RANGE) {
+        } else if (matches(token, RANGE)) {
             return rangeType(lexer);
-        } else if (token.kind == TokenKind.CONTEXT) {
+        } else if (matches(token, CONTEXT)) {
             return contextType(lexer);
-        } else if (token.kind == FUNCTION) {
+        } else if (matches(token, FUNCTION)) {
             return functionType(lexer);
         }
         throw new DMNRuntimeException(String.format("Illegal type expression '%s'", lexer.tape));
@@ -192,12 +232,12 @@ class Parser {
 
     // list < type >
     private Type listType(Lexer lexer) {
-        if (lexer.currentToken.kind == LIST) {
+        if (matches(lexer.currentToken, LIST)) {
             lexer.nextToken();
-            if (lexer.currentToken.kind == LEFT_BRACKET) {
+            if (matches(lexer.currentToken, LEFT_BRACKET)) {
                 lexer.nextToken();
                 Type elementType = type(lexer);
-                if (lexer.currentToken.kind == RIGHT_BRACKET) {
+                if (matches(lexer.currentToken, RIGHT_BRACKET)) {
                     lexer.nextToken();
                     return new ListType(elementType);
                 }
@@ -208,12 +248,12 @@ class Parser {
 
     // range < type >
     private Type rangeType(Lexer lexer) {
-        if (lexer.currentToken.kind == RANGE) {
+        if (matches(lexer.currentToken, RANGE)) {
             lexer.nextToken();
-            if (lexer.currentToken.kind == LEFT_BRACKET) {
+            if (matches(lexer.currentToken, LEFT_BRACKET)) {
                 lexer.nextToken();
                 Type elementType = type(lexer);
-                if (lexer.currentToken.kind == RIGHT_BRACKET) {
+                if (matches(lexer.currentToken, RIGHT_BRACKET)) {
                     lexer.nextToken();
                     return new RangeType(elementType);
                 }
@@ -224,33 +264,57 @@ class Parser {
 
     // context < contextEntry (, contextEntry )* >
     private Type contextType(Lexer lexer) {
-        if (lexer.currentToken.kind == CONTEXT) {
+        if (matches(lexer.currentToken, CONTEXT)) {
             lexer.nextToken();
-            if (lexer.currentToken.kind == LEFT_BRACKET) {
-                lexer.nextToken();
-                ContextType contextType = new ContextType();
-                ContextEntry entry = contextEntry(lexer);
-                contextType.addMember(entry.name, entry.type);
-                while (lexer.currentToken.kind == COMMA) {
-                    lexer.nextToken();
-                    entry = contextEntry(lexer);
-                    contextType.addMember(entry.name, entry.type);
-                }
-                if (lexer.currentToken.kind == RIGHT_BRACKET) {
-                    lexer.nextToken();
-                    return contextType;
-                }
-            }
+            ContextType contextType = new ContextType();
+            collectEntries(lexer, contextType);
+            return contextType;
         }
         throw new DMNRuntimeException(String.format("Incorrect context type in '%s'", lexer.tape));
     }
 
+    // qName < contextEntry (, contextEntry )* >
+    private Type itemDefinitionType(String modelName, Lexer lexer) {
+        if (matches(lexer.currentToken, COLON)) {
+            lexer.nextToken();
+            if (matches(lexer.currentToken, NAME)) {
+                String itemDefinitionName = lexer.currentToken.lexeme;
+                lexer.nextToken();
+                ItemDefinitionType contextType = new ItemDefinitionType(modelName, itemDefinitionName);
+                collectEntries(lexer, contextType);
+                return contextType;
+            }
+        }
+        throw new DMNRuntimeException(String.format("Incorrect named context type in '%s'", lexer.tape));
+    }
+
+    private void collectEntries(Lexer lexer, CompositeDataType contextType) {
+        if (matches(lexer.currentToken, LEFT_BRACKET)) {
+            lexer.nextToken();
+            if (matches(lexer.currentToken, RIGHT_BRACKET)) {
+                // empty context type
+                lexer.nextToken();
+            } else {
+                ContextEntry entry = contextEntry(lexer);
+                contextType.addMember(entry.name, entry.type);
+                while (matches(lexer.currentToken, COMMA)) {
+                    lexer.nextToken();
+                    entry = contextEntry(lexer);
+                    contextType.addMember(entry.name, entry.type);
+                }
+                if (matches(lexer.currentToken, RIGHT_BRACKET)) {
+                    lexer.nextToken();
+                }
+            }
+        }
+    }
+
     // name : type
     private ContextEntry contextEntry(Lexer lexer) {
-        if (lexer.currentToken.kind == NAME) {
+        if (matches(lexer.currentToken, NAME)) {
             String name = lexer.currentToken.lexeme;
             lexer.nextToken();
-            if (lexer.currentToken.kind == COLON) {
+            if (matches(lexer.currentToken, COLON)) {
                 lexer.nextToken();
                 Type type = type(lexer);
                 return new ContextEntry(name, type);
@@ -260,23 +324,23 @@ class Parser {
     }
     // function < argList > -> type
     private Type functionType(Lexer lexer) {
-        if (lexer.currentToken.kind == FUNCTION) {
+        if (matches(lexer.currentToken, FUNCTION)) {
             lexer.nextToken();
-            if (lexer.currentToken.kind == LEFT_BRACKET) {
+            if (matches(lexer.currentToken, LEFT_BRACKET)) {
                 lexer.nextToken();
                 List<Type> paramTypes = new ArrayList<>();
                 if (SD_TYPE.contains(lexer.currentToken.kind)) {
                     Type type = type(lexer);
                     paramTypes.add(type);
-                    while (lexer.currentToken.kind == COMMA) {
+                    while (matches(lexer.currentToken, COMMA)) {
                         lexer.nextToken();
                         type = type(lexer);
                         paramTypes.add(type);
                     }
                 }
-                if (lexer.currentToken.kind == RIGHT_BRACKET) {
+                if (matches(lexer.currentToken, RIGHT_BRACKET)) {
                     lexer.nextToken();
-                    if (lexer.currentToken.kind == ARROW) {
+                    if (matches(lexer.currentToken, ARROW)) {
                         lexer.nextToken();
                         Type returnType = type(lexer);
                         return new FunctionType(paramTypes, returnType);
@@ -285,6 +349,10 @@ class Parser {
             }
         }
         throw new DMNRuntimeException(String.format("Incorrect function type in '%s'", lexer.tape));
+    }
+
+    private boolean matches(Token token, TokenKind tokenKind) {
+        return token != null && token.kind == tokenKind;
     }
 }
 

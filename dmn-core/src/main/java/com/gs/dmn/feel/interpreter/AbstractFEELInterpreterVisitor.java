@@ -52,6 +52,7 @@ import com.gs.dmn.feel.analysis.syntax.ast.test.*;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
+import com.gs.dmn.feel.lib.reference.TypeReference;
 import com.gs.dmn.feel.synthesis.AbstractFEELToNativeVisitor;
 import com.gs.dmn.feel.synthesis.FEELTranslatorForInterpreter;
 import com.gs.dmn.feel.synthesis.NativeOperator;
@@ -551,7 +552,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         try {
             Object e1 = element.getLeftOperand().accept(this, context);
             Type e2 = element.getRightOperand().getType();
-            return ((StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.lib).isInstanceOf(e1, e2.typeExpression());
+            return ((StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) this.lib).isInstanceOf(e1, new TypeReference(e2.typeExpression()));
         } catch (Exception e) {
             this.errorHandler.reportError(String.format("Cannot evaluate '%s'", element), e);
             return null;
@@ -1209,7 +1210,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     public Object visit(NamedTypeExpression<Type> element, DMNContext context) {
         LOGGER.debug("Visiting element '{}'", element);
 
-        throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
+            throw new DMNRuntimeException("FEEL '" + element.getClass().getSimpleName() + "' is not supported yet");
     }
 
     @Override

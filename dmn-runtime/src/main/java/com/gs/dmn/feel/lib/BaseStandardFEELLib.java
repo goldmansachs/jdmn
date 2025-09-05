@@ -1444,16 +1444,16 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
     // If e1 is null and type(e2) is Null, the result is true.
     // If type(e1) conforms to type(e2) (see section 10.3.2.9) and e1 is not null, the result is true.
     // Otherwise the result is false.
-    public Boolean isInstanceOf(Object value, String type) {
+    public Boolean isInstanceOf(Object value, TypeReference typeReference) {
         try {
-            TypeReference typeReference = new TypeReference(type);
+            Type type = typeReference.getType();
             if (value == null) {
-                return "Null".equals(typeReference.getTypeExpression());
+                return "Null".equals(type.getExpressionType());
             } else {
                 return conformsTo(value, typeReference.getType());
             }
         } catch (Exception e) {
-            String message = String.format("instance of(%s, %s)", value, type);
+            String message = String.format("instance of(%s, %s)", value, typeReference);
             logError(message, e);
             return null;
         }
@@ -1511,13 +1511,13 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             } else {
                 return Boolean.FALSE;
             }
-        } else if (type instanceof com.gs.dmn.feel.lib.reference.ContextType) {
+        } else if (type instanceof com.gs.dmn.feel.lib.reference.CompositeDataType) {
             if (value instanceof DMNType) {
                 value = ((DMNType) value).toContext();
             }
             if (value instanceof Context) {
-                for (String key : ((com.gs.dmn.feel.lib.reference.ContextType) type).getMembers()) {
-                    Type memberType = ((com.gs.dmn.feel.lib.reference.ContextType) type).getMemberType(key);
+                for (String key : ((com.gs.dmn.feel.lib.reference.CompositeDataType) type).getMembers()) {
+                    Type memberType = ((com.gs.dmn.feel.lib.reference.CompositeDataType) type).getMemberType(key);
                     if (((Context) value).getBindings().containsKey(key)) {
                         Boolean checkMember = conformsTo(((Context) value).get(key), memberType);
                         if (checkMember != Boolean.TRUE) {

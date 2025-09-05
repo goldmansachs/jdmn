@@ -26,6 +26,11 @@ public class ListType implements Type {
     }
 
     @Override
+    public String getExpressionType() {
+        return String.format("list<%s>", elementType);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -40,6 +45,6 @@ public class ListType implements Type {
 
     @Override
     public String toString() {
-        return String.format("list<%s>", elementType);
+        return getExpressionType();
     }
 }

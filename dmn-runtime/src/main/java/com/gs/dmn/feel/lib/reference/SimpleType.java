@@ -15,27 +15,35 @@ package com.gs.dmn.feel.lib.reference;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class SimpleType implements Type {
-    private static final List<String> SIMPLE_TTYPES = Arrays.asList(
-            "Null", "Any",
+    public static final List<String> SIMPLE_TYPES = Collections.unmodifiableList(Arrays.asList(
             "number", "string", "boolean",
             "date", "time", "date and time",
-            "years and months duration", "days and time duration"
-    );
+            "years and months duration", "days and time duration",
+            "Null", "Any",
+            "comparable", "temporal", "duration",
+            "context"
+    ));
 
     private final String name;
 
     public SimpleType(String name) {
-        if (!SIMPLE_TTYPES.contains(name)) {
+        if (!SIMPLE_TYPES.contains(name)) {
             throw new DMNRuntimeException(String.format("Type '%s' is not supported yet", name));
         }
         this.name = name;
     }
 
     public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getExpressionType() {
         return name;
     }
 
@@ -54,6 +62,6 @@ public class SimpleType implements Type {
 
     @Override
     public String toString() {
-        return name;
+        return getExpressionType();
     }
 }

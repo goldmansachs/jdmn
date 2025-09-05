@@ -71,6 +71,8 @@ public interface NativeExpressionFactory {
 
     String makeInstanceOf(String value, Type type);
 
+    String makeTypeReference(Type type);
+
     //
     // Decision Table aggregators
     //

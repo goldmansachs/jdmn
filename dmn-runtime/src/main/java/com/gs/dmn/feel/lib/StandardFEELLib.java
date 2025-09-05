@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.reference.TypeReference;
 import com.gs.dmn.feel.lib.type.range.RangeLib;
 import com.gs.dmn.runtime.LambdaExpression;
 
@@ -275,5 +276,5 @@ public interface StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> extend
     //
     <T> List<T> sort(List<T> list, LambdaExpression<Boolean> comparator);
 
-    Boolean isInstanceOf(Object value, String type);
+    Boolean isInstanceOf(Object value, TypeReference type);
 }

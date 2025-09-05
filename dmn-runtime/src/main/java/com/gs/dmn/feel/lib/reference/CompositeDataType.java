@@ -12,35 +12,32 @@
  */
 package com.gs.dmn.feel.lib.reference;
 
-import java.util.Objects;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
-public class RangeType implements Type {
-    private final Type elementType;
+public abstract class CompositeDataType implements Type {
+    protected final Map<String, Type> members = new LinkedHashMap<>();
 
-    public RangeType(Type elementType) {
-        this.elementType = elementType;
+    public CompositeDataType() {
+        this(new LinkedHashMap<>());
     }
 
-    public Type getElementType() {
-        return elementType;
+    public CompositeDataType(Map<String, Type> namedTypes) {
+        this.members.putAll(namedTypes);
     }
 
-    @Override
-    public String getExpressionType() {
-        return String.format("range<%s>", elementType);
+    public CompositeDataType addMember(String name, Type type) {
+        this.members.put(name, type);
+        return this;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RangeType rangeType = (RangeType) o;
-        return Objects.equals(elementType, rangeType.elementType);
+    public Set<String> getMembers() {
+        return members.keySet();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(elementType);
+    public Type getMemberType(String key) {
+        return members.get(key);
     }
 
     @Override

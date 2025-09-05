@@ -90,7 +90,7 @@ public class ItemDefinitionType extends NamedType implements CompositeDataType, 
     @Override
     public String typeExpression() {
         String members = this.members.entrySet().stream().map(e -> String.format("%s: %s", e.getKey(), e.getValue().typeExpression())).collect(Collectors.joining(", "));
-        return String.format("context<%s>", members);
+        return String.format("'%s':'%s'<%s>", modelName, name, members);
     }
 
     @Override

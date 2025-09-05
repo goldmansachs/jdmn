@@ -13,4 +13,5 @@
 package com.gs.dmn.feel.lib.reference;
 
 public interface Type {
+    String getExpressionType();
 }

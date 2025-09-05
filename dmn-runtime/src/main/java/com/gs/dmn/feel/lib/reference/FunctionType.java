@@ -34,6 +34,12 @@ public class FunctionType implements Type {
     }
 
     @Override
+    public String getExpressionType() {
+        String argsStr = parameterTypes.stream().map(e -> String.format("%s", e)).collect(Collectors.joining(", "));
+        return String.format("function<%s> -> %s", argsStr, returnType);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.feel.lib;
 
+import com.gs.dmn.feel.lib.reference.TypeReference;
 import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.DMNType;
 import com.gs.dmn.runtime.LambdaExpression;
@@ -1168,83 +1169,83 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
     @Test
     public void testIsInstanceOf() {
         // Incorrect type
-        assertNull(getLib().isInstanceOf(makeNumber("123"), "x"));
+        assertNull(getLib().isInstanceOf(makeNumber("123"), new TypeReference("x")));
 
         //
         // Primitive types
         //
         // Null type
-        assertTrue(getLib().isInstanceOf(null, "Null"));
-        assertFalse(getLib().isInstanceOf(makeNumber("123"), "Null"));
+        assertTrue(getLib().isInstanceOf(null, new TypeReference("Null")));
+        assertFalse(getLib().isInstanceOf(makeNumber("123"), new TypeReference("Null")));
         // Any type
-        assertFalse(getLib().isInstanceOf(null, "Any"));
-        assertTrue(getLib().isInstanceOf(makeNumber("123"), "Any"));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("Any")));
+        assertTrue(getLib().isInstanceOf(makeNumber("123"), new TypeReference("Any")));
         // number type
-        assertFalse(getLib().isInstanceOf(null, "number"));
-        assertTrue(getLib().isInstanceOf(makeNumber("123"), "number"));
-        assertFalse(getLib().isInstanceOf("abc", "number"));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("number")));
+        assertTrue(getLib().isInstanceOf(makeNumber("123"), new TypeReference("number")));
+        assertFalse(getLib().isInstanceOf("abc", new TypeReference("number")));
         // string type
-        assertFalse(getLib().isInstanceOf(null, "string"));
-        assertTrue(getLib().isInstanceOf("123", "string"));
-        assertFalse(getLib().isInstanceOf(makeNumber("123"), "string"));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("string")));
+        assertTrue(getLib().isInstanceOf("123", new TypeReference("string")));
+        assertFalse(getLib().isInstanceOf(makeNumber("123"), new TypeReference("string")));
         // boolean type
-        assertFalse(getLib().isInstanceOf(null, "boolean"));
-        assertTrue(getLib().isInstanceOf(true, "boolean"));
-        assertFalse(getLib().isInstanceOf("abc", "boolean"));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("boolean")));
+        assertTrue(getLib().isInstanceOf(true, new TypeReference("boolean")));
+        assertFalse(getLib().isInstanceOf("abc", new TypeReference("boolean")));
         // date type
-        assertFalse(getLib().isInstanceOf(null, "date"));
-        assertTrue(getLib().isInstanceOf(makeDate("2016-01-01"), "date"));
-        assertFalse(getLib().isInstanceOf("abc", "date"));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("date")));
+        assertTrue(getLib().isInstanceOf(makeDate("2016-01-01"), new TypeReference("date")));
+        assertFalse(getLib().isInstanceOf("abc", new TypeReference("date")));
         // time type
-        assertFalse(getLib().isInstanceOf(null, "time"));
-        assertTrue(getLib().isInstanceOf(makeTime("12:00:00"), "time"));
-        assertFalse(getLib().isInstanceOf("abc", "time"));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("time")));
+        assertTrue(getLib().isInstanceOf(makeTime("12:00:00"), new TypeReference("time")));
+        assertFalse(getLib().isInstanceOf("abc", new TypeReference("time")));
         // date and time type
-        assertFalse(getLib().isInstanceOf(null, "date and time"));
-        assertTrue(getLib().isInstanceOf(makeDateAndTime("2020-01-01T12:00:00"), "date and time"));
-        assertFalse(getLib().isInstanceOf("abc", "date and time"));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("'date and time'")));
+        assertTrue(getLib().isInstanceOf(makeDateAndTime("2020-01-01T12:00:00"), new TypeReference("'date and time'")));
+        assertFalse(getLib().isInstanceOf("abc", new TypeReference("'date and time'")));
         // years and months duration type
-        assertFalse(getLib().isInstanceOf(null, "years and months duration"));
-        assertTrue(getLib().isInstanceOf(makeDuration("P1Y1M"), "years and months duration"));
-        assertFalse(getLib().isInstanceOf("abc", "years and months duration"));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("'years and months duration'")));
+        assertTrue(getLib().isInstanceOf(makeDuration("P1Y1M"), new TypeReference("'years and months duration'")));
+        assertFalse(getLib().isInstanceOf("abc", new TypeReference("'years and months duration'")));
         // days and time duration type
-        assertFalse(getLib().isInstanceOf(null, "days and time duration"));
-        assertTrue(getLib().isInstanceOf(makeDuration("P1D"), "days and time duration"));
-        assertFalse(getLib().isInstanceOf("abc", "days and time duration"));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("'days and time duration'")));
+        assertTrue(getLib().isInstanceOf(makeDuration("P1D"), new TypeReference("'days and time duration'")));
+        assertFalse(getLib().isInstanceOf("abc", new TypeReference("'days and time duration'")));
 
         //
         // Composite types
         //
         // List type
-        assertNull(getLib().isInstanceOf(null, "list"));
-        assertNull(getLib().isInstanceOf(null, "list<>"));
-        assertFalse(getLib().isInstanceOf(null, "list<number>"));
-        assertTrue(getLib().isInstanceOf(makeNumberList(1, 2, 3), "list<number>"));
-        assertFalse(getLib().isInstanceOf(makeStringList("1", "2", "3"), "list<number>"));
-        assertFalse(getLib().isInstanceOf(makeNumber(1), "list<number>"));
+        assertNull(getLib().isInstanceOf(null, new TypeReference("list")));
+        assertNull(getLib().isInstanceOf(null, new TypeReference("list<>")));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("list<number>")));
+        assertTrue(getLib().isInstanceOf(makeNumberList(1, 2, 3), new TypeReference("list<number>")));
+        assertFalse(getLib().isInstanceOf(makeStringList("1", "2", "3"), new TypeReference("list<number>")));
+        assertFalse(getLib().isInstanceOf(makeNumber(1), new TypeReference("list<number>")));
 
         // Range type
-        assertNull(getLib().isInstanceOf(null, "range"));
-        assertNull(getLib().isInstanceOf(null, "range<>"));
-        assertFalse(getLib().isInstanceOf(null, "range<number>"));
-        assertTrue(getLib().isInstanceOf(makeRange(makeNumber("1"), makeNumber("2")), "range<number>"));
-        assertFalse(getLib().isInstanceOf(makeRange("1", "2"), "range<number>"));
-        assertFalse(getLib().isInstanceOf(makeNumber(1), "range<number>"));
+        assertNull(getLib().isInstanceOf(null, new TypeReference("range")));
+        assertNull(getLib().isInstanceOf(null, new TypeReference("range<>")));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("range<number>")));
+        assertTrue(getLib().isInstanceOf(makeRange(makeNumber("1"), makeNumber("2")), new TypeReference("range<number>")));
+        assertFalse(getLib().isInstanceOf(makeRange("1", "2"), new TypeReference("range<number>")));
+        assertFalse(getLib().isInstanceOf(makeNumber(1), new TypeReference("range<number>")));
 
-        // Context type
-        assertNull(getLib().isInstanceOf(null, "context"));
-        assertNull(getLib().isInstanceOf(null, "context<>"));
-        assertFalse(getLib().isInstanceOf(null, "context<a: number, b:string>"));
-        assertTrue(getLib().isInstanceOf(new Context().add("a", makeNumber("1")).add("b", "2"), "context<a: number, b:string>"));
-        assertTrue(getLib().isInstanceOf(new Context().add("a", makeNumber("1")).add("b", "2").add("c", "123"), "context<a: number, b:string>"));
-        assertFalse(getLib().isInstanceOf(new Context().add("a", makeNumber("1")), "context<a: number, b:string>"));
+        // Context and item definition types
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("context")));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("context<>")));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("context<a: number, b:string>")));
+        assertFalse(getLib().isInstanceOf(makeNumber(1), new TypeReference("context<a: number, b:string>")));
+        assertTrue(getLib().isInstanceOf(new Context().add("a", makeNumber("1")).add("b", "2"), new TypeReference("context<a: number, b:string>")));
+        assertTrue(getLib().isInstanceOf(new Context().add("a", makeNumber("1")).add("b", "2").add("c", "123"), new TypeReference("context<a: number, b:string>")));
+        assertFalse(getLib().isInstanceOf(new Context().add("a", makeNumber("1")), new TypeReference("context<a: number, b:string>")));
         assertTrue(getLib().isInstanceOf(new DMNType() {
             @Override
             public Context toContext() {
                 return new Context().add("a", makeNumber("1")).add("b", "2");
             }
-        }, "context<a: number, b:string>"));
-        assertFalse(getLib().isInstanceOf(makeNumber(1), "context<a: number, b:string>"));
+        }, new TypeReference("model:Person<a: number, b:string>")));
 
         // Function type, NOT SUPPORTED
         LambdaExpression<Boolean> function = new LambdaExpression<Boolean>() {
@@ -1254,8 +1255,8 @@ public abstract class BaseStandardFEELLibTest<NUMBER, DATE, TIME, DATE_TIME, DUR
                 return getLib().numericLessThan(y, x);
             }
         };
-        assertFalse(getLib().isInstanceOf(null, "function<number, string> -> number"));
-        assertNull(getLib().isInstanceOf(function, "function<number, number> -> boolean"));
-        assertFalse(getLib().isInstanceOf(makeNumber(1), "function<number, string> -> number"));
+        assertFalse(getLib().isInstanceOf(null, new TypeReference("function<number, string> -> number")));
+        assertNull(getLib().isInstanceOf(function, new TypeReference("function<number, number> -> boolean")));
+        assertFalse(getLib().isInstanceOf(makeNumber(1), new TypeReference("function<number, string> -> number")));
     }
 }
