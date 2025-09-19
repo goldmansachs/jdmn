@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.log.BuildLogger;
@@ -24,6 +25,7 @@ import com.gs.dmn.transformation.SimpleDMNTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,15 +102,20 @@ public class InOutCorrectPathsInDecisionsTransformer extends SimpleDMNTransforme
             return false;
         }
 
-        TItemDefinition itemDefinition = repository.lookupItemDefinition(variable.getTypeRef().getLocalPart());
-        while (itemDefinition != null && itemDefinition.getTypeRef() != null) {
+        // Follow the chain of typeRefs
+        TDefinitions model = repository.getModel(decision);
+        QName typeRef = variable.getTypeRef();
+        do {
+            TItemDefinition itemDefinition = repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
+            if (itemDefinition == null || itemDefinition.getTypeRef() == null) {
+                return false;
+            }
             if (isPrimitiveType(itemDefinition)) {
                 return true;
-            } else {
-                itemDefinition = repository.lookupItemDefinition(itemDefinition.getTypeRef().getLocalPart());
             }
-        }
-        return false;
+            model = repository.getModel(itemDefinition);
+            typeRef = itemDefinition.getTypeRef();
+        } while (true);
     }
 
     private boolean isPrimitiveType(TItemDefinition itemDefinition) {

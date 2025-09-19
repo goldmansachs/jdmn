@@ -184,6 +184,10 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
 
     public void addItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition) {
         definitions.getItemDefinition().add(itemDefinition);
+        // Populate cache
+        if (this.itemDefinitions == null) {
+            findAllItemDefinitions();
+        }
         this.itemDefinitions.add(itemDefinition);
     }
 

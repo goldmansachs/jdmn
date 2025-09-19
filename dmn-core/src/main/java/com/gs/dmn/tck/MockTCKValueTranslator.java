@@ -13,10 +13,8 @@
 package com.gs.dmn.tck;
 
 import com.gs.dmn.DRGElementReference;
-import com.gs.dmn.ast.TDRGElement;
-import com.gs.dmn.ast.TInformationItem;
-import com.gs.dmn.ast.TInputData;
-import com.gs.dmn.ast.TItemDefinition;
+import com.gs.dmn.QualifiedName;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
@@ -158,15 +156,11 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
 
     private TItemDefinition findItemDefinition(TDRGElement element) {
         TInformationItem variable = this.repository.variable(element);
-        return findItemDefinition(variable == null ? null : variable.getTypeRef());
+        return findItemDefinition(this.repository.getModel(element), variable == null ? null : variable.getTypeRef());
     }
 
-    private TItemDefinition findItemDefinition(QName typeRef) {
-        if (typeRef == null) {
-            return null;
-        } else {
-            return this.repository.lookupItemDefinition(typeRef.getLocalPart());
-        }
+    private TItemDefinition findItemDefinition(TDefinitions model, QName typeRef) {
+        return this.repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
     }
 
     private TItemDefinition elementItemDefinition(TItemDefinition itemDefinition) {
@@ -174,7 +168,7 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             return null;
         }
         if (itemDefinition.getTypeRef() != null) {
-            return findItemDefinition(itemDefinition.getTypeRef());
+            return findItemDefinition(this.repository.getModel(itemDefinition), itemDefinition.getTypeRef());
         } else if (!itemDefinition.getItemComponent().isEmpty()) {
             return itemDefinition;
         }

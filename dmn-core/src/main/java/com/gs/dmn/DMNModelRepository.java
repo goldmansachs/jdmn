@@ -279,7 +279,7 @@ public class DMNModelRepository {
         return this.invocables;
     }
 
-    private List<TItemDefinition> findAllItemDefinitions() {
+    protected List<TItemDefinition> findAllItemDefinitions() {
         if (this.itemDefinitions == null) {
             this.itemDefinitions = new ArrayList<>();
             for (TDefinitions definitions : this.allDefinitions) {
@@ -419,7 +419,7 @@ public class DMNModelRepository {
         while (true) {
             // Check for cycles
             if (path.contains(itemDefinition)) {
-                path.add(itemDefinition);
+            path.add(itemDefinition);
                 throw new SemanticError("Cyclic type definitions '%s'".formatted(path));
             } else {
                 path.add(itemDefinition);
@@ -435,7 +435,7 @@ public class DMNModelRepository {
             if (next == null) {
                 break;
             } else {
-                itemDefinition = next;
+                    itemDefinition = next;
             }
         }
         return new Pair<>(itemDefinition, restrictions);
@@ -920,20 +920,12 @@ public class DMNModelRepository {
         }
     }
 
-    protected TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
-        for (TItemDefinition itemDefinition : itemDefinitionList) {
-            if (typeRef.getLocalPart().equals(itemDefinition.getName())) {
-                return itemDefinition;
-            }
-        }
-        return null;
+    private TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, QualifiedName typeRef) {
+        String name = typeRef == null ? null : typeRef.getLocalPart();
+        return lookupItemDefinition(itemDefinitionList, name);
     }
 
-    public TItemDefinition lookupItemDefinition(String name) {
-        return lookupItemDefinition(findAllItemDefinitions(), name);
-    }
-
-    protected TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, String name) {
+    private TItemDefinition lookupItemDefinition(List<TItemDefinition> itemDefinitionList, String name) {
         if (name == null) {
             return null;
         }
