@@ -17,7 +17,7 @@ import com.gs.dmn.ast.dmndi.DMNDI;
 import com.gs.dmn.ast.dmndi.DMNDiagram;
 import com.gs.dmn.ast.dmndi.DMNStyle;
 import com.gs.dmn.ast.dmndi.DiagramElement;
-import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
 import org.apache.commons.lang3.StringUtils;
@@ -76,7 +76,7 @@ public class DMNModelRepository {
                 if (!this.namespaceToDefinitions.containsKey(definitions.getNamespace())) {
                     this.namespaceToDefinitions.put(definitions.getNamespace(), definitions);
                 } else {
-                    throw new DMNRuntimeException(String.format("Duplicated model namespace '%s'", definitions.getNamespace()));
+                    throw new SemanticError(String.format("Duplicated model namespace '%s'", definitions.getNamespace()));
                 }
             }
         }
@@ -183,7 +183,7 @@ public class DMNModelRepository {
         if (size == 1) {
             return this.allDefinitions.get(0);
         } else {
-            throw new DMNRuntimeException(String.format("Cannot resolve root DM, there are '%d' DMs", size));
+            throw new SemanticError(String.format("Cannot resolve root DM, there are '%d' DMs", size));
         }
     }
 
@@ -200,11 +200,11 @@ public class DMNModelRepository {
             }
         }
         if (result.isEmpty()) {
-            throw new DMNRuntimeException(String.format("Cannot find model '%s'", modelName));
+            throw new SemanticError(String.format("Cannot find model '%s'", modelName));
         } else if (result.size() == 1) {
             return result.get(0);
         } else {
-            throw new DMNRuntimeException(String.format("Model name '%s' is not unique", modelName));
+            throw new SemanticError(String.format("Model name '%s' is not unique", modelName));
         }
     }
 
@@ -241,7 +241,7 @@ public class DMNModelRepository {
     public TDefinitions findModelByNamespace(String namespace) {
         TDefinitions definitions = this.namespaceToDefinitions.get(namespace);
         if (definitions == null) {
-            throw new DMNRuntimeException(String.format("Cannot find DM for namespace '%s'", namespace));
+            throw new SemanticError(String.format("Cannot find DM for namespace '%s'", namespace));
         } else {
             return definitions;
         }
@@ -501,12 +501,12 @@ public class DMNModelRepository {
                 this.drgElementByRef.put(key, result);
             }
             if (result == null) {
-                throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s' in element '%s'", href, parent.getName()));
+                throw new SemanticError(String.format("Cannot find DRG element for href='%s' in element '%s'", href, parent.getName()));
             } else {
                 return result;
             }
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot find DRG element for href='%s' in element '%s'", href, parent.getName()), e);
+            throw new SemanticError(String.format("Cannot find DRG element for href='%s' in element '%s'", href, parent.getName()), e);
         }
     }
 
@@ -522,7 +522,7 @@ public class DMNModelRepository {
     private TDRGElement findDRGElementById(TDefinitions definitions, String id) {
         TDRGElement element = findDRGElementByFilter(definitions, id, this::sameId);
         if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find DRG element for id='%s' in model '%s#%s'", id, definitions.getNamespace(), definitions.getName()));
+            throw new SemanticError(String.format("Cannot find DRG element for id='%s' in model '%s#%s'", id, definitions.getNamespace(), definitions.getName()));
         } else {
             return element;
         }
@@ -533,7 +533,7 @@ public class DMNModelRepository {
         if (drgElement instanceof TDecision) {
             return (TDecision) drgElement;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot find Decision element for href='%s'", href));
+            throw new SemanticError(String.format("Cannot find Decision element for href='%s'", href));
         }
     }
 
@@ -542,7 +542,7 @@ public class DMNModelRepository {
         if (drgElement instanceof TInputData) {
             return (TInputData) drgElement;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot find InputData element for href='%s'", href));
+            throw new SemanticError(String.format("Cannot find InputData element for href='%s'", href));
         }
     }
 
@@ -551,7 +551,7 @@ public class DMNModelRepository {
         if (drgElement instanceof TInvocable) {
             return (TInvocable) drgElement;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot find TInvocable element for href='%s'", href));
+            throw new SemanticError(String.format("Cannot find TInvocable element for href='%s'", href));
         }
     }
 
@@ -568,11 +568,11 @@ public class DMNModelRepository {
                 result = value.get(0);
                 this.invocablesByName.put(name, result);
             } else if (value.size() > 1) {
-                throw new DMNRuntimeException(String.format("Found %s business knowledge models for name='%s'", value.size(), name));
+                throw new SemanticError(String.format("Found %s business knowledge models for name='%s'", value.size(), name));
             }
         }
         if (result == null) {
-            throw new DMNRuntimeException(String.format("Cannot find business knowledge model for name='%s'", name));
+            throw new SemanticError(String.format("Cannot find business knowledge model for name='%s'", name));
         } else {
             return result;
         }
@@ -581,7 +581,7 @@ public class DMNModelRepository {
     public TDRGElement findDRGElementByName(String namespace, String name) {
         TDefinitions definitions = this.namespaceToDefinitions.get(namespace);
         if (definitions == null) {
-            throw new DMNRuntimeException(String.format("Cannot find model for namespace '%s'", namespace));
+            throw new SemanticError(String.format("Cannot find model for namespace '%s'", namespace));
         }
         return findDRGElementByName(definitions, name);
     }
@@ -589,7 +589,7 @@ public class DMNModelRepository {
     public TDRGElement findDRGElementByName(TDefinitions definitions, String name) {
         TDRGElement element = findDRGElementByFilter(definitions, name, this::sameName);
         if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find DRG element for name='%s'", name));
+            throw new SemanticError(String.format("Cannot find DRG element for name='%s'", name));
         } else {
             return element;
         }
@@ -597,7 +597,7 @@ public class DMNModelRepository {
 
     private TDRGElement findDRGElementByFilter(TDefinitions definitions, String property, BiFunction<TNamedElement, String, Boolean> filter) {
         if (definitions == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element for '%s'. Missing DM", property));
+            throw new SemanticError(String.format("Cannot find element for '%s'. Missing DM", property));
         }
 
         // Lookup in current model
@@ -626,11 +626,11 @@ public class DMNModelRepository {
                 result = value.get(0);
                 this.drgElementByName.put(name, result);
             } else if (value.size() > 1) {
-                throw new DMNRuntimeException(String.format("Found %s DRG elements for name='%s'", value.size(), name));
+                throw new SemanticError(String.format("Found %s DRG elements for name='%s'", value.size(), name));
             }
         }
         if (result == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element for name='%s'", name));
+            throw new SemanticError(String.format("Cannot find element for name='%s'", name));
         } else {
             return result;
         }
@@ -667,7 +667,7 @@ public class DMNModelRepository {
                 ImportPath importPath = findRelativeImportPath(parent, reference);
                 result.add(makeDRGElementReference(importPath, child));
             } else {
-                throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+                throw new SemanticError(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
             }
         }
         return result;
@@ -689,7 +689,7 @@ public class DMNModelRepository {
                 ImportPath importPath = findAbsoluteImportPath(parent, reference, parentImportPath);
                 result.add(makeDRGElementReference(importPath, child));
             } else {
-                throw new DMNRuntimeException(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+                throw new SemanticError(String.format("Cannot find InputData for '%s' in parent '%s'", reference.getHref(), parent.getName()));
             }
         }
 
@@ -703,7 +703,7 @@ public class DMNModelRepository {
                 List<DRGElementReference<TInputData>> inputReferences = collectTransitiveInputDatas(makeDRGElementReference(importPath, child));
                 result.addAll(inputReferences);
             } else {
-                throw new DMNRuntimeException(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
+                throw new SemanticError(String.format("Cannot find Decision for '%s' in parent '%s'", reference.getHref(), parent.getName()));
             }
         }
         return result;
@@ -757,7 +757,7 @@ public class DMNModelRepository {
                     ImportPath importPath = findRelativeImportPath(element, reference);
                     result.add(makeDRGElementReference(importPath, invocable));
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot find Invocable for '%s'", reference.getHref()));
+                    throw new SemanticError(String.format("Cannot find Invocable for '%s'", reference.getHref()));
                 }
             }
         }
@@ -817,7 +817,7 @@ public class DMNModelRepository {
         if (expression instanceof TDecisionTable) {
             return (TDecisionTable) expression;
         } else {
-            throw new DMNRuntimeException(String.format("Cannot find decision table in element '%s'", element.getName()));
+            throw new SemanticError(String.format("Cannot find decision table in element '%s'", element.getName()));
         }
     }
 
@@ -866,7 +866,7 @@ public class DMNModelRepository {
                             String childNamespace = import_.getNamespace();
                             TDefinitions childModel = this.findModelByNamespace(childNamespace);
                             if (childModel == null) {
-                                throw new DMNRuntimeException(String.format("Cannot find DM for '%s'", childNamespace));
+                                throw new SemanticError(String.format("Cannot find DM for '%s'", childNamespace));
                             }
                             result = lookupItemDefinition(childModel, typeRef);
                             if (result != null) {
@@ -892,7 +892,7 @@ public class DMNModelRepository {
             }
             TDefinitions childModel = this.findModelByNamespace(childNamespace);
             if (childModel == null) {
-                throw new DMNRuntimeException(String.format("Cannot find DM for '%s'", childNamespace));
+                throw new SemanticError(String.format("Cannot find DM for '%s'", childNamespace));
             }
             // Lookup typeRef in model
             return lookupItemDefinition(findItemDefinitions(childModel), typeRef);
@@ -1125,7 +1125,7 @@ public class DMNModelRepository {
     public TDecision getOutputDecision(TDecisionService decisionService) {
         List<TDMNElementReference> outputDecisionList = decisionService.getOutputDecision();
         if (outputDecisionList.size() != 1) {
-            throw new DMNRuntimeException(String.format("Missing or more than one decision services in BKM '%s'", decisionService.getName()));
+            throw new SemanticError(String.format("Missing or more than one decision services in BKM '%s'", decisionService.getName()));
         }
         return this.findDecisionByRef(decisionService, outputDecisionList.get(0).getHref());
     }
@@ -1188,7 +1188,7 @@ public class DMNModelRepository {
                 }
             }
             if (StringUtils.isBlank(outputClauseName)) {
-                throw new DMNRuntimeException(String.format("Cannot resolve name for outputClause '%s' in element '%s'", output.getId(), element.getName()));
+                throw new SemanticError(String.format("Cannot resolve name for outputClause '%s' in element '%s'", output.getId(), element.getName()));
             }
         }
         return outputClauseName;
@@ -1213,7 +1213,7 @@ public class DMNModelRepository {
             name = element.getName();
         }
         if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element == null ? null : element.getId()));
+            throw new SemanticError(String.format("Display name cannot be null for element '%s'", element == null ? null : element.getId()));
         }
         return name.trim();
     }
@@ -1229,7 +1229,7 @@ public class DMNModelRepository {
             name = element.getName();
         }
         if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Display name cannot be null for element '%s'", element.getId()));
+            throw new SemanticError(String.format("Display name cannot be null for element '%s'", element.getId()));
         }
         return name.trim();
     }
@@ -1268,7 +1268,7 @@ public class DMNModelRepository {
                 }
             }
         }
-        throw new DMNRuntimeException(String.format("Cannot not find import for '%s' in '%s:%s'", namespace, parentDefinitions.getNamespace(), parentDefinitions.getName()));
+        throw new SemanticError(String.format("Cannot not find import for '%s' in '%s:%s'", namespace, parentDefinitions.getNamespace(), parentDefinitions.getName()));
     }
 
     protected static String makeRef(String absoluteURI, String href) {
