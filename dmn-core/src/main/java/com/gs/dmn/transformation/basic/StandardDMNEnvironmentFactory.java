@@ -28,6 +28,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntry;
@@ -39,6 +40,8 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.namespace.QName;
 import java.util.*;
@@ -46,6 +49,8 @@ import java.util.*;
 import static com.gs.dmn.feel.analysis.semantics.type.BooleanType.BOOLEAN;
 
 public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(StandardDMNEnvironmentFactory.class);
+
     protected final BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer;
 
     protected final DMNModelRepository dmnModelRepository;
@@ -513,12 +518,11 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
 
         // Lookup type
-        Type type = this.feelTypeMemoizer.get(model, typeRef);
-        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-            type = toFEELTypeNoCache(model, typeRef);
+        if (!this.feelTypeMemoizer.contains(model, typeRef)) {
+            Type type = toFEELTypeNoCache(model, typeRef);
             this.feelTypeMemoizer.put(model, typeRef, type);
         }
-        return type;
+        return this.feelTypeMemoizer.get(model, typeRef);
     }
 
     private Type toFEELTypeNoCache(TDefinitions model, QualifiedName typeRef) {
@@ -532,17 +536,16 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (primitiveType != null) {
             return primitiveType;
         }
-        throw new DMNRuntimeException(String.format("Cannot map type '%s' to FEEL", typeRef));
+        throw new SemanticError(String.format("Cannot map type '%s' to FEEL", typeRef));
     }
 
     @Override
     public Type toFEELType(TItemDefinition itemDefinition) {
-        Type type = this.feelTypeMemoizer.get(itemDefinition);
-        if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-            type = toFEELTypeNoCache(itemDefinition);
+        if (!this.feelTypeMemoizer.contains(itemDefinition)) {
+            Type type = toFEELTypeNoCache(itemDefinition);
             this.feelTypeMemoizer.put(itemDefinition, type);
         }
-        return type;
+        return this.feelTypeMemoizer.get(itemDefinition);
     }
 
     private Type toFEELTypeNoCache(TItemDefinition itemDefinition) {

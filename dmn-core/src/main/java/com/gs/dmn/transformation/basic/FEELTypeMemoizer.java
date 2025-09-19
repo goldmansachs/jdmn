@@ -27,6 +27,11 @@ public class FEELTypeMemoizer {
     private final WeakHashMap<String, Type> typeOfQName = new WeakHashMap<>();
     private final WeakHashMap<TItemDefinition, Type> typeOfItemDefinition = new WeakHashMap<>();
 
+    public boolean contains(TDefinitions model, QualifiedName qName) {
+        String key = makeKey(model, qName);
+        return this.typeOfQName.containsKey(key);
+    }
+
     public Type get(TDefinitions model, QualifiedName qName) {
         String key = makeKey(model, qName);
         return this.typeOfQName.get(key);
@@ -35,6 +40,10 @@ public class FEELTypeMemoizer {
     public void put(TDefinitions model, QualifiedName qName, Type type) {
         String key = makeKey(model, qName);
         this.typeOfQName.put(key, type);
+    }
+
+    public boolean contains(TItemDefinition itemDefinition) {
+        return this.typeOfItemDefinition.containsKey(itemDefinition);
     }
 
     public Type get(TItemDefinition itemDefinition) {
