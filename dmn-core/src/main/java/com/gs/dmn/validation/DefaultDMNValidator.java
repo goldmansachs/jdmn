@@ -422,7 +422,7 @@ class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
 
             logger.debug("Validate unique 'ItemDefinition.name'");
             this.validator.validateUnique(
-                    element, new ArrayList<>(repository.findItemDefinitions(element)), "ItemDefinition", "name", false,
+                    element, new ArrayList<>(repository.findTopLevelItemDefinitions(element)), "ItemDefinition", "name", false,
                     e -> ((TNamedElement) e).getName(), null, context
             );
 

@@ -23,7 +23,7 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DMNModelRepositoryTest extends AbstractTest {
     private DMNModelRepository dmnModelRepository;
@@ -32,7 +32,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
     @BeforeEach
     public void setUp() {
         String pathName = "tck/1.1/cl3/0004-lending/0004-lending.dmn";
-        this.dmnModelRepository = readDMN(pathName);
+        this.dmnModelRepository = readModels(pathName);
     }
 
     @Test
@@ -118,7 +118,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     @Test
     public void testCollectAllInputDatas() {
-        this.dmnModelRepository = readDMN("composite/1.2/0003-name-conflicts/translator/");
+        this.dmnModelRepository = readModels("composite/1.2/0003-name-conflicts/translator/");
 
         TDRGElement root = this.dmnModelRepository.findDRGElementByName("http://www.provider.com/definitions/model-c", "modelCDecisionBasedOnBs");
         List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectTransitiveInputDatas(makeRootReference(root));
@@ -134,7 +134,7 @@ public class DMNModelRepositoryTest extends AbstractTest {
 
     @Test
     public void testAllInputDatasWithImports() {
-        this.dmnModelRepository = readDMN("composite/1.2/0003-name-conflicts/translator/");
+        this.dmnModelRepository = readModels("composite/1.2/0003-name-conflicts/translator/");
 
         TDRGElement root = this.dmnModelRepository.findDRGElementByName("http://www.provider.com/definitions/model-c", "modelCDecisionBasedOnBs");
         List<DRGElementReference<TInputData>> references = this.dmnModelRepository.collectTransitiveInputDatas(makeRootReference(root));
@@ -148,12 +148,54 @@ public class DMNModelRepositoryTest extends AbstractTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testGetModelForCyclicTypRefs() {
+        // Read test models
+        this.dmnModelRepository = readModels("other/1.5/cycles-no-prefix/translator/");
+
+        // Find model-a and model-b
+        TDefinitions modelA = this.dmnModelRepository.findModelByName("model-a");
+        assertNotNull(modelA);
+        TDefinitions modelB = this.dmnModelRepository.findModelByName("model-b");
+        assertNotNull(modelB);
+
+        // Find ItemDefinitions to test
+        TItemDefinition t1 = findItemDefinition(modelA, "t1");
+        TItemDefinition t2 = findItemDefinition(modelA, "t2");
+        TItemDefinition other = findItemDefinition(modelB, "other");
+        TItemDefinition node = findItemDefinition(modelA, "node");
+        TItemDefinition key = findItemDefinition(node, "key");
+        TItemDefinition defReference = findItemDefinition(node, "def");
+        TItemDefinition defDefinition = findItemDefinition(modelB, "def");
+        TItemDefinition next = findItemDefinition(node, "next");
+
+        // Test first model
+        assertEquals(modelA, this.dmnModelRepository.getModel(t1));
+        assertEquals(modelA, this.dmnModelRepository.getModel(t2));
+        assertEquals(modelA, this.dmnModelRepository.getModel(node));
+        assertEquals(modelA, this.dmnModelRepository.getModel(key));
+        assertEquals(modelA, this.dmnModelRepository.getModel(next));
+        assertEquals(modelA, this.dmnModelRepository.getModel(defReference));
+
+        // Test second model
+        assertEquals(modelB, this.dmnModelRepository.getModel(other));
+        assertEquals(modelB, this.dmnModelRepository.getModel(defDefinition));
+    }
+
+    private TItemDefinition findItemDefinition(TDefinitions modelA, String name) {
+        return modelA.getItemDefinition().stream().filter(i -> i.getName().equals(name)).findFirst().orElseThrow();
+    }
+
+    private TItemDefinition findItemDefinition(TItemDefinition parent, String name) {
+        return parent.getItemComponent().stream().filter(i -> i.getName().equals(name)).findFirst().orElseThrow();
+    }
+
     @Override
     protected URI resource(String path) {
         return tckResource(path);
     }
 
-    private DMNModelRepository readDMN(String pathName) {
+    private DMNModelRepository readModels(String pathName) {
         File input = new File(resource(pathName));
         List<TDefinitions> definitionsList = this.dmnSerializer.readModels(input);
         return new DMNModelRepository(definitionsList);

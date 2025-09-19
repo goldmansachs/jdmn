@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TItemDefinition;
+import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
@@ -36,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavioFileTransformerTest {
     @Test
-    public void testWhenSignavioDialect() throws Exception {
+    public void testWhenSignavioDialect() {
         Map<String, Object> config = makeConfiguration(JavaTimeSignavioDMNDialectDefinition.class.getName());
         RepositoryTransformResult transformResult = executeTransformation(
                 signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"),
@@ -54,7 +55,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
     }
 
     @Test
-    public void testWhenConfigurationIsNull() throws Exception {
+    public void testWhenConfigurationIsNull() {
         Map<String, Object> config = null;
         RepositoryTransformResult transformResult = executeTransformation(
                 signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"), config);
@@ -70,7 +71,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
     }
 
     @Test
-    public void testWhenConfigurationIsEmpty() throws Exception {
+    public void testWhenConfigurationIsEmpty() {
         Map<String, Object> config = new LinkedHashMap<>();
         RepositoryTransformResult transformResult = executeTransformation(
                 signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"), config);
@@ -92,7 +93,7 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
             config.put("a", 10);
             config.put(DMN_DIALECT_NAME, JavaTimeDMNDialectDefinition.class.getName());
 
-            RepositoryTransformResult transformResult = executeTransformation(
+            executeTransformation(
                     signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"), config);
 
             fail("Test is expected to fail; incorrect dmnDialect");
@@ -102,12 +103,12 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
     }
 
     @Test
-    public void testWhenConfigurationHasIncorrectType() throws Exception {
+    public void testWhenConfigurationHasIncorrectType() {
         try {
             Map<String, Object> config = new LinkedHashMap<>();
             config.put(DMN_DIALECT_NAME, 457);
 
-            RepositoryTransformResult transformResult = executeTransformation(
+            executeTransformation(
                     signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"), config);
             fail("Test is expected to fail; incorrect dmnDialect");
         } catch (Exception e) {
@@ -116,12 +117,12 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
     }
 
     @Test
-    public void testWhenDialectHasIncorrectType() throws Exception {
+    public void testWhenDialectHasIncorrectType() {
         try {
             Map<String, Object> config = new LinkedHashMap<>();
             config.put(DMN_DIALECT_NAME, BigDecimal.class.getName());
 
-            RepositoryTransformResult transformResult = executeTransformation(
+            executeTransformation(
                     signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"), config);
             fail("Test is expected to fail; incorrect dmnDialect");
         } catch (Exception e) {
@@ -135,17 +136,16 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
         return config;
     }
 
-    @SuppressWarnings("unchecked")
-    private RepositoryTransformResult executeTransformation(URI dmnFileURI, Map<String, Object> configuration) throws Exception {
+    private RepositoryTransformResult executeTransformation(URI dmnFileURI, Map<String, Object> configuration) {
         DMNTransformer<TestLab> transformer = new InferMissingItemDefinitionsTransformer(LOGGER);
         transformer.configure(configuration);
 
         File dmnFile = new File(dmnFileURI);
         DMNModelRepository repository = new SignavioDMNModelRepository(this.dmnSerializer.readModel(dmnFile), SignavioTestConstants.SIG_EXT_NAMESPACE);
-        List<TItemDefinition> definitions = new ArrayList<>(repository.findItemDefinitions(repository.getRootDefinitions()));
+        List<TItemDefinition> definitions = new ArrayList<>(repository.findTopLevelItemDefinitions(repository.getRootDefinitions()));
         DMNModelRepository transformed = transformer.transform(repository);
 
-        List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.findItemDefinitions(transformed.getRootDefinitions()));
+        List<TItemDefinition> transformedDefinitions = new ArrayList<>(transformed.findTopLevelItemDefinitions(transformed.getRootDefinitions()));
         return new RepositoryTransformResult(definitions, transformedDefinitions);
     }
 
@@ -169,9 +169,10 @@ public class InferMissingItemDefinitionsTransformerTest extends AbstractSignavio
             assertEquals(expectedPair.getRight(), toType(actualItemDefinition));
         }
 
-        List<TItemDefinition> removedDefinitions = identifyNewDefinitions(transformResult.getAfterTransform(), transformResult.getBeforeTransform());
-        Assertions.assertTrue(removedDefinitions.containsAll(expectedRemovedDefinitions), "Expected removed definition is still present");
-        assertEquals(expectedRemovedDefinitions.size(), removedDefinitions.size(), "Incorrect number of removed definitions");
+        List<TItemDefinition> removedItemDefinitions = identifyNewDefinitions(transformResult.getAfterTransform(), transformResult.getBeforeTransform());
+        Set<String> removedItemDefinitionNames = removedItemDefinitions.stream().map(TNamedElement::getName).collect(Collectors.toSet());
+        Assertions.assertTrue(removedItemDefinitionNames.containsAll(expectedRemovedDefinitions), "Expected removed definition is still present");
+        assertEquals(expectedRemovedDefinitions.size(), removedItemDefinitions.size(), "Incorrect number of removed definitions");
     }
 
     private String toType(TItemDefinition itemDefinition) {

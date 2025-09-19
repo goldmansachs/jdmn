@@ -53,7 +53,7 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
         this.logger.debug(String.format("Generating code for %s '%s'", element.getClass().getSimpleName(), element.getName()));
 
         // Generate data types
-        List<TItemDefinition> itemDefinitions = dmnModelRepository.findItemDefinitions(element);
+        List<TItemDefinition> itemDefinitions = dmnModelRepository.findTopLevelItemDefinitions(element);
         if (itemDefinitions != null) {
             for (TItemDefinition itemDefinition : itemDefinitions) {
                 itemDefinition.accept(this, context);
@@ -103,8 +103,8 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
                 // Process children
                 List<TItemDefinition> itemDefinitionList = element.getItemComponent();
                 if (itemDefinitionList != null) {
-                    for (TItemDefinition itemDefinition1 : itemDefinitionList) {
-                        itemDefinition1.accept(this, context);
+                    for (TItemDefinition childItemDefinition : itemDefinitionList) {
+                        childItemDefinition.accept(this, context);
                     }
                 }
             }

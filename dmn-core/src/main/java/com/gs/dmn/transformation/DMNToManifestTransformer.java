@@ -67,7 +67,7 @@ public class DMNToManifestTransformer {
         boolean  multiModels = this.dmnModelRepository.getAllDefinitions().size() > 1;
         for (TDefinitions definitions: this.dmnModelRepository.getAllDefinitions()) {
             // Add types
-            for (TItemDefinition itemDefinition : this.dmnModelRepository.findItemDefinitions(definitions)) {
+            for (TItemDefinition itemDefinition : this.dmnModelRepository.findTopLevelItemDefinitions(definitions)) {
                 Type type = makeMetadataType(itemDefinition, definitions, multiModels);
                 manifest.addType(type);
             }

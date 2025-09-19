@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:included0="https://kie.org/dmn/_2013C56C-F505-4922-B454-AAA98E01BFE8" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="nsb" id="_B62C7BB9-EE34-4A48-9A1D-139048743281" name="model-b">
+  <import id="_FD6BC28C-0067-4B59-AF71-1359506B7B8B" name="" importType="https://www.omg.org/spec/DMN/20230324/MODEL/" namespace="nsa" locationURI="./model-a.dmn" />
+  <itemDefinition id="_71F5A92E-9D6D-49A7-AAD3-258EB7A47C64" name="def" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <typeRef>string</typeRef>
+  </itemDefinition>
+  <itemDefinition id="_7E52340B-821B-4856-9D7D-18D15128B876" name="other" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <typeRef>t1</typeRef>
+  </itemDefinition>
+  <decision name="B" id="_E96FF841-C643-402C-9C41-2689F8DE536E">
+    <variable name="B" id="_657A0BE9-6C5C-43C6-BE73-6B474C602D2C" />
+    <literalExpression>
+      <text>5</text>
+    </literalExpression>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_087EA93E-A5F9-4F52-987B-8CDAA0CCFD58" name="Default DRD" useAlternativeInputDataShape="false">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths />
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="_4D2103B5-868D-409A-B38A-C3A46A9A7F37" dmnElementRef="_E96FF841-C643-402C-9C41-2689F8DE536E" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="380" y="140" width="160" height="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

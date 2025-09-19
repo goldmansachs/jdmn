@@ -90,7 +90,7 @@ public class DMNModelRepository {
             for (TNamedElement element : findImports(definitions)) {
                 this.elementToDefinitions.put(element, definitions);
             }
-            addItemDefinitions(findItemDefinitions(definitions), definitions);
+            addItemDefinitions(findTopLevelItemDefinitions(definitions), definitions);
             for (TDRGElement element : findDRGElements(definitions)) {
                 this.elementToDefinitions.put(element, definitions);
             }
@@ -99,9 +99,20 @@ public class DMNModelRepository {
 
     private void addItemDefinitions(List<TItemDefinition> itemDefinitions, TDefinitions definitions) {
         for (TItemDefinition itemDefinition : itemDefinitions) {
-            this.elementToDefinitions.put(itemDefinition, definitions);
-            // Add children
-            addItemDefinitions(itemDefinition.getItemComponent(), definitions);
+            addItemDefinition(itemDefinition, definitions);
+        }
+    }
+
+    private void addItemDefinition(TItemDefinition itemDefinition, TDefinitions definitions) {
+        // Add both top level and inner ItemDefinitions
+        this.elementToDefinitions.put(itemDefinition, definitions);
+        // Add children
+        List<TItemDefinition> itemComponent = itemDefinition.getItemComponent();
+        for (TItemDefinition child : itemComponent) {
+            // Could be a typeReference or a type definition
+            if (!this.elementToDefinitions.containsKey(child)) {
+                addItemDefinition(child, definitions);
+            }
         }
     }
 
@@ -330,7 +341,7 @@ public class DMNModelRepository {
         return definitions.getImport();
     }
 
-    public List<TItemDefinition> findItemDefinitions(TDefinitions definitions) {
+    public List<TItemDefinition> findTopLevelItemDefinitions(TDefinitions definitions) {
         return definitions.getItemDefinition();
     }
 
@@ -412,7 +423,7 @@ public class DMNModelRepository {
             TItemDefinition next = next(itemDefinition);
             // Avoid cycles
             if (next != null && next != itemDefinition) {
-                itemDefinition = next;
+                    itemDefinition = next;
             } else {
                 break;
             }
@@ -841,11 +852,11 @@ public class DMNModelRepository {
         return isNull(typeRef) || isAny(typeRef);
     }
 
-    public TItemDefinition lookupItemDefinition(TDefinitions model, QualifiedName typeRef) {
-        if (isNull(typeRef)) {
+    public TItemDefinition lookupItemDefinition(TDefinitions model, QualifiedName qualifiedName) {
+        if (isNull(qualifiedName)) {
             return null;
         }
-        String importName = typeRef.getNamespace();
+        String importName = qualifiedName.getNamespace();
         if (importName == null) {
             importName = "";
         }
@@ -854,10 +865,10 @@ public class DMNModelRepository {
         }
 
         if (model == null) {
-            return lookupItemDefinition(findAllItemDefinitions(), typeRef);
+            return lookupItemDefinition(findAllItemDefinitions(), qualifiedName);
         } else if (importName.isEmpty()) {
             // Lookup in current model
-            TItemDefinition result = lookupItemDefinition(findItemDefinitions(model), typeRef);
+            TItemDefinition result = lookupItemDefinition(findTopLevelItemDefinitions(model), qualifiedName);
             if (result == null) {
                 // Lookup in models imported with empty prefix
                 for (TImport import_ : model.getImport()) {
@@ -868,7 +879,7 @@ public class DMNModelRepository {
                             if (childModel == null) {
                                 throw new SemanticError(String.format("Cannot find DM for '%s'", childNamespace));
                             }
-                            result = lookupItemDefinition(childModel, typeRef);
+                            result = lookupItemDefinition(childModel, qualifiedName);
                             if (result != null) {
                                 return result;
                             }
@@ -895,7 +906,7 @@ public class DMNModelRepository {
                 throw new SemanticError(String.format("Cannot find DM for '%s'", childNamespace));
             }
             // Lookup typeRef in model
-            return lookupItemDefinition(findItemDefinitions(childModel), typeRef);
+            return lookupItemDefinition(findTopLevelItemDefinitions(childModel), qualifiedName);
         }
     }
 

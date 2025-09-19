@@ -72,7 +72,7 @@ class UniqueNameValidatorVisitor extends TraversalVisitor<ValidationContext> {
 
         logger.debug("Validate unique 'ItemDefinition.name'");
         validateUnique(element,
-                new ArrayList<>(repository.findItemDefinitions(element)), "ItemDefinition", "name",
+                new ArrayList<>(repository.findTopLevelItemDefinitions(element)), "ItemDefinition", "name",
                 false, TNamedElement::getName, null,
                 context);
 
@@ -85,8 +85,8 @@ class UniqueNameValidatorVisitor extends TraversalVisitor<ValidationContext> {
         }
         // Create a map
         Map<String, List<TDMNElement>> map = new LinkedHashMap<>();
-        for (TDMNElement element : elements) {
-            String key = accessor.apply((TNamedElement) element);
+        for (TNamedElement element : elements) {
+            String key = accessor.apply(element);
             if (!isOptionalProperty || key != null) {
                 List<TDMNElement> list = map.get(key);
                 if (list == null) {
@@ -99,7 +99,6 @@ class UniqueNameValidatorVisitor extends TraversalVisitor<ValidationContext> {
             }
         }
         // Find duplicates
-        DMNModelRepository repository = context.getRepository();
         for (Map.Entry<String, List<TDMNElement>> entry : map.entrySet()) {
             String key = entry.getKey();
             if(entry.getValue().size() > 1){
