@@ -415,17 +415,27 @@ public class DMNModelRepository {
         // of allowed values is the full range of the referenced typeRef.
         // Scan the chain of ItemDefinitions and find the first allowedValues
         TUnaryTests restrictions = null;
+        List<TItemDefinition> path = new ArrayList<>();
         while (true) {
-            TUnaryTests allowedValues = itemDefinition.getAllowedValues();
+            // Check for cycles
+            if (path.contains(itemDefinition)) {
+                path.add(itemDefinition);
+                throw new SemanticError("Cyclic type definitions '%s'".formatted(path));
+            } else {
+                path.add(itemDefinition);
+            }
+
+            // Collect constraints encountered first
             if (restrictions == null) {
-                restrictions = allowedValues;
+                restrictions = itemDefinition.getAllowedValues();
             }
             TItemDefinition next = next(itemDefinition);
-            // Avoid cycles
-            if (next != null && next != itemDefinition) {
-                    itemDefinition = next;
-            } else {
+
+            // itemDefinition is element in the chain (has next == null)
+            if (next == null) {
                 break;
+            } else {
+                itemDefinition = next;
             }
         }
         return new Pair<>(itemDefinition, restrictions);

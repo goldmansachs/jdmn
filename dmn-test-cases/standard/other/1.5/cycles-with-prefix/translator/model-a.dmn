@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:included0="https://kie.org/dmn/_BA62E295-5F16-4369-9879-9532348B3DD2" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="nsa" id="_05825834-283C-4E90-B27C-0E2F5EBC970D" name="model-a">
+  <import id="_E6C80C79-F92D-4CCA-8D8C-D3F9F0A369A2" name="b" importType="https://www.omg.org/spec/DMN/20230324/MODEL/" namespace="nsb" locationURI="./model-b.dmn" />
+  <itemDefinition id="_08B5EE8F-0E96-4DAD-99B7-6630D4E98C21" name="t1" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <typeRef>t2</typeRef>
+  </itemDefinition>
+  <itemDefinition id="_593F3B63-0C2C-4B9F-A531-0F1C5F1F2AFA" name="t2" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <typeRef>b.other</typeRef>
+  </itemDefinition>
+  <itemDefinition id="_2C8F8BE4-79EB-4504-8E0F-300233DA0331" name="node" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <itemComponent id="_A4B3BB8C-FE99-417A-A478-0A1E95510137" name="key" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>string</typeRef>
+    </itemComponent>
+    <itemComponent id="_53DF2E29-3246-40AC-A71C-5832F6449F67" name="def" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>b.def</typeRef>
+    </itemComponent>
+    <itemComponent id="_370510C5-4B33-4B5A-9D80-D2600464BE4C" name="next" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>node</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <decision name="A" id="_F6354230-D8C5-473A-B107-9FC5F1222456">
+    <variable name="A" id="_33CBD485-860C-4EAF-88BF-ECD1FC7C7C0E"/>
+    <literalExpression>
+      <text>5</text>
+    </literalExpression>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_17808D6B-7EEC-46B0-A611-39E8C6D551A2" name="Default DRD" useAlternativeInputDataShape="false">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths />
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="_DCC807A1-65B4-4AE4-9E86-127604F7E07C" dmnElementRef="_F6354230-D8C5-473A-B107-9FC5F1222456" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="360" y="100" width="160" height="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

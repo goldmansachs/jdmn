@@ -13,6 +13,7 @@
 package com.gs.dmn;
 
 import com.gs.dmn.ast.*;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import org.junit.jupiter.api.BeforeEach;
@@ -180,6 +181,85 @@ public class DMNModelRepositoryTest extends AbstractTest {
         // Test second model
         assertEquals(modelB, this.dmnModelRepository.getModel(other));
         assertEquals(modelB, this.dmnModelRepository.getModel(defDefinition));
+    }
+
+    @Test
+    public void testLookupForCyclicTypRefsWhenNoPrefix() {
+        // Read test models
+        this.dmnModelRepository = readModels("other/1.5/cycles-no-prefix/translator/");
+        doTest("", "");
+    }
+
+    @Test
+    public void testLookupForCyclicTypRefsWhenPrefix() {
+        // Read test models
+        this.dmnModelRepository = readModels("other/1.5/cycles-with-prefix/translator/");
+        doTest("a", "b");
+    }
+
+    private void doTest(String prefixA, String prefixB) {
+        // Find model-a and model-b
+        TDefinitions modelA = this.dmnModelRepository.findModelByName("model-a");
+        assertNotNull(modelA);
+        TDefinitions modelB = this.dmnModelRepository.findModelByName("model-b");
+        assertNotNull(modelB);
+
+        // Find ItemDefinitions to test
+        TItemDefinition t1 = findItemDefinition(modelA, "t1");
+        TItemDefinition t2 = findItemDefinition(modelA, "t2");
+        TItemDefinition other = findItemDefinition(modelB, "other");
+        TItemDefinition node = findItemDefinition(modelA, "node");
+        TItemDefinition key = findItemDefinition(node, "key");
+        TItemDefinition defReference = findItemDefinition(node, "def");
+        TItemDefinition defDefinition = findItemDefinition(modelB, "def");
+        TItemDefinition next = findItemDefinition(node, "next");
+
+        // Test findItemDefinitionAndAllowedValuesFor()
+        assertThrows(SemanticError.class, () -> {
+            this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(t1);
+        });
+        assertThrows(SemanticError.class, () -> {
+            this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(t2);
+        });
+        assertThrows(SemanticError.class, () -> {
+            this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(other);
+        });
+        assertEquals(node, this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(node).getLeft());
+        assertEquals(key, this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(key).getLeft());
+        assertEquals(defDefinition, this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(defReference).getLeft());
+        assertEquals(node, this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(next).getLeft());
+
+        // Test next() for root types and member types
+        assertEquals(t2, this.dmnModelRepository.next(t1));
+        assertEquals(other, this.dmnModelRepository.next(t2));
+        assertEquals(t1, this.dmnModelRepository.next(other));
+
+        assertNull(this.dmnModelRepository.next(node));
+        assertNull(this.dmnModelRepository.next(key));
+        assertEquals(defDefinition, this.dmnModelRepository.next(defReference));
+        assertEquals(node, this.dmnModelRepository.next(next));
+
+        // Test lookupItemDefinition() for root types and member types
+        assertEquals(t1, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("", "t1")));
+        assertEquals(t1, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA, "t1")));
+        assertEquals(t2, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","t2")));
+        assertEquals(t2, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA,"t2")));
+        assertEquals(other, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName("","other")));
+        assertEquals(other, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName(prefixB,"other")));
+
+        assertEquals(node, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("", "node")));
+//        assertThrows(StackOverflowError.class, () -> {
+//            assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","key")));
+//            assertNull(this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA,"key")));
+//        });
+        assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName(prefixB,"def")));
+        assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName("","def")));
+//        assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","def")));
+//        assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA, "def")));
+//        assertThrows(StackOverflowError.class, () -> {
+//            assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","next")));
+//            assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName(prefixA,"next")));
+//        });
     }
 
     private TItemDefinition findItemDefinition(TDefinitions modelA, String name) {
