@@ -527,10 +527,13 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     private Type toFEELTypeNoCache(TDefinitions model, QualifiedName typeRef) {
         // Lookup item definitions
-        TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, typeRef);
-        if (itemDefinition != null) {
-            return toFEELType(itemDefinition);
+        if (model != null) {
+            TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, typeRef);
+            if (itemDefinition != null) {
+                return toFEELType(itemDefinition);
+            }
         }
+
         // Lookup primitive types
         Type primitiveType = lookupPrimitiveType(typeRef);
         if (primitiveType != null) {

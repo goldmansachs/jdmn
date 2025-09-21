@@ -745,7 +745,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
         TDefinitions model = getDMNModelRepository().getModel(parentContext.getElement());
         FunctionType functionType = null;
         if (functionTypeRef != null) {
-            functionType = (FunctionType) getDMNEnvironmentFactory().toFEELType(null, QualifiedName.toQualifiedName(model, functionTypeRef));
+            functionType = (FunctionType) getDMNEnvironmentFactory().toFEELType(model, QualifiedName.toQualifiedName(model, functionTypeRef));
         }
         // Add parameter declarations
         List<TInformationItem> formalParameterList = functionDefinition.getFormalParameter();
@@ -755,7 +755,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
             QName paramTypeRef = param.getTypeRef();
             Type paramType = null;
             if (paramTypeRef != null) {
-                paramType = getDMNEnvironmentFactory().toFEELType(null, QualifiedName.toQualifiedName(model, paramTypeRef));
+                paramType = getDMNEnvironmentFactory().toFEELType(model, QualifiedName.toQualifiedName(model, paramTypeRef));
             }
             if (paramType == null && functionType != null) {
                 // Infer from function type

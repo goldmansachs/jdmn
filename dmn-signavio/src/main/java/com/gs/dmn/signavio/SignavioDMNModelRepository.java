@@ -178,12 +178,12 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     }
 
     public void addItemDefinition(TDefinitions definitions, TItemDefinition itemDefinition) {
-        definitions.getItemDefinition().add(itemDefinition);
-        // Populate cache
-        if (this.itemDefinitions == null) {
-            findAllItemDefinitions();
+        if (itemDefinition != null) {
+            // Add to model
+            definitions.getItemDefinition().add(itemDefinition);
+            // Update caches
+            this.elementToDefinitions.put(itemDefinition, definitions);
         }
-        this.itemDefinitions.add(itemDefinition);
     }
 
     public TDRGElement findDRGElementById(String id) {

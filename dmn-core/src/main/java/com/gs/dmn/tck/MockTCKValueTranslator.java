@@ -160,6 +160,10 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
     }
 
     private TItemDefinition findItemDefinition(TDefinitions model, QName typeRef) {
+        if (model == null) {
+            return null;
+        }
+
         return this.repository.lookupItemDefinition(model, QualifiedName.toQualifiedName(model, typeRef));
     }
 

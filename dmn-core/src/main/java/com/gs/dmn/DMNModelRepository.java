@@ -35,7 +35,6 @@ import static com.gs.dmn.ast.TBuiltinAggregator.SUM;
 
 public class DMNModelRepository {
     public static final String FREE_TEXT_LANGUAGE = "free_text";
-    protected static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
     private static final Pattern WORD = Pattern.compile("\\w+");
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(DMNModelRepository.class);
@@ -48,7 +47,6 @@ public class DMNModelRepository {
     // Cache for DRGElements and top ItemDefinitions
     protected final Map<TNamedElement, TDefinitions> elementToDefinitions = new LinkedHashMap<>();
     protected List<TInvocable> invocables;
-    protected List<TItemDefinition> itemDefinitions;
     protected Map<String, TDRGElement> drgElementByName = new LinkedHashMap<>();
     protected Map<String, TInvocable> invocablesByName = new LinkedHashMap<>();
     protected Map<String, TDRGElement> drgElementByRef = new LinkedHashMap<>();
@@ -273,16 +271,6 @@ public class DMNModelRepository {
             }
         }
         return this.invocables;
-    }
-
-    protected List<TItemDefinition> findAllItemDefinitions() {
-        if (this.itemDefinitions == null) {
-            this.itemDefinitions = new ArrayList<>();
-            for (TDefinitions definitions : this.allDefinitions) {
-                this.itemDefinitions.addAll(definitions.getItemDefinition());
-            }
-        }
-        return this.itemDefinitions;
     }
 
     public boolean isRecursiveBKM(TDRGElement element) {
@@ -859,9 +847,23 @@ public class DMNModelRepository {
     }
 
     public TItemDefinition lookupItemDefinition(TDefinitions model, QualifiedName qualifiedName) {
-        if (isNull(qualifiedName)) {
+        return lookupItemDefinitionWithCycleDetection(model, qualifiedName, new ArrayList<>());
+    }
+
+    private TItemDefinition lookupItemDefinitionWithCycleDetection(TDefinitions model, QualifiedName qualifiedName, List<TDefinitions> path) {
+        // Check inputs
+        Objects.requireNonNull(model, "Missing DMN model for typeRef '%s'".formatted(qualifiedName));
+        Objects.requireNonNull(qualifiedName, "Missing typeRef in model '%s'".formatted(model));
+
+        // Check for cycles
+        if (path.contains(model)) {
+            List<TDefinitions> newPath = new ArrayList<>(path);
+            newPath.add(model);
+            LOGGER.warn("Import cycle detected '%s'".formatted(newPath.stream().map(TNamedElement::getName).collect(Collectors.joining(", "))));
             return null;
         }
+
+        // Check feel types
         String importName = qualifiedName.getNamespace();
         if (importName == null) {
             importName = "";
@@ -870,13 +872,14 @@ public class DMNModelRepository {
             return null;
         }
 
-        if (model == null) {
-            return lookupItemDefinition(findAllItemDefinitions(), qualifiedName);
-        } else if (importName.isEmpty()) {
+        // Search in models, current and imported
+        if (importName.isEmpty()) {
             // Lookup in current model
             TItemDefinition result = lookupItemDefinition(findTopLevelItemDefinitions(model), qualifiedName);
             if (result == null) {
                 // Lookup in models imported with empty prefix
+                List<TDefinitions> newPath = new ArrayList<>(path);
+                newPath.add(model);
                 for (TImport import_ : model.getImport()) {
                     if (isDMNImport(import_)) {
                         if (StringUtils.isBlank(import_.getName())) {
@@ -885,7 +888,7 @@ public class DMNModelRepository {
                             if (childModel == null) {
                                 throw new SemanticError(String.format("Cannot find DM for '%s'", childNamespace));
                             }
-                            result = lookupItemDefinition(childModel, qualifiedName);
+                            result = lookupItemDefinitionWithCycleDetection(childModel, qualifiedName, newPath);
                             if (result != null) {
                                 return result;
                             }

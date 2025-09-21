@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:ext="http://extension"
+             id="definitions" name="test-dmn"
+             namespace="http://camunda.org/schema/1.0/dmn">
+
+    <itemDefinition name="tComplex">
+        <itemComponent name="m0">
+            <typeRef>string</typeRef>
+        </itemComponent>
+        <itemComponent name="m1">
+            <typeRef>boolean</typeRef>
+        </itemComponent>
+        <itemComponent name="m2">
+            <typeRef>number</typeRef>
+        </itemComponent>
+        <itemComponent name="m3">
+            <typeRef>date</typeRef>
+        </itemComponent>
+        <itemComponent name="m4">
+            <typeRef>years and months duration</typeRef>
+        </itemComponent>
+        <itemComponent name="m5">
+            <typeRef>string</typeRef>
+        </itemComponent>
+    </itemDefinition>
+
+    <itemDefinition name="tInteger">
+        <typeRef>number</typeRef>
+        <extensionElements>
+            <ext:type>decimal_number</ext:type>
+        </extensionElements>
+    </itemDefinition>
+
+    <itemDefinition name="tNumberList" isCollection="true">
+        <typeRef>number</typeRef>
+    </itemDefinition>
+    <itemDefinition name="tIntegerList" isCollection="true">
+        <typeRef>tInteger</typeRef>
+    </itemDefinition>
+    <itemDefinition name="tStringList" isCollection="true">
+        <typeRef>string</typeRef>
+    </itemDefinition>
+    <itemDefinition name="tBooleanList" isCollection="true">
+        <typeRef>boolean</typeRef>
+    </itemDefinition>
+    <itemDefinition name="tDateList" isCollection="true">
+        <typeRef>date</typeRef>
+    </itemDefinition>
+    <itemDefinition name="tTimeList" isCollection="true">
+        <typeRef>time</typeRef>
+    </itemDefinition>
+    <itemDefinition name="tDateTime" isCollection="true">
+        <typeRef>date and time</typeRef>
+    </itemDefinition>
+    <itemDefinition name="tYearDurationList" isCollection="true">
+        <typeRef>years and months duration</typeRef>
+    </itemDefinition>
+    <itemDefinition name="tDayDurationList" isCollection="true">
+        <typeRef>days and time duration</typeRef>
+    </itemDefinition>
+
+    <itemDefinition name="tInteger">
+        <typeRef>number</typeRef>
+        <extensionElements>
+            <ext:type>decimal_number</ext:type>
+        </extensionElements>
+    </itemDefinition>
+
+    <inputData id="id-integer" name="aInteger">
+        <variable name="aInteger" typeRef="tInteger"/>
+    </inputData>
+
+    <inputData id="id-number" name="aNumber">
+        <variable name="aNumber" typeRef="number"/>
+    </inputData>
+
+    <inputData id="id-boolean" name="aBoolean">
+        <variable name="aBoolean" typeRef="boolean"/>
+    </inputData>
+
+    <inputData id="id-string" name="aString">
+        <variable name="aString" typeRef="string"/>
+    </inputData>
+
+    <inputData id="id-date" name="aDate">
+        <variable name="aDate" typeRef="date"/>
+    </inputData>
+
+    <inputData id="id-time" name="aTime">
+        <variable name="aTime" typeRef="time"/>
+    </inputData>
+
+    <inputData id="id-datetime" name="aDateTime">
+        <variable name="aDateTime" typeRef="date and time"/>
+    </inputData>
+
+    <inputData id="id-year-duration" name="aYearDuration">
+        <variable name="aYearDuration" typeRef="years and month duration"/>
+    </inputData>
+
+    <inputData id="id-day-duration" name="aDayDuration">
+        <variable name="aDayDuration" typeRef="days and month duration"/>
+    </inputData>
+
+    <inputData id="id-integer-list" name="aIntegerList">
+        <variable name="aIntegerList" typeRef="tIntegerList"/>
+    </inputData>
+
+    <inputData id="id-number-list" name="aNumberList">
+        <variable name="aNumberList" typeRef="=tNumberList"/>
+    </inputData>
+
+    <inputData id="id-boolean-list" name="aBooleanList">
+        <variable name="aBooleanList" typeRef="tBooleanList"/>
+    </inputData>
+
+    <inputData id="id-string-list" name="aStringList">
+        <variable name="aStringList" typeRef="tStringList"/>
+    </inputData>
+
+    <inputData id="id-date-list" name="aDateList">
+        <variable name="aDateList" typeRef="tDateList"/>
+    </inputData>
+
+    <inputData id="id-time-list" name="aTimeList">
+        <variable name="aTimeList" typeRef="tTimeList"/>
+    </inputData>
+
+    <inputData id="id-datetime-list" name="aDateTimeList">
+        <variable name="aDateTimeList" typeRef="tDateTimeList"/>
+    </inputData>
+
+    <inputData id="id-year-duration-list" name="aYearDurationList">
+        <variable name="aYearDurationList" typeRef="tYearDurationList"/>
+    </inputData>
+
+    <inputData id="id-day-duration-list" name="aDayDurationList">
+        <variable name="aDayDurationList" typeRef="tDayDurationList"/>
+    </inputData>
+
+    <decision id="id-decision" name="aDecisionNumber">
+        <variable name="aDecision" typeRef="number"/>
+    </decision>
+
+    <decision id="id-decision-list" name="aDecisionNumberList">
+        <variable name="aDecisionNumberList" typeRef="tNumberList"/>
+    </decision>
+
+    <decision id="id-decision-complex" name="aDecisionComplex">
+        <variable name="aDecisionComplex" typeRef="tComplex"/>
+    </decision>
+
+</definitions>

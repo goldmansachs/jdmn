@@ -18,6 +18,7 @@ import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.StringUtils;
 
 import java.io.File;
 import java.net.URI;
@@ -248,18 +249,26 @@ public class DMNModelRepositoryTest extends AbstractTest {
         assertEquals(other, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName(prefixB,"other")));
 
         assertEquals(node, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("", "node")));
-//        assertThrows(StackOverflowError.class, () -> {
-//            assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","key")));
-//            assertNull(this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA,"key")));
-//        });
+        assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","key")));
+        assertNull(this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA,"key")));
         assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName(prefixB,"def")));
         assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName("","def")));
-//        assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","def")));
-//        assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA, "def")));
-//        assertThrows(StackOverflowError.class, () -> {
-//            assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","next")));
-//            assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName(prefixA,"next")));
-//        });
+        if (StringUtils.isBlank(prefixA)) {
+            // Finds definition
+            assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","def")));
+        } else {
+            // Cannot find reference as is a child
+            assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","def")));
+        }
+        if (StringUtils.isBlank(prefixB)) {
+            // Finds definition
+            assertEquals(defDefinition, this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA, "def")));
+        } else {
+            // Cannot find reference as is a child
+            assertNull(this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA, "def")));
+        }
+        assertNull(this.dmnModelRepository.lookupItemDefinition(modelA, QualifiedName.toQualifiedName("","next")));
+        assertNull(this.dmnModelRepository.lookupItemDefinition(modelB, QualifiedName.toQualifiedName(prefixA,"next")));
     }
 
     private TItemDefinition findItemDefinition(TDefinitions modelA, String name) {
