@@ -116,10 +116,6 @@ public class DMNModelRepository {
         }
     }
 
-    public DMNModelRepository copy() {
-        return new DMNModelRepository(this.definitionsList);
-    }
-
     protected void normalizeDefinitions(TDefinitions definitions) {
         if (definitions != null) {
             sortDRGElements(definitions.getDrgElement());
