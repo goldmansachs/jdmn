@@ -528,10 +528,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     private Type toFEELTypeNoCache(TDefinitions model, QualifiedName typeRef) {
         // Lookup item definitions
         if (model != null) {
-            TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, typeRef);
-            if (itemDefinition != null) {
-                return toFEELType(itemDefinition);
-            }
+        TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, typeRef);
+        if (itemDefinition != null) {
+            return toFEELType(itemDefinition);
+        }
         }
 
         // Lookup primitive types
@@ -544,17 +544,33 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     @Override
     public Type toFEELType(TItemDefinition itemDefinition) {
+        return toFEELTypeWithCycleDetection(itemDefinition, new ArrayList<>());
+    }
+
+    private Type toFEELTypeWithCycleDetection(TItemDefinition itemDefinition, List<TItemDefinition> path) {
+        if (path.contains(itemDefinition)) {
+            // Cycle
+            path.add(itemDefinition);
+            throw new SemanticError("Cyclic type definitions '%s'".formatted(path));
+        }
+
         if (!this.feelTypeMemoizer.contains(itemDefinition)) {
-            Type type = toFEELTypeNoCache(itemDefinition);
+            Type type = toFEELTypeNoCache(itemDefinition, path);
             this.feelTypeMemoizer.put(itemDefinition, type);
         }
         return this.feelTypeMemoizer.get(itemDefinition);
     }
 
-    private Type toFEELTypeNoCache(TItemDefinition itemDefinition) {
+    private Type toFEELTypeNoCache(TItemDefinition itemDefinition, List<TItemDefinition> path) {
         // Find item definition and allowed values
         Pair<TItemDefinition, TUnaryTests> normalized = this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(itemDefinition);
         itemDefinition = normalized.getLeft();
+        if (path.contains(itemDefinition)) {
+            // Cycle
+            path.add(itemDefinition);
+            throw new SemanticError("Cyclic type definitions '%s'".formatted(path));
+        }
+
 
         // Check for missing type information
         TDefinitions model = this.dmnModelRepository.getModel(itemDefinition);
@@ -577,8 +593,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             TDefinitions definitions = this.dmnModelRepository.getModel(itemDefinition);
             String modelName = definitions == null ? null : definitions.getName();
             type = new ItemDefinitionType(itemDefinition.getName(), modelName);
+            List<TItemDefinition> newPath = new ArrayList<>(path);
+            newPath.add(itemDefinition);
             for(TItemDefinition item: itemComponent) {
-                ((ItemDefinitionType) type).addMember(item.getName(), Collections.singletonList(item.getLabel()), toFEELType(item));
+                ((ItemDefinitionType) type).addMember(item.getName(), Collections.singletonList(item.getLabel()), toFEELTypeWithCycleDetection(item, newPath));
             }
         }
 
