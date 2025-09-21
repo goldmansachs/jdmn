@@ -170,21 +170,6 @@ public abstract class AbstractSignavioFEELProcessorTest<NUMBER, DATE, TIME, DATE
                 null);
     }
 
-    @Test
-    public void testQualifiedName() {
-        Type bType = makeItemDefinitionType("b").addMember("c", Collections.singletonList("C"), STRING);
-        Type aType = makeItemDefinitionType("a").addMember("b", Collections.singletonList("B"), bType);
-        List<EnvironmentEntry> entries = Collections.singletonList(
-                new EnvironmentEntry("a", aType, null));
-
-        doExpressionTest(entries, "", "a.b.c",
-                "PathExpression(PathExpression(Name(a), b), c)",
-                "string",
-                "((String)(((type.B)(a != null ? a.getB() : null)) != null ? ((type.B)(a != null ? a.getB() : null)).getC() : null))",
-                null,
-                null);
-    }
-
     @Override
     @Test
     public void testConversionFunctions() {

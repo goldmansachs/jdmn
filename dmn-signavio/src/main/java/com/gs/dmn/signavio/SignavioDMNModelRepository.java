@@ -43,7 +43,7 @@ public class SignavioDMNModelRepository extends DMNModelRepository {
     private final Set<TInputData> iterators = new LinkedHashSet<>();
 
     public SignavioDMNModelRepository() {
-        this(OBJECT_FACTORY.createTDefinitions());
+        this(Collections.emptyList());
     }
 
     public SignavioDMNModelRepository(TDefinitions definitions) {
