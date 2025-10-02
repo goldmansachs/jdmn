@@ -204,7 +204,7 @@
     <informationRequirement>
       <requiredInput href="#id-c736af77b66969d175933720059dec48"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>((((((((((((((((((numberA+2)-2)*2)/(numberA+1))+abs(numberB))+count(numberList))+round(numberB, 2))+roundDown(numberB, 2))+roundUp(numberB, 2))+ceiling(numberB))+floor(numberB))+integer(numberB))+modulo(numberB, numberA))+modulo(numberB, 2))+power(numberB, 2))+percent(numberB))+product(numberList))+sum(numberList))</text>
     </literalExpression>
   </decision>
@@ -308,7 +308,7 @@
     <informationRequirement>
       <requiredInput href="#id-0bcd1fe0bdaa3c42ee1600d6de30e350"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>number(text(numberB, string))</text>
     </literalExpression>
   </decision>
@@ -317,7 +317,7 @@
     <informationRequirement>
       <requiredInput href="#id-79ac9fb1afa596bbb0db5c6a5257a8b6"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>booleanAllFalse_iterator</text>
     </literalExpression>
   </decision>
@@ -326,7 +326,7 @@
     <informationRequirement>
       <requiredInput href="#id-0999a54b4e2887b6404fe10e4639a1d6"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>booleanAllTrue_iterator</text>
     </literalExpression>
   </decision>
@@ -335,7 +335,7 @@
     <informationRequirement>
       <requiredInput href="#id-4b393744e05965a1928ecb455ab42308"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>booleanAnyTrue_iterator</text>
     </literalExpression>
   </decision>
@@ -347,7 +347,7 @@
     <informationRequirement>
       <requiredInput href="#id-0bcd1fe0bdaa3c42ee1600d6de30e350"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>(count(appendAll(numberList, append(numberList, numberB)))=5) or containsOnly(numberList, numberList) or notContainsAny(numberList, numberList) or areElementsOf(numberList, numberList)</text>
     </literalExpression>
   </decision>
@@ -359,7 +359,7 @@
     <informationRequirement>
       <requiredInput href="#id-1058e602798d798780d99866788586c8"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>not(booleanA and booleanB or booleanA)</text>
     </literalExpression>
   </decision>
@@ -556,7 +556,7 @@
     <informationRequirement>
       <requiredInput href="#id-f444fe9b45d132962058826c7ce0e254"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>(mode(numberList)*((avg(numberList)+median(numberList))/(min(numberList)+max(numberList))))</text>
     </literalExpression>
   </decision>
@@ -574,7 +574,7 @@
     <informationRequirement>
       <requiredInput href="#id-c736af77b66969d175933720059dec48"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>mid(right(left(trim(upper(lower(concat(stringList)))), numberB), numberA), 0, numberB)</text>
     </literalExpression>
   </decision>
@@ -583,7 +583,7 @@
     <informationRequirement>
       <requiredDecision href="#id-a7895d8e6af939a1e7cafb3317d8a423"></requiredDecision>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>isAlpha(stringHandling) and isAlphanumeric(stringHandling) and isNumeric(stringHandling) and isSpaces(stringHandling) and startsWith(stringHandling, stringHandling) and endsWith(stringHandling, stringHandling) and contains(stringHandling, stringHandling)</text>
     </literalExpression>
   </decision>
@@ -595,13 +595,13 @@
     <informationRequirement>
       <requiredInput href="#id-de95e2868799a862ed04920c276bffa1"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>(dateTime=dateTime(day(dateTime), month(dateTime), year(dateTime), hour(dateTime), minute(dateTime), 0))</text>
     </literalExpression>
   </decision>
   <decision sigExt:shapeId="sid-5511B0A1-6D8F-4084-897D-51B89D5B653C-1" sigExt:diagramId="7a41c638739441ef88d9fe7501233ef8" id="id-e531076a8bd1457bfe3bcc7cdf1a2637-1" label="temporal-1" name="temporal-1">
     <variable id="id-e531076a8bd1457bfe3bcc7cdf1a2637_variable-1" name="temporal-1" typeRef="temporal"></variable>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>date and time("2015-12-31T23:00:00Z")</text>
     </literalExpression>
   </decision>
@@ -684,7 +684,7 @@
     <informationRequirement>
       <requiredInput href="#id-de95e2868799a862ed04920c276bffa1"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>(3=((((dayDiff(date, dayAdd(date, 1))+monthDiff(date, monthAdd(date, 1)))+yearDiff(date, yearAdd(date, 1)))+hourDiff(dateTime, dateTime))+minutesDiff(time, time)))</text>
     </literalExpression>
   </decision>

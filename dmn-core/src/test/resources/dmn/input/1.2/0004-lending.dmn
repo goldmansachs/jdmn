@@ -104,7 +104,7 @@
             <requiredKnowledge href="#b_BureauCallTypeTable"/>
         </knowledgeRequirement>
         <invocation>
-            <literalExpression>
+            <literalExpression expressionLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/">
                 <text>BureauCallTypeTable</text>
             </literalExpression>
             <binding>

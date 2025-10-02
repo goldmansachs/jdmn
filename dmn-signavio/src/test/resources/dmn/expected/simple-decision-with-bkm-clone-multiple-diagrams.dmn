@@ -58,7 +58,7 @@
     <informationRequirement>
       <requiredInput href="#id-3448371157c12df721ef54d01a2a01e0"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>(a+b)</text>
     </literalExpression>
   </decision>
@@ -79,13 +79,13 @@
       </literalExpression>
       <binding>
         <parameter name="b"></parameter>
-        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+        <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
           <text>a2</text>
         </literalExpression>
       </binding>
       <binding>
         <parameter name="a"></parameter>
-        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+        <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
           <text>b3</text>
         </literalExpression>
       </binding>
@@ -108,13 +108,13 @@
       </literalExpression>
       <binding>
         <parameter name="b"></parameter>
-        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+        <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
           <text>a2</text>
         </literalExpression>
       </binding>
       <binding>
         <parameter name="a"></parameter>
-        <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+        <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
           <text>b3</text>
         </literalExpression>
       </binding>

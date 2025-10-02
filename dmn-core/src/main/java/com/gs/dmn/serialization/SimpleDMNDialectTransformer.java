@@ -115,6 +115,9 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
 
     @Override
     public DMNBaseElement visit(TImportedValues element, C context) {
+        if (isFEELNamespace(element.getExpressionLanguage())) {
+            element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
+        }
         updateXMLNamespaces(element);
 
         super.visit(element, context);
@@ -278,6 +281,9 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
 
     @Override
     public DMNBaseElement visit(TLiteralExpression  element, C context) {
+        if (isFEELNamespace(element.getExpressionLanguage())) {
+            element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
+        }
         updateXMLNamespaces(element);
 
         super.visit(element, context);
@@ -294,6 +300,9 @@ class DMNVersionTransformerVisitor<C> extends TraversalVisitor<C> {
 
     @Override
     public DMNBaseElement visit(TUnaryTests  element, C context) {
+        if (isFEELNamespace(element.getExpressionLanguage())) {
+            element.setExpressionLanguage(this.targetVersion.getFeelNamespace());
+        }
         updateXMLNamespaces(element);
 
         super.visit(element, context);

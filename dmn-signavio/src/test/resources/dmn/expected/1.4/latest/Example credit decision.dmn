@@ -188,7 +188,7 @@
     <informationRequirement>
       <requiredDecision href="#id-90d13f677a4e3f0f8230a12f15301f00"></requiredDecision>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>zip(["Decision", "Assessment", "Issue"], [[makeCreditDecision], [compareAgainstLendingThreshold], [assessIssueRisk]])</text>
     </literalExpression>
   </decision>
@@ -200,7 +200,7 @@
     <informationRequirement>
       <requiredInput href="#id-78d6a4b25e15dc5d22fe0cce65554804"></requiredInput>
     </informationRequirement>
-    <literalExpression expressionLanguage="http://www.omg.org/spec/FEEL/20140401">
+    <literalExpression expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <text>(priorIssue_iterator*(max([0, (100-currentRiskAppetite)])*0.01))</text>
     </literalExpression>
   </decision>
