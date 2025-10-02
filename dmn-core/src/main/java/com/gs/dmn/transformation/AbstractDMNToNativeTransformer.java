@@ -71,20 +71,24 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         StopWatch watch = new StopWatch();
         watch.start();
 
-        // Read and validate DMN
+        // Read the models
         DMNModelRepository repository = readModels(files);
-        handleValidationErrors(this.dmnValidator.validate(repository));
-        this.dmnTransformer.transform(repository);
-        BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);
 
-        // Transform
-        transform(dmnTransformer, repository, outputPath);
+        // Apply the DMN transformation
+        this.dmnTransformer.transform(repository);
+
+        // Validate the models
+        handleValidationErrors(this.dmnValidator.validate(repository));
+
+        // Translate the models to the native platform
+        BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);
+        transformModels(repository, dmnTransformer, outputPath);
 
         watch.stop();
         this.logger.info("DMN processing time: " + watch);
     }
 
-    protected void transform(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
+    protected void transformModels(DMNModelRepository dmnModelRepository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
         DMNToNativeVisitor visitor = new DMNToNativeVisitor(this.logger, new LogErrorHandler(LOGGER), dmnTransformer, dmnModelRepository, this.templateProcessor, outputPath, new ArrayList<>(), this.decisionBaseClass);
         for(TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             definitions.accept(visitor, new NativeVisitorContext(definitions));

@@ -20,6 +20,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.signavio.testlab.visitor.TestLabEnhancer;
 import com.gs.dmn.transformation.AbstractTestCasesToJUnitTransformer;
@@ -45,19 +46,11 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
     private final TestLabSerializer testLabReader = new TestLabSerializer();
     private final TestLabValidator testLabValidator = new TestLabValidator();
 
-    private final BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer;
-    private final TestLabUtil testLabUtil;
-    private final TestLabEnhancer testLabEnhancer;
+    private final Path inputModelPath;
 
     public TestLabToJavaJUnitTransformer(DMNDialectDefinition<NUMBER, DATE, TIME, DATE_TIME, DURATION, TestLab> dialectDefinition, DMNValidator dmnValidator, DMNTransformer<TestLab> dmnTransformer, TemplateProvider templateProvider, LazyEvaluationDetector lazyEvaluationDetector, TypeDeserializationConfigurer typeDeserializationConfigurer, Path inputModelPath, InputParameters inputParameters, BuildLogger logger) {
         super(dialectDefinition, dmnValidator, dmnTransformer, templateProvider, lazyEvaluationDetector, typeDeserializationConfigurer, inputParameters, logger);
-        DMNModelRepository repository = readModels(inputModelPath.toFile());
-        this.basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
-        DMNModelRepository dmnModelRepository = this.basicTransformer.getDMNModelRepository();
-        this.dmnValidator.validate(dmnModelRepository);
-
-        this.testLabUtil = new TestLabUtil(this.basicTransformer);
-        this.testLabEnhancer = new TestLabEnhancer(this.testLabUtil);
+        this.inputModelPath = inputModelPath;
     }
 
     @Override
@@ -72,21 +65,24 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             StopWatch watch = new StopWatch();
             watch.start();
 
-            List<TestLab> testLabList = new ArrayList<>();
-            for (File child: files) {
-                if (shouldTransformFile(child)) {
-                    TestLab testLab = this.testLabReader.read(child);
-                    this.testLabValidator.validate(testLab);
-                    this.testLabEnhancer.enhance(testLab);
-                    testLabList.add(testLab);
-                }
-            }
-            testLabList = this.dmnTransformer.transform(this.basicTransformer.getDMNModelRepository(), testLabList).getRight();
+            // Read the models
+            DMNModelRepository repository = readModels(inputModelPath.toFile());
 
-            for (TestLab testLab: testLabList) {
-                String javaClassName = testClassName(testLab, this.basicTransformer);
-                transformTestLab(testLab, this.templateProcessor.getTemplateProvider().testBaseTemplatePath(), this.templateProcessor.getTemplateProvider().testTemplateName(), this.basicTransformer, outputPath, javaClassName);
-            }
+            // Read the test cases
+            List<TestLab> testLabList = readTestCases(files);
+
+            // Apply the DMN transformation
+            Pair<DMNModelRepository, List<TestLab>> pair = this.dmnTransformer.transform(repository, testLabList);
+            repository = pair.getLeft();
+            testLabList = pair.getRight();
+
+            // Validate the models and test cases
+            handleValidationErrors(this.dmnValidator.validate(repository));
+            handleValidationErrors(validateTestCases(testLabList));
+
+            // Translate the test cases to the native platform
+            BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
+            transformTestCases(testLabList, basicTransformer, outputPath);
 
             watch.stop();
             this.logger.info("TestLab processing time: " + watch);
@@ -95,12 +91,46 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         }
     }
 
-    private void transformTestLab(TestLab testLab, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String testClassName) {
+    private List<TestLab> readTestCases(List<File> files) throws IOException {
+        List<TestLab> testLabList = new ArrayList<>();
+        for (File child: files) {
+            if (shouldTransformFile(child)) {
+                TestLab testLab = this.testLabReader.read(child);
+                testLabList.add(testLab);
+            }
+        }
+        return testLabList;
+    }
+
+    private List<String> validateTestCases(List<TestLab> testLabList) {
+        List<String> errors = new ArrayList<>();
+        for (TestLab testLab : testLabList) {
+            errors.addAll(this.testLabValidator.validate(testLab));
+        }
+        return errors;
+    }
+
+    private void transformTestCases(List<TestLab> testLabList, BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, Path outputPath) {
+        // Enhance test cases with item definition information
+        TestLabUtil testLabUtil = new TestLabUtil(basicTransformer);
+        TestLabEnhancer testLabEnhancer = new TestLabEnhancer(testLabUtil);
+        for (TestLab testLab : testLabList) {
+            testLabEnhancer.enhance(testLab);
+        }
+
+        // Translate the test cases to the native platform
+        for (TestLab testLab: testLabList) {
+            String javaClassName = testClassName(testLab, basicTransformer, testLabUtil);
+            transformTestLab(testLab, this.templateProcessor.getTemplateProvider().testBaseTemplatePath(), this.templateProcessor.getTemplateProvider().testTemplateName(), basicTransformer, testLabUtil, outputPath, javaClassName);
+        }
+    }
+
+    private void transformTestLab(TestLab testLab, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, TestLabUtil testLabUtil, Path outputPath, String testClassName) {
         try {
             String javaPackageName = dmnTransformer.nativeModelPackageName(testLab.getModelName());
 
             // Make parameters
-            Map<String, Object> params = makeTemplateParams(testLab);
+            Map<String, Object> params = makeTemplateParams(testLab, testLabUtil);
             params.put("packageName", javaPackageName);
             params.put("testClassName", testClassName);
             params.put("decisionBaseClass", this.decisionBaseClass);
@@ -117,14 +147,14 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         }
     }
 
-    private String testClassName(TestLab testLab, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    private String testClassName(TestLab testLab, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, TestLabUtil testLabUtil) {
         List<OutputParameterDefinition> outputParameterDefinitions = testLab.getOutputParameterDefinitions();
         OutputParameterDefinition outputParameterDefinition = outputParameterDefinitions.get(0);
-        return testClassName(dmnTransformer, outputParameterDefinition);
+        return testClassName(dmnTransformer, outputParameterDefinition, testLabUtil);
     }
 
-    private String testClassName(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, OutputParameterDefinition outputParameterDefinition) {
-        TDRGElement decision = this.testLabUtil.findDRGElement(outputParameterDefinition);
+    private String testClassName(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, OutputParameterDefinition outputParameterDefinition, TestLabUtil testLabUtil) {
+        TDRGElement decision = testLabUtil.findDRGElement(outputParameterDefinition);
         if (decision instanceof TDecision) {
             String requirementName = decision.getName();
             return dmnTransformer.upperCaseFirst(requirementName + "Test");
@@ -133,10 +163,10 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         }
     }
 
-    private Map<String, Object> makeTemplateParams(TestLab testLab) {
+    private Map<String, Object> makeTemplateParams(TestLab testLab, TestLabUtil testLabUtil) {
         Map<String, Object> params = new HashMap<>();
         params.put("testLab", testLab);
-        params.put("testLabUtil", this.testLabUtil);
+        params.put("testLabUtil", testLabUtil);
         return params;
     }
 

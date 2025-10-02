@@ -12,18 +12,20 @@
  */
 package com.gs.dmn.signavio.testlab;
 
-import com.gs.dmn.runtime.DMNRuntimeException;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestLabValidator {
-    public void validate(TestLab testLab) {
+    public List<String> validate(TestLab testLab) {
+        List<String> errors = new ArrayList<>();
         if (testLab == null) {
-            throw new DMNRuntimeException("Missing or empty TestLab");
+            errors.add("Missing or empty TestLab");
+        }  else {
+            List<OutputParameterDefinition> outputParameterDefinitions = testLab.getOutputParameterDefinitions();
+            if (outputParameterDefinitions == null || outputParameterDefinitions.isEmpty()) {
+                errors.add(String.format("Missing or empty OutputParameterDefinitions for TestLab '%s'", testLab.getSource()));
+            }
         }
-        List<OutputParameterDefinition> outputParameterDefinitions = testLab.getOutputParameterDefinitions();
-        if (outputParameterDefinitions == null || outputParameterDefinitions.isEmpty()) {
-            throw new DMNRuntimeException(String.format("Missing or empty OutputParameterDefinitions for TestLab '%s'", testLab.getSource()));
-        }
+        return errors;
     }
 }

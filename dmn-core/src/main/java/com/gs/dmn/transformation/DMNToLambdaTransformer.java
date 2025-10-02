@@ -49,7 +49,7 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
     }
 
     @Override
-    protected void transform(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository repository, Path outputPath) {
+    protected void transformModels(DMNModelRepository repository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
         // Check if there is only one model
         List<TDefinitions> allDefinitions = repository.getAllDefinitions();
         if (allDefinitions.size() != 1) {
@@ -58,15 +58,15 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         TDefinitions definitions = allDefinitions.get(0);
         BasicDMNToJavaTransformer basicTransformer = dialectDefinition.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);
 
-        // Generate pom file
+        // Generate code for DMN model
+        File outputFolder = outputPath.toFile();
         String modelName = definitions.getName();
         String lambdaFolderName = lambdaFolderName(modelName, basicTransformer);
-        File outputFolder = outputPath.toFile();
-        generateLambdaPom(lambdaFolderName, outputFolder);
-
-        // Generate code for DMN model
         Path targetPath = Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java");
-        super.transform(basicTransformer, repository, targetPath);
+        super.transformModels(repository, basicTransformer, targetPath);
+
+        // Generate pom file
+        generateLambdaPom(lambdaFolderName, outputFolder);
 
         // Generate handlers
         generateLambdaRequestHandler(modelName, Paths.get(outputFolder.toPath().toString(), lambdaFolderName, "src", "main", "java"), basicTransformer);

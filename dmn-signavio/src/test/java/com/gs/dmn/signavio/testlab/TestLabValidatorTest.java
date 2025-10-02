@@ -12,24 +12,24 @@
  */
 package com.gs.dmn.signavio.testlab;
 
-import com.gs.dmn.runtime.DMNRuntimeException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestLabValidatorTest {
     private final TestLabValidator validator = new TestLabValidator();
 
     @Test
     public void testValidateWhenNull() {
-        Assertions.assertThrows(DMNRuntimeException.class, () -> {
-            validator.validate(null);
-        });
+        List<String> errors = validator.validate(null);
+        assertEquals(List.of("Missing or empty TestLab"), errors);
     }
 
     @Test
     public void testValidateWhenEmpty() {
-        Assertions.assertThrows(DMNRuntimeException.class, () -> {
-            validator.validate(new TestLab());
-        });
+        List<String> errors = validator.validate(new TestLab());
+        assertEquals(List.of("Missing or empty OutputParameterDefinitions for TestLab 'null'"), errors);
     }
 }

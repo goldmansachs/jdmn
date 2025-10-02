@@ -46,8 +46,8 @@ public class DMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> exten
     }
 
     @Override
-    protected void transform(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
-        super.transform(dmnTransformer, dmnModelRepository, outputPath);
+    protected void transformModels(DMNModelRepository dmnModelRepository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
+        super.transformModels(dmnModelRepository, dmnTransformer, outputPath);
 
         // Generate metadata
         processManifest(dmnTransformer, DMN_METADATA_FILE_NAME, outputPath);
