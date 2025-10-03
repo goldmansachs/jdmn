@@ -150,7 +150,7 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
                 type = dmnEnvironmentFactory.toFEELType(model, typeRef);
             } else {
                 TExpression expression = dmnModelRepository.expression(element);
-                DMNContext globalContext = dmnTransformer.makeGlobalContext(element, false);
+                DMNContext globalContext = dmnTransformer.makeGlobalContext(element);
                 type = dmnEnvironmentFactory.expressionType(element, expression, globalContext);
             }
         } catch (Exception e) {

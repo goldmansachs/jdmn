@@ -635,18 +635,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
         return globalContext;
     }
 
-    default DMNContext makeGlobalContext(TDRGElement element, boolean isRecursive) {
-        DMNContext libraryContext = makeLibraryContext(element, makeBuiltInContext());
-        DMNContext globalContext = DMNContext.of(
-                libraryContext,
-                DMNContextKind.GLOBAL,
-                element,
-                getDMNEnvironmentFactory().makeEnvironment(element, isRecursive),
-                RuntimeEnvironment.of()
-        );
-        return globalContext;
-    }
-
     default DMNContext makeLibraryContext(TDRGElement element, DMNContext parentContext) {
         // Filter libs
         List<Pair<String, ELLib>> importedLibraries = findImportedLibraries(element);
@@ -845,6 +833,9 @@ public interface BasicDMNToNativeTransformer<T, C> {
                 RuntimeEnvironment.of()
         );
     }
+
+    // Supports recursive calls for BKMs
+    boolean isRecursiveCalls();
 
     //
     // Mock testing related methods

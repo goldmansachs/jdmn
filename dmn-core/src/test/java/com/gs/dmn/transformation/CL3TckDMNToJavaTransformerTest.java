@@ -62,7 +62,7 @@ public class CL3TckDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransfor
         doFolderTest("1.5","1157-implicit-conversions");
 
         // extensions
-        doFolderTest("1.1", "9001-recursive-function");
+        doFolderTest("1.1", "9001-recursive-function", new Pair<>("recursiveCalls", "true"));
     }
 
     @Test

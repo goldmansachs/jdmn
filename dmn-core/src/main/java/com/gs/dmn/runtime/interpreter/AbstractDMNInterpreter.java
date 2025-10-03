@@ -349,9 +349,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     }
 
     private DMNContext makeDecisionGlobalContext(TDRGElement element, Map<QualifiedName, Object> informationRequirements) {
-        // No caching when is not strongly typed, input data types might be inferred from input data
-        boolean strongTyping = dmnTransformer.isStrongTyping();
-        DMNContext globalContext = strongTyping ? this.dmnTransformer.makeGlobalContext(element) : this.dmnTransformer.makeGlobalContext(element, true);
+        DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
         for (Map.Entry<QualifiedName, Object> entry: informationRequirements.entrySet()) {
             String key = this.dmnTransformer.bindingName(entry.getKey());
             globalContext.bind(key, entry.getValue());

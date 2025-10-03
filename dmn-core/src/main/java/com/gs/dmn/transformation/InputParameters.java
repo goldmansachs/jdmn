@@ -69,6 +69,8 @@ public class InputParameters {
     private final String tckFileExtension;
     private final Charset charset;
 
+    private final boolean recursiveCalls;
+
     private final String javaRootPackage;
     private final boolean onePackage;
     private final boolean singletonInputData;
@@ -110,6 +112,9 @@ public class InputParameters {
         String charsetName = InputParameters.getOptionalParam(inputParameters, "encoding");
         this.charset = charsetName == null ? StandardCharsets.UTF_8 : Charset.forName(charsetName);
 
+        this.strongTyping = InputParameters.getOptionalBooleanParam(inputParameters, "strongTyping", "true");
+        this.recursiveCalls = InputParameters.getOptionalBooleanParam(inputParameters, "recursiveCalls", "true");
+
         this.javaRootPackage = InputParameters.getOptionalParam(inputParameters, "javaRootPackage");
         this.onePackage = InputParameters.getOptionalBooleanParam(inputParameters, "onePackage", "false");
         this.caching = InputParameters.getOptionalBooleanParam(inputParameters, "caching");
@@ -117,7 +122,6 @@ public class InputParameters {
         this.cachingThreshold = Integer.parseInt(cachingThresholdParam);
         this.singletonInputData = InputParameters.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
         this.singletonDecision = InputParameters.getOptionalBooleanParam(inputParameters, "singletonDecision", "false");
-        this.strongTyping = InputParameters.getOptionalBooleanParam(inputParameters, "strongTyping", "true");
         this.parallelStream = InputParameters.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
         this.generateProtoMessages = InputParameters.getOptionalBooleanParam(inputParameters, "generateProtoMessages", "false");
         this.generateProtoServices = InputParameters.getOptionalBooleanParam(inputParameters, "generateProtoServices", "false");
@@ -177,6 +181,14 @@ public class InputParameters {
         return this.charset;
     }
 
+    public boolean isStrongTyping() {
+        return strongTyping;
+    }
+
+    public boolean isRecursiveCalls() {
+        return recursiveCalls;
+    }
+
     public String getJavaRootPackage() {
         return javaRootPackage;
     }
@@ -191,10 +203,6 @@ public class InputParameters {
 
     public boolean isSingletonDecision() {
         return singletonDecision;
-    }
-
-    public boolean isStrongTyping() {
-        return strongTyping;
     }
 
     public boolean isCaching() {

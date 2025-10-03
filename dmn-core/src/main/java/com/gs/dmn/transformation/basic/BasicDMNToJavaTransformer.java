@@ -2283,6 +2283,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return this.nativeFactory.extractMemberFromProtoValue(protoValue, type, staticContext);
     }
 
+    @Override
+    public boolean isRecursiveCalls() {
+        return this.inputParameters.isRecursiveCalls();
+    }
+
     //
     // Mock testing related methods
     //

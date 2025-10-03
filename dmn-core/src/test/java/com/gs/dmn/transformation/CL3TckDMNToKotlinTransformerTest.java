@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
+import com.gs.dmn.runtime.Pair;
 import org.junit.jupiter.api.Test;
 
 public class CL3TckDMNToKotlinTransformerTest extends AbstractTckDMNToKotlinTransformerTest {
@@ -39,6 +40,6 @@ public class CL3TckDMNToKotlinTransformerTest extends AbstractTckDMNToKotlinTran
         doFolderTest("1.1", "0030-user-defined-functions");
         doFolderTest("1.1", "0031-static-user-defined-functions");
 
-        doFolderTest("1.1", "9001-recursive-function");
+        doFolderTest("1.1", "9001-recursive-function", new Pair<>("recursiveCalls", "true"));
     }
 }

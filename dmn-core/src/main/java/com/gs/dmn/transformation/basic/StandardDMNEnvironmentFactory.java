@@ -766,20 +766,20 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     @Override
     public Environment makeEnvironment(TDRGElement element) {
-        Environment environment = this.environmentMemoizer.get(element);
-        if (environment == null) {
-            environment = makeEnvironmentNoCache(element);
-            this.environmentMemoizer.put(element, environment);
+        // No caching when is not strongly typed, input data types might be inferred from input data
+        if (this.dmnTransformer.isStrongTyping()) {
+            Environment environment = this.environmentMemoizer.get(element);
+            if (environment == null) {
+                environment = makeEnvironmentNoCache(element);
+                this.environmentMemoizer.put(element, environment);
+            }
+            return environment;
+        } else {
+            return makeEnvironmentNoCache(element);
         }
-        return environment;
     }
 
     private Environment makeEnvironmentNoCache(TDRGElement element) {
-        return makeEnvironment(element, true);
-    }
-
-    @Override
-    public Environment makeEnvironment(TDRGElement element, boolean isRecursive) {
         TDefinitions definitions = this.dmnModelRepository.getModel(element);
 
         try {
@@ -797,7 +797,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             // Add it to cache to avoid infinite loops
             this.environmentMemoizer.put(element, elementEnvironment);
             // Add declaration of element to support recursion
-            if (isRecursive) {
+            boolean recursiveCalls = this.dmnTransformer.isRecursiveCalls() && this.dmnTransformer.isStrongTyping();
+            if (recursiveCalls && element instanceof TBusinessKnowledgeModel) {
                 Declaration declaration = makeDeclaration(element, elementEnvironment, element);
                 addDeclaration(elementEnvironment, declaration, element, element);
             }
