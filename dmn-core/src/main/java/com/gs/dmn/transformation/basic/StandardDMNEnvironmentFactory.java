@@ -780,43 +780,48 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     @Override
     public Environment makeEnvironment(TDRGElement element, boolean isRecursive) {
-        Environment elementEnvironment = this.environmentFactory.emptyEnvironment();
         TDefinitions definitions = this.dmnModelRepository.getModel(element);
 
-        // Add declaration for each direct child
-        List<DRGElementReference<? extends TDRGElement>> directReferences = this.dmnModelRepository.directDRGElements(element);
-        for (DRGElementReference<? extends TDRGElement> reference: directReferences) {
-            // Create child environment to infer type if needed
-            TDRGElement child = reference.getElement();
-            Declaration declaration = makeDeclaration(element, elementEnvironment, child);
-            addDeclaration(elementEnvironment, declaration, element, child);
-        }
+        try {
+            Environment elementEnvironment = this.environmentFactory.emptyEnvironment();
 
-        // Add it to cache to avoid infinite loops
-        this.environmentMemoizer.put(element, elementEnvironment);
-        // Add declaration of element to support recursion
-        if (isRecursive) {
-            Declaration declaration = makeDeclaration(element, elementEnvironment, element);
-            addDeclaration(elementEnvironment, declaration, element, element);
-        }
+            // Add declaration for each direct child
+            List<DRGElementReference<? extends TDRGElement>> directReferences = this.dmnModelRepository.directDRGElements(element);
+            for (DRGElementReference<? extends TDRGElement> reference: directReferences) {
+                // Create child environment to infer type if needed
+                TDRGElement child = reference.getElement();
+                Declaration declaration = makeDeclaration(element, elementEnvironment, child);
+                addDeclaration(elementEnvironment, declaration, element, child);
+            }
 
-        // Add declaration for parameters
-        if (element instanceof TBusinessKnowledgeModel) {
-            TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
-            if (functionDefinition != null) {
-                for (TInformationItem p: functionDefinition.getFormalParameter()) {
-                    String paramTypeRef = QualifiedName.toName(p.getTypeRef());
-                    Type paramType = null;
-                    if (!StringUtils.isEmpty(paramTypeRef)) {
-                        paramType = toFEELType(definitions, QualifiedName.toQualifiedName(definitions, paramTypeRef));
+            // Add it to cache to avoid infinite loops
+            this.environmentMemoizer.put(element, elementEnvironment);
+            // Add declaration of element to support recursion
+            if (isRecursive) {
+                Declaration declaration = makeDeclaration(element, elementEnvironment, element);
+                addDeclaration(elementEnvironment, declaration, element, element);
+            }
+
+            // Add declaration for parameters
+            if (element instanceof TBusinessKnowledgeModel) {
+                TFunctionDefinition functionDefinition = ((TBusinessKnowledgeModel) element).getEncapsulatedLogic();
+                if (functionDefinition != null) {
+                    for (TInformationItem p: functionDefinition.getFormalParameter()) {
+                        String paramTypeRef = QualifiedName.toName(p.getTypeRef());
+                        Type paramType = null;
+                        if (!StringUtils.isEmpty(paramTypeRef)) {
+                            paramType = toFEELType(definitions, QualifiedName.toQualifiedName(definitions, paramTypeRef));
+                        }
+                        elementEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), paramType));
                     }
-                    elementEnvironment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), paramType));
                 }
             }
-        }
-        // No need to add parameters for DecisionService, added in the first step
+            // No need to add parameters for DecisionService, added in the first step
 
-        return elementEnvironment;
+            return elementEnvironment;
+        } catch (Exception e) {
+            throw new SemanticError(ErrorFactory.makeDMNErrorMessage(definitions, element, e.getMessage()), e);
+        }
     }
 
     protected Declaration makeDeclaration(TDRGElement parent, Environment parentEnvironment, TDRGElement child) {
@@ -841,36 +846,36 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
     protected void addDeclaration(Environment environment, Declaration declaration, TDRGElement parent, TDRGElement child) {
         TDefinitions model = this.dmnModelRepository.getModel(parent);
-        Type type = declaration.getType();
-        ImportPath importPath = this.dmnModelRepository.findRelativeImportPath(parent, child);
-        if (ImportPath.isEmpty(importPath)) {
-            environment.addDeclaration(declaration);
-        } else {
-            // Lookup / add variable declaration for import context
-            String importName = importPath.getPathElements().get(0);
-            Declaration importDeclaration = environment.lookupLocalVariableDeclaration(importName);
-            ImportContextType importContextType;
-            if (importDeclaration == null) {
-                importContextType = new ImportContextType(importName);
-                importDeclaration = this.environmentFactory.makeVariableDeclaration(importName, importContextType);
-                environment.addDeclaration(importDeclaration);
+            Type type = declaration.getType();
+            ImportPath importPath = this.dmnModelRepository.findRelativeImportPath(parent, child);
+            if (ImportPath.isEmpty(importPath)) {
+                environment.addDeclaration(declaration);
             } else {
-                String errorMessage = String.format("Incorrect import declaration '%s' for import '%s'", declaration, importName);
-                if (importDeclaration instanceof VariableDeclaration) {
-                    Type importType = importDeclaration.getType();
-                    if (importType instanceof ImportContextType) {
-                        importContextType = (ImportContextType) importType;
+                // Lookup / add variable declaration for import context
+                String importName = importPath.getPathElements().get(0);
+                Declaration importDeclaration = environment.lookupLocalVariableDeclaration(importName);
+                ImportContextType importContextType;
+                if (importDeclaration == null) {
+                    importContextType = new ImportContextType(importName);
+                    importDeclaration = this.environmentFactory.makeVariableDeclaration(importName, importContextType);
+                    environment.addDeclaration(importDeclaration);
+                } else {
+                    String errorMessage = String.format("Incorrect import declaration '%s' for import '%s'", declaration, importName);
+                    if (importDeclaration instanceof VariableDeclaration) {
+                        Type importType = importDeclaration.getType();
+                        if (importType instanceof ImportContextType) {
+                            importContextType = (ImportContextType) importType;
+                        } else {
+                            throw new SemanticError(ErrorFactory.makeDMNErrorMessage(model, parent, errorMessage));
+                        }
                     } else {
                         throw new SemanticError(ErrorFactory.makeDMNErrorMessage(model, parent, errorMessage));
                     }
-                } else {
-                    throw new SemanticError(ErrorFactory.makeDMNErrorMessage(model, parent, errorMessage));
                 }
-            }
 
-            // Add member and reference
-            importContextType.addMember(declaration.getName(), new ArrayList<>(), type);
-            importContextType.addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
+                // Add member and reference
+                importContextType.addMember(declaration.getName(), new ArrayList<>(), type);
+                importContextType.addMemberReference(declaration.getName(), this.dmnModelRepository.makeDRGElementReference(importName, child));
         }
     }
 
@@ -879,11 +884,16 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     //
     @Override
     public Environment makeUnaryTestEnvironment(TDRGElement element, Expression<Type> inputExpression) {
-        Environment environment = this.environmentFactory.makeEnvironment(inputExpression);
-        if (inputExpression != null) {
-            environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(DMNContext.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+        try {
+            Environment environment = this.environmentFactory.makeEnvironment(inputExpression);
+            if (inputExpression != null) {
+                environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(DMNContext.INPUT_ENTRY_PLACE_HOLDER, inputExpression.getType()));
+            }
+            return environment;
+        } catch (Exception e) {
+            TDefinitions model = this.dmnModelRepository.getModel(element);
+            throw new SemanticError(ErrorFactory.makeDMNErrorMessage(model, element, e.getMessage()), e);
         }
-        return environment;
     }
 
     //
@@ -892,16 +902,20 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     @Override
     public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition) {
         TDefinitions model = this.dmnModelRepository.getModel(element);
-        Environment environment = this.environmentFactory.emptyEnvironment();
-        for (TInformationItem p: functionDefinition.getFormalParameter()) {
-            String typeRef = QualifiedName.toName(p.getTypeRef());
-            Type type = null;
-            if (!StringUtils.isEmpty(typeRef)) {
-                type = toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+        try {
+            Environment environment = this.environmentFactory.emptyEnvironment();
+            for (TInformationItem p: functionDefinition.getFormalParameter()) {
+                String typeRef = QualifiedName.toName(p.getTypeRef());
+                Type type = null;
+                if (!StringUtils.isEmpty(typeRef)) {
+                    type = toFEELType(model, QualifiedName.toQualifiedName(model, typeRef));
+                }
+                environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), type));
             }
-            environment.addDeclaration(this.environmentFactory.makeVariableDeclaration(p.getName(), type));
+            return environment;
+        } catch (Exception e) {
+            throw new SemanticError(ErrorFactory.makeDMNErrorMessage(model, element, e.getMessage()), e);
         }
-        return environment;
     }
 
     @Override

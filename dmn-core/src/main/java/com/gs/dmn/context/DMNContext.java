@@ -19,6 +19,8 @@ import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
+import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.ArrayList;
@@ -75,7 +77,11 @@ public class DMNContext {
     }
 
     public void addDeclaration(Declaration declaration) {
-        this.environment.addDeclaration(declaration);
+        try {
+            this.environment.addDeclaration(declaration);
+        } catch (Exception e) {
+            throw new SemanticError(ErrorFactory.makeDMNErrorMessage(null, element, e.getMessage()), e);
+        }
     }
 
     public Declaration lookupVariableDeclaration(String name) {
@@ -116,10 +122,6 @@ public class DMNContext {
         if (declaration != null) {
             declaration.setType(type);
         }
-    }
-
-    public RuntimeEnvironment getRuntimeEnvironment() {
-        return this.runtimeEnvironment;
     }
 
     public Object lookupBinding(String key) {
