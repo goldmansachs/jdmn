@@ -20,6 +20,7 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
+import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.validation.table.Bound;
@@ -84,7 +85,7 @@ public class SweepMissingIntervalValidator extends SweepValidator {
         } else {
             message = String.format("Intervals '%s' are not covered for column %d in '%s' table", intervalsString, columnIndex + 1, repository.displayName(element));
         }
-        return makeError(model, element, message);
+        return ErrorFactory.makeDMNErrorMessage(model, element, message);
     }
 
     //  Algorithm: findMissingRules.

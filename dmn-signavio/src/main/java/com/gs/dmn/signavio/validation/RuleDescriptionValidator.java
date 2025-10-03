@@ -14,6 +14,7 @@ package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
+import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.validation.SimpleDMNValidator;
@@ -60,7 +61,7 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
                     List<TDecisionRule> rules = ((TDecisionTable) expression).getRule();
                     for (int i = 0; i < rules.size(); i++) {
                         TDecisionRule rule = rules.get(i);
-                        validate(repository, definitions, decision, i, rule.getDescription(), errors);
+                        validate(definitions, decision, i, rule.getDescription(), errors);
                     }
                 }
             }
@@ -69,12 +70,12 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
         return errors;
     }
 
-    protected void validate(DMNModelRepository repository, TDefinitions definitions, TDecision decision, int ruleIndex, String description, List<String> errors) {
+    protected void validate(TDefinitions definitions, TDecision decision, int ruleIndex, String description, List<String> errors) {
         if (StringUtils.isNotBlank(description)) {
             for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
                 if (description.contains(entry.getKey())) {
                     String errorMessage = String.format("Description of rule %d in decision '%s' contains illegal sequence '%s'", ruleIndex, decision.getName(), entry.getValue());
-                    errors.add(makeError(definitions, decision, errorMessage));
+                    errors.add(ErrorFactory.makeDMNErrorMessage(definitions, decision, errorMessage));
                 }
             }
         }

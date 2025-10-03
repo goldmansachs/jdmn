@@ -31,22 +31,22 @@ public class ErrorFactory {
     private ErrorFactory() {
     }
 
-    public static String makeDMNErrorMessage(TDefinitions definitions, TNamedElement element, String errorMessage) {
+    public static String makeDMNErrorMessage(TDefinitions definitions, TDMNElement element, String errorMessage) {
         String location = makeLocation(definitions, element);
         return makeErrorMessage(location, errorMessage);
     }
 
-    public static String makeDMNExpressionErrorMessage(TDefinitions definitions, TNamedElement element, TExpression expression, String errorMessage) {
+    public static String makeDMNExpressionErrorMessage(TDefinitions definitions, TDMNElement element, TExpression expression, String errorMessage) {
         String expressionText = expressionDescription(expression);
         return makeExpressionErrorMessage(definitions, element, expressionText, errorMessage);
     }
 
-    public static String makeELExpressionErrorMessage(TDefinitions definitions, TNamedElement element, Expression<Type> expression, String errorMessage) {
+    public static String makeELExpressionErrorMessage(TDefinitions definitions, TDMNElement element, Expression<Type> expression, String errorMessage) {
         String expressionText = expressionDescription(expression);
         return makeExpressionErrorMessage(definitions, element, expressionText, errorMessage);
     }
 
-    private static String makeExpressionErrorMessage(TDefinitions definitions, TNamedElement element, String expressionText, String errorMessage) {
+    private static String makeExpressionErrorMessage(TDefinitions definitions, TDMNElement element, String expressionText, String errorMessage) {
         String modelLocation = makeLocation(definitions, element);
 
         // Make final error message
@@ -118,12 +118,9 @@ public class ErrorFactory {
         }
     }
 
-    public static String makeIfErrorMessage(TNamedElement element, Type thenType, Type elseType) {
-        if (element == null) {
-            return String.format("Types of then and else branches are incompatible, found '%s' and '%s'", thenType, elseType);
-        } else {
-            return String.format("Types of then and else branches are incompatible, found '%s' and '%s' in element '%s'", thenType, elseType, element.getName());
-        }
+    public static String makeIfErrorMessage(TDMNElement element, Type thenType, Type elseType) {
+        String errorMessage = String.format("Types of then and else branches are incompatible, found '%s' and '%s'", thenType, elseType);
+        return makeDMNErrorMessage(null, element, errorMessage);
     }
 
     public static String getDiagramId(TDMNElement element) {

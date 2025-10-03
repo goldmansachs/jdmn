@@ -18,6 +18,7 @@ import com.gs.dmn.ast.TDMNElement;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
+import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -27,8 +28,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-
-import static com.gs.dmn.validation.SimpleDMNValidator.makeError;
 
 public class UniqueNameValidator extends SimpleDMNValidator {
     public UniqueNameValidator() {
@@ -102,7 +101,7 @@ class UniqueNameValidatorVisitor extends TraversalVisitor<ValidationContext> {
         for (Map.Entry<String, List<TDMNElement>> entry : map.entrySet()) {
             String key = entry.getKey();
             if(entry.getValue().size() > 1){
-                context.addError(makeError(definitions, null, String.format("%s Found %d duplicates for '%s'.", errorMessage, entry.getValue().size(), key)));
+                context.addError(ErrorFactory.makeDMNErrorMessage(definitions, null, String.format("%s Found %d duplicates for '%s'.", errorMessage, entry.getValue().size(), key)));
             }
         }
     }

@@ -32,11 +32,11 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='test-dmn-with-duplicates'): error: The name of a DRGElement must be unique. Found duplicates for 'CIP Assessments, Input'.",
-                "(model='test-dmn-with-duplicates'): error: The name of a ItemDefinition must be unique. Found duplicates for 'itemDefinition'.",
-                "(model='test-dmn-with-duplicates', name='CIP Assessments', id='cip-assessments'): error: Missing variable",
-                "(model='test-dmn-with-duplicates', name='CIP Assessments', id='cip-assessments1'): error: Missing variable",
-                "(model='test-dmn-with-duplicates', label='String', name='CIP Assessments', id='id-input-1'): error: DRGElement name and variable name should be the same. Found 'CIP Assessments' and 'string'"
+                "(model='test-dmn-with-duplicates'): The name of a DRGElement must be unique. Found duplicates for 'CIP Assessments, Input'.",
+                "(model='test-dmn-with-duplicates'): The name of a ItemDefinition must be unique. Found duplicates for 'itemDefinition'.",
+                "(model='test-dmn-with-duplicates', name='CIP Assessments', id='cip-assessments'): Missing variable",
+                "(model='test-dmn-with-duplicates', name='CIP Assessments', id='cip-assessments1'): Missing variable",
+                "(model='test-dmn-with-duplicates', label='String', name='CIP Assessments', id='id-input-1'): DRGElement name and variable name should be the same. Found 'CIP Assessments' and 'string'"
         );
         validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
     }
@@ -44,39 +44,39 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWithError() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='test-dmn'): error: The name of a DRGElement must be unique. Found duplicates for 'dec1'.",
-                "(model='test-dmn', name='dec1'): error: Missing importType of import",
-                "(model='test-dmn', name='dec1'): error: Missing namespace of import",
-                "(model='test-dmn'): error: Missing id for element TDecision",
-                "(model='test-dmn'): error: Missing name for element TDecision",
-                "(model='test-dmn'): error: Missing variable",
-                "(model='test-dmn'): error: Missing expression",
-                "(model='test-dmn', id='dec'): error: Missing name for element TDecision",
-                "(model='test-dmn', id='dec'): error: Missing variable",
-                "(model='test-dmn', id='dec'): error: Missing expression",
-                "(model='test-dmn'): error: Missing id for element TBusinessKnowledgeModel",
-                "(model='test-dmn'): error: Missing name for element TBusinessKnowledgeModel",
-                "(model='test-dmn'): error: Missing variable",
-                "(model='test-dmn'): error: Missing expression",
-                "(model='test-dmn', id='bkm'): error: Missing name for element TBusinessKnowledgeModel",
-                "(model='test-dmn', id='bkm'): error: Missing variable",
-                "(model='test-dmn', id='bkm'): error: Missing expression",
-                "(model='test-dmn', id='bkm1'): error: Missing name for element TBusinessKnowledgeModel",
-                "(model='test-dmn', id='bkm1'): error: Missing variable name",
-                "(model='test-dmn'): error: The href of a TDMNElementReference must be unique. Found duplicates for '125'.",
-                "(model='test-dmn', id='bkm1'): error: Missing expression",
-                "(model='test-dmn'): error: Missing id for element TDecisionService",
-                "(model='test-dmn'): error: Missing name for element TDecisionService",
-                "(model='test-dmn'): error: Missing variable",
-                "(model='test-dmn', id='ds'): error: Missing name for element TDecisionService",
-                "(model='test-dmn', id='ds'): error: Missing variable",
-                "(model='test-dmn', id='ds1'): error: Missing name for element TDecisionService",
-                "(model='test-dmn', id='ds1'): error: Missing variable name",
-                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): error: Missing variable",
-                "(model='test-dmn', name='dec1', id='dec1'): error: Missing variable name",
-                "(model='test-dmn', name='dec1', id='dec1'): error: Missing typRef of variable",
-                "(model='test-dmn', name='dec1', id='dec1'): error: Missing text of literal expression",
-                "(model='test-dmn'): error: The variable type 'string' must be the same as the type of the contained expression 'number'"
+                "(model='test-dmn'): The name of a DRGElement must be unique. Found duplicates for 'dec1'.",
+                "(model='test-dmn', name='dec1'): Missing importType of import",
+                "(model='test-dmn', name='dec1'): Missing namespace of import",
+                "(model='test-dmn'): Missing id for element TDecision",
+                "(model='test-dmn'): Missing name for element TDecision",
+                "(model='test-dmn'): Missing variable",
+                "(model='test-dmn'): Missing expression",
+                "(model='test-dmn', id='dec'): Missing name for element TDecision",
+                "(model='test-dmn', id='dec'): Missing variable",
+                "(model='test-dmn', id='dec'): Missing expression",
+                "(model='test-dmn'): Missing id for element TBusinessKnowledgeModel",
+                "(model='test-dmn'): Missing name for element TBusinessKnowledgeModel",
+                "(model='test-dmn'): Missing variable",
+                "(model='test-dmn'): Missing expression",
+                "(model='test-dmn', id='bkm'): Missing name for element TBusinessKnowledgeModel",
+                "(model='test-dmn', id='bkm'): Missing variable",
+                "(model='test-dmn', id='bkm'): Missing expression",
+                "(model='test-dmn', id='bkm1'): Missing name for element TBusinessKnowledgeModel",
+                "(model='test-dmn', id='bkm1'): Missing variable name",
+                "(model='test-dmn'): The href of a TDMNElementReference must be unique. Found duplicates for '125'.",
+                "(model='test-dmn', id='bkm1'): Missing expression",
+                "(model='test-dmn'): Missing id for element TDecisionService",
+                "(model='test-dmn'): Missing name for element TDecisionService",
+                "(model='test-dmn'): Missing variable",
+                "(model='test-dmn', id='ds'): Missing name for element TDecisionService",
+                "(model='test-dmn', id='ds'): Missing variable",
+                "(model='test-dmn', id='ds1'): Missing name for element TDecisionService",
+                "(model='test-dmn', id='ds1'): Missing variable name",
+                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): Missing variable",
+                "(model='test-dmn', name='dec1', id='dec1'): Missing variable name",
+                "(model='test-dmn', name='dec1', id='dec1'): Missing typRef of variable",
+                "(model='test-dmn', name='dec1', id='dec1'): Missing text of literal expression",
+                "(model='test-dmn'): The variable type 'string' must be the same as the type of the contained expression 'number'"
         );
         validate(validator, resource("dmn/input/1.5/test-dmn.dmn"), expectedErrors);
     }

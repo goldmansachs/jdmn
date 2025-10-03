@@ -20,6 +20,7 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
+import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.validation.table.Bound;
@@ -106,7 +107,7 @@ public class SweepRuleOverlapValidator extends SweepValidator {
     private String makeError(TDRGElement element, RuleGroup group, DMNModelRepository repository) {
         TDefinitions model = repository.getModel(element);
         String message = String.format("Decision table rules '%s' overlap in decision '%s'", group.serialize(), repository.displayName(element));
-        return makeError(model, element, message);
+        return ErrorFactory.makeDMNErrorMessage(model, element, message);
     }
 
     //  From "Semantics and Analysis of DMN Decision Tables.pdf"

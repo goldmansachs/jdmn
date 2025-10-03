@@ -12,9 +12,6 @@
  */
 package com.gs.dmn.validation;
 
-import com.gs.dmn.ast.TDMNElement;
-import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.log.BuildLogger;
@@ -24,15 +21,6 @@ import org.slf4j.LoggerFactory;
 
 public abstract class SimpleDMNValidator implements DMNValidator {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SimpleDMNValidator.class);
-
-    public static String makeError(TDefinitions definitions, TDMNElement element, String message) {
-        String location = ErrorFactory.makeLocation(definitions, element);
-        if (location == null) {
-            return message;
-        } else {
-            return String.format("%s: error: %s", location, message);
-        }
-    }
 
     protected final BuildLogger logger;
     protected final ErrorHandler errorHandler = new LogErrorHandler(LOGGER);

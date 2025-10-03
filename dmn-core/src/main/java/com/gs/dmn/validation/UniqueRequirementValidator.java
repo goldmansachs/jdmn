@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.gs.dmn.validation.SimpleDMNValidator.makeError;
-
 public class UniqueRequirementValidator extends SimpleDMNValidator {
     public UniqueRequirementValidator() {
         this(new Slf4jBuildLogger(LOGGER));
@@ -118,7 +116,7 @@ class UniqueRequirementValidatorVisitor extends TraversalVisitor<ValidationConte
                     } else {
                         errorMessage = String.format("Duplicated %s %s", propertyPath, ErrorFactory.makeLocation(definitions, referredElement));
                     }
-                    context.addError(makeError(definitions, element, errorMessage));
+                    context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
                 } else {
                     existingIds.add(id);
                 }

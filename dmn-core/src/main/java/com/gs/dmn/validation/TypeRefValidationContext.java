@@ -18,6 +18,7 @@ import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TInformationItem;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 
@@ -55,6 +56,7 @@ public class TypeRefValidationContext extends ValidationContext {
         QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
 
         String hint = Type.isNull(type) ? "" : String.format(". The inferred type is '%s'", type);
-        return SimpleDMNValidator.makeError(model, element, String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint);
+        String errorMessage = String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint;
+        return ErrorFactory.makeDMNErrorMessage(model, element, errorMessage);
     }
 }
