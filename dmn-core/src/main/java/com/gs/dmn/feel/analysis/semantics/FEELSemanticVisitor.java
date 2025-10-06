@@ -1045,24 +1045,28 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
     }
 
     private void deriveType(NamedExpression<Type> element, DMNContext context, String name) {
-        Type type;
         // Lookup for variables
         Declaration declaration = context.lookupVariableDeclaration(name);
         if (declaration instanceof VariableDeclaration) {
-            type = declaration.getType();
+            Type type = declaration.getType();
             element.setType(type);
-        } else {
-            // Lookup for functions
-            List<Declaration> declarations = context.lookupFunctionDeclaration(name);
-            if (declarations != null && !declarations.isEmpty()) {
-                if (declarations.size() == 1) {
-                    declaration = declarations.get(0);
-                    type = declaration.getType();
-                } else {
-                    type = new BuiltinOverloadedFunctionType(declarations);
-                }
-                element.setType(type);
+            return;
+        }
+        // Lookup for functions
+        List<Declaration> declarations = context.lookupFunctionDeclaration(name);
+        if (declarations != null && !declarations.isEmpty()) {
+            Type type;
+            if (declarations.size() == 1) {
+                declaration = declarations.get(0);
+                type = declaration.getType();
+            } else {
+                type = new BuiltinOverloadedFunctionType(declarations);
             }
+            element.setType(type);
+            return;
+        }
+        if (this.dmnTransformer.isStrongTyping()) {
+            errorHandler.reportError(String.format("Cannot find declaration for '%s'", name));
         }
     }
 

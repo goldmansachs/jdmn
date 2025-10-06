@@ -623,6 +623,11 @@ public abstract class AbstractCL3DMNInterpreterTest<NUMBER, DATE, TIME, DATE_TIM
     }
 
     @Test
+    public void test_15_cl3_0069_feel_list() {
+        doFolderTest("1.5", "0069-feel-list", new Pair<>("strongTyping", "false") );
+    }
+
+    @Test
     public void test_15_cl3_0072_feel_in() {
         doFolderTest("1.5", "0072-feel-in", new Pair<>("strongTyping", "false") );
     }
