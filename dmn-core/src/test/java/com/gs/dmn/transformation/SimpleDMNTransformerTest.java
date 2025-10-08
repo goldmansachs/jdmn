@@ -27,16 +27,39 @@ import org.xmlunit.diff.DifferenceEvaluators;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class SimpleDMNTransformerTest extends AbstractFileTransformerTest {
     protected static final ClassLoader CLASS_LOADER = SimpleDMNTransformerTest.class.getClassLoader();
 
     protected final DMNSerializer dmnSerializer = new XMLDMNSerializer(LOGGER, this.inputParameters);
     protected final TCKSerializer tckSerializer = new XMLTCKSerializer(LOGGER, this.inputParameters);
+
+    protected void doTest(String dmmVersion, List<String> dmnFileNames) throws Exception {
+        DMNTransformer<TestCases> transformer = getTransformer();
+        String path = getInputPath() + dmmVersion + "/";
+
+        // Read DMN files
+        List<TDefinitions> definitionsList = readModels(path, dmnFileNames);
+
+        // Definitions are normalized in Repository
+        Map<String, TDefinitions> definitionsMap = new LinkedHashMap<>();
+        for (int i=0; i < dmnFileNames.size(); i++) {
+            definitionsMap.put(dmnFileNames.get(i), definitionsList.get(i));
+        }
+        DMNModelRepository repository = new DMNModelRepository(definitionsList);
+
+        // Transform Models
+        File targetFolder = new File(getTargetPath());
+        Files.createDirectories(targetFolder.toPath());
+        transformer.transform(repository);
+
+        // Check output
+        for (String dmnFileName: dmnFileNames) {
+            TDefinitions definitions =  definitionsMap.get(dmnFileName);
+            check(definitions, dmnFileName);
+        }
+    }
 
     protected void doTest(String dmmVersion, List<String> dmnFileNames, String testsFileName, Map<String, Pair<String, String>> namespacePrefixMapping) throws Exception {
         DMNTransformer<TestCases> transformer = getTransformer();
@@ -52,7 +75,7 @@ public abstract class SimpleDMNTransformerTest extends AbstractFileTransformerTe
         DMNModelRepository repository = new DMNModelRepository(definitionsList);
 
         // Transform Models and Tests
-        File inputTestsFile = new File(CLASS_LOADER.getResource(path + testsFileName).getFile());
+        File inputTestsFile = new File(Objects.requireNonNull(CLASS_LOADER.getResource(path + testsFileName)).getFile());
         List<TestCases> testCasesList = new ArrayList<>();
         if (inputTestsFile.isFile()) {
             TestCases testCases = this.tckSerializer.read(inputTestsFile);
@@ -88,7 +111,7 @@ public abstract class SimpleDMNTransformerTest extends AbstractFileTransformerTe
     private void check(TDefinitions actualDefinitions, String fileName) throws Exception {
         File actualDMNFile = new File(getTargetPath() + fileName);
         this.dmnSerializer.writeModel(actualDefinitions, actualDMNFile);
-        File expectedDMNFile = new File(CLASS_LOADER.getResource(getExpectedPath() + fileName).getFile());
+        File expectedDMNFile = new File(Objects.requireNonNull(CLASS_LOADER.getResource(getExpectedPath() + fileName)).getFile());
 
         compareFile(expectedDMNFile, actualDMNFile);
     }
@@ -96,7 +119,7 @@ public abstract class SimpleDMNTransformerTest extends AbstractFileTransformerTe
     private void check(TestCases actualTestCases, String fileName, Pair<String, String> namespacePrefixMapping) throws Exception {
         File actualTestsFile = new File(getTargetPath() + fileName);
         this.tckSerializer.write(actualTestCases, actualTestsFile);
-        File expectedTestLabFile = new File(CLASS_LOADER.getResource(getExpectedPath() + fileName).getFile());
+        File expectedTestLabFile = new File(Objects.requireNonNull(CLASS_LOADER.getResource(getExpectedPath() + fileName)).getFile());
 
         compareFile(expectedTestLabFile, actualTestsFile);
     }

@@ -26,7 +26,7 @@ public class AddMissingNamespaceInTestCasesTransformerTest extends SimpleDMNTran
     @Test
     public void testTransform() throws Exception {
         doTest("1.1", Collections.singletonList("0004-lending.dmn"),
-                "0004-lending-test-01.xml", new LinkedHashMap<String, Pair<String, String>>() {{
+                "0004-lending-test-01.xml", new LinkedHashMap<>() {{
                     put("0004-lending.dmn", new Pair<>("http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b", "tns"));
                     put("0004-lending-test-01.xml", new Pair<>(XSI_NS, XSI_PREFIX));
                 }}

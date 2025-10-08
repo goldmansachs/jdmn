@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="definitions" name="test-dmn"
+             namespace="http://camunda.org/schema/1.0/dmn">
+
+    <decision id="id-d" name="d" label="Decision">
+    </decision>
+
+    <decision id="id-d1" name="d1" label="Decision 1">
+        <variable name="Decision 1" typeRef="string"/>
+    </decision>
+
+    <decision id="id-d2" name="d2" label="Decision 2">
+        <variable name="d2" typeRef="string"/>
+    </decision>
+</definitions>
