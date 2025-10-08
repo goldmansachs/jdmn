@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.error;
 
-import com.gs.dmn.ast.TDMNElement;
-import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.ast.TExpression;
-import com.gs.dmn.ast.TNamedElement;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import org.apache.commons.lang3.StringUtils;
@@ -65,7 +62,13 @@ public class ErrorFactory {
     }
 
     private static String expressionDescription(Object expression) {
-        return expression == null ? null : expression.toString();
+        if (expression == null) {
+            return null;
+        } else if (expression instanceof TLiteralExpression) {
+            return ((TLiteralExpression) expression).getText();
+        } else {
+            return expression.toString();
+        }
     }
 
     public static String makeErrorMessage(String location, String errorMessage) {

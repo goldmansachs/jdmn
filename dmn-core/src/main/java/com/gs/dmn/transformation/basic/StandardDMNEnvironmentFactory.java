@@ -550,10 +550,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
     private Type toFEELTypeNoCache(TDefinitions model, QualifiedName typeRef) {
         // Lookup item definitions
         if (model != null) {
-        TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, typeRef);
-        if (itemDefinition != null) {
-            return toFEELType(itemDefinition);
-        }
+            TItemDefinition itemDefinition = this.dmnModelRepository.lookupItemDefinition(model, typeRef);
+            if (itemDefinition != null) {
+                return toFEELType(itemDefinition);
+            }
         }
 
         // Lookup primitive types
@@ -561,7 +561,8 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (primitiveType != null) {
             return primitiveType;
         }
-        throw new SemanticError(String.format("Cannot map type '%s' to FEEL", typeRef));
+
+        throw new SemanticError(ErrorFactory.makeDMNErrorMessage(model, null, String.format("Cannot map type '%s' to FEEL", typeRef)));
     }
 
     @Override
@@ -821,7 +822,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
             return elementEnvironment;
         } catch (Exception e) {
-            throw new SemanticError(ErrorFactory.makeDMNErrorMessage(definitions, element, e.getMessage()), e);
+            throw new SemanticError(ErrorFactory.makeDMNErrorMessage(definitions, element, "Cannot create environment due to semantic errors"), e);
         }
     }
 
