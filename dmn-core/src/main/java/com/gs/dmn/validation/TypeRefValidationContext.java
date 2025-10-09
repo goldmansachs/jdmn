@@ -13,50 +13,43 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.QualifiedName;
-import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.ast.TInformationItem;
-import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.ast.TNamedElement;
 import com.gs.dmn.runtime.Pair;
-import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class TypeRefValidationContext extends ValidationContext {
-    private final BasicDMNToJavaTransformer dmnTransformer;
-    private final List<Pair<TDRGElement, Type>> errorReport;
+    private final TDefinitions model;
+    private final List<Pair<TNamedElement, String>> errorReport;
 
-    public TypeRefValidationContext(DMNModelRepository repository, BasicDMNToJavaTransformer dmnTransformer, List<Pair<TDRGElement, Type>> errorReport) {
+    private TNamedElement element;
+
+    public TypeRefValidationContext(TDefinitions model, DMNModelRepository repository, List<Pair<TNamedElement, String>> errorReport) {
         super(repository);
-        this.dmnTransformer = dmnTransformer;
+        this.model = model;
         this.errorReport = errorReport;
+    }
+
+    public TDefinitions getModel() {
+        return this.model;
+    }
+
+    public TNamedElement getElement() {
+        return element;
+    }
+
+    public void setElement(TNamedElement element) {
+        this.element = element;
     }
 
     @Override
     public List<String> getErrors() {
-        return this.errorReport.stream().map(p -> makeError(p, repository)).collect(Collectors.toList());
+        return this.errorReport.stream().map(Pair::getRight).collect(Collectors.toList());
     }
 
-    public BasicDMNToJavaTransformer getDmnTransformer() {
-        return dmnTransformer;
-    }
-
-    public List<Pair<TDRGElement, Type>> getErrorReport() {
+    public List<Pair<TNamedElement, String>> getErrorReport() {
         return errorReport;
-    }
-
-    private String makeError(Pair<TDRGElement, Type> pair, DMNModelRepository repository) {
-        TDRGElement element = pair.getLeft();
-        TDefinitions model = repository.getModel(element);
-        Type type = pair.getRight();
-        TInformationItem variable = repository.variable(element);
-        QualifiedName typeRef = QualifiedName.toQualifiedName(model, variable.getTypeRef());
-
-        String hint = Type.isNull(type) ? "" : String.format(". The inferred type is '%s'", type);
-        String errorMessage = String.format("Cannot find typeRef '%s'", typeRef.toString()) + hint;
-        return ErrorFactory.makeDMNErrorMessage(model, element, errorMessage);
     }
 }

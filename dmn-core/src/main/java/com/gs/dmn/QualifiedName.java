@@ -24,6 +24,7 @@ public class QualifiedName {
     public static String toName(QName qName) {
         return qName == null ? null : qName.getLocalPart();
     }
+
     public static QualifiedName toQualifiedName(TDefinitions model, QName qName) {
         if (qName == null) {
             return null;

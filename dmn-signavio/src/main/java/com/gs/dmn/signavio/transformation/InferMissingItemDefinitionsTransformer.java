@@ -14,8 +14,8 @@ package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.QualifiedName;
-import com.gs.dmn.ast.TDRGElement;
-import com.gs.dmn.ast.TItemDefinition;
+import com.gs.dmn.ast.*;
+import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.feel.analysis.semantics.type.DataType;
@@ -25,11 +25,16 @@ import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.signavio.dialect.JavaTimeSignavioDMNDialectDefinition;
+import com.gs.dmn.transformation.InputParameters;
+import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
+import com.gs.dmn.transformation.basic.DMNEnvironmentFactory;
+import com.gs.dmn.transformation.lazy.NopLazyEvaluationDetector;
 import com.gs.dmn.validation.TypeRefValidator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemDefinitionsTransformer {
     static final String DMN_DIALECT_NAME = "dmnDialect";
@@ -62,7 +67,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
     }
 
     private void inferAndAddMissingDefinitions(DMNModelRepository repository) {
-        List<TDRGElement> resolvedElements = new ArrayList<>();
+        List<TNamedElement> resolvedElements = new ArrayList<>();
         int idSequence = 0;
 
         int iteration = 0;
@@ -71,9 +76,11 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
             logger.debug(String.format("Iteration: %d", iteration));
 
             itemDefinitionsToAdd.clear();
-            List<Pair<TDRGElement, Type>> errorReport = typeRefValidator.makeErrorReport(repository).getErrorReport();
-            for (Pair<TDRGElement, Type> pair: errorReport) {
-                TDRGElement element = pair.getLeft();
+            List<Pair<TNamedElement, String>> errorReport = typeRefValidator.makeErrorReport(repository);
+            List<TNamedElement> namedElements = errorReport.stream().map(Pair::getLeft).collect(Collectors.toList());
+            List<Pair<TNamedElement, Type>> enhancedReport = inferTypes(namedElements, repository);
+            for (Pair<TNamedElement, Type> pair: enhancedReport) {
+                TNamedElement element = pair.getLeft();
                 Type type = pair.getRight();
                 if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
                 } else if (isPrimitive(type) || isListOfPrimitive(type)) {
@@ -98,6 +105,22 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
 
             iteration++;
         } while (!itemDefinitionsToAdd.isEmpty());
+    }
+
+    private List<Pair<TNamedElement, Type>> inferTypes(List<TNamedElement> errorReport, DMNModelRepository repository) {
+        List<Pair<TNamedElement, Type>> enhancedReport = new ArrayList<>();
+        BasicDMNToJavaTransformer dmnTransformer = this.dmnDialect.createBasicTransformer(repository, new NopLazyEvaluationDetector(), new InputParameters());
+        DMNEnvironmentFactory dmnEnvironmentFactory = dmnTransformer.getDMNEnvironmentFactory();
+        for (TNamedElement element : errorReport) {
+            if (element instanceof TDRGElement) {
+                Type type = inferType((TDRGElement) element, repository, dmnTransformer, dmnEnvironmentFactory);
+                enhancedReport.add(new Pair<>(element, type));
+
+                logger.debug(String.format("Inferred type of '%s' is '%s'", element.getName(), type));
+            }
+        }
+
+        return enhancedReport;
     }
 
     private boolean isPrimitive(Type type) {
@@ -134,7 +157,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
             Object object = Class.forName(dialectClassName).getDeclaredConstructor().newInstance();
             if (object instanceof DMNDialectDefinition) {
                 this.dmnDialect = (DMNDialectDefinition) object;
-                this.typeRefValidator = new TypeRefValidator(this.dmnDialect);
+                this.typeRefValidator = new TypeRefValidator();
             } else {
                 reportInvalidConfig(String.format("Incorrect DMN dialect name '%s'", dialectClassName));
             }
@@ -143,4 +166,24 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
         }
     }
 
+    private Type inferType(TDRGElement element, DMNModelRepository repository, BasicDMNToJavaTransformer dmnTransformer, DMNEnvironmentFactory dmnEnvironmentFactory) {
+        Type type = null;
+        try {
+            QualifiedName typeRef = null;
+            TDefinitions model = repository.getModel(element);
+            if (element instanceof TDecision) {
+                typeRef = repository.inferExpressionTypeRef(model, element);
+            }
+            if (!repository.isNull(typeRef)) {
+                type = dmnEnvironmentFactory.toFEELType(model, typeRef);
+            } else {
+                TExpression expression = repository.expression(element);
+                DMNContext globalContext = dmnTransformer.makeGlobalContext(element);
+                type = dmnEnvironmentFactory.expressionType(element, expression, globalContext);
+            }
+        } catch (Exception e) {
+            logger.warn(String.format("Cannot infer type for element '%s'", element.getName()));
+        }
+        return type;
+    }
 }

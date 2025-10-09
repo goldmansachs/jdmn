@@ -9,6 +9,9 @@
         - assessApplicantAge, priorIssue, makeCreditDecision, assessIssueRisk
 -->
 
+    <itemDefinition isCollection="false" name="lendingThresholdMissing" id="id-4cb80be6fb604151f1e9edf9c3cbe2e7-1" label="Lending threshold">
+        <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">lendingThresholdMissingTypeRef</typeRef>
+    </itemDefinition>
 
     <itemDefinition isCollection="false" name="lendingThreshold" id="id-4cb80be6fb604151f1e9edf9c3cbe2e7" label="Lending threshold">
         <typeRef xmlns:feel="http://www.omg.org/spec/FEEL/20140401">feel:number</typeRef>
@@ -45,6 +48,21 @@
         </itemComponent>
         <itemComponent isCollection="false" name="issue" id="id-501fb01d68f4b1fb8bc8c8a3ebddc895-relation-Issue" label="Issue" sigExt:slotId="Issue">
             <typeRef>feel:number</typeRef>
+        </itemComponent>
+    </itemDefinition>
+
+    <itemDefinition isCollection="false" name="applicantMissing" id="id-3338f5be7599eb351bf9ed99c553198c-1" label="Applicant">
+        <itemComponent isCollection="false" name="name" id="id-3338f5be7599eb351bf9ed99c553198c-relation-10" label="Name" sigExt:slotId="0">
+            <typeRef>sig:missingNameComponentTypeRef</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="age" id="id-3338f5be7599eb351bf9ed99c553198c-relation-11" label="Age" sigExt:slotId="1">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="false" name="creditScore" id="id-3338f5be7599eb351bf9ed99c553198c-relation-12" label="Credit score" sigExt:slotId="2">
+            <typeRef>feel:number</typeRef>
+        </itemComponent>
+        <itemComponent isCollection="true" name="priorIssues" id="id-3338f5be7599eb351bf9ed99c553198c-relation-14" label="Prior issues" sigExt:slotId="4">
+            <typeRef>sig:creditIssueType</typeRef>
         </itemComponent>
     </itemDefinition>
 
@@ -221,7 +239,7 @@
                     <text>lendingThreshold</text>
                 </inputExpression>
             </input>
-            <output name="compareAgainstLendingThreshold" typeRef="feel:number" id="id-dea5c4514bcc1b8784c1581eb530bfc6" label="Compare against lending threshold"/>
+            <output name="compareAgainstLendingThreshold" typeRef="missingDTOutputTypeRef" id="id-dea5c4514bcc1b8784c1581eb530bfc6" label="Compare against lending threshold"/>
             <rule id="id-185830817909d9b242fd69b4c65bcb04">
                 <description>string(-)</description>
                 <inputEntry>

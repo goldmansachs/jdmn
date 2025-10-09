@@ -29,11 +29,14 @@ public class TypeRefValidatorTest extends AbstractSignavioFileTransformerTest {
     @Test
     public void testValidation() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Assess applicant age', name='assessApplicantAge', id='id-1454118466a747091e601b188b2b5c7b'): Cannot find typeRef 'QualifiedName(null, assessApplicantAge)'. The inferred type is 'number'",
-                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Assess issue', name='assessIssue', id='id-f2562ba74063028327a13930c969145c'): Cannot find typeRef 'QualifiedName(null, assessIssue)'. The inferred type is 'number'",
-                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Assess issue risk', name='assessIssueRisk', id='id-11e61e8750fa5f9973ad4928a3841475'): Cannot find typeRef 'QualifiedName(null, assessIssueRisk)'",
-                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Make credit decision', name='makeCreditDecision', id='id-99379862982a9a0a4ba92985d1eea607'): Cannot find typeRef 'QualifiedName(null, makeCreditDecision)'. The inferred type is 'string'",
-                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Process prior issues', name='processPriorIssues', id='id-b7fa3f2fe2a2f47a77bfd440c827a301'): Cannot find typeRef 'QualifiedName(null, processPriorIssues)'. The inferred type is 'ListType(number)'"
+                "(model='Example credit decision', label='Name', name='name', id='id-3338f5be7599eb351bf9ed99c553198c-relation-10'): Cannot find definition of typeRef 'missingNameComponentTypeRef'",
+                "(model='Example credit decision', label='Lending threshold', name='lendingThresholdMissing', id='id-4cb80be6fb604151f1e9edf9c3cbe2e7-1'): Cannot find definition of typeRef 'lendingThresholdMissingTypeRef'",
+                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Assess applicant age', name='assessApplicantAge', id='id-1454118466a747091e601b188b2b5c7b'): Cannot find definition of typeRef 'assessApplicantAge'",
+                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Assess issue', name='assessIssue', id='id-f2562ba74063028327a13930c969145c'): Cannot find definition of typeRef 'assessIssue'",
+                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Assess issue risk', name='assessIssueRisk', id='id-11e61e8750fa5f9973ad4928a3841475'): Cannot find definition of typeRef 'assessIssueRisk'",
+                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Compare against lending threshold', name='compareAgainstLendingThreshold', id='id-8d177a9bb52aa7c82782a45a04074801'): Cannot find definition of typeRef 'missingDTOutputTypeRef'",
+                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Make credit decision', name='makeCreditDecision', id='id-99379862982a9a0a4ba92985d1eea607'): Cannot find definition of typeRef 'makeCreditDecision'",
+                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Process prior issues', name='processPriorIssues', id='id-b7fa3f2fe2a2f47a77bfd440c827a301'): Cannot find definition of typeRef 'processPriorIssues'"
         );
         List<String> actualErrors = executeValidation(signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"));
 
