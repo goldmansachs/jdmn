@@ -185,6 +185,20 @@ public class DMNModelRepositoryTest extends AbstractTest {
     }
 
     @Test
+    public void testCreateImportGraph() {
+        // Read test models
+        this.dmnModelRepository = readModels("other/1.5/cycles-no-prefix/translator/");
+        Graph<TDefinitions> importGraph = this.dmnModelRepository.createImportGraph();
+        List<String> nodeNames = importGraph.getNodes().stream().map(TNamedElement::getName).toList();
+        assertEquals(List.of("model-a", "model-b"), nodeNames);
+        List<String> edges = importGraph.getEdges().stream().map(p -> p.getLeft() + " -> " + p.getRight()).toList();
+        assertEquals(List.of("TDefinitions(model-a) -> [TDefinitions(model-b)]", "TDefinitions(model-b) -> [TDefinitions(model-a)]"), edges);
+        assertEquals(List.of(), importGraph.findRootNodes());
+        List<String> cycles = importGraph.findCycles().stream().map(Object::toString).toList();
+        assertEquals(List.of("[TDefinitions(model-a), TDefinitions(model-b), TDefinitions(model-a)]"), cycles);
+    }
+
+    @Test
     public void testLookupForCyclicTypRefsWhenNoPrefix() {
         // Read test models
         this.dmnModelRepository = readModels("other/1.5/cycles-no-prefix/translator/");

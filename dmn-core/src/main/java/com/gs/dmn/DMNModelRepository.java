@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -237,6 +238,25 @@ public class DMNModelRepository {
             }
         }
         return null;
+    }
+
+    public Graph<TDefinitions> createImportGraph() {
+        return createImportGraph(this::isDMNImport);
+    }
+
+    private Graph<TDefinitions> createImportGraph(Predicate<TImport> filter) {
+        Graph<TDefinitions> graph = new Graph<>();
+        graph.addNodes(this.allDefinitions);
+        for (TDefinitions definitions : this.allDefinitions) {
+            for (TImport imp : definitions.getImport()) {
+                if (filter.test(imp)) {
+                    String namespace = imp.getNamespace();
+                    TDefinitions imported = findModelByNamespace(namespace);
+                    graph.addEdge(definitions, imported);
+                }
+            }
+        }
+        return graph;
     }
 
     public TDefinitions getModel(TNamedElement element) {

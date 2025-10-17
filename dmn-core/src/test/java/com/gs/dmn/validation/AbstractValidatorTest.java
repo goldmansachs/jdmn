@@ -36,8 +36,8 @@ public abstract class AbstractValidatorTest extends AbstractTest {
 
     protected DMNModelRepository makeRepository(URI fileURI) {
         File input = new File(fileURI);
-        TDefinitions definitions = this.serializer.readModel(input);
-        return new DMNModelRepository(definitions);
+        List<TDefinitions> definitionsList = this.serializer.readModels(input);
+        return new DMNModelRepository(definitionsList);
     }
 
     protected void checkErrors(List<String> expectedErrors, List<String> actualErrors) {
