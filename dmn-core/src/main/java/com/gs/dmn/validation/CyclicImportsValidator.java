@@ -36,6 +36,7 @@ public class CyclicImportsValidator extends SimpleDMNValidator {
         ValidationContext context = new ValidationContext(repository);
         if (isEmpty(repository)) {
             this.logger.warn("DMN repository is empty; validator will not run");
+            return context.getErrors();
         }
 
         // Build the import graph
