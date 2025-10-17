@@ -3,6 +3,9 @@
              namespace="http://camunda.org/schema/1.0/dmn">
     <import name="dec1" namespace="" importType=""/>
 
+    <itemDefinition name="test-empty-container">
+    </itemDefinition>
+
     <decision id="cip-assessments" name="CIP Assessments">
         <decisionTable id="decisionTable">
             <input id="input1" label="Gender">

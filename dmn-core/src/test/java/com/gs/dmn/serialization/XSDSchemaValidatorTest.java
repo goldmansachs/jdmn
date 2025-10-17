@@ -35,22 +35,22 @@ public class XSDSchemaValidatorTest extends AbstractValidatorTest {
         File dmnFile = new File(resource("dmn/input/1.5/test-dmn.dmn").getPath());
         List<String> actualErrors = XSDSchemaValidator.validateXSDSchema(new StreamSource(dmnFile), DMNVersion.DMN_15);
         List<String> expectedErrors = Arrays.asList(
-                "Line 77, Column 15: cvc-complex-type.4: Attribute 'name' must appear on element 'decision'.",
-                "Line 80, Column 24: cvc-complex-type.4: Attribute 'name' must appear on element 'decision'.",
-                "Line 84, Column 20: cvc-complex-type.4: Attribute 'name' must appear on element 'variable'.",
-                "Line 95, Column 29: cvc-complex-type.4: Attribute 'name' must appear on element 'businessKnowledgeModel'.",
-                "Line 98, Column 38: cvc-complex-type.4: Attribute 'name' must appear on element 'businessKnowledgeModel'.",
-                "Line 101, Column 39: cvc-complex-type.4: Attribute 'name' must appear on element 'businessKnowledgeModel'.",
-                "Line 102, Column 20: cvc-complex-type.4: Attribute 'name' must appear on element 'variable'.",
-                "Line 109, Column 29: cvc-complex-type.2.4.a: Invalid content was found starting with element '{\"https://www.omg.org/spec/DMN/20230324/MODEL/\":literalExpression}'. One of '{\"https://www.omg.org/spec/DMN/20230324/MODEL/\":knowledgeRequirement, \"https://www.omg.org/spec/DMN/20230324/MODEL/\":authorityRequirement}' is expected.",
-                "Line 112, Column 22: cvc-complex-type.4: Attribute 'name' must appear on element 'decisionService'.",
-                "Line 115, Column 30: cvc-complex-type.4: Attribute 'name' must appear on element 'decisionService'.",
-                "Line 118, Column 31: cvc-complex-type.4: Attribute 'name' must appear on element 'decisionService'.",
-                "Line 119, Column 20: cvc-complex-type.4: Attribute 'name' must appear on element 'variable'.",
-                "Line 120, Column 21: cvc-complex-type.4: Attribute 'href' must appear on element 'inputData'.",
-                "Line 121, Column 25: cvc-complex-type.2.4.a: Invalid content was found starting with element '{\"https://www.omg.org/spec/DMN/20230324/MODEL/\":inputDecision}'. One of '{\"https://www.omg.org/spec/DMN/20230324/MODEL/\":inputData}' is expected.",
-                "Line 121, Column 25: cvc-complex-type.4: Attribute 'href' must appear on element 'inputDecision'.",
-                "Line 122, Column 26: cvc-complex-type.4: Attribute 'href' must appear on element 'outputDecision'."
+                "Line 80, Column 15: cvc-complex-type.4: Attribute 'name' must appear on element 'decision'.",
+                "Line 83, Column 24: cvc-complex-type.4: Attribute 'name' must appear on element 'decision'.",
+                "Line 87, Column 20: cvc-complex-type.4: Attribute 'name' must appear on element 'variable'.",
+                "Line 98, Column 29: cvc-complex-type.4: Attribute 'name' must appear on element 'businessKnowledgeModel'.",
+                "Line 101, Column 38: cvc-complex-type.4: Attribute 'name' must appear on element 'businessKnowledgeModel'.",
+                "Line 104, Column 39: cvc-complex-type.4: Attribute 'name' must appear on element 'businessKnowledgeModel'.",
+                "Line 105, Column 20: cvc-complex-type.4: Attribute 'name' must appear on element 'variable'.",
+                "Line 112, Column 29: cvc-complex-type.2.4.a: Invalid content was found starting with element '{\"https://www.omg.org/spec/DMN/20230324/MODEL/\":literalExpression}'. One of '{\"https://www.omg.org/spec/DMN/20230324/MODEL/\":knowledgeRequirement, \"https://www.omg.org/spec/DMN/20230324/MODEL/\":authorityRequirement}' is expected.",
+                "Line 115, Column 22: cvc-complex-type.4: Attribute 'name' must appear on element 'decisionService'.",
+                "Line 118, Column 30: cvc-complex-type.4: Attribute 'name' must appear on element 'decisionService'.",
+                "Line 121, Column 31: cvc-complex-type.4: Attribute 'name' must appear on element 'decisionService'.",
+                "Line 122, Column 20: cvc-complex-type.4: Attribute 'name' must appear on element 'variable'.",
+                "Line 123, Column 21: cvc-complex-type.4: Attribute 'href' must appear on element 'inputData'.",
+                "Line 124, Column 25: cvc-complex-type.2.4.a: Invalid content was found starting with element '{\"https://www.omg.org/spec/DMN/20230324/MODEL/\":inputDecision}'. One of '{\"https://www.omg.org/spec/DMN/20230324/MODEL/\":inputData}' is expected.",
+                "Line 124, Column 25: cvc-complex-type.4: Attribute 'href' must appear on element 'inputDecision'.",
+                "Line 125, Column 26: cvc-complex-type.4: Attribute 'href' must appear on element 'outputDecision'."
         );
         checkErrors(expectedErrors, actualErrors);
     }

@@ -65,6 +65,20 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         }
     }
 
+    public void validateItemDefinition(TDefinitions definitions, TItemDefinition element, ValidationContext context) {
+        validateNamedElement(definitions, element, context);
+        QName typeRef = element.getTypeRef();
+
+        if (!hasTypeRef(typeRef) && element.getItemComponent().isEmpty() && element.getFunctionItem() == null) {
+            String errorMessage = "Incorrect definition of type";
+            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+        }
+    }
+
+    private static boolean hasTypeRef(QName typeRef) {
+        return typeRef != null && !StringUtils.isBlank(typeRef.getLocalPart());
+    }
+
     protected void validateInputData(TDefinitions definitions, TInputData element, ValidationContext context) {
         validateNamedElement(definitions, element, context);
         validateVariable(definitions, element, element.getVariable(), true, context);
@@ -441,6 +455,18 @@ class DefaultDMNValidatorVisitor extends TraversalVisitor<ValidationContext> {
             TDefinitions definitions = repository.getModel(element);
 
             this.validator.validateImport(definitions, element, context);
+        }
+
+        return element;
+    }
+
+    @Override
+    public DMNBaseElement visit(TItemDefinition element, ValidationContext context) {
+        if (element != null) {
+            DMNModelRepository repository = context.getRepository();
+            TDefinitions definitions = repository.getModel(element);
+
+            this.validator.validateItemDefinition(definitions, element, context);
         }
 
         return element;

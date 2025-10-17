@@ -47,6 +47,7 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
                 "(model='test-dmn'): The name of a DRGElement must be unique. Found duplicates for 'dec1'.",
                 "(model='test-dmn', name='dec1'): Missing importType of import",
                 "(model='test-dmn', name='dec1'): Missing namespace of import",
+                "(model='test-dmn', name='test-empty-container'): Incorrect definition of type",
                 "(model='test-dmn'): Missing id for element TDecision",
                 "(model='test-dmn'): Missing name for element TDecision",
                 "(model='test-dmn'): Missing variable",
