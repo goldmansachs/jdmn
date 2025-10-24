@@ -15,6 +15,8 @@ package com.gs.dmn;
 import com.gs.dmn.runtime.Pair;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.List;
 import java.util.Set;
 
@@ -132,5 +134,47 @@ class GraphTest {
         graph.addEdge(1, 1);
 
         assertEquals(List.of(List.of(1, 1)), graph.findCycles());
+    }
+
+    @Test
+    void testPrintNodes() throws IOException {
+        Graph<Integer> graph = new Graph<>();
+        graph.addEdge(1, 2);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 1); // Cycle 1-2-3-1
+        graph.addEdge(3, 4);
+        graph.addEdge(4, 2); // Cycle 2-3-4-2
+
+        StringWriter writer = new StringWriter();
+        graph.printNodes(writer, this::nodeInfo);
+        String expectedNodes = "1\n2\n3\n4\n";
+        assertEquals(expectedNodes, writer.getBuffer().toString());
+    }
+
+    @Test
+    void testPrintTree() {
+        Graph<Integer> graph = new Graph<>();
+        graph.addEdge(1, 2);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 1); // Cycle 1-2-3-1
+        graph.addEdge(3, 4);
+        graph.addEdge(4, 2); // Cycle 2-3-4-2
+
+        StringWriter writer = new StringWriter();
+        graph.printBF(1, writer, this::nodeInfo);
+        String expectedNodes =
+                """
+                        1
+                        \t2
+                        \t\t3
+                        \t\t\t1
+                        \t\t\t4
+                        \t\t\t\t2
+                        """;
+        assertEquals(expectedNodes, writer.getBuffer().toString());
+    }
+
+    private String nodeInfo(Integer node) {
+        return "" + node;
     }
 }

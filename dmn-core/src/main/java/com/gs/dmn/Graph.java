@@ -14,7 +14,12 @@ package com.gs.dmn;
 
 import com.gs.dmn.runtime.Pair;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Graph<T> {
     private final Set<T> nodes = new LinkedHashSet<>();
@@ -143,5 +148,35 @@ public class Graph<T> {
             collectCyclesDFS(child, visited, stack, cycles);
         }
         stack.pop();
+    }
+
+    public void printNodes(Writer writer, Function<T, String> nodeInfo) throws IOException {
+        for (T node : nodes) {
+            writer.write(nodeInfo.apply(node) + "\n");
+        }
+    }
+
+    public void printBF(T rootNode, StringWriter writer, Function<T, String> nodeInfo) {
+        printBF(rootNode, writer, nodeInfo, x -> true);
+    }
+
+    public void printBF(T rootNode, StringWriter writer, Function<T, String> nodeInfo, Predicate<T> filter) {
+        Set<T> visited = new LinkedHashSet<>();
+        if (filter.test(rootNode)) {
+            printBF(rootNode, writer, nodeInfo, filter, 0, visited);
+        }
+    }
+
+    private void printBF(T node, StringWriter writer, Function<T, String> nodeInfo, Predicate<T> filter, int level, Set<T> visited) {
+        String indent = "\t".repeat(level);
+        writer.write(indent + nodeInfo.apply(node) + "\n");
+        if (!visited.contains(node)) {
+            visited.add(node);
+            for (T child : getChildren(node)) {
+                if (filter.test(child)) {
+                    printBF(child, writer, nodeInfo, filter, level + 1, visited);
+                }
+            }
+        }
     }
 }
