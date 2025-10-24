@@ -148,11 +148,11 @@ class GraphTest {
         StringWriter writer = new StringWriter();
         graph.printNodes(writer, this::nodeInfo);
         String expectedNodes = "1\n2\n3\n4\n";
-        assertEquals(expectedNodes, writer.getBuffer().toString());
+        assertEquals(expectedNodes, writer.toString());
     }
 
     @Test
-    void testPrintTree() {
+    void testPrintTree() throws IOException {
         Graph<Integer> graph = new Graph<>();
         graph.addEdge(1, 2);
         graph.addEdge(2, 3);
@@ -171,7 +171,7 @@ class GraphTest {
                         \t\t\t4
                         \t\t\t\t2
                         """;
-        assertEquals(expectedNodes, writer.getBuffer().toString());
+        assertEquals(expectedNodes, writer.toString());
     }
 
     private String nodeInfo(Integer node) {

@@ -15,7 +15,6 @@ package com.gs.dmn;
 import com.gs.dmn.runtime.Pair;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.*;
 import java.util.function.Function;
@@ -156,18 +155,18 @@ public class Graph<T> {
         }
     }
 
-    public void printBF(T rootNode, StringWriter writer, Function<T, String> nodeInfo) {
+    public void printBF(T rootNode, Writer writer, Function<T, String> nodeInfo) throws IOException {
         printBF(rootNode, writer, nodeInfo, x -> true);
     }
 
-    public void printBF(T rootNode, StringWriter writer, Function<T, String> nodeInfo, Predicate<T> filter) {
+    public void printBF(T rootNode, Writer writer, Function<T, String> nodeInfo, Predicate<T> filter) throws IOException {
         Set<T> visited = new LinkedHashSet<>();
         if (filter.test(rootNode)) {
             printBF(rootNode, writer, nodeInfo, filter, 0, visited);
         }
     }
 
-    private void printBF(T node, StringWriter writer, Function<T, String> nodeInfo, Predicate<T> filter, int level, Set<T> visited) {
+    private void printBF(T node, Writer writer, Function<T, String> nodeInfo, Predicate<T> filter, int level, Set<T> visited) throws IOException {
         String indent = "\t".repeat(level);
         writer.write(indent + nodeInfo.apply(node) + "\n");
         if (!visited.contains(node)) {
