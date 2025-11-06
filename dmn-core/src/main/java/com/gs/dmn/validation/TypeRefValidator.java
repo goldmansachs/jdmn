@@ -55,7 +55,12 @@ public class TypeRefValidator extends SimpleDMNValidator {
         TypeRefValidatorVisitor visitor = new TypeRefValidatorVisitor(this.logger, this.errorHandler);
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             TypeRefValidationContext context = new TypeRefValidationContext(definitions, dmnModelRepository, errorReport);
-            definitions.accept(visitor, context);
+            try {
+                definitions.accept(visitor, context);
+            } catch (Exception e) {
+                String errorMessage = String.format("Error during validation of typeRefs for model '%s': %s", definitions.getName(), e.getMessage());
+                logger.error(errorMessage);
+            }
         }
         return errorReport;
     }
@@ -132,14 +137,23 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
         if (isPrimitiveType(typeRef1) || StringUtils.isEmpty(typeRef1)) {
             return typeRef;
         }
-
-        // Lookup for itemDefinitions starting from the current model
         TDefinitions model = context.getModel();
-        QualifiedName qualifiedName = QualifiedName.toQualifiedName(model, typeRef1);
-        TItemDefinition itemDefinition = context.getRepository().lookupItemDefinition(model, qualifiedName);
-        if (itemDefinition == null) {
+        try {
+            // Lookup for itemDefinitions starting from the current model
+            QualifiedName qualifiedName = QualifiedName.toQualifiedName(model, typeRef1);
+            TItemDefinition itemDefinition = context.getRepository().lookupItemDefinition(model, qualifiedName);
+            if (itemDefinition == null) {
+                // Record error
+                TNamedElement element = context.getElement();
+                String errorMessage = ErrorFactory.makeDMNErrorMessage(model, element, String.format("Cannot find definition of typeRef '%s'", typeRef1));
+                context.getErrorReport().add(new Pair<>(element, errorMessage));
+
+                this.logger.debug(errorMessage);
+            }
+        } catch (Exception e) {
+            // Record error
             TNamedElement element = context.getElement();
-            String errorMessage = ErrorFactory.makeDMNErrorMessage(model, element, String.format("Cannot find definition of typeRef '%s'", typeRef1));
+            String errorMessage = ErrorFactory.makeDMNErrorMessage(model, element, String.format("Error during lookup of typeRef '%s': %s", typeRef1, e.getMessage()));
             context.getErrorReport().add(new Pair<>(element, errorMessage));
 
             this.logger.debug(errorMessage);

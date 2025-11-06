@@ -14,6 +14,7 @@ package com.gs.dmn.validation;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,11 +30,20 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
     }
 
     @Test
-    public void validate() {
+    public void testValidateWhenMissingV11() {
         List<String> expectedErrors = Collections.singletonList(
                 "(model='test-dmn-with-missing-type-ref', label='Applicant', name='applicant', id='id-d2376567fde3c9400ee327ecec21e36d'): Cannot find definition of typeRef 'applicant'"
         );
         validate(validator, resource("dmn/input/1.1/test-dmn-with-missing-type-ref.dmn"), expectedErrors);
+    }
+
+    @Test
+    public void testValidateWhenMissingV15() {
+        List<String> expectedErrors = Arrays.asList(
+                "(model='test-dmn-with-missing-type-ref', label='Applicant', name='applicant', id='id-d2376567fde3c9400ee327ecec21e36d'): Cannot find definition of typeRef 'applicant'",
+                "(model='test-dmn-with-missing-type-ref', label='Applicant1', name='applicant1', id='id-d2376567fde3c9400ee327ecec21e36d-2'): Error during lookup of typeRef 'prefix.importedType': Cannot find DM for namespace 'missing-namespace'"
+        );
+        validate(validator, resource("dmn/input/1.5/test-dmn-with-missing-type-ref.dmn"), expectedErrors);
     }
 
     @Test
