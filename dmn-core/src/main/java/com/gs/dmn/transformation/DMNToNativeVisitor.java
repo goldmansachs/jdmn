@@ -19,7 +19,7 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.LogErrorHandler;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -112,7 +112,7 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
             return element;
         } catch (Exception e) {
             String errorMessage = makeErrorMessage(element, definitions);
-            throw new SemanticError(errorMessage, e);
+            throw new SemanticErrorException(errorMessage, e);
         }
     }
 
@@ -148,7 +148,7 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
             return element;
         } catch (Exception e) {
             String errorMessage = makeErrorMessage(element, definitions);
-            throw new SemanticError(errorMessage, e);
+            throw new SemanticErrorException(errorMessage, e);
         }
     }
 
@@ -168,7 +168,7 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
             return element;
         } catch (Exception e) {
             String errorMessage = makeErrorMessage(element, definitions);
-            throw new SemanticError(errorMessage, e);
+            throw new SemanticErrorException(errorMessage, e);
         }
     }
 
@@ -194,7 +194,7 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
             return element;
         } catch (Exception e) {
             String errorMessage = makeErrorMessage(element, definitions);
-            throw new SemanticError(errorMessage, e);
+            throw new SemanticErrorException(errorMessage, e);
         }
     }
 

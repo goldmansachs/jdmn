@@ -12,12 +12,12 @@
  */
 package com.gs.dmn.error;
 
-public class SemanticError extends RuntimeException {
-    public SemanticError(String errorMessage) {
+public class SemanticErrorException extends RuntimeException {
+    public SemanticErrorException(String errorMessage) {
         super(errorMessage);
     }
 
-    public SemanticError(String errorMessage, Throwable throwable) {
+    public SemanticErrorException(String errorMessage, Throwable throwable) {
         super(errorMessage, throwable);
     }
 }

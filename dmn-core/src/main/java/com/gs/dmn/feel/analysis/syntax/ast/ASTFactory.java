@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast;
 
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.arithmetic.Addition;
@@ -51,7 +51,7 @@ public class ASTFactory<T, C> {
         if (namespace instanceof PathExpression) {
             return new Library(((PathExpression) namespace).getPath(), name, functions);
         } else {
-            throw new SemanticError("Not supported");
+            throw new SemanticErrorException("Not supported");
         }
     }
 
@@ -131,7 +131,7 @@ public class ASTFactory<T, C> {
         } else if ("not".equals(kind)) {
             return new LogicNegation<>(operand);
         } else {
-            throw new SemanticError(String.format("Unknown unary operator '%s'", kind));
+            throw new SemanticErrorException(String.format("Unknown unary operator '%s'", kind));
         }
     }
 
@@ -197,7 +197,7 @@ public class ASTFactory<T, C> {
         if (names != null && !names.isEmpty()) {
             return toPathExpression(names);
         } else {
-            throw new SemanticError(String.format("Illegal qualified name '%s'", names));
+            throw new SemanticErrorException(String.format("Illegal qualified name '%s'", names));
         }
     }
 
@@ -373,7 +373,7 @@ public class ASTFactory<T, C> {
 
     public Expression<T> toPathExpression(List<String> names) {
         if (names == null || names.isEmpty()) {
-            throw new SemanticError("Expected at least 2 names, found " + names);
+            throw new SemanticErrorException("Expected at least 2 names, found " + names);
         }
 
         Expression<T> source = toName(names.get(0));
@@ -433,7 +433,7 @@ public class ASTFactory<T, C> {
         } else if (exp instanceof PathExpression) {
             return toNamedTypeExpression(((PathExpression<T>) exp).getPath());
         } else {
-            throw new SemanticError("Not supported" + exp.toString());
+            throw new SemanticErrorException("Not supported" + exp.toString());
         }
     }
 
@@ -459,7 +459,7 @@ public class ASTFactory<T, C> {
         } else if ("list".equals(typeName)) {
             return new ListTypeExpression<>(elementType);
         } else {
-            throw new SemanticError(String.format("Not supported type '%s'", typeName));
+            throw new SemanticErrorException(String.format("Not supported type '%s'", typeName));
         }
     }
 }

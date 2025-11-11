@@ -27,7 +27,7 @@ import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
@@ -664,7 +664,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
             if (getDMNModelRepository().isLibraryImport(import_)) {
                 ELLib library = getLibraryRepository().getLibrary(import_.getNamespace());
                 if (library == null) {
-                    throw new SemanticError(String.format("Cannot find library for namespace '%s' in import '%s'", import_.getNamespace(), import_));
+                    throw new SemanticErrorException(String.format("Cannot find library for namespace '%s' in import '%s'", import_.getNamespace(), import_));
                 }
                 importedLibraries.add(new Pair<>(import_.getName(), library));
             }

@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.feel.analysis.syntax;
 
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import org.antlr.v4.runtime.ConsoleErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
@@ -26,6 +26,6 @@ public class ErrorListener extends ConsoleErrorListener implements org.antlr.v4.
                             String msg,
                             RecognitionException e) {
         super.syntaxError(recognizer, offendingSymbol, line, charPositionInLine, msg, e);
-        throw new SemanticError("line " + line + ":" + charPositionInLine + " " + msg);
+        throw new SemanticErrorException("line " + line + ":" + charPositionInLine + " " + msg);
     }
 }

@@ -15,7 +15,7 @@ package com.gs.dmn.context.environment;
 import com.gs.dmn.el.analysis.semantics.type.FunctionType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -65,11 +65,11 @@ public class Environment {
                     existingDeclarations.add(declaration);
                     this.variablesTable.put(name, existingDeclarations);
                 } else {
-                    throw new SemanticError(String.format("%s '%s' already exists", declaration.getClass().getSimpleName(), name));
+                    throw new SemanticErrorException(String.format("%s '%s' already exists", declaration.getClass().getSimpleName(), name));
                 }
             }
         } else {
-            throw new SemanticError(String.format("Could not add declaration with missing name %s", declaration));
+            throw new SemanticErrorException(String.format("Could not add declaration with missing name %s", declaration));
         }
     }
 
@@ -82,7 +82,7 @@ public class Environment {
         } else if (declarations.stream().allMatch(d -> d.getType() instanceof FunctionType)) {
             return null;
         } else {
-            throw new SemanticError(String.format("Multiple variables for '%s' in the same context %s", name, declarations));
+            throw new SemanticErrorException(String.format("Multiple variables for '%s' in the same context %s", name, declarations));
         }
     }
 

@@ -13,7 +13,7 @@
 package com.gs.dmn.feel;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.synthesis.NativeOperator;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -297,7 +297,7 @@ public class OperatorDecisionTable {
         } else if (candidates.size() == 1) {
             return candidates.get(0);
         } else {
-            throw new SemanticError(String.format("Cannot resolve %s(%s, %s). Found zero or multiple candidates %s", name, leftType, rightType, candidates));
+            throw new SemanticErrorException(String.format("Cannot resolve %s(%s, %s). Found zero or multiple candidates %s", name, leftType, rightType, candidates));
         }
     }
 

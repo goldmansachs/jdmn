@@ -22,7 +22,7 @@ import com.gs.dmn.context.environment.RuntimeEnvironment;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Iterator;
@@ -103,12 +103,12 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
     //
     @Override
     public Object visit(Library<Type> element, DMNContext context) {
-        throw new SemanticError("Not supported");
+        throw new SemanticErrorException("Not supported");
     }
 
     @Override
     public Object visit(FunctionDeclaration<Type> element, DMNContext context) {
-        throw new SemanticError("Not supported");
+        throw new SemanticErrorException("Not supported");
     }
 
     //

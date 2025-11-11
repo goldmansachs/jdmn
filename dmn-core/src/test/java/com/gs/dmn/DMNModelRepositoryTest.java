@@ -13,7 +13,7 @@
 package com.gs.dmn;
 
 import com.gs.dmn.ast.*;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 import org.junit.jupiter.api.BeforeEach;
@@ -230,13 +230,13 @@ public class DMNModelRepositoryTest extends AbstractTest {
         TItemDefinition next = findItemDefinition(node, "next");
 
         // Test findItemDefinitionAndAllowedValuesFor()
-        assertThrows(SemanticError.class, () -> {
+        assertThrows(SemanticErrorException.class, () -> {
             this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(t1);
         });
-        assertThrows(SemanticError.class, () -> {
+        assertThrows(SemanticErrorException.class, () -> {
             this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(t2);
         });
-        assertThrows(SemanticError.class, () -> {
+        assertThrows(SemanticErrorException.class, () -> {
             this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(other);
         });
         assertEquals(node, this.dmnModelRepository.findItemDefinitionAndAllowedValuesFor(node).getLeft());

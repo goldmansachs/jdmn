@@ -15,11 +15,11 @@ package com.gs.dmn.signavio.testlab.visitor;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.serialization.TCKVersion;
-import com.gs.dmn.signavio.testlab.*;
 import com.gs.dmn.signavio.testlab.TestCase;
 import com.gs.dmn.signavio.testlab.Visitor;
+import com.gs.dmn.signavio.testlab.*;
 import com.gs.dmn.signavio.testlab.expression.*;
 import com.gs.dmn.tck.ast.*;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -247,7 +247,7 @@ public class ToTCKVisitor implements Visitor<TCKBaseElement, TestLabContext> {
         try {
             return value != null ? datatypeFactory.newXMLGregorianCalendar(value) : null;
         } catch (Exception e) {
-            throw new SemanticError(String.format("Cannot create temporal literal from '%s'", value), e);
+            throw new SemanticErrorException(String.format("Cannot create temporal literal from '%s'", value), e);
         }
     }
 

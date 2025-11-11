@@ -20,7 +20,7 @@ import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.semantics.type.StringType;
 import com.gs.dmn.log.NopBuildLogger;
 import com.gs.dmn.serialization.DMNSerializer;
@@ -66,33 +66,33 @@ class StandardDMNEnvironmentFactoryTest extends AbstractTest {
         this.environmentFactory = new StandardDMNEnvironmentFactory(transformer);
 
         // Test model-a
-        assertThrows(SemanticError.class, () -> {
+        assertThrows(SemanticErrorException.class, () -> {
             assertNull(this.environmentFactory.toFEELType(t1));
         });
-        assertThrows(SemanticError.class, () -> {
+        assertThrows(SemanticErrorException.class, () -> {
             assertNull(this.environmentFactory.toFEELType(t2));
         });
-        assertThrows(SemanticError.class, () -> {
+        assertThrows(SemanticErrorException.class, () -> {
             assertNull(this.environmentFactory.toFEELType(node));
         });
         assertEquals(StringType.STRING, this.environmentFactory.toFEELType(key));
         assertEquals(StringType.STRING, this.environmentFactory.toFEELType(defReference));
-        assertThrows(SemanticError.class, () -> {
+        assertThrows(SemanticErrorException.class, () -> {
             assertNull(this.environmentFactory.toFEELType(next));
         });
 
         // Test model-b
-        assertThrows(SemanticError.class, () -> {
+        assertThrows(SemanticErrorException.class, () -> {
             assertNull(this.environmentFactory.toFEELType(other));
         });
         assertEquals(StringType.STRING, this.environmentFactory.toFEELType(defDefinition));
 
         // Test other toFEELType() methods
-        assertThrows(SemanticError.class, () -> {
+        assertThrows(SemanticErrorException.class, () -> {
             assertEquals(StringType.STRING, this.environmentFactory.toFEELType(modelA, "key"));
         });
         assertEquals(StringType.STRING, this.environmentFactory.toFEELType(modelB, "def"));
-        assertThrows(SemanticError.class, () -> {
+        assertThrows(SemanticErrorException.class, () -> {
             assertEquals(StringType.STRING, this.environmentFactory.toFEELType(modelA, QualifiedName.toQualifiedName("", "key")));
         });
         assertEquals(StringType.STRING, this.environmentFactory.toFEELType(modelB, QualifiedName.toQualifiedName("", "def")));

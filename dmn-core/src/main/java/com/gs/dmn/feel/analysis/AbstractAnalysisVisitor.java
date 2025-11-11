@@ -20,7 +20,7 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.semantics.type.DateType;
 import com.gs.dmn.feel.analysis.semantics.type.NumberType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -69,15 +69,15 @@ public abstract class AbstractAnalysisVisitor<T, C, R> extends AbstractVisitor<T
     }
 
     protected void handleError(String message) {
-        throw new SemanticError(message);
+        throw new SemanticErrorException(message);
     }
 
     protected void handleError(DMNContext context, Expression<Type> element, String message) {
-        throw new SemanticError(makeELExpressionErrorMessage(context, element, message));
+        throw new SemanticErrorException(makeELExpressionErrorMessage(context, element, message));
     }
 
     protected void handleError(DMNContext context, Expression<Type> element, String message, Exception e) {
-        throw new SemanticError(makeELExpressionErrorMessage(context, element, message), e);
+        throw new SemanticErrorException(makeELExpressionErrorMessage(context, element, message), e);
     }
 
     protected String makeELExpressionErrorMessage(DMNContext context, com.gs.dmn.el.analysis.syntax.ast.expression.Expression<Type> expression, String errorMessage) {

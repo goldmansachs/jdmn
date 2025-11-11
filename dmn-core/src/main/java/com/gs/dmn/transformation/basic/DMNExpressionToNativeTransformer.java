@@ -21,7 +21,7 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
@@ -157,7 +157,7 @@ public class DMNExpressionToNativeTransformer {
             }
             return null;
         } else {
-            throw new SemanticError(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("Not supported '%s'", expression.getClass().getSimpleName()));
         }
     }
 
@@ -392,7 +392,7 @@ public class DMNExpressionToNativeTransformer {
             // Generate code
             return this.feelTranslator.expressionToNative(feelOutputEntryExpression, outputEntryContext);
         } else {
-            throw new SemanticError(String.format("Not supported '%s' in element '%s'", expression.getClass().getSimpleName(), element.getName()));
+            throw new SemanticErrorException(String.format("Not supported '%s' in element '%s'", expression.getClass().getSimpleName(), element.getName()));
         }
     }
 
@@ -697,7 +697,7 @@ public class DMNExpressionToNativeTransformer {
         if (resultType instanceof ListType) {
             elementType = ((ListType) resultType).getElementType();
         } else {
-            throw new SemanticError(String.format("Expected list type, found '%s'", resultType));
+            throw new SemanticErrorException(String.format("Expected list type, found '%s'", resultType));
         }
         if (list.getExpression() == null) {
             return this.nativeFactory.makeExpressionStatement(this.nativeFactory.nullLiteral(), resultType);
@@ -938,7 +938,7 @@ public class DMNExpressionToNativeTransformer {
             String conversionText = this.nativeFactory.convertToListOfItemDefinitionType(javaExpression, (ItemDefinitionType) expectedElementType);
             return this.nativeFactory.makeExpressionStatement(conversionText, expectedType);
         } else if (kind == ConversionKind.CONFORMS_TO) {
-            throw new SemanticError(String.format("Type '%s' does not conform to '%s'", expressionType, expectedType));
+            throw new SemanticErrorException(String.format("Type '%s' does not conform to '%s'", expressionType, expectedType));
         }
         return statement;
     }

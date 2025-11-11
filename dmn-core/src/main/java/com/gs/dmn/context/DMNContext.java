@@ -20,7 +20,7 @@ import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.error.ErrorFactory;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.ArrayList;
@@ -80,7 +80,7 @@ public class DMNContext {
         try {
             this.environment.addDeclaration(declaration);
         } catch (Exception e) {
-            throw new SemanticError(ErrorFactory.makeDMNErrorMessage(null, element, e.getMessage()), e);
+            throw new SemanticErrorException(ErrorFactory.makeDMNErrorMessage(null, element, e.getMessage()), e);
         }
     }
 

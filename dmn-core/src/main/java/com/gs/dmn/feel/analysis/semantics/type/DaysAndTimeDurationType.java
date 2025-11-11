@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,7 +36,7 @@ public class DaysAndTimeDurationType extends DurationType {
     public static Type getMemberType(Type sourceType, String member) {
         Type type = MEMBERS.get(member);
         if (Type.isNull(type)) {
-            throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
+            throw new SemanticErrorException(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
         }
         return type;
     }

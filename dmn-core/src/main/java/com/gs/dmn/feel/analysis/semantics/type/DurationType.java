@@ -13,7 +13,7 @@
 package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.FEELConstants;
 
 import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
@@ -34,7 +34,7 @@ public class DurationType extends ComparableDataType {
             }
             return memberType == null ? DaysAndTimeDurationType.getMemberType(sourceType, member) : memberType;
         } else {
-            throw new SemanticError(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
+            throw new SemanticErrorException(String.format("Cannot find member '%s' of type '%s'", member, sourceType.toString()));
         }
     }
 

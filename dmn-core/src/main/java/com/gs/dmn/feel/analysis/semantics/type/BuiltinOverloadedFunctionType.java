@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterConversions;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.ParameterTypes;
@@ -60,37 +60,37 @@ public class BuiltinOverloadedFunctionType extends FunctionType {
 
     @Override
     public List<FormalParameter<Type>> getParameters() {
-        throw new SemanticError("Not supported yet");
+        throw new SemanticErrorException("Not supported yet");
     }
 
     @Override
     public List<Type> getParameterTypes() {
-        throw new SemanticError("Not supported yet");
+        throw new SemanticErrorException("Not supported yet");
     }
 
     @Override
     public Type getReturnType() {
-        throw new SemanticError("Not supported yet");
+        throw new SemanticErrorException("Not supported yet");
     }
 
     @Override
     public void setReturnType(Type returnType) {
-        throw new SemanticError("Not supported yet");
+        throw new SemanticErrorException("Not supported yet");
     }
 
     @Override
     public boolean isFullySpecified() {
-        throw new SemanticError("Not supported yet");
+        throw new SemanticErrorException("Not supported yet");
     }
 
     @Override
     public boolean match(ParameterTypes<Type> parameterTypes) {
-        throw new SemanticError("Not supported yet");
+        throw new SemanticErrorException("Not supported yet");
     }
 
     @Override
     protected List<Pair<ParameterTypes<Type>, ParameterConversions<Type>>> matchCandidates(List<Type> argumentTypes) {
-        throw new SemanticError("Not supported yet");
+        throw new SemanticErrorException("Not supported yet");
     }
 
     @Override

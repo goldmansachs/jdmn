@@ -23,7 +23,7 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.interpreter.ELInterpreter;
 import com.gs.dmn.el.synthesis.ELTranslator;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.test.UnaryTests;
@@ -435,7 +435,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "listEqual(numberList, asList(number(\"1\"), number(\"2\"), number(\"3\")))",
                 this.lib.listEqual(numberList, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                 true);
-        Exception exception = assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticErrorException.class, () -> {
             doUnaryTestsTest(entries, "numberList", "[\"1\", \"2\", \"3\"]",
                     "PositiveUnaryTests(ListTest(ListLiteral(OperatorRange(null,NumericLiteral(1)),OperatorRange(null,NumericLiteral(2)),OperatorRange(null,NumericLiteral(3)))))",
                     "TupleType(boolean)",
@@ -717,7 +717,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testEqualOperatorRangeWhenTypeMismatch() {
-        Exception exception = assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticErrorException.class, () -> {
             Boolean input = true;
             List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", BOOLEAN, input));
@@ -729,7 +729,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testOperatorRangeWhenTypeMismatch() {
-        Exception exception = assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticErrorException.class, () -> {
             List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", BOOLEAN, true));
 
@@ -966,7 +966,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 Arrays.asList(this.lib.number("6")));
 
         // duplicated iteration variable
-        exception = assertThrows(SemanticError.class, () -> {
+        exception = assertThrows(SemanticErrorException.class, () -> {
             doExpressionTest(entries, "", "for i in [1,2], i in [4,5] return i * j",
                     "ForExpression(Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(4),NumericLiteral(5)))) -> Multiplication(*,Name(i),Name(j)))",
                     "ListType(number)",
@@ -1029,7 +1029,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testIfExpressionWhenConditionIsNotBoolean() {
-        Exception exception = assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticErrorException.class, () -> {
             List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
@@ -1045,7 +1045,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testIfExpressionWhenTypesDontMatch() {
-        Exception exception = assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticErrorException.class, () -> {
             List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
@@ -1085,7 +1085,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 true);
 
         // two domains - ranges
-        Exception exception = assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticErrorException.class, () -> {
             doExpressionTest(entries, "", "some i in [1..2] j in [2..3] satisfies i + j > 1",
                     "QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                     "boolean",
@@ -1097,7 +1097,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     true);
         });
         assertEquals("Type 'RangeType(number)' is not supported for iteration domains for expression 'QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))'", exception.getMessage());
-        exception = assertThrows(SemanticError.class, () -> {
+        exception = assertThrows(SemanticErrorException.class, () -> {
             doExpressionTest(entries, "", "every i in [1..2] j in [2..3] satisfies i + j > 1",
                     "QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                     "boolean",
@@ -1954,7 +1954,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testInExpressionWhenOperatorRangeAndTypeMismatch() {
-        Exception exception = assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticErrorException.class, () -> {
             List<EnvironmentEntry> entries = Collections.singletonList(
                     new EnvironmentEntry("input", NUMBER, this.lib.number("1")));
 
@@ -2499,7 +2499,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
     @Test
     public void testArithmeticNegationOnIncorrectOperands() {
-        Exception exception = assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticErrorException.class, () -> {
             String date = "date(\"2020-01-01\")";
             String time = "time(\"21:00:00\")";
 
@@ -2875,7 +2875,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         );
 
         // Incorrect external function
-        Exception exception = assertThrows(SemanticError.class, () -> {
+        Exception exception = assertThrows(SemanticErrorException.class, () -> {
             doExpressionTest(entries, "", "function (x : string, y : string) external { " +
                             "java: {class : \"name\", methodSignature: \"signature\"} }",
                     "FunctionDefinition(FormalParameter(x, string, false, false),FormalParameter(y, string, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)",

@@ -14,7 +14,7 @@ package com.gs.dmn.feel.analysis.semantics.type;
 
 import com.gs.dmn.el.analysis.semantics.type.NullType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.*;
 import com.gs.dmn.runtime.Pair;
@@ -159,7 +159,7 @@ public abstract class FunctionType implements com.gs.dmn.el.analysis.semantics.t
                 } else if (kind == CONFORMS_TO) {
                     failed = true;
                 } else {
-                    throw new SemanticError(String.format("Conversion '%s' is not supported yet", kind));
+                    throw new SemanticErrorException(String.format("Conversion '%s' is not supported yet", kind));
                 }
             }
 

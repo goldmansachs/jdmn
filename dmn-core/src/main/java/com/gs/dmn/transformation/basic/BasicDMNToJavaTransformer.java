@@ -24,7 +24,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.error.ErrorFactory;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FormalParameter;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
@@ -893,7 +893,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             } else if (Type.isNullOrAny(type)) {
                 // infer from inputs
             } else {
-                throw new SemanticError(String.format("Expected DMN function type, found '%s'", type));
+                throw new SemanticErrorException(String.format("Expected DMN function type, found '%s'", type));
             }
         }
         // Infer from expression
@@ -956,7 +956,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             } else if (Type.isNullOrAny(type)) {
                 // infer from inputs
             } else {
-                throw new SemanticError(String.format("Expected DMN function type, found '%s'", type));
+                throw new SemanticErrorException(String.format("Expected DMN function type, found '%s'", type));
             }
         }
         // Infer from inputs
@@ -1684,7 +1684,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             TDefinitions definitions = this.dmnModelRepository.getModel(element);
             TExpression expression = this.dmnModelRepository.expression(element);
             String errorMessage = "Error translating expression to native platform";
-            throw new SemanticError(ErrorFactory.makeDMNExpressionErrorMessage(definitions, element, expression, errorMessage), e);
+            throw new SemanticErrorException(ErrorFactory.makeDMNExpressionErrorMessage(definitions, element, expression, errorMessage), e);
         }
     }
 
