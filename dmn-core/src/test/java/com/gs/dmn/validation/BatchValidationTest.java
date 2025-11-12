@@ -27,6 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class BatchValidationTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchValidationTest.class);
@@ -41,9 +42,9 @@ public class BatchValidationTest {
 
     public void validateFolder(File rootFolder) throws IOException {
         if (rootFolder.exists()) {
-            Files.find(Paths.get(rootFolder.getPath()), 999, (p, bfa) -> bfa.isRegularFile()).forEach(
-                    this::validate
-            );
+            try (Stream<Path> pathStream = Files.find(Paths.get(rootFolder.getPath()), 999, (p, bfa) -> bfa.isRegularFile())) {
+                pathStream.forEach(this::validate);
+            }
         }
     }
 
@@ -54,7 +55,7 @@ public class BatchValidationTest {
             DMNModelRepository repository = new DMNModelRepository(this.serializer.readModel(file));
             List<String> errors = this.validator.validate(repository);
             if (!errors.isEmpty()) {
-                for (String error: errors) {
+                for (String error : errors) {
                     LOGGER.error(error);
                 }
             }
@@ -62,7 +63,7 @@ public class BatchValidationTest {
     }
 
     public static void main(String[] args) throws IOException {
-        File root = new File ("dmn-test-cases/signavio/dmn");
+        File root = new File("dmn-test-cases/signavio/dmn");
 
         new BatchValidationTest().validateFolder(root);
     }

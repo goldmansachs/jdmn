@@ -33,8 +33,8 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenRepositoryIsEmpty() {
         List<String> expectedErrors = Collections.emptyList();
-        assertEquals(expectedErrors, validator.validate(null));
-        assertEquals(expectedErrors, validator.validate(new DMNModelRepository()));
+        checkErrors(expectedErrors, validator.validate(null));
+        checkErrors(expectedErrors, validator.validate(new DMNModelRepository()));
     }
 
     @Test
@@ -120,7 +120,7 @@ public class SweepRuleOverlapValidatorTest extends AbstractValidatorTest {
 
         List<RuleGroup> expectedGroups = new ArrayList<>();
         expectedGroups.add(new RuleGroup(Arrays.asList(2, 3)));
-        expectedGroups.add(new RuleGroup(Arrays.asList(1, 2 ,5)));
+        expectedGroups.add(new RuleGroup(Arrays.asList(1, 2, 5)));
         expectedGroups.add(new RuleGroup(Arrays.asList(3, 4)));
         expectedGroups.add(new RuleGroup(Arrays.asList(4, 5)));
         expectedGroups.add(new RuleGroup(Arrays.asList(4, 6)));

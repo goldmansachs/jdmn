@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
     private final SweepMissingIntervalValidator validator = new SweepMissingIntervalValidator(new JavaTimeDMNDialectDefinition());
 
@@ -34,8 +32,8 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenRepositoryIsEmpty() {
         List<String> expectedErrors = Collections.emptyList();
-        assertEquals(expectedErrors, validator.validate(null));
-        assertEquals(expectedErrors, validator.validate(new DMNModelRepository()));
+        checkErrors(expectedErrors, validator.validate(null));
+        checkErrors(expectedErrors, validator.validate(new DMNModelRepository()));
     }
 
     @Test

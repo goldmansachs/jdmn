@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest {
     private final RuleDescriptionValidator validator = new RuleDescriptionValidator();
 
@@ -61,7 +59,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
                 "(name='Test'): Description of rule 0 in decision 'Test' contains illegal sequence ',  ,'",
                 "(name='Test'): Description of rule 0 in decision 'Test' contains illegal sequence ', ]'"
         );
-        assertEquals(expectedErrors, actualErrors);
+        checkErrors(expectedErrors, actualErrors);
     }
 
     @Test
@@ -73,7 +71,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
         List<String> expectedErrors = Collections.singletonList(
                 "(name='Test'): Description of rule 0 in decision 'Test' contains illegal sequence 'string(-)'"
         );
-        assertEquals(expectedErrors, actualErrors);
+        checkErrors(expectedErrors, actualErrors);
     }
 
     @Test
@@ -85,7 +83,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
         List<String> expectedErrors = Collections.singletonList(
                 "(name='Test'): Description of rule 0 in decision 'Test' contains illegal sequence 'NO-BREAK SPACE'"
         );
-        assertEquals(expectedErrors, actualErrors);
+        checkErrors(expectedErrors, actualErrors);
     }
 
     private TDecision makeDecision() {

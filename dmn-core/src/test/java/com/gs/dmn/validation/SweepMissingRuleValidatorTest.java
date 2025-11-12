@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class SweepMissingRuleValidatorTest extends AbstractValidatorTest {
     private final SweepMissingRuleValidator validator = new SweepMissingRuleValidator(new JavaTimeDMNDialectDefinition());
 
@@ -34,8 +32,8 @@ public class SweepMissingRuleValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenRepositoryIsEmpty() {
         List<String> expectedErrors = Collections.emptyList();
-        assertEquals(expectedErrors, validator.validate(null));
-        assertEquals(expectedErrors, validator.validate(new DMNModelRepository()));
+        checkErrors(expectedErrors, validator.validate(null));
+        checkErrors(expectedErrors, validator.validate(new DMNModelRepository()));
     }
 
     @Test
@@ -78,7 +76,7 @@ public class SweepMissingRuleValidatorTest extends AbstractValidatorTest {
                 "(model='loan-grade-with-relational-operators', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Found missing rule '[[1000, 2000), [0, 500)]' in 'Loan Grade' table",
                 "(model='loan-grade-with-relational-operators', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Found missing rule '[[1000, 2000), (3000, 5000]]' in 'Loan Grade' table",
                 "(model='loan-grade-with-relational-operators', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Found missing rule '[(2000, +Infinity), (3000, 5000]]' in 'Loan Grade' table"
-       );
+        );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-relational-operators.dmn"), expectedErrors);
     }
 
