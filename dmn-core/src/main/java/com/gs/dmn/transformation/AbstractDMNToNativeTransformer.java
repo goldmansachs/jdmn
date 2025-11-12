@@ -78,7 +78,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         this.dmnTransformer.transform(repository);
 
         // Validate the models
-        handleValidationErrors(this.dmnValidator.validate(repository));
+        handleErrors(this.dmnValidator.validate(repository));
 
         // Translate the models to the native platform
         BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer = this.dialectDefinition.createBasicTransformer(repository, this.lazyEvaluationDetector, this.inputParameters);
@@ -90,7 +90,7 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
     protected void transformModels(DMNModelRepository dmnModelRepository, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
         DMNToNativeVisitor visitor = new DMNToNativeVisitor(this.logger, new LogErrorHandler(LOGGER), dmnTransformer, dmnModelRepository, this.templateProcessor, outputPath, new ArrayList<>(), this.decisionBaseClass);
-        for(TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
+        for (TDefinitions definitions : dmnModelRepository.getAllDefinitions()) {
             definitions.accept(visitor, new NativeVisitorContext(definitions));
 
             // Generate .proto file

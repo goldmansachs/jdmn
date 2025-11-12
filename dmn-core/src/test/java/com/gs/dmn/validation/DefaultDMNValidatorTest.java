@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.validation;
 
+import com.gs.dmn.error.SemanticError;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -32,11 +33,11 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='test-dmn-with-duplicates'): The name of a DRGElement must be unique. Found duplicates for 'CIP Assessments, Input'.",
-                "(model='test-dmn-with-duplicates'): The name of a ItemDefinition must be unique. Found duplicates for 'itemDefinition'.",
-                "(model='test-dmn-with-duplicates', name='CIP Assessments', id='cip-assessments'): Missing variable",
-                "(model='test-dmn-with-duplicates', name='CIP Assessments', id='cip-assessments1'): Missing variable",
-                "(model='test-dmn-with-duplicates', label='String', name='CIP Assessments', id='id-input-1'): DRGElement name and variable name should be the same. Found 'CIP Assessments' and 'string'"
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The name of a DRGElement must be unique. Found duplicates for 'CIP Assessments, Input'.",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The name of a ItemDefinition must be unique. Found duplicates for 'itemDefinition'.",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'cip-assessments'): Missing variable",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'cip-assessments1'): Missing variable",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'id-input-1'): DRGElement name and variable name should be the same. Found 'CIP Assessments' and 'string'"
         );
         validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
     }
@@ -44,47 +45,47 @@ public class DefaultDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWithError() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='test-dmn'): The name of a DRGElement must be unique. Found duplicates for 'dec1'.",
-                "(model='test-dmn', name='dec1'): Missing importType of import",
-                "(model='test-dmn', name='dec1'): Missing namespace of import",
-                "(model='test-dmn', name='test-empty-container'): Incorrect definition of type",
-                "(model='test-dmn'): Missing id for element TDecision",
-                "(model='test-dmn'): Missing name for element TDecision",
-                "(model='test-dmn'): Missing variable",
-                "(model='test-dmn'): Missing expression",
-                "(model='test-dmn', id='dec'): Missing name for element TDecision",
-                "(model='test-dmn', id='dec'): Missing variable",
-                "(model='test-dmn', id='dec'): Missing expression",
-                "(model='test-dmn'): Missing id for element TBusinessKnowledgeModel",
-                "(model='test-dmn'): Missing name for element TBusinessKnowledgeModel",
-                "(model='test-dmn'): Missing variable",
-                "(model='test-dmn'): Missing expression",
-                "(model='test-dmn', id='bkm'): Missing name for element TBusinessKnowledgeModel",
-                "(model='test-dmn', id='bkm'): Missing variable",
-                "(model='test-dmn', id='bkm'): Missing expression",
-                "(model='test-dmn', id='bkm1'): Missing name for element TBusinessKnowledgeModel",
-                "(model='test-dmn', id='bkm1'): Missing variable name",
-                "(model='test-dmn'): The href of a TDMNElementReference must be unique. Found duplicates for '125'.",
-                "(model='test-dmn', id='bkm1'): Missing expression",
-                "(model='test-dmn'): Missing id for element TDecisionService",
-                "(model='test-dmn'): Missing name for element TDecisionService",
-                "(model='test-dmn'): Missing variable",
-                "(model='test-dmn', id='ds'): Missing name for element TDecisionService",
-                "(model='test-dmn', id='ds'): Missing variable",
-                "(model='test-dmn', id='ds1'): Missing name for element TDecisionService",
-                "(model='test-dmn', id='ds1'): Missing variable name",
-                "(model='test-dmn', name='CIP Assessments', id='cip-assessments'): Missing variable",
-                "(model='test-dmn', name='dec1', id='dec1'): Missing variable name",
-                "(model='test-dmn', name='dec1', id='dec1'): Missing typRef of variable",
-                "(model='test-dmn', name='dec1', id='dec1'): Missing text of literal expression",
-                "(model='test-dmn'): The variable type 'string' must be the same as the type of the contained expression 'number'"
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): The name of a DRGElement must be unique. Found duplicates for 'dec1'.",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'dec1'): Missing importType of import",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'dec1'): Missing namespace of import",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'test-empty-container'): Incorrect definition of type",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing id for element TDecision",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing name for element TDecision",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing variable",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing expression",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'dec'): Missing name for element TDecision",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'dec'): Missing variable",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'dec'): Missing expression",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing id for element TBusinessKnowledgeModel",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing name for element TBusinessKnowledgeModel",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing variable",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing expression",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'bkm'): Missing name for element TBusinessKnowledgeModel",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'bkm'): Missing variable",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'bkm'): Missing expression",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'bkm1'): Missing name for element TBusinessKnowledgeModel",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'bkm1'): Missing variable name",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): The href of a TDMNElementReference must be unique. Found duplicates for '125'.",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'bkm1'): Missing expression",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing id for element TDecisionService",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing name for element TDecisionService",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): Missing variable",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'ds'): Missing name for element TDecisionService",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'ds'): Missing variable",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'ds1'): Missing name for element TDecisionService",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementId = 'ds1'): Missing variable name",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'cip-assessments'): Missing variable",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'dec1', elementId = 'dec1'): Missing variable name",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'dec1', elementId = 'dec1'): Missing typRef of variable",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions', elementName = 'dec1', elementId = 'dec1'): Missing text of literal expression",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn', modelId = 'definitions'): The variable type 'string' must be the same as the type of the contained expression 'number'"
         );
         validate(validator, resource("dmn/input/1.5/test-dmn.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateDefinitionsWhenNull() {
-        List<String> actualErrors = validator.validate(null);
+        List<SemanticError> actualErrors = validator.validate(null);
         assertTrue(actualErrors.isEmpty());
     }
 }

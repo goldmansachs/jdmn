@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.validation;
 
+import com.gs.dmn.error.SemanticError;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -31,16 +32,16 @@ public class UniqueNameValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='test-dmn-with-duplicates'): The 'name' of a 'DRGElement' must be unique. Found 3 duplicates for 'CIP Assessments'.",
-                "(model='test-dmn-with-duplicates'): The 'name' of a 'DRGElement' must be unique. Found 2 duplicates for 'Input'.",
-                "(model='test-dmn-with-duplicates'): The 'name' of a 'ItemDefinition' must be unique. Found 2 duplicates for 'itemDefinition'."
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The 'name' of a 'DRGElement' must be unique. Found 3 duplicates for 'CIP Assessments'.",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The 'name' of a 'DRGElement' must be unique. Found 2 duplicates for 'Input'.",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicates', modelId = 'definitions'): The 'name' of a 'ItemDefinition' must be unique. Found 2 duplicates for 'itemDefinition'."
         );
         validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicates.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateDefinitionsWhenNull() {
-        List<String> actualErrors = validator.validate(null);
+        List<SemanticError> actualErrors = validator.validate(null);
         assertTrue(actualErrors.isEmpty());
     }
 }

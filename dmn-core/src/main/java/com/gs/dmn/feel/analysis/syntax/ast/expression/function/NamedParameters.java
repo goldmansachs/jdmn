@@ -12,14 +12,15 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.ExpressionLocation;
 import com.gs.dmn.feel.analysis.syntax.ConversionKind;
 import com.gs.dmn.feel.analysis.syntax.ast.Visitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.runtime.DMNRuntimeException;
+import org.apache.commons.lang3.function.TriFunction;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 public class NamedParameters<T> extends Parameters<T> {
@@ -68,14 +69,14 @@ public class NamedParameters<T> extends Parameters<T> {
     }
 
     @Override
-    public Arguments<T> convertArguments(BiFunction<Object, Conversion<T>, Object> convertArgument) {
+    public Arguments<T> convertArguments(TriFunction<Object, Conversion<T>, ExpressionLocation<Expression<T>>, Object> convertArgument, ExpressionLocation<Expression<T>> location) {
         if (requiresConversion()) {
             this.convertedArguments = new NamedArguments<>();
             for (Map.Entry<String, Conversion<T>> entry : this.parameterConversions.getConversions().entrySet()) {
                 String key = entry.getKey();
                 Object arg = this.originalArguments.getArguments().get(key);
                 Conversion<T> conversion = entry.getValue();
-                Object convertedArg = convertArgument.apply(arg, conversion);
+                Object convertedArg = convertArgument.apply(arg, conversion, location);
                 this.convertedArguments.add(key, convertedArg);
             }
         } else {

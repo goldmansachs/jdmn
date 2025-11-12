@@ -14,13 +14,11 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.NameUtils;
 import com.gs.dmn.context.DMNContext;
-import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.LogAndThrowErrorHandler;
 import com.gs.dmn.feel.analysis.AbstractAnalysisVisitor;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Name;
-import com.gs.dmn.runtime.function.BuiltinFunction;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import org.apache.commons.lang3.StringUtils;
 
@@ -28,6 +26,7 @@ import java.util.*;
 
 public abstract class AbstractFEELToNativeVisitor<R> extends AbstractAnalysisVisitor<Type, DMNContext, R> {
     private static final Map<String, String> FEEL_2_NATIVE_FUNCTION = new LinkedHashMap<>();
+
     static {
         // constructors
         FEEL_2_NATIVE_FUNCTION.put("date and time", "dateAndTime");
@@ -108,16 +107,6 @@ public abstract class AbstractFEELToNativeVisitor<R> extends AbstractAnalysisVis
 
     protected String functionName(Expression<Type> function) {
         return ((Name<Type>) function).getName();
-    }
-
-    protected String functionName(Object function) {
-        try {
-            List<Declaration> declarations = ((BuiltinFunction) function).getDeclarations();
-            return declarations.get(0).getName();
-        } catch (Exception e) {
-            handleError(String.format("Cannot find name of builtin function '%s'", function));
-            return null;
-        }
     }
 
     protected static String normalizeOperator(String operator) {

@@ -10,14 +10,14 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.el.interpreter;
+package com.gs.dmn.feel;
 
-import com.gs.dmn.feel.analysis.semantics.type.FunctionType;
-import com.gs.dmn.runtime.function.Function;
-import com.gs.dmn.runtime.interpreter.Result;
+import com.gs.dmn.ast.TDMNElement;
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.ast.TExpression;
 
-import java.util.List;
-
-public interface ELInterpreter<T, C> extends ELTestsInterpreter<T, C>, ELExpressionsInterpreter<T, C> {
-    Result evaluateFunctionInvocation(Function function, FunctionType functionType, List<Object> argList, C context);
+public class DMNExpressionLocation extends ExpressionLocation<TExpression> {
+    public DMNExpressionLocation(TDefinitions model, TDMNElement element, TExpression expression) {
+        super(model, element, expression);
+    }
 }

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.validation;
 
+import com.gs.dmn.error.SemanticError;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -31,15 +32,15 @@ public class UniqueRequirementValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateDefinitionsWhenNotUniqueNames() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='test-dmn-with-duplicated-information-requirements', name='CIP Assessments', id='cip-assessments'): Duplicated informationRequirement.requiredInput 'input-1'",
-                "(model='test-dmn-with-duplicated-information-requirements', name='CIP Assessments', id='cip-assessments'): Duplicated informationRequirement.requiredDecision 'decision-1'"
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicated-information-requirements', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'cip-assessments'): Duplicated informationRequirement.requiredInput 'input-1'",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-duplicated-information-requirements', modelId = 'definitions', elementName = 'CIP Assessments', elementId = 'cip-assessments'): Duplicated informationRequirement.requiredDecision 'decision-1'"
         );
         validate(validator, resource("dmn/input/1.1/test-dmn-with-duplicated-information-requirements.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateDefinitionsWhenNull() {
-        List<String> actualErrors = validator.validate(null);
+        List<SemanticError> actualErrors = validator.validate(null);
         assertTrue(actualErrors.isEmpty());
     }
 }

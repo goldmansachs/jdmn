@@ -19,7 +19,9 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.LogErrorHandler;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
+import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
@@ -111,8 +113,8 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
 
             return element;
         } catch (Exception e) {
-            String errorMessage = makeErrorMessage(element, definitions);
-            throw new SemanticErrorException(errorMessage, e);
+            SemanticError error = makeError(definitions, element);
+            throw new SemanticErrorException(error.toText(), e);
         }
     }
 
@@ -147,8 +149,8 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
 
             return element;
         } catch (Exception e) {
-            String errorMessage = makeErrorMessage(element, definitions);
-            throw new SemanticErrorException(errorMessage, e);
+            SemanticError error = makeError(definitions, element);
+            throw new SemanticErrorException(error.toText(), e);
         }
     }
 
@@ -167,8 +169,8 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
 
             return element;
         } catch (Exception e) {
-            String errorMessage = makeErrorMessage(element, definitions);
-            throw new SemanticErrorException(errorMessage, e);
+            SemanticError error = makeError(definitions, element);
+            throw new SemanticErrorException(error.toText(), e);
         }
     }
 
@@ -193,8 +195,8 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
 
             return element;
         } catch (Exception e) {
-            String errorMessage = makeErrorMessage(element, definitions);
-            throw new SemanticErrorException(errorMessage, e);
+            SemanticError error = makeError(definitions, element);
+            throw new SemanticErrorException(error.toText(), e);
         }
     }
 
@@ -207,8 +209,8 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
         }
     }
 
-    public static String makeErrorMessage(TNamedElement element, TDefinitions definitions) {
+    public static SemanticError makeError(TDefinitions definitions, TNamedElement element) {
         String errorMessage = String.format("Error translating DMN element '%s' to native platform", element);
-        return ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage);
+        return ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage);
     }
 }

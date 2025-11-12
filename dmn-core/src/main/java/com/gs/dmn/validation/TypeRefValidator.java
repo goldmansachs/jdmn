@@ -18,6 +18,8 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -40,18 +42,18 @@ public class TypeRefValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<String> validate(DMNModelRepository dmnModelRepository) {
+    public List<SemanticError> validate(DMNModelRepository dmnModelRepository) {
         if (isEmpty(dmnModelRepository)) {
             this.logger.warn("DMN repository is empty; validator will not run");
             return new ArrayList<>();
         }
 
-        List<Pair<TNamedElement, String>> pairs = makeErrorReport(dmnModelRepository);
+        List<Pair<TNamedElement, SemanticError>> pairs = makeErrorReport(dmnModelRepository);
         return pairs.stream().map(Pair::getRight).collect(Collectors.toList());
     }
 
-    public List<Pair<TNamedElement, String>> makeErrorReport(DMNModelRepository dmnModelRepository) {
-        List<Pair<TNamedElement, String>> errorReport = new ArrayList<>();
+    public List<Pair<TNamedElement, SemanticError>> makeErrorReport(DMNModelRepository dmnModelRepository) {
+        List<Pair<TNamedElement, SemanticError>> errorReport = new ArrayList<>();
         TypeRefValidatorVisitor visitor = new TypeRefValidatorVisitor(this.logger, this.errorHandler);
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             TypeRefValidationContext context = new TypeRefValidationContext(definitions, dmnModelRepository, errorReport);
@@ -145,18 +147,18 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
             if (itemDefinition == null) {
                 // Record error
                 TNamedElement element = context.getElement();
-                String errorMessage = ErrorFactory.makeDMNErrorMessage(model, element, String.format("Cannot find definition of typeRef '%s'", typeRef1));
-                context.getErrorReport().add(new Pair<>(element, errorMessage));
+                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), String.format("Cannot find definition of typeRef '%s'", typeRef1));
+                context.getErrorReport().add(new Pair<>(element, error));
 
-                this.logger.debug(errorMessage);
+                this.logger.debug(error.toText());
             }
         } catch (Exception e) {
             // Record error
             TNamedElement element = context.getElement();
-            String errorMessage = ErrorFactory.makeDMNErrorMessage(model, element, String.format("Error during lookup of typeRef '%s': %s", typeRef1, e.getMessage()));
-            context.getErrorReport().add(new Pair<>(element, errorMessage));
+            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), String.format("Error during lookup of typeRef '%s': %s", typeRef1, e.getMessage()));
+            context.getErrorReport().add(new Pair<>(element, error));
 
-            this.logger.debug(errorMessage);
+            this.logger.debug(error.toText());
         }
 
         return typeRef;

@@ -21,6 +21,7 @@ import com.gs.dmn.dialect.JavaTimeDMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.InputParameters;
@@ -56,7 +57,7 @@ public abstract class SweepValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<String> validate(DMNModelRepository dmnModelRepository) {
+    public List<SemanticError> validate(DMNModelRepository dmnModelRepository) {
         if (isEmpty(dmnModelRepository)) {
             this.logger.warn("DMN repository is empty; validator will not run");
             return new ArrayList<>();

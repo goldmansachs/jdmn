@@ -18,6 +18,7 @@ import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -77,8 +78,8 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
             testLabList = pair.getRight();
 
             // Validate the models and test cases
-            handleValidationErrors(this.dmnValidator.validate(repository));
-            handleValidationErrors(validateTestCases(testLabList));
+            handleErrors(this.dmnValidator.validate(repository));
+            handleErrors(validateTestCases(testLabList));
 
             // Translate the test cases to the native platform
             BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer = this.dialectDefinition.createBasicTransformer(repository, lazyEvaluationDetector, inputParameters);
@@ -102,8 +103,8 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         return testLabList;
     }
 
-    private List<String> validateTestCases(List<TestLab> testLabList) {
-        List<String> errors = new ArrayList<>();
+    private List<SemanticError> validateTestCases(List<TestLab> testLabList) {
+        List<SemanticError> errors = new ArrayList<>();
         for (TestLab testLab : testLabList) {
             errors.addAll(this.testLabValidator.validate(testLab));
         }

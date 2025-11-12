@@ -17,6 +17,8 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 
@@ -34,7 +36,7 @@ public class UniqueRequirementValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<String> validate(DMNModelRepository repository) {
+    public List<SemanticError> validate(DMNModelRepository repository) {
         if (isEmpty(repository)) {
             logger.warn("DMN repository is empty; validator will not run");
             return new ArrayList<>();
@@ -114,9 +116,9 @@ class UniqueRequirementValidatorVisitor extends TraversalVisitor<ValidationConte
                     if (referredElement == null) {
                         errorMessage = String.format("Duplicated %s '%s'", propertyPath, id);
                     } else {
-                        errorMessage = String.format("Duplicated %s %s", propertyPath, ErrorFactory.makeLocation(definitions, referredElement));
+                        errorMessage = String.format("Duplicated %s %s", propertyPath, ErrorFactory.makeLocation(new ModelLocation(definitions, referredElement)));
                     }
-                    context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+                    context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
                 } else {
                     existingIds.add(id);
                 }

@@ -14,17 +14,19 @@ package com.gs.dmn.feel.synthesis;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.NameUtils;
-import com.gs.dmn.ast.TBusinessKnowledgeModel;
-import com.gs.dmn.ast.TDRGElement;
-import com.gs.dmn.ast.TInvocable;
-import com.gs.dmn.ast.TNamedElement;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.context.environment.Declaration;
 import com.gs.dmn.el.analysis.semantics.type.AnyType;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.triple.Triple;
 import com.gs.dmn.el.synthesis.triple.Triples;
+import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
+import com.gs.dmn.feel.ExpressionLocation;
+import com.gs.dmn.feel.FEELExpressionLocation;
+import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.feel.OperatorDecisionTable;
 import com.gs.dmn.feel.analysis.semantics.type.*;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
@@ -146,7 +148,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
             Type endpointType = endpoint.getType();
             if (Type.sameSemanticDomain(endpointType, inputExpressionType)) {
                 // input and endpoint are comparable
-                return makeRangeCondition(operator, (Expression) context.getInputExpression(), endpoint, context);
+                return makeRangeCondition(operator, (Expression) context.getInputExpression(), endpoint, context, element);
             } else if (endpointType instanceof ListType) {
                 Type endpointElementType = ((ListType) endpointType).getElementType();
                 if (Type.sameSemanticDomain(endpointElementType, inputExpressionType)) {
@@ -164,7 +166,8 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
             }
 
             // Cannot compare
-            handleError(context, element, String.format("Cannot compare '%s', '%s'", inputExpressionType, endpointType));
+            SemanticError error = makeELExpressionError(context, element, String.format("Cannot compare '%s', '%s'", inputExpressionType, endpointType));
+            handleError(error);
             return null;
         }
     }
@@ -184,8 +187,8 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
             return this.triples.constructor(clsName, Arrays.asList(startIncluded, start, endIncluded, end), true);
         } else {
             // Evaluate as test
-            Triple leftCondition = makeRangeCondition(element.isOpenStart() ? ">" : ">=", (Expression) context.getInputExpression(), startEndpoint, context);
-            Triple rightCondition = makeRangeCondition(element.isOpenEnd() ? "<" : "<=", (Expression) context.getInputExpression(), endEndpoint, context);
+            Triple leftCondition = makeRangeCondition(element.isOpenStart() ? ">" : ">=", (Expression) context.getInputExpression(), startEndpoint, context, element);
+            Triple rightCondition = makeRangeCondition(element.isOpenEnd() ? "<" : "<=", (Expression) context.getInputExpression(), endEndpoint, context, element);
             return this.triples.makeBuiltinFunctionInvocation("booleanAnd", leftCondition, rightCondition);
         }
     }
@@ -208,7 +211,8 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
                 Triple nativeList = (Triple) optimizedListLiteral.accept(this, context);
                 return this.triples.makeBuiltinFunctionInvocation("listContains", nativeList, inputExpressionToNative(context));
             } else {
-                handleError(context, element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                SemanticError error = makeELExpressionError(context, element, String.format("Cannot compare '%s', '%s'", inputExpressionType, optimizedListType));
+                handleError(error);
                 return null;
             }
         } else {
@@ -228,7 +232,8 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
             Triple body = (Triple) element.getBody().accept(this, context);
             return this.triples.makeFunctionDefinition((TDRGElement) context.getElement(), element, false, body);
         } else {
-            handleError("Dynamic typing for FEEL functions not supported yet");
+            SemanticError error = makeELExpressionError(context, element, "Dynamic typing for FEEL functions not supported yet");
+            handleError(error);
             return null;
         }
     }
@@ -430,7 +435,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         Expression<Type> leftOperand = element.getLeftOperand();
         Expression<Type> rightOperand = element.getRightOperand();
         String feelOperator = element.getOperator();
-        return makeCondition(feelOperator, leftOperand, rightOperand, context);
+        return makeCondition(feelOperator, leftOperand, rightOperand, context, element);
     }
 
     @Override
@@ -438,7 +443,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         Expression<Type> leftOperand = element.getLeftOperand();
         Expression<Type> rightOperand = element.getRightOperand();
         String feelOperator = element.getOperator();
-        return makeCondition(feelOperator, leftOperand, rightOperand, context);
+        return makeCondition(feelOperator, leftOperand, rightOperand, context, element);
     }
 
     @Override
@@ -456,7 +461,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         Expression<Type> leftOperand = element.getLeftOperand();
         Expression<Type> rightOperand = element.getRightOperand();
         String feelOperator = element.getOperator();
-        return makeCondition(feelOperator, leftOperand, rightOperand, context);
+        return makeCondition(feelOperator, leftOperand, rightOperand, context, element);
     }
 
     @Override
@@ -468,8 +473,9 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         Triple rightOpd = (Triple) rightEndpoint.accept(this, context);
         String feelOperator = "<=";
         NativeOperator nativeOperator = OperatorDecisionTable.nativeOperator(feelOperator, leftEndpoint.getType(), rightEndpoint.getType());
-        Triple c1 = makeCondition(feelOperator, leftOpd, value, nativeOperator);
-        Triple c2 = makeCondition(feelOperator, value, rightOpd, nativeOperator);
+        FEELExpressionLocation location = makeExpressionLocation(context, element);
+        Triple c1 = makeCondition(feelOperator, leftOpd, value, nativeOperator, location);
+        Triple c2 = makeCondition(feelOperator, value, rightOpd, nativeOperator, location);
         return this.triples.makeBuiltinFunctionInvocation("booleanAnd", c1, c2);
     }
 
@@ -483,7 +489,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         for (PositiveUnaryTest<Type> positiveUnaryTest : positiveUnaryTests) {
             Triple condition;
             if (positiveUnaryTest instanceof ExpressionTest) {
-                condition =  makeRangeCondition("=", valueExp, ((ExpressionTest<Type>) positiveUnaryTest).getExpression(), context);
+                condition = makeRangeCondition("=", valueExp, ((ExpressionTest<Type>) positiveUnaryTest).getExpression(), context, element);
             } else {
                 condition = (Triple) positiveUnaryTest.accept(this, testContext);
             }
@@ -504,7 +510,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         Expression<Type> leftOperand = element.getLeftOperand();
         Expression<Type> rightOperand = element.getRightOperand();
         String feelOperator = element.getOperator();
-        return makeCondition(feelOperator, leftOperand, rightOperand, context);
+        return makeCondition(feelOperator, leftOperand, rightOperand, context, element);
     }
 
     @Override
@@ -512,7 +518,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         Expression<Type> leftOperand = element.getLeftOperand();
         Expression<Type> rightOperand = element.getRightOperand();
         String feelOperator = element.getOperator();
-        return makeCondition(feelOperator, leftOperand, rightOperand, context);
+        return makeCondition(feelOperator, leftOperand, rightOperand, context, element);
     }
 
     @Override
@@ -549,12 +555,15 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
 
     @Override
     public Triple visit(FunctionInvocation<Type> element, DMNContext context) {
+        // Required to locate error
+        FEELExpressionLocation location = makeExpressionLocation(context, element);
+
         // Generate code for actual parameters
         Parameters<Type> parameters = element.getParameters();
         parameters.accept(this, context);
 
         // Generate code for conversion
-        Arguments<Type> arguments = parameters.convertArguments(this::checkBindingArgument);
+        Arguments<Type> arguments = parameters.convertArguments(this::checkBindingArgument, makeExpressionLocation(context, element));
 
         // Generate code for function invocation
         Expression<Type> function = element.getFunction();
@@ -563,12 +572,12 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         List<Object> argList = arguments.argumentList(formalParameters);
         Triple functionCode = (Triple) function.accept(this, context);
         if (functionType instanceof LibraryFunctionType) {
-            List<Triple> operands = visitArgList(argList);
-            LibraryMetadata metadata =  ((LibraryFunctionType) functionType).getLib().getMetadata();
+            List<Triple> operands = visitArgList(argList, location);
+            LibraryMetadata metadata = ((LibraryFunctionType) functionType).getLib().getMetadata();
             Triple className = this.triples.name(metadata.getClassName());
             return this.triples.makeLibraryFunctionInvocation(className, metadata.isStaticAccess(), functionCode, operands);
         } else if (functionType instanceof BuiltinFunctionType) {
-            List<Triple> operands = visitArgList(argList);
+            List<Triple> operands = visitArgList(argList, location);
             return this.triples.makeBuiltinFunctionInvocation(functionCode, operands);
         } else if (functionType instanceof DMNFunctionType) {
             if (!this.dmnModelRepository.isJavaFunction(((DMNFunctionType) functionType).getKind())) {
@@ -576,7 +585,7 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
             }
             TNamedElement invocable = ((DMNFunctionType) functionType).getDRGElement();
             if (invocable instanceof TInvocable) {
-                List<Triple> operands = visitArgList(argList);
+                List<Triple> operands = visitArgList(argList, location);
                 if (function instanceof Name) {
                     if (((Name<Type>) function).getName().equals(invocable.getName())) {
                         String qualifiedName = this.dmnTransformer.singletonInvocableInstance((TInvocable) invocable);
@@ -588,28 +597,30 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
                     return this.triples.makeApplyInvocation(functionCode, operands);
                 }
             } else {
-                List<Triple> operands = visitArgList(argList);
+                List<Triple> operands = visitArgList(argList, location);
                 return this.triples.makeApplyInvocation(functionCode, operands);
             }
         } else if (functionType instanceof FEELFunctionType) {
             if (!((FEELFunctionType) functionType).isExternal()) {
                 addExtraArguments(argList);
             }
-            List<Triple> operands = visitArgList(argList);
+            List<Triple> operands = visitArgList(argList, location);
             return this.triples.makeApplyInvocation(functionCode, operands);
         } else {
-            handleError(String.format("Not supported function type '%s' in '%s'", functionType, context.getElementName()));
+            SemanticError error = makeELExpressionError(context, element, String.format("Not supported function type '%s' in '%s'", functionType, context.getElementName()));
+            handleError(error);
             return null;
         }
     }
 
-    private List<Triple> visitArgList(List<Object> argList) {
+    private List<Triple> visitArgList(List<Object> argList, FEELExpressionLocation location) {
         List<Triple> operands = new ArrayList<>();
         for (Object arg : argList) {
             if (arg instanceof Triple) {
                 operands.add((Triple) arg);
             } else {
-                handleError("Illegal arg, should be Operand");
+                SemanticError error = ErrorFactory.makeELExpressionError(location, "Illegal arg, should be Operand");
+                handleError(error);
                 return null;
             }
         }
@@ -620,12 +631,13 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         argList.add(this.triples.name(dmnTransformer.executionContextVariableName()));
     }
 
-    protected Triple checkBindingArgument(Object param, Conversion<Type> conversion) {
+    protected Triple checkBindingArgument(Object param, Conversion<Type> conversion, ExpressionLocation<Expression<Type>> location) {
         // TODO check constraints
         if (param instanceof Triple) {
             return this.triples.makeConvertArgument((Triple) param, conversion);
         } else {
-            handleError(String.format("Expected operand, found '%s'", param));
+            SemanticError error = ErrorFactory.makeELExpressionError((FEELExpressionLocation) location, String.format("Expected operand, found '%s'", param));
+            handleError(error);
             return null;
         }
     }
@@ -739,7 +751,10 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
 
     private Triple inputExpressionToNative(DMNContext context) {
         if (context.isExpressionContext()) {
-            handleError(String.format("Missing inputExpression in context of element '%s'", context.getElementName()));
+            TNamedElement element = context.getElement();
+            TDefinitions model = this.dmnModelRepository.getModel(element);
+            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), String.format("Missing inputExpression in context of element '%s'", context.getElementName()));
+            handleError(error);
             return null;
         } else {
             // Evaluate as test
@@ -756,11 +771,11 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
         }
     }
 
-    private Triple makeRangeCondition(String feelOperator, Expression<Type> leftOperand, Expression<Type> rightOperand, DMNContext context) {
+    private Triple makeRangeCondition(String feelOperator, Expression<Type> leftOperand, Expression<Type> rightOperand, DMNContext context, Expression<Type> parentElement) {
         Triple leftOpd = (Triple) leftOperand.accept(this, context);
         Triple rightOpd = (Triple) rightOperand.accept(this, context);
         Triple condition;
-        NativeOperator nativeOperator = rangeOperator(feelOperator, leftOperand, rightOperand);
+        NativeOperator nativeOperator = rangeOperator(feelOperator, leftOperand, rightOperand, makeExpressionLocation(context, parentElement));
         if (nativeOperator.getNotation() == NativeOperator.Notation.INFIX) {
             condition = infixExpression(nativeOperator.getName(), leftOpd, rightOpd);
         } else {
@@ -790,10 +805,11 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
             // Try imported library
             Type memberType = importContextType.getMemberType(memberName);
             if (memberType instanceof LibraryFunctionType) {
-                 String importPath = importContextType.getImportName();
-                 return this.triples.makeLibraryFunctionSelectExpression(importPath, memberName);
+                String importPath = importContextType.getImportName();
+                return this.triples.makeLibraryFunctionSelectExpression(importPath, memberName);
             }
-            handleError(context, element, String.format("Cannot find imported member '%s'", memberName));
+            SemanticError error = makeELExpressionError(context, element, String.format("Cannot find imported member '%s'", memberName));
+            handleError(error);
             return null;
         } else if (sourceType instanceof ItemDefinitionType) {
             Type memberType = ((ItemDefinitionType) sourceType).getMemberType(memberName);
@@ -820,21 +836,23 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
             // source is Context
             return this.triples.makeContextSelectExpression(this.dmnTransformer.contextClassName(), source, memberName);
         } else {
-            handleError(context, element, String.format("Cannot generate navigation path '%s'", element));
+            SemanticError error = makeELExpressionError(context, element, String.format("Cannot generate navigation path '%s'", element));
+            handleError(error);
             return null;
         }
     }
 
-    protected Triple makeCondition(String feelOperator, Expression<Type> leftOperand, Expression<Type> rightOperand, DMNContext context) {
+    protected Triple makeCondition(String feelOperator, Expression<Type> leftOperand, Expression<Type> rightOperand, DMNContext context, Expression<Type> parentElement) {
         Triple leftOpd = (Triple) leftOperand.accept(this, context);
         Triple rightOpd = (Triple) rightOperand.accept(this, context);
         NativeOperator nativeOperator = OperatorDecisionTable.nativeOperator(feelOperator, leftOperand.getType(), rightOperand.getType());
-        return makeCondition(feelOperator, leftOpd, rightOpd, nativeOperator);
+        return makeCondition(feelOperator, leftOpd, rightOpd, nativeOperator, makeExpressionLocation(context, parentElement));
     }
 
-    protected Triple makeCondition(String feelOperator, Triple leftOpd, Triple rightOpd, NativeOperator nativeOperator) {
+    protected Triple makeCondition(String feelOperator, Triple leftOpd, Triple rightOpd, NativeOperator nativeOperator, FEELExpressionLocation location) {
+        SemanticError error = ErrorFactory.makeELExpressionError(location, makeOperatorErrorMessage(feelOperator, leftOpd, rightOpd));
         if (nativeOperator == null) {
-            handleError(makeOperatorErrorMessage(feelOperator, leftOpd, rightOpd));
+            handleError(error);
             return null;
         } else {
             if (nativeOperator.getCardinality() == 2) {
@@ -852,18 +870,19 @@ public class FEELToTripleNativeVisitor extends AbstractFEELToNativeVisitor<Objec
                     }
                 }
             } else {
-                handleError(makeOperatorErrorMessage(feelOperator, leftOpd, rightOpd));
+                handleError(error);
                 return null;
             }
         }
     }
 
-    protected NativeOperator rangeOperator(String feelOperatorName, Expression<Type> leftOperand, Expression<Type> rightOperand) {
+    protected NativeOperator rangeOperator(String feelOperatorName, Expression<Type> leftOperand, Expression<Type> rightOperand, FEELExpressionLocation location) {
         NativeOperator nativeOperator = OperatorDecisionTable.nativeOperator(feelOperatorName, leftOperand.getType(), rightOperand.getType());
         if (nativeOperator != null) {
             return nativeOperator;
         } else {
-            handleError(makeOperatorErrorMessage(feelOperatorName, leftOperand, rightOperand));
+            SemanticError error = ErrorFactory.makeELExpressionError(location, makeOperatorErrorMessage(feelOperatorName, leftOperand, rightOperand));
+            handleError(error);
             return null;
         }
     }

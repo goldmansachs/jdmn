@@ -15,6 +15,7 @@ package com.gs.dmn.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TNamedElement;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.runtime.Pair;
 
 import java.util.List;
@@ -22,11 +23,11 @@ import java.util.stream.Collectors;
 
 public class TypeRefValidationContext extends ValidationContext {
     private final TDefinitions model;
-    private final List<Pair<TNamedElement, String>> errorReport;
+    private final List<Pair<TNamedElement, SemanticError>> errorReport;
 
     private TNamedElement element;
 
-    public TypeRefValidationContext(TDefinitions model, DMNModelRepository repository, List<Pair<TNamedElement, String>> errorReport) {
+    public TypeRefValidationContext(TDefinitions model, DMNModelRepository repository, List<Pair<TNamedElement, SemanticError>> errorReport) {
         super(repository);
         this.model = model;
         this.errorReport = errorReport;
@@ -45,11 +46,11 @@ public class TypeRefValidationContext extends ValidationContext {
     }
 
     @Override
-    public List<String> getErrors() {
+    public List<SemanticError> getErrors() {
         return this.errorReport.stream().map(Pair::getRight).collect(Collectors.toList());
     }
 
-    public List<Pair<TNamedElement, String>> getErrorReport() {
+    public List<Pair<TNamedElement, SemanticError>> getErrorReport() {
         return errorReport;
     }
 }

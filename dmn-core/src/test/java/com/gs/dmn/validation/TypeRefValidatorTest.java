@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.validation;
 
+import com.gs.dmn.error.SemanticError;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -32,7 +33,7 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenMissingV11() {
         List<String> expectedErrors = Collections.singletonList(
-                "(model='test-dmn-with-missing-type-ref', label='Applicant', name='applicant', id='id-d2376567fde3c9400ee327ecec21e36d'): Cannot find definition of typeRef 'applicant'"
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-missing-type-ref', modelId = 'definitions', elementName = 'applicant', elementId = 'id-d2376567fde3c9400ee327ecec21e36d'): Cannot find definition of typeRef 'applicant'"
         );
         validate(validator, resource("dmn/input/1.1/test-dmn-with-missing-type-ref.dmn"), expectedErrors);
     }
@@ -40,15 +41,15 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenMissingV15() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='test-dmn-with-missing-type-ref', label='Applicant', name='applicant', id='id-d2376567fde3c9400ee327ecec21e36d'): Cannot find definition of typeRef 'applicant'",
-                "(model='test-dmn-with-missing-type-ref', label='Applicant1', name='applicant1', id='id-d2376567fde3c9400ee327ecec21e36d-2'): Error during lookup of typeRef 'prefix.importedType': Cannot find DM for namespace 'missing-namespace'"
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-missing-type-ref', modelId = 'definitions', elementName = 'applicant', elementId = 'id-d2376567fde3c9400ee327ecec21e36d'): Cannot find definition of typeRef 'applicant'",
+                "[ERROR] (namespace = 'http://camunda.org/schema/1.0/dmn', modelName = 'test-dmn-with-missing-type-ref', modelId = 'definitions', elementName = 'applicant1', elementId = 'id-d2376567fde3c9400ee327ecec21e36d-2'): Error during lookup of typeRef 'prefix.importedType': Cannot find DM for namespace 'missing-namespace'"
         );
         validate(validator, resource("dmn/input/1.5/test-dmn-with-missing-type-ref.dmn"), expectedErrors);
     }
 
     @Test
     public void testValidateDefinitionsWhenNull() {
-        List<String> actualErrors = validator.validate(null);
+        List<SemanticError> actualErrors = validator.validate(null);
         assertTrue(actualErrors.isEmpty());
     }
 }

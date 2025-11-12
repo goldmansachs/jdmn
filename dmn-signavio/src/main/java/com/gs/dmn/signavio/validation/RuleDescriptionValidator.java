@@ -15,6 +15,8 @@ package com.gs.dmn.signavio.validation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.validation.SimpleDMNValidator;
@@ -47,14 +49,14 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<String> validate(DMNModelRepository repository) {
-        List<String> errors = new ArrayList<>();
+    public List<SemanticError> validate(DMNModelRepository repository) {
+        List<SemanticError> errors = new ArrayList<>();
         if (isEmpty(repository)) {
             logger.warn("DMN repository is empty; validator will not run");
             return errors;
         }
 
-        for (TDefinitions definitions: repository.getAllDefinitions()) {
+        for (TDefinitions definitions : repository.getAllDefinitions()) {
             for (TDecision decision : repository.findDecisions(definitions)) {
                 TExpression expression = repository.expression(decision);
                 if (expression instanceof TDecisionTable) {
@@ -70,12 +72,12 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
         return errors;
     }
 
-    protected void validate(TDefinitions definitions, TDecision decision, int ruleIndex, String description, List<String> errors) {
+    protected void validate(TDefinitions definitions, TDecision decision, int ruleIndex, String description, List<SemanticError> errors) {
         if (StringUtils.isNotBlank(description)) {
             for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
                 if (description.contains(entry.getKey())) {
                     String errorMessage = String.format("Description of rule %d in decision '%s' contains illegal sequence '%s'", ruleIndex, decision.getName(), entry.getValue());
-                    errors.add(ErrorFactory.makeDMNErrorMessage(definitions, decision, errorMessage));
+                    errors.add(ErrorFactory.makeDMNError(new ModelLocation(definitions, decision), errorMessage));
                 }
             }
         }

@@ -12,18 +12,21 @@
  */
 package com.gs.dmn.signavio.testlab;
 
+import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestLabValidator {
-    public List<String> validate(TestLab testLab) {
-        List<String> errors = new ArrayList<>();
+    public List<SemanticError> validate(TestLab testLab) {
+        List<SemanticError> errors = new ArrayList<>();
         if (testLab == null) {
-            errors.add("Missing or empty TestLab");
+            errors.add(ErrorFactory.makeDMNError(null, "Missing or empty TestLab"));
         }  else {
             List<OutputParameterDefinition> outputParameterDefinitions = testLab.getOutputParameterDefinitions();
             if (outputParameterDefinitions == null || outputParameterDefinitions.isEmpty()) {
-                errors.add(String.format("Missing or empty OutputParameterDefinitions for TestLab '%s'", testLab.getSource()));
+                errors.add(ErrorFactory.makeDMNError(null, String.format("Missing or empty OutputParameterDefinitions for TestLab '%s'", testLab.getSource())));
             }
         }
         return errors;

@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.transformation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.signavio.SignavioDMNModelRepository;
 import com.gs.dmn.validation.DMNValidator;
 import com.gs.dmn.validation.TypeRefValidator;
@@ -23,27 +24,28 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.gs.dmn.signavio.testlab.TestLabValidatorTest.toText;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TypeRefValidatorTest extends AbstractSignavioFileTransformerTest {
     @Test
     public void testValidation() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='Example credit decision', label='Name', name='name', id='id-3338f5be7599eb351bf9ed99c553198c-relation-10'): Cannot find definition of typeRef 'missingNameComponentTypeRef'",
-                "(model='Example credit decision', label='Lending threshold', name='lendingThresholdMissing', id='id-4cb80be6fb604151f1e9edf9c3cbe2e7-1'): Cannot find definition of typeRef 'lendingThresholdMissingTypeRef'",
-                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Assess applicant age', name='assessApplicantAge', id='id-1454118466a747091e601b188b2b5c7b'): Cannot find definition of typeRef 'assessApplicantAge'",
-                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Assess issue', name='assessIssue', id='id-f2562ba74063028327a13930c969145c'): Cannot find definition of typeRef 'assessIssue'",
-                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Assess issue risk', name='assessIssueRisk', id='id-11e61e8750fa5f9973ad4928a3841475'): Cannot find definition of typeRef 'assessIssueRisk'",
-                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Compare against lending threshold', name='compareAgainstLendingThreshold', id='id-8d177a9bb52aa7c82782a45a04074801'): Cannot find definition of typeRef 'missingDTOutputTypeRef'",
-                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Make credit decision', name='makeCreditDecision', id='id-99379862982a9a0a4ba92985d1eea607'): Cannot find definition of typeRef 'makeCreditDecision'",
-                "(model='Example credit decision', diagramId='ae3c0e4e8dab4f8fb28dd36f96c934a1', label='Process prior issues', name='processPriorIssues', id='id-b7fa3f2fe2a2f47a77bfd440c827a301'): Cannot find definition of typeRef 'processPriorIssues'"
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml', modelName = 'Example credit decision', modelId = 'id-25c57a4efcbd4d2ead65fcbaa5ec9b32', elementName = 'name', elementId = 'id-3338f5be7599eb351bf9ed99c553198c-relation-10'): Cannot find definition of typeRef 'missingNameComponentTypeRef'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml', modelName = 'Example credit decision', modelId = 'id-25c57a4efcbd4d2ead65fcbaa5ec9b32', elementName = 'lendingThresholdMissing', elementId = 'id-4cb80be6fb604151f1e9edf9c3cbe2e7-1'): Cannot find definition of typeRef 'lendingThresholdMissingTypeRef'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml', modelName = 'Example credit decision', modelId = 'id-25c57a4efcbd4d2ead65fcbaa5ec9b32', elementName = 'assessApplicantAge', elementId = 'id-1454118466a747091e601b188b2b5c7b'): Cannot find definition of typeRef 'assessApplicantAge'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml', modelName = 'Example credit decision', modelId = 'id-25c57a4efcbd4d2ead65fcbaa5ec9b32', elementName = 'assessIssue', elementId = 'id-f2562ba74063028327a13930c969145c'): Cannot find definition of typeRef 'assessIssue'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml', modelName = 'Example credit decision', modelId = 'id-25c57a4efcbd4d2ead65fcbaa5ec9b32', elementName = 'assessIssueRisk', elementId = 'id-11e61e8750fa5f9973ad4928a3841475'): Cannot find definition of typeRef 'assessIssueRisk'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml', modelName = 'Example credit decision', modelId = 'id-25c57a4efcbd4d2ead65fcbaa5ec9b32', elementName = 'compareAgainstLendingThreshold', elementId = 'id-8d177a9bb52aa7c82782a45a04074801'): Cannot find definition of typeRef 'missingDTOutputTypeRef'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml', modelName = 'Example credit decision', modelId = 'id-25c57a4efcbd4d2ead65fcbaa5ec9b32', elementName = 'makeCreditDecision', elementId = 'id-99379862982a9a0a4ba92985d1eea607'): Cannot find definition of typeRef 'makeCreditDecision'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/ae3c0e4e8dab4f8fb28dd36f96c934a1.xml', modelName = 'Example credit decision', modelId = 'id-25c57a4efcbd4d2ead65fcbaa5ec9b32', elementName = 'processPriorIssues', elementId = 'id-b7fa3f2fe2a2f47a77bfd440c827a301'): Cannot find definition of typeRef 'processPriorIssues'"
         );
-        List<String> actualErrors = executeValidation(signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"));
+        List<SemanticError> actualErrors = executeValidation(signavioResource("dmn/complex/credit-decision-missing-some-definitions.dmn"));
 
-        assertEquals(expectedErrors, actualErrors);
+        assertEquals(expectedErrors, toText(actualErrors));
     }
 
-    private List<String> executeValidation(URI dmnFileURI) {
+    private List<SemanticError> executeValidation(URI dmnFileURI) {
         DMNValidator validator = new TypeRefValidator(LOGGER);
 
         File dmnFile = new File(dmnFileURI);

@@ -12,22 +12,27 @@
  */
 package com.gs.dmn.feel.analysis.syntax.ast.expression.function;
 
+import com.gs.dmn.feel.ExpressionLocation;
 import com.gs.dmn.feel.analysis.syntax.ast.Element;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
-
-import java.util.function.BiFunction;
+import org.apache.commons.lang3.function.TriFunction;
 
 public abstract class Parameters<T> extends Element<T> {
     // API for initial status
     public abstract boolean isEmpty();
+
     public abstract ParameterTypes<T> getSignature();
+
     public abstract void setOriginalArguments(Arguments<T> originalArguments);
 
     // API during and after conversion
     public abstract void setParameterConversions(ParameterConversions<T> parameterConversions);
+
     public abstract void setConvertedParameterTypes(ParameterTypes<T> parameterTypes);
-    public abstract Arguments<T> convertArguments(BiFunction<Object, Conversion<T>, Object> convertArgument);
+
+    public abstract Arguments<T> convertArguments(TriFunction<Object, Conversion<T>, ExpressionLocation<Expression<T>>, Object> convertArgument, ExpressionLocation<Expression<T>> location);
 
     public abstract T getParameterType(int position, String name);
+
     public abstract Expression<T> getParameter(int position, String name);
 }

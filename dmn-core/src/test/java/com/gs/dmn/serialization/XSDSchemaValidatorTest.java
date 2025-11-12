@@ -52,6 +52,6 @@ public class XSDSchemaValidatorTest extends AbstractValidatorTest {
                 "Line 124, Column 25: cvc-complex-type.4: Attribute 'href' must appear on element 'inputDecision'.",
                 "Line 125, Column 26: cvc-complex-type.4: Attribute 'href' must appear on element 'outputDecision'."
         );
-        checkErrors(expectedErrors, actualErrors);
+        checkXSDErrors(expectedErrors, actualErrors);
     }
 }

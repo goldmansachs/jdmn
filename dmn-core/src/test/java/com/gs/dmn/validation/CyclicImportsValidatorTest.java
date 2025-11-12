@@ -28,7 +28,7 @@ class CyclicImportsValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testWhenCycles() {
-        List<String> expectedErrors = List.of("Cyclic import detected: model-a --> model-b --> model-a");
+        List<String> expectedErrors = List.of("[ERROR] Cyclic import detected: model-a --> model-b --> model-a");
         validate(validator, tckResource("other/1.5/cycles-no-prefix/translator/"), expectedErrors);
     }
 }

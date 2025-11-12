@@ -13,6 +13,7 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.error.SemanticError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +28,14 @@ public class CompositeDMNValidator implements DMNValidator {
     }
 
     @Override
-    public List<String> validate(DMNModelRepository dmnModelRepository) {
-        List<String> errors = new ArrayList<>();
+    public List<SemanticError> validate(DMNModelRepository dmnModelRepository) {
+        List<SemanticError> errors = new ArrayList<>();
         if (isEmpty(dmnModelRepository)) {
             return errors;
         }
 
-        for(DMNValidator validator: this.validators) {
-            List<String> result = validator.validate(dmnModelRepository);
+        for (DMNValidator validator : this.validators) {
+            List<SemanticError> result = validator.validate(dmnModelRepository);
             if (result != null) {
                 errors.addAll(result);
             }

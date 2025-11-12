@@ -15,6 +15,7 @@ package com.gs.dmn.validation;
 import com.gs.dmn.AbstractTest;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
 
@@ -29,7 +30,7 @@ public abstract class AbstractValidatorTest extends AbstractTest {
 
     protected void validate(DMNValidator validator, URI fileURI, List<String> expectedErrors) {
         DMNModelRepository repository = makeRepository(fileURI);
-        List<String> actualErrors = validator.validate(repository);
+        List<SemanticError> actualErrors = validator.validate(repository);
 
         checkErrors(expectedErrors, actualErrors);
     }
@@ -40,7 +41,14 @@ public abstract class AbstractValidatorTest extends AbstractTest {
         return new DMNModelRepository(definitionsList);
     }
 
-    protected void checkErrors(List<String> expectedErrors, List<String> actualErrors) {
+    protected void checkErrors(List<String> expectedErrors, List<SemanticError> actualErrors) {
+        assertEquals(expectedErrors.size(), actualErrors.size());
+        for (int i = 0; i < actualErrors.size(); i++) {
+            assertEquals(expectedErrors.get(i), actualErrors.get(i).toText(), "Failed at index " + i);
+        }
+    }
+
+    protected void checkXSDErrors(List<String> expectedErrors, List<String> actualErrors) {
         assertEquals(expectedErrors.size(), actualErrors.size());
         for (int i = 0; i < actualErrors.size(); i++) {
             assertEquals(expectedErrors.get(i), actualErrors.get(i), "Failed at index " + i);

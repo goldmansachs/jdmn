@@ -21,6 +21,8 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.validation.table.Bound;
@@ -76,7 +78,7 @@ public class SweepMissingIntervalValidator extends SweepValidator {
         }
     }
 
-    private String makeError(TDRGElement element, int columnIndex, List<Interval> intervals, DMNModelRepository repository) {
+    private SemanticError makeError(TDRGElement element, int columnIndex, List<Interval> intervals, DMNModelRepository repository) {
         TDefinitions model = repository.getModel(element);
         String intervalsString = intervals.stream().map(Interval::serialize).collect(Collectors.joining(", "));
         String message;
@@ -85,7 +87,7 @@ public class SweepMissingIntervalValidator extends SweepValidator {
         } else {
             message = String.format("Intervals '%s' are not covered for column %d in '%s' table", intervalsString, columnIndex + 1, repository.displayName(element));
         }
-        return ErrorFactory.makeDMNErrorMessage(model, element, message);
+        return ErrorFactory.makeDMNError(new ModelLocation(model, element), message);
     }
 
     //  Algorithm: findMissingRules.

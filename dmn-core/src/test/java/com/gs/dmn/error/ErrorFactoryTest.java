@@ -12,32 +12,40 @@
  */
 package com.gs.dmn.error;
 
+import com.gs.dmn.feel.DMNExpressionLocation;
+import com.gs.dmn.feel.FEELExpressionLocation;
+import com.gs.dmn.feel.ModelLocation;
 import org.junit.jupiter.api.Test;
 
 import static com.gs.dmn.feel.analysis.semantics.type.NumberType.NUMBER;
 import static com.gs.dmn.feel.analysis.semantics.type.StringType.STRING;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ErrorFactoryTest {
     private final String errorMessage = "Error XXX";
+    private final String expectedErrorMessage = "[ERROR] " + errorMessage;
 
     @Test
     void testMakeDMNErrorMessage() {
-        assertEquals(errorMessage, ErrorFactory.makeDMNErrorMessage(null, null, errorMessage));
+        SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(null, null), errorMessage);
+        assertEquals(expectedErrorMessage, error.toText());
     }
 
     @Test
     void testMakeDMNExpressionErrorMessage() {
-        assertEquals(errorMessage + " for expression 'null'", ErrorFactory.makeDMNExpressionErrorMessage(null, null, null, errorMessage));
+        SemanticError error = ErrorFactory.makeDMNExpressionError(new DMNExpressionLocation(null, null, null), errorMessage);
+        assertEquals(expectedErrorMessage + " for expression 'null'", error.toText());
     }
 
     @Test
     void testMakeELExpressionErrorMessage() {
-        assertEquals(errorMessage + " for expression 'null'", ErrorFactory.makeELExpressionErrorMessage(null, null, null, errorMessage));
+        SemanticError error = ErrorFactory.makeELExpressionError(new FEELExpressionLocation(null, null, null), errorMessage);
+        assertEquals(expectedErrorMessage + " for expression 'null'", error.toText());
     }
 
     @Test
     void testMakeIfErrorMessage() {
-        assertEquals("Types of then and else branches are incompatible, found 'number' and 'string'", ErrorFactory.makeIfErrorMessage(null, NUMBER, STRING));
+        SemanticError error = ErrorFactory.makeIfError(null, NUMBER, STRING);
+        assertEquals("[ERROR] Types of then and else branches are incompatible, found 'number' and 'string'", error.toText());
     }
 }

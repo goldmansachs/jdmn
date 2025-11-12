@@ -443,7 +443,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     this.lib.listEqual(numberList, this.lib.asList(this.lib.number("1"), this.lib.number("2"), this.lib.number("3"))),
                     true);
         });
-        assertEquals("Cannot compare 'ListType(number)', 'ListType(string)' for expression 'ListTest(ListLiteral(OperatorRange(null,StringLiteral(\"1\")),OperatorRange(null,StringLiteral(\"2\")),OperatorRange(null,StringLiteral(\"3\"))))'", exception.getMessage());
+        assertEquals("[ERROR] Cannot compare 'ListType(number)', 'ListType(string)' for expression 'ListTest(ListLiteral(OperatorRange(null,StringLiteral(\"1\")),OperatorRange(null,StringLiteral(\"2\")),OperatorRange(null,StringLiteral(\"3\"))))'", exception.getMessage());
         doUnaryTestsTest(entries, "numberList", "= [1, 2, 3]",
                 "PositiveUnaryTests(OperatorRange(=,ListLiteral(NumericLiteral(1),NumericLiteral(2),NumericLiteral(3))))",
                 "TupleType(boolean)",
@@ -724,7 +724,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
             doUnaryTestsTest(entries, "input", "123.56", "", "TupleType(boolean)", "", null, "");
         });
-        assertEquals("Operator '=' cannot be applied to 'boolean', 'number' for expression 'OperatorRange(null,NumericLiteral(123.56))'", exception.getMessage());
+        assertEquals("[ERROR] Operator '=' cannot be applied to 'boolean', 'number' for expression 'OperatorRange(null,NumericLiteral(123.56))'", exception.getMessage());
     }
 
     @Test
@@ -735,7 +735,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
 
             doUnaryTestsTest(entries, "input", "< 123.56", "", "TupleType(boolean)", "", null, "");
         });
-        assertEquals("Operator '<' cannot be applied to 'boolean', 'number' for expression 'OperatorRange(<,NumericLiteral(123.56))'", exception.getMessage());
+        assertEquals("[ERROR] Operator '<' cannot be applied to 'boolean', 'number' for expression 'OperatorRange(<,NumericLiteral(123.56))'", exception.getMessage());
     }
 
     //
@@ -815,7 +815,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "for i in 0..4 return if i = 0 then 1 else i * partial[-1]",
                 "ForExpression(Iterator(i in RangeIteratorDomain(NumericLiteral(0), NumericLiteral(4))) -> IfExpression(Relational(=,Name(i),NumericLiteral(0)), NumericLiteral(1), Multiplication(*,Name(i),FilterExpression(Name(partial), ArithmeticNegation(NumericLiteral(1))))))",
                 "ListType(number)",
-                "rangeToList(number(\"0\"), number(\"4\")).stream().map(i -> (booleanEqual(numericEqual(i, number(\"0\")), Boolean.TRUE)) ? number(\"1\") : numericMultiply(i, ("+numberType()+")(elementAt(partial, numericUnaryMinus(number(\"1\")))))).collect(Collectors.toList())",
+                "rangeToList(number(\"0\"), number(\"4\")).stream().map(i -> (booleanEqual(numericEqual(i, number(\"0\")), Boolean.TRUE)) ? number(\"1\") : numericMultiply(i, (" + numberType() + ")(elementAt(partial, numericUnaryMinus(number(\"1\")))))).collect(Collectors.toList())",
                 null,
                 null
         );
@@ -946,7 +946,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "ForExpression(Iterator(i in RangeIteratorDomain(DateTimeLiteral(date, \"1980-01-01\"), DateTimeLiteral(date, \"1980-01-02\"))) -> ForExpression(Iterator(j in ExpressionIteratorDomain(ListLiteral(DateTimeLiteral(date, \"1980-01-02\"),DateTimeLiteral(date, \"1980-01-03\")))) -> Addition(-,Name(i),Name(j))))",
                 "ListType(ListType(days and time duration))",
                 "rangeToList(date(\"1980-01-01\"), date(\"1980-01-02\")).stream().map(i -> asList(date(\"1980-01-02\"), date(\"1980-01-03\")).stream().map(j -> dateSubtract(i, j)).collect(Collectors.toList())).collect(Collectors.toList())",
-                this.lib.rangeToList(this.lib.date("1980-01-01"),this.lib.date("1980-01-02")).
+                this.lib.rangeToList(this.lib.date("1980-01-01"), this.lib.date("1980-01-02")).
                         stream().map(i -> this.lib.asList(this.lib.date("1980-01-02"), this.lib.date("1980-01-03")).
                                 stream().map(j -> this.lib.dateSubtract(i, j)).
                                 collect(Collectors.toList())).
@@ -977,14 +977,14 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                             collect(Collectors.toList()),
                     Arrays.asList(this.lib.number("4"), this.lib.number("5"), this.lib.number("8"), this.lib.number("10")));
         });
-        assertEquals("VariableDeclaration 'i' already exists", exception.getMessage());
+        assertEquals("[ERROR] VariableDeclaration 'i' already exists", exception.getMessage());
 
         // complex types
         doExpressionTest(entries, "", "for i in a.min..a.max return i",
                 "ForExpression(Iterator(i in RangeIteratorDomain(PathExpression(Name(a), min), PathExpression(Name(a), max))) -> Name(i))",
                 "ListType(number)",
                 "rangeToList(((" + numberType() + ")((com.gs.dmn.runtime.Context)a).get(\"min\")), ((" + numberType() + ")((com.gs.dmn.runtime.Context)a).get(\"max\"))).stream().map(i -> i).collect(Collectors.toList())",
-                this.lib.rangeToList(((java.lang.Number)((com.gs.dmn.runtime.Context)a).get("min")), ((java.lang.Number)((com.gs.dmn.runtime.Context)a).get("max"))).
+                this.lib.rangeToList(((java.lang.Number) ((com.gs.dmn.runtime.Context) a).get("min")), ((java.lang.Number) ((com.gs.dmn.runtime.Context) a).get("max"))).
                         stream().map(i -> i).collect(Collectors.toList()),
                 Arrays.asList(this.lib.number("2"), this.lib.number("3"), this.lib.number("4")));
         doExpressionTest(entries, "", "for i in b.start .. b.end return i",
@@ -1040,7 +1040,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     "",
                     "");
         });
-        assertEquals("Condition type must be boolean, found 'number' instead, for expression 'IfExpression(NumericLiteral(5), NumericLiteral(1), NumericLiteral(2))'", exception.getMessage());
+        assertEquals("[ERROR] Condition type must be boolean, found 'number' instead, for expression 'IfExpression(NumericLiteral(5), NumericLiteral(1), NumericLiteral(2))'", exception.getMessage());
     }
 
     @Test
@@ -1056,7 +1056,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     "",
                     "");
         });
-        assertEquals("Types of then and else branches are incompatible, found 'boolean' and 'number', for expression 'IfExpression(BooleanLiteral(true), BooleanLiteral(true), NumericLiteral(2))'", exception.getMessage());
+        assertEquals("[ERROR] Types of then and else branches are incompatible, found 'boolean' and 'number', for expression 'IfExpression(BooleanLiteral(true), BooleanLiteral(true), NumericLiteral(2))'", exception.getMessage());
     }
 
     @Test
@@ -1069,7 +1069,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                 "boolean",
                 "booleanOr((List)asList(number(\"1\"), number(\"2\")).stream().flatMap(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).collect(Collectors.toList()))",
-                this.lib.booleanOr((List)this.lib.asList(this.lib.number("1"), this.lib.number("2")).
+                this.lib.booleanOr((List) this.lib.asList(this.lib.number("1"), this.lib.number("2")).
                         stream().flatMap(i -> this.lib.asList(this.lib.number("2"), this.lib.number("3")).
                                 stream().map(j -> this.lib.numericGreaterThan(this.lib.numericAdd(i, j), this.lib.number("1")))).
                         collect(Collectors.toList())),
@@ -1078,7 +1078,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(ListLiteral(NumericLiteral(1),NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(ListLiteral(NumericLiteral(2),NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
                 "boolean",
                 "booleanAnd((List)asList(number(\"1\"), number(\"2\")).stream().flatMap(i -> asList(number(\"2\"), number(\"3\")).stream().map(j -> numericGreaterThan(numericAdd(i, j), number(\"1\")))).collect(Collectors.toList()))",
-                this.lib.booleanAnd((List)this.lib.asList(this.lib.number("1"), this.lib.number("2")).
+                this.lib.booleanAnd((List) this.lib.asList(this.lib.number("1"), this.lib.number("2")).
                         stream().flatMap(i -> this.lib.asList(this.lib.number("2"), this.lib.number("3")).
                                 stream().map(j -> this.lib.numericGreaterThan(this.lib.numericAdd(i, j), this.lib.number("1")))).
                         collect(Collectors.toList())),
@@ -1096,7 +1096,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                             collect(Collectors.toList())),
                     true);
         });
-        assertEquals("Type 'RangeType(number)' is not supported for iteration domains for expression 'QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))'", exception.getMessage());
+        assertEquals("[ERROR] Type 'RangeType(number)' is not supported for iteration domains for expression 'QuantifiedExpression(some, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))'", exception.getMessage());
         exception = assertThrows(SemanticErrorException.class, () -> {
             doExpressionTest(entries, "", "every i in [1..2] j in [2..3] satisfies i + j > 1",
                     "QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))",
@@ -1108,7 +1108,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                             collect(Collectors.toList())),
                     true);
         });
-        assertEquals("Type 'RangeType(number)' is not supported for iteration domains for expression 'QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))'", exception.getMessage());
+        assertEquals("[ERROR] Type 'RangeType(number)' is not supported for iteration domains for expression 'QuantifiedExpression(every, Iterator(i in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(1),false,NumericLiteral(2)))),Iterator(j in ExpressionIteratorDomain(EndpointsRange(false,NumericLiteral(2),false,NumericLiteral(3)))) -> Relational(>,Addition(+,Name(i),Name(j)),NumericLiteral(1)))'", exception.getMessage());
     }
 
     @Test
@@ -1965,7 +1965,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     "",
                     "");
         });
-        assertEquals("Operator '=' cannot be applied to 'number', 'boolean' for expression 'OperatorRange(null,BooleanLiteral(true))'", exception.getMessage());
+        assertEquals("[ERROR] Operator '=' cannot be applied to 'number', 'boolean' for expression 'OperatorRange(null,BooleanLiteral(true))'", exception.getMessage());
     }
 
     @Test
@@ -2492,7 +2492,12 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                 "ArithmeticNegation(FunctionInvocation(FunctionDefinition(FormalParameter(a, number, false, false), Name(a), false) -> PositionalParameters(NumericLiteral(10))))",
                 "number",
                 "numericUnaryMinus(new com.gs.dmn.runtime.LambdaExpression<" + numberType() + ">() {public " + numberType() + " apply(Object... args_) {" + numberType() + " a = (" + numberType() + ")args_[0];return a;}}.apply(number(\"10\"), context_))",
-                this.lib.numericUnaryMinus(new com.gs.dmn.runtime.LambdaExpression<NUMBER>() {public NUMBER apply(Object... args_) {NUMBER a = (NUMBER)args_[0];return a;}}.apply(this.lib.number("10"), context_)),
+                this.lib.numericUnaryMinus(new com.gs.dmn.runtime.LambdaExpression<NUMBER>() {
+                    public NUMBER apply(Object... args_) {
+                        NUMBER a = (NUMBER) args_[0];
+                        return a;
+                    }
+                }.apply(this.lib.number("10"), context_)),
                 this.lib.number("-10"));
 
     }
@@ -2518,7 +2523,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     null,
                     null);
         });
-        assertEquals("Operator '-' cannot be applied to 'date' for expression 'ArithmeticNegation(DateTimeLiteral(date, \"2020-01-01\"))'", exception.getMessage());
+        assertEquals("[ERROR] Operator '-' cannot be applied to 'date' for expression 'ArithmeticNegation(DateTimeLiteral(date, \"2020-01-01\"))'", exception.getMessage());
     }
 
     @Test
@@ -2587,13 +2592,11 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         ItemDefinitionType employeeTableType = makeItemDefinitionType("tEmployeeTable")
                 .addMember("id", Collections.emptyList(), STRING)
                 .addMember("name", Collections.emptyList(), STRING)
-                .addMember("deptNum", Collections.emptyList(), NUMBER)
-                ;
+                .addMember("deptNum", Collections.emptyList(), NUMBER);
         ItemDefinitionType deptTableType = makeItemDefinitionType("tDeptTable")
                 .addMember("number", Collections.emptyList(), NUMBER)
                 .addMember("name", Collections.emptyList(), STRING)
-                .addMember("manager", Collections.emptyList(), STRING)
-                ;
+                .addMember("manager", Collections.emptyList(), STRING);
         List<EnvironmentEntry> entries = Arrays.asList(
                 new EnvironmentEntry("EmployeeTable", new ListType(employeeTableType), null),
                 new EnvironmentEntry("DeptTable", new ListType(deptTableType), null),
@@ -2602,7 +2605,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "DeptTable[number = EmployeeTable[name=LastName].deptNum[1]].manager[1]",
                 "FilterExpression(PathExpression(FilterExpression(Name(DeptTable), Relational(=,PathExpression(Name(item), number),FilterExpression(PathExpression(FilterExpression(Name(EmployeeTable), Relational(=,PathExpression(Name(item), name),Name(LastName))), deptNum), NumericLiteral(1)))), manager), NumericLiteral(1))",
                 "string",
-                "(String)(elementAt(deptTable.stream().filter(item -> numericEqual((("+numberType()+")(item != null ? item.getNumber() : null)), ("+numberType()+")(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)(item_1_ != null ? item_1_.getName() : null)), lastName) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> (("+numberType()+")(x_ != null ? x_.getDeptNum() : null))).collect(Collectors.toList()), number(\"1\")))) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String)(x_ != null ? x_.getManager() : null))).collect(Collectors.toList()), number(\"1\")))",
+                "(String)(elementAt(deptTable.stream().filter(item -> numericEqual(((" + numberType() + ")(item != null ? item.getNumber() : null)), (" + numberType() + ")(elementAt(employeeTable.stream().filter(item_1_ -> stringEqual(((String)(item_1_ != null ? item_1_.getName() : null)), lastName) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((" + numberType() + ")(x_ != null ? x_.getDeptNum() : null))).collect(Collectors.toList()), number(\"1\")))) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String)(x_ != null ? x_.getManager() : null))).collect(Collectors.toList()), number(\"1\")))",
                 null,
                 null
         );
@@ -2631,8 +2634,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "[{item: 1}, {item: 2}, {item: 3}][item >= 2]",
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(1))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(item) = NumericLiteral(3)))), Relational(>=,PathExpression(Name(item), item),NumericLiteral(2)))",
                 "ListType(ContextType(item = number))",
-                "asList(new com.gs.dmn.runtime.Context().add(\"item\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"3\"))).stream().filter(item -> numericGreaterEqualThan((("+numberType()+")((com.gs.dmn.runtime.Context)item).get(\"item\")), number(\"2\")) == Boolean.TRUE).collect(Collectors.toList())",
-                this.lib.asList(new com.gs.dmn.runtime.Context().add("item", this.lib.number("1")), new com.gs.dmn.runtime.Context().add("item", this.lib.number("2")), new com.gs.dmn.runtime.Context().add("item", this.lib.number("3"))).stream().filter(item -> this.lib.numericGreaterEqualThan(((NUMBER)((com.gs.dmn.runtime.Context)item).get("item")), this.lib.number("2")) == Boolean.TRUE).collect(Collectors.toList()),
+                "asList(new com.gs.dmn.runtime.Context().add(\"item\", number(\"1\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"item\", number(\"3\"))).stream().filter(item -> numericGreaterEqualThan(((" + numberType() + ")((com.gs.dmn.runtime.Context)item).get(\"item\")), number(\"2\")) == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("item", this.lib.number("1")), new com.gs.dmn.runtime.Context().add("item", this.lib.number("2")), new com.gs.dmn.runtime.Context().add("item", this.lib.number("3"))).stream().filter(item -> this.lib.numericGreaterEqualThan(((NUMBER) ((com.gs.dmn.runtime.Context) item).get("item")), this.lib.number("2")) == Boolean.TRUE).collect(Collectors.toList()),
                 this.lib.asList(new Context().add("item", this.lib.number("2")), new Context().add("item", this.lib.number("3"))));
         doExpressionTest(entries, "", "source[true]",
                 "FilterExpression(Name(source), BooleanLiteral(true))",
@@ -2661,45 +2664,45 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "employee[item.dept = 20]",
                 "FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20)))",
                 "ListType(ContextType(id = number, dept = number, name = string))",
-                "employee.stream().filter(item -> numericEqual((("+numberType()+")((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> this.lib.numericEqual(((NUMBER)((com.gs.dmn.runtime.Context)item).get("dept")), this.lib.number("20")) == Boolean.TRUE).collect(Collectors.toList()),
+                "employee.stream().filter(item -> numericEqual(((" + numberType() + ")((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList())",
+                employeeValue.stream().filter(item -> this.lib.numericEqual(((NUMBER) ((com.gs.dmn.runtime.Context) item).get("dept")), this.lib.number("20")) == Boolean.TRUE).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1), employeeValue.get(2)));
         doExpressionTest(entries, "", "employee[item.dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
-                "employee.stream().filter(item -> numericEqual((("+numberType()+")((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String)((com.gs.dmn.runtime.Context)x_).get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> this.lib.numericEqual(((NUMBER)((com.gs.dmn.runtime.Context)item).get("dept")), this.lib.number("20")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String)((com.gs.dmn.runtime.Context)x_).get("name"))).collect(Collectors.toList()),
+                "employee.stream().filter(item -> numericEqual(((" + numberType() + ")((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String)((com.gs.dmn.runtime.Context)x_).get(\"name\"))).collect(Collectors.toList())",
+                employeeValue.stream().filter(item -> this.lib.numericEqual(((NUMBER) ((com.gs.dmn.runtime.Context) item).get("dept")), this.lib.number("20")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String) ((com.gs.dmn.runtime.Context) x_).get("name"))).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
         doExpressionTest(entries, "", "employee[dept = 20].name",
                 "PathExpression(FilterExpression(Name(employee), Relational(=,PathExpression(Name(item), dept),NumericLiteral(20))), name)",
                 "ListType(string)",
-                "employee.stream().filter(item -> numericEqual((("+numberType()+")((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String)((com.gs.dmn.runtime.Context)x_).get(\"name\"))).collect(Collectors.toList())",
-                employeeValue.stream().filter(item -> this.lib.numericEqual((NUMBER)((Context)item).get("dept"), this.lib.number("20"))).collect(Collectors.toList()).stream().map(x_ -> (String) x_.get("name")).collect(Collectors.toList()),
+                "employee.stream().filter(item -> numericEqual(((" + numberType() + ")((com.gs.dmn.runtime.Context)item).get(\"dept\")), number(\"20\")) == Boolean.TRUE).collect(Collectors.toList()).stream().map(x_ -> ((String)((com.gs.dmn.runtime.Context)x_).get(\"name\"))).collect(Collectors.toList())",
+                employeeValue.stream().filter(item -> this.lib.numericEqual((NUMBER) ((Context) item).get("dept"), this.lib.number("20"))).collect(Collectors.toList()).stream().map(x_ -> (String) x_.get("name")).collect(Collectors.toList()),
                 Arrays.asList(employeeValue.get(1).get("name"), employeeValue.get(2).get("name")));
 
         // numeric filter
         doExpressionTest(entries, "", "[1, 2][0]",
                 "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), NumericLiteral(0))",
                 "number",
-                "("+numberType()+")(elementAt(asList(number(\"1\"), number(\"2\")), number(\"0\")))",
+                "(" + numberType() + ")(elementAt(asList(number(\"1\"), number(\"2\")), number(\"0\")))",
                 this.lib.elementAt(this.lib.asList(this.lib.number("1"), this.lib.number("2")), this.lib.number("0")),
                 null);
         doExpressionTest(entries, "", "[1, 2][-1]",
                 "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(1)))",
                 "number",
-                "("+numberType()+")(elementAt(asList(number(\"1\"), number(\"2\")), numericUnaryMinus(number(\"1\"))))",
+                "(" + numberType() + ")(elementAt(asList(number(\"1\"), number(\"2\")), numericUnaryMinus(number(\"1\"))))",
                 this.lib.elementAt(this.lib.asList(this.lib.number("1"), this.lib.number("2")), this.lib.numericUnaryMinus(this.lib.number("1"))),
                 this.lib.number("2"));
         doExpressionTest(entries, "", "[1, 2][-2]",
                 "FilterExpression(ListLiteral(NumericLiteral(1),NumericLiteral(2)), ArithmeticNegation(NumericLiteral(2)))",
                 "number",
-                "("+numberType()+")(elementAt(asList(number(\"1\"), number(\"2\")), numericUnaryMinus(number(\"2\"))))",
+                "(" + numberType() + ")(elementAt(asList(number(\"1\"), number(\"2\")), numericUnaryMinus(number(\"2\"))))",
                 this.lib.elementAt(this.lib.asList(this.lib.number("1"), this.lib.number("2")), this.lib.numericUnaryMinus(this.lib.number("2"))),
                 this.lib.number("1"));
         doExpressionTest(entries, "", "1[1]",
                 "FilterExpression(NumericLiteral(1), NumericLiteral(1))",
                 "number",
-                "("+numberType()+")(elementAt(asList(number(\"1\")), number(\"1\")))",
+                "(" + numberType() + ")(elementAt(asList(number(\"1\")), number(\"1\")))",
                 this.lib.elementAt(this.lib.asList(this.lib.number("1")), this.lib.number("1")),
                 this.lib.number("1"));
 
@@ -2707,8 +2710,8 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(entries, "", "[{x:1, y:2}, {x:2, y:3}] [item.x = 1]",
                 "FilterExpression(ListLiteral(Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(1)),ContextEntry(ContextEntryKey(y) = NumericLiteral(2))),Context(ContextEntry(ContextEntryKey(x) = NumericLiteral(2)),ContextEntry(ContextEntryKey(y) = NumericLiteral(3)))), Relational(=,PathExpression(Name(item), x),NumericLiteral(1)))",
                 "ListType(ContextType(x = number, y = number))",
-                "asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"x\", number(\"2\")).add(\"y\", number(\"3\"))).stream().filter(item -> numericEqual((("+numberType()+")((com.gs.dmn.runtime.Context)item).get(\"x\")), number(\"1\")) == Boolean.TRUE).collect(Collectors.toList())",
-                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")).add("y", this.lib.number("2")), new com.gs.dmn.runtime.Context().add("x", this.lib.number("2")).add("y", this.lib.number("3"))).stream().filter(item -> this.lib.numericEqual(((NUMBER)((com.gs.dmn.runtime.Context)item).get("x")), this.lib.number("1")) == Boolean.TRUE).collect(Collectors.toList()),
+                "asList(new com.gs.dmn.runtime.Context().add(\"x\", number(\"1\")).add(\"y\", number(\"2\")), new com.gs.dmn.runtime.Context().add(\"x\", number(\"2\")).add(\"y\", number(\"3\"))).stream().filter(item -> numericEqual(((" + numberType() + ")((com.gs.dmn.runtime.Context)item).get(\"x\")), number(\"1\")) == Boolean.TRUE).collect(Collectors.toList())",
+                this.lib.asList(new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")).add("y", this.lib.number("2")), new com.gs.dmn.runtime.Context().add("x", this.lib.number("2")).add("y", this.lib.number("3"))).stream().filter(item -> this.lib.numericEqual(((NUMBER) ((com.gs.dmn.runtime.Context) item).get("x")), this.lib.number("1")) == Boolean.TRUE).collect(Collectors.toList()),
                 Arrays.asList(new com.gs.dmn.runtime.Context().add("x", this.lib.number("1")).add("y", this.lib.number("2"))));
     }
 
@@ -2884,7 +2887,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
                     null,
                     null);
         });
-        assertEquals("Illegal signature 'signature' for expression 'FunctionDefinition(FormalParameter(x, string, false, false),FormalParameter(y, string, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)'", exception.getMessage());
+        assertEquals("[ERROR] Illegal signature 'signature' for expression 'FunctionDefinition(FormalParameter(x, string, false, false),FormalParameter(y, string, false, false), Context(ContextEntry(ContextEntryKey(java) = Context(ContextEntry(ContextEntryKey(class) = StringLiteral(\"name\")),ContextEntry(ContextEntryKey(methodSignature) = StringLiteral(\"signature\"))))), true)'", exception.getMessage());
     }
 
     @Test
@@ -2943,7 +2946,7 @@ public abstract class AbstractFEELProcessorTest<NUMBER, DATE, TIME, DATE_TIME, D
         doExpressionTest(expressionPairs, "", "100[0]",
                 "FilterExpression(NumericLiteral(100), NumericLiteral(0))",
                 "number",
-                "("+numberType()+")(elementAt(asList(number(\"100\")), number(\"0\")))",
+                "(" + numberType() + ")(elementAt(asList(number(\"100\")), number(\"0\")))",
                 this.lib.elementAt(this.lib.asList(this.lib.number("100")), this.lib.number("0")),
                 null);
         doExpressionTest(expressionPairs, "", "\"foo\"[0]",

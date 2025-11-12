@@ -12,6 +12,9 @@
  */
 package com.gs.dmn.feel.interpreter;
 
+import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.feel.FEELExpressionLocation;
 import com.gs.dmn.feel.lib.StandardFEELLib;
 import com.gs.dmn.runtime.interpreter.DMNInterpreter;
 
@@ -21,7 +24,7 @@ class StandardFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> ex
     }
 
     @Override
-    protected Object evaluateDateTimeMember(Object source, String member) {
+    protected Object evaluateDateTimeMember(Object source, String member, FEELExpressionLocation location) {
         StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION> lib = (StandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATION>) getLib();
         if ("year".equals(member)) {
             return lib.year(source);
@@ -55,7 +58,8 @@ class StandardFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DURATION> ex
         } else if ("seconds".equals(member)) {
             return lib.seconds((DURATION) source);
         } else {
-            handleError(String.format("Cannot resolve method '%s' for date time", member));
+            SemanticError error = ErrorFactory.makeELExpressionError(location, String.format("Cannot resolve method '%s' for date time", member));
+            handleError(error);
             return null;
         }
     }

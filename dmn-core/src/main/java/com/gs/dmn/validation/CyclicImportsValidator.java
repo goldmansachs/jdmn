@@ -16,6 +16,8 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.Graph;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.ast.TNamedElement;
+import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.SeverityLevel;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 
@@ -32,7 +34,7 @@ public class CyclicImportsValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<String> validate(DMNModelRepository repository) {
+    public List<SemanticError> validate(DMNModelRepository repository) {
         ValidationContext context = new ValidationContext(repository);
         if (isEmpty(repository)) {
             this.logger.warn("DMN repository is empty; validator will not run");
@@ -46,7 +48,7 @@ public class CyclicImportsValidator extends SimpleDMNValidator {
         importGraph.findCycles().forEach(cycle -> {
             String cycleText = cycle.stream().map(TNamedElement::getName).collect(Collectors.joining(" --> "));
             String errorMessage = String.format("Cyclic import detected: %s", cycleText);
-            context.addError(errorMessage);
+            context.addError(new SemanticError(SeverityLevel.ERROR, errorMessage));
         });
 
         return context.getErrors();

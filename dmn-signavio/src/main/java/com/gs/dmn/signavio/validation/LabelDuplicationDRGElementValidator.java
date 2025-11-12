@@ -14,21 +14,22 @@ package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.SemanticError;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LabelDuplicationDRGElementValidator extends LabelDuplicationValidator {
     @Override
-    public List<String> validate(DMNModelRepository dmnModelRepository) {
-        List<String> errors = new ArrayList<>();
+    public List<SemanticError> validate(DMNModelRepository dmnModelRepository) {
+        List<SemanticError> errors = new ArrayList<>();
         if (isEmpty(dmnModelRepository)) {
             logger.warn("DMN repository is empty; validator will not run");
             return errors;
         }
 
-        for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
-            validateElements(dmnModelRepository.findDRGElements(definitions), errors);
+        for (TDefinitions definitions : dmnModelRepository.getAllDefinitions()) {
+            validateElements(dmnModelRepository.findDRGElements(definitions), errors, definitions);
         }
 
         return errors;

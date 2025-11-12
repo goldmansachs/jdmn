@@ -20,7 +20,10 @@ import com.gs.dmn.context.environment.EnvironmentFactory;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
+import com.gs.dmn.feel.FEELExpressionLocation;
+import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.feel.analysis.semantics.type.DateType;
 import com.gs.dmn.feel.analysis.semantics.type.NumberType;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
@@ -68,23 +71,30 @@ public abstract class AbstractAnalysisVisitor<T, C, R> extends AbstractVisitor<T
         return Type.conformsTo(elementType, NumberType.NUMBER) || Type.conformsTo(elementType, DateType.DATE);
     }
 
-    protected void handleError(String message) {
-        throw new SemanticErrorException(message);
+    protected void handleError(SemanticError error) {
+        throw new SemanticErrorException(error.toText());
     }
 
-    protected void handleError(DMNContext context, Expression<Type> element, String message) {
-        throw new SemanticErrorException(makeELExpressionErrorMessage(context, element, message));
+    protected void handleError(SemanticError error, Exception e) {
+        throw new SemanticErrorException(error.toText(), e);
     }
 
-    protected void handleError(DMNContext context, Expression<Type> element, String message, Exception e) {
-        throw new SemanticErrorException(makeELExpressionErrorMessage(context, element, message), e);
-    }
-
-    protected String makeELExpressionErrorMessage(DMNContext context, com.gs.dmn.el.analysis.syntax.ast.expression.Expression<Type> expression, String errorMessage) {
+    protected SemanticError makeELExpressionError(DMNContext context, Expression<Type> expression, String errorMessage) {
         // Make DMN location
         TNamedElement element = context == null ? null : context.getElement();
         TDefinitions definitions = this.dmnModelRepository.getModel(element);
-        return ErrorFactory.makeELExpressionErrorMessage(definitions, element, expression, errorMessage);
+        return ErrorFactory.makeELExpressionError(new FEELExpressionLocation(definitions, element, expression), errorMessage);
     }
 
+    protected ModelLocation makeModelLocation(DMNContext context) {
+        TNamedElement element = context.getElement();
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        return new ModelLocation(model, element);
+    }
+
+    protected FEELExpressionLocation makeExpressionLocation(DMNContext context, Expression<Type> expression) {
+        TNamedElement element = context.getElement();
+        TDefinitions model = this.dmnModelRepository.getModel(element);
+        return new FEELExpressionLocation(model, element, expression);
+    }
 }

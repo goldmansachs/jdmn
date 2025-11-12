@@ -14,51 +14,80 @@ package com.gs.dmn.error;
 
 import com.gs.dmn.ast.*;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.xml.namespace.QName;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.gs.dmn.feel.DMNExpressionLocation;
+import com.gs.dmn.feel.FEELExpressionLocation;
+import com.gs.dmn.feel.ModelLocation;
+import com.gs.dmn.feel.analysis.syntax.ast.expression.Expression;
 
 public class ErrorFactory {
-    public static final String DIAGRAM_ID = "diagramId";
-
     private ErrorFactory() {
     }
 
-    public static String makeDMNErrorMessage(TDefinitions definitions, TDMNElement element, String errorMessage) {
-        String location = makeLocation(definitions, element);
-        return makeErrorMessage(location, errorMessage);
+    //
+    // Factory methods for SemanticErrors
+    //
+    public static SemanticError makeDMNError(ModelLocation modelLocation, String errorMessage) {
+        LocationInfo location = makeLocation(modelLocation);
+        return new SemanticError(SeverityLevel.ERROR, location, errorMessage);
     }
 
-    public static String makeDMNExpressionErrorMessage(TDefinitions definitions, TDMNElement element, TExpression expression, String errorMessage) {
+    public static SemanticError makeDMNExpressionError(DMNExpressionLocation location, String errorMessage) {
+        TExpression expression = location.getExpression();
         String expressionText = expressionDescription(expression);
-        return makeExpressionErrorMessage(definitions, element, expressionText, errorMessage);
+        return makeExpressionError(location, expressionText, errorMessage);
     }
 
-    public static String makeELExpressionErrorMessage(TDefinitions definitions, TDMNElement element, Expression<Type> expression, String errorMessage) {
+    public static SemanticError makeELExpressionError(FEELExpressionLocation location, String errorMessage) {
+        Expression<Type> expression = location.getExpression();
         String expressionText = expressionDescription(expression);
-        return makeExpressionErrorMessage(definitions, element, expressionText, errorMessage);
+        return makeExpressionError(location, expressionText, errorMessage);
     }
 
-    private static String makeExpressionErrorMessage(TDefinitions definitions, TDMNElement element, String expressionText, String errorMessage) {
-        String modelLocation = makeLocation(definitions, element);
+    private static SemanticError makeExpressionError(ModelLocation modelLocation, String expressionText, String errorMessage) {
+        LocationInfo locationInfo = makeLocation(modelLocation);
 
-        // Make final error message
-        String finalErrorMessage;
-        if (modelLocation == null) {
-            finalErrorMessage = errorMessage;
-        } else {
-            finalErrorMessage = modelLocation + " " + errorMessage;
+        // Add expression to error message
+        String finalErrorMessage = String.format("%s for expression '%s'", errorMessage, expressionText);
+        return new SemanticError(SeverityLevel.ERROR, locationInfo, finalErrorMessage);
+    }
+
+    public static SemanticError makeIfError(ModelLocation location, Type thenType, Type elseType) {
+        String errorMessage = String.format("Types of then and else branches are incompatible, found '%s' and '%s'", thenType, elseType);
+        return makeDMNError(location, errorMessage);
+    }
+
+    // DMN location of the error
+    public static LocationInfo makeLocation(ModelLocation location) {
+        if (location == null) {
+            return null;
         }
 
-        // Add expression location
-        String expressionLocation = String.format(" for expression '%s'", expressionText);
-        finalErrorMessage += expressionLocation;
+        TDefinitions definitions = location.getModel();
+        TDMNElement element = location.getElement();
+        if (definitions == null && element == null) {
+            return null;
+        }
 
-        return finalErrorMessage;
+        // Calculate model coordinates
+        String namespace = null;
+        String modelName = null;
+        String modelId = null;
+        if (definitions != null) {
+            namespace = definitions.getNamespace();
+            modelName = definitions.getName();
+            modelId = definitions.getId();
+        }
+        // Calculate element coordinates
+        String elementName = null;
+        String elementId = null;
+        if (element != null) {
+            elementId = element.getId();
+        }
+        if (element instanceof TNamedElement) {
+            elementName = ((TNamedElement) element).getName();
+        }
+
+        return new LocationInfo(namespace, modelName, modelId, elementName, elementId);
     }
 
     private static String expressionDescription(Object expression) {
@@ -69,75 +98,5 @@ public class ErrorFactory {
         } else {
             return expression.toString();
         }
-    }
-
-    public static String makeErrorMessage(String location, String errorMessage) {
-        if (location == null) {
-            return errorMessage;
-        } else {
-            return location + ": " + errorMessage;
-        }
-    }
-
-    // DMN location of the error
-    public static String makeLocation(TDefinitions definitions, TDMNElement element) {
-        if (definitions == null && element == null) {
-            return null;
-        }
-
-        List<String> locationParts = new ArrayList<>();
-        addModelCoordinates(definitions, element, locationParts);
-        addElementCoordinates(element, locationParts);
-        return locationParts.isEmpty() ? null : String.format("(%s)", String.join(", ", locationParts));
-    }
-
-    protected static void addModelCoordinates(TDefinitions definitions, TDMNElement element, List<String> locationParts) {
-        if (definitions != null) {
-            String modelName = definitions.getName();
-            if (!StringUtils.isBlank(modelName)) {
-                locationParts.add(String.format("model='%s'", modelName));
-            }
-            String diagramId = getDiagramId(element);
-            if (!StringUtils.isBlank(diagramId)) {
-                locationParts.add(String.format("%s='%s'", DIAGRAM_ID, diagramId));
-            }
-        }
-    }
-
-    protected static void addElementCoordinates(TDMNElement element, List<String> locationParts) {
-        if (element != null) {
-            String id = element.getId();
-            String label = element.getLabel();
-            String name = element instanceof TNamedElement ? ((TNamedElement) element).getName() : null;
-            if (!StringUtils.isBlank(label)) {
-                locationParts.add(String.format("label='%s'", label));
-            }
-            if (!StringUtils.isBlank(name)) {
-                locationParts.add(String.format("name='%s'", name));
-            }
-            if (!StringUtils.isBlank(id)) {
-                locationParts.add(String.format("id='%s'", id));
-            }
-        }
-    }
-
-    public static String makeIfErrorMessage(TDMNElement element, Type thenType, Type elseType) {
-        String errorMessage = String.format("Types of then and else branches are incompatible, found '%s' and '%s'", thenType, elseType);
-        return makeDMNErrorMessage(null, element, errorMessage);
-    }
-
-    public static String getDiagramId(TDMNElement element) {
-        if (element == null) {
-            return null;
-        }
-        Map<QName, String> otherAttributes = element.getOtherAttributes();
-        if (otherAttributes != null) {
-            for (Map.Entry<QName, String> entry : otherAttributes.entrySet()) {
-                if (DIAGRAM_ID.equals(entry.getKey().getLocalPart())) {
-                    return entry.getValue();
-                }
-            }
-        }
-        return null;
     }
 }

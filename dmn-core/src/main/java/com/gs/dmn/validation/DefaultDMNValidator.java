@@ -18,6 +18,8 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.transformation.AbstractDMNToNativeTransformer;
@@ -38,7 +40,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<String> validate(DMNModelRepository repository) {
+    public List<SemanticError> validate(DMNModelRepository repository) {
         ValidationContext context = new ValidationContext(repository);
         if (isEmpty(repository)) {
             this.logger.warn("DMN repository is empty; validator will not run");
@@ -57,11 +59,11 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         validateNamedElement(definitions, element, context);
         if (StringUtils.isBlank(element.getImportType())) {
             String errorMessage = "Missing importType of import";
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
         if (StringUtils.isBlank(element.getNamespace())) {
             String errorMessage = "Missing namespace of import";
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
     }
 
@@ -71,7 +73,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
 
         if (!hasTypeRef(typeRef) && element.getItemComponent().isEmpty() && element.getFunctionItem() == null) {
             String errorMessage = "Incorrect definition of type";
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
     }
 
@@ -143,7 +145,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         // Report error
         if (!duplicates.isEmpty()) {
             String message = String.join(", ", duplicates);
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, null, String.format("%s Found duplicates for '%s'.", errorMessage, message)));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, null), String.format("%s Found duplicates for '%s'.", errorMessage, message)));
         }
     }
 
@@ -177,7 +179,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         // Report error
         if (!duplicates.isEmpty()) {
             String message = String.join(", ", duplicates);
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, null, String.format("%s Found duplicates for '%s'.", errorMessage, message)));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, null), String.format("%s Found duplicates for '%s'.", errorMessage, message)));
         }
     }
 
@@ -185,12 +187,12 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         // ID is mandatory for DRG elements, it is used in references
         if (StringUtils.isBlank(element.getId()) && element instanceof TDRGElement) {
             String errorMessage = String.format("Missing id for element %s", element.getClass().getSimpleName());
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
         // Name is mandatory in XSD
         if (element.getName() == null) {
             String errorMessage = String.format("Missing name for element %s", element.getClass().getSimpleName());
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
     }
 
@@ -199,21 +201,21 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
 
         if (variable == null) {
             String errorMessage = "Missing variable";
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
             return;
         }
 
         // validate element/variable/name
         if (variable.getName() == null) {
             String errorMessage = "Missing variable name";
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         } else {
             // element/@name == element/variable/@name
             String variableName = variable.getName();
             String elementName = element.getName();
             if (!elementName.equals(variableName)) {
                 String errorMessage = String.format("DRGElement name and variable name should be the same. Found '%s' and '%s'", elementName, variableName);
-                context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+                context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
             }
         }
         // validate element/variable/@typeRef
@@ -221,7 +223,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             QualifiedName typeRef = QualifiedName.toQualifiedName(definitions, variable.getTypeRef());
             if (repository.isNull(typeRef)) {
                 String errorMessage = "Missing typRef of variable";
-                context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+                context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
             }
         }
     }
@@ -252,7 +254,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
     private void validateExpression(TDefinitions definitions, TDRGElement element, TExpression expression, ValidationContext context) {
         if (expression == null) {
             String errorMessage = "Missing expression";
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         } else {
             if (expression instanceof TList) {
                 TList listExp = (TList) expression;
@@ -266,18 +268,18 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 TRelation relationExp = (TRelation) expression;
                 if (((TRelation) expression).getColumn() == null && relationExp.getRow() == null) {
                     String errorMessage = "Empty relation";
-                    context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+                    context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
                 }
             } else if (expression instanceof TUnaryTests) {
                 TUnaryTests unaryTests = (TUnaryTests) expression;
                 String expressionLanguage = unaryTests.getExpressionLanguage();
                 if (!isSupported(expressionLanguage)) {
                     String errorMessage = String.format("Not supported expression language '%s'", expressionLanguage);
-                    context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+                    context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
                 }
                 if (StringUtils.isBlank(unaryTests.getText())) {
                     String errorMessage = "Missing text of unary tests";
-                    context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+                    context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
                 }
             } else if (expression instanceof TConditional) {
                 TConditional conditionalExp = (TConditional) expression;
@@ -306,11 +308,11 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 String expressionLanguage = ((TLiteralExpression) expression).getExpressionLanguage();
                 if (!isSupported(expressionLanguage)) {
                     String errorMessage = String.format("Not supported expression language '%s'", expressionLanguage);
-                    context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+                    context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
                 }
                 if (StringUtils.isBlank(literalExpression.getText())) {
                     String errorMessage = "Missing text of literal expression";
-                    context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+                    context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
                 }
             } else if (expression instanceof TFilter) {
                 TFilter filterExp = (TFilter) expression;
@@ -321,7 +323,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
                 List<TContextEntry> contextEntryList = contextExp.getContextEntry();
                 if (contextEntryList.isEmpty()) {
                     String errorMessage = "Missing entries in context expression";
-                    context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+                    context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
                 }
             } else if (expression instanceof TInvocation) {
                 TInvocation invocation = (TInvocation) expression;
@@ -334,18 +336,18 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         List<TInputClause> input = decisionTable.getInput();
         if (input == null || input.isEmpty()) {
             String errorMessage = "Missing input clauses";
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
         List<TOutputClause> output = decisionTable.getOutput();
         if (output == null || output.isEmpty()) {
             String errorMessage = "Missing output clauses";
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
         validateHitPolicy(definitions, element, decisionTable, context);
         List<TDecisionRule> ruleList = decisionTable.getRule();
         if (ruleList == null || ruleList.isEmpty()) {
             String errorMessage = "Missing rules in decision table";
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         } else {
             for (TDecisionRule rule : ruleList) {
                 validateRule(definitions, element, rule, context);
@@ -359,13 +361,13 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         TBuiltinAggregator aggregation = decisionTable.getAggregation();
         if (hitPolicy != THitPolicy.COLLECT && aggregation != null) {
             String errorMessage = String.format("Aggregation '%s' not allowed for hit policy '%s'", aggregation, hitPolicy);
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
         if (output != null && output.size() > 1
                 && hitPolicy == THitPolicy.COLLECT
                 && aggregation != null) {
             String errorMessage = String.format("Collect operator is not defined over multiple outputs for decision table '%s'", decisionTable.getId());
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
     }
 
@@ -377,19 +379,19 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
         List<TUnaryTests> inputEntry = rule.getInputEntry();
         if (inputEntry == null || inputEntry.isEmpty()) {
             String errorMessage = "No input entries for rule " + rule.getId();
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
         List<TLiteralExpression> outputEntry = rule.getOutputEntry();
         if (outputEntry == null || outputEntry.isEmpty()) {
             String errorMessage = "No outputEntry entries for rule " + rule.getId();
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
     }
 
     private void checkChildExpression(TDefinitions definitions, TDRGElement element, TChildExpression childExpression, String parentName, String childName, ValidationContext context) {
         String errorMessage = String.format("Missing '%s' expression in '%s' boxed expression in element '%s'", childName, parentName, element.getName());
         if (childExpression == null || childExpression.getExpression() == null) {
-            context.addError(ErrorFactory.makeDMNErrorMessage(definitions, element, errorMessage));
+            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
         }
     }
 
@@ -400,7 +402,7 @@ public class DefaultDMNValidator extends SimpleDMNValidator {
             if (variableTypeRef != null && expressionTypeRef != null) {
                 if (!Objects.equals(variableTypeRef, expressionTypeRef)) {
                     String errorMessage = String.format("The variable type '%s' must be the same as the type of the contained expression '%s'", variableTypeRef, expressionTypeRef);
-                    context.addError(ErrorFactory.makeDMNErrorMessage(definitions, null, errorMessage));
+                    context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, null), errorMessage));
                 }
             }
         }

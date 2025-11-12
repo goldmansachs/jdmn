@@ -55,6 +55,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractDMNInterpreter.class);
 
     protected static EventListener EVENT_LISTENER = new LoggingEventListener(LOGGER);
+
     public static void setEventListener(EventListener eventListener) {
         EVENT_LISTENER = eventListener;
     }
@@ -133,7 +134,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
         Map<TInputData, Pair<String, String>> result = new LinkedHashMap<>();
         if (!this.dmnTransformer.isStrongTyping()) {
             TDefinitions model = this.repository.getModel(element);
-            for (Map.Entry<QualifiedName, Object> entry: informationRequirements.entrySet()) {
+            for (Map.Entry<QualifiedName, Object> entry : informationRequirements.entrySet()) {
                 Object value = entry.getValue();
                 TDRGElement drgElementByName = findInputData(model, entry.getKey());
                 if (drgElementByName instanceof TInputData) {
@@ -172,7 +173,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     private void restoreOriginalTypes(Map<TInputData, Pair<String, String>> inferredTypes) {
         if (!this.dmnTransformer.isStrongTyping()) {
-            for(Map.Entry<TInputData, Pair<String, String>> entry: inferredTypes.entrySet()) {
+            for (Map.Entry<TInputData, Pair<String, String>> entry : inferredTypes.entrySet()) {
                 TInputData inputData = entry.getKey();
                 String originalTypeRef = entry.getValue().getLeft();
                 inputData.getVariable().setTypeRef(originalTypeRef == null ? null : new QName(originalTypeRef));
@@ -350,7 +351,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
     private DMNContext makeDecisionGlobalContext(TDRGElement element, Map<QualifiedName, Object> informationRequirements) {
         DMNContext globalContext = this.dmnTransformer.makeGlobalContext(element);
-        for (Map.Entry<QualifiedName, Object> entry: informationRequirements.entrySet()) {
+        for (Map.Entry<QualifiedName, Object> entry : informationRequirements.entrySet()) {
             String key = this.dmnTransformer.bindingName(entry.getKey());
             globalContext.bind(key, entry.getValue());
         }
@@ -712,7 +713,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
 
                 // Evaluate function invocation
                 Object function = Result.value(functionResult);
-                Result returnResult = elInterpreter.evaluateFunctionInvocation((Function) function, (FunctionType) functionType, argList);
+                Result returnResult = elInterpreter.evaluateFunctionInvocation((Function) function, (FunctionType) functionType, argList, parentContext);
 
                 // Check result
                 returnResult = typeChecker.checkExpressionResult(returnResult, ((FunctionType) functionType).getReturnType());
@@ -802,7 +803,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                 }
                 // Return value
                 Result result = Result.of(output, type);
-                return typeChecker.checkExpressionResult(result, context, model) ;
+                return typeChecker.checkExpressionResult(result, context, model);
             }
         }
 

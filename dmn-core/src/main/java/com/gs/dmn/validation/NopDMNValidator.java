@@ -13,6 +13,7 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.error.SemanticError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class NopDMNValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<String> validate(DMNModelRepository dmnModelRepository) {
+    public List<SemanticError> validate(DMNModelRepository dmnModelRepository) {
         return new ArrayList<>();
     }
 }

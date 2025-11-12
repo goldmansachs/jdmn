@@ -13,6 +13,7 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.xstream.XMLDMNSerializer;
@@ -53,10 +54,10 @@ public class BatchValidationTest {
         if (file.getName().endsWith(".dmn")) {
             LOGGER.info("Validating {}", file.getPath());
             DMNModelRepository repository = new DMNModelRepository(this.serializer.readModel(file));
-            List<String> errors = this.validator.validate(repository);
+            List<SemanticError> errors = this.validator.validate(repository);
             if (!errors.isEmpty()) {
-                for (String error : errors) {
-                    LOGGER.error(error);
+                for (SemanticError error : errors) {
+                    LOGGER.error(error.getErrorMessage());
                 }
             }
         }

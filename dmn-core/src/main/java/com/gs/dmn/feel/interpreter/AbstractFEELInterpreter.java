@@ -59,8 +59,8 @@ public abstract class AbstractFEELInterpreter<NUMBER, DATE, TIME, DATE_TIME, DUR
     }
 
     @Override
-    public Result evaluateFunctionInvocation(Function function, FunctionType functionType, List<Object> argList) {
-        Object value = this.visitor.evaluateFunctionInvocation(function, functionType, argList);
+    public Result evaluateFunctionInvocation(Function function, FunctionType functionType, List<Object> argList, DMNContext context) {
+        Object value = this.visitor.evaluateFunctionInvocation(function, functionType, argList, context);
         return Result.of(value, functionType.getReturnType());
     }
 

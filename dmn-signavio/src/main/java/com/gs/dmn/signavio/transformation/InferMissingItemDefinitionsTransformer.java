@@ -18,6 +18,7 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.feel.analysis.semantics.type.DataType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
 import com.gs.dmn.log.BuildLogger;
@@ -76,10 +77,10 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
             logger.debug(String.format("Iteration: %d", iteration));
 
             itemDefinitionsToAdd.clear();
-            List<Pair<TNamedElement, String>> errorReport = typeRefValidator.makeErrorReport(repository);
+            List<Pair<TNamedElement, SemanticError>> errorReport = typeRefValidator.makeErrorReport(repository);
             List<TNamedElement> namedElements = errorReport.stream().map(Pair::getLeft).collect(Collectors.toList());
             List<Pair<TNamedElement, Type>> enhancedReport = inferTypes(namedElements, repository);
-            for (Pair<TNamedElement, Type> pair: enhancedReport) {
+            for (Pair<TNamedElement, Type> pair : enhancedReport) {
                 TNamedElement element = pair.getLeft();
                 Type type = pair.getRight();
                 if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
@@ -133,7 +134,7 @@ public class InferMissingItemDefinitionsTransformer extends AbstractMissingItemD
 
     private String getTypeRef(Type type) {
         if (isPrimitive(type)) {
-            return ((DataType)type).getName();
+            return ((DataType) type).getName();
         } else if (isListOfPrimitive(type)) {
             return getTypeRef(((ListType) type).getElementType());
         } else {

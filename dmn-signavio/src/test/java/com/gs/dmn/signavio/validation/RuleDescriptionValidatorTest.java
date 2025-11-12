@@ -13,6 +13,7 @@
 package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.ast.TDecision;
+import com.gs.dmn.error.SemanticError;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -29,21 +30,21 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
         String diagramName = "Linked Decision Test.dmn";
 
         List<String> expectedErrors = Arrays.asList(
-                "(model='Linked Decision Test', diagramId='9acf44f2b05343d79fc35140c493c1e0', label='Assess applicant age', name='assessApplicantAge', id='id-98f1b72e74edaaae8d7fd9043f7e1bc4'): Description of rule 0 in decision 'assessApplicantAge' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='9acf44f2b05343d79fc35140c493c1e0', label='Assess applicant age', name='assessApplicantAge', id='id-98f1b72e74edaaae8d7fd9043f7e1bc4'): Description of rule 1 in decision 'assessApplicantAge' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='9acf44f2b05343d79fc35140c493c1e0', label='Assess applicant age', name='assessApplicantAge', id='id-98f1b72e74edaaae8d7fd9043f7e1bc4'): Description of rule 2 in decision 'assessApplicantAge' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='9acf44f2b05343d79fc35140c493c1e0', label='Make credit decision', name='makeCreditDecision', id='id-5b83918d6fc820d73123e7ca0e6d3ca6'): Description of rule 0 in decision 'makeCreditDecision' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='9acf44f2b05343d79fc35140c493c1e0', label='Make credit decision', name='makeCreditDecision', id='id-5b83918d6fc820d73123e7ca0e6d3ca6'): Description of rule 1 in decision 'makeCreditDecision' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='9acf44f2b05343d79fc35140c493c1e0', label='Make credit decision', name='makeCreditDecision', id='id-5b83918d6fc820d73123e7ca0e6d3ca6'): Description of rule 2 in decision 'makeCreditDecision' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='9acf44f2b05343d79fc35140c493c1e0', label='Process prior issues', name='processPriorIssues', id='id-bdfc5bfa4ce80fd221463ee66b277220'): Description of rule 0 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='9acf44f2b05343d79fc35140c493c1e0', label='Process prior issues', name='processPriorIssues', id='id-bdfc5bfa4ce80fd221463ee66b277220'): Description of rule 1 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='9acf44f2b05343d79fc35140c493c1e0', label='Process prior issues', name='processPriorIssues', id='id-bdfc5bfa4ce80fd221463ee66b277220'): Description of rule 2 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='9acf44f2b05343d79fc35140c493c1e0', label='Process prior issues', name='processPriorIssues', id='id-bdfc5bfa4ce80fd221463ee66b277220'): Description of rule 3 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='9acf44f2b05343d79fc35140c493c1e0', label='Process prior issues', name='processPriorIssues', id='id-bdfc5bfa4ce80fd221463ee66b277220'): Description of rule 4 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='b4fc99dd0b044cf1b31b6e60d01c50fa', label='Root', name='root', id='id-dd34e15633241b301d7c512a35c9493a'): Description of rule 0 in decision 'root' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='b4fc99dd0b044cf1b31b6e60d01c50fa', label='Root', name='root', id='id-dd34e15633241b301d7c512a35c9493a'): Description of rule 1 in decision 'root' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='b4fc99dd0b044cf1b31b6e60d01c50fa', label='Root', name='root', id='id-dd34e15633241b301d7c512a35c9493a'): Description of rule 2 in decision 'root' contains illegal sequence 'string(-)'",
-                "(model='Linked Decision Test', diagramId='b4fc99dd0b044cf1b31b6e60d01c50fa', label='Root', name='root', id='id-dd34e15633241b301d7c512a35c9493a'): Description of rule 3 in decision 'root' contains illegal sequence 'string(-)'"
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'assessApplicantAge', elementId = 'id-98f1b72e74edaaae8d7fd9043f7e1bc4'): Description of rule 0 in decision 'assessApplicantAge' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'assessApplicantAge', elementId = 'id-98f1b72e74edaaae8d7fd9043f7e1bc4'): Description of rule 1 in decision 'assessApplicantAge' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'assessApplicantAge', elementId = 'id-98f1b72e74edaaae8d7fd9043f7e1bc4'): Description of rule 2 in decision 'assessApplicantAge' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'makeCreditDecision', elementId = 'id-5b83918d6fc820d73123e7ca0e6d3ca6'): Description of rule 0 in decision 'makeCreditDecision' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'makeCreditDecision', elementId = 'id-5b83918d6fc820d73123e7ca0e6d3ca6'): Description of rule 1 in decision 'makeCreditDecision' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'makeCreditDecision', elementId = 'id-5b83918d6fc820d73123e7ca0e6d3ca6'): Description of rule 2 in decision 'makeCreditDecision' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'processPriorIssues', elementId = 'id-bdfc5bfa4ce80fd221463ee66b277220'): Description of rule 0 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'processPriorIssues', elementId = 'id-bdfc5bfa4ce80fd221463ee66b277220'): Description of rule 1 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'processPriorIssues', elementId = 'id-bdfc5bfa4ce80fd221463ee66b277220'): Description of rule 2 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'processPriorIssues', elementId = 'id-bdfc5bfa4ce80fd221463ee66b277220'): Description of rule 3 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'processPriorIssues', elementId = 'id-bdfc5bfa4ce80fd221463ee66b277220'): Description of rule 4 in decision 'processPriorIssues' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'root', elementId = 'id-dd34e15633241b301d7c512a35c9493a'): Description of rule 0 in decision 'root' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'root', elementId = 'id-dd34e15633241b301d7c512a35c9493a'): Description of rule 1 in decision 'root' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'root', elementId = 'id-dd34e15633241b301d7c512a35c9493a'): Description of rule 2 in decision 'root' contains illegal sequence 'string(-)'",
+                "[ERROR] (namespace = 'http://www.provider.com/dmn/1.1/diagram/b4fc99dd0b044cf1b31b6e60d01c50fa.xml', modelName = 'Linked Decision Test', modelId = 'id-d944b069f6a24d0788b33965ec1c2318', elementName = 'root', elementId = 'id-dd34e15633241b301d7c512a35c9493a'): Description of rule 3 in decision 'root' contains illegal sequence 'string(-)'"
         );
         validate(validator, signavioResource(path + diagramName), expectedErrors);
     }
@@ -51,13 +52,13 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
     @Test
     public void testValidateIncorrectList() {
         String description = "[ , string(\"abc\" ,  , string(\"abc\") , ]";
-        List<String> actualErrors = new ArrayList<>();
+        List<SemanticError> actualErrors = new ArrayList<>();
         validator.validate(null, makeDecision(), 0, description, actualErrors);
 
         List<String> expectedErrors = Arrays.asList(
-                "(name='Test'): Description of rule 0 in decision 'Test' contains illegal sequence '[ ,'",
-                "(name='Test'): Description of rule 0 in decision 'Test' contains illegal sequence ',  ,'",
-                "(name='Test'): Description of rule 0 in decision 'Test' contains illegal sequence ', ]'"
+                "[ERROR] (elementName = 'Test'): Description of rule 0 in decision 'Test' contains illegal sequence '[ ,'",
+                "[ERROR] (elementName = 'Test'): Description of rule 0 in decision 'Test' contains illegal sequence ',  ,'",
+                "[ERROR] (elementName = 'Test'): Description of rule 0 in decision 'Test' contains illegal sequence ', ]'"
         );
         checkErrors(expectedErrors, actualErrors);
     }
@@ -65,11 +66,11 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
     @Test
     public void testValidateIncorrectStrings() {
         String description = "[ string(-) ]";
-        List<String> actualErrors = new ArrayList<>();
+        List<SemanticError> actualErrors = new ArrayList<>();
         validator.validate(null, makeDecision(), 0, description, actualErrors);
 
         List<String> expectedErrors = Collections.singletonList(
-                "(name='Test'): Description of rule 0 in decision 'Test' contains illegal sequence 'string(-)'"
+                "[ERROR] (elementName = 'Test'): Description of rule 0 in decision 'Test' contains illegal sequence 'string(-)'"
         );
         checkErrors(expectedErrors, actualErrors);
     }
@@ -77,11 +78,11 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
     @Test
     public void testValidateIncorrectCharacters() {
         String description = "[ string(\"\") , string(\"abc \u00A0 123\") , string(\"\") ]";
-        List<String> actualErrors = new ArrayList<>();
+        List<SemanticError> actualErrors = new ArrayList<>();
         validator.validate(null, makeDecision(), 0, description, actualErrors);
 
         List<String> expectedErrors = Collections.singletonList(
-                "(name='Test'): Description of rule 0 in decision 'Test' contains illegal sequence 'NO-BREAK SPACE'"
+                "[ERROR] (elementName = 'Test'): Description of rule 0 in decision 'Test' contains illegal sequence 'NO-BREAK SPACE'"
         );
         checkErrors(expectedErrors, actualErrors);
     }

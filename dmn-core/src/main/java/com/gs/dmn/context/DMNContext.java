@@ -20,7 +20,9 @@ import com.gs.dmn.context.environment.VariableDeclaration;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
+import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.util.ArrayList;
@@ -80,7 +82,9 @@ public class DMNContext {
         try {
             this.environment.addDeclaration(declaration);
         } catch (Exception e) {
-            throw new SemanticErrorException(ErrorFactory.makeDMNErrorMessage(null, element, e.getMessage()), e);
+            String errorMessage = e.getMessage();
+            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(null, element), errorMessage);
+            throw new SemanticErrorException(error.toText(), e);
         }
     }
 
@@ -106,7 +110,7 @@ public class DMNContext {
         while (context != null) {
             List<Declaration> parentDeclarations = context.getEnvironment().lookupLocalFunctionDeclaration(name);
             if (parentDeclarations != null) {
-                for (Declaration d: parentDeclarations) {
+                for (Declaration d : parentDeclarations) {
                     if (!declarations.contains(d)) {
                         declarations.add(d);
                     }

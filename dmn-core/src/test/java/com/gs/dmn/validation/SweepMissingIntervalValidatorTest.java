@@ -39,8 +39,8 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenIntervals1() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='loan-grade-with-intervals-1', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(1500, 2000)' is not covered for column 1 in 'Loan Grade' table",
-                "(model='loan-grade-with-intervals-1', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(3000, 4000)' is not covered for column 2 in 'Loan Grade' table"
+                "[ERROR] (namespace = 'https://kiegroup.org/dmn/_DCAF9EC7-124D-4025-8AA2-22A64C80DD9B', modelName = 'loan-grade-with-intervals-1', modelId = '_4B769E4A-A615-4556-BEB2-E79C7770A1D7', elementName = 'Loan Grade', elementId = '_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(1500, 2000)' is not covered for column 1 in 'Loan Grade' table",
+                "[ERROR] (namespace = 'https://kiegroup.org/dmn/_DCAF9EC7-124D-4025-8AA2-22A64C80DD9B', modelName = 'loan-grade-with-intervals-1', modelId = '_4B769E4A-A615-4556-BEB2-E79C7770A1D7', elementName = 'Loan Grade', elementId = '_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(3000, 4000)' is not covered for column 2 in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-1.dmn"), expectedErrors);
     }
@@ -48,8 +48,8 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenIntervals2() {
         List<String> expectedErrors = Arrays.asList(
-                "(model='loan-grade-with-intervals-2', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(1500, 1600)' is not covered for column 1 in 'Loan Grade' table",
-                "(model='loan-grade-with-intervals-2', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(1000, 1200)' is not covered for column 2 in 'Loan Grade' table"
+                "[ERROR] (namespace = 'https://kiegroup.org/dmn/_DCAF9EC7-124D-4025-8AA2-22A64C80DD9B', modelName = 'loan-grade-with-intervals-2', modelId = '_4B769E4A-A615-4556-BEB2-E79C7770A1D7', elementName = 'Loan Grade', elementId = '_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(1500, 1600)' is not covered for column 1 in 'Loan Grade' table",
+                "[ERROR] (namespace = 'https://kiegroup.org/dmn/_DCAF9EC7-124D-4025-8AA2-22A64C80DD9B', modelName = 'loan-grade-with-intervals-2', modelId = '_4B769E4A-A615-4556-BEB2-E79C7770A1D7', elementName = 'Loan Grade', elementId = '_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(1000, 1200)' is not covered for column 2 in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-2.dmn"), expectedErrors);
     }
@@ -57,7 +57,7 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenIntervals3() {
         List<String> expectedErrors = Collections.singletonList(
-                "(model='loan-grade-with-intervals-3', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(1500, 1600)' is not covered for column 1 in 'Loan Grade' table"
+                "[ERROR] (namespace = 'https://kiegroup.org/dmn/_DCAF9EC7-124D-4025-8AA2-22A64C80DD9B', modelName = 'loan-grade-with-intervals-3', modelId = '_4B769E4A-A615-4556-BEB2-E79C7770A1D7', elementName = 'Loan Grade', elementId = '_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(1500, 1600)' is not covered for column 1 in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-intervals-3.dmn"), expectedErrors);
     }
@@ -65,7 +65,7 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenRelationalOperators() {
         List<String> expectedErrors = Collections.singletonList(
-                "(model='loan-grade-with-relational-operators', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(3000, 4000)' is not covered for column 2 in 'Loan Grade' table"
+                "[ERROR] (namespace = 'https://kiegroup.org/dmn/_DCAF9EC7-124D-4025-8AA2-22A64C80DD9B', modelName = 'loan-grade-with-relational-operators', modelId = '_4B769E4A-A615-4556-BEB2-E79C7770A1D7', elementName = 'Loan Grade', elementId = '_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(3000, 4000)' is not covered for column 2 in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-relational-operators.dmn"), expectedErrors);
     }
@@ -73,7 +73,7 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenAny() {
         List<String> expectedErrors = Collections.singletonList(
-                "(model='loan-grade-with-any', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(3000, 4000)' is not covered for column 2 in 'Loan Grade' table"
+                "[ERROR] (namespace = 'https://kiegroup.org/dmn/_DCAF9EC7-124D-4025-8AA2-22A64C80DD9B', modelName = 'loan-grade-with-any', modelId = '_4B769E4A-A615-4556-BEB2-E79C7770A1D7', elementName = 'Loan Grade', elementId = '_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '(3000, 4000)' is not covered for column 2 in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-any.dmn"), expectedErrors);
     }
@@ -93,7 +93,7 @@ public class SweepMissingIntervalValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenEnumerationMissing() {
         List<String> expectedErrors = Collections.singletonList(
-                "(model='loan-grade-with-enumeration-missing', name='Loan Grade', id='_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '{\"E23\"}' is not covered for column 2 in 'Loan Grade' table"
+                "[ERROR] (namespace = 'https://kiegroup.org/dmn/_DCAF9EC7-124D-4025-8AA2-22A64C80DD9B', modelName = 'loan-grade-with-enumeration-missing', modelId = '_4B769E4A-A615-4556-BEB2-E79C7770A1D7', elementName = 'Loan Grade', elementId = '_FAF682B2-D00A-469A-8B7D-932154DA95E0'): Interval '{\"E23\"}' is not covered for column 2 in 'Loan Grade' table"
         );
         validate(validator, resource("dmn/input/1.3/loan-grade-with-enumeration-missing.dmn"), expectedErrors);
     }

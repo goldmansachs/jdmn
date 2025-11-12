@@ -16,7 +16,9 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.analysis.syntax.ast.expression.Expression;
 import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.SemanticErrorException;
+import com.gs.dmn.feel.FEELExpressionLocation;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.Context;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.context.ContextEntry;
 import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinition;
@@ -36,7 +38,7 @@ public class ExternalFunctionExtractor {
         List<String> paramTypes = new ArrayList<>();
         TExpression body = functionDefinition.getExpression();
         if (body instanceof TContext) {
-            for (TContextEntry entry: ((TContext) body).getContextEntry()) {
+            for (TContextEntry entry : ((TContext) body).getContextEntry()) {
                 String name = entry.getVariable().getName();
                 if ("class".equals(name)) {
                     TExpression value = entry.getExpression();
@@ -51,7 +53,7 @@ public class ExternalFunctionExtractor {
                         int rpIndex = signature.indexOf(')');
                         methodName = signature.substring(0, lpIndex);
                         String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
-                        for (String t: types) {
+                        for (String t : types) {
                             paramTypes.add(t.trim());
                         }
                     }
@@ -75,7 +77,7 @@ public class ExternalFunctionExtractor {
             body = ((Context<Type>) body).getEntries().get(0).getExpression();
         }
         if (body instanceof Context) {
-            for (ContextEntry<Type> entry: ((Context<Type>) body).getEntries()) {
+            for (ContextEntry<Type> entry : ((Context<Type>) body).getEntries()) {
                 String name = entry.getKey().getKey();
                 if ("class".equals(name)) {
                     Expression<Type> value = entry.getExpression();
@@ -90,13 +92,13 @@ public class ExternalFunctionExtractor {
                         String signature = StringEscapeUtil.stripQuotes(lexeme);
                         int lpIndex = signature.indexOf('(');
                         int rpIndex = signature.indexOf(')');
-                        if (lpIndex ==  -1 || rpIndex == -1) {
-                            String errorMessage = ErrorFactory.makeELExpressionErrorMessage(null, element, functionDefinition, String.format("Illegal signature '%s'", signature));
-                            throw new SemanticErrorException(errorMessage);
+                        if (lpIndex == -1 || rpIndex == -1) {
+                            SemanticError error = ErrorFactory.makeELExpressionError(new FEELExpressionLocation(null, element, functionDefinition), String.format("Illegal signature '%s'", signature));
+                            throw new SemanticErrorException(error.toText());
                         }
                         methodName = signature.substring(0, lpIndex);
                         String[] types = signature.substring(lpIndex + 1, rpIndex).split(",");
-                        for (String t: types) {
+                        for (String t : types) {
                             paramTypes.add(t.trim());
                         }
                     }

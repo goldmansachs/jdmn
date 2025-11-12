@@ -12,24 +12,30 @@
  */
 package com.gs.dmn.signavio.testlab;
 
+import com.gs.dmn.error.SemanticError;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestLabValidatorTest {
+    public static List<String> toText(List<SemanticError> errors) {
+        return errors.stream().map(SemanticError::toText).collect(Collectors.toList());
+    }
+
     private final TestLabValidator validator = new TestLabValidator();
 
     @Test
     public void testValidateWhenNull() {
-        List<String> errors = validator.validate(null);
-        assertEquals(List.of("Missing or empty TestLab"), errors);
+        List<SemanticError> errors = validator.validate(null);
+        assertEquals(List.of("[ERROR] Missing or empty TestLab"), toText(errors));
     }
 
     @Test
     public void testValidateWhenEmpty() {
-        List<String> errors = validator.validate(new TestLab());
-        assertEquals(List.of("Missing or empty OutputParameterDefinitions for TestLab 'null'"), errors);
+        List<SemanticError> errors = validator.validate(new TestLab());
+        assertEquals(List.of("[ERROR] Missing or empty OutputParameterDefinitions for TestLab 'null'"), toText(errors));
     }
 }
