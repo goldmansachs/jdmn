@@ -16,6 +16,7 @@ import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.error.ValidationError;
 import org.junit.jupiter.api.Test;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -40,5 +41,28 @@ class CompositeDMNValidatorTest extends AbstractValidatorTest {
 
         actualErrors = validator.validate(new DMNModelRepository(new ArrayList<>()));
         checkErrors(validator.ruleName(), expectedErrors, actualErrors);
+    }
+
+    @Test
+    public void testValidateException() {
+        CompositeDMNValidator validator = new CompositeDMNValidator(Arrays.asList(new SimpleDMNValidator() {
+            @Override
+            public List<ValidationError> validate(DMNModelRepository dmnModelRepository) {
+                throw new RuntimeException("Exception Stacktrace");
+            }
+
+            @Override
+            public String ruleName() {
+                return "exception-validator";
+            }
+        }));
+        List<String> expectedErrors = Arrays.asList(
+                "[ERROR] Fatal error in validator 'exception-validator' Exception Stacktrace"
+        );
+        URI fileURI = tckResource("tck/1.2/cl3/0020-vacation-days/0020-vacation-days.dmn");
+        DMNModelRepository repository = makeRepository(fileURI);
+        List<ValidationError> actualErrors = validator.validate(repository);
+
+        checkErrors("exception-validator", expectedErrors, actualErrors);
     }
 }

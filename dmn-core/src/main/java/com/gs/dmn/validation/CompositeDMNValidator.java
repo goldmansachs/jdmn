@@ -13,6 +13,8 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
+import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticError;
 import com.gs.dmn.error.ValidationError;
 
 import java.util.ArrayList;
@@ -35,9 +37,16 @@ public class CompositeDMNValidator implements DMNValidator {
         }
 
         for (DMNValidator validator : this.validators) {
-            List<ValidationError> result = validator.validate(dmnModelRepository);
-            if (result != null) {
-                errors.addAll(result);
+            try {
+                List<ValidationError> result = validator.validate(dmnModelRepository);
+                if (result != null) {
+                    errors.addAll(result);
+                }
+            } catch (Exception e) {
+                String ruleName = validator.ruleName();
+                String errorMessage = String.format("Fatal error in validator '%s' %s", ruleName, e.getMessage());
+                SemanticError error = ErrorFactory.makeDMNError(null, errorMessage);
+                errors.add(new ValidationError(error, ruleName));
             }
         }
         return errors;
