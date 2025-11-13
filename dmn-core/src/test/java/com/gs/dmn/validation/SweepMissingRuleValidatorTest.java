@@ -32,8 +32,8 @@ public class SweepMissingRuleValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateWhenRepositoryIsEmpty() {
         List<String> expectedErrors = Collections.emptyList();
-        checkErrors(expectedErrors, validator.validate(null));
-        checkErrors(expectedErrors, validator.validate(new DMNModelRepository()));
+        checkErrors(validator.ruleName(), expectedErrors, validator.validate(null));
+        checkErrors(validator.ruleName(), expectedErrors, validator.validate(new DMNModelRepository()));
     }
 
     @Test

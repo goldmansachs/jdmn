@@ -22,6 +22,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -71,7 +72,8 @@ public class SweepMissingIntervalValidator extends SweepValidator {
                 for (int i=0; i<totalNumberOfColumns; i++) {
                     List<Interval> intervals = missingIntervals.getIntervals(i);
                     if (intervals != null && !intervals.isEmpty()) {
-                        context.addError(makeError(element, i, intervals, repository));
+                        SemanticError error = makeError(element, i, intervals, repository);
+                        context.addError(new ValidationError(error, this.ruleName()));
                     }
                 }
             }

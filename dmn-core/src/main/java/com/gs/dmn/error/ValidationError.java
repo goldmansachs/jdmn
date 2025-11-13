@@ -10,20 +10,26 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.validation;
+package com.gs.dmn.error;
 
-import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.error.ValidationError;
+public class ValidationError {
+    private final SemanticError error;
+    private final String ruleName;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class NopDMNValidator extends SimpleDMNValidator {
-    public NopDMNValidator() {
+    public ValidationError(SemanticError error, String ruleName) {
+        this.error = error;
+        this.ruleName = ruleName;
     }
 
-    @Override
-    public List<ValidationError> validate(DMNModelRepository dmnModelRepository) {
-        return new ArrayList<>();
+    public String toText() {
+        return String.format("[%s] %s", ruleName, error.toText());
+    }
+
+    public SemanticError getError() {
+        return error;
+    }
+
+    public String getRuleName() {
+        return ruleName;
     }
 }

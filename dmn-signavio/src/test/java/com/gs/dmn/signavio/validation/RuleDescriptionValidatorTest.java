@@ -13,7 +13,7 @@
 package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.ast.TDecision;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
     @Test
     public void testValidateIncorrectList() {
         String description = "[ , string(\"abc\" ,  , string(\"abc\") , ]";
-        List<SemanticError> actualErrors = new ArrayList<>();
+        List<ValidationError> actualErrors = new ArrayList<>();
         validator.validate(null, makeDecision(), 0, description, actualErrors);
 
         List<String> expectedErrors = Arrays.asList(
@@ -60,31 +60,31 @@ public class RuleDescriptionValidatorTest extends AbstractSignavioValidatorTest 
                 "[ERROR] (elementName = 'Test'): Description of rule 0 in decision 'Test' contains illegal sequence ',  ,'",
                 "[ERROR] (elementName = 'Test'): Description of rule 0 in decision 'Test' contains illegal sequence ', ]'"
         );
-        checkErrors(expectedErrors, actualErrors);
+        checkErrors(validator.ruleName(), expectedErrors, actualErrors);
     }
 
     @Test
     public void testValidateIncorrectStrings() {
         String description = "[ string(-) ]";
-        List<SemanticError> actualErrors = new ArrayList<>();
+        List<ValidationError> actualErrors = new ArrayList<>();
         validator.validate(null, makeDecision(), 0, description, actualErrors);
 
         List<String> expectedErrors = Collections.singletonList(
                 "[ERROR] (elementName = 'Test'): Description of rule 0 in decision 'Test' contains illegal sequence 'string(-)'"
         );
-        checkErrors(expectedErrors, actualErrors);
+        checkErrors(validator.ruleName(), expectedErrors, actualErrors);
     }
 
     @Test
     public void testValidateIncorrectCharacters() {
         String description = "[ string(\"\") , string(\"abc \u00A0 123\") , string(\"\") ]";
-        List<SemanticError> actualErrors = new ArrayList<>();
+        List<ValidationError> actualErrors = new ArrayList<>();
         validator.validate(null, makeDecision(), 0, description, actualErrors);
 
         List<String> expectedErrors = Collections.singletonList(
                 "[ERROR] (elementName = 'Test'): Description of rule 0 in decision 'Test' contains illegal sequence 'NO-BREAK SPACE'"
         );
-        checkErrors(expectedErrors, actualErrors);
+        checkErrors(validator.ruleName(), expectedErrors, actualErrors);
     }
 
     private TDecision makeDecision() {

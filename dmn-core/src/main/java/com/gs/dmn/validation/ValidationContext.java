@@ -13,14 +13,14 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ValidationContext {
     protected final DMNModelRepository repository;
-    protected final List<SemanticError> errors;
+    protected final List<ValidationError> errors;
 
     public ValidationContext(DMNModelRepository repository) {
         this.repository = repository;
@@ -31,11 +31,11 @@ public class ValidationContext {
         return repository;
     }
 
-    public List<SemanticError> getErrors() {
+    public List<ValidationError> getErrors() {
         return errors;
     }
 
-    public void addError(SemanticError error) {
+    public void addError(ValidationError error) {
         if (error != null) {
             this.errors.add(error);
         }

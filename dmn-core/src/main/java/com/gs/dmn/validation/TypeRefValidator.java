@@ -19,6 +19,7 @@ import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.feel.analysis.semantics.type.FEELType;
 import com.gs.dmn.log.BuildLogger;
@@ -42,19 +43,19 @@ public class TypeRefValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<SemanticError> validate(DMNModelRepository dmnModelRepository) {
+    public List<ValidationError> validate(DMNModelRepository dmnModelRepository) {
         if (isEmpty(dmnModelRepository)) {
             this.logger.warn("DMN repository is empty; validator will not run");
             return new ArrayList<>();
         }
 
-        List<Pair<TNamedElement, SemanticError>> pairs = makeErrorReport(dmnModelRepository);
+        List<Pair<TNamedElement, ValidationError>> pairs = makeErrorReport(dmnModelRepository);
         return pairs.stream().map(Pair::getRight).collect(Collectors.toList());
     }
 
-    public List<Pair<TNamedElement, SemanticError>> makeErrorReport(DMNModelRepository dmnModelRepository) {
-        List<Pair<TNamedElement, SemanticError>> errorReport = new ArrayList<>();
-        TypeRefValidatorVisitor visitor = new TypeRefValidatorVisitor(this.logger, this.errorHandler);
+    public List<Pair<TNamedElement, ValidationError>> makeErrorReport(DMNModelRepository dmnModelRepository) {
+        List<Pair<TNamedElement, ValidationError>> errorReport = new ArrayList<>();
+        TypeRefValidatorVisitor visitor = new TypeRefValidatorVisitor(this.logger, this.errorHandler, this.ruleName());
         for (TDefinitions definitions: dmnModelRepository.getAllDefinitions()) {
             TypeRefValidationContext context = new TypeRefValidationContext(definitions, dmnModelRepository, errorReport);
             try {
@@ -70,8 +71,11 @@ public class TypeRefValidator extends SimpleDMNValidator {
 
 class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext> {
 
-    public TypeRefValidatorVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+    private final String ruleName;
+
+    public TypeRefValidatorVisitor(BuildLogger logger, ErrorHandler errorHandler, String ruleName) {
         super(logger, errorHandler);
+        this.ruleName = ruleName;
     }
 
     @Override
@@ -148,7 +152,7 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
                 // Record error
                 TNamedElement element = context.getElement();
                 SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), String.format("Cannot find definition of typeRef '%s'", typeRef1));
-                context.getErrorReport().add(new Pair<>(element, error));
+                context.getErrorReport().add(new Pair<>(element, new ValidationError(error, this.ruleName)));
 
                 this.logger.debug(error.toText());
             }
@@ -156,7 +160,7 @@ class TypeRefValidatorVisitor extends TraversalVisitor<TypeRefValidationContext>
             // Record error
             TNamedElement element = context.getElement();
             SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), String.format("Error during lookup of typeRef '%s': %s", typeRef1, e.getMessage()));
-            context.getErrorReport().add(new Pair<>(element, error));
+            context.getErrorReport().add(new Pair<>(element, new ValidationError(error, this.ruleName)));
 
             this.logger.debug(error.toText());
         }

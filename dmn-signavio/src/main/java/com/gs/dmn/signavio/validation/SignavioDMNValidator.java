@@ -13,8 +13,6 @@
 package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.ast.*;
-import com.gs.dmn.error.ErrorFactory;
-import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.validation.DefaultDMNValidator;
 import com.gs.dmn.validation.ValidationContext;
 import org.w3c.dom.Element;
@@ -34,7 +32,7 @@ public class SignavioDMNValidator extends DefaultDMNValidator {
         TDMNElement.ExtensionElements extensionElements = knowledgeModel.getExtensionElements();
         if (encapsulatedLogic == null && extensionElements == null) {
             String errorMessage = "Missing encapsulatedLogic";
-            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, knowledgeModel), errorMessage));
+            addValidationError(context, definitions, knowledgeModel, errorMessage);
         }
     }
 
@@ -55,11 +53,11 @@ public class SignavioDMNValidator extends DefaultDMNValidator {
                         String nodeName = ((Element) obj).getNodeName();
                         if (!"MultiInstanceDecisionLogic".equals(nodeName)) {
                             String errorMessage = String.format("Extension '%s' not supported", obj);
-                            context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, decision), errorMessage));
+                            addValidationError(context, definitions, decision, errorMessage);
                         }
                     } else {
                         String errorMessage = String.format("Extension '%s' not supported", obj);
-                        context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, decision), errorMessage));
+                        addValidationError(context, definitions, decision, errorMessage);
                     }
                 }
             }

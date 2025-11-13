@@ -12,12 +12,16 @@
  */
 package com.gs.dmn.validation;
 
-import com.gs.dmn.error.ErrorHandler;
-import com.gs.dmn.error.LogErrorHandler;
+import com.gs.dmn.ast.TDMNElement;
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.*;
+import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public abstract class SimpleDMNValidator implements DMNValidator {
     protected static final Logger LOGGER = LoggerFactory.getLogger(SimpleDMNValidator.class);
@@ -31,5 +35,15 @@ public abstract class SimpleDMNValidator implements DMNValidator {
 
     protected SimpleDMNValidator(BuildLogger logger) {
         this.logger = logger;
+    }
+
+    protected void addValidationError(List<ValidationError> errors, TDefinitions model, TDMNElement element, String errorMessage) {
+        SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+        errors.add(new ValidationError(error, this.ruleName()));
+    }
+
+    protected void addValidationError(ValidationContext context, TDefinitions definitions, TDMNElement element, String errorMessage) {
+        SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage);
+        context.addError(new ValidationError(error, this.ruleName()));
     }
 }

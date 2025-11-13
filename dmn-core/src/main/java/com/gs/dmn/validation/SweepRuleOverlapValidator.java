@@ -22,6 +22,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -101,7 +102,7 @@ public class SweepRuleOverlapValidator extends SweepValidator {
             maxCliques.sort(RuleGroup.COMPARATOR);
             for (RuleGroup ruleGroup: maxCliques) {
                 SemanticError error = makeError(element, ruleGroup, repository);
-                context.addError(error);
+                context.addError(new ValidationError(error, this.ruleName()));
             }
         }
     }

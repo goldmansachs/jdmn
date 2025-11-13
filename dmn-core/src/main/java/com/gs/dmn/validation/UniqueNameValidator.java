@@ -21,6 +21,7 @@ import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -41,14 +42,14 @@ public class UniqueNameValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<SemanticError> validate(DMNModelRepository repository) {
+    public List<ValidationError> validate(DMNModelRepository repository) {
         if (isEmpty(repository)) {
             this.logger.warn("DMN repository is empty; validator will not run");
             return new ArrayList<>();
         }
 
         ValidationContext context = new ValidationContext(repository);
-        UniqueNameValidatorVisitor visitor = new UniqueNameValidatorVisitor(this.logger, this.errorHandler);
+        UniqueNameValidatorVisitor visitor = new UniqueNameValidatorVisitor(this.logger, this.errorHandler, this.ruleName());
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             definitions.accept(visitor, context);
         }
@@ -58,8 +59,11 @@ public class UniqueNameValidator extends SimpleDMNValidator {
 }
 
 class UniqueNameValidatorVisitor extends TraversalVisitor<ValidationContext> {
-    public UniqueNameValidatorVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+    private final String ruleName;
+
+    public UniqueNameValidatorVisitor(BuildLogger logger, ErrorHandler errorHandler, String ruleName) {
         super(logger, errorHandler);
+        this.ruleName = ruleName;
     }
 
     @Override
@@ -103,7 +107,9 @@ class UniqueNameValidatorVisitor extends TraversalVisitor<ValidationContext> {
         for (Map.Entry<String, List<TDMNElement>> entry : map.entrySet()) {
             String key = entry.getKey();
             if(entry.getValue().size() > 1){
-                context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, null), String.format("%s Found %d duplicates for '%s'.", errorMessage, entry.getValue().size(), key)));
+                String finalErrorMessage = String.format("%s Found %d duplicates for '%s'.", errorMessage, entry.getValue().size(), key);
+                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(definitions, null), finalErrorMessage);
+                context.addError(new ValidationError(error, this.ruleName));
             }
         }
     }

@@ -13,7 +13,7 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -35,10 +35,10 @@ class CompositeDMNValidatorTest extends AbstractValidatorTest {
     @Test
     public void testValidateEmptyRepo() {
         List<String> expectedErrors = Collections.emptyList();
-        List<SemanticError> actualErrors = validator.validate(null);
-        checkErrors(expectedErrors, actualErrors);
+        List<ValidationError> actualErrors = validator.validate(null);
+        checkErrors(validator.ruleName(), expectedErrors, actualErrors);
 
         actualErrors = validator.validate(new DMNModelRepository(new ArrayList<>()));
-        checkErrors(expectedErrors, actualErrors);
+        checkErrors(validator.ruleName(), expectedErrors, actualErrors);
     }
 }

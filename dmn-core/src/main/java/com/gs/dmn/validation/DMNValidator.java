@@ -13,13 +13,20 @@
 package com.gs.dmn.validation;
 
 import com.gs.dmn.DMNModelRepository;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 
 import java.util.List;
 import java.util.Map;
 
+import static com.gs.dmn.NameUtils.toHyphenSeparated;
+
 public interface DMNValidator {
-    List<SemanticError> validate(DMNModelRepository dmnModelRepository);
+    default String ruleName() {
+        String clsName = this.getClass().getSimpleName();
+        return toHyphenSeparated(clsName);
+    }
+
+    List<ValidationError> validate(DMNModelRepository dmnModelRepository);
 
     default boolean isEmpty(DMNModelRepository repository) {
         return repository == null || repository.getAllDefinitions().isEmpty();

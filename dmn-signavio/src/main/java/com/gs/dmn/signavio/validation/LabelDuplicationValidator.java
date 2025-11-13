@@ -15,9 +15,7 @@ package com.gs.dmn.signavio.validation;
 import com.gs.dmn.ast.TDMNElement;
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.error.ErrorFactory;
-import com.gs.dmn.error.SemanticError;
-import com.gs.dmn.feel.ModelLocation;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.validation.SimpleDMNValidator;
 import org.apache.commons.lang3.StringUtils;
 
@@ -27,8 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class LabelDuplicationValidator extends SimpleDMNValidator {
-    void validateElements(List<? extends TDMNElement> elements, List<SemanticError> errors, TDefinitions definitions) {
-        ModelLocation location = new ModelLocation(definitions, null);
+    void validateElements(List<? extends TDMNElement> elements, List<ValidationError> errors, TDefinitions definitions) {
         Map<String, List<TDMNElement>> map = new LinkedHashMap<>();
         for (TDMNElement decision : elements) {
             String label = decision.getLabel();
@@ -43,10 +40,12 @@ public abstract class LabelDuplicationValidator extends SimpleDMNValidator {
             List<TDMNElement> elementList = entry.getValue();
             if (!StringUtils.isBlank(key) && elementList.size() > 1) {
                 String elementKind = elementList.get(0).getClass().getSimpleName().substring(1);
-                errors.add(ErrorFactory.makeDMNError(location, String.format("Found %d %s with duplicated label '%s'", elementList.size(), elementKind, key)));
+                String errorMessage = String.format("Found %d %s with duplicated label '%s'", elementList.size(), elementKind, key);
+                addValidationError(errors, definitions, null, errorMessage);
                 for (TDMNElement e : elementList) {
                     if (e instanceof TDRGElement) {
-                        errors.add(ErrorFactory.makeDMNError(location, String.format("Label = '%s' Id = '%s' kind = '%s'", key, e.getId(), e.getClass().getSimpleName())));
+                        String finalErrorMessage = String.format("Label = '%s' Id = '%s' kind = '%s'", key, e.getId(), e.getClass().getSimpleName());
+                        addValidationError(errors, definitions, null, finalErrorMessage);
                     }
                 }
             }

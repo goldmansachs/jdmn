@@ -18,7 +18,7 @@ import com.gs.dmn.ast.TDecision;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
@@ -103,8 +103,8 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
         return testLabList;
     }
 
-    private List<SemanticError> validateTestCases(List<TestLab> testLabList) {
-        List<SemanticError> errors = new ArrayList<>();
+    private List<ValidationError> validateTestCases(List<TestLab> testLabList) {
+        List<ValidationError> errors = new ArrayList<>();
         for (TestLab testLab : testLabList) {
             errors.addAll(this.testLabValidator.validate(testLab));
         }

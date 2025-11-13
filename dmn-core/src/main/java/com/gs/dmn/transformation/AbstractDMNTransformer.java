@@ -15,7 +15,7 @@ package com.gs.dmn.transformation;
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.TDefinitions;
 import com.gs.dmn.dialect.DMNDialectDefinition;
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.serialization.DMNSerializer;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
@@ -58,12 +58,12 @@ public abstract class AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURA
         return this.dialectDefinition.createDMNModelRepository(definitionsList, this.inputParameters);
     }
 
-    protected void handleErrors(List<SemanticError> errors) {
+    protected void handleErrors(List<ValidationError> errors) {
         if (errors == null || errors.isEmpty()) {
             return;
         }
 
-        for (SemanticError error : errors) {
+        for (ValidationError error : errors) {
             this.logger.error(error.toText());
         }
         throw new IllegalArgumentException("Validation errors " + errors);

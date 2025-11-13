@@ -18,6 +18,7 @@ import com.gs.dmn.ast.visitor.TraversalVisitor;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.ErrorHandler;
 import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -36,14 +37,14 @@ public class UniqueRequirementValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<SemanticError> validate(DMNModelRepository repository) {
+    public List<ValidationError> validate(DMNModelRepository repository) {
         if (isEmpty(repository)) {
             logger.warn("DMN repository is empty; validator will not run");
             return new ArrayList<>();
         }
 
         ValidationContext context = new ValidationContext(repository);
-        UniqueRequirementValidatorVisitor visitor = new UniqueRequirementValidatorVisitor(this.logger, this.errorHandler);
+        UniqueRequirementValidatorVisitor visitor = new UniqueRequirementValidatorVisitor(this.logger, this.errorHandler, this.ruleName());
         for (TDefinitions definitions: repository.getAllDefinitions()) {
             definitions.accept(visitor, context);
         }
@@ -53,8 +54,11 @@ public class UniqueRequirementValidator extends SimpleDMNValidator {
 }
 
 class UniqueRequirementValidatorVisitor extends TraversalVisitor<ValidationContext> {
-    public UniqueRequirementValidatorVisitor(BuildLogger logger, ErrorHandler errorHandler) {
+    private final String ruleName;
+
+    public UniqueRequirementValidatorVisitor(BuildLogger logger, ErrorHandler errorHandler, String ruleName) {
         super(logger, errorHandler);
+        this.ruleName = ruleName;
     }
 
     @Override
@@ -118,7 +122,8 @@ class UniqueRequirementValidatorVisitor extends TraversalVisitor<ValidationConte
                     } else {
                         errorMessage = String.format("Duplicated %s %s", propertyPath, ErrorFactory.makeLocation(new ModelLocation(definitions, referredElement)));
                     }
-                    context.addError(ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage));
+                    SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(definitions, element), errorMessage);
+                    context.addError(new ValidationError(error, this.ruleName));
                 } else {
                     existingIds.add(id);
                 }

@@ -74,4 +74,15 @@ public class NameUtils {
             return removeSingleQuotes(text.trim());
         }
     }
+
+    public static String toHyphenSeparated(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        return input
+                .replaceAll("([a-z\\d])([A-Z])", "$1-$2")
+                .replaceAll("([A-Z]+)([A-Z][a-z])", "$1-$2")
+                .toLowerCase();
+    }
 }

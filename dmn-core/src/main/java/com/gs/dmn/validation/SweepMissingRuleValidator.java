@@ -22,6 +22,7 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.el.synthesis.ELTranslator;
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.feel.ModelLocation;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
@@ -76,7 +77,8 @@ public class SweepMissingRuleValidator extends SweepValidator {
                 logger.debug(String.format("Found missing rules %s", missingRuleList));
 
                 for (Rule rule: missingRuleList.getRules()) {
-                    context.addError(makeError(element, rule, repository));
+                    SemanticError error = makeError(element, rule, repository);
+                    context.addError(new ValidationError(error, this.ruleName()));
                 }
             }
         }

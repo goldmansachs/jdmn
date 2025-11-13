@@ -14,21 +14,32 @@ package com.gs.dmn.signavio.testlab;
 
 import com.gs.dmn.error.ErrorFactory;
 import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestLabValidator {
-    public List<SemanticError> validate(TestLab testLab) {
-        List<SemanticError> errors = new ArrayList<>();
+    private static final String RULE_NAME = "test-lab-validator";
+
+    public List<ValidationError> validate(TestLab testLab) {
+        List<ValidationError> errors = new ArrayList<>();
         if (testLab == null) {
-            errors.add(ErrorFactory.makeDMNError(null, "Missing or empty TestLab"));
+            String errorMessage = "Missing or empty TestLab";
+            addValidationError(errorMessage, errors);
         }  else {
             List<OutputParameterDefinition> outputParameterDefinitions = testLab.getOutputParameterDefinitions();
             if (outputParameterDefinitions == null || outputParameterDefinitions.isEmpty()) {
-                errors.add(ErrorFactory.makeDMNError(null, String.format("Missing or empty OutputParameterDefinitions for TestLab '%s'", testLab.getSource())));
+                String errorMessage = String.format("Missing or empty OutputParameterDefinitions for TestLab '%s'", testLab.getSource());
+                SemanticError error = ErrorFactory.makeDMNError(null, errorMessage);
+                errors.add(new ValidationError(error, RULE_NAME));
             }
         }
         return errors;
+    }
+
+    private static void addValidationError(String errorMessage, List<ValidationError> errors) {
+        SemanticError error = ErrorFactory.makeDMNError(null, errorMessage);
+        errors.add(new ValidationError(error, RULE_NAME));
     }
 }

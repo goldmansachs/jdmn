@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.validation;
 
-import com.gs.dmn.error.SemanticError;
+import com.gs.dmn.error.ValidationError;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -49,7 +49,7 @@ public class TypeRefValidatorTest extends AbstractValidatorTest {
 
     @Test
     public void testValidateDefinitionsWhenNull() {
-        List<SemanticError> actualErrors = validator.validate(null);
+        List<ValidationError> actualErrors = validator.validate(null);
         assertTrue(actualErrors.isEmpty());
     }
 }

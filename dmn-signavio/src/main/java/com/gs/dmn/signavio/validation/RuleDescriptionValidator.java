@@ -14,9 +14,7 @@ package com.gs.dmn.signavio.validation;
 
 import com.gs.dmn.DMNModelRepository;
 import com.gs.dmn.ast.*;
-import com.gs.dmn.error.ErrorFactory;
-import com.gs.dmn.error.SemanticError;
-import com.gs.dmn.feel.ModelLocation;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.log.Slf4jBuildLogger;
 import com.gs.dmn.validation.SimpleDMNValidator;
@@ -49,8 +47,8 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
     }
 
     @Override
-    public List<SemanticError> validate(DMNModelRepository repository) {
-        List<SemanticError> errors = new ArrayList<>();
+    public List<ValidationError> validate(DMNModelRepository repository) {
+        List<ValidationError> errors = new ArrayList<>();
         if (isEmpty(repository)) {
             logger.warn("DMN repository is empty; validator will not run");
             return errors;
@@ -72,12 +70,12 @@ public class RuleDescriptionValidator extends SimpleDMNValidator {
         return errors;
     }
 
-    protected void validate(TDefinitions definitions, TDecision decision, int ruleIndex, String description, List<SemanticError> errors) {
+    protected void validate(TDefinitions definitions, TDecision decision, int ruleIndex, String description, List<ValidationError> errors) {
         if (StringUtils.isNotBlank(description)) {
             for (Map.Entry<String, String> entry : PATTERNS.entrySet()) {
                 if (description.contains(entry.getKey())) {
                     String errorMessage = String.format("Description of rule %d in decision '%s' contains illegal sequence '%s'", ruleIndex, decision.getName(), entry.getValue());
-                    errors.add(ErrorFactory.makeDMNError(new ModelLocation(definitions, decision), errorMessage));
+                    addValidationError(errors, definitions, decision, errorMessage);
                 }
             }
         }
