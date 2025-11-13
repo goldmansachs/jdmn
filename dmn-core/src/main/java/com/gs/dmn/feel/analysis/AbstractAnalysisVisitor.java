@@ -79,22 +79,29 @@ public abstract class AbstractAnalysisVisitor<T, C, R> extends AbstractVisitor<T
         throw new SemanticErrorException(error.toText(), e);
     }
 
+    protected SemanticError makeDMNError(DMNContext context, String errorMessage) {
+        // Make DMN location
+        ModelLocation modelLocation = makeModelLocation(context);
+        // Make error
+        return ErrorFactory.makeDMNError(modelLocation, errorMessage);
+    }
+
     protected SemanticError makeELExpressionError(DMNContext context, Expression<Type> expression, String errorMessage) {
         // Make DMN location
-        TNamedElement element = context == null ? null : context.getElement();
-        TDefinitions definitions = this.dmnModelRepository.getModel(element);
-        return ErrorFactory.makeELExpressionError(new FEELExpressionLocation(definitions, element, expression), errorMessage);
+        FEELExpressionLocation location = makeExpressionLocation(context, expression);
+        // Make error
+        return ErrorFactory.makeELExpressionError(location, errorMessage);
     }
 
     protected ModelLocation makeModelLocation(DMNContext context) {
-        TNamedElement element = context.getElement();
+        TNamedElement element = context == null ? null : context.getElement();
         TDefinitions model = this.dmnModelRepository.getModel(element);
         return new ModelLocation(model, element);
     }
 
     protected FEELExpressionLocation makeExpressionLocation(DMNContext context, Expression<Type> expression) {
-        TNamedElement element = context.getElement();
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        return new FEELExpressionLocation(model, element, expression);
+        TNamedElement element = context == null ? null : context.getElement();
+        TDefinitions definitions = this.dmnModelRepository.getModel(element);
+        return new FEELExpressionLocation(definitions, element, expression);
     }
 }

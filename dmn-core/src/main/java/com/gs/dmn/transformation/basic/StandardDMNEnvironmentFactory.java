@@ -99,12 +99,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 return ((FunctionType) type).getReturnType();
             } else {
                 String errorMessage = String.format("Expected function type for element '%s'. Found '%s'", element.getName(), type);
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
         } else {
             String errorMessage = String.format("'%s' is not supported yet", element.getClass().getName());
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+            SemanticError error = makeDMNError(model, element, errorMessage);
             throw new SemanticErrorException(error.toText());
         }
     }
@@ -163,12 +163,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         TDefinitions model = this.dmnModelRepository.getModel(element);
         if (element == null) {
             String errorMessage = String.format("Cannot infer type for DRG element '%s'", element);
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+            SemanticError error = makeDMNError(model, element, errorMessage);
             throw new SemanticErrorException(error.toText());
         } else if (element instanceof TInputData) {
             if (this.dmnTransformer.isStrongTyping()) {
                 String errorMessage = String.format("Cannot infer type for '%s.%s'", element.getClass().getSimpleName(), element.getName());
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             } else {
                 return null;
@@ -181,7 +181,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             return makeDSVariableType((TDecisionService) element);
         } else {
             String errorMessage = String.format("Type inference for '%s.%s' not supported yet", element.getClass().getSimpleName(), element.getName());
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+            SemanticError error = makeDMNError(model, element, errorMessage);
             throw new SemanticErrorException(error.toText());
         }
     }
@@ -265,7 +265,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 return ((FunctionType) bodyType).getReturnType();
             } else {
                 String errorMessage = String.format("Expecting function type found '%s'", bodyType);
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
         } else if (expression instanceof TDecisionTable) {
@@ -288,7 +288,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 }
                 Type expressionType;
                 if (members.isEmpty()) {
-                    SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                    SemanticError error = makeDMNError(model, element, errorMessage);
                     throw new SemanticErrorException(error.toText());
                 } else if (members.size() == 1) {
                     expressionType = members.values().iterator().next();
@@ -297,7 +297,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 }
                 return applyPolicies(element, dt, expressionType);
             }
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+            SemanticError error = makeDMNError(model, element, errorMessage);
             throw new SemanticErrorException(error.toText());
         } else if (expression instanceof TList) {
             if (!this.dmnModelRepository.isNullOrAny(typeRef)) {
@@ -343,12 +343,12 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             Type elseType = expressionType(element, else_.getExpression(), context);
             if (conditionType != BOOLEAN) {
                 String errorMessage = String.format("Condition type must be boolean, found '%s' instead in element '%s',", conditionType, element.getName());
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
-            SemanticError semanticError = ErrorFactory.makeIfError(new ModelLocation(model, element), thenType, elseType);
+            SemanticError error = ErrorFactory.makeIfError(new ModelLocation(model, element), thenType, elseType);
             if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType) && com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
-                throw new SemanticErrorException(semanticError.toText());
+                throw new SemanticErrorException(error.toText());
             } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(thenType)) {
                 return elseType;
             } else if (com.gs.dmn.el.analysis.semantics.type.Type.isNullType(elseType)) {
@@ -359,7 +359,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 } else if (com.gs.dmn.el.analysis.semantics.type.Type.conformsTo(elseType, thenType)) {
                     return thenType;
                 } else {
-                    throw new SemanticErrorException(semanticError.toText());
+                    throw new SemanticErrorException(error.toText());
                 }
             }
         } else if (expression instanceof TFilter) {
@@ -374,7 +374,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             Type sourceType = expressionType(element, source.getExpression(), context);
             if (!(sourceType instanceof ListType)) {
                 String errorMessage = String.format("In expression in filter boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName());
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
             String iteratorVariable = FilterExpression.FILTER_PARAMETER_NAME;
@@ -382,7 +382,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             Type matchType = expressionType(element, match.getExpression(), satisfiesContext);
             if (matchType != BOOLEAN) {
                 String errorMessage = String.format("Match condition in filter boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName());
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
             return sourceType;
@@ -398,7 +398,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             Type sourceType = expressionType(element, source.getExpression(), context);
             if (!(sourceType instanceof ListType)) {
                 String errorMessage = String.format("In expression in for boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName());
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
             String iteratorVariable = ((TFor) expression).getIteratorVariable();
@@ -417,7 +417,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             Type sourceType = expressionType(element, source.getExpression(), context);
             if (!(sourceType instanceof ListType)) {
                 String errorMessage = String.format("In expression in some boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName());
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
             String iteratorVariable = ((TSome) expression).getIteratorVariable();
@@ -425,7 +425,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             Type satisfiesType = expressionType(element, satisfies.getExpression(), satisfiesContext);
             if (satisfiesType != BOOLEAN) {
                 String errorMessage = String.format("Satisfies condition in some boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName());
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
             return BOOLEAN;
@@ -441,7 +441,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             Type sourceType = expressionType(element, source.getExpression(), context);
             if (!(sourceType instanceof ListType)) {
                 String errorMessage = String.format("In expression in every boxed expression should be a list. Found '%s' in element '%s'.", sourceType, element.getName());
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
             String iteratorVariable = ((TEvery) expression).getIteratorVariable();
@@ -449,13 +449,13 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             Type satisfiesType = expressionType(element, satisfies.getExpression(), satisfiesContext);
             if (satisfiesType != BOOLEAN) {
                 String errorMessage = String.format("Satisfies condition in every boxed expression should be boolean. Found '%s' in element '%s'.", sourceType, element.getName());
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
             return BOOLEAN;
         } else {
             String errorMessage = String.format("'%s' is not supported yet", expression.getClass().getSimpleName());
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+            SemanticError error = makeDMNError(model, element, errorMessage);
             throw new SemanticErrorException(error.toText());
         }
     }
@@ -481,7 +481,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         TExpression expression = this.dmnModelRepository.expression(element);
         if (!(expression instanceof TDecisionTable)) {
             String errorMessage = String.format("Expected Decision Table in element '%s', found '%s'", element.getName(), expression == null ? null : expression.getClass().getName());
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+            SemanticError error = makeDMNError(model, element, errorMessage);
             throw new SemanticErrorException(error.toText());
         }
 
@@ -499,11 +499,11 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             if (index < outputEntries.size()) {
                 type = expressionType(element, outputEntries.get(index), context);
                 if (com.gs.dmn.el.analysis.semantics.type.Type.isNull(type)) {
-                    SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                    SemanticError error = makeDMNError(model, element, errorMessage);
                     throw new SemanticErrorException(error.toText());
                 }
             } else {
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
         } else {
@@ -525,7 +525,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                 return ((ListType) type).getElementType();
             } else {
                 String errorMessage = String.format("Expected list type, found '%s' for element '%s", type, element.getName());
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                SemanticError error = makeDMNError(model, element, errorMessage);
                 throw new SemanticErrorException(error.toText());
             }
         } else {
@@ -557,7 +557,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         if (this.dmnModelRepository.isNull(typeRef)) {
             if (this.dmnTransformer.isStrongTyping()) {
                 String errorMessage = String.format("Cannot infer type for typeRef '%s'", typeRef);
-                SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, null), errorMessage);
+                SemanticError error = makeDMNError(model, null, errorMessage);
                 throw new SemanticErrorException(error.toText());
             } else {
                 return null;
@@ -587,7 +587,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             return primitiveType;
         }
 
-        SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, null), String.format("Cannot map type '%s' to FEEL", typeRef));
+        SemanticError error = makeDMNError(model, null, String.format("Cannot map type '%s' to FEEL", typeRef));
         throw new SemanticErrorException(error.toText());
     }
 
@@ -729,7 +729,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                     bodyType = AnyType.ANY;
                 } else {
                     String errorMessage = String.format("DRGElement '%s': Kind '%s' is not supported yet", element.getName(), kind);
-                    SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+                    SemanticError error = makeDMNError(model, element, errorMessage);
                     throw new SemanticErrorException(error.toText());
                 }
             }
@@ -850,7 +850,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
 
             return elementEnvironment;
         } catch (Exception e) {
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(definitions, element), "Cannot create environment due to semantic errors");
+            SemanticError error = makeDMNError(definitions, element, "Cannot create environment due to semantic errors");
             throw new SemanticErrorException(error.toText(), e);
         }
     }
@@ -897,11 +897,11 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
                         if (importType instanceof ImportContextType) {
                             importContextType = (ImportContextType) importType;
                         } else {
-                            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, parent), errorMessage);
+                            SemanticError error = makeDMNError(model, parent, errorMessage);
                             throw new SemanticErrorException(error.toText());
                         }
                     } else {
-                        SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, parent), errorMessage);
+                        SemanticError error = makeDMNError(model, parent, errorMessage);
                         throw new SemanticErrorException(error.toText());
                     }
                 }
@@ -926,7 +926,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         } catch (Exception e) {
             TDefinitions model = this.dmnModelRepository.getModel(element);
             String errorMessage = e.getMessage();
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+            SemanticError error = makeDMNError(model, element, errorMessage);
             throw new SemanticErrorException(error.toText(), e);
         }
     }
@@ -965,7 +965,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
         if (StringUtils.isBlank(name) || variable == null) {
             String errorMessage = String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable);
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, element), errorMessage);
+            SemanticError error = makeDMNError(model, element, errorMessage);
             throw new SemanticErrorException(error.toText());
         }
 
@@ -992,7 +992,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
         if (StringUtils.isBlank(name)) {
             String errorMessage = String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable);
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, ds), errorMessage);
+            SemanticError error = makeDMNError(model, ds, errorMessage);
             throw new SemanticErrorException(error.toText());
         }
         FunctionType serviceType = (FunctionType) this.drgElementVariableFEELType(ds);
@@ -1008,7 +1008,7 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
         }
         if (StringUtils.isBlank(name)) {
             String errorMessage = String.format("Name and variable cannot be null. Found '%s' and '%s'", name, variable);
-            SemanticError error = ErrorFactory.makeDMNError(new ModelLocation(model, bkm), errorMessage);
+            SemanticError error = makeDMNError(model, bkm, errorMessage);
             throw new SemanticErrorException(error.toText());
         }
         List<FormalParameter<Type>> parameters = this.dmnTransformer.bkmFEELParameters(bkm);
@@ -1104,5 +1104,10 @@ public class StandardDMNEnvironmentFactory implements DMNEnvironmentFactory {
             }
         }
         return relationEnvironment;
+    }
+
+    protected static SemanticError makeDMNError(TDefinitions model, TDRGElement element, String errorMessage) {
+        ModelLocation modelLocation = new ModelLocation(model, element);
+        return ErrorFactory.makeDMNError(modelLocation, errorMessage);
     }
 }

@@ -19,10 +19,10 @@ import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.ErrorHandler;
+import com.gs.dmn.error.SemanticErrorException;
 import com.gs.dmn.feel.interpreter.SignavioFEELInterpreter;
 import com.gs.dmn.feel.lib.FEELLib;
 import com.gs.dmn.log.BuildLogger;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.interpreter.AbstractDMNInterpreter;
 import com.gs.dmn.runtime.interpreter.EvaluationContext;
 import com.gs.dmn.runtime.interpreter.ExpressionEvaluationContext;
@@ -124,7 +124,8 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                 } else if (aggregator == Aggregator.ALLFALSE) {
                     output = outputList.stream().anyMatch(o -> o == Boolean.FALSE);
                 } else {
-                    this.errorHandler.reportError(String.format("'%s' is not implemented yet", aggregator));
+                    String errorMessage = String.format("'%s' is not implemented yet", aggregator);
+                    handleError(model, topLevelDecision, errorMessage);
                     output = null;
                 }
             }
@@ -154,7 +155,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                 String invocableName = NameUtils.invocableName(((TLiteralExpression) functionExp).getText());
                 TInvocable invocable = dmnModelRepository.findInvocableByName(invocableName);
                 if (invocable == null) {
-                    throw new DMNRuntimeException(String.format("Cannot find BKM for '%s'", invocableName));
+                    throw new SemanticErrorException(String.format("Cannot find BKM for '%s'", invocableName));
                 }
                 // Make args
                 List<Object> argList = new ArrayList<>();
@@ -164,7 +165,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                         Object argValue = argBinding.get(paramName);
                         argList.add(argValue);
                     } else {
-                        throw new DMNRuntimeException(String.format("Cannot find binding for parameter '%s'", paramName));
+                        throw new SemanticErrorException(String.format("Cannot find binding for parameter '%s'", paramName));
                     }
                 }
 
@@ -172,7 +173,7 @@ public class SignavioDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
                 DRGElementReference<TInvocable> reference = dmnModelRepository.makeDRGElementReference(invocable);
                 return visitor.visitInvocable(reference, makeInvocableGlobalContext(((DRGElementReference<? extends TInvocable>) reference).getElement(), argList, parentContext));
             } else {
-                throw new DMNRuntimeException(String.format("Not supported '%s'", functionExp.getClass().getSimpleName()));
+                throw new SemanticErrorException(String.format("Not supported '%s'", functionExp.getClass().getSimpleName()));
             }
         }
     }

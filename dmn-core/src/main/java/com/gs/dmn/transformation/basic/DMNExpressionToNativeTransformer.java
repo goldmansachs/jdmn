@@ -29,7 +29,6 @@ import com.gs.dmn.feel.analysis.syntax.ast.expression.function.FunctionDefinitio
 import com.gs.dmn.feel.analysis.syntax.ast.expression.textual.FilterExpression;
 import com.gs.dmn.feel.lib.StringEscapeUtil;
 import com.gs.dmn.feel.synthesis.type.NativeTypeFactory;
-import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.runtime.RuleOutput;
 import com.gs.dmn.runtime.RuleOutputList;
@@ -105,7 +104,7 @@ public class DMNExpressionToNativeTransformer {
                 return this.nativeFactory.nullLiteral();
             }
         } else {
-            throw new DMNRuntimeException(String.format("Cannot compute default value for '%s' '%s'", element.getClass().getSimpleName(), element.getName()));
+            throw new SemanticErrorException(String.format("Cannot compute default value for '%s' '%s'", element.getClass().getSimpleName(), element.getName()));
         }
     }
 
@@ -126,7 +125,7 @@ public class DMNExpressionToNativeTransformer {
     String outputClauseVariableName(TDRGElement element, TOutputClause outputClause) {
         String name = this.dmnModelRepository.outputClauseName(element, outputClause);
         if (name == null) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null. OutputClause id '%s'", outputClause.getId()));
+            throw new SemanticErrorException(String.format("Variable name cannot be null. OutputClause id '%s'", outputClause.getId()));
         }
         return this.dmnTransformer.lowerCaseFirst(name);
     }
@@ -348,7 +347,7 @@ public class DMNExpressionToNativeTransformer {
             String args = String.format("%s, %s,%s%s%s", eventListenerVariable, ruleMetadataVariable, LINE_SEPARATOR + indent3tabs, operands, LINE_SEPARATOR + indent2tabs);
             return this.nativeFactory.makeBuiltinFunctionInvocation(ruleMatchesMethodName(), args);
         }
-        throw new DMNRuntimeException("Cannot build condition for " + decisionTable.getClass().getSimpleName());
+        throw new SemanticErrorException("Cannot build condition for " + decisionTable.getClass().getSimpleName());
     }
 
     private String ruleMatchesMethodName() {
@@ -364,7 +363,7 @@ public class DMNExpressionToNativeTransformer {
             inputEntryText = inputEntry.getText();
             return inputEntryToNative(element, inputExpressionText, inputEntryText);
         } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot build condition for input clause '%s' for entry '%s' in element '%s' in rule %d", inputExpressionText, inputEntryText, this.dmnModelRepository.displayName(element), ruleIndex + 1), e);
+            throw new SemanticErrorException(String.format("Cannot build condition for input clause '%s' for entry '%s' in element '%s' in rule %d", inputExpressionText, inputEntryText, this.dmnModelRepository.displayName(element), ruleIndex + 1), e);
         }
     }
 
@@ -504,7 +503,7 @@ public class DMNExpressionToNativeTransformer {
                 expressionText = this.nativeFactory.makeVariableAssignment(this.dmnTransformer.contextClassName(), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.contextClassName()));
                 expressionStatement = this.nativeFactory.makeAssignmentStatement(this.dmnTransformer.contextClassName(), complexTypeVariable, this.dmnTransformer.defaultConstructor(this.dmnTransformer.contextClassName()), returnType, expressionText);
             } else {
-                throw new DMNRuntimeException(String.format("Expected complex type in element '%s', found '%s'", element.getName(), returnType));
+                throw new SemanticErrorException(String.format("Expected complex type in element '%s', found '%s'", element.getName(), returnType));
             }
             statement.add(expressionStatement);
             // Add entries
@@ -563,7 +562,7 @@ public class DMNExpressionToNativeTransformer {
             String text = javaFunctionToNative(javaInfo, functionType);
             return this.nativeFactory.makeExpressionStatement(text, functionType);
         }
-        throw new DMNRuntimeException(String.format("Kind '%s' is not supported yet in element '%s'", kind, element.getName()));
+        throw new SemanticErrorException(String.format("Kind '%s' is not supported yet in element '%s'", kind, element.getName()));
     }
 
     private String javaFunctionToNative(JavaFunctionInfo javaInfo, FunctionType functionType) {
@@ -598,7 +597,7 @@ public class DMNExpressionToNativeTransformer {
             String applyMethod = this.nativeFactory.applyMethod(functionType, signature, convertToContext, body);
             return functionDefinitionToNative(returnType, applyMethod);
         }
-        throw new DMNRuntimeException(String.format("%s is not supported yet", functionType));
+        throw new SemanticErrorException(String.format("%s is not supported yet", functionType));
     }
 
     private String functionDefinitionToNative(String returnType, String applyMethod) {
@@ -649,7 +648,7 @@ public class DMNExpressionToNativeTransformer {
                 String invocableName = NameUtils.invocableName(((TLiteralExpression) functionExp).getText());
                 TInvocable invocable = this.dmnModelRepository.findInvocableByName(invocableName);
                 if (invocable == null) {
-                    throw new DMNRuntimeException(String.format("Cannot find BKM or DS for '%s'", invocableName));
+                    throw new SemanticErrorException(String.format("Cannot find BKM or DS for '%s'", invocableName));
                 }
                 String invocableInstance = this.dmnTransformer.singletonInvocableInstance(invocable);
                 String argListString = argList.stream().map(Statement::getText).collect(Collectors.joining(", "));
@@ -657,10 +656,10 @@ public class DMNExpressionToNativeTransformer {
                 Type expressionType = this.dmnTransformer.drgElementOutputFEELType(invocable);
                 return this.nativeFactory.makeExpressionStatement(expressionText, expressionType);
             } else {
-                throw new DMNRuntimeException(String.format("Not supported in TInvocation '%s' yet", functionExp));
+                throw new SemanticErrorException(String.format("Not supported in TInvocation '%s' yet", functionExp));
             }
         } else {
-            throw new DMNRuntimeException(String.format("Expecting function found '%s' in %s", functionType, invocation));
+            throw new SemanticErrorException(String.format("Expecting function found '%s' in %s", functionType, invocation));
         }
     }
 

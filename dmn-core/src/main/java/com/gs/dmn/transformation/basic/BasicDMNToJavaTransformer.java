@@ -352,7 +352,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String drgElementReferenceVariableName(DRGElementReference<? extends TDRGElement> reference) {
         String name = reference.getElementName();
         if (name == null) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null. Decision id '%s'", reference.getElement().getId()));
+            throw new SemanticErrorException(String.format("Variable name cannot be null. Decision id '%s'", reference.getElement().getId()));
         }
         return drgReferenceQualifiedName(reference);
     }
@@ -422,7 +422,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
                     }
                 }
             } catch (Exception e) {
-                throw new DMNRuntimeException(String.format("Cannot process annotation '%s' for element '%s'", annotationText, element == null ? "" : element.getName()), e);
+                throw new SemanticErrorException(String.format("Cannot process annotation '%s' for element '%s'", annotationText, element == null ? "" : element.getName()), e);
             }
         }
         return annotationStatements;
@@ -441,7 +441,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             List<Pair<String, Type>> parameters = drgElementTypeSignature(element);
             return parameters.stream().allMatch(p -> this.nativeFactory.isSerializable(p.getRight()));
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
     }
 
@@ -486,7 +486,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (element instanceof TDecision) {
             return inputDataParametersClosure((DRGElementReference<TDecision>) reference, nameProducer);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported yet '%s'", element.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("Not supported yet '%s'", element.getClass().getSimpleName()));
         }
     }
 
@@ -513,7 +513,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             String arguments = parameters.stream().map(this::extractAndConvertInputMember).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
-            throw new DMNRuntimeException(String.format("Not supported yet for '%s'", element.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("Not supported yet for '%s'", element.getClass().getSimpleName()));
         }
     }
 
@@ -647,7 +647,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (obj instanceof TNamedElement) {
             return this.dmnModelRepository.name((TNamedElement) obj);
         }
-        throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
+        throw new SemanticErrorException(String.format("Variable name cannot be null for '%s'", obj));
     }
 
     @Override
@@ -659,7 +659,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (obj instanceof TNamedElement) {
             return this.dmnModelRepository.displayName((TNamedElement) obj);
         }
-        throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
+        throw new SemanticErrorException(String.format("Variable name cannot be null for '%s'", obj));
     }
 
     @Override
@@ -669,7 +669,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (obj instanceof TNamedElement) {
             return namedElementVariableName((TNamedElement) obj);
         }
-        throw new DMNRuntimeException(String.format("Variable name cannot be null for '%s'", obj));
+        throw new SemanticErrorException(String.format("Variable name cannot be null for '%s'", obj));
     }
 
     @Override
@@ -690,7 +690,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (element instanceof TInvocable) {
             return false;
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
     }
 
@@ -701,7 +701,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             String decisionSignature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(toStringNativeType(p.getRight()), p.getLeft())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
     }
 
@@ -712,7 +712,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             String arguments = parameters.stream().map(p -> String.format("%s", this.nativeFactory.convertArgumentFromString(p.getLeft(), p.getRight()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
     }
 
@@ -780,7 +780,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String namedElementVariableName(TNamedElement element) {
         String name = element.getName();
         if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException(String.format("Variable name cannot be null. ItemDefinition id '%s'", element.getId()));
+            throw new SemanticErrorException(String.format("Variable name cannot be null. ItemDefinition id '%s'", element.getId()));
         }
         return lowerCaseFirst(name);
     }
@@ -797,7 +797,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (element instanceof TDecisionService) {
             return String.format("Start DS '%s'", element.getName());
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
     }
 
@@ -810,7 +810,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (element instanceof TDecisionService) {
             return String.format("End DS '%s'", element.getName());
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
     }
 
@@ -823,7 +823,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (element instanceof TDecisionService) {
             return String.format("Evaluate DS '%s'", element.getName());
         } else {
-            throw new DMNRuntimeException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
         }
     }
 
@@ -832,7 +832,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         TDefinitions model = this.dmnModelRepository.getModel(element);
         QualifiedName typeRef = this.dmnModelRepository.outputTypeRef(model, element);
         if (this.dmnModelRepository.isNull(typeRef)) {
-            throw new DMNRuntimeException(String.format("Cannot infer return type for BKM '%s'", element.getName()));
+            throw new SemanticErrorException(String.format("Cannot infer return type for BKM '%s'", element.getName()));
         }
         return typeRef;
     }
@@ -865,7 +865,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (invocable instanceof TDecisionService) {
             return dsFEELParameters((TDecisionService) invocable);
         } else {
-            throw new DMNRuntimeException(String.format("Illegal invocable '%s'", invocable.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("Illegal invocable '%s'", invocable.getClass().getSimpleName()));
         }
     }
 
@@ -876,7 +876,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         } else if (invocable instanceof TDecisionService) {
             return dsFEELParameterNames((TDecisionService) invocable);
         } else {
-            throw new DMNRuntimeException(String.format("Illegal invocable '%s'", invocable.getClass().getSimpleName()));
+            throw new SemanticErrorException(String.format("Illegal invocable '%s'", invocable.getClass().getSimpleName()));
         }
     }
 
@@ -1825,7 +1825,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (type instanceof com.gs.dmn.el.analysis.semantics.type.NamedType) {
             String typeName = ((com.gs.dmn.el.analysis.semantics.type.NamedType) type).getName();
             if (StringUtils.isBlank(typeName)) {
-                throw new DMNRuntimeException(String.format("Missing type name in '%s'", type));
+                throw new SemanticErrorException(String.format("Missing type name in '%s'", type));
             }
             if (type instanceof ItemDefinitionType) {
                 String modelName = ((ItemDefinitionType) type).getModelName();
@@ -1835,7 +1835,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
                 if (!StringUtils.isBlank(primitiveType)) {
                     return primitiveType;
                 } else {
-                    throw new DMNRuntimeException(String.format("Cannot infer native type for '%s' type", type));
+                    throw new SemanticErrorException(String.format("Cannot infer native type for '%s' type", type));
                 }
             }
         } else if (type instanceof ContextType) {
@@ -1871,9 +1871,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
                     String returnType = toNativeType(((FunctionType) type).getReturnType());
                     return makeFunctionType(javaExternalFunctionClassName(), returnType);
                 }
-                throw new DMNRuntimeException(String.format("Type %s is not supported yet", type));
+                throw new SemanticErrorException(String.format("Type %s is not supported yet", type));
             }
-            throw new DMNRuntimeException(String.format("Type %s is not supported yet", type));
+            throw new SemanticErrorException(String.format("Type %s is not supported yet", type));
         }
         throw new IllegalArgumentException(String.format("Type '%s' is not supported yet", type));
     }
@@ -1941,17 +1941,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String qualifiedModuleName(DRGElementReference<? extends TDRGElement> reference) {
-        throw new DMNRuntimeException("Not supported yet");
+        throw new SemanticErrorException("Not supported yet");
     }
 
     @Override
     public String qualifiedModuleName(TDRGElement element) {
-        throw new DMNRuntimeException("Not supported yet");
+        throw new SemanticErrorException("Not supported yet");
     }
 
     @Override
     public String qualifiedModuleName(String pkg, String moduleName) {
-        throw new DMNRuntimeException("Not supported yet");
+        throw new SemanticErrorException("Not supported yet");
     }
 
     @Override
@@ -1982,7 +1982,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String nativeFriendlyVariableName(String name) {
         if (StringUtils.isBlank(name)) {
-            throw new DMNRuntimeException("Cannot build variable name from empty string");
+            throw new SemanticErrorException("Cannot build variable name from empty string");
         }
         name = NameUtils.removeSingleQuotes(name);
         String[] parts = name.split("\\.");
@@ -2120,7 +2120,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if (type instanceof ListType) {
             return this.nativeFactory.asList(((ListType) type).getElementType(), "");
         }
-        throw new DMNRuntimeException(String.format("Expected List Type found '%s' instead", type));
+        throw new SemanticErrorException(String.format("Expected List Type found '%s' instead", type));
     }
 
     @Override
@@ -2175,7 +2175,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         if ("proto3".equals(protoVersion)) {
             return protoVersion;
         }
-        throw new DMNRuntimeException(String.format("Illegal proto version '%s'", protoVersion));
+        throw new SemanticErrorException(String.format("Illegal proto version '%s'", protoVersion));
     }
 
     @Override

@@ -1088,7 +1088,8 @@ public class FEELSemanticVisitor extends AbstractAnalysisVisitor<Type, DMNContex
             return;
         }
         if (this.dmnTransformer.isStrongTyping()) {
-            errorHandler.reportError(String.format("Cannot find declaration for '%s'", name));
+            SemanticError error = makeELExpressionError(context, element, String.format("Cannot find declaration for '%s'", name));
+            handleError(error);
         }
     }
 
