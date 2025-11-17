@@ -12,7 +12,11 @@
  */
 package com.gs.dmn.serialization;
 
-import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.ErrorFactory;
+import com.gs.dmn.error.SemanticErrorException;
+import com.gs.dmn.error.ValidationError;
+import com.gs.dmn.feel.ModelLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -29,18 +33,17 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class XSDSchemaValidator {
     private static final Logger LOGGER = LoggerFactory.getLogger(XSDSchemaValidator.class);
+    static final String RULE_NAME = "xsd-validation";
 
-    private XSDSchemaValidator() {
-    }
-
-    public static List<String> validateXSDSchema(Source source, DMNVersion dmnVersion) {
+    public List<ValidationError> validateXSDSchema(Source source, DMNVersion dmnVersion) {
         return validateXSDSchema(source, dmnVersion.getSchemaLocation());
     }
 
-    private static List<String> validateXSDSchema(Source source, String schemaPath) {
+    private List<ValidationError> validateXSDSchema(Source source, String schemaPath) {
         try {
             Validator validator = makeValidator(schemaPath);
             XsdErrorHandler errorHandler = new XsdErrorHandler();
@@ -54,15 +57,39 @@ public class XSDSchemaValidator {
                     errors.add(errorMessage);
                 }
             }
-            return errors;
+            ModelLocation modelLocation = makeModelLocation(source);
+            return errors.stream().map(e -> new ValidationError(ErrorFactory.makeDMNError(modelLocation, e), RULE_NAME)).collect(Collectors.toList());
         } catch (Exception e) {
             String errorMessage = "Validation failed due to a critical error: " + e.getMessage();
             LOGGER.error(errorMessage);
-            throw new DMNRuntimeException(e);
+            throw new SemanticErrorException(errorMessage, e);
         }
     }
 
-    private static Validator makeValidator(String schemaPath) throws MalformedURLException, URISyntaxException, SAXException {
+    private ModelLocation makeModelLocation(Source source) {
+        String systemId = source.getSystemId();
+        ModelLocation modelLocation = null;
+        if (systemId != null && systemId.endsWith(DMNConstants.DMN_FILE_EXTENSION)) {
+            // Determine file name
+            String fileName;
+            int index = systemId.lastIndexOf("/");
+            if (index != -1) {
+                fileName = systemId.substring(index + 1);
+            } else {
+                fileName = systemId;
+            }
+            // Determine model name
+            String modelName = fileName.substring(0, fileName.indexOf(DMNConstants.DMN_FILE_EXTENSION));
+            // Make dummy model
+            TDefinitions model = new TDefinitions();
+            model.setName(modelName);
+
+            modelLocation = new ModelLocation(model, null);
+        }
+        return modelLocation;
+    }
+
+    private Validator makeValidator(String schemaPath) throws MalformedURLException, URISyntaxException, SAXException {
         URL schemaURL = Objects.requireNonNull(XSDSchemaValidator.class.getClassLoader().getResource(schemaPath)).toURI().toURL();
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         // Prohibit the use of all protocols by external entities:

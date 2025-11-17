@@ -14,6 +14,7 @@ package com.gs.dmn.serialization.xstream;
 
 import com.gs.dmn.ast.DMNBaseElement;
 import com.gs.dmn.ast.TDefinitions;
+import com.gs.dmn.error.ValidationError;
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.serialization.DMNMarshaller;
 import com.gs.dmn.serialization.DMNVersion;
@@ -125,7 +126,7 @@ public class XStreamMarshaller implements DMNMarshaller {
             DMNVersion dmnVersion = inferDMNVersion(firstStringReader);
             if (validateSchema && dmnVersion != null) {
                 try (StringReader reader = new StringReader(input)) {
-                    List<String> errors = XSDSchemaValidator.validateXSDSchema(new StreamSource(reader), dmnVersion);
+                    List<ValidationError> errors = new XSDSchemaValidator().validateXSDSchema(new StreamSource(reader), dmnVersion);
                     if (!errors.isEmpty()) {
                         throw new DMNRuntimeException(String.format("%s", errors));
                     }
