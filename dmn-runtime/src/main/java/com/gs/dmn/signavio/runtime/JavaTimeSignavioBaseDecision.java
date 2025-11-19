@@ -13,42 +13,19 @@
 package com.gs.dmn.signavio.runtime;
 
 import com.gs.dmn.runtime.ExecutionContext;
-import com.gs.dmn.runtime.annotation.AnnotationTarget;
-import com.gs.dmn.runtime.annotation.DRGElement;
-import com.gs.dmn.runtime.annotation.Rule;
 import com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib;
 
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAmount;
 import java.util.Map;
 
-public class JavaTimeSignavioBaseDecision extends JavaTimeSignavioLib
-        implements SignavioDecision<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount>,
-        AnnotationTarget
+public abstract class JavaTimeSignavioBaseDecision extends JavaTimeSignavioLib
+        implements SignavioDecision<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount>
 {
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
-        return null;
-    }
-
-    @Override
-    public DRGElement getDRGElementAnnotation() {
-        return this.getClass().getAnnotation(DRGElement.class);
-    }
-
-    @Override
-    public Rule getRuleAnnotation(int ruleIndex) {
-        String methodName = String.format("rule%d", ruleIndex);
-        Class<? extends JavaTimeSignavioBaseDecision> cls = this.getClass();
-        Method[] declaredMethods = cls.getDeclaredMethods();
-        for (Method method : declaredMethods) {
-            if (methodName.equals(method.getName())) {
-                return method.getAnnotation(Rule.class);
-            }
-        }
         return null;
     }
 }

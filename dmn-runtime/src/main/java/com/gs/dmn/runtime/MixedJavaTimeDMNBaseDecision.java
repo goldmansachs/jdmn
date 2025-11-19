@@ -13,12 +13,8 @@
 package com.gs.dmn.runtime;
 
 import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
-import com.gs.dmn.runtime.annotation.AnnotationTarget;
-import com.gs.dmn.runtime.annotation.DRGElement;
-import com.gs.dmn.runtime.annotation.Rule;
 
 import javax.xml.datatype.Duration;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetTime;
@@ -29,27 +25,9 @@ import java.util.Map;
  * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeDMNBaseDecision}
  */
 @Deprecated
-public class MixedJavaTimeDMNBaseDecision extends MixedJavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration>, AnnotationTarget {
+public abstract class MixedJavaTimeDMNBaseDecision extends MixedJavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
-        return null;
-    }
-
-    @Override
-    public DRGElement getDRGElementAnnotation() {
-        return this.getClass().getAnnotation(DRGElement.class);
-    }
-
-    @Override
-    public Rule getRuleAnnotation(int ruleIndex) {
-        String methodName = String.format("rule%d", ruleIndex);
-        Class<? extends MixedJavaTimeDMNBaseDecision> cls = this.getClass();
-        Method[] declaredMethods = cls.getDeclaredMethods();
-        for (Method method : declaredMethods) {
-            if (methodName.equals(method.getName())) {
-                return method.getAnnotation(Rule.class);
-            }
-        }
         return null;
     }
 }

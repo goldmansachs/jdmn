@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class ExportedLiteralDMNInterpreterTest extends AbstractSignavioDMNInterpreterTest {
-    private final JavaTimeSignavioBaseDecision decision = new JavaTimeSignavioBaseDecision();
+    private final JavaTimeSignavioBaseDecision decision = new JavaTimeSignavioBaseDecision() {};
 
     @Override
     protected String getInputPath() {

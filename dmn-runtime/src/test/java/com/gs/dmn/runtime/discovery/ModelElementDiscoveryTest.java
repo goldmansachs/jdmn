@@ -10,26 +10,38 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime;
+package com.gs.dmn.runtime.discovery;
 
+import com.gs.dmn.runtime.JavaTimeDMNBaseDecision;
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.Rule;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public class JavaTimeDMNBaseDecisionTest {
-    private final JavaTimeDMNBaseDecision baseDecision = new JavaTimeDMNBaseDecision();
+import static org.junit.jupiter.api.Assertions.*;
+
+public class ModelElementDiscoveryTest {
+    private final ModelElementDiscovery modelElementDiscovery = new ModelElementDiscovery();
+
+    @Test
+    public void testDiscovery() {
+        Set<Class<?>> decisions = modelElementDiscovery.discover("com.gs");
+        assertEquals(2, decisions.size());
+        assertTrue(decisions.stream().map(Class::getName).collect(Collectors.toList()).contains("com.gs.dmn.runtime.discovery.NopDecision"));
+    }
 
     @Test
     public void testGetDRGElementAnnotation() {
-        DRGElement drgElementAnnotation = this.baseDecision.getDRGElementAnnotation();
+        DRGElement drgElementAnnotation = modelElementDiscovery.getDRGElementAnnotation(JavaTimeDMNBaseDecision.class);
         assertNull(drgElementAnnotation);
     }
 
     @Test
     public void testGetRuleAnnotation() {
-        Rule ruleAnnotation = this.baseDecision.getRuleAnnotation(0);
+        Rule ruleAnnotation = this.modelElementDiscovery.getRuleAnnotation(JavaTimeDMNBaseDecision.class, 0);
         assertNull(ruleAnnotation);
     }
+
 }

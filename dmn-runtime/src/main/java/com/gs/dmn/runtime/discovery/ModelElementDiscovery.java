@@ -13,14 +13,16 @@
 package com.gs.dmn.runtime.discovery;
 
 import com.gs.dmn.runtime.annotation.DRGElement;
+import com.gs.dmn.runtime.annotation.Rule;
 import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
+import java.lang.reflect.Method;
 import java.util.Set;
 
-public class DecisionDiscovery {
+public class ModelElementDiscovery {
     public Set<Class<?>> discover(String packagePrefix) {
         Reflections reflections = new Reflections(new ConfigurationBuilder()
                 .setUrls(ClasspathHelper.forPackage(packagePrefix))
@@ -28,5 +30,21 @@ public class DecisionDiscovery {
         );
         return reflections.getTypesAnnotatedWith(DRGElement.class);
     }
+
+    public DRGElement getDRGElementAnnotation(Class<?> cls) {
+        return cls.getAnnotation(DRGElement.class);
+    }
+
+    public Rule getRuleAnnotation(Class<?> cls, int ruleIndex) {
+        String methodName = String.format("rule%d", ruleIndex);
+        Method[] declaredMethods = cls.getDeclaredMethods();
+        for (Method method : declaredMethods) {
+            if (methodName.equals(method.getName())) {
+                return method.getAnnotation(Rule.class);
+            }
+        }
+        return null;
+    }
+
 }
 
