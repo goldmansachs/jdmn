@@ -19,13 +19,14 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.WeakHashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class FEELTypeMemoizer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(FEELTypeMemoizer.class);
 
-    private final WeakHashMap<String, Type> typeOfQName = new WeakHashMap<>();
-    private final WeakHashMap<TItemDefinition, Type> typeOfItemDefinition = new WeakHashMap<>();
+    private final Map<String, Type> typeOfQName = new LinkedHashMap<>();
+    private final Map<TItemDefinition, Type> typeOfItemDefinition = new LinkedHashMap<>();
 
     public boolean contains(TDefinitions model, QualifiedName qName) {
         String key = makeKey(model, qName);

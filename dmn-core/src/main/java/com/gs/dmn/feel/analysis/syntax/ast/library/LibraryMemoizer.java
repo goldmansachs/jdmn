@@ -16,15 +16,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class LibraryMemoizer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(LibraryMemoizer.class);
 
-    private final LinkedHashSet<String> configs = new LinkedHashSet<>();
-    private final WeakHashMap<String, ELLib> namespaceToLib = new WeakHashMap<>();
+    private final Set<String> configs = new LinkedHashSet<>();
+    private final Map<String, ELLib> namespaceToLib = new LinkedHashMap<>();
 
     public void addConfig(String configPath) {
         this.configs.add(configPath);

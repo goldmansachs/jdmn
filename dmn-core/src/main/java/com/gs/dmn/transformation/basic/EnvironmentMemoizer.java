@@ -17,12 +17,13 @@ import com.gs.dmn.context.environment.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.WeakHashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class EnvironmentMemoizer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(EnvironmentMemoizer.class);
 
-    private final WeakHashMap<TDRGElement, Environment> environmentOfElement = new WeakHashMap<>();
+    private final Map<TDRGElement, Environment> environmentOfElement = new LinkedHashMap<>();
 
     public Environment get(TDRGElement tdrgElement) {
         return this.environmentOfElement.get(tdrgElement);

@@ -17,13 +17,14 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.WeakHashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class JavaTypeMemoizer {
     protected static final Logger LOGGER = LoggerFactory.getLogger(JavaTypeMemoizer.class);
 
-    private final WeakHashMap<TDecision, String> javaTypeOfElement = new WeakHashMap<>();
-    private final WeakHashMap<Type, String> javaTypeOfType = new WeakHashMap<>();
+    private final Map<TDecision, String> javaTypeOfElement = new LinkedHashMap<>();
+    private final Map<Type, String> javaTypeOfType = new LinkedHashMap<>();
 
     public String get(TDecision decision) {
         return this.javaTypeOfElement.get(decision);
