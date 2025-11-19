@@ -18,7 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Executor {
-    private final Map<String, DMNDecision> map = new LinkedHashMap<>();
+    private final Map<String, ExecutableDRGElement> map = new LinkedHashMap<>();
     private final ModelElementRegistry registry;
 
     public Executor(ModelElementRegistry registry) {
@@ -26,24 +26,24 @@ public class Executor {
     }
 
     public Object execute(String qName, Map<String, String> input, ExecutionContext context) {
-        DMNDecision dmnDecision = makeInstance(qName);
-        return dmnDecision.applyMap(input, context);
+        ExecutableDRGElement executableDRGElement = makeInstance(qName);
+        return executableDRGElement.applyMap(input, context);
     }
 
-    private DMNDecision makeInstance(String qName) {
-        DMNDecision dmnDecision = map.get(qName);
-        if (dmnDecision == null) {
+    private ExecutableDRGElement makeInstance(String qName) {
+        ExecutableDRGElement executableDRGElement = map.get(qName);
+        if (executableDRGElement == null) {
             String clsName = registry.discover(qName);
             if (clsName == null) {
                 throw new DMNRuntimeException(String.format("Element '%s' is not registered. Registered elements are %s", qName, registry.keys()));
             }
             try {
-                dmnDecision = (DMNDecision) Class.forName(clsName).getConstructor().newInstance();
+                executableDRGElement = (ExecutableDRGElement) Class.forName(clsName).getConstructor().newInstance();
             } catch (Exception e) {
                 throw new DMNRuntimeException(String.format("Cannot instantiate class '%s' for name '%s'", clsName, qName));
             }
-            this.map.put(qName, dmnDecision);
+            this.map.put(qName, executableDRGElement);
         }
-        return dmnDecision;
+        return executableDRGElement;
     }
 }

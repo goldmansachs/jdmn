@@ -15,19 +15,13 @@ package com.gs.dmn.signavio.runtime;
 import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.signavio.feel.lib.MixedJavaTimeSignavioLib;
 
-import javax.xml.datatype.Duration;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
 import java.util.Map;
 
 /**
  * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeSignavioBaseDecision}
  */
 @Deprecated
-public abstract class MixedJavaTimeSignavioBaseDecision extends MixedJavaTimeSignavioLib
-        implements SignavioDecision<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration>
+public abstract class MixedJavaTimeSignavioBaseDecision extends MixedJavaTimeSignavioLib implements SignavioExecutableDRGElement
 {
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {

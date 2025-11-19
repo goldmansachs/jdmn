@@ -10,11 +10,10 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.signavio.runtime;
+package com.gs.dmn.runtime;
 
-import com.gs.dmn.runtime.DMNDecision;
+import java.util.Map;
 
-public interface SignavioDecision<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
-        DMNDecision<NUMBER, DATE, TIME, DATE_TIME, DURATION>
-{
+public interface ExecutableDRGElement {
+    Object applyMap(Map<String, String> input_, ExecutionContext context_);
 }

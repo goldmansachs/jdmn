@@ -14,18 +14,13 @@ package com.gs.dmn.runtime;
 
 import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
 
-import javax.xml.datatype.Duration;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
 import java.util.Map;
 
 /**
  * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeDMNBaseDecision}
  */
 @Deprecated
-public abstract class MixedJavaTimeDMNBaseDecision extends MixedJavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, OffsetTime, ZonedDateTime, Duration> {
+public abstract class MixedJavaTimeDMNBaseDecision extends MixedJavaTimeFEELLib implements ExecutableDRGElement {
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;

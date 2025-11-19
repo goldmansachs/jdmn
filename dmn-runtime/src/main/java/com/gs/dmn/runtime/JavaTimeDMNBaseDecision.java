@@ -14,13 +14,9 @@ package com.gs.dmn.runtime;
 
 import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 
-import java.math.BigDecimal;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.temporal.Temporal;
 import java.util.Map;
 
-public abstract class JavaTimeDMNBaseDecision extends JavaTimeFEELLib implements DMNDecision<BigDecimal, LocalDate, Temporal, Temporal, Duration> {
+public abstract class JavaTimeDMNBaseDecision extends JavaTimeFEELLib implements ExecutableDRGElement {
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;

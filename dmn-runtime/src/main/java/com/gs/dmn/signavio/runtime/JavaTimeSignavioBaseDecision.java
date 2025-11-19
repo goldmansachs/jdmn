@@ -15,14 +15,9 @@ package com.gs.dmn.signavio.runtime;
 import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.temporal.TemporalAccessor;
-import java.time.temporal.TemporalAmount;
 import java.util.Map;
 
-public abstract class JavaTimeSignavioBaseDecision extends JavaTimeSignavioLib
-        implements SignavioDecision<BigDecimal, LocalDate, TemporalAccessor, TemporalAccessor, TemporalAmount>
+public abstract class JavaTimeSignavioBaseDecision extends JavaTimeSignavioLib implements SignavioExecutableDRGElement
 {
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
