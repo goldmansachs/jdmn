@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime.serialization;
+package com.gs.dmn.serialization;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -21,16 +21,16 @@ import com.gs.dmn.feel.lib.type.time.pure.TemporalDateTimeLib;
 import com.gs.dmn.runtime.DMNRuntimeException;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
 
-public class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
+public class TemporalAccessorDeserializer extends JsonDeserializer<TemporalAccessor> {
     private final TemporalDateTimeLib dateTimeLib = new TemporalDateTimeLib();
 
-    public LocalDateDeserializer() {
+    public TemporalAccessorDeserializer() {
     }
 
     @Override
-    public LocalDate deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+    public TemporalAccessor deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         ObjectCodec oc = jp.getCodec();
         JsonNode node = oc.readTree(jp);
 
@@ -39,7 +39,13 @@ public class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
             if (literal == null) {
                 return null;
             } else {
-                return dateTimeLib.date(literal);
+                if (literal.contains("T")) {
+                    return dateTimeLib.dateAndTime(literal);
+                } else if (literal.contains("-")) {
+                    return this.dateTimeLib.dateTemporalAccessor(literal);
+                } else {
+                    return this.dateTimeLib.timeTemporalAccessor(literal);
+                }
             }
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Error deserializing '%s' ", node), e);

@@ -10,20 +10,20 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime.serialization;
+package com.gs.dmn.serialization;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.gs.dmn.feel.lib.MixedJavaTimeFEELLib;
+import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 
 import java.io.IOException;
-import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAmount;
 
-public class ZonedDateTimeSerializer extends JsonSerializer<ZonedDateTime> {
-    private final MixedJavaTimeFEELLib feelLib = new MixedJavaTimeFEELLib();
+public class TemporalAmountSerializer extends JsonSerializer<TemporalAmount> {
+    private final JavaTimeFEELLib feelLib = new JavaTimeFEELLib();
     @Override
-    public void serialize(ZonedDateTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(TemporalAmount value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         gen.writeString(feelLib.string(value));
     }
 }
