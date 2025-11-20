@@ -18,9 +18,9 @@ import java.util.Arrays;
 public class JavaExternalFunction<R> {
     private final JavaFunctionInfo javaFunctionInfo;
     private final ExternalFunctionExecutor externalExecutor;
-    private final Class returnType;
+    private final Class<?> returnType;
 
-    public JavaExternalFunction(JavaFunctionInfo javaFunctionInfo, ExternalFunctionExecutor externalExecutor_, Class returnType) {
+    public JavaExternalFunction(JavaFunctionInfo javaFunctionInfo, ExternalFunctionExecutor externalExecutor_, Class<?> returnType) {
         this.javaFunctionInfo = javaFunctionInfo;
         this.externalExecutor = externalExecutor_;
         this.returnType = returnType;
@@ -40,15 +40,5 @@ public class JavaExternalFunction<R> {
         } else {
             return (R) result;
         }
-    }
-
-    private static Object convertNumber(Object object) {
-        if (object == null) {
-            return null;
-        }
-        if (object instanceof Number) {
-            return new BigDecimal(object.toString());
-        }
-        return object;
     }
 }

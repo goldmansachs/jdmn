@@ -59,7 +59,7 @@ public class DefaultExternalFunctionExecutor implements ExternalFunctionExecutor
             List<Object> convertedArgList = info.convertArguments(argList);
 
             // Prepare data for reflection
-            Class cls = Class.forName(className);
+            Class<?> cls = Class.forName(className);
 
             // Method declaredMethod = MethodUtils.resolveMethod(info.getMethodName(), cls, argTypes);
             Method declaredMethod = null;
@@ -69,7 +69,7 @@ public class DefaultExternalFunctionExecutor implements ExternalFunctionExecutor
                     if (m.getParameterCount() == paramTypes.size()) {
                         boolean typesMatch = true;
                         for (int i=0; i<paramTypes.size(); i++) {
-                            Class javaClass = m.getParameterTypes()[i];
+                            Class<?> javaClass = m.getParameterTypes()[i];
                             if (! (paramTypes.get(i).equals(javaClass.getSimpleName()) || paramTypes.get(i).equals(javaClass.getName()))) {
                                 typesMatch = false;
                                 break;

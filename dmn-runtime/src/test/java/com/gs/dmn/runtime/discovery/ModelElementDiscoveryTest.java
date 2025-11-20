@@ -12,7 +12,6 @@
  */
 package com.gs.dmn.runtime.discovery;
 
-import com.gs.dmn.runtime.JavaTimeDMNBaseDecision;
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.Rule;
 import org.junit.jupiter.api.Test;
@@ -27,21 +26,24 @@ public class ModelElementDiscoveryTest {
 
     @Test
     public void testDiscovery() {
-        Set<Class<?>> decisions = modelElementDiscovery.discover("com.gs");
-        assertEquals(2, decisions.size());
+        Set<Class<?>> decisions = modelElementDiscovery.discover("com.gs.dmn.runtime.discovery");
+        assertEquals(1, decisions.size());
         assertTrue(decisions.stream().map(Class::getName).collect(Collectors.toList()).contains("com.gs.dmn.runtime.discovery.NopDecision"));
     }
 
     @Test
     public void testGetDRGElementAnnotation() {
-        DRGElement drgElementAnnotation = modelElementDiscovery.getDRGElementAnnotation(JavaTimeDMNBaseDecision.class);
+        DRGElement drgElementAnnotation = modelElementDiscovery.getDRGElementAnnotation(Decision.class);
         assertNull(drgElementAnnotation);
     }
 
     @Test
     public void testGetRuleAnnotation() {
-        Rule ruleAnnotation = this.modelElementDiscovery.getRuleAnnotation(JavaTimeDMNBaseDecision.class, 0);
+        Rule ruleAnnotation = this.modelElementDiscovery.getRuleAnnotation(Decision.class, 0);
         assertNull(ruleAnnotation);
     }
 
+}
+
+class Decision {
 }

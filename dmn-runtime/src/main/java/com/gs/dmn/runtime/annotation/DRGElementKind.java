@@ -16,7 +16,7 @@ public enum DRGElementKind {
     DECISION("decision"),
     DECISION_SERVICE("decision service"),
     BUSINESS_KNOWLEDGE_MODEL("bkm"),
-    KNOWLEDGE_SOURCE("knowldge source"),
+    KNOWLEDGE_SOURCE("knowledge source"),
     INPUT_DATA("input"),
     OTHER("other");
 
@@ -30,7 +30,7 @@ public enum DRGElementKind {
         return displayName;
     }
 
-    public static DRGElementKind kindByClass(Class drgElementClass) {
+    public static DRGElementKind kindByClass(Class<?> drgElementClass) {
         String className = drgElementClass.getSimpleName();
         return kindByName(className);
     }
