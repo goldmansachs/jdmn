@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.runtime.annotation;
 
-import com.gs.dmn.runtime.Pair;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -25,14 +26,20 @@ public class ExpressionKindTest {
     @Test
     public void testKindByClass() {
         List<Pair<String, ExpressionKind>> tests = Arrays.asList(
-                new Pair<>("TContext", ExpressionKind.CONTEXT),
-                new Pair<>("TDecisionTable", ExpressionKind.DECISION_TABLE),
-                new Pair<>("TFunctionDefinition", ExpressionKind.FUNCTION_DEFINITION),
-                new Pair<>("TInvocation", ExpressionKind.INVOCATION),
-                new Pair<>("TList", ExpressionKind.LIST),
-                new Pair<>("TLiteralExpression", ExpressionKind.LITERAL_EXPRESSION),
-                new Pair<>("TRelation", ExpressionKind.RELATION),
-                new Pair<>("X", ExpressionKind.OTHER)
+                new MutablePair<>("TContext", ExpressionKind.CONTEXT),
+                new MutablePair<>("TDecisionTable", ExpressionKind.DECISION_TABLE),
+                new MutablePair<>("TFunctionDefinition", ExpressionKind.FUNCTION_DEFINITION),
+                new MutablePair<>("TInvocation", ExpressionKind.INVOCATION),
+                new MutablePair<>("TList", ExpressionKind.LIST),
+                new MutablePair<>("TLiteralExpression", ExpressionKind.LITERAL_EXPRESSION),
+                new MutablePair<>("TRelation", ExpressionKind.RELATION),
+                new MutablePair<>("TUnaryTests", ExpressionKind.UNARY_TESTS),
+                new MutablePair<>("TConditional", ExpressionKind.CONDITIONAL),
+                new MutablePair<>("TFor", ExpressionKind.FOR),
+                new MutablePair<>("TFilter", ExpressionKind.FILTER),
+                new MutablePair<>("TSome", ExpressionKind.SOME),
+                new MutablePair<>("TEvery", ExpressionKind.EVERY),
+                new MutablePair<>("X", ExpressionKind.OTHER)
         );
 
         for(Pair<String, ExpressionKind> test: tests) {

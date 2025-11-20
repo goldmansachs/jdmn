@@ -20,9 +20,15 @@ public enum ExpressionKind {
     CONTEXT,
     INVOCATION,
     LITERAL_EXPRESSION,
+    UNARY_TESTS,
+    CONDITIONAL,
+    FOR,
+    FILTER,
+    SOME,
+    EVERY,
     OTHER;
 
-    public static ExpressionKind kindByClass(Class expClass) {
+    public static ExpressionKind kindByClass(Class<?> expClass) {
         String expClassName = expClass.getSimpleName();
         return kindByName(expClassName);
     }
@@ -42,6 +48,18 @@ public enum ExpressionKind {
             return INVOCATION;
         } else if ("TLiteralExpression".equals(expClassName)) {
             return LITERAL_EXPRESSION;
+        } else if ("TUnaryTests".equals(expClassName)) {
+            return UNARY_TESTS;
+        } else if ("TConditional".equals(expClassName)) {
+            return CONDITIONAL;
+        } else if ("TFor".equals(expClassName)) {
+            return FOR;
+        } else if ("TFilter".equals(expClassName)) {
+            return FILTER;
+        } else if ("TSome".equals(expClassName)) {
+            return SOME;
+        } else if ("TEvery".equals(expClassName)) {
+            return EVERY;
         }
         return OTHER;
     }
