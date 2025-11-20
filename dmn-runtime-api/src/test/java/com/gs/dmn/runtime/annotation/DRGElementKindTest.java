@@ -12,7 +12,8 @@
  */
 package com.gs.dmn.runtime.annotation;
 
-import com.gs.dmn.runtime.Pair;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -24,12 +25,12 @@ public class DRGElementKindTest {
     @Test
     public void testKindByName() {
         List<Pair<String, DRGElementKind>> tests = Arrays.asList(
-                new Pair<>("TBusinessKnowledgeModel", DRGElementKind.BUSINESS_KNOWLEDGE_MODEL),
-                new Pair<>("TDecision", DRGElementKind.DECISION),
-                new Pair<>("TDecisionService", DRGElementKind.DECISION_SERVICE),
-                new Pair<>("TInputData", DRGElementKind.INPUT_DATA),
-                new Pair<>("TKnowledgeSource", DRGElementKind.KNOWLEDGE_SOURCE),
-                new Pair<>("X", DRGElementKind.OTHER)
+                new MutablePair<>("TBusinessKnowledgeModel", DRGElementKind.BUSINESS_KNOWLEDGE_MODEL),
+                new MutablePair<>("TDecision", DRGElementKind.DECISION),
+                new MutablePair<>("TDecisionService", DRGElementKind.DECISION_SERVICE),
+                new MutablePair<>("TInputData", DRGElementKind.INPUT_DATA),
+                new MutablePair<>("TKnowledgeSource", DRGElementKind.KNOWLEDGE_SOURCE),
+                new MutablePair<>("X", DRGElementKind.OTHER)
         );
 
         for(Pair<String, DRGElementKind> test: tests) {

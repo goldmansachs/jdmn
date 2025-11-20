@@ -120,6 +120,7 @@
     </properties>
 
     <modules>
+        <module>dmn-runtime-api</module>
         <module>dmn-runtime</module>
         <module>dmn-core</module>
         <module>dmn-maven-plugin</module>

@@ -33,6 +33,11 @@
     <dependencies>
         <dependency>
             <groupId>com.goldmansachs.jdmn</groupId>
+            <artifactId>jdmn-runtime-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.goldmansachs.jdmn</groupId>
             <artifactId>jdmn-runtime</artifactId>
             <version>${project.version}</version>
         </dependency>
