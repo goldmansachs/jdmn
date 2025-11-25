@@ -30,11 +30,19 @@ public abstract class AbstractTraceEventListener implements SimpleEventListener 
 
     @Override
     public void matchRule(DRGElement element, Rule rule) {
+        if (this.ruleNode == null) {
+            return;
+        }
+
         this.ruleNode.setMatched(true);
     }
 
     @Override
     public void endRule(DRGElement element, Rule rule, Object result) {
+        if (this.ruleNode == null) {
+            return;
+        }
+
         this.ruleNode.setResult(result);
         if (!this.elementNodeStack.empty()) {
             DRGElementNode top = this.elementNodeStack.peek();
@@ -46,6 +54,10 @@ public abstract class AbstractTraceEventListener implements SimpleEventListener 
 
     @Override
     public void matchColumn(Rule rule, int columnIndex, Object result) {
+        if (this.ruleNode == null) {
+            return;
+        }
+
         ColumnNode columnNode = new ColumnNode(columnIndex, result);
         this.ruleNode.addColumnNode(columnNode);
     }

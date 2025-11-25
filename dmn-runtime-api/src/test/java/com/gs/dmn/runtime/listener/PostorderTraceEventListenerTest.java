@@ -14,9 +14,9 @@ package com.gs.dmn.runtime.listener;
 
 import org.junit.jupiter.api.BeforeEach;
 
-public class CompositeListenerTest extends AbstractListenerTest {
+class PostorderTraceEventListenerTest extends AbstractListenerTest {
     @BeforeEach
     void setUp() {
-        this.listener = new CompositeListener();
+        this.listener = new PostorderTraceEventListener();
     }
 }

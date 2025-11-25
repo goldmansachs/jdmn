@@ -23,11 +23,19 @@ public class LoggingEventListener implements SimpleEventListener {
 
     @Override
     public void startDRGElement(DRGElement element, Arguments arguments) {
+        if (element == null) {
+            return;
+        }
+
         logger.debug("Start {} '{}' with inputs '{}'", element.getElementKind().getDisplayName(), element.getName(), arguments);
     }
 
     @Override
     public void endDRGElement(DRGElement element, Arguments arguments, Object output, long duration) {
+        if (element == null) {
+            return;
+        }
+
         logger.debug("End {} '{}' with output '{}' in {}ms", element.getElementKind().getDisplayName(), element.getName(), output, duration);
     }
 
@@ -41,6 +49,10 @@ public class LoggingEventListener implements SimpleEventListener {
 
     @Override
     public void endRule(DRGElement element, Rule rule, Object output) {
+        if (rule == null) {
+            return;
+        }
+
         logger.debug("Rule {} fired with output '{}'", rule.getIndex(), output);
     }
 

@@ -13,10 +13,14 @@
 package com.gs.dmn.runtime.listener;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class CompositeListenerTest extends AbstractListenerTest {
+public class LoggingEventListenerTest extends AbstractListenerTest {
+    protected static final Logger LOGGER = LoggerFactory.getLogger(LoggingEventListenerTest.class);
+
     @BeforeEach
     void setUp() {
-        this.listener = new CompositeListener();
+        this.listener = new LoggingEventListener(LOGGER);
     }
 }
