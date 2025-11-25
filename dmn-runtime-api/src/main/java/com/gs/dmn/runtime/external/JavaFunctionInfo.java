@@ -75,55 +75,45 @@ public class JavaFunctionInfo {
             Object arg = argList.get(i);
             String javaParamType = javaParamTypes.get(i);
             if ("double".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
-                    convertedArgList.add(((BigDecimal) arg).doubleValue());
-                } else if (arg instanceof Double) {
-                    convertedArgList.add(arg);
+                if (arg instanceof Number) {
+                    convertedArgList.add(((Number) arg).doubleValue());
                 } else {
                     throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("float".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
-                    convertedArgList.add((float) ((BigDecimal) arg).doubleValue());
-                } else if (arg instanceof Double) {
-                    convertedArgList.add((float) ((Double) arg).doubleValue());
+                if (arg instanceof Number) {
+                    convertedArgList.add((float) ((Number) arg).doubleValue());
                 } else {
                     throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("long".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
+                if (arg instanceof Number) {
                     convertedArgList.add((long)((BigDecimal) arg).intValue());
-                } else if (arg instanceof Double) {
-                    convertedArgList.add(((Double) arg).intValue());
                 } else {
                     throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("int".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
-                    convertedArgList.add(((BigDecimal) arg).intValue());
-                } else if (arg instanceof Double) {
-                    convertedArgList.add(((Double) arg).intValue());
+                if (arg instanceof Number) {
+                    convertedArgList.add(((Number) arg).intValue());
                 } else {
                     throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("short".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
-                    convertedArgList.add((short)((BigDecimal) arg).intValue());
-                } else if (arg instanceof Double) {
-                    convertedArgList.add((short)((Double) arg).intValue());
+                if (arg instanceof Number) {
+                    convertedArgList.add((short)((Number) arg).intValue());
                 } else {
                     throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("byte".equals(javaParamType)) {
-                if (arg instanceof BigDecimal) {
-                    convertedArgList.add((byte)((BigDecimal) arg).intValue());
-                } else if (arg instanceof Double) {
-                    convertedArgList.add((byte)((Double) arg).intValue());
+                if (arg instanceof Number) {
+                    convertedArgList.add((byte)((Number) arg).intValue());
                 } else {
                     throw new DMNRuntimeException(String.format("Conversion from '%s' to '%s' is not supported yet", arg.getClass().getSimpleName(), javaParamType));
                 }
             } else if ("char".equals(javaParamType)) {
-                if (arg instanceof String) {
+                if (arg instanceof Character) {
+                    convertedArgList.add(arg);
+                } else if (arg instanceof String) {
                     if (((String) arg).length() == 1) {
                         convertedArgList.add(((String) arg).charAt(0));
                     } else {

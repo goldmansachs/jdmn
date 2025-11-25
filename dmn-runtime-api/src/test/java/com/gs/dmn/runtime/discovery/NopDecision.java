@@ -24,4 +24,8 @@ import com.gs.dmn.runtime.annotation.HitPolicy;
         rulesCount = -1
 )
 public class NopDecision {
+    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "abc")
+    public int rule0() {
+        return 0;
+    }
 }

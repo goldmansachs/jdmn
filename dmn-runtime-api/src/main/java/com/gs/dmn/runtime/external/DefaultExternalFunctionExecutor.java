@@ -18,36 +18,10 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DefaultExternalFunctionExecutor implements ExternalFunctionExecutor {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultExternalFunctionExecutor.class);
-
-    @Override
-    public Object execute(String className, String methodName, Object[] args) {
-        try {
-            Class<?> cls = Class.forName(className);
-            Method[] methods = cls.getMethods();
-            for(Method m: methods) {
-                if (methodName.equals(m.getName())) {
-                    Object instance = null;
-                    if (!Modifier.isStatic(m.getModifiers())) {
-                        instance = cls.getDeclaredConstructor().newInstance();
-                    }
-                    return m.invoke(instance, args);
-                }
-            }
-            throw new DMNRuntimeException(String.format("Cannot execute external function '%s.%s(%s)'", className, methodName, argsToString(args)));
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Cannot execute external function '%s.%s(%s)'", className, methodName, argsToString(args)), e);
-        }
-    }
-
-    private String argsToString(Object[] args) {
-        return Arrays.stream(args).map(o -> o == null ? "null" : o.toString()).collect(Collectors.joining(", "));
-    }
 
     @Override
     public Object execute(JavaFunctionInfo info, List<Object> argList) {

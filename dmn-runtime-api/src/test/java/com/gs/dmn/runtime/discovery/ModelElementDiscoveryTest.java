@@ -39,6 +39,13 @@ public class ModelElementDiscoveryTest {
 
     @Test
     public void testGetRuleAnnotation() {
+        Rule ruleAnnotation = this.modelElementDiscovery.getRuleAnnotation(NopDecision.class, 0);
+        assertEquals("abc", ruleAnnotation.annotation());
+        assertEquals(0, ruleAnnotation.index());
+    }
+
+    @Test
+    public void testGetRuleAnnotationWhenMissing() {
         Rule ruleAnnotation = this.modelElementDiscovery.getRuleAnnotation(Decision.class, 0);
         assertNull(ruleAnnotation);
     }
