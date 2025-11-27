@@ -25,6 +25,7 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.basic.FEELParameter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -133,10 +134,10 @@ public abstract class ProtoBufferFactory {
             // Request
             String requestMessageName = requestMessageName(element);
             List<Field> requestFields = new ArrayList<>();
-            List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(element, this.transformer::nativeName);
-            for (Pair<String, Type> parameter: parameters) {
-                String fieldName = protoFieldName(parameter.getLeft());
-                FieldType fieldType = toProtoFieldType(parameter.getRight());
+            List<FEELParameter> parameters = this.transformer.drgElementTypeSignature(element, this.transformer::nativeName);
+            for (FEELParameter parameter: parameters) {
+                String fieldName = protoFieldName(parameter.getName());
+                FieldType fieldType = toProtoFieldType(parameter.getType());
                 requestFields.add(new Field(fieldName, fieldType));
             }
             messageTypes.add(new MessageType(requestMessageName, requestFields));

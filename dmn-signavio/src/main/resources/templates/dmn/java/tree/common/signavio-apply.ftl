@@ -226,7 +226,7 @@
     <#if modelRepository.isSingleHit(expression.hitPolicy)>
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
-            output_ = ${transformer.defaultValue(drgElement)};
+            output_ = ${transformer.expressionDefaultValue(drgElement)};
         } else {
             ${transformer.abstractRuleOutputClassName()} ruleOutput_ = ruleOutputList_.applySingle(${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)});
             <#if modelRepository.isCompoundDecisionTable(drgElement)>
@@ -240,7 +240,7 @@
     <#elseif modelRepository.isMultipleHit(expression.hitPolicy)>
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
-            output_ = ${transformer.defaultValue(drgElement)};
+            output_ = ${transformer.expressionDefaultValue(drgElement)};
             <#if !modelRepository.hasAggregator(expression)>
             if (output_ == null) {
                 output_ = ${transformer.asEmptyList(drgElement)};

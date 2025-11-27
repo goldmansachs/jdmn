@@ -30,6 +30,7 @@ import com.gs.dmn.runtime.interpreter.EvaluationContext;
 import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.tck.ast.*;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.basic.FEELParameter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -184,15 +185,15 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                 .collect(Collectors.toList());
         // Calculate missing inputs
         ResultNodeInfo resultNodeInfo = extractResultNodeInfo(testCases, testCase, resultNode);
-        List<Pair<String, Type>> parameters = this.transformer.drgElementTypeSignature(resultNodeInfo.getReference(), transformer::nativeName);
-        List<Pair<String, Type>> missingParameters = parameters.stream().filter(pair -> !inputNames.contains(pair.getLeft())).collect(Collectors.toList());
+        List<FEELParameter> parameters = this.transformer.drgElementTypeSignature(resultNodeInfo.getReference(), transformer::nativeName);
+        List<FEELParameter> missingParameters = parameters.stream().filter(pair -> !inputNames.contains(pair.getName())).collect(Collectors.toList());
         List<Pair<String, String>> missingArgs = missingParameters.stream()
-                .map(p -> new Pair<>(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getRight())), p.getLeft()))
+                .map(p -> new Pair<>(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getType())), p.getName()))
                 .collect(Collectors.toList());
 
         List<List<String>> result = new ArrayList<>();
         for (int i=0; i<missingParameters.size(); i++) {
-            Type type = parameters.get(i).getRight();
+            Type type = parameters.get(i).getType();
             String defaultValue = isMockTesting() ? this.transformer.getDefaultValue(type, null) : this.transformer.getNativeFactory().nullLiteral();
             List<String> triplet = new ArrayList<>();
             triplet.add(missingArgs.get(i).getLeft());
@@ -620,13 +621,13 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return transformer.namedElementVariableName(element) + "Builder_";
     }
 
-    public List<Pair<String, Type>> drgElementTypeSignature(ResultNodeInfo info) {
+    public List<FEELParameter> drgElementTypeSignature(ResultNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
         return this.transformer.drgElementTypeSignature(element, this.transformer::nativeName);
     }
 
-    public String protoSetter(Pair<String, Type> parameter, String args) {
-        return this.transformer.getProtoFactory().protoSetter(parameter.getLeft(), parameter.getRight(), args);
+    public String protoSetter(FEELParameter parameter, String args) {
+        return this.transformer.getProtoFactory().protoSetter(parameter.getName(), parameter.getType(), args);
     }
 
     public String drgElementArgumentListProto(ResultNodeInfo info) {
@@ -634,9 +635,9 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.transformer.drgElementArgumentListProto(element);
     }
 
-    public String toNativeExpressionProto(Pair<String, Type> pair) {
-        String inputName = pair.getLeft();
-        Type type = pair.getRight();
+    public String toNativeExpressionProto(FEELParameter pair) {
+        String inputName = pair.getName();
+        Type type = pair.getType();
         return this.transformer.getNativeFactory().convertValueToProtoNativeType(inputName, type, false);
     }
 

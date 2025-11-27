@@ -113,9 +113,9 @@ public class ${testClassName} extends ${decisionBaseClass} {
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         ${tckUtil.qualifiedRequestMessageName(resultInfo)}.Builder ${tckUtil.builderVariableName(resultInfo)} = ${tckUtil.qualifiedRequestMessageName(resultInfo)}.newBuilder();
         <#list tckUtil.drgElementTypeSignature(resultInfo) as parameter>
-        <#assign variableNameProto>${parameter.left}Proto${result?index}</#assign>
-        ${tckUtil.toNativeTypeProto(parameter.right)} ${variableNameProto} = ${tckUtil.toNativeExpressionProto(parameter)};
-        <#if tckUtil.isProtoReference(parameter.right)>
+        <#assign variableNameProto>${parameter.name}Proto${result?index}</#assign>
+        ${tckUtil.toNativeTypeProto(parameter.type)} ${variableNameProto} = ${tckUtil.toNativeExpressionProto(parameter)};
+        <#if tckUtil.isProtoReference(parameter.type)>
         if (${variableNameProto} != null) {
             ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")};
         }

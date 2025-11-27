@@ -34,6 +34,7 @@ import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.JsonSerializer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
+import com.gs.dmn.transformation.basic.FEELParameter;
 import com.gs.dmn.transformation.native_.statement.AssignmentStatement;
 import com.gs.dmn.transformation.native_.statement.CompoundStatement;
 import com.gs.dmn.transformation.native_.statement.ExpressionStatement;
@@ -550,9 +551,9 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter, boolean staticContext) {
-        String name = parameter.getLeft();
-        Type type = parameter.getRight();
+    public String extractParameterFromRequestMessage(TDRGElement element, FEELParameter parameter, boolean staticContext) {
+        String name = parameter.getName();
+        Type type = parameter.getType();
         String protoValue = String.format("%s.%s", this.protoFactory.requestVariableName(element), this.protoFactory.protoGetter(name, type));
         return extractMemberFromProtoValue(protoValue, type, staticContext);
     }

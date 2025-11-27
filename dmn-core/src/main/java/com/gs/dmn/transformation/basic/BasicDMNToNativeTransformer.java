@@ -147,11 +147,11 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     List<String> annotations(TDRGElement element, List<String> annotations);
 
-    List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element, Function<Object, String> nameProducer);
+    List<FEELParameter> drgElementTypeSignature(TDRGElement element, Function<Object, String> nameProducer);
 
-    List<Pair<String, Type>> drgElementTypeSignature(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer);
+    List<FEELParameter> drgElementTypeSignature(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer);
 
-    List<Pair<String, Type>> drgElementTypeSignature(TDRGElement element);
+    List<FEELParameter> drgElementTypeSignature(TDRGElement element);
 
     boolean canGenerateApplyWithMap(TDRGElement element);
 
@@ -161,9 +161,9 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String drgElementSignature(DRGElementReference<? extends TDRGElement> reference);
 
-    List<Pair<String, String>> drgElementSignatureParameters(TDRGElement element);
+    List<NativeParameter> drgElementSignatureParameters(TDRGElement element);
 
-    List<Pair<String, String>> drgElementSignatureParameters(DRGElementReference<? extends TDRGElement> reference);
+    List<NativeParameter> drgElementSignatureParameters(DRGElementReference<? extends TDRGElement> reference);
 
     List<String> drgElementComplexInputClassNames(TDRGElement element);
 
@@ -271,7 +271,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String augmentSignature(String signature);
 
-    List<Pair<String, String>> augmentSignatureParameters(List<Pair<String, String>> signature);
+    List<NativeParameter> augmentSignatureParameters(List<NativeParameter> signature);
 
     String augmentArgumentList(String arguments);
 
@@ -279,7 +279,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     List<DRGElementReference<TInputData>> inputDataClosure(DRGElementReference<TDecision> reference);
 
-    List<Pair<String, Type>> inputDataParametersClosure(DRGElementReference<TDecision> reference);
+    List<FEELParameter> inputDataParametersClosure(DRGElementReference<TDecision> reference);
 
     String drgReferenceQualifiedName(DRGElementReference<? extends TDRGElement> reference);
 
@@ -293,7 +293,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String parameterNativeType(TDRGElement element);
 
-    String extractParameterFromArgs(Pair<String, String> parameter, int index);
+    String extractParameterFromArgs(NativeParameter parameter, int index);
 
     boolean isLazyEvaluated(DRGElementReference<? extends TDRGElement> reference);
 
@@ -390,9 +390,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     // Decision Table related functions
     //
-    String defaultValue(TDRGElement element);
-
-    String defaultValue(TDRGElement element, TOutputClause output);
+    String expressionDefaultValue(TDRGElement element);
 
     String condition(TDRGElement element, TDecisionRule rule, int ruleIndex);
 
@@ -610,7 +608,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String protoFieldName(TNamedElement element);
 
-    String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter, boolean staticContext);
+    String extractParameterFromRequestMessage(TDRGElement element, FEELParameter parameter, boolean staticContext);
 
     String convertValueToProtoNativeType(String value, Type type, boolean staticContext);
 

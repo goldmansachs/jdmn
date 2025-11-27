@@ -119,7 +119,7 @@
     <#if modelRepository.isSingleHit(expression.hitPolicy)>
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
-            output_ = ${transformer.defaultValue(drgElement)}
+            output_ = ${transformer.expressionDefaultValue(drgElement)}
         } else {
             val ruleOutput_: ${transformer.abstractRuleOutputClassName()}? = ruleOutputList_.applySingle(${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)})
             <#if modelRepository.isCompoundDecisionTable(drgElement)>
@@ -133,7 +133,7 @@
     <#elseif modelRepository.isMultipleHit(expression.hitPolicy)>
         if (ruleOutputList_.noMatchedRules()) {
             // Default value
-            output_ = ${transformer.defaultValue(drgElement)}
+            output_ = ${transformer.expressionDefaultValue(drgElement)}
         } else {
             val ruleOutputs_: List<${transformer.abstractRuleOutputClassName()}> = ruleOutputList_.applyMultiple(${transformer.hitPolicyAnnotationClassName()}.${transformer.hitPolicy(drgElement)})
         <#if modelRepository.isCompoundDecisionTable(drgElement)>

@@ -74,9 +74,9 @@ class ${testClassName} : ${decisionBaseClass}() {
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         val ${tckUtil.builderVariableName(resultInfo)}: ${tckUtil.qualifiedRequestMessageName(resultInfo)}.Builder = ${tckUtil.qualifiedRequestMessageName(resultInfo)}.newBuilder()
         <#list tckUtil.drgElementTypeSignature(resultInfo) as parameter>
-        <#assign variableNameProto>${parameter.left}Proto${result?index}</#assign>
-        val ${variableNameProto}: ${tckUtil.toNativeTypeProto(parameter.right)} = ${tckUtil.toNativeExpressionProto(parameter)}
-        <#if tckUtil.isProtoReference(parameter.right)>
+        <#assign variableNameProto>${parameter.name}Proto${result?index}</#assign>
+        val ${variableNameProto}: ${tckUtil.toNativeTypeProto(parameter.type)} = ${tckUtil.toNativeExpressionProto(parameter)}
+        <#if tckUtil.isProtoReference(parameter.type)>
         if (${variableNameProto} != null) {
             ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")}
         }

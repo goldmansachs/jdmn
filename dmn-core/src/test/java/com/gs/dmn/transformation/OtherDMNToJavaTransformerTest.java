@@ -26,7 +26,7 @@ public class OtherDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransform
     }
 
     @Test
-    public void testOther() throws Exception {
+    public void testDecisionWithCompositeType() throws Exception {
         doFolderTest("1.2", "composite-decision-type-any");
     }
 

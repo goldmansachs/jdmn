@@ -79,7 +79,7 @@ public class DMNExpressionToNativeTransformer {
     //
     // TDecisionTable
     //
-    String defaultValue(TDRGElement element) {
+    String expressionDefaultValue(TDRGElement element) {
         if (this.dmnModelRepository.isDecisionTableExpression(element)) {
             Type feelType = this.dmnTransformer.drgElementOutputFEELType(element);
             TDecisionTable decisionTable = (TDecisionTable) this.dmnModelRepository.expression(element);
@@ -88,7 +88,7 @@ public class DMNExpressionToNativeTransformer {
                     List<String> values = new ArrayList<>();
                     List<TOutputClause> output = sortOutputClauses(element, new ArrayList<>(decisionTable.getOutput()));
                     for(TOutputClause outputClause: output) {
-                        values.add(defaultValue(element, outputClause));
+                        values.add(outputClauseDefaultValue(element, outputClause));
                     }
                     String defaultValue = this.dmnTransformer.constructor(this.dmnTransformer.drgElementOutputClassName(element), String.join(", ", values));
                     if (this.dmnTransformer.hasListType(element)) {
@@ -98,7 +98,7 @@ public class DMNExpressionToNativeTransformer {
                     }
                 } else {
                     TOutputClause outputClause = decisionTable.getOutput().get(0);
-                    return defaultValue(element, outputClause);
+                    return outputClauseDefaultValue(element, outputClause);
                 }
             } else {
                 return this.nativeFactory.nullLiteral();
@@ -108,7 +108,7 @@ public class DMNExpressionToNativeTransformer {
         }
     }
 
-    String defaultValue(TDRGElement element, TOutputClause output) {
+    String outputClauseDefaultValue(TDRGElement element, TOutputClause output) {
         TLiteralExpression defaultOutputEntry = output.getDefaultOutputEntry();
         if (defaultOutputEntry == null) {
             return this.nativeFactory.nullLiteral();

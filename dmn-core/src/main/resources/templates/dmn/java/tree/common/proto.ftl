@@ -36,7 +36,7 @@
     <#assign parameters = transformer.drgElementTypeSignature(drgElement) />
         // Create arguments from Request Message
     <#list parameters as parameter>
-        ${transformer.toNativeType(parameter.right)} ${parameter.left} = ${transformer.extractParameterFromRequestMessage(drgElement, parameter, staticContext)};
+        ${transformer.toNativeType(parameter.type)} ${parameter.name} = ${transformer.extractParameterFromRequestMessage(drgElement, parameter, staticContext)};
     </#list>
 </#macro>
 

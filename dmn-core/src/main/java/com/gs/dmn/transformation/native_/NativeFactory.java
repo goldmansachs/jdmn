@@ -14,7 +14,7 @@ package com.gs.dmn.transformation.native_;
 
 import com.gs.dmn.ast.TDRGElement;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.runtime.Pair;
+import com.gs.dmn.transformation.basic.FEELParameter;
 import com.gs.dmn.transformation.native_.expression.NativeExpressionFactory;
 import com.gs.dmn.transformation.native_.statement.NativeStatementFactory;
 
@@ -23,7 +23,7 @@ public interface NativeFactory extends NativeExpressionFactory, NativeStatementF
     String TO_PROTO_CONVERSION_METHOD = "toProto";
     String MAP_ITERATOR = "x_";
 
-    String extractParameterFromRequestMessage(TDRGElement element, Pair<String, Type> parameter, boolean staticContext);
+    String extractParameterFromRequestMessage(TDRGElement element, FEELParameter parameter, boolean staticContext);
 
     String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext);
 }
