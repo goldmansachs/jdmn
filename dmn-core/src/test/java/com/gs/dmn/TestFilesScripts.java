@@ -29,7 +29,6 @@ public class TestFilesScripts {
     private static final File TCK_13_CL2_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.3/cl2/");
     private static final File TCK_13_CL3_FOLDER = new File(TEST_CASES_FOLDER, "tck/1.3/cl3/");
     private static final File COMPOSITE_FOLDER = new File(TEST_CASES_FOLDER, "composite/1.2");
-    private static final File PROTO_FOLDER = new File(TEST_CASES_FOLDER, "proto/1.1");
 
     private static void deleteAlienFilesFromTestFolders(boolean dryRun) throws IOException {
         deleteAlienFilesFromTestFolders(TCK_11_CL2_FOLDER, dryRun);
@@ -73,7 +72,6 @@ public class TestFilesScripts {
         deleteEmptyDialectFolders(TCK_12_CL2_FOLDER, dryRun);
         deleteEmptyDialectFolders(TCK_12_CL3_FOLDER, dryRun);
         deleteEmptyDialectFolders(COMPOSITE_FOLDER, dryRun);
-        deleteEmptyDialectFolders(PROTO_FOLDER, dryRun);
     }
 
     private static void deleteEmptyDialectFolders(File rootFolder, boolean dryRun) throws IOException {
@@ -215,7 +213,6 @@ public class TestFilesScripts {
         renameInterpreterFolder(TCK_12_CL2_FOLDER, dryRun);
         renameInterpreterFolder(TCK_12_CL3_FOLDER, dryRun);
         renameInterpreterFolder(COMPOSITE_FOLDER, dryRun);
-        renameInterpreterFolder(PROTO_FOLDER, dryRun);
     }
 
     private static void renameInterpreterFolder(File rootFolder, boolean dryRun) throws IOException {
@@ -239,7 +236,6 @@ public class TestFilesScripts {
         copyMissingTestFilesForDialectsFromStandard(TCK_12_CL2_FOLDER, dryRun);
         copyMissingTestFilesForDialectsFromStandard(TCK_12_CL3_FOLDER, dryRun);
         copyMissingTestFilesForDialectsFromStandard(COMPOSITE_FOLDER, dryRun);
-        copyMissingTestFilesForDialectsFromStandard(PROTO_FOLDER, dryRun);
     }
 
     private static void copyMissingTestFilesForDialectsFromStandard(File rootFolder, boolean dryRun) throws IOException {

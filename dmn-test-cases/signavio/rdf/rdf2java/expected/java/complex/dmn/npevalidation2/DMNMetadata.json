@@ -403,8 +403,6 @@
     "label" : "accessCertainTemporalUnits",
     "name" : "accessCertainTemporalUnits",
     "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
-    "protoRequestName" : "proto.AccessCertainTemporalUnitsRequest",
-    "protoResponseName" : "proto.AccessCertainTemporalUnitsResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
@@ -500,8 +498,6 @@
     "label" : "buildDateStringInAnnotation",
     "name" : "buildDateStringInAnnotation",
     "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
-    "protoRequestName" : "proto.BuildDateStringInAnnotationRequest",
-    "protoResponseName" : "proto.BuildDateStringInAnnotationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
@@ -557,8 +553,6 @@
     "label" : "describeAgesList",
     "name" : "describeAgesList",
     "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
-    "protoRequestName" : "proto.DescribeAgesListRequest",
-    "protoResponseName" : "proto.DescribeAgesListResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D",
@@ -600,8 +594,6 @@
     "label" : "generateTemporalObjects",
     "name" : "generateTemporalObjects",
     "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
-    "protoRequestName" : "proto.GenerateTemporalObjectsRequest",
-    "protoResponseName" : "proto.GenerateTemporalObjectsResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
@@ -693,8 +685,6 @@
     "label" : "negateSecond",
     "name" : "negateSecond",
     "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
-    "protoRequestName" : "proto.NegateSecondRequest",
-    "protoResponseName" : "proto.NegateSecondResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
@@ -726,8 +716,6 @@
     "label" : "noRuleMatchesMultiHit",
     "name" : "noRuleMatchesMultiHit",
     "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
-    "protoRequestName" : "proto.NoRuleMatchesMultiHitRequest",
-    "protoResponseName" : "proto.NoRuleMatchesMultiHitResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
@@ -759,8 +747,6 @@
     "label" : "noRuleMatchesSingleHit",
     "name" : "noRuleMatchesSingleHit",
     "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
-    "protoRequestName" : "proto.NoRuleMatchesSingleHitRequest",
-    "protoResponseName" : "proto.NoRuleMatchesSingleHitResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-BBE02096-B2F8-48B5-93EB-037A5D24CEF9",
@@ -792,8 +778,6 @@
     "label" : "temporalDiffs",
     "name" : "temporalDiffs",
     "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
-    "protoRequestName" : "proto.TemporalDiffsRequest",
-    "protoResponseName" : "proto.TemporalDiffsResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-76B31FC4-A5D7-48A6-BD27-BD85D9739FFA",
@@ -901,8 +885,6 @@
     "label" : "zip",
     "name" : "zip",
     "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
-    "protoRequestName" : "proto.ZipRequest",
-    "protoResponseName" : "proto.ZipResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-3C16E501-7619-4B2F-9770-7E1A7F66A33D",

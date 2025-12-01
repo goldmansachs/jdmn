@@ -121,12 +121,6 @@
                 <groupId>com.goldmansachs.jdmn</groupId>
                 <artifactId>jdmn-runtime</artifactId>
                 <version>${jdmn.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.errorprone</groupId>
-                        <artifactId>error_prone_annotations</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <dependency>

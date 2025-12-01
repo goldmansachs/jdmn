@@ -65,8 +65,6 @@
     "knowledgeReferences" : [ ],
     "name" : "payment",
     "namespace" : "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a",
-    "protoRequestName" : "proto.PaymentRequest",
-    "protoResponseName" : "proto.PaymentResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_1f4ae444-2e4e-4d26-b1f7-87a645c3f50a",

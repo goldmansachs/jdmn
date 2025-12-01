@@ -272,8 +272,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Bankrates",
     "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719",
-    "protoRequestName" : "proto.BankratesRequest",
-    "protoResponseName" : "proto.BankratesResponse",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "tLoanTable",
@@ -297,8 +295,6 @@
     } ],
     "name" : "RankedProducts",
     "namespace" : "http://www.trisotech.com/definitions/_56c7d4a5-e6db-4bba-ac5f-dc082a16f719",
-    "protoRequestName" : "proto.RankedProductsRequest",
-    "protoResponseName" : "proto.RankedProductsResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_67c50a4c-3002-4d0a-9acf-4c76cb0364fa",

@@ -27,7 +27,6 @@ import com.gs.dmn.transformation.DMNToJavaTransformer;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.PythonFactory;
-import com.gs.dmn.transformation.proto.ProtoBufferPythonFactory;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -37,11 +36,6 @@ import java.util.stream.Collectors;
 public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     public BasicDMNToPythonTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         super(dialect, dmnModelRepository, lazyEvaluationDetector, inputParameters);
-    }
-
-    @Override
-    protected void setProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
-        this.protoFactory = new ProtoBufferPythonFactory(this);
     }
 
     @Override

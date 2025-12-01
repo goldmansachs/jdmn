@@ -208,8 +208,6 @@
     "label" : "Compound Output Compound Decision",
     "name" : "compoundOutputCompoundDecision",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml",
-    "protoRequestName" : "proto.CompoundOutputCompoundDecisionRequest",
-    "protoResponseName" : "proto.CompoundOutputCompoundDecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-DD33B3B6-0C84-4568-A0ED-424855D08836",
@@ -277,8 +275,6 @@
     "label" : "Dependent Decision 1",
     "name" : "dependentDecision1",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml",
-    "protoRequestName" : "proto.DependentDecision1Request",
-    "protoResponseName" : "proto.DependentDecision1Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-6DEE5C38-4409-4A43-8E10-A759DF55056E",
@@ -310,8 +306,6 @@
     "label" : "Dependent Decision 2",
     "name" : "dependentDecision2",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/b1489a504a724a1caf493a6cb5187c2c.xml",
-    "protoRequestName" : "proto.DependentDecision2Request",
-    "protoResponseName" : "proto.DependentDecision2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "diagram-b1489a504a724a1caf493a6cb5187c2c-inputdata-sid-3C445DAC-1B0D-4D22-9FD3-EB4E617D00CF",

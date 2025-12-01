@@ -202,8 +202,6 @@
     "label" : "CalculateDotProduct",
     "name" : "calculateDotProduct",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
-    "protoRequestName" : "proto.CalculateDotProductRequest",
-    "protoResponseName" : "proto.CalculateDotProductResponse",
     "shapeId" : "sid-340FB53B-F6C9-4CE6-B1D7-BC9DD1854EC4",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -255,8 +253,6 @@
     "label" : "Componentwise",
     "name" : "componentwise",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
-    "protoRequestName" : "proto.ComponentwiseRequest",
-    "protoResponseName" : "proto.ComponentwiseResponse",
     "shapeId" : "sid-59244842-A06F-4C4D-B147-9BDC97BF5FEF",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -310,8 +306,6 @@
     "label" : "DotProduct",
     "name" : "dotProduct",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
-    "protoRequestName" : "proto.DotProductRequest",
-    "protoResponseName" : "proto.DotProductResponse",
     "shapeId" : "sid-312729E4-046A-4A9C-9D0F-7A68A9BF9523",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -361,8 +355,6 @@
     "label" : "Product",
     "name" : "product",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
-    "protoRequestName" : "proto.ProductRequest",
-    "protoResponseName" : "proto.ProductResponse",
     "shapeId" : "sid-2E5D6BEC-44B4-4F28-AE5D-15256E33F2F7",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

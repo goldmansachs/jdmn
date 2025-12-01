@@ -74,8 +74,6 @@
     "knowledgeReferences" : [ ],
     "name" : "everyGtTen1",
     "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
-    "protoRequestName" : "proto.EveryGtTen1Request",
-    "protoResponseName" : "proto.EveryGtTen1Response",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "boolean",
@@ -93,8 +91,6 @@
     "knowledgeReferences" : [ ],
     "name" : "everyGtTen2",
     "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
-    "protoRequestName" : "proto.EveryGtTen2Request",
-    "protoResponseName" : "proto.EveryGtTen2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_87bb4ba6-43bb-4fc5-a120-0c15c3901278",
@@ -127,8 +123,6 @@
     } ],
     "name" : "everyGtTen3",
     "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
-    "protoRequestName" : "proto.EveryGtTen3Request",
-    "protoResponseName" : "proto.EveryGtTen3Response",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "boolean",
@@ -144,8 +138,6 @@
     "knowledgeReferences" : [ ],
     "name" : "priceTable1",
     "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
-    "protoRequestName" : "proto.PriceTable1Request",
-    "protoResponseName" : "proto.PriceTable1Response",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "tPriceTable",
@@ -163,8 +155,6 @@
     "knowledgeReferences" : [ ],
     "name" : "someGtTen1",
     "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
-    "protoRequestName" : "proto.SomeGtTen1Request",
-    "protoResponseName" : "proto.SomeGtTen1Response",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "boolean",
@@ -182,8 +172,6 @@
     "knowledgeReferences" : [ ],
     "name" : "someGtTen2",
     "namespace" : "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
-    "protoRequestName" : "proto.SomeGtTen2Request",
-    "protoResponseName" : "proto.SomeGtTen2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_87bb4ba6-43bb-4fc5-a120-0c15c3901278",

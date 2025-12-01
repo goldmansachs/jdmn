@@ -37,8 +37,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Base Vacation Days",
     "namespace" : "https://www.drools.org/kie-dmn",
-    "protoRequestName" : "proto.BaseVacationDaysRequest",
-    "protoResponseName" : "proto.BaseVacationDaysResponse",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "number",
@@ -58,8 +56,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Extra days case 1",
     "namespace" : "https://www.drools.org/kie-dmn",
-    "protoRequestName" : "proto.ExtraDaysCase1Request",
-    "protoResponseName" : "proto.ExtraDaysCase1Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_Age",
@@ -101,8 +97,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Extra days case 2",
     "namespace" : "https://www.drools.org/kie-dmn",
-    "protoRequestName" : "proto.ExtraDaysCase2Request",
-    "protoResponseName" : "proto.ExtraDaysCase2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_Age",
@@ -144,8 +138,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Extra days case 3",
     "namespace" : "https://www.drools.org/kie-dmn",
-    "protoRequestName" : "proto.ExtraDaysCase3Request",
-    "protoResponseName" : "proto.ExtraDaysCase3Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_Age",
@@ -191,8 +183,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Total Vacation Days",
     "namespace" : "https://www.drools.org/kie-dmn",
-    "protoRequestName" : "proto.TotalVacationDaysRequest",
-    "protoResponseName" : "proto.TotalVacationDaysResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_Age",

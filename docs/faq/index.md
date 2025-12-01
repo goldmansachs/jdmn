@@ -22,7 +22,6 @@ This is the main landing page for the jDMN 4 FAQ. The links below will take you 
 * [How to configure the Maven plugin?](translation.md)
 * [How to evaluate a decision using the generated code?](translation.md)
 * [How to optimize the translator?](translation.md)
-* [How to generate support for gRPC?](translation.md)
 
 ## Interpretation
 

@@ -18,8 +18,6 @@
     "label" : "Evaluating Say Hello",
     "name" : "evaluatingB1SayHello",
     "namespace" : "http://www.provider.com/definitions/model-b1",
-    "protoRequestName" : "proto.EvaluatingB1SayHelloRequest",
-    "protoResponseName" : "proto.EvaluatingB1SayHelloResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "http://www.provider.com/definitions/model-a#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
@@ -50,8 +48,6 @@
     "label" : "Great the person",
     "name" : "greetThePerson",
     "namespace" : "http://www.provider.com/definitions/model-b1",
-    "protoRequestName" : "proto.GreetThePersonRequest",
-    "protoResponseName" : "proto.GreetThePersonResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "http://www.provider.com/definitions/model-a#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
@@ -82,8 +78,6 @@
     "label" : "Evaluating B2 Say Hello",
     "name" : "evaluatingB2SayHello",
     "namespace" : "http://www.provider.com/definitions/model-b2",
-    "protoRequestName" : "proto.EvaluatingB2SayHelloRequest",
-    "protoResponseName" : "proto.EvaluatingB2SayHelloResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "http://www.provider.com/definitions/model-a#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",
@@ -116,8 +110,6 @@
     "label" : "Model C Decision based on Bs",
     "name" : "modelCDecisionBasedOnBs",
     "namespace" : "http://www.provider.com/definitions/model-c",
-    "protoRequestName" : "proto.ModelCDecisionBasedOnBsRequest",
-    "protoResponseName" : "proto.ModelCDecisionBasedOnBsResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "http://www.provider.com/definitions/model-a#_4f6c136c-8512-4d71-8bbf-7c9eb6e74063",

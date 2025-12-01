@@ -223,8 +223,6 @@
     "label" : "Compound Output Decision",
     "name" : "compoundOutputDecision",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
-    "protoRequestName" : "proto.CompoundOutputDecisionRequest",
-    "protoResponseName" : "proto.CompoundOutputDecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "diagram-0d0e36d84e6b4838a08437bc729dd66a-inputdata-sid-DD33B3B6-0C84-4568-A0ED-424855D08836",

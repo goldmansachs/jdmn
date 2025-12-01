@@ -119,8 +119,6 @@
     "knowledgeReferences" : [ ],
     "name" : "dateCompare1",
     "namespace" : "http://www.provider.com/definitions/decisions",
-    "protoRequestName" : "decisiontables.proto.DateCompare1Request",
-    "protoResponseName" : "decisiontables.proto.DateCompare1Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "http://www.provider.com/definitions/decision-inputs#_fabdbafc-f28a-466d-ae08-86c5b928dad5",
@@ -151,8 +149,6 @@
     "knowledgeReferences" : [ ],
     "name" : "dateCompare2",
     "namespace" : "http://www.provider.com/definitions/decisions",
-    "protoRequestName" : "decisiontables.proto.DateCompare2Request",
-    "protoResponseName" : "decisiontables.proto.DateCompare2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "http://www.provider.com/definitions/decision-inputs#_fabdbafc-f28a-466d-ae08-86c5b928dad5",
@@ -192,8 +188,6 @@
     "knowledgeReferences" : [ ],
     "name" : "priceGt10",
     "namespace" : "http://www.provider.com/definitions/decisions",
-    "protoRequestName" : "decisiontables.proto.PriceGt10Request",
-    "protoResponseName" : "decisiontables.proto.PriceGt10Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "http://www.provider.com/definitions/decision-inputs#_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
@@ -226,8 +220,6 @@
     "knowledgeReferences" : [ ],
     "name" : "priceInRange",
     "namespace" : "http://www.provider.com/definitions/decisions",
-    "protoRequestName" : "decisiontables.proto.PriceInRangeRequest",
-    "protoResponseName" : "decisiontables.proto.PriceInRangeResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "http://www.provider.com/definitions/decision-inputs#_3b175722-5f96-49e4-a50d-0bf9588c901c",

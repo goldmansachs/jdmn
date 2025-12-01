@@ -141,8 +141,6 @@
     "label" : "compile",
     "name" : "compile",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/6776bb215482477ba041c80c9c559985.xml",
-    "protoRequestName" : "proto.CompileRequest",
-    "protoResponseName" : "proto.CompileResponse",
     "shapeId" : "sid-78F19456-59E2-4ED8-BD1C-869E58B6D288",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

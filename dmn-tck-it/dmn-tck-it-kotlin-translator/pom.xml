@@ -32,8 +32,6 @@
         <generated.source.code.folder>${project.build.directory}/generated-sources/dmn</generated.source.code.folder>
         <generated.root.package>com.gs.dmn.generated</generated.root.package>
         <generated.test.code.folder>${project.build.directory}/generated-test-sources/tck</generated.test.code.folder>
-        <generated.grpc.folder>${project.build.directory}/generated-sources/protobuf/grpc-java</generated.grpc.folder>
-        <generated.protobuf.folder>${project.build.directory}/generated-sources/protobuf/java</generated.protobuf.folder>
 
         <kotlin.version>1.9.21</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
@@ -2157,106 +2155,6 @@
                         </configuration>
                     </execution>
 
-                    <!-- gRPC models -->
-                    <execution>
-                        <id>cl3-0004-lending-proto-cache</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-kotlin</goal>
-                        </goals>
-                        <configuration>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
-                            <inputFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.proto.cl3_0004_lending_proto_cache</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-cl3-0004-lending-proto-cache</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>tck-to-kotlin</goal>
-                        </goals>
-                        <configuration>
-                            <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/translator/0004-lending-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.proto.cl3_0004_lending_proto_cache</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>date-time-proto</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <inputFileDirectory>${proto.11.diagram.folder}/date-time-proto/translator/date-time-proto.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.proto.date_time_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-date-time-proto</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>tck-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <inputTestFileDirectory>${proto.11.diagram.folder}/date-time-proto/translator/date-time-proto-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${proto.11.diagram.folder}/date-time-proto/translator/date-time-proto.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.proto.date_time_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.6.1</version>
-                <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:${google.protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
-                    <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${io.grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-                    <protoSourceRoot>${generated.source.code.folder}/com/gs/dmn/generated/</protoSourceRoot>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>compile-custom</goal>
-                        </goals>
-                    </execution>
                 </executions>
             </plugin>
 
@@ -2273,8 +2171,6 @@
                         <configuration>
                             <sources>
                                 <source>${generated.source.code.folder}</source>
-                                <source>${generated.protobuf.folder}</source>
-                                <source>${generated.grpc.folder}</source>
                             </sources>
                         </configuration>
                     </execution>

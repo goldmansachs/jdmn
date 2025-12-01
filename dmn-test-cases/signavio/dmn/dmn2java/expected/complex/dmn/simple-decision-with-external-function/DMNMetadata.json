@@ -83,8 +83,6 @@
     "label" : "Decision",
     "name" : "decision",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/c5718c9e0d74413e9371e1c26c4ebef9.xml",
-    "protoRequestName" : "proto.DecisionRequest",
-    "protoResponseName" : "proto.DecisionResponse",
     "shapeId" : "sid-34774408-727B-4808-B8AC-5AEDDE49C190",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

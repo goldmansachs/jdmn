@@ -176,13 +176,4 @@ public interface NativeExpressionFactory {
     String convertArgumentFromString(String paramName, Type type);
 
     String conversionFunction(Conversion<Type, ConversionKind> conversion, String nativeType);
-
-    //
-    // Proto conversions
-    //
-    String convertProtoMember(String source, TItemDefinition parent, TItemDefinition member, boolean staticContext);
-
-    String convertMemberToProto(String source, String sourceType, TItemDefinition member, boolean staticContext);
-
-    String convertValueToProtoNativeType(String value, Type type, boolean staticContext);
 }

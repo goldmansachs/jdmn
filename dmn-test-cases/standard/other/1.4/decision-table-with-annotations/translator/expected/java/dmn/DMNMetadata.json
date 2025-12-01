@@ -55,8 +55,6 @@
     "knowledgeReferences" : [ ],
     "name" : "priceGt10",
     "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
-    "protoRequestName" : "proto.PriceGt10Request",
-    "protoResponseName" : "proto.PriceGt10Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",

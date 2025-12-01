@@ -607,8 +607,6 @@
     "label" : "allFalseAggregation",
     "name" : "allFalseAggregation",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.AllFalseAggregationRequest",
-    "protoResponseName" : "proto.AllFalseAggregationResponse",
     "shapeId" : "sid-EAD18ED8-8B73-4685-943A-2279DFAAF795",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -648,8 +646,6 @@
     "label" : "allTogether",
     "name" : "allTogether",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.AllTogetherRequest",
-    "protoResponseName" : "proto.AllTogetherResponse",
     "shapeId" : "sid-2ABA9455-1BAD-4552-BE44-9FE612EA1D10",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -831,8 +827,6 @@
     "label" : "allTrueAggregation",
     "name" : "allTrueAggregation",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.AllTrueAggregationRequest",
-    "protoResponseName" : "proto.AllTrueAggregationResponse",
     "shapeId" : "sid-019E0A5C-2720-402B-AEE8-BA1436EA5D6F",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -874,8 +868,6 @@
     "label" : "anyTrueAggregation",
     "name" : "anyTrueAggregation",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.AnyTrueAggregationRequest",
-    "protoResponseName" : "proto.AnyTrueAggregationResponse",
     "shapeId" : "sid-AAC92F9B-23E5-437D-8E7E-0A38E297D7A4",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -915,8 +907,6 @@
     "label" : "arithmetic",
     "name" : "arithmetic",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.ArithmeticRequest",
-    "protoResponseName" : "proto.ArithmeticResponse",
     "shapeId" : "sid-09794EF5-BBC7-4B29-BCA1-12225A55818C",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -980,8 +970,6 @@
     "label" : "comparator ",
     "name" : "comparator",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.ComparatorRequest",
-    "protoResponseName" : "proto.ComparatorResponse",
     "shapeId" : "sid-9A7FCA4C-1E83-4971-8CB7-58AB96AB6BDA",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1019,8 +1007,6 @@
     "label" : "formattingAndCoercing",
     "name" : "formattingAndCoercing",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.FormattingAndCoercingRequest",
-    "protoResponseName" : "proto.FormattingAndCoercingResponse",
     "shapeId" : "sid-1EC054B9-DD80-43EA-857F-EB765C4E2DB9",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1070,8 +1056,6 @@
     "label" : "keepInput_allFalse",
     "name" : "keepInputallFalse",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.KeepInputallFalseRequest",
-    "protoResponseName" : "proto.KeepInputallFalseResponse",
     "shapeId" : "sid-46262AD6-6A29-4E5F-BEB9-DD0D22969EF8",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1107,8 +1091,6 @@
     "label" : "keepInput_allTrue",
     "name" : "keepInputallTrue",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.KeepInputallTrueRequest",
-    "protoResponseName" : "proto.KeepInputallTrueResponse",
     "shapeId" : "sid-8B1E9036-CB4E-47D3-BC4F-C70BE932BED9",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1144,8 +1126,6 @@
     "label" : "keepInput_anyTrue",
     "name" : "keepInputanyTrue",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.KeepInputanyTrueRequest",
-    "protoResponseName" : "proto.KeepInputanyTrueResponse",
     "shapeId" : "sid-1C225A46-AF9E-4303-8463-F343353C7C6F",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1183,8 +1163,6 @@
     "label" : "listHandling",
     "name" : "listHandling",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.ListHandlingRequest",
-    "protoResponseName" : "proto.ListHandlingResponse",
     "shapeId" : "sid-BEBCC832-10E1-4E72-9649-9C7CE3868D27",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1236,8 +1214,6 @@
     "label" : "logical ",
     "name" : "logical",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.LogicalRequest",
-    "protoResponseName" : "proto.LogicalResponse",
     "shapeId" : "sid-22C033FA-B0F9-45E3-B5E4-BDE3B04F9511",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1291,8 +1267,6 @@
     "label" : "partA",
     "name" : "partA",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.PartARequest",
-    "protoResponseName" : "proto.PartAResponse",
     "shapeId" : "sid-13F089D7-88FB-48B7-A9B1-6595017CC2AD",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1338,8 +1312,6 @@
     "label" : "partB",
     "name" : "partB",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.PartBRequest",
-    "protoResponseName" : "proto.PartBResponse",
     "shapeId" : "sid-A6EB0DC9-88FB-4B3E-8ED0-1763D6096157",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1437,8 +1409,6 @@
     "label" : "partC",
     "name" : "partC",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.PartCRequest",
-    "protoResponseName" : "proto.PartCResponse",
     "shapeId" : "sid-A22D087F-827E-4AB8-A589-856C29D1CA30",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1530,8 +1500,6 @@
     "label" : "statistical",
     "name" : "statistical",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.StatisticalRequest",
-    "protoResponseName" : "proto.StatisticalResponse",
     "shapeId" : "sid-E2244965-9696-4D63-BFC3-4CE35C346E12",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1571,8 +1539,6 @@
     "label" : "stringHandling",
     "name" : "stringHandling",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.StringHandlingRequest",
-    "protoResponseName" : "proto.StringHandlingResponse",
     "shapeId" : "sid-E3AD229C-1932-46CB-9E7D-90AB1CF41224",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1636,8 +1602,6 @@
     "label" : "stringHandlingComparator",
     "name" : "stringHandlingComparator",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.StringHandlingComparatorRequest",
-    "protoResponseName" : "proto.StringHandlingComparatorResponse",
     "shapeId" : "sid-B5F1EEE1-2935-439E-8A01-CB08E0D61E01",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1701,8 +1665,6 @@
     "label" : "temporal",
     "name" : "temporal",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.TemporalRequest",
-    "protoResponseName" : "proto.TemporalResponse",
     "shapeId" : "sid-5511B0A1-6D8F-4084-897D-51B89D5B653C",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1738,8 +1700,6 @@
     "label" : "temporalComparator ",
     "name" : "temporalComparator",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.TemporalComparatorRequest",
-    "protoResponseName" : "proto.TemporalComparatorResponse",
     "shapeId" : "sid-394B1A70-6206-4407-9FE4-64635EFB5260",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -1779,8 +1739,6 @@
     "label" : "temporalDiff",
     "name" : "temporalDiff",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
-    "protoRequestName" : "proto.TemporalDiffRequest",
-    "protoResponseName" : "proto.TemporalDiffResponse",
     "shapeId" : "sid-D4DCD084-82D7-4757-9D39-911AFB33CC9A",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

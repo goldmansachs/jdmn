@@ -41,10 +41,6 @@ public class ${testClassName} extends ${decisionBaseClass} {
         <@initializeInputs tc/>
 
         <@checkResults tc/>
-        <#if tckUtil.isGenerateProto()>
-
-        <@checkProtoResults tc/>
-        </#if>
     }
 
         </#items>
@@ -102,29 +98,6 @@ public class ${testClassName} extends ${decisionBaseClass} {
         <#elseif resultInfo.isDS() || resultInfo.isBKM()>
         checkValues(${expectedValue}, ${elementQName}.apply(${argList}));
         </#if>
-        </#items>
-    </#list>
-</#macro>
-
-<#macro checkProtoResults testCase>
-    <#list testCase.resultNode>
-        <#items as result>
-        // Check '${result.name}' with proto request
-        <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
-        ${tckUtil.qualifiedRequestMessageName(resultInfo)}.Builder ${tckUtil.builderVariableName(resultInfo)} = ${tckUtil.qualifiedRequestMessageName(resultInfo)}.newBuilder();
-        <#list tckUtil.drgElementTypeSignature(resultInfo) as parameter>
-        <#assign variableNameProto>${parameter.name}Proto${result?index}</#assign>
-        ${tckUtil.toNativeTypeProto(parameter.type)} ${variableNameProto} = ${tckUtil.toNativeExpressionProto(parameter)};
-        <#if tckUtil.isProtoReference(parameter.type)>
-        if (${variableNameProto} != null) {
-            ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")};
-        }
-        <#else>
-        ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")};
-        </#if>
-        </#list>
-        ${tckUtil.qualifiedRequestMessageName(resultInfo)} ${tckUtil.requestVariableName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build();
-        checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.applyProto(${tckUtil.drgElementArgumentListProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)});
         </#items>
     </#list>
 </#macro>

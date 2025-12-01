@@ -20,13 +20,10 @@ import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.error.LogErrorHandler;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.DMNVersion;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
-import com.gs.dmn.transformation.proto.MessageType;
-import com.gs.dmn.transformation.proto.Service;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import com.gs.dmn.validation.DMNValidator;
 import org.apache.commons.lang3.time.StopWatch;
@@ -44,7 +41,6 @@ import static com.gs.dmn.serialization.DMNConstants.isDMNFile;
 
 public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> extends AbstractDMNTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TEST> implements DMNToNativeTransformer {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDMNToNativeTransformer.class.getName());
-    private static final String DMN_PROTO_FILE_NAME = "jdmn";
 
     public static final String DATA_PACKAGE = "type";
     public static final String DECISION_RULE_OUTPUT_CLASS_SUFFIX = "RuleOutput";
@@ -92,9 +88,6 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
         DMNToNativeVisitor visitor = new DMNToNativeVisitor(this.logger, new LogErrorHandler(LOGGER), dmnTransformer, dmnModelRepository, this.templateProcessor, outputPath, new ArrayList<>(), this.decisionBaseClass);
         for (TDefinitions definitions : dmnModelRepository.getAllDefinitions()) {
             definitions.accept(visitor, new NativeVisitorContext(definitions));
-
-            // Generate .proto file
-            generateProtoFile(definitions, dmnTransformer, outputPath);
         }
 
         // Generate registry
@@ -102,27 +95,6 @@ public abstract class AbstractDMNToNativeTransformer<NUMBER, DATE, TIME, DATE_TI
 
         // Generate extra
         generateExtra(dmnTransformer, dmnModelRepository, outputPath);
-    }
-
-    private void generateProtoFile(TDefinitions definitions, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {
-        Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> pair = dmnTransformer.dmnToProto(definitions);
-        if (pair == null) {
-            return;
-        }
-
-        try {
-            // Make output file
-            String modelPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
-            String relativeFilePath = modelPackageName.replace('.', '/');
-            String fileExtension = ".proto";
-            File outputFile = this.templateProcessor.makeOutputFile(outputPath, relativeFilePath, DMN_PROTO_FILE_NAME, fileExtension);
-
-            // Make parameters
-            Map<String, Object> params = this.templateProcessor.makeProtoTemplateParams(pair.getLeft(), pair.getRight(), modelPackageName, dmnTransformer);
-            this.templateProcessor.processTemplate(this.templateProcessor.getTemplateProvider().baseTemplatePath(), "common/proto.ftl", params, outputFile, false);
-        } catch (Exception e) {
-            throw new DMNRuntimeException(String.format("Error when generating .proto file for model '%s'", definitions.getName()), e);
-        }
     }
 
     private void generateRegistry(List<TDefinitions> definitionsList, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath) {

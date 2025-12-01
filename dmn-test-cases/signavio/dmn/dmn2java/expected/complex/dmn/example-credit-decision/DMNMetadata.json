@@ -282,8 +282,6 @@
     "label" : "Assess applicant age",
     "name" : "assessApplicantAge",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-    "protoRequestName" : "proto.AssessApplicantAgeRequest",
-    "protoResponseName" : "proto.AssessApplicantAgeResponse",
     "shapeId" : "sid-0C363FE4-468D-4273-9416-D1BCACB6248A",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -320,10 +318,7 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess issue",
     "name" : "assessIssue",
-    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-    "protoRequestName" : "proto.AssessIssueRequest",
-    "protoResponseName" : "proto.AssessIssueResponse",
-    "shapeId" : "sid-A4BAB8ED-94DC-48C4-8C4C-7C81DB1D8B9D",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",    "shapeId" : "sid-A4BAB8ED-94DC-48C4-8C4C-7C81DB1D8B9D",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
@@ -378,8 +373,6 @@
     "label" : "Assess issue risk",
     "name" : "assessIssueRisk",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-    "protoRequestName" : "proto.AssessIssueRiskRequest",
-    "protoResponseName" : "proto.AssessIssueRiskResponse",
     "shapeId" : "sid-CB938C3D-5F0A-427B-83A7-94DDDD5E8FC6",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -433,8 +426,6 @@
     "label" : "Compare against lending threshold",
     "name" : "compareAgainstLendingThreshold",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-    "protoRequestName" : "proto.CompareAgainstLendingThresholdRequest",
-    "protoResponseName" : "proto.CompareAgainstLendingThresholdResponse",
     "shapeId" : "sid-9E6EC21D-3D3D-4038-8D76-94613B753F13",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -502,8 +493,6 @@
     "label" : "Generate output data",
     "name" : "generateOutputData",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-    "protoRequestName" : "proto.GenerateOutputDataRequest",
-    "protoResponseName" : "proto.GenerateOutputDataResponse",
     "shapeId" : "sid-8DBE416B-B1CA-43EC-BFE6-7D5DFA296EB6",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -567,8 +556,6 @@
     "label" : "Make credit decision",
     "name" : "makeCreditDecision",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-    "protoRequestName" : "proto.MakeCreditDecisionRequest",
-    "protoResponseName" : "proto.MakeCreditDecisionResponse",
     "shapeId" : "sid-31214799-6743-4B69-98A5-8C4D9C1BE010",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -632,8 +619,6 @@
     "label" : "Process prior issues",
     "name" : "processPriorIssues",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
-    "protoRequestName" : "proto.ProcessPriorIssuesRequest",
-    "protoResponseName" : "proto.ProcessPriorIssuesResponse",
     "shapeId" : "sid-F7FAA264-FA92-4952-A302-2BEADD9DCC59",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

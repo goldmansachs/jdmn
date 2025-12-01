@@ -128,8 +128,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Join",
     "namespace" : "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
-    "protoRequestName" : "proto.JoinRequest",
-    "protoResponseName" : "proto.JoinResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_35b4f57c-e574-4963-a149-83cc0030e809",

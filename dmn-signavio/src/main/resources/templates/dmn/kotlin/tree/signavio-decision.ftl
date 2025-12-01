@@ -13,7 +13,6 @@
 <#import "/tree/common/metadata.ftl" as metadata />
 <#import "/tree/common/constructor.ftl" as constructor />
 <#import "/tree/common/signavio-apply.ftl" as apply>
-<#import "/tree/common/proto.ftl" as proto />
 <#if javaPackageName?has_content>
 package ${javaPackageName}
 </#if>
@@ -23,11 +22,9 @@ import java.util.stream.Collectors
 
 <@metadata.classAnnotation "signavio-decision.ftl" drgElement/>class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}) : ${decisionBaseClass}() {
     <@apply.applyMethods drgElement />
-    <@proto.applyMethod drgElement />
     <@apply.evaluateExpressionMethod drgElement />
 
     companion object {
         <@metadata.elementMetadataField drgElement />
-        <@proto.protoAdapters drgElement />
     }
 }

@@ -17,7 +17,6 @@ import com.gs.dmn.QualifiedName;
 import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
-import com.gs.dmn.feel.analysis.semantics.type.CompositeDataType;
 import com.gs.dmn.feel.analysis.semantics.type.ContextType;
 import com.gs.dmn.feel.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.feel.analysis.semantics.type.ListType;
@@ -427,102 +426,5 @@ public class TestLabUtil {
 
     public String constructor(String className, String arguments) {
         return this.transformer.constructor(className, arguments);
-    }
-
-    //
-    // Proto section
-    //
-    public boolean isGenerateProto() {
-        return this.transformer.isGenerateProto();
-    }
-
-    public String toNativeExpressionProto(InputParameterDefinition inputParameterDefinition) {
-        String inputName = inputDataVariableName(inputParameterDefinition);
-        Type type = toFEELType(inputParameterDefinition);
-        return this.transformer.getNativeFactory().convertValueToProtoNativeType(inputName, type, false);
-    }
-
-    public String toNativeExpressionProto(TestLab testLab, Expression expression) {
-        Type outputType = toFEELType(testLab.getRootOutputParameter());
-        TDecision decision = (TDecision) findDRGElement(testLab.getRootOutputParameter());
-        String value = toNativeExpression(outputType, expression, decision);
-        if (this.transformer.isDateTimeType(outputType) || this.transformer.isComplexType(outputType)) {
-            return this.transformer.getNativeFactory().convertValueToProtoNativeType(value, outputType, false);
-        } else {
-            return value;
-        }
-    }
-
-    public String toNativeTypeProto(InputParameterDefinition inputParameterDefinition) {
-        Type type = toFEELType(inputParameterDefinition);
-        return this.transformer.getProtoFactory().toNativeProtoType(type);
-    }
-
-    public boolean isProtoReference(InputParameterDefinition inputParameterDefinition) {
-        Type type = toFEELType(inputParameterDefinition);
-        return this.transformer.isProtoReference(type);
-    }
-
-    public String drgElementVariableNameProto(OutputParameterDefinition outputParameterDefinition) {
-        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return transformer.getProtoFactory().namedElementVariableNameProto(decision);
-    }
-
-    public String drgElementArgumentListProto(OutputParameterDefinition outputParameterDefinition) {
-        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return transformer.drgElementArgumentListProto(decision);
-    }
-
-    public String qualifiedRequestMessageName(OutputParameterDefinition outputParameterDefinition) {
-        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return transformer.getProtoFactory().qualifiedRequestMessageName(decision);
-    }
-
-    public String qualifiedResponseMessageName(OutputParameterDefinition outputParameterDefinition) {
-        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return transformer.getProtoFactory().qualifiedResponseMessageName(decision);
-    }
-
-    public String drgElementOutputTypeProto(OutputParameterDefinition outputParameterDefinition) {
-        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return transformer.drgElementOutputTypeProto(decision);
-    }
-
-    public String requestVariableName(OutputParameterDefinition outputParameterDefinition) {
-        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return this.transformer.getProtoFactory().requestVariableName(decision);
-    }
-
-    public String responseVariableName(OutputParameterDefinition outputParameterDefinition) {
-        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        return this.transformer.getProtoFactory().responseVariableName(decision);
-    }
-
-    public String protoGetter(OutputParameterDefinition outputParameterDefinition) {
-        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        Type type = this.transformer.drgElementOutputFEELType(decision);
-        String name = drgElementVariableName(outputParameterDefinition);
-        return this.transformer.getProtoFactory().protoGetter(name, type);
-    }
-
-    public String protoGetter(OutputParameterDefinition outputParameterDefinition, String memberName) {
-        TDecision decision = (TDecision) findDRGElement(outputParameterDefinition);
-        Type type = this.transformer.drgElementOutputFEELType(decision);
-        if (type instanceof ListType) {
-            type = ((ListType) type).getElementType();
-        }
-        if (type instanceof CompositeDataType) {
-            Type memberType = ((CompositeDataType) type).getMemberType(memberName);
-            return this.transformer.getProtoFactory().protoGetter(memberName, memberType);
-        } else {
-            String protoName = this.transformer.getProtoFactory().protoName(memberName);
-            return this.transformer.getter(protoName);
-        }
-    }
-
-    public String protoSetter(InputParameterDefinition inputParameterDefinition, String args) {
-        String inputName = inputDataVariableName(inputParameterDefinition);
-        Type type = toFEELType(inputParameterDefinition);
-        return this.transformer.getProtoFactory().protoSetter(inputName, type, args);
     }
 }

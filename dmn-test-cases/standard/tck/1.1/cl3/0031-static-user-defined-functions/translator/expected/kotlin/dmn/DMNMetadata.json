@@ -245,8 +245,6 @@
     } ],
     "name" : "fn invocation complex parameters",
     "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
-    "protoRequestName" : "proto.FnInvocationComplexParametersRequest",
-    "protoResponseName" : "proto.FnInvocationComplexParametersResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_48BAYH6PEeePe9Zmt-encA",
@@ -290,8 +288,6 @@
     "knowledgeReferences" : [ ],
     "name" : "fn invocation named parameters",
     "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
-    "protoRequestName" : "proto.FnInvocationNamedParametersRequest",
-    "protoResponseName" : "proto.FnInvocationNamedParametersResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_48BAYH6PEeePe9Zmt-encA",
@@ -335,8 +331,6 @@
     "knowledgeReferences" : [ ],
     "name" : "fn invocation positional parameters",
     "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
-    "protoRequestName" : "proto.FnInvocationPositionalParametersRequest",
-    "protoResponseName" : "proto.FnInvocationPositionalParametersResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_48BAYH6PEeePe9Zmt-encA",
@@ -374,8 +368,6 @@
     "knowledgeReferences" : [ ],
     "name" : "fn library",
     "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
-    "protoRequestName" : "proto.FnLibraryRequest",
-    "protoResponseName" : "proto.FnLibraryResponse",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "tFnLibrary",

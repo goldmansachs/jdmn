@@ -123,8 +123,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Body 1",
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
-    "protoRequestName" : "proto.Body1Request",
-    "protoResponseName" : "proto.Body1Response",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "date",
@@ -140,8 +138,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Body 2",
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
-    "protoRequestName" : "proto.Body2Request",
-    "protoResponseName" : "proto.Body2Response",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "dateList",
@@ -157,8 +153,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Body 3",
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
-    "protoRequestName" : "proto.Body3Request",
-    "protoResponseName" : "proto.Body3Response",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "date",
@@ -174,8 +168,6 @@
     "knowledgeReferences" : [ ],
     "name" : "From Date To Date and Time",
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
-    "protoRequestName" : "proto.FromDateToDateAndTimeRequest",
-    "protoResponseName" : "proto.FromDateToDateAndTimeResponse",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "date and time",
@@ -191,8 +183,6 @@
     "knowledgeReferences" : [ ],
     "name" : "From Singleton List",
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
-    "protoRequestName" : "proto.FromSingletonListRequest",
-    "protoResponseName" : "proto.FromSingletonListResponse",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -208,8 +198,6 @@
     "knowledgeReferences" : [ ],
     "name" : "From Singleton List Error",
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
-    "protoRequestName" : "proto.FromSingletonListErrorRequest",
-    "protoResponseName" : "proto.FromSingletonListErrorResponse",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -225,8 +213,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Implicit Conversions CE",
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
-    "protoRequestName" : "proto.ImplicitConversionsCERequest",
-    "protoResponseName" : "proto.ImplicitConversionsCEResponse",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -246,8 +232,6 @@
     } ],
     "name" : "Implicit Conversions FUNCT",
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
-    "protoRequestName" : "proto.ImplicitConversionsFUNCTRequest",
-    "protoResponseName" : "proto.ImplicitConversionsFUNCTResponse",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -263,8 +247,6 @@
     "knowledgeReferences" : [ ],
     "name" : "To Singleton List",
     "namespace" : "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
-    "protoRequestName" : "proto.ToSingletonListRequest",
-    "protoResponseName" : "proto.ToSingletonListResponse",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "stringList",

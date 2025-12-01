@@ -97,9 +97,6 @@
         <slf4j.version>2.0.10</slf4j.version>
         <log4j2.version>2.21.1</log4j2.version>
 
-        <io.grpc.version>1.68.0</io.grpc.version>
-        <google.protobuf.version>4.28.2</google.protobuf.version>
-
         <junit.version>5.10.1</junit.version>
 
         <jacoco.plugin.version>0.8.8</jacoco.plugin.version>
@@ -474,8 +471,8 @@ specific language governing permissions and limitations under the License.]]></i
                 <version>1.5</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>com.google.guava</groupId>
-                        <artifactId>guava</artifactId>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>

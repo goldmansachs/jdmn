@@ -98,9 +98,6 @@ caching                 | Flag to control the support for caching.         | Def
 cachingThreshold        | Number of distinct usages of the same decision that trigger caching. | Default value 1
 singletonDecision       | Flag to control the generation of Singleton pattern. | Default value false
 parallelStream          | Flag to control the generation of parallel streams when processing lists. | Default value false
-protoVersion            | Version of the Protocol Buffer used. | Default value "proto3"
-generateProtoMessages   | Flag to control the generation of Proto Messages. | Default value false
-generateProtoServices   | Flag to control the generation of Proto Services. | Default value false
 dmnDialect              | DMN dialect used to describe the decision model. | Mandatory. Default value is com.gs.dmn.dialect.JavaTimeDMNDialectDefinition
 dmnValidators           | DMN validators to be used to validate the model. | Optional. Default value com.gs.dmn.validation.NopDMNValidator
 dmnTransformers         | DMN transformers to be applied before translation. | Optional. Default value com.gs.dmn.transformation.NopDMNTransformer. 
@@ -219,18 +216,5 @@ In certain cases (e.g., iteration over lists) it makes sense to use parallel str
 
 ```
 
-## How to generate support for gRPC?
-
-The following configuration is needed:
-
-```
-        . . .
-       <inputParameters>
-           <generateProtoMessages>true</generateProtoMessages>
-           <generateProtoServices>true</generateProtoServices>
-           <protoVersion>proto3</protoVersion>
-           . . .
-       </inputParameters>
-```
 
 More examples in the [dmn-tck-integration-tests](https://github.com/goldmansachs/jdmn/blob/master/dmn-tck-it/dmn-tck-it-translator) module.

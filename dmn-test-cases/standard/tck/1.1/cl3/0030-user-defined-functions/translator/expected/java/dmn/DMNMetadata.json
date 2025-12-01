@@ -41,8 +41,6 @@
     "knowledgeReferences" : [ ],
     "name" : "named function invocation",
     "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
-    "protoRequestName" : "proto.NamedFunctionInvocationRequest",
-    "protoResponseName" : "proto.NamedFunctionInvocationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_Aq8u4IDpEee-MeWXoLgrYg",
@@ -84,8 +82,6 @@
     "knowledgeReferences" : [ ],
     "name" : "simple function invocation",
     "namespace" : "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
-    "protoRequestName" : "proto.SimpleFunctionInvocationRequest",
-    "protoResponseName" : "proto.SimpleFunctionInvocationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_Aq8u4IDpEee-MeWXoLgrYg",

@@ -225,8 +225,6 @@
     "knowledgeReferences" : [ ],
     "name" : "decision_001_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0011Request",
-    "protoResponseName" : "proto.Decision0011Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -238,8 +236,6 @@
     "knowledgeReferences" : [ ],
     "name" : "decision_001_2",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0012Request",
-    "protoResponseName" : "proto.Decision0012Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -253,8 +249,6 @@
     "knowledgeReferences" : [ ],
     "name" : "decision_002_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0021Request",
-    "protoResponseName" : "proto.Decision0021Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -266,8 +260,6 @@
     "knowledgeReferences" : [ ],
     "name" : "decision_002_2",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0022Request",
-    "protoResponseName" : "proto.Decision0022Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -283,8 +275,6 @@
     } ],
     "name" : "decision_003_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0031Request",
-    "protoResponseName" : "proto.Decision0031Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -300,8 +290,6 @@
     } ],
     "name" : "decision_004_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0041Request",
-    "protoResponseName" : "proto.Decision0041Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -317,8 +305,6 @@
     } ],
     "name" : "decision_005_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0051Request",
-    "protoResponseName" : "proto.Decision0051Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -334,8 +320,6 @@
     } ],
     "name" : "decision_006_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0061Request",
-    "protoResponseName" : "proto.Decision0061Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -349,8 +333,6 @@
     "knowledgeReferences" : [ ],
     "name" : "decision_007_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0071Request",
-    "protoResponseName" : "proto.Decision0071Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_input_007_1",
@@ -375,8 +357,6 @@
     "knowledgeReferences" : [ ],
     "name" : "decision_007_2",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0072Request",
-    "protoResponseName" : "proto.Decision0072Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_input_007_1",
@@ -403,8 +383,6 @@
     } ],
     "name" : "decision_008_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0081Request",
-    "protoResponseName" : "proto.Decision0081Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -420,8 +398,6 @@
     } ],
     "name" : "decision_009_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0091Request",
-    "protoResponseName" : "proto.Decision0091Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -435,8 +411,6 @@
     "knowledgeReferences" : [ ],
     "name" : "decision_010_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0101Request",
-    "protoResponseName" : "proto.Decision0101Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -450,8 +424,6 @@
     "knowledgeReferences" : [ ],
     "name" : "decision_010_1_a",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0101ARequest",
-    "protoResponseName" : "proto.Decision0101AResponse",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -467,8 +439,6 @@
     } ],
     "name" : "decision_010_2",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0102Request",
-    "protoResponseName" : "proto.Decision0102Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -484,8 +454,6 @@
     } ],
     "name" : "decision_010_2_a",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0102ARequest",
-    "protoResponseName" : "proto.Decision0102AResponse",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -503,8 +471,6 @@
     } ],
     "name" : "decision_011_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0111Request",
-    "protoResponseName" : "proto.Decision0111Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_input_011_1",
@@ -535,8 +501,6 @@
     } ],
     "name" : "decision_012_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0121Request",
-    "protoResponseName" : "proto.Decision0121Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -556,8 +520,6 @@
     } ],
     "name" : "decision_013_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0131Request",
-    "protoResponseName" : "proto.Decision0131Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -571,8 +533,6 @@
     "knowledgeReferences" : [ ],
     "name" : "decision_013_2",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0132Request",
-    "protoResponseName" : "proto.Decision0132Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_input_013_1",
@@ -601,8 +561,6 @@
     } ],
     "name" : "decision_017_1",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision0171Request",
-    "protoResponseName" : "proto.Decision0171Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_input_017_1",
@@ -629,8 +587,6 @@
     } ],
     "name" : "decision_018",
     "namespace" : "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
-    "protoRequestName" : "proto.Decision018Request",
-    "protoResponseName" : "proto.Decision018Response",
     "transitiveRequiredInput" : [ ]
   } ]
 }

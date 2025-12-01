@@ -154,8 +154,6 @@
     "label" : "Decision",
     "name" : "decision",
     "namespace" : "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
-    "protoRequestName" : "proto.DecisionRequest",
-    "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "sid-F533656C-76C6-4D10-9786-7FE2A4E9141A",

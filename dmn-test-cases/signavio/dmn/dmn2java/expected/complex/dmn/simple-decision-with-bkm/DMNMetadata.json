@@ -142,8 +142,6 @@
     "label" : "SUM",
     "name" : "sUM",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
-    "protoRequestName" : "proto.SUMRequest",
-    "protoResponseName" : "proto.SUMResponse",
     "shapeId" : "sid-5B841B13-C828-4A7C-8E59-AABED865A8FA",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -199,8 +197,6 @@
     "label" : "Sign",
     "name" : "sign",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
-    "protoRequestName" : "proto.SignRequest",
-    "protoResponseName" : "proto.SignResponse",
     "shapeId" : "sid-D8E2188A-C75B-406C-85C9-3C1B2E1B149D",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

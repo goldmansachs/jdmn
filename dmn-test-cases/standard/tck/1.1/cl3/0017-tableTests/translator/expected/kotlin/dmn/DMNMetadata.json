@@ -119,8 +119,6 @@
     "knowledgeReferences" : [ ],
     "name" : "dateCompare1",
     "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
-    "protoRequestName" : "proto.DateCompare1Request",
-    "protoResponseName" : "proto.DateCompare1Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_fabdbafc-f28a-466d-ae08-86c5b928dad5",
@@ -151,8 +149,6 @@
     "knowledgeReferences" : [ ],
     "name" : "dateCompare2",
     "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
-    "protoRequestName" : "proto.DateCompare2Request",
-    "protoResponseName" : "proto.DateCompare2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_fabdbafc-f28a-466d-ae08-86c5b928dad5",
@@ -192,8 +188,6 @@
     "knowledgeReferences" : [ ],
     "name" : "priceGt10",
     "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
-    "protoRequestName" : "proto.PriceGt10Request",
-    "protoResponseName" : "proto.PriceGt10Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_18b9d486-1ec0-436d-af4b-3e4567e8bca9",
@@ -226,8 +220,6 @@
     "knowledgeReferences" : [ ],
     "name" : "priceInRange",
     "namespace" : "http://www.trisotech.com/definitions/_92a0c25f-707e-4fc8-ae2d-2ab51ebe6bb6",
-    "protoRequestName" : "proto.PriceInRangeRequest",
-    "protoResponseName" : "proto.PriceInRangeResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_3b175722-5f96-49e4-a50d-0bf9588c901c",

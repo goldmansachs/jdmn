@@ -95,8 +95,6 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess applicant age",
     "name" : "assessApplicantAge",
-    "protoRequestName" : "com.gs.dmn.runtime.metadata.proto.AssessApplicantAgeRequest",
-    "protoResponseName" : "com.gs.dmn.runtime.metadata.proto.AssessApplicantAgeResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-d2376567fde3c9400ee327ecec21e36d",

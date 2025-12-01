@@ -15,8 +15,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Decision1",
     "namespace" : "https://github.com/dmn-tck/tck",
-    "protoRequestName" : "proto.Decision1Request",
-    "protoResponseName" : "proto.Decision1Response",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -32,8 +30,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Decision2",
     "namespace" : "https://github.com/dmn-tck/tck",
-    "protoRequestName" : "proto.Decision2Request",
-    "protoResponseName" : "proto.Decision2Response",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -49,8 +45,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Decision3",
     "namespace" : "https://github.com/dmn-tck/tck",
-    "protoRequestName" : "proto.Decision3Request",
-    "protoResponseName" : "proto.Decision3Response",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",
@@ -66,8 +60,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Decision4",
     "namespace" : "https://github.com/dmn-tck/tck",
-    "protoRequestName" : "proto.Decision4Request",
-    "protoResponseName" : "proto.Decision4Response",
     "transitiveRequiredInput" : [ ],
     "typeRef" : {
       "localName" : "string",

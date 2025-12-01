@@ -41,8 +41,6 @@
     } ],
     "name" : "main",
     "namespace" : "http://www.gs.com/spec/DMN/9001-recursive-function",
-    "protoRequestName" : "proto.MainRequest",
-    "protoResponseName" : "proto.MainResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_n",

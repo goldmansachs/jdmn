@@ -114,47 +114,8 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
                 return result_
             } else if (other is ${transformer.dmnTypeClassName()}) {
                 return ${transformer.convertMethodName(itemDefinition)}(other.toContext())
-        <#if transformer.isGenerateProto()>
-            } else if (other is ${transformer.qualifiedProtoMessageName(itemDefinition)}) {
-                var result_: ${transformer.itemDefinitionNativeClassName(javaClassName)} = ${transformer.defaultConstructor(transformer.itemDefinitionNativeClassName(javaClassName))}
-            <#list itemDefinition.itemComponent as child>
-                <#assign member = transformer.namedElementVariableName(child)/>
-                result_.${member} = ${transformer.convertProtoMember("other", itemDefinition, child, true)}
-            </#list>
-                return result_
-        </#if>
             } else {
                 throw ${transformer.dmnRuntimeExceptionClassName()}(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), ${javaClassName}::class.java.getSimpleName()))
             }
         }
-    <#if transformer.isGenerateProto()>
-
-        @JvmStatic
-        fun toProto(other: ${javaClassName}?): ${transformer.qualifiedProtoMessageName(itemDefinition)} {
-            var result_: ${transformer.qualifiedProtoMessageName(itemDefinition)}.Builder = ${transformer.qualifiedProtoMessageName(itemDefinition)}.newBuilder()
-            if (other != null) {
-        <#list itemDefinition.itemComponent as child>
-            <#assign memberVariable = transformer.namedElementVariableNameProto(child) />
-                var ${memberVariable}: ${transformer.qualifiedNativeProtoType(child)} = ${transformer.convertMemberToProto("other", javaClassName, child, true)}
-            <#if transformer.isProtoReference(child)>
-                if (${memberVariable} != null) {
-                    result_.${transformer.protoSetter(child, "${memberVariable}")}
-                }
-            <#else>
-                result_.${transformer.protoSetter(child, "${memberVariable}")}
-            </#if>
-        </#list>
-            }
-            return result_.build()
-        }
-
-        @JvmStatic
-        fun toProto(other: List<${javaClassName}?>?): List<${transformer.qualifiedProtoMessageName(itemDefinition)}>? {
-            if (other == null) {
-                return null
-            } else {
-                return other.stream().map({o -> toProto(o)}).collect(java.util.stream.Collectors.toList())
-            }
-        }
-    </#if>
 </#macro>

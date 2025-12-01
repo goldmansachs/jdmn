@@ -473,8 +473,6 @@
     "label" : "AddExtraValues",
     "name" : "addExtraValues",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml",
-    "protoRequestName" : "proto.AddExtraValuesRequest",
-    "protoResponseName" : "proto.AddExtraValuesResponse",
     "shapeId" : "sid-22304D50-7F9C-451A-8B1F-95FCFD4ECDA3",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -512,8 +510,6 @@
     "label" : "append",
     "name" : "append",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml",
-    "protoRequestName" : "proto.AppendRequest",
-    "protoResponseName" : "proto.AppendResponse",
     "shapeId" : "sid-9534F0BD-9506-4E0B-9DE3-3EB2F8D9299B",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -567,8 +563,6 @@
     "label" : "appendall",
     "name" : "appendall",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml",
-    "protoRequestName" : "proto.AppendallRequest",
-    "protoResponseName" : "proto.AppendallResponse",
     "shapeId" : "sid-ACA0BA53-2FFE-45F6-ACDD-17D2B3A4522F",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -662,8 +656,6 @@
     "label" : "decision litexp",
     "name" : "decisionLitexp",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml",
-    "protoRequestName" : "proto.DecisionLitexpRequest",
-    "protoResponseName" : "proto.DecisionLitexpResponse",
     "shapeId" : "sid-C13631AF-EEAB-44EE-BB39-63D825570B60",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -785,8 +777,6 @@
     "label" : "remove",
     "name" : "remove",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml",
-    "protoRequestName" : "proto.RemoveRequest",
-    "protoResponseName" : "proto.RemoveResponse",
     "shapeId" : "sid-1C5E8027-C7E6-4B3E-92DD-1D1E50CE6BA1",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -836,8 +826,6 @@
     "label" : "RemoveValues",
     "name" : "removeValues",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml",
-    "protoRequestName" : "proto.RemoveValuesRequest",
-    "protoResponseName" : "proto.RemoveValuesResponse",
     "shapeId" : "sid-094E4782-D868-446C-BA8A-A78036EF5FF5",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -875,8 +863,6 @@
     "label" : "removeall",
     "name" : "removeall",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml",
-    "protoRequestName" : "proto.RemoveallRequest",
-    "protoResponseName" : "proto.RemoveallResponse",
     "shapeId" : "sid-0EA00DFE-CB99-4E0C-98EC-2A1CFC7C529D",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -928,8 +914,6 @@
     "label" : "removeall",
     "name" : "removeall2",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml",
-    "protoRequestName" : "proto.Removeall2Request",
-    "protoResponseName" : "proto.Removeall2Response",
     "shapeId" : "sid-982E7746-F258-4A1E-86CF-2128ECAB4034",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -983,8 +967,6 @@
     "label" : "zip",
     "name" : "zip",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/ec84b81482a64a2fbfcec8b1c831507a.xml",
-    "protoRequestName" : "proto.ZipRequest",
-    "protoResponseName" : "proto.ZipResponse",
     "shapeId" : "sid-2BCD8573-629A-4330-B3C8-AD6B51DCE210",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

@@ -57,47 +57,10 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
             return result_;
         } else if (other instanceof ${transformer.dmnTypeClassName()}) {
             return ${transformer.convertMethodName(itemDefinition)}(((${transformer.dmnTypeClassName()})other).toContext());
-    <#if transformer.isGenerateProto()>
-        } else if (other instanceof ${transformer.qualifiedProtoMessageName(itemDefinition)}) {
-            ${transformer.itemDefinitionNativeClassName(javaClassName)} result_ = ${transformer.defaultConstructor(transformer.itemDefinitionNativeClassName(javaClassName))};
-        <#list itemDefinition.itemComponent as child>
-            <#assign otherString = "other" />
-            result_.${transformer.setter(child, "${transformer.convertProtoMember(otherString, itemDefinition, child, true)}")};
-        </#list>
-            return result_;
-    </#if>
         } else {
             throw new ${transformer.dmnRuntimeExceptionClassName()}(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), ${javaClassName}.class.getSimpleName()));
         }
     }
-    <#if transformer.isGenerateProto()>
-
-    static ${transformer.qualifiedProtoMessageName(itemDefinition)} toProto(${javaClassName} other) {
-        ${transformer.qualifiedProtoMessageName(itemDefinition)}.Builder result_ = ${transformer.qualifiedProtoMessageName(itemDefinition)}.newBuilder();
-        if (other != null) {
-        <#list itemDefinition.itemComponent as child>
-            <#assign memberVariable = transformer.namedElementVariableNameProto(child) />
-            ${transformer.qualifiedNativeProtoType(child)} ${memberVariable} = ${transformer.convertMemberToProto("other", javaClassName, child, true)};
-            <#if transformer.isProtoReference(child)>
-            if (${memberVariable} != null) {
-                result_.${transformer.protoSetter(child, "${memberVariable}")};
-            }
-            <#else>
-            result_.${transformer.protoSetter(child, "${memberVariable}")};
-            </#if>
-        </#list>
-        }
-        return result_.build();
-    }
-
-    static List<${transformer.qualifiedProtoMessageName(itemDefinition)}> toProto(List<${javaClassName}> other) {
-        if (other == null) {
-            return null;
-        } else {
-            return other.stream().map(o -> toProto(o)).collect(java.util.stream.Collectors.toList());
-        }
-    }
-    </#if>
 </#macro>
 
 <#macro addAccessors itemDefinition>

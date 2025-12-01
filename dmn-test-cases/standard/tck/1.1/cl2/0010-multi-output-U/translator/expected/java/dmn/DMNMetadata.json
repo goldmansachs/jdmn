@@ -81,8 +81,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Approval",
     "namespace" : "http://www.trisotech.com/definitions/_a3ebbd98-af09-42f3-9099-4ae2204a1f54",
-    "protoRequestName" : "proto.ApprovalRequest",
-    "protoResponseName" : "proto.ApprovalResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_41effb45-b3c4-46ac-b1da-122b3e428a98",

@@ -67,8 +67,6 @@
     "label" : "abc",
     "name" : "abc",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
-    "protoRequestName" : "proto.AbcRequest",
-    "protoResponseName" : "proto.AbcResponse",
     "shapeId" : "sid-A551A6AD-049D-440F-9277-A5292F4BB5ED",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -104,8 +102,6 @@
     "label" : "ChildObject",
     "name" : "childObject",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
-    "protoRequestName" : "proto.ChildObjectRequest",
-    "protoResponseName" : "proto.ChildObjectResponse",
     "shapeId" : "sid-3551B993-B042-466B-B0CD-B5EE8B6C192B",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -141,8 +137,6 @@
     "label" : "SomethingElse",
     "name" : "somethingElse",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/80afa9e878bb4885a8f5be36b6f16abc.xml",
-    "protoRequestName" : "proto.SomethingElseRequest",
-    "protoResponseName" : "proto.SomethingElseResponse",
     "shapeId" : "sid-89A9C1A5-1701-4289-9DFE-9FF6223528C7",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

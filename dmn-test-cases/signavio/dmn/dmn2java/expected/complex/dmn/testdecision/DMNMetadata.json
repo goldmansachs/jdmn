@@ -57,8 +57,6 @@
     "label" : "Test",
     "name" : "test",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/85f2dd29e4774c2f84b883545afdd8cc.xml",
-    "protoRequestName" : "proto.TestRequest",
-    "protoResponseName" : "proto.TestResponse",
     "shapeId" : "sid-F141013E-DA3F-4C5C-BC0A-60C28CB995B3",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

@@ -42,8 +42,6 @@
         <generated.source.code.folder>${project.build.directory}/generated-sources/dmn</generated.source.code.folder>
         <generated.root.package>com.gs.dmn.generated</generated.root.package>
         <generated.test.code.folder>${project.build.directory}/generated-test-sources/testlab</generated.test.code.folder>
-        <generated.grpc.folder>${project.build.directory}/generated-sources/protobuf/grpc-java</generated.grpc.folder>
-        <generated.protobuf.folder>${project.build.directory}/generated-sources/protobuf/java</generated.protobuf.folder>
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->

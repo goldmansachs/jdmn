@@ -41,7 +41,6 @@
         <composite.12.diagram.folder>${project.basedir}/../../dmn-test-cases/standard/composite/1.2</composite.12.diagram.folder>
         <other.14.diagram.folder>${project.basedir}/../../dmn-test-cases/standard/other/1.4</other.14.diagram.folder>
         <other.15.diagram.folder>${project.basedir}/../../dmn-test-cases/standard/other/1.5</other.15.diagram.folder>
-        <proto.11.diagram.folder>${project.basedir}/../../dmn-test-cases/standard/proto/1.1</proto.11.diagram.folder>
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->

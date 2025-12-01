@@ -357,8 +357,6 @@
     "label" : "date formula",
     "name" : "dateFormula",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.DateFormulaRequest",
-    "protoResponseName" : "proto.DateFormulaResponse",
     "shapeId" : "sid-B7DB5C42-3250-4D19-BAC8-6B94B31A7790",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -394,8 +392,6 @@
     "label" : "date operators",
     "name" : "dateOperators",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.DateOperatorsRequest",
-    "protoResponseName" : "proto.DateOperatorsResponse",
     "shapeId" : "sid-C187A9CB-B6DE-4B6F-B272-8896BA1111C2",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -431,8 +427,6 @@
     "label" : "datetime formula",
     "name" : "datetimeFormula",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.DatetimeFormulaRequest",
-    "protoResponseName" : "proto.DatetimeFormulaResponse",
     "shapeId" : "sid-9082E11F-BFAA-4631-B0C3-544B4455B448",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -468,8 +462,6 @@
     "label" : "datetime operators",
     "name" : "datetimeOperators",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.DatetimeOperatorsRequest",
-    "protoResponseName" : "proto.DatetimeOperatorsResponse",
     "shapeId" : "sid-CDC6C70D-BD2B-491A-A1FC-6B5A184AACD6",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -507,8 +499,6 @@
     "label" : "decide",
     "name" : "decide",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.DecideRequest",
-    "protoResponseName" : "proto.DecideResponse",
     "shapeId" : "sid-E81F2BE2-07A3-4802-8583-AC94A95D453E",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -592,8 +582,6 @@
     "label" : "decision",
     "name" : "decision",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.DecisionRequest",
-    "protoResponseName" : "proto.DecisionResponse",
     "shapeId" : "sid-268199D3-3811-4523-A39F-C24DAFA4A9AA",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -647,8 +635,6 @@
     "label" : "decision date",
     "name" : "decisionDate",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.DecisionDateRequest",
-    "protoResponseName" : "proto.DecisionDateResponse",
     "shapeId" : "sid-50D135A3-C47D-4A73-8706-A3F84FE38506",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -688,8 +674,6 @@
     "label" : "decision time",
     "name" : "decisionTime",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.DecisionTimeRequest",
-    "protoResponseName" : "proto.DecisionTimeResponse",
     "shapeId" : "sid-101083A5-2D5A-47B7-ADA4-4938D197E86B",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -727,8 +711,6 @@
     "label" : "final decision",
     "name" : "finalDecision",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.FinalDecisionRequest",
-    "protoResponseName" : "proto.FinalDecisionResponse",
     "shapeId" : "sid-AF25AF07-E568-4DE7-BD08-51EDB669F024",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -782,8 +764,6 @@
     "label" : "pick",
     "name" : "pick",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.PickRequest",
-    "protoResponseName" : "proto.PickResponse",
     "shapeId" : "sid-16F4FD7F-06C3-46BC-A65B-D23DEF6FE9ED",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -851,8 +831,6 @@
     "label" : "sum",
     "name" : "sum",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.SumRequest",
-    "protoResponseName" : "proto.SumResponse",
     "shapeId" : "sid-31FB7A17-4871-4AE0-A113-4AE20D8477A9",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -932,8 +910,6 @@
     "label" : "time formula",
     "name" : "timeFormula",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.TimeFormulaRequest",
-    "protoResponseName" : "proto.TimeFormulaResponse",
     "shapeId" : "sid-2833AACF-E82C-48FE-AACB-95286E39687B",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -983,8 +959,6 @@
     "label" : "time operators",
     "name" : "timeOperators",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/af75837563be485d941eba0f9bf7a5f4.xml",
-    "protoRequestName" : "proto.TimeOperatorsRequest",
-    "protoResponseName" : "proto.TimeOperatorsResponse",
     "shapeId" : "sid-1CE76176-9285-4A90-B57B-989D48E7F256",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

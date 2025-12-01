@@ -39,8 +39,6 @@
     "knowledgeReferences" : [ ],
     "name" : "applicant_repository",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.ApplicantRepositoryRequest",
-    "protoResponseName" : "proto.ApplicantRepositoryResponse",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -52,8 +50,6 @@
     "knowledgeReferences" : [ ],
     "name" : "boxed_001",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Boxed001Request",
-    "protoResponseName" : "proto.Boxed001Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -65,8 +61,6 @@
     "knowledgeReferences" : [ ],
     "name" : "incorrect_001",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Incorrect001Request",
-    "protoResponseName" : "proto.Incorrect001Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -78,8 +72,6 @@
     "knowledgeReferences" : [ ],
     "name" : "incorrect_002",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Incorrect002Request",
-    "protoResponseName" : "proto.Incorrect002Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -91,8 +83,6 @@
     "knowledgeReferences" : [ ],
     "name" : "incorrect_003",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Incorrect003Request",
-    "protoResponseName" : "proto.Incorrect003Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -104,8 +94,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_001",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal001Request",
-    "protoResponseName" : "proto.Literal001Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -117,8 +105,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_002",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal002Request",
-    "protoResponseName" : "proto.Literal002Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -130,8 +116,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_003",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal003Request",
-    "protoResponseName" : "proto.Literal003Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -143,8 +127,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_004",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal004Request",
-    "protoResponseName" : "proto.Literal004Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -156,8 +138,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_005",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal005Request",
-    "protoResponseName" : "proto.Literal005Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -169,8 +149,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_006",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal006Request",
-    "protoResponseName" : "proto.Literal006Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -182,8 +160,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_007",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal007Request",
-    "protoResponseName" : "proto.Literal007Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -195,8 +171,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_007_a",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal007ARequest",
-    "protoResponseName" : "proto.Literal007AResponse",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -208,8 +182,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_008",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal008Request",
-    "protoResponseName" : "proto.Literal008Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -221,8 +193,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_009",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal009Request",
-    "protoResponseName" : "proto.Literal009Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -234,8 +204,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_010",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal010Request",
-    "protoResponseName" : "proto.Literal010Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -247,8 +215,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_011",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal011Request",
-    "protoResponseName" : "proto.Literal011Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -260,8 +226,6 @@
     "knowledgeReferences" : [ ],
     "name" : "literal_012",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Literal012Request",
-    "protoResponseName" : "proto.Literal012Response",
     "transitiveRequiredInput" : [ ]
   }, {
     "@kind" : "decision",
@@ -273,8 +237,6 @@
     "knowledgeReferences" : [ ],
     "name" : "varargs_001",
     "namespace" : "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
-    "protoRequestName" : "proto.Varargs001Request",
-    "protoResponseName" : "proto.Varargs001Response",
     "transitiveRequiredInput" : [ ]
   } ]
 }

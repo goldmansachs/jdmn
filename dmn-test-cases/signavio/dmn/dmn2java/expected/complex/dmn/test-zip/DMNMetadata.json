@@ -166,8 +166,6 @@
     "label" : "Body ",
     "name" : "body",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml",
-    "protoRequestName" : "proto.BodyRequest",
-    "protoResponseName" : "proto.BodyResponse",
     "shapeId" : "sid-9BB87681-1B5A-42D0-A099-AD49A6FA5F5C",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -209,8 +207,6 @@
     "label" : "Loop",
     "name" : "loop",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml",
-    "protoRequestName" : "proto.LoopRequest",
-    "protoResponseName" : "proto.LoopResponse",
     "shapeId" : "sid-A8D9456C-6536-4DD9-AA29-5354F8FF96F6",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -262,8 +258,6 @@
     "label" : "Zip1",
     "name" : "zip1",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/2798610dcc0f4068861fcb0f4af25ac7.xml",
-    "protoRequestName" : "proto.Zip1Request",
-    "protoResponseName" : "proto.Zip1Response",
     "shapeId" : "sid-C2D7E836-74E5-4BA8-801D-F6CBAA950677",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

@@ -66,8 +66,6 @@
     "knowledgeReferences" : [ ],
     "name" : "ageClassification",
     "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
-    "protoRequestName" : "proto.AgeClassificationRequest",
-    "protoResponseName" : "proto.AgeClassificationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_75441BFF-84B8-4CC0-9983-5BA637381C51",
@@ -98,8 +96,6 @@
     "knowledgeReferences" : [ ],
     "name" : "calculateDiscountedPrice",
     "namespace" : "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
-    "protoRequestName" : "proto.CalculateDiscountedPriceRequest",
-    "protoResponseName" : "proto.CalculateDiscountedPriceResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_B6F9445C-BEFD-4F96-B501-007FDF74C310",

@@ -56,10 +56,6 @@ import com.gs.dmn.transformation.native_.JavaFactory;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import com.gs.dmn.transformation.native_.statement.CompoundStatement;
 import com.gs.dmn.transformation.native_.statement.Statement;
-import com.gs.dmn.transformation.proto.MessageType;
-import com.gs.dmn.transformation.proto.ProtoBufferFactory;
-import com.gs.dmn.transformation.proto.ProtoBufferJavaFactory;
-import com.gs.dmn.transformation.proto.Service;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +75,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     protected final EnvironmentFactory environmentFactory;
     protected final NativeTypeFactory nativeTypeFactory;
     protected final LibraryRepository libraryRepository;
-    protected ProtoBufferFactory protoFactory;
     private final LazyEvaluationDetector lazyEvaluationDetector;
 
     private final InputParameters inputParameters;
@@ -112,7 +107,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         this.cachedElements = this.dmnModelRepository.computeCachedElements(this.inputParameters.isCaching(), this.inputParameters.getCachingThreshold());
 
         // Helpers
-        setProtoBufferFactory(this);
         setNativeFactory(this);
         setFEELTranslator(this);
         setDMNEnvironmentFactory(this);
@@ -120,10 +114,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
         this.drgElementFilter = new DRGElementFilter(this.inputParameters.isSingletonInputData());
         this.nativeTypeMemoizer = new JavaTypeMemoizer();
-    }
-
-    protected void setProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
-        this.protoFactory = new ProtoBufferJavaFactory(this);
     }
 
     protected void setDMNEnvironmentFactory(BasicDMNToNativeTransformer<Type, DMNContext> transformer) {
@@ -185,11 +175,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public DRGElementFilter getDrgElementFilter() {
         return this.drgElementFilter;
-    }
-
-    @Override
-    public ProtoBufferFactory getProtoFactory() {
-        return this.protoFactory;
     }
 
     //
@@ -276,34 +261,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public String setter(TItemDefinition itemDefinition, String args) {
         return setter(namedElementVariableName(itemDefinition), args);
-    }
-
-    @Override
-    public String protoGetter(TItemDefinition itemDefinition) {
-        return this.protoFactory.protoGetter(namedElementVariableName(itemDefinition), toFEELType(itemDefinition));
-    }
-
-    @Override
-    public String protoGetter(TDRGElement drgElement) {
-        return this.protoGetter(drgElement, drgElementOutputFEELType(drgElement));
-    }
-
-    private String protoGetter(TNamedElement element, Type type) {
-        return this.protoFactory.protoGetter(namedElementVariableName(element), type);
-    }
-
-    @Override
-    public String protoSetter(TItemDefinition itemDefinition, String args) {
-        return this.protoSetter(itemDefinition, toFEELType(itemDefinition), args);
-    }
-
-    @Override
-    public String protoSetter(TDRGElement drgElement, String args) {
-        return this.protoSetter(drgElement, drgElementOutputFEELType(drgElement), args);
-    }
-
-    private String protoSetter(TNamedElement namedElement, Type type, String args) {
-        return this.protoFactory.protoSetter(namedElementVariableName(namedElement), type, args);
     }
 
     //
@@ -2146,141 +2103,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     @Override
     public Environment makeFunctionDefinitionEnvironment(TNamedElement element, TFunctionDefinition functionDefinition) {
         return this.dmnEnvironmentFactory.makeFunctionDefinitionEnvironment(element, functionDefinition);
-    }
-
-    //
-    // .proto related functions
-    //
-    @Override
-    public boolean isGenerateProto() {
-        return this.isGenerateProtoMessages() || this.isGenerateProtoServices();
-    }
-
-    @Override
-    public boolean isGenerateProtoMessages() {
-        return this.inputParameters.isGenerateProtoMessages();
-    }
-
-    @Override
-    public boolean isGenerateProtoServices() {
-        return this.inputParameters.isGenerateProtoServices();
-    }
-
-    @Override
-    public String getProtoVersion() {
-        String protoVersion = this.inputParameters.getProtoVersion();
-        if ("proto3".equals(protoVersion)) {
-            return protoVersion;
-        }
-        throw new SemanticErrorException(String.format("Illegal proto version '%s'", protoVersion));
-    }
-
-    @Override
-    public String protoPackage(String javaPackageName) {
-        if (StringUtils.isBlank(javaPackageName)) {
-            return "proto";
-        } else {
-            return javaPackageName + ".proto";
-        }
-    }
-
-    @Override
-    public Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions) {
-        return this.protoFactory.dmnToProto(definitions);
-    }
-
-    @Override
-    public String drgElementSignatureProto(TDRGElement element) {
-        String decisionSignature = this.protoFactory.drgElementSignatureProto(element);
-        return augmentSignature(decisionSignature);
-    }
-
-    @Override
-    public String drgElementArgumentListProto(TDRGElement element) {
-        return augmentArgumentList(this.protoFactory.drgElementArgumentListProto(element));
-    }
-
-    @Override
-    public String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child, boolean staticContext) {
-        return this.nativeFactory.convertProtoMember(source, parent, child, staticContext);
-    }
-
-    @Override
-    public String convertMemberToProto(String source, String sourceType, TItemDefinition child, boolean staticContext) {
-        return this.nativeFactory.convertMemberToProto(source, sourceType, child, staticContext);
-    }
-
-    @Override
-    public String qualifiedProtoMessageName(TItemDefinition itemDefinition) {
-        return this.protoFactory.qualifiedProtoMessageName(itemDefinition);
-    }
-
-    @Override
-    public String qualifiedRequestMessageName(TDRGElement element) {
-        return this.protoFactory.qualifiedRequestMessageName(element);
-    }
-
-    @Override
-    public String qualifiedResponseMessageName(TDRGElement element) {
-        return this.protoFactory.qualifiedResponseMessageName(element);
-    }
-
-    @Override
-    public String requestVariableName(TDRGElement element) {
-        return this.protoFactory.requestVariableName(element);
-    }
-
-    @Override
-    public String responseVariableName(TDRGElement element) {
-        return this.protoFactory.responseVariableName(element);
-    }
-
-    @Override
-    public String namedElementVariableNameProto(TNamedElement element) {
-        return this.protoFactory.namedElementVariableNameProto(element);
-    }
-
-    @Override
-    public String drgElementOutputTypeProto(TDRGElement element) {
-        Type type = drgElementOutputFEELType(element);
-        return this.protoFactory.toNativeProtoType(type);
-    }
-
-    @Override
-    public String qualifiedNativeProtoType(TItemDefinition itemDefinition) {
-        Type type = toFEELType(itemDefinition);
-        return this.protoFactory.toNativeProtoType(type);
-    }
-
-    @Override
-    public boolean isProtoReference(TItemDefinition itemDefinition) {
-        Type type = toFEELType(itemDefinition);
-        return isProtoReference(type);
-    }
-
-    @Override
-    public boolean isProtoReference(Type type) {
-        return isComplexType(type) || type instanceof ListType;
-    }
-
-    @Override
-    public String protoFieldName(TNamedElement element) {
-        return this.protoFactory.protoFieldName(element);
-    }
-
-    @Override
-    public String extractParameterFromRequestMessage(TDRGElement element, FEELParameter parameter, boolean staticContext) {
-        return this.nativeFactory.extractParameterFromRequestMessage(element, parameter, staticContext);
-    }
-
-    @Override
-    public String convertValueToProtoNativeType(String value, Type type, boolean staticContext) {
-        return this.nativeFactory.convertValueToProtoNativeType(value, type, staticContext);
-    }
-
-    @Override
-    public String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext) {
-        return this.nativeFactory.extractMemberFromProtoValue(protoValue, type, staticContext);
     }
 
     @Override

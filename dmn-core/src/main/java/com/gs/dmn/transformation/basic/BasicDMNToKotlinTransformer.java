@@ -23,16 +23,10 @@ import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.InputParameters;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.KotlinFactory;
-import com.gs.dmn.transformation.proto.ProtoBufferKotlinFactory;
 
 public class BasicDMNToKotlinTransformer extends BasicDMNToJavaTransformer {
     public BasicDMNToKotlinTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         super(dialect, dmnModelRepository, lazyEvaluationDetector, inputParameters);
-    }
-
-    @Override
-    protected void setProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
-        this.protoFactory = new ProtoBufferKotlinFactory(this);
     }
 
     @Override

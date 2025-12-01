@@ -20,13 +20,10 @@ import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
 import com.gs.dmn.runtime.DMNRuntimeException;
-import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.serialization.TypeDeserializationConfigurer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.formatter.JavaFormatter;
 import com.gs.dmn.transformation.formatter.NopJavaFormatter;
-import com.gs.dmn.transformation.proto.MessageType;
-import com.gs.dmn.transformation.proto.Service;
 import com.gs.dmn.transformation.template.TemplateProvider;
 import freemarker.template.*;
 import org.apache.commons.io.FileUtils;
@@ -188,16 +185,6 @@ public class TemplateProcessor {
         params.put("drgElement", decision);
         params.put("decisionBaseClass", decisionBaseClass);
         addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);
-        return params;
-    }
-
-    Map<String, Object> makeProtoTemplateParams(Pair<List<MessageType>, List<MessageType>> messageTypes, List<Service> services, String javaPackageName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("protoPackageName", dmnTransformer.protoPackage(javaPackageName));
-        params.put("dataTypes", messageTypes.getLeft());
-        params.put("responseRequestTypes", messageTypes.getRight());
-        params.put("services", services);
-        params.put("transformer", dmnTransformer);
         return params;
     }
 

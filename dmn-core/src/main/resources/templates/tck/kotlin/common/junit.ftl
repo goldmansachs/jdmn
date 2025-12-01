@@ -29,10 +29,6 @@ class ${testClassName} : ${decisionBaseClass}() {
         <@initializeInputs tc/>
 
         <@checkResults tc/>
-        <#if tckUtil.isGenerateProto()>
-
-        <@checkProtoResults tc/>
-        </#if>
     }
 
         </#items>
@@ -63,29 +59,6 @@ class ${testClassName} : ${decisionBaseClass}() {
         // Check '${result.name}'
         <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
         checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentList(resultInfo)}))
-        </#items>
-    </#list>
-</#macro>
-
-<#macro checkProtoResults testCase>
-    <#list testCase.resultNode>
-        <#items as result>
-        // Check '${result.name}' with proto request
-        <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
-        val ${tckUtil.builderVariableName(resultInfo)}: ${tckUtil.qualifiedRequestMessageName(resultInfo)}.Builder = ${tckUtil.qualifiedRequestMessageName(resultInfo)}.newBuilder()
-        <#list tckUtil.drgElementTypeSignature(resultInfo) as parameter>
-        <#assign variableNameProto>${parameter.name}Proto${result?index}</#assign>
-        val ${variableNameProto}: ${tckUtil.toNativeTypeProto(parameter.type)} = ${tckUtil.toNativeExpressionProto(parameter)}
-        <#if tckUtil.isProtoReference(parameter.type)>
-        if (${variableNameProto} != null) {
-            ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")}
-        }
-        <#else>
-        ${tckUtil.builderVariableName(resultInfo)}.${tckUtil.protoSetter(parameter, "${variableNameProto}")}
-        </#if>
-        </#list>
-        val ${tckUtil.requestVariableName(resultInfo)}: ${tckUtil.qualifiedRequestMessageName(resultInfo)} = ${tckUtil.builderVariableName(resultInfo)}.build()
-        checkValues(${tckUtil.toNativeExpressionProto(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.applyProto(${tckUtil.drgElementArgumentListProto(resultInfo)}).${tckUtil.protoGetter(resultInfo)})
         </#items>
     </#list>
 </#macro>

@@ -42,9 +42,6 @@ import com.gs.dmn.runtime.annotation.ExpressionKind;
 import com.gs.dmn.runtime.annotation.HitPolicy;
 import com.gs.dmn.transformation.native_.NativeFactory;
 import com.gs.dmn.transformation.native_.statement.Statement;
-import com.gs.dmn.transformation.proto.MessageType;
-import com.gs.dmn.transformation.proto.ProtoBufferFactory;
-import com.gs.dmn.transformation.proto.Service;
 
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
@@ -70,8 +67,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     NativeFactory getNativeFactory();
 
     DRGElementFilter getDrgElementFilter();
-
-    ProtoBufferFactory getProtoFactory();
 
     //
     // Configuration
@@ -102,14 +97,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     String getter(TItemDefinition itemDefinition);
 
     String setter(TItemDefinition itemDefinition, String args);
-
-    String protoGetter(TItemDefinition itemDefinition);
-
-    String protoGetter(TDRGElement drgElement);
-
-    String protoSetter(TItemDefinition itemDefinition, String args);
-
-    String protoSetter(TDRGElement drgElement, String args);
 
     //
     // Native factory methods
@@ -562,57 +549,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     Pair<DMNContext, Map<TContextEntry, Expression<Type>>> makeContextEnvironment(TDRGElement element, TContext context, DMNContext parentContext);
 
     Environment makeRelationEnvironment(TNamedElement element, TRelation relation);
-
-    //
-    // .proto related functions
-    //
-    boolean isGenerateProto();
-
-    boolean isGenerateProtoMessages();
-
-    boolean isGenerateProtoServices();
-
-    String getProtoVersion();
-
-    String protoPackage(String javaPackageName);
-
-    Pair<Pair<List<MessageType>, List<MessageType>>, List<Service>> dmnToProto(TDefinitions definitions);
-
-    String drgElementSignatureProto(TDRGElement element);
-
-    String drgElementArgumentListProto(TDRGElement element);
-
-    String convertProtoMember(String source, TItemDefinition parent, TItemDefinition child, boolean staticContext);
-
-    String convertMemberToProto(String source, String sourceType, TItemDefinition child, boolean staticContext);
-
-    String qualifiedProtoMessageName(TItemDefinition itemDefinition);
-
-    String qualifiedRequestMessageName(TDRGElement element);
-
-    String qualifiedResponseMessageName(TDRGElement element);
-
-    String requestVariableName(TDRGElement element);
-
-    String responseVariableName(TDRGElement element);
-
-    String namedElementVariableNameProto(TNamedElement element);
-
-    String drgElementOutputTypeProto(TDRGElement element);
-
-    String qualifiedNativeProtoType(TItemDefinition itemDefinition);
-
-    boolean isProtoReference(TItemDefinition itemDefinition);
-
-    boolean isProtoReference(Type type);
-
-    String protoFieldName(TNamedElement element);
-
-    String extractParameterFromRequestMessage(TDRGElement element, FEELParameter parameter, boolean staticContext);
-
-    String convertValueToProtoNativeType(String value, Type type, boolean staticContext);
-
-    String extractMemberFromProtoValue(String protoValue, Type type, boolean staticContext);
 
     //
     // DMN context factory

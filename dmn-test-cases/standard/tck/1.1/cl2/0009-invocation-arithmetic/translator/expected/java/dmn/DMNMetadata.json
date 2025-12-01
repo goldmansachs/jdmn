@@ -91,8 +91,6 @@
     } ],
     "name" : "MonthlyPayment",
     "namespace" : "http://www.trisotech.com/definitions/_cb28c255-91cd-4c01-ac7b-1a9cb1ecdb11",
-    "protoRequestName" : "proto.MonthlyPaymentRequest",
-    "protoResponseName" : "proto.MonthlyPaymentResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_Loan",

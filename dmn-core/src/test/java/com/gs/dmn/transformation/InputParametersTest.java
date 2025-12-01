@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class InputParametersTest {
     @Test
     public void testGetRequiredParamWherePresent() {
-        Map<String, String> params = new HashMap<String, String>() {{
+        Map<String, String> params = new HashMap<>() {{
             put("paramKey", "paramValue");
         }};
         assertEquals("paramValue", InputParameters.getRequiredParam(params, "paramKey"));
@@ -43,7 +43,7 @@ public class InputParametersTest {
 
     @Test
     public void testGetOptionalParamWherePresent() {
-        Map<String, String> params = new HashMap<String, String>() {{
+        Map<String, String> params = new HashMap<>() {{
             put("paramKey", "paramValue");
         }};
         assertEquals("paramValue", InputParameters.getOptionalParam(params, "paramKey"));
@@ -57,7 +57,7 @@ public class InputParametersTest {
 
     @Test
     public void testGetOptionalBooleanParamWherePresent() {
-        Map<String, String> params = new HashMap<String, String>() {{
+        Map<String, String> params = new HashMap<>() {{
             put("paramKey", "true");
         }};
         assertTrue(InputParameters.getOptionalBooleanParam(params, "paramKey"));
@@ -97,10 +97,6 @@ public class InputParametersTest {
         assertEquals(0.0, inputParameters.getSparsityThreshold());
         assertFalse(inputParameters.isParallelStream());
 
-        assertFalse(inputParameters.isGenerateProtoMessages());
-        assertFalse(inputParameters.isGenerateProtoServices());
-        assertEquals("proto3", inputParameters.getProtoVersion());
-
         assertFalse(inputParameters.isMockTesting());
         assertFalse(inputParameters.isGenerateExtra());
 
@@ -133,16 +129,12 @@ public class InputParametersTest {
         String sparsityThreshold = "0.2";
         String parallelStream = "false";
 
-        String generateProtoMessages = "true";
-        String generateProtoServices = "true";
-        String protoVersion = "protoVersion";
-
         String mockTesting = "true";
         String generateExtra = "true";
 
         String checkConstraints = "true";
 
-        Map<String, String> params = new HashMap<String, String>() {{
+        Map<String, String> params = new HashMap<>() {{
             put("dmnVersion", dmnVersion);
             put("modelVersion", modelVersion);
             put("platformVersion", platformVersion);
@@ -166,10 +158,6 @@ public class InputParametersTest {
             put("cachingThreshold", cachingThreshold);
             put("sparsityThreshold", sparsityThreshold);
             put("parallelStream", parallelStream);
-
-            put("generateProtoMessages", generateProtoMessages);
-            put("generateProtoServices", generateProtoServices);
-            put("protoVersion", protoVersion);
 
             put("mockTesting", mockTesting);
             put("generateExtra", generateExtra);
@@ -200,10 +188,6 @@ public class InputParametersTest {
         assertEquals(0, inputParameters.getCachingThreshold());
         assertEquals(0.2, inputParameters.getSparsityThreshold());
         assertFalse(inputParameters.isParallelStream());
-
-        assertTrue(inputParameters.isGenerateProtoMessages());
-        assertTrue(inputParameters.isGenerateProtoServices());
-        assertEquals("protoVersion", inputParameters.getProtoVersion());
 
         assertTrue(inputParameters.isMockTesting());
         assertTrue(inputParameters.isGenerateExtra());

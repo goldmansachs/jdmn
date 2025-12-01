@@ -32,8 +32,6 @@
         <generated.source.code.folder>${project.build.directory}/generated-sources/dmn</generated.source.code.folder>
         <generated.root.package>generated</generated.root.package>
         <generated.test.code.folder>${project.build.directory}/generated-test-sources/tck</generated.test.code.folder>
-        <generated.grpc.folder>${project.build.directory}/generated-sources/protobuf/grpc-java</generated.grpc.folder>
-        <generated.protobuf.folder>${project.build.directory}/generated-sources/protobuf/java</generated.protobuf.folder>
 
         <line.coverage.minimum>0.00</line.coverage.minimum>
         <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>  <!-- not deploying this module to Maven central -->
@@ -2403,92 +2401,6 @@
                         </configuration>
                     </execution>
 
-
-<!-- gRPC models -->
-
-<!--
-                    <execution>
-                        <id>cl3-0004-lending-proto-cache</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-python</goal>
-                        </goals>
-                        <configuration>
-                            <lazyEvaluationDetectors>
-                                <lazyEvaluatorDetector>com.gs.dmn.transformation.lazy.SparseDecisionDetector</lazyEvaluatorDetector>
-                            </lazyEvaluationDetectors>
-                            <inputFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.proto.cl3_0004_lending_proto_cache</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-cl3-0004-lending-proto-cache</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>tck-to-python</goal>
-                        </goals>
-                        <configuration>
-                            <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/translator/0004-lending-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/translator/0004-lending.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.proto.cl3_0004_lending_proto_cache</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
--->
-
-<!--
-                    <execution>
-                        <id>date-time-proto</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-python</goal>
-                        </goals>
-                        <configuration>
-                            <inputFileDirectory>${proto.11.diagram.folder}/date-time-proto/translator/date-time-proto.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.proto.date_time_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-date-time-proto</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>tck-to-python</goal>
-                        </goals>
-                        <configuration>
-                            <inputTestFileDirectory>${proto.11.diagram.folder}/date-time-proto/translator/date-time-proto-test-01.xml</inputTestFileDirectory>
-                            <inputModelFileDirectory>${proto.11.diagram.folder}/date-time-proto/translator/date-time-proto.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.proto.date_time_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
--->
-
                     <!-- singleton decisions -->
                     <execution>
                         <id>cl3-0004-lending-singleton</id>
@@ -2606,7 +2518,6 @@
                         <configuration>
                             <sources>
                                 <source>${generated.source.code.folder}</source>
-                                <source>${generated.grpc.folder}</source>
                             </sources>
                         </configuration>
                     </execution>

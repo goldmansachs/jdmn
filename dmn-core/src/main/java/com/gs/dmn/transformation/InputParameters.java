@@ -82,10 +82,6 @@ public class InputParameters {
     private final double sparsityThreshold;
     private final boolean parallelStream;
 
-    private final boolean generateProtoMessages;
-    private final boolean generateProtoServices;
-    private final String protoVersion;
-
     private final boolean mockTesting;
     private final boolean generateExtra;
 
@@ -123,9 +119,6 @@ public class InputParameters {
         this.singletonInputData = InputParameters.getOptionalBooleanParam(inputParameters, "singletonInputData", "true");
         this.singletonDecision = InputParameters.getOptionalBooleanParam(inputParameters, "singletonDecision", "false");
         this.parallelStream = InputParameters.getOptionalBooleanParam(inputParameters, "parallelStream", "false");
-        this.generateProtoMessages = InputParameters.getOptionalBooleanParam(inputParameters, "generateProtoMessages", "false");
-        this.generateProtoServices = InputParameters.getOptionalBooleanParam(inputParameters, "generateProtoServices", "false");
-        this.protoVersion = InputParameters.getOptionalParam(inputParameters, "protoVersion", "proto3");
 
         String sparsityThresholdParam = InputParameters.getOptionalParam(inputParameters, "sparsityThreshold", "0.0");
         this.sparsityThreshold = Double.parseDouble(sparsityThresholdParam);
@@ -219,18 +212,6 @@ public class InputParameters {
 
     public boolean isParallelStream() {
         return parallelStream;
-    }
-
-    public boolean isGenerateProtoMessages() {
-        return generateProtoMessages;
-    }
-
-    public boolean isGenerateProtoServices() {
-        return generateProtoServices;
-    }
-
-    public String getProtoVersion() {
-        return protoVersion;
     }
 
     public boolean isMockTesting() {

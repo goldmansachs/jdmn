@@ -294,17 +294,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
     }
 
-    public String toNativeExpressionProto(ResultNodeInfo info) {
-        Type resultType = toFEELType(info);
-        ValueType expectedValue = info.getExpectedValue();
-        String value = this.tckValueTranslator.toNativeExpression(expectedValue, resultType, info.getReference().getElement());
-        if (this.transformer.isDateTimeType(resultType) || this.transformer.isComplexType(resultType)) {
-            return transformer.getNativeFactory().convertValueToProtoNativeType(value, resultType, false);
-        } else {
-            return value;
-        }
-    }
-
     public String qualifiedName(ResultNodeInfo info) {
         TDRGElement element = info.getReference().getElement();
         if (element == null) {
@@ -597,63 +586,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String singletonDecisionInstance(String decisionQName) {
         return this.transformer.singletonDecisionInstance(decisionQName);
-    }
-
-    //
-    // Proto section
-    //
-    public boolean isGenerateProto() {
-        return this.transformer.isGenerateProto();
-    }
-
-    public String qualifiedRequestMessageName(ResultNodeInfo info) {
-        TDecision decision = (TDecision) info.getReference().getElement();
-        return transformer.getProtoFactory().qualifiedRequestMessageName(decision);
-    }
-
-    public String requestVariableName(ResultNodeInfo info) {
-        TDRGElement element = info.getReference().getElement();
-        return transformer.getProtoFactory().requestVariableName(element);
-    }
-
-    public String builderVariableName(ResultNodeInfo info) {
-        TDRGElement element = info.getReference().getElement();
-        return transformer.namedElementVariableName(element) + "Builder_";
-    }
-
-    public List<FEELParameter> drgElementTypeSignature(ResultNodeInfo info) {
-        TDRGElement element = info.getReference().getElement();
-        return this.transformer.drgElementTypeSignature(element, this.transformer::nativeName);
-    }
-
-    public String protoSetter(FEELParameter parameter, String args) {
-        return this.transformer.getProtoFactory().protoSetter(parameter.getName(), parameter.getType(), args);
-    }
-
-    public String drgElementArgumentListProto(ResultNodeInfo info) {
-        TDRGElement element = info.getReference().getElement();
-        return this.transformer.drgElementArgumentListProto(element);
-    }
-
-    public String toNativeExpressionProto(FEELParameter pair) {
-        String inputName = pair.getName();
-        Type type = pair.getType();
-        return this.transformer.getNativeFactory().convertValueToProtoNativeType(inputName, type, false);
-    }
-
-    public String toNativeTypeProto(Type type) {
-        return this.transformer.getProtoFactory().toNativeProtoType(type);
-    }
-
-    public boolean isProtoReference(Type type) {
-        return this.transformer.isProtoReference(type);
-    }
-
-    public String protoGetter(ResultNodeInfo info) {
-        TDRGElement element = info.getReference().getElement();
-        Type type = this.transformer.drgElementOutputFEELType(element);
-        String name = this.transformer.namedElementVariableName(element);
-        return this.transformer.getProtoFactory().protoGetter(name, type);
     }
 
     //

@@ -74,8 +74,6 @@
     "label" : "C",
     "name" : "c",
     "namespace" : "http://www.provider.com/definitions/model-c",
-    "protoRequestName" : "proto.CRequest",
-    "protoResponseName" : "proto.CResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "http://www.provider.com/definitions/model-c#input-a-a",

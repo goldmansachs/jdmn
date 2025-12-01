@@ -204,8 +204,6 @@
     "label" : "Decision",
     "name" : "decision",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/8e30fec88a0a49feac5e2d32d7188b9f.xml",
-    "protoRequestName" : "proto.DecisionRequest",
-    "protoResponseName" : "proto.DecisionResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "diagram-8e30fec88a0a49feac5e2d32d7188b9f-inputdata-sid-DD33B3B6-0C84-4568-A0ED-424855D08836",

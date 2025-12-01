@@ -464,42 +464,6 @@
                     </execution>
 
                     <execution>
-                        <id>dot-product-proto</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/DotProduct.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.dot_product_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-dot-product-proto</id>
-                        <phase>generate-test-sources</phase>
-                        <goals>
-                            <goal>testlab-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/DotProduct.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/DotProduct.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.dot_product_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-
-                    <execution>
                         <id>example-credit-decision</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -1673,85 +1637,6 @@
                         </configuration>
                     </execution>
 
-                    <!-- gRPC -->
-                    <execution>
-                        <id>example-credit-decision-mixed-proto</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-example-credit-decision-mixed-proto</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>testlab-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.json</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/Example credit decision.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.example_credit_decision_mixed_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>date-time-proto</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>dmn-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
-                            <inputFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.dmn</inputFileDirectory>
-                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.date_time_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-date-time-proto</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>testlab-to-java</goal>
-                        </goals>
-                        <configuration>
-                            <templateProvider>com.gs.dmn.signavio.transformation.template.SignavioTreeTemplateProvider</templateProvider>
-                            <inputTestFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.json/</inputTestFileDirectory>
-                            <inputModelFileDirectory>${dmn.diagram.folder}/complex/date-time-proto.dmn</inputModelFileDirectory>
-                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
-                            <inputParameters>
-                                <javaRootPackage>${generated.root.package}.date_time_proto</javaRootPackage>
-                                <generateProtoMessages>true</generateProtoMessages>
-                                <generateProtoServices>true</generateProtoServices>
-                                <protoVersion>proto3</protoVersion>
-                                <caching>true</caching>
-                            </inputParameters>
-                        </configuration>
-                    </execution>
-
                     <!-- Singleton decisions -->
                     <execution>
                         <id>singleton-example-credit-decision</id>
@@ -1794,26 +1679,6 @@
             </plugin>
 
             <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.6.1</version>
-                <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:${google.protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
-                    <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${io.grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-                    <protoSourceRoot>${generated.source.code.folder}/com/gs/dmn/generated/</protoSourceRoot>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>compile-custom</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <executions>
@@ -1826,8 +1691,6 @@
                         <configuration>
                             <sources>
                                 <source>${generated.source.code.folder}</source>
-                                <source>${generated.protobuf.folder}</source>
-                                <source>${generated.grpc.folder}</source>
                             </sources>
                         </configuration>
                     </execution>

@@ -127,8 +127,6 @@
     "knowledgeReferences" : [ ],
     "name" : "sort1",
     "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217",
-    "protoRequestName" : "proto.Sort1Request",
-    "protoResponseName" : "proto.Sort1Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_d8747cda-26be-46c8-98ee-78f64efbf730",
@@ -157,8 +155,6 @@
     "knowledgeReferences" : [ ],
     "name" : "sort2",
     "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217",
-    "protoRequestName" : "proto.Sort2Request",
-    "protoResponseName" : "proto.Sort2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_f8197899-44af-4ec5-9453-26da073a2be3",
@@ -187,8 +183,6 @@
     "knowledgeReferences" : [ ],
     "name" : "sort3",
     "namespace" : "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217",
-    "protoRequestName" : "proto.Sort3Request",
-    "protoResponseName" : "proto.Sort3Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "_7471008b-e8c7-4205-8e17-586ff41e7205",

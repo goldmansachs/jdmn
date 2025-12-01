@@ -56,8 +56,6 @@
     "label" : "OutputExecutionAnalysisResult",
     "name" : "outputExecutionAnalysisResult",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/afb776a3dcf84f12b17e44405f5c80c5.xml",
-    "protoRequestName" : "proto.OutputExecutionAnalysisResultRequest",
-    "protoResponseName" : "proto.OutputExecutionAnalysisResultResponse",
     "shapeId" : "sid-7B2CED2F-3433-4517-AAB4-08447E0A3C6C",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

@@ -196,9 +196,7 @@ public class DMNToManifestTransformer {
         List<DRGElementReference> knowledgeReferences = makeMetadataKnowledgeReferences(decision.getKnowledgeRequirement(), containingModels, multiModels);
         List<ExtensionElement> extensions = getExtensions(decision, containingModels, multiModels);
         List<InputData> transitiveRequiredInputs = makeTransitiveRequiredInputs(decision, multiModels);
-        String protoRequestName = this.dmnTransformer.qualifiedRequestMessageName(decision);
-        String protoResponseName = this.dmnTransformer.qualifiedResponseMessageName(decision);
-        return new Decision(namespace, id, name, label, diagramId, shapeId, nativeParameterName, nativeTypeName, nativeOutputTypeName, typeRef, references, knowledgeReferences, extensions, transitiveRequiredInputs, protoRequestName, protoResponseName);
+        return new Decision(namespace, id, name, label, diagramId, shapeId, nativeParameterName, nativeTypeName, nativeOutputTypeName, typeRef, references, knowledgeReferences, extensions, transitiveRequiredInputs);
     }
 
     protected List<ExtensionElement> getExtensions(TDecision decision, TDefinitions importingModel, boolean multiModels) {

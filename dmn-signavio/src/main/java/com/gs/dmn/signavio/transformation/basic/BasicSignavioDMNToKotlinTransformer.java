@@ -21,20 +21,13 @@ import com.gs.dmn.dialect.DMNDialectDefinition;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.runtime.Pair;
 import com.gs.dmn.transformation.InputParameters;
-import com.gs.dmn.transformation.basic.BasicDMNToJavaTransformer;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.lazy.LazyEvaluationDetector;
 import com.gs.dmn.transformation.native_.KotlinFactory;
-import com.gs.dmn.transformation.proto.ProtoBufferKotlinFactory;
 
 public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaTransformer {
     public BasicSignavioDMNToKotlinTransformer(DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect, DMNModelRepository dmnModelRepository, LazyEvaluationDetector lazyEvaluationDetector, InputParameters inputParameters) {
         super(dialect, dmnModelRepository, lazyEvaluationDetector, inputParameters);
-    }
-
-    @Override
-    protected void setProtoBufferFactory(BasicDMNToJavaTransformer transformer) {
-        this.protoFactory = new ProtoBufferKotlinFactory(this);
     }
 
     @Override

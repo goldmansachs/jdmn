@@ -155,8 +155,6 @@
     "label" : "CompareLists",
     "name" : "compareLists",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml",
-    "protoRequestName" : "proto.CompareListsRequest",
-    "protoResponseName" : "proto.CompareListsResponse",
     "shapeId" : "sid-5B570F2D-6049-4D3B-8883-EDCE8549856B",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -212,8 +210,6 @@
     "label" : "ProcessL1",
     "name" : "processL1",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml",
-    "protoRequestName" : "proto.ProcessL1Request",
-    "protoResponseName" : "proto.ProcessL1Response",
     "shapeId" : "sid-ECF0E605-F9BA-4794-BB2D-6598A81C7424",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -269,8 +265,6 @@
     "label" : "ProcessL2",
     "name" : "processL2",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/b01e263f2b324caab26b2040a56f8ed1.xml",
-    "protoRequestName" : "proto.ProcessL2Request",
-    "protoResponseName" : "proto.ProcessL2Response",
     "shapeId" : "sid-8676E958-1245-4B7B-8C8F-E0F0B2610085",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

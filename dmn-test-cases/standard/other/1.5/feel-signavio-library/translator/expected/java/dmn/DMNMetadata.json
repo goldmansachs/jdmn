@@ -77,8 +77,6 @@
     "label" : "AppendAllTest",
     "name" : "AppendAllTest",
     "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
-    "protoRequestName" : "proto.AppendAllTestRequest",
-    "protoResponseName" : "proto.AppendAllTestResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-2",
@@ -121,8 +119,6 @@
     "label" : "Decision1",
     "name" : "Decision1",
     "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
-    "protoRequestName" : "proto.Decision1Request",
-    "protoResponseName" : "proto.Decision1Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-13216bd85ab5ac7ee926ae1e467072ad",
@@ -153,8 +149,6 @@
     "label" : "Decision2",
     "name" : "Decision2",
     "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
-    "protoRequestName" : "proto.Decision2Request",
-    "protoResponseName" : "proto.Decision2Response",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-1",

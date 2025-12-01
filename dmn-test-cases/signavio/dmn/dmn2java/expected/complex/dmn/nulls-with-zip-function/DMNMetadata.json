@@ -166,8 +166,6 @@
     "label" : "do something",
     "name" : "doSomething",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
-    "protoRequestName" : "proto.DoSomethingRequest",
-    "protoResponseName" : "proto.DoSomethingResponse",
     "shapeId" : "sid-0D903FA8-BB2E-410E-82F9-E7185B0D1B2F",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -209,8 +207,6 @@
     "label" : "mid",
     "name" : "mid",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
-    "protoRequestName" : "proto.MidRequest",
-    "protoResponseName" : "proto.MidResponse",
     "shapeId" : "sid-2D02F64C-925A-483C-8D24-01D2F0FBAF75",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -262,8 +258,6 @@
     "label" : "zip",
     "name" : "zip",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
-    "protoRequestName" : "proto.ZipRequest",
-    "protoResponseName" : "proto.ZipResponse",
     "shapeId" : "sid-2703DE56-085E-4A32-BDB9-55D7DF1E2F74",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

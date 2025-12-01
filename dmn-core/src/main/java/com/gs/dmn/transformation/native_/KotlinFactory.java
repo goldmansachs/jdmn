@@ -14,7 +14,6 @@ package com.gs.dmn.transformation.native_;
 
 import com.gs.dmn.DRGElementReference;
 import com.gs.dmn.ast.TDecision;
-import com.gs.dmn.ast.TItemDefinition;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType;
 import com.gs.dmn.el.analysis.semantics.type.ListType;
@@ -318,40 +317,8 @@ public class KotlinFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String convertMemberToProto(String source, String sourceType, TItemDefinition member, boolean staticContext) {
-        Type memberType = this.transformer.toFEELType(member);
-        String value = String.format("%s.%s", cast(sourceType, source), this.transformer.protoFieldName(member));
-        return convertValueToProtoNativeType(value, memberType, staticContext);
-    }
-
-    @Override
     protected String itemDefinitionConversionLambda(String qNativeType, String convertFunction) {
         return String.format("e -> %s.%s(e)", qNativeType, convertFunction);
-    }
-
-    @Override
-    protected String extractListMemberFromProto(String protoSource, String mapFunction, String qNativeType) {
-        return cast(qNativeType, String.format("%s?.stream()?.map({%s})?.collect(java.util.stream.Collectors.toList())", protoSource, mapFunction));
-    }
-
-    @Override
-    protected String convertListMemberToProto(String protoSource, String mapFunction) {
-        return String.format("%s?.stream()?.map({%s})?.collect(java.util.stream.Collectors.toList())", protoSource, mapFunction);
-    }
-
-    @Override
-    protected String toProtoNumber(String value) {
-        return String.format("(if (%s == null) %s else %s!!.toDouble())", value, DEFAULT_PROTO_NUMBER, value);
-    }
-
-    @Override
-    protected String toProtoBoolean(String value) {
-        return String.format("(if (%s == null) %s else %s!!)", value, DEFAULT_PROTO_BOOLEAN, value);
-    }
-
-    @Override
-    protected String toProtoString(String value) {
-        return String.format("(if (%s == null) %s else %s!!)", value, DEFAULT_PROTO_STRING, value);
     }
 
     @Override

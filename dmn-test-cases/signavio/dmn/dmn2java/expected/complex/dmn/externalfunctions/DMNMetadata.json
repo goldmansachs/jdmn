@@ -398,8 +398,6 @@
     "label" : "FetchForexRate",
     "name" : "fetchForexRate",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
-    "protoRequestName" : "proto.FetchForexRateRequest",
-    "protoResponseName" : "proto.FetchForexRateResponse",
     "shapeId" : "sid-F740C68E-AC6E-4788-9290-94F1098DEB48",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
@@ -481,8 +479,6 @@
     "label" : "IsForexRateRequired",
     "name" : "isForexRateRequired",
     "namespace" : "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
-    "protoRequestName" : "proto.IsForexRateRequiredRequest",
-    "protoResponseName" : "proto.IsForexRateRequiredResponse",
     "shapeId" : "sid-005E834B-D602-4C88-A803-053528C9DF64",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",

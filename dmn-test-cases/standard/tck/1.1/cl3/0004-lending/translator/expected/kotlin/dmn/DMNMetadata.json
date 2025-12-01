@@ -355,8 +355,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Adjudication",
     "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
-    "protoRequestName" : "proto.AdjudicationRequest",
-    "protoResponseName" : "proto.AdjudicationResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_ApplicantData",
@@ -411,8 +409,6 @@
     } ],
     "name" : "ApplicationRiskScore",
     "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
-    "protoRequestName" : "proto.ApplicationRiskScoreRequest",
-    "protoResponseName" : "proto.ApplicationRiskScoreResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_ApplicantData",
@@ -445,8 +441,6 @@
     } ],
     "name" : "BureauCallType",
     "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
-    "protoRequestName" : "proto.BureauCallTypeRequest",
-    "protoResponseName" : "proto.BureauCallTypeResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_ApplicantData",
@@ -483,8 +477,6 @@
     } ],
     "name" : "Eligibility",
     "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
-    "protoRequestName" : "proto.EligibilityRequest",
-    "protoResponseName" : "proto.EligibilityResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_ApplicantData",
@@ -532,8 +524,6 @@
     } ],
     "name" : "Post-bureauAffordability",
     "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
-    "protoRequestName" : "proto.PostBureauAffordabilityRequest",
-    "protoResponseName" : "proto.PostBureauAffordabilityResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_ApplicantData",
@@ -592,8 +582,6 @@
     } ],
     "name" : "Post-bureauRiskCategory",
     "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
-    "protoRequestName" : "proto.PostBureauRiskCategoryRequest",
-    "protoResponseName" : "proto.PostBureauRiskCategoryResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_ApplicantData",
@@ -641,8 +629,6 @@
     } ],
     "name" : "Pre-bureauAffordability",
     "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
-    "protoRequestName" : "proto.PreBureauAffordabilityRequest",
-    "protoResponseName" : "proto.PreBureauAffordabilityResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_ApplicantData",
@@ -688,8 +674,6 @@
     } ],
     "name" : "Pre-bureauRiskCategory",
     "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
-    "protoRequestName" : "proto.PreBureauRiskCategoryRequest",
-    "protoResponseName" : "proto.PreBureauRiskCategoryResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_ApplicantData",
@@ -722,8 +706,6 @@
     } ],
     "name" : "RequiredMonthlyInstallment",
     "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
-    "protoRequestName" : "proto.RequiredMonthlyInstallmentRequest",
-    "protoResponseName" : "proto.RequiredMonthlyInstallmentResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_RequestedProduct",
@@ -760,8 +742,6 @@
     } ],
     "name" : "Routing",
     "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
-    "protoRequestName" : "proto.RoutingRequest",
-    "protoResponseName" : "proto.RoutingResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_ApplicantData",
@@ -814,8 +794,6 @@
     "knowledgeReferences" : [ ],
     "name" : "Strategy",
     "namespace" : "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
-    "protoRequestName" : "proto.StrategyRequest",
-    "protoResponseName" : "proto.StrategyResponse",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "id" : "i_ApplicantData",
