@@ -228,7 +228,6 @@
                 <executions>
                     <execution>
                         <id>default-jar</id>
-                        <phase />
                     </execution>
                 </executions>
             </plugin>
