@@ -8,7 +8,7 @@ public class ProcessL1Test extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         List<java.lang.Number> l1 = asList(number("1"), number("2"), number("3"), number("4"));
         List<java.lang.Number> l23 = asList(number("1"), number("1"), number("2"), number("3"), number("5"), number("8"));
         List<java.lang.Number> processL1 = this.processL1.apply(l1, l23, context_);
@@ -18,7 +18,7 @@ public class ProcessL1Test extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
 
     @org.junit.jupiter.api.Test
     public void testCase2() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         List<java.lang.Number> l1 = asList(number("10"), number("20"), number("30"));
         List<java.lang.Number> l23 = asList(number("5"), number("10"), number("15"), number("20"));
         List<java.lang.Number> processL1 = this.processL1.apply(l1, l23, context_);
@@ -28,7 +28,7 @@ public class ProcessL1Test extends com.gs.dmn.signavio.runtime.JavaTimeSignavioB
 
     @org.junit.jupiter.api.Test
     public void testCase3() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         List<java.lang.Number> l1 = asList(numericUnaryMinus(number("1")), number("0"), number("1"));
         List<java.lang.Number> l23 = asList(number("2"), number("3"), number("4"));
         List<java.lang.Number> processL1 = this.processL1.apply(l1, l23, context_);

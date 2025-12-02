@@ -8,7 +8,7 @@ public class FruitColourTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavi
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         String fruits = "Apples";
         String fruitColour = this.fruitColour.apply(fruits, context_);
 
@@ -17,7 +17,7 @@ public class FruitColourTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavi
 
     @org.junit.jupiter.api.Test
     public void testCase2() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         String fruits = "Bananas";
         String fruitColour = this.fruitColour.apply(fruits, context_);
 
@@ -26,7 +26,7 @@ public class FruitColourTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavi
 
     @org.junit.jupiter.api.Test
     public void testCase3() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         String fruits = "Grapes";
         String fruitColour = this.fruitColour.apply(fruits, context_);
 

@@ -1251,6 +1251,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String executionContextBuilderClassName() {
+        return qualifiedName(ExecutionContextBuilder.class);
+    }
+
+    @Override
     public String annotationSetClassName() {
         return qualifiedName(AnnotationSet.class);
     }

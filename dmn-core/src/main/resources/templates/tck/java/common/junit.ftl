@@ -58,7 +58,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
 </#macro>
 
 <#macro initializeInputs testCase>
-        ${tckUtil.executionContextClassName()} ${tckUtil.executionContextVariableName()} = ${tckUtil.defaultConstructor(tckUtil.executionContextClassName())};
+        ${tckUtil.executionContextClassName()} ${tckUtil.executionContextVariableName()} = ${tckUtil.executionContextBuilderClassName()}.executionContext().build();
         ${tckUtil.cacheInterfaceName()} ${tckUtil.cacheVariableName()} = ${tckUtil.executionContextVariableName()}.getCache();
     <#if tckUtil.isMockTesting()>
         java.util.Map<String, Object> ${tckUtil.mockContextVariable()} = new java.util.LinkedHashMap<>();

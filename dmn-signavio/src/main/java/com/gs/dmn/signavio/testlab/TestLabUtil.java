@@ -101,6 +101,10 @@ public class TestLabUtil {
         return this.transformer.executionContextVariableName();
     }
 
+    public String executionContextBuilderClassName() {
+        return this.transformer.executionContextBuilderClassName();
+    }
+
     public String annotationSetClassName() {
         return transformer.annotationSetClassName();
     }

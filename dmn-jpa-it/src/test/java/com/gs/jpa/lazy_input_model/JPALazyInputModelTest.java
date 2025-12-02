@@ -41,7 +41,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
     @Test
     public void testCase001() {
-        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         // Initialize input data
         String creditRisk = "HIGH";
         Person applicant = makeLazyPerson(1);
@@ -53,7 +53,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
     @Test
     public void testCase002() {
-        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         // Initialize input data
         String creditRisk = "MEDIUM";
         Person applicant = makeLazyPerson(2);
@@ -65,7 +65,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
     @Test
     public void testCase003() {
-        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         // Initialize input data
         String creditRisk = "MEDIUM";
         Person applicant = makeLazyPerson(3);
@@ -77,7 +77,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
     @Test
     public void testCase004() {
-        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         // Initialize input data
         String creditRisk = "MEDIUM";
         Person applicant = makeLazyPerson(4);
@@ -89,7 +89,7 @@ public class JPALazyInputModelTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
     @Test
     public void testCase005() {
-        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         // Initialize input data
         String creditRisk = "LOW";
         Person applicant = makeLazyPerson(1);

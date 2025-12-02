@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class _0013SortTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
     public void testCase001() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         List<java.lang.Number> listA = asList(number("3"), number("1"), number("5"), number("4"));

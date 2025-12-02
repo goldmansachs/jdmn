@@ -368,6 +368,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.transformer.executionContextVariableName();
     }
 
+    public String executionContextBuilderClassName() {
+        return this.transformer.executionContextBuilderClassName();
+    }
+
     public String annotationSetClassName() {
         return this.transformer.annotationSetClassName();
     }

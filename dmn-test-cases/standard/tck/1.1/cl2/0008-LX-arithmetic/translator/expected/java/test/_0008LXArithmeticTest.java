@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class _0008LXArithmeticTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
     public void testCase001() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0375"), number("360"));
@@ -17,7 +17,7 @@ public class _0008LXArithmeticTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase002() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         type.TLoan loan = new type.TLoanImpl(number("30000"), number("0.0475"), number("60"));
@@ -28,7 +28,7 @@ public class _0008LXArithmeticTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase003() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0399"), number("360"));

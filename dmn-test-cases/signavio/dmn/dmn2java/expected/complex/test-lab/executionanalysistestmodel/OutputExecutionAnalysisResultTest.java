@@ -8,7 +8,7 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         java.lang.Number inputValue = number("0");
         List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, context_);
 
@@ -17,7 +17,7 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
 
     @org.junit.jupiter.api.Test
     public void testCase2() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         java.lang.Number inputValue = number("2");
         List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, context_);
 
@@ -26,7 +26,7 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
 
     @org.junit.jupiter.api.Test
     public void testCase3() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         java.lang.Number inputValue = number("5");
         List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, context_);
 
@@ -35,7 +35,7 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
 
     @org.junit.jupiter.api.Test
     public void testCase4() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         java.lang.Number inputValue = number("8");
         List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, context_);
 
@@ -44,7 +44,7 @@ public class OutputExecutionAnalysisResultTest extends com.gs.dmn.signavio.runti
 
     @org.junit.jupiter.api.Test
     public void testCase5() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         java.lang.Number inputValue = number("10");
         List<String> outputExecutionAnalysisResult = this.outputExecutionAnalysisResult.apply(inputValue, context_);
 

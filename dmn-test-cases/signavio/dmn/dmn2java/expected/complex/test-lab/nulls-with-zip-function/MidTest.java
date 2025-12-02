@@ -8,7 +8,7 @@ public class MidTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         List<java.lang.Number> inputB = asList(number("34"), number("3"));
         List<String> inputA = asList("a", null);
         List<String> mid = this.mid.apply(inputA, inputB, context_);
@@ -18,7 +18,7 @@ public class MidTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase2() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         List<java.lang.Number> inputB = asList(number("12"));
         List<String> inputA = asList("b", "c");
         List<String> mid = this.mid.apply(inputA, inputB, context_);
@@ -28,7 +28,7 @@ public class MidTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase3() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         List<java.lang.Number> inputB = asList(number("213"), null, number("43"));
         List<String> inputA = asList("d", "e", "f");
         List<String> mid = this.mid.apply(inputA, inputB, context_);
@@ -38,7 +38,7 @@ public class MidTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase4() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         List<java.lang.Number> inputB = asList(null);
         List<String> inputA = asList(null);
         List<String> mid = this.mid.apply(inputA, inputB, context_);

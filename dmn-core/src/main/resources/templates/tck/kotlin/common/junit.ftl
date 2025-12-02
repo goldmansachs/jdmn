@@ -39,7 +39,7 @@ class ${testClassName} : ${decisionBaseClass}() {
 </#macro>
 
 <#macro initializeInputs testCase>
-        val ${tckUtil.executionContextVariableName()} = ${tckUtil.defaultConstructor(tckUtil.executionContextClassName())}
+        val ${tckUtil.executionContextVariableName()} = ${tckUtil.executionContextBuilderClassName()}.executionContext().build()
         val ${tckUtil.cacheVariableName()} = ${tckUtil.executionContextVariableName()}.getCache()
     <#list testCase.inputNode>
         // Initialize input data

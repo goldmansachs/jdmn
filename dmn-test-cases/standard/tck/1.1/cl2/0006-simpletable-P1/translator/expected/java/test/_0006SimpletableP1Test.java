@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class _0006SimpletableP1Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
     public void testCase001() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         java.lang.Number age = number("18");
@@ -19,7 +19,7 @@ public class _0006SimpletableP1Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
     @org.junit.jupiter.api.Test
     public void testCase002() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         java.lang.Number age = number("17");
@@ -32,7 +32,7 @@ public class _0006SimpletableP1Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
 
     @org.junit.jupiter.api.Test
     public void testCase003() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         java.lang.Number age = number("18");

@@ -42,7 +42,7 @@ public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @Test
     public void testCase001() {
-        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         // Initialize input data
         com.gs.dmn.generated.example_credit_decision.type.Applicant applicant = findApplicant("Amy");
         Number currentRiskAppetite = number("50");
@@ -55,7 +55,7 @@ public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @Test
     public void testCase002() {
-        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         // Initialize input data
         com.gs.dmn.generated.example_credit_decision.type.Applicant applicant = findApplicant("Bill");
         Number currentRiskAppetite = number("50");
@@ -68,7 +68,7 @@ public class JPAExampleCreditDecisionTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @Test
     public void testCase003() {
-        com.gs.dmn.runtime.ExecutionContext context = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         // Initialize input data
         com.gs.dmn.generated.example_credit_decision.type.Applicant applicant = findApplicant("Charlie");
         Number currentRiskAppetite = number("50");

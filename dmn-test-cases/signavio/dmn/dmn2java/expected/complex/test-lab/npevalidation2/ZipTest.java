@@ -8,7 +8,7 @@ public class ZipTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         java.lang.Number day = number("25");
         java.lang.Number month = number("12");
         List<java.lang.Number> ages = asList(number("25"), number("40"), number("65"), number("80"), number("105"));
@@ -24,7 +24,7 @@ public class ZipTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase2() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         java.lang.Number day = number("1");
         java.lang.Number month = number("2");
         List<java.lang.Number> ages = asList(number("3"), number("4"), number("5"), number("2"), number("1"));

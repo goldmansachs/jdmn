@@ -6,7 +6,7 @@ import java.util.stream.Collectors
 class _0006SimpletableP1Test : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     @org.junit.jupiter.api.Test
     fun testCase001() {
-        val context_ = com.gs.dmn.runtime.ExecutionContext()
+        val context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build()
         val cache_ = context_.getCache()
         // Initialize input data
         val age: kotlin.Number? = number("18")
@@ -19,7 +19,7 @@ class _0006SimpletableP1Test : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
 
     @org.junit.jupiter.api.Test
     fun testCase002() {
-        val context_ = com.gs.dmn.runtime.ExecutionContext()
+        val context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build()
         val cache_ = context_.getCache()
         // Initialize input data
         val age: kotlin.Number? = number("17")
@@ -32,7 +32,7 @@ class _0006SimpletableP1Test : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
 
     @org.junit.jupiter.api.Test
     fun testCase003() {
-        val context_ = com.gs.dmn.runtime.ExecutionContext()
+        val context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build()
         val cache_ = context_.getCache()
         // Initialize input data
         val age: kotlin.Number? = number("18")

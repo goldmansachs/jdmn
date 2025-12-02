@@ -8,7 +8,7 @@ public class MidTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         List<java.lang.Number> numz = asList(number("1"), number("2"));
         List<String> mid = this.mid.apply(numz, context_);
 
@@ -17,7 +17,7 @@ public class MidTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase2() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         List<java.lang.Number> numz = asList(number("50"), number("100"));
         List<String> mid = this.mid.apply(numz, context_);
 

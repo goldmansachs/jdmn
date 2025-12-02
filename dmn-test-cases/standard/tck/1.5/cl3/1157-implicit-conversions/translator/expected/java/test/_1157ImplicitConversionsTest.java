@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
     public void testCase001() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'To Singleton List'
@@ -15,7 +15,7 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase002() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'From Singleton List'
@@ -24,7 +24,7 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase002_a() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'From Singleton List Error'
@@ -33,7 +33,7 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase003() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'From Date To Date and Time'
@@ -42,7 +42,7 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase004() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'To Singleton List BKM'
@@ -51,7 +51,7 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase005() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'From Singleton List BKM'
@@ -60,7 +60,7 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase006() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'From Date To Date and Time BKM'
@@ -69,7 +69,7 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase007() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'To Singleton List DS'
@@ -78,7 +78,7 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase008() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'From Singleton List DS'
@@ -87,7 +87,7 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase009() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'From Date to Date and Time DS'
@@ -96,7 +96,7 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase010() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'Implicit Conversions CE'
@@ -105,7 +105,7 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase011() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
         // Check 'Implicit Conversions FUNCT'

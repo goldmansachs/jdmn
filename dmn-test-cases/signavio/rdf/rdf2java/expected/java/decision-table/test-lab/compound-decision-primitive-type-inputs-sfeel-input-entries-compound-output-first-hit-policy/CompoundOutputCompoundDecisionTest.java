@@ -8,7 +8,7 @@ public class CompoundOutputCompoundDecisionTest extends com.gs.dmn.signavio.runt
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         java.lang.Number dD2NumberInput = number("1");
         String enumerationInput = "e1";
         Boolean booleanInput = Boolean.TRUE;

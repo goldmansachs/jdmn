@@ -18,11 +18,11 @@ import com.gs.dmn.runtime.cache.DefaultCache;
 import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.EventListener;
-import com.gs.dmn.runtime.listener.NopEventListener;
+import com.gs.dmn.runtime.listener.LoggingEventListener;
 
 public final class ExecutionContextBuilder {
     private AnnotationSet annotations = new AnnotationSet();
-    private EventListener eventListener = new NopEventListener();
+    private EventListener eventListener = new LoggingEventListener(ExecutionContext.LOGGER);
     private ExternalFunctionExecutor externalFunctionExecutor = new DefaultExternalFunctionExecutor();
     private Cache cache = new DefaultCache();
 

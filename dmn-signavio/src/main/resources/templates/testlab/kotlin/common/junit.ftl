@@ -33,7 +33,7 @@ class ${testClassName} : ${decisionBaseClass}() {
         <#items as testCase>
     @org.junit.jupiter.api.Test
     fun testCase${(testCase?index + 1)?c}() {
-        val ${testLabUtil.executionContextVariableName()} = ${testLabUtil.executionContextClassName()}()
+        val ${testLabUtil.executionContextVariableName()} = ${testLabUtil.executionContextBuilderClassName()}.executionContext().build()
         <@addApplyPart testCase/>
 
         <@addAssertPart testCase/>

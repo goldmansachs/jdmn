@@ -8,7 +8,7 @@ public class DecisionTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBa
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         java.time.temporal.TemporalAccessor timeInput = null;
         String textInput = null;
         java.lang.Number numberInput = numericUnaryMinus(number("1"));
@@ -23,7 +23,7 @@ public class DecisionTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBa
 
     @org.junit.jupiter.api.Test
     public void testCase2() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         java.time.temporal.TemporalAccessor timeInput = null;
         String textInput = null;
         java.lang.Number numberInput = null;

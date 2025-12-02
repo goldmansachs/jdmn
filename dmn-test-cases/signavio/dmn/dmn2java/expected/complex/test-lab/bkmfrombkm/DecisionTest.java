@@ -8,7 +8,7 @@ public class DecisionTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBa
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         java.time.temporal.TemporalAccessor t = time("12:00:00+01:00");
         java.time.LocalDate d = date("2017-06-09");
         String decision = this.decision.apply(d, t, context_);

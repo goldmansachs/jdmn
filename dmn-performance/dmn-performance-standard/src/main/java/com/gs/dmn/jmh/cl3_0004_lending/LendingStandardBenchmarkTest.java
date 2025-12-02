@@ -44,7 +44,7 @@ public class LendingStandardBenchmarkTest {
     }
 
     private void testCase001() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         // Initialize input data
         TApplicantData applicantData = new TApplicantDataImpl(decision.number("35"), "EMPLOYED", true, "M", new MonthlyImpl(decision.number("2000"), decision.number("6000"), decision.number("0")));
         TRequestedProduct requestedProduct = new TRequestedProductImpl(decision.number("350000"), "STANDARD LOAN", decision.number("0.0395"), decision.number("360"));

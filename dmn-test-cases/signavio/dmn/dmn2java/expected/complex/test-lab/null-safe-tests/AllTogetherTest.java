@@ -8,7 +8,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavi
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         Boolean booleanA = Boolean.TRUE;
         java.lang.Number numberB = number("34");
         java.time.temporal.TemporalAccessor dateTime = dateAndTime("2015-01-01T12:00:00+00:00");
@@ -27,7 +27,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavi
 
     @org.junit.jupiter.api.Test
     public void testCase2() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         Boolean booleanA = Boolean.TRUE;
         java.lang.Number numberB = number("43");
         java.time.temporal.TemporalAccessor dateTime = dateAndTime("2016-11-16T12:00:00+00:00");
@@ -46,7 +46,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavi
 
     @org.junit.jupiter.api.Test
     public void testCase3() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         Boolean booleanA = Boolean.FALSE;
         java.lang.Number numberB = number("1");
         java.time.temporal.TemporalAccessor dateTime = dateAndTime("2105-11-11T00:00:00+00:00");
@@ -65,7 +65,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavi
 
     @org.junit.jupiter.api.Test
     public void testCase4() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         Boolean booleanA = Boolean.FALSE;
         java.lang.Number numberB = number("22");
         java.time.temporal.TemporalAccessor dateTime = dateAndTime("2016-11-01T01:01:01+00:00");
@@ -84,7 +84,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavi
 
     @org.junit.jupiter.api.Test
     public void testCase5() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         Boolean booleanA = Boolean.FALSE;
         java.lang.Number numberB = number("90");
         java.time.temporal.TemporalAccessor dateTime = dateAndTime("2017-01-01T10:00:00+00:00");
@@ -103,7 +103,7 @@ public class AllTogetherTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavi
 
     @org.junit.jupiter.api.Test
     public void testCase6() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         Boolean booleanA = Boolean.TRUE;
         java.lang.Number numberB = number("42");
         java.time.temporal.TemporalAccessor dateTime = dateAndTime("2016-11-03T04:00:00+00:00");

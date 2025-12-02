@@ -46,12 +46,12 @@ public abstract class AbstractTest0004Lending extends com.gs.dmn.runtime.JavaTim
     }
 
     private Object invokeStrategy(Strategy strategy, TApplicantData applicantData, TRequestedProduct requestedProduct) {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         return strategy.apply(applicantData, requestedProduct, context_);
     }
 
     private Object invokeRouting(Routing routing, TApplicantData applicantData, TBureauData bureauData, TRequestedProduct requestedProduct) {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         return routing.apply(applicantData, bureauData, requestedProduct, context_);
     }
 

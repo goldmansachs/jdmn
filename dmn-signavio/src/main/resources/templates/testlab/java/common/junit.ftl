@@ -39,7 +39,7 @@ public class ${testClassName} extends ${decisionBaseClass} {
         <#items as testCase>
     @org.junit.jupiter.api.Test
     public void testCase${(testCase?index + 1)?c}() {
-        ${testLabUtil.executionContextClassName()} ${testLabUtil.executionContextVariableName()} = ${testLabUtil.defaultConstructor(testLabUtil.executionContextClassName())};
+        ${testLabUtil.executionContextClassName()} ${testLabUtil.executionContextVariableName()} = ${testLabUtil.executionContextBuilderClassName()}.executionContext().build();
         <@addApplyPart testCase/>
 
         <@addAssertPart testCase/>

@@ -8,7 +8,7 @@ public class TestTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         String stringInput = "a";
         List<String> test = this.test.apply(stringInput, context_);
 
@@ -17,7 +17,7 @@ public class TestTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDe
 
     @org.junit.jupiter.api.Test
     public void testCase2() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         String stringInput = "c";
         List<String> test = this.test.apply(stringInput, context_);
 

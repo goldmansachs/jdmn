@@ -14,38 +14,20 @@ package com.gs.dmn.runtime;
 
 import com.gs.dmn.runtime.annotation.AnnotationSet;
 import com.gs.dmn.runtime.cache.Cache;
-import com.gs.dmn.runtime.cache.DefaultCache;
-import com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor;
 import com.gs.dmn.runtime.external.ExternalFunctionExecutor;
 import com.gs.dmn.runtime.listener.EventListener;
-import com.gs.dmn.runtime.listener.LoggingEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ExecutionContext {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExecutionContext.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(ExecutionContext.class);
 
     private final AnnotationSet annotations;
     private final EventListener eventListener;
     private final ExternalFunctionExecutor externalFunctionExecutor;
     private final Cache cache;
 
-    /**
-     * @deprecated  As of release 8.4.0, replaced by {@link ExecutionContextBuilder}
-     */
-    @Deprecated
-    public ExecutionContext() {
-        this.annotations = new AnnotationSet();
-        this.eventListener = new LoggingEventListener(LOGGER);
-        this.externalFunctionExecutor = new DefaultExternalFunctionExecutor();
-        this.cache = new DefaultCache();
-    }
-
-    /**
-     * @deprecated  As of release 8.4.0, replaced by {@link ExecutionContextBuilder}
-     */
-    @Deprecated
-    public ExecutionContext(AnnotationSet annotations, EventListener eventListener, ExternalFunctionExecutor externalFunctionExecutor, Cache cache) {
+    ExecutionContext(AnnotationSet annotations, EventListener eventListener, ExternalFunctionExecutor externalFunctionExecutor, Cache cache) {
         this.annotations = annotations;
         this.eventListener = eventListener;
         this.externalFunctionExecutor = externalFunctionExecutor;

@@ -8,7 +8,7 @@ public class BigMidTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBase
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         type.TestPeopleType testPeopleType = new type.TestPeopleTypeImpl(asList(new type.TestPersonTypeImpl(number("23"), "a", asList("Sad", "Quiet"))));
         List<Boolean> bigMid = this.bigMid.apply(testPeopleType, context_);
 
@@ -17,7 +17,7 @@ public class BigMidTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBase
 
     @org.junit.jupiter.api.Test
     public void testCase2() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         type.TestPeopleType testPeopleType = new type.TestPeopleTypeImpl(asList(new type.TestPersonTypeImpl(number("43"), "g", asList("Happy", "Tall")), new type.TestPersonTypeImpl(number("5"), "l", asList("Short", "Loud", "Happy"))));
         List<Boolean> bigMid = this.bigMid.apply(testPeopleType, context_);
 

@@ -40,7 +40,7 @@ public class CreditDecisionSignavioBenchmarkTest {
     }
 
     private void executeCompiled(long startTime) {
-        ExecutionContext context_ = new ExecutionContext();
+        ExecutionContext context_ = ExecutionContextBuilder.executionContext().build();
 
         ApplicantImpl applicant = new ApplicantImpl();
         applicant.setName("Amy");

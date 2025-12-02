@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HandWrittenDecisionTableWithAnnotationsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
     public void testCase001() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         com.gs.dmn.generated.other.decision_table_with_annotations.type.TA structA = new com.gs.dmn.generated.other.decision_table_with_annotations.type.TAImpl("A", number("5"));
@@ -39,7 +39,7 @@ public class HandWrittenDecisionTableWithAnnotationsTest extends com.gs.dmn.runt
 
     @org.junit.jupiter.api.Test
     public void testCase002() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
         // Initialize input data
         com.gs.dmn.generated.other.decision_table_with_annotations.type.TA structA = new com.gs.dmn.generated.other.decision_table_with_annotations.type.TAImpl("A", number("11"));

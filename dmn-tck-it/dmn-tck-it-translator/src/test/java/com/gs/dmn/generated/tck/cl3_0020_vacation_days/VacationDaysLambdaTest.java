@@ -12,7 +12,7 @@
  */
 package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
-import com.gs.dmn.runtime.ExecutionContext;
+import com.gs.dmn.runtime.ExecutionContextBuilder;
 import com.gs.dmn.runtime.Executor;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +40,7 @@ public class VacationDaysLambdaTest {
     }
 
     protected void doTest(Object expectedResult, String qName, Map<String, String> input) {
-        Object actualResult = executor.execute(qName, input, new ExecutionContext());
+        Object actualResult = executor.execute(qName, input, ExecutionContextBuilder.executionContext().build());
         assertEquals(expectedResult, actualResult);
     }
 }

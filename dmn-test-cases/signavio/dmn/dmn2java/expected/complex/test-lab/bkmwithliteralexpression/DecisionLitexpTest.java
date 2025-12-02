@@ -8,7 +8,7 @@ public class DecisionLitexpTest extends com.gs.dmn.signavio.runtime.JavaTimeSign
 
     @org.junit.jupiter.api.Test
     public void testCase1() {
-        com.gs.dmn.runtime.ExecutionContext context_ = new com.gs.dmn.runtime.ExecutionContext();
+        com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         List<java.lang.Number> numz = asList(number("1"), number("43"));
         List<String> redgreenbluelist1 = asList("Red", "Green");
         String redgreenblue1 = "Green";
