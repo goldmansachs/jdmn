@@ -51,14 +51,14 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>6.1.11</version>
+            <version>7.0.1</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>3.3.2</version>
+            <version>4.0.0</version>
             <scope>test</scope>
         </dependency>
 
