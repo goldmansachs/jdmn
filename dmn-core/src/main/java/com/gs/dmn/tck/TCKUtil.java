@@ -31,6 +31,7 @@ import com.gs.dmn.runtime.interpreter.Result;
 import com.gs.dmn.tck.ast.*;
 import com.gs.dmn.transformation.basic.BasicDMNToNativeTransformer;
 import com.gs.dmn.transformation.basic.FEELParameter;
+import com.gs.dmn.transformation.basic.NativeParameter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -187,8 +188,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         ResultNodeInfo resultNodeInfo = extractResultNodeInfo(testCases, testCase, resultNode);
         List<FEELParameter> parameters = this.transformer.drgElementTypeSignature(resultNodeInfo.getReference(), transformer::nativeName);
         List<FEELParameter> missingParameters = parameters.stream().filter(pair -> !inputNames.contains(pair.getName())).collect(Collectors.toList());
-        List<Pair<String, String>> missingArgs = missingParameters.stream()
-                .map(p -> new Pair<>(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getType())), p.getName()))
+        List<NativeParameter> missingArgs = missingParameters.stream()
+                .map(p -> new NativeParameter(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getType())), p.getName()))
                 .collect(Collectors.toList());
 
         List<List<String>> result = new ArrayList<>();
@@ -196,8 +197,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             Type type = parameters.get(i).getType();
             String defaultValue = isMockTesting() ? this.transformer.getDefaultValue(type, null) : this.transformer.getNativeFactory().nullLiteral();
             List<String> triplet = new ArrayList<>();
-            triplet.add(missingArgs.get(i).getLeft());
-            triplet.add(missingArgs.get(i).getRight());
+            triplet.add(missingArgs.get(i).getType());
+            triplet.add(missingArgs.get(i).getName());
             triplet.add(defaultValue);
             result.add(triplet);
         }

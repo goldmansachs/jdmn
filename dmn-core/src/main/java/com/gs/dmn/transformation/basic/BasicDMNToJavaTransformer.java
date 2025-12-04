@@ -693,7 +693,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String drgElementConstructorSignature(TDRGElement element) {
         List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(element);
         this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
-        return subDecisionReferences.stream().map(d -> this.nativeFactory.decisionConstructorParameter(d)).collect(Collectors.joining(", "));
+        return subDecisionReferences.stream().map(r -> this.nativeFactory.decisionConstructorParameter(r)).collect(Collectors.joining(", "));
     }
 
     @Override
@@ -702,7 +702,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
         return directSubDecisionReferences
                 .stream()
-                .map(d -> String.format("%s", defaultConstructor(qualifiedName(d))))
+                .map(r -> String.format("%s", defaultConstructor(qualifiedName(r))))
                 .collect(Collectors.joining(", "));
     }
 
@@ -720,7 +720,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
             String arguments = directSubDecisionReferences
                     .stream()
-                    .map(d -> singletonDecisionInstance(qualifiedName(d)))
+                    .map(r -> singletonDecisionInstance(qualifiedName(r)))
                     .collect(Collectors.joining(", "));
             return constructor(javaClassName, arguments);
         }
