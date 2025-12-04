@@ -37,11 +37,8 @@ public class ${javaClassName} implements com.amazonaws.services.lambda.runtime.R
         logger.log(String.format("Executing element '%s'", elementName));
         try {
             // Prepare execution context
-            ${transformer.annotationSetClassName()} annotations_ = ${transformer.defaultConstructor(transformer.annotationSetClassName())};
             ${transformer.eventListenerClassName()} listener_ = ${traceVariable} ? ${transformer.defaultConstructor(transformer.treeTraceEventListenerClassName())} : ${transformer.defaultConstructor(transformer.defaultEventListenerClassName())};
-            ${transformer.externalExecutorClassName()} executor_ = ${transformer.defaultConstructor(transformer.defaultExternalExecutorClassName())};
-            ${transformer.cacheInterfaceName()} ${transformer.cacheVariableName()} = ${transformer.defaultConstructor(transformer.defaultCacheClassName())};
-            ${transformer.executionContextClassName()} executionContext_ = ${transformer.constructor(transformer.executionContextClassName(), "annotations_, listener_, executor_, ${transformer.cacheVariableName()}")};
+            ${transformer.executionContextClassName()} executionContext_ = ${transformer.executionContextBuilderClassName()}.executionContext().withListener(listener_).build();
 
             // Execute element
             Object output_ = EXECUTOR.execute(elementName, event_, executionContext_);

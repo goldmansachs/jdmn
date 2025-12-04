@@ -27,11 +27,8 @@ public class F0020VacationDaysMapRequestHandler implements com.amazonaws.service
         logger.log(String.format("Executing element '%s'", elementName));
         try {
             // Prepare execution context
-            com.gs.dmn.runtime.annotation.AnnotationSet annotations_ = new com.gs.dmn.runtime.annotation.AnnotationSet();
             com.gs.dmn.runtime.listener.EventListener listener_ = trace_ ? new com.gs.dmn.runtime.listener.TreeTraceEventListener() : new com.gs.dmn.runtime.listener.NopEventListener();
-            com.gs.dmn.runtime.external.ExternalFunctionExecutor executor_ = new com.gs.dmn.runtime.external.DefaultExternalFunctionExecutor();
-            com.gs.dmn.runtime.cache.Cache cache_ = new com.gs.dmn.runtime.cache.DefaultCache();
-            com.gs.dmn.runtime.ExecutionContext executionContext_ = new com.gs.dmn.runtime.ExecutionContext(annotations_, listener_, executor_, cache_);
+            com.gs.dmn.runtime.ExecutionContext executionContext_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().withListener(listener_).build();
 
             // Execute element
             Object output_ = EXECUTOR.execute(elementName, event_, executionContext_);
