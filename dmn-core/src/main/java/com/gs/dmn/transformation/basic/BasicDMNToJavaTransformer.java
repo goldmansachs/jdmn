@@ -697,6 +697,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String drgElementConstructorArguments(TDRGElement element) {
+        List<DRGElementReference<TDecision>> subDecisionReferences = this.dmnModelRepository.directSubDecisions(element);
+        this.dmnModelRepository.sortNamedElementReferences(subDecisionReferences);
+        return subDecisionReferences.stream().map(this::drgElementReferenceVariableName).collect(Collectors.joining(", "));
+    }
+
+    @Override
     public String drgElementConstructorNewArgumentList(TDRGElement element) {
         List<DRGElementReference<TDecision>> directSubDecisionReferences = this.dmnModelRepository.directSubDecisions(element);
         this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);

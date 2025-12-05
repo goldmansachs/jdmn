@@ -188,6 +188,8 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String drgElementConstructorSignature(TDRGElement element);
 
+    String drgElementConstructorArguments(TDRGElement element);
+
     String drgElementConstructorNewArgumentList(TDRGElement element);
 
     boolean isSingletonDecision();

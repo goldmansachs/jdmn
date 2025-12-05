@@ -187,6 +187,29 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return new Pair<>(this.dmnModelRepository.makeDRGElementReference(path, element), value);
     }
 
+    public boolean hasInputNodeInfo(DRGElementReference<TDecision> reference, List<InputNodeInfo> inputNodeInfoList) {
+        return findInputNodeInfo(reference, inputNodeInfoList) != null;
+    }
+
+    public InputNodeInfo findInputNodeInfo(DRGElementReference<TDecision> reference, List<InputNodeInfo> inputNodeInfoList) {
+        for (InputNodeInfo inputNodeInfo : inputNodeInfoList) {
+            if (inputNodeInfo.isDecision()) {
+                if (sameReference(reference, inputNodeInfo.getReference())) {
+                    return inputNodeInfo;
+                }
+            }
+        }
+        return null;
+    }
+
+    private boolean sameReference(DRGElementReference<TDecision> ref1, DRGElementReference<? extends TDRGElement> ref2) {
+        if (ref1 == null || ref2 ==  null) {
+            return false;
+        }
+        return ref1.getElementName().equals(ref2.getElementName())
+                && ref1.getNamespace().equals(ref2.getNamespace());
+    }
+
     public List<List<String>> missingArguments(List<InputNodeInfo> inputNodeInfos, ResultNodeInfo resultNodeInfo) {
         // Calculate provided inputs
         List<String> inputNames = inputNodeInfos.stream()
@@ -210,6 +233,23 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
             result.add(triplet);
         }
         return result;
+    }
+
+    public boolean hasMockedDirectSubDecisions(ResultNodeInfo resultInfo, List<InputNodeInfo> inputNodeInfoList) {
+        List<DRGElementReference<TDecision>> references = directSubDecisions(resultInfo);
+        if (references.isEmpty()) {
+            return false;
+        } else {
+            return references.stream().anyMatch(r -> hasInputNodeInfo(r, inputNodeInfoList));
+        }
+    }
+
+    public List<DRGElementReference<TDecision>> directSubDecisions(ResultNodeInfo resultInfo) {
+        return this.transformer.getDMNModelRepository().directSubDecisions(resultInfo.getReference().getElement());
+    }
+
+    public String drgElementReferenceVariableName(DRGElementReference<TDecision> reference) {
+        return this.transformer.drgElementReferenceVariableName(reference);
     }
 
     public String toNativeType(InputNodeInfo info) {
@@ -284,7 +324,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
     }
 
-    public String qualifiedName(ResultNodeInfo info) {
+    public String qualifiedName(NodeInfo info) {
         TDRGElement element = info.getReference().getElement();
         if (element == null) {
             throw new DMNRuntimeException(String.format("Cannot find DRG Element for node '%s'", info.getNodeName()));
@@ -300,7 +340,11 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
     }
 
-    public String drgElementArgumentList(ResultNodeInfo info) {
+    public String qualifiedName(DRGElementReference<? extends TDRGElement> reference) {
+        return this.transformer.qualifiedName(reference);
+    }
+
+    public String drgElementArgumentList(NodeInfo info) {
         if (info.isDecision()) {
             TDecision decision = (TDecision) info.getReference().getElement();
             return this.transformer.drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(decision));
@@ -394,6 +438,12 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String defaultConstructor(String className) {
         return this.transformer.defaultConstructor(className);
+    }
+
+    public String constructor(ResultNodeInfo resultInfo) {
+        String nativeQName = qualifiedName(resultInfo);
+        String args = this.transformer.drgElementConstructorArguments(resultInfo.getReference().getElement());
+        return this.transformer.constructor(nativeQName, args);
     }
 
     public boolean isCached(InputNodeInfo info) {

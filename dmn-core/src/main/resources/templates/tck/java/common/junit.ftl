@@ -64,17 +64,19 @@ public class ${testClassName} extends ${decisionBaseClass} {
 </#macro>
 
 <#macro initializeApplyArguments inputNodeInfoList resultInfo>
-        ${tckUtil.executionContextClassName()} ${tckUtil.executionContextVariableName()} = ${tckUtil.executionContextBuilderClassName()}.executionContext().build();
-        ${tckUtil.cacheInterfaceName()} ${tckUtil.cacheVariableName()} = ${tckUtil.executionContextVariableName()}.getCache();
     <#list inputNodeInfoList>
         // Initialize arguments
         <#items as inputInfo>
-        <#assign inputVariableName = tckUtil.inputDataVariableName(inputInfo)>
-        <#assign inputValue = tckUtil.toNativeExpression(inputInfo)>
-        ${tckUtil.toNativeType(inputInfo)} ${inputVariableName} = ${inputValue};
-        <#if tckUtil.isCached(inputInfo)>
-        ${tckUtil.cacheVariableName()}.bind("${inputVariableName}", ${inputVariableName});
-        </#if>
+            <#assign inputVariableName = tckUtil.inputDataVariableName(inputInfo)/>
+            <#assign inputVariableType = tckUtil.toNativeType(inputInfo)/>
+            <#assign inputValue = tckUtil.toNativeExpression(inputInfo)/>
+            <#if inputInfo.isInputData()>
+        ${inputVariableType} ${inputVariableName} = ${inputValue};
+            <#elseif inputInfo.isDecision()>
+                <#if resultInfo.isDS() || resultInfo.isBKM()>
+        ${inputVariableType} ${inputVariableName} = ${inputValue};
+                </#if>
+            </#if>
         </#items>
     </#list>
         <@addMissingApplyArguments inputNodeInfoList resultInfo/>
@@ -82,15 +84,21 @@ public class ${testClassName} extends ${decisionBaseClass} {
 
 <#macro checkResult inputNodeInfoList resultInfo>
         // Check '${resultInfo.nodeName}'
-        <#assign elementQName = tckUtil.qualifiedName(resultInfo)>
-        <#assign expectedValue = tckUtil.toNativeExpression(resultInfo)>
-        <#assign parentArgList = tckUtil.drgElementArgumentList(resultInfo)>
+        ${tckUtil.executionContextClassName()} ${tckUtil.executionContextVariableName()} = ${tckUtil.executionContextBuilderClassName()}.executionContext().build();
+        <#assign elementQName = tckUtil.qualifiedName(resultInfo)/>
+        <#assign expectedValue = tckUtil.toNativeExpression(resultInfo)/>
+        <#assign parentArgList = tckUtil.drgElementArgumentList(resultInfo)/>
         <#if resultInfo.isDecision()>
-           <#if tckUtil.isSingletonDecision()>
+            <#if tckUtil.hasMockedDirectSubDecisions(resultInfo, inputNodeInfoList)>
+                <@instantiateSubDecisions inputNodeInfoList resultInfo/>
+        checkValues(${expectedValue}, ${tckUtil.constructor(resultInfo)}.apply(${parentArgList}));
+            <#else>
+                <#if tckUtil.isSingletonDecision()>
         checkValues(${expectedValue}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${parentArgList}));
-           <#else>
+                <#else>
         checkValues(${expectedValue}, ${tckUtil.defaultConstructor(elementQName)}.apply(${parentArgList}));
-           </#if>
+                </#if>
+            </#if>
         <#elseif resultInfo.isDS() || resultInfo.isBKM()>
         checkValues(${expectedValue}, ${elementQName}.apply(${parentArgList}));
         </#if>
@@ -100,6 +108,25 @@ public class ${testClassName} extends ${decisionBaseClass} {
     <#list tckUtil.missingArguments(inputNodeInfoList, resultInfo)>
         <#items as triplet>
         ${triplet[0]} ${triplet[1]} = ${triplet[2]};
+        </#items>
+    </#list>
+</#macro>
+
+<#macro instantiateSubDecisions inputNodeInfoList resultInfo>
+    <#list tckUtil.directSubDecisions(resultInfo)>
+        <#items as reference>
+            <#assign subDecisionQName = tckUtil.qualifiedName(reference)/>
+            <#assign subDecisionVarName = tckUtil.drgElementReferenceVariableName(reference)/>
+            <#if tckUtil.hasInputNodeInfo(reference, inputNodeInfoList)>
+                <#assign subDecisionInputInfo = tckUtil.findInputNodeInfo(reference, inputNodeInfoList)/>
+                <#assign inputValue = tckUtil.toNativeExpression(subDecisionInputInfo)/>
+                <#assign childArgList = tckUtil.drgElementArgumentList(subDecisionInputInfo)/>
+        ${subDecisionQName} ${subDecisionVarName} = org.mockito.Mockito.mock(${subDecisionQName}.class);
+        org.mockito.Mockito.when(${subDecisionVarName}.apply(${childArgList})).thenReturn(${inputValue});
+            <#else>
+                <#assign subDecisionConstructor = tckUtil.defaultConstructor(subDecisionQName)/>
+        ${subDecisionQName} ${subDecisionVarName} = ${subDecisionConstructor};
+            </#if>
         </#items>
     </#list>
 </#macro>

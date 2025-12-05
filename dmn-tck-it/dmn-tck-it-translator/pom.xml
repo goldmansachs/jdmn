@@ -2745,6 +2745,36 @@
                     </execution>
 
                     <execution>
+                        <id>cl3-1162-import-same-name</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${tck.15.diagram.folder}/cl3/1162-import-same-name/translator/</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1162_import_same_name</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-cl3-1162-import-same-name</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${tck.15.diagram.folder}/cl3/1162-import-same-name/translator/</inputTestFileDirectory>
+                            <inputModelFileDirectory>${tck.15.diagram.folder}/cl3/1162-import-same-name/translator/</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.tck.cl3_1162_import_same_name</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>cl3-9001-recursive-function</id>
                         <phase>generate-sources</phase>
                         <goals>
