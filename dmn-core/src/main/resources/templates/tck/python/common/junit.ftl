@@ -70,9 +70,6 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
 <#macro initializeInputs testCase>
         ${tckUtil.executionContextVariableName()} = ${tckUtil.defaultConstructor(tckUtil.executionContextClassName())}
         ${tckUtil.cacheVariableName()} = ${tckUtil.executionContextVariableName()}.cache
-    <#if tckUtil.isMockTesting()>
-        ${tckUtil.mockContextVariable()} = {}
-    </#if>
     <#list testCase.inputNode>
         # Initialize input data
         <#items as input>
@@ -82,9 +79,6 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
         ${inputVariableName}: ${tckUtil.toNativeType(inputInfo)} = ${inputValue}
         <#if tckUtil.isCached(inputInfo)>
         ${tckUtil.cacheVariableName()}.bind("${inputVariableName}", ${inputVariableName})
-        </#if>
-        <#if tckUtil.isMockTesting()>
-        ${tckUtil.mockContextVariable()}["${inputVariableName}"] = ${inputVariableName}
         </#if>
         </#items>
     </#list>

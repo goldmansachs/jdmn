@@ -60,9 +60,6 @@ public class ${testClassName} extends ${decisionBaseClass} {
 <#macro initializeInputs testCase>
         ${tckUtil.executionContextClassName()} ${tckUtil.executionContextVariableName()} = ${tckUtil.executionContextBuilderClassName()}.executionContext().build();
         ${tckUtil.cacheInterfaceName()} ${tckUtil.cacheVariableName()} = ${tckUtil.executionContextVariableName()}.getCache();
-    <#if tckUtil.isMockTesting()>
-        java.util.Map<String, Object> ${tckUtil.mockContextVariable()} = new java.util.LinkedHashMap<>();
-    </#if>
     <#list testCase.inputNode>
         // Initialize input data
         <#items as input>
@@ -72,9 +69,6 @@ public class ${testClassName} extends ${decisionBaseClass} {
         ${tckUtil.toNativeType(inputInfo)} ${inputVariableName} = ${inputValue};
         <#if tckUtil.isCached(inputInfo)>
         ${tckUtil.cacheVariableName()}.bind("${inputVariableName}", ${inputVariableName});
-        </#if>
-        <#if tckUtil.isMockTesting()>
-        ${tckUtil.mockContextVariable()}.put("${inputVariableName}", ${inputVariableName});
         </#if>
         </#items>
     </#list>

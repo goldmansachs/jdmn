@@ -220,7 +220,7 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
         String cleanText = removeWhiteSpaces(text);
         String[] parts = cleanText.split("\\.");
         StringBuilder result = new StringBuilder();
-        String root = String.format("%s.%s", TCKUtil.mockContextVariable(), this.transformer.contextGetter(parts[0]));
+        String root = this.transformer.nativeFriendlyVariableName(parts[0]);
         result.append(this.nativeFactory.makeNullCheck(root, childType));
         for (int i=1; i<parts.length; i++) {
             result.append(String.format(".%s", this.transformer.getter(parts[i])));

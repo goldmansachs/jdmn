@@ -233,24 +233,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
     }
 
-    private QualifiedName getTypeRef(InputNodeInfo node) {
-        TDRGElement element = node.getReference().getElement();
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef;
-        if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getNodeName()));
-        } else if (element instanceof TInputData) {
-            String varTypeRef = QualifiedName.toName(((TInputData) element).getVariable().getTypeRef());
-            typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
-        } else if (element instanceof TDecision) {
-            String varTypeRef = QualifiedName.toName(((TDecision) element).getVariable().getTypeRef());
-            typeRef = QualifiedName.toQualifiedName(model, varTypeRef);
-        } else {
-            throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getNodeName(), element.getClass().getSimpleName()));
-        }
-        return typeRef;
-    }
-
     //
     // Translator - Result nodes
     //
@@ -333,20 +315,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         } catch (Exception e) {
             throw new DMNRuntimeException(String.format("Cannot resolve FEEL type for node '%s'", resultNode.getNodeName()), e);
         }
-    }
-
-    private QualifiedName getTypeRef(ResultNodeInfo node) {
-        TDRGElement element = node.getReference().getElement();
-        TDefinitions model = this.dmnModelRepository.getModel(element);
-        QualifiedName typeRef;
-        if (element == null) {
-            throw new DMNRuntimeException(String.format("Cannot find element '%s'.", node.getNodeName()));
-        } else if (element instanceof TDecision) {
-            typeRef = QualifiedName.toQualifiedName(model, ((TDecision) element).getVariable().getTypeRef());
-        } else {
-            throw new UnsupportedOperationException(String.format("Cannot resolve FEEL type for node '%s'. '%s' not supported", node.getNodeName(), element.getClass().getSimpleName()));
-        }
-        return typeRef;
     }
 
     //
@@ -598,10 +566,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     public boolean isMockTesting() {
         return this.transformer.isMockTesting();
-    }
-
-    public static String mockContextVariable() {
-        return "mockContext_";
     }
 
     public String getNativeNumberType() {
