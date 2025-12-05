@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 @javax.annotation.Generated(value = {"junit.ftl", "0085-decision-services.dmn"})
 public class _0085DecisionServicesTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
-    public void testCase001() {
+    public void testCase001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -14,10 +14,10 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase002() {
+    public void testCase002_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         String decision_002_input = "baz";
         cache_.bind("decision_002_input", decision_002_input);
 
@@ -26,10 +26,10 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase003() {
+    public void testCase003_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         String decision_003_input_1 = "B";
         cache_.bind("decision_003_input_1", decision_003_input_1);
         String decision_003_input_2 = "C";
@@ -41,7 +41,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase004() {
+    public void testCase004_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -50,7 +50,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase006() {
+    public void testCase006_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -59,7 +59,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase009() {
+    public void testCase009_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -68,7 +68,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase011() {
+    public void testCase011_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -77,7 +77,7 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase012() {
+    public void testCase012_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -86,10 +86,10 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase013() {
+    public void testCase013_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         String inputData_013_1 = "C";
 
         // Check 'decision_013_1'
@@ -97,10 +97,10 @@ public class _0085DecisionServicesTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase014() {
+    public void testCase014_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         String inputData_014_1 = "C";
 
         // Check 'decision_014_1'

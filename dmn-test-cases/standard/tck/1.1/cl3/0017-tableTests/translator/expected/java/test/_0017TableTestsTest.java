@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 @javax.annotation.Generated(value = {"junit.ftl", "0017-tableTests.dmn"})
 public class _0017TableTestsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
-    public void testCase001() {
+    public void testCase001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         type.TA structA = new type.TAImpl("widget", number("20"));
 
         // Check 'priceGt10'
@@ -16,10 +16,10 @@ public class _0017TableTestsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase002() {
+    public void testCase002_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         type.TA structA = new type.TAImpl("widget", number("20"));
         java.lang.Number numB = number("9");
         java.lang.Number numC = number("10");
@@ -29,10 +29,10 @@ public class _0017TableTestsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase003() {
+    public void testCase003_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         java.time.LocalDate dateD = date("2016-11-01");
 
         // Check 'dateCompare1'
@@ -40,10 +40,10 @@ public class _0017TableTestsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase004() {
+    public void testCase004_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         java.time.LocalDate dateD = date("2016-11-01");
         java.time.LocalDate dateE = date("2016-11-02");
 

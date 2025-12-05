@@ -5,10 +5,10 @@ import java.util.stream.Collectors
 @javax.annotation.Generated(value = ["junit.ftl", "0010-multi-output-U.dmn"])
 class _0010MultiOutputUTest : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     @org.junit.jupiter.api.Test
-    fun testCase001() {
+    fun testCase001_1() {
         val context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build()
         val cache_ = context_.getCache()
-        // Initialize input data
+        // Initialize arguments
         val age: kotlin.Number? = number("18")
         val riskCategory: String? = "Medium"
         val isAffordable: Boolean? = true
@@ -18,10 +18,10 @@ class _0010MultiOutputUTest : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     }
 
     @org.junit.jupiter.api.Test
-    fun testCase002() {
+    fun testCase002_1() {
         val context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build()
         val cache_ = context_.getCache()
-        // Initialize input data
+        // Initialize arguments
         val age: kotlin.Number? = number("17")
         val riskCategory: String? = "Medium"
         val isAffordable: Boolean? = true
@@ -31,10 +31,10 @@ class _0010MultiOutputUTest : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     }
 
     @org.junit.jupiter.api.Test
-    fun testCase003() {
+    fun testCase003_1() {
         val context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build()
         val cache_ = context_.getCache()
-        // Initialize input data
+        // Initialize arguments
         val age: kotlin.Number? = number("18")
         val riskCategory: String? = "High"
         val isAffordable: Boolean? = true

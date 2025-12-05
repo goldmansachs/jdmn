@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 @javax.annotation.Generated(value = {"junit.ftl", "Nested Input Data Imports"})
 public class NestedInputDataImportsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
-    public void testCase001() {
+    public void testCase001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         String model_b_modela_personName = "B.A.John";
         String model_b2_modela_personName = "B2.A.John2";
 

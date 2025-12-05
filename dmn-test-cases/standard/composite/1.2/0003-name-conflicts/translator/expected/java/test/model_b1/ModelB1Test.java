@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 @javax.annotation.Generated(value = {"junit.ftl", "Model B1"})
 public class ModelB1Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
-    public void testCase001() {
+    public void testCase001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         String model_a_personName = "B.A.John";
 
         // Check 'greetThePerson'

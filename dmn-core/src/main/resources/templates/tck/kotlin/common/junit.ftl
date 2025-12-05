@@ -19,18 +19,24 @@ import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["junit.ftl", "${testCases.modelName}"])
 class ${testClassName} : ${decisionBaseClass}() {
-    <@addTestCases />
+    <@addTestCases/>
 }
 <#macro addTestCases>
     <#list testCases.testCase>
         <#items as tc>
+            <#assign inputNodeInfoList = tckUtil.extractInputNodeInfoList(testCases, tc)/>
+            <#list tc.resultNode>
+                <#items as rn>
+                    <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, tc, rn)/>
     @org.junit.jupiter.api.Test
-    fun testCase${tc.id}() {
-        <@initializeInputs tc/>
+    fun testCase${tc.id}_${rn?index + 1}() {
+        <@initializeApplyArguments inputNodeInfoList resultInfo/>
 
-        <@checkResults tc/>
+        <@checkResult inputNodeInfoList resultInfo/>
     }
 
+                </#items>
+           </#list>
         </#items>
     </#list>
     private fun checkValues(expected: Any?, actual: Any?) {
@@ -38,27 +44,33 @@ class ${testClassName} : ${decisionBaseClass}() {
     }
 </#macro>
 
-<#macro initializeInputs testCase>
+<#macro initializeApplyArguments inputNodeInfoList resultInfo>
         val ${tckUtil.executionContextVariableName()} = ${tckUtil.executionContextBuilderClassName()}.executionContext().build()
         val ${tckUtil.cacheVariableName()} = ${tckUtil.executionContextVariableName()}.getCache()
-    <#list testCase.inputNode>
-        // Initialize input data
-        <#items as input>
-        <#assign inputInfo = tckUtil.extractInputNodeInfo(testCases, testCase, input) >
+    <#list inputNodeInfoList>
+        // Initialize arguments
+        <#items as inputInfo>
         val ${tckUtil.inputDataVariableName(inputInfo)}: ${tckUtil.toNativeType(inputInfo)} = ${tckUtil.toNativeExpression(inputInfo)}
         <#if tckUtil.isCached(inputInfo)>
         ${tckUtil.cacheVariableName()}.bind("${tckUtil.inputDataVariableName(inputInfo)}", ${tckUtil.inputDataVariableName(inputInfo)})
         </#if>
         </#items>
     </#list>
+        <@addMissingApplyArguments inputNodeInfoList resultInfo/>
 </#macro>
 
-<#macro checkResults testCase>
-    <#list testCase.resultNode>
-        <#items as result>
-        // Check '${result.name}'
-        <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
-        checkValues(${tckUtil.toNativeExpression(resultInfo)}, ${tckUtil.defaultConstructor(tckUtil.qualifiedName(resultInfo))}.apply(${tckUtil.drgElementArgumentList(resultInfo)}))
+<#macro checkResult inputNodeInfoList resultInfo>
+        // Check '${resultInfo.nodeName}'
+        <#assign elementQName = tckUtil.qualifiedName(resultInfo)>
+        <#assign expectedValue = tckUtil.toNativeExpression(resultInfo)>
+        <#assign parentArgList = tckUtil.drgElementArgumentList(resultInfo)>
+        checkValues(${expectedValue}, ${tckUtil.defaultConstructor(elementQName)}.apply(${parentArgList}))
+</#macro>
+
+<#macro addMissingApplyArguments inputNodeInfoList resultInfo>
+    <#list tckUtil.missingArguments(inputNodeInfoList, resultInfo)>
+        <#items as triplet>
+        val ${triplet[1]}: ${triplet[0]} = ${triplet[2]}
         </#items>
     </#list>
 </#macro>

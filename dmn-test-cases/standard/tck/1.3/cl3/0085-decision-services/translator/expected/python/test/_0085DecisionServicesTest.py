@@ -31,27 +31,27 @@ class _0085DecisionServicesTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDe
         unittest.TestCase.__init__(self, methodName)
         jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(self)
 
-    def testCase001(self):
+    def testCase001_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
 
         # Check 'decision_001'
         self.checkValues("foo", DecisionService_001.DecisionService_001.instance().apply(context_))
 
-    def testCase002(self):
+    def testCase002_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
-        # Initialize input data
+        # Initialize arguments
         decision_002_input: typing.Optional[str] = "baz"
         cache_.bind("decision_002_input", decision_002_input)
 
         # Check 'decision_002'
         self.checkValues("foo baz", DecisionService_002.DecisionService_002.instance().apply(decision_002_input, context_))
 
-    def testCase003(self):
+    def testCase003_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
-        # Initialize input data
+        # Initialize arguments
         decision_003_input_1: typing.Optional[str] = "B"
         cache_.bind("decision_003_input_1", decision_003_input_1)
         decision_003_input_2: typing.Optional[str] = "C"
@@ -61,54 +61,54 @@ class _0085DecisionServicesTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDe
         # Check 'decision_003'
         self.checkValues("A B C D", DecisionService_003.DecisionService_003.instance().apply(inputData_003, decision_003_input_1, decision_003_input_2, context_))
 
-    def testCase004(self):
+    def testCase004_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
 
         # Check 'decision_004_1'
         self.checkValues("foo", Decision_004_1.Decision_004_1().apply(context_))
 
-    def testCase006(self):
+    def testCase006_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
 
         # Check 'decision_006_1'
         self.checkValues("foo bar", Decision_006_1.Decision_006_1().apply(context_))
 
-    def testCase009(self):
+    def testCase009_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
 
         # Check 'decision_009_1'
         self.checkValues("foo bar", Decision_009_1.Decision_009_1().apply(context_))
 
-    def testCase011(self):
+    def testCase011_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
 
         # Check 'decision_011_1'
         self.checkValues("A B C D", Decision_011_1.Decision_011_1().apply(context_))
 
-    def testCase012(self):
+    def testCase012_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
 
         # Check 'decision_012_1'
         self.checkValues("A B C D", Decision_012_1.Decision_012_1().apply(context_))
 
-    def testCase013(self):
+    def testCase013_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
-        # Initialize input data
+        # Initialize arguments
         inputData_013_1: typing.Optional[str] = "C"
 
         # Check 'decision_013_1'
         self.checkValues(jdmn.runtime.Context.Context().add("decisionService_013", "A B").add("decision_013_3", "D").add("inputData_013_1", "C"), Decision_013_1.Decision_013_1().apply(inputData_013_1, context_))
 
-    def testCase014(self):
+    def testCase014_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
-        # Initialize input data
+        # Initialize arguments
         inputData_014_1: typing.Optional[str] = "C"
 
         # Check 'decision_014_1'

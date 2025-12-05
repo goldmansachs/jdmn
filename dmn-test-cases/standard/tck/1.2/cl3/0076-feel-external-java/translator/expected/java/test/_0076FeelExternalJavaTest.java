@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 @javax.annotation.Generated(value = {"junit.ftl", "0076-feel-external-java.dmn"})
 public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
-    public void testCaseboxed_001() {
+    public void testCaseboxed_001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -14,7 +14,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseincorrect_001() {
+    public void testCaseincorrect_001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -23,7 +23,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseincorrect_002() {
+    public void testCaseincorrect_002_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -32,7 +32,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseincorrect_003() {
+    public void testCaseincorrect_003_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -41,7 +41,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_001() {
+    public void testCaseliteral_001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -50,7 +50,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_002() {
+    public void testCaseliteral_002_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -59,7 +59,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_003() {
+    public void testCaseliteral_003_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -68,7 +68,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_004() {
+    public void testCaseliteral_004_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -77,7 +77,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_005() {
+    public void testCaseliteral_005_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -86,7 +86,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_006() {
+    public void testCaseliteral_006_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -95,7 +95,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_007() {
+    public void testCaseliteral_007_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -104,7 +104,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_007_a() {
+    public void testCaseliteral_007_a_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -113,7 +113,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_008() {
+    public void testCaseliteral_008_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -122,7 +122,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_009() {
+    public void testCaseliteral_009_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -131,7 +131,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_010() {
+    public void testCaseliteral_010_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -140,7 +140,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_011() {
+    public void testCaseliteral_011_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -149,7 +149,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseliteral_012() {
+    public void testCaseliteral_012_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -158,7 +158,7 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasevarargs_001() {
+    public void testCasevarargs_001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 

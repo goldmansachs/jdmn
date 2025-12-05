@@ -5,10 +5,10 @@ import java.util.stream.Collectors
 @javax.annotation.Generated(value = ["junit.ftl", "0008-LX-arithmetic.dmn"])
 class _0008LXArithmeticTest : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     @org.junit.jupiter.api.Test
-    fun testCase001() {
+    fun testCase001_1() {
         val context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build()
         val cache_ = context_.getCache()
-        // Initialize input data
+        // Initialize arguments
         val loan: type.TLoan? = type.TLoanImpl(number("600000"), number("0.0375"), number("360"))
 
         // Check 'payment'
@@ -16,10 +16,10 @@ class _0008LXArithmeticTest : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     }
 
     @org.junit.jupiter.api.Test
-    fun testCase002() {
+    fun testCase002_1() {
         val context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build()
         val cache_ = context_.getCache()
-        // Initialize input data
+        // Initialize arguments
         val loan: type.TLoan? = type.TLoanImpl(number("30000"), number("0.0475"), number("60"))
 
         // Check 'payment'
@@ -27,10 +27,10 @@ class _0008LXArithmeticTest : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
     }
 
     @org.junit.jupiter.api.Test
-    fun testCase003() {
+    fun testCase003_1() {
         val context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build()
         val cache_ = context_.getCache()
-        // Initialize input data
+        // Initialize arguments
         val loan: type.TLoan? = type.TLoanImpl(number("600000"), number("0.0399"), number("360"))
 
         // Check 'payment'

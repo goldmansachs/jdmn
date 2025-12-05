@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 @javax.annotation.Generated(value = {"junit.ftl", "decisionTables"})
 public class DecisionTablesTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
-    public void testCase001() {
+    public void testCase001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         decisioninputs1.type.TA decisioninputs1_structA = new decisioninputs1.type.TAImpl("widget", number("20"));
 
         // Check 'priceGt10'
@@ -17,10 +17,10 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisi
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase002() {
+    public void testCase002_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         decisioninputs1.type.TA decisioninputs1_structA = new decisioninputs1.type.TAImpl("widget", number("20"));
         java.lang.Number decisioninputs1_numB = number("9");
         java.lang.Number decisioninputs1_numC = number("10");
@@ -30,10 +30,10 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisi
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase003() {
+    public void testCase003_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         java.time.LocalDate decisioninputs1_dateD = date("2016-11-01");
 
         // Check 'dateCompare1'
@@ -41,10 +41,10 @@ public class DecisionTablesTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisi
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase004() {
+    public void testCase004_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         java.time.LocalDate decisioninputs1_dateD = date("2016-11-01");
         java.time.LocalDate decisioninputs2_dateD = date("2016-11-02");
 

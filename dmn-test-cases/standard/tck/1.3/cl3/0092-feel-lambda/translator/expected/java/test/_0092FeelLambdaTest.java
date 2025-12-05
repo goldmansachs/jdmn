@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 @javax.annotation.Generated(value = {"junit.ftl", "0092-feel-lambda.dmn"})
 public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
-    public void testCase001() {
+    public void testCase001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -14,7 +14,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase002() {
+    public void testCase002_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -23,7 +23,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase003() {
+    public void testCase003_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -32,7 +32,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase004() {
+    public void testCase004_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -41,7 +41,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase005() {
+    public void testCase005_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -50,7 +50,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase006() {
+    public void testCase006_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -59,10 +59,10 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase007() {
+    public void testCase007_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         java.lang.Number input_007_1 = number("20");
 
         // Check 'decision_007_1'
@@ -70,7 +70,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase008() {
+    public void testCase008_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -79,7 +79,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase009() {
+    public void testCase009_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -88,7 +88,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase010() {
+    public void testCase010_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -97,7 +97,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase010_a() {
+    public void testCase010_a_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -106,10 +106,10 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase011() {
+    public void testCase011_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         java.lang.Number input_011_1 = number("10");
 
         // Check 'decision_011_1'
@@ -117,7 +117,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase012() {
+    public void testCase012_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -126,7 +126,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase013() {
+    public void testCase013_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -135,10 +135,10 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase017() {
+    public void testCase017_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         String input_017_1 = "a";
 
         // Check 'decision_017_1'
@@ -146,7 +146,7 @@ public class _0092FeelLambdaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase018() {
+    public void testCase018_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 

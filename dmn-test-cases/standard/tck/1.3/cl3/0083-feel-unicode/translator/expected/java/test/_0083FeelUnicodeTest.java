@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 @javax.annotation.Generated(value = {"junit.ftl", "0083-feel-unicode.dmn"})
 public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
-    public void testCasedecision_001() {
+    public void testCasedecision_001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -14,7 +14,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasedecision_001_a() {
+    public void testCasedecision_001_a_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -23,7 +23,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasedecision_001_b() {
+    public void testCasedecision_001_b_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -32,7 +32,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasedecision_002() {
+    public void testCasedecision_002_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -41,7 +41,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasedecision_003() {
+    public void testCasedecision_003_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -50,7 +50,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasedecision_003_a() {
+    public void testCasedecision_003_a_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -59,7 +59,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasedecision_004() {
+    public void testCasedecision_004_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -68,7 +68,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasedecision_004_a() {
+    public void testCasedecision_004_a_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -77,7 +77,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasedecision_005() {
+    public void testCasedecision_005_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -86,7 +86,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasedecision_005_a() {
+    public void testCasedecision_005_a_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -95,7 +95,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasedecision_006() {
+    public void testCasedecision_006_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -104,7 +104,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasedecision_007() {
+    public void testCasedecision_007_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -113,7 +113,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCaseendswith_001() {
+    public void testCaseendswith_001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 
@@ -122,7 +122,7 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     }
 
     @org.junit.jupiter.api.Test
-    public void testCasesubstring_004() {
+    public void testCasesubstring_004_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
 

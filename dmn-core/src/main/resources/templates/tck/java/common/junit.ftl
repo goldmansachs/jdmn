@@ -31,73 +31,73 @@ public class ${testClassName} extends ${decisionBaseClass} {
     private static final ${tckUtil.getNativeDurationType()} DEFAULT_DURATION = ${tckUtil.getDefaultDurationValue()};
 
     </#if>
-    <@addTestCases />
+    <@addTestCases/>
 }
 <#macro addTestCases>
     <#list testCases.testCase>
         <#items as tc>
+            <#assign inputNodeInfoList = tckUtil.extractInputNodeInfoList(testCases, tc)/>
+            <#list tc.resultNode>
+                <#items as rn>
+                    <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, tc, rn)/>
     @org.junit.jupiter.api.Test
-    public void testCase${tckUtil.testCaseId(tc)}() {
-        <@initializeInputs tc/>
+    public void testCase${tckUtil.testCaseId(tc)}_${rn?index + 1}() {
+        <@initializeApplyArguments inputNodeInfoList resultInfo/>
 
-        <@checkResults tc/>
+        <@checkResult inputNodeInfoList resultInfo/>
     }
 
+                </#items>
+           </#list>
         </#items>
     </#list>
     private void checkValues(Object expected, Object actual) {
-        <#if tckUtil.isMockTesting()>
+    <#if tckUtil.isMockTesting()>
         if (expected instanceof Boolean && actual == null) {
             actual = DEFAULT_BOOLEAN;
         } else if (expected instanceof java.lang.Number && actual == null) {
             actual = DEFAULT_DECIMAL_NUMBER;
         }
-        </#if>
+    </#if>
         ${tckUtil.assertClassName()}.assertEquals(expected, actual);
     }
 </#macro>
 
-<#macro initializeInputs testCase>
+<#macro initializeApplyArguments inputNodeInfoList resultInfo>
         ${tckUtil.executionContextClassName()} ${tckUtil.executionContextVariableName()} = ${tckUtil.executionContextBuilderClassName()}.executionContext().build();
         ${tckUtil.cacheInterfaceName()} ${tckUtil.cacheVariableName()} = ${tckUtil.executionContextVariableName()}.getCache();
-    <#list testCase.inputNode>
-        // Initialize input data
-        <#items as input>
-        <#assign inputInfo = tckUtil.extractInputNodeInfo(testCases, testCase, input) >
-        <#assign inputVariableName = tckUtil.inputDataVariableName(inputInfo) >
-        <#assign inputValue = tckUtil.toNativeExpression(inputInfo) >
+    <#list inputNodeInfoList>
+        // Initialize arguments
+        <#items as inputInfo>
+        <#assign inputVariableName = tckUtil.inputDataVariableName(inputInfo)>
+        <#assign inputValue = tckUtil.toNativeExpression(inputInfo)>
         ${tckUtil.toNativeType(inputInfo)} ${inputVariableName} = ${inputValue};
         <#if tckUtil.isCached(inputInfo)>
         ${tckUtil.cacheVariableName()}.bind("${inputVariableName}", ${inputVariableName});
         </#if>
         </#items>
     </#list>
+        <@addMissingApplyArguments inputNodeInfoList resultInfo/>
 </#macro>
 
-<#macro checkResults testCase>
-    <#list testCase.resultNode>
-        <#items as result>
-        // Check '${result.name}'
-        <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
-        <#assign elementQName = tckUtil.qualifiedName(resultInfo) >
-        <#assign expectedValue = tckUtil.toNativeExpression(resultInfo) >
-        <#assign argList = tckUtil.drgElementArgumentList(resultInfo) >
-        <@addMissingInputs testCase result />
+<#macro checkResult inputNodeInfoList resultInfo>
+        // Check '${resultInfo.nodeName}'
+        <#assign elementQName = tckUtil.qualifiedName(resultInfo)>
+        <#assign expectedValue = tckUtil.toNativeExpression(resultInfo)>
+        <#assign parentArgList = tckUtil.drgElementArgumentList(resultInfo)>
         <#if resultInfo.isDecision()>
            <#if tckUtil.isSingletonDecision()>
-        checkValues(${expectedValue}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${argList}));
+        checkValues(${expectedValue}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${parentArgList}));
            <#else>
-        checkValues(${expectedValue}, ${tckUtil.defaultConstructor(elementQName)}.apply(${argList}));
+        checkValues(${expectedValue}, ${tckUtil.defaultConstructor(elementQName)}.apply(${parentArgList}));
            </#if>
         <#elseif resultInfo.isDS() || resultInfo.isBKM()>
-        checkValues(${expectedValue}, ${elementQName}.apply(${argList}));
+        checkValues(${expectedValue}, ${elementQName}.apply(${parentArgList}));
         </#if>
-        </#items>
-    </#list>
 </#macro>
 
-<#macro addMissingInputs testCase resultNode>
-    <#list tckUtil.missingArguments(testCases, testCase, resultNode) >
+<#macro addMissingApplyArguments inputNodeInfoList resultInfo>
+    <#list tckUtil.missingArguments(inputNodeInfoList, resultInfo)>
         <#items as triplet>
         ${triplet[0]} ${triplet[1]} = ${triplet[2]};
         </#items>

@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 @javax.annotation.Generated(value = {"junit.ftl", "0006-simpletable-P1.dmn"})
 public class _0006SimpletableP1Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
     @org.junit.jupiter.api.Test
-    public void testCase001() {
+    public void testCase001_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         java.lang.Number age = number("18");
         String riskCategory = "Medium";
         Boolean isAffordable = Boolean.TRUE;
@@ -18,10 +18,10 @@ public class _0006SimpletableP1Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase002() {
+    public void testCase002_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         java.lang.Number age = number("17");
         String riskCategory = "Medium";
         Boolean isAffordable = Boolean.TRUE;
@@ -31,10 +31,10 @@ public class _0006SimpletableP1Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
     }
 
     @org.junit.jupiter.api.Test
-    public void testCase003() {
+    public void testCase003_1() {
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
         com.gs.dmn.runtime.cache.Cache cache_ = context_.getCache();
-        // Initialize input data
+        // Initialize arguments
         java.lang.Number age = number("18");
         String riskCategory = "High";
         Boolean isAffordable = Boolean.TRUE;

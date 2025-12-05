@@ -10,7 +10,7 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#assign transformer = tckUtil.transformer />
+<#assign transformer = tckUtil.transformer/>
 import typing
 import decimal
 import datetime
@@ -25,7 +25,7 @@ import ${transformer.jdmnRootPackage()}.runtime.cache.DefaultCache
 import ${transformer.jdmnRootPackage()}.runtime.external.DefaultExternalFunctionExecutor
 import ${transformer.jdmnRootPackage()}.runtime.listener.NopEventListener
 
-<@importElements testCases />
+<@importElements testCases/>
 
 
 # Generated(value = ["junit.ftl", "${testCases.modelName}"])
@@ -46,15 +46,21 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
         unittest.TestCase.__init__(self, methodName)
         ${decisionBaseClass}.__init__(self)
 
-    <@addTestCases />
+    <@addTestCases/>
 <#macro addTestCases>
     <#list testCases.testCase>
         <#items as tc>
-    def testCase${tckUtil.testCaseId(tc)}(self):
-        <@initializeInputs tc/>
+            <#assign inputNodeInfoList = tckUtil.extractInputNodeInfoList(testCases, tc)/>
+            <#list tc.resultNode>
+                <#items as rn>
+                    <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, tc, rn)/>
+    def testCase${tckUtil.testCaseId(tc)}_${rn?index + 1}(self):
+        <@initializeApplyArguments inputNodeInfoList resultInfo/>
 
-        <@checkResults tc/>
+        <@checkResult inputNodeInfoList resultInfo/>
 
+                </#items>
+           </#list>
         </#items>
     </#list>
     def checkValues(self, expected: typing.Any, actual: typing.Any):
@@ -67,15 +73,14 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
         ${tckUtil.defaultConstructor(tckUtil.assertClassName())}.assertEquals(expected, actual)
 </#macro>
 
-<#macro initializeInputs testCase>
+<#macro initializeApplyArguments inputNodeInfoList resultInfo>
         ${tckUtil.executionContextVariableName()} = ${tckUtil.defaultConstructor(tckUtil.executionContextClassName())}
         ${tckUtil.cacheVariableName()} = ${tckUtil.executionContextVariableName()}.cache
-    <#list testCase.inputNode>
-        # Initialize input data
-        <#items as input>
-        <#assign inputInfo = tckUtil.extractInputNodeInfo(testCases, testCase, input) >
-        <#assign inputVariableName = tckUtil.inputDataVariableName(inputInfo) >
-        <#assign inputValue = tckUtil.toNativeExpression(inputInfo) >
+    <#list inputNodeInfoList>
+        # Initialize arguments
+        <#items as inputInfo>
+        <#assign inputVariableName = tckUtil.inputDataVariableName(inputInfo)>
+        <#assign inputValue = tckUtil.toNativeExpression(inputInfo)>
         ${inputVariableName}: ${tckUtil.toNativeType(inputInfo)} = ${inputValue}
         <#if tckUtil.isCached(inputInfo)>
         ${tckUtil.cacheVariableName()}.bind("${inputVariableName}", ${inputVariableName})
@@ -84,30 +89,24 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
     </#list>
 </#macro>
 
-<#macro checkResults testCase>
-    <#list testCase.resultNode>
-        <#items as result>
-        # Check '${result.name}'
-        <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, testCase, result) >
-        <#assign elementQName = tckUtil.qualifiedName(resultInfo) >
-        <#assign expectedValue = tckUtil.toNativeExpression(resultInfo) >
-        <#assign argList = tckUtil.drgElementArgumentList(resultInfo) >
-        <@addMissingInputs testCase result />
+<#macro checkResult inputNodeInfoList resultInfo>
+        # Check '${resultInfo.nodeName}'
+        <#assign elementQName = tckUtil.qualifiedName(resultInfo)>
+        <#assign expectedValue = tckUtil.toNativeExpression(resultInfo)>
+        <#assign parentArgList = tckUtil.drgElementArgumentList(resultInfo)>
         <#if resultInfo.isDecision()>
            <#if tckUtil.isSingletonDecision()>
-        self.checkValues(${expectedValue}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${argList}))
+        self.checkValues(${expectedValue}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${parentArgList}))
            <#else>
-        self.checkValues(${expectedValue}, ${tckUtil.defaultConstructor(elementQName)}.apply(${argList}))
+        self.checkValues(${expectedValue}, ${tckUtil.defaultConstructor(elementQName)}.apply(${parentArgList}))
            </#if>
         <#elseif resultInfo.isDS() || resultInfo.isBKM()>
-        self.checkValues(${expectedValue}, ${elementQName}.apply(${argList}))
+        self.checkValues(${expectedValue}, ${elementQName}.apply(${parentArgList}))
         </#if>
-        </#items>
-    </#list>
 </#macro>
 
-<#macro addMissingInputs testCase resultNode>
-    <#list tckUtil.missingArguments(testCases, testCase, resultNode) >
+<#macro addMissingApplyArguments inputNodeInfoList resultInfo>
+    <#list tckUtil.missingArguments(inputNodeInfoList resultInfo)>
         <#items as triplet>
         ${triplet[1]}: ${triplet[0]} = ${triplet[2]}
         </#items>

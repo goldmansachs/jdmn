@@ -22,70 +22,70 @@ class _0020VacationDaysTest(unittest.TestCase, jdmn.runtime.DefaultDMNBaseDecisi
         unittest.TestCase.__init__(self, methodName)
         jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision.__init__(self)
 
-    def testCase001(self):
+    def testCase001_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
-        # Initialize input data
+        # Initialize arguments
         age: typing.Optional[decimal.Decimal] = self.number("16")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("1")
 
         # Check 'Total Vacation Days'
         self.checkValues(self.number("27"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
-    def testCase002(self):
+    def testCase002_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
-        # Initialize input data
+        # Initialize arguments
         age: typing.Optional[decimal.Decimal] = self.number("25")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("5")
 
         # Check 'Total Vacation Days'
         self.checkValues(self.number("22"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
-    def testCase003(self):
+    def testCase003_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
-        # Initialize input data
+        # Initialize arguments
         age: typing.Optional[decimal.Decimal] = self.number("25")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("20")
 
         # Check 'Total Vacation Days'
         self.checkValues(self.number("24"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
-    def testCase004(self):
+    def testCase004_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
-        # Initialize input data
+        # Initialize arguments
         age: typing.Optional[decimal.Decimal] = self.number("44")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("30")
 
         # Check 'Total Vacation Days'
         self.checkValues(self.number("30"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
-    def testCase005(self):
+    def testCase005_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
-        # Initialize input data
+        # Initialize arguments
         age: typing.Optional[decimal.Decimal] = self.number("50")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("20")
 
         # Check 'Total Vacation Days'
         self.checkValues(self.number("24"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
-    def testCase006(self):
+    def testCase006_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
-        # Initialize input data
+        # Initialize arguments
         age: typing.Optional[decimal.Decimal] = self.number("50")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("30")
 
         # Check 'Total Vacation Days'
         self.checkValues(self.number("30"), org.gs.TotalVacationDays.TotalVacationDays().apply(age, yearsOfService, context_))
 
-    def testCase007(self):
+    def testCase007_1(self):
         context_ = jdmn.runtime.ExecutionContext.ExecutionContext()
         cache_ = context_.cache
-        # Initialize input data
+        # Initialize arguments
         age: typing.Optional[decimal.Decimal] = self.number("60")
         yearsOfService: typing.Optional[decimal.Decimal] = self.number("20")
 

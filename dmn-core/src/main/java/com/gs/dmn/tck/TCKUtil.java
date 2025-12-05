@@ -71,6 +71,15 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     //
     // Translator - Input nodes
     //
+    public List<InputNodeInfo> extractInputNodeInfoList(TestCases testCases, TestCase testCase) {
+        List<InputNodeInfo> inputNodeInfos = new ArrayList<>();
+        for (InputNode inputNode : testCase.getInputNode()) {
+            InputNodeInfo inputNodeInfo = extractInputNodeInfo(testCases, testCase, inputNode);
+            inputNodeInfos.add(inputNodeInfo);
+        }
+        return inputNodeInfos;
+    }
+
     public InputNodeInfo extractInputNodeInfo(TestCases testCases, TestCase testCase, InputNode inputNode) {
         TDefinitions definitions = getRootModel(testCases);
         if (this.transformer.isSingletonInputData()) {
@@ -143,7 +152,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return null;
     }
 
-    public Pair<DRGElementReference<? extends TDRGElement>, ValueType> extractInfoFromValue(TDefinitions definitions, InputNode node) {
+    private Pair<DRGElementReference<? extends TDRGElement>, ValueType> extractInfoFromValue(TDefinitions definitions, InputNode node) {
         // Navigate the import paths if needed
         String name = node.getName();
         ImportPath path = new ImportPath();
@@ -178,14 +187,12 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return new Pair<>(this.dmnModelRepository.makeDRGElementReference(path, element), value);
     }
 
-    public List<List<String>> missingArguments(TestCases testCases, TestCase testCase, ResultNode resultNode) {
+    public List<List<String>> missingArguments(List<InputNodeInfo> inputNodeInfos, ResultNodeInfo resultNodeInfo) {
         // Calculate provided inputs
-        List<String> inputNames = testCase.getInputNode().stream()
-                .map(in -> this.extractInputNodeInfo(testCases, testCase, in))
+        List<String> inputNames = inputNodeInfos.stream()
                 .map(this::inputDataVariableName)
                 .collect(Collectors.toList());
-        // Calculate missing inputs
-        ResultNodeInfo resultNodeInfo = extractResultNodeInfo(testCases, testCase, resultNode);
+        // Calculate missing arguments
         List<FEELParameter> parameters = this.transformer.drgElementTypeSignature(resultNodeInfo.getReference(), transformer::nativeName);
         List<FEELParameter> missingParameters = parameters.stream().filter(pair -> !inputNames.contains(pair.getName())).collect(Collectors.toList());
         List<NativeParameter> missingArgs = missingParameters.stream()
