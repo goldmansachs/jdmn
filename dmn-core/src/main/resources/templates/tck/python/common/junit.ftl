@@ -87,6 +87,7 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
         </#if>
         </#items>
     </#list>
+        <@addMissingApplyArguments inputNodeInfoList resultInfo/>
 </#macro>
 
 <#macro checkResult inputNodeInfoList resultInfo>
