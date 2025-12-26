@@ -107,7 +107,7 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
 </#macro>
 
 <#macro addMissingApplyArguments inputNodeInfoList resultInfo>
-    <#list tckUtil.missingArguments(inputNodeInfoList resultInfo)>
+    <#list tckUtil.missingArguments(inputNodeInfoList, resultInfo)>
         <#items as triplet>
         ${triplet[1]}: ${triplet[0]} = ${triplet[2]}
         </#items>
