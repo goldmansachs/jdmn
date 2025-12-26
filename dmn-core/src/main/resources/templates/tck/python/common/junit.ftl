@@ -51,10 +51,10 @@ class ${testClassName}(unittest.TestCase, ${decisionBaseClass}):
     <#list testCases.testCase>
         <#items as tc>
             <#assign inputNodeInfoList = tckUtil.extractInputNodeInfoList(testCases, tc)/>
-            <#list tc.resultNode>
-                <#items as rn>
-                    <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, tc, rn)/>
-    def testCase${tckUtil.testCaseId(tc)}_${rn?index + 1}(self):
+            <#assign resultNodeInfoList = tckUtil.extractResultNodeInfoList(testCases, tc)/>
+            <#list resultNodeInfoList>
+                <#items as resultInfo>
+    def testCase${tckUtil.testCaseId(tc)}_${resultInfo?index + 1}(self):
         <@initializeApplyArguments inputNodeInfoList resultInfo/>
 
         <@checkResult inputNodeInfoList resultInfo/>
