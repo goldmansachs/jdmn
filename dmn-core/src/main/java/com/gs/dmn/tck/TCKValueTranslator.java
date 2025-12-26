@@ -91,26 +91,27 @@ public class TCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> extends
     }
 
     private String toNativeExpression(List<Component> components, ItemDefinitionType type, TDRGElement element) {
-        List<Pair<String, String>> argumentList = new ArrayList<>();
-        Set<String> members = type.getMembers();
+        // Build list of members
+        List<Pair<String, String>> memberList = new ArrayList<>();
         Set<String> present = new LinkedHashSet<>();
         for (Component c : components) {
-            String name = c.getName();
-            Type memberType = type.getMemberType(name);
+            String member = c.getName();
+            Type memberType = type.getMemberType(member);
             String value = toNativeExpression(c, memberType, element);
-            argumentList.add(new Pair<>(name, value));
-            present.add(name);
+            memberList.add(new Pair<>(member, value));
+            present.add(member);
         }
         // Add the missing members
+        Set<String> members = type.getMembers();
         for (String member: members) {
             if (!present.contains(member)) {
                 Pair<String, String> pair = new Pair<>(member, this.nativeFactory.nullLiteral());
-                argumentList.add(pair);
+                memberList.add(pair);
             }
         }
-        sortParameters(argumentList);
+        sortParameters(memberList);
         String interfaceName = this.transformer.toNativeType(type);
-        String arguments = argumentList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
+        String arguments = memberList.stream().map(Pair::getRight).collect(Collectors.joining(", "));
         return this.transformer.constructor(this.transformer.itemDefinitionNativeClassName(interfaceName), arguments);
     }
 
