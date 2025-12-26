@@ -450,6 +450,15 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.transformer.isCached(info.getReference().getElementName());
     }
 
+    public List<ResultNodeInfo> extractResultNodeInfoList(TestCases testCases, TestCase testCase) {
+        List<ResultNodeInfo> resultNodeInfos = new ArrayList<>();
+        for (ResultNode resultNode : testCase.getResultNode()) {
+            resultNodeInfos.add(extractResultNodeInfo(testCases, testCase, resultNode));
+        }
+        return resultNodeInfos;
+    }
+
+
     //
     // Interpreter
     //

@@ -169,7 +169,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         }
     }
 
-    private Map<String, Object> makeTemplateParams(TestCases testCases, TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil) {
+    protected Map<String, Object> makeTemplateParams(TestCases testCases, TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil) {
         Map<String, Object> params = new HashMap<>();
         params.put("testCases", testCases);
         params.put("tckUtil", tckUtil);
