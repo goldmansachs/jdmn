@@ -13,11 +13,14 @@
 package com.gs.dmn.runtime.discovery;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
+import com.gs.dmn.runtime.ExecutableDRGElement;
+import com.gs.dmn.runtime.ExecutionContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,7 +34,6 @@ class ModelElementRegistryTest {
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register(qName, className);
 
-        assertEquals(className, registry.discover(qName));
         Set<String> expectKeys = new LinkedHashSet<>(Collections.singletonList(qName));
         assertEquals(expectKeys, registry.keys());
     }
@@ -62,5 +64,41 @@ class ModelElementRegistryTest {
         assertEquals(1, registry.keys().size());
         registry.register(qName, className);
         assertEquals(1, registry.keys().size());
+    }
+
+    @Test
+    void testDiscovery() {
+        ModelElementRegistry registry = new ModelElementRegistry();
+        registry.register("elementName", "com.gs.dmn.runtime.discovery.ExecutableElement");
+
+        ExecutableDRGElement element = registry.discover("elementName");
+        assertNotNull(element);
+    }
+
+    @Test
+    void testDiscoverWhenNotRegistered() {
+        ModelElementRegistry registry = new ModelElementRegistry();
+
+        DMNRuntimeException exception = assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName"));
+        assertEquals("Element 'elementName' is not registered. Registered elements are []", exception.getMessage());
+    }
+
+    @Test
+    void testDiscoverWhenRegisteredClassDoesNotExist() {
+        ModelElementRegistry registry = new ModelElementRegistry();
+        registry.register("elementName", "com.gs.dmn.runtime.MissingExecutableElement");
+
+        DMNRuntimeException exception = assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName"));
+        assertEquals("Cannot instantiate class 'com.gs.dmn.runtime.MissingExecutableElement' for name 'elementName'", exception.getMessage());
+    }
+}
+
+class ExecutableElement implements ExecutableDRGElement {
+    public ExecutableElement() {
+    }
+
+    @Override
+    public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
+        return "123";
     }
 }

@@ -1230,13 +1230,13 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String executorClassName() {
-        return qualifiedName(Executor.class);
+    public String registryClassName() {
+        return qualifiedName(ModelElementRegistry.class);
     }
 
     @Override
-    public String registryClassName() {
-        return qualifiedName(ModelElementRegistry.class);
+    public String executableDRGElementClassName() {
+        return qualifiedName(ExecutableDRGElement.class);
     }
 
     protected String inputClassName() {

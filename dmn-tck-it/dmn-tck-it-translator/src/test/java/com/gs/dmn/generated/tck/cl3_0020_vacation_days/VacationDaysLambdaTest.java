@@ -12,8 +12,8 @@
  */
 package com.gs.dmn.generated.tck.cl3_0020_vacation_days;
 
+import com.gs.dmn.runtime.ExecutableDRGElement;
 import com.gs.dmn.runtime.ExecutionContextBuilder;
-import com.gs.dmn.runtime.Executor;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -26,7 +26,7 @@ import static com.gs.dmn.runtime.Assert.assertEquals;
  * Handler for requests to Lambda function for DRG elements in model 0020-vacation-days.
  */
 public class VacationDaysLambdaTest {
-    private final Executor executor = new Executor(new ModelElementRegistry());
+    private final ModelElementRegistry registry = new ModelElementRegistry();
 
     @Test
     public void testExecute() {
@@ -40,7 +40,8 @@ public class VacationDaysLambdaTest {
     }
 
     protected void doTest(Object expectedResult, String qName, Map<String, String> input) {
-        Object actualResult = executor.execute(qName, input, ExecutionContextBuilder.executionContext().build());
+        ExecutableDRGElement element = registry.discover(qName);
+        Object actualResult = element.applyMap(input, ExecutionContextBuilder.executionContext().build());
         assertEquals(expectedResult, actualResult);
     }
 }

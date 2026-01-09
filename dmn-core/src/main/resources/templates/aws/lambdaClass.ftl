@@ -13,9 +13,8 @@ import java.util.Map;
  * Handler for requests to Lambda function for DRG elements in model '${modelName}'.
  */
 public class ${javaClassName} implements com.amazonaws.services.lambda.runtime.RequestHandler<Map<String, String>, Object> {
-    <#assign executorClassName = transformer.executorClassName() />
-    <#assign registryClassName = "ModelElementRegistry" />
-    private static final ${executorClassName} EXECUTOR = ${transformer.constructor(executorClassName, transformer.defaultConstructor(registryClassName))};
+    <#assign registryClassName = transformer.registryClassName() />
+    private static final ${registryClassName} REGISTRY = ${transformer.defaultConstructor(registryClassName)};
 
     public Object handleRequest(Map<String, String> ${eventVariable}, com.amazonaws.services.lambda.runtime.Context ${contextVariable}) {
         // Parameters
@@ -41,7 +40,8 @@ public class ${javaClassName} implements com.amazonaws.services.lambda.runtime.R
             ${transformer.executionContextClassName()} executionContext_ = ${transformer.executionContextBuilderClassName()}.executionContext().withListener(listener_).build();
 
             // Execute element
-            Object output_ = EXECUTOR.execute(elementName, event_, executionContext_);
+            ${transformer.executableDRGElementClassName()} element = REGISTRY.discover(elementName);
+            Object output_ = element.applyMap(event_, executionContext_);
 
             // Return response
             Map<String, Object> response_ = new java.util.LinkedHashMap<>();

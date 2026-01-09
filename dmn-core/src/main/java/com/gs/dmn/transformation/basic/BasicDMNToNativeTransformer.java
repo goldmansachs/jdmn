@@ -312,9 +312,9 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String rangeClassName();
 
-    String executorClassName();
-
     String registryClassName();
+
+    String executableDRGElementClassName();
 
     String executionContextClassName();
 
