@@ -14,6 +14,8 @@ package com.gs.dmn.runtime.discovery;
 
 import com.gs.dmn.runtime.DMNRuntimeException;
 import com.gs.dmn.runtime.ExecutableDRGElement;
+import com.gs.dmn.runtime.annotation.DRGElement;
+import com.gs.dmn.runtime.annotation.DRGElementKind;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,13 +60,45 @@ public class ModelElementRegistry {
                 throw new DMNRuntimeException(String.format("Element '%s' is not registered. Registered elements are %s", qName, keys()));
             }
             try {
-                executableDRGElement = (ExecutableDRGElement) Class.forName(clsName).getConstructor().newInstance();
+                Class<?> elementClass = Class.forName(clsName);
+                executableDRGElement = makeInstance(elementClass);
             } catch (Exception e) {
                 throw new DMNRuntimeException(String.format("Cannot instantiate class '%s' for name '%s'", clsName, qName));
             }
             this.executableElementMap.put(qName, executableDRGElement);
         }
         return executableDRGElement;
+    }
+
+    private static ExecutableDRGElement makeInstance(Class<?> elementClass) throws Exception {
+        DRGElement annotation = elementClass.getAnnotation(DRGElement.class);
+        LOGGER.debug("Instantiating element '{}'", annotation.name());
+        if (isDecision(annotation)) {
+            // Invoke the default constructor
+            return (ExecutableDRGElement) elementClass.getConstructor().newInstance();
+        } else if (isInvocable(annotation)) {
+            // Invoke the static instance() method
+            return (ExecutableDRGElement) elementClass.getMethod("instance").invoke(null);
+        } else {
+            throw new DMNRuntimeException(String.format("Cannot instantiate element '%s'. Element is neither Decision nor Invocable.", annotation.name()));
+        }
+    }
+
+    private static boolean isDecision(DRGElement annotation) {
+        if (annotation == null) {
+            return false;
+        } else {
+            return annotation.elementKind() == DRGElementKind.DECISION;
+        }
+    }
+
+    private static boolean isInvocable(DRGElement annotation) {
+        if (annotation == null) {
+            return false;
+        } else {
+            DRGElementKind drgElementKind = annotation.elementKind();
+            return drgElementKind == DRGElementKind.DECISION_SERVICE || drgElementKind == DRGElementKind.BUSINESS_KNOWLEDGE_MODEL;
+        }
     }
 
 }

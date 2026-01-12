@@ -22,22 +22,18 @@ import com.gs.dmn.runtime.annotation.HitPolicy;
 import java.util.Map;
 
 @DRGElement(
-        namespace = "com.gs", name = "NopDecision", label="Nop Decision",
-        elementKind = DRGElementKind.DECISION,
+        namespace = "com.gs", name = "NopBKM", label="Nop BKM",
+        elementKind = DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,
         expressionKind = ExpressionKind.OTHER, hitPolicy = HitPolicy.UNKNOWN,
         rulesCount = -1
 )
-public class NopDecision implements ExecutableDRGElement {
-    public NopDecision() {
+public class NopBKM implements ExecutableDRGElement {
+    public static NopBKM instance() {
+        return new NopBKM();
     }
 
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;
-    }
-
-    @com.gs.dmn.runtime.annotation.Rule(index = 0, annotation = "abc")
-    public int rule0() {
-        return 0;
     }
 }

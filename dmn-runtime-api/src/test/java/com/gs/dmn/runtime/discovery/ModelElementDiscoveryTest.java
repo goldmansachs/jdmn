@@ -26,9 +26,9 @@ public class ModelElementDiscoveryTest {
 
     @Test
     public void testDiscovery() {
-        Set<Class<?>> decisions = modelElementDiscovery.discover("com.gs.dmn.runtime.discovery");
-        assertEquals(1, decisions.size());
-        assertTrue(decisions.stream().map(Class::getName).collect(Collectors.toList()).contains("com.gs.dmn.runtime.discovery.NopDecision"));
+        Set<Class<?>> elements = modelElementDiscovery.discover("com.gs.dmn.runtime.discovery");
+        assertEquals(3, elements.size());
+        assertTrue(elements.stream().map(Class::getName).collect(Collectors.toList()).contains("com.gs.dmn.runtime.discovery.NopDecision"));
     }
 
     @Test

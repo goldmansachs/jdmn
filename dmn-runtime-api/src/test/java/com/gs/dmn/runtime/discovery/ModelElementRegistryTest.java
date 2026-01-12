@@ -67,12 +67,38 @@ class ModelElementRegistryTest {
     }
 
     @Test
-    void testDiscovery() {
+    void testDiscoveryForDecision() {
+        ModelElementRegistry registry = new ModelElementRegistry();
+        registry.register("elementName", NopDecision.class.getName());
+
+        ExecutableDRGElement element = registry.discover("elementName");
+        assertInstanceOf(NopDecision.class, element);
+    }
+
+    @Test
+    void testDiscoveryForBKM() {
+        ModelElementRegistry registry = new ModelElementRegistry();
+        registry.register("elementName", NopBKM.class.getName());
+
+        ExecutableDRGElement element = registry.discover("elementName");
+        assertInstanceOf(NopBKM.class, element);
+    }
+
+    @Test
+    void testDiscoveryForDS() {
+        ModelElementRegistry registry = new ModelElementRegistry();
+        registry.register("elementName", NopDS.class.getName());
+
+        ExecutableDRGElement element = registry.discover("elementName");
+        assertInstanceOf(NopDS.class, element);
+    }
+
+    @Test
+    void testDiscoveryForMissingElement() {
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register("elementName", "com.gs.dmn.runtime.discovery.ExecutableElement");
 
-        ExecutableDRGElement element = registry.discover("elementName");
-        assertNotNull(element);
+        assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName"));
     }
 
     @Test
