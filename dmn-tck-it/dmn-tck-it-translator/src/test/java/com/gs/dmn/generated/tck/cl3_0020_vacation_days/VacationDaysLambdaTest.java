@@ -39,7 +39,8 @@ public class VacationDaysLambdaTest {
         doTest(new BigDecimal("30"), "Total Vacation Days", new LinkedHashMap<String, String>(){{ put("Age", "60"); put("Years of Service", "20");}});
     }
 
-    protected void doTest(Object expectedResult, String qName, Map<String, String> input) {
+    protected void doTest(Object expectedResult, String name, Map<String, String> input) {
+        String qName = String.format("%s#%s", "https://www.drools.org/kie-dmn", name);
         ExecutableDRGElement element = registry.discover(qName);
         Object actualResult = element.applyMap(input, ExecutionContextBuilder.executionContext().build());
         assertEquals(expectedResult, actualResult);

@@ -318,7 +318,8 @@
     "knowledgeReferences" : [ ],
     "label" : "Assess issue",
     "name" : "assessIssue",
-    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",    "shapeId" : "sid-A4BAB8ED-94DC-48C4-8C4C-7C81DB1D8B9D",
+    "namespace" : "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
+    "shapeId" : "sid-A4BAB8ED-94DC-48C4-8C4C-7C81DB1D8B9D",
     "transitiveRequiredInput" : [ {
       "@kind" : "inputData",
       "diagramId" : "9acf44f2b05343d79fc35140c493c1e0",
