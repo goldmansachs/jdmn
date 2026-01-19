@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 2
 )
-class DateCompare2() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
+class DateCompare2() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {
         try {
             return apply(input_.get("dateD")?.let({ date(it) }), input_.get("dateE")?.let({ date(it) }), context_)

@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "08d5b0168ba542ffa8ea53ec655be662/sid-6AB62441-ABC4-4239-8D31-B7D3B615D77B"})
-public class FruitColourTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
+public class FruitColourTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<Object> {
     private final FruitColour fruitColour = new FruitColour();
 
     @org.junit.jupiter.api.Test

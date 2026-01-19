@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
     rulesCount = 4
 )
-public class TemporalDiffs extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
+public class TemporalDiffs extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<List<type.TemporalDiffs>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "temporalDiffs",

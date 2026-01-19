@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.PRIORITY,
     rulesCount = 2
 )
-class ApprovalStatus() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
+class ApprovalStatus() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
             return apply(input_.get("Age")?.let({ number(it) }), input_.get("RiskCategory"), input_.get("isAffordable")?.let({ it.toBoolean() }), context_)

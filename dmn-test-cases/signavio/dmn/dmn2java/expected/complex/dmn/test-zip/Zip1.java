@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Zip1 extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
+public class Zip1 extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<List<type.Zip1>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "zip1",

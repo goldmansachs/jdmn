@@ -21,10 +21,10 @@ import java.util.Map;
  * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeSignavioBaseDecision}
  */
 @Deprecated
-public abstract class MixedJavaTimeSignavioBaseDecision extends MixedJavaTimeSignavioLib implements SignavioExecutableDRGElement
+public abstract class MixedJavaTimeSignavioBaseDecision<T> extends MixedJavaTimeSignavioLib implements SignavioExecutableDRGElement<T>
 {
     @Override
-    public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
+    public T applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;
     }
 }

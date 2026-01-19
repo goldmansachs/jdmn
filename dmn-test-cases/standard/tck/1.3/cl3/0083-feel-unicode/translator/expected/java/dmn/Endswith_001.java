@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Endswith_001 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+public class Endswith_001 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "endswith_001",

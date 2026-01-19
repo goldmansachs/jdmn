@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.FIRST,
     rulesCount = 2
 )
-public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
+public class CompoundOutputCompoundDecision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<type.CompoundOutputCompoundDecision> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "compoundOutputCompoundDecision",

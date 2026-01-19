@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.COLLECT,
     rulesCount = 11
 )
-class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+class ApplicationRiskScoreModel : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Number?> {
     private constructor() {}
 
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {

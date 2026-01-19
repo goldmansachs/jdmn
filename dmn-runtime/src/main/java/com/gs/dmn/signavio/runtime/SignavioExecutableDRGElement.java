@@ -14,5 +14,5 @@ package com.gs.dmn.signavio.runtime;
 
 import com.gs.dmn.runtime.ExecutableDRGElement;
 
-public interface SignavioExecutableDRGElement extends ExecutableDRGElement {
+public interface SignavioExecutableDRGElement<T> extends ExecutableDRGElement<T> {
 }

@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-class FinancialMetrics : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+class FinancialMetrics : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<type.TMetric?> {
     private constructor() {}
 
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): type.TMetric? {

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.FIRST,
     rulesCount = 1
 )
-public class DependentDecision2 extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
+public class DependentDecision2 extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<type.DependentDecision2> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "dependentDecision2",

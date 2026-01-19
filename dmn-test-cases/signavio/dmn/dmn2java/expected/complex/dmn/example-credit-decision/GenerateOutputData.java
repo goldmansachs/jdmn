@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class GenerateOutputData extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
+public class GenerateOutputData extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<List<type.GenerateOutputData>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "generateOutputData",

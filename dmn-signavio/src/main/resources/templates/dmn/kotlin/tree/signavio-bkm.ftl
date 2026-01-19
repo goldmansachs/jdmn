@@ -21,7 +21,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 <@metadata.classAnnotation "bkm.ftl" drgElement/>
-class ${javaClassName} : ${decisionBaseClass} {
+class ${javaClassName} : ${decisionBaseClass}<${transformer.drgElementOutputType(drgElement)}> {
     private constructor() {}
 
     <@apply.applyMethods drgElement />

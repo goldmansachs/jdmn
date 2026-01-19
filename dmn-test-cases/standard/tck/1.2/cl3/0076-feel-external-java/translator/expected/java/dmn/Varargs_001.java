@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Varargs_001 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+public class Varargs_001 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "varargs_001",

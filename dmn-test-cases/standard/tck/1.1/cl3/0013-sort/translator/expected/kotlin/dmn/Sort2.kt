@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-class Sort2() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
+class Sort2() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<type.TRow?>?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<type.TRow?>? {
         try {
             return apply(input_.get("tableB")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<type.TRow?>?>() {}) }), context_)

@@ -41,7 +41,7 @@ public class VacationDaysLambdaTest {
 
     protected void doTest(Object expectedResult, String name, Map<String, String> input) {
         String qName = String.format("%s#%s", "https://www.drools.org/kie-dmn", name);
-        ExecutableDRGElement element = registry.discover(qName);
+        ExecutableDRGElement<Integer> element = registry.discover(qName, Integer.class);
         Object actualResult = element.applyMap(input, ExecutionContextBuilder.executionContext().build());
         assertEquals(expectedResult, actualResult);
     }

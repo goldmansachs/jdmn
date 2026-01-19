@@ -71,7 +71,7 @@ class ModelElementRegistryTest {
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register("elementName", NopDecision.class.getName());
 
-        ExecutableDRGElement element = registry.discover("elementName");
+        ExecutableDRGElement<Object> element = registry.discover("elementName", Object.class);
         assertInstanceOf(NopDecision.class, element);
     }
 
@@ -80,7 +80,7 @@ class ModelElementRegistryTest {
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register("elementName", NopBKM.class.getName());
 
-        ExecutableDRGElement element = registry.discover("elementName");
+        ExecutableDRGElement<Object> element = registry.discover("elementName", Object.class);
         assertInstanceOf(NopBKM.class, element);
     }
 
@@ -89,7 +89,7 @@ class ModelElementRegistryTest {
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register("elementName", NopDS.class.getName());
 
-        ExecutableDRGElement element = registry.discover("elementName");
+        ExecutableDRGElement<Object> element = registry.discover("elementName", Object.class);
         assertInstanceOf(NopDS.class, element);
     }
 
@@ -98,14 +98,14 @@ class ModelElementRegistryTest {
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register("elementName", "com.gs.dmn.runtime.discovery.ExecutableElement");
 
-        assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName"));
+        assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName", Object.class));
     }
 
     @Test
     void testDiscoverWhenNotRegistered() {
         ModelElementRegistry registry = new ModelElementRegistry();
 
-        DMNRuntimeException exception = assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName"));
+        DMNRuntimeException exception = assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName", Object.class));
         assertEquals("Element 'elementName' is not registered. Registered elements are []", exception.getMessage());
     }
 
@@ -114,12 +114,12 @@ class ModelElementRegistryTest {
         ModelElementRegistry registry = new ModelElementRegistry();
         registry.register("elementName", "com.gs.dmn.runtime.MissingExecutableElement");
 
-        DMNRuntimeException exception = assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName"));
+        DMNRuntimeException exception = assertThrows(DMNRuntimeException.class, () -> registry.discover("elementName", Object.class));
         assertEquals("Cannot instantiate class 'com.gs.dmn.runtime.MissingExecutableElement' for name 'elementName'", exception.getMessage());
     }
 }
 
-class ExecutableElement implements ExecutableDRGElement {
+class ExecutableElement implements ExecutableDRGElement<Object> {
     public ExecutableElement() {
     }
 

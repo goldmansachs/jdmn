@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0008-LX-arithmetic.dmn"})
-public class _0008LXArithmeticTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+public class _0008LXArithmeticTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
         // Initialize arguments

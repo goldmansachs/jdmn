@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "7a41c638739441ef88d9fe7501233ef8/sid-2ABA9455-1BAD-4552-BE44-9FE612EA1D10"})
-public class AllTogetherTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
+public class AllTogetherTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<Object> {
     private final AllTogether allTogether = new AllTogether();
 
     @org.junit.jupiter.api.Test

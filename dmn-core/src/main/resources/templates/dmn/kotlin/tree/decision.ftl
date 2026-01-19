@@ -21,7 +21,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 <@metadata.classAnnotation "decision.ftl" drgElement/>
-class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}) : ${decisionBaseClass}() {
+class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}) : ${decisionBaseClass}<${transformer.drgElementOutputType(drgElement)}>() {
     <@apply.applyMethods drgElement />
     <@apply.evaluateExpressionMethod drgElement />
 

@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 3
 )
-class CreditContingencyFactorTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+class CreditContingencyFactorTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<kotlin.Number?> {
     private constructor() {}
 
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): kotlin.Number? {

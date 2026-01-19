@@ -16,9 +16,9 @@ import com.gs.dmn.feel.lib.JavaTimeFEELLib;
 
 import java.util.Map;
 
-public abstract class JavaTimeDMNBaseDecision extends JavaTimeFEELLib implements ExecutableDRGElement {
+public abstract class JavaTimeDMNBaseDecision<T> extends JavaTimeFEELLib implements ExecutableDRGElement<T> {
     @Override
-    public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
+    public T applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;
     }
 }

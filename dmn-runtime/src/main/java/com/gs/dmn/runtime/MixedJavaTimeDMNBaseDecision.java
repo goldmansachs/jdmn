@@ -20,9 +20,9 @@ import java.util.Map;
  * @deprecated  As of release 8.3.0, replaced by {@link JavaTimeDMNBaseDecision}
  */
 @Deprecated
-public abstract class MixedJavaTimeDMNBaseDecision extends MixedJavaTimeFEELLib implements ExecutableDRGElement {
+public abstract class MixedJavaTimeDMNBaseDecision<T> extends MixedJavaTimeFEELLib implements ExecutableDRGElement<T> {
     @Override
-    public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
+    public T applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;
     }
 }

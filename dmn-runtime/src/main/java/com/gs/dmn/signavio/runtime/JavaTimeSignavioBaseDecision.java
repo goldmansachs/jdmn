@@ -17,10 +17,10 @@ import com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib;
 
 import java.util.Map;
 
-public abstract class JavaTimeSignavioBaseDecision extends JavaTimeSignavioLib implements SignavioExecutableDRGElement
+public abstract class JavaTimeSignavioBaseDecision<T> extends JavaTimeSignavioLib implements SignavioExecutableDRGElement<T>
 {
     @Override
-    public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
+    public T applyMap(Map<String, String> input_, ExecutionContext context_) {
         return null;
     }
 }

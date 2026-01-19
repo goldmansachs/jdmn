@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 13
 )
-class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+class PostBureauRiskCategoryTable : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?> {
     private constructor() {}
 
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {

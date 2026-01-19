@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.PRIORITY,
     rulesCount = 5
 )
-class RoutingRules : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+class RoutingRules : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?> {
     private constructor() {}
 
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {

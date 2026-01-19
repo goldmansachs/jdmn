@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "Model B1"})
-public class ModelB1Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+public class ModelB1Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
         // Initialize arguments

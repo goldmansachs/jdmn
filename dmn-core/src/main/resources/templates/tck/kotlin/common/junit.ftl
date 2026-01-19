@@ -18,7 +18,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["junit.ftl", "${testCases.modelName}"])
-class ${testClassName} : ${decisionBaseClass}() {
+class ${testClassName} : ${decisionBaseClass}<Object>() {
     <@addTestCases/>
 }
 <#macro addTestCases>

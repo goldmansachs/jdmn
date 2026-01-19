@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0004-lending.dmn"})
-public class _0004LendingTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+public class _0004LendingTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
         // Initialize arguments

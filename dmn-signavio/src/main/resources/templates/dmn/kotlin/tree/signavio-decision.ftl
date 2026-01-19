@@ -20,7 +20,7 @@ package ${javaPackageName}
 import java.util.*
 import java.util.stream.Collectors
 
-<@metadata.classAnnotation "signavio-decision.ftl" drgElement/>class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}) : ${decisionBaseClass}() {
+<@metadata.classAnnotation "signavio-decision.ftl" drgElement/>class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}) : ${decisionBaseClass}<${transformer.drgElementOutputType(drgElement)}>() {
     <@apply.applyMethods drgElement />
     <@apply.evaluateExpressionMethod drgElement />
 

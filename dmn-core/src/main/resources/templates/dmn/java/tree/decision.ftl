@@ -21,7 +21,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 <@metadata.classAnnotation "decision.ftl" drgElement/>
-public class ${javaClassName} extends ${decisionBaseClass} {
+public class ${javaClassName} extends ${decisionBaseClass}<${transformer.drgElementOutputType(drgElement)}> {
     <@metadata.elementMetadataField drgElement />
     <@constructor.decisionConstructor drgElement javaClassName />
 

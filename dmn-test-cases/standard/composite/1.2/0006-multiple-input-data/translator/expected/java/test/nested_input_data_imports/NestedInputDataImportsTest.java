@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "Nested Input Data Imports"})
-public class NestedInputDataImportsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+public class NestedInputDataImportsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
         // Initialize arguments

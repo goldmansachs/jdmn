@@ -24,7 +24,7 @@ import java.util.Map;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNIQUE,
     rulesCount = 3
 )
-public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.MixedJavaTimeSignavioBaseDecision {
+public class AssessApplicantAge extends com.gs.dmn.signavio.runtime.MixedJavaTimeSignavioBaseDecision<Object> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "com.gs.dmn.generated.composite_example_credit_decision",
         "assessApplicantAge",

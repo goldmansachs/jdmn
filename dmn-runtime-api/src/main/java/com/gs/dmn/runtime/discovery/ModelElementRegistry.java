@@ -48,11 +48,11 @@ public class ModelElementRegistry {
         return this.classNameMap.keySet();
     }
 
-    public ExecutableDRGElement discover(String qName) {
-        return makeInstance(qName);
+    public <T> ExecutableDRGElement<T> discover(String qName, Class<T> outputClass) {
+        return makeInstance(qName, outputClass);
     }
 
-    private ExecutableDRGElement makeInstance(String qName) {
+    private <T> ExecutableDRGElement<T> makeInstance(String qName, Class<T> outputClass) {
         ExecutableDRGElement executableDRGElement = this.executableElementMap.get(qName);
         if (executableDRGElement == null) {
             String clsName = this.classNameMap.get(qName);
@@ -70,7 +70,7 @@ public class ModelElementRegistry {
         return executableDRGElement;
     }
 
-    private static ExecutableDRGElement makeInstance(Class<?> elementClass) throws Exception {
+    private static <T> ExecutableDRGElement<T> makeInstance(Class<T> elementClass) throws Exception {
         DRGElement annotation = elementClass.getAnnotation(DRGElement.class);
         LOGGER.debug("Instantiating element '{}'", annotation.name());
         if (isDecision(annotation)) {

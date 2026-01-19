@@ -3,7 +3,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["junit.ftl", "0005-simpletable-A.dmn"])
-class _0005SimpletableATest : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
+class _0005SimpletableATest : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object>() {
     @org.junit.jupiter.api.Test
     fun testCase001_1() {
         val context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build()

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.ANY,
     rulesCount = 2
 )
-public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
+public class CompareAgainstLendingThreshold extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<java.lang.Number> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "compareAgainstLendingThreshold",

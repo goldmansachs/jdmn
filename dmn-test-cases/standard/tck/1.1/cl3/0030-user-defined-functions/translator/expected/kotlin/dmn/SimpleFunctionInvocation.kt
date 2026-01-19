@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-class SimpleFunctionInvocation() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
+class SimpleFunctionInvocation() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): String? {
         try {
             return apply(input_.get("stringInputA"), input_.get("stringInputB"), context_)

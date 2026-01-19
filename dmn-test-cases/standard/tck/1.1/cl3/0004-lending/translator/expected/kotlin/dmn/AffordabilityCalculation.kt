@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-class AffordabilityCalculation : com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+class AffordabilityCalculation : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean?> {
     private constructor() {}
 
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): Boolean? {

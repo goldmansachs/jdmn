@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "b01e263f2b324caab26b2040a56f8ed1/sid-ECF0E605-F9BA-4794-BB2D-6598A81C7424"})
-public class ProcessL1Test extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
+public class ProcessL1Test extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<Object> {
     private final ProcessL1 processL1 = new ProcessL1();
 
     @org.junit.jupiter.api.Test

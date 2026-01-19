@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class Sort2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+public class Sort2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<type.TRow>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "sort2",

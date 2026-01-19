@@ -14,6 +14,6 @@ package com.gs.dmn.runtime;
 
 import java.util.Map;
 
-public interface ExecutableDRGElement {
-    Object applyMap(Map<String, String> input_, ExecutionContext context_);
+public interface ExecutableDRGElement<T> {
+    T applyMap(Map<String, String> input_, ExecutionContext context_);
 }

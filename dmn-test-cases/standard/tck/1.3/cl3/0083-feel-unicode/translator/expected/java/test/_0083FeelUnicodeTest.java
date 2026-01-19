@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "0083-feel-unicode.dmn"})
-public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCasedecision_001_1() {
 

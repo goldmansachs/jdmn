@@ -16,7 +16,7 @@ import com.gs.dmn.generated.tck.cl3_0004_lending_singleton.type.TApplicantData;
 import com.gs.dmn.generated.tck.cl3_0004_lending_singleton.type.TBureauData;
 import com.gs.dmn.generated.tck.cl3_0004_lending_singleton.type.TRequestedProduct;
 
-public abstract class AbstractTest0004Lending extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+public abstract class AbstractTest0004Lending extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     public void execute() {
         long count = 1000000000L;
         for (int i = 0; i< count; i++) {

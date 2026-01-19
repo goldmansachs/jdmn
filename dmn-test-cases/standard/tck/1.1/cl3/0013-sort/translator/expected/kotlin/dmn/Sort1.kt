@@ -12,7 +12,7 @@ import java.util.stream.Collectors
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-class Sort1() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision() {
+class Sort1() : com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<kotlin.Number?>?>() {
     override fun applyMap(input_: MutableMap<String, String>, context_: com.gs.dmn.runtime.ExecutionContext): List<kotlin.Number?>? {
         try {
             return apply(input_.get("listA")?.let({ com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(it, object : com.fasterxml.jackson.core.type.TypeReference<List<kotlin.Number?>?>() {}) }), context_)

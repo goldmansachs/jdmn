@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "${testCases.modelName}"})
-public class ${testClassName} extends ${decisionBaseClass} {
+public class ${testClassName} extends ${decisionBaseClass}<Object> {
     <#if tckUtil.isMockTesting()>
     // Default values for mock tests
     private static final ${tckUtil.getNativeNumberType()} DEFAULT_INTEGER_NUMBER = ${tckUtil.getDefaultIntegerValue()};

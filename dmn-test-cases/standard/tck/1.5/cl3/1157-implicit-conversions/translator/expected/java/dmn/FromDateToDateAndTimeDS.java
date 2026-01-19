@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class FromDateToDateAndTimeDS extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+public class FromDateToDateAndTimeDS extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.time.temporal.TemporalAccessor> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "From Date to Date and Time DS",

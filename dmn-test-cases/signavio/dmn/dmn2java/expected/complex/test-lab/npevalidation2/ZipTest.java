@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "5417bfd1893048bc9ca18c51aa11b7f0/sid-DB470E83-401F-4E28-BCA7-8E8FA641E93F"})
-public class ZipTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision {
+public class ZipTest extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<Object> {
     private final Zip zip = new Zip();
 
     @org.junit.jupiter.api.Test

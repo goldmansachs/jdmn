@@ -27,7 +27,7 @@ import java.util.Map;
         expressionKind = ExpressionKind.OTHER, hitPolicy = HitPolicy.UNKNOWN,
         rulesCount = -1
 )
-public class NopBKM implements ExecutableDRGElement {
+public class NopBKM implements ExecutableDRGElement<Object> {
     public static NopBKM instance() {
         return new NopBKM();
     }

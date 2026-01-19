@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
     hitPolicy = com.gs.dmn.runtime.annotation.HitPolicy.UNKNOWN,
     rulesCount = -1
 )
-public class FnInvocationComplexParameters extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision {
+public class FnInvocationComplexParameters extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<type.TFnInvocationComplexParamsResult> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
         "",
         "fn invocation complex parameters",

@@ -27,7 +27,7 @@ import java.util.Map;
         expressionKind = ExpressionKind.OTHER, hitPolicy = HitPolicy.UNKNOWN,
         rulesCount = -1
 )
-public class NopDS implements ExecutableDRGElement {
+public class NopDS implements ExecutableDRGElement<Object> {
     public static NopDS instance() {
         return new NopDS();
     }

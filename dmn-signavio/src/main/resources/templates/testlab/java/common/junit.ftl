@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"junit.ftl", "${testLab.rootDecisionId}"})
 <#assign rootOutputParameter = testLab.rootOutputParameter />
-public class ${testClassName} extends ${decisionBaseClass} {
+public class ${testClassName} extends ${decisionBaseClass}<Object> {
     <@addDecisionField />
 
     <@addTestCases />
