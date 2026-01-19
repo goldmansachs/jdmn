@@ -25,11 +25,11 @@ class ${testClassName} : ${decisionBaseClass}<Object>() {
     <#list testCases.testCase>
         <#items as tc>
             <#assign inputNodeInfoList = tckUtil.extractInputNodeInfoList(testCases, tc)/>
-            <#list tc.resultNode>
-                <#items as rn>
-                    <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, tc, rn)/>
+            <#assign resultNodeInfoList = tckUtil.extractResultNodeInfoList(testCases, tc)/>
+            <#list resultNodeInfoList>
+                <#items as resultInfo>
     @org.junit.jupiter.api.Test
-    fun testCase${tc.id}_${rn?index + 1}() {
+    fun testCase${tc.id}_${resultInfo?index + 1}() {
         <@initializeApplyArguments inputNodeInfoList resultInfo/>
 
         <@checkResult inputNodeInfoList resultInfo/>

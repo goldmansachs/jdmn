@@ -37,11 +37,11 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
     <#list testCases.testCase>
         <#items as tc>
             <#assign inputNodeInfoList = tckUtil.extractInputNodeInfoList(testCases, tc)/>
-            <#list tc.resultNode>
-                <#items as rn>
-                    <#assign resultInfo = tckUtil.extractResultNodeInfo(testCases, tc, rn)/>
+            <#assign resultNodeInfoList = tckUtil.extractResultNodeInfoList(testCases, tc)/>
+            <#list resultNodeInfoList>
+                <#items as resultInfo>
     @org.junit.jupiter.api.Test
-    public void testCase${tckUtil.testCaseId(tc)}_${rn?index + 1}() {
+    public void testCase${tckUtil.testCaseId(tc)}_${resultInfo?index + 1}() {
         <@initializeApplyArguments inputNodeInfoList resultInfo/>
 
         <@checkResult inputNodeInfoList resultInfo/>
