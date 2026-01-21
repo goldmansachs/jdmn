@@ -43,6 +43,16 @@ public class CalculateDiscountedPrice extends com.gs.dmn.runtime.JavaTimeDMNBase
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((CalculateDiscountedPriceInput_)input_).getPrice(), ((CalculateDiscountedPriceInput_)input_).getStudent(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'CalculateDiscountedPrice'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(java.lang.Number price, type.Student student, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'calculateDiscountedPrice'

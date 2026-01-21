@@ -12,10 +12,7 @@
  */
 package com.gs.dmn.transformation;
 
-import com.gs.dmn.ast.TDecision;
-import com.gs.dmn.ast.TDefinitions;
-import com.gs.dmn.ast.TInvocable;
-import com.gs.dmn.ast.TItemDefinition;
+import com.gs.dmn.ast.*;
 import com.gs.dmn.context.DMNContext;
 import com.gs.dmn.el.analysis.semantics.type.Type;
 import com.gs.dmn.log.BuildLogger;
@@ -139,6 +136,22 @@ public class TemplateProcessor {
         }
     }
 
+    void processTemplate(TDefinitions definitions, TDRGElement element, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String javaPackageName, String javaClassName, String decisionBaseClass) {
+        try {
+            // Make parameters
+            Map<String, Object> params = makeTemplateParams(definitions, element, javaPackageName, javaClassName, decisionBaseClass, dmnTransformer);
+
+            // Make output file
+            String relativeFilePath = javaPackageName.replace('.', '/');
+            File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, this.fileExtension);
+
+            // Process template
+            processTemplate(baseTemplatePath, templateName, params, outputFile, true);
+        } catch (Exception e) {
+            throw new DMNRuntimeException(String.format("Cannot process template '%s' for element '%s'", templateName, element.getName()), e);
+        }
+    }
+
     //
     // FreeMarker model methods
     //
@@ -170,19 +183,10 @@ public class TemplateProcessor {
         return params;
     }
 
-    private Map<String, Object> makeTemplateParams(TDefinitions definitions, TInvocable invocable, String javaPackageName, String javaClassName, String decisionBaseClass, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TDefinitions definitions, TDRGElement element, String javaPackageName, String javaClassName, String decisionBaseClass, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("modelName", definitions.getName());
-        params.put("drgElement", invocable);
-        params.put("decisionBaseClass", decisionBaseClass);
-        addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);
-        return params;
-    }
-
-    private Map<String, Object> makeTemplateParams(TDefinitions definitions, TDecision decision, String javaPackageName, String javaClassName, String decisionBaseClass, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("modelName", definitions.getName());
-        params.put("drgElement", decision);
+        params.put("drgElement", element);
         params.put("decisionBaseClass", decisionBaseClass);
         addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);
         return params;

@@ -36,6 +36,16 @@ public class Body1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.time.
         }
     }
 
+    @java.lang.Override()
+    public java.time.LocalDate applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Body1'", e);
+            return null;
+        }
+    }
+
     public java.time.LocalDate apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Body 1'

@@ -43,6 +43,16 @@ public class RequiredMonthlyInstallment extends com.gs.dmn.runtime.JavaTimeDMNBa
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((RequiredMonthlyInstallmentInput_)input_).getRequestedProduct(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'RequiredMonthlyInstallment'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'RequiredMonthlyInstallment'

@@ -37,6 +37,16 @@ public class GreetThePerson extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<S
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((GreetThePersonInput_)input_).getModel_a_personName(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'GreetThePerson'", e);
+            return null;
+        }
+    }
+
     public String apply(String model_a_personName, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'greetThePerson'

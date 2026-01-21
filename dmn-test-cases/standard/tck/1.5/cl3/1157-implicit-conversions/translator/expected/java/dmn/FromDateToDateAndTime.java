@@ -36,6 +36,16 @@ public class FromDateToDateAndTime extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
         }
     }
 
+    @java.lang.Override()
+    public java.time.temporal.TemporalAccessor applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'FromDateToDateAndTime'", e);
+            return null;
+        }
+    }
+
     public java.time.temporal.TemporalAccessor apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'From Date To Date and Time'

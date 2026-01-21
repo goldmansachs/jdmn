@@ -36,6 +36,16 @@ public class ApprovalStatus extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<S
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((ApprovalStatusInput_)input_).getAge(), ((ApprovalStatusInput_)input_).getRiskCategory(), ((ApprovalStatusInput_)input_).getIsAffordable(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'ApprovalStatus'", e);
+            return null;
+        }
+    }
+
     public String apply(java.lang.Number age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Approval Status'

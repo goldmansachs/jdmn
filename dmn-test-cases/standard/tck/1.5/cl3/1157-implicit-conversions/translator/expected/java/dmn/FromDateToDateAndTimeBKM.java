@@ -43,6 +43,16 @@ public class FromDateToDateAndTimeBKM extends com.gs.dmn.runtime.JavaTimeDMNBase
         }
     }
 
+    @java.lang.Override()
+    public java.time.temporal.TemporalAccessor applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'FromDateToDateAndTimeBKM'", e);
+            return null;
+        }
+    }
+
     public java.time.temporal.TemporalAccessor apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'From Date To Date and Time BKM'

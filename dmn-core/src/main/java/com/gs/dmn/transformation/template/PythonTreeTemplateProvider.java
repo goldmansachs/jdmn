@@ -19,6 +19,12 @@ public class PythonTreeTemplateProvider extends TreeTemplateProvider {
     }
 
     @Override
+    public String pojoInputTemplateName() {
+        // applyPojo() not supported for Python
+        return null;
+    }
+
+    @Override
     public String testBaseTemplatePath() {
         return "/templates/tck/python";
     }

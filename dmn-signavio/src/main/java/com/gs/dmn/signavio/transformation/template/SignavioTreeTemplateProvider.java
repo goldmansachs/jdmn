@@ -17,6 +17,11 @@ import com.gs.dmn.transformation.template.TreeTemplateProvider;
 
 public class SignavioTreeTemplateProvider extends TreeTemplateProvider {
     @Override
+    public String decisionTemplateName() {
+        return "tree/signavio-decision.ftl";
+    }
+
+    @Override
     public String bkmTemplateName() {
         return "tree/signavio-bkm.ftl";
     }
@@ -27,8 +32,8 @@ public class SignavioTreeTemplateProvider extends TreeTemplateProvider {
     }
 
     @Override
-    public String decisionTemplateName() {
-        return "tree/signavio-decision.ftl";
+    public String pojoInputTemplateName() {
+        return "tree/signavio-elementInput.ftl";
     }
 
     @Override

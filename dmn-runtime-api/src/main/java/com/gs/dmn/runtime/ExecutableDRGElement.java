@@ -16,4 +16,6 @@ import java.util.Map;
 
 public interface ExecutableDRGElement<T> {
     T applyMap(Map<String, String> input_, ExecutionContext context_);
+
+    T applyPojo(ExecutableDRGElementInput input_, ExecutionContext context_);
 }

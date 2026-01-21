@@ -36,6 +36,16 @@ public class NamedFunctionInvocation extends com.gs.dmn.runtime.JavaTimeDMNBaseD
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((NamedFunctionInvocationInput_)input_).getStringInputA(), ((NamedFunctionInvocationInput_)input_).getStringInputB(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'NamedFunctionInvocation'", e);
+            return null;
+        }
+    }
+
     public String apply(String stringInputA, String stringInputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'named function invocation'

@@ -36,6 +36,16 @@ public class Approval extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<type.TA
         }
     }
 
+    @java.lang.Override()
+    public type.TApproval applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((ApprovalInput_)input_).getAge(), ((ApprovalInput_)input_).getRiskCategory(), ((ApprovalInput_)input_).getIsAffordable(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Approval'", e);
+            return null;
+        }
+    }
+
     public type.TApproval apply(java.lang.Number age, String riskCategory, Boolean isAffordable, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Approval'

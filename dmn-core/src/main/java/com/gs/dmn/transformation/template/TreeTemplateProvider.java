@@ -29,6 +29,16 @@ public class TreeTemplateProvider implements TemplateProvider {
     }
 
     @Override
+    public String decisionTemplateName() {
+        return "tree/decision.ftl";
+    }
+
+    @Override
+    public String decisionTableRuleOutputTemplate() {
+        return "tree/decisionTableRuleOutput.ftl";
+    }
+
+    @Override
     public String bkmTemplateName() {
         return "tree/bkm.ftl";
     }
@@ -39,13 +49,8 @@ public class TreeTemplateProvider implements TemplateProvider {
     }
 
     @Override
-    public String decisionTemplateName() {
-        return "tree/decision.ftl";
-    }
-
-    @Override
-    public String decisionTableRuleOutputTemplate() {
-        return "tree/decisionTableRuleOutput.ftl";
+    public String pojoInputTemplateName() {
+        return "tree/elementInput.ftl";
     }
 
     @Override

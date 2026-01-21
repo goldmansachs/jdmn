@@ -43,6 +43,16 @@ public class Adjudication extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Str
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((AdjudicationInput_)input_).getApplicantData(), ((AdjudicationInput_)input_).getBureauData(), ((AdjudicationInput_)input_).getSupportingDocuments(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Adjudication'", e);
+            return null;
+        }
+    }
+
     public String apply(type.TApplicantData applicantData, type.TBureauData bureauData, String supportingDocuments, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Adjudication'

@@ -43,6 +43,16 @@ public class PreBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNBa
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((PreBureauRiskCategoryTableInput_)input_).getExistingCustomer(), ((PreBureauRiskCategoryTableInput_)input_).getApplicationRiskScore(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'PreBureauRiskCategoryTable'", e);
+            return null;
+        }
+    }
+
     public String apply(Boolean existingCustomer, java.lang.Number applicationRiskScore, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'Pre-bureauRiskCategoryTable'

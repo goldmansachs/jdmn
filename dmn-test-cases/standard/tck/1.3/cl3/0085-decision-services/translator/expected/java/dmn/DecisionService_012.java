@@ -50,6 +50,16 @@ public class DecisionService_012 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((DecisionService_012Input_)input_).getInputData_012_1(), ((DecisionService_012Input_)input_).getInputData_012_2(), ((DecisionService_012Input_)input_).getDecision_012_3(), ((DecisionService_012Input_)input_).getDecision_012_4(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'DecisionService_012'", e);
+            return null;
+        }
+    }
+
     public String apply(String inputData_012_1, String inputData_012_2, String decision_012_3, String decision_012_4, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start DS 'decisionService_012'

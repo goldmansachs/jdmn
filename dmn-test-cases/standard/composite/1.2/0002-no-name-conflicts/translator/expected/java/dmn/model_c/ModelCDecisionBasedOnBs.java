@@ -46,6 +46,16 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.JavaTimeDMNBaseD
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((ModelCDecisionBasedOnBsInput_)input_).getModel_a_personName(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'ModelCDecisionBasedOnBs'", e);
+            return null;
+        }
+    }
+
     public String apply(String model_a_personName, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'modelCDecisionBasedOnBs'

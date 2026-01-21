@@ -13,14 +13,19 @@
 package com.gs.dmn.transformation.template;
 
 public interface TemplateProvider {
+    // Types
     String baseTemplatePath();
     String itemDefinitionInterfaceTemplate();
     String itemDefinitionClassTemplate();
+
+    // DRG Elements
+    String decisionTemplateName();
+    String decisionTableRuleOutputTemplate();
     String bkmTemplateName();
     String dsTemplateName();
-    String decisionTableRuleOutputTemplate();
-    String decisionTemplateName();
+    String pojoInputTemplateName();
 
+    // Tests
     String testBaseTemplatePath();
     String testTemplateName();
 }

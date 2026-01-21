@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.runtime;
 
+import com.gs.dmn.runtime.ExecutableDRGElementInput;
 import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.signavio.feel.lib.JavaTimeSignavioLib;
 
@@ -21,6 +22,11 @@ public abstract class JavaTimeSignavioBaseDecision<T> extends JavaTimeSignavioLi
 {
     @Override
     public T applyMap(Map<String, String> input_, ExecutionContext context_) {
+        return null;
+    }
+
+    @Override
+    public T applyPojo(ExecutableDRGElementInput input_, ExecutionContext context_) {
         return null;
     }
 }

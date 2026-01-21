@@ -43,6 +43,16 @@ public class BureauCallTypeTable extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((BureauCallTypeTableInput_)input_).getPreBureauRiskCategory(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'BureauCallTypeTable'", e);
+            return null;
+        }
+    }
+
     public String apply(String preBureauRiskCategory, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'BureauCallTypeTable'

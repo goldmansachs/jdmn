@@ -13,6 +13,7 @@
 package com.gs.dmn.runtime.discovery;
 
 import com.gs.dmn.runtime.ExecutableDRGElement;
+import com.gs.dmn.runtime.ExecutableDRGElementInput;
 import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.runtime.annotation.DRGElement;
 import com.gs.dmn.runtime.annotation.DRGElementKind;
@@ -34,6 +35,11 @@ public class NopBKM implements ExecutableDRGElement<Object> {
 
     @Override
     public Object applyMap(Map<String, String> input_, ExecutionContext context_) {
+        return null;
+    }
+
+    @Override
+    public Object applyPojo(ExecutableDRGElementInput input_, ExecutionContext context_) {
         return null;
     }
 }

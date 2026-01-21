@@ -43,6 +43,16 @@ public class Equity36Mo extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((Equity36MoInput_)input_).getP(), ((Equity36MoInput_)input_).getR(), ((Equity36MoInput_)input_).getN(), ((Equity36MoInput_)input_).getPmt(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Equity36Mo'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(java.lang.Number p, java.lang.Number r, java.lang.Number n, java.lang.Number pmt, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'equity36Mo'

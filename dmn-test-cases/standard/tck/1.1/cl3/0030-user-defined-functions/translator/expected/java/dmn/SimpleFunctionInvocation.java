@@ -36,6 +36,16 @@ public class SimpleFunctionInvocation extends com.gs.dmn.runtime.JavaTimeDMNBase
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((SimpleFunctionInvocationInput_)input_).getStringInputA(), ((SimpleFunctionInvocationInput_)input_).getStringInputB(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'SimpleFunctionInvocation'", e);
+            return null;
+        }
+    }
+
     public String apply(String stringInputA, String stringInputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'simple function invocation'

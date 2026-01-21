@@ -404,7 +404,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String drgElementSignatureApplyMap(TDRGElement element) {
-        return String.format("%s %s, %s %s", inputClassName(), inputVariableName(), executionContextClassName(), executionContextVariableName());
+        return String.format("%s %s, %s %s", inputMapClassName(), inputVariableName(), executionContextClassName(), executionContextVariableName());
     }
 
     @Override
@@ -435,6 +435,58 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     private String extractInputMember(String name) {
         return String.format("%s.%s", inputVariableName(), contextGetter(name));
+    }
+
+    @Override
+    public String drgElementSignatureApplyPojo(TDRGElement element) {
+        return String.format("%s %s, %s %s", drgElementInputPojoInterfaceName(), inputVariableName(), executionContextClassName(), executionContextVariableName());
+    }
+
+    @Override
+    public String drgElementArgumentListApplyPojo(TDRGElement element) {
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        return drgElementArgumentListApplyPojo(reference);
+    }
+
+    protected String drgElementArgumentListApplyPojo(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
+        if (element instanceof TDecision) {
+            List<FEELParameter> parameters = drgElementTypeSignature(reference, this::nativeName);
+            String arguments = parameters.stream().map(p -> extractInputPojoMember(element, p.getName())).collect(Collectors.joining(", "));
+            return augmentArgumentList(arguments);
+        } else if (element instanceof TInvocable) {
+            List<FEELParameter> parameters = drgElementTypeSignature(reference, this::nativeName);
+            String arguments = parameters.stream().map(p -> extractInputPojoMember(element, p.getName())).collect(Collectors.joining(", "));
+            return augmentArgumentList(arguments);
+        } else {
+            throw new SemanticErrorException(String.format("Not supported yet for '%s'", element.getClass().getSimpleName()));
+        }
+    }
+
+    private String extractInputPojoMember(TDRGElement element, String memberName) {
+        return String.format("((%s)%s).%s", drgElementInputPojoClassName(element), inputVariableName(), getter(memberName));
+    }
+
+    @Override
+    public String drgElementInputPojoInterfaceName() {
+        return qualifiedName(ExecutableDRGElementInput.class);
+    }
+
+    @Override
+    public String drgElementInputPojoClassName(TDRGElement element) {
+        return drgElementClassName(element) + "Input_";
+    }
+
+    @Override
+    public List<NativeParameter> drgElementArgumentListInputPojo(TDRGElement element) {
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        return drgElementArgumentListInputPojo(reference);
+    }
+
+    protected List<NativeParameter> drgElementArgumentListInputPojo(DRGElementReference<? extends TDRGElement> reference) {
+        List<FEELParameter> parameters = drgElementTypeSignature(reference, this::nativeName);
+        List<NativeParameter> elementSignature = parameters.stream().map(p -> new NativeParameter(this.nativeFactory.nullableParameterType(toNativeType(p.getType())), p.getName())).collect(Collectors.toList());
+        return elementSignature;
     }
 
     @Override
@@ -492,10 +544,9 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public List<NativeParameter> drgElementSignatureParameters(DRGElementReference<? extends TDRGElement> reference) {
-        TDRGElement element = reference.getElement();
         List<FEELParameter> parameters = drgElementTypeSignature(reference, this::nativeName);
-        List<NativeParameter> decisionSignature = parameters.stream().map(p -> new NativeParameter(this.nativeFactory.nullableParameterType(toNativeType(p.getType())), p.getName())).collect(Collectors.toList());
-        return augmentSignatureParameters(decisionSignature);
+        List<NativeParameter> elementSignature = parameters.stream().map(p -> new NativeParameter(this.nativeFactory.nullableParameterType(toNativeType(p.getType())), p.getName())).collect(Collectors.toList());
+        return augmentSignatureParameters(elementSignature);
     }
 
     @Override
@@ -672,7 +723,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     public String lambdaArgsVariableName() {
         return "args_";
     }
-
 
     @Override
     public boolean hasComplexInputDatas(TDRGElement element) {
@@ -1235,7 +1285,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return qualifiedName(ExecutableDRGElement.class);
     }
 
-    protected String inputClassName() {
+    protected String inputMapClassName() {
         return qualifiedName(Map.class) + "<String, String>";
     }
 

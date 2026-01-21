@@ -36,6 +36,16 @@ public class AppendAllTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Li
         }
     }
 
+    @java.lang.Override()
+    public List<String> applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((AppendAllTestInput_)input_).getList1(), ((AppendAllTestInput_)input_).getList2(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'AppendAllTest'", e);
+            return null;
+        }
+    }
+
     public List<String> apply(List<String> list1, List<String> list2, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'AppendAllTest'

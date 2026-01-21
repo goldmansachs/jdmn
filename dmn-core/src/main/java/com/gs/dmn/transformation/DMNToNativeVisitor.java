@@ -80,6 +80,12 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
             decision.accept(this, context);
         }
 
+        // Generate inputs
+        List<TDRGElement> drgElements = dmnModelRepository.findDRGElements(element);
+        for (TDRGElement drgElement : drgElements) {
+            visitForInputs(drgElement, context);
+        }
+
         return element;
     }
 
@@ -198,6 +204,32 @@ public class DMNToNativeVisitor extends TraversalVisitor<NativeVisitorContext> {
             SemanticError error = makeError(definitions, element);
             throw new SemanticErrorException(error.toText(), e);
         }
+    }
+
+    private void visitForInputs(TDRGElement element, NativeVisitorContext context) {
+        if (!isExecutable(element)) {
+            return;
+        }
+
+        this.logger.debug(String.format("Generating input for %s '%s'", element.getClass().getSimpleName(), element.getName()));
+
+        TDefinitions definitions = context.getDefinitions();
+        try {
+            String inputPackageName = dmnTransformer.nativeModelPackageName(definitions.getName());
+            String inputClassName = dmnTransformer.drgElementInputPojoClassName(element);
+            checkDuplicate(generatedClasses, inputPackageName, inputClassName, dmnTransformer);
+            String pojoTemplateName = templateProcessor.getTemplateProvider().pojoInputTemplateName();
+            if (pojoTemplateName != null) {
+                templateProcessor.processTemplate(definitions, element, templateProcessor.getTemplateProvider().baseTemplatePath(), pojoTemplateName, dmnTransformer, outputPath, inputPackageName, inputClassName, decisionBaseClass);
+            }
+        } catch (Exception e) {
+            SemanticError error = makeError(definitions, element);
+            throw new SemanticErrorException(error.toText(), e);
+        }
+    }
+
+    private boolean isExecutable(TDRGElement element) {
+        return element instanceof TDecision || element instanceof TInvocable;
     }
 
     private void checkDuplicate(List<String> generatedClasses, String pkg, String className, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {

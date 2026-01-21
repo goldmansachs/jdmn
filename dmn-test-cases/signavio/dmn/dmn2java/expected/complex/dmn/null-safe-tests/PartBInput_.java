@@ -1,0 +1,53 @@
+
+import java.util.*;
+
+@javax.annotation.Generated(value = {"inputElement.ftl", "partB"})
+@com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
+public class PartBInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
+        private java.lang.Number numberA;
+        private java.lang.Number numberB;
+        private List<java.lang.Number> numberList;
+        private String string;
+        private List<String> stringList;
+
+    public java.lang.Number getNumberA() {
+        return this.numberA;
+    }
+
+    public void setNumberA(java.lang.Number numberA) {
+        this.numberA = numberA;
+    }
+
+    public java.lang.Number getNumberB() {
+        return this.numberB;
+    }
+
+    public void setNumberB(java.lang.Number numberB) {
+        this.numberB = numberB;
+    }
+
+    public List<java.lang.Number> getNumberList() {
+        return this.numberList;
+    }
+
+    public void setNumberList(List<java.lang.Number> numberList) {
+        this.numberList = numberList;
+    }
+
+    public String getString() {
+        return this.string;
+    }
+
+    public void setString(String string) {
+        this.string = string;
+    }
+
+    public List<String> getStringList() {
+        return this.stringList;
+    }
+
+    public void setStringList(List<String> stringList) {
+        this.stringList = stringList;
+    }
+
+}

@@ -147,6 +147,17 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     String drgElementArgumentListApplyMap(TDRGElement element);
 
+    // applyPojo() related methods
+    String drgElementSignatureApplyPojo(TDRGElement element);
+
+    String drgElementArgumentListApplyPojo(TDRGElement element);
+
+    String drgElementInputPojoInterfaceName();
+
+    String drgElementInputPojoClassName(TDRGElement element);
+
+    List<NativeParameter> drgElementArgumentListInputPojo(TDRGElement element);
+
     // apply() with String conversion related methods
     boolean shouldGenerateApplyString(TDRGElement element);
 

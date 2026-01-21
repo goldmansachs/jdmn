@@ -103,7 +103,7 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
 
     @Override
     public String drgElementSignatureApplyMap(TDRGElement element) {
-        return String.format("%s: %s, %s: %s", inputVariableName(), inputClassName(), executionContextVariableName(), executionContextClassName());
+        return String.format("%s: %s, %s: %s", inputVariableName(), inputMapClassName(), executionContextVariableName(), executionContextClassName());
     }
 
     @Override
@@ -134,7 +134,7 @@ public class BasicDMNToPythonTransformer extends BasicDMNToJavaTransformer {
     }
 
     @Override
-    protected String inputClassName() {
+    protected String inputMapClassName() {
         return "dict";
     }
 

@@ -21,12 +21,18 @@ public class KotlinTreeTemplateProvider extends TreeTemplateProvider {
     }
 
     @Override
-    public String testBaseTemplatePath() {
-        return "/templates/tck/kotlin";
+    public String dsTemplateName() {
+        throw new DMNRuntimeException("DS are not supported for Kotlin");
     }
 
     @Override
-    public String dsTemplateName() {
-        throw new DMNRuntimeException("DS are not supported for Kotlin");
+    public String pojoInputTemplateName() {
+        // applyPojo() not supported for Python
+        return null;
+    }
+
+    @Override
+    public String testBaseTemplatePath() {
+        return "/templates/tck/kotlin";
     }
 }

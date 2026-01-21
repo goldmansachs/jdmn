@@ -36,6 +36,16 @@ public class PriceTable1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List
         }
     }
 
+    @java.lang.Override()
+    public List<type.TItemPrice> applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'PriceTable1'", e);
+            return null;
+        }
+    }
+
     public List<type.TItemPrice> apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'priceTable1'

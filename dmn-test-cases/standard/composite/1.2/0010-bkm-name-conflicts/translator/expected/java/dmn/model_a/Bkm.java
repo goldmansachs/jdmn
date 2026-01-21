@@ -44,6 +44,16 @@ public class Bkm extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((BkmInput_)input_).getX(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Bkm'", e);
+            return null;
+        }
+    }
+
     public String apply(java.lang.Number x, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'bkm'

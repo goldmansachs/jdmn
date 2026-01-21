@@ -50,6 +50,16 @@ public class PostBureauRiskCategory extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((PostBureauRiskCategoryInput_)input_).getApplicantData(), ((PostBureauRiskCategoryInput_)input_).getBureauData(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'PostBureauRiskCategory'", e);
+            return null;
+        }
+    }
+
     public String apply(type.TApplicantData applicantData, type.TBureauData bureauData, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Post-bureauRiskCategory'

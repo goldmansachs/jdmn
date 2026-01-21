@@ -36,6 +36,16 @@ public class Decision_007_2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<c
         }
     }
 
+    @java.lang.Override()
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((Decision_007_2Input_)input_).getInput_007_1(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Decision_007_2'", e);
+            return null;
+        }
+    }
+
     public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> apply(java.lang.Number input_007_1, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decision_007_2'

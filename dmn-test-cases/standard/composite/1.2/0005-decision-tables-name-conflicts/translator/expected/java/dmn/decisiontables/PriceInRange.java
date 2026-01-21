@@ -37,6 +37,16 @@ public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Str
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((PriceInRangeInput_)input_).getDecisioninputs1_numB(), ((PriceInRangeInput_)input_).getDecisioninputs1_numC(), ((PriceInRangeInput_)input_).getDecisioninputs1_structA(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'PriceInRange'", e);
+            return null;
+        }
+    }
+
     public String apply(java.lang.Number decisioninputs1_numB, java.lang.Number decisioninputs1_numC, decisioninputs1.type.TA decisioninputs1_structA, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'priceInRange'

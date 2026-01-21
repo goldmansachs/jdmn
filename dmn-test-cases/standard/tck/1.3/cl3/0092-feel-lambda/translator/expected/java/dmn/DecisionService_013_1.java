@@ -50,6 +50,16 @@ public class DecisionService_013_1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((DecisionService_013_1Input_)input_).getInput_013_1(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'DecisionService_013_1'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(java.lang.Number input_013_1, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start DS 'decisionService_013_1'

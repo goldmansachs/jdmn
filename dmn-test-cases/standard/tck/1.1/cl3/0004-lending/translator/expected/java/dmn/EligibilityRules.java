@@ -43,6 +43,16 @@ public class EligibilityRules extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((EligibilityRulesInput_)input_).getPreBureauRiskCategory(), ((EligibilityRulesInput_)input_).getPreBureauAffordability(), ((EligibilityRulesInput_)input_).getAge(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'EligibilityRules'", e);
+            return null;
+        }
+    }
+
     public String apply(String preBureauRiskCategory, Boolean preBureauAffordability, java.lang.Number age, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'EligibilityRules'

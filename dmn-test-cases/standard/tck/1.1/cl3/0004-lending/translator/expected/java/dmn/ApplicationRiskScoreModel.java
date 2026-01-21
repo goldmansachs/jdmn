@@ -43,6 +43,16 @@ public class ApplicationRiskScoreModel extends com.gs.dmn.runtime.JavaTimeDMNBas
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((ApplicationRiskScoreModelInput_)input_).getAge(), ((ApplicationRiskScoreModelInput_)input_).getMaritalStatus(), ((ApplicationRiskScoreModelInput_)input_).getEmploymentStatus(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'ApplicationRiskScoreModel'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(java.lang.Number age, String maritalStatus, String employmentStatus, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'ApplicationRiskScoreModel'

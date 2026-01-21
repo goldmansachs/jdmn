@@ -43,6 +43,16 @@ public class FinancialMetrics extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
         }
     }
 
+    @java.lang.Override()
+    public type.TMetric applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((FinancialMetricsInput_)input_).getProduct(), ((FinancialMetricsInput_)input_).getRequestedAmt(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'FinancialMetrics'", e);
+            return null;
+        }
+    }
+
     public type.TMetric apply(type.TLoanProduct product, java.lang.Number requestedAmt, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'FinancialMetrics'

@@ -36,6 +36,16 @@ public class Sort2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<type.
         }
     }
 
+    @java.lang.Override()
+    public List<type.TRow> applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((Sort2Input_)input_).getTableB(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Sort2'", e);
+            return null;
+        }
+    }
+
     public List<type.TRow> apply(List<type.TRow> tableB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'sort2'

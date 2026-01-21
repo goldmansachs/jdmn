@@ -43,6 +43,16 @@ public class RankedProducts extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<t
         }
     }
 
+    @java.lang.Override()
+    public type.TRankedProducts applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((RankedProductsInput_)input_).getRequestedAmt(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'RankedProducts'", e);
+            return null;
+        }
+    }
+
     public type.TRankedProducts apply(java.lang.Number requestedAmt, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'RankedProducts'

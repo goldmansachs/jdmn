@@ -43,6 +43,16 @@ public class ToSingletonListBKM extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisi
         }
     }
 
+    @java.lang.Override()
+    public List<java.lang.Number> applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'ToSingletonListBKM'", e);
+            return null;
+        }
+    }
+
     public List<java.lang.Number> apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'To Singleton List BKM'

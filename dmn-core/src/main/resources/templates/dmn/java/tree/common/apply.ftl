@@ -49,6 +49,20 @@
 </#macro>
 
 <#macro applyPojo drgElement >
+    @java.lang.Override()
+    public ${transformer.drgElementOutputType(drgElement)} applyPojo(${transformer.drgElementSignatureApplyPojo(drgElement)}) {
+    <#if transformer.canGenerateApplyMap(drgElement)>
+        try {
+            return apply(${transformer.drgElementArgumentListApplyPojo(drgElement)});
+        } catch (Exception e) {
+            logError("Cannot apply element '${javaClassName}'", e);
+            return null;
+        }
+    <#else>
+        throw ${transformer.constructor(transformer.dmnRuntimeExceptionClassName(), "\"Not all arguments can be serialized\"")};
+    </#if>
+    }
+
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignature(drgElement)}) {
         <#if drgElement.class.simpleName == "TDecisionService">
         <@applyServiceMethodBody drgElement />

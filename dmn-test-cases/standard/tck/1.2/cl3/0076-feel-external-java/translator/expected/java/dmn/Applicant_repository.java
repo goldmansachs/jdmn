@@ -36,6 +36,16 @@ public class Applicant_repository extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
         }
     }
 
+    @java.lang.Override()
+    public type.Applicant applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Applicant_repository'", e);
+            return null;
+        }
+    }
+
     public type.Applicant apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'applicant_repository'

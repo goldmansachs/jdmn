@@ -43,6 +43,16 @@ public class GtTen extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean> {
         }
     }
 
+    @java.lang.Override()
+    public Boolean applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((GtTenInput_)input_).getTheNumber(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'GtTen'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(java.lang.Number theNumber, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'gtTen'

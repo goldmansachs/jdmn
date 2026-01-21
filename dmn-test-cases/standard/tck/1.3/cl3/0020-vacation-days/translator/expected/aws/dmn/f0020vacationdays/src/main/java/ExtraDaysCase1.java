@@ -36,6 +36,16 @@ public class ExtraDaysCase1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<j
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((ExtraDaysCase1Input_)input_).getAge(), ((ExtraDaysCase1Input_)input_).getYearsOfService(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'ExtraDaysCase1'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(java.lang.Number age, java.lang.Number yearsOfService, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Extra days case 1'

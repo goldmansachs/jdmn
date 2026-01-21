@@ -36,6 +36,16 @@ public class Decision_011_1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<j
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((Decision_011_1Input_)input_).getInput_011_1(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Decision_011_1'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(java.lang.Number input_011_1, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decision_011_1'

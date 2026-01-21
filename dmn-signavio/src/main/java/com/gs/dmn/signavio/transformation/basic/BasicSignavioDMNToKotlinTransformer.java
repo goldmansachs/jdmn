@@ -72,7 +72,7 @@ public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaT
 
     @Override
     public String drgElementSignatureApplyMap(TDRGElement element) {
-        return String.format("%s: %s, %s: %s", inputVariableName(), inputClassName(), executionContextVariableName(), executionContextClassName());
+        return String.format("%s: %s, %s: %s", inputVariableName(), inputMapClassName(), executionContextVariableName(), executionContextClassName());
     }
 
     @Override
@@ -81,7 +81,7 @@ public class BasicSignavioDMNToKotlinTransformer extends BasicSignavioDMNToJavaT
     }
 
     @Override
-    protected String inputClassName() {
+    protected String inputMapClassName() {
         return "MutableMap<String, String>";
     }
 

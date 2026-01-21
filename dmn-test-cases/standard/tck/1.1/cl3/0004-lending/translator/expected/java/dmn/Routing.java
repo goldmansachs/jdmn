@@ -45,6 +45,16 @@ public class Routing extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> 
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((RoutingInput_)input_).getApplicantData(), ((RoutingInput_)input_).getBureauData(), ((RoutingInput_)input_).getRequestedProduct(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Routing'", e);
+            return null;
+        }
+    }
+
     public String apply(type.TApplicantData applicantData, type.TBureauData bureauData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Routing'

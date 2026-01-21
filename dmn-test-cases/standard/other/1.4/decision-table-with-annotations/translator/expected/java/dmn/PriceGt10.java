@@ -36,6 +36,16 @@ public class PriceGt10 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolea
         }
     }
 
+    @java.lang.Override()
+    public Boolean applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((PriceGt10Input_)input_).getStructA(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'PriceGt10'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(type.TA structA, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'priceGt10'

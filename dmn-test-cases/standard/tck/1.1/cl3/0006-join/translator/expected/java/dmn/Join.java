@@ -36,6 +36,16 @@ public class Join extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((JoinInput_)input_).getDeptTable(), ((JoinInput_)input_).getEmployeeTable(), ((JoinInput_)input_).getLastName(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Join'", e);
+            return null;
+        }
+    }
+
     public String apply(List<type.TDeptTable> deptTable, List<type.TEmployeeTable> employeeTable, String lastName, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Join'

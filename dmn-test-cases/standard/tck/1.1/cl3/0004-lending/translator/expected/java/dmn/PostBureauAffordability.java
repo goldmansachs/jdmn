@@ -45,6 +45,16 @@ public class PostBureauAffordability extends com.gs.dmn.runtime.JavaTimeDMNBaseD
         }
     }
 
+    @java.lang.Override()
+    public Boolean applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((PostBureauAffordabilityInput_)input_).getApplicantData(), ((PostBureauAffordabilityInput_)input_).getBureauData(), ((PostBureauAffordabilityInput_)input_).getRequestedProduct(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'PostBureauAffordability'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(type.TApplicantData applicantData, type.TBureauData bureauData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Post-bureauAffordability'

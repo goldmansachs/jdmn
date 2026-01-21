@@ -43,6 +43,16 @@ public class CreditContingencyFactorTable extends com.gs.dmn.runtime.JavaTimeDMN
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((CreditContingencyFactorTableInput_)input_).getRiskCategory(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'CreditContingencyFactorTable'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(String riskCategory, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'CreditContingencyFactorTable'

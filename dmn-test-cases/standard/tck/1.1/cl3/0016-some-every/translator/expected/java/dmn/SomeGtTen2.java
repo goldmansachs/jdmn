@@ -36,6 +36,16 @@ public class SomeGtTen2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boole
         }
     }
 
+    @java.lang.Override()
+    public Boolean applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((SomeGtTen2Input_)input_).getPriceTable2(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'SomeGtTen2'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(List<type.TItemPrice> priceTable2, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'someGtTen2'

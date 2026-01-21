@@ -36,6 +36,16 @@ public class Decision1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<S
         }
     }
 
+    @java.lang.Override()
+    public List<String> applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((Decision1Input_)input_).getEmployees(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Decision1'", e);
+            return null;
+        }
+    }
+
     public List<String> apply(List<String> employees, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decision1'

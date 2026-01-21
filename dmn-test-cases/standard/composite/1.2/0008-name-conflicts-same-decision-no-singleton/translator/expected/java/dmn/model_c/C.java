@@ -37,6 +37,16 @@ public class C extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
         }
     }
 
+    @java.lang.Override()
+    public String applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((CInput_)input_).getModela_a(), ((CInput_)input_).getModelb_a(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'C'", e);
+            return null;
+        }
+    }
+
     public String apply(String modela_a, String modelb_a, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'c'

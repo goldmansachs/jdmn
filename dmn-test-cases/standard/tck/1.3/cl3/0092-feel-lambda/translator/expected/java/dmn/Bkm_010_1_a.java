@@ -43,6 +43,16 @@ public class Bkm_010_1_a extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<com.
         }
     }
 
+    @java.lang.Override()
+    public com.gs.dmn.runtime.LambdaExpression<com.gs.dmn.runtime.LambdaExpression<com.gs.dmn.runtime.LambdaExpression<java.lang.Number>>> applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((Bkm_010_1_aInput_)input_).getA(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Bkm_010_1_a'", e);
+            return null;
+        }
+    }
+
     public com.gs.dmn.runtime.LambdaExpression<com.gs.dmn.runtime.LambdaExpression<com.gs.dmn.runtime.LambdaExpression<java.lang.Number>>> apply(java.lang.Number a, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'bkm_010_1_a'

@@ -37,6 +37,16 @@ public class DateCompare2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boo
         }
     }
 
+    @java.lang.Override()
+    public Boolean applyPojo(com.gs.dmn.runtime.ExecutableDRGElementInput input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return apply(((DateCompare2Input_)input_).getDecisioninputs_dateD(), ((DateCompare2Input_)input_).getDecisioninputs_dateE(), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'DateCompare2'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(java.time.LocalDate decisioninputs_dateD, java.time.LocalDate decisioninputs_dateE, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'dateCompare2'
