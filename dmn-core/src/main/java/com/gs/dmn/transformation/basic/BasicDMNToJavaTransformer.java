@@ -390,7 +390,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public boolean canGenerateApplyWithMap(TDRGElement element) {
+    public boolean canGenerateApplyMap(TDRGElement element) {
         if (element instanceof TDecision) {
             List<FEELParameter> parameters = drgElementTypeSignature(element);
             return parameters.stream().allMatch(p -> this.nativeFactory.isSerializable(p.getType()));
@@ -403,8 +403,72 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String drgElementSignatureWithMap(TDRGElement element) {
+    public String drgElementSignatureApplyMap(TDRGElement element) {
         return String.format("%s %s, %s %s", inputClassName(), inputVariableName(), executionContextClassName(), executionContextVariableName());
+    }
+
+    @Override
+    public String drgElementArgumentListApplyMap(TDRGElement element) {
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        return drgElementArgumentListApplyMap(reference);
+    }
+
+    protected String drgElementArgumentListApplyMap(DRGElementReference<? extends TDRGElement> reference) {
+        TDRGElement element = reference.getElement();
+        if (element instanceof TDecision) {
+            List<FEELParameter> parameters = drgElementTypeSignature(reference, this::displayName);
+            String arguments = parameters.stream().map(this::extractAndConvertInputMember).collect(Collectors.joining(", "));
+            return augmentArgumentList(arguments);
+        } else if (element instanceof TInvocable) {
+            List<FEELParameter> parameters = drgElementTypeSignature(reference, this::displayName);
+            String arguments = parameters.stream().map(this::extractAndConvertInputMember).collect(Collectors.joining(", "));
+            return augmentArgumentList(arguments);
+        } else {
+            throw new SemanticErrorException(String.format("Not supported yet for '%s'", element.getClass().getSimpleName()));
+        }
+    }
+
+    private String extractAndConvertInputMember(FEELParameter parameter) {
+        String member = extractInputMember(parameter.getName());
+        return String.format("%s", this.nativeFactory.convertArgumentFromString(member, parameter.getType()));
+    }
+
+    private String extractInputMember(String name) {
+        return String.format("%s.%s", inputVariableName(), contextGetter(name));
+    }
+
+    @Override
+    public boolean shouldGenerateApplyString(TDRGElement element) {
+        if (element instanceof TDecision) {
+            List<FEELParameter> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
+            return parameters.stream().anyMatch(p -> p.getType() != StringType.STRING) && parameters.stream().allMatch(p -> this.nativeFactory.isSerializable(p.getType()));
+        } else if (element instanceof TInvocable) {
+            return false;
+        } else {
+            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+        }
+    }
+
+    @Override
+    public String drgElementSignatureApplyString(TDRGElement element) {
+        if (element instanceof TDecision) {
+            List<FEELParameter> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
+            String decisionSignature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(toStringNativeType(p.getType()), p.getName())).collect(Collectors.joining(", "));
+            return augmentSignature(decisionSignature);
+        } else {
+            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+        }
+    }
+
+    @Override
+    public String drgElementArgumentListApplyString(TDRGElement element) {
+        if (element instanceof TDecision) {
+            List<FEELParameter> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
+            String arguments = parameters.stream().map(p -> String.format("%s", this.nativeFactory.convertArgumentFromString(p.getName(), p.getType()))).collect(Collectors.joining(", "));
+            return augmentArgumentList(arguments);
+        } else {
+            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
+        }
     }
 
     @Override
@@ -460,31 +524,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String drgElementArgumentListWithMap(DRGElementReference<? extends TDRGElement> reference) {
-        TDRGElement element = reference.getElement();
-        if (element instanceof TDecision) {
-            List<FEELParameter> parameters = drgElementTypeSignature(reference, this::displayName);
-            String arguments = parameters.stream().map(this::extractAndConvertInputMember).collect(Collectors.joining(", "));
-            return augmentArgumentList(arguments);
-        } else if (element instanceof TInvocable) {
-            List<FEELParameter> parameters = drgElementTypeSignature(reference, this::displayName);
-            String arguments = parameters.stream().map(this::extractAndConvertInputMember).collect(Collectors.joining(", "));
-            return augmentArgumentList(arguments);
-        } else {
-            throw new SemanticErrorException(String.format("Not supported yet for '%s'", element.getClass().getSimpleName()));
-        }
-    }
-
-    private String extractInputMember(String name) {
-        return String.format("%s.%s", inputVariableName(), contextGetter(name));
-    }
-
-    private String extractAndConvertInputMember(FEELParameter parameter) {
-        String member = extractInputMember(parameter.getName());
-        return String.format("%s", this.nativeFactory.convertArgumentFromString(member, parameter.getType()));
-    }
-
-    @Override
     public List<String> drgElementComplexInputClassNames(TDRGElement element) {
         Set<String> nameSet = new LinkedHashSet<>();
         // Input
@@ -535,12 +574,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
                 collect((ItemDefinitionType) memberType, types);
             }
         }
-    }
-
-    @Override
-    public String drgElementArgumentListWithMap(TDRGElement element) {
-        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
-        return drgElementArgumentListWithMap(reference);
     }
 
     @Override
@@ -640,39 +673,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         return "args_";
     }
 
-    @Override
-    public boolean shouldGenerateApplyWithConversionFromString(TDRGElement element) {
-        if (element instanceof TDecision) {
-            List<FEELParameter> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
-            return parameters.stream().anyMatch(p -> p.getType() != StringType.STRING) && parameters.stream().allMatch(p -> this.nativeFactory.isSerializable(p.getType()));
-        } else if (element instanceof TInvocable) {
-            return false;
-        } else {
-            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
-    }
-
-    @Override
-    public String drgElementSignatureWithConversionFromString(TDRGElement element) {
-        if (element instanceof TDecision) {
-            List<FEELParameter> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
-            String decisionSignature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(toStringNativeType(p.getType()), p.getName())).collect(Collectors.joining(", "));
-            return augmentSignature(decisionSignature);
-        } else {
-            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
-    }
-
-    @Override
-    public String drgElementArgumentListWithConversionFromString(TDRGElement element) {
-        if (element instanceof TDecision) {
-            List<FEELParameter> parameters = inputDataParametersClosure(this.dmnModelRepository.makeDRGElementReference((TDecision) element));
-            String arguments = parameters.stream().map(p -> String.format("%s", this.nativeFactory.convertArgumentFromString(p.getName(), p.getType()))).collect(Collectors.joining(", "));
-            return augmentArgumentList(arguments);
-        } else {
-            throw new SemanticErrorException(String.format("No supported yet '%s'", element.getClass().getSimpleName()));
-        }
-    }
 
     @Override
     public boolean hasComplexInputDatas(TDRGElement element) {

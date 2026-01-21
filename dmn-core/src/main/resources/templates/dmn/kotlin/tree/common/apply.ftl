@@ -19,10 +19,10 @@
 </#macro>
 
 <#macro applyMap drgElement >
-    override fun applyMap(${transformer.drgElementSignatureWithMap(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
-    <#if transformer.canGenerateApplyWithMap(drgElement)>
+    override fun applyMap(${transformer.drgElementSignatureApplyMap(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    <#if transformer.canGenerateApplyMap(drgElement)>
         try {
-            return apply(${transformer.drgElementArgumentListWithMap(drgElement)})
+            return apply(${transformer.drgElementArgumentListApplyMap(drgElement)})
         } catch (e: Exception) {
             logError("Cannot apply decision '${javaClassName}'", e)
             return null
@@ -34,10 +34,10 @@
 </#macro>
 
 <#macro applyString drgElement >
-    <#if transformer.shouldGenerateApplyWithConversionFromString(drgElement)>
-    fun applyString(${transformer.drgElementSignatureWithConversionFromString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
+    <#if transformer.shouldGenerateApplyString(drgElement)>
+    fun applyString(${transformer.drgElementSignatureApplyString(drgElement)}): ${transformer.drgElementOutputType(drgElement)} {
         return try {
-            apply(${transformer.drgElementArgumentListWithConversionFromString(drgElement)})
+            apply(${transformer.drgElementArgumentListApplyString(drgElement)})
         } catch (e: Exception) {
             logError("Cannot apply decision '${javaClassName}'", e)
             null

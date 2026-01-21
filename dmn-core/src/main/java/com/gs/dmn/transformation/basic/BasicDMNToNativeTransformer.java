@@ -140,10 +140,21 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     List<FEELParameter> drgElementTypeSignature(TDRGElement element);
 
-    boolean canGenerateApplyWithMap(TDRGElement element);
+    // applyMap() related methods
+    boolean canGenerateApplyMap(TDRGElement element);
 
-    String drgElementSignatureWithMap(TDRGElement element);
+    String drgElementSignatureApplyMap(TDRGElement element);
 
+    String drgElementArgumentListApplyMap(TDRGElement element);
+
+    // apply() with String conversion related methods
+    boolean shouldGenerateApplyString(TDRGElement element);
+
+    String drgElementSignatureApplyString(TDRGElement element);
+
+    String drgElementArgumentListApplyString(TDRGElement element);
+
+    // apply() and evaluate() related methods
     String drgElementSignature(TDRGElement element);
 
     String drgElementSignature(DRGElementReference<? extends TDRGElement> reference);
@@ -153,10 +164,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     List<NativeParameter> drgElementSignatureParameters(DRGElementReference<? extends TDRGElement> reference);
 
     List<String> drgElementComplexInputClassNames(TDRGElement element);
-
-    String drgElementArgumentListWithMap(TDRGElement element);
-
-    String drgElementArgumentListWithMap(DRGElementReference<? extends TDRGElement> reference);
 
     String drgElementArgumentList(TDRGElement element);
 
@@ -173,12 +180,6 @@ public interface BasicDMNToNativeTransformer<T, C> {
     List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference);
 
     List<String> drgElementArgumentDisplayNameList(DRGElementReference<? extends TDRGElement> reference);
-
-    boolean shouldGenerateApplyWithConversionFromString(TDRGElement element);
-
-    String drgElementSignatureWithConversionFromString(TDRGElement element);
-
-    String drgElementArgumentListWithConversionFromString(TDRGElement element);
 
     boolean hasComplexInputDatas(TDRGElement element);
 
