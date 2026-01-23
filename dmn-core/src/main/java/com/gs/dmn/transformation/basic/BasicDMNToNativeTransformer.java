@@ -480,7 +480,9 @@ public interface BasicDMNToNativeTransformer<T, C> {
     //
     boolean isComplexType(Type type);
 
-    boolean isDateTimeType(Type type);
+    boolean isListType(Type type);
+
+    boolean isListOfComplexType(Type type);
 
     Type toFEELType(TDefinitions model, String typeName);
 

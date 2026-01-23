@@ -97,7 +97,8 @@ public class SimplifyTypesForMIDTransformer extends SimpleDMNTransformer<TestLab
                     Type bodyDecisionType = basicTransformer.toFEELType(bodyDecisionModel, bodyDecisionTypeRef);
                     if (midType instanceof ListType) {
                         Type midElementType = ((ListType) midType).getElementType();
-                        if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(midElementType, bodyDecisionType) && basicTransformer.isComplexType(bodyDecisionType)) {
+                        if (com.gs.dmn.el.analysis.semantics.type.Type.equivalentTo(midElementType, bodyDecisionType)
+                                && (basicTransformer.isComplexType(bodyDecisionType) || basicTransformer.isListOfComplexType(bodyDecisionType))) {
                             TItemDefinition midItemDefinitionType = signavioRepository.lookupItemDefinition(decisionModel, midDecisionTypeRef);
                             String importName = bodyDecisionTypeRef.getNamespace();
                             if (StringUtils.isEmpty(importName)) {

@@ -1751,33 +1751,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     //
     @Override
     public boolean isComplexType(Type type) {
-        return type instanceof ItemDefinitionType
-                || type instanceof ListType && ((ListType) type).getElementType() instanceof ItemDefinitionType;
+        return type instanceof ItemDefinitionType;
     }
 
     @Override
-    public boolean isDateTimeType(Type type) {
-        return isSimpleDateTimeType(type) || (type instanceof ListType && isSimpleDateTimeType(((ListType) type).getElementType()));
+    public boolean isListType(Type type) {
+        return type instanceof ListType;
     }
 
-    private boolean isSimpleDateTimeType(Type type) {
-        return isDate(type) || isTime(type) || isDateTime(type) || isDurationTime(type);
-    }
-
-    private boolean isDate(Type type) {
-        return type instanceof DateType;
-    }
-
-    private boolean isTime(Type type) {
-        return type instanceof TimeType;
-    }
-
-    private boolean isDateTime(Type type) {
-        return type instanceof DateTimeType;
-    }
-
-    private boolean isDurationTime(Type type) {
-        return type instanceof DurationType;
+    @Override
+    public boolean isListOfComplexType(Type type) {
+        return isListType(type) && isComplexType(((ListType) type).getElementType());
     }
 
     @Override
