@@ -13,21 +13,12 @@ public interface TFnInvocationComplexParamsResult extends com.gs.dmn.runtime.DMN
             return (TFnInvocationComplexParamsResult)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TFnInvocationComplexParamsResultImpl result_ = new TFnInvocationComplexParamsResultImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("functionInvocationLiteralExpressionInParameter")) {
-                result_.setFunctionInvocationLiteralExpressionInParameter((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("functionInvocationLiteralExpressionInParameter"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("functionInvocationInParameter")) {
-                result_.setFunctionInvocationInParameter((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("functionInvocationInParameter"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("circumference")) {
-                result_.setCircumference((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("circumference"));
-            } else {
-                return  null;
-            }
+            Object functionInvocationLiteralExpressionInParameter = ((com.gs.dmn.runtime.Context)other).get("functionInvocationLiteralExpressionInParameter");
+            result_.setFunctionInvocationLiteralExpressionInParameter((java.lang.Number)functionInvocationLiteralExpressionInParameter);
+            Object functionInvocationInParameter = ((com.gs.dmn.runtime.Context)other).get("functionInvocationInParameter");
+            result_.setFunctionInvocationInParameter((java.lang.Number)functionInvocationInParameter);
+            Object circumference = ((com.gs.dmn.runtime.Context)other).get("circumference");
+            result_.setCircumference((java.lang.Number)circumference);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTFnInvocationComplexParamsResult(((com.gs.dmn.runtime.DMNType)other).toContext());

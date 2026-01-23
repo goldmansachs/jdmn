@@ -75,11 +75,16 @@ interface TRankedProducts : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TRankedProductsImpl()
-                result_.metricsTable = other.get("metricsTable") as List<type.TMetric?>?
-                result_.rankByRate = other.get("rankByRate") as List<type.TMetric?>?
-                result_.rankByDownPmt = other.get("rankByDownPmt") as List<type.TMetric?>?
-                result_.rankByMonthlyPmt = other.get("rankByMonthlyPmt") as List<type.TMetric?>?
-                result_.rankByEquityPct = other.get("rankByEquityPct") as List<type.TMetric?>?
+                var metricsTable = other.get("metricsTable")
+                result_.metricsTable = (metricsTable as java.util.List<*>)?.map({ x_ -> type.TMetric.toTMetric(x_) }) as List<type.TMetric?>?
+                var rankByRate = other.get("rankByRate")
+                result_.rankByRate = (rankByRate as java.util.List<*>)?.map({ x_ -> type.TMetric.toTMetric(x_) }) as List<type.TMetric?>?
+                var rankByDownPmt = other.get("rankByDownPmt")
+                result_.rankByDownPmt = (rankByDownPmt as java.util.List<*>)?.map({ x_ -> type.TMetric.toTMetric(x_) }) as List<type.TMetric?>?
+                var rankByMonthlyPmt = other.get("rankByMonthlyPmt")
+                result_.rankByMonthlyPmt = (rankByMonthlyPmt as java.util.List<*>)?.map({ x_ -> type.TMetric.toTMetric(x_) }) as List<type.TMetric?>?
+                var rankByEquityPct = other.get("rankByEquityPct")
+                result_.rankByEquityPct = (rankByEquityPct as java.util.List<*>)?.map({ x_ -> type.TMetric.toTMetric(x_) }) as List<type.TMetric?>?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTRankedProducts(other.toContext())

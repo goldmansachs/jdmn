@@ -54,8 +54,10 @@ interface TBureauData : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TBureauDataImpl()
-                result_.creditScore = other.get("CreditScore") as kotlin.Number?
-                result_.bankrupt = other.get("Bankrupt") as Boolean?
+                var creditScore = other.get("CreditScore")
+                result_.creditScore = creditScore as kotlin.Number?
+                var bankrupt = other.get("Bankrupt")
+                result_.bankrupt = bankrupt as Boolean?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTBureauData(other.toContext())

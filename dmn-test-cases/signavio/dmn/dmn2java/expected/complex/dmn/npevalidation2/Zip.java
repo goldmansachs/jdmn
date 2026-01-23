@@ -101,6 +101,6 @@ public class Zip extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
         Boolean noRuleMatchesSingleHit = this.noRuleMatchesSingleHit.apply(second, context_);
         List<type.TemporalDiffs> temporalDiffs = this.temporalDiffs.apply(day, hour, minute, month, second, year, context_);
 
-        return zip(asList("names", "ages", "dateDiffs", "dateTimeDiffs", "temporalUnits", "agesListDescription"), asList(names, ages, temporalDiffs.stream().map(x_ -> ((java.lang.Number)(x_ != null ? x_.getDateDiff() : null))).collect(Collectors.toList()), temporalDiffs.stream().map(x_ -> ((java.lang.Number)(x_ != null ? x_.getDateTimeDiff() : null))).collect(Collectors.toList()), accessCertainTemporalUnits, describeAgesList)).stream().map(x_ -> type.Zip.toZip(x_)).collect(Collectors.toList());
+        return zip(asList("names", "ages", "dateDiffs", "dateTimeDiffs", "temporalUnits", "agesListDescription"), asList(names, ages, temporalDiffs.stream().map(x_ -> ((java.lang.Number)(x_ != null ? x_.getDateDiff() : null))).collect(Collectors.toList()), temporalDiffs.stream().map(x_ -> ((java.lang.Number)(x_ != null ? x_.getDateTimeDiff() : null))).collect(Collectors.toList()), accessCertainTemporalUnits, describeAgesList)).stream().map(x_ -> type.Zip.toZip(x_)).collect(java.util.stream.Collectors.toList());
     }
 }

@@ -54,8 +54,10 @@ interface TA : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TAImpl()
-                result_.name = other.get("name") as String?
-                result_.price = other.get("price") as kotlin.Number?
+                var name = other.get("name")
+                result_.name = name as String?
+                var price = other.get("price")
+                result_.price = price as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTA(other.toContext())

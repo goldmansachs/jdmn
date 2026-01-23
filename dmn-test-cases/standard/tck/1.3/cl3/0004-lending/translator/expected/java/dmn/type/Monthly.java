@@ -13,21 +13,12 @@ public interface Monthly extends com.gs.dmn.runtime.DMNType {
             return (Monthly)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             MonthlyImpl result_ = new MonthlyImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Income")) {
-                result_.setIncome((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Income"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Expenses")) {
-                result_.setExpenses((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Expenses"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Repayments")) {
-                result_.setRepayments((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Repayments"));
-            } else {
-                return  null;
-            }
+            Object income = ((com.gs.dmn.runtime.Context)other).get("Income");
+            result_.setIncome((java.lang.Number)income);
+            Object expenses = ((com.gs.dmn.runtime.Context)other).get("Expenses");
+            result_.setExpenses((java.lang.Number)expenses);
+            Object repayments = ((com.gs.dmn.runtime.Context)other).get("Repayments");
+            result_.setRepayments((java.lang.Number)repayments);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toMonthly(((com.gs.dmn.runtime.DMNType)other).toContext());

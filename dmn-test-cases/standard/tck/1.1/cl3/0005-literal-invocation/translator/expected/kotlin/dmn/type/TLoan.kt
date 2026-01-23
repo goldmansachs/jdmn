@@ -61,9 +61,12 @@ interface TLoan : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TLoanImpl()
-                result_.amount = other.get("amount") as kotlin.Number?
-                result_.rate = other.get("rate") as kotlin.Number?
-                result_.term = other.get("term") as kotlin.Number?
+                var amount = other.get("amount")
+                result_.amount = amount as kotlin.Number?
+                var rate = other.get("rate")
+                result_.rate = rate as kotlin.Number?
+                var term = other.get("term")
+                result_.term = term as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTLoan(other.toContext())

@@ -13,26 +13,14 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
             return (Applicant)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             ApplicantImpl result_ = new ApplicantImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("name") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Name")) {
-                result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name", "Name"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("age") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Age")) {
-                result_.setAge((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("age", "Age"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("creditScore") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Credit score")) {
-                result_.setCreditScore((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("creditScore", "Credit score"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("priorIssues") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Prior issues")) {
-                result_.setPriorIssues((List<String>)((com.gs.dmn.runtime.Context)other).get("priorIssues", "Prior issues"));
-            } else {
-                return  null;
-            }
+            Object name = ((com.gs.dmn.runtime.Context)other).get("name", "Name");
+            result_.setName((String)name);
+            Object age = ((com.gs.dmn.runtime.Context)other).get("age", "Age");
+            result_.setAge((java.lang.Number)age);
+            Object creditScore = ((com.gs.dmn.runtime.Context)other).get("creditScore", "Credit score");
+            result_.setCreditScore((java.lang.Number)creditScore);
+            Object priorIssues = ((com.gs.dmn.runtime.Context)other).get("priorIssues", "Prior issues");
+            result_.setPriorIssues((List<String>)priorIssues);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toApplicant(((com.gs.dmn.runtime.DMNType)other).toContext());

@@ -75,11 +75,16 @@ interface TApplicantData : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TApplicantDataImpl()
-                result_.monthly = other.get("Monthly") as type.Monthly?
-                result_.age = other.get("Age") as kotlin.Number?
-                result_.existingCustomer = other.get("ExistingCustomer") as Boolean?
-                result_.maritalStatus = other.get("MaritalStatus") as String?
-                result_.employmentStatus = other.get("EmploymentStatus") as String?
+                var monthly = other.get("Monthly")
+                result_.monthly =  type.Monthly.toMonthly(monthly)
+                var age = other.get("Age")
+                result_.age = age as kotlin.Number?
+                var existingCustomer = other.get("ExistingCustomer")
+                result_.existingCustomer = existingCustomer as Boolean?
+                var maritalStatus = other.get("MaritalStatus")
+                result_.maritalStatus = maritalStatus as String?
+                var employmentStatus = other.get("EmploymentStatus")
+                result_.employmentStatus = employmentStatus as String?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTApplicantData(other.toContext())

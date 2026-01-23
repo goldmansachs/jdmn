@@ -13,21 +13,12 @@ public interface GenerateOutputData extends com.gs.dmn.runtime.DMNType {
             return (GenerateOutputData)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             GenerateOutputDataImpl result_ = new GenerateOutputDataImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("decision") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Decision")) {
-                result_.setDecision((String)((com.gs.dmn.runtime.Context)other).get("decision", "Decision"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("assessment") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Assessment")) {
-                result_.setAssessment((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("assessment", "Assessment"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("issue") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Issue")) {
-                result_.setIssue((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("issue", "Issue"));
-            } else {
-                return  null;
-            }
+            Object decision = ((com.gs.dmn.runtime.Context)other).get("decision", "Decision");
+            result_.setDecision((String)decision);
+            Object assessment = ((com.gs.dmn.runtime.Context)other).get("assessment", "Assessment");
+            result_.setAssessment((java.lang.Number)assessment);
+            Object issue = ((com.gs.dmn.runtime.Context)other).get("issue", "Issue");
+            result_.setIssue((java.lang.Number)issue);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toGenerateOutputData(((com.gs.dmn.runtime.DMNType)other).toContext());

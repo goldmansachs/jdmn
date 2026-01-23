@@ -36,22 +36,24 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
         } else if (other instanceof ${transformer.contextClassName()}) {
             ${transformer.itemDefinitionNativeClassName(javaClassName)} result_ = new ${transformer.itemDefinitionNativeClassName(javaClassName)}();
         <#list itemDefinition.itemComponent as child>
-            <#assign castToItemDefinitionInterface = "(${transformer.itemDefinitionNativeQualifiedInterfaceName(child)})" />
+            <#assign memberName = transformer.namedElementVariableName(child) />
+            <#assign castToMemberType = "(${transformer.itemDefinitionNativeQualifiedInterfaceName(child)})" />
             <#assign castToContext = "(${transformer.contextClassName()})" />
-            <#assign name = "\"${modelRepository.name(child)}\"" />
-            <#assign label = "\"${modelRepository.label(child)}\"" />
+            <#assign nameString = "\"${modelRepository.name(child)}\"" />
+            <#assign labelString = "\"${modelRepository.label(child)}\"" />
             <#if modelRepository.label(child)?has_content>
-            if ((${castToContext}other).keySet().contains(${name}) || (${castToContext}other).keySet().contains(${label})) {
-                result_.${transformer.setter(child, "${castToItemDefinitionInterface}(${castToContext}other).get(${name}, ${label})")};
-            } else {
-                return  null;
-            }
+            Object ${memberName} = (${castToContext}other).get(${nameString}, ${labelString});
             <#else>
-            if ((${castToContext}other).keySet().contains(${name})) {
-                result_.${transformer.setter(child, "${castToItemDefinitionInterface}(${castToContext}other).get(${name})")};
-            } else {
-                return  null;
-            }
+            Object ${memberName} = (${castToContext}other).get(${nameString});
+            </#if>
+            <#assign childFEELType = transformer.toFEELType(child) />
+            <#if transformer.isComplexType(childFEELType)>
+            result_.${transformer.setter(child, "${transformer.convertToItemDefinitionType(memberName, childFEELType)}")};
+            <#elseif transformer.isListOfComplexType(childFEELType)>
+            <#assign listSource = "((java.util.List)${memberName})" />
+            result_.${transformer.setter(child, "${castToMemberType}${transformer.convertToListOfItemDefinitionType(listSource, childFEELType.elementType)}")};
+            <#else>
+            result_.${transformer.setter(child, "${castToMemberType}${memberName}")};
             </#if>
         </#list>
             return result_;

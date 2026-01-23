@@ -1033,6 +1033,16 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String convertToItemDefinitionType(String nativeExpression, com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType type) {
+        return this.nativeFactory.convertToItemDefinitionType(nativeExpression, type);
+    }
+
+    @Override
+    public String convertToListOfItemDefinitionType(String nativeExpression, com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType elementType) {
+        return this.nativeFactory.convertToListOfItemDefinitionType(nativeExpression, elementType);
+    }
+
+    @Override
     public String augmentSignature(String signature) {
         String contextParameter = this.nativeFactory.parameter(executionContextClassName(), executionContextVariableName());
         if (StringUtils.isBlank(signature)) {

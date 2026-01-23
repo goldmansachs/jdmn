@@ -13,36 +13,18 @@ public interface Zip extends com.gs.dmn.runtime.DMNType {
             return (Zip)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             ZipImpl result_ = new ZipImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("names") || ((com.gs.dmn.runtime.Context)other).keySet().contains("names")) {
-                result_.setNames((String)((com.gs.dmn.runtime.Context)other).get("names", "names"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("ages") || ((com.gs.dmn.runtime.Context)other).keySet().contains("ages")) {
-                result_.setAges((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("ages", "ages"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateDiffs") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateDiffs")) {
-                result_.setDateDiffs((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("dateDiffs", "dateDiffs"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeDiffs") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeDiffs")) {
-                result_.setDateTimeDiffs((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("dateTimeDiffs", "dateTimeDiffs"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("temporalUnits") || ((com.gs.dmn.runtime.Context)other).keySet().contains("temporalUnits")) {
-                result_.setTemporalUnits((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("temporalUnits", "temporalUnits"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("agesListDescription") || ((com.gs.dmn.runtime.Context)other).keySet().contains("agesListDescription")) {
-                result_.setAgesListDescription((String)((com.gs.dmn.runtime.Context)other).get("agesListDescription", "agesListDescription"));
-            } else {
-                return  null;
-            }
+            Object names = ((com.gs.dmn.runtime.Context)other).get("names", "names");
+            result_.setNames((String)names);
+            Object ages = ((com.gs.dmn.runtime.Context)other).get("ages", "ages");
+            result_.setAges((java.lang.Number)ages);
+            Object dateDiffs = ((com.gs.dmn.runtime.Context)other).get("dateDiffs", "dateDiffs");
+            result_.setDateDiffs((java.lang.Number)dateDiffs);
+            Object dateTimeDiffs = ((com.gs.dmn.runtime.Context)other).get("dateTimeDiffs", "dateTimeDiffs");
+            result_.setDateTimeDiffs((java.lang.Number)dateTimeDiffs);
+            Object temporalUnits = ((com.gs.dmn.runtime.Context)other).get("temporalUnits", "temporalUnits");
+            result_.setTemporalUnits((java.lang.Number)temporalUnits);
+            Object agesListDescription = ((com.gs.dmn.runtime.Context)other).get("agesListDescription", "agesListDescription");
+            result_.setAgesListDescription((String)agesListDescription);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toZip(((com.gs.dmn.runtime.DMNType)other).toContext());

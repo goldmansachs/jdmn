@@ -54,8 +54,10 @@ interface TItemPrice : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TItemPriceImpl()
-                result_.itemName = other.get("itemName") as String?
-                result_.price = other.get("price") as kotlin.Number?
+                var itemName = other.get("itemName")
+                result_.itemName = itemName as String?
+                var price = other.get("price")
+                result_.price = price as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTItemPrice(other.toContext())

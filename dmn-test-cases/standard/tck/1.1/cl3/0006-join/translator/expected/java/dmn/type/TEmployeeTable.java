@@ -13,21 +13,12 @@ public interface TEmployeeTable extends com.gs.dmn.runtime.DMNType {
             return (TEmployeeTable)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TEmployeeTableImpl result_ = new TEmployeeTableImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("id")) {
-                result_.setId((String)((com.gs.dmn.runtime.Context)other).get("id"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("name")) {
-                result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("deptNum")) {
-                result_.setDeptNum((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("deptNum"));
-            } else {
-                return  null;
-            }
+            Object id = ((com.gs.dmn.runtime.Context)other).get("id");
+            result_.setId((String)id);
+            Object name = ((com.gs.dmn.runtime.Context)other).get("name");
+            result_.setName((String)name);
+            Object deptNum = ((com.gs.dmn.runtime.Context)other).get("deptNum");
+            result_.setDeptNum((java.lang.Number)deptNum);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTEmployeeTable(((com.gs.dmn.runtime.DMNType)other).toContext());

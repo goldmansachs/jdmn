@@ -44,4 +44,9 @@ public class OtherDMNToJavaTransformerTest extends AbstractTckDMNToJavaTransform
     public void testSignavioLibraryWithPrefix() throws Exception {
         doFolderTest("1.5", "feel-signavio-library-prefix");
     }
+
+    @Test
+    public void testApplyContext() throws Exception {
+        doFolderTest("1.5", "context-api");
+    }
 }

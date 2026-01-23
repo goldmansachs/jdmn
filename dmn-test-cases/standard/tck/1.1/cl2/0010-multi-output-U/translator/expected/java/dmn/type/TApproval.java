@@ -13,16 +13,10 @@ public interface TApproval extends com.gs.dmn.runtime.DMNType {
             return (TApproval)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TApprovalImpl result_ = new TApprovalImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Status")) {
-                result_.setStatus((String)((com.gs.dmn.runtime.Context)other).get("Status"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Rate")) {
-                result_.setRate((String)((com.gs.dmn.runtime.Context)other).get("Rate"));
-            } else {
-                return  null;
-            }
+            Object status = ((com.gs.dmn.runtime.Context)other).get("Status");
+            result_.setStatus((String)status);
+            Object rate = ((com.gs.dmn.runtime.Context)other).get("Rate");
+            result_.setRate((String)rate);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTApproval(((com.gs.dmn.runtime.DMNType)other).toContext());

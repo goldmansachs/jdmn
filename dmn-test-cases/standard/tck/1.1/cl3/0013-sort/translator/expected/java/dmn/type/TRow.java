@@ -13,26 +13,14 @@ public interface TRow extends com.gs.dmn.runtime.DMNType {
             return (TRow)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TRowImpl result_ = new TRowImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("col1")) {
-                result_.setCol1((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("col1"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("col2")) {
-                result_.setCol2((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("col2"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("col3")) {
-                result_.setCol3((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("col3"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("col4")) {
-                result_.setCol4((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("col4"));
-            } else {
-                return  null;
-            }
+            Object col1 = ((com.gs.dmn.runtime.Context)other).get("col1");
+            result_.setCol1((java.lang.Number)col1);
+            Object col2 = ((com.gs.dmn.runtime.Context)other).get("col2");
+            result_.setCol2((java.lang.Number)col2);
+            Object col3 = ((com.gs.dmn.runtime.Context)other).get("col3");
+            result_.setCol3((java.lang.Number)col3);
+            Object col4 = ((com.gs.dmn.runtime.Context)other).get("col4");
+            result_.setCol4((java.lang.Number)col4);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTRow(((com.gs.dmn.runtime.DMNType)other).toContext());

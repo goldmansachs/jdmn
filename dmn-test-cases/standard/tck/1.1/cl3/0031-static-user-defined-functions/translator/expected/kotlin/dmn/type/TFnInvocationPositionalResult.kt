@@ -61,9 +61,12 @@ interface TFnInvocationPositionalResult : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TFnInvocationPositionalResultImpl()
-                result_.sumResult = other.get("sumResult") as kotlin.Number?
-                result_.divisionResultPositional = other.get("divisionResultPositional") as kotlin.Number?
-                result_.multiplicationResultPositional = other.get("multiplicationResultPositional") as kotlin.Number?
+                var sumResult = other.get("sumResult")
+                result_.sumResult = sumResult as kotlin.Number?
+                var divisionResultPositional = other.get("divisionResultPositional")
+                result_.divisionResultPositional = divisionResultPositional as kotlin.Number?
+                var multiplicationResultPositional = other.get("multiplicationResultPositional")
+                result_.multiplicationResultPositional = multiplicationResultPositional as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTFnInvocationPositionalResult(other.toContext())

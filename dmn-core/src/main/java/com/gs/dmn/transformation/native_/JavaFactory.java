@@ -435,20 +435,25 @@ public class JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String convertToListOfItemDefinitionType(String nativeExpression, ItemDefinitionType expectedElementType) {
-        String elementConversion = convertToItemDefinitionType(MAP_ITERATOR, expectedElementType);
-        return String.format("%s.stream().map(%s -> %s).collect(Collectors.toList())", nativeExpression, MAP_ITERATOR, elementConversion);
+    public String convertToListOfItemDefinitionType(String nativeExpression, ItemDefinitionType elementType) {
+        String elementConversion = convertToItemDefinitionType(MAP_ITERATOR, elementType);
+        return String.format("%s.stream().map(%s -> %s).collect(java.util.stream.Collectors.toList())", nativeExpression, MAP_ITERATOR, elementConversion);
     }
 
     @Override
     public String convertMethodName(TItemDefinition itemDefinition) {
-        String nativeInterfaceName = transformer.upperCaseFirst(itemDefinition.getName());
-        return String.format("to%s", nativeInterfaceName);
+        String name = itemDefinition.getName();
+        return convertMethodName(name);
     }
 
     @Override
     public String convertMethodName(ItemDefinitionType type) {
-        String nativeInterfaceName = transformer.upperCaseFirst(type.getName());
+        String name = type.getName();
+        return convertMethodName(name);
+    }
+
+    private String convertMethodName(String name) {
+        String nativeInterfaceName = transformer.upperCaseFirst(name);
         return String.format("to%s", nativeInterfaceName);
     }
 

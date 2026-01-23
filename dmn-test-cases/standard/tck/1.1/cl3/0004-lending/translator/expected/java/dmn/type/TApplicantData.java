@@ -13,31 +13,16 @@ public interface TApplicantData extends com.gs.dmn.runtime.DMNType {
             return (TApplicantData)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TApplicantDataImpl result_ = new TApplicantDataImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Monthly")) {
-                result_.setMonthly((type.Monthly)((com.gs.dmn.runtime.Context)other).get("Monthly"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Age")) {
-                result_.setAge((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Age"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("ExistingCustomer")) {
-                result_.setExistingCustomer((Boolean)((com.gs.dmn.runtime.Context)other).get("ExistingCustomer"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("MaritalStatus")) {
-                result_.setMaritalStatus((String)((com.gs.dmn.runtime.Context)other).get("MaritalStatus"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("EmploymentStatus")) {
-                result_.setEmploymentStatus((String)((com.gs.dmn.runtime.Context)other).get("EmploymentStatus"));
-            } else {
-                return  null;
-            }
+            Object monthly = ((com.gs.dmn.runtime.Context)other).get("Monthly");
+            result_.setMonthly(type.Monthly.toMonthly(monthly));
+            Object age = ((com.gs.dmn.runtime.Context)other).get("Age");
+            result_.setAge((java.lang.Number)age);
+            Object existingCustomer = ((com.gs.dmn.runtime.Context)other).get("ExistingCustomer");
+            result_.setExistingCustomer((Boolean)existingCustomer);
+            Object maritalStatus = ((com.gs.dmn.runtime.Context)other).get("MaritalStatus");
+            result_.setMaritalStatus((String)maritalStatus);
+            Object employmentStatus = ((com.gs.dmn.runtime.Context)other).get("EmploymentStatus");
+            result_.setEmploymentStatus((String)employmentStatus);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTApplicantData(((com.gs.dmn.runtime.DMNType)other).toContext());

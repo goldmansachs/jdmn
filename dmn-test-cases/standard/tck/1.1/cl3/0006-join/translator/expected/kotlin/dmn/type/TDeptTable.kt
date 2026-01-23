@@ -61,9 +61,12 @@ interface TDeptTable : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TDeptTableImpl()
-                result_.number = other.get("number") as kotlin.Number?
-                result_.name = other.get("name") as String?
-                result_.manager = other.get("manager") as String?
+                var number = other.get("number")
+                result_.number = number as kotlin.Number?
+                var name = other.get("name")
+                result_.name = name as String?
+                var manager = other.get("manager")
+                result_.manager = manager as String?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTDeptTable(other.toContext())

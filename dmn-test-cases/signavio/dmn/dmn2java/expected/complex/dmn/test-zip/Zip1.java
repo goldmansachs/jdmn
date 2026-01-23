@@ -67,6 +67,6 @@ public class Zip1 extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisi
         com.gs.dmn.runtime.listener.EventListener eventListener_ = context_ != null ? context_.getEventListener() : null;
         com.gs.dmn.runtime.external.ExternalFunctionExecutor externalExecutor_ = context_ != null ? context_.getExternalFunctionExecutor() : null;
         com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
-        return zip(asList("A", "B"), asList(a4, b)).stream().map(x_ -> type.Zip1.toZip1(x_)).collect(Collectors.toList());
+        return zip(asList("A", "B"), asList(a4, b)).stream().map(x_ -> type.Zip1.toZip1(x_)).collect(java.util.stream.Collectors.toList());
     }
 }

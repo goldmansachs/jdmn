@@ -13,26 +13,14 @@ public interface TFnLibrary extends com.gs.dmn.runtime.DMNType {
             return (TFnLibrary)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TFnLibraryImpl result_ = new TFnLibraryImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("sumFn")) {
-                result_.setSumFn((Object)((com.gs.dmn.runtime.Context)other).get("sumFn"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("subFn")) {
-                result_.setSubFn((Object)((com.gs.dmn.runtime.Context)other).get("subFn"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("multiplyFn")) {
-                result_.setMultiplyFn((Object)((com.gs.dmn.runtime.Context)other).get("multiplyFn"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("divideFn")) {
-                result_.setDivideFn((Object)((com.gs.dmn.runtime.Context)other).get("divideFn"));
-            } else {
-                return  null;
-            }
+            Object sumFn = ((com.gs.dmn.runtime.Context)other).get("sumFn");
+            result_.setSumFn((Object)sumFn);
+            Object subFn = ((com.gs.dmn.runtime.Context)other).get("subFn");
+            result_.setSubFn((Object)subFn);
+            Object multiplyFn = ((com.gs.dmn.runtime.Context)other).get("multiplyFn");
+            result_.setMultiplyFn((Object)multiplyFn);
+            Object divideFn = ((com.gs.dmn.runtime.Context)other).get("divideFn");
+            result_.setDivideFn((Object)divideFn);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTFnLibrary(((com.gs.dmn.runtime.DMNType)other).toContext());

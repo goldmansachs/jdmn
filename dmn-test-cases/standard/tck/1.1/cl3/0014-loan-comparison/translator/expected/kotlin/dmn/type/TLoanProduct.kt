@@ -68,10 +68,14 @@ interface TLoanProduct : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TLoanProductImpl()
-                result_.lenderName = other.get("lenderName") as String?
-                result_.rate = other.get("rate") as kotlin.Number?
-                result_.points = other.get("points") as kotlin.Number?
-                result_.fee = other.get("fee") as kotlin.Number?
+                var lenderName = other.get("lenderName")
+                result_.lenderName = lenderName as String?
+                var rate = other.get("rate")
+                result_.rate = rate as kotlin.Number?
+                var points = other.get("points")
+                result_.points = points as kotlin.Number?
+                var fee = other.get("fee")
+                result_.fee = fee as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTLoanProduct(other.toContext())

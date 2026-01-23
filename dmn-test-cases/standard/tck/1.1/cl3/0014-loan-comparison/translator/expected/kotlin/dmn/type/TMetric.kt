@@ -96,14 +96,22 @@ interface TMetric : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TMetricImpl()
-                result_.lenderName = other.get("lenderName") as String?
-                result_.rate = other.get("rate") as kotlin.Number?
-                result_.points = other.get("points") as kotlin.Number?
-                result_.fee = other.get("fee") as kotlin.Number?
-                result_.loanAmt = other.get("loanAmt") as kotlin.Number?
-                result_.downPmtAmt = other.get("downPmtAmt") as kotlin.Number?
-                result_.paymentAmt = other.get("paymentAmt") as kotlin.Number?
-                result_.equity36moPct = other.get("equity36moPct") as kotlin.Number?
+                var lenderName = other.get("lenderName")
+                result_.lenderName = lenderName as String?
+                var rate = other.get("rate")
+                result_.rate = rate as kotlin.Number?
+                var points = other.get("points")
+                result_.points = points as kotlin.Number?
+                var fee = other.get("fee")
+                result_.fee = fee as kotlin.Number?
+                var loanAmt = other.get("loanAmt")
+                result_.loanAmt = loanAmt as kotlin.Number?
+                var downPmtAmt = other.get("downPmtAmt")
+                result_.downPmtAmt = downPmtAmt as kotlin.Number?
+                var paymentAmt = other.get("paymentAmt")
+                result_.paymentAmt = paymentAmt as kotlin.Number?
+                var equity36moPct = other.get("equity36moPct")
+                result_.equity36moPct = equity36moPct as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTMetric(other.toContext())

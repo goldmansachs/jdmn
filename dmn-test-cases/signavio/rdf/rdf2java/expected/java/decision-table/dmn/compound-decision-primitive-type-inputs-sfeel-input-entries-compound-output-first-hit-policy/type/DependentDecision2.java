@@ -13,16 +13,10 @@ public interface DependentDecision2 extends com.gs.dmn.runtime.DMNType {
             return (DependentDecision2)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             DependentDecision2Impl result_ = new DependentDecision2Impl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("dD2O1") || ((com.gs.dmn.runtime.Context)other).keySet().contains("DD2O1")) {
-                result_.setDD2O1((String)((com.gs.dmn.runtime.Context)other).get("dD2O1", "DD2O1"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("dD2O2") || ((com.gs.dmn.runtime.Context)other).keySet().contains("DD2O2")) {
-                result_.setDD2O2((String)((com.gs.dmn.runtime.Context)other).get("dD2O2", "DD2O2"));
-            } else {
-                return  null;
-            }
+            Object dD2O1 = ((com.gs.dmn.runtime.Context)other).get("dD2O1", "DD2O1");
+            result_.setDD2O1((String)dD2O1);
+            Object dD2O2 = ((com.gs.dmn.runtime.Context)other).get("dD2O2", "DD2O2");
+            result_.setDD2O2((String)dD2O2);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toDependentDecision2(((com.gs.dmn.runtime.DMNType)other).toContext());

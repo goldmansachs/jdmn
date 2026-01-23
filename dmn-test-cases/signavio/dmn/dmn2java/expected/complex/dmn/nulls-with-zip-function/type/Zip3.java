@@ -13,16 +13,10 @@ public interface Zip3 extends com.gs.dmn.runtime.DMNType {
             return (Zip3)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             Zip3Impl result_ = new Zip3Impl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("inputA") || ((com.gs.dmn.runtime.Context)other).keySet().contains("inputA")) {
-                result_.setInputA((String)((com.gs.dmn.runtime.Context)other).get("inputA", "inputA"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("inputB") || ((com.gs.dmn.runtime.Context)other).keySet().contains("inputB")) {
-                result_.setInputB((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("inputB", "inputB"));
-            } else {
-                return  null;
-            }
+            Object inputA = ((com.gs.dmn.runtime.Context)other).get("inputA", "inputA");
+            result_.setInputA((String)inputA);
+            Object inputB = ((com.gs.dmn.runtime.Context)other).get("inputB", "inputB");
+            result_.setInputB((java.lang.Number)inputB);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toZip3(((com.gs.dmn.runtime.DMNType)other).toContext());

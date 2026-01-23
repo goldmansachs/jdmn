@@ -13,16 +13,10 @@ public interface TItemPrice extends com.gs.dmn.runtime.DMNType {
             return (TItemPrice)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TItemPriceImpl result_ = new TItemPriceImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("itemName")) {
-                result_.setItemName((String)((com.gs.dmn.runtime.Context)other).get("itemName"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("price")) {
-                result_.setPrice((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("price"));
-            } else {
-                return  null;
-            }
+            Object itemName = ((com.gs.dmn.runtime.Context)other).get("itemName");
+            result_.setItemName((String)itemName);
+            Object price = ((com.gs.dmn.runtime.Context)other).get("price");
+            result_.setPrice((java.lang.Number)price);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTItemPrice(((com.gs.dmn.runtime.DMNType)other).toContext());

@@ -54,8 +54,10 @@ interface TApproval : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TApprovalImpl()
-                result_.status = other.get("Status") as String?
-                result_.rate = other.get("Rate") as String?
+                var status = other.get("Status")
+                result_.status = status as String?
+                var rate = other.get("Rate")
+                result_.rate = rate as String?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTApproval(other.toContext())

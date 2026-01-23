@@ -13,16 +13,10 @@ public interface Student extends com.gs.dmn.runtime.DMNType {
             return (Student)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             StudentImpl result_ = new StudentImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("age")) {
-                result_.setAge((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("age"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("classification")) {
-                result_.setClassification((String)((com.gs.dmn.runtime.Context)other).get("classification"));
-            } else {
-                return  null;
-            }
+            Object age = ((com.gs.dmn.runtime.Context)other).get("age");
+            result_.setAge((java.lang.Number)age);
+            Object classification = ((com.gs.dmn.runtime.Context)other).get("classification");
+            result_.setClassification((String)classification);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toStudent(((com.gs.dmn.runtime.DMNType)other).toContext());

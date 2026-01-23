@@ -1,0 +1,173 @@
+{
+  "dmnVersion" : "1.1",
+  "modelVersion" : "2.0",
+  "platformVersion" : "1.0",
+  "dmnNamespaces" : [ "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB" ],
+  "nativeNamespace" : "",
+  "types" : [ {
+    "@kind" : "compositeType",
+    "id" : "_C8B52C34-5C8B-4CA3-B801-F6E9B731C5B7",
+    "isCollection" : false,
+    "name" : "Address",
+    "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_E553C815-CF9C-4603-A139-D3BD997E710B",
+      "isCollection" : false,
+      "name" : "country",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+      "typeRef" : {
+        "localName" : "Country",
+        "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_2A3CDE43-06D5-483C-A55E-F5484013BFA7",
+      "isCollection" : false,
+      "name" : "no",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+      "typeRef" : {
+        "localName" : "number",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_6455BE07-F583-4466-A162-FD3478162A61",
+      "isCollection" : false,
+      "name" : "street",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "compositeType",
+    "id" : "_54B8468B-4635-4958-8E27-4E1CD0AF2102",
+    "isCollection" : false,
+    "name" : "Country",
+    "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_A725E796-4281-45A5-8FB4-DB712A97EE8C",
+      "isCollection" : false,
+      "name" : "name",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  }, {
+    "@kind" : "referenceType",
+    "id" : "_9B0C3CC9-2E2F-47E4-8E79-9EB25377CE55",
+    "isCollection" : true,
+    "name" : "CountryList",
+    "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+    "typeRef" : {
+      "localName" : "Country",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB"
+    }
+  }, {
+    "@kind" : "compositeType",
+    "id" : "_E81010D3-6818-4E5D-9021-62E50FB8674B",
+    "isCollection" : false,
+    "name" : "Person",
+    "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+    "types" : [ {
+      "@kind" : "referenceType",
+      "id" : "_D49703FF-7195-4DC6-AB3E-2AAD72A38D05",
+      "isCollection" : true,
+      "name" : "addresses",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+      "typeRef" : {
+        "localName" : "Address",
+        "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_4B5B1FF7-3366-4C9E-9360-BDA1E8887874",
+      "isCollection" : true,
+      "name" : "aliases",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "referenceType",
+      "id" : "_E79CC95C-A5C9-4DA8-B722-3AECA17924FE",
+      "isCollection" : false,
+      "name" : "name",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+      "typeRef" : {
+        "localName" : "string",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    } ]
+  } ],
+  "elements" : [ {
+    "@kind" : "inputData",
+    "id" : "_2179EB12-C0E4-4628-ACAD-7C043378AB65",
+    "javaParameterName" : "date",
+    "javaTypeName" : "java.time.LocalDate",
+    "name" : "Date",
+    "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+    "typeRef" : {
+      "localName" : "date",
+      "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+    }
+  }, {
+    "@kind" : "inputData",
+    "id" : "_DC5C3400-3D96-4AD1-8A62-62AADFE616B5",
+    "javaParameterName" : "person",
+    "javaTypeName" : "type.Person",
+    "name" : "Person",
+    "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+    "typeRef" : {
+      "localName" : "Person",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB"
+    }
+  }, {
+    "@kind" : "decision",
+    "id" : "_30ED96C8-BFAD-4070-B1CB-841DA4D4DAD8",
+    "informationReferences" : [ {
+      "reference" : "_DC5C3400-3D96-4AD1-8A62-62AADFE616B5"
+    }, {
+      "reference" : "_2179EB12-C0E4-4628-ACAD-7C043378AB65"
+    } ],
+    "javaOutputTypeName" : "List<type.Country>",
+    "javaParameterName" : "d",
+    "javaTypeName" : "D",
+    "knowledgeReferences" : [ ],
+    "name" : "D",
+    "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+    "transitiveRequiredInput" : [ {
+      "@kind" : "inputData",
+      "id" : "_2179EB12-C0E4-4628-ACAD-7C043378AB65",
+      "javaParameterName" : "date",
+      "javaTypeName" : "java.time.LocalDate",
+      "name" : "Date",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+      "typeRef" : {
+        "localName" : "date",
+        "namespace" : "http://www.omg.org/spec/FEEL/20140401"
+      }
+    }, {
+      "@kind" : "inputData",
+      "id" : "_DC5C3400-3D96-4AD1-8A62-62AADFE616B5",
+      "javaParameterName" : "person",
+      "javaTypeName" : "type.Person",
+      "name" : "Person",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
+      "typeRef" : {
+        "localName" : "Person",
+        "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB"
+      }
+    } ],
+    "typeRef" : {
+      "localName" : "CountryList",
+      "namespace" : "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB"
+    }
+  } ]
+}

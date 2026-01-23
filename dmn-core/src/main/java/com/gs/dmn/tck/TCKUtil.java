@@ -36,8 +36,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
@@ -317,8 +317,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     public String toNativeExpression(ResultNodeInfo info) {
         Type outputType = toFEELType(info);
         if (outputType instanceof ItemDefinitionType) {
-            String javaExpression = this.tckValueTranslator.toNativeExpression(info.getExpectedValue(), ((ItemDefinitionType) outputType).toContextType(), info.getReference().getElement());
-            return this.transformer.getNativeFactory().convertToItemDefinitionType(javaExpression, (ItemDefinitionType) outputType);
+            String nativeExpression = this.tckValueTranslator.toNativeExpression(info.getExpectedValue(), ((ItemDefinitionType) outputType).toContextType(), info.getReference().getElement());
+            return this.transformer.convertToItemDefinitionType(nativeExpression, (ItemDefinitionType) outputType);
         } else {
             return this.tckValueTranslator.toNativeExpression(info.getExpectedValue(), outputType, info.getReference().getElement());
         }

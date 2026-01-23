@@ -61,9 +61,12 @@ interface TEmployeeTable : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TEmployeeTableImpl()
-                result_.id = other.get("id") as String?
-                result_.name = other.get("name") as String?
-                result_.deptNum = other.get("deptNum") as kotlin.Number?
+                var id = other.get("id")
+                result_.id = id as String?
+                var name = other.get("name")
+                result_.name = name as String?
+                var deptNum = other.get("deptNum")
+                result_.deptNum = deptNum as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTEmployeeTable(other.toContext())

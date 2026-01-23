@@ -13,51 +13,24 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
             return (Person)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             PersonImpl result_ = new PersonImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("firstName") || ((com.gs.dmn.runtime.Context)other).keySet().contains("firstName")) {
-                result_.setFirstName((String)((com.gs.dmn.runtime.Context)other).get("firstName", "firstName"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("lastName") || ((com.gs.dmn.runtime.Context)other).keySet().contains("lastName")) {
-                result_.setLastName((String)((com.gs.dmn.runtime.Context)other).get("lastName", "lastName"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("id") || ((com.gs.dmn.runtime.Context)other).keySet().contains("id")) {
-                result_.setId((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("id", "id"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("gender") || ((com.gs.dmn.runtime.Context)other).keySet().contains("gender")) {
-                result_.setGender((String)((com.gs.dmn.runtime.Context)other).get("gender", "gender"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateOfBirth") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateOfBirth")) {
-                result_.setDateOfBirth((java.time.LocalDate)((com.gs.dmn.runtime.Context)other).get("dateOfBirth", "dateOfBirth"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("timeOfBirth") || ((com.gs.dmn.runtime.Context)other).keySet().contains("timeOfBirth")) {
-                result_.setTimeOfBirth((java.time.temporal.TemporalAccessor)((com.gs.dmn.runtime.Context)other).get("timeOfBirth", "timeOfBirth"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeOfBirth") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeOfBirth")) {
-                result_.setDateTimeOfBirth((java.time.temporal.TemporalAccessor)((com.gs.dmn.runtime.Context)other).get("dateTimeOfBirth", "dateTimeOfBirth"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("list") || ((com.gs.dmn.runtime.Context)other).keySet().contains("list")) {
-                result_.setList((List<String>)((com.gs.dmn.runtime.Context)other).get("list", "list"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("married") || ((com.gs.dmn.runtime.Context)other).keySet().contains("married")) {
-                result_.setMarried((Boolean)((com.gs.dmn.runtime.Context)other).get("married", "married"));
-            } else {
-                return  null;
-            }
+            Object firstName = ((com.gs.dmn.runtime.Context)other).get("firstName", "firstName");
+            result_.setFirstName((String)firstName);
+            Object lastName = ((com.gs.dmn.runtime.Context)other).get("lastName", "lastName");
+            result_.setLastName((String)lastName);
+            Object id = ((com.gs.dmn.runtime.Context)other).get("id", "id");
+            result_.setId((java.lang.Number)id);
+            Object gender = ((com.gs.dmn.runtime.Context)other).get("gender", "gender");
+            result_.setGender((String)gender);
+            Object dateOfBirth = ((com.gs.dmn.runtime.Context)other).get("dateOfBirth", "dateOfBirth");
+            result_.setDateOfBirth((java.time.LocalDate)dateOfBirth);
+            Object timeOfBirth = ((com.gs.dmn.runtime.Context)other).get("timeOfBirth", "timeOfBirth");
+            result_.setTimeOfBirth((java.time.temporal.TemporalAccessor)timeOfBirth);
+            Object dateTimeOfBirth = ((com.gs.dmn.runtime.Context)other).get("dateTimeOfBirth", "dateTimeOfBirth");
+            result_.setDateTimeOfBirth((java.time.temporal.TemporalAccessor)dateTimeOfBirth);
+            Object list = ((com.gs.dmn.runtime.Context)other).get("list", "list");
+            result_.setList((List<String>)list);
+            Object married = ((com.gs.dmn.runtime.Context)other).get("married", "married");
+            result_.setMarried((Boolean)married);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toPerson(((com.gs.dmn.runtime.DMNType)other).toContext());

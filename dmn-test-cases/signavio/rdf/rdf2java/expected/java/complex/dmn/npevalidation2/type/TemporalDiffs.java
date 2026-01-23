@@ -13,16 +13,10 @@ public interface TemporalDiffs extends com.gs.dmn.runtime.DMNType {
             return (TemporalDiffs)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TemporalDiffsImpl result_ = new TemporalDiffsImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateDiff") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateDiff")) {
-                result_.setDateDiff((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("dateDiff", "dateDiff"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeDiff") || ((com.gs.dmn.runtime.Context)other).keySet().contains("dateTimeDiff")) {
-                result_.setDateTimeDiff((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("dateTimeDiff", "dateTimeDiff"));
-            } else {
-                return  null;
-            }
+            Object dateDiff = ((com.gs.dmn.runtime.Context)other).get("dateDiff", "dateDiff");
+            result_.setDateDiff((java.lang.Number)dateDiff);
+            Object dateTimeDiff = ((com.gs.dmn.runtime.Context)other).get("dateTimeDiff", "dateTimeDiff");
+            result_.setDateTimeDiff((java.lang.Number)dateTimeDiff);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTemporalDiffs(((com.gs.dmn.runtime.DMNType)other).toContext());

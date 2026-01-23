@@ -13,16 +13,10 @@ public interface TBureauData extends com.gs.dmn.runtime.DMNType {
             return (TBureauData)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TBureauDataImpl result_ = new TBureauDataImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("CreditScore")) {
-                result_.setCreditScore((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("CreditScore"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Bankrupt")) {
-                result_.setBankrupt((Boolean)((com.gs.dmn.runtime.Context)other).get("Bankrupt"));
-            } else {
-                return  null;
-            }
+            Object creditScore = ((com.gs.dmn.runtime.Context)other).get("CreditScore");
+            result_.setCreditScore((java.lang.Number)creditScore);
+            Object bankrupt = ((com.gs.dmn.runtime.Context)other).get("Bankrupt");
+            result_.setBankrupt((Boolean)bankrupt);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTBureauData(((com.gs.dmn.runtime.DMNType)other).toContext());

@@ -3293,6 +3293,37 @@
                         </configuration>
                     </execution>
 
+                    <!-- context api -->
+                    <execution>
+                        <id>context-api</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>dmn-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputFileDirectory>${other.15.diagram.folder}/context-api/translator</inputFileDirectory>
+                            <outputFileDirectory>${generated.source.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.other.context_api</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-context-api</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>tck-to-java</goal>
+                        </goals>
+                        <configuration>
+                            <inputTestFileDirectory>${other.15.diagram.folder}/context-api/translator</inputTestFileDirectory>
+                            <inputModelFileDirectory>${other.15.diagram.folder}/context-api/translator</inputModelFileDirectory>
+                            <outputFileDirectory>${generated.test.code.folder}</outputFileDirectory>
+                            <inputParameters>
+                                <javaRootPackage>${generated.root.package}.other.context_api</javaRootPackage>
+                            </inputParameters>
+                        </configuration>
+                    </execution>
+
                     <!-- libraries -->
                     <execution>
                         <id>signavio-library</id>

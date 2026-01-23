@@ -68,10 +68,14 @@ interface TRow : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TRowImpl()
-                result_.col1 = other.get("col1") as kotlin.Number?
-                result_.col2 = other.get("col2") as kotlin.Number?
-                result_.col3 = other.get("col3") as kotlin.Number?
-                result_.col4 = other.get("col4") as kotlin.Number?
+                var col1 = other.get("col1")
+                result_.col1 = col1 as kotlin.Number?
+                var col2 = other.get("col2")
+                result_.col2 = col2 as kotlin.Number?
+                var col3 = other.get("col3")
+                result_.col3 = col3 as kotlin.Number?
+                var col4 = other.get("col4")
+                result_.col4 = col4 as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTRow(other.toContext())

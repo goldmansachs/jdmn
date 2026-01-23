@@ -68,10 +68,14 @@ interface TFnLibrary : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TFnLibraryImpl()
-                result_.sumFn = other.get("sumFn") as kotlin.Any?
-                result_.subFn = other.get("subFn") as kotlin.Any?
-                result_.multiplyFn = other.get("multiplyFn") as kotlin.Any?
-                result_.divideFn = other.get("divideFn") as kotlin.Any?
+                var sumFn = other.get("sumFn")
+                result_.sumFn = sumFn as kotlin.Any?
+                var subFn = other.get("subFn")
+                result_.subFn = subFn as kotlin.Any?
+                var multiplyFn = other.get("multiplyFn")
+                result_.multiplyFn = multiplyFn as kotlin.Any?
+                var divideFn = other.get("divideFn")
+                result_.divideFn = divideFn as kotlin.Any?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTFnLibrary(other.toContext())

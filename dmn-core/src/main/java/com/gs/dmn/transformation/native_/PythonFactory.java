@@ -353,8 +353,8 @@ public class PythonFactory extends JavaFactory implements NativeFactory {
     }
 
     @Override
-    public String convertToListOfItemDefinitionType(String nativeExpression, ItemDefinitionType expectedElementType) {
-        String elementConversion = convertToItemDefinitionType("x", expectedElementType);
+    public String convertToListOfItemDefinitionType(String nativeExpression, ItemDefinitionType elementType) {
+        String elementConversion = convertToItemDefinitionType("x", elementType);
         return String.format("list(map(lambda x: %s, %s))", elementConversion, nativeExpression);
     }
 

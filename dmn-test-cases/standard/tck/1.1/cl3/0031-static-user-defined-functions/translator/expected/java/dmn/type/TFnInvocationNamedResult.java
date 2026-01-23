@@ -13,26 +13,14 @@ public interface TFnInvocationNamedResult extends com.gs.dmn.runtime.DMNType {
             return (TFnInvocationNamedResult)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TFnInvocationNamedResultImpl result_ = new TFnInvocationNamedResultImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("subResult")) {
-                result_.setSubResult((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("subResult"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("subResultMixed")) {
-                result_.setSubResultMixed((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("subResultMixed"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("divisionResultNamed")) {
-                result_.setDivisionResultNamed((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("divisionResultNamed"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("multiplicationResultNamed")) {
-                result_.setMultiplicationResultNamed((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("multiplicationResultNamed"));
-            } else {
-                return  null;
-            }
+            Object subResult = ((com.gs.dmn.runtime.Context)other).get("subResult");
+            result_.setSubResult((java.lang.Number)subResult);
+            Object subResultMixed = ((com.gs.dmn.runtime.Context)other).get("subResultMixed");
+            result_.setSubResultMixed((java.lang.Number)subResultMixed);
+            Object divisionResultNamed = ((com.gs.dmn.runtime.Context)other).get("divisionResultNamed");
+            result_.setDivisionResultNamed((java.lang.Number)divisionResultNamed);
+            Object multiplicationResultNamed = ((com.gs.dmn.runtime.Context)other).get("multiplicationResultNamed");
+            result_.setMultiplicationResultNamed((java.lang.Number)multiplicationResultNamed);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTFnInvocationNamedResult(((com.gs.dmn.runtime.DMNType)other).toContext());

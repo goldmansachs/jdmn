@@ -84,6 +84,6 @@ public class GenerateOutputData extends com.gs.dmn.signavio.runtime.JavaTimeSign
         java.lang.Number compareAgainstLendingThreshold = this.compareAgainstLendingThreshold.apply(applicant, currentRiskAppetite, lendingThreshold, context_);
         String makeCreditDecision = this.makeCreditDecision.apply(applicant, currentRiskAppetite, lendingThreshold, context_);
 
-        return zip(asList("Decision", "Assessment", "Issue"), asList(asList(makeCreditDecision), asList(compareAgainstLendingThreshold), asList(assessIssueRisk))).stream().map(x_ -> type.GenerateOutputData.toGenerateOutputData(x_)).collect(Collectors.toList());
+        return zip(asList("Decision", "Assessment", "Issue"), asList(asList(makeCreditDecision), asList(compareAgainstLendingThreshold), asList(assessIssueRisk))).stream().map(x_ -> type.GenerateOutputData.toGenerateOutputData(x_)).collect(java.util.stream.Collectors.toList());
     }
 }

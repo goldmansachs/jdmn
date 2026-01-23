@@ -13,21 +13,12 @@ public interface TLoan extends com.gs.dmn.runtime.DMNType {
             return (TLoan)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TLoanImpl result_ = new TLoanImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("amount")) {
-                result_.setAmount((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("amount"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("rate")) {
-                result_.setRate((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("rate"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("term")) {
-                result_.setTerm((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("term"));
-            } else {
-                return  null;
-            }
+            Object amount = ((com.gs.dmn.runtime.Context)other).get("amount");
+            result_.setAmount((java.lang.Number)amount);
+            Object rate = ((com.gs.dmn.runtime.Context)other).get("rate");
+            result_.setRate((java.lang.Number)rate);
+            Object term = ((com.gs.dmn.runtime.Context)other).get("term");
+            result_.setTerm((java.lang.Number)term);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTLoan(((com.gs.dmn.runtime.DMNType)other).toContext());

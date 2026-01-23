@@ -268,8 +268,14 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     Statement serviceToNative(TDecisionService element);
 
+    // Conversion methods
     String convertMethodName(TItemDefinition itemDefinition);
 
+    String convertToItemDefinitionType(String nativeExpression, com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType type);
+
+    String convertToListOfItemDefinitionType(String nativeExpression, com.gs.dmn.el.analysis.semantics.type.ItemDefinitionType elementType);
+
+    // Common methods
     String augmentSignature(String signature);
 
     List<NativeParameter> augmentSignatureParameters(List<NativeParameter> signature);

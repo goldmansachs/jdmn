@@ -68,10 +68,14 @@ interface TRequestedProduct : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TRequestedProductImpl()
-                result_.productType = other.get("ProductType") as String?
-                result_.amount = other.get("Amount") as kotlin.Number?
-                result_.rate = other.get("Rate") as kotlin.Number?
-                result_.term = other.get("Term") as kotlin.Number?
+                var productType = other.get("ProductType")
+                result_.productType = productType as String?
+                var amount = other.get("Amount")
+                result_.amount = amount as kotlin.Number?
+                var rate = other.get("Rate")
+                result_.rate = rate as kotlin.Number?
+                var term = other.get("Term")
+                result_.term = term as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTRequestedProduct(other.toContext())

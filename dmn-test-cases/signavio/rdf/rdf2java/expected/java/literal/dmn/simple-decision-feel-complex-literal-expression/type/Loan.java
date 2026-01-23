@@ -13,21 +13,12 @@ public interface Loan extends com.gs.dmn.runtime.DMNType {
             return (Loan)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             LoanImpl result_ = new LoanImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("principal") || ((com.gs.dmn.runtime.Context)other).keySet().contains("principal")) {
-                result_.setPrincipal((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("principal", "principal"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("rate") || ((com.gs.dmn.runtime.Context)other).keySet().contains("rate")) {
-                result_.setRate((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("rate", "rate"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("term") || ((com.gs.dmn.runtime.Context)other).keySet().contains("term")) {
-                result_.setTerm((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("term", "term"));
-            } else {
-                return  null;
-            }
+            Object principal = ((com.gs.dmn.runtime.Context)other).get("principal", "principal");
+            result_.setPrincipal((java.lang.Number)principal);
+            Object rate = ((com.gs.dmn.runtime.Context)other).get("rate", "rate");
+            result_.setRate((java.lang.Number)rate);
+            Object term = ((com.gs.dmn.runtime.Context)other).get("term", "term");
+            result_.setTerm((java.lang.Number)term);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toLoan(((com.gs.dmn.runtime.DMNType)other).toContext());

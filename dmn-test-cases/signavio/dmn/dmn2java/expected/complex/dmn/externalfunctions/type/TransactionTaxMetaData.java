@@ -13,21 +13,12 @@ public interface TransactionTaxMetaData extends com.gs.dmn.runtime.DMNType {
             return (TransactionTaxMetaData)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TransactionTaxMetaDataImpl result_ = new TransactionTaxMetaDataImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("taxType") || ((com.gs.dmn.runtime.Context)other).keySet().contains("taxType")) {
-                result_.setTaxType((String)((com.gs.dmn.runtime.Context)other).get("taxType", "taxType"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("jurisdiction") || ((com.gs.dmn.runtime.Context)other).keySet().contains("jurisdiction")) {
-                result_.setJurisdiction((String)((com.gs.dmn.runtime.Context)other).get("jurisdiction", "jurisdiction"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("assetClass") || ((com.gs.dmn.runtime.Context)other).keySet().contains("assetClass")) {
-                result_.setAssetClass((String)((com.gs.dmn.runtime.Context)other).get("assetClass", "assetClass"));
-            } else {
-                return  null;
-            }
+            Object taxType = ((com.gs.dmn.runtime.Context)other).get("taxType", "taxType");
+            result_.setTaxType((String)taxType);
+            Object jurisdiction = ((com.gs.dmn.runtime.Context)other).get("jurisdiction", "jurisdiction");
+            result_.setJurisdiction((String)jurisdiction);
+            Object assetClass = ((com.gs.dmn.runtime.Context)other).get("assetClass", "assetClass");
+            result_.setAssetClass((String)assetClass);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTransactionTaxMetaData(((com.gs.dmn.runtime.DMNType)other).toContext());

@@ -13,16 +13,10 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
             return (Person)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             PersonImpl result_ = new PersonImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("name") || ((com.gs.dmn.runtime.Context)other).keySet().contains("name")) {
-                result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name", "name"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("age") || ((com.gs.dmn.runtime.Context)other).keySet().contains("age")) {
-                result_.setAge((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("age", "age"));
-            } else {
-                return  null;
-            }
+            Object name = ((com.gs.dmn.runtime.Context)other).get("name", "name");
+            result_.setName((String)name);
+            Object age = ((com.gs.dmn.runtime.Context)other).get("age", "age");
+            result_.setAge((java.lang.Number)age);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toPerson(((com.gs.dmn.runtime.DMNType)other).toContext());

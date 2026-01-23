@@ -13,11 +13,8 @@ public interface TestPeopleType extends com.gs.dmn.runtime.DMNType {
             return (TestPeopleType)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TestPeopleTypeImpl result_ = new TestPeopleTypeImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("testPersonType") || ((com.gs.dmn.runtime.Context)other).keySet().contains("TestPersonType")) {
-                result_.setTestPersonType((List<type.TestPersonType>)((com.gs.dmn.runtime.Context)other).get("testPersonType", "TestPersonType"));
-            } else {
-                return  null;
-            }
+            Object testPersonType = ((com.gs.dmn.runtime.Context)other).get("testPersonType", "TestPersonType");
+            result_.setTestPersonType((List<type.TestPersonType>)((java.util.List)testPersonType).stream().map(x_ -> type.TestPersonType.toTestPersonType(x_)).collect(java.util.stream.Collectors.toList()));
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTestPeopleType(((com.gs.dmn.runtime.DMNType)other).toContext());

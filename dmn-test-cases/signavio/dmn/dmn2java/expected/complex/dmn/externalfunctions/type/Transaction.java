@@ -13,71 +13,32 @@ public interface Transaction extends com.gs.dmn.runtime.DMNType {
             return (Transaction)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TransactionImpl result_ = new TransactionImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("tradeDate") || ((com.gs.dmn.runtime.Context)other).keySet().contains("tradeDate")) {
-                result_.setTradeDate((java.time.LocalDate)((com.gs.dmn.runtime.Context)other).get("tradeDate", "tradeDate"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("buySellIndicator") || ((com.gs.dmn.runtime.Context)other).keySet().contains("buySellIndicator")) {
-                result_.setBuySellIndicator((String)((com.gs.dmn.runtime.Context)other).get("buySellIndicator", "buySellIndicator"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("offeringType") || ((com.gs.dmn.runtime.Context)other).keySet().contains("offeringType")) {
-                result_.setOfferingType((String)((com.gs.dmn.runtime.Context)other).get("offeringType", "offeringType"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("exerciseAssign") || ((com.gs.dmn.runtime.Context)other).keySet().contains("exerciseAssign")) {
-                result_.setExerciseAssign((Boolean)((com.gs.dmn.runtime.Context)other).get("exerciseAssign", "exerciseAssign"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("settlementDate") || ((com.gs.dmn.runtime.Context)other).keySet().contains("settlementDate")) {
-                result_.setSettlementDate((java.time.LocalDate)((com.gs.dmn.runtime.Context)other).get("settlementDate", "settlementDate"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("clearingAgent") || ((com.gs.dmn.runtime.Context)other).keySet().contains("clearingAgent")) {
-                result_.setClearingAgent((String)((com.gs.dmn.runtime.Context)other).get("clearingAgent", "clearingAgent"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("deliveryInstruction") || ((com.gs.dmn.runtime.Context)other).keySet().contains("deliveryInstruction")) {
-                result_.setDeliveryInstruction((Boolean)((com.gs.dmn.runtime.Context)other).get("deliveryInstruction", "deliveryInstruction"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("executionCapacity") || ((com.gs.dmn.runtime.Context)other).keySet().contains("executionCapacity")) {
-                result_.setExecutionCapacity((String)((com.gs.dmn.runtime.Context)other).get("executionCapacity", "executionCapacity"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("quantity") || ((com.gs.dmn.runtime.Context)other).keySet().contains("quantity")) {
-                result_.setQuantity((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("quantity", "quantity"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("price") || ((com.gs.dmn.runtime.Context)other).keySet().contains("price")) {
-                result_.setPrice((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("price", "price"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("commision") || ((com.gs.dmn.runtime.Context)other).keySet().contains("commision")) {
-                result_.setCommision((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("commision", "commision"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("executionMarket") || ((com.gs.dmn.runtime.Context)other).keySet().contains("executionMarket")) {
-                result_.setExecutionMarket((String)((com.gs.dmn.runtime.Context)other).get("executionMarket", "executionMarket"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("currencyCode") || ((com.gs.dmn.runtime.Context)other).keySet().contains("currencyCode")) {
-                result_.setCurrencyCode((String)((com.gs.dmn.runtime.Context)other).get("currencyCode", "currencyCode"));
-            } else {
-                return  null;
-            }
+            Object tradeDate = ((com.gs.dmn.runtime.Context)other).get("tradeDate", "tradeDate");
+            result_.setTradeDate((java.time.LocalDate)tradeDate);
+            Object buySellIndicator = ((com.gs.dmn.runtime.Context)other).get("buySellIndicator", "buySellIndicator");
+            result_.setBuySellIndicator((String)buySellIndicator);
+            Object offeringType = ((com.gs.dmn.runtime.Context)other).get("offeringType", "offeringType");
+            result_.setOfferingType((String)offeringType);
+            Object exerciseAssign = ((com.gs.dmn.runtime.Context)other).get("exerciseAssign", "exerciseAssign");
+            result_.setExerciseAssign((Boolean)exerciseAssign);
+            Object settlementDate = ((com.gs.dmn.runtime.Context)other).get("settlementDate", "settlementDate");
+            result_.setSettlementDate((java.time.LocalDate)settlementDate);
+            Object clearingAgent = ((com.gs.dmn.runtime.Context)other).get("clearingAgent", "clearingAgent");
+            result_.setClearingAgent((String)clearingAgent);
+            Object deliveryInstruction = ((com.gs.dmn.runtime.Context)other).get("deliveryInstruction", "deliveryInstruction");
+            result_.setDeliveryInstruction((Boolean)deliveryInstruction);
+            Object executionCapacity = ((com.gs.dmn.runtime.Context)other).get("executionCapacity", "executionCapacity");
+            result_.setExecutionCapacity((String)executionCapacity);
+            Object quantity = ((com.gs.dmn.runtime.Context)other).get("quantity", "quantity");
+            result_.setQuantity((java.lang.Number)quantity);
+            Object price = ((com.gs.dmn.runtime.Context)other).get("price", "price");
+            result_.setPrice((java.lang.Number)price);
+            Object commision = ((com.gs.dmn.runtime.Context)other).get("commision", "commision");
+            result_.setCommision((java.lang.Number)commision);
+            Object executionMarket = ((com.gs.dmn.runtime.Context)other).get("executionMarket", "executionMarket");
+            result_.setExecutionMarket((String)executionMarket);
+            Object currencyCode = ((com.gs.dmn.runtime.Context)other).get("currencyCode", "currencyCode");
+            result_.setCurrencyCode((String)currencyCode);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTransaction(((com.gs.dmn.runtime.DMNType)other).toContext());

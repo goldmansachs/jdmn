@@ -13,26 +13,14 @@ public interface TLoanProduct extends com.gs.dmn.runtime.DMNType {
             return (TLoanProduct)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TLoanProductImpl result_ = new TLoanProductImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("lenderName")) {
-                result_.setLenderName((String)((com.gs.dmn.runtime.Context)other).get("lenderName"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("rate")) {
-                result_.setRate((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("rate"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("points")) {
-                result_.setPoints((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("points"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("fee")) {
-                result_.setFee((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("fee"));
-            } else {
-                return  null;
-            }
+            Object lenderName = ((com.gs.dmn.runtime.Context)other).get("lenderName");
+            result_.setLenderName((String)lenderName);
+            Object rate = ((com.gs.dmn.runtime.Context)other).get("rate");
+            result_.setRate((java.lang.Number)rate);
+            Object points = ((com.gs.dmn.runtime.Context)other).get("points");
+            result_.setPoints((java.lang.Number)points);
+            Object fee = ((com.gs.dmn.runtime.Context)other).get("fee");
+            result_.setFee((java.lang.Number)fee);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTLoanProduct(((com.gs.dmn.runtime.DMNType)other).toContext());

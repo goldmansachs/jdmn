@@ -68,10 +68,14 @@ interface TFnInvocationNamedResult : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TFnInvocationNamedResultImpl()
-                result_.subResult = other.get("subResult") as kotlin.Number?
-                result_.subResultMixed = other.get("subResultMixed") as kotlin.Number?
-                result_.divisionResultNamed = other.get("divisionResultNamed") as kotlin.Number?
-                result_.multiplicationResultNamed = other.get("multiplicationResultNamed") as kotlin.Number?
+                var subResult = other.get("subResult")
+                result_.subResult = subResult as kotlin.Number?
+                var subResultMixed = other.get("subResultMixed")
+                result_.subResultMixed = subResultMixed as kotlin.Number?
+                var divisionResultNamed = other.get("divisionResultNamed")
+                result_.divisionResultNamed = divisionResultNamed as kotlin.Number?
+                var multiplicationResultNamed = other.get("multiplicationResultNamed")
+                result_.multiplicationResultNamed = multiplicationResultNamed as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTFnInvocationNamedResult(other.toContext())

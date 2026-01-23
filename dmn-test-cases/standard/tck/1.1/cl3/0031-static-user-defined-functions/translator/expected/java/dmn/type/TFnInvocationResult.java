@@ -13,21 +13,12 @@ public interface TFnInvocationResult extends com.gs.dmn.runtime.DMNType {
             return (TFnInvocationResult)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TFnInvocationResultImpl result_ = new TFnInvocationResultImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("sumResult")) {
-                result_.setSumResult((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("sumResult"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("multiplicationResultPositional")) {
-                result_.setMultiplicationResultPositional((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("multiplicationResultPositional"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("divisionResultPositional")) {
-                result_.setDivisionResultPositional((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("divisionResultPositional"));
-            } else {
-                return  null;
-            }
+            Object sumResult = ((com.gs.dmn.runtime.Context)other).get("sumResult");
+            result_.setSumResult((java.lang.Number)sumResult);
+            Object multiplicationResultPositional = ((com.gs.dmn.runtime.Context)other).get("multiplicationResultPositional");
+            result_.setMultiplicationResultPositional((java.lang.Number)multiplicationResultPositional);
+            Object divisionResultPositional = ((com.gs.dmn.runtime.Context)other).get("divisionResultPositional");
+            result_.setDivisionResultPositional((java.lang.Number)divisionResultPositional);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTFnInvocationResult(((com.gs.dmn.runtime.DMNType)other).toContext());

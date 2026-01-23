@@ -165,7 +165,7 @@ public interface NativeExpressionFactory {
 
     String convertToItemDefinitionType(String expression, ItemDefinitionType type);
 
-    String convertToListOfItemDefinitionType(String nativeExpression, ItemDefinitionType expectedElementType);
+    String convertToListOfItemDefinitionType(String nativeExpression, ItemDefinitionType elementType);
 
     String convertMethodName(TItemDefinition itemDefinition);
 

@@ -13,21 +13,12 @@ public interface TDeptTable extends com.gs.dmn.runtime.DMNType {
             return (TDeptTable)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TDeptTableImpl result_ = new TDeptTableImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("number")) {
-                result_.setNumber((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("number"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("name")) {
-                result_.setName((String)((com.gs.dmn.runtime.Context)other).get("name"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("manager")) {
-                result_.setManager((String)((com.gs.dmn.runtime.Context)other).get("manager"));
-            } else {
-                return  null;
-            }
+            Object number = ((com.gs.dmn.runtime.Context)other).get("number");
+            result_.setNumber((java.lang.Number)number);
+            Object name = ((com.gs.dmn.runtime.Context)other).get("name");
+            result_.setName((String)name);
+            Object manager = ((com.gs.dmn.runtime.Context)other).get("manager");
+            result_.setManager((String)manager);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTDeptTable(((com.gs.dmn.runtime.DMNType)other).toContext());

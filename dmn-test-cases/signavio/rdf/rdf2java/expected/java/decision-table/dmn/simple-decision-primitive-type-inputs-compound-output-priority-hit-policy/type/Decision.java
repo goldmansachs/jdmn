@@ -13,16 +13,10 @@ public interface Decision extends com.gs.dmn.runtime.DMNType {
             return (Decision)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             DecisionImpl result_ = new DecisionImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("output1") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Output1")) {
-                result_.setOutput1((String)((com.gs.dmn.runtime.Context)other).get("output1", "Output1"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("output2") || ((com.gs.dmn.runtime.Context)other).keySet().contains("Output2")) {
-                result_.setOutput2((String)((com.gs.dmn.runtime.Context)other).get("output2", "Output2"));
-            } else {
-                return  null;
-            }
+            Object output1 = ((com.gs.dmn.runtime.Context)other).get("output1", "Output1");
+            result_.setOutput1((String)output1);
+            Object output2 = ((com.gs.dmn.runtime.Context)other).get("output2", "Output2");
+            result_.setOutput2((String)output2);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toDecision(((com.gs.dmn.runtime.DMNType)other).toContext());

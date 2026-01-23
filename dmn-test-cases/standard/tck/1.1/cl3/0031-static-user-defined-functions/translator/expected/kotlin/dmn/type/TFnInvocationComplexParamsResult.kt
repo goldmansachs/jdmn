@@ -61,9 +61,12 @@ interface TFnInvocationComplexParamsResult : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = TFnInvocationComplexParamsResultImpl()
-                result_.functionInvocationLiteralExpressionInParameter = other.get("functionInvocationLiteralExpressionInParameter") as kotlin.Number?
-                result_.functionInvocationInParameter = other.get("functionInvocationInParameter") as kotlin.Number?
-                result_.circumference = other.get("circumference") as kotlin.Number?
+                var functionInvocationLiteralExpressionInParameter = other.get("functionInvocationLiteralExpressionInParameter")
+                result_.functionInvocationLiteralExpressionInParameter = functionInvocationLiteralExpressionInParameter as kotlin.Number?
+                var functionInvocationInParameter = other.get("functionInvocationInParameter")
+                result_.functionInvocationInParameter = functionInvocationInParameter as kotlin.Number?
+                var circumference = other.get("circumference")
+                result_.circumference = circumference as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toTFnInvocationComplexParamsResult(other.toContext())

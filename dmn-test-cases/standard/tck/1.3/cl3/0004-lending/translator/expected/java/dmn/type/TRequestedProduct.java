@@ -13,26 +13,14 @@ public interface TRequestedProduct extends com.gs.dmn.runtime.DMNType {
             return (TRequestedProduct)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             TRequestedProductImpl result_ = new TRequestedProductImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("ProductType")) {
-                result_.setProductType((String)((com.gs.dmn.runtime.Context)other).get("ProductType"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Amount")) {
-                result_.setAmount((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Amount"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Rate")) {
-                result_.setRate((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Rate"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("Term")) {
-                result_.setTerm((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("Term"));
-            } else {
-                return  null;
-            }
+            Object productType = ((com.gs.dmn.runtime.Context)other).get("ProductType");
+            result_.setProductType((String)productType);
+            Object amount = ((com.gs.dmn.runtime.Context)other).get("Amount");
+            result_.setAmount((java.lang.Number)amount);
+            Object rate = ((com.gs.dmn.runtime.Context)other).get("Rate");
+            result_.setRate((java.lang.Number)rate);
+            Object term = ((com.gs.dmn.runtime.Context)other).get("Term");
+            result_.setTerm((java.lang.Number)term);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toTRequestedProduct(((com.gs.dmn.runtime.DMNType)other).toContext());

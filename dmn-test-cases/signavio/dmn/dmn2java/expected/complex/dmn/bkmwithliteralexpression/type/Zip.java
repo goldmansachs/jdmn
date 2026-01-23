@@ -13,21 +13,12 @@ public interface Zip extends com.gs.dmn.runtime.DMNType {
             return (Zip)other;
         } else if (other instanceof com.gs.dmn.runtime.Context) {
             ZipImpl result_ = new ZipImpl();
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("n") || ((com.gs.dmn.runtime.Context)other).keySet().contains("n")) {
-                result_.setN((java.lang.Number)((com.gs.dmn.runtime.Context)other).get("n", "n"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("e") || ((com.gs.dmn.runtime.Context)other).keySet().contains("e")) {
-                result_.setE((String)((com.gs.dmn.runtime.Context)other).get("e", "e"));
-            } else {
-                return  null;
-            }
-            if (((com.gs.dmn.runtime.Context)other).keySet().contains("t") || ((com.gs.dmn.runtime.Context)other).keySet().contains("t")) {
-                result_.setT((String)((com.gs.dmn.runtime.Context)other).get("t", "t"));
-            } else {
-                return  null;
-            }
+            Object n = ((com.gs.dmn.runtime.Context)other).get("n", "n");
+            result_.setN((java.lang.Number)n);
+            Object e = ((com.gs.dmn.runtime.Context)other).get("e", "e");
+            result_.setE((String)e);
+            Object t = ((com.gs.dmn.runtime.Context)other).get("t", "t");
+            result_.setT((String)t);
             return result_;
         } else if (other instanceof com.gs.dmn.runtime.DMNType) {
             return toZip(((com.gs.dmn.runtime.DMNType)other).toContext());

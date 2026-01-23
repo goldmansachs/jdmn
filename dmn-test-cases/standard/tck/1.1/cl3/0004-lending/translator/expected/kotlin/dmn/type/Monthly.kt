@@ -61,9 +61,12 @@ interface Monthly : com.gs.dmn.runtime.DMNType {
                 return other
             } else if (other is com.gs.dmn.runtime.Context) {
                 var result_ = MonthlyImpl()
-                result_.income = other.get("Income") as kotlin.Number?
-                result_.expenses = other.get("Expenses") as kotlin.Number?
-                result_.repayments = other.get("Repayments") as kotlin.Number?
+                var income = other.get("Income")
+                result_.income = income as kotlin.Number?
+                var expenses = other.get("Expenses")
+                result_.expenses = expenses as kotlin.Number?
+                var repayments = other.get("Repayments")
+                result_.repayments = repayments as kotlin.Number?
                 return result_
             } else if (other is com.gs.dmn.runtime.DMNType) {
                 return toMonthly(other.toContext())
