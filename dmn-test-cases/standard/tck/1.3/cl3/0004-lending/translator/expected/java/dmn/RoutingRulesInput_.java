@@ -4,10 +4,10 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "RoutingRules"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class RoutingRulesInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private String postBureauRiskCategory;
-        private Boolean postBureauAffordability;
-        private Boolean bankrupt;
-        private java.lang.Number creditScore;
+    private String postBureauRiskCategory;
+    private Boolean postBureauAffordability;
+    private Boolean bankrupt;
+    private java.lang.Number creditScore;
 
     public String getPostBureauRiskCategory() {
         return this.postBureauRiskCategory;

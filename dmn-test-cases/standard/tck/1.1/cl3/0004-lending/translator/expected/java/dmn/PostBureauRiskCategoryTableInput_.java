@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "Post-bureauRiskCategoryTable"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class PostBureauRiskCategoryTableInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private Boolean existingCustomer;
-        private java.lang.Number applicationRiskScore;
-        private java.lang.Number creditScore;
+    private Boolean existingCustomer;
+    private java.lang.Number applicationRiskScore;
+    private java.lang.Number creditScore;
 
     public Boolean getExistingCustomer() {
         return this.existingCustomer;

@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "compile"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CompileInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private String name;
-        private List<java.lang.Number> numbers;
-        private List<String> trafficLight;
+    private String name;
+    private List<java.lang.Number> numbers;
+    private List<String> trafficLight;
 
     public String getName() {
         return this.name;

@@ -4,7 +4,7 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "evaluatingB1SayHello"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class EvaluatingB1SayHelloInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private String personName;
+    private String personName;
 
     public String getPersonName() {
         return this.personName;

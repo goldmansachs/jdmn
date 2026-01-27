@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "Approval"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ApprovalInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number age;
-        private String riskCategory;
-        private Boolean isAffordable;
+    private java.lang.Number age;
+    private String riskCategory;
+    private Boolean isAffordable;
 
     public java.lang.Number getAge() {
         return this.age;

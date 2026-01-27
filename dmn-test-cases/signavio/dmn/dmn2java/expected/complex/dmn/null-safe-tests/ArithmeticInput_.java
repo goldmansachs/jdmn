@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "arithmetic"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ArithmeticInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number numberA;
-        private java.lang.Number numberB;
-        private List<java.lang.Number> numberList;
+    private java.lang.Number numberA;
+    private java.lang.Number numberB;
+    private List<java.lang.Number> numberList;
 
     public java.lang.Number getNumberA() {
         return this.numberA;

@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "listHandling"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ListHandlingInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number numberB;
-        private List<java.lang.Number> numberList;
+    private java.lang.Number numberB;
+    private List<java.lang.Number> numberList;
 
     public java.lang.Number getNumberB() {
         return this.numberB;

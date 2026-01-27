@@ -4,13 +4,13 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "decisionLitexp"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class DecisionLitexpInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private List<String> censored;
-        private List<String> labels;
-        private List<java.lang.Number> numz;
-        private String redgreenblue1;
-        private String redgreenblue2;
-        private List<String> redgreenbluelist1;
-        private List<String> redgreenbluelist2;
+    private List<String> censored;
+    private List<String> labels;
+    private List<java.lang.Number> numz;
+    private String redgreenblue1;
+    private String redgreenblue2;
+    private List<String> redgreenbluelist1;
+    private List<String> redgreenbluelist2;
 
     public List<String> getCensored() {
         return this.censored;

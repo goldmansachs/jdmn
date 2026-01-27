@@ -28,7 +28,7 @@ public class ${javaClassName} implements ${transformer.drgElementInputPojoInterf
     <#list inputArguments as argument>
         <#assign memberName = argument.name/>
         <#assign memberType = argument.type/>
-        private ${memberType} ${memberName};
+    private ${memberType} ${memberName};
     </#list>
 </#macro>
 
@@ -45,24 +45,4 @@ public class ${javaClassName} implements ${transformer.drgElementInputPojoInterf
     }
 
     </#list>
-</#macro>
-
-<#macro addEqualsAndHashCode itemDefinition >
-    @Override
-    public boolean equals(Object o) {
-        return equalTo(o);
-    }
-
-    @Override
-    public int hashCode() {
-        return hash();
-    }
-
-</#macro>
-
-<#macro addToString itemDefinition>
-    @Override
-    public String toString() {
-        return asString();
-    }
 </#macro>

@@ -4,11 +4,11 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "AffordabilityCalculation"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AffordabilityCalculationInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number monthlyIncome;
-        private java.lang.Number monthlyRepayments;
-        private java.lang.Number monthlyExpenses;
-        private String riskCategory;
-        private java.lang.Number requiredMonthlyInstallment;
+    private java.lang.Number monthlyIncome;
+    private java.lang.Number monthlyRepayments;
+    private java.lang.Number monthlyExpenses;
+    private String riskCategory;
+    private java.lang.Number requiredMonthlyInstallment;
 
     public java.lang.Number getMonthlyIncome() {
         return this.monthlyIncome;

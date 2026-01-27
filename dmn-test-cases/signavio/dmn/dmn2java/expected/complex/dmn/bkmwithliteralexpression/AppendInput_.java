@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "append"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AppendInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private String rgb1;
-        private String rgb2;
+    private String rgb1;
+    private String rgb2;
 
     public String getRgb1() {
         return this.rgb1;

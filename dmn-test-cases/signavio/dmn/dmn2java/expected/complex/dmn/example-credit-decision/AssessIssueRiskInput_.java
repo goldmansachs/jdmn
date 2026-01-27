@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "assessIssueRisk"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AssessIssueRiskInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private type.Applicant applicant;
-        private java.lang.Number currentRiskAppetite;
+    private type.Applicant applicant;
+    private java.lang.Number currentRiskAppetite;
 
     public type.Applicant getApplicant() {
         return this.applicant;

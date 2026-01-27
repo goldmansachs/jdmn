@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "bkm_012_1"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class Bkm_012_1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn1;
-        private com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn2;
+    private com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn1;
+    private com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn2;
 
     public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> getFn1() {
         return this.fn1;

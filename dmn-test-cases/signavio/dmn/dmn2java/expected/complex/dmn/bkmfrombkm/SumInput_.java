@@ -4,10 +4,10 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "sum"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class SumInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.time.LocalDate date;
-        private java.time.temporal.TemporalAccessor datetime;
-        private java.time.temporal.TemporalAccessor time;
-        private java.time.temporal.TemporalAccessor time2;
+    private java.time.LocalDate date;
+    private java.time.temporal.TemporalAccessor datetime;
+    private java.time.temporal.TemporalAccessor time;
+    private java.time.temporal.TemporalAccessor time2;
 
     public java.time.LocalDate getDate() {
         return this.date;

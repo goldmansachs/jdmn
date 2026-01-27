@@ -4,10 +4,10 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "compoundOutputCompoundDecision"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CompoundOutputCompoundDecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private Boolean booleanInput;
-        private String dD1TextInput;
-        private java.lang.Number dD2NumberInput;
-        private String enumerationInput;
+    private Boolean booleanInput;
+    private String dD1TextInput;
+    private java.lang.Number dD2NumberInput;
+    private String enumerationInput;
 
     public Boolean getBooleanInput() {
         return this.booleanInput;

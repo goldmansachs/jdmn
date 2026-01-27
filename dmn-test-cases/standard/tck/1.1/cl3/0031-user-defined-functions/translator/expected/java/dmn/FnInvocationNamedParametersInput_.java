@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "fn invocation named parameters"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class FnInvocationNamedParametersInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number inputA;
-        private java.lang.Number inputB;
+    private java.lang.Number inputA;
+    private java.lang.Number inputB;
 
     public java.lang.Number getInputA() {
         return this.inputA;

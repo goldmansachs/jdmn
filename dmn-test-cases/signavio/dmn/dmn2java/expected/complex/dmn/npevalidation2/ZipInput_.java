@@ -4,14 +4,14 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "zip"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ZipInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private List<java.lang.Number> ages;
-        private java.lang.Number day;
-        private java.lang.Number hour;
-        private java.lang.Number minute;
-        private java.lang.Number month;
-        private List<String> names;
-        private java.lang.Number second;
-        private java.lang.Number year;
+    private List<java.lang.Number> ages;
+    private java.lang.Number day;
+    private java.lang.Number hour;
+    private java.lang.Number minute;
+    private java.lang.Number month;
+    private List<String> names;
+    private java.lang.Number second;
+    private java.lang.Number year;
 
     public List<java.lang.Number> getAges() {
         return this.ages;

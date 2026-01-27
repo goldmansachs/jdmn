@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "pick"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class PickInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.time.LocalDate date;
-        private java.time.temporal.TemporalAccessor datetime;
-        private java.time.temporal.TemporalAccessor time;
+    private java.time.LocalDate date;
+    private java.time.temporal.TemporalAccessor datetime;
+    private java.time.temporal.TemporalAccessor time;
 
     public java.time.LocalDate getDate() {
         return this.date;

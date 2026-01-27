@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "named function invocation"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class NamedFunctionInvocationInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private String stringInputA;
-        private String stringInputB;
+    private String stringInputA;
+    private String stringInputB;
 
     public String getStringInputA() {
         return this.stringInputA;

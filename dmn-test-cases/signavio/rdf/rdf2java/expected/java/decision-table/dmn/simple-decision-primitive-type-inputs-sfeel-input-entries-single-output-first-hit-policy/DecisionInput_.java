@@ -4,13 +4,13 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "decision"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class DecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private Boolean booleanInput;
-        private java.time.temporal.TemporalAccessor dateAndTimeInput;
-        private java.time.LocalDate dateInput;
-        private String enumerationInput;
-        private java.lang.Number numberInput;
-        private String textInput;
-        private java.time.temporal.TemporalAccessor timeInput;
+    private Boolean booleanInput;
+    private java.time.temporal.TemporalAccessor dateAndTimeInput;
+    private java.time.LocalDate dateInput;
+    private String enumerationInput;
+    private java.lang.Number numberInput;
+    private String textInput;
+    private java.time.temporal.TemporalAccessor timeInput;
 
     public Boolean getBooleanInput() {
         return this.booleanInput;

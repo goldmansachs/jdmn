@@ -4,17 +4,17 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "allTogether"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AllTogetherInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private Boolean booleanA;
-        private Boolean booleanB;
-        private List<Boolean> booleanList;
-        private java.time.LocalDate date;
-        private java.time.temporal.TemporalAccessor dateTime;
-        private java.lang.Number numberA;
-        private java.lang.Number numberB;
-        private List<java.lang.Number> numberList;
-        private String string;
-        private List<String> stringList;
-        private java.time.temporal.TemporalAccessor time;
+    private Boolean booleanA;
+    private Boolean booleanB;
+    private List<Boolean> booleanList;
+    private java.time.LocalDate date;
+    private java.time.temporal.TemporalAccessor dateTime;
+    private java.lang.Number numberA;
+    private java.lang.Number numberB;
+    private List<java.lang.Number> numberList;
+    private String string;
+    private List<String> stringList;
+    private java.time.temporal.TemporalAccessor time;
 
     public Boolean getBooleanA() {
         return this.booleanA;

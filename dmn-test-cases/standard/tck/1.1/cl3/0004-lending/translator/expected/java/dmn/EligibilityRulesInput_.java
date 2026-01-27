@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "EligibilityRules"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class EligibilityRulesInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private String preBureauRiskCategory;
-        private Boolean preBureauAffordability;
-        private java.lang.Number age;
+    private String preBureauRiskCategory;
+    private Boolean preBureauAffordability;
+    private java.lang.Number age;
 
     public String getPreBureauRiskCategory() {
         return this.preBureauRiskCategory;

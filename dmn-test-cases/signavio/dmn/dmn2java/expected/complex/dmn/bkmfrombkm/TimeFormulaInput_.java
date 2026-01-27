@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "timeFormula"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class TimeFormulaInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.time.temporal.TemporalAccessor time;
-        private java.time.temporal.TemporalAccessor time2;
+    private java.time.temporal.TemporalAccessor time;
+    private java.time.temporal.TemporalAccessor time2;
 
     public java.time.temporal.TemporalAccessor getTime() {
         return this.time;

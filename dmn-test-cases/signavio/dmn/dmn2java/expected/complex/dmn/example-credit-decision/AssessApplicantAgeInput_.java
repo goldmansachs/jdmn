@@ -4,7 +4,7 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "assessApplicantAge"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AssessApplicantAgeInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private type.Applicant applicant;
+    private type.Applicant applicant;
 
     public type.Applicant getApplicant() {
         return this.applicant;

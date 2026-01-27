@@ -4,12 +4,12 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "generateTemporalObjects"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class GenerateTemporalObjectsInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number day;
-        private java.lang.Number hour;
-        private java.lang.Number minute;
-        private java.lang.Number month;
-        private java.lang.Number second;
-        private java.lang.Number year;
+    private java.lang.Number day;
+    private java.lang.Number hour;
+    private java.lang.Number minute;
+    private java.lang.Number month;
+    private java.lang.Number second;
+    private java.lang.Number year;
 
     public java.lang.Number getDay() {
         return this.day;

@@ -5,8 +5,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "c"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private String modela_a;
-        private String modelb_a;
+    private String modela_a;
+    private String modelb_a;
 
     public String getModela_a() {
         return this.modela_a;

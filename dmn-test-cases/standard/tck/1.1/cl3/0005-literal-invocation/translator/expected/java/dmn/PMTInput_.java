@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "PMT"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class PMTInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number p;
-        private java.lang.Number r;
-        private java.lang.Number n;
+    private java.lang.Number p;
+    private java.lang.Number r;
+    private java.lang.Number n;
 
     public java.lang.Number getP() {
         return this.p;

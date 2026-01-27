@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "sign"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class SignInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number a2;
-        private java.lang.Number b3;
+    private java.lang.Number a2;
+    private java.lang.Number b3;
 
     public java.lang.Number getA2() {
         return this.a2;

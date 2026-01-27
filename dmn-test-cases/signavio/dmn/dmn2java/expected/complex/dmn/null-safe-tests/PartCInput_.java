@@ -4,11 +4,11 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "partC"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class PartCInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private Boolean booleanA;
-        private Boolean booleanB;
-        private java.time.LocalDate date;
-        private java.time.temporal.TemporalAccessor dateTime;
-        private java.time.temporal.TemporalAccessor time;
+    private Boolean booleanA;
+    private Boolean booleanB;
+    private java.time.LocalDate date;
+    private java.time.temporal.TemporalAccessor dateTime;
+    private java.time.temporal.TemporalAccessor time;
 
     public Boolean getBooleanA() {
         return this.booleanA;

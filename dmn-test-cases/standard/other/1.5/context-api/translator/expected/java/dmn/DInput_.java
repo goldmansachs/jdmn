@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "D"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class DInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.time.LocalDate date;
-        private type.Person person;
+    private java.time.LocalDate date;
+    private type.Person person;
 
     public java.time.LocalDate getDate() {
         return this.date;

@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "buildDateStringInAnnotation"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class BuildDateStringInAnnotationInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number day;
-        private java.lang.Number month;
-        private java.lang.Number year;
+    private java.lang.Number day;
+    private java.lang.Number month;
+    private java.lang.Number year;
 
     public java.lang.Number getDay() {
         return this.day;

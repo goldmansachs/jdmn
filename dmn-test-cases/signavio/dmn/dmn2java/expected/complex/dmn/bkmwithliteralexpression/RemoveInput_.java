@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "remove"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class RemoveInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private String rgb2;
-        private List<String> rgb2List;
+    private String rgb2;
+    private List<String> rgb2List;
 
     public String getRgb2() {
         return this.rgb2;

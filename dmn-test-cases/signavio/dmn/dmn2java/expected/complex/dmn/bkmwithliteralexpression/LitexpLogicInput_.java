@@ -4,13 +4,13 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "litexpLogic"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class LitexpLogicInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private List<String> blacklist;
-        private List<java.lang.Number> listOfNumbers;
-        private List<String> names;
-        private String rgb1;
-        private List<String> rgb1List;
-        private String rgb2;
-        private List<String> rgb2List;
+    private List<String> blacklist;
+    private List<java.lang.Number> listOfNumbers;
+    private List<String> names;
+    private String rgb1;
+    private List<String> rgb1List;
+    private String rgb2;
+    private List<String> rgb2List;
 
     public List<String> getBlacklist() {
         return this.blacklist;

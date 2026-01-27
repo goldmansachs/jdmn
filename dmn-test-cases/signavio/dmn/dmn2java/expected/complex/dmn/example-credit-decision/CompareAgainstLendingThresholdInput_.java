@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "compareAgainstLendingThreshold"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class CompareAgainstLendingThresholdInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private type.Applicant applicant;
-        private java.lang.Number currentRiskAppetite;
-        private java.lang.Number lendingThreshold;
+    private type.Applicant applicant;
+    private java.lang.Number currentRiskAppetite;
+    private java.lang.Number lendingThreshold;
 
     public type.Applicant getApplicant() {
         return this.applicant;

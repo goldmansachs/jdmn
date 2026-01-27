@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "ApplicationRiskScoreModel"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class ApplicationRiskScoreModelInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number age;
-        private String maritalStatus;
-        private String employmentStatus;
+    private java.lang.Number age;
+    private String maritalStatus;
+    private String employmentStatus;
 
     public java.lang.Number getAge() {
         return this.age;

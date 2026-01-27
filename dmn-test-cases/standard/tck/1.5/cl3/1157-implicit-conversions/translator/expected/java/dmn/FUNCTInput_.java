@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "FUNCT"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class FUNCTInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private List<java.lang.Number> numberList;
-        private java.lang.Number number;
-        private java.time.temporal.TemporalAccessor dateTime;
+    private List<java.lang.Number> numberList;
+    private java.lang.Number number;
+    private java.time.temporal.TemporalAccessor dateTime;
 
     public List<java.lang.Number> getNumberList() {
         return this.numberList;

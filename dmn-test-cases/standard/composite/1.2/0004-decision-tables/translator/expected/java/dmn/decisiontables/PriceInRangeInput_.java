@@ -5,9 +5,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "priceInRange"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class PriceInRangeInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number decisioninputs_numB;
-        private java.lang.Number decisioninputs_numC;
-        private decisioninputs.type.TA decisioninputs_structA;
+    private java.lang.Number decisioninputs_numB;
+    private java.lang.Number decisioninputs_numC;
+    private decisioninputs.type.TA decisioninputs_structA;
 
     public java.lang.Number getDecisioninputs_numB() {
         return this.decisioninputs_numB;

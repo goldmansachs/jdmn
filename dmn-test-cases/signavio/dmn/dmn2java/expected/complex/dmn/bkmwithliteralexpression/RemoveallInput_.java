@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "removeall"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class RemoveallInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private List<String> blacklist;
-        private List<String> names;
+    private List<String> blacklist;
+    private List<String> names;
 
     public List<String> getBlacklist() {
         return this.blacklist;

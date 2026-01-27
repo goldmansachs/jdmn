@@ -4,7 +4,7 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "keepInputallFalse"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class KeepInputallFalseInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private Boolean booleanAllFalse_iterator;
+    private Boolean booleanAllFalse_iterator;
 
     public Boolean getBooleanAllFalse_iterator() {
         return this.booleanAllFalse_iterator;

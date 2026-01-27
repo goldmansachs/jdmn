@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "formattingAndCoercing"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class FormattingAndCoercingInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private java.lang.Number numberB;
-        private String string;
+    private java.lang.Number numberB;
+    private String string;
 
     public java.lang.Number getNumberB() {
         return this.numberB;

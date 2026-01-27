@@ -4,9 +4,9 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "Adjudication"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class AdjudicationInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private type.TApplicantData applicantData;
-        private type.TBureauData bureauData;
-        private String supportingDocuments;
+    private type.TApplicantData applicantData;
+    private type.TBureauData bureauData;
+    private String supportingDocuments;
 
     public type.TApplicantData getApplicantData() {
         return this.applicantData;

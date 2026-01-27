@@ -4,10 +4,10 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "fetchForexRate"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class FetchForexRateInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private String derivativeType;
-        private String taxChargeType;
-        private type.Transaction transaction;
-        private type.TransactionTaxMetaData transactionTaxMetaData;
+    private String derivativeType;
+    private String taxChargeType;
+    private type.Transaction transaction;
+    private type.TransactionTaxMetaData transactionTaxMetaData;
 
     public String getDerivativeType() {
         return this.derivativeType;

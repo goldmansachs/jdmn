@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "mid"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class MidInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private List<String> inputA;
-        private List<java.lang.Number> inputB;
+    private List<String> inputA;
+    private List<java.lang.Number> inputB;
 
     public List<String> getInputA() {
         return this.inputA;

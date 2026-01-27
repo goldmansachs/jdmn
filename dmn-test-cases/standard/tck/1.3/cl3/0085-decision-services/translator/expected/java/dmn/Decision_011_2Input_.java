@@ -4,8 +4,8 @@ import java.util.*;
 @javax.annotation.Generated(value = {"inputElement.ftl", "decision_011_2"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class Decision_011_2Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
-        private String inputData_011_1;
-        private String inputData_011_2;
+    private String inputData_011_1;
+    private String inputData_011_2;
 
     public String getInputData_011_1() {
         return this.inputData_011_1;
