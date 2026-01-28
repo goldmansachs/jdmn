@@ -33,8 +33,8 @@ public interface GenerateTemporalObjects extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("date", getDate());
-        context.put("datetime", getDatetime());
+        context.add("date", getDate());
+        context.add("datetime", getDatetime());
         return context;
     }
 

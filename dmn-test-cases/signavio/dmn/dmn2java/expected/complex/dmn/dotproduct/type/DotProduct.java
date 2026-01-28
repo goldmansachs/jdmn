@@ -33,8 +33,8 @@ public interface DotProduct extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("dotProduct2", getDotProduct2());
-        context.put("outputMessage", getOutputMessage());
+        context.add("dotProduct2", getDotProduct2());
+        context.add("outputMessage", getOutputMessage());
         return context;
     }
 

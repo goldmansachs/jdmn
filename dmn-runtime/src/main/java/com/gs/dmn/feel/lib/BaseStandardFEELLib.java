@@ -1518,7 +1518,7 @@ public abstract class BaseStandardFEELLib<NUMBER, DATE, TIME, DATE_TIME, DURATIO
             if (value instanceof Context) {
                 for (String key : ((com.gs.dmn.feel.lib.reference.CompositeDataType) type).getMembers()) {
                     Type memberType = ((com.gs.dmn.feel.lib.reference.CompositeDataType) type).getMemberType(key);
-                    if (((Context) value).getBindings().containsKey(key)) {
+                    if (((Context) value).keySet().contains(key)) {
                         Boolean checkMember = conformsTo(((Context) value).get(key), memberType);
                         if (checkMember != Boolean.TRUE) {
                             return false;

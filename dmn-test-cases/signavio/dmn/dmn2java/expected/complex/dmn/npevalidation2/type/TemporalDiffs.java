@@ -33,8 +33,8 @@ public interface TemporalDiffs extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("dateDiff", getDateDiff());
-        context.put("dateTimeDiff", getDateTimeDiff());
+        context.add("dateDiff", getDateDiff());
+        context.add("dateTimeDiff", getDateTimeDiff());
         return context;
     }
 

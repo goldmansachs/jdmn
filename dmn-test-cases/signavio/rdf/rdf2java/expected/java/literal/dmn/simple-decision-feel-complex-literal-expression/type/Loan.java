@@ -38,9 +38,9 @@ public interface Loan extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("principal", getPrincipal());
-        context.put("rate", getRate());
-        context.put("term", getTerm());
+        context.add("principal", getPrincipal());
+        context.add("rate", getRate());
+        context.add("term", getTerm());
         return context;
     }
 

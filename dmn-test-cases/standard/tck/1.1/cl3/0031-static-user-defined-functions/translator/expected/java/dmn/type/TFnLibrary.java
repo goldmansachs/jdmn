@@ -43,10 +43,10 @@ public interface TFnLibrary extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("sumFn", getSumFn());
-        context.put("subFn", getSubFn());
-        context.put("multiplyFn", getMultiplyFn());
-        context.put("divideFn", getDivideFn());
+        context.add("sumFn", getSumFn());
+        context.add("subFn", getSubFn());
+        context.add("multiplyFn", getMultiplyFn());
+        context.add("divideFn", getDivideFn());
         return context;
     }
 

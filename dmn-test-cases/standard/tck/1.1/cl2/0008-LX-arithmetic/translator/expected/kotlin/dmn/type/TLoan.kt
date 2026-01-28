@@ -17,9 +17,9 @@ interface TLoan : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("principal", this.principal)
-        context.put("rate", this.rate)
-        context.put("termMonths", this.termMonths)
+        context.add("principal", this.principal)
+        context.add("rate", this.rate)
+        context.add("termMonths", this.termMonths)
         return context
     }
 

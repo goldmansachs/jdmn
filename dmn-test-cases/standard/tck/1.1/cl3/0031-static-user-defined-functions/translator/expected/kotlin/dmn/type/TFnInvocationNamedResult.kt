@@ -20,10 +20,10 @@ interface TFnInvocationNamedResult : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("subResult", this.subResult)
-        context.put("subResultMixed", this.subResultMixed)
-        context.put("divisionResultNamed", this.divisionResultNamed)
-        context.put("multiplicationResultNamed", this.multiplicationResultNamed)
+        context.add("subResult", this.subResult)
+        context.add("subResultMixed", this.subResultMixed)
+        context.add("divisionResultNamed", this.divisionResultNamed)
+        context.add("multiplicationResultNamed", this.multiplicationResultNamed)
         return context
     }
 

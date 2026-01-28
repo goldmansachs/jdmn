@@ -14,8 +14,8 @@ interface TApproval : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("status", this.status)
-        context.put("rate", this.rate)
+        context.add("status", this.status)
+        context.add("rate", this.rate)
         return context
     }
 

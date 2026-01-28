@@ -71,7 +71,7 @@ class ${javaClassName}(${transformer.dmnTypeClassName()}):
         <#list itemDefinition.itemComponent as child>
             <#assign name = modelRepository.name(child)/>
             <#assign memberName = transformer.namedElementVariableName(child)/>
-        context.put("${memberName}", self.${memberName})
+        context.add("${memberName}", self.${memberName})
         </#list>
         return context
 </#macro>

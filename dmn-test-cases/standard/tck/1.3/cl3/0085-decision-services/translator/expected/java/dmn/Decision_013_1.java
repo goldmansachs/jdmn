@@ -93,9 +93,9 @@ public class Decision_013_1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<c
 
                 String decisionService_013 = DecisionService_013.instance().apply("A", "B", context_);
                 com.gs.dmn.runtime.Context decision_013_1 = new com.gs.dmn.runtime.Context();
-                decision_013_1.put("decisionService_013",  decisionService_013);
-                decision_013_1.put("inputData_013_1",  inputData_013_1);
-                decision_013_1.put("decision_013_3",  decision_013_3);
+                decision_013_1.add("decisionService_013",  decisionService_013);
+                decision_013_1.add("inputData_013_1",  inputData_013_1);
+                decision_013_1.add("decision_013_3",  decision_013_3);
                 return decision_013_1;
             }
         };

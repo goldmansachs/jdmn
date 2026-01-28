@@ -33,8 +33,8 @@ public interface CompoundOutputDecision extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("firstOutput", getFirstOutput());
-        context.put("secondOutput", getSecondOutput());
+        context.add("firstOutput", getFirstOutput());
+        context.add("secondOutput", getSecondOutput());
         return context;
     }
 

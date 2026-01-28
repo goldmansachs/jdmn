@@ -33,8 +33,8 @@ public interface TBureauData extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("creditScore", getCreditScore());
-        context.put("bankrupt", getBankrupt());
+        context.add("creditScore", getCreditScore());
+        context.add("bankrupt", getBankrupt());
         return context;
     }
 

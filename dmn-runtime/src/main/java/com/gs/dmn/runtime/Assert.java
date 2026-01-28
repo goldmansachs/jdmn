@@ -65,7 +65,7 @@ public class Assert {
             if (actual == null) {
                 actual = new Context();
             }
-            for(Object key: ((Context) expected).getBindings().keySet()) {
+            for(Object key: ((Context) expected).keySet()) {
                 Object expectedMember = ((Context) expected).get(key);
                 Object actualMember = ((Context) actual).get(key);
                 assertEquals(message + String.format(" for member '%s'", key), expectedMember, actualMember);

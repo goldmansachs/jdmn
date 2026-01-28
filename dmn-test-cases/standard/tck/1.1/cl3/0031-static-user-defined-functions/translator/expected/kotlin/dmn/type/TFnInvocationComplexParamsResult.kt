@@ -17,9 +17,9 @@ interface TFnInvocationComplexParamsResult : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("functionInvocationLiteralExpressionInParameter", this.functionInvocationLiteralExpressionInParameter)
-        context.put("functionInvocationInParameter", this.functionInvocationInParameter)
-        context.put("circumference", this.circumference)
+        context.add("functionInvocationLiteralExpressionInParameter", this.functionInvocationLiteralExpressionInParameter)
+        context.add("functionInvocationInParameter", this.functionInvocationInParameter)
+        context.add("circumference", this.circumference)
         return context
     }
 

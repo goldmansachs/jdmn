@@ -33,8 +33,8 @@ public interface Student extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("age", getAge());
-        context.put("classification", getClassification());
+        context.add("age", getAge());
+        context.add("classification", getClassification());
         return context;
     }
 

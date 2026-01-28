@@ -1982,7 +1982,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String contextSetter(String name) {
-        return String.format("put(\"%s\", ", name);
+        return String.format("add(\"%s\", ", name);
     }
 
     @Override

@@ -23,11 +23,11 @@ interface TRankedProducts : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("metricsTable", this.metricsTable)
-        context.put("rankByRate", this.rankByRate)
-        context.put("rankByDownPmt", this.rankByDownPmt)
-        context.put("rankByMonthlyPmt", this.rankByMonthlyPmt)
-        context.put("rankByEquityPct", this.rankByEquityPct)
+        context.add("metricsTable", this.metricsTable)
+        context.add("rankByRate", this.rankByRate)
+        context.add("rankByDownPmt", this.rankByDownPmt)
+        context.add("rankByMonthlyPmt", this.rankByMonthlyPmt)
+        context.add("rankByEquityPct", this.rankByEquityPct)
         return context
     }
 

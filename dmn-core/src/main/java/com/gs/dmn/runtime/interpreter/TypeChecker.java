@@ -76,8 +76,8 @@ public class TypeChecker {
         } else if (value instanceof Context) {
             Context context = (Context) value;
             ContextType contextType = new ContextType();
-            for (Object objMember : context.getBindings().keySet()) {
-                String member = (String) objMember;
+            for (Object key : context.keySet()) {
+                String member = (String) key;
                 Type expectedMemberType = expectedType instanceof CompositeDataType ? ((CompositeDataType) expectedType).getMemberType(member) : NULL;
                 contextType.addMember(member, new ArrayList<>(), valueType(context.get(member), expectedMemberType));
             }

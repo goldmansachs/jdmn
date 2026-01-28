@@ -23,11 +23,11 @@ interface TApplicantData : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("monthly", this.monthly)
-        context.put("age", this.age)
-        context.put("existingCustomer", this.existingCustomer)
-        context.put("maritalStatus", this.maritalStatus)
-        context.put("employmentStatus", this.employmentStatus)
+        context.add("monthly", this.monthly)
+        context.add("age", this.age)
+        context.add("existingCustomer", this.existingCustomer)
+        context.add("maritalStatus", this.maritalStatus)
+        context.add("employmentStatus", this.employmentStatus)
         return context
     }
 

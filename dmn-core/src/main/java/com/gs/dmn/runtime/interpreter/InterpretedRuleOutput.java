@@ -69,7 +69,7 @@ public class InterpretedRuleOutput extends RuleOutput {
                 decisionPairs.sort(new com.gs.dmn.runtime.PairComparator<>());
                 // Add them to new list
                 for (int i = 0; i < decisionPairs.size(); i++) {
-                    ((Context) newList.get(i).getResult()).put(key, decisionPairs.get(i));
+                    ((Context) newList.get(i).getResult()).add(key, decisionPairs.get(i));
                 }
             }
             return (List) newList;

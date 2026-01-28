@@ -20,10 +20,10 @@ interface TRow : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("col1", this.col1)
-        context.put("col2", this.col2)
-        context.put("col3", this.col3)
-        context.put("col4", this.col4)
+        context.add("col1", this.col1)
+        context.add("col2", this.col2)
+        context.add("col3", this.col3)
+        context.add("col4", this.col4)
         return context
     }
 

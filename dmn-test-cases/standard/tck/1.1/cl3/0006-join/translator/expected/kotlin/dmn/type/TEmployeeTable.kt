@@ -17,9 +17,9 @@ interface TEmployeeTable : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("id", this.id)
-        context.put("name", this.name)
-        context.put("deptNum", this.deptNum)
+        context.add("id", this.id)
+        context.add("name", this.name)
+        context.add("deptNum", this.deptNum)
         return context
     }
 

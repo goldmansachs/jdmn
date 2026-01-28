@@ -40,11 +40,11 @@ class TApplicantData(jdmn.runtime.DMNType.DMNType):
 
     def toContext(self) -> jdmn.runtime.Context.Context:
         context = jdmn.runtime.Context.Context()
-        context.put("monthly", self.monthly)
-        context.put("age", self.age)
-        context.put("existingCustomer", self.existingCustomer)
-        context.put("maritalStatus", self.maritalStatus)
-        context.put("employmentStatus", self.employmentStatus)
+        context.add("monthly", self.monthly)
+        context.add("age", self.age)
+        context.add("existingCustomer", self.existingCustomer)
+        context.add("maritalStatus", self.maritalStatus)
+        context.add("employmentStatus", self.employmentStatus)
         return context
 
     def equalTo(self, other: typing.Any) -> bool:

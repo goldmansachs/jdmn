@@ -34,8 +34,8 @@ class TBureauData(jdmn.runtime.DMNType.DMNType):
 
     def toContext(self) -> jdmn.runtime.Context.Context:
         context = jdmn.runtime.Context.Context()
-        context.put("creditScore", self.creditScore)
-        context.put("bankrupt", self.bankrupt)
+        context.add("creditScore", self.creditScore)
+        context.add("bankrupt", self.bankrupt)
         return context
 
     def equalTo(self, other: typing.Any) -> bool:

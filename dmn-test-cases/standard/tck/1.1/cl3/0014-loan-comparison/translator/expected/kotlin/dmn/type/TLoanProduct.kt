@@ -20,10 +20,10 @@ interface TLoanProduct : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("lenderName", this.lenderName)
-        context.put("rate", this.rate)
-        context.put("points", this.points)
-        context.put("fee", this.fee)
+        context.add("lenderName", this.lenderName)
+        context.add("rate", this.rate)
+        context.add("points", this.points)
+        context.add("fee", this.fee)
         return context
     }
 

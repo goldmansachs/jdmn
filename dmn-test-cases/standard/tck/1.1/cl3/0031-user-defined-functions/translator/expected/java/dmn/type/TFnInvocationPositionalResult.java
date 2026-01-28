@@ -38,9 +38,9 @@ public interface TFnInvocationPositionalResult extends com.gs.dmn.runtime.DMNTyp
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("sumResult", getSumResult());
-        context.put("divisionResultPositional", getDivisionResultPositional());
-        context.put("multiplicationResultPositional", getMultiplicationResultPositional());
+        context.add("sumResult", getSumResult());
+        context.add("divisionResultPositional", getDivisionResultPositional());
+        context.add("multiplicationResultPositional", getMultiplicationResultPositional());
         return context;
     }
 

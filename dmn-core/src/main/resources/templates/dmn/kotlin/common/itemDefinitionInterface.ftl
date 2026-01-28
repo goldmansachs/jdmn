@@ -44,7 +44,7 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
         val context = ${transformer.defaultConstructor(transformer.contextClassName())}
         <#list itemDefinition.itemComponent as child>
             <#assign memberName = transformer.namedElementVariableName(child)/>
-        context.put("${memberName}", this.${memberName})
+        context.add("${memberName}", this.${memberName})
         </#list>
         return context
     }

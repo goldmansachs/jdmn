@@ -38,9 +38,9 @@ public interface Compile extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("nextTrafficLight", getNextTrafficLight());
-        context.put("avgOfNumbers", getAvgOfNumbers());
-        context.put("name", getName());
+        context.add("nextTrafficLight", getNextTrafficLight());
+        context.add("avgOfNumbers", getAvgOfNumbers());
+        context.add("name", getName());
         return context;
     }
 

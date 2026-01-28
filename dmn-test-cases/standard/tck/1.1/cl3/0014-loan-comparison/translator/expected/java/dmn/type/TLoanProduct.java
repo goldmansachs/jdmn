@@ -43,10 +43,10 @@ public interface TLoanProduct extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("lenderName", getLenderName());
-        context.put("rate", getRate());
-        context.put("points", getPoints());
-        context.put("fee", getFee());
+        context.add("lenderName", getLenderName());
+        context.add("rate", getRate());
+        context.add("points", getPoints());
+        context.add("fee", getFee());
         return context;
     }
 

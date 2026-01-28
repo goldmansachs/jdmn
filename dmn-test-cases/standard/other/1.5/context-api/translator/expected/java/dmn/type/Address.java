@@ -38,9 +38,9 @@ public interface Address extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("street", getStreet());
-        context.put("no", getNo());
-        context.put("country", getCountry());
+        context.add("street", getStreet());
+        context.add("no", getNo());
+        context.add("country", getCountry());
         return context;
     }
 

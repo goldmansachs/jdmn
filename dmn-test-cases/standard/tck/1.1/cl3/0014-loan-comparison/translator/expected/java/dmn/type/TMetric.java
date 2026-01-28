@@ -63,14 +63,14 @@ public interface TMetric extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("lenderName", getLenderName());
-        context.put("rate", getRate());
-        context.put("points", getPoints());
-        context.put("fee", getFee());
-        context.put("loanAmt", getLoanAmt());
-        context.put("downPmtAmt", getDownPmtAmt());
-        context.put("paymentAmt", getPaymentAmt());
-        context.put("equity36moPct", getEquity36moPct());
+        context.add("lenderName", getLenderName());
+        context.add("rate", getRate());
+        context.add("points", getPoints());
+        context.add("fee", getFee());
+        context.add("loanAmt", getLoanAmt());
+        context.add("downPmtAmt", getDownPmtAmt());
+        context.add("paymentAmt", getPaymentAmt());
+        context.add("equity36moPct", getEquity36moPct());
         return context;
     }
 

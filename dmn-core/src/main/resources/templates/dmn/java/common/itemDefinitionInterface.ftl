@@ -81,7 +81,7 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
         <#list itemDefinition.itemComponent as child>
             <#assign memberName = transformer.namedElementVariableName(child)/>
             <#assign member = transformer.getter(child)/>
-        context.put("${memberName}", ${member});
+        context.add("${memberName}", ${member});
         </#list>
         return context;
     }

@@ -53,12 +53,12 @@ public interface Zip extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("names", getNames());
-        context.put("ages", getAges());
-        context.put("dateDiffs", getDateDiffs());
-        context.put("dateTimeDiffs", getDateTimeDiffs());
-        context.put("temporalUnits", getTemporalUnits());
-        context.put("agesListDescription", getAgesListDescription());
+        context.add("names", getNames());
+        context.add("ages", getAges());
+        context.add("dateDiffs", getDateDiffs());
+        context.add("dateTimeDiffs", getDateTimeDiffs());
+        context.add("temporalUnits", getTemporalUnits());
+        context.add("agesListDescription", getAgesListDescription());
         return context;
     }
 

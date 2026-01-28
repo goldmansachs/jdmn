@@ -38,9 +38,9 @@ public interface TransactionTaxMetaData extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("taxType", getTaxType());
-        context.put("jurisdiction", getJurisdiction());
-        context.put("assetClass", getAssetClass());
+        context.add("taxType", getTaxType());
+        context.add("jurisdiction", getJurisdiction());
+        context.add("assetClass", getAssetClass());
         return context;
     }
 

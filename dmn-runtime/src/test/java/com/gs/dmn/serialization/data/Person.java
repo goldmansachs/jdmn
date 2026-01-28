@@ -98,22 +98,22 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("id", getId());
-        context.put("firstName", getFirstName());
-        context.put("lastName", getLastName());
-        context.put("dateOfBirth", getDateOfBirth());
-        context.put("timeOfBirth", getTimeOfBirth());
-        context.put("dateTimeOfBirth", getDateTimeOfBirth());
-        context.put("gender", getGender());
-        context.put("married", getMarried());
-        context.put("list", getList());
-        context.put("dateTimeList", getDateTimeList());
-        context.put("yearsAndMonthsDuration", getYearsAndMonthsDuration());
-        context.put("daysAndTimeDuration", getDaysAndTimeDuration());
-        context.put("at", getAt());
-        context.put("aT", getAT());
-        context.put("addresses", getAddresses());
-        context.put("ranges", getRanges());
+        context.add("id", getId());
+        context.add("firstName", getFirstName());
+        context.add("lastName", getLastName());
+        context.add("dateOfBirth", getDateOfBirth());
+        context.add("timeOfBirth", getTimeOfBirth());
+        context.add("dateTimeOfBirth", getDateTimeOfBirth());
+        context.add("gender", getGender());
+        context.add("married", getMarried());
+        context.add("list", getList());
+        context.add("dateTimeList", getDateTimeList());
+        context.add("yearsAndMonthsDuration", getYearsAndMonthsDuration());
+        context.add("daysAndTimeDuration", getDaysAndTimeDuration());
+        context.add("at", getAt());
+        context.add("aT", getAT());
+        context.add("addresses", getAddresses());
+        context.add("ranges", getRanges());
         return context;
     }
 

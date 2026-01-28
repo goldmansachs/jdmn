@@ -28,7 +28,7 @@ public interface TestPeopleType extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("testPersonType", getTestPersonType());
+        context.add("testPersonType", getTestPersonType());
         return context;
     }
 

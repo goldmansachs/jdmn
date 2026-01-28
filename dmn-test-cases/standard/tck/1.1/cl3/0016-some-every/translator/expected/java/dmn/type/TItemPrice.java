@@ -33,8 +33,8 @@ public interface TItemPrice extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("itemName", getItemName());
-        context.put("price", getPrice());
+        context.add("itemName", getItemName());
+        context.add("price", getPrice());
         return context;
     }
 

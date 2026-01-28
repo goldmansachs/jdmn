@@ -20,10 +20,10 @@ interface TFnLibrary : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("sumFn", this.sumFn)
-        context.put("subFn", this.subFn)
-        context.put("multiplyFn", this.multiplyFn)
-        context.put("divideFn", this.divideFn)
+        context.add("sumFn", this.sumFn)
+        context.add("subFn", this.subFn)
+        context.add("multiplyFn", this.multiplyFn)
+        context.add("divideFn", this.divideFn)
         return context
     }
 

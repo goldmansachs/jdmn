@@ -199,8 +199,8 @@ public class AgeClassification extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisio
 
     public com.gs.dmn.runtime.Context toDecisionOutput(AgeClassificationRuleOutput ruleOutput_) {
         com.gs.dmn.runtime.Context result_ = new com.gs.dmn.runtime.Context();
-        result_.put("cls", ruleOutput_ == null ? null : ruleOutput_.getCls());
-        result_.put("discount", ruleOutput_ == null ? null : ruleOutput_.getDiscount());
+        result_.add("cls", ruleOutput_ == null ? null : ruleOutput_.getCls());
+        result_.add("discount", ruleOutput_ == null ? null : ruleOutput_.getDiscount());
         return result_;
     }
 }

@@ -33,8 +33,8 @@ public interface TApproval extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("status", getStatus());
-        context.put("rate", getRate());
+        context.add("status", getStatus());
+        context.add("rate", getRate());
         return context;
     }
 

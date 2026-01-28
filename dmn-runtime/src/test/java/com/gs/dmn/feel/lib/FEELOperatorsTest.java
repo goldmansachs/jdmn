@@ -1446,7 +1446,7 @@ public abstract class FEELOperatorsTest<NUMBER, DATE, TIME, DATE_TIME, DURATION>
     protected Context makeContext(Object... objects) {
         Context context = new Context();
         for (int i=0; i<objects.length; i+=2) {
-            context.put(objects[i], objects[i+1]);
+            context.add(objects[i], objects[i+1]);
         }
         return context;
     }

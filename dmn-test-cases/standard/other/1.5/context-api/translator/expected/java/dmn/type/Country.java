@@ -28,7 +28,7 @@ public interface Country extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("name", getName());
+        context.add("name", getName());
         return context;
     }
 

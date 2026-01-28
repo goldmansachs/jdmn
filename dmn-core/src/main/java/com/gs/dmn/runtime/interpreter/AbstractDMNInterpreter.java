@@ -446,7 +446,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                         Context childContext = (Context) parentContext.get(childName);
                         if (childContext == null) {
                             childContext = new Context();
-                            parentContext.put(childName, childContext);
+                            parentContext.add(childName, childContext);
                         }
                         parentContext = childContext;
                     }
@@ -484,12 +484,12 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                         Context childContext = (Context) parentContext.get(childName);
                         if (childContext == null) {
                             childContext = new Context();
-                            parentContext.put(childName, childContext);
+                            parentContext.add(childName, childContext);
                         }
                         parentContext = childContext;
                     }
                     // bind name -> value
-                    parentContext.put(name, value);
+                    parentContext.add(name, value);
                 } catch (Exception e) {
                     throw new SemanticErrorException(String.format("cannot bind value to '%s.%s'", importPath.asString(), name), e);
                 }
@@ -518,7 +518,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                     context.bind(importName, parentContext);
                 }
                 // bind name -> value
-                parentContext.put(name, value);
+                parentContext.add(name, value);
             }
         } else {
             if (ImportPath.isEmpty(relativeImportPath)) {
@@ -1167,9 +1167,9 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                         String key = decisionTable.getOutput().get(i).getName();
                         if (repository.isOutputOrderHit(hitPolicy)) {
                             Object priority = dmnTransformer.outputClausePriority(element, rule.getOutputEntry().get(i), i);
-                            output.put(key, new Pair<>(value, priority));
+                            output.add(key, new Pair<>(value, priority));
                         } else {
-                            output.put(key, new Pair<>(value, null));
+                            output.add(key, new Pair<>(value, null));
                         }
                     }
                     return new InterpretedRuleOutput(ruleMatched, output);
@@ -1257,11 +1257,11 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
                     TLiteralExpression defaultOutputEntry = output.getDefaultOutputEntry();
                     String key = repository.outputClauseName(element, output);
                     if (defaultOutputEntry == null) {
-                        defaultValue.put(key, null);
+                        defaultValue.add(key, null);
                     } else {
                         Result result = this.visit(defaultOutputEntry, EvaluationContext.makeExpressionEvaluationContext(element, context, elementAnnotation));
                         Object value = Result.value(result);
-                        defaultValue.put(key, value);
+                        defaultValue.add(key, value);
                     }
                 }
                 // Return result
@@ -1289,7 +1289,7 @@ public abstract class AbstractDMNInterpreter<NUMBER, DATE, TIME, DATE_TIME, DURA
             if (result instanceof Context) {
                 Context newContext = new Context();
                 for (Object key : ((Context) result).keySet()) {
-                    newContext.put(key, ((Pair) ((Context) result).get(key)).getLeft());
+                    newContext.add(key, ((Pair) ((Context) result).get(key)).getLeft());
                 }
                 return newContext;
                 // Simple decision

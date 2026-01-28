@@ -48,11 +48,11 @@ public interface TRankedProducts extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("metricsTable", getMetricsTable());
-        context.put("rankByRate", getRankByRate());
-        context.put("rankByDownPmt", getRankByDownPmt());
-        context.put("rankByMonthlyPmt", getRankByMonthlyPmt());
-        context.put("rankByEquityPct", getRankByEquityPct());
+        context.add("metricsTable", getMetricsTable());
+        context.add("rankByRate", getRankByRate());
+        context.add("rankByDownPmt", getRankByDownPmt());
+        context.add("rankByMonthlyPmt", getRankByMonthlyPmt());
+        context.add("rankByEquityPct", getRankByEquityPct());
         return context;
     }
 

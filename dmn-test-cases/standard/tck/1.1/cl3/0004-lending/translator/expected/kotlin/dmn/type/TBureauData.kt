@@ -14,8 +14,8 @@ interface TBureauData : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("creditScore", this.creditScore)
-        context.put("bankrupt", this.bankrupt)
+        context.add("creditScore", this.creditScore)
+        context.add("bankrupt", this.bankrupt)
         return context
     }
 

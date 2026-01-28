@@ -33,8 +33,8 @@ public interface Decision extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("output1", getOutput1());
-        context.put("output2", getOutput2());
+        context.add("output1", getOutput1());
+        context.add("output2", getOutput2());
         return context;
     }
 

@@ -38,10 +38,10 @@ class TRequestedProduct(jdmn.runtime.DMNType.DMNType):
 
     def toContext(self) -> jdmn.runtime.Context.Context:
         context = jdmn.runtime.Context.Context()
-        context.put("productType", self.productType)
-        context.put("amount", self.amount)
-        context.put("rate", self.rate)
-        context.put("term", self.term)
+        context.add("productType", self.productType)
+        context.add("amount", self.amount)
+        context.add("rate", self.rate)
+        context.add("term", self.term)
         return context
 
     def equalTo(self, other: typing.Any) -> bool:

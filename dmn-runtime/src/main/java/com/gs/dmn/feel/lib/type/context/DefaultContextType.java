@@ -66,7 +66,7 @@ public class DefaultContextType extends BaseType implements ContextType {
     public List getEntries(Context m) {
         if (m != null) {
             List result = new ArrayList<>();
-            Set keys = m.getBindings().keySet();
+            Set keys = m.keySet();
             for (Object key: keys) {
                 Context c = new Context().add("key", key).add("value", m.get(key));
                 result.add(c);
@@ -98,7 +98,7 @@ public class DefaultContextType extends BaseType implements ContextType {
                 String key = (String) ((Context) entry).get("key");
                 Object value = ((Context) entry).get("value");
                 if (!result.keySet().contains(key)) {
-                    result.put(key, value);
+                    result.add(key, value);
                 } else {
                     throw new DMNRuntimeException(String.format("Duplicated key '%s' in context()", key));
                 }
@@ -128,7 +128,7 @@ public class DefaultContextType extends BaseType implements ContextType {
         }
 
         Context clone = Context.clone(context);
-        clone.put(key, value);
+        clone.add(key, value);
         return clone;
     }
 
@@ -151,7 +151,7 @@ public class DefaultContextType extends BaseType implements ContextType {
             if (i == keys.size() -1) {
                 // last key from path
                 if (currentContext != null) {
-                    currentContext.put(key, value);
+                    currentContext.add(key, value);
                 } else {
                     throw new DMNRuntimeException(String.format("Incorrect path '%s' in context '%s'", keys, context));
                 }
@@ -179,7 +179,7 @@ public class DefaultContextType extends BaseType implements ContextType {
             if (o instanceof Context) {
                 Context c = (Context) o;
                 for (Object key : c.keySet()) {
-                    context.put(key, c.get(key));
+                    context.add(key, c.get(key));
                 }
             } else {
                 throw new DMNRuntimeException(String.format("Expected Context found '%s'", o));

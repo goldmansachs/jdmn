@@ -43,10 +43,10 @@ public interface TFnInvocationNamedResult extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("subResult", getSubResult());
-        context.put("subResultMixed", getSubResultMixed());
-        context.put("divisionResultNamed", getDivisionResultNamed());
-        context.put("multiplicationResultNamed", getMultiplicationResultNamed());
+        context.add("subResult", getSubResult());
+        context.add("subResultMixed", getSubResultMixed());
+        context.add("divisionResultNamed", getDivisionResultNamed());
+        context.add("multiplicationResultNamed", getMultiplicationResultNamed());
         return context;
     }
 

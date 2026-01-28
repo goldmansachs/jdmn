@@ -68,15 +68,15 @@ public interface Person extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("firstName", getFirstName());
-        context.put("lastName", getLastName());
-        context.put("id", getId());
-        context.put("gender", getGender());
-        context.put("dateOfBirth", getDateOfBirth());
-        context.put("timeOfBirth", getTimeOfBirth());
-        context.put("dateTimeOfBirth", getDateTimeOfBirth());
-        context.put("list", getList());
-        context.put("married", getMarried());
+        context.add("firstName", getFirstName());
+        context.add("lastName", getLastName());
+        context.add("id", getId());
+        context.add("gender", getGender());
+        context.add("dateOfBirth", getDateOfBirth());
+        context.add("timeOfBirth", getTimeOfBirth());
+        context.add("dateTimeOfBirth", getDateTimeOfBirth());
+        context.add("list", getList());
+        context.add("married", getMarried());
         return context;
     }
 

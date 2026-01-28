@@ -38,9 +38,9 @@ public interface Monthly extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("income", getIncome());
-        context.put("expenses", getExpenses());
-        context.put("repayments", getRepayments());
+        context.add("income", getIncome());
+        context.add("expenses", getExpenses());
+        context.add("repayments", getRepayments());
         return context;
     }
 

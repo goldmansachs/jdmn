@@ -17,9 +17,9 @@ interface Monthly : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("income", this.income)
-        context.put("expenses", this.expenses)
-        context.put("repayments", this.repayments)
+        context.add("income", this.income)
+        context.add("expenses", this.expenses)
+        context.add("repayments", this.repayments)
         return context
     }
 

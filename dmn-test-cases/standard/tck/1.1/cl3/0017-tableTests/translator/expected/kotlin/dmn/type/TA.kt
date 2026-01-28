@@ -14,8 +14,8 @@ interface TA : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("name", this.name)
-        context.put("price", this.price)
+        context.add("name", this.name)
+        context.add("price", this.price)
         return context
     }
 

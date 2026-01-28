@@ -36,9 +36,9 @@ class Monthly(jdmn.runtime.DMNType.DMNType):
 
     def toContext(self) -> jdmn.runtime.Context.Context:
         context = jdmn.runtime.Context.Context()
-        context.put("income", self.income)
-        context.put("expenses", self.expenses)
-        context.put("repayments", self.repayments)
+        context.add("income", self.income)
+        context.add("expenses", self.expenses)
+        context.add("repayments", self.repayments)
         return context
 
     def equalTo(self, other: typing.Any) -> bool:

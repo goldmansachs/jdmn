@@ -14,8 +14,8 @@ interface TItemPrice : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("itemName", this.itemName)
-        context.put("price", this.price)
+        context.add("itemName", this.itemName)
+        context.add("price", this.price)
         return context
     }
 

@@ -32,14 +32,14 @@ interface TMetric : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("lenderName", this.lenderName)
-        context.put("rate", this.rate)
-        context.put("points", this.points)
-        context.put("fee", this.fee)
-        context.put("loanAmt", this.loanAmt)
-        context.put("downPmtAmt", this.downPmtAmt)
-        context.put("paymentAmt", this.paymentAmt)
-        context.put("equity36moPct", this.equity36moPct)
+        context.add("lenderName", this.lenderName)
+        context.add("rate", this.rate)
+        context.add("points", this.points)
+        context.add("fee", this.fee)
+        context.add("loanAmt", this.loanAmt)
+        context.add("downPmtAmt", this.downPmtAmt)
+        context.add("paymentAmt", this.paymentAmt)
+        context.add("equity36moPct", this.equity36moPct)
         return context
     }
 

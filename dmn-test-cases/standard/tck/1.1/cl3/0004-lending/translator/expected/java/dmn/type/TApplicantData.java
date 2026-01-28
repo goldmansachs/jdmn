@@ -48,11 +48,11 @@ public interface TApplicantData extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("monthly", getMonthly());
-        context.put("age", getAge());
-        context.put("existingCustomer", getExistingCustomer());
-        context.put("maritalStatus", getMaritalStatus());
-        context.put("employmentStatus", getEmploymentStatus());
+        context.add("monthly", getMonthly());
+        context.add("age", getAge());
+        context.add("existingCustomer", getExistingCustomer());
+        context.add("maritalStatus", getMaritalStatus());
+        context.add("employmentStatus", getEmploymentStatus());
         return context;
     }
 

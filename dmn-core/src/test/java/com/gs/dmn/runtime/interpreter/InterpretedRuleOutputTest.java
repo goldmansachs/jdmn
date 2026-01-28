@@ -26,11 +26,11 @@ public class InterpretedRuleOutputTest {
         assertNotEquals(new InterpretedRuleOutput(true, "1234"), new InterpretedRuleOutput(true, "123"));
 
         Context c1 = new Context();
-        c1.put("Rate", new Pair<>("Best", null));
-        c1.put("Status", new Pair<>("Approved", null));
+        c1.add("Rate", new Pair<>("Best", null));
+        c1.add("Status", new Pair<>("Approved", null));
         Context c2 = new Context();
-        c2.put("Rate", new Pair<>("Best", null));
-        c2.put("Status", new Pair<>("Approved", null));
+        c2.add("Rate", new Pair<>("Best", null));
+        c2.add("Status", new Pair<>("Approved", null));
         assertEquals(new InterpretedRuleOutput(true, c1), new InterpretedRuleOutput(true, c2));
     }
 }

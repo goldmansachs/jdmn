@@ -38,9 +38,9 @@ public interface Zip extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("n", getN());
-        context.put("e", getE());
-        context.put("t", getT());
+        context.add("n", getN());
+        context.add("e", getE());
+        context.add("t", getT());
         return context;
     }
 

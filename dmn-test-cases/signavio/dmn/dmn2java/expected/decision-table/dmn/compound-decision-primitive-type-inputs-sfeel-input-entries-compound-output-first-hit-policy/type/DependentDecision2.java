@@ -33,8 +33,8 @@ public interface DependentDecision2 extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("dD2O1", getDD2O1());
-        context.put("dD2O2", getDD2O2());
+        context.add("dD2O1", getDD2O1());
+        context.add("dD2O2", getDD2O2());
         return context;
     }
 

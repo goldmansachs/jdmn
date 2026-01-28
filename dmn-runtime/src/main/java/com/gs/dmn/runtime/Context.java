@@ -40,25 +40,21 @@ public class Context implements Serializable {
     }
 
     public String getName() {
-        return name;
-    }
-
-    public Map getBindings() {
-        return map;
+        return this.name;
     }
 
     public Object get(Object name) {
-        return map.get(name);
+        return this.map.get(name);
     }
 
     public Object get(Object name, Object... aliases) {
-        Object o = map.get(name);
+        Object o = this.map.get(name);
         if (o != null) {
             return o;
         }
         if (aliases != null) {
             for(Object key: aliases) {
-                o = map.get(key);
+                o = this.map.get(key);
                 if (o != null) {
                     return o;
                 }
@@ -67,40 +63,13 @@ public class Context implements Serializable {
         return null;
     }
 
-    public Object put(Object key, Object value) {
-        return map.put(key, value);
-    }
-
     public Context add(Object key, Object value) {
-        this.put(key, value);
+        this.map.put(key, value);
         return this;
     }
 
-    public boolean isEquivalent(Context other) {
-        return other != null && this.keySet().equals(other.keySet());
-    }
-
-    @Override
-    public String toString() {
-        Set set = this.map.keySet();
-        if (set != null && !set.isEmpty() && set.iterator().next() instanceof String) {
-            ArrayList<String> orderedKeys = new ArrayList<>(set);
-            orderedKeys.sort((s1, s2) -> s1 != null && s2 != null ? s1.compareTo(s2) : -1);
-            StringBuilder result = new StringBuilder("{");
-            for(int i=0; i<orderedKeys.size(); i++) {
-                Object key = orderedKeys.get(i);
-                Object member = this.get(key);
-                result.append(String.format("%s%s=%s", (i != 0 ? ", " : ""), key, member));
-            }
-            result.append("}");
-            return result.toString();
-        } else {
-            return super.toString();
-        }
-    }
-
     public Set keySet() {
-        return map.keySet();
+        return this.map.keySet();
     }
 
     @Override
@@ -110,12 +79,30 @@ public class Context implements Serializable {
 
         Context context = (Context) o;
 
-        return map.equals(context.map);
-
+        return this.map.equals(context.map);
     }
 
     @Override
     public int hashCode() {
-        return map.hashCode();
+        return this.map.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        Set set = map.keySet();
+        if (!set.isEmpty() && set.iterator().next() instanceof String) {
+            ArrayList<String> orderedKeys = new ArrayList<>(set);
+            orderedKeys.sort((s1, s2) -> s1 != null && s2 != null ? s1.compareTo(s2) : -1);
+            StringBuilder result = new StringBuilder("{");
+            for(int i=0; i<orderedKeys.size(); i++) {
+                Object key = orderedKeys.get(i);
+                Object member = this.map.get(key);
+                result.append(String.format("%s%s=%s", (i != 0 ? ", " : ""), key, member));
+            }
+            result.append("}");
+            return result.toString();
+        } else {
+            return super.toString();
+        }
     }
 }

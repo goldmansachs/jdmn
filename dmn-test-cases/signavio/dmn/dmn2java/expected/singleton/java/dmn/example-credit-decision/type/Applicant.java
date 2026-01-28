@@ -43,10 +43,10 @@ public interface Applicant extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("name", getName());
-        context.put("age", getAge());
-        context.put("creditScore", getCreditScore());
-        context.put("priorIssues", getPriorIssues());
+        context.add("name", getName());
+        context.add("age", getAge());
+        context.add("creditScore", getCreditScore());
+        context.add("priorIssues", getPriorIssues());
         return context;
     }
 

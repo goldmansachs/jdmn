@@ -17,9 +17,9 @@ interface TFnInvocationResult : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("sumResult", this.sumResult)
-        context.put("multiplicationResultPositional", this.multiplicationResultPositional)
-        context.put("divisionResultPositional", this.divisionResultPositional)
+        context.add("sumResult", this.sumResult)
+        context.add("multiplicationResultPositional", this.multiplicationResultPositional)
+        context.add("divisionResultPositional", this.divisionResultPositional)
         return context
     }
 

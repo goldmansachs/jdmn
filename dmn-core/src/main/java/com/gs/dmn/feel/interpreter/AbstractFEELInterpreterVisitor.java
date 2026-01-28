@@ -402,7 +402,7 @@ abstract class AbstractFEELInterpreterVisitor<NUMBER, DATE, TIME, DATE_TIME, DUR
         List<Pair<?, ?>> entries = element.getEntries().stream().map(e -> (Pair<?, ?>) e.accept(this, entryContext)).collect(Collectors.toList());
         com.gs.dmn.runtime.Context runtimeContext = new com.gs.dmn.runtime.Context();
         for (Pair<?, ?> p : entries) {
-            runtimeContext.put(p.getLeft(), p.getRight());
+            runtimeContext.add(p.getLeft(), p.getRight());
         }
         return runtimeContext;
     }

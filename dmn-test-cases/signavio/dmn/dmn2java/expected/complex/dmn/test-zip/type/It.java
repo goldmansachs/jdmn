@@ -33,8 +33,8 @@ public interface It extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("a", getA());
-        context.put("b", getB());
+        context.add("a", getA());
+        context.add("b", getB());
         return context;
     }
 

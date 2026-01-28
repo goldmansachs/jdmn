@@ -38,9 +38,9 @@ public interface TDeptTable extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("number", getNumber());
-        context.put("name", getName());
-        context.put("manager", getManager());
+        context.add("number", getNumber());
+        context.add("name", getName());
+        context.add("manager", getManager());
         return context;
     }
 

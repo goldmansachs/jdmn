@@ -38,9 +38,9 @@ public interface TFnInvocationComplexParamsResult extends com.gs.dmn.runtime.DMN
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("functionInvocationLiteralExpressionInParameter", getFunctionInvocationLiteralExpressionInParameter());
-        context.put("functionInvocationInParameter", getFunctionInvocationInParameter());
-        context.put("circumference", getCircumference());
+        context.add("functionInvocationLiteralExpressionInParameter", getFunctionInvocationLiteralExpressionInParameter());
+        context.add("functionInvocationInParameter", getFunctionInvocationInParameter());
+        context.add("circumference", getCircumference());
         return context;
     }
 

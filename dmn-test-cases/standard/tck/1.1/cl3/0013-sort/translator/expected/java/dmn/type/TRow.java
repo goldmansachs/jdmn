@@ -43,10 +43,10 @@ public interface TRow extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("col1", getCol1());
-        context.put("col2", getCol2());
-        context.put("col3", getCol3());
-        context.put("col4", getCol4());
+        context.add("col1", getCol1());
+        context.add("col2", getCol2());
+        context.add("col3", getCol3());
+        context.add("col4", getCol4());
         return context;
     }
 

@@ -38,9 +38,9 @@ public interface GenerateOutputData extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("decision", getDecision());
-        context.put("assessment", getAssessment());
-        context.put("issue", getIssue());
+        context.add("decision", getDecision());
+        context.add("assessment", getAssessment());
+        context.add("issue", getIssue());
         return context;
     }
 

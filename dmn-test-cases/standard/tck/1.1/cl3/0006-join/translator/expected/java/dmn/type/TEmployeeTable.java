@@ -38,9 +38,9 @@ public interface TEmployeeTable extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("id", getId());
-        context.put("name", getName());
-        context.put("deptNum", getDeptNum());
+        context.add("id", getId());
+        context.add("name", getName());
+        context.add("deptNum", getDeptNum());
         return context;
     }
 

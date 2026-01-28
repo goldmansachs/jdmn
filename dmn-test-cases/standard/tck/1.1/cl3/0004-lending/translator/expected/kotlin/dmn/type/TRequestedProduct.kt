@@ -20,10 +20,10 @@ interface TRequestedProduct : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("productType", this.productType)
-        context.put("amount", this.amount)
-        context.put("rate", this.rate)
-        context.put("term", this.term)
+        context.add("productType", this.productType)
+        context.add("amount", this.amount)
+        context.add("rate", this.rate)
+        context.add("term", this.term)
         return context
     }
 

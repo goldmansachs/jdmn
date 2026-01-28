@@ -88,19 +88,19 @@ public interface Transaction extends com.gs.dmn.runtime.DMNType {
 
     default com.gs.dmn.runtime.Context toContext() {
         com.gs.dmn.runtime.Context context = new com.gs.dmn.runtime.Context();
-        context.put("tradeDate", getTradeDate());
-        context.put("buySellIndicator", getBuySellIndicator());
-        context.put("offeringType", getOfferingType());
-        context.put("exerciseAssign", getExerciseAssign());
-        context.put("settlementDate", getSettlementDate());
-        context.put("clearingAgent", getClearingAgent());
-        context.put("deliveryInstruction", getDeliveryInstruction());
-        context.put("executionCapacity", getExecutionCapacity());
-        context.put("quantity", getQuantity());
-        context.put("price", getPrice());
-        context.put("commision", getCommision());
-        context.put("executionMarket", getExecutionMarket());
-        context.put("currencyCode", getCurrencyCode());
+        context.add("tradeDate", getTradeDate());
+        context.add("buySellIndicator", getBuySellIndicator());
+        context.add("offeringType", getOfferingType());
+        context.add("exerciseAssign", getExerciseAssign());
+        context.add("settlementDate", getSettlementDate());
+        context.add("clearingAgent", getClearingAgent());
+        context.add("deliveryInstruction", getDeliveryInstruction());
+        context.add("executionCapacity", getExecutionCapacity());
+        context.add("quantity", getQuantity());
+        context.add("price", getPrice());
+        context.add("commision", getCommision());
+        context.add("executionMarket", getExecutionMarket());
+        context.add("currencyCode", getCurrencyCode());
         return context;
     }
 

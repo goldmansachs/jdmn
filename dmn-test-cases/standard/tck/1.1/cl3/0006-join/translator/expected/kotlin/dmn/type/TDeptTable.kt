@@ -17,9 +17,9 @@ interface TDeptTable : com.gs.dmn.runtime.DMNType {
 
     override fun toContext(): com.gs.dmn.runtime.Context {
         val context = com.gs.dmn.runtime.Context()
-        context.put("number", this.number)
-        context.put("name", this.name)
-        context.put("manager", this.manager)
+        context.add("number", this.number)
+        context.add("name", this.name)
+        context.add("manager", this.manager)
         return context
     }
 
