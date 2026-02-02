@@ -134,7 +134,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<FEELParameter> parameters = inputDataParametersClosure(outputReference);
-            String decisionSignature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(toNativeType(p.getType()), p.getName())).collect(Collectors.joining(", "));
+            String decisionSignature = parameters.stream().map(p -> this.nativeFactory.nullableParameter(toNativeType(p.getType()), p.getNativeName())).collect(Collectors.joining(", "));
             return augmentSignature(decisionSignature);
         } else {
             return super.drgElementSignature(reference);
@@ -142,14 +142,14 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
     }
 
     @Override
-    protected List<FEELParameter> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference, Function<Object, String> nameProducer) {
+    public List<FEELParameter> bkmParameters(DRGElementReference<TBusinessKnowledgeModel> reference) {
         TBusinessKnowledgeModel bkm = reference.getElement();
         TFunctionDefinition encapsulatedLogic = bkm.getEncapsulatedLogic();
         if (encapsulatedLogic == null) {
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision(bkm);
             return this.drgElementTypeSignature(outputDecision);
         } else {
-            return super.bkmParameters(reference, nameProducer);
+            return super.bkmParameters(reference);
         }
     }
 
@@ -160,7 +160,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<FEELParameter> parameters = inputDataParametersClosure(outputReference);
-            String arguments = parameters.stream().map(p -> String.format("%s", p.getName())).collect(Collectors.joining(", "));
+            String arguments = parameters.stream().map(p -> String.format("%s", p.getNativeName())).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
             return super.drgElementArgumentList(reference);
@@ -174,7 +174,7 @@ public class BasicSignavioDMNToJavaTransformer extends BasicDMNToJavaTransformer
             TDecision outputDecision = this.dmnModelRepository.getOutputDecision((TBusinessKnowledgeModel) element);
             DRGElementReference<TDecision> outputReference = this.dmnModelRepository.makeDRGElementReference(outputDecision);
             List<FEELParameter> parameters = inputDataParametersClosure(outputReference);
-            String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgument(p.getName(), p.getType()))).collect(Collectors.joining(", "));
+            String arguments = parameters.stream().map(p -> String.format("%s", convertDecisionArgument(p.getNativeName(), p.getType()))).collect(Collectors.joining(", "));
             return augmentArgumentList(arguments);
         } else {
             return super.drgElementConvertedArgumentList(reference);

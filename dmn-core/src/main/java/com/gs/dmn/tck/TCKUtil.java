@@ -216,10 +216,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
                 .map(this::inputDataVariableName)
                 .collect(Collectors.toList());
         // Calculate missing arguments
-        List<FEELParameter> parameters = this.transformer.drgElementTypeSignature(resultNodeInfo.getReference(), transformer::nativeName);
-        List<FEELParameter> missingParameters = parameters.stream().filter(pair -> !inputNames.contains(pair.getName())).collect(Collectors.toList());
+        List<FEELParameter> parameters = this.transformer.drgElementTypeSignature(resultNodeInfo.getReference());
+        List<FEELParameter> missingParameters = parameters.stream().filter(pair -> !inputNames.contains(pair.getNativeName())).collect(Collectors.toList());
         List<NativeParameter> missingArgs = missingParameters.stream()
-                .map(p -> new NativeParameter(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getType())), p.getName()))
+                .map(p -> new NativeParameter(transformer.getNativeFactory().nullableParameterType(transformer.toNativeType(p.getType())), p.getNativeName()))
                 .collect(Collectors.toList());
 
         List<List<String>> result = new ArrayList<>();

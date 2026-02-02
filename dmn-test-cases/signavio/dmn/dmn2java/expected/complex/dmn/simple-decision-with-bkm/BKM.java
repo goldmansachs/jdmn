@@ -36,7 +36,7 @@ public class BKM extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecisio
     @java.lang.Override()
     public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("a") != null ? number(input_.get("a")) : null), (input_.get("b") != null ? number(input_.get("b")) : null), context_);
+            return apply((input_.get("A") != null ? number(input_.get("A")) : null), (input_.get("B") != null ? number(input_.get("B")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'BKM'", e);
             return null;

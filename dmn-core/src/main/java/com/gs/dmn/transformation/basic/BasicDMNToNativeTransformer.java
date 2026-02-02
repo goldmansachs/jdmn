@@ -134,11 +134,9 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     List<String> annotations(TDRGElement element, List<String> annotations);
 
-    List<FEELParameter> drgElementTypeSignature(TDRGElement element, Function<Object, String> nameProducer);
-
-    List<FEELParameter> drgElementTypeSignature(DRGElementReference<? extends TDRGElement> reference, Function<Object, String> nameProducer);
-
     List<FEELParameter> drgElementTypeSignature(TDRGElement element);
+
+    List<FEELParameter> drgElementTypeSignature(DRGElementReference<? extends TDRGElement> reference);
 
     // applyMap() related methods
     boolean canGenerateApplyMap(TDRGElement element);
