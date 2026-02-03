@@ -585,7 +585,7 @@
                         <id>test-cl3-0001-filter</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0001-filter/translator/0001-filter-test-01.xml</inputTestFileDirectory>
@@ -615,7 +615,7 @@
                         <id>test-cl3-0002-string-functions</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0002-string-functions/translator/0002-string-functions-test-01.xml</inputTestFileDirectory>
@@ -645,7 +645,7 @@
                         <id>test-cl3-0003-iteration</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0003-iteration/translator/0003-iteration-test-01.xml</inputTestFileDirectory>
@@ -678,7 +678,7 @@
                         <id>test-cl3-0004-lending</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0004-lending/translator/0004-lending-test-01.xml</inputTestFileDirectory>
@@ -708,7 +708,7 @@
                         <id>test-cl3-0005-literal-invocation</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0005-literal-invocation/translator/0005-literal-invocation-test-01.xml</inputTestFileDirectory>
@@ -738,7 +738,7 @@
                         <id>test-cl3-0006-join</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0006-join/translator/0006-join-test-01.xml</inputTestFileDirectory>
@@ -768,7 +768,7 @@
                         <id>test-cl3-0007-date-time</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0007-date-time/translator/0007-date-time-test-01.xml</inputTestFileDirectory>
@@ -798,7 +798,7 @@
                         <id>test-cl3-0008-listGen</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0008-listGen/translator/0008-listGen-test-01.xml</inputTestFileDirectory>
@@ -828,7 +828,7 @@
                         <id>test-cl3-0009-append-flatten</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0009-append-flatten/translator/0009-append-flatten-test-01.xml</inputTestFileDirectory>
@@ -858,7 +858,7 @@
                         <id>test-cl3-0010-concatenate</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0010-concatenate/translator/0010-concatenate-test-01.xml</inputTestFileDirectory>
@@ -888,7 +888,7 @@
                         <id>test-cl3-0011-insert-remove</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0011-insert-remove/translator/0011-insert-remove-test-01.xml</inputTestFileDirectory>
@@ -918,7 +918,7 @@
                         <id>test-cl3-0012-list-functions</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0012-list-functions/translator/0012-list-functions-test-01.xml</inputTestFileDirectory>
@@ -948,7 +948,7 @@
                         <id>test-cl3-0013-sort</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0013-sort/translator/0013-sort-test-01.xml</inputTestFileDirectory>
@@ -978,7 +978,7 @@
                         <id>test-cl3-0014-loan-comparison</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0014-loan-comparison/translator/0014-loan-comparison-test-01.xml</inputTestFileDirectory>
@@ -1008,7 +1008,7 @@
                         <id>test-cl3-0016-some-every</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0016-some-every/translator/0016-some-every-test-01.xml</inputTestFileDirectory>
@@ -1038,7 +1038,7 @@
                         <id>test-cl3-0017-tableTests</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0017-tableTests/translator/0017-tableTests-test-01.xml</inputTestFileDirectory>
@@ -1068,7 +1068,7 @@
                         <id>test-cl3-0020-vacation-days</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0020-vacation-days/translator/0020-vacation-days-test-01.xml</inputTestFileDirectory>
@@ -1098,7 +1098,7 @@
                         <id>test-cl3-0021-singleton-list</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0021-singleton-list/translator/0021-singleton-list-test-01.xml</inputTestFileDirectory>
@@ -1128,7 +1128,7 @@
                         <id>test-cl3-0030-static-user-defined-functions</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0030-static-user-defined-functions/translator/0030-static-user-defined-functions-test-01.xml</inputTestFileDirectory>
@@ -1158,7 +1158,7 @@
                         <id>test-cl3-0031-static-user-defined-functions</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0031-static-user-defined-functions/translator/0031-static-user-defined-functions-test-01.xml</inputTestFileDirectory>
@@ -1188,7 +1188,7 @@
                         <id>test-0032-conditionals</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0032-conditionals/translator/0032-conditionals-test-01.xml</inputTestFileDirectory>
@@ -1218,7 +1218,7 @@
                         <id>test-0033-for-loops</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/0033-for-loops/translator/0033-for-loops-test-01.xml</inputTestFileDirectory>
@@ -1278,7 +1278,7 @@
                         <id>test-1100-feel-decimal-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1100-feel-decimal-function/translator/1100-feel-decimal-function-test-01.xml</inputTestFileDirectory>
@@ -1308,7 +1308,7 @@
                         <id>test-1101-feel-floor-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1101-feel-floor-function/translator/1101-feel-floor-function-test-01.xml</inputTestFileDirectory>
@@ -1338,7 +1338,7 @@
                         <id>test-1102-FeelCeilingFunctionTest</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1102-feel-ceiling-function/translator/1102-feel-ceiling-function-test-01.xml</inputTestFileDirectory>
@@ -1368,7 +1368,7 @@
                         <id>test-1103-feel-substring-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1103-feel-substring-function/translator/1103-feel-substring-function-test-01.xml</inputTestFileDirectory>
@@ -1398,7 +1398,7 @@
                         <id>test-1104-feel-string-length-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1104-feel-string-length-function/translator/1104-feel-string-length-function-test-01.xml</inputTestFileDirectory>
@@ -1428,7 +1428,7 @@
                         <id>test-1105-feel-upper-case-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1105-feel-upper-case-function/translator/1105-feel-upper-case-function-test-01.xml</inputTestFileDirectory>
@@ -1458,7 +1458,7 @@
                         <id>test-1106-feel-lower-case-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1106-feel-lower-case-function/translator/1106-feel-lower-case-function-test-01.xml</inputTestFileDirectory>
@@ -1488,7 +1488,7 @@
                         <id>test-1107-feel-substring-before-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1107-feel-substring-before-function/translator/1107-feel-substring-before-function-test-01.xml</inputTestFileDirectory>
@@ -1518,7 +1518,7 @@
                         <id>test-1108-feel-substring-after-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1108-feel-substring-after-function/translator/1108-feel-substring-after-function-test-01.xml</inputTestFileDirectory>
@@ -1548,7 +1548,7 @@
                         <id>test-1109-feel-replace-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1109-feel-replace-function/translator/1109-feel-replace-function-test-01.xml</inputTestFileDirectory>
@@ -1578,7 +1578,7 @@
                         <id>test-1110-feel-contains-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1110-feel-contains-function/translator/1110-feel-contains-function-test-01.xml</inputTestFileDirectory>
@@ -1608,7 +1608,7 @@
                         <id>test-1115-feel-date-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1115-feel-date-function/translator/1115-feel-date-function-test-01.xml</inputTestFileDirectory>
@@ -1638,7 +1638,7 @@
                         <id>test-1116-feel-time-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1116-feel-time-function/translator/1116-feel-time-function-test-01.xml</inputTestFileDirectory>
@@ -1668,7 +1668,7 @@
                         <id>test-1117-feel-date-and-time-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1117-feel-date-and-time-function/translator/1117-feel-date-and-time-function-test-01.xml</inputTestFileDirectory>
@@ -1698,7 +1698,7 @@
                         <id>test-1120-feel-duration-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1120-feel-duration-function/translator/1120-feel-duration-function-test-01.xml</inputTestFileDirectory>
@@ -1728,7 +1728,7 @@
                         <id>test-1121-feel-years-and-months-duration-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/1121-feel-years-and-months-duration-function/translator/1121-feel-years-and-months-duration-function-test-01.xml</inputTestFileDirectory>
@@ -1758,7 +1758,7 @@
                         <id>test-cl3-9001-recursive-function</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${tck.11.diagram.folder}/cl3/9001-recursive-function/translator/9001-recursive-function-test-01.xml</inputTestFileDirectory>
@@ -1790,7 +1790,7 @@
                         <id>test-composite-0001-no-name-conflicts-one-package</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0001-no-name-conflicts-one-package/translator</inputTestFileDirectory>
@@ -1821,7 +1821,7 @@
                         <id>test-composite-0002-no-name-conflicts</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0002-no-name-conflicts/translator</inputTestFileDirectory>
@@ -1851,7 +1851,7 @@
                         <id>test-composite-0003-name-conflicts</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0003-name-conflicts/translator</inputTestFileDirectory>
@@ -1882,7 +1882,7 @@
                         <id>test-composite-0004-decision-tables-one-package</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/translator</inputTestFileDirectory>
@@ -1913,7 +1913,7 @@
                         <id>test-composite-0004-decision-tables</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0004-decision-tables/translator</inputTestFileDirectory>
@@ -1943,7 +1943,7 @@
                         <id>test-composite-0005-decision-tables-name-conflicts</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0005-decision-tables-name-conflicts/translator</inputTestFileDirectory>
@@ -1975,7 +1975,7 @@
                         <id>test-composite-0006-multiple-input-data</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0006-multiple-input-data/translator</inputTestFileDirectory>
@@ -2008,7 +2008,7 @@
                         <id>test-composite-0007-name-conflicts-same-decision-singleton</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0007-name-conflicts-same-decision-singleton/translator</inputTestFileDirectory>
@@ -2041,7 +2041,7 @@
                         <id>test-composite-0008-name-conflicts-same-decision-no-singleton</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/translator</inputTestFileDirectory>
@@ -2078,7 +2078,7 @@
                         <id>test-lazy-composite-0008-name-conflicts-same-decision-no-singleton</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0008-name-conflicts-same-decision-no-singleton/translator</inputTestFileDirectory>
@@ -2113,7 +2113,7 @@
                         <id>test-0009-type-name-conflicts</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0009-type-name-conflicts/translator</inputTestFileDirectory>
@@ -2143,7 +2143,7 @@
                         <id>test-0010-bkm-name-conflicts</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>tck-to-java</goal>
+                            <goal>tck-to-kotlin</goal>
                         </goals>
                         <configuration>
                             <inputTestFileDirectory>${composite.12.diagram.folder}/0010-bkm-name-conflicts/translator</inputTestFileDirectory>

@@ -114,7 +114,7 @@ public class MockTCKValueTranslator<NUMBER, DATE, TIME, DATE_TIME, DURATION> ext
             javaList.add(value);
         }
         String args = String.join(", ", javaList);
-        return this.nativeFactory.makeBuiltinFunctionInvocation("asList", args);
+        return this.nativeFactory.asList(elementType, args);
     }
 
     private String toNativeExpression(List<Component> components, CompositeDataType type, TDRGElement element, TItemDefinition itemDefinition) {
