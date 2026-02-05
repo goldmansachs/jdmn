@@ -7,6 +7,18 @@ public class DInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.LocalDate date;
     private type.Person person;
 
+    public DInput_() {
+    }
+
+    public DInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object date = input_.get("Date");
+            setDate((java.time.LocalDate)date);
+            Object person = input_.get("Person");
+            setPerson(type.Person.toPerson(person));
+        }
+    }
+
     public java.time.LocalDate getDate() {
         return this.date;
     }

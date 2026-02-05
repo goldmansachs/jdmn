@@ -7,6 +7,18 @@ public class NamedFunctionInvocationInput_ implements com.gs.dmn.runtime.Executa
     private String stringInputA;
     private String stringInputB;
 
+    public NamedFunctionInvocationInput_() {
+    }
+
+    public NamedFunctionInvocationInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object stringInputA = input_.get("stringInputA");
+            setStringInputA((String)stringInputA);
+            Object stringInputB = input_.get("stringInputB");
+            setStringInputB((String)stringInputB);
+        }
+    }
+
     public String getStringInputA() {
         return this.stringInputA;
     }

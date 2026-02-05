@@ -12,6 +12,28 @@ public class CompoundOutputDecisionInput_ implements com.gs.dmn.runtime.Executab
     private String textInput;
     private java.time.temporal.TemporalAccessor timeInput;
 
+    public CompoundOutputDecisionInput_() {
+    }
+
+    public CompoundOutputDecisionInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object booleanInput = input_.get("BooleanInput");
+            setBooleanInput((Boolean)booleanInput);
+            Object dateAndTimeInput = input_.get("DateAndTimeInput");
+            setDateAndTimeInput((java.time.temporal.TemporalAccessor)dateAndTimeInput);
+            Object dateInput = input_.get("DateInput");
+            setDateInput((java.time.LocalDate)dateInput);
+            Object enumerationInput = input_.get("EnumerationInput");
+            setEnumerationInput((String)enumerationInput);
+            Object numberInput = input_.get("NumberInput");
+            setNumberInput((java.lang.Number)numberInput);
+            Object textInput = input_.get("TextInput");
+            setTextInput((String)textInput);
+            Object timeInput = input_.get("TimeInput");
+            setTimeInput((java.time.temporal.TemporalAccessor)timeInput);
+        }
+    }
+
     public Boolean getBooleanInput() {
         return this.booleanInput;
     }

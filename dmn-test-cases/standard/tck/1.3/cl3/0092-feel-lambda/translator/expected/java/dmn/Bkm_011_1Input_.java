@@ -7,6 +7,18 @@ public class Bkm_011_1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementI
     private com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn1;
     private com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn2;
 
+    public Bkm_011_1Input_() {
+    }
+
+    public Bkm_011_1Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object fn1 = input_.get("fn1");
+            setFn1((com.gs.dmn.runtime.LambdaExpression<java.lang.Number>)fn1);
+            Object fn2 = input_.get("fn2");
+            setFn2((com.gs.dmn.runtime.LambdaExpression<java.lang.Number>)fn2);
+        }
+    }
+
     public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> getFn1() {
         return this.fn1;
     }

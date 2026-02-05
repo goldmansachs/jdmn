@@ -5,4 +5,12 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class DecisionService_004Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
 
+    public DecisionService_004Input_() {
+    }
+
+    public DecisionService_004Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+        }
+    }
+
 }

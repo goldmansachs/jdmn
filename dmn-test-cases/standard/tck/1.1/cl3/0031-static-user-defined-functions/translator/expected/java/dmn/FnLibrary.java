@@ -46,6 +46,16 @@ public class FnLibrary extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<type.T
         }
     }
 
+    @java.lang.Override()
+    public type.TFnLibrary applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new FnLibraryInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'FnLibrary'", e);
+            return null;
+        }
+    }
+
     public type.TFnLibrary apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'fn library'

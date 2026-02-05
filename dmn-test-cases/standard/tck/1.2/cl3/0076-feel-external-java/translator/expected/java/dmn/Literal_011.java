@@ -46,6 +46,16 @@ public class Literal_011 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Obje
         }
     }
 
+    @java.lang.Override()
+    public Object applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new Literal_011Input_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Literal_011'", e);
+            return null;
+        }
+    }
+
     public Object apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'literal_011'

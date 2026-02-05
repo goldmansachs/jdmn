@@ -55,6 +55,16 @@ public class Strategy extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String>
         }
     }
 
+    @java.lang.Override()
+    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new StrategyInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Strategy'", e);
+            return null;
+        }
+    }
+
     public String apply(type.TApplicantData applicantData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Strategy'

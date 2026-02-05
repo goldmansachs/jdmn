@@ -7,6 +7,18 @@ public class SimpleFunctionInvocationInput_ implements com.gs.dmn.runtime.Execut
     private String stringInputA;
     private String stringInputB;
 
+    public SimpleFunctionInvocationInput_() {
+    }
+
+    public SimpleFunctionInvocationInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object stringInputA = input_.get("stringInputA");
+            setStringInputA((String)stringInputA);
+            Object stringInputB = input_.get("stringInputB");
+            setStringInputB((String)stringInputB);
+        }
+    }
+
     public String getStringInputA() {
         return this.stringInputA;
     }

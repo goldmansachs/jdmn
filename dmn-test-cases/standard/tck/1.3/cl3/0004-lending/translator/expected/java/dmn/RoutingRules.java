@@ -53,6 +53,16 @@ public class RoutingRules extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Str
         }
     }
 
+    @java.lang.Override()
+    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new RoutingRulesInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'RoutingRules'", e);
+            return null;
+        }
+    }
+
     public String apply(String postBureauRiskCategory, Boolean postBureauAffordability, Boolean bankrupt, java.lang.Number creditScore, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'RoutingRules'

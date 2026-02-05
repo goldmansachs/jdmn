@@ -53,6 +53,16 @@ public class Equity36Mo extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new Equity36MoInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Equity36Mo'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(java.lang.Number p, java.lang.Number r, java.lang.Number n, java.lang.Number pmt, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'equity36Mo'

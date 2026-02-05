@@ -46,6 +46,16 @@ public class Endswith_002 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boo
         }
     }
 
+    @java.lang.Override()
+    public Boolean applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new Endswith_002Input_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Endswith_002'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'endswith_002'

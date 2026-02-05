@@ -46,6 +46,16 @@ public class BaseVacationDays extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new BaseVacationDaysInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'BaseVacationDays'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Base Vacation Days'

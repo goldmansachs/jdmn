@@ -6,6 +6,16 @@ import java.util.*;
 public class PartAInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<Boolean> booleanList;
 
+    public PartAInput_() {
+    }
+
+    public PartAInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object booleanList = input_.get("booleanList");
+            setBooleanList((List<Boolean>)booleanList);
+        }
+    }
+
     public List<Boolean> getBooleanList() {
         return this.booleanList;
     }

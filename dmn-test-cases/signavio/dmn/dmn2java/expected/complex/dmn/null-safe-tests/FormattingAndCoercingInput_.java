@@ -7,6 +7,18 @@ public class FormattingAndCoercingInput_ implements com.gs.dmn.runtime.Executabl
     private java.lang.Number numberB;
     private String string;
 
+    public FormattingAndCoercingInput_() {
+    }
+
+    public FormattingAndCoercingInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object numberB = input_.get("numberB");
+            setNumberB((java.lang.Number)numberB);
+            Object string = input_.get("string");
+            setString((String)string);
+        }
+    }
+
     public java.lang.Number getNumberB() {
         return this.numberB;
     }

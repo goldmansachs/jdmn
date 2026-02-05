@@ -12,6 +12,28 @@ public class ZipInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String rgb2;
     private List<String> rgb2List;
 
+    public ZipInput_() {
+    }
+
+    public ZipInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object blacklist = input_.get("blacklist");
+            setBlacklist((List<String>)blacklist);
+            Object listOfNumbers = input_.get("ListOfNumbers");
+            setListOfNumbers((List<java.lang.Number>)listOfNumbers);
+            Object names = input_.get("names");
+            setNames((List<String>)names);
+            Object rgb1 = input_.get("rgb1");
+            setRgb1((String)rgb1);
+            Object rgb1List = input_.get("rgb1 list");
+            setRgb1List((List<String>)rgb1List);
+            Object rgb2 = input_.get("rgb2");
+            setRgb2((String)rgb2);
+            Object rgb2List = input_.get("rgb2 list");
+            setRgb2List((List<String>)rgb2List);
+        }
+    }
+
     public List<String> getBlacklist() {
         return this.blacklist;
     }

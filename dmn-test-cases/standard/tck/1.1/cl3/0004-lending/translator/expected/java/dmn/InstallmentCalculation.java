@@ -53,6 +53,16 @@ public class InstallmentCalculation extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new InstallmentCalculationInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'InstallmentCalculation'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(String productType, java.lang.Number rate, java.lang.Number term, java.lang.Number amount, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'InstallmentCalculation'

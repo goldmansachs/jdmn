@@ -7,6 +7,18 @@ public class AssessIssueInput_ implements com.gs.dmn.runtime.ExecutableDRGElemen
     private java.lang.Number currentRiskAppetite;
     private java.lang.Number priorIssue_iterator;
 
+    public AssessIssueInput_() {
+    }
+
+    public AssessIssueInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object currentRiskAppetite = input_.get("Current risk appetite");
+            setCurrentRiskAppetite((java.lang.Number)currentRiskAppetite);
+            Object priorIssue_iterator = input_.get("Prior issue");
+            setPriorIssue_iterator((java.lang.Number)priorIssue_iterator);
+        }
+    }
+
     public java.lang.Number getCurrentRiskAppetite() {
         return this.currentRiskAppetite;
     }

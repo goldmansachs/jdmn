@@ -12,6 +12,28 @@ public class DecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementIn
     private List<String> textInput;
     private List<java.time.temporal.TemporalAccessor> timeInput;
 
+    public DecisionInput_() {
+    }
+
+    public DecisionInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object booleanInput = input_.get("BooleanInput");
+            setBooleanInput((List<Boolean>)booleanInput);
+            Object dateAndTimeInput = input_.get("DateAndTimeInput");
+            setDateAndTimeInput((List<java.time.temporal.TemporalAccessor>)dateAndTimeInput);
+            Object dateInput = input_.get("DateInput");
+            setDateInput((List<java.time.LocalDate>)dateInput);
+            Object enumerationInput = input_.get("EnumerationInput");
+            setEnumerationInput((List<String>)enumerationInput);
+            Object numberInput = input_.get("NumberInput");
+            setNumberInput((List<java.lang.Number>)numberInput);
+            Object textInput = input_.get("TextInput");
+            setTextInput((List<String>)textInput);
+            Object timeInput = input_.get("TimeInput");
+            setTimeInput((List<java.time.temporal.TemporalAccessor>)timeInput);
+        }
+    }
+
     public List<Boolean> getBooleanInput() {
         return this.booleanInput;
     }

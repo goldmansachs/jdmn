@@ -8,6 +8,20 @@ public class PickInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput 
     private java.time.temporal.TemporalAccessor datetime;
     private java.time.temporal.TemporalAccessor time;
 
+    public PickInput_() {
+    }
+
+    public PickInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object date = input_.get("date");
+            setDate((java.time.LocalDate)date);
+            Object datetime = input_.get("datetime");
+            setDatetime((java.time.temporal.TemporalAccessor)datetime);
+            Object time = input_.get("time");
+            setTime((java.time.temporal.TemporalAccessor)time);
+        }
+    }
+
     public java.time.LocalDate getDate() {
         return this.date;
     }

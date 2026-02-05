@@ -6,6 +6,16 @@ import java.util.*;
 public class TemporalComparatorInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.temporal.TemporalAccessor dateTime;
 
+    public TemporalComparatorInput_() {
+    }
+
+    public TemporalComparatorInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object dateTime = input_.get("dateTime");
+            setDateTime((java.time.temporal.TemporalAccessor)dateTime);
+        }
+    }
+
     public java.time.temporal.TemporalAccessor getDateTime() {
         return this.dateTime;
     }

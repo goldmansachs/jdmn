@@ -480,19 +480,30 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public List<NativeParameter> drgElementArgumentListInputPojo(TDRGElement element) {
+    public List<Pair<FEELParameter, NativeParameter>> drgElementArgumentListInputPojo(TDRGElement element) {
         DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
         return drgElementArgumentListInputPojo(reference);
     }
 
-    protected List<NativeParameter> drgElementArgumentListInputPojo(DRGElementReference<? extends TDRGElement> reference) {
+    protected List<Pair<FEELParameter, NativeParameter>> drgElementArgumentListInputPojo(DRGElementReference<? extends TDRGElement> reference) {
         List<FEELParameter> parameters = drgElementTypeSignature(reference);
-        List<NativeParameter> elementSignature = parameters.stream().map(p -> makeNativeParameter(p)).collect(Collectors.toList());
+        List<Pair<FEELParameter, NativeParameter>> elementSignature = parameters.stream().map(p -> makePair(p)).collect(Collectors.toList());
         return elementSignature;
     }
 
-    private NativeParameter makeNativeParameter(FEELParameter p) {
-        return new NativeParameter(this.nativeFactory.nullableParameterType(toNativeType(p.getType())), p.getNativeName());
+    private Pair<FEELParameter, NativeParameter> makePair(FEELParameter p) {
+        return new Pair<>(p, new NativeParameter(this.nativeFactory.nullableParameterType(toNativeType(p.getType())), p.getNativeName()));
+    }
+
+    @Override
+    public String drgElementSignatureApplyContext(TDRGElement element) {
+        return String.format("%s %s, %s %s", contextClassName(), inputVariableName(), executionContextClassName(), executionContextVariableName());
+    }
+
+    @Override
+    public String drgElementArgumentListApplyContext(TDRGElement element) {
+        String inputClassName = drgElementInputPojoClassName(element);
+        return String.format("%s, %s", constructor(inputClassName, inputVariableName()), executionContextVariableName());
     }
 
     @Override

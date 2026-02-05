@@ -6,6 +6,16 @@ import java.util.*;
 public class TestInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String stringInput;
 
+    public TestInput_() {
+    }
+
+    public TestInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object stringInput = input_.get("StringInput");
+            setStringInput((String)stringInput);
+        }
+    }
+
     public String getStringInput() {
         return this.stringInput;
     }

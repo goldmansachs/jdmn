@@ -7,6 +7,18 @@ public class DecisionService_013Input_ implements com.gs.dmn.runtime.ExecutableD
     private String inputData_013_1;
     private String decision_013_3;
 
+    public DecisionService_013Input_() {
+    }
+
+    public DecisionService_013Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object inputData_013_1 = input_.get("inputData_013_1");
+            setInputData_013_1((String)inputData_013_1);
+            Object decision_013_3 = input_.get("decision_013_3");
+            setDecision_013_3((String)decision_013_3);
+        }
+    }
+
     public String getInputData_013_1() {
         return this.inputData_013_1;
     }

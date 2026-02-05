@@ -7,6 +7,18 @@ public class Bkm_018Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInp
     private String p1;
     private String p2;
 
+    public Bkm_018Input_() {
+    }
+
+    public Bkm_018Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object p1 = input_.get("p1");
+            setP1((String)p1);
+            Object p2 = input_.get("p2");
+            setP2((String)p2);
+        }
+    }
+
     public String getP1() {
         return this.p1;
     }

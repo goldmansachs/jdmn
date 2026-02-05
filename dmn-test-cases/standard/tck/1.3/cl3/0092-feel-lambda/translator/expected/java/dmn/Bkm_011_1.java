@@ -43,6 +43,11 @@ public class Bkm_011_1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.l
         throw new com.gs.dmn.runtime.DMNRuntimeException("Not all arguments can be serialized");
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        throw new com.gs.dmn.runtime.DMNRuntimeException("Not all arguments can be serialized");
+    }
+
     public java.lang.Number apply(com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn1, com.gs.dmn.runtime.LambdaExpression<java.lang.Number> fn2, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'bkm_011_1'

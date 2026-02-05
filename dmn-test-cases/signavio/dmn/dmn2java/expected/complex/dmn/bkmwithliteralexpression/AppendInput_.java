@@ -7,6 +7,18 @@ public class AppendInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInpu
     private String rgb1;
     private String rgb2;
 
+    public AppendInput_() {
+    }
+
+    public AppendInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object rgb1 = input_.get("rgb1");
+            setRgb1((String)rgb1);
+            Object rgb2 = input_.get("rgb2");
+            setRgb2((String)rgb2);
+        }
+    }
+
     public String getRgb1() {
         return this.rgb1;
     }

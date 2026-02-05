@@ -60,6 +60,16 @@ public class FromSingletonListDS extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
         }
     }
 
+    @java.lang.Override()
+    public java.time.LocalDate applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new FromSingletonListDSInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'FromSingletonListDS'", e);
+            return null;
+        }
+    }
+
     public java.time.LocalDate apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start DS 'From Singleton List DS'

@@ -6,6 +6,16 @@ import java.util.*;
 public class Bkm_010_1_aInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number a;
 
+    public Bkm_010_1_aInput_() {
+    }
+
+    public Bkm_010_1_aInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object a = input_.get("a");
+            setA((java.lang.Number)a);
+        }
+    }
+
     public java.lang.Number getA() {
         return this.a;
     }

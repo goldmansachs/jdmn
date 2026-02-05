@@ -7,6 +7,18 @@ public class SignInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput 
     private java.lang.Number a2;
     private java.lang.Number b3;
 
+    public SignInput_() {
+    }
+
+    public SignInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object a2 = input_.get("A");
+            setA2((java.lang.Number)a2);
+            Object b3 = input_.get("B");
+            setB3((java.lang.Number)b3);
+        }
+    }
+
     public java.lang.Number getA2() {
         return this.a2;
     }

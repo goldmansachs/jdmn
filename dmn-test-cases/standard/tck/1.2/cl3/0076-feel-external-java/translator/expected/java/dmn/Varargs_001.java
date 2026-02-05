@@ -46,6 +46,16 @@ public class Varargs_001 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Obje
         }
     }
 
+    @java.lang.Override()
+    public Object applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new Varargs_001Input_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Varargs_001'", e);
+            return null;
+        }
+    }
+
     public Object apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'varargs_001'

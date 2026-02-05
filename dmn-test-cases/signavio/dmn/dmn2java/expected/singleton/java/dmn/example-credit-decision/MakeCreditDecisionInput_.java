@@ -8,6 +8,20 @@ public class MakeCreditDecisionInput_ implements com.gs.dmn.runtime.ExecutableDR
     private java.lang.Number currentRiskAppetite;
     private java.lang.Number lendingThreshold;
 
+    public MakeCreditDecisionInput_() {
+    }
+
+    public MakeCreditDecisionInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object applicant = input_.get("Applicant");
+            setApplicant(type.Applicant.toApplicant(null));
+            Object currentRiskAppetite = input_.get("Current risk appetite");
+            setCurrentRiskAppetite((java.lang.Number)currentRiskAppetite);
+            Object lendingThreshold = input_.get("Lending threshold");
+            setLendingThreshold((java.lang.Number)lendingThreshold);
+        }
+    }
+
     public type.Applicant getApplicant() {
         return this.applicant;
     }

@@ -7,6 +7,18 @@ public class FnInvocationComplexParametersInput_ implements com.gs.dmn.runtime.E
     private java.lang.Number inputA;
     private java.lang.Number inputB;
 
+    public FnInvocationComplexParametersInput_() {
+    }
+
+    public FnInvocationComplexParametersInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object inputA = input_.get("inputA");
+            setInputA((java.lang.Number)inputA);
+            Object inputB = input_.get("inputB");
+            setInputB((java.lang.Number)inputB);
+        }
+    }
+
     public java.lang.Number getInputA() {
         return this.inputA;
     }

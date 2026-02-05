@@ -10,6 +10,24 @@ public class PartBInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput
     private String string;
     private List<String> stringList;
 
+    public PartBInput_() {
+    }
+
+    public PartBInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object numberA = input_.get("numberA");
+            setNumberA((java.lang.Number)numberA);
+            Object numberB = input_.get("numberB");
+            setNumberB((java.lang.Number)numberB);
+            Object numberList = input_.get("numberList");
+            setNumberList((List<java.lang.Number>)numberList);
+            Object string = input_.get("string");
+            setString((String)string);
+            Object stringList = input_.get("stringList");
+            setStringList((List<String>)stringList);
+        }
+    }
+
     public java.lang.Number getNumberA() {
         return this.numberA;
     }

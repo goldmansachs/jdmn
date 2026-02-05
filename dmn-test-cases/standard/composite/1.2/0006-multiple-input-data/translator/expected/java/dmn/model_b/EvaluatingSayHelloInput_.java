@@ -7,6 +7,16 @@ import java.util.*;
 public class EvaluatingSayHelloInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String modela_personName;
 
+    public EvaluatingSayHelloInput_() {
+    }
+
+    public EvaluatingSayHelloInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object modela_personName = input_.get("modelA.Person name");
+            setModela_personName((String)modela_personName);
+        }
+    }
+
     public String getModela_personName() {
         return this.modela_personName;
     }

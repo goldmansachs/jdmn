@@ -7,6 +7,18 @@ public class TimeFormulaInput_ implements com.gs.dmn.runtime.ExecutableDRGElemen
     private java.time.temporal.TemporalAccessor time;
     private java.time.temporal.TemporalAccessor time2;
 
+    public TimeFormulaInput_() {
+    }
+
+    public TimeFormulaInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object time = input_.get("time");
+            setTime((java.time.temporal.TemporalAccessor)time);
+            Object time2 = input_.get("time 2");
+            setTime2((java.time.temporal.TemporalAccessor)time2);
+        }
+    }
+
     public java.time.temporal.TemporalAccessor getTime() {
         return this.time;
     }

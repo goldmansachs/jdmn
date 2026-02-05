@@ -8,6 +8,20 @@ public class EligibilityRulesInput_ implements com.gs.dmn.runtime.ExecutableDRGE
     private Boolean preBureauAffordability;
     private java.lang.Number age;
 
+    public EligibilityRulesInput_() {
+    }
+
+    public EligibilityRulesInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object preBureauRiskCategory = input_.get("Pre-bureauRiskCategory");
+            setPreBureauRiskCategory((String)preBureauRiskCategory);
+            Object preBureauAffordability = input_.get("Pre-bureauAffordability");
+            setPreBureauAffordability((Boolean)preBureauAffordability);
+            Object age = input_.get("Age");
+            setAge((java.lang.Number)age);
+        }
+    }
+
     public String getPreBureauRiskCategory() {
         return this.preBureauRiskCategory;
     }

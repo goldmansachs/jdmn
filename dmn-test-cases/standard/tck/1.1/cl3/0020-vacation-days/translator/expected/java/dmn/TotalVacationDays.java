@@ -59,6 +59,16 @@ public class TotalVacationDays extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisio
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new TotalVacationDaysInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'TotalVacationDays'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(java.lang.Number age, java.lang.Number yearsOfService, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Total Vacation Days'

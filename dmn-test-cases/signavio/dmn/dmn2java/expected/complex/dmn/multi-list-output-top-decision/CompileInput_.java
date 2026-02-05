@@ -8,6 +8,20 @@ public class CompileInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInp
     private List<java.lang.Number> numbers;
     private List<String> trafficLight;
 
+    public CompileInput_() {
+    }
+
+    public CompileInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object name = input_.get("name");
+            setName((String)name);
+            Object numbers = input_.get("numbers");
+            setNumbers((List<java.lang.Number>)numbers);
+            Object trafficLight = input_.get("Traffic Light");
+            setTrafficLight((List<String>)trafficLight);
+        }
+    }
+
     public String getName() {
         return this.name;
     }

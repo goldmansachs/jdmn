@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.runtime.discovery;
 
+import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.ExecutableDRGElement;
 import com.gs.dmn.runtime.ExecutableDRGElementInput;
 import com.gs.dmn.runtime.ExecutionContext;
@@ -42,4 +43,9 @@ public class NopDS implements ExecutableDRGElement<Object> {
     public Object applyPojo(ExecutableDRGElementInput input_, ExecutionContext context_) {
         return null;
     }
+    @Override
+    public Object applyContext(Context input_, ExecutionContext context_) {
+        return null;
+    }
 }
+

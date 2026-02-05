@@ -8,6 +8,20 @@ public class PriceInRangeInput_ implements com.gs.dmn.runtime.ExecutableDRGEleme
     private java.lang.Number numC;
     private type.TA structA;
 
+    public PriceInRangeInput_() {
+    }
+
+    public PriceInRangeInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object numB = input_.get("numB");
+            setNumB((java.lang.Number)numB);
+            Object numC = input_.get("numC");
+            setNumC((java.lang.Number)numC);
+            Object structA = input_.get("structA");
+            setStructA(type.TA.toTA(structA));
+        }
+    }
+
     public java.lang.Number getNumB() {
         return this.numB;
     }

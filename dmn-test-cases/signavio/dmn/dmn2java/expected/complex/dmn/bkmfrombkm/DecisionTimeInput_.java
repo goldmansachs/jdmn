@@ -6,6 +6,16 @@ import java.util.*;
 public class DecisionTimeInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.temporal.TemporalAccessor timeInput;
 
+    public DecisionTimeInput_() {
+    }
+
+    public DecisionTimeInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object timeInput = input_.get("time input");
+            setTimeInput((java.time.temporal.TemporalAccessor)timeInput);
+        }
+    }
+
     public java.time.temporal.TemporalAccessor getTimeInput() {
         return this.timeInput;
     }

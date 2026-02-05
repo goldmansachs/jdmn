@@ -22,25 +22,53 @@ public class ${javaClassName} implements ${transformer.drgElementInputPojoInterf
     <#assign inputArguments = transformer.drgElementArgumentListInputPojo(drgElement) />
     <@addFields inputArguments />
 
+    <@addConstructors inputArguments />
+
     <@addAccessors inputArguments />
 }
 <#macro addFields inputArguments>
     <#list inputArguments as argument>
-        <#assign memberName = argument.name/>
-        <#assign memberType = argument.type/>
-    private ${memberType} ${memberName};
+        <#assign nativeMemberName = argument.right.name/>
+        <#assign nativeMemberType = argument.right.type/>
+    private ${nativeMemberType} ${nativeMemberName};
     </#list>
+</#macro>
+
+<#macro addConstructors inputArguments>
+    public ${javaClassName}() {
+    }
+
+    public ${javaClassName}(${transformer.contextClassName()} input_) {
+        if (input_ != null) {
+        <#list inputArguments as argument>
+            <#assign nativeMemberName = argument.right.name/>
+            <#assign nativeMemberType = argument.right.type/>
+            <#assign feelMemberType = argument.left.type/>
+            <#assign memberKey = "\"${argument.left.displayName}\""/>
+            <#assign castToMemberType = "(${nativeMemberType})" />
+            Object ${nativeMemberName} = input_.get(${memberKey});
+            <#if transformer.isComplexType(feelMemberType)>
+            ${transformer.setter(nativeMemberName, "${transformer.convertToItemDefinitionType(nativeMemberName, feelMemberType)}")};
+            <#elseif transformer.isListOfComplexType(feelMemberType)>
+            <#assign listSource = "((java.util.List)${nativeMemberName})" />
+            ${transformer.setter(nativeMemberName, "${castToMemberType}${transformer.convertToListOfItemDefinitionType(listSource, feelMemberType.elementType)}")};
+            <#else>
+            ${transformer.setter(nativeMemberName, "${castToMemberType}${nativeMemberName}")};
+            </#if>
+        </#list>
+        }
+    }
 </#macro>
 
 <#macro addAccessors inputArguments>
     <#list inputArguments as argument>
-        <#assign memberName = argument.name/>
-        <#assign memberType = argument.type/>
-    public ${memberType} ${transformer.getter(memberName)} {
+        <#assign memberName = argument.right.name/>
+        <#assign nativeMemberType = argument.right.type/>
+    public ${nativeMemberType} ${transformer.getter(memberName)} {
         return this.${memberName};
     }
 
-    public void ${transformer.setter(memberName, "${memberType} ${memberName}")} {
+    public void ${transformer.setter(memberName, "${nativeMemberType} ${memberName}")} {
         this.${memberName} = ${memberName};
     }
 

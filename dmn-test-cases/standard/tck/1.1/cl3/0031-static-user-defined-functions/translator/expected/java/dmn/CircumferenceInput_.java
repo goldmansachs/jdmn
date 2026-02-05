@@ -6,6 +6,16 @@ import java.util.*;
 public class CircumferenceInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number radius;
 
+    public CircumferenceInput_() {
+    }
+
+    public CircumferenceInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object radius = input_.get("radius");
+            setRadius((java.lang.Number)radius);
+        }
+    }
+
     public java.lang.Number getRadius() {
         return this.radius;
     }

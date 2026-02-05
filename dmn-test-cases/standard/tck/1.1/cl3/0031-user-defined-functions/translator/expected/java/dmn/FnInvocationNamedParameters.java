@@ -53,6 +53,16 @@ public class FnInvocationNamedParameters extends com.gs.dmn.runtime.JavaTimeDMNB
         }
     }
 
+    @java.lang.Override()
+    public type.TFnInvocationNamedResult applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new FnInvocationNamedParametersInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'FnInvocationNamedParameters'", e);
+            return null;
+        }
+    }
+
     public type.TFnInvocationNamedResult apply(java.lang.Number inputA, java.lang.Number inputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'fn invocation named parameters'

@@ -11,6 +11,26 @@ public class TemporalDiffsInput_ implements com.gs.dmn.runtime.ExecutableDRGElem
     private java.lang.Number second;
     private java.lang.Number year;
 
+    public TemporalDiffsInput_() {
+    }
+
+    public TemporalDiffsInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object day = input_.get("day");
+            setDay((java.lang.Number)day);
+            Object hour = input_.get("hour");
+            setHour((java.lang.Number)hour);
+            Object minute = input_.get("minute");
+            setMinute((java.lang.Number)minute);
+            Object month = input_.get("month");
+            setMonth((java.lang.Number)month);
+            Object second = input_.get("second");
+            setSecond((java.lang.Number)second);
+            Object year = input_.get("year");
+            setYear((java.lang.Number)year);
+        }
+    }
+
     public java.lang.Number getDay() {
         return this.day;
     }

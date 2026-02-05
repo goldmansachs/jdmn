@@ -10,6 +10,24 @@ public class PartCInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput
     private java.time.temporal.TemporalAccessor dateTime;
     private java.time.temporal.TemporalAccessor time;
 
+    public PartCInput_() {
+    }
+
+    public PartCInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object booleanA = input_.get("booleanA");
+            setBooleanA((Boolean)booleanA);
+            Object booleanB = input_.get("booleanB");
+            setBooleanB((Boolean)booleanB);
+            Object date = input_.get("date");
+            setDate((java.time.LocalDate)date);
+            Object dateTime = input_.get("dateTime");
+            setDateTime((java.time.temporal.TemporalAccessor)dateTime);
+            Object time = input_.get("time");
+            setTime((java.time.temporal.TemporalAccessor)time);
+        }
+    }
+
     public Boolean getBooleanA() {
         return this.booleanA;
     }

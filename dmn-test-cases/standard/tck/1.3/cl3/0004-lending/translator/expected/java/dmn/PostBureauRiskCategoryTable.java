@@ -53,6 +53,16 @@ public class PostBureauRiskCategoryTable extends com.gs.dmn.runtime.JavaTimeDMNB
         }
     }
 
+    @java.lang.Override()
+    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new PostBureauRiskCategoryTableInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'PostBureauRiskCategoryTable'", e);
+            return null;
+        }
+    }
+
     public String apply(Boolean existingCustomer, java.lang.Number applicationRiskScore, java.lang.Number creditScore, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'Post-bureauRiskCategoryTable'

@@ -9,6 +9,22 @@ public class RoutingRulesInput_ implements com.gs.dmn.runtime.ExecutableDRGEleme
     private Boolean bankrupt;
     private java.lang.Number creditScore;
 
+    public RoutingRulesInput_() {
+    }
+
+    public RoutingRulesInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object postBureauRiskCategory = input_.get("Post-bureauRiskCategory");
+            setPostBureauRiskCategory((String)postBureauRiskCategory);
+            Object postBureauAffordability = input_.get("Post-bureauAffordability");
+            setPostBureauAffordability((Boolean)postBureauAffordability);
+            Object bankrupt = input_.get("Bankrupt");
+            setBankrupt((Boolean)bankrupt);
+            Object creditScore = input_.get("CreditScore");
+            setCreditScore((java.lang.Number)creditScore);
+        }
+    }
+
     public String getPostBureauRiskCategory() {
         return this.postBureauRiskCategory;
     }

@@ -6,6 +6,16 @@ import java.util.*;
 public class KeepInputanyTrueInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private Boolean booleanAnyTrue_iterator;
 
+    public KeepInputanyTrueInput_() {
+    }
+
+    public KeepInputanyTrueInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object booleanAnyTrue_iterator = input_.get("booleanAnyTrue");
+            setBooleanAnyTrue_iterator((Boolean)booleanAnyTrue_iterator);
+        }
+    }
+
     public Boolean getBooleanAnyTrue_iterator() {
         return this.booleanAnyTrue_iterator;
     }

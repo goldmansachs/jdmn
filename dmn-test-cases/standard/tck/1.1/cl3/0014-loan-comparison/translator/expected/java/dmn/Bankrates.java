@@ -46,6 +46,16 @@ public class Bankrates extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<t
         }
     }
 
+    @java.lang.Override()
+    public List<type.TLoanProduct> applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new BankratesInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Bankrates'", e);
+            return null;
+        }
+    }
+
     public List<type.TLoanProduct> apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Bankrates'

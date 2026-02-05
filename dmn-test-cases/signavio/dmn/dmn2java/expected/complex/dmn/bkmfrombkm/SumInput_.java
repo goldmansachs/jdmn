@@ -9,6 +9,22 @@ public class SumInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.temporal.TemporalAccessor time;
     private java.time.temporal.TemporalAccessor time2;
 
+    public SumInput_() {
+    }
+
+    public SumInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object date = input_.get("date");
+            setDate((java.time.LocalDate)date);
+            Object datetime = input_.get("datetime");
+            setDatetime((java.time.temporal.TemporalAccessor)datetime);
+            Object time = input_.get("time");
+            setTime((java.time.temporal.TemporalAccessor)time);
+            Object time2 = input_.get("time 2");
+            setTime2((java.time.temporal.TemporalAccessor)time2);
+        }
+    }
+
     public java.time.LocalDate getDate() {
         return this.date;
     }

@@ -7,6 +7,16 @@ import java.util.*;
 public class GreetThePersonInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String personName;
 
+    public GreetThePersonInput_() {
+    }
+
+    public GreetThePersonInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object personName = input_.get("Person name");
+            setPersonName((String)personName);
+        }
+    }
+
     public String getPersonName() {
         return this.personName;
     }

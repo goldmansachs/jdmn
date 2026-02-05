@@ -10,6 +10,24 @@ public class DecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementIn
     private java.lang.Number numberInput;
     private String stringInput;
 
+    public DecisionInput_() {
+    }
+
+    public DecisionInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object booleanInput = input_.get("BooleanInput");
+            setBooleanInput((Boolean)booleanInput);
+            Object dateInput = input_.get("DateInput");
+            setDateInput((java.time.LocalDate)dateInput);
+            Object enumerationInput = input_.get("EnumerationInput");
+            setEnumerationInput((String)enumerationInput);
+            Object numberInput = input_.get("NumberInput");
+            setNumberInput((java.lang.Number)numberInput);
+            Object stringInput = input_.get("StringInput");
+            setStringInput((String)stringInput);
+        }
+    }
+
     public Boolean getBooleanInput() {
         return this.booleanInput;
     }

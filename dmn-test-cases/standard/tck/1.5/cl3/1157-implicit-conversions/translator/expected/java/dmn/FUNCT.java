@@ -53,6 +53,16 @@ public class FUNCT extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
         }
     }
 
+    @java.lang.Override()
+    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new FUNCTInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'FUNCT'", e);
+            return null;
+        }
+    }
+
     public String apply(List<java.lang.Number> numberList, java.lang.Number number, java.time.temporal.TemporalAccessor dateTime, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'FUNCT'

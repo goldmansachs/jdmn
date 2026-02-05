@@ -6,6 +6,16 @@ import java.util.*;
 public class DecisionService_013_1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number input_013_1;
 
+    public DecisionService_013_1Input_() {
+    }
+
+    public DecisionService_013_1Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object input_013_1 = input_.get("input_013_1");
+            setInput_013_1((java.lang.Number)input_013_1);
+        }
+    }
+
     public java.lang.Number getInput_013_1() {
         return this.input_013_1;
     }

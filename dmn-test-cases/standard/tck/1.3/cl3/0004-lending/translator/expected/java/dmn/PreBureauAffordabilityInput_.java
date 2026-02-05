@@ -7,6 +7,18 @@ public class PreBureauAffordabilityInput_ implements com.gs.dmn.runtime.Executab
     private type.TApplicantData applicantData;
     private type.TRequestedProduct requestedProduct;
 
+    public PreBureauAffordabilityInput_() {
+    }
+
+    public PreBureauAffordabilityInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object applicantData = input_.get("ApplicantData");
+            setApplicantData(type.TApplicantData.toTApplicantData(applicantData));
+            Object requestedProduct = input_.get("RequestedProduct");
+            setRequestedProduct(type.TRequestedProduct.toTRequestedProduct(requestedProduct));
+        }
+    }
+
     public type.TApplicantData getApplicantData() {
         return this.applicantData;
     }

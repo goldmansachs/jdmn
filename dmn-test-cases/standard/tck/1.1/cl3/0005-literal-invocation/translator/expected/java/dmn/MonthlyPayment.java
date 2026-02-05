@@ -46,6 +46,16 @@ public class MonthlyPayment extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<j
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new MonthlyPaymentInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'MonthlyPayment'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(type.TLoan loan, java.lang.Number fee, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'MonthlyPayment'

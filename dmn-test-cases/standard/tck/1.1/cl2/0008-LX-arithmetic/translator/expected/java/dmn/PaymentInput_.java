@@ -6,6 +6,16 @@ import java.util.*;
 public class PaymentInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.TLoan loan;
 
+    public PaymentInput_() {
+    }
+
+    public PaymentInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object loan = input_.get("loan");
+            setLoan(type.TLoan.toTLoan(loan));
+        }
+    }
+
     public type.TLoan getLoan() {
         return this.loan;
     }

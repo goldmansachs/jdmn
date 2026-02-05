@@ -6,6 +6,16 @@ import java.util.*;
 public class DatetimeOperatorsInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.temporal.TemporalAccessor datetime;
 
+    public DatetimeOperatorsInput_() {
+    }
+
+    public DatetimeOperatorsInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object datetime = input_.get("datetime");
+            setDatetime((java.time.temporal.TemporalAccessor)datetime);
+        }
+    }
+
     public java.time.temporal.TemporalAccessor getDatetime() {
         return this.datetime;
     }

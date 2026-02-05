@@ -8,6 +8,20 @@ public class ArithmeticInput_ implements com.gs.dmn.runtime.ExecutableDRGElement
     private java.lang.Number numberB;
     private List<java.lang.Number> numberList;
 
+    public ArithmeticInput_() {
+    }
+
+    public ArithmeticInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object numberA = input_.get("numberA");
+            setNumberA((java.lang.Number)numberA);
+            Object numberB = input_.get("numberB");
+            setNumberB((java.lang.Number)numberB);
+            Object numberList = input_.get("numberList");
+            setNumberList((List<java.lang.Number>)numberList);
+        }
+    }
+
     public java.lang.Number getNumberA() {
         return this.numberA;
     }

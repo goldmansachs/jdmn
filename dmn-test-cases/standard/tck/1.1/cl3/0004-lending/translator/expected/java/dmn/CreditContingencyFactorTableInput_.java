@@ -6,6 +6,16 @@ import java.util.*;
 public class CreditContingencyFactorTableInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String riskCategory;
 
+    public CreditContingencyFactorTableInput_() {
+    }
+
+    public CreditContingencyFactorTableInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object riskCategory = input_.get("RiskCategory");
+            setRiskCategory((String)riskCategory);
+        }
+    }
+
     public String getRiskCategory() {
         return this.riskCategory;
     }

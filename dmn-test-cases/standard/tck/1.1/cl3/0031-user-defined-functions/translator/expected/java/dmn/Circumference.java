@@ -53,6 +53,16 @@ public class Circumference extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<ja
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new CircumferenceInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Circumference'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(java.lang.Number radius, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'Circumference'

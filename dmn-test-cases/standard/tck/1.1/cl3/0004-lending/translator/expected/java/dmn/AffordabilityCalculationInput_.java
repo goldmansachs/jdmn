@@ -10,6 +10,24 @@ public class AffordabilityCalculationInput_ implements com.gs.dmn.runtime.Execut
     private String riskCategory;
     private java.lang.Number requiredMonthlyInstallment;
 
+    public AffordabilityCalculationInput_() {
+    }
+
+    public AffordabilityCalculationInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object monthlyIncome = input_.get("MonthlyIncome");
+            setMonthlyIncome((java.lang.Number)monthlyIncome);
+            Object monthlyRepayments = input_.get("MonthlyRepayments");
+            setMonthlyRepayments((java.lang.Number)monthlyRepayments);
+            Object monthlyExpenses = input_.get("MonthlyExpenses");
+            setMonthlyExpenses((java.lang.Number)monthlyExpenses);
+            Object riskCategory = input_.get("RiskCategory");
+            setRiskCategory((String)riskCategory);
+            Object requiredMonthlyInstallment = input_.get("RequiredMonthlyInstallment");
+            setRequiredMonthlyInstallment((java.lang.Number)requiredMonthlyInstallment);
+        }
+    }
+
     public java.lang.Number getMonthlyIncome() {
         return this.monthlyIncome;
     }

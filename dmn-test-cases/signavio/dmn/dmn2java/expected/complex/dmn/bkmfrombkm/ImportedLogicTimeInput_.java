@@ -6,6 +6,16 @@ import java.util.*;
 public class ImportedLogicTimeInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.temporal.TemporalAccessor time;
 
+    public ImportedLogicTimeInput_() {
+    }
+
+    public ImportedLogicTimeInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object time = input_.get("time");
+            setTime((java.time.temporal.TemporalAccessor)time);
+        }
+    }
+
     public java.time.temporal.TemporalAccessor getTime() {
         return this.time;
     }

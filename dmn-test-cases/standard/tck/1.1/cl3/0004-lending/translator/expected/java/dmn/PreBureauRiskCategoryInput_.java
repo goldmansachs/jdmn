@@ -6,6 +6,16 @@ import java.util.*;
 public class PreBureauRiskCategoryInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.TApplicantData applicantData;
 
+    public PreBureauRiskCategoryInput_() {
+    }
+
+    public PreBureauRiskCategoryInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object applicantData = input_.get("ApplicantData");
+            setApplicantData(type.TApplicantData.toTApplicantData(applicantData));
+        }
+    }
+
     public type.TApplicantData getApplicantData() {
         return this.applicantData;
     }

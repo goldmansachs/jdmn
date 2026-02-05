@@ -18,4 +18,6 @@ public interface ExecutableDRGElement<T> {
     T applyMap(Map<String, String> input_, ExecutionContext context_);
 
     T applyPojo(ExecutableDRGElementInput input_, ExecutionContext context_);
+
+    T applyContext(Context input_, ExecutionContext context_);
 }

@@ -53,6 +53,16 @@ public class SomeGtTen1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boole
         }
     }
 
+    @java.lang.Override()
+    public Boolean applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new SomeGtTen1Input_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'SomeGtTen1'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'someGtTen1'

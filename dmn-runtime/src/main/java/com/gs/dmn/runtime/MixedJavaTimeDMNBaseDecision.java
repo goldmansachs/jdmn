@@ -30,4 +30,9 @@ public abstract class MixedJavaTimeDMNBaseDecision<T> extends MixedJavaTimeFEELL
     public T applyPojo(ExecutableDRGElementInput input_, ExecutionContext context_) {
         return null;
     }
+
+    @Override
+    public T applyContext(Context input_, ExecutionContext context_) {
+        return null;
+    }
 }

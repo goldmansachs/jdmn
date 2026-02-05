@@ -6,6 +6,16 @@ import java.util.*;
 public class DecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number age;
 
+    public DecisionInput_() {
+    }
+
+    public DecisionInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object age = input_.get("Age");
+            setAge((java.lang.Number)age);
+        }
+    }
+
     public java.lang.Number getAge() {
         return this.age;
     }

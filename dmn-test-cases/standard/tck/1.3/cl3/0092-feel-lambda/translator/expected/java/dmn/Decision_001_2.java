@@ -46,6 +46,16 @@ public class Decision_001_2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<c
         }
     }
 
+    @java.lang.Override()
+    public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new Decision_001_2Input_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Decision_001_2'", e);
+            return null;
+        }
+    }
+
     public com.gs.dmn.runtime.LambdaExpression<java.lang.Number> apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'decision_001_2'

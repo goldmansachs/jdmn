@@ -9,6 +9,22 @@ public class CompoundOutputCompoundDecisionInput_ implements com.gs.dmn.runtime.
     private java.lang.Number dd2NumberInput;
     private String enumerationInput;
 
+    public CompoundOutputCompoundDecisionInput_() {
+    }
+
+    public CompoundOutputCompoundDecisionInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object booleanInput = input_.get("BooleanInput");
+            setBooleanInput((Boolean)booleanInput);
+            Object dd1TextInput = input_.get("DD1 Text Input");
+            setDd1TextInput((String)dd1TextInput);
+            Object dd2NumberInput = input_.get("DD2 Number Input");
+            setDd2NumberInput((java.lang.Number)dd2NumberInput);
+            Object enumerationInput = input_.get("EnumerationInput");
+            setEnumerationInput((String)enumerationInput);
+        }
+    }
+
     public Boolean getBooleanInput() {
         return this.booleanInput;
     }

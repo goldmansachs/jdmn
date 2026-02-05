@@ -8,6 +8,20 @@ public class AdjudicationInput_ implements com.gs.dmn.runtime.ExecutableDRGEleme
     private type.TBureauData bureauData;
     private String supportingDocuments;
 
+    public AdjudicationInput_() {
+    }
+
+    public AdjudicationInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object applicantData = input_.get("ApplicantData");
+            setApplicantData(type.TApplicantData.toTApplicantData(applicantData));
+            Object bureauData = input_.get("BureauData");
+            setBureauData(type.TBureauData.toTBureauData(bureauData));
+            Object supportingDocuments = input_.get("SupportingDocuments");
+            setSupportingDocuments((String)supportingDocuments);
+        }
+    }
+
     public type.TApplicantData getApplicantData() {
         return this.applicantData;
     }

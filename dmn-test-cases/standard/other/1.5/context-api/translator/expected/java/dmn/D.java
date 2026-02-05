@@ -46,6 +46,16 @@ public class D extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<type.Coun
         }
     }
 
+    @java.lang.Override()
+    public List<type.Country> applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new DInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'D'", e);
+            return null;
+        }
+    }
+
     public List<type.Country> apply(java.time.LocalDate date, type.Person person, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'D'

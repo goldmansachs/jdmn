@@ -12,6 +12,28 @@ public class DecisionLitexpInput_ implements com.gs.dmn.runtime.ExecutableDRGEle
     private List<String> redgreenbluelist1;
     private List<String> redgreenbluelist2;
 
+    public DecisionLitexpInput_() {
+    }
+
+    public DecisionLitexpInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object censored = input_.get("censored");
+            setCensored((List<String>)censored);
+            Object labels = input_.get("labels");
+            setLabels((List<String>)labels);
+            Object numz = input_.get("numz");
+            setNumz((List<java.lang.Number>)numz);
+            Object redgreenblue1 = input_.get("redgreenblue1");
+            setRedgreenblue1((String)redgreenblue1);
+            Object redgreenblue2 = input_.get("redgreenblue2");
+            setRedgreenblue2((String)redgreenblue2);
+            Object redgreenbluelist1 = input_.get("redgreenbluelist1");
+            setRedgreenbluelist1((List<String>)redgreenbluelist1);
+            Object redgreenbluelist2 = input_.get("redgreenbluelist2");
+            setRedgreenbluelist2((List<String>)redgreenbluelist2);
+        }
+    }
+
     public List<String> getCensored() {
         return this.censored;
     }

@@ -7,6 +7,18 @@ public class ProcessL1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementI
     private List<java.lang.Number> l1;
     private List<java.lang.Number> l23;
 
+    public ProcessL1Input_() {
+    }
+
+    public ProcessL1Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object l1 = input_.get("L1");
+            setL1((List<java.lang.Number>)l1);
+            Object l23 = input_.get("L2");
+            setL23((List<java.lang.Number>)l23);
+        }
+    }
+
     public List<java.lang.Number> getL1() {
         return this.l1;
     }

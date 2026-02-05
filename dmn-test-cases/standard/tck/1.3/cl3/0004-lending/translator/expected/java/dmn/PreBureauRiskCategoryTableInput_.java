@@ -7,6 +7,18 @@ public class PreBureauRiskCategoryTableInput_ implements com.gs.dmn.runtime.Exec
     private Boolean existingCustomer;
     private java.lang.Number applicationRiskScore;
 
+    public PreBureauRiskCategoryTableInput_() {
+    }
+
+    public PreBureauRiskCategoryTableInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object existingCustomer = input_.get("ExistingCustomer");
+            setExistingCustomer((Boolean)existingCustomer);
+            Object applicationRiskScore = input_.get("ApplicationRiskScore");
+            setApplicationRiskScore((java.lang.Number)applicationRiskScore);
+        }
+    }
+
     public Boolean getExistingCustomer() {
         return this.existingCustomer;
     }

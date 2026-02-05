@@ -46,6 +46,16 @@ public class Sort1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<java.
         }
     }
 
+    @java.lang.Override()
+    public List<java.lang.Number> applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new Sort1Input_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Sort1'", e);
+            return null;
+        }
+    }
+
     public List<java.lang.Number> apply(List<java.lang.Number> listA, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'sort1'

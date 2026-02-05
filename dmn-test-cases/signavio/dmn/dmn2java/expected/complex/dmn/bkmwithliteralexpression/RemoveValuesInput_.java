@@ -6,6 +6,16 @@ import java.util.*;
 public class RemoveValuesInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<java.lang.Number> listOfNumbers;
 
+    public RemoveValuesInput_() {
+    }
+
+    public RemoveValuesInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object listOfNumbers = input_.get("ListOfNumbers");
+            setListOfNumbers((List<java.lang.Number>)listOfNumbers);
+        }
+    }
+
     public List<java.lang.Number> getListOfNumbers() {
         return this.listOfNumbers;
     }

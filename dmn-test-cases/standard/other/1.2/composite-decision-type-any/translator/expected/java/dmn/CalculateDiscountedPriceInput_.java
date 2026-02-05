@@ -7,6 +7,18 @@ public class CalculateDiscountedPriceInput_ implements com.gs.dmn.runtime.Execut
     private java.lang.Number price;
     private type.Student student;
 
+    public CalculateDiscountedPriceInput_() {
+    }
+
+    public CalculateDiscountedPriceInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object price = input_.get("price");
+            setPrice((java.lang.Number)price);
+            Object student = input_.get("student");
+            setStudent(type.Student.toStudent(student));
+        }
+    }
+
     public java.lang.Number getPrice() {
         return this.price;
     }

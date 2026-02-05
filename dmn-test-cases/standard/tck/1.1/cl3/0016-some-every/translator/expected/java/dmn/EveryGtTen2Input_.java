@@ -6,6 +6,16 @@ import java.util.*;
 public class EveryGtTen2Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<type.TItemPrice> priceTable2;
 
+    public EveryGtTen2Input_() {
+    }
+
+    public EveryGtTen2Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object priceTable2 = input_.get("priceTable2");
+            setPriceTable2((List<type.TItemPrice>)((java.util.List)priceTable2).stream().map(x_ -> type.TItemPrice.toTItemPrice(x_)).collect(java.util.stream.Collectors.toList()));
+        }
+    }
+
     public List<type.TItemPrice> getPriceTable2() {
         return this.priceTable2;
     }

@@ -53,6 +53,16 @@ public class AffordabilityCalculation extends com.gs.dmn.runtime.JavaTimeDMNBase
         }
     }
 
+    @java.lang.Override()
+    public Boolean applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new AffordabilityCalculationInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'AffordabilityCalculation'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(java.lang.Number monthlyIncome, java.lang.Number monthlyRepayments, java.lang.Number monthlyExpenses, String riskCategory, java.lang.Number requiredMonthlyInstallment, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'AffordabilityCalculation'

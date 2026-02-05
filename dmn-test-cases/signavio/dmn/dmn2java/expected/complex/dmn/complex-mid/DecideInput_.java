@@ -6,6 +6,16 @@ import java.util.*;
 public class DecideInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private String properties_iterator;
 
+    public DecideInput_() {
+    }
+
+    public DecideInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object properties_iterator = input_.get("Properties");
+            setProperties_iterator((String)properties_iterator);
+        }
+    }
+
     public String getProperties_iterator() {
         return this.properties_iterator;
     }

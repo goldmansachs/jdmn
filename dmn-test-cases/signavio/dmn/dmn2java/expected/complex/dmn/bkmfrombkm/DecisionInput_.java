@@ -7,6 +7,18 @@ public class DecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementIn
     private java.time.LocalDate d;
     private java.time.temporal.TemporalAccessor t;
 
+    public DecisionInput_() {
+    }
+
+    public DecisionInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object d = input_.get("d");
+            setD((java.time.LocalDate)d);
+            Object t = input_.get("t");
+            setT((java.time.temporal.TemporalAccessor)t);
+        }
+    }
+
     public java.time.LocalDate getD() {
         return this.d;
     }

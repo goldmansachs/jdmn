@@ -9,6 +9,22 @@ public class FetchForexRateInput_ implements com.gs.dmn.runtime.ExecutableDRGEle
     private type.Transaction transaction;
     private type.TransactionTaxMetaData transactionTaxMetaData;
 
+    public FetchForexRateInput_() {
+    }
+
+    public FetchForexRateInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object derivativeType = input_.get("DerivativeType");
+            setDerivativeType((String)derivativeType);
+            Object taxChargeType = input_.get("TaxChargeType");
+            setTaxChargeType((String)taxChargeType);
+            Object transaction = input_.get("Transaction");
+            setTransaction(type.Transaction.toTransaction(null));
+            Object transactionTaxMetaData = input_.get("TransactionTaxMetaData");
+            setTransactionTaxMetaData(type.TransactionTaxMetaData.toTransactionTaxMetaData(null));
+        }
+    }
+
     public String getDerivativeType() {
         return this.derivativeType;
     }

@@ -7,6 +7,18 @@ public class LogicalInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInp
     private Boolean booleanA;
     private Boolean booleanB;
 
+    public LogicalInput_() {
+    }
+
+    public LogicalInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object booleanA = input_.get("booleanA");
+            setBooleanA((Boolean)booleanA);
+            Object booleanB = input_.get("booleanB");
+            setBooleanB((Boolean)booleanB);
+        }
+    }
+
     public Boolean getBooleanA() {
         return this.booleanA;
     }

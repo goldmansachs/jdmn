@@ -7,6 +7,18 @@ public class Decision_012_2Input_ implements com.gs.dmn.runtime.ExecutableDRGEle
     private String inputData_012_1;
     private String inputData_012_2;
 
+    public Decision_012_2Input_() {
+    }
+
+    public Decision_012_2Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object inputData_012_1 = input_.get("inputData_012_1");
+            setInputData_012_1((String)inputData_012_1);
+            Object inputData_012_2 = input_.get("inputData_012_2");
+            setInputData_012_2((String)inputData_012_2);
+        }
+    }
+
     public String getInputData_012_1() {
         return this.inputData_012_1;
     }

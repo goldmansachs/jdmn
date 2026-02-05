@@ -8,6 +8,20 @@ public class StringHandlingComparatorInput_ implements com.gs.dmn.runtime.Execut
     private java.lang.Number numberB;
     private List<String> stringList;
 
+    public StringHandlingComparatorInput_() {
+    }
+
+    public StringHandlingComparatorInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object numberA = input_.get("numberA");
+            setNumberA((java.lang.Number)numberA);
+            Object numberB = input_.get("numberB");
+            setNumberB((java.lang.Number)numberB);
+            Object stringList = input_.get("stringList");
+            setStringList((List<String>)stringList);
+        }
+    }
+
     public java.lang.Number getNumberA() {
         return this.numberA;
     }

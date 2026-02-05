@@ -9,6 +9,22 @@ public class Equity36MoInput_ implements com.gs.dmn.runtime.ExecutableDRGElement
     private java.lang.Number n;
     private java.lang.Number pmt;
 
+    public Equity36MoInput_() {
+    }
+
+    public Equity36MoInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object p = input_.get("p");
+            setP((java.lang.Number)p);
+            Object r = input_.get("r");
+            setR((java.lang.Number)r);
+            Object n = input_.get("n");
+            setN((java.lang.Number)n);
+            Object pmt = input_.get("pmt");
+            setPmt((java.lang.Number)pmt);
+        }
+    }
+
     public java.lang.Number getP() {
         return this.p;
     }

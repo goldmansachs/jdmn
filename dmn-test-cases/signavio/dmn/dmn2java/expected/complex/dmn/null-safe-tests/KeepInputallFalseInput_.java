@@ -6,6 +6,16 @@ import java.util.*;
 public class KeepInputallFalseInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private Boolean booleanAllFalse_iterator;
 
+    public KeepInputallFalseInput_() {
+    }
+
+    public KeepInputallFalseInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object booleanAllFalse_iterator = input_.get("booleanAllFalse");
+            setBooleanAllFalse_iterator((Boolean)booleanAllFalse_iterator);
+        }
+    }
+
     public Boolean getBooleanAllFalse_iterator() {
         return this.booleanAllFalse_iterator;
     }

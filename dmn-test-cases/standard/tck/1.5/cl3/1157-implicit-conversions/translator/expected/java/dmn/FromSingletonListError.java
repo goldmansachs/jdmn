@@ -46,6 +46,16 @@ public class FromSingletonListError extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
         }
     }
 
+    @java.lang.Override()
+    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new FromSingletonListErrorInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'FromSingletonListError'", e);
+            return null;
+        }
+    }
+
     public String apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'From Singleton List Error'

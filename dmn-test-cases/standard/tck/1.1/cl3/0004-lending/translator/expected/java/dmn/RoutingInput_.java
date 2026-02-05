@@ -8,6 +8,20 @@ public class RoutingInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInp
     private type.TBureauData bureauData;
     private type.TRequestedProduct requestedProduct;
 
+    public RoutingInput_() {
+    }
+
+    public RoutingInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object applicantData = input_.get("ApplicantData");
+            setApplicantData(type.TApplicantData.toTApplicantData(applicantData));
+            Object bureauData = input_.get("BureauData");
+            setBureauData(type.TBureauData.toTBureauData(bureauData));
+            Object requestedProduct = input_.get("RequestedProduct");
+            setRequestedProduct(type.TRequestedProduct.toTRequestedProduct(requestedProduct));
+        }
+    }
+
     public type.TApplicantData getApplicantData() {
         return this.applicantData;
     }

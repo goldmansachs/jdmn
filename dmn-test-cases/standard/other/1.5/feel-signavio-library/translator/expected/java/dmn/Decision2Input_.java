@@ -6,6 +6,16 @@ import java.util.*;
 public class Decision2Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.time.LocalDate inputDate;
 
+    public Decision2Input_() {
+    }
+
+    public Decision2Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object inputDate = input_.get("InputDate");
+            setInputDate((java.time.LocalDate)inputDate);
+        }
+    }
+
     public java.time.LocalDate getInputDate() {
         return this.inputDate;
     }

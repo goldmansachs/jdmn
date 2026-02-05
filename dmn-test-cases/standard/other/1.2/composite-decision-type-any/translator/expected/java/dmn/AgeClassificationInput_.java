@@ -6,6 +6,16 @@ import java.util.*;
 public class AgeClassificationInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private type.Student student;
 
+    public AgeClassificationInput_() {
+    }
+
+    public AgeClassificationInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object student = input_.get("student");
+            setStudent(type.Student.toStudent(student));
+        }
+    }
+
     public type.Student getStudent() {
         return this.student;
     }

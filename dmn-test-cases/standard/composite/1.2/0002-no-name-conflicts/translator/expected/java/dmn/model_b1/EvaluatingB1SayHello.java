@@ -54,6 +54,16 @@ public class EvaluatingB1SayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
         }
     }
 
+    @java.lang.Override()
+    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new EvaluatingB1SayHelloInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'EvaluatingB1SayHello'", e);
+            return null;
+        }
+    }
+
     public String apply(String model_a_personName, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'evaluatingB1SayHello'

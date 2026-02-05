@@ -8,6 +8,20 @@ public class BuildDateStringInAnnotationInput_ implements com.gs.dmn.runtime.Exe
     private java.lang.Number month;
     private java.lang.Number year;
 
+    public BuildDateStringInAnnotationInput_() {
+    }
+
+    public BuildDateStringInAnnotationInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object day = input_.get("day");
+            setDay((java.lang.Number)day);
+            Object month = input_.get("month");
+            setMonth((java.lang.Number)month);
+            Object year = input_.get("year");
+            setYear((java.lang.Number)year);
+        }
+    }
+
     public java.lang.Number getDay() {
         return this.day;
     }

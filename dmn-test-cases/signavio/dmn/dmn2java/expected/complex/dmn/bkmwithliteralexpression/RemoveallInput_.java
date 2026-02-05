@@ -7,6 +7,18 @@ public class RemoveallInput_ implements com.gs.dmn.runtime.ExecutableDRGElementI
     private List<String> blacklist;
     private List<String> names;
 
+    public RemoveallInput_() {
+    }
+
+    public RemoveallInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object blacklist = input_.get("blacklist");
+            setBlacklist((List<String>)blacklist);
+            Object names = input_.get("names");
+            setNames((List<String>)names);
+        }
+    }
+
     public List<String> getBlacklist() {
         return this.blacklist;
     }

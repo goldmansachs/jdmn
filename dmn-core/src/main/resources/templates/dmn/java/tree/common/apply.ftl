@@ -63,6 +63,20 @@
     </#if>
     }
 
+    @java.lang.Override()
+    public ${transformer.drgElementOutputType(drgElement)} applyContext(${transformer.drgElementSignatureApplyContext(drgElement)}) {
+    <#if transformer.canGenerateApplyMap(drgElement)>
+        try {
+            return applyPojo(${transformer.drgElementArgumentListApplyContext(drgElement)});
+        } catch (Exception e) {
+            logError("Cannot apply element '${javaClassName}'", e);
+            return null;
+        }
+    <#else>
+        throw ${transformer.constructor(transformer.dmnRuntimeExceptionClassName(), "\"Not all arguments can be serialized\"")};
+    </#if>
+    }
+
     public ${transformer.drgElementOutputType(drgElement)} apply(${transformer.drgElementSignature(drgElement)}) {
         <#if drgElement.class.simpleName == "TDecisionService">
         <@applyServiceMethodBody drgElement />

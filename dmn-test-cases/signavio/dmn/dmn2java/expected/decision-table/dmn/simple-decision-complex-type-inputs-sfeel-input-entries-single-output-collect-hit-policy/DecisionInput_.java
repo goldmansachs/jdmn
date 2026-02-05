@@ -7,6 +7,18 @@ public class DecisionInput_ implements com.gs.dmn.runtime.ExecutableDRGElementIn
     private Boolean employed;
     private type.Person person;
 
+    public DecisionInput_() {
+    }
+
+    public DecisionInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object employed = input_.get("Employed");
+            setEmployed((Boolean)employed);
+            Object person = input_.get("Person");
+            setPerson(type.Person.toPerson(null));
+        }
+    }
+
     public Boolean getEmployed() {
         return this.employed;
     }

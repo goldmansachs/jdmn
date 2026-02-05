@@ -6,6 +6,16 @@ import java.util.*;
 public class RankedProductsInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number requestedAmt;
 
+    public RankedProductsInput_() {
+    }
+
+    public RankedProductsInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object requestedAmt = input_.get("RequestedAmt");
+            setRequestedAmt((java.lang.Number)requestedAmt);
+        }
+    }
+
     public java.lang.Number getRequestedAmt() {
         return this.requestedAmt;
     }

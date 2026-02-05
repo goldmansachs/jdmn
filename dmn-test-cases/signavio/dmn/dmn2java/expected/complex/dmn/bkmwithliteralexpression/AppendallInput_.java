@@ -9,6 +9,22 @@ public class AppendallInput_ implements com.gs.dmn.runtime.ExecutableDRGElementI
     private String rgb2;
     private List<String> rgb2List;
 
+    public AppendallInput_() {
+    }
+
+    public AppendallInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object rgb1 = input_.get("rgb1");
+            setRgb1((String)rgb1);
+            Object rgb1List = input_.get("rgb1 list");
+            setRgb1List((List<String>)rgb1List);
+            Object rgb2 = input_.get("rgb2");
+            setRgb2((String)rgb2);
+            Object rgb2List = input_.get("rgb2 list");
+            setRgb2List((List<String>)rgb2List);
+        }
+    }
+
     public String getRgb1() {
         return this.rgb1;
     }

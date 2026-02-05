@@ -6,6 +6,16 @@ import java.util.*;
 public class ComparatorInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number numberA;
 
+    public ComparatorInput_() {
+    }
+
+    public ComparatorInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object numberA = input_.get("numberA");
+            setNumberA((java.lang.Number)numberA);
+        }
+    }
+
     public java.lang.Number getNumberA() {
         return this.numberA;
     }

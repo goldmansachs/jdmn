@@ -60,6 +60,16 @@ public class PreBureauRiskCategory extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
         }
     }
 
+    @java.lang.Override()
+    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new PreBureauRiskCategoryInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'PreBureauRiskCategory'", e);
+            return null;
+        }
+    }
+
     public String apply(type.TApplicantData applicantData, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Pre-bureauRiskCategory'

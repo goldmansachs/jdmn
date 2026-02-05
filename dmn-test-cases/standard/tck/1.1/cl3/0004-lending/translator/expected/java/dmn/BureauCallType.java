@@ -53,6 +53,16 @@ public class BureauCallType extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<S
         }
     }
 
+    @java.lang.Override()
+    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new BureauCallTypeInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'BureauCallType'", e);
+            return null;
+        }
+    }
+
     public String apply(type.TApplicantData applicantData, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'BureauCallType'

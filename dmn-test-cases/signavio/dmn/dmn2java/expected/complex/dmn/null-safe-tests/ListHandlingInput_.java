@@ -7,6 +7,18 @@ public class ListHandlingInput_ implements com.gs.dmn.runtime.ExecutableDRGEleme
     private java.lang.Number numberB;
     private List<java.lang.Number> numberList;
 
+    public ListHandlingInput_() {
+    }
+
+    public ListHandlingInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object numberB = input_.get("numberB");
+            setNumberB((java.lang.Number)numberB);
+            Object numberList = input_.get("numberList");
+            setNumberList((List<java.lang.Number>)numberList);
+        }
+    }
+
     public java.lang.Number getNumberB() {
         return this.numberB;
     }

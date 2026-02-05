@@ -7,6 +7,18 @@ public class CalculateDotProductInput_ implements com.gs.dmn.runtime.ExecutableD
     private List<java.lang.Number> a;
     private List<java.lang.Number> b;
 
+    public CalculateDotProductInput_() {
+    }
+
+    public CalculateDotProductInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object a = input_.get("A");
+            setA((List<java.lang.Number>)a);
+            Object b = input_.get("B");
+            setB((List<java.lang.Number>)b);
+        }
+    }
+
     public List<java.lang.Number> getA() {
         return this.a;
     }

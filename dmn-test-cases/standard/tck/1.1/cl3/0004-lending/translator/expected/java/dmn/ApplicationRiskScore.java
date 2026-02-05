@@ -46,6 +46,16 @@ public class ApplicationRiskScore extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new ApplicationRiskScoreInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'ApplicationRiskScore'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(type.TApplicantData applicantData, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'ApplicationRiskScore'

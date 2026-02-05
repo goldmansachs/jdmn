@@ -8,6 +8,20 @@ public class ApprovalInput_ implements com.gs.dmn.runtime.ExecutableDRGElementIn
     private String riskCategory;
     private Boolean isAffordable;
 
+    public ApprovalInput_() {
+    }
+
+    public ApprovalInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object age = input_.get("Age");
+            setAge((java.lang.Number)age);
+            Object riskCategory = input_.get("RiskCategory");
+            setRiskCategory((String)riskCategory);
+            Object isAffordable = input_.get("isAffordable");
+            setIsAffordable((Boolean)isAffordable);
+        }
+    }
+
     public java.lang.Number getAge() {
         return this.age;
     }

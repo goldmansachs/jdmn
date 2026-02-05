@@ -8,6 +8,20 @@ public class PMTInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number r;
     private java.lang.Number n;
 
+    public PMTInput_() {
+    }
+
+    public PMTInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object p = input_.get("p");
+            setP((java.lang.Number)p);
+            Object r = input_.get("r");
+            setR((java.lang.Number)r);
+            Object n = input_.get("n");
+            setN((java.lang.Number)n);
+        }
+    }
+
     public java.lang.Number getP() {
         return this.p;
     }

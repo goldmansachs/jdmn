@@ -6,6 +6,16 @@ import java.util.*;
 public class DependentDecision2Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number dd2NumberInput;
 
+    public DependentDecision2Input_() {
+    }
+
+    public DependentDecision2Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object dd2NumberInput = input_.get("DD2 Number Input");
+            setDd2NumberInput((java.lang.Number)dd2NumberInput);
+        }
+    }
+
     public java.lang.Number getDd2NumberInput() {
         return this.dd2NumberInput;
     }

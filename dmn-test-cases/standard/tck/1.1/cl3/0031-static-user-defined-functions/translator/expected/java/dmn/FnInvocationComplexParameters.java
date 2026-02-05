@@ -53,6 +53,16 @@ public class FnInvocationComplexParameters extends com.gs.dmn.runtime.JavaTimeDM
         }
     }
 
+    @java.lang.Override()
+    public type.TFnInvocationComplexParamsResult applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new FnInvocationComplexParametersInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'FnInvocationComplexParameters'", e);
+            return null;
+        }
+    }
+
     public type.TFnInvocationComplexParamsResult apply(java.lang.Number inputA, java.lang.Number inputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'fn invocation complex parameters'

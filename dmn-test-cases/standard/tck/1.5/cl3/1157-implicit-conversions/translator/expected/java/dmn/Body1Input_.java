@@ -5,4 +5,12 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class Body1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
 
+    public Body1Input_() {
+    }
+
+    public Body1Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+        }
+    }
+
 }

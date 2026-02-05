@@ -60,6 +60,16 @@ public class DecisionService_001 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecis
         }
     }
 
+    @java.lang.Override()
+    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new DecisionService_001Input_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'DecisionService_001'", e);
+            return null;
+        }
+    }
+
     public String apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start DS 'decisionService_001'

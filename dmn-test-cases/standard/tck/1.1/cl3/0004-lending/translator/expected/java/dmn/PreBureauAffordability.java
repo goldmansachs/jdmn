@@ -55,6 +55,16 @@ public class PreBureauAffordability extends com.gs.dmn.runtime.JavaTimeDMNBaseDe
         }
     }
 
+    @java.lang.Override()
+    public Boolean applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new PreBureauAffordabilityInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'PreBureauAffordability'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(type.TApplicantData applicantData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Pre-bureauAffordability'

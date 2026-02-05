@@ -6,6 +6,16 @@ import java.util.*;
 public class AddExtraValuesInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private List<java.lang.Number> listOfNumbers;
 
+    public AddExtraValuesInput_() {
+    }
+
+    public AddExtraValuesInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object listOfNumbers = input_.get("ListOfNumbers");
+            setListOfNumbers((List<java.lang.Number>)listOfNumbers);
+        }
+    }
+
     public List<java.lang.Number> getListOfNumbers() {
         return this.listOfNumbers;
     }

@@ -8,6 +8,20 @@ public class PostBureauRiskCategoryTableInput_ implements com.gs.dmn.runtime.Exe
     private java.lang.Number applicationRiskScore;
     private java.lang.Number creditScore;
 
+    public PostBureauRiskCategoryTableInput_() {
+    }
+
+    public PostBureauRiskCategoryTableInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object existingCustomer = input_.get("ExistingCustomer");
+            setExistingCustomer((Boolean)existingCustomer);
+            Object applicationRiskScore = input_.get("ApplicationRiskScore");
+            setApplicationRiskScore((java.lang.Number)applicationRiskScore);
+            Object creditScore = input_.get("CreditScore");
+            setCreditScore((java.lang.Number)creditScore);
+        }
+    }
+
     public Boolean getExistingCustomer() {
         return this.existingCustomer;
     }

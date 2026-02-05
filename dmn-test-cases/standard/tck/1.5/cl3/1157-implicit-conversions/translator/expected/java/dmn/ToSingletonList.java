@@ -46,6 +46,16 @@ public class ToSingletonList extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<
         }
     }
 
+    @java.lang.Override()
+    public List<String> applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new ToSingletonListInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'ToSingletonList'", e);
+            return null;
+        }
+    }
+
     public List<String> apply(com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'To Singleton List'

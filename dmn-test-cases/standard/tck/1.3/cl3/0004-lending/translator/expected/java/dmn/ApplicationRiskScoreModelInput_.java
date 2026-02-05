@@ -8,6 +8,20 @@ public class ApplicationRiskScoreModelInput_ implements com.gs.dmn.runtime.Execu
     private String maritalStatus;
     private String employmentStatus;
 
+    public ApplicationRiskScoreModelInput_() {
+    }
+
+    public ApplicationRiskScoreModelInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object age = input_.get("Age");
+            setAge((java.lang.Number)age);
+            Object maritalStatus = input_.get("MaritalStatus");
+            setMaritalStatus((String)maritalStatus);
+            Object employmentStatus = input_.get("EmploymentStatus");
+            setEmploymentStatus((String)employmentStatus);
+        }
+    }
+
     public java.lang.Number getAge() {
         return this.age;
     }

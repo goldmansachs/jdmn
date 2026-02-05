@@ -46,6 +46,16 @@ public class Decision2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.l
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new Decision2Input_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Decision2'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(java.time.LocalDate inputDate, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Decision2'

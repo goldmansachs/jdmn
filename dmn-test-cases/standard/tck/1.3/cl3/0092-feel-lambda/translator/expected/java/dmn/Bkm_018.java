@@ -53,6 +53,16 @@ public class Bkm_018 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean>
         }
     }
 
+    @java.lang.Override()
+    public Boolean applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new Bkm_018Input_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Bkm_018'", e);
+            return null;
+        }
+    }
+
     public Boolean apply(String p1, String p2, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'bkm_018'

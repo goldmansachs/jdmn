@@ -53,6 +53,16 @@ public class PMT extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.lang.Nu
         }
     }
 
+    @java.lang.Override()
+    public java.lang.Number applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new PMTInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'PMT'", e);
+            return null;
+        }
+    }
+
     public java.lang.Number apply(java.lang.Number p, java.lang.Number r, java.lang.Number n, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start BKM 'PMT'

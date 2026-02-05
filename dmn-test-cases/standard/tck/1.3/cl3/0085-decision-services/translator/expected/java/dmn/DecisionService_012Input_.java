@@ -9,6 +9,22 @@ public class DecisionService_012Input_ implements com.gs.dmn.runtime.ExecutableD
     private String decision_012_3;
     private String decision_012_4;
 
+    public DecisionService_012Input_() {
+    }
+
+    public DecisionService_012Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object inputData_012_1 = input_.get("inputData_012_1");
+            setInputData_012_1((String)inputData_012_1);
+            Object inputData_012_2 = input_.get("inputData_012_2");
+            setInputData_012_2((String)inputData_012_2);
+            Object decision_012_3 = input_.get("decision_012_3");
+            setDecision_012_3((String)decision_012_3);
+            Object decision_012_4 = input_.get("decision_012_4");
+            setDecision_012_4((String)decision_012_4);
+        }
+    }
+
     public String getInputData_012_1() {
         return this.inputData_012_1;
     }

@@ -7,6 +7,18 @@ public class SUMInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
     private java.lang.Number a;
     private java.lang.Number b;
 
+    public SUMInput_() {
+    }
+
+    public SUMInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object a = input_.get("A");
+            setA((java.lang.Number)a);
+            Object b = input_.get("B");
+            setB((java.lang.Number)b);
+        }
+    }
+
     public java.lang.Number getA() {
         return this.a;
     }

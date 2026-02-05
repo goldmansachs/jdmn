@@ -7,6 +7,18 @@ public class Removeall2Input_ implements com.gs.dmn.runtime.ExecutableDRGElement
     private String rgb1;
     private List<String> rgb1List;
 
+    public Removeall2Input_() {
+    }
+
+    public Removeall2Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object rgb1 = input_.get("rgb1");
+            setRgb1((String)rgb1);
+            Object rgb1List = input_.get("rgb1 list");
+            setRgb1List((List<String>)rgb1List);
+        }
+    }
+
     public String getRgb1() {
         return this.rgb1;
     }

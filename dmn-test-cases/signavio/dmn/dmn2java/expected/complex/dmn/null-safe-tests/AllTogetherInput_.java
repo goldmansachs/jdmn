@@ -16,6 +16,36 @@ public class AllTogetherInput_ implements com.gs.dmn.runtime.ExecutableDRGElemen
     private List<String> stringList;
     private java.time.temporal.TemporalAccessor time;
 
+    public AllTogetherInput_() {
+    }
+
+    public AllTogetherInput_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+            Object booleanA = input_.get("booleanA");
+            setBooleanA((Boolean)booleanA);
+            Object booleanB = input_.get("booleanB");
+            setBooleanB((Boolean)booleanB);
+            Object booleanList = input_.get("booleanList");
+            setBooleanList((List<Boolean>)booleanList);
+            Object date = input_.get("date");
+            setDate((java.time.LocalDate)date);
+            Object dateTime = input_.get("dateTime");
+            setDateTime((java.time.temporal.TemporalAccessor)dateTime);
+            Object numberA = input_.get("numberA");
+            setNumberA((java.lang.Number)numberA);
+            Object numberB = input_.get("numberB");
+            setNumberB((java.lang.Number)numberB);
+            Object numberList = input_.get("numberList");
+            setNumberList((List<java.lang.Number>)numberList);
+            Object string = input_.get("string");
+            setString((String)string);
+            Object stringList = input_.get("stringList");
+            setStringList((List<String>)stringList);
+            Object time = input_.get("time");
+            setTime((java.time.temporal.TemporalAccessor)time);
+        }
+    }
+
     public Boolean getBooleanA() {
         return this.booleanA;
     }

@@ -12,6 +12,7 @@
  */
 package com.gs.dmn.signavio.runtime;
 
+import com.gs.dmn.runtime.Context;
 import com.gs.dmn.runtime.ExecutableDRGElementInput;
 import com.gs.dmn.runtime.ExecutionContext;
 import com.gs.dmn.signavio.feel.lib.MixedJavaTimeSignavioLib;
@@ -31,6 +32,11 @@ public abstract class MixedJavaTimeSignavioBaseDecision<T> extends MixedJavaTime
 
     @Override
     public T applyPojo(ExecutableDRGElementInput input_, ExecutionContext context_) {
+        return null;
+    }
+
+    @Override
+    public T applyContext(Context input_, ExecutionContext context_) {
         return null;
     }
 }

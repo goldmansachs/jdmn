@@ -53,6 +53,16 @@ public class FnInvocationPositionalParameters extends com.gs.dmn.runtime.JavaTim
         }
     }
 
+    @java.lang.Override()
+    public type.TFnInvocationPositionalResult applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new FnInvocationPositionalParametersInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'FnInvocationPositionalParameters'", e);
+            return null;
+        }
+    }
+
     public type.TFnInvocationPositionalResult apply(java.lang.Number inputA, java.lang.Number inputB, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'fn invocation positional parameters'

@@ -55,6 +55,16 @@ public class Eligibility extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Stri
         }
     }
 
+    @java.lang.Override()
+    public String applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new EligibilityInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'Eligibility'", e);
+            return null;
+        }
+    }
+
     public String apply(type.TApplicantData applicantData, type.TRequestedProduct requestedProduct, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'Eligibility'

@@ -5,4 +5,12 @@ import java.util.*;
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 public class Literal_003Input_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
 
+    public Literal_003Input_() {
+    }
+
+    public Literal_003Input_(com.gs.dmn.runtime.Context input_) {
+        if (input_ != null) {
+        }
+    }
+
 }

@@ -46,6 +46,16 @@ public class AgeClassification extends com.gs.dmn.runtime.JavaTimeDMNBaseDecisio
         }
     }
 
+    @java.lang.Override()
+    public com.gs.dmn.runtime.Context applyContext(com.gs.dmn.runtime.Context input_, com.gs.dmn.runtime.ExecutionContext context_) {
+        try {
+            return applyPojo(new AgeClassificationInput_(input_), context_);
+        } catch (Exception e) {
+            logError("Cannot apply element 'AgeClassification'", e);
+            return null;
+        }
+    }
+
     public com.gs.dmn.runtime.Context apply(type.Student student, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
             // Start decision 'ageClassification'
