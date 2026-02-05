@@ -10,20 +10,27 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime;
+package com.gs.dmn.runtime.context;
 
-import com.gs.dmn.runtime.context.ContextSpecification;
+class PathValue {
+    private final String path;
+    private final Object value;
 
-import java.util.Map;
+    public PathValue(String path, Object value) {
+        this.path = path;
+        this.value = value;
+    }
 
-public interface ExecutableDRGElement<T> {
-    T applyMap(Map<String, String> input_, ExecutionContext context_);
+    public String getPath() {
+        return path;
+    }
 
-    T applyPojo(ExecutableDRGElementInput input_, ExecutionContext context_);
+    public Object getValue() {
+        return value;
+    }
 
-    T applyContext(Context input_, ExecutionContext context_);
-
-    default T applyContext(ContextSpecification input_, ExecutionContext context_) {
-        return applyContext(input_.build(), context_);
+    @Override
+    public String toString() {
+        return String.format("%s -> %s", path, value);
     }
 }

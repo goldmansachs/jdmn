@@ -10,20 +10,18 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime;
+package com.gs.dmn.runtime.context;
 
-import com.gs.dmn.runtime.context.ContextSpecification;
+import org.junit.jupiter.api.Test;
 
-import java.util.Map;
+import static org.junit.jupiter.api.Assertions.*;
 
-public interface ExecutableDRGElement<T> {
-    T applyMap(Map<String, String> input_, ExecutionContext context_);
+class ContextSpecificationTest {
+    @Test
+    public void testAddEntryAndBuild() {
+        ContextSpecification contextSpecification = new ContextSpecification();
+        contextSpecification.addEntry("key1", "value1").addEntry("key2", "value2");
 
-    T applyPojo(ExecutableDRGElementInput input_, ExecutionContext context_);
-
-    T applyContext(Context input_, ExecutionContext context_);
-
-    default T applyContext(ContextSpecification input_, ExecutionContext context_) {
-        return applyContext(input_.build(), context_);
+        assertEquals("{key1=value1, key2=value2}", contextSpecification.build().toString());
     }
 }

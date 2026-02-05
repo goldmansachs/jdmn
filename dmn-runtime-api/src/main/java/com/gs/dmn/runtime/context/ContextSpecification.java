@@ -10,20 +10,22 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.gs.dmn.runtime;
+package com.gs.dmn.runtime.context;
 
-import com.gs.dmn.runtime.context.ContextSpecification;
+import com.gs.dmn.runtime.Context;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public interface ExecutableDRGElement<T> {
-    T applyMap(Map<String, String> input_, ExecutionContext context_);
+public class ContextSpecification {
+    private final List<PathValue> entries = new ArrayList<>();
 
-    T applyPojo(ExecutableDRGElementInput input_, ExecutionContext context_);
+    public ContextSpecification addEntry(String path, Object value) {
+        this.entries.add(new PathValue(path, value));
+        return this;
+    }
 
-    T applyContext(Context input_, ExecutionContext context_);
-
-    default T applyContext(ContextSpecification input_, ExecutionContext context_) {
-        return applyContext(input_.build(), context_);
+    public Context build() {
+        return ContextBuilder.build(entries);
     }
 }
