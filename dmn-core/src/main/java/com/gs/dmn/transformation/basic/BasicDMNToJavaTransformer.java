@@ -69,6 +69,9 @@ import static com.gs.dmn.el.analysis.semantics.type.AnyType.ANY;
 public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Type, DMNContext> {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicDMNToJavaTransformer.class);
 
+    public static final String QUALIFIED_NAME_SEPARATOR = ".";
+    public static final String QUALIFIED_NATIVE_NAME_SEPARATOR = "_";
+
     private final DMNDialectDefinition<?, ?, ?, ?, ?, ?> dialect;
     protected final DMNModelRepository dmnModelRepository;
     protected final EnvironmentFactory environmentFactory;
@@ -1118,24 +1121,24 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     private String drgReferenceQualifiedName(ImportPath importPath, String modelName, String elementName) {
         Pair<List<String>, String> qName = qualifiedName(importPath, modelName, elementName);
 
-        String javaPrefix = qName.getLeft().stream().map(this::javaModelName).collect(Collectors.joining("_"));
-        String javaName = lowerCaseFirst(qName.getRight());
-        if (StringUtils.isBlank(javaPrefix)) {
-            return javaName;
+        String nativePrefix = qName.getLeft().stream().map(this::nativePackageName).collect(Collectors.joining(QUALIFIED_NATIVE_NAME_SEPARATOR));
+        String nativeName = lowerCaseFirst(qName.getRight());
+        if (StringUtils.isBlank(nativePrefix)) {
+            return nativeName;
         } else {
-            return String.format("%s_%s", javaPrefix, javaName);
+            return String.format("%s%s%s", nativePrefix, QUALIFIED_NATIVE_NAME_SEPARATOR, nativeName);
         }
     }
 
     private String drgReferenceQualifiedDisplayName(ImportPath importPath, String modelName, String elementName) {
         Pair<List<String>, String> qName = qualifiedName(importPath, modelName, elementName);
 
-        String modelPrefix = String.join(".", qName.getLeft());
+        String modelPrefix = String.join(QUALIFIED_NAME_SEPARATOR, qName.getLeft());
         String localName = qName.getRight();
         if (StringUtils.isBlank(modelPrefix)) {
             return localName;
         } else {
-            return String.format("%s.%s", modelPrefix, localName);
+            return String.format("%s%s%s", modelPrefix, QUALIFIED_NAME_SEPARATOR, localName);
         }
     }
 
@@ -2045,7 +2048,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
             modelName = "";
         }
 
-        String modelPackageName = javaModelName(modelName);
+        String modelPackageName = nativePackageName(modelName);
         String elementPackageName = this.inputParameters.getJavaRootPackage();
         if (StringUtils.isBlank(elementPackageName)) {
             return modelPackageName;
@@ -2056,7 +2059,7 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
         }
     }
 
-    protected String javaModelName(String name) {
+    protected String nativePackageName(String name) {
         if (StringUtils.isEmpty(name)) {
             return "";
         }

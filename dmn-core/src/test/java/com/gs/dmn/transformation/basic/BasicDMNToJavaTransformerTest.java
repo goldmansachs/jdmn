@@ -132,13 +132,13 @@ public class BasicDMNToJavaTransformerTest extends AbstractTest {
     }
 
     @Test
-    public void testJavaModelName() {
-        assertEquals("", this.dmnTransformer.javaModelName(null));
-        assertEquals("", this.dmnTransformer.javaModelName(""));
-        assertEquals("abc", this.dmnTransformer.javaModelName("abc"));
-        assertEquals("abc", this.dmnTransformer.javaModelName("aBc"));
-        assertEquals("p_123abc", this.dmnTransformer.javaModelName("123aBc"));
-        assertEquals("literal_arithmetic", this.dmnTransformer.javaModelName("literal - arithmetic"));
+    public void testNativePackageName() {
+        assertEquals("", this.dmnTransformer.nativePackageName(null));
+        assertEquals("", this.dmnTransformer.nativePackageName(""));
+        assertEquals("abc", this.dmnTransformer.nativePackageName("abc"));
+        assertEquals("abc", this.dmnTransformer.nativePackageName("aBc"));
+        assertEquals("p_123abc", this.dmnTransformer.nativePackageName("123aBc"));
+        assertEquals("literal_arithmetic", this.dmnTransformer.nativePackageName("literal - arithmetic"));
     }
 
     @Test
