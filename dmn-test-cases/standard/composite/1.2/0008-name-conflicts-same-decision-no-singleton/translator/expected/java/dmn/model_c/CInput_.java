@@ -13,9 +13,9 @@ public class CInput_ implements com.gs.dmn.runtime.ExecutableDRGElementInput {
 
     public CInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object modela_a = input_.get("modelA.A");
+            Object modela_a = input_.get("modelA.a");
             setModela_a((String)modela_a);
-            Object modelb_a = input_.get("modelB.A");
+            Object modelb_a = input_.get("modelB.a");
             setModelb_a((String)modelb_a);
         }
     }

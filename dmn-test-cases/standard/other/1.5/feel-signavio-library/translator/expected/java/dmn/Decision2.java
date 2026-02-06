@@ -29,7 +29,7 @@ public class Decision2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.l
     @java.lang.Override()
     public java.lang.Number applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("InputDate") != null ? date(input_.get("InputDate")) : null), context_);
+            return apply((input_.get("inputDate") != null ? date(input_.get("inputDate")) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision2'", e);
             return null;
@@ -65,7 +65,7 @@ public class Decision2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.l
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decision2StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decision2Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decision2Arguments_.put("InputDate", inputDate);
+            decision2Arguments_.put("inputDate", inputDate);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision2Arguments_);
 
             // Evaluate decision 'Decision2'

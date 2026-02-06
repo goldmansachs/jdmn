@@ -38,7 +38,7 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.JavaTimeDMNBaseD
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("Person Name"), context_);
+            return apply(input_.get("personName"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'ModelCDecisionBasedOnBs'", e);
             return null;
@@ -74,7 +74,7 @@ public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.JavaTimeDMNBaseD
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long modelCDecisionBasedOnBsStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments modelCDecisionBasedOnBsArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            modelCDecisionBasedOnBsArguments_.put("Person Name", personName);
+            modelCDecisionBasedOnBsArguments_.put("personName", personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, modelCDecisionBasedOnBsArguments_);
 
             // Evaluate decision 'modelCDecisionBasedOnBs'

@@ -12,9 +12,9 @@ public class AppendAllTestInput_ implements com.gs.dmn.runtime.ExecutableDRGElem
 
     public AppendAllTestInput_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object list1 = input_.get("InputDate");
+            Object list1 = input_.get("list1");
             setList1((List<String>)list1);
-            Object list2 = input_.get("InputDate");
+            Object list2 = input_.get("list2");
             setList2((List<String>)list2);
         }
     }

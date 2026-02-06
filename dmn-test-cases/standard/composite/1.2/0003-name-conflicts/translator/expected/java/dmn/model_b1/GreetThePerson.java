@@ -30,7 +30,7 @@ public class GreetThePerson extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<S
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("model-a.Person Name"), context_);
+            return apply(input_.get("model-a.personName"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'GreetThePerson'", e);
             return null;
@@ -66,7 +66,7 @@ public class GreetThePerson extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<S
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long greetThePersonStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments greetThePersonArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            greetThePersonArguments_.put("model-a.Person Name", model_a_personName);
+            greetThePersonArguments_.put("model-a.personName", model_a_personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, greetThePersonArguments_);
 
             // Evaluate decision 'greetThePerson'

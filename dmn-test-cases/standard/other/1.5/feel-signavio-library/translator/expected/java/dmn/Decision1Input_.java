@@ -11,7 +11,7 @@ public class Decision1Input_ implements com.gs.dmn.runtime.ExecutableDRGElementI
 
     public Decision1Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object inputString = input_.get("InputString");
+            Object inputString = input_.get("inputString");
             setInputString((String)inputString);
         }
     }

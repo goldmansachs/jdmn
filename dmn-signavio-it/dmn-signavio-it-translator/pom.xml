@@ -58,6 +58,7 @@
                         <platformVersion>${platform.version}</platformVersion>
                         <xsdValidation>false</xsdValidation>
                         <signavioSchemaNamespace>http://www.provider.com/schema/dmn/1.1/</signavioSchemaNamespace>
+                        <useNames>false</useNames>
                     </inputParameters>
                 </configuration>
                 <executions>

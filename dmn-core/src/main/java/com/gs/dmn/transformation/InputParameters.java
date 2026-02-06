@@ -56,38 +56,64 @@ public class InputParameters {
         return Boolean.parseBoolean(param);
     }
 
+    // Version of the DMN standard.
     private final String dmnVersion;
+    // Version of the DMN model.
     private final String modelVersion;
+    // Version of the DMN platform.
     private final String platformVersion;
 
+    // Whether to validate DMN models against the XSD schema.
     private final boolean xsdValidation;
+    // Namespace for the generated DMN models.
     private final String schemaNamespace;
     private final String namespace;
     private final String prefix;
+    // Format for the generated DMN models (e.g., XML, JSON).
     private final SerializationFormat format;
+    // File extension for the generated DMN models.
     private final String dmnFileExtension;
+    // File extension for the generated TCK test cases.
     private final String tckFileExtension;
+    // Character encoding for reading and writing DMN models and TCK files.
     private final Charset charset;
 
+    // Whether recursive calls are supported for BKMs.
     private final boolean recursiveCalls;
 
+    // Java package for the generated DMN models.
     private final String javaRootPackage;
+    // Whether to generate all classes in one package or to use a package structure based on the DMN model namespace.
     private final boolean onePackage;
+    // Whether the inputs imported several times are treated as the same.
     private final boolean singletonInputData;
+    // Whether the generated code supported the singleton pattern for decisions.
     private final boolean singletonDecision;
+    // Whether to use strong typing for the generated DMN models.
     private final boolean strongTyping;
 
+    // Whether to cache the results of decision evaluations.
     private final boolean caching;
+    // Threshold for caching decision results. If the number of evaluations of a decision exceeds this threshold, caching will be enabled for that decision.
     private final int cachingThreshold;
+    // Threshold for treating a decision table as sparse. If the ratio of empty cells to total cells in a decision table exceeds this threshold, the decision table will be treated as sparse, which may lead to more efficient evaluation.
     private final double sparsityThreshold;
+    // Whether to use parallel streams for evaluating decision tables. This can improve performance for large decision tables, but may not be suitable for all environments or use cases.
     private final boolean parallelStream;
 
+    // Whether to use default values for DRG elements.
     private final boolean mockTesting;
+    // Whether to generate extra information in the generated code, such as POMs.
     private final boolean generateExtra;
 
+    // Whether to check constraints in the generated code.
     private final boolean checkConstraints;
 
+    // Path to the libraries configuration file.
     private final String librariesConfigPath;
+
+    // Whether to use names or labels in applyMap() and applyContext() methods.
+    boolean useNames;
 
     public InputParameters() {
         this(new LinkedHashMap<>());
@@ -128,6 +154,8 @@ public class InputParameters {
 
         this.checkConstraints = InputParameters.getOptionalBooleanParam(inputParameters, "checkConstraints", "false");
         this.librariesConfigPath = InputParameters.getOptionalParam(inputParameters, "librariesConfigPath", "feel/library/libraries.json");
+
+        this.useNames = InputParameters.getOptionalBooleanParam(inputParameters, "useNames", "true");
     }
 
     public String getDmnVersion() {
@@ -228,5 +256,9 @@ public class InputParameters {
 
     public String getLibrariesConfigPath() {
         return librariesConfigPath;
+    }
+
+    public boolean isUseNames() {
+        return useNames;
     }
 }

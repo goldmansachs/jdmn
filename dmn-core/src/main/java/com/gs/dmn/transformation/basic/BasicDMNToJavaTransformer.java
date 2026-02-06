@@ -672,15 +672,15 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public List<String> drgElementArgumentDisplayNameList(TDRGElement element) {
-        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
-        return drgElementArgumentDisplayNameList(reference);
-    }
-
-    @Override
     public List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference) {
         List<FEELParameter> parameters = drgElementTypeSignature(reference);
         return parameters.stream().map(FEELParameter::getNativeName).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> drgElementArgumentDisplayNameList(TDRGElement element) {
+        DRGElementReference<? extends TDRGElement> reference = this.dmnModelRepository.makeDRGElementReference(element);
+        return drgElementArgumentDisplayNameList(reference);
     }
 
     @Override
@@ -703,14 +703,18 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     @Override
     public String displayName(Object obj) {
-        if (obj instanceof DRGElementReference) {
-            DRGElementReference<? extends TDRGElement> reference = (DRGElementReference<? extends TDRGElement>) obj;
-            String elementName = this.dmnModelRepository.displayName(reference.getElement());
-            return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
-        } else if (obj instanceof TNamedElement) {
-            return this.dmnModelRepository.displayName((TNamedElement) obj);
+        if (this.inputParameters.isUseNames()) {
+            return elementName(obj);
+        } else {
+            if (obj instanceof DRGElementReference) {
+                DRGElementReference<? extends TDRGElement> reference = (DRGElementReference<? extends TDRGElement>) obj;
+                String elementName = this.dmnModelRepository.displayName(reference.getElement());
+                return drgReferenceQualifiedDisplayName(reference.getImportPath(), reference.getModelName(), elementName);
+            } else if (obj instanceof TNamedElement) {
+                return this.dmnModelRepository.displayName((TNamedElement) obj);
+            }
+            throw new SemanticErrorException(String.format("Variable name cannot be null for '%s'", obj));
         }
-        throw new SemanticErrorException(String.format("Variable name cannot be null for '%s'", obj));
     }
 
     @Override

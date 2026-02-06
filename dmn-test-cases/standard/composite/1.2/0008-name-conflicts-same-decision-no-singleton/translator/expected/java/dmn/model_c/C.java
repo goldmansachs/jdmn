@@ -30,7 +30,7 @@ public class C extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("modelA.A"), input_.get("modelB.A"), context_);
+            return apply(input_.get("modelA.a"), input_.get("modelB.a"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'C'", e);
             return null;
@@ -66,8 +66,8 @@ public class C extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long cStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments cArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            cArguments_.put("modelA.A", modela_a);
-            cArguments_.put("modelB.A", modelb_a);
+            cArguments_.put("modelA.a", modela_a);
+            cArguments_.put("modelB.a", modelb_a);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, cArguments_);
 
             // Evaluate decision 'c'

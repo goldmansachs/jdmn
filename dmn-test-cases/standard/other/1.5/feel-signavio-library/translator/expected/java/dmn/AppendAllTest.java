@@ -29,7 +29,7 @@ public class AppendAllTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Li
     @java.lang.Override()
     public List<String> applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply((input_.get("InputDate") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("InputDate"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("InputDate") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("InputDate"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
+            return apply((input_.get("list1") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("list1"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), (input_.get("list2") != null ? com.gs.dmn.serialization.JsonSerializer.OBJECT_MAPPER.readValue(input_.get("list2"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {}) : null), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'AppendAllTest'", e);
             return null;
@@ -65,8 +65,8 @@ public class AppendAllTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Li
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long appendAllTestStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments appendAllTestArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            appendAllTestArguments_.put("InputDate", list1);
-            appendAllTestArguments_.put("InputDate", list2);
+            appendAllTestArguments_.put("list1", list1);
+            appendAllTestArguments_.put("list2", list2);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, appendAllTestArguments_);
 
             // Evaluate decision 'AppendAllTest'

@@ -29,7 +29,7 @@ public class Decision1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolea
     @java.lang.Override()
     public Boolean applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("InputString"), context_);
+            return apply(input_.get("inputString"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'Decision1'", e);
             return null;
@@ -65,7 +65,7 @@ public class Decision1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolea
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long decision1StartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments decision1Arguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            decision1Arguments_.put("InputString", inputString);
+            decision1Arguments_.put("inputString", inputString);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, decision1Arguments_);
 
             // Evaluate decision 'Decision1'

@@ -189,9 +189,9 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     List<String> drgElementArgumentNameList(TDRGElement element);
 
-    List<String> drgElementArgumentDisplayNameList(TDRGElement element);
-
     List<String> drgElementArgumentNameList(DRGElementReference<? extends TDRGElement> reference);
+
+    List<String> drgElementArgumentDisplayNameList(TDRGElement element);
 
     List<String> drgElementArgumentDisplayNameList(DRGElementReference<? extends TDRGElement> reference);
 

@@ -11,7 +11,7 @@ public class Decision2Input_ implements com.gs.dmn.runtime.ExecutableDRGElementI
 
     public Decision2Input_(com.gs.dmn.runtime.Context input_) {
         if (input_ != null) {
-            Object inputDate = input_.get("InputDate");
+            Object inputDate = input_.get("inputDate");
             setInputDate((java.time.LocalDate)inputDate);
         }
     }

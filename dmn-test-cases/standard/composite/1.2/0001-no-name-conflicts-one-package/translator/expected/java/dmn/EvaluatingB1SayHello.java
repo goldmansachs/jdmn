@@ -36,7 +36,7 @@ public class EvaluatingB1SayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
     @java.lang.Override()
     public String applyMap(java.util.Map<String, String> input_, com.gs.dmn.runtime.ExecutionContext context_) {
         try {
-            return apply(input_.get("Person Name"), context_);
+            return apply(input_.get("personName"), context_);
         } catch (Exception e) {
             logError("Cannot apply decision 'EvaluatingB1SayHello'", e);
             return null;
@@ -72,7 +72,7 @@ public class EvaluatingB1SayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
             com.gs.dmn.runtime.cache.Cache cache_ = context_ != null ? context_.getCache() : null;
             long evaluatingB1SayHelloStartTime_ = System.currentTimeMillis();
             com.gs.dmn.runtime.listener.Arguments evaluatingB1SayHelloArguments_ = new com.gs.dmn.runtime.listener.Arguments();
-            evaluatingB1SayHelloArguments_.put("Person Name", personName);
+            evaluatingB1SayHelloArguments_.put("personName", personName);
             eventListener_.startDRGElement(DRG_ELEMENT_METADATA, evaluatingB1SayHelloArguments_);
 
             // Evaluate decision 'evaluatingB1SayHello'
