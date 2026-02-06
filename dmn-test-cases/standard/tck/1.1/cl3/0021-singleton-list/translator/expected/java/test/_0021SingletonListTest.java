@@ -6,52 +6,57 @@ import java.util.stream.Collectors;
 public class _0021SingletonListTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize arguments
-        List<String> employees = asList("Jack", "John", "Bob", "Zack");
+        // Initialize input
+        com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
+        input_.add("Employees", asList("Jack", "John", "Bob", "Zack"));
 
         // Check 'decision1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
-        checkValues(asList("John"), new Decision1().apply(employees, context_));
+        checkValues(asList("John"), new Decision1().applyContext(input_, context_));
     }
 
     @org.junit.jupiter.api.Test
     public void testCase001_2() {
-        // Initialize arguments
-        List<String> employees = asList("Jack", "John", "Bob", "Zack");
+        // Initialize input
+        com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
+        input_.add("Employees", asList("Jack", "John", "Bob", "Zack"));
 
         // Check 'decision2'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
-        checkValues("John", new Decision2().apply(employees, context_));
+        checkValues("John", new Decision2().applyContext(input_, context_));
     }
 
     @org.junit.jupiter.api.Test
     public void testCase001_3() {
-        // Initialize arguments
-        List<String> employees = asList("Jack", "John", "Bob", "Zack");
+        // Initialize input
+        com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
+        input_.add("Employees", asList("Jack", "John", "Bob", "Zack"));
 
         // Check 'decision3'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
-        checkValues(asList("Bob"), new Decision3().apply(employees, context_));
+        checkValues(asList("Bob"), new Decision3().applyContext(input_, context_));
     }
 
     @org.junit.jupiter.api.Test
     public void testCase001_4() {
-        // Initialize arguments
-        List<String> employees = asList("Jack", "John", "Bob", "Zack");
+        // Initialize input
+        com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
+        input_.add("Employees", asList("Jack", "John", "Bob", "Zack"));
 
         // Check 'decision4'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
-        checkValues("Bob", new Decision4().apply(employees, context_));
+        checkValues("Bob", new Decision4().applyContext(input_, context_));
     }
 
     @org.junit.jupiter.api.Test
     public void testCase001_5() {
-        // Initialize arguments
-        List<String> employees = asList("Jack", "John", "Bob", "Zack");
+        // Initialize input
+        com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
+        input_.add("Employees", asList("Jack", "John", "Bob", "Zack"));
 
         // Check 'decision5'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
-        checkValues("BOB", new Decision5().apply(employees, context_));
+        checkValues("BOB", new Decision5().applyContext(input_, context_));
     }
 
     private void checkValues(Object expected, Object actual) {

@@ -21,10 +21,10 @@
         <variable typeRef="date" name="inputDate" id="id-13216bd85ab5ac7ee926ae1e467072ad_variable-1"/>
     </inputData>
 
-    <inputData name="list1" id="id-13216bd85ab5ac7ee926ae1e467072ad-2" label="InputDate">
+    <inputData name="list1" id="id-13216bd85ab5ac7ee926ae1e467072ad-2" label="List 1">
         <variable typeRef="stringList" name="list1" id="id-13216bd85ab5ac7ee926ae1e467072ad_variable-2"/>
     </inputData>
-    <inputData name="list2" id="id-13216bd85ab5ac7ee926ae1e467072ad-3" label="InputDate">
+    <inputData name="list2" id="id-13216bd85ab5ac7ee926ae1e467072ad-3" label="List 2">
         <variable typeRef="stringList" name="list2" id="id-13216bd85ab5ac7ee926ae1e467072ad_variable-3"/>
     </inputData>
 

@@ -43,7 +43,7 @@
     "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-2",
     "javaParameterName" : "list1",
     "javaTypeName" : "List<String>",
-    "label" : "InputDate",
+    "label" : "List 1",
     "name" : "list1",
     "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
     "typeRef" : {
@@ -55,7 +55,7 @@
     "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-3",
     "javaParameterName" : "list2",
     "javaTypeName" : "List<String>",
-    "label" : "InputDate",
+    "label" : "List 2",
     "name" : "list2",
     "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
     "typeRef" : {
@@ -82,7 +82,7 @@
       "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-2",
       "javaParameterName" : "list1",
       "javaTypeName" : "List<String>",
-      "label" : "InputDate",
+      "label" : "List 1",
       "name" : "list1",
       "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
       "typeRef" : {
@@ -94,7 +94,7 @@
       "id" : "id-13216bd85ab5ac7ee926ae1e467072ad-3",
       "javaParameterName" : "list2",
       "javaTypeName" : "List<String>",
-      "label" : "InputDate",
+      "label" : "List 2",
       "name" : "list2",
       "namespace" : "http://www.montera.com.au/spec/DMN/feel-signavio-library",
       "typeRef" : {

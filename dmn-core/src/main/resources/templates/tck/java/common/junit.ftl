@@ -64,22 +64,24 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
 </#macro>
 
 <#macro initializeApplyArguments inputNodeInfoList resultInfo>
+    <#assign drgElement = resultInfo.reference.element/>
+    <#assign inputClassName = tckUtil.contextClassName()/>
+    <#assign inputVariableName = tckUtil.inputVariableName()/>
+        // Initialize input
+        ${inputClassName} ${inputVariableName} = ${tckUtil.defaultConstructor(inputClassName)};
     <#list inputNodeInfoList>
-        // Initialize arguments
         <#items as inputInfo>
-            <#assign inputVariableName = tckUtil.inputDataVariableName(inputInfo)/>
-            <#assign inputVariableType = tckUtil.toNativeType(inputInfo)/>
-            <#assign inputValue = tckUtil.toNativeExpression(inputInfo)/>
+            <#assign displayName = tckUtil.displayName(inputInfo)/>
+            <#assign memberValue = tckUtil.toNativeExpression(inputInfo)/>
             <#if inputInfo.isInputData()>
-        ${inputVariableType} ${inputVariableName} = ${inputValue};
+        ${inputVariableName}.${tckUtil.contextSetter(displayName, memberValue)};
             <#elseif inputInfo.isDecision()>
                 <#if resultInfo.isDS() || resultInfo.isBKM()>
-        ${inputVariableType} ${inputVariableName} = ${inputValue};
+        ${inputVariableName}.${tckUtil.contextSetter(displayName, memberValue)};
                 </#if>
             </#if>
         </#items>
     </#list>
-        <@addMissingApplyArguments inputNodeInfoList resultInfo/>
 </#macro>
 
 <#macro checkResult inputNodeInfoList resultInfo>
@@ -87,29 +89,21 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
         ${tckUtil.executionContextClassName()} ${tckUtil.executionContextVariableName()} = ${tckUtil.executionContextBuilderClassName()}.executionContext().build();
         <#assign elementQName = tckUtil.qualifiedName(resultInfo)/>
         <#assign expectedValue = tckUtil.toNativeExpression(resultInfo)/>
-        <#assign parentArgList = tckUtil.drgElementArgumentList(resultInfo)/>
+        <#assign parentArgList = tckUtil.drgElementArgumentListApplyContext(resultInfo)/>
         <#if resultInfo.isDecision()>
             <#if tckUtil.hasMockedDirectSubDecisions(resultInfo, inputNodeInfoList)>
                 <@instantiateSubDecisions inputNodeInfoList resultInfo/>
-        checkValues(${expectedValue}, ${tckUtil.constructor(resultInfo)}.apply(${parentArgList}));
+        checkValues(${expectedValue}, ${tckUtil.constructor(resultInfo)}.applyContext(${parentArgList}));
             <#else>
                 <#if tckUtil.isSingletonDecision()>
-        checkValues(${expectedValue}, ${tckUtil.singletonDecisionInstance(elementQName)}.apply(${parentArgList}));
+        checkValues(${expectedValue}, ${tckUtil.singletonDecisionInstance(elementQName)}.applyContext(${parentArgList}));
                 <#else>
-        checkValues(${expectedValue}, ${tckUtil.defaultConstructor(elementQName)}.apply(${parentArgList}));
+        checkValues(${expectedValue}, ${tckUtil.defaultConstructor(elementQName)}.applyContext(${parentArgList}));
                 </#if>
             </#if>
         <#elseif resultInfo.isDS() || resultInfo.isBKM()>
-        checkValues(${expectedValue}, ${elementQName}.apply(${parentArgList}));
+        checkValues(${expectedValue}, ${elementQName}.applyContext(${parentArgList}));
         </#if>
-</#macro>
-
-<#macro addMissingApplyArguments inputNodeInfoList resultInfo>
-    <#list tckUtil.missingArguments(inputNodeInfoList, resultInfo)>
-        <#items as triplet>
-        ${triplet[0]} ${triplet[1]} = ${triplet[2]};
-        </#items>
-    </#list>
 </#macro>
 
 <#macro instantiateSubDecisions inputNodeInfoList resultInfo>

@@ -1296,6 +1296,11 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
+    public String inputVariableName() {
+        return "input_";
+    }
+
+    @Override
     public String rangeClassName() {
         return qualifiedName(Range.class);
     }
@@ -1312,10 +1317,6 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
 
     protected String inputMapClassName() {
         return qualifiedName(Map.class) + "<String, String>";
-    }
-
-    protected String inputVariableName() {
-        return "input_";
     }
 
     @Override

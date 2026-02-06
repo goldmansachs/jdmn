@@ -266,6 +266,15 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         }
     }
 
+    public String displayName(InputNodeInfo info) {
+        TDRGElement element = info.getReference().getElement();
+        if (element == null) {
+            throw new DMNRuntimeException(String.format("Cannot find element '%s'", info.getNodeName()));
+        } else {
+            return this.transformer.displayName(info.getReference());
+        }
+    }
+
     public String toNativeExpression(InputNodeInfo info) {
         Type inputType = toFEELType(info);
         return this.tckValueTranslator.toNativeExpression(info.getValue(), inputType, info.getReference().getElement());
@@ -345,15 +354,16 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     public String drgElementArgumentList(NodeInfo info) {
-        if (info.isDecision()) {
-            TDecision decision = (TDecision) info.getReference().getElement();
-            return this.transformer.drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(decision));
-        } else if (info.isBKM()) {
-            TBusinessKnowledgeModel bkm = (TBusinessKnowledgeModel) info.getReference().getElement();
-            return this.transformer.drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(bkm));
-        } else if (info.isDS()) {
-            TDecisionService ds = (TDecisionService) info.getReference().getElement();
-            return this.transformer.drgElementArgumentList(this.dmnModelRepository.makeDRGElementReference(ds));
+        if (info.isDecision() || info.isBKM() || info.isDS()) {
+            return this.transformer.drgElementArgumentList(info.getReference());
+        } else {
+            throw new DMNRuntimeException(String.format("Not supported node type '%s'", info.getNodeType()));
+        }
+    }
+
+    public String drgElementArgumentListApplyContext(NodeInfo info) {
+        if (info.isDecision() || info.isBKM() || info.isDS()) {
+            return String.format("%s, %s", this.inputVariableName(), this.executionContextVariableName());
         } else {
             throw new DMNRuntimeException(String.format("Not supported node type '%s'", info.getNodeType()));
         }
@@ -378,6 +388,14 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
 
     public String assertClassName() {
         return this.transformer.assertClassName();
+    }
+
+    public String contextClassName() {
+        return this.transformer.contextClassName();
+    }
+
+    public String inputVariableName() {
+        return this.transformer.inputVariableName();
     }
 
     public String executionContextClassName() {
@@ -444,6 +462,10 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         String nativeQName = qualifiedName(resultInfo);
         String args = this.transformer.drgElementConstructorArguments(resultInfo.getReference().getElement());
         return this.transformer.constructor(nativeQName, args);
+    }
+
+    public String contextSetter(String name, String args) {
+        return String.format("%s%s)", this.transformer.contextSetter(name), args);
     }
 
     public boolean isCached(InputNodeInfo info) {

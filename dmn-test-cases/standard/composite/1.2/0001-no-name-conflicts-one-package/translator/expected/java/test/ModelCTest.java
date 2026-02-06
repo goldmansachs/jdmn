@@ -6,12 +6,13 @@ import java.util.stream.Collectors;
 public class ModelCTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize arguments
-        String personName = "B.A.John";
+        // Initialize input
+        com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
+        input_.add("personName", "B.A.John");
 
         // Check 'modelCDecisionBasedOnBs'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
-        checkValues("B1: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B.A.John", new ModelCDecisionBasedOnBs().apply(personName, context_));
+        checkValues("B1: Evaluating Say Hello to: Hello, B.A.John; B2: Evaluating Say Hello to: Hello, B.A.John", new ModelCDecisionBasedOnBs().applyContext(input_, context_));
     }
 
     private void checkValues(Object expected, Object actual) {
