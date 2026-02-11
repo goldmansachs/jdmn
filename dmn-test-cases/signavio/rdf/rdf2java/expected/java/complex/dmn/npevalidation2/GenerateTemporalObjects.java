@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"signavio-decision.ftl", "generateTemporalObjects"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     name = "generateTemporalObjects",
     label = "generateTemporalObjects",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

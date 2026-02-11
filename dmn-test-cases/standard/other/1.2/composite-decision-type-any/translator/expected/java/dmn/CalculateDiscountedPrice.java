@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"decision.ftl", "calculateDiscountedPrice"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
     name = "calculateDiscountedPrice",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

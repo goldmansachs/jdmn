@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"decision.ftl", "decision_010_2"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
     name = "decision_010_2",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

@@ -4,7 +4,7 @@ import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["decision.ftl", "main"])
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "http://www.gs.com/spec/DMN/9001-recursive-function",
     name = "main",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

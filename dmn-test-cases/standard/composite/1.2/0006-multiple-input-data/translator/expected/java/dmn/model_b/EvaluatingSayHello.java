@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"decision.ftl", "Evaluating Say Hello"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "model_b",
+    namespace = "http://www.trisotech.com/definitions/_2a1d771a-a899-4fef-abd6-fc894332337c",
     name = "Evaluating Say Hello",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

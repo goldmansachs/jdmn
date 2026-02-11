@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"signavio-decision.ftl", "testNullComplexTypeAccess"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
     name = "testNullComplexTypeAccess",
     label = "TestNullComplexTypeAccess",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

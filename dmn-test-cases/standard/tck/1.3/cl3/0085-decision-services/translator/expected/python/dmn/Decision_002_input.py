@@ -33,7 +33,7 @@ import jdmn.runtime.listener.Rule
 # Generated(value = ["decision.ftl", "decision_002_input"])
 class Decision_002_input(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
-        "",
+        "http://www.montera.com.au/spec/DMN/0085-decision-services",
         "decision_002_input",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,

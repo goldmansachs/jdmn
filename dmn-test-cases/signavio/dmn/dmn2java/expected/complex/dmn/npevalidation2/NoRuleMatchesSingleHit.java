@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"signavio-decision.ftl", "noRuleMatchesSingleHit"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
     name = "noRuleMatchesSingleHit",
     label = "noRuleMatchesSingleHit",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

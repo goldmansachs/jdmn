@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"bkm.ftl", "bkm"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "model_a",
+    namespace = "http://www.provider.com/definitions/model-a",
     name = "bkm",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,

@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"signavio-decision.ftl", "fetchForexRate"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "http://www.provider.com/dmn/1.1/diagram/1b49e2cbacaf470fb5d093be73afd27e.xml",
     name = "fetchForexRate",
     label = "FetchForexRate",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

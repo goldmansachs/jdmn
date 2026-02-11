@@ -38,7 +38,7 @@ import org.gs.ExtraDaysCase3
 # Generated(value = ["decision.ftl", "Total Vacation Days"])
 class TotalVacationDays(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
-        "org.gs",
+        "https://www.drools.org/kie-dmn",
         "Total Vacation Days",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,

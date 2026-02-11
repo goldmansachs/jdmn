@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"signavio-decision.ftl", "negateSecond"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
     name = "negateSecond",
     label = "negateSecond",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

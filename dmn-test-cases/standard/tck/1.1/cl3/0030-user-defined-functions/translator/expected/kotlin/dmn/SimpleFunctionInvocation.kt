@@ -4,7 +4,7 @@ import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["decision.ftl", "simple function invocation"])
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "http://www.actico.com/spec/DMN/0.1.0/0030-user-defined-functions",
     name = "simple function invocation",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"ds.ftl", "To Singleton List DS"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
     name = "To Singleton List DS",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION_SERVICE,

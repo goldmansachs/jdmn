@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"decision.ftl", "dateCompare1"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "decisiontables",
+    namespace = "http://www.provider.com/definitions/decisions",
     name = "dateCompare1",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

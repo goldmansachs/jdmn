@@ -410,10 +410,6 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.transformer.executionContextBuilderClassName();
     }
 
-    public String annotationSetClassName() {
-        return this.transformer.annotationSetClassName();
-    }
-
     public String annotationSetVariableName() {
         return this.transformer.annotationSetVariableName();
     }
@@ -430,28 +426,8 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.transformer.eventListenerVariableName();
     }
 
-    public String externalExecutorClassName() {
-        return this.transformer.externalExecutorClassName();
-    }
-
-    public String externalExecutorVariableName() {
-        return this.transformer.externalExecutorVariableName();
-    }
-
-    public String defaultExternalExecutorClassName() {
-        return this.transformer.defaultExternalExecutorClassName();
-    }
-
-    public String cacheInterfaceName() {
-        return this.transformer.cacheInterfaceName();
-    }
-
     public String cacheVariableName() {
         return this.transformer.cacheVariableName();
-    }
-
-    public String defaultCacheClassName() {
-        return this.transformer.defaultCacheClassName();
     }
 
     public String defaultConstructor(String className) {

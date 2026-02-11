@@ -4,7 +4,7 @@ import java.util.stream.Collectors
 
 @javax.annotation.Generated(value = ["decision.ftl", "Base Vacation Days"])
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "https://www.drools.org/kie-dmn",
     name = "Base Vacation Days",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

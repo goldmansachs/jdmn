@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"decision.ftl", "c"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "http://www.provider.com/definitions/model-c",
     name = "c",
     label = "C",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

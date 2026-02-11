@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"decision.ftl", "Model C Decision based on Bs"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "nested_input_data_imports",
+    namespace = "http://www.trisotech.com/definitions/_10435dcd-8774-4575-a338-49dd554a0928",
     name = "Model C Decision based on Bs",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

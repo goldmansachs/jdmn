@@ -35,7 +35,7 @@ import org.gs.ExtraDaysCase1RuleOutput
 # Generated(value = ["decision.ftl", "Extra days case 1"])
 class ExtraDaysCase1(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
-        "org.gs",
+        "https://www.drools.org/kie-dmn",
         "Extra days case 1",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,

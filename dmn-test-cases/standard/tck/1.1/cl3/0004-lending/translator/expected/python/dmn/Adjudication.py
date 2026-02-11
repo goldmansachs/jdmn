@@ -40,7 +40,7 @@ import type_.TBureauDataImpl
 # Generated(value = ["decision.ftl", "Adjudication"])
 class Adjudication(jdmn.runtime.DefaultDMNBaseDecision.DefaultDMNBaseDecision):
     DRG_ELEMENT_METADATA: jdmn.runtime.listener.DRGElement.DRGElement = jdmn.runtime.listener.DRGElement.DRGElement(
-        "",
+        "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
         "Adjudication",
         "",
         jdmn.runtime.annotation.DRGElementKind.DRGElementKind.DECISION,

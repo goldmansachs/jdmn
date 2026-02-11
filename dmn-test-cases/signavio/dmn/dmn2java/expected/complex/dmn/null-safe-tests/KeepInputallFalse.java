@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"signavio-decision.ftl", "keepInputallFalse"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
     name = "keepInputallFalse",
     label = "keepInput_allFalse",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

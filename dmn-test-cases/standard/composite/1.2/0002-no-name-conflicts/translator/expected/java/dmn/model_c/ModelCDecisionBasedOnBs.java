@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"decision.ftl", "modelCDecisionBasedOnBs"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "model_c",
+    namespace = "http://www.provider.com/definitions/model-c",
     name = "modelCDecisionBasedOnBs",
     label = "Model C Decision based on Bs",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

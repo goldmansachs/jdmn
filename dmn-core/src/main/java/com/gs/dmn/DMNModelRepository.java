@@ -1239,6 +1239,15 @@ public class DMNModelRepository {
         return null;
     }
 
+    public String namespace(TNamedElement element) {
+        TDefinitions model = getModel(element);
+        if (model != null) {
+            return model.getNamespace();
+        } else {
+            return "";
+        }
+    }
+
     public String name(TNamedElement element) {
         String name = null;
         if (element != null) {

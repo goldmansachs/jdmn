@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"decision.ftl", "priceGt10"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "decisiontables",
+    namespace = "http://www.provider.com/definitions/decisions",
     name = "priceGt10",
     label = "",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

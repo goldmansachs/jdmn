@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = {"decision.ftl", "AppendAllTest"})
 @com.gs.dmn.runtime.annotation.DRGElement(
-    namespace = "",
+    namespace = "http://www.montera.com.au/spec/DMN/feel-signavio-library",
     name = "AppendAllTest",
     label = "AppendAllTest",
     elementKind = com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

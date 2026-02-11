@@ -13,7 +13,7 @@
 <#macro classAnnotation templateName drgElement>
 @javax.annotation.Generated(value = {"${templateName}", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
 @${transformer.drgElementAnnotationClassName()}(
-    namespace = "${javaPackageName}",
+    namespace = "${modelRepository.namespace(drgElement)}",
     name = "${modelRepository.name(drgElement)}",
     label = "${modelRepository.label(drgElement)}",
     elementKind = ${transformer.elementKindAnnotationClassName()}.${transformer.elementKind(drgElement)},
