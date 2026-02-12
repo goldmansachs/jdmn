@@ -6,11 +6,16 @@ import java.util.stream.Collectors;
 public class _0010MultiOutputUTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number age = number("18");
+        String riskCategory = "Medium";
+        Boolean isAffordable = Boolean.TRUE;
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", number("18"));
-        input_.add("RiskCategory", "Medium");
-        input_.add("isAffordable", Boolean.TRUE);
+        input_.add("Age", age);
+        input_.add("RiskCategory", riskCategory);
+        input_.add("isAffordable", isAffordable);
 
         // Check 'Approval'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -19,11 +24,16 @@ public class _0010MultiOutputUTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase002_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number age = number("17");
+        String riskCategory = "Medium";
+        Boolean isAffordable = Boolean.TRUE;
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", number("17"));
-        input_.add("RiskCategory", "Medium");
-        input_.add("isAffordable", Boolean.TRUE);
+        input_.add("Age", age);
+        input_.add("RiskCategory", riskCategory);
+        input_.add("isAffordable", isAffordable);
 
         // Check 'Approval'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -32,11 +42,16 @@ public class _0010MultiOutputUTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase003_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number age = number("18");
+        String riskCategory = "High";
+        Boolean isAffordable = Boolean.TRUE;
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Age", number("18"));
-        input_.add("RiskCategory", "High");
-        input_.add("isAffordable", Boolean.TRUE);
+        input_.add("Age", age);
+        input_.add("RiskCategory", riskCategory);
+        input_.add("isAffordable", isAffordable);
 
         // Check 'Approval'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();

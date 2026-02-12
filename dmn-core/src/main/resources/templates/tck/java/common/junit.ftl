@@ -64,20 +64,37 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
 </#macro>
 
 <#macro initializeApplyArguments inputNodeInfoList resultInfo>
+    <#list inputNodeInfoList>
+        // Initialize inputs
+        <#items as inputInfo>
+            <#assign inputVariableName = tckUtil.inputDataVariableName(inputInfo)/>
+            <#assign inputVariableType = tckUtil.toNativeType(inputInfo)/>
+            <#assign inputValue = tckUtil.toNativeExpression(inputInfo)/>
+            <#if inputInfo.isInputData()>
+        ${inputVariableType} ${inputVariableName} = ${inputValue};
+            <#elseif inputInfo.isDecision()>
+                <#if resultInfo.isDS() || resultInfo.isBKM()>
+        ${inputVariableType} ${inputVariableName} = ${inputValue};
+                </#if>
+            </#if>
+        </#items>
+    </#list>
+        <@addMissingApplyArguments inputNodeInfoList resultInfo/>
+
     <#assign drgElement = resultInfo.reference.element/>
-    <#assign inputClassName = tckUtil.contextClassName()/>
-    <#assign inputVariableName = tckUtil.inputVariableName()/>
-        // Initialize input
-        ${inputClassName} ${inputVariableName} = ${tckUtil.defaultConstructor(inputClassName)};
+    <#assign inputContextClassName = tckUtil.contextClassName()/>
+    <#assign inputContextVariableName = tckUtil.inputVariableName()/>
+        // Initialize input context
+        ${inputContextClassName} ${inputContextVariableName} = ${tckUtil.defaultConstructor(inputContextClassName)};
     <#list inputNodeInfoList>
         <#items as inputInfo>
             <#assign displayName = tckUtil.displayName(inputInfo)/>
-            <#assign memberValue = tckUtil.toNativeExpression(inputInfo)/>
+            <#assign memberVariableName = tckUtil.inputDataVariableName(inputInfo)/>
             <#if inputInfo.isInputData()>
-        ${inputVariableName}.${tckUtil.contextSetter(displayName, memberValue)};
+        ${inputContextVariableName}.${tckUtil.contextSetter(displayName, memberVariableName)};
             <#elseif inputInfo.isDecision()>
                 <#if resultInfo.isDS() || resultInfo.isBKM()>
-        ${inputVariableName}.${tckUtil.contextSetter(displayName, memberValue)};
+        ${inputContextVariableName}.${tckUtil.contextSetter(displayName, memberVariableName)};
                 </#if>
             </#if>
         </#items>
@@ -104,6 +121,14 @@ public class ${testClassName} extends ${decisionBaseClass}<Object> {
         <#elseif resultInfo.isDS() || resultInfo.isBKM()>
         checkValues(${expectedValue}, ${elementQName}.applyContext(${parentArgList}));
         </#if>
+</#macro>
+
+<#macro addMissingApplyArguments inputNodeInfoList resultInfo>
+    <#list tckUtil.missingArguments(inputNodeInfoList, resultInfo)>
+        <#items as triplet>
+        ${triplet[0]} ${triplet[1]} = ${triplet[2]};
+        </#items>
+    </#list>
 </#macro>
 
 <#macro instantiateSubDecisions inputNodeInfoList resultInfo>

@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCaseboxed_001_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'boxed_001'
@@ -16,7 +17,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseincorrect_001_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'incorrect_001'
@@ -26,7 +28,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseincorrect_002_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'incorrect_002'
@@ -36,7 +39,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseincorrect_003_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'incorrect_003'
@@ -46,7 +50,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_001_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_001'
@@ -56,7 +61,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_002_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_002'
@@ -66,7 +72,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_003_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_003'
@@ -76,7 +83,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_004_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_004'
@@ -86,7 +94,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_005_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_005'
@@ -96,7 +105,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_006_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_006'
@@ -106,7 +116,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_007_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_007'
@@ -116,7 +127,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_007_a_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_007_a'
@@ -126,7 +138,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_008_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_008'
@@ -136,7 +149,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_009_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_009'
@@ -146,7 +160,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_010_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_010'
@@ -156,7 +171,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_011_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_011'
@@ -166,7 +182,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCaseliteral_012_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'literal_012'
@@ -176,7 +193,8 @@ public class _0076FeelExternalJavaTest extends com.gs.dmn.runtime.JavaTimeDMNBas
 
     @org.junit.jupiter.api.Test
     public void testCasevarargs_001_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'varargs_001'

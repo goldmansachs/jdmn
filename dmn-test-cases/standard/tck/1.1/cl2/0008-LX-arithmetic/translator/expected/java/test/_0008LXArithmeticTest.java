@@ -6,9 +6,12 @@ import java.util.stream.Collectors;
 public class _0008LXArithmeticTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize input
+        // Initialize inputs
+        type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0375"), number("360"));
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("loan", new type.TLoanImpl(number("600000"), number("0.0375"), number("360")));
+        input_.add("loan", loan);
 
         // Check 'payment'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -17,9 +20,12 @@ public class _0008LXArithmeticTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase002_1() {
-        // Initialize input
+        // Initialize inputs
+        type.TLoan loan = new type.TLoanImpl(number("30000"), number("0.0475"), number("60"));
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("loan", new type.TLoanImpl(number("30000"), number("0.0475"), number("60")));
+        input_.add("loan", loan);
 
         // Check 'payment'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -28,9 +34,12 @@ public class _0008LXArithmeticTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDec
 
     @org.junit.jupiter.api.Test
     public void testCase003_1() {
-        // Initialize input
+        // Initialize inputs
+        type.TLoan loan = new type.TLoanImpl(number("600000"), number("0.0399"), number("360"));
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("loan", new type.TLoanImpl(number("600000"), number("0.0399"), number("360")));
+        input_.add("loan", loan);
 
         // Check 'payment'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();

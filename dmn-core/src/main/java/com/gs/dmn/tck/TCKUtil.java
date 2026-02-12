@@ -203,7 +203,7 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
     }
 
     private boolean sameReference(DRGElementReference<TDecision> ref1, DRGElementReference<? extends TDRGElement> ref2) {
-        if (ref1 == null || ref2 ==  null) {
+        if (ref1 == null || ref2 == null) {
             return false;
         }
         return ref1.getElementName().equals(ref2.getElementName())
@@ -353,6 +353,24 @@ public class TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> {
         return this.transformer.qualifiedName(reference);
     }
 
+    // For apply() for child elements in java
+    public String drgElementArgumentMockList(NodeInfo info) {
+        if (info.isDecision() || info.isBKM() || info.isDS()) {
+            int argSize = transformer.drgElementTypeSignature(info.getReference()).size() + 1;
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < argSize; i++) {
+                if (i > 0) {
+                    builder.append(", ");
+                }
+                builder.append("org.mockito.ArgumentMatchers.any()");
+            }
+            return builder.toString();
+        } else {
+            throw new DMNRuntimeException(String.format("Not supported node type '%s'", info.getNodeType()));
+        }
+    }
+
+    // For apply() in kotlin and python
     public String drgElementArgumentList(NodeInfo info) {
         if (info.isDecision() || info.isBKM() || info.isDS()) {
             return this.transformer.drgElementArgumentList(info.getReference());

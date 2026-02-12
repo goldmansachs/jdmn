@@ -6,10 +6,14 @@ import java.util.stream.Collectors;
 public class ModelCTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number aa = number("1000");
+        String ba = "$";
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("aa", number("1000"));
-        input_.add("ba", "$");
+        input_.add("aa", aa);
+        input_.add("ba", ba);
 
         // Check 'c'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();

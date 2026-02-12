@@ -7,9 +7,12 @@ import java.util.stream.Collectors;
 public class ModelB1Test extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize input
+        // Initialize inputs
+        String model_a_personName = "B.A.John";
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("model-a.personName", "B.A.John");
+        input_.add("model-a.personName", model_a_personName);
 
         // Check 'greetThePerson'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();

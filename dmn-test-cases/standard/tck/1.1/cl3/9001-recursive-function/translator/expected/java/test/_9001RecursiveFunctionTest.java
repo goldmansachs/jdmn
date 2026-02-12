@@ -6,9 +6,12 @@ import java.util.stream.Collectors;
 public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number n = number("0");
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("n", number("0"));
+        input_.add("n", n);
 
         // Check 'main'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -17,9 +20,12 @@ public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.JavaTimeDMNBa
 
     @org.junit.jupiter.api.Test
     public void testCase002_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number n = number("1");
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("n", number("1"));
+        input_.add("n", n);
 
         // Check 'main'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -28,9 +34,12 @@ public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.JavaTimeDMNBa
 
     @org.junit.jupiter.api.Test
     public void testCase003_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number n = number("3");
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("n", number("3"));
+        input_.add("n", n);
 
         // Check 'main'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -39,9 +48,12 @@ public class _9001RecursiveFunctionTest extends com.gs.dmn.runtime.JavaTimeDMNBa
 
     @org.junit.jupiter.api.Test
     public void testCase004_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number n = number("-1");
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("n", number("-1"));
+        input_.add("n", n);
 
         // Check 'main'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();

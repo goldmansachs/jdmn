@@ -7,10 +7,14 @@ import java.util.stream.Collectors;
 public class NestedInputDataImportsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize input
+        // Initialize inputs
+        String model_b_modela_personName = "B.A.John";
+        String model_b2_modela_personName = "B2.A.John2";
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("Model B.modelA.Person name", "B.A.John");
-        input_.add("Model B2.modelA.Person name", "B2.A.John2");
+        input_.add("Model B.modelA.Person name", model_b_modela_personName);
+        input_.add("Model B2.modelA.Person name", model_b2_modela_personName);
 
         // Check 'Model C Decision based on Bs'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();

@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCasedecision_001_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_001'
@@ -16,7 +17,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasedecision_001_a_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_001_a'
@@ -26,7 +28,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasedecision_001_b_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_001_b'
@@ -36,7 +39,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasedecision_002_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_002'
@@ -46,7 +50,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasedecision_003_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_003'
@@ -56,7 +61,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasedecision_003_a_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_003_a'
@@ -66,7 +72,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasedecision_004_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_004'
@@ -76,7 +83,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasedecision_004_a_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_004_a'
@@ -86,7 +94,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasedecision_005_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_005'
@@ -96,7 +105,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasedecision_005_a_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_005_a'
@@ -106,7 +116,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasedecision_006_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_006'
@@ -116,7 +127,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasedecision_007_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'decision_007'
@@ -126,7 +138,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCaseendswith_001_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'endswith_001'
@@ -136,7 +149,8 @@ public class _0083FeelUnicodeTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDeci
 
     @org.junit.jupiter.api.Test
     public void testCasesubstring_004_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'substring_004'

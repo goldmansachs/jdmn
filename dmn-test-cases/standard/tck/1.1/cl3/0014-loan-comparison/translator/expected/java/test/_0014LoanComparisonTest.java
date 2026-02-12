@@ -6,9 +6,12 @@ import java.util.stream.Collectors;
 public class _0014LoanComparisonTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number requestedAmt = number("330000");
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("RequestedAmt", number("330000"));
+        input_.add("RequestedAmt", requestedAmt);
 
         // Check 'Bankrates'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -17,9 +20,12 @@ public class _0014LoanComparisonTest extends com.gs.dmn.runtime.JavaTimeDMNBaseD
 
     @org.junit.jupiter.api.Test
     public void testCase001_2() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number requestedAmt = number("330000");
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("RequestedAmt", number("330000"));
+        input_.add("RequestedAmt", requestedAmt);
 
         // Check 'RankedProducts'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();

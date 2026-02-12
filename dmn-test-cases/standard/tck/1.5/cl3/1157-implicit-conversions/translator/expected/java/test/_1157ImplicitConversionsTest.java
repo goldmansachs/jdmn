@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'To Singleton List'
@@ -16,7 +17,8 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase002_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'From Singleton List'
@@ -26,7 +28,8 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase002_a_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'From Singleton List Error'
@@ -36,7 +39,8 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase003_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'From Date To Date and Time'
@@ -46,7 +50,8 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase004_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'To Singleton List BKM'
@@ -56,7 +61,8 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase005_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'From Singleton List BKM'
@@ -66,7 +72,8 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase006_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'From Date To Date and Time BKM'
@@ -76,7 +83,8 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase007_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'To Singleton List DS'
@@ -86,7 +94,8 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase008_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'From Singleton List DS'
@@ -96,7 +105,8 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase009_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'From Date to Date and Time DS'
@@ -106,7 +116,8 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase010_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'Implicit Conversions CE'
@@ -116,7 +127,8 @@ public class _1157ImplicitConversionsTest extends com.gs.dmn.runtime.JavaTimeDMN
 
     @org.junit.jupiter.api.Test
     public void testCase011_1() {
-        // Initialize input
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
 
         // Check 'Implicit Conversions FUNCT'

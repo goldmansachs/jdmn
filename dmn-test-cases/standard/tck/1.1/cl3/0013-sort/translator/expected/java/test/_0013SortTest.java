@@ -6,11 +6,16 @@ import java.util.stream.Collectors;
 public class _0013SortTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize input
+        // Initialize inputs
+        List<java.lang.Number> listA = asList(number("3"), number("1"), number("5"), number("4"));
+        List<String> stringList = asList("a", "8", "Aa", "A", "10", "9");
+        List<type.TRow> tableB = asList(new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10")), new type.TRowImpl(number("1"), number("0"), number("1"), number("1")));
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("listA", asList(number("3"), number("1"), number("5"), number("4")));
-        input_.add("stringList", asList("a", "8", "Aa", "A", "10", "9"));
-        input_.add("tableB", asList(new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10")), new type.TRowImpl(number("1"), number("0"), number("1"), number("1"))));
+        input_.add("listA", listA);
+        input_.add("stringList", stringList);
+        input_.add("tableB", tableB);
 
         // Check 'sort1'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -19,11 +24,16 @@ public class _0013SortTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Ob
 
     @org.junit.jupiter.api.Test
     public void testCase001_2() {
-        // Initialize input
+        // Initialize inputs
+        List<java.lang.Number> listA = asList(number("3"), number("1"), number("5"), number("4"));
+        List<String> stringList = asList("a", "8", "Aa", "A", "10", "9");
+        List<type.TRow> tableB = asList(new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10")), new type.TRowImpl(number("1"), number("0"), number("1"), number("1")));
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("listA", asList(number("3"), number("1"), number("5"), number("4")));
-        input_.add("stringList", asList("a", "8", "Aa", "A", "10", "9"));
-        input_.add("tableB", asList(new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10")), new type.TRowImpl(number("1"), number("0"), number("1"), number("1"))));
+        input_.add("listA", listA);
+        input_.add("stringList", stringList);
+        input_.add("tableB", tableB);
 
         // Check 'sort2'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -32,11 +42,16 @@ public class _0013SortTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Ob
 
     @org.junit.jupiter.api.Test
     public void testCase001_3() {
-        // Initialize input
+        // Initialize inputs
+        List<java.lang.Number> listA = asList(number("3"), number("1"), number("5"), number("4"));
+        List<String> stringList = asList("a", "8", "Aa", "A", "10", "9");
+        List<type.TRow> tableB = asList(new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10")), new type.TRowImpl(number("1"), number("0"), number("1"), number("1")));
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("listA", asList(number("3"), number("1"), number("5"), number("4")));
-        input_.add("stringList", asList("a", "8", "Aa", "A", "10", "9"));
-        input_.add("tableB", asList(new type.TRowImpl(number("16"), number("4"), number("25"), number("1")), new type.TRowImpl(number("16"), number("43"), number("2"), number("10")), new type.TRowImpl(number("1"), number("0"), number("1"), number("1"))));
+        input_.add("listA", listA);
+        input_.add("stringList", stringList);
+        input_.add("tableB", tableB);
 
         // Check 'sort3'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();

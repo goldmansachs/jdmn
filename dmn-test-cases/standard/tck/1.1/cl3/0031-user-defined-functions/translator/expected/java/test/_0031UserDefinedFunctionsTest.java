@@ -6,10 +6,14 @@ import java.util.stream.Collectors;
 public class _0031UserDefinedFunctionsTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     @org.junit.jupiter.api.Test
     public void testCase001_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number inputA = number("10");
+        java.lang.Number inputB = number("5");
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("inputA", number("10"));
-        input_.add("inputB", number("5"));
+        input_.add("inputA", inputA);
+        input_.add("inputB", inputB);
 
         // Check 'fn invocation positional parameters'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -18,10 +22,14 @@ public class _0031UserDefinedFunctionsTest extends com.gs.dmn.runtime.JavaTimeDM
 
     @org.junit.jupiter.api.Test
     public void testCase002_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number inputA = number("10");
+        java.lang.Number inputB = number("5");
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("inputA", number("10"));
-        input_.add("inputB", number("5"));
+        input_.add("inputA", inputA);
+        input_.add("inputB", inputB);
 
         // Check 'fn invocation named parameters'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
@@ -30,10 +38,14 @@ public class _0031UserDefinedFunctionsTest extends com.gs.dmn.runtime.JavaTimeDM
 
     @org.junit.jupiter.api.Test
     public void testCase003_1() {
-        // Initialize input
+        // Initialize inputs
+        java.lang.Number inputA = number("10");
+        java.lang.Number inputB = number("5");
+
+        // Initialize input context
         com.gs.dmn.runtime.Context input_ = new com.gs.dmn.runtime.Context();
-        input_.add("inputA", number("10"));
-        input_.add("inputB", number("5"));
+        input_.add("inputA", inputA);
+        input_.add("inputB", inputB);
 
         // Check 'fn invocation complex parameters'
         com.gs.dmn.runtime.ExecutionContext context_ = com.gs.dmn.runtime.ExecutionContextBuilder.executionContext().build();
