@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 )
 public class Bkm extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "model_a",
+        "http://www.provider.com/definitions/model-a",
         "bkm",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,

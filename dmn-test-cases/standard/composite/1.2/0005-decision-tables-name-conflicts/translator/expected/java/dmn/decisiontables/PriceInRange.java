@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 )
 public class PriceInRange extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "decisiontables",
+        "http://www.provider.com/definitions/decisions",
         "priceInRange",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

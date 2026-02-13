@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Decision1 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "https://github.com/dmn-tck/tck",
         "Decision1",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

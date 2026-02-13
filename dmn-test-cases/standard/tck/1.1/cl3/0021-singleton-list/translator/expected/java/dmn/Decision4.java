@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Decision4 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.trisotech.com/definitions/_f52ca843-504b-4c3b-a6bc-4d377bffef7a",
         "decision4",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

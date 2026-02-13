@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Decision2 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.lang.Number> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.montera.com.au/spec/DMN/feel-signavio-library",
         "Decision2",
         "Decision2",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

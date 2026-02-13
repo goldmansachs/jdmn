@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Routing extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
         "Routing",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

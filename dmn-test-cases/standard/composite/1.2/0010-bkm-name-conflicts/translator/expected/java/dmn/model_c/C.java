@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 )
 public class C extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "model_c",
+        "http://www.provider.com/definitions/model-c",
         "c",
         "C",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

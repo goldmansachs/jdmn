@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Monthly extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<java.lang.Number> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.omg.org/spec/DMN/20151101/dmn.xsd",
         "monthly",
         "Monthly",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

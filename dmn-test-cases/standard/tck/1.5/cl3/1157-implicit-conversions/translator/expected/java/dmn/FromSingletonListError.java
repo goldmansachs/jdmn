@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class FromSingletonListError extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "https://kie.org/dmn/_F9BB5760-8BCA-4216-AAD9-8BD4FB70802D",
         "From Singleton List Error",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

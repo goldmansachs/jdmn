@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class AssessIssueRisk extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<java.lang.Number> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
         "assessIssueRisk",
         "Assess issue risk",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

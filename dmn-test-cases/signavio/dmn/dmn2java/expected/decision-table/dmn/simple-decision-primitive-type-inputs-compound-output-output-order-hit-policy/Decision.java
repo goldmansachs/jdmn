@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Decision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<List<type.Decision>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.provider.com/dmn/1.1/diagram/b69ed36fd3714a89b77c413e452dc732.xml",
         "decision",
         "Decision",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

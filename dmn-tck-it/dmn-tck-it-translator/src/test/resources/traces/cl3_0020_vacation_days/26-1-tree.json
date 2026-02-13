@@ -1,6 +1,6 @@
 {
   "element": {
-    "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+    "namespace": "https://www.drools.org/kie-dmn",
     "name": "Total Vacation Days",
     "label": "",
     "elementKind": "DECISION",
@@ -17,7 +17,7 @@
   "children": [
     {
       "element": {
-        "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+        "namespace": "https://www.drools.org/kie-dmn",
         "name": "Base Vacation Days",
         "label": "",
         "elementKind": "DECISION",
@@ -32,7 +32,7 @@
     },
     {
       "element": {
-        "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+        "namespace": "https://www.drools.org/kie-dmn",
         "name": "Extra days case 1",
         "label": "",
         "elementKind": "DECISION",
@@ -93,7 +93,7 @@
     },
     {
       "element": {
-        "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+        "namespace": "https://www.drools.org/kie-dmn",
         "name": "Extra days case 2",
         "label": "",
         "elementKind": "DECISION",
@@ -150,7 +150,7 @@
     },
     {
       "element": {
-        "namespace": "com.gs.dmn.generated.tck.cl3_0020_vacation_days",
+        "namespace": "https://www.drools.org/kie-dmn",
         "name": "Extra days case 3",
         "label": "",
         "elementKind": "DECISION",

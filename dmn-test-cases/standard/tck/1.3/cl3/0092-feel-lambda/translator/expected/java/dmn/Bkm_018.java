@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Bkm_018 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.montera.com.au/spec/DMN/0092-feel-lambda",
         "bkm_018",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,

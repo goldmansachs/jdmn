@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class IncompleteDecisionTable extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<type.IncompleteDecisionTable> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.provider.com/dmn/1.1/diagram/7f0dd69d49504172be8e6e3c23d8ed63.xml",
         "incompleteDecisionTable",
         "IncompleteDecisionTable",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

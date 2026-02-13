@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class CalculateDiscountedPrice extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.lang.Number> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "https://kiegroup.org/dmn/_BD539849-95A1-4D71-BA89-8901271CEB07",
         "calculateDiscountedPrice",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

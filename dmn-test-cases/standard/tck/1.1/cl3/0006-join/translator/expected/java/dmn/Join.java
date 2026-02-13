@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Join extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.trisotech.com/definitions/_16bf03c7-8f3d-46d0-a921-6e335ccc7e29",
         "Join",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

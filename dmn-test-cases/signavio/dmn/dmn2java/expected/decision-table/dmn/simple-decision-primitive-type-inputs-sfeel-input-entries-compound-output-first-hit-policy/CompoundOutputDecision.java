@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class CompoundOutputDecision extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<type.CompoundOutputDecision> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.provider.com/dmn/1.1/diagram/0d0e36d84e6b4838a08437bc729dd66a.xml",
         "compoundOutputDecision",
         "Compound Output Decision",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

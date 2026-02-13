@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 )
 public class EvaluatingB2SayHello extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "model_b2",
+        "http://www.provider.com/definitions/model-b2",
         "evaluatingB2SayHello",
         "Evaluating B2 Say Hello",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

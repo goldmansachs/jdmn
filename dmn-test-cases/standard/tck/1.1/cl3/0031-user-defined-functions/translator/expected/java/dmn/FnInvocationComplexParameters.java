@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class FnInvocationComplexParameters extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<type.TFnInvocationComplexParamsResult> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.actico.com/spec/DMN/0.1.0/0031-user-defined-functions",
         "fn invocation complex parameters",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

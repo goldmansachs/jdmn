@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class AffordabilityCalculation extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.trisotech.com/definitions/_4e0f0b70-d31c-471c-bd52-5ca709ed362b",
         "AffordabilityCalculation",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,

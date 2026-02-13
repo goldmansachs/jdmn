@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class AppendAllTest extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<String>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.montera.com.au/spec/DMN/feel-signavio-library",
         "AppendAllTest",
         "AppendAllTest",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

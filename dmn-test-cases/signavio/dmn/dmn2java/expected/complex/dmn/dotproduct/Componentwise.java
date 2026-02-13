@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Componentwise extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<List<type.Componentwise>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
         "componentwise",
         "Componentwise",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

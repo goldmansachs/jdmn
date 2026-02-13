@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class D extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<type.Country>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "https://kie.org/dmn/_33CD912B-9FDA-4DE2-ABB1-C02212AECEAB",
         "D",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class GtTen extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Boolean> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.trisotech.com/definitions/_d7643a02-a8fc-4a6f-a8a9-5c2881afea70",
         "gtTen",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.BUSINESS_KNOWLEDGE_MODEL,

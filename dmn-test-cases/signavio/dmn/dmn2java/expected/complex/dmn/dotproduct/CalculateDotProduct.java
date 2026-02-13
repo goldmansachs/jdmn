@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class CalculateDotProduct extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<java.lang.Number> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.provider.com/dmn/1.1/diagram/8a7911e71e72444995f084b28688a37d.xml",
         "calculateDotProduct",
         "CalculateDotProduct",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

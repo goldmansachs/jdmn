@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 )
 public class ModelCDecisionBasedOnBs extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "model_c",
+        "http://www.provider.com/definitions/model-c",
         "modelCDecisionBasedOnBs",
         "Model C Decision based on Bs",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

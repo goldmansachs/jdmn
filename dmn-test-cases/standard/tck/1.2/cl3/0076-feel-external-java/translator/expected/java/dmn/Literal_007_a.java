@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Literal_007_a extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<Object> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
         "literal_007_a",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

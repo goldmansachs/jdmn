@@ -1,7 +1,7 @@
 [
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "generateOutputData",
       "label": "Generate output data",
       "elementKind": "DECISION",
@@ -32,7 +32,7 @@
     "children": [
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "makeCreditDecision",
           "label": "Make credit decision",
           "elementKind": "DECISION",
@@ -113,7 +113,7 @@
         "children": [
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "compareAgainstLendingThreshold",
               "label": "Compare against lending threshold",
               "elementKind": "DECISION",
@@ -177,7 +177,7 @@
             "children": [
               {
                 "element": {
-                  "namespace": "com.gs.dmn.generated.example_credit_decision",
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
                   "name": "assessIssueRisk",
                   "label": "Assess issue risk",
                   "elementKind": "DECISION",
@@ -201,7 +201,7 @@
                 "children": [
                   {
                     "element": {
-                      "namespace": "com.gs.dmn.generated.example_credit_decision",
+                      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
                       "name": "processPriorIssues",
                       "label": "Process prior issues",
                       "elementKind": "DECISION",
@@ -314,7 +314,7 @@
                   },
                   {
                     "element": {
-                      "namespace": "com.gs.dmn.generated.example_credit_decision",
+                      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
                       "name": "assessIssue",
                       "label": "Assess issue",
                       "elementKind": "DECISION",
@@ -332,7 +332,7 @@
                   },
                   {
                     "element": {
-                      "namespace": "com.gs.dmn.generated.example_credit_decision",
+                      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
                       "name": "assessIssue",
                       "label": "Assess issue",
                       "elementKind": "DECISION",
@@ -352,7 +352,7 @@
               },
               {
                 "element": {
-                  "namespace": "com.gs.dmn.generated.example_credit_decision",
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
                   "name": "assessApplicantAge",
                   "label": "Assess applicant age",
                   "elementKind": "DECISION",
@@ -432,7 +432,7 @@
       },
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "compareAgainstLendingThreshold",
           "label": "Compare against lending threshold",
           "elementKind": "DECISION",
@@ -492,7 +492,7 @@
         "children": [
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "assessIssueRisk",
               "label": "Assess issue risk",
               "elementKind": "DECISION",
@@ -516,7 +516,7 @@
             "children": [
               {
                 "element": {
-                  "namespace": "com.gs.dmn.generated.example_credit_decision",
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
                   "name": "processPriorIssues",
                   "label": "Process prior issues",
                   "elementKind": "DECISION",
@@ -629,7 +629,7 @@
               },
               {
                 "element": {
-                  "namespace": "com.gs.dmn.generated.example_credit_decision",
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
                   "name": "assessIssue",
                   "label": "Assess issue",
                   "elementKind": "DECISION",
@@ -647,7 +647,7 @@
               },
               {
                 "element": {
-                  "namespace": "com.gs.dmn.generated.example_credit_decision",
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
                   "name": "assessIssue",
                   "label": "Assess issue",
                   "elementKind": "DECISION",
@@ -667,7 +667,7 @@
           },
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "assessApplicantAge",
               "label": "Assess applicant age",
               "elementKind": "DECISION",
@@ -745,7 +745,7 @@
       },
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "assessIssueRisk",
           "label": "Assess issue risk",
           "elementKind": "DECISION",
@@ -769,7 +769,7 @@
         "children": [
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "processPriorIssues",
               "label": "Process prior issues",
               "elementKind": "DECISION",
@@ -882,7 +882,7 @@
           },
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "assessIssue",
               "label": "Assess issue",
               "elementKind": "DECISION",
@@ -900,7 +900,7 @@
           },
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "assessIssue",
               "label": "Assess issue",
               "elementKind": "DECISION",
@@ -922,7 +922,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "makeCreditDecision",
       "label": "Make credit decision",
       "elementKind": "DECISION",
@@ -1003,7 +1003,7 @@
     "children": [
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "compareAgainstLendingThreshold",
           "label": "Compare against lending threshold",
           "elementKind": "DECISION",
@@ -1067,7 +1067,7 @@
         "children": [
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "assessIssueRisk",
               "label": "Assess issue risk",
               "elementKind": "DECISION",
@@ -1091,7 +1091,7 @@
             "children": [
               {
                 "element": {
-                  "namespace": "com.gs.dmn.generated.example_credit_decision",
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
                   "name": "processPriorIssues",
                   "label": "Process prior issues",
                   "elementKind": "DECISION",
@@ -1204,7 +1204,7 @@
               },
               {
                 "element": {
-                  "namespace": "com.gs.dmn.generated.example_credit_decision",
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
                   "name": "assessIssue",
                   "label": "Assess issue",
                   "elementKind": "DECISION",
@@ -1222,7 +1222,7 @@
               },
               {
                 "element": {
-                  "namespace": "com.gs.dmn.generated.example_credit_decision",
+                  "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
                   "name": "assessIssue",
                   "label": "Assess issue",
                   "elementKind": "DECISION",
@@ -1242,7 +1242,7 @@
           },
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "assessApplicantAge",
               "label": "Assess applicant age",
               "elementKind": "DECISION",
@@ -1322,7 +1322,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "compareAgainstLendingThreshold",
       "label": "Compare against lending threshold",
       "elementKind": "DECISION",
@@ -1386,7 +1386,7 @@
     "children": [
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "assessIssueRisk",
           "label": "Assess issue risk",
           "elementKind": "DECISION",
@@ -1410,7 +1410,7 @@
         "children": [
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "processPriorIssues",
               "label": "Process prior issues",
               "elementKind": "DECISION",
@@ -1523,7 +1523,7 @@
           },
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "assessIssue",
               "label": "Assess issue",
               "elementKind": "DECISION",
@@ -1541,7 +1541,7 @@
           },
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "assessIssue",
               "label": "Assess issue",
               "elementKind": "DECISION",
@@ -1561,7 +1561,7 @@
       },
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "assessApplicantAge",
           "label": "Assess applicant age",
           "elementKind": "DECISION",
@@ -1639,7 +1639,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "assessIssueRisk",
       "label": "Assess issue risk",
       "elementKind": "DECISION",
@@ -1663,7 +1663,7 @@
     "children": [
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "processPriorIssues",
           "label": "Process prior issues",
           "elementKind": "DECISION",
@@ -1776,7 +1776,7 @@
       },
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "assessIssue",
           "label": "Assess issue",
           "elementKind": "DECISION",
@@ -1794,7 +1794,7 @@
       },
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "assessIssue",
           "label": "Assess issue",
           "elementKind": "DECISION",
@@ -1814,7 +1814,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "processPriorIssues",
       "label": "Process prior issues",
       "elementKind": "DECISION",
@@ -1927,7 +1927,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "assessIssue",
       "label": "Assess issue",
       "elementKind": "DECISION",
@@ -1945,7 +1945,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "assessIssue",
       "label": "Assess issue",
       "elementKind": "DECISION",
@@ -1963,7 +1963,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "assessApplicantAge",
       "label": "Assess applicant age",
       "elementKind": "DECISION",
@@ -2039,7 +2039,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "compareAgainstLendingThreshold",
       "label": "Compare against lending threshold",
       "elementKind": "DECISION",
@@ -2099,7 +2099,7 @@
     "children": [
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "assessIssueRisk",
           "label": "Assess issue risk",
           "elementKind": "DECISION",
@@ -2123,7 +2123,7 @@
         "children": [
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "processPriorIssues",
               "label": "Process prior issues",
               "elementKind": "DECISION",
@@ -2236,7 +2236,7 @@
           },
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "assessIssue",
               "label": "Assess issue",
               "elementKind": "DECISION",
@@ -2254,7 +2254,7 @@
           },
           {
             "element": {
-              "namespace": "com.gs.dmn.generated.example_credit_decision",
+              "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
               "name": "assessIssue",
               "label": "Assess issue",
               "elementKind": "DECISION",
@@ -2274,7 +2274,7 @@
       },
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "assessApplicantAge",
           "label": "Assess applicant age",
           "elementKind": "DECISION",
@@ -2352,7 +2352,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "assessIssueRisk",
       "label": "Assess issue risk",
       "elementKind": "DECISION",
@@ -2376,7 +2376,7 @@
     "children": [
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "processPriorIssues",
           "label": "Process prior issues",
           "elementKind": "DECISION",
@@ -2489,7 +2489,7 @@
       },
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "assessIssue",
           "label": "Assess issue",
           "elementKind": "DECISION",
@@ -2507,7 +2507,7 @@
       },
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "assessIssue",
           "label": "Assess issue",
           "elementKind": "DECISION",
@@ -2527,7 +2527,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "processPriorIssues",
       "label": "Process prior issues",
       "elementKind": "DECISION",
@@ -2640,7 +2640,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "assessIssue",
       "label": "Assess issue",
       "elementKind": "DECISION",
@@ -2658,7 +2658,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "assessIssue",
       "label": "Assess issue",
       "elementKind": "DECISION",
@@ -2676,7 +2676,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "assessApplicantAge",
       "label": "Assess applicant age",
       "elementKind": "DECISION",
@@ -2752,7 +2752,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "assessIssueRisk",
       "label": "Assess issue risk",
       "elementKind": "DECISION",
@@ -2776,7 +2776,7 @@
     "children": [
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "processPriorIssues",
           "label": "Process prior issues",
           "elementKind": "DECISION",
@@ -2889,7 +2889,7 @@
       },
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "assessIssue",
           "label": "Assess issue",
           "elementKind": "DECISION",
@@ -2907,7 +2907,7 @@
       },
       {
         "element": {
-          "namespace": "com.gs.dmn.generated.example_credit_decision",
+          "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
           "name": "assessIssue",
           "label": "Assess issue",
           "elementKind": "DECISION",
@@ -2927,7 +2927,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "processPriorIssues",
       "label": "Process prior issues",
       "elementKind": "DECISION",
@@ -3040,7 +3040,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "assessIssue",
       "label": "Assess issue",
       "elementKind": "DECISION",
@@ -3058,7 +3058,7 @@
   },
   {
     "element": {
-      "namespace": "com.gs.dmn.generated.example_credit_decision",
+      "namespace": "http://www.provider.com/dmn/1.1/diagram/9acf44f2b05343d79fc35140c493c1e0.xml",
       "name": "assessIssue",
       "label": "Assess issue",
       "elementKind": "DECISION",

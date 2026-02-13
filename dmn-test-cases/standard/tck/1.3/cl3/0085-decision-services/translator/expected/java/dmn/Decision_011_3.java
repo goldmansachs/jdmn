@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Decision_011_3 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.montera.com.au/spec/DMN/0085-decision-services",
         "decision_011_3",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

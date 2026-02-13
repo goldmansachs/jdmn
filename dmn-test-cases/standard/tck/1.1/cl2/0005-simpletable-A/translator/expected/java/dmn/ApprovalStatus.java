@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class ApprovalStatus extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<String> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.trisotech.com/definitions/_6cb03678-38e5-4ee3-826b-d6622c738563",
         "Approval Status",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

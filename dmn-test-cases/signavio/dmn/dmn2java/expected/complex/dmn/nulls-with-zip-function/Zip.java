@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Zip extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<List<type.Zip>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.provider.com/dmn/1.1/diagram/7bf105649e8445b39cb4d936497fbc1c.xml",
         "zip",
         "zip",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

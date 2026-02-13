@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class DescribeAgesList extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<List<String>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
         "describeAgesList",
         "describeAgesList",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

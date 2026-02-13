@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class KeepInputanyTrue extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<Boolean> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.provider.com/dmn/1.1/diagram/7a41c638739441ef88d9fe7501233ef8.xml",
         "keepInputanyTrue",
         "keepInput_anyTrue",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

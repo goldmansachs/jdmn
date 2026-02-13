@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Applicant_repository extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<type.Applicant> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.montera.com.au/spec/DMN/0076-feel-external-java",
         "applicant_repository",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class BaseVacationDays extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.lang.Number> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "https://www.drools.org/kie-dmn",
         "Base Vacation Days",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

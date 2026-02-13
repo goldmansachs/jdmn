@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Payment extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<java.lang.Number> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.trisotech.com/definitions/_1fedf2c0-0f4a-470c-bc66-a15528e8a49a",
         "payment",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

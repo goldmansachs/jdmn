@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class BuildDateStringInAnnotation extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<Boolean> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.provider.com/dmn/1.1/diagram/5417bfd1893048bc9ca18c51aa11b7f0.xml",
         "buildDateStringInAnnotation",
         "buildDateStringInAnnotation",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

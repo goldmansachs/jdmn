@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class Sort3 extends com.gs.dmn.runtime.JavaTimeDMNBaseDecision<List<String>> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.trisotech.com/definitions/_ac1acfdd-6baa-4f30-9cac-5d23957b4217",
         "sort3",
         "",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,

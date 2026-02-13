@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 )
 public class SUM extends com.gs.dmn.signavio.runtime.JavaTimeSignavioBaseDecision<java.lang.Number> {
     public static final com.gs.dmn.runtime.listener.DRGElement DRG_ELEMENT_METADATA = new com.gs.dmn.runtime.listener.DRGElement(
-        "",
+        "http://www.provider.com/dmn/1.1/diagram/2521256910f54d44b0a90fa88a1aa917.xml",
         "sUM",
         "SUM",
         com.gs.dmn.runtime.annotation.DRGElementKind.DECISION,
