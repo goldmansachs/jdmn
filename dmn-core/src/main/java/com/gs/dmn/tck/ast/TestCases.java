@@ -28,11 +28,20 @@ import java.util.Map;
         "testCase"
 })
 public class TestCases extends TCKBaseElement {
+    protected String testCasesName;
     protected String modelName;
     protected Labels labels;
     protected List<TestCase> testCase;
     protected String namespace;
     private final Map<QName, String> otherAttributes = new HashMap<>();
+
+    public String getTestCasesName() {
+        return testCasesName;
+    }
+
+    public void setTestCasesName(String testCasesName) {
+        this.testCasesName = testCasesName;
+    }
 
     public String getModelName() {
         return modelName;

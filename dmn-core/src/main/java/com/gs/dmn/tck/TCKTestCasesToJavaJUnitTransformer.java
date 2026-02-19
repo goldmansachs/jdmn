@@ -113,6 +113,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         for (File file : files) {
             logger.info(String.format("Processing TCK files '%s'", file));
             TestCases testCases = testCasesReader.read(file);
+            testCases.setTestCasesName(file.getName());
             testCasesList.add(testCases);
         }
         return testCasesList;
@@ -157,16 +158,29 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
     }
 
     protected String testClassName(TestCases testCases, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
-        String modelName = testCases.getModelName();
-        if (modelName.endsWith(this.inputParameters.getDmnFileExtension())) {
-            modelName = modelName.substring(0, modelName.length() - 4);
+        String sourceName = testCases.getTestCasesName();
+        if (sourceName != null && !sourceName.isEmpty()) {
+            sourceName = removeExtension(sourceName, this.inputParameters.getTckFileExtension());
+            return testClassName(sourceName, dmnTransformer);
+        } else {
+            throw new DMNRuntimeException(String.format("Mising TestCases name when testing model '%s'", testCases.getModelName()));
         }
-        String testName = dmnTransformer.upperCaseFirst(modelName + "Test");
-        if (!Character.isJavaIdentifierStart(modelName.charAt(0))) {
+    }
+
+    private static String testClassName(String sourceName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+        String testName = dmnTransformer.upperCaseFirst(sourceName + "Test");
+        if (!Character.isJavaIdentifierStart(sourceName.charAt(0))) {
             return "_" + testName;
         } else {
             return testName;
         }
+    }
+
+    private static String removeExtension(String sourceName, String extension) {
+        if (sourceName.endsWith(extension)) {
+            sourceName = sourceName.substring(0, sourceName.length() - extension.length());
+        }
+        return sourceName;
     }
 
     private Map<String, Object> makeTemplateParams(TestCases testCases, TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil) {
