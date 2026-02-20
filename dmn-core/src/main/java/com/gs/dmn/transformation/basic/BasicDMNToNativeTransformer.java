@@ -208,7 +208,7 @@ public interface BasicDMNToNativeTransformer<T, C> {
 
     boolean isSingletonDecision();
 
-    String singletonDecisionConstructor(String javaClassName, TDecision decision);
+    String singletonDecisionConstructor(String nativeClassName, TDecision decision);
 
     String singletonDecisionInstance(String decisionQName);
 

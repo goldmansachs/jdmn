@@ -121,23 +121,23 @@ public class TestLabToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATI
 
         // Translate the test cases to the native platform
         for (TestLab testLab: testLabList) {
-            String javaClassName = testClassName(testLab, basicTransformer, testLabUtil);
-            transformTestLab(testLab, this.templateProcessor.getTemplateProvider().testBaseTemplatePath(), this.templateProcessor.getTemplateProvider().testTemplateName(), basicTransformer, testLabUtil, outputPath, javaClassName);
+            String nativeClassName = testClassName(testLab, basicTransformer, testLabUtil);
+            transformTestLab(testLab, this.templateProcessor.getTemplateProvider().testBaseTemplatePath(), this.templateProcessor.getTemplateProvider().testTemplateName(), basicTransformer, testLabUtil, outputPath, nativeClassName);
         }
     }
 
     private void transformTestLab(TestLab testLab, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, TestLabUtil testLabUtil, Path outputPath, String testClassName) {
         try {
-            String javaPackageName = dmnTransformer.nativeModelPackageName(testLab.getModelName());
+            String nativePackageName = dmnTransformer.nativeModelPackageName(testLab.getModelName());
 
             // Make parameters
             Map<String, Object> params = makeTemplateParams(testLab, testLabUtil);
-            params.put("packageName", javaPackageName);
+            params.put("packageName", nativePackageName);
             params.put("testClassName", testClassName);
             params.put("decisionBaseClass", this.decisionBaseClass);
 
             // Make output file
-            String relativeFilePath = javaPackageName.replace('.', '/');
+            String relativeFilePath = nativePackageName.replace('.', '/');
             String fileExtension = getFileExtension();
             File outputFile = this.templateProcessor.makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
 

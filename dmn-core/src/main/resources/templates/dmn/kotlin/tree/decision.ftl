@@ -13,15 +13,15 @@
 <#import "/tree/common/metadata.ftl" as metadata />
 <#import "/tree/common/constructor.ftl" as constructor />
 <#import "/tree/common/apply.ftl" as apply />
-<#if javaPackageName?has_content>
-package ${javaPackageName}
+<#if nativePackageName?has_content>
+package ${nativePackageName}
 </#if>
 
 import java.util.*
 import java.util.stream.Collectors
 
 <@metadata.classAnnotation "decision.ftl" drgElement/>
-class ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}) : ${decisionBaseClass}<${transformer.drgElementOutputType(drgElement)}>() {
+class ${nativeClassName}(${transformer.drgElementConstructorSignature(drgElement)}) : ${decisionBaseClass}<${transformer.drgElementOutputType(drgElement)}>() {
     <@apply.applyMethods drgElement />
     <@apply.evaluateExpressionMethod drgElement />
 

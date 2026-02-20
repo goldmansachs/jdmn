@@ -13,18 +13,18 @@
 <#import "/tree/common/metadata.ftl" as metadata />
 <#import "/tree/common/constructor.ftl" as constructor />
 <#import "/tree/common/signavio-apply.ftl" as apply />
-<#if javaPackageName?has_content>
-package ${javaPackageName};
+<#if nativePackageName?has_content>
+package ${nativePackageName};
 </#if>
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 <@metadata.classAnnotation "signavio-bkm.ftl" drgElement/>
-public class ${javaClassName} extends ${decisionBaseClass}<${transformer.drgElementOutputType(drgElement)}> {
+public class ${nativeClassName} extends ${decisionBaseClass}<${transformer.drgElementOutputType(drgElement)}> {
     <@metadata.elementMetadataField drgElement />
 
-    <@constructor.bkmConstructor drgElement javaClassName />
+    <@constructor.bkmConstructor drgElement nativeClassName />
 
     <@apply.applyMethods drgElement />
     <@apply.evaluateExpressionMethod drgElement />

@@ -88,14 +88,14 @@ public class TemplateProcessor {
         }
     }
 
-    void processTemplate(TDefinitions definitions, TItemDefinition itemDefinition, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String javaPackageName, String javaClassName) {
+    void processTemplate(TDefinitions definitions, TItemDefinition itemDefinition, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String nativePackageName, String nativeClassName) {
         try {
             // Make parameters
-            Map<String, Object> params = makeTemplateParams(definitions, itemDefinition, javaPackageName, javaClassName, dmnTransformer);
+            Map<String, Object> params = makeTemplateParams(definitions, itemDefinition, nativePackageName, nativeClassName, dmnTransformer);
 
             // Make output file
-            String relativeFilePath = javaPackageName.replace('.', '/');
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, this.fileExtension);
+            String relativeFilePath = nativePackageName.replace('.', '/');
+            File outputFile = makeOutputFile(outputPath, relativeFilePath, nativeClassName, this.fileExtension);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, false);
@@ -104,14 +104,14 @@ public class TemplateProcessor {
         }
     }
 
-    void processTemplate(TDefinitions definitions, TInvocable in, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String javaPackageName, String javaClassName, String decisionBaseClass) {
+    void processTemplate(TDefinitions definitions, TInvocable in, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String nativePackageName, String nativeClassName, String decisionBaseClass) {
         try {
             // Make parameters
-            Map<String, Object> params = makeTemplateParams(definitions, in, javaPackageName, javaClassName, decisionBaseClass, dmnTransformer);
+            Map<String, Object> params = makeTemplateParams(definitions, in, nativePackageName, nativeClassName, decisionBaseClass, dmnTransformer);
 
             // Make output file
-            String relativeFilePath = javaPackageName.replace('.', '/');
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, this.fileExtension);
+            String relativeFilePath = nativePackageName.replace('.', '/');
+            File outputFile = makeOutputFile(outputPath, relativeFilePath, nativeClassName, this.fileExtension);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
@@ -120,14 +120,14 @@ public class TemplateProcessor {
         }
     }
 
-    void processTemplate(TDefinitions definitions, TDecision decision, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String javaPackageName, String javaClassName, String decisionBaseClass) {
+    void processTemplate(TDefinitions definitions, TDecision decision, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String nativePackageName, String nativeClassName, String decisionBaseClass) {
         try {
             // Make parameters
-            Map<String, Object> params = makeTemplateParams(definitions, decision, javaPackageName, javaClassName, decisionBaseClass, dmnTransformer);
+            Map<String, Object> params = makeTemplateParams(definitions, decision, nativePackageName, nativeClassName, decisionBaseClass, dmnTransformer);
 
             // Make output file
-            String relativeFilePath = javaPackageName.replace('.', '/');
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, this.fileExtension);
+            String relativeFilePath = nativePackageName.replace('.', '/');
+            File outputFile = makeOutputFile(outputPath, relativeFilePath, nativeClassName, this.fileExtension);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
@@ -136,14 +136,14 @@ public class TemplateProcessor {
         }
     }
 
-    void processTemplate(TDefinitions definitions, TDRGElement element, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String javaPackageName, String javaClassName, String decisionBaseClass) {
+    void processTemplate(TDefinitions definitions, TDRGElement element, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, Path outputPath, String nativePackageName, String nativeClassName, String decisionBaseClass) {
         try {
             // Make parameters
-            Map<String, Object> params = makeTemplateParams(definitions, element, javaPackageName, javaClassName, decisionBaseClass, dmnTransformer);
+            Map<String, Object> params = makeTemplateParams(definitions, element, nativePackageName, nativeClassName, decisionBaseClass, dmnTransformer);
 
             // Make output file
-            String relativeFilePath = javaPackageName.replace('.', '/');
-            File outputFile = makeOutputFile(outputPath, relativeFilePath, javaClassName, this.fileExtension);
+            String relativeFilePath = nativePackageName.replace('.', '/');
+            File outputFile = makeOutputFile(outputPath, relativeFilePath, nativeClassName, this.fileExtension);
 
             // Process template
             processTemplate(baseTemplatePath, templateName, params, outputFile, true);
@@ -170,39 +170,39 @@ public class TemplateProcessor {
         return cfg;
     }
 
-    private Map<String, Object> makeTemplateParams(TDefinitions definitions, TItemDefinition itemDefinition, String javaPackageName, String javaClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TDefinitions definitions, TItemDefinition itemDefinition, String nativePackageName, String nativeClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("modelName", definitions.getName());
         params.put("itemDefinition", itemDefinition);
 
-        String qualifiedName = dmnTransformer.qualifiedName(javaPackageName, dmnTransformer.itemDefinitionNativeSimpleInterfaceName(itemDefinition));
+        String qualifiedName = dmnTransformer.qualifiedName(nativePackageName, dmnTransformer.itemDefinitionNativeSimpleInterfaceName(itemDefinition));
         String serializationClass = this.typeDeserializationConfigurer.deserializeTypeAs(qualifiedName);
         params.put("serializationClass", serializationClass);
 
-        addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);
+        addCommonParams(params, nativePackageName, nativeClassName, dmnTransformer);
         return params;
     }
 
-    private Map<String, Object> makeTemplateParams(TDefinitions definitions, TDRGElement element, String javaPackageName, String javaClassName, String decisionBaseClass, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    private Map<String, Object> makeTemplateParams(TDefinitions definitions, TDRGElement element, String nativePackageName, String nativeClassName, String decisionBaseClass, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("modelName", definitions.getName());
         params.put("drgElement", element);
         params.put("decisionBaseClass", decisionBaseClass);
-        addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);
+        addCommonParams(params, nativePackageName, nativeClassName, dmnTransformer);
         return params;
     }
 
-    Map<String, Object> makeModelRegistryTemplateParams(List<TDefinitions> definitionsList, String javaPackageName, String javaClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+    Map<String, Object> makeModelRegistryTemplateParams(List<TDefinitions> definitionsList, String nativePackageName, String nativeClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
         Map<String, Object> params = new HashMap<>();
         params.put("definitionsList", definitionsList);
-        addCommonParams(params, javaPackageName, javaClassName, dmnTransformer);
+        addCommonParams(params, nativePackageName, nativeClassName, dmnTransformer);
         return params;
     }
 
 
-    private void addCommonParams(Map<String, Object> params, String javaPackageName, String javaClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
-        params.put("javaPackageName", javaPackageName);
-        params.put("javaClassName", javaClassName);
+    private void addCommonParams(Map<String, Object> params, String nativePackageName, String nativeClassName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer) {
+        params.put("nativePackageName", nativePackageName);
+        params.put("nativeClassName", nativeClassName);
         params.put("transformer", dmnTransformer);
         params.put("modelRepository", dmnTransformer.getDMNModelRepository());
     }

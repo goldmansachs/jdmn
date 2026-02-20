@@ -10,11 +10,11 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#macro bkmConstructor drgElement javaClassName>
-        private val INSTANCE = ${javaClassName}()
+<#macro bkmConstructor drgElement nativeClassName>
+        private val INSTANCE = ${nativeClassName}()
 
         @JvmStatic
-        fun instance(): ${javaClassName} {
+        fun instance(): ${nativeClassName} {
             return INSTANCE
         }
 </#macro>

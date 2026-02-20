@@ -10,60 +10,60 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#macro decisionConstructor drgElement javaClassName>
+<#macro decisionConstructor drgElement nativeClassName>
     <#if transformer.isSingletonDecision()>
 
-    private static class ${javaClassName}LazyHolder {
-        static final ${javaClassName} INSTANCE = ${transformer.singletonDecisionConstructor(javaClassName, drgElement)};
+    private static class ${nativeClassName}LazyHolder {
+        static final ${nativeClassName} INSTANCE = ${transformer.singletonDecisionConstructor(nativeClassName, drgElement)};
     }
-    public static ${javaClassName} instance() {
-        return ${javaClassName}LazyHolder.INSTANCE;
+    public static ${nativeClassName} instance() {
+        return ${nativeClassName}LazyHolder.INSTANCE;
     }
     </#if>
     <@addSubDecisionFields drgElement/>
 
-    public ${javaClassName}() {
+    public ${nativeClassName}() {
         <#if transformer.hasDirectSubDecisions(drgElement)>
         this(${transformer.drgElementConstructorNewArgumentList(drgElement)});
         </#if>
     }
     <#if transformer.hasDirectSubDecisions(drgElement)>
 
-    public ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}) {
+    public ${nativeClassName}(${transformer.drgElementConstructorSignature(drgElement)}) {
         <@setSubDecisionFields drgElement/>
     }
     </#if>
 </#macro>
 
-<#macro bkmConstructor drgElement javaClassName>
-    private static class ${javaClassName}LazyHolder {
-        static final ${javaClassName} INSTANCE = new ${javaClassName}();
+<#macro bkmConstructor drgElement nativeClassName>
+    private static class ${nativeClassName}LazyHolder {
+        static final ${nativeClassName} INSTANCE = new ${nativeClassName}();
     }
-    public static ${javaClassName} instance() {
-        return ${javaClassName}LazyHolder.INSTANCE;
+    public static ${nativeClassName} instance() {
+        return ${nativeClassName}LazyHolder.INSTANCE;
     }
 
-    private ${javaClassName}() {
+    private ${nativeClassName}() {
     }
 </#macro>
 
-<#macro dsConstructor drgElement javaClassName>
-    private static class ${javaClassName}LazyHolder {
-        static final ${javaClassName} INSTANCE = new ${javaClassName}();
+<#macro dsConstructor drgElement nativeClassName>
+    private static class ${nativeClassName}LazyHolder {
+        static final ${nativeClassName} INSTANCE = new ${nativeClassName}();
     }
-    public static ${javaClassName} instance() {
-        return ${javaClassName}LazyHolder.INSTANCE;
+    public static ${nativeClassName} instance() {
+        return ${nativeClassName}LazyHolder.INSTANCE;
     }
     <@addSubDecisionFields drgElement/>
 
-    private ${javaClassName}() {
+    private ${nativeClassName}() {
         <#if transformer.hasDirectSubDecisions(drgElement)>
         this(${transformer.drgElementConstructorNewArgumentList(drgElement)});
         </#if>
     }
     <#if transformer.hasDirectSubDecisions(drgElement)>
 
-    private ${javaClassName}(${transformer.drgElementConstructorSignature(drgElement)}) {
+    private ${nativeClassName}(${transformer.drgElementConstructorSignature(drgElement)}) {
         <@setSubDecisionFields drgElement/>
     }
     </#if>

@@ -67,7 +67,7 @@ import ${transformer.jdmnRootPackage()}.runtime.listener.Rule
 <@importRecursiveBKM drgElement/>
 <#if modelRepository.isDecisionTableExpression(drgElement)>
 
-import ${transformer.qualifiedModuleName(javaPackageName, transformer.ruleOutputClassName(drgElement))}
+import ${transformer.qualifiedModuleName(nativePackageName, transformer.ruleOutputClassName(drgElement))}
 </#if>
 </#macro>
 

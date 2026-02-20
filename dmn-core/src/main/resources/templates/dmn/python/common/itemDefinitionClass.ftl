@@ -20,8 +20,8 @@ import isodate
 
 
 # Generated(value = {"itemDefinition.ftl", "${modelRepository.name(itemDefinition)}"})
-<#assign qualifiedInterfaceName = transformer.qualifiedName(javaPackageName, transformer.itemDefinitionNativeSimpleInterfaceName(javaClassName))/>
-class ${javaClassName}(${qualifiedInterfaceName}):
+<#assign qualifiedInterfaceName = transformer.qualifiedName(nativePackageName, transformer.itemDefinitionNativeSimpleInterfaceName(nativeClassName))/>
+class ${nativeClassName}(${qualifiedInterfaceName}):
     def __init__(self, ${transformer.itemDefinitionSignature(itemDefinition)}):
         ${qualifiedInterfaceName}.__init__(self)
 

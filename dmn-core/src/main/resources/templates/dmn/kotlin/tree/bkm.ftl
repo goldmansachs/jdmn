@@ -13,15 +13,15 @@
 <#import "/tree/common/metadata.ftl" as metadata />
 <#import "/tree/common/constructor.ftl" as constructor />
 <#import "/tree/common/apply.ftl" as apply />
-<#if javaPackageName?has_content>
-package ${javaPackageName}
+<#if nativePackageName?has_content>
+package ${nativePackageName}
 </#if>
 
 import java.util.*
 import java.util.stream.Collectors
 
 <@metadata.classAnnotation "bkm.ftl" drgElement/>
-class ${javaClassName} : ${decisionBaseClass}<${transformer.drgElementOutputType(drgElement)}> {
+class ${nativeClassName} : ${decisionBaseClass}<${transformer.drgElementOutputType(drgElement)}> {
     private constructor() {}
 
     <@apply.applyMethods drgElement />
@@ -30,6 +30,6 @@ class ${javaClassName} : ${decisionBaseClass}<${transformer.drgElementOutputType
     companion object {
         <@metadata.elementMetadataField drgElement />
 
-        <@constructor.bkmConstructor drgElement javaClassName />
+        <@constructor.bkmConstructor drgElement nativeClassName />
     }
 }

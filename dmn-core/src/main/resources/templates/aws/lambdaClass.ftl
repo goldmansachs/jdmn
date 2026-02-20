@@ -1,5 +1,5 @@
-<#if javaPackageName?has_content>
-package ${javaPackageName};
+<#if nativePackageName?has_content>
+package ${nativePackageName};
 </#if>
 <#assign eventVariable = "event_" />
 <#assign contextVariable = "context_" />
@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Handler for requests to Lambda function for DRG elements in model '${modelName}'.
  */
-public class ${javaClassName} implements com.amazonaws.services.lambda.runtime.RequestHandler<Map<String, String>, Object> {
+public class ${nativeClassName} implements com.amazonaws.services.lambda.runtime.RequestHandler<Map<String, String>, Object> {
     <#assign registryClassName = transformer.registryClassName() />
     private static final ${registryClassName} REGISTRY = ${transformer.defaultConstructor(registryClassName)};
 

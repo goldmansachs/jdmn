@@ -25,7 +25,7 @@
         try {
             return apply(${transformer.drgElementArgumentListApplyMap(drgElement)});
         } catch (Exception e) {
-            logError("Cannot apply decision '${javaClassName}'", e);
+            logError("Cannot apply decision '${nativeClassName}'", e);
             return null;
         }
     <#else>
@@ -40,7 +40,7 @@
         try {
             return apply(${transformer.drgElementArgumentListApplyString(drgElement)});
         } catch (Exception e) {
-            logError("Cannot apply decision '${javaClassName}'", e);
+            logError("Cannot apply decision '${nativeClassName}'", e);
             return null;
         }
     }
@@ -55,7 +55,7 @@
         try {
             return apply(${transformer.drgElementArgumentListApplyPojo(drgElement)});
         } catch (Exception e) {
-            logError("Cannot apply element '${javaClassName}'", e);
+            logError("Cannot apply element '${nativeClassName}'", e);
             return null;
         }
     <#else>
@@ -69,7 +69,7 @@
         try {
             return applyPojo(${transformer.drgElementArgumentListApplyContext(drgElement)});
         } catch (Exception e) {
-            logError("Cannot apply element '${javaClassName}'", e);
+            logError("Cannot apply element '${nativeClassName}'", e);
             return null;
         }
     <#else>
@@ -424,9 +424,9 @@
         ${extraIndent}// Apply child decisions
         <#items as subDecision>
             <#if transformer.isLazyEvaluated(subDecision)>
-        ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementReferenceVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> ${javaClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}));
+        ${extraIndent}${transformer.lazyEvalClassName()}<${transformer.drgElementOutputType(subDecision)}> ${transformer.drgElementReferenceVariableName(subDecision)} = new ${transformer.lazyEvalClassName()}<>(() -> ${nativeClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)}));
             <#else>
-        ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = ${javaClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)});
+        ${extraIndent}${transformer.drgElementOutputType(subDecision)} ${transformer.drgElementReferenceVariableName(subDecision)} = ${nativeClassName}.this.${transformer.drgElementReferenceVariableName(subDecision)}.apply(${transformer.drgElementArgumentList(subDecision)});
             </#if>
         </#items>
 

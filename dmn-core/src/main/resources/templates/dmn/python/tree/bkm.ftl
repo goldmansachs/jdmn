@@ -18,7 +18,7 @@
 
 
 <@metadata.classAnnotation "bkm.ftl" drgElement/>
-class ${javaClassName}(${decisionBaseClass}):
+class ${nativeClassName}(${decisionBaseClass}):
     <@metadata.elementMetadataField drgElement />
     <@constructor.bkmConstructor drgElement />
 

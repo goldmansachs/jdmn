@@ -10,12 +10,12 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#if javaPackageName?has_content>
-package ${javaPackageName}
+<#if nativePackageName?has_content>
+package ${nativePackageName}
 </#if>
 
 @javax.annotation.Generated(value = ["decisionTableRuleOutput.ftl", "${modelRepository.name(drgElement)}"])
-class ${javaClassName}(matched: Boolean) : ${transformer.abstractRuleOutputClassName()}(matched) {
+class ${nativeClassName}(matched: Boolean) : ${transformer.abstractRuleOutputClassName()}(matched) {
     <#if modelRepository.isDecisionTableExpression(drgElement)>
     <@addPrivateFields drgElement />
     </#if>
@@ -43,7 +43,7 @@ class ${javaClassName}(matched: Boolean) : ${transformer.abstractRuleOutputClass
         if (this === o) return true
         if (javaClass != o?.javaClass) return false
 
-        val other = o as ${javaClassName}
+        val other = o as ${nativeClassName}
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
             <#assign member = transformer.outputClauseVariableName(drgElement, output)/>
@@ -80,7 +80,7 @@ class ${javaClassName}(matched: Boolean) : ${transformer.abstractRuleOutputClass
     override fun sort(matchedResults_: MutableList<${transformer.abstractRuleOutputClassName()}>): MutableList<${transformer.abstractRuleOutputClassName()}> {
     <#list expression.output as output>
         val ${transformer.outputClauseVariableName(drgElement, output)}Pairs: MutableList<${transformer.pairClassName()}<${transformer.outputClauseClassName(drgElement, output, output?index)}?, Int?>> = ArrayList()
-        matchedResults_.forEach({ (it as ${javaClassName})
+        matchedResults_.forEach({ (it as ${nativeClassName})
             ${transformer.outputClauseVariableName(drgElement, output)}Pairs.add(${transformer.pairClassName()}(it.${transformer.outputClauseVariableName(drgElement, output)}, it.${transformer.outputClausePriorityVariableName(drgElement, output)}))
         })
         ${transformer.outputClauseVariableName(drgElement, output)}Pairs.sortWith(${transformer.pairComparatorClassName()}())
@@ -88,7 +88,7 @@ class ${javaClassName}(matched: Boolean) : ${transformer.abstractRuleOutputClass
 
         val result_: MutableList<${transformer.abstractRuleOutputClassName()}> = ArrayList<${transformer.abstractRuleOutputClassName()}>()
         for(i in 0 until matchedResults_.size) {
-            var output_ = ${javaClassName}(true)
+            var output_ = ${nativeClassName}(true)
             <#list expression.output as output>
             output_.${transformer.outputClauseVariableName(drgElement, output)} = ${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getLeft()
             output_.${transformer.outputClausePriorityVariableName(drgElement, output)} = ${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getRight()

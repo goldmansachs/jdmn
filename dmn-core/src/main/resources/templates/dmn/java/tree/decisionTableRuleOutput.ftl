@@ -10,19 +10,19 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#if javaPackageName?has_content>
-package ${javaPackageName};
+<#if nativePackageName?has_content>
+package ${nativePackageName};
 </#if>
 
 import java.util.*;
 
 @javax.annotation.Generated(value = {"decisionTableRuleOutput.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
-public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName()} {
+public class ${nativeClassName} extends ${transformer.abstractRuleOutputClassName()} {
     <#if modelRepository.isDecisionTableExpression(drgElement)>
     <@addPrivateFields drgElement />
     </#if>
 
-    public ${javaClassName}(boolean matched) {
+    public ${nativeClassName}(boolean matched) {
         super(matched);
     }
 
@@ -76,7 +76,7 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ${javaClassName} other = (${javaClassName}) o;
+        ${nativeClassName} other = (${nativeClassName}) o;
         <#assign expression = modelRepository.expression(drgElement)>
         <#list expression.output as output>
             <#assign member = transformer.outputClauseGetter(drgElement, output)/>
@@ -116,14 +116,14 @@ public class ${javaClassName} extends ${transformer.abstractRuleOutputClassName(
     <#list expression.output as output>
         List<${transformer.pairClassName()}<${transformer.outputClauseClassName(drgElement, output, output?index)}, Integer>> ${transformer.outputClauseVariableName(drgElement, output)}Pairs = new ArrayList<>();
         matchedResults_.forEach(matchedResult_ -> {
-            ${transformer.outputClauseVariableName(drgElement, output)}Pairs.add(new ${transformer.pairClassName()}(((${javaClassName})matchedResult_).${transformer.outputClauseGetter(drgElement, output)}, ((${javaClassName})matchedResult_).${transformer.outputClausePriorityGetter(drgElement, output)}));
+            ${transformer.outputClauseVariableName(drgElement, output)}Pairs.add(new ${transformer.pairClassName()}(((${nativeClassName})matchedResult_).${transformer.outputClauseGetter(drgElement, output)}, ((${nativeClassName})matchedResult_).${transformer.outputClausePriorityGetter(drgElement, output)}));
         });
         ${transformer.outputClauseVariableName(drgElement, output)}Pairs.sort(new ${transformer.pairComparatorClassName()}());
     </#list>
 
         List<${transformer.abstractRuleOutputClassName()}> result_ = new ArrayList<${transformer.abstractRuleOutputClassName()}>();
         for(int i=0; i<matchedResults_.size(); i++) {
-            ${javaClassName} output_ = new ${javaClassName}(true);
+            ${nativeClassName} output_ = new ${nativeClassName}(true);
             <#list expression.output as output>
             output_.${transformer.outputClauseSetter(drgElement, output, "${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getLeft()")};
             output_.${transformer.outputClausePrioritySetter(drgElement, output, "${transformer.outputClauseVariableName(drgElement, output)}Pairs.get(i).getRight()")};

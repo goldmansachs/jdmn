@@ -10,8 +10,8 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#if javaPackageName?has_content>
-package ${javaPackageName}
+<#if nativePackageName?has_content>
+package ${nativePackageName}
 </#if>
 
 import java.util.*
@@ -19,7 +19,7 @@ import java.util.*
 @javax.annotation.Generated(value = ["itemDefinitionInterface.ftl", "${modelRepository.name(itemDefinition)}"])
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(`as` = ${serializationClass}::class)
-interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
+interface ${nativeClassName} : ${transformer.dmnTypeClassName()} {
     <@addMembers itemDefinition />
     <@addToContext itemDefinition />
     <@addEqualsAndHashCode itemDefinition />
@@ -56,7 +56,7 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
         if (this === o) return true
         if (javaClass != o?.javaClass) return false
 
-        val other = o as ${javaClassName}
+        val other = o as ${nativeClassName}
         <#list modelRepository.sortItemComponent(itemDefinition) as child>
             <#assign member = transformer.namedElementVariableName(child)/>
         if (if (this.${member} != null) this.${member} != other.${member} else other.${member} != null) return false
@@ -95,13 +95,13 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
 
 <#macro addConvertMethod itemDefinition>
         @JvmStatic
-        fun ${transformer.convertMethodName(itemDefinition)}(other: Any?): ${javaClassName}? {
+        fun ${transformer.convertMethodName(itemDefinition)}(other: Any?): ${nativeClassName}? {
             if (other == null) {
                 return null
-            } else if (other is ${javaClassName}?) {
+            } else if (other is ${nativeClassName}?) {
                 return other
             } else if (other is ${transformer.contextClassName()}) {
-                var result_ = ${transformer.itemDefinitionNativeClassName(javaClassName)}()
+                var result_ = ${transformer.itemDefinitionNativeClassName(nativeClassName)}()
             <#list itemDefinition.itemComponent as child>
                 <#assign memberName = transformer.namedElementVariableName(child)/>
                 <#assign memberType = transformer.itemDefinitionNativeQualifiedInterfaceName(child)/>
@@ -126,7 +126,7 @@ interface ${javaClassName} : ${transformer.dmnTypeClassName()} {
             } else if (other is ${transformer.dmnTypeClassName()}) {
                 return ${transformer.convertMethodName(itemDefinition)}(other.toContext())
             } else {
-                throw ${transformer.dmnRuntimeExceptionClassName()}(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), ${javaClassName}::class.java.getSimpleName()))
+                throw ${transformer.dmnRuntimeExceptionClassName()}(String.format("Cannot convert '%s' to '%s'", other.javaClass.getSimpleName(), ${nativeClassName}::class.java.getSimpleName()))
             }
         }
 </#macro>

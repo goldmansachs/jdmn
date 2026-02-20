@@ -84,8 +84,8 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         try {
             // Output file
             String outputFileName = transformer.upperCaseFirst(lambdaName);
-            String javaPackageName = transformer.nativeModelPackageName(modelName);
-            String relativeFilePath = javaPackageName.replace('.', '/');
+            String nativePackageName = transformer.nativeModelPackageName(modelName);
+            String relativeFilePath = nativePackageName.replace('.', '/');
             String fileExtension = ".java";
             File outputFile = this.templateProcessor.makeOutputFile(functionPath, relativeFilePath, outputFileName, fileExtension);
 
@@ -93,8 +93,8 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
             Map<String, Object> params = new HashMap<>();
             params.put("modelName", modelName);
             params.put("transformer", transformer);
-            params.put("javaPackageName", javaPackageName);
-            params.put("javaClassName", outputFileName);
+            params.put("nativePackageName", nativePackageName);
+            params.put("nativeClassName", outputFileName);
 
             this.templateProcessor.processTemplate(baseTemplatePath, templateName, params, outputFile);
         } catch (Exception e) {
@@ -161,11 +161,11 @@ public class DMNToLambdaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION, TES
         String lambdaName = lambdaName(modelName, transformer);
         String folderName = lambdaFolderName(modelName, transformer);
         String codeUri = String.format("%s", folderName);
-        String javaPackageName = transformer.nativeModelPackageName(modelName);
-        String javaClassName = transformer.upperCaseFirst(lambdaName);
-        String handler = String.format("%s.%s::handleRequest", javaPackageName, javaClassName);
+        String nativePackageName = transformer.nativeModelPackageName(modelName);
+        String nativeClassName = transformer.upperCaseFirst(lambdaName);
+        String handler = String.format("%s.%s::handleRequest", nativePackageName, nativeClassName);
         String path = restPath(modelName);
-        resources.add(new FunctionResource(javaClassName, codeUri, handler, path));
+        resources.add(new FunctionResource(nativeClassName, codeUri, handler, path));
 
         return resources;
     }

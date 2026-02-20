@@ -10,15 +10,15 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#if javaPackageName?has_content>
-package ${javaPackageName};
+<#if nativePackageName?has_content>
+package ${nativePackageName};
 </#if>
 
 import java.util.*;
 
 @javax.annotation.Generated(value = {"inputElement.ftl", "${transformer.escapeInString(modelRepository.name(drgElement))}"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
-public class ${javaClassName} implements ${transformer.drgElementInputPojoInterfaceName()} {
+public class ${nativeClassName} implements ${transformer.drgElementInputPojoInterfaceName()} {
     <#assign inputArguments = transformer.drgElementArgumentListInputPojo(drgElement) />
     <@addFields inputArguments />
 
@@ -35,10 +35,10 @@ public class ${javaClassName} implements ${transformer.drgElementInputPojoInterf
 </#macro>
 
 <#macro addConstructors inputArguments>
-    public ${javaClassName}() {
+    public ${nativeClassName}() {
     }
 
-    public ${javaClassName}(${transformer.contextClassName()} input_) {
+    public ${nativeClassName}(${transformer.contextClassName()} input_) {
         if (input_ != null) {
         <#list inputArguments as argument>
             <#assign nativeMemberName = argument.right.name/>

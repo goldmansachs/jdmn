@@ -18,7 +18,7 @@
 
 
 <@metadata.classAnnotation "ds.ftl" drgElement/>
-class ${javaClassName}(${decisionBaseClass}):
+class ${nativeClassName}(${decisionBaseClass}):
     <@metadata.elementMetadataField drgElement />
     <@constructor.dsConstructor drgElement />
 

@@ -10,21 +10,21 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#if javaPackageName?has_content>
-package ${javaPackageName};
+<#if nativePackageName?has_content>
+package ${nativePackageName};
 </#if>
 
 import java.util.*;
 
 @javax.annotation.Generated(value = {"itemDefinition.ftl", "${modelRepository.name(itemDefinition)}"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
-public class ${javaClassName} implements ${transformer.itemDefinitionNativeSimpleInterfaceName(javaClassName)} {
+public class ${nativeClassName} implements ${transformer.itemDefinitionNativeSimpleInterfaceName(nativeClassName)} {
     <@addFields itemDefinition />
 
-    public ${javaClassName}() {
+    public ${nativeClassName}() {
     }
 
-    public ${javaClassName}(${transformer.itemDefinitionSignature(itemDefinition)}) {
+    public ${nativeClassName}(${transformer.itemDefinitionSignature(itemDefinition)}) {
     <@addAssignmentForFields itemDefinition />
     }
 

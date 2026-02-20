@@ -782,17 +782,17 @@ public class BasicDMNToJavaTransformer implements BasicDMNToNativeTransformer<Ty
     }
 
     @Override
-    public String singletonDecisionConstructor(String javaClassName, TDecision decision) {
+    public String singletonDecisionConstructor(String nativeClassName, TDecision decision) {
         List<DRGElementReference<TDecision>> directSubDecisionReferences = this.dmnModelRepository.directSubDecisions(decision);
         if (directSubDecisionReferences.isEmpty()) {
-            return defaultConstructor(javaClassName);
+            return defaultConstructor(nativeClassName);
         } else {
             this.dmnModelRepository.sortNamedElementReferences(directSubDecisionReferences);
             String arguments = directSubDecisionReferences
                     .stream()
                     .map(r -> singletonDecisionInstance(qualifiedName(r)))
                     .collect(Collectors.joining(", "));
-            return constructor(javaClassName, arguments);
+            return constructor(nativeClassName, arguments);
         }
     }
 

@@ -124,14 +124,14 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil = new TCKUtil<>(basicTransformer, dialectDefinition.createFEELLib());
         TemplateProvider templateProvider = templateProcessor.getTemplateProvider();
         for (TestCases testCases: testCasesList) {
-            String javaClassName = testClassName(testCases, basicTransformer);
-            transformTestCase(testCases, templateProvider, basicTransformer, tckUtil, outputPath, javaClassName);
+            String nativeClassName = testClassName(testCases, basicTransformer);
+            transformTestCase(testCases, templateProvider, basicTransformer, tckUtil, outputPath, nativeClassName);
         }
         generateExtra(basicTransformer, basicTransformer.getDMNModelRepository(), outputPath);
     }
 
-    private void transformTestCase(TestCases testCases, TemplateProvider templateProvider, BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil, Path outputPath, String javaClassName) {
-        processTemplate(testCases, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, tckUtil, outputPath, javaClassName);
+    private void transformTestCase(TestCases testCases, TemplateProvider templateProvider, BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil, Path outputPath, String nativeClassName) {
+        processTemplate(testCases, templateProvider.testBaseTemplatePath(), templateProvider.testTemplateName(), basicTransformer, tckUtil, outputPath, nativeClassName);
     }
 
     protected void generateExtra(BasicDMNToNativeTransformer<Type, DMNContext> basicTransformer, DMNModelRepository dmnModelRepository, Path outputPath) {
@@ -140,14 +140,14 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
     protected void processTemplate(TestCases testCases, String baseTemplatePath, String templateName, BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, TCKUtil<NUMBER, DATE, TIME, DATE_TIME, DURATION> tckUtil, Path outputPath, String testClassName) {
         try {
             // Make output file
-            String javaPackageName = dmnTransformer.nativeModelPackageName(testCases.getModelName());
-            String relativeFilePath = javaPackageName.replace('.', '/');
+            String nativePackageName = dmnTransformer.nativeModelPackageName(testCases.getModelName());
+            String relativeFilePath = nativePackageName.replace('.', '/');
             String fileExtension = getFileExtension();
             File outputFile = this.templateProcessor.makeOutputFile(outputPath, relativeFilePath, testClassName, fileExtension);
 
             // Make parameters
             Map<String, Object> params = makeTemplateParams(testCases, tckUtil);
-            params.put("packageName", javaPackageName);
+            params.put("packageName", nativePackageName);
             params.put("testClassName", testClassName);
             params.put("decisionBaseClass", decisionBaseClass);
 
@@ -163,7 +163,7 @@ public class TCKTestCasesToJavaJUnitTransformer<NUMBER, DATE, TIME, DATE_TIME, D
         if (!StringUtils.isBlank(testCasesName)) {
             return testClassName(testCasesName, dmnTransformer);
         } else {
-            throw new DMNRuntimeException(String.format("Mising TestCases name when testing model '%s'", testCases.getModelName()));
+            throw new DMNRuntimeException(String.format("Missing TestCases name when testing model '%s'", testCases.getModelName()));
         }
     }
 

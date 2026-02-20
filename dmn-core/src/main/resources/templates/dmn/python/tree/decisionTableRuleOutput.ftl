@@ -23,7 +23,7 @@ import ${transformer.jdmnRootPackage()}.runtime.PairComparator
 
 
 # Generated(value = ["decisionTableRuleOutput.ftl", "${modelRepository.name(drgElement)}"])
-class ${javaClassName}(${transformer.abstractRuleOutputClassName()}):
+class ${nativeClassName}(${transformer.abstractRuleOutputClassName()}):
     def __init__(self, matched: bool):
         super().__init__(matched)
         <#if modelRepository.isDecisionTableExpression(drgElement)>
@@ -96,7 +96,7 @@ class ${javaClassName}(${transformer.abstractRuleOutputClassName()}):
 
         result_: typing.List[${transformer.abstractRuleOutputClassName()}] = []
         for i, _ in enumerate(matchedResults_):
-            output_ = ${javaClassName}(True)
+            output_ = ${nativeClassName}(True)
             <#list expression.output as output>
             output_.${transformer.outputClauseVariableName(drgElement, output)} = ${transformer.outputClauseVariableName(drgElement, output)}Pairs[i].getLeft()
             output_.${transformer.outputClausePriorityVariableName(drgElement, output)} = ${transformer.outputClauseVariableName(drgElement, output)}Pairs[i].getRight()

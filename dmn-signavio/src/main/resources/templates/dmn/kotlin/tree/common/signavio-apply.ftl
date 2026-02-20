@@ -24,7 +24,7 @@
         try {
             return apply(${transformer.drgElementArgumentListApplyMap(drgElement)})
         } catch (e: Exception) {
-            logError("Cannot apply decision '${javaClassName}'", e)
+            logError("Cannot apply decision '${nativeClassName}'", e)
             return null
         }
     <#else>
@@ -39,7 +39,7 @@
         return try {
             apply(${transformer.drgElementArgumentListApplyString(drgElement)})
         } catch (e: Exception) {
-            logError("Cannot apply decision '${javaClassName}'", e)
+            logError("Cannot apply decision '${nativeClassName}'", e)
             null
         }
     }
@@ -151,7 +151,7 @@
         <#assign sourceList = transformer.iterationExpressionToNative(drgElement, iterationExpression) />
         <#assign lambdaParamName = transformer.namedElementVariableName(iterator) />
         <#assign lambdaBody = "${transformer.namedElementVariableName(topLevelDecision)}.apply(${transformer.drgElementConvertedArgumentList(topLevelDecision)})" />
-        val ${transformer.namedElementVariableName(topLevelDecision)}: ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))} = ${transformer.qualifiedName(javaPackageName, transformer.drgElementClassName(topLevelDecision))}()
+        val ${transformer.namedElementVariableName(topLevelDecision)}: ${transformer.qualifiedName(nativePackageName, transformer.drgElementClassName(topLevelDecision))} = ${transformer.qualifiedName(nativePackageName, transformer.drgElementClassName(topLevelDecision))}()
         <#if aggregator == "COLLECT">
         return ${sourceList}?.${transformer.getStream()}?.map({${lambdaParamName} -> ${lambdaBody}})?.collect(Collectors.toList())
         <#elseif aggregator == "SUM">

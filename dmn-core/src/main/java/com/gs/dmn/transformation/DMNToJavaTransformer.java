@@ -54,8 +54,8 @@ public class DMNToJavaTransformer<NUMBER, DATE, TIME, DATE_TIME, DURATION> exten
     }
 
     private void processManifest(BasicDMNToNativeTransformer<Type, DMNContext> dmnTransformer, String jsonFileName, Path outputPath) {
-        String javaPackageName = dmnTransformer.nativeRootPackageName();
-        String filePath = javaPackageName.replace('.', '/');
+        String nativePackageName = dmnTransformer.nativeRootPackageName();
+        String filePath = nativePackageName.replace('.', '/');
         String fileExtension = ".json";
 
         try {

@@ -10,8 +10,8 @@
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations under the License.
 -->
-<#if javaPackageName?has_content>
-package ${javaPackageName};
+<#if nativePackageName?has_content>
+package ${nativePackageName};
 </#if>
 
 import java.util.*;
@@ -19,7 +19,7 @@ import java.util.*;
 @javax.annotation.Generated(value = {"itemDefinitionInterface.ftl", "${modelRepository.name(itemDefinition)}"})
 @com.fasterxml.jackson.annotation.JsonPropertyOrder(alphabetic = true)
 @com.fasterxml.jackson.databind.annotation.JsonDeserialize(as = ${serializationClass}.class)
-public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
+public interface ${nativeClassName} extends ${transformer.dmnTypeClassName()} {
     <@addConvertMethod itemDefinition />
 
     <@addAccessors itemDefinition />
@@ -28,13 +28,13 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
     <@addToString itemDefinition />
 }
 <#macro addConvertMethod itemDefinition>
-    static ${javaClassName} ${transformer.convertMethodName(itemDefinition)}(Object other) {
+    static ${nativeClassName} ${transformer.convertMethodName(itemDefinition)}(Object other) {
         if (other == null) {
             return null;
-        } else if (${javaClassName}.class.isAssignableFrom(other.getClass())) {
-            return (${javaClassName})other;
+        } else if (${nativeClassName}.class.isAssignableFrom(other.getClass())) {
+            return (${nativeClassName})other;
         } else if (other instanceof ${transformer.contextClassName()}) {
-            ${transformer.itemDefinitionNativeClassName(javaClassName)} result_ = new ${transformer.itemDefinitionNativeClassName(javaClassName)}();
+            ${transformer.itemDefinitionNativeClassName(nativeClassName)} result_ = new ${transformer.itemDefinitionNativeClassName(nativeClassName)}();
         <#list itemDefinition.itemComponent as child>
             <#assign memberName = transformer.namedElementVariableName(child) />
             <#assign castToMemberType = "(${transformer.itemDefinitionNativeQualifiedInterfaceName(child)})" />
@@ -60,7 +60,7 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
         } else if (other instanceof ${transformer.dmnTypeClassName()}) {
             return ${transformer.convertMethodName(itemDefinition)}(((${transformer.dmnTypeClassName()})other).toContext());
         } else {
-            throw new ${transformer.dmnRuntimeExceptionClassName()}(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), ${javaClassName}.class.getSimpleName()));
+            throw new ${transformer.dmnRuntimeExceptionClassName()}(String.format("Cannot convert '%s' to '%s'", other.getClass().getSimpleName(), ${nativeClassName}.class.getSimpleName()));
         }
     }
 </#macro>
@@ -93,7 +93,7 @@ public interface ${javaClassName} extends ${transformer.dmnTypeClassName()} {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ${javaClassName} other = (${javaClassName}) o;
+        ${nativeClassName} other = (${nativeClassName}) o;
         <#list modelRepository.sortItemComponent(itemDefinition) as child>
             <#assign member = transformer.getter(child)/>
         if (this.${member} != null ? !this.${member}.equals(other.${member}) : other.${member} != null) return false;

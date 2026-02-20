@@ -13,7 +13,7 @@
 import ${transformer.jdmnRootPackage()}.runtime.discovery.ModelElementRegistry
 
 
-class ${javaClassName}(${transformer.registryClassName()}):
+class ${nativeClassName}(${transformer.registryClassName()}):
     def __init__(self):
         <@addRegistryEntries definitionsList />
 <#--

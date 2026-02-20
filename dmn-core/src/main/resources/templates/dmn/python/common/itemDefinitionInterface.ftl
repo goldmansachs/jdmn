@@ -22,7 +22,7 @@ import ${transformer.jdmnRootPackage()}.runtime.DMNRuntimeException
 
 
 # Generated(value = {"itemDefinitionInterface.ftl", "${modelRepository.name(itemDefinition)}"})
-class ${javaClassName}(${transformer.dmnTypeClassName()}):
+class ${nativeClassName}(${transformer.dmnTypeClassName()}):
     def __init__(self):
         ${transformer.dmnTypeClassName()}.__init__(self)
 
@@ -42,13 +42,13 @@ class ${javaClassName}(${transformer.dmnTypeClassName()}):
 </#macro>
 
 <#macro addConvertMethod itemDefinition>
-    def ${transformer.convertMethodName(itemDefinition)}(self, other: typing.Any) -> typing.Optional['${javaClassName}']:
+    def ${transformer.convertMethodName(itemDefinition)}(self, other: typing.Any) -> typing.Optional['${nativeClassName}']:
         if other is None:
             return None
-        elif issubclass(type(other), ${javaClassName}):
+        elif issubclass(type(other), ${nativeClassName}):
             return other
         elif isinstance(other, ${transformer.contextClassName()}):
-            result_ = ${transformer.defaultConstructor(javaClassName)}
+            result_ = ${transformer.defaultConstructor(nativeClassName)}
         <#list itemDefinition.itemComponent as child>
             <#assign name = "\"${modelRepository.name(child)}\"" />
             <#assign label = "\"${modelRepository.label(child)}\"" />
@@ -62,7 +62,7 @@ class ${javaClassName}(${transformer.dmnTypeClassName()}):
         elif isinstance(other, ${transformer.dmnTypeClassName()}):
             return self.${transformer.convertMethodName(itemDefinition)}(other.toContext())
         else:
-            raise ${transformer.dmnRuntimeExceptionClassName()}("Cannot convert '{0}' to '{1}'".format(type(other), type(${javaClassName})))
+            raise ${transformer.dmnRuntimeExceptionClassName()}("Cannot convert '{0}' to '{1}'".format(type(other), type(${nativeClassName})))
 </#macro>
 
 <#macro addToContext itemDefinition >

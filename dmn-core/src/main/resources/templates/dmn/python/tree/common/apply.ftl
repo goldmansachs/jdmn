@@ -201,7 +201,7 @@
 <#macro addConversionMethod drgElement>
     <#if modelRepository.isCompoundDecisionTable(drgElement)>
 
-    def toDecisionOutput(self, ruleOutput_: ${transformer.qualifiedName(javaPackageName, transformer.ruleOutputClassName(drgElement))}) -> ${transformer.drgElementOutputInterfaceName(drgElement)}:
+    def toDecisionOutput(self, ruleOutput_: ${transformer.qualifiedName(nativePackageName, transformer.ruleOutputClassName(drgElement))}) -> ${transformer.drgElementOutputInterfaceName(drgElement)}:
         <#assign className = transformer.drgElementOutputClassName(drgElement)>
         result_: ${className} = ${transformer.defaultConstructor(className)}
         <#assign expression = modelRepository.expression(drgElement)>
