@@ -3355,6 +3355,14 @@
                         </configuration>
                     </execution>
 
+                    <execution>
+                        <id>test-coverage-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>test-coverage-report</goal>
+                        </goals>
+                    </execution>
+
                     <!-- non-compliant-->
                     <!--
                                         <execution>
